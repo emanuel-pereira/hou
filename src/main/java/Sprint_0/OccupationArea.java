@@ -8,7 +8,6 @@ public class OccupationArea {
 
     public OccupationArea() {
     }
-
     public OccupationArea(double inputLenght, double inputWidth) {
         this._lenght = inputLenght;
         this._width = inputWidth;
