@@ -1,30 +1,32 @@
 package Sprint_0;
 
-public class MeteorologicalType {
+public class DataType {
 
     //Atributos da classe
-    private String _meteorologicalTypeDesignation;
+    private String _dataTypeDesignation;
 
     //Construtor
-    public MeteorologicalType(String designation) {
-        setMeteorologicalTypeDesignation (designation);
+    public DataType(String designation) {
+        setDataTypeDesignation (designation);
     }
 
 
     //Métodos
 
-    public String getMeteorologicalTypeDesignation() {
-        return this._meteorologicalTypeDesignation;
+    public String getDataTypeDesignation() {
+        return this._dataTypeDesignation;
     }
 
 
-    public boolean setMeteorologicalTypeDesignation(String designation) {
-        if (designation == null || designation.trim().isEmpty()) {
+    public boolean setDataTypeDesignation(String designation) {
+        if (designation == null || designation.trim ().isEmpty ()) {
             return false;
         }
-        this._meteorologicalTypeDesignation = designation;
+        this._dataTypeDesignation = designation;
         return true;
     }
 
 
 }
+    
+

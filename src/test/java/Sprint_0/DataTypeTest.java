@@ -16,7 +16,7 @@ class DataTypeTest {
         String result;
 
         // act
-        result = meteoType.getMeteorologicalTypeDesignation ();
+        result = meteoType.getDataTypeDesignation ();
 
         // assert
         assertEquals (expectedResult, result);
@@ -30,7 +30,7 @@ class DataTypeTest {
         String result;
 
         // act
-        result = meteoType.getMeteorologicalTypeDesignation ();
+        result = meteoType.getDataTypeDesignation ();
 
         // assert
         assertEquals (null, result);
@@ -45,7 +45,7 @@ class DataTypeTest {
         String result;
 
         // act
-        result = meteoType.getMeteorologicalTypeDesignation ();
+        result = meteoType.getDataTypeDesignation ();
 
         // assert
         assertNotEquals (expectedResult, result);
