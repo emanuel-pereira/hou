@@ -8,6 +8,7 @@ public class OccupationArea {
 
     public OccupationArea() {
     }
+
     public OccupationArea(double inputLenght, double inputWidth) {
         this._lenght = inputLenght;
         this._width = inputWidth;
@@ -24,9 +25,10 @@ public class OccupationArea {
     }
 
     public double calculOccupationArea() {
-        if (positiveLenghtAndWidth() == true)
+        if (positiveLenghtAndWidth() == true) {
             this._occupation = this._lenght * this._width;
             return this._occupation;
+        } else throw new AssertionError("");
     }
 
     public boolean positiveLenghtAndWidth() {

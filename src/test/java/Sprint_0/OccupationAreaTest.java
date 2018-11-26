@@ -9,14 +9,14 @@ public class OccupationAreaTest {
     OccupationArea O = new OccupationArea();
 
     @Test
-    public void checkConstrutorwithinputs(){
+    public void checkConstrutorwithInputs(){
         OccupationArea C = new OccupationArea(2,2);
         double expectedResult = 4;
         double result = C.getOccupationArea();
         assertEquals(expectedResult,result);
     }
     @Test
-    public void checkgetOccupationTestNull() {
+    public void checkgetOccupationTestEqual0() {
         OccupationArea C = new OccupationArea();
         double result = C.getOccupationArea();
         double expectedResult = 0;
