@@ -4,19 +4,19 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MeteorologicalTypeTest {
+class DataTypeTest {
 
 
     @Test
     public void getMeteorologicalTypeDesignationIfTemperature() {
 
         // arrange
-        MeteorologicalType meteoType = new MeteorologicalType ("Temperature");
+        DataType meteoType = new DataType ("Temperature");
         String expectedResult = "Temperature";
         String result;
 
         // act
-        result = meteoType.getMeteorologicalTypeDesignation ();
+        result = meteoType.getDataTypeDesignation ();
 
         // assert
         assertEquals (expectedResult, result);
@@ -26,11 +26,11 @@ class MeteorologicalTypeTest {
     public void getMeteorologicalTypeDesignationIfEmpty() {
 
         // arrange
-        MeteorologicalType meteoType = new MeteorologicalType (" ");
+        DataType meteoType = new DataType (" ");
         String result;
 
         // act
-        result = meteoType.getMeteorologicalTypeDesignation ();
+        result = meteoType.getDataTypeDesignation ();
 
         // assert
         assertEquals (null, result);
@@ -40,17 +40,16 @@ class MeteorologicalTypeTest {
     public void getMeteorologicalTypeDesignationIfWrong() {
 
         // arrange
-        MeteorologicalType meteoType = new MeteorologicalType ("Temperature");
+        DataType meteoType = new DataType ("Temperature");
         String expectedResult = "Wind";
         String result;
 
         // act
-        result = meteoType.getMeteorologicalTypeDesignation ();
+        result = meteoType.getDataTypeDesignation ();
 
         // assert
         assertNotEquals (expectedResult, result);
     }
-
 
 
 

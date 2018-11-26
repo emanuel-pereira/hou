@@ -7,11 +7,11 @@ public class Sensor {
     private String _designation;
     private Date _startDate;
     private Location _location;
-    private MeteorologicalType _meteorologicalType;
+    private DataType _meteorologicalType;
     private List<Reading> _reading;
 
 
-      /**
+    /**
      * Constructor requiring to set only a specific designation for any object of type Sensor created
      * @param designation every object of type sensor must have a designation.
      */

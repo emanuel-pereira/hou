@@ -4,7 +4,20 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OccupationAreaTest {
+
     OccupationArea O = new OccupationArea();
+
+    @Test
+    public void setOccupationTest() {
+        O.setOccupationArea(3,4);
+        O.calculOccupationArea();
+        double result = O.getOccupationArea();
+        double expectedResult=12;
+        assertEquals(expectedResult,result);
+    }
+
+
+
 
     @Test
     public void getOcuppationAreaTest() {
