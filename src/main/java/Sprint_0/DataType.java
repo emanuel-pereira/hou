@@ -1,13 +1,13 @@
 package Sprint_0;
 
-public class DataType {
+public class MeteorologicalType {
 
     //Atributos da classe
     private String _meteorologicalTypeDesignation;
 
     //Construtor
-    public DataType(String designation) {
-        this.setMeteorologicalTypeDesignation (designation);
+    public MeteorologicalType(String designation) {
+        setMeteorologicalTypeDesignation (designation);
     }
 
 
