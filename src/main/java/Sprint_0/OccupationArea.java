@@ -19,6 +19,7 @@ public class OccupationArea {
     }
 
     public double getOccupationArea() {
+        calculOccupationArea();
         return this._occupation;
     }
 
@@ -34,9 +35,8 @@ public class OccupationArea {
     }
 
     public void convertMetersToKm(double inputLenghtMeters, double inputWidthMeters) {
-        this._width = inputWidthMeters * 1000;
-        this._lenght = inputLenghtMeters * 1000;
+        this._width = inputWidthMeters * 0.001;
+        this._lenght = inputLenghtMeters * 0.001;
     }
 }
-
 //metodo para devolver occupation area com string da GA.
