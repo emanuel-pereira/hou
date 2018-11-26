@@ -7,7 +7,7 @@ public class Sensor {
     private String _designation;
     private Date _startDate;
     private Location _location;
-    private DataType _meteorologicalType;
+    private DataType _dataTypeDesignation;
     private List<Reading> _reading;
 
 
