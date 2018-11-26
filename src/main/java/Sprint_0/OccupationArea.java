@@ -8,15 +8,14 @@ public class OccupationArea {
 
     public OccupationArea() {
     }
-
-    public OccupationArea(double lenght, double width) {
-        this._lenght = lenght;
-        this._width = width;
+    public OccupationArea(double inputLenght, double inputWidth) {
+        this._lenght = inputLenght;
+        this._width = inputWidth;
     }
 
-    public void setOccupationArea(double lenght, double width) {
-        this._lenght = lenght;
-        this._width = width;
+    public void setOccupationArea(double inputLenght, double inputWidth) {
+        this._lenght = inputLenght;
+        this._width = inputWidth;
     }
 
     public double getOccupationArea() {
@@ -24,21 +23,20 @@ public class OccupationArea {
     }
 
     public double calculOccupationArea() {
-        if (positiveLenghtWidth() == true)
+        if (positiveLenghtAndWidth() == true)
             this._occupation = this._lenght * this._width;
-        return this._occupation;
+            return this._occupation;
     }
 
-    public boolean positiveLenghtWidth() {
+    public boolean positiveLenghtAndWidth() {
         if (this._lenght < 0 | this._width < 0) return false;
         else return true;
     }
 
-    public void convertMetersToKm(double lenghtM, double widthM) {
-        this._width = widthM * 1000;
-        this._lenght = lenghtM * 1000;
+    public void convertMetersToKm(double inputLenghtMeters, double inputWidthMeters) {
+        this._width = inputWidthMeters * 1000;
+        this._lenght = inputLenghtMeters * 1000;
     }
 }
 
-
-    //metodo para devolver occupation area com string da GA.
+//metodo para devolver occupation area com string da GA.
