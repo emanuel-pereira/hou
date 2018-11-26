@@ -10,17 +10,37 @@ public class Sensor {
     private MeteorologicalType _meteorologicalType;
     private List<Reading> _reading;
 
-    /**
-     * Constructor requiring to set a specific designation, startDate, location and metereologicalType for any object of type Sensor created
+
+      /**
+     * Constructor requiring to set only a specific designation for any object of type Sensor created
      * @param designation every object of type sensor must have a designation.
-     * @param startDate start date every object of type sensor must have a start date.
-     * @param meteorologicalType every object of type sensor must have a metereological type.
-     * @param location every object of type sensor must have a location.
      */
-    public Sensor(String designation, Date startDate, Location location, MeteorologicalType meteorologicalType){
-        this._designation=designation;
-        this._startDate=startDate;
-        this._meteorologicalType=meteorologicalType;
-        this._location=location;
+    public Sensor(String designation) {
+        this._designation = designation;
     }
+
+    /**
+     *  Method to check if the string given to designate the sensor meets the criteria defined to be considered a valid designation, namely:
+     *  1) designation cannot be empty or null
+     *  2) designation must have only alphabetic characters and a maximum length of 40 characters.
+     * @param designation
+     * @return
+     */
+
+    public boolean designationIsValid(String designation) {
+        if (designation != null && designation != "") {
+            return designation.matches("[a-zA-Z0-9]*") && designation.length() < 40;
+        }
+        return false;
+    }
+
+    public void set_designation(String designation){
+        if(designationIsValid(designation)){
+            this._designation=designation;
+        }
+    }
+    public String get_designation(){
+        return this._designation;
+    }
+
 }
