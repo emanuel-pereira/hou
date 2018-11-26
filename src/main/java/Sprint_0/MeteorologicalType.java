@@ -7,13 +7,14 @@ public class MeteorologicalType {
 
     //Construtor
     public MeteorologicalType(String designation) {
+
         setMeteorologicalTypeDesignation (designation);
     }
-
 
     //Métodos
 
     public String getMeteorologicalTypeDesignation() {
+
         return this._meteorologicalTypeDesignation;
     }
 
