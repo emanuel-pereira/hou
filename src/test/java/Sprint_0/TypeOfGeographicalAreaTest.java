@@ -17,26 +17,15 @@ public class TypeOfGeographicalAreaTest {
 
          String expectedResult = null;
          String actualResult;
+
          actualResult = tga.getAreaName();
 
          assertEquals(expectedResult,actualResult);
 
     }
 
-    @Test
-    public void define_setAreaName() {
 
 
-        TypeOfGeographicalArea tga = new TypeOfGeographicalArea();
-
-
-        String expected_result = "Porto";
-        String actualResult;
-        actualResult = tga.getAreaName();
-
-        assertEquals(expected_result, actualResult);
-
-    }
 
 
 }
