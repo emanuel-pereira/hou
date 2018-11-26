@@ -7,7 +7,7 @@ public class Sensor {
     private String _designation;
     private Date _startDate;
     private Location _location;
-    private MeteorologicalType _meteorologicalType;
+    private DataType _meteorologicalType;
     private List<Reading> _reading;
 
     /**
@@ -17,7 +17,7 @@ public class Sensor {
      * @param meteorologicalType every object of type sensor must have a metereological type.
      * @param location every object of type sensor must have a location.
      */
-    public Sensor(String designation, Date startDate, Location location, MeteorologicalType meteorologicalType){
+    public Sensor(String designation, Date startDate, Location location, DataType meteorologicalType){
         this._designation=designation;
         this._startDate=startDate;
         this._meteorologicalType=meteorologicalType;
