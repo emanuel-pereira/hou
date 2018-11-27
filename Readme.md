@@ -8,6 +8,7 @@ It contains the project implementation.
 
 ## Who do I talk to? ##
 In case you have any problem, please talk to:
+
 * Ângelo Martins (amm@isep.ipp.pt)
 
 ## How was the .gitignore file generated? ##
