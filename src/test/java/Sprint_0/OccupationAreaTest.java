@@ -9,10 +9,17 @@ public class OccupationAreaTest {
     OccupationArea O = new OccupationArea();
 
     @Test
-    public void checkConstrutorwithInputs(){
+    public void checkConstrutorWithInputs(){
         OccupationArea C = new OccupationArea(2,2);
         double expectedResult = 4;
         double result = C.getOccupationArea();
+        assertEquals(expectedResult,result);
+    }
+    @Test
+    public void checkConstrutorWithoutInputs() {
+        OccupationArea C = new OccupationArea();
+        double result = C.getOccupationArea();
+        double expectedResult = 0;
         assertEquals(expectedResult,result);
     }
     @Test
@@ -37,12 +44,20 @@ public class OccupationAreaTest {
         assertEquals(expectedResult, result);
     }
     @Test
-    public void lengthandwigthPositiveValues() {
+    public void lengthandwigthNegativeValue() {
         O.setOccupationArea(-2, 2);
         boolean expectedResult = O.positiveLenghtAndWidth();
         boolean result = false;
         assertEquals(expectedResult, result);
     }
+    @Test
+    public void lengthandwigthPositiveValue() {
+        O.setOccupationArea(2, 2);
+        boolean expectedResult = O.positiveLenghtAndWidth();
+        boolean result = true;
+        assertEquals(expectedResult, result);
+    }
+
     @Test
     public void checkifConvertMetersToKM() {
         O.convertMetersToKm(3,3);
