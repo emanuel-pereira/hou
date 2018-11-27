@@ -1,8 +1,10 @@
 package Sprint_0;
 
+import java.util.Date;
+
 public class Reading {
 
-    //private DATE _dateandtime;
+    private Date _dateAndTime;
     private double _value;
 
 
@@ -12,20 +14,34 @@ public class Reading {
 
 //how to define date/hour?
 
- 
+    public Reading(){
+
+    }
 
 
-public Reading (double readvalue){
+    //Reading Constructor to define a value of a reading
 
-_value = readvalue;
+    public Reading(double readValue) {
 
-}
+        _value = readValue;
+
+    }
 
 
-public double getReading (){
-    return _value;
-}
+    //Method to return the value of a certain reading
 
+
+    public double getReadingValue() {
+        return _value;
+    }
+
+    /*//Time Constructor to define a date of a reading
+
+    public Time (Date readingtime) {
+
+        _dateandtime = readingtime;
+
+    }*/
 
 
 
