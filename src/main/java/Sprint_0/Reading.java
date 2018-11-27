@@ -12,7 +12,7 @@ public class Reading {
 
 //how to define date/hour?
 
-
+ 
 
 
 public Reading (double readvalue){
