@@ -160,10 +160,10 @@
                             <param>lapr.project.utils.*</param>
                         </inScopeClasses>-->
                         <targetClasses>
-                            <param>switch2018.*</param>
+                            <param>Sprint_0.*</param>
                         </targetClasses>
                         <targetTests>
-                            <param>switch2018.*</param>
+                            <param>Sprint_0.*</param>
                         </targetTests>
 
                         <outputFormats>
