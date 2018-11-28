@@ -18,7 +18,7 @@ public class DataType {
     }
 
 
-    public boolean setDataTypeDesignation(String designation) {
+    public boolean dataTypeValidation(String designation) {
         if (designation == null || designation.trim ().isEmpty ()) {
             return false;
         }
@@ -27,6 +27,15 @@ public class DataType {
     }
 
 
+    public void setDataTypeDesignation(String designation) {
+        if (this.dataTypeValidation (designation) == true){
+            this._dataTypeDesignation = designation;
+        }
+    }
+
+
+
+
 }
-    
+
 

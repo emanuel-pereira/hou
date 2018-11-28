@@ -6,6 +6,7 @@ public class OccupationArea {
     private double _width;
     private double _occupation;
 
+    // Constructors
     public OccupationArea() {
     }
 
@@ -14,9 +15,12 @@ public class OccupationArea {
         this._width = inputWidth;
     }
 
+    // Methods
     public void setOccupationArea(double inputLenght, double inputWidth) {
+
+        if(positiveLenghtAndWidth(inputLenght,inputWidth)==true) {
         this._lenght = inputLenght;
-        this._width = inputWidth;
+        this._width = inputWidth;}
     }
 
     public double getOccupationArea() {
@@ -25,14 +29,12 @@ public class OccupationArea {
     }
 
     public double calculOccupationArea() {
-        if (positiveLenghtAndWidth() == true) {
             this._occupation = this._lenght * this._width;
-            return this._occupation;
-        } else throw new AssertionError("");
+        return this._occupation;
     }
 
-    public boolean positiveLenghtAndWidth() {
-        if (this._lenght < 0 | this._width < 0) return false;
+    public boolean positiveLenghtAndWidth(double inputLenght,double inputWidth) {
+        if (inputLenght < 0 | inputWidth < 0) return false;
         else return true;
     }
 
@@ -40,5 +42,7 @@ public class OccupationArea {
         this._width = inputWidthMeters * 0.001;
         this._lenght = inputLenghtMeters * 0.001;
     }
+
+
 }
 //metodo para devolver occupation area com string da GA.
