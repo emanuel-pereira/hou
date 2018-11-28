@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class SensorTest {
 
-    @Test
+   @Test
     public void testIfGet_DesignationReturnsNullBeforeUserInputtingAnyDesignation(){
         Sensor tempSensor= new Sensor("");
         String expectedResult="";
