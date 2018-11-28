@@ -1,8 +1,5 @@
 package Sprint_0;
 
-import java.text.SimpleDateFormat;
-import java.time.Year;
-import java.time.YearMonth;
 import java.util.*;
 
 public class Sensor {
@@ -76,7 +73,7 @@ public class Sensor {
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
 
         Location location = new Location();
-        double linearDistanceBetweenTwoSensor = location.calcLinearDistance(sensor1._location, sensor2._location);
+        double linearDistanceBetweenTwoSensor = location.calcLinearDistance(sensor1.get_location(), sensor2.get_location());
         return linearDistanceBetweenTwoSensor;
     }
 
