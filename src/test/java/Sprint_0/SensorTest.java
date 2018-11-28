@@ -1,6 +1,12 @@
 package Sprint_0;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.GregorianCalendar;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -9,8 +15,8 @@ class SensorTest {
 
     @Test
     public void testIfGet_DesignationReturnsNullBeforeUserInputtingAnyDesignation(){
-        Sensor tempSensor= new Sensor(null);
-        String expectedResult=null;
+        Sensor tempSensor= new Sensor("");
+        String expectedResult="";
         String result;
         result=tempSensor.get_designation();
         assertEquals(expectedResult,result);
@@ -103,18 +109,6 @@ class SensorTest {
         assertEquals(expectedResult,result);
     }
 
-    @Test
-    void checkIfUpdatingLocationTwoTimesDiscardsSecondSetLocationUpdateDueToInvalidCoordinates() {
-        Sensor rainfallSensor = new Sensor("RainfallSensorOfPorto");
-        Location correctLoc1 = new Location(30,-12,62);
-        Location wrongLoc1 = new Location(350,-195,20);
-        Location expectedResult= correctLoc1;
-        Location result;
-        rainfallSensor.set_location(correctLoc1);
-        rainfallSensor.set_location(wrongLoc1);
-        result=rainfallSensor.get_location();
-        assertEquals(expectedResult,result);
-    }
 
     @Test
     void checkIfGetDataTypeMethodReturnsDataTypeDefault() {
@@ -139,12 +133,45 @@ class SensorTest {
     void checkIfSetAndGetMethodReturnsSecondUpdateOfDataTypeDesignation() {
         Sensor visibilitySensor=new Sensor("SensorOfViseu");
         DataType dataType1= new DataType("Rainfall");
-        DataType dataType2 = new DataType("Visibility");
+        DataType dataType2 = new DataType("");
         DataType expectedResult= dataType2;
         DataType result;
         visibilitySensor.set_dataTypeDesignation(dataType1);
         visibilitySensor.set_dataTypeDesignation(dataType2);
         result=visibilitySensor.get_dataTypeDesignation();
         assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void checkIfCalculateLinearDistanceBetweenTwoSensorsReturnsExpectedResult() {
+        Location locationSensor1=new Location(20,10,15);
+        Location locationSensor2=new Location(30,25,20);
+        Sensor sensor1= new Sensor(locationSensor1);
+        Sensor sensor2= new Sensor(locationSensor2);
+        double expectedResult=18.708286933869708;
+        double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void calculateLinearDistanceBetweenTwoSensorsInTheSamePositionReturnsZero() {
+        Location locationSensor1=new Location(10,10,10);
+        Location locationSensor2=new Location(10,10,10);
+        Sensor sensor1= new Sensor(locationSensor1);
+        Sensor sensor2= new Sensor(locationSensor2);
+        double expectedResult=0;
+        double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void checkIfCalculateLinearDistanceBetweenTwoSensorsDoesNotReturnZero() {
+        Location locationSensor1=new Location(20,10,15);
+        Location locationSensor2=new Location(30,25,20);
+        Sensor sensor1= new Sensor(locationSensor1);
+        Sensor sensor2= new Sensor(locationSensor2);
+        double expectedResult=0;
+        double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
+        assertNotEquals(expectedResult,result);
     }
 }
