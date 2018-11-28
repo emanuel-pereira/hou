@@ -2,17 +2,33 @@ package Sprint_0;
 
 public class Location {
 
-    private double _latitude;
-    private double _longitude;
-    private double _altitude;
 
-   /* public Location(){
+    private double[] _coordinates= new double[3];
+
+    public Location(double longitude, double latitude, double altitude) {
+        this._coordinates[0] = longitude;
+        this._coordinates[1] = latitude;
+        this._coordinates[2] = altitude;
+    }
+
+    public Location() {
+    }
+
+
+
+
+    public double calcLinearDistance(Location location1, Location location2){
+        double linearDistance= Math.sqrt(Math.pow(location2._coordinates[0]-location1._coordinates[0],2)+Math.pow(location2._coordinates[1]-location1._coordinates[1],2)+Math.pow(location2._coordinates[2]-location1._coordinates[2],2));
+        return linearDistance;
+    }
+
+    /* public Location(){
     }*/
 
-    public Location (double latitude, double longitude, double altitude) {
-      this._latitude = latitude;
-      this._longitude = longitude;
-      this._altitude = altitude;
+  /*  public Location (double[] coordinates) {
+        coordinates= new double[3];
+        this._coordinates=coordinates;
+
     }
 
     /*public Location (double[] center) {
@@ -22,7 +38,7 @@ public class Location {
     }*/
 
 
-    public boolean checkIfCoordinatesValid (){
+  /*  public boolean checkIfCoordinatesValid (){
         if (_latitude > 90 || _latitude < -90) {
             return false;
         }
@@ -38,7 +54,9 @@ public class Location {
         else {
             return true;
         }
-    }
+    }*/
+
+
 }
 
 
