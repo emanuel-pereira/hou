@@ -37,8 +37,7 @@ public class TypeOfGeographicalAreaTest {
 
         actualResult = tga.getTypeArea();
 
-        assertEquals(expectedResult, actualResult);
-
+            assertEquals(expectedResult, actualResult);
     }
 }
 
