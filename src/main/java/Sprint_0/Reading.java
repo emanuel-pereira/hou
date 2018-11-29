@@ -17,8 +17,6 @@ public class Reading {
     public Reading(){
 
     }
-
-
     //Reading Constructor to define a value of a reading
 
     public Reading(double readValue) {
