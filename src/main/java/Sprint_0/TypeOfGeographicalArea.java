@@ -1,128 +1,57 @@
 package Sprint_0;
 
+
 public class TypeOfGeographicalArea {
 
 
 
-    private String areaName;
+    private String typeArea0;
 
 
+    public TypeOfGeographicalArea (String typeArea) {
 
-    public TypeOfGeographicalArea (){
+        this.typeArea0 = typeArea;
 
     }
 
-    public String getAreaName() {
+        public String getTypeArea() {
 
-        return this.areaName;
-    }
-
-    public void setAreaName() {
-
-        this.areaName = areaName;
+        return this.typeArea0;
     }
 
 
+    public void setTypeArea (String typeArea) {
+
+        this.typeArea0 = typeArea;
+
+    }
+
+
+    typeArea STREET = typeArea.STREET;
+
+    typeArea village = typeArea.VILLAGE;
+
+    typeArea city = typeArea.CITY;
+
+    typeArea district = typeArea.DISTRICT;
+
+    typeArea country = typeArea.COUNTRY;
+
+
+
+   enum typeArea {
+
+        STREET, VILLAGE, CITY, DISTRICT, COUNTRY
+   }
 
 }
 
-
-    /*
-
-
-        public class Tipo AG {
-
-            private string "nome/designação"
-
-        }
-************************************************
+/*
+b. Funcionalidades:
+        - determinar distância linear entre duas áreas geográficas (medido a partir do ponto central);
+        - determinar distância linear entre dois dispositivos/sensores;
+        - determinar os últimos valores da temperatura/pluviosidade/humidade/vento/visibilidade lidas pelos sensores disponíveis na área geográfica;
+        - determinar temperatura/pluviosidade/humidade/vento/visibilidade médias mínima e máxima mensais num dispositivo/sensor;
 
 
-        public class localização {
-
-        private
-
-        }
-
-  *********************************************
-
-        public class AG {
-
-
-            private string "nome/designação";
-            private localização;
-            private List<sensor>sensores;
-            private tipoAG tipo;
-            private AG inseridaEm;
-        }
-************************************************
-
-        public class sensor {
-
-            private string "nome";
-
-            private DATE dataFuncionamento;
-
-            private localizacao = localizacao;
-
-            private carateristicasMeteorologicas carateristicas;
-
-            private list<leituras> registos;
-
-        }
-
-*************************************************
-
-
-
-        public class carateristicasMetereologicas {
-
-
-              private "designaçã/nome"
-
-
-              }
-
-******************************************************
-
-
-        public class leiturasSonsores {
-
-
-            private data/hora
-
-            private valor
-
-
-            }
-
-*****************************************************
-
-
-
-        @TESt
-
-
-        public void agInseridaEmDireto()
-
-
-            //arrange
-
-            AG ag1 = new AG("AMP",.......);
-            AG ag2 = new AG ("Porto",.......);
-            AG ag3 = new AG ("Portugal",.....);
-
-            //ACT
-
-            ag2.setInseridaEM(ag1));
-
-            ag2.setINseridaEM(ag1);
-
-
-            //assert
-
-            assertEquals(ag2INseridaEmDireto(ag3),true);
-
-
-*/
-
+        */

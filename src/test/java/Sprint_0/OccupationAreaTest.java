@@ -1,7 +1,6 @@
 package Sprint_0;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OccupationAreaTest {
@@ -23,14 +22,14 @@ public class OccupationAreaTest {
         assertEquals(expectedResult,result);
     }
     @Test
-    public void checkgetOccupationTestEqual0() {
+    public void checkGetOccupationTestWithoutInputs() {
         OccupationArea C = new OccupationArea();
         double result = C.getOccupationArea();
         double expectedResult = 0;
         assertEquals(expectedResult,result);
     }
     @Test
-    public void setOccupationTest() {
+    public void checkSetOccupationTestCorrect() {
         O.setOccupationArea(3, 4);
         double result = O.getOccupationArea();
         double expectedResult = 12;
@@ -46,18 +45,17 @@ public class OccupationAreaTest {
     @Test
     public void lengthandwigthNegativeValue() {
         O.setOccupationArea(-2, 2);
-        boolean expectedResult = O.positiveLenghtAndWidth();
+        boolean expectedResult = O.positiveLenghtAndWidth(-2,2);
         boolean result = false;
         assertEquals(expectedResult, result);
     }
     @Test
     public void lengthandwigthPositiveValue() {
         O.setOccupationArea(2, 2);
-        boolean expectedResult = O.positiveLenghtAndWidth();
+        boolean expectedResult = O.positiveLenghtAndWidth(2,2);
         boolean result = true;
         assertEquals(expectedResult, result);
     }
-
     @Test
     public void checkifConvertMetersToKM() {
         O.convertMetersToKm(3,3);
