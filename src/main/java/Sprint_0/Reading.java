@@ -1,12 +1,11 @@
 package Sprint_0;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class Reading {
 
-    private double _value;
-    private Date _dateAndTime;
+    private double mValue;
+    private Date mDateAndTime;
 
 
 
@@ -28,8 +27,8 @@ public class Reading {
 
     public void registerReading (double readValue, Date timeOfReading) {
 //int year, int month, int day, int hour, int minutes
-        _value = readValue;
-        _dateAndTime = timeOfReading;
+        mValue = readValue;
+        mDateAndTime = timeOfReading;
     }
 
 
@@ -37,6 +36,6 @@ public class Reading {
     //Method to return the value of the registered reading
 
     public double returnValueOfReading () {
-        return _value;
+        return mValue;
     }
 }

@@ -3,7 +3,7 @@ package Sprint_0;
 public class DataType {
 
     //Atributos da classe
-    private String _dataTypeDesignation;
+    private String mDataTypeDesignation;
 
     //Construtor
     public DataType(String designation) {
@@ -14,7 +14,7 @@ public class DataType {
     //Métodos
 
     public String getDataTypeDesignation() {
-        return this._dataTypeDesignation;
+        return this.mDataTypeDesignation;
     }
 
 
@@ -22,14 +22,14 @@ public class DataType {
         if (designation == null || designation.trim ().isEmpty ()) {
             return false;
         }
-        this._dataTypeDesignation = designation;
+        this.mDataTypeDesignation = designation;
         return true;
     }
 
 
     public void setDataTypeDesignation(String designation) {
         if (this.dataTypeValidation (designation) == true){
-            this._dataTypeDesignation = designation;
+            this.mDataTypeDesignation = designation;
         }
     }
 

@@ -3,11 +3,11 @@ package Sprint_0;
 import java.util.*;
 
 public class Sensor {
-    private String _designation;
-    GregorianCalendar _startDate = new GregorianCalendar(2018, 1, 01, 9, 00);
-    private Location _location;
-    private DataType _dataTypeDesignation; //temp, humidade,
-    private List<Reading> _reading = new ArrayList<>();
+    private String mDesignation;
+    GregorianCalendar mStartDate = new GregorianCalendar(2018, 1, 01, 9, 00);
+    private Location mLocation;
+    private DataType mDataTypeDesignation; //temp, humidade,
+    private List<Reading> mReading = new ArrayList<>();
 //    java.util.Date temp = new SimpleDateFormat("yyyy-mm-dd HH").parse("2012-07-10 14:58:00.000000");
 
     /**
@@ -16,7 +16,7 @@ public class Sensor {
      * @param designation every object of type sensor must have a designation.
      */
     public Sensor(String designation) {
-        this._designation = designation;
+        this.mDesignation = designation;
     }
 
     /**
@@ -25,7 +25,7 @@ public class Sensor {
      * @param sensorLocation
      */
     public Sensor(Location sensorLocation) {
-        this._location = sensorLocation;
+        this.mLocation = sensorLocation;
     }
 
     public boolean designationIsValid(String designation) {
@@ -35,32 +35,32 @@ public class Sensor {
         return false;
     }
 
-    public void set_designation(String designation) {
+    public void setmDesignation(String designation) {
         if (designationIsValid(designation)) {
-            this._designation = designation;
+            this.mDesignation = designation;
         }
     }
 
-    public String get_designation() {
-        return this._designation;
+    public String getmDesignation() {
+        return this.mDesignation;
     }
 
-    public void set_location(Location location) {
+    public void setmLocation(Location location) {
         {
-            this._location = location;
+            this.mLocation = location;
         }
     }
 
-    public Location get_location() {
-        return this._location;
+    public Location getmLocation() {
+        return this.mLocation;
     }
 
-    public void set_dataTypeDesignation(DataType dataType) {
-        this._dataTypeDesignation = dataType;
+    public void setmDataTypeDesignation(DataType dataType) {
+        this.mDataTypeDesignation = dataType;
     }
 
-    public DataType get_dataTypeDesignation() {
-        return this._dataTypeDesignation;
+    public DataType getmDataTypeDesignation() {
+        return this.mDataTypeDesignation;
     }
 
     /**
@@ -71,7 +71,7 @@ public class Sensor {
      */
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
         Location location = new Location();
-        double linearDistanceBetweenTwoSensor = location.calcLinearDistanceBetweenTwoPoints(sensor1.get_location(), sensor2.get_location());
+        double linearDistanceBetweenTwoSensor = location.calcLinearDistanceBetweenTwoPoints(sensor1.getmLocation(), sensor2.getmLocation());
         return linearDistanceBetweenTwoSensor;
     }
 }

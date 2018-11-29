@@ -5,24 +5,24 @@ public class TypeOfGeographicalArea {
 
 
 
-    private String typeArea0;
+    private String mTypeArea0;
 
 
     public TypeOfGeographicalArea (String typeArea) {
 
-        this.typeArea0 = typeArea;
+        this.mTypeArea0 = typeArea;
 
     }
 
         public String getTypeArea() {
 
-        return this.typeArea0;
+        return this.mTypeArea0;
     }
 
 
     public void setTypeArea (String typeArea) {
 
-        this.typeArea0 = typeArea;
+        this.mTypeArea0 = typeArea;
 
     }
 

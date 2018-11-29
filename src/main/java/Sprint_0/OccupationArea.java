@@ -2,35 +2,35 @@ package Sprint_0;
 
 public class OccupationArea {
 
-    private double _lenght;
-    private double _width;
-    private double _occupation;
+    private double mLenght;
+    private double mWidth;
+    private double mOccupation;
 
     // Constructors
     public OccupationArea() {
     }
 
     public OccupationArea(double inputLenght, double inputWidth) {
-        this._lenght = inputLenght;
-        this._width = inputWidth;
+        this.mLenght = inputLenght;
+        this.mWidth = inputWidth;
     }
 
     // Methods
     public void setOccupationArea(double inputLenght, double inputWidth) {
 
         if(positiveLenghtAndWidth(inputLenght,inputWidth)==true) {
-        this._lenght = inputLenght;
-        this._width = inputWidth;}
+        this.mLenght = inputLenght;
+        this.mWidth = inputWidth;}
     }
 
     public double getOccupationArea() {
         calculOccupationArea();
-        return this._occupation;
+        return this.mOccupation;
     }
 
     public double calculOccupationArea() {
-            this._occupation = this._lenght * this._width;
-        return this._occupation;
+            this.mOccupation = this.mLenght * this.mWidth;
+        return this.mOccupation;
     }
 
     public boolean positiveLenghtAndWidth(double inputLenght,double inputWidth) {
@@ -39,8 +39,8 @@ public class OccupationArea {
     }
 
     public void convertMetersToKm(double inputLenghtMeters, double inputWidthMeters) {
-        this._width = inputWidthMeters * 0.001;
-        this._lenght = inputLenghtMeters * 0.001;
+        this.mWidth = inputWidthMeters * 0.001;
+        this.mLenght = inputLenghtMeters * 0.001;
     }
 
 
