@@ -5,7 +5,7 @@ public class Location {
 
     private double[] _coordinates= new double[3];
 
-    //public Location() { }
+    public Location() { }
 
     public Location(double longitude, double latitude, double altitude) {
         this._coordinates[0] = longitude;

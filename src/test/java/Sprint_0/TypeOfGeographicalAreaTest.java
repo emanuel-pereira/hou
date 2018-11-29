@@ -40,8 +40,6 @@ public class TypeOfGeographicalAreaTest {
         assertEquals(expectedResult, actualResult);
 
     }
-}
-
 
 /*
         @TESt
@@ -66,4 +64,4 @@ public class TypeOfGeographicalAreaTest {
             assertEquals(ag2INseridaEmDireto(ag3),true);
 
 */
-
+}

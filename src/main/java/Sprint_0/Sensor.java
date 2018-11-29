@@ -28,7 +28,6 @@ public class Sensor {
         this._location = sensorLocation;
     }
 
-
     public boolean designationIsValid(String designation) {
         if (designation != null && designation != "") {
             return designation.matches("[a-zA-Z0-9]*") && designation.length() < 40;
@@ -71,10 +70,8 @@ public class Sensor {
      * @return
      */
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
-
         Location location = new Location();
-        double linearDistanceBetweenTwoSensor = location.calcLinearDistance(sensor1.get_location(), sensor2.get_location());
+        double linearDistanceBetweenTwoSensor = location.calcLinearDistanceBetweenTwoPoints(sensor1.get_location(), sensor2.get_location());
         return linearDistanceBetweenTwoSensor;
     }
-
 }
