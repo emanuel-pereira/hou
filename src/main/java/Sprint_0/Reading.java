@@ -1,48 +1,41 @@
 package Sprint_0;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Reading {
 
-    private Date _dateAndTime;
     private double _value;
+    private GregorianCalendar _dateAndTime;
 
 
-    //create a constructor method to define the time and the value
-    //connect a reading or multiple readings to a sensor
-    //a reading corresponds to a value in a certain date/hour
-
-//how to define date/hour?
 
     public Reading(){
 
     }
 
 
-    //Reading Constructor to define a value of a reading
+    //Reading Constructor to define a value and a time of a reading
 
-    public Reading(double readValue) {
+    public Reading(double readValue,GregorianCalendar timeOfReading ) {
 
-        _value = readValue;
+        registerReading(readValue, timeOfReading);
 
     }
 
 
-    //Method to return the value of a certain reading
+    //Method to register a new reading
+
+    public void registerReading (double readValue, GregorianCalendar timeOfReading) {
+//int year, int month, int day, int hour, int minutes
+        _value = readValue;
+        _dateAndTime = timeOfReading;
+    }
 
 
-    public double getReadingValue() {
+
+    //Method to return the value of the registered reading
+
+    public double returnValueOfReading () {
         return _value;
     }
-
-    /*//Time Constructor to define a date of a reading
-
-    public Time (Date readingtime) {
-
-        _dateandtime = readingtime;
-
-    }*/
-
-
-
 }

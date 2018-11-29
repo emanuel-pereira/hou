@@ -1,3 +1,4 @@
+
 package Sprint_0;
 
 import org.junit.jupiter.api.Test;
@@ -23,6 +24,7 @@ public class TypeOfGeographicalAreaTest {
          assertEquals(expectedResult,actualResult);
 
     }
+
 
 
 

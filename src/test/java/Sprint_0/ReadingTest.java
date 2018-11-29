@@ -2,40 +2,20 @@ package Sprint_0;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 
 public class ReadingTest {
 
-//Tests if a sensor is reading
-//Tests if a reading has a date and an hour
-
-
-    //Tests if a reading has a value
-    @Test
-    public void readValueConstructor(){
-
-        //Arrange
-       double inputValue = 13;
-       double result;
-       double expectedResult = 13;
-
-        //Act
-        Reading r1 = new Reading(inputValue);
-        result = r1.getReadingValue();
-
-
-        //Assert
-        assertEquals(expectedResult,result);
-
-    }
 
     //Tests if a reading returns null when no value is defined
 
     @Test
-    public void getValueEmptyConstructor(){
+    public void getRegisteredValueEmptyConstructor(){
         Reading r1 = new Reading();
 
         //Arrange
@@ -43,7 +23,7 @@ public class ReadingTest {
         double expectedResult = 0.0;
 
         //Act
-        result = r1.getReadingValue();
+        result = r1.returnValueOfReading();
 
 
         //Assert
@@ -51,25 +31,81 @@ public class ReadingTest {
 
     }
 
-
-
-
-    /*@Test
-    public void TimeConstructor(){
+    @Test
+    public void getTimeOfReading(){
 
         //Arrange
-        Date inputtime = ;
-        double result;
-        double expectedResult = 13;
+        GregorianCalendar c1 = new GregorianCalendar(2018,11,27,21,30);
+        GregorianCalendar result;
+        GregorianCalendar expectedResult;
 
-        //Act
-        Reading r1 = new Reading(inputtime);
-        result = r1.getReadingValue();
+        int year = c1.get(Calendar.YEAR);
+        assertEquals(2018, year);
+        int month = c1.get(Calendar.MONTH);      // 0 to 11
+        assertEquals(11, month);
+        int day = c1.get(Calendar.DAY_OF_MONTH);
+        assertEquals(27, day);
+        int hour = c1.get(Calendar.HOUR_OF_DAY);
+        assertEquals(21, hour);
+        int minute = c1.get(Calendar.MINUTE);
+        assertEquals(30, minute);
 
 
-        //Assert
-        assertEquals(expectedResult,result);
+        Reading r1 = new Reading(13,c1);
+        double value = r1.returnValueOfReading();
+        assertEquals(13,value,0.1);
+    }
 
-    }*/
+
+    @Test
+    public void getTimeOfReadingNotEqual(){
+
+        //Arrange
+        GregorianCalendar c1 = new GregorianCalendar(2018,11,27,21,30);
+        GregorianCalendar result;
+        GregorianCalendar expectedResult;
+
+        int year = c1.get(Calendar.YEAR);
+        assertEquals(2018, year);
+        int month = c1.get(Calendar.MONTH);      // 0 to 11
+        assertEquals(11, month);
+        int day = c1.get(Calendar.DAY_OF_MONTH);
+        assertEquals(27, day);
+        int hour = c1.get(Calendar.HOUR_OF_DAY);
+        assertEquals(21, hour);
+        int minute = c1.get(Calendar.MINUTE);
+        assertEquals(30, minute);
+
+
+        Reading r1 = new Reading(15,c1);
+        double value = r1.returnValueOfReading();
+        assertNotEquals(13,value);
+    }
+    //Tests if a registered reading has a value and a time
+
+    @Test
+    public void getTimeOfReadingUnexpectedDate(){
+
+        //Arrange
+        GregorianCalendar c1 = new GregorianCalendar(2000,11,27,21,30);
+        GregorianCalendar result;
+        GregorianCalendar expectedResult;
+
+        int year = c1.get(Calendar.YEAR);
+        assertNotEquals(2018, year);
+        int month = c1.get(Calendar.MONTH);
+        assertEquals(11, month);
+        int day = c1.get(Calendar.DAY_OF_MONTH);
+        assertEquals(27, day);
+        int hour = c1.get(Calendar.HOUR_OF_DAY);
+        assertEquals(21, hour);
+        int minute = c1.get(Calendar.MINUTE);
+        assertEquals(30, minute);
+
+
+        Reading r1 = new Reading(13,c1);
+        double value = r1.returnValueOfReading();
+        assertEquals(13,value,0.1);
+    }
 
 }
