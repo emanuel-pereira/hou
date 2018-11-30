@@ -126,24 +126,17 @@ public class Sensor {
         double linearDistanceBetweenTwoSensor = location.calcLinearDistanceBetweenTwoPoints(sensor1.getmLocation(), sensor2.getmLocation());
         return linearDistanceBetweenTwoSensor;
     }
+    public List <Reading> getListofReadings() {
+        return this.mReading;
+    }
+    public void addReadingValue(Reading newReading) {
+        if (!(getListofReadings().contains(newReading)))
+            this.mReading.add(newReading);
+    }
 
-    public List<Reading> addReadingValue(Reading newReading) {
-        List<Reading> ListReadingValue = new ArrayList<>();
-        if (!(mReading.contains(newReading)))
-            ListReadingValue.add(newReading);
-        return ListReadingValue;
+    public double getListReadingValuesPerSensor(Sensor sensor1) {
+        sensor1=null;
+
 
     }
 }
-/**
- * public List<Reading> getListValuesReadPerSensor(Sensor sensor1) {
- * <p>
- * List<Reading> ListValuesReadPerSensor = new ArrayList<>();
- * Reading r = new Reading();
- * sensor1 = null;
- * <p>
- * ListValuesReadPerSensor.add(r.returnValueOfReading())
- * return null;
- * }
- * <p>
- * }
