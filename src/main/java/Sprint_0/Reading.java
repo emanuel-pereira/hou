@@ -8,34 +8,25 @@ public class Reading {
     private Date mDateAndTime;
 
 
-
-    public Reading(){
-
-    }
-
-
-    //Reading Constructor to define a value and a time of a reading
-
+    /**
+     * Reading class Constructor
+     * It determines that a reading always has an associated value and a date and time
+     *
+     * @param readValue the number that corresponds to a reading
+     * @param timeOfReading the date and time of a reading
+     */
     public Reading(double readValue,Date timeOfReading ) {
 
-        registerReading(readValue, timeOfReading);
-
-    }
-
-
-    //Method to register a new reading
-
-    public void registerReading (double readValue, Date timeOfReading) {
-//int year, int month, int day, int hour, int minutes
         mValue = readValue;
         mDateAndTime = timeOfReading;
+
     }
 
-
-
-    //Method to return the value of the registered reading
-
+    /**
+     * @return the registered value of a reading
+     */
     public double returnValueOfReading () {
         return mValue;
     }
+
 }
