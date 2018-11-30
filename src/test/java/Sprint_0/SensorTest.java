@@ -169,4 +169,15 @@ class SensorTest {
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertNotEquals(expectedResult,result);
     }
+
+    // FUNCIONALIDADE 3 - TESTES
+
+    @Test
+    void checkifgetReadList() {
+
+
+
+
+    }
+
 }
