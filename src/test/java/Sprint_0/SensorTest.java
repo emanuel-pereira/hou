@@ -8,16 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class SensorTest {
 
-   @Test
-    public void testIfGet_DesignationReturnsNullBeforeUserInputtingAnyDesignation(){
-        Sensor tempSensor= new Sensor("");
-        String expectedResult="";
-        String result;
-        result=tempSensor.getmDesignation();
-        assertEquals(expectedResult,result);
-    }
-
-
     @Test
     public void testIfRenamingASensorWithAnEmptyStringIsIgnored(){
         Sensor tempSensor= new Sensor("Sensor01TempMat");
@@ -117,22 +107,24 @@ class SensorTest {
    @Test
     void checkIfSetAndGetDataTypeMethodUpdatesSensorDataTypeDesignation() {
         Sensor visibilitySensor=new Sensor("SensorOfCoimbra");
-        DataType newDataType = new DataType("Wind");
-        DataType expectedResult= newDataType;
+       DataType newType = DataType.PRECIPITATION;
+        DataType expectedResult= newType;
         DataType result;
-        visibilitySensor.setmDataTypeDesignation(newDataType);
+        visibilitySensor.setmDataTypeDesignation(newType);
         result=visibilitySensor.getmDataTypeDesignation();
         assertEquals(expectedResult,result);
+
    }
+
     @Test
     void checkIfSetAndGetMethodReturnsSecondUpdateOfDataTypeDesignation() {
         Sensor visibilitySensor=new Sensor("SensorOfViseu");
-        DataType dataType1= new DataType("Rainfall");
-        DataType dataType2 = new DataType("");
-        DataType expectedResult= dataType2;
+        DataType oldType = DataType.HUMIDITY;
+        DataType newType = DataType.PRECIPITATION;
+        DataType expectedResult= newType;
         DataType result;
-        visibilitySensor.setmDataTypeDesignation(dataType1);
-        visibilitySensor.setmDataTypeDesignation(dataType2);
+        visibilitySensor.setmDataTypeDesignation(oldType);
+        visibilitySensor.setmDataTypeDesignation(newType);
         result=visibilitySensor.getmDataTypeDesignation();
         assertEquals(expectedResult,result);
     }
@@ -169,4 +161,16 @@ class SensorTest {
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertNotEquals(expectedResult,result);
     }
+
+    @Test
+    void addReadingValue() {
+        Location locationSensor1=new Location(20,10,15);
+        Location locationSensor2=new Location(30,25,20);
+        Sensor sensor1= new Sensor("WindSensor1",locationSensor1);
+        Sensor sensor2= new Sensor("WindSensor2",locationSensor2);
+        double expectedResult=0;
+        double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
+        assertNotEquals(expectedResult,result);
+    }
+
 }
