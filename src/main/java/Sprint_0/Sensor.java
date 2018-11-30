@@ -12,28 +12,50 @@ public class Sensor {
 
     /**
      * Constructor requiring to set only a specific designation for any object of type Sensor created
+     * accordingly with the criteria defined in the "designationIsValid" method.
      *
-     * @param designation every object of type sensor must have a designation.
+     * @param designation
      */
     public Sensor(String designation) {
-        this.mDesignation = designation;
+        if (designationIsValid(designation)) {
+            this.mDesignation = designation;
+        }
     }
 
     /**
-     * Constructor requiring to set the location for any object of type sensor
+     * Constructor requiring to set a specific designation and a location for any object of
+     * type Sensor created.
      *
      * @param sensorLocation
      */
-    public Sensor(Location sensorLocation) {
-        this.mLocation = sensorLocation;
+    public Sensor(String designation, Location sensorLocation) {
+        if (designationIsValid(designation)) {
+            this.mDesignation = designation;
+            this.mLocation = sensorLocation;
+        }
     }
 
+
+    /**
+     * Method to check if the designation given to name the sensor meets the criteria defined to be
+     * considered a valid designation, namely:
+     * - mDesignation cannot be empty or null
+     * - mDesignation must have only alphabetic characters and a maximum length of 40 characters.
+     * @param designation
+     * @return
+     */
     public boolean designationIsValid(String designation) {
-        if (designation != null && designation != "") {
+        if (designation != null && !(designation.equals(""))) {
             return designation.matches("[a-zA-Z0-9]*") && designation.length() < 40;
         }
         return false;
     }
+
+
+    /**
+     * Changes the designation of the sensor to the one inputted by the user.
+     * @param designation
+     */
 
     public void setmDesignation(String designation) {
         if (designationIsValid(designation)) {
@@ -41,9 +63,18 @@ public class Sensor {
         }
     }
 
+    /**
+     *Returns the designation of the sensor
+     * @return
+     */
     public String getmDesignation() {
         return this.mDesignation;
     }
+
+    /**
+     * Changes the location of the sensor to the new location coordinates inputted by the user.
+     * @param location
+     */
 
     public void setmLocation(Location location) {
         {
@@ -51,20 +82,33 @@ public class Sensor {
         }
     }
 
+    /**
+     * Returns the location coordinates of the sensor
+     * @return
+     */
     public Location getmLocation() {
         return this.mLocation;
     }
 
+    /**
+     * Changes the dataType of the sensor to the dataType inputted.
+     * @param dataType
+     */
     public void setmDataTypeDesignation(DataType dataType) {
         this.mDataTypeDesignation = dataType;
     }
 
+    /**
+     * Returns the dataType of the sensor.
+     * @return
+     */
     public DataType getmDataTypeDesignation() {
         return this.mDataTypeDesignation;
     }
 
     /**
      * Method to calculate linear distance between two sensors
+     *
      * @param sensor1
      * @param sensor2
      * @return
@@ -74,4 +118,5 @@ public class Sensor {
         double linearDistanceBetweenTwoSensor = location.calcLinearDistanceBetweenTwoPoints(sensor1.getmLocation(), sensor2.getmLocation());
         return linearDistanceBetweenTwoSensor;
     }
+
 }

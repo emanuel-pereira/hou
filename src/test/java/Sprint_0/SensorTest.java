@@ -141,8 +141,8 @@ class SensorTest {
     void checkIfCalculateLinearDistanceBetweenTwoSensorsReturnsExpectedResult() {
         Location locationSensor1=new Location(20,10,15);
         Location locationSensor2=new Location(30,25,20);
-        Sensor sensor1= new Sensor(locationSensor1);
-        Sensor sensor2= new Sensor(locationSensor2);
+        Sensor sensor1= new Sensor("RainfallSensor1",locationSensor1);
+        Sensor sensor2= new Sensor("RainfallSensor2",locationSensor2);
         double expectedResult=18.708286933869708;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertEquals(expectedResult,result);
@@ -152,8 +152,8 @@ class SensorTest {
     void calculateLinearDistanceBetweenTwoSensorsInTheSamePositionReturnsZero() {
         Location locationSensor1=new Location(10,10,10);
         Location locationSensor2=new Location(10,10,10);
-        Sensor sensor1= new Sensor(locationSensor1);
-        Sensor sensor2= new Sensor(locationSensor2);
+        Sensor sensor1= new Sensor("TemperatureSensor1",locationSensor1);
+        Sensor sensor2= new Sensor("TemperatureSensor2",locationSensor2);
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertEquals(expectedResult,result);
@@ -163,8 +163,8 @@ class SensorTest {
     void checkIfCalculateLinearDistanceBetweenTwoSensorsDoesNotReturnZero() {
         Location locationSensor1=new Location(20,10,15);
         Location locationSensor2=new Location(30,25,20);
-        Sensor sensor1= new Sensor(locationSensor1);
-        Sensor sensor2= new Sensor(locationSensor2);
+        Sensor sensor1= new Sensor("WindSensor1",locationSensor1);
+        Sensor sensor2= new Sensor("WindSensor2",locationSensor2);
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertNotEquals(expectedResult,result);
