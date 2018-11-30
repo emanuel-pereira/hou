@@ -41,6 +41,7 @@ public class Sensor {
      * considered a valid designation, namely:
      * - mDesignation cannot be empty or null
      * - mDesignation must have only alphabetic characters and a maximum length of 40 characters.
+     *
      * @param designation
      * @return
      */
@@ -54,6 +55,7 @@ public class Sensor {
 
     /**
      * Changes the designation of the sensor to the one inputted by the user.
+     *
      * @param designation
      */
 
@@ -64,7 +66,8 @@ public class Sensor {
     }
 
     /**
-     *Returns the designation of the sensor
+     * Returns the designation of the sensor
+     *
      * @return
      */
     public String getmDesignation() {
@@ -73,6 +76,7 @@ public class Sensor {
 
     /**
      * Changes the location of the sensor to the new location coordinates inputted by the user.
+     *
      * @param location
      */
 
@@ -84,6 +88,7 @@ public class Sensor {
 
     /**
      * Returns the location coordinates of the sensor
+     *
      * @return
      */
     public Location getmLocation() {
@@ -92,6 +97,7 @@ public class Sensor {
 
     /**
      * Changes the dataType of the sensor to the dataType inputted.
+     *
      * @param dataType
      */
     public void setmDataTypeDesignation(DataType dataType) {
@@ -100,6 +106,7 @@ public class Sensor {
 
     /**
      * Returns the dataType of the sensor.
+     *
      * @return
      */
     public DataType getmDataTypeDesignation() {
@@ -113,9 +120,30 @@ public class Sensor {
      * @param sensor2
      * @return
      */
+
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
         Location location = new Location();
         double linearDistanceBetweenTwoSensor = location.calcLinearDistanceBetweenTwoPoints(sensor1.getmLocation(), sensor2.getmLocation());
         return linearDistanceBetweenTwoSensor;
     }
+
+    public List<Reading> addReadingValue(Reading newReading) {
+        List<Reading> ListReadingValue = new ArrayList<>();
+        if (!(mReading.contains(newReading)))
+            ListReadingValue.add(newReading);
+        return ListReadingValue;
+
+    }
 }
+/**
+ * public List<Reading> getListValuesReadPerSensor(Sensor sensor1) {
+ * <p>
+ * List<Reading> ListValuesReadPerSensor = new ArrayList<>();
+ * Reading r = new Reading();
+ * sensor1 = null;
+ * <p>
+ * ListValuesReadPerSensor.add(r.returnValueOfReading())
+ * return null;
+ * }
+ * <p>
+ * }
