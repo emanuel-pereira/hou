@@ -1,5 +1,8 @@
 package Sprint_0;
 
+/**
+ * This is the method to enum types.
+ */
 
 public enum TypeOfGeographicalArea {
 
