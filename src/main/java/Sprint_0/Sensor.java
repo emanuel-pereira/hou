@@ -118,4 +118,5 @@ public class Sensor {
         double linearDistanceBetweenTwoSensor = location.calcLinearDistanceBetweenTwoPoints(sensor1.getmLocation(), sensor2.getmLocation());
         return linearDistanceBetweenTwoSensor;
     }
+
 }
