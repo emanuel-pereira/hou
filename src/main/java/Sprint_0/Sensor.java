@@ -2,11 +2,10 @@ package Sprint_0;
 
 import java.util.*;
 
-import static sun.jvm.hotspot.runtime.BasicObjectLock.size;
 
 public class Sensor {
     private String mDesignation;
-    GregorianCalendar mStartDate = new GregorianCalendar(2018, 1, 01, 9, 00);
+    private Date mStartDate;
     private Location mLocation;
     private DataType mDataTypeDesignation; //temp, humidade,
     private List<Reading> mReading = new ArrayList<>();

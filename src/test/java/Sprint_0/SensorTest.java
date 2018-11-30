@@ -2,6 +2,8 @@ package Sprint_0;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.*;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -171,6 +173,54 @@ class SensorTest {
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertNotEquals(expectedResult,result);
+    }
+
+    //FUNCIONALIDADE 3
+
+    @Test
+    void getLastReadingOfSensor() {
+        GregorianCalendar cL1 = new GregorianCalendar(2018,11,27,21,00);
+        Date date1 = cL1.getTime();
+        GregorianCalendar cL2 = new GregorianCalendar(2018,11,27,20,00);
+        Date date2 = cL2.getTime();
+        GregorianCalendar cL3 = new GregorianCalendar(2018,11,27,20,00);
+        Date date3 = cL3.getTime();
+
+        Reading readingDate1 = new Reading (11, date1);
+        Reading readingDate2 = new Reading (10, date2);
+        Reading expectedReading = new Reading (8, date3);
+
+        Sensor sensor1 = new Sensor ("Temp131");
+        sensor1.addReadingValue (readingDate1);
+        sensor1.addReadingValue (readingDate2);
+        sensor1.addReadingValue (expectedReading);
+
+        Reading result = sensor1.getListReadingLastValuePerSensor (sensor1);
+
+        assertEquals(expectedReading, result);
+    }
+
+    @Test
+    void getLastReadingOfSensorIfWrongExpectedResult() {
+        GregorianCalendar cL1 = new GregorianCalendar(2018,11,27,21,00);
+        Date date1 = cL1.getTime();
+        GregorianCalendar cL2 = new GregorianCalendar(2018,11,27,20,00);
+        Date date2 = cL2.getTime();
+        GregorianCalendar cL3 = new GregorianCalendar(2018,11,27,20,00);
+        Date date3 = cL3.getTime();
+
+        Reading readingDate1 = new Reading (11, date1);
+        Reading readingDate2 = new Reading (10, date2);
+        Reading expectedReading = new Reading (8, date3);
+
+        Sensor sensor1 = new Sensor ("Temp131");
+        sensor1.addReadingValue (readingDate1);
+        sensor1.addReadingValue (readingDate2);
+        sensor1.addReadingValue (expectedReading);
+
+        Reading result = sensor1.getListReadingLastValuePerSensor (sensor1);
+
+        assertNotEquals(readingDate2, result);
     }
 
 }
