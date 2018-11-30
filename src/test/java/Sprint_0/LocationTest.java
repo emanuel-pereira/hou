@@ -14,7 +14,7 @@ class LocationTest {
         boolean result;
         boolean expectedresult = true;
         //Act
-        result = l.CheckIfInputValid();
+        result = l.checkIfInputValid();
         //Assert
         assertEquals (expectedresult, result);
     }
@@ -26,7 +26,7 @@ class LocationTest {
         boolean result;
         boolean expectedresult = false;
         //Act
-        result = l.CheckIfInputValid();
+        result = l.checkIfInputValid();
         //Assert
         assertEquals (expectedresult, result);
     }
@@ -38,7 +38,7 @@ class LocationTest {
         boolean result;
         boolean expectedresult = false;
         //Act
-        result = l.CheckIfInputValid();
+        result = l.checkIfInputValid();
         //Assert
         assertEquals (expectedresult, result);
     }
@@ -50,7 +50,7 @@ class LocationTest {
         boolean result;
         boolean expectedresult = false;
         //Act
-        result = l.CheckIfInputValid();
+        result = l.checkIfInputValid();
         //Assert
         assertEquals (expectedresult, result);
     }

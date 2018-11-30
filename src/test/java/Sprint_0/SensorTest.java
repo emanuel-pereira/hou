@@ -2,11 +2,6 @@ package Sprint_0;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.GregorianCalendar;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -18,7 +13,7 @@ class SensorTest {
         Sensor tempSensor= new Sensor("");
         String expectedResult="";
         String result;
-        result=tempSensor.get_designation();
+        result=tempSensor.getmDesignation();
         assertEquals(expectedResult,result);
     }
 
@@ -29,8 +24,8 @@ class SensorTest {
         String designation= "";
         String expectedResult="Sensor01TempMat";
         String result;
-        tempSensor.set_designation(designation);
-        result=tempSensor.get_designation();
+        tempSensor.setmDesignation(designation);
+        result=tempSensor.getmDesignation();
         assertEquals(expectedResult,result);
     }
 
@@ -40,8 +35,8 @@ class SensorTest {
         String designation= "SensorVisibilityLisbon";
         String expectedResult="SensorVisibilityLisbon";
         String result;
-        tempSensor.set_designation(designation);
-        result=tempSensor.get_designation();
+        tempSensor.setmDesignation(designation);
+        result=tempSensor.getmDesignation();
         assertEquals(expectedResult,result);
     }
 
@@ -51,8 +46,8 @@ class SensorTest {
         String designation= null;
         String expectedResult="SensorVisibilityLisbon";
         String result;
-        tempSensor.set_designation(designation);
-        result=tempSensor.get_designation();
+        tempSensor.setmDesignation(designation);
+        result=tempSensor.getmDesignation();
         assertEquals(expectedResult,result);
     }
 
@@ -62,8 +57,8 @@ class SensorTest {
         String designation= "SensorVisibilityLisbonnnnnnnnnnnnnnnnnnnn";
         String expectedResult="SensorVisibilityLisboa";
         String result;
-        tempSensor.set_designation(designation);
-        result=tempSensor.get_designation();
+        tempSensor.setmDesignation(designation);
+        result=tempSensor.getmDesignation();
         assertEquals(expectedResult,result);
     }
 
@@ -73,8 +68,8 @@ class SensorTest {
         String designation= "Wind_SensorSantarém";
         String expectedResult="WindSensorSantarem";
         String result;
-        tempSensor.set_designation(designation);
-        result=tempSensor.get_designation();
+        tempSensor.setmDesignation(designation);
+        result=tempSensor.getmDesignation();
         assertEquals(expectedResult,result);
     }
 
@@ -84,8 +79,8 @@ class SensorTest {
         String designation= "WindSensorLisboa";
         String expectedResult="WindSensorSantarem";
         String result;
-        tempSensor.set_designation(designation);
-        result=tempSensor.get_designation();
+        tempSensor.setmDesignation(designation);
+        result=tempSensor.getmDesignation();
         assertNotEquals(expectedResult,result);
     }
 
@@ -94,7 +89,7 @@ class SensorTest {
         Sensor rainfallSensor = new Sensor("RainfallSensorOfNowhere");
         Location expectedResult= null;
         Location result;
-        result=rainfallSensor.get_location();
+        result=rainfallSensor.getmLocation();
         assertEquals(expectedResult,result);}
 
 
@@ -104,8 +99,8 @@ class SensorTest {
         Location loc1 = new Location(30,-12,62);
         Location expectedResult= loc1;
         Location result;
-        rainfallSensor.set_location(loc1);
-        result=rainfallSensor.get_location();
+        rainfallSensor.setmLocation(loc1);
+        result=rainfallSensor.getmLocation();
         assertEquals(expectedResult,result);
     }
 
@@ -115,7 +110,7 @@ class SensorTest {
         Sensor visibilitySensor=new Sensor("WindSensorOfCoimbra");
         DataType expectedResult= null;
         DataType result;
-        result=visibilitySensor.get_dataTypeDesignation();
+        result=visibilitySensor.getmDataTypeDesignation();
         assertEquals(expectedResult,result);
     }
 
@@ -125,8 +120,8 @@ class SensorTest {
         DataType newDataType = new DataType("Wind");
         DataType expectedResult= newDataType;
         DataType result;
-        visibilitySensor.set_dataTypeDesignation(newDataType);
-        result=visibilitySensor.get_dataTypeDesignation();
+        visibilitySensor.setmDataTypeDesignation(newDataType);
+        result=visibilitySensor.getmDataTypeDesignation();
         assertEquals(expectedResult,result);
    }
     @Test
@@ -136,9 +131,9 @@ class SensorTest {
         DataType dataType2 = new DataType("");
         DataType expectedResult= dataType2;
         DataType result;
-        visibilitySensor.set_dataTypeDesignation(dataType1);
-        visibilitySensor.set_dataTypeDesignation(dataType2);
-        result=visibilitySensor.get_dataTypeDesignation();
+        visibilitySensor.setmDataTypeDesignation(dataType1);
+        visibilitySensor.setmDataTypeDesignation(dataType2);
+        result=visibilitySensor.getmDataTypeDesignation();
         assertEquals(expectedResult,result);
     }
 
@@ -146,8 +141,8 @@ class SensorTest {
     void checkIfCalculateLinearDistanceBetweenTwoSensorsReturnsExpectedResult() {
         Location locationSensor1=new Location(20,10,15);
         Location locationSensor2=new Location(30,25,20);
-        Sensor sensor1= new Sensor(locationSensor1);
-        Sensor sensor2= new Sensor(locationSensor2);
+        Sensor sensor1= new Sensor("RainfallSensor1",locationSensor1);
+        Sensor sensor2= new Sensor("RainfallSensor2",locationSensor2);
         double expectedResult=18.708286933869708;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertEquals(expectedResult,result);
@@ -157,8 +152,8 @@ class SensorTest {
     void calculateLinearDistanceBetweenTwoSensorsInTheSamePositionReturnsZero() {
         Location locationSensor1=new Location(10,10,10);
         Location locationSensor2=new Location(10,10,10);
-        Sensor sensor1= new Sensor(locationSensor1);
-        Sensor sensor2= new Sensor(locationSensor2);
+        Sensor sensor1= new Sensor("TemperatureSensor1",locationSensor1);
+        Sensor sensor2= new Sensor("TemperatureSensor2",locationSensor2);
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertEquals(expectedResult,result);
@@ -168,8 +163,8 @@ class SensorTest {
     void checkIfCalculateLinearDistanceBetweenTwoSensorsDoesNotReturnZero() {
         Location locationSensor1=new Location(20,10,15);
         Location locationSensor2=new Location(30,25,20);
-        Sensor sensor1= new Sensor(locationSensor1);
-        Sensor sensor2= new Sensor(locationSensor2);
+        Sensor sensor1= new Sensor("WindSensor1",locationSensor1);
+        Sensor sensor2= new Sensor("WindSensor2",locationSensor2);
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertNotEquals(expectedResult,result);
