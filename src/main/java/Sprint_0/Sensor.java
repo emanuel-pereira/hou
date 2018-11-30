@@ -2,12 +2,14 @@ package Sprint_0;
 
 import java.util.*;
 
+import static sun.jvm.hotspot.runtime.BasicObjectLock.size;
+
 public class Sensor {
     private String mDesignation;
-    GregorianCalendar mStartDate = new GregorianCalendar (2018, 1, 01, 9, 00);
+    GregorianCalendar mStartDate = new GregorianCalendar(2018, 1, 01, 9, 00);
     private Location mLocation;
     private DataType mDataTypeDesignation; //temp, humidade,
-    private List<Reading> mReading = new ArrayList<> ();
+    private List<Reading> mReading = new ArrayList<>();
 //    java.util.Date temp = new SimpleDateFormat("yyyy-mm-dd HH").parse("2012-07-10 14:58:00.000000");
 
     /**
@@ -17,7 +19,7 @@ public class Sensor {
      * @param designation
      */
     public Sensor(String designation) {
-        if (designationIsValid (designation)) {
+        if (designationIsValid(designation)) {
             this.mDesignation = designation;
         }
     }
@@ -29,7 +31,7 @@ public class Sensor {
      * @param sensorLocation
      */
     public Sensor(String designation, Location sensorLocation) {
-        if (designationIsValid (designation)) {
+        if (designationIsValid(designation)) {
             this.mDesignation = designation;
             this.mLocation = sensorLocation;
         }
@@ -46,8 +48,8 @@ public class Sensor {
      * @return
      */
     public boolean designationIsValid(String designation) {
-        if (designation != null && !(designation.equals (""))) {
-            return designation.matches ("[a-zA-Z0-9]*") && designation.length () < 40;
+        if (designation != null && !(designation.equals(""))) {
+            return designation.matches("[a-zA-Z0-9]*") && designation.length() < 40;
         }
         return false;
     }
@@ -60,7 +62,7 @@ public class Sensor {
      */
 
     public void setmDesignation(String designation) {
-        if (designationIsValid (designation)) {
+        if (designationIsValid(designation)) {
             this.mDesignation = designation;
         }
     }
@@ -122,27 +124,26 @@ public class Sensor {
      */
 
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
-        Location location = new Location ();
-        double linearDistanceBetweenTwoSensor = location.calcLinearDistanceBetweenTwoPoints (sensor1.getmLocation (), sensor2.getmLocation ());
+        Location location = new Location();
+        double linearDistanceBetweenTwoSensor = location.calcLinearDistanceBetweenTwoPoints(sensor1.getmLocation(), sensor2.getmLocation());
         return linearDistanceBetweenTwoSensor;
     }
 
-    public List<Reading> addReadingValue(Reading newReading) {
-        List<Reading> ListReadingValue = new ArrayList<> ();
-        if (!(mReading.contains (newReading)))
-            ListReadingValue.add (newReading);
-        return ListReadingValue;
+
+    // FUNCIONALIDADE 3
+
+    public List <Reading> getListofReadings() {
+        return this.mReading;
     }
 
-    /*
-    public List<Reading> getListValuesReadPerSensor(Sensor sensor1) {
-    <p>
-    List<Reading> ListValuesReadPerSensor = new ArrayList<>();
-    Reading r = new Reading();
-    sensor1 = null;
-    <p>
-    ListValuesReadPerSensor.add(r.returnValueOfReading())
-    return null; }
-    */
+    public void addReadingValue(Reading newReading) {
+        if (!(getListofReadings().contains(newReading)))
+            this.mReading.add(newReading);
+    }
 
+    public Reading getListReadingLastValuePerSensor(Sensor sensor1) {
+        Reading lastValue;
+        lastValue = mReading.get(getListofReadings().size()-1);
+        return lastValue;
+    }
 }
