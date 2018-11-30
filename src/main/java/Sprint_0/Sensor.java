@@ -2,6 +2,8 @@ package Sprint_0;
 
 import java.util.*;
 
+import static sun.jvm.hotspot.runtime.BasicObjectLock.size;
+
 public class Sensor {
     private String mDesignation;
     GregorianCalendar mStartDate = new GregorianCalendar(2018, 1, 01, 9, 00);
@@ -126,17 +128,22 @@ public class Sensor {
         double linearDistanceBetweenTwoSensor = location.calcLinearDistanceBetweenTwoPoints(sensor1.getmLocation(), sensor2.getmLocation());
         return linearDistanceBetweenTwoSensor;
     }
+
+
+    // FUNCIONALIDADE 3
+
     public List <Reading> getListofReadings() {
         return this.mReading;
     }
+
     public void addReadingValue(Reading newReading) {
         if (!(getListofReadings().contains(newReading)))
             this.mReading.add(newReading);
     }
 
-    public double getListReadingValuesPerSensor(Sensor sensor1) {
-        sensor1=null;
-
-
+    public Reading getListReadingLastValuePerSensor(Sensor sensor1) {
+        Reading lastValue;
+        lastValue = mReading.get(getListofReadings().size()-1);
+        return lastValue;
     }
 }
