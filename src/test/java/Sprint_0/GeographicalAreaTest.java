@@ -36,4 +36,12 @@ public class GeographicalAreaTest {
         String geographicalAreaName = "Portugal";
         GeographicalArea GA = new GeographicalArea(geographicalAreaName, tga);
     }
+
+    @Test
+    public void defineTypesOfGeograficalAreaCityLocation() {
+        TypeOfGeographicalArea tga = TypeOfGeographicalArea.CITY;
+        String geographicalAreaName = "Portugal";
+        Location location = new Location(12.3,35.2,120);
+        GeographicalArea GA = new GeographicalArea(geographicalAreaName, tga, location);
+    }
 }
