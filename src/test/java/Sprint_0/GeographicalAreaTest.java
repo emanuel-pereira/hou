@@ -2,6 +2,8 @@ package Sprint_0;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+
 public class GeographicalAreaTest {
 
     @Test
@@ -43,5 +45,10 @@ public class GeographicalAreaTest {
         String geographicalAreaName = "Portugal";
         Location location = new Location(12.3,35.2,120);
         GeographicalArea GA = new GeographicalArea(geographicalAreaName, tga, location);
+
+        double[] expectedLocation = {12.3,35.2,120};
+        double[] result = location.getLocation();
+
+        assertArrayEquals(expectedLocation, result);
     }
 }
