@@ -3,7 +3,11 @@ package Sprint_0;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.*;
+
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class GeographicalAreaTest {
 
@@ -50,12 +54,73 @@ public class GeographicalAreaTest {
     public void defineTypesOfGeograficalAreaCityLocation() {
         TypeOfGeographicalArea tga = TypeOfGeographicalArea.CITY;
         String geographicalAreaName = "Portugal";
-        Location location = new Location(12.3,35.2,120);
+        Location location = new Location(12.3, 35.2, 120);
         GeographicalArea GA = new GeographicalArea(geographicalAreaName, tga, location);
 
-        double[] expectedLocation = {12.3,35.2,120};
+        double[] expectedLocation = {12.3, 35.2, 120};
         double[] result = location.getLocation();
 
         assertArrayEquals(expectedLocation, result);
     }
+
+    @DisplayName("Test if getListOfSensors returns null for an empty sensor list")
+    @Test
+    public void getEmptyListOfSensors(){
+        GeographicalArea a= new GeographicalArea("Beja",TypeOfGeographicalArea.DISTRICT);
+        List<Sensor> result=a.getListOfSensors();
+        assertEquals(null,result);
+    }
+
+    @DisplayName("Test if getListOfSensors returns mSensorList for a specific geographic area")
+    @Test
+    public void getListOfSensor(){
+        Sensor sensor1=new Sensor();
+        Sensor sensor2=new Sensor();
+        GeographicalArea a= new GeographicalArea("Aveiro",TypeOfGeographicalArea.DISTRICT,new Location(25,-17,15),Arrays.asList(sensor1,sensor2));
+        List<Sensor> expectedResult=Arrays.asList(sensor1,sensor2);
+        List<Sensor> result=a.getListOfSensors();
+        assertEquals(expectedResult,result);
+    }
+
+    @DisplayName("Test if method returns last reading values and respective date of each sensor in a specific geographic area")
+    @Test
+    public void checkIfGetLastValuesOfSensors() {
+        GregorianCalendar cL1 = new GregorianCalendar(2018, 11, 27, 9, 00);
+        Date date1 = cL1.getTime();
+        GregorianCalendar cL2 = new GregorianCalendar(2018, 11, 28, 12, 00);
+        Date date2 = cL2.getTime();
+        GregorianCalendar cL3 = new GregorianCalendar(2018, 11, 29, 18, 00);
+        Date date3 = cL3.getTime();
+        List<Reading> readS1 = Arrays.asList(new Reading(15.5, date1), new Reading(16, date2), new Reading(16.5, date3));
+        List<Reading> readS2 = Arrays.asList(new Reading(55, date1), new Reading(85, date2), new Reading(10, date3));
+        List<Reading> readS3 = Arrays.asList(new Reading(5, date1), new Reading(37, date2), new Reading(58, date3));
+        Sensor sensor1 = new Sensor("TemperatureSensor", new Location(41, -7.5, 49), DataType.TEMPERATURE, readS1);
+        Sensor sensor2 = new Sensor("PrecipitationSensor", new Location(41, -7.5, 49), DataType.PRECIPITATION, readS2);
+        Sensor sensor3 = new Sensor("WindSensor", new Location(41, -7.5, 49), DataType.WIND, readS3);
+        GeographicalArea gA1 = new GeographicalArea("Porto", TypeOfGeographicalArea.CITY, new Location(41, -8, 50), Arrays.asList(sensor1, sensor2, sensor3));
+        List<Reading> expectedResult = Arrays.asList(sensor1.getLastReadingPerSensor(),sensor2.getLastReadingPerSensor(),sensor3.getLastReadingPerSensor());
+        List<Reading> result = gA1.getLastValuesOfSensorsInGA();
+        assertEquals(expectedResult, result);
+    }
+
+    @DisplayName("Test if method returns last reading values and respective date of each sensor in a specific geographic area")
+    @Test
+        public void ensureGetLastValuesOfSensorsInGADoesNotReturnNull() {
+        GregorianCalendar cL1 = new GregorianCalendar(2018, 11, 27, 9, 00);
+        Date date1 = cL1.getTime();
+        GregorianCalendar cL2 = new GregorianCalendar(2018, 11, 28, 12, 00);
+        Date date2 = cL2.getTime();
+        GregorianCalendar cL3 = new GregorianCalendar(2018, 11, 29, 18, 00);
+        Date date3 = cL3.getTime();
+        List<Reading> readS1 = Arrays.asList(new Reading(15.5, date1), new Reading(16, date2), new Reading(16.5, date3));
+        List<Reading> readS2 = Arrays.asList(new Reading(55, date1), new Reading(85, date2), new Reading(10, date3));
+        List<Reading> readS3 = Arrays.asList(new Reading(5, date1), new Reading(37, date2), new Reading(58, date3));
+        Sensor sensor1 = new Sensor("TemperatureSensor", new Location(41, -7.5, 49), DataType.TEMPERATURE, readS1);
+        Sensor sensor2 = new Sensor("PrecipitationSensor", new Location(41, -7.5, 49), DataType.PRECIPITATION, readS2);
+        Sensor sensor3 = new Sensor("WindSensor", new Location(41, -7.5, 49), DataType.WIND, readS3);
+        GeographicalArea gA1 = new GeographicalArea("Porto", TypeOfGeographicalArea.CITY, new Location(41, -8, 50), Arrays.asList(sensor1, sensor2, sensor3));
+        List<Reading> result = gA1.getLastValuesOfSensorsInGA();
+        assertNotEquals(null, result);
+    }
+
 }
