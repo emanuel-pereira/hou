@@ -20,6 +20,7 @@ public class Location {
         }
 
         if (mCoordinates[1] > 180 || mCoordinates[1] < -180){//valores máx e mín de Longitude em Graus. - = Oeste & + = Este
+            return false;
         }
 
         if (mCoordinates[2] > 8848 || mCoordinates[2] < -12500){//valores máx e mín de Altitude em Metros
