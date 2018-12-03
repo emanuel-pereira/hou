@@ -135,8 +135,8 @@ class SensorTest {
     void checkIfCalculateLinearDistanceBetweenTwoSensorsReturnsExpectedResult() {
         Location locationSensor1=new Location(20,10,15);
         Location locationSensor2=new Location(30,25,20);
-        Sensor sensor1= new Sensor("RainfallSensor1",locationSensor1);
-        Sensor sensor2= new Sensor("RainfallSensor2",locationSensor2);
+        Sensor sensor1= new Sensor("PrecipitationSensor",locationSensor1,DataType.PRECIPITATION);
+        Sensor sensor2= new Sensor("TemperatureSensor",locationSensor2,DataType.TEMPERATURE);
         double expectedResult=18.708286933869708;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertEquals(expectedResult,result);
@@ -146,8 +146,8 @@ class SensorTest {
     void calculateLinearDistanceBetweenTwoSensorsInTheSamePositionReturnsZero() {
         Location locationSensor1=new Location(10,10,10);
         Location locationSensor2=new Location(10,10,10);
-        Sensor sensor1= new Sensor("TemperatureSensor1",locationSensor1);
-        Sensor sensor2= new Sensor("TemperatureSensor2",locationSensor2);
+        Sensor sensor1= new Sensor("TemperatureSensor1",locationSensor1,DataType.TEMPERATURE);
+        Sensor sensor2= new Sensor("TemperatureSensor2",locationSensor2,DataType.TEMPERATURE);
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertEquals(expectedResult,result);
@@ -157,8 +157,8 @@ class SensorTest {
     void checkIfCalculateLinearDistanceBetweenTwoSensorsDoesNotReturnZero() {
         Location locationSensor1=new Location(20,10,15);
         Location locationSensor2=new Location(30,25,20);
-        Sensor sensor1= new Sensor("WindSensor1",locationSensor1);
-        Sensor sensor2= new Sensor("WindSensor2",locationSensor2);
+        Sensor sensor1= new Sensor("WindSensor1",locationSensor1,DataType.WIND);
+        Sensor sensor2= new Sensor("WindSensor2",locationSensor2,DataType.WIND);
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertNotEquals(expectedResult,result);
@@ -168,14 +168,14 @@ class SensorTest {
     void addReadingValue() {
         Location locationSensor1=new Location(20,10,15);
         Location locationSensor2=new Location(30,25,20);
-        Sensor sensor1= new Sensor("WindSensor1",locationSensor1);
-        Sensor sensor2= new Sensor("WindSensor2",locationSensor2);
+        Sensor sensor1= new Sensor("WindSensor1",locationSensor1,DataType.WIND);
+        Sensor sensor2= new Sensor("WindSensor2",locationSensor2,DataType.WIND);
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertNotEquals(expectedResult,result);
     }
 
-    //FUNCIONALIDADE 3
+
 
     @Test
     void getLastReadingOfSensor() {
@@ -190,12 +190,12 @@ class SensorTest {
         Reading readingDate2 = new Reading (10, date2);
         Reading expectedReading = new Reading (8, date3);
 
-        Sensor sensor1 = new Sensor ("Temp131");
-        sensor1.addReadingValue (readingDate1);
-        sensor1.addReadingValue (readingDate2);
-        sensor1.addReadingValue (expectedReading);
+        Sensor sensor2 = new Sensor ("Temp131");
+        sensor2.addReading(readingDate1);
+        sensor2.addReading(readingDate2);
+        sensor2.addReading(expectedReading);
 
-        Reading result = sensor1.getListReadingLastValuePerSensor (sensor1);
+        Reading result = sensor2.getLastReadingPerSensor();
 
         assertEquals(expectedReading, result);
     }
@@ -214,11 +214,11 @@ class SensorTest {
         Reading expectedReading = new Reading (8, date3);
 
         Sensor sensor1 = new Sensor ("Temp131");
-        sensor1.addReadingValue (readingDate1);
-        sensor1.addReadingValue (readingDate2);
-        sensor1.addReadingValue (expectedReading);
+        sensor1.addReading(readingDate1);
+        sensor1.addReading(readingDate2);
+        sensor1.addReading(expectedReading);
 
-        Reading result = sensor1.getListReadingLastValuePerSensor (sensor1);
+        Reading result = sensor1.getLastReadingPerSensor();
 
         assertNotEquals(readingDate2, result);
     }
