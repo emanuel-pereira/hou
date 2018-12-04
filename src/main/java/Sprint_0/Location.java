@@ -39,17 +39,6 @@ public class Location {
         return linearDistance;
     }
 
-
-   /* public void setLocation(double[] inputCoordinates){
-        this.mCoordinates = inputCoordinates;
-        if (this.checkIfInputValid() == true){
-            _latitude = mCoordinates[0];
-            _longitude = mCoordinates[1];
-            _altitude = mCoordinates[2];
-        }
-
-    }*/
-
     public double[] getLocation (){
         return this.mCoordinates;
     }
