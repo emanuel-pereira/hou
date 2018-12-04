@@ -178,12 +178,12 @@ class SensorTest {
 
 
     @Test
-    void getLastReadingOfSensor() {
+    void getLastReadingOfSensorIfThreeReadings() {
         GregorianCalendar cL1 = new GregorianCalendar(2018,11,27,21,00);
         Date date1 = cL1.getTime();
-        GregorianCalendar cL2 = new GregorianCalendar(2018,11,27,20,00);
+        GregorianCalendar cL2 = new GregorianCalendar(2018,11,27,22,00);
         Date date2 = cL2.getTime();
-        GregorianCalendar cL3 = new GregorianCalendar(2018,11,27,20,00);
+        GregorianCalendar cL3 = new GregorianCalendar(2018,11,27,23,00);
         Date date3 = cL3.getTime();
 
         Reading readingDate1 = new Reading (11, date1);
@@ -204,9 +204,9 @@ class SensorTest {
     void getLastReadingOfSensorIfWrongExpectedResult() {
         GregorianCalendar cL1 = new GregorianCalendar(2018,11,27,21,00);
         Date date1 = cL1.getTime();
-        GregorianCalendar cL2 = new GregorianCalendar(2018,11,27,20,00);
+        GregorianCalendar cL2 = new GregorianCalendar(2018,11,27,22,00);
         Date date2 = cL2.getTime();
-        GregorianCalendar cL3 = new GregorianCalendar(2018,11,27,20,00);
+        GregorianCalendar cL3 = new GregorianCalendar(2018,11,27,23,00);
         Date date3 = cL3.getTime();
 
         Reading readingDate1 = new Reading (11, date1);
@@ -221,6 +221,21 @@ class SensorTest {
         Reading result = sensor1.getLastReadingPerSensor();
 
         assertNotEquals(readingDate2, result);
+    }
+
+    @Test
+    void getLastReadingOfSensorIfOneReading() {
+        GregorianCalendar cL1 = new GregorianCalendar(2018,11,27,21,00);
+        Date date1 = cL1.getTime();
+
+        Reading expectedReading = new Reading (8, date1);
+
+        Sensor sensor1 = new Sensor ("Temp132");
+        sensor1.addReading (expectedReading);
+
+        Reading result = sensor1.getLastReadingPerSensor ();
+
+        assertEquals(expectedReading, result);
     }
 
 }
