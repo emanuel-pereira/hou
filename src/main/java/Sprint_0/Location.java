@@ -35,7 +35,7 @@ public class Location {
     public double calcLinearDistanceBetweenTwoPoints(Location location1, Location location2){
         double linearDistance = Math.sqrt(Math.pow(location2.mCoordinates[0]- location1.mCoordinates[0],2)
                 +Math.pow(location2.mCoordinates[1]- location1.mCoordinates[1],2)
-                +Math.pow(location2.mCoordinates[2]-location1.mCoordinates[2],2));
+                +Math.pow(location2.mCoordinates[2]- location1.mCoordinates[2],2));
         return linearDistance;
     }
 
