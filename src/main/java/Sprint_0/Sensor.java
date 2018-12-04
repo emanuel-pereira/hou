@@ -8,8 +8,11 @@ public class Sensor {
     private Date mStartDate;
     private Location mLocation;
     private DataType mDataTypeDesignation; //temp, humidade,
-    private List<Reading> mReading = new ArrayList<>();
+    private List<Reading> mListOfReadings = new ArrayList<>();
 //    java.util.Date temp = new SimpleDateFormat("yyyy-mm-dd HH").parse("2012-07-10 14:58:00.000000");
+
+    public Sensor() {
+        }
 
     /**
      * Constructor requiring to set only a specific designation for any object of type Sensor created
@@ -29,10 +32,26 @@ public class Sensor {
      *
      * @param sensorLocation
      */
-    public Sensor(String designation, Location sensorLocation) {
+    public Sensor(String designation, Location sensorLocation,DataType dataType) {
         if (designationIsValid(designation)) {
             this.mDesignation = designation;
             this.mLocation = sensorLocation;
+            this.mDataTypeDesignation= dataType;
+        }
+    }
+
+    /**
+     * Constructor requiring to set a specific designation and a location for any object of
+     * type Sensor created.
+     *
+     * @param sensorLocation
+     */
+    public Sensor(String designation, Location sensorLocation,DataType dataType, List<Reading> listOfReadings) {
+        if (designationIsValid(designation)) {
+            this.mDesignation = designation;
+            this.mLocation = sensorLocation;
+            this.mDataTypeDesignation= dataType;
+            this.mListOfReadings=listOfReadings;
         }
     }
 
@@ -129,20 +148,31 @@ public class Sensor {
     }
 
 
-    // FUNCIONALIDADE 3
+    /** Method to get the list of readings of a sensor.
+     * @return the list of readings of a sensor
+     */
 
     public List <Reading> getListofReadings() {
-        return this.mReading;
+        return this.mListOfReadings;
     }
+    /**
+     * Method to add a new reading to the list of readings of a sensor.
+     * @param newReading
+     */
 
-    public void addReadingValue(Reading newReading) {
+    public void addReading(Reading newReading) {
         if (!(getListofReadings().contains(newReading)))
-            this.mReading.add(newReading);
+            this.mListOfReadings.add(newReading);
     }
 
-    public Reading getListReadingLastValuePerSensor(Sensor sensor1) {
+    /**
+     *This method looks for the last reading within a list of readings for a sensor.
+     * @return the last reading of a list of readings
+     */
+
+    public Reading getLastReadingPerSensor() {
         Reading lastValue;
-        lastValue = mReading.get(getListofReadings().size()-1);
+        lastValue = mListOfReadings.get(getListofReadings().size()-1);
         return lastValue;
     }
 }

@@ -18,9 +18,10 @@ public class OccupationArea {
     // Methods
     public void setOccupationArea(double inputLenght, double inputWidth) {
 
-        if(positiveLenghtAndWidth(inputLenght,inputWidth)==true) {
-        this.mLenght = inputLenght;
-        this.mWidth = inputWidth;}
+        if (positiveLenghtAndWidth(inputLenght, inputWidth)) {
+            this.mLenght = inputLenght;
+            this.mWidth = inputWidth;
+        }
     }
 
     public double getOccupationArea() {
@@ -29,12 +30,12 @@ public class OccupationArea {
     }
 
     public double calculOccupationArea() {
-            this.mOccupation = this.mLenght * this.mWidth;
+        this.mOccupation = this.mLenght * this.mWidth;
         return this.mOccupation;
     }
 
-    public boolean positiveLenghtAndWidth(double inputLenght,double inputWidth) {
-        if (inputLenght < 0 | inputWidth < 0) return false;
+    public boolean positiveLenghtAndWidth(double inputLenght, double inputWidth) {
+        if (inputLenght < 0 || inputWidth < 0) return false;
         else return true;
     }
 
