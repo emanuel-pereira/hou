@@ -143,7 +143,7 @@ public class Sensor {
 
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
         Location location = new Location();
-        double linearDistanceBetweenTwoSensor = location.calcLinearDistanceBetweenTwoPoints(sensor1.getmLocation(), sensor2.getmLocation());
+        double linearDistanceBetweenTwoSensor = Location.calcLinearDistanceBetweenTwoPoints(sensor1.getmLocation(), sensor2.getmLocation());
         return linearDistanceBetweenTwoSensor;
     }
 
@@ -155,6 +155,7 @@ public class Sensor {
     public List <Reading> getListofReadings() {
         return this.mListOfReadings;
     }
+
     /**
      * Method to add a new reading to the list of readings of a sensor.
      * @param newReading

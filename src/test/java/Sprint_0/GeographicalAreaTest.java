@@ -53,7 +53,7 @@ public class GeographicalAreaTest {
     @Test
     public void defineTypesOfGeograficalAreaCityLocation() {
         TypeOfGeographicalArea tga = TypeOfGeographicalArea.CITY;
-        String geographicalAreaName = "Portugal";
+        String geographicalAreaName = "Porto";
         Location location = new Location(12.3, 35.2, 120);
         GeographicalArea GA = new GeographicalArea(geographicalAreaName, tga, location);
 
@@ -123,4 +123,33 @@ public class GeographicalAreaTest {
         assertNotEquals(null, result);
     }
 
+    @DisplayName("Calculate distance between to geographical areas")
+    @Test
+    void calculateDistanceFromPortoToGaia() {
+        Location locationPorto = new Location(12.3, 35.2, 120);
+        GeographicalArea PortoGA = new GeographicalArea("Porto", TypeOfGeographicalArea.CITY, locationPorto);
+
+        Location locationGaia = new Location(5.3, 33.2, 10);
+        GeographicalArea GaiaGA = new GeographicalArea("Porto", TypeOfGeographicalArea.CITY, locationGaia);
+
+        double expectedDistance = 110.24;
+        double result = PortoGA.calculateDistanceTo(GaiaGA);
+
+        assertEquals(expectedDistance, result, 0.5);
+    }
+
+    @DisplayName("Calculate distance between to geographical areas")
+    @Test
+    void calculateDistanceFromPortoToFunchal() {
+        Location locationPorto = new Location(12.3, 35.2, 120);
+        GeographicalArea PortoGA = new GeographicalArea("Porto", TypeOfGeographicalArea.CITY, locationPorto);
+
+        Location locationGaia = new Location(8, -125, 10);
+        GeographicalArea GaiaGA = new GeographicalArea("Porto", TypeOfGeographicalArea.CITY, locationGaia);
+
+        double expectedDistance = 194.37;
+        double result = PortoGA.calculateDistanceTo(GaiaGA);
+
+        assertEquals(expectedDistance, result, 0.5);
+    }
 }

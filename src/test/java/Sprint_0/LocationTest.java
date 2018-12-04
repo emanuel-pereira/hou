@@ -69,29 +69,27 @@ class LocationTest {
     }
 
     @Test
-    public void calcLinearDistanceBewtweenL1AndL2Test () {
-        Location l = new Location();
+    public void calcLinearDistanceBetweenL1AndL2Test () {
         Location l1 = new Location (41.15,-8.6,83);
         Location l2 = new Location (38.7, -9.1,4);
         //Arrange
         double result;
         double expectedresult = 79.0395;
         //Act
-        result = l.calcLinearDistanceBetweenTwoPoints(l1,l2);
+        result = Location.calcLinearDistanceBetweenTwoPoints(l1,l2);
         //Assert
         assertEquals(expectedresult,result,0.0001);
     }
 
     @Test
-    public void calcLinearDistanceBewtweenL1AndL2TestNotZero () {
-        Location l = new Location();
+    public void calcLinearDistanceBetweenL1AndL2TestNotZero () {
         Location l1 = new Location (41.15,-8.6,83);
         Location l2 = new Location (38.7, -9.1,4);
         //Arrange
         double result;
         double expectedresult = 0;
         //Act
-        result = l.calcLinearDistanceBetweenTwoPoints(l1,l2);
+        result = Location.calcLinearDistanceBetweenTwoPoints(l1,l2);
         //Assert
         assertNotEquals(expectedresult,result);
     }
