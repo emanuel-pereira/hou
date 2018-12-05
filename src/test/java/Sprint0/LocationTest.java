@@ -1,4 +1,4 @@
-package Sprint_0;
+package Sprint0;
 
 import static org.junit.jupiter.api.Assertions.*;
 

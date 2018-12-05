@@ -1,4 +1,4 @@
-package Sprint_0;
+package Sprint0;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -94,9 +94,9 @@ public class GeographicalAreaTest {
         List<Reading> readS1 = Arrays.asList(new Reading(15.5, date1), new Reading(16, date2), new Reading(16.5, date3));
         List<Reading> readS2 = Arrays.asList(new Reading(55, date1), new Reading(85, date2), new Reading(10, date3));
         List<Reading> readS3 = Arrays.asList(new Reading(5, date1), new Reading(37, date2), new Reading(58, date3));
-        Sensor sensor1 = new Sensor("TemperatureSensor", new Location(41, -7.5, 49), DataType.TEMPERATURE, readS1);
-        Sensor sensor2 = new Sensor("PrecipitationSensor", new Location(41, -7.5, 49), DataType.PRECIPITATION, readS2);
-        Sensor sensor3 = new Sensor("WindSensor", new Location(41, -7.5, 49), DataType.WIND, readS3);
+        Sensor sensor1 = new Sensor("TemperatureSensor", date1, new Location(41, -7.5, 49), DataType.TEMPERATURE, readS1);
+        Sensor sensor2 = new Sensor("PrecipitationSensor", date2,new Location(41, -7.5, 49), DataType.PRECIPITATION, readS2);
+        Sensor sensor3 = new Sensor("WindSensor",date3, new Location(41, -7.5, 49), DataType.WIND, readS3);
         GeographicalArea gA1 = new GeographicalArea("Porto", TypeOfGeographicalArea.CITY, new Location(41, -8, 50), Arrays.asList(sensor1, sensor2, sensor3));
         List<Reading> expectedResult = Arrays.asList(sensor1.getLastReadingPerSensor(),sensor2.getLastReadingPerSensor(),sensor3.getLastReadingPerSensor());
         List<Reading> result = gA1.getLastValuesOfSensorsInGA();
@@ -115,9 +115,9 @@ public class GeographicalAreaTest {
         List<Reading> readS1 = Arrays.asList(new Reading(15.5, date1), new Reading(16, date2), new Reading(16.5, date3));
         List<Reading> readS2 = Arrays.asList(new Reading(55, date1), new Reading(85, date2), new Reading(10, date3));
         List<Reading> readS3 = Arrays.asList(new Reading(5, date1), new Reading(37, date2), new Reading(58, date3));
-        Sensor sensor1 = new Sensor("TemperatureSensor", new Location(41, -7.5, 49), DataType.TEMPERATURE, readS1);
-        Sensor sensor2 = new Sensor("PrecipitationSensor", new Location(41, -7.5, 49), DataType.PRECIPITATION, readS2);
-        Sensor sensor3 = new Sensor("WindSensor", new Location(41, -7.5, 49), DataType.WIND, readS3);
+        Sensor sensor1 = new Sensor("TemperatureSensor", date1, new Location(41, -7.5, 49), DataType.TEMPERATURE, readS1);
+        Sensor sensor2 = new Sensor("PrecipitationSensor",date2, new Location(41, -7.5, 49), DataType.PRECIPITATION, readS2);
+        Sensor sensor3 = new Sensor("WindSensor",date3, new Location(41, -7.5, 49), DataType.WIND, readS3);
         GeographicalArea gA1 = new GeographicalArea("Porto", TypeOfGeographicalArea.CITY, new Location(41, -8, 50), Arrays.asList(sensor1, sensor2, sensor3));
         List<Reading> result = gA1.getLastValuesOfSensorsInGA();
         assertNotEquals(null, result);

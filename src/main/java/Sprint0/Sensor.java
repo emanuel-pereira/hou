@@ -1,4 +1,4 @@
-package Sprint_0;
+package Sprint0;
 
 import java.util.*;
 
@@ -9,7 +9,6 @@ public class Sensor {
     private Location mLocation;
     private DataType mDataTypeDesignation; //temp, humidade,
     private List<Reading> mListOfReadings = new ArrayList<>();
-//    java.util.Date temp = new SimpleDateFormat("yyyy-mm-dd HH").parse("2012-07-10 14:58:00.000000");
 
     public Sensor() {
         }
@@ -46,9 +45,10 @@ public class Sensor {
      *
      * @param sensorLocation
      */
-    public Sensor(String designation, Location sensorLocation,DataType dataType, List<Reading> listOfReadings) {
+    public Sensor(String designation, Date startDate, Location sensorLocation,DataType dataType, List<Reading> listOfReadings) {
         if (designationIsValid(designation)) {
             this.mDesignation = designation;
+            this.mStartDate = startDate;
             this.mLocation = sensorLocation;
             this.mDataTypeDesignation= dataType;
             this.mListOfReadings=listOfReadings;
