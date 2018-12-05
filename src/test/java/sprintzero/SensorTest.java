@@ -1,4 +1,4 @@
-package sprint0;
+package sprintzero;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -282,5 +282,76 @@ class SensorTest {
         //Assert
         assertNotEquals(expectedResult,result);
     }
+
+    @Test
+    @DisplayName("Check if monthly average returns zero if there are no readings")
+    void getMonthlyAverageReadingsNoReadings() {
+        //Arrange
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,00), new Location(40, 20,10),DataType.VISIBILITY);
+
+        //Act
+        double result = s1.getMonthlyAverageReadings(9);
+        double expectedResult= Double.NaN;
+
+        //Assert
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    @DisplayName("Test to verify the minimum reading in October")
+    public void getMonthlyMinimumReading() {
+
+
+        //Arrange
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,00), new Location(40, 20,10),DataType.VISIBILITY);
+
+        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 00));
+        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 00));
+        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 00));
+        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 00));
+        Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 00));
+
+        s1.addReading(r1);
+        s1.addReading(r2);
+        s1.addReading(r3);
+        s1.addReading(r4);
+        s1.addReading(r5);
+
+        //Act
+        double result = s1.getMonthlyMinimumReading(10);
+        double expectedResult = 13.4;
+
+        //Assert
+        assertEquals(expectedResult,result,0.1);
+    }
+
+    @Test
+    @DisplayName("Test to verify the minimum reading in October")
+    public void getMonthlyMinimumReadingNotEquals() {
+
+
+        //Arrange
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,00), new Location(40, 20,10),DataType.VISIBILITY);
+
+        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 00));
+        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 00));
+        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 00));
+        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 00));
+        Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 00));
+
+        s1.addReading(r1);
+        s1.addReading(r2);
+        s1.addReading(r3);
+        s1.addReading(r4);
+        s1.addReading(r5);
+
+        //Act
+        double result = s1.getMonthlyMinimumReading(10);
+        double expectedResult = 10;
+
+        //Assert
+        assertNotEquals(expectedResult,result);
+    }
+
 
 }

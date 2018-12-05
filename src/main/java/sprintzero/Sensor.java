@@ -1,4 +1,4 @@
-package sprint0;
+package sprintzero;
 
 import java.util.*;
 
@@ -185,9 +185,31 @@ public class Sensor {
                 sum += mListOfReadings.get(index).returnValueOfReading();
                 counter++;
             }
+
+        }
+
+        if (counter==0) {
+
+            return Double.NaN;
         }
 
         return sum / counter;
+
+    }
+
+    public double getMonthlyMinimumReading (int monthOfReadings) {
+
+        double minimum = mListOfReadings.get(0).returnValueOfReading();
+
+
+        for(int index=1; index<mListOfReadings.size(); index++) {
+            if (mListOfReadings.get(index).getMonthOfReading()==monthOfReadings){
+              if (mListOfReadings.get(index).returnValueOfReading() < minimum){
+                  minimum = mListOfReadings.get(index).returnValueOfReading();
+              }
+            }
+        }
+        return minimum;
 
     }
 

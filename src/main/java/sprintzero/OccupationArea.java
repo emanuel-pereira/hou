@@ -1,4 +1,4 @@
-package sprint0;
+package sprintzero;
 
 public class OccupationArea {
 
@@ -44,6 +44,6 @@ public class OccupationArea {
         this.mLenght = inputLenghtMeters * 0.001;
     }
 
-
 }
+
 //metodo para devolver occupation area com string da GA.

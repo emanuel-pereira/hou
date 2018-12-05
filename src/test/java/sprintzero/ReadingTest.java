@@ -1,10 +1,9 @@
-package sprint0;
+package sprintzero;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;

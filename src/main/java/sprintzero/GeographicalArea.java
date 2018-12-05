@@ -1,4 +1,4 @@
-package sprint0;
+package sprintzero;
 
 
 import java.util.ArrayList;
@@ -98,5 +98,11 @@ public class GeographicalArea {
     private double calculateDistance(Location aLocation) {
         return Location.calcLinearDistanceBetweenTwoPoints(this.mLocation, aLocation);
     }
+
+
 }
+
+
+
+
 

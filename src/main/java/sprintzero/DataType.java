@@ -1,4 +1,4 @@
-package sprint0;
+package sprintzero;
 
 public enum DataType {
     TEMPERATURE, PRECIPITATION, HUMIDITY, WIND, VISIBILITY

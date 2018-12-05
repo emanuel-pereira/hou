@@ -1,5 +1,8 @@
-package sprint0;
+package sprintzero;
 
+/**
+ * This is one method to enum types of geographical area.
+ */
 
 public enum TypeOfGeographicalArea {
 
