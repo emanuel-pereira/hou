@@ -12,32 +12,36 @@ public class Location {
     }
 
 
-    public boolean checkIfInputValid(){
-        if (mCoordinates[0] > 90 || mCoordinates[0] < -90) {//valores máx e mín de Latitude em Graus. - = Sul & + = Norte
+    public boolean checkIfInputValid() {
+        if (mCoordinates[0] > 90) {//valores máx e mín de Latitude em Graus. - = Sul & + = Norte
             return false;
         }
-
-        if (mCoordinates[1] > 180 || mCoordinates[1] < -180){//valores máx e mín de Longitude em Graus. - = Oeste & + = Este
+        if (mCoordinates[0] < -90) {
             return false;
         }
-
-        if (mCoordinates[2] > 8848 || mCoordinates[2] < -12500){//valores máx e mín de Altitude em Metros
+        if (mCoordinates[1] > 180) {//valores máx e mín de Longitude em Graus. - = Oeste & + = Este
             return false;
         }
-
-        else {
+        if (mCoordinates[1] < -180) {
+            return false;
+        }
+        if (mCoordinates[2] > 8848) {//valores máx e mín de Altitude em Metros
+            return false;
+        }
+        if (mCoordinates[2] < -12500) {
+            return false;
+        }
             return true;
-        }
     }
 
-    public static double calcLinearDistanceBetweenTwoPoints(Location location1, Location location2){
-        double linearDistance = Math.sqrt(Math.pow(location2.mCoordinates[0]- location1.mCoordinates[0],2)
-                +Math.pow(location2.mCoordinates[1]- location1.mCoordinates[1],2)
-                +Math.pow(location2.mCoordinates[2]- location1.mCoordinates[2],2));
+    public static double calcLinearDistanceBetweenTwoPoints(Location location1, Location location2) {
+        double linearDistance = Math.sqrt (Math.pow (location2.mCoordinates[0] - location1.mCoordinates[0], 2)
+                + Math.pow (location2.mCoordinates[1] - location1.mCoordinates[1], 2)
+                + Math.pow (location2.mCoordinates[2] - location1.mCoordinates[2], 2));
         return linearDistance;
     }
 
-    public double[] getLocation (){
+    public double[] getLocation() {
         return this.mCoordinates;
     }
 
