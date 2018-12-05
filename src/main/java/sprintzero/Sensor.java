@@ -1,5 +1,6 @@
 package sprintzero;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 
@@ -179,33 +180,24 @@ public class Sensor {
 
         double sum = 0;
         int counter = 0;
-
-
         for (int index = 0; index < mListOfReadings.size(); index++) {
             if (mListOfReadings.get(index).getMonthOfReading() == monthOfReadings) {
-
                 sum += mListOfReadings.get(index).returnValueOfReading();
                 counter++;
             }
-
         }
-
         if (counter == 0) {
-
             return Double.NaN;
         }
-
         return sum / counter;
-
     }
 
     public double getMonthlyMinimumReading(int monthOfReadings) {
 
-        double minimum = mListOfReadings.get(0).returnValueOfReading();
-
-
-        for (int index = 1; index < mListOfReadings.size(); index++) {
-            if (mListOfReadings.get(index).getMonthOfReading() == monthOfReadings) {
+        double minimum = Double.NaN;
+        if (checkifMonthisOnReadingList(monthOfReadings) == true) {
+            minimum = mListOfReadings.get(0).returnValueOfReading();
+            for (int index = 0; index < mListOfReadings.size(); index++) {
                 if (mListOfReadings.get(index).returnValueOfReading() < minimum) {
                     minimum = mListOfReadings.get(index).returnValueOfReading();
                 }
@@ -218,11 +210,16 @@ public class Sensor {
         for (int index = 0; index < mListOfReadings.size(); index++) {
             if (mListOfReadings.get(index).getMonthOfReading() == monthOfReadings)
                 return true;
-            else
-                return false;
         }
         return false;
     }
 
-
+    public double[] getMonthlyAverageReadingList() {
+        double[] Months = new double[12];
+        for (int i = 0; i < 12; i++) {
+            if (checkifMonthisOnReadingList(i+1) == true)
+                Months[i] = getMonthlyAverageReadings(i+1);
+        }
+        return Months;
+    }
 }
