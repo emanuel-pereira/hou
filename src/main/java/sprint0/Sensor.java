@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Sensor {
     private String mDesignation;
-    private Date mStartDate;
+    private Calendar mStartDate;
     private Location mLocation;
     private DataType mDataTypeDesignation; //temp, humidade,
     private List<Reading> mListOfReadings = new ArrayList<>();
@@ -31,7 +31,7 @@ public class Sensor {
      *
      * @param sensorLocation
      */
-    public Sensor(String designation, Date startDate, Location sensorLocation,DataType dataType) {
+    public Sensor(String designation, Calendar startDate, Location sensorLocation,DataType dataType) {
         if (designationIsValid(designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
@@ -46,7 +46,7 @@ public class Sensor {
      *
      * @param sensorLocation
      */
-    public Sensor(String designation, Date startDate, Location sensorLocation,DataType dataType, List<Reading> listOfReadings) {
+    public Sensor(String designation, Calendar startDate, Location sensorLocation,DataType dataType, List<Reading> listOfReadings) {
         if (designationIsValid(designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
@@ -67,10 +67,7 @@ public class Sensor {
      * @return
      */
     public boolean designationIsValid(String designation) {
-        if (designation == null || designation.trim ().isEmpty ()) {
-            return false;
-        }
-        return true;
+        return designation != null && !designation.trim().isEmpty();
     }
 
 
@@ -175,4 +172,24 @@ public class Sensor {
         lastValue = mListOfReadings.get(getListOfReadings ().size()-1);
         return lastValue;
     }
+
+    public double getMonthlyAverageReadings(int monthOfReadings) {
+
+        double sum = 0;
+        int counter = 0;
+
+
+        for (int index = 0; index < mListOfReadings.size(); index++) {
+            if (mListOfReadings.get(index).getMonthOfReading() == monthOfReadings) {
+
+                sum += mListOfReadings.get(index).returnValueOfReading();
+                counter++;
+            }
+        }
+
+        return sum / counter;
+
+    }
+
+
 }

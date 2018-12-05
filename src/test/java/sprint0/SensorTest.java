@@ -1,5 +1,6 @@
 package sprint0;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
@@ -113,14 +114,14 @@ class SensorTest {
 
     @Test
     void checkIfCalculateLinearDistanceBetweenTwoSensorsReturnsExpectedResult() {
-        GregorianCalendar cL1 = new GregorianCalendar(2018, 11, 27, 9, 0);
-        Date date1 = cL1.getTime();
-        GregorianCalendar cL2 = new GregorianCalendar(2018, 11, 28, 12, 0);
-        Date date2 = cL2.getTime();
+        GregorianCalendar rTime1 = new GregorianCalendar(2018, 11, 27, 9, 0);
+
+        GregorianCalendar rTime2 = new GregorianCalendar(2018, 11, 28, 12, 0);
+
         Location locationSensor1=new Location(20,10,15);
         Location locationSensor2=new Location(30,25,20);
-        Sensor sensor1= new Sensor("PrecipitationSensor",date1,locationSensor1,DataType.PRECIPITATION);
-        Sensor sensor2= new Sensor("TemperatureSensor",date2,locationSensor2,DataType.TEMPERATURE);
+        Sensor sensor1= new Sensor("PrecipitationSensor",rTime1,locationSensor1,DataType.PRECIPITATION);
+        Sensor sensor2= new Sensor("TemperatureSensor",rTime2,locationSensor2,DataType.TEMPERATURE);
         double expectedResult=18.708286933869708;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertEquals(expectedResult,result);
@@ -128,14 +129,14 @@ class SensorTest {
 
     @Test
     void calculateLinearDistanceBetweenTwoSensorsInTheSamePositionReturnsZero() {
-        GregorianCalendar cL1 = new GregorianCalendar(2018, 11, 27, 9, 0);
-        Date date1 = cL1.getTime();
-        GregorianCalendar cL2 = new GregorianCalendar(2018, 11, 28, 12, 0);
-        Date date2 = cL2.getTime();
+        GregorianCalendar rTime1 = new GregorianCalendar(2018, 11, 27, 9, 0);
+
+        GregorianCalendar rTime2 = new GregorianCalendar(2018, 11, 28, 12, 0);
+
         Location locationSensor1=new Location(10,10,10);
         Location locationSensor2=new Location(10,10,10);
-        Sensor sensor1= new Sensor("TemperatureSensor1",date1,locationSensor1,DataType.TEMPERATURE);
-        Sensor sensor2= new Sensor("TemperatureSensor2",date2,locationSensor2,DataType.TEMPERATURE);
+        Sensor sensor1= new Sensor("TemperatureSensor1",rTime1,locationSensor1,DataType.TEMPERATURE);
+        Sensor sensor2= new Sensor("TemperatureSensor2",rTime2,locationSensor2,DataType.TEMPERATURE);
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertEquals(expectedResult,result);
@@ -143,14 +144,14 @@ class SensorTest {
 
     @Test
     void checkIfCalculateLinearDistanceBetweenTwoSensorsDoesNotReturnZero() {
-        GregorianCalendar cL1 = new GregorianCalendar(2018, 11, 27, 9, 0);
-        Date date1 = cL1.getTime();
-        GregorianCalendar cL2 = new GregorianCalendar(2018, 11, 28, 12, 0);
-        Date date2 = cL2.getTime();
+        GregorianCalendar rTime1 = new GregorianCalendar(2018, 11, 27, 9, 0);
+
+        GregorianCalendar rTime2 = new GregorianCalendar(2018, 11, 28, 12, 0);
+
         Location locationSensor1=new Location(20,10,15);
         Location locationSensor2=new Location(30,25,20);
-        Sensor sensor1= new Sensor("WindSensor1",date1,locationSensor1,DataType.WIND);
-        Sensor sensor2= new Sensor("WindSensor2",date2,locationSensor2,DataType.WIND);
+        Sensor sensor1= new Sensor("WindSensor1",rTime1,locationSensor1,DataType.WIND);
+        Sensor sensor2= new Sensor("WindSensor2",rTime2,locationSensor2,DataType.WIND);
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertNotEquals(expectedResult,result);
@@ -158,14 +159,14 @@ class SensorTest {
 
     @Test
     void addReadingValue() {
-        GregorianCalendar cL1 = new GregorianCalendar(2018, 11, 27, 9, 0);
-        Date date1 = cL1.getTime();
-        GregorianCalendar cL2 = new GregorianCalendar(2018, 11, 28, 12, 0);
-        Date date2 = cL2.getTime();
+        GregorianCalendar rTime1 = new GregorianCalendar(2018, 11, 27, 9, 0);
+
+        GregorianCalendar rTime2 = new GregorianCalendar(2018, 11, 28, 12, 0);
+
         Location locationSensor1=new Location(20,10,15);
         Location locationSensor2=new Location(30,25,20);
-        Sensor sensor1= new Sensor("WindSensor1",date1,locationSensor1,DataType.WIND);
-        Sensor sensor2= new Sensor("WindSensor2",date2,locationSensor2,DataType.WIND);
+        Sensor sensor1= new Sensor("WindSensor1",rTime1,locationSensor1,DataType.WIND);
+        Sensor sensor2= new Sensor("WindSensor2",rTime2,locationSensor2,DataType.WIND);
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertNotEquals(expectedResult,result);
@@ -175,16 +176,16 @@ class SensorTest {
 
     @Test
     void getLastReadingOfSensorIfThreeReadings() {
-        GregorianCalendar cL1 = new GregorianCalendar(2018,11,27,21,0);
-        Date date1 = cL1.getTime();
-        GregorianCalendar cL2 = new GregorianCalendar(2018,11,27,22,0);
-        Date date2 = cL2.getTime();
-        GregorianCalendar cL3 = new GregorianCalendar(2018,11,27,23,0);
-        Date date3 = cL3.getTime();
+        GregorianCalendar rTime1 = new GregorianCalendar(2018,11,27,21,0);
 
-        Reading readingDate1 = new Reading (11, date1);
-        Reading readingDate2 = new Reading (10, date2);
-        Reading expectedReading = new Reading (8, date3);
+        GregorianCalendar rTime2 = new GregorianCalendar(2018,11,27,22,0);
+
+        GregorianCalendar rTime3 = new GregorianCalendar(2018,11,27,23,0);
+
+
+        Reading readingDate1 = new Reading (11, rTime1);
+        Reading readingDate2 = new Reading (10, rTime2);
+        Reading expectedReading = new Reading (8, rTime3);
 
         Sensor sensor2 = new Sensor ("Temp131");
         sensor2.addReading(readingDate1);
@@ -198,16 +199,15 @@ class SensorTest {
 
     @Test
     void getLastReadingOfSensorIfWrongExpectedResult() {
-        GregorianCalendar cL1 = new GregorianCalendar(2018,11,27,21,0);
-        Date date1 = cL1.getTime();
-        GregorianCalendar cL2 = new GregorianCalendar(2018,11,27,22,0);
-        Date date2 = cL2.getTime();
-        GregorianCalendar cL3 = new GregorianCalendar(2018,11,27,23,0);
-        Date date3 = cL3.getTime();
+        GregorianCalendar rTime1 = new GregorianCalendar(2018,11,27,21,0);
 
-        Reading readingDate1 = new Reading (11, date1);
-        Reading readingDate2 = new Reading (10, date2);
-        Reading expectedReading = new Reading (8, date3);
+        GregorianCalendar rTime2 = new GregorianCalendar(2018,11,27,22,0);
+
+        GregorianCalendar rTime3 = new GregorianCalendar(2018,11,27,23,0);
+
+        Reading readingDate1 = new Reading (11, rTime1);
+        Reading readingDate2 = new Reading (10, rTime2);
+        Reading expectedReading = new Reading (8, rTime3);
 
         Sensor sensor1 = new Sensor ("Temp131");
         sensor1.addReading(readingDate1);
@@ -222,9 +222,9 @@ class SensorTest {
     @Test
     void getLastReadingOfSensorIfOneReading() {
         GregorianCalendar cL1 = new GregorianCalendar(2018,11,27,21,0);
-        Date date1 = cL1.getTime();
 
-        Reading expectedReading = new Reading (8, date1);
+
+        Reading expectedReading = new Reading (8, cL1);
 
         Sensor sensor1 = new Sensor ("Temp132");
         sensor1.addReading (expectedReading);
@@ -232,6 +232,55 @@ class SensorTest {
         Reading result = sensor1.getLastReadingPerSensor ();
 
         assertEquals(expectedReading, result);
+    }
+
+
+    @Test
+    @DisplayName("Check monthly average value in September is 31.7")
+    void getMonthlyAverageReadings() {
+        //Arrange
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,00), new Location(40, 20,10),DataType.VISIBILITY);
+
+        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 00));
+        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 00));
+        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 00));
+        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 00));
+
+        s1.addReading(r1);
+        s1.addReading(r2);
+        s1.addReading(r3);
+        s1.addReading(r4);
+
+        //Act
+        double result = s1.getMonthlyAverageReadings(9);
+        double expectedResult= 31.7;
+
+        //Assert
+        assertEquals(expectedResult,result,0.1);
+    }
+
+    @Test
+    @DisplayName("Check if monthly average value is not equal to expected")
+    void getMonthlyAverageReadingsNotEquals() {
+        //Arrange
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,00), new Location(40, 20,10),DataType.VISIBILITY);
+
+        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 00));
+        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 00));
+        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 00));
+        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 00));
+
+        s1.addReading(r1);
+        s1.addReading(r2);
+        s1.addReading(r3);
+        s1.addReading(r4);
+
+        //Act
+        double result = s1.getMonthlyAverageReadings(9);
+        double expectedResult= 20;
+
+        //Assert
+        assertNotEquals(expectedResult,result);
     }
 
 }
