@@ -138,7 +138,7 @@ public class GeographicalAreaTest {
         assertEquals(expectedDistance, result, 0.5);
     }
 
-    @DisplayName("Calculate distance between to geographical areas")
+    @DisplayName("Calculate distance between two geographical areas")
     @Test
     void calculateDistanceFromPortoToFunchal() {
         Location locationPorto = new Location(12.3, 35.2, 120);
@@ -153,3 +153,5 @@ public class GeographicalAreaTest {
         assertEquals(expectedDistance, result, 0.5);
     }
 }
+
+

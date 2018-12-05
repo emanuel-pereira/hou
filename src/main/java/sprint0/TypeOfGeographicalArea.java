@@ -1,7 +1,7 @@
 package sprint0;
 
 /**
- * This is the method to enum types.
+ * This is one method to enum types of geographical area.
  */
 
 public enum TypeOfGeographicalArea {

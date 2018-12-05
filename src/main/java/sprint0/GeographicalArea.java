@@ -102,5 +102,11 @@ public class GeographicalArea {
         linearDistance =  Location.calcLinearDistanceBetweenTwoPoints(this.mLocation, aLocation);
         return linearDistance;
     }
+
+
 }
+
+
+
+
 
