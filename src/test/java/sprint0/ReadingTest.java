@@ -1,4 +1,4 @@
-package Sprint0;
+package sprint0;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

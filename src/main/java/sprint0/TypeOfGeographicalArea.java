@@ -1,4 +1,4 @@
-package Sprint0;
+package sprint0;
 
 
 public enum TypeOfGeographicalArea {

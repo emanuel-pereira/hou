@@ -1,11 +1,9 @@
-package Sprint0;
+package sprint0;
 
 public class Location {
 
 
     private double[] mCoordinates = new double[3];
-
-    public Location() { }
 
     public Location(double latitude, double longitude, double altitude) {
         this.mCoordinates[0] = latitude;//Coordenadas GPS devem ler-se Latitude primeiro

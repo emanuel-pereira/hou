@@ -1,4 +1,4 @@
-package Sprint0;
+package sprint0;
 
 import java.util.*;
 
@@ -31,9 +31,10 @@ public class Sensor {
      *
      * @param sensorLocation
      */
-    public Sensor(String designation, Location sensorLocation,DataType dataType) {
+    public Sensor(String designation, Date startDate, Location sensorLocation,DataType dataType) {
         if (designationIsValid(designation)) {
             this.mDesignation = designation;
+            this.mStartDate = startDate;
             this.mLocation = sensorLocation;
             this.mDataTypeDesignation= dataType;
         }
@@ -66,10 +67,10 @@ public class Sensor {
      * @return
      */
     public boolean designationIsValid(String designation) {
-        if (designation != null && !(designation.equals(""))) {
-            return designation.matches("[a-zA-Z0-9]*") && designation.length() < 40;
+        if (designation.equals (null)  || designation.trim ().isEmpty ()) {
+            return false;
         }
-        return false;
+        return true;
     }
 
 
@@ -79,10 +80,12 @@ public class Sensor {
      * @param designation
      */
 
-    public void setmDesignation(String designation) {
+    public boolean setDesignation(String designation) {
         if (designationIsValid(designation)) {
             this.mDesignation = designation;
+            return true;
         }
+        return false;
     }
 
     /**
@@ -90,7 +93,7 @@ public class Sensor {
      *
      * @return
      */
-    public String getmDesignation() {
+    public String getDesignation() {
         return this.mDesignation;
     }
 
@@ -100,10 +103,8 @@ public class Sensor {
      * @param location
      */
 
-    public void setmLocation(Location location) {
-        {
+    public void setLocation(Location location) {
             this.mLocation = location;
-        }
     }
 
     /**
@@ -111,7 +112,7 @@ public class Sensor {
      *
      * @return
      */
-    public Location getmLocation() {
+    public Location getLocation() {
         return this.mLocation;
     }
 
@@ -120,7 +121,7 @@ public class Sensor {
      *
      * @param dataType
      */
-    public void setmDataTypeDesignation(DataType dataType) {
+    public void setDataTypeDesignation(DataType dataType) {
         this.mDataTypeDesignation = dataType;
     }
 
@@ -129,7 +130,7 @@ public class Sensor {
      *
      * @return
      */
-    public DataType getmDataTypeDesignation() {
+    public DataType getDataTypeDesignation() {
         return this.mDataTypeDesignation;
     }
 
@@ -142,9 +143,7 @@ public class Sensor {
      */
 
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
-        Location location = new Location();
-        double linearDistanceBetweenTwoSensor = Location.calcLinearDistanceBetweenTwoPoints(sensor1.getmLocation(), sensor2.getmLocation());
-        return linearDistanceBetweenTwoSensor;
+        return Location.calcLinearDistanceBetweenTwoPoints(sensor1.getLocation (), sensor2.getLocation ());
     }
 
 
@@ -152,7 +151,7 @@ public class Sensor {
      * @return the list of readings of a sensor
      */
 
-    public List <Reading> getListofReadings() {
+    public List <Reading> getListOfReadings() {
         return this.mListOfReadings;
     }
 
@@ -162,7 +161,7 @@ public class Sensor {
      */
 
     public void addReading(Reading newReading) {
-        if (!(getListofReadings().contains(newReading)))
+        if (!(getListOfReadings ().contains(newReading)))
             this.mListOfReadings.add(newReading);
     }
 
@@ -173,7 +172,7 @@ public class Sensor {
 
     public Reading getLastReadingPerSensor() {
         Reading lastValue;
-        lastValue = mListOfReadings.get(getListofReadings().size()-1);
+        lastValue = mListOfReadings.get(getListOfReadings ().size()-1);
         return lastValue;
     }
 }

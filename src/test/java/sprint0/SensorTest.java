@@ -1,4 +1,4 @@
-package Sprint0;
+package sprint0;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,54 +16,34 @@ class SensorTest {
         String designation= "";
         String expectedResult="Sensor01TempMat";
         String result;
-        tempSensor.setmDesignation(designation);
-        result=tempSensor.getmDesignation();
+        tempSensor.setDesignation (designation);
+        result=tempSensor.getDesignation ();
         assertEquals(expectedResult,result);
     }
 
     @Test
     public void testIfRenamingASensorWithValidStringUpdatesSensorDesignation(){
-        Sensor tempSensor= new Sensor("");
+        Sensor tempSensor= new Sensor(" ");
         String designation= "SensorVisibilityLisbon";
         String expectedResult="SensorVisibilityLisbon";
         String result;
-        tempSensor.setmDesignation(designation);
-        result=tempSensor.getmDesignation();
+        tempSensor.setDesignation (designation);
+        result=tempSensor.getDesignation ();
         assertEquals(expectedResult,result);
     }
 
-    @Test
-    public void testIf1RenamingASensorWithValidStringUpdatesSensorDesignation(){
-        Sensor tempSensor= new Sensor("SensorVisibilityLisbon");
-        String designation= null;
-        String expectedResult="SensorVisibilityLisbon";
-        String result;
-        tempSensor.setmDesignation(designation);
-        result=tempSensor.getmDesignation();
-        assertEquals(expectedResult,result);
-    }
 
 @Test
     public void testIfRenamingASensorWith1ValidStringUpdatesSensorDesignation(){
         Sensor tempSensor= new Sensor("SensorVisibilityLisboa");
-        String designation= "SensorVisibilityLisbonnnnnnnnnnnnnnnnnnnn";
+        String designation= "SensorVisibilityLisboa";
         String expectedResult="SensorVisibilityLisboa";
         String result;
-        tempSensor.setmDesignation(designation);
-        result=tempSensor.getmDesignation();
+        tempSensor.setDesignation (designation);
+        result=tempSensor.getDesignation ();
         assertEquals(expectedResult,result);
     }
 
-    @Test
-    public void testIfRenamingSensorWithInvalidStringDoesNotChangeSensorOriginalDesignation(){
-        Sensor tempSensor= new Sensor("WindSensorSantarem");
-        String designation= "Wind_SensorSantarém";
-        String expectedResult="WindSensorSantarem";
-        String result;
-        tempSensor.setmDesignation(designation);
-        result=tempSensor.getmDesignation();
-        assertEquals(expectedResult,result);
-    }
 
     @Test
     public void testIfRenamingSensorWithValidStringDoesNotReturnTheOriginalStringDesignation(){
@@ -71,8 +51,8 @@ class SensorTest {
         String designation= "WindSensorLisboa";
         String expectedResult="WindSensorSantarem";
         String result;
-        tempSensor.setmDesignation(designation);
-        result=tempSensor.getmDesignation();
+        tempSensor.setDesignation (designation);
+        result=tempSensor.getDesignation ();
         assertNotEquals(expectedResult,result);
     }
 
@@ -81,7 +61,7 @@ class SensorTest {
         Sensor rainfallSensor = new Sensor("RainfallSensorOfNowhere");
         Location expectedResult= null;
         Location result;
-        result=rainfallSensor.getmLocation();
+        result=rainfallSensor.getLocation ();
         assertEquals(expectedResult,result);}
 
 
@@ -91,8 +71,8 @@ class SensorTest {
         Location loc1 = new Location(30,-12,62);
         Location expectedResult= loc1;
         Location result;
-        rainfallSensor.setmLocation(loc1);
-        result=rainfallSensor.getmLocation();
+        rainfallSensor.setLocation (loc1);
+        result=rainfallSensor.getLocation ();
         assertEquals(expectedResult,result);
     }
 
@@ -102,7 +82,7 @@ class SensorTest {
         Sensor visibilitySensor=new Sensor("WindSensorOfCoimbra");
         DataType expectedResult= null;
         DataType result;
-        result=visibilitySensor.getmDataTypeDesignation();
+        result=visibilitySensor.getDataTypeDesignation ();
         assertEquals(expectedResult,result);
     }
 
@@ -112,8 +92,8 @@ class SensorTest {
        DataType newType = DataType.VISIBILITY;
         DataType expectedResult= newType;
         DataType result;
-        visibilitySensor.setmDataTypeDesignation(newType);
-        result=visibilitySensor.getmDataTypeDesignation();
+        visibilitySensor.setDataTypeDesignation (newType);
+        result=visibilitySensor.getDataTypeDesignation ();
         assertEquals(expectedResult,result);
 
    }
@@ -125,18 +105,22 @@ class SensorTest {
         DataType newType = DataType.PRECIPITATION;
         DataType expectedResult= newType;
         DataType result;
-        visibilitySensor.setmDataTypeDesignation(oldType);
-        visibilitySensor.setmDataTypeDesignation(newType);
-        result=visibilitySensor.getmDataTypeDesignation();
+        visibilitySensor.setDataTypeDesignation (oldType);
+        visibilitySensor.setDataTypeDesignation (newType);
+        result=visibilitySensor.getDataTypeDesignation ();
         assertEquals(expectedResult,result);
     }
 
     @Test
     void checkIfCalculateLinearDistanceBetweenTwoSensorsReturnsExpectedResult() {
+        GregorianCalendar cL1 = new GregorianCalendar(2018, 11, 27, 9, 0);
+        Date date1 = cL1.getTime();
+        GregorianCalendar cL2 = new GregorianCalendar(2018, 11, 28, 12, 0);
+        Date date2 = cL2.getTime();
         Location locationSensor1=new Location(20,10,15);
         Location locationSensor2=new Location(30,25,20);
-        Sensor sensor1= new Sensor("PrecipitationSensor",locationSensor1,DataType.PRECIPITATION);
-        Sensor sensor2= new Sensor("TemperatureSensor",locationSensor2,DataType.TEMPERATURE);
+        Sensor sensor1= new Sensor("PrecipitationSensor",date1,locationSensor1,DataType.PRECIPITATION);
+        Sensor sensor2= new Sensor("TemperatureSensor",date2,locationSensor2,DataType.TEMPERATURE);
         double expectedResult=18.708286933869708;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertEquals(expectedResult,result);
@@ -144,10 +128,14 @@ class SensorTest {
 
     @Test
     void calculateLinearDistanceBetweenTwoSensorsInTheSamePositionReturnsZero() {
+        GregorianCalendar cL1 = new GregorianCalendar(2018, 11, 27, 9, 0);
+        Date date1 = cL1.getTime();
+        GregorianCalendar cL2 = new GregorianCalendar(2018, 11, 28, 12, 0);
+        Date date2 = cL2.getTime();
         Location locationSensor1=new Location(10,10,10);
         Location locationSensor2=new Location(10,10,10);
-        Sensor sensor1= new Sensor("TemperatureSensor1",locationSensor1,DataType.TEMPERATURE);
-        Sensor sensor2= new Sensor("TemperatureSensor2",locationSensor2,DataType.TEMPERATURE);
+        Sensor sensor1= new Sensor("TemperatureSensor1",date1,locationSensor1,DataType.TEMPERATURE);
+        Sensor sensor2= new Sensor("TemperatureSensor2",date2,locationSensor2,DataType.TEMPERATURE);
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertEquals(expectedResult,result);
@@ -155,10 +143,14 @@ class SensorTest {
 
     @Test
     void checkIfCalculateLinearDistanceBetweenTwoSensorsDoesNotReturnZero() {
+        GregorianCalendar cL1 = new GregorianCalendar(2018, 11, 27, 9, 0);
+        Date date1 = cL1.getTime();
+        GregorianCalendar cL2 = new GregorianCalendar(2018, 11, 28, 12, 0);
+        Date date2 = cL2.getTime();
         Location locationSensor1=new Location(20,10,15);
         Location locationSensor2=new Location(30,25,20);
-        Sensor sensor1= new Sensor("WindSensor1",locationSensor1,DataType.WIND);
-        Sensor sensor2= new Sensor("WindSensor2",locationSensor2,DataType.WIND);
+        Sensor sensor1= new Sensor("WindSensor1",date1,locationSensor1,DataType.WIND);
+        Sensor sensor2= new Sensor("WindSensor2",date2,locationSensor2,DataType.WIND);
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertNotEquals(expectedResult,result);
@@ -166,10 +158,14 @@ class SensorTest {
 
     @Test
     void addReadingValue() {
+        GregorianCalendar cL1 = new GregorianCalendar(2018, 11, 27, 9, 0);
+        Date date1 = cL1.getTime();
+        GregorianCalendar cL2 = new GregorianCalendar(2018, 11, 28, 12, 0);
+        Date date2 = cL2.getTime();
         Location locationSensor1=new Location(20,10,15);
         Location locationSensor2=new Location(30,25,20);
-        Sensor sensor1= new Sensor("WindSensor1",locationSensor1,DataType.WIND);
-        Sensor sensor2= new Sensor("WindSensor2",locationSensor2,DataType.WIND);
+        Sensor sensor1= new Sensor("WindSensor1",date1,locationSensor1,DataType.WIND);
+        Sensor sensor2= new Sensor("WindSensor2",date2,locationSensor2,DataType.WIND);
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertNotEquals(expectedResult,result);
@@ -179,11 +175,11 @@ class SensorTest {
 
     @Test
     void getLastReadingOfSensorIfThreeReadings() {
-        GregorianCalendar cL1 = new GregorianCalendar(2018,11,27,21,00);
+        GregorianCalendar cL1 = new GregorianCalendar(2018,11,27,21,0);
         Date date1 = cL1.getTime();
-        GregorianCalendar cL2 = new GregorianCalendar(2018,11,27,22,00);
+        GregorianCalendar cL2 = new GregorianCalendar(2018,11,27,22,0);
         Date date2 = cL2.getTime();
-        GregorianCalendar cL3 = new GregorianCalendar(2018,11,27,23,00);
+        GregorianCalendar cL3 = new GregorianCalendar(2018,11,27,23,0);
         Date date3 = cL3.getTime();
 
         Reading readingDate1 = new Reading (11, date1);
@@ -202,11 +198,11 @@ class SensorTest {
 
     @Test
     void getLastReadingOfSensorIfWrongExpectedResult() {
-        GregorianCalendar cL1 = new GregorianCalendar(2018,11,27,21,00);
+        GregorianCalendar cL1 = new GregorianCalendar(2018,11,27,21,0);
         Date date1 = cL1.getTime();
-        GregorianCalendar cL2 = new GregorianCalendar(2018,11,27,22,00);
+        GregorianCalendar cL2 = new GregorianCalendar(2018,11,27,22,0);
         Date date2 = cL2.getTime();
-        GregorianCalendar cL3 = new GregorianCalendar(2018,11,27,23,00);
+        GregorianCalendar cL3 = new GregorianCalendar(2018,11,27,23,0);
         Date date3 = cL3.getTime();
 
         Reading readingDate1 = new Reading (11, date1);
@@ -225,7 +221,7 @@ class SensorTest {
 
     @Test
     void getLastReadingOfSensorIfOneReading() {
-        GregorianCalendar cL1 = new GregorianCalendar(2018,11,27,21,00);
+        GregorianCalendar cL1 = new GregorianCalendar(2018,11,27,21,0);
         Date date1 = cL1.getTime();
 
         Reading expectedReading = new Reading (8, date1);
