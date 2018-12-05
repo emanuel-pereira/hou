@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Sensor {
     private String mDesignation;
-    private Calendar mStartDate;
+    public Calendar mStartDate;
     private Location mLocation;
     private DataType mDataTypeDesignation; //temp, humidade,
     private List<Reading> mListOfReadings = new ArrayList<>();
