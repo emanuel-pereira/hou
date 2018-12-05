@@ -284,6 +284,20 @@ class SensorTest {
     }
 
     @Test
+    @DisplayName("Check if monthly average returns zero if there are no readings")
+    void getMonthlyAverageReadingsNoReadings() {
+        //Arrange
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,00), new Location(40, 20,10),DataType.VISIBILITY);
+
+        //Act
+        double result = s1.getMonthlyAverageReadings(9);
+        double expectedResult= 0;
+
+        //Assert
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
     @DisplayName("Test to verify the minimum reading in October")
     public void getMonthlyMinimumReading() {
 

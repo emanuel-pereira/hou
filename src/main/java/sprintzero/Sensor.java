@@ -185,6 +185,10 @@ public class Sensor {
                 sum += mListOfReadings.get(index).returnValueOfReading();
                 counter++;
             }
+            if (counter==0) {
+
+                return Double.NaN;
+            }
         }
 
         return sum / counter;
