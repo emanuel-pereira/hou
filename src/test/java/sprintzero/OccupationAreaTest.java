@@ -1,68 +1,67 @@
 package sprintzero;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OccupationAreaTest {
 
-    OccupationArea OA = new OccupationArea();
+   /* OccupationArea OA = new OccupationArea();*/
 
     @Test
-    public void checkConstrutorWithInputs(){
-        OccupationArea C = new OccupationArea(2,2);
+    @DisplayName("Constructor with both valid parameters")
+    public void checkConstructorValidParameters() {
+        OccupationArea C = new OccupationArea(2, 2);
         double expectedResult = 4;
         double result = C.getOccupationArea();
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
+
     @Test
-    public void checkConstrutorWithoutInputs() {
-        OccupationArea C = new OccupationArea();
+    @DisplayName("Constructor with one parameter zero")
+    public void checkConstructorParameterZero() {
+        OccupationArea C = new OccupationArea(0, 4);
         double result = C.getOccupationArea();
-        double expectedResult = 0;
-        assertEquals(expectedResult,result);
+        double expectedResult = Double.NaN;
+        assertEquals(expectedResult, result, 0.1);
     }
+
     @Test
-    public void checkGetOccupationTestWithoutInputs() {
-        OccupationArea C = new OccupationArea();
+    @DisplayName("Constructor with both parameters zero")
+    public void checkConstructorBothParametersZero() {
+        OccupationArea C = new OccupationArea(0, 0);
         double result = C.getOccupationArea();
-        double expectedResult = 0;
-        assertEquals(expectedResult,result);
+        double expectedResult = Double.NaN;
+        assertEquals(expectedResult, result, 0.1);
     }
+
     @Test
-    public void checkSetOccupationTestCorrect() {
-        OA.setOccupationArea(3, 4);
-        double result = OA.getOccupationArea();
-        double expectedResult = 12;
-        assertEquals(expectedResult, result,0.1);
-    }
-    @Test
-    public void getOcuppationAreaTest() {
-        OA.setOccupationArea(3, 3);
-        double result = OA.getOccupationArea();
-        double expectedResult = 9;
+    @DisplayName("Constructor with both negative parameters")
+    public void checkConstructorBothNegativeParameters() {
+        OccupationArea C = new OccupationArea(-3, -3);
+        double result = C.getOccupationArea();
+        double expectedResult = Double.NaN;
         assertEquals(expectedResult, result);
     }
+
     @Test
-    public void lengthandwigthNegativeValue() {
-        OA.setOccupationArea(-2, 2);
-        boolean expectedResult = OA.positiveLengthAndWidth(-2,2);
-        boolean result = false;
+    @DisplayName("Constructor with one negative parameter")
+    public void checkConstructorOneNegativeParameter() {
+        OccupationArea C = new OccupationArea(-2, 2);
+        double expectedResult = Double.NaN;
+        double result = C.getOccupationArea();
         assertEquals(expectedResult, result);
     }
-    @Test
-    public void lengthandwigthPositiveValue() {
-        OA.setOccupationArea(2, 2);
-        boolean expectedResult = OA.positiveLengthAndWidth(2,2);
-        boolean result = true;
-        assertEquals(expectedResult, result);
-    }
-    @Test
+
+
+    /*@Test
     public void checkifConvertMetersToKM() {
-        OA.convertMetersToKm(3,3);
+        OA.convertMetersToKm(3, 3);
         double expectedResult = 0.000009;
         double result = OA.getOccupationArea();
-        assertEquals(expectedResult,result, 0.1);
-    }
+        assertEquals(expectedResult, result, 0.1);
+    }*/
 
 }
 
