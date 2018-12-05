@@ -291,7 +291,7 @@ class SensorTest {
 
         //Act
         double result = s1.getMonthlyAverageReadings(9);
-        double expectedResult= 0;
+        double expectedResult= Double.NaN;
 
         //Assert
         assertEquals(expectedResult,result);
