@@ -194,7 +194,7 @@ public class Sensor {
     public double getMonthlyMinimumReading(int monthOfReadings) {
 
         double minimum = Double.NaN;
-        if (checkerMonthIsOnReadingList(monthOfReadings)) {
+        if (isMonthOfReadingList(monthOfReadings)) {
             minimum = mListOfReadings.get(0).returnValueOfReading();
             for (int index = 0; index < mListOfReadings.size(); index++) {
                 if (mListOfReadings.get(index).returnValueOfReading() < minimum) {
@@ -205,7 +205,7 @@ public class Sensor {
         return minimum;
     }
 
-    public boolean checkerMonthIsOnReadingList(int monthOfReadings) {
+    public boolean isMonthOfReadingList(int monthOfReadings) {
         for (int index = 0; index < mListOfReadings.size(); index++) {
             if (mListOfReadings.get(index).getMonthOfReading() == monthOfReadings)
                 return true;
@@ -216,7 +216,7 @@ public class Sensor {
     public double[] getMonthlyAverageReadingEachMonth() {
         double[] averageValuesEachMonth = new double[12];
         for (int i = 0; i < 12; i++) {
-            if (checkerMonthIsOnReadingList(i+1))
+            if (isMonthOfReadingList(i+1))
                 averageValuesEachMonth[i] = getMonthlyAverageReadings(i+1);
         }
         return averageValuesEachMonth;
