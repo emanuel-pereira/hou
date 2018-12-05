@@ -12,6 +12,28 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class SensorTest {
 
+
+    @Test
+    public void testIfRenamingASensorWithINVALIDStringReturnsFalse(){
+        Sensor tempSensor= new Sensor ("");
+        String designation= "";
+        boolean expectedResult= false;
+        boolean result;
+        result=tempSensor.setDesignation(designation);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testIfRenamingASensorWithValidStringReturnsTrue(){
+        Sensor tempSensor= new Sensor ("Sensor004TempPorto");
+        String designation= "Sensor004TempPorto";
+        boolean expectedResult= true;
+        boolean result;
+        result=tempSensor.setDesignation(designation);
+        assertEquals(expectedResult, result);
+    }
+
+
     @Test
     public void testIfRenamingASensorWithAnEmptyStringIsIgnored(){
         Sensor tempSensor= new Sensor("Sensor01TempMat");
@@ -34,8 +56,7 @@ class SensorTest {
         assertEquals(expectedResult,result);
     }
 
-
-@Test
+    @Test
     public void testIfRenamingASensorWith1ValidStringUpdatesSensorDesignation(){
         Sensor tempSensor= new Sensor("SensorVisibilityLisboa");
         String designation= "SensorVisibilityLisboa";
@@ -57,6 +78,7 @@ class SensorTest {
         result=tempSensor.getDesignation ();
         assertNotEquals(expectedResult,result);
     }
+
 
     @Test
     void checkIfGetLocationReturnsNullBeforeAnyValueIsInputted() {

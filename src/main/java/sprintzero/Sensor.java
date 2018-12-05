@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Sensor {
     private String mDesignation;
-    private Calendar mStartDate;
+    public Calendar mStartDate;
     private Location mLocation;
     private DataType mDataTypeDesignation; //temp, humidade,
     private List<Reading> mListOfReadings = new ArrayList<>();
@@ -62,8 +62,6 @@ public class Sensor {
      * Method to check if the designation given to name the sensor meets the criteria defined to be
      * considered a valid designation, namely:
      * - mDesignation cannot be empty or null
-     * - mDesignation must have only alphabetic characters and a maximum length of 40 characters.
-     *
      * @param designation
      * @return
      */
