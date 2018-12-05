@@ -395,7 +395,7 @@ class SensorTest {
         s1.addReading(r5);
 
         //Act
-        double[] result = s1.getMonthlyAverageReadingList();
+        double[] result = s1.getMonthlyAverageReadingEachMonth();
         double [] expectedResult = new double[]{0,0,0,0,0,0,0,50,31.7,33.7,0,0};
 
         //Assert

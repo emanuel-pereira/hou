@@ -1,6 +1,5 @@
 package sprintzero;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 
@@ -195,7 +194,7 @@ public class Sensor {
     public double getMonthlyMinimumReading(int monthOfReadings) {
 
         double minimum = Double.NaN;
-        if (checkifMonthisOnReadingList(monthOfReadings) == true) {
+        if (checkerMonthIsOnReadingList(monthOfReadings)) {
             minimum = mListOfReadings.get(0).returnValueOfReading();
             for (int index = 0; index < mListOfReadings.size(); index++) {
                 if (mListOfReadings.get(index).returnValueOfReading() < minimum) {
@@ -206,7 +205,7 @@ public class Sensor {
         return minimum;
     }
 
-    public boolean checkifMonthisOnReadingList(int monthOfReadings) {
+    public boolean checkerMonthIsOnReadingList(int monthOfReadings) {
         for (int index = 0; index < mListOfReadings.size(); index++) {
             if (mListOfReadings.get(index).getMonthOfReading() == monthOfReadings)
                 return true;
@@ -214,12 +213,12 @@ public class Sensor {
         return false;
     }
 
-    public double[] getMonthlyAverageReadingList() {
-        double[] Months = new double[12];
+    public double[] getMonthlyAverageReadingEachMonth() {
+        double[] averageValuesEachMonth = new double[12];
         for (int i = 0; i < 12; i++) {
-            if (checkifMonthisOnReadingList(i+1) == true)
-                Months[i] = getMonthlyAverageReadings(i+1);
+            if (checkerMonthIsOnReadingList(i+1))
+                averageValuesEachMonth[i] = getMonthlyAverageReadings(i+1);
         }
-        return Months;
+        return averageValuesEachMonth;
     }
 }
