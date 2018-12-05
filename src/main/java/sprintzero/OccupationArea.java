@@ -35,8 +35,9 @@ public class OccupationArea {
     }
 
     public boolean positiveLenghtAndWidth(double inputLenght, double inputWidth) {
-        if (inputLenght < 0 || inputWidth < 0) return false;
-        else return true;
+        if (inputLenght < 0 || inputWidth < 0) {
+            return false;
+        } else return true;
     }
 
     public void convertMetersToKm(double inputLenghtMeters, double inputWidthMeters) {
