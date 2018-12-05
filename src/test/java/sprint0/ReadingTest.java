@@ -20,14 +20,13 @@ public class ReadingTest {
         //Arrange
         GregorianCalendar c1 = new GregorianCalendar(2018,11,27,21,30);
 
-
-        Date endDate = c1.getTime();
-        Date expected=c1.getTime();
-
-        Reading r1 = new Reading(13,endDate);
+        //Act
+        Reading r1 = new Reading(13,c1);
         double value = r1.returnValueOfReading();
+
+        //Assert
         assertEquals(13,value,0.1);
-        assertEquals(expected,endDate);
+
     }
 
 
