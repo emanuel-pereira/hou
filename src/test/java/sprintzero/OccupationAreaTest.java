@@ -1,4 +1,4 @@
-package sprint0;
+package sprintzero;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;

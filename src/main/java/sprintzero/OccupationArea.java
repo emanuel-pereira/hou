@@ -1,4 +1,4 @@
-package sprint0;
+package sprintzero;
 
 public class OccupationArea {
 
