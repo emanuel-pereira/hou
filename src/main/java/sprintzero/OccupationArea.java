@@ -25,7 +25,7 @@ public class OccupationArea {
     }
 
     public double getOccupationArea() {
-        calculOccupationArea();
+        this.mOccupation = calculOccupationArea();
         return this.mOccupation;
     }
 

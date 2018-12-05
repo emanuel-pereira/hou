@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OccupationAreaTest {
 
-    OccupationArea O = new OccupationArea();
+    OccupationArea OA = new OccupationArea();
 
     @Test
     public void checkConstrutorWithInputs(){
@@ -30,38 +30,38 @@ public class OccupationAreaTest {
     }
     @Test
     public void checkSetOccupationTestCorrect() {
-        O.setOccupationArea(3, 4);
-        double result = O.getOccupationArea();
+        OA.setOccupationArea(3, 4);
+        double result = OA.getOccupationArea();
         double expectedResult = 12;
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, result,0.1);
     }
     @Test
     public void getOcuppationAreaTest() {
-        O.setOccupationArea(3, 3);
-        double result = O.getOccupationArea();
+        OA.setOccupationArea(3, 3);
+        double result = OA.getOccupationArea();
         double expectedResult = 9;
         assertEquals(expectedResult, result);
     }
     @Test
     public void lengthandwigthNegativeValue() {
-        O.setOccupationArea(-2, 2);
-        boolean expectedResult = O.positiveLengthAndWidth(-2,2);
+        OA.setOccupationArea(-2, 2);
+        boolean expectedResult = OA.positiveLengthAndWidth(-2,2);
         boolean result = false;
         assertEquals(expectedResult, result);
     }
     @Test
     public void lengthandwigthPositiveValue() {
-        O.setOccupationArea(2, 2);
-        boolean expectedResult = O.positiveLengthAndWidth(2,2);
+        OA.setOccupationArea(2, 2);
+        boolean expectedResult = OA.positiveLengthAndWidth(2,2);
         boolean result = true;
         assertEquals(expectedResult, result);
     }
     @Test
     public void checkifConvertMetersToKM() {
-        O.convertMetersToKm(3,3);
+        OA.convertMetersToKm(3,3);
         double expectedResult = 0.000009;
-        double result = O.getOccupationArea();
-        assertEquals(expectedResult,result);
+        double result = OA.getOccupationArea();
+        assertEquals(expectedResult,result, 0.1);
     }
 
 }
