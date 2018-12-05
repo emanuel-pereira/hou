@@ -1,4 +1,4 @@
-package Sprint_0;
+package Sprint0;
 
 import org.junit.jupiter.api.Test;
 
@@ -109,7 +109,7 @@ class SensorTest {
    @Test
     void checkIfSetAndGetDataTypeMethodUpdatesSensorDataTypeDesignation() {
         Sensor visibilitySensor=new Sensor("SensorOfCoimbra");
-       DataType newType = DataType.PRECIPITATION;
+       DataType newType = DataType.VISIBILITY;
         DataType expectedResult= newType;
         DataType result;
         visibilitySensor.setmDataTypeDesignation(newType);

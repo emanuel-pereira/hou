@@ -1,4 +1,4 @@
-package Sprint_0;
+package Sprint0;
 
 
 import java.util.ArrayList;
