@@ -5,11 +5,34 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 
 class SensorTest {
+
+
+    @Test
+    public void testIfRenamingASensorWithINVALIDStringReturnsFalse(){
+        Sensor tempSensor= new Sensor ("");
+        String designation= "";
+        boolean expectedResult= false;
+        boolean result;
+        result=tempSensor.setDesignation(designation);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    public void testIfRenamingASensorWithValidStringReturnsTrue(){
+        Sensor tempSensor= new Sensor ("Sensor004TempPorto");
+        String designation= "Sensor004TempPorto";
+        boolean expectedResult= true;
+        boolean result;
+        result=tempSensor.setDesignation(designation);
+        assertEquals(expectedResult, result);
+    }
+
 
     @Test
     public void testIfRenamingASensorWithAnEmptyStringIsIgnored(){
@@ -33,8 +56,7 @@ class SensorTest {
         assertEquals(expectedResult,result);
     }
 
-
-@Test
+    @Test
     public void testIfRenamingASensorWith1ValidStringUpdatesSensorDesignation(){
         Sensor tempSensor= new Sensor("SensorVisibilityLisboa");
         String designation= "SensorVisibilityLisboa";
@@ -56,6 +78,7 @@ class SensorTest {
         result=tempSensor.getDesignation ();
         assertNotEquals(expectedResult,result);
     }
+
 
     @Test
     void checkIfGetLocationReturnsNullBeforeAnyValueIsInputted() {
@@ -351,6 +374,32 @@ class SensorTest {
 
         //Assert
         assertNotEquals(expectedResult,result);
+    }
+    @Test
+    public void getMonthlyAverageReadingListTest() {
+
+
+        //Arrange
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,00), new Location(40, 20,10),DataType.VISIBILITY);
+
+        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 00));
+        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 00));
+        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 00));
+        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 00));
+        Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 00));
+
+        s1.addReading(r1);
+        s1.addReading(r2);
+        s1.addReading(r3);
+        s1.addReading(r4);
+        s1.addReading(r5);
+
+        //Act
+        double[] result = s1.getMonthlyAverageReadingList();
+        double [] expectedResult = new double[]{0,0,0,0,0,0,0,50,31.7,33.7,0,0};
+
+        //Assert
+        assertArrayEquals(expectedResult,result);
     }
 
 
