@@ -67,7 +67,7 @@ public class Sensor {
      * @return
      */
     public boolean designationIsValid(String designation) {
-        if (designation.equals (null)  || designation.trim ().isEmpty ()) {
+        if (designation == null || designation.trim ().isEmpty ()) {
             return false;
         }
         return true;
