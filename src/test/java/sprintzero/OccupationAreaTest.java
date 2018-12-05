@@ -45,14 +45,14 @@ public class OccupationAreaTest {
     @Test
     public void lengthandwigthNegativeValue() {
         O.setOccupationArea(-2, 2);
-        boolean expectedResult = O.positiveLenghtAndWidth(-2,2);
+        boolean expectedResult = O.positiveLengthAndWidth(-2,2);
         boolean result = false;
         assertEquals(expectedResult, result);
     }
     @Test
     public void lengthandwigthPositiveValue() {
         O.setOccupationArea(2, 2);
-        boolean expectedResult = O.positiveLenghtAndWidth(2,2);
+        boolean expectedResult = O.positiveLengthAndWidth(2,2);
         boolean result = true;
         assertEquals(expectedResult, result);
     }

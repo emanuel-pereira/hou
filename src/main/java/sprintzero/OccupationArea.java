@@ -2,7 +2,7 @@ package sprintzero;
 
 public class OccupationArea {
 
-    private double mLenght;
+    private double mLength;
     private double mWidth;
     private double mOccupation;
 
@@ -11,15 +11,15 @@ public class OccupationArea {
     }
 
     public OccupationArea(double inputLenght, double inputWidth) {
-        this.mLenght = inputLenght;
+        this.mLength = inputLenght;
         this.mWidth = inputWidth;
     }
 
     // Methods
-    public void setOccupationArea(double inputLenght, double inputWidth) {
+    public void setOccupationArea(double inputLength, double inputWidth) {
 
-        if (positiveLenghtAndWidth(inputLenght, inputWidth)) {
-            this.mLenght = inputLenght;
+        if (positiveLengthAndWidth(inputLength, inputWidth)) {
+            this.mLength = inputLength;
             this.mWidth = inputWidth;
         }
     }
@@ -30,19 +30,23 @@ public class OccupationArea {
     }
 
     public double calculOccupationArea() {
-        this.mOccupation = this.mLenght * this.mWidth;
+        this.mOccupation = this.mLength * this.mWidth;
         return this.mOccupation;
     }
 
-    public boolean positiveLenghtAndWidth(double inputLenght, double inputWidth) {
-        if (inputLenght < 0 || inputWidth < 0) {
-            return false;
-        } else return true;
+    /**
+     *
+     * @param inputLength - length of the occupation area
+     * @param inputWidth - width of the occupation area
+     * @return true if both expressions are positive or false if one of them is equal or less than zero
+     */
+    public boolean positiveLengthAndWidth(double inputLength, double inputWidth) {
+        return (inputLength > 0 && inputWidth > 0);
     }
 
     public void convertMetersToKm(double inputLenghtMeters, double inputWidthMeters) {
         this.mWidth = inputWidthMeters * 0.001;
-        this.mLenght = inputLenghtMeters * 0.001;
+        this.mLength = inputLenghtMeters * 0.001;
     }
 
 }
