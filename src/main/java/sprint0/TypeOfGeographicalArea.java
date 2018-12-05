@@ -1,4 +1,4 @@
-package Sprint0;
+package sprint0;
 
 /**
  * This is the method to enum types.

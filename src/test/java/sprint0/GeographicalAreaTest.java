@@ -1,4 +1,4 @@
-package Sprint0;
+package sprint0;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -85,11 +85,11 @@ public class GeographicalAreaTest {
     @DisplayName("Test if method returns last reading values and respective date of each sensor in a specific geographic area")
     @Test
     public void checkIfGetLastValuesOfSensors() {
-        GregorianCalendar cL1 = new GregorianCalendar(2018, 11, 27, 9, 00);
+        GregorianCalendar cL1 = new GregorianCalendar(2018, 11, 27, 9, 0);
         Date date1 = cL1.getTime();
-        GregorianCalendar cL2 = new GregorianCalendar(2018, 11, 28, 12, 00);
+        GregorianCalendar cL2 = new GregorianCalendar(2018, 11, 28, 12, 0);
         Date date2 = cL2.getTime();
-        GregorianCalendar cL3 = new GregorianCalendar(2018, 11, 29, 18, 00);
+        GregorianCalendar cL3 = new GregorianCalendar(2018, 11, 29, 18, 0);
         Date date3 = cL3.getTime();
         List<Reading> readS1 = Arrays.asList(new Reading(15.5, date1), new Reading(16, date2), new Reading(16.5, date3));
         List<Reading> readS2 = Arrays.asList(new Reading(55, date1), new Reading(85, date2), new Reading(10, date3));
@@ -106,11 +106,11 @@ public class GeographicalAreaTest {
     @DisplayName("Test if method returns last reading values and respective date of each sensor in a specific geographic area")
     @Test
         public void ensureGetLastValuesOfSensorsInGADoesNotReturnNull() {
-        GregorianCalendar cL1 = new GregorianCalendar(2018, 11, 27, 9, 00);
+        GregorianCalendar cL1 = new GregorianCalendar(2018, 11, 27, 9, 0);
         Date date1 = cL1.getTime();
-        GregorianCalendar cL2 = new GregorianCalendar(2018, 11, 28, 12, 00);
+        GregorianCalendar cL2 = new GregorianCalendar(2018, 11, 28, 12, 0);
         Date date2 = cL2.getTime();
-        GregorianCalendar cL3 = new GregorianCalendar(2018, 11, 29, 18, 00);
+        GregorianCalendar cL3 = new GregorianCalendar(2018, 11, 29, 18, 0);
         Date date3 = cL3.getTime();
         List<Reading> readS1 = Arrays.asList(new Reading(15.5, date1), new Reading(16, date2), new Reading(16.5, date3));
         List<Reading> readS2 = Arrays.asList(new Reading(55, date1), new Reading(85, date2), new Reading(10, date3));
