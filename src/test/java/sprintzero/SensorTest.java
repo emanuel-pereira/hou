@@ -33,8 +33,17 @@ class SensorTest {
         assertEquals(expectedResult,result);
     }
 
+    @Test
+    public void testIfRenamingASensorWithINVALIDStringReturnsFalse(){
+        Sensor tempSensor= new Sensor ("");
+        String designation= "";
+        boolean expectedResult= false;
+        boolean result;
+        result=tempSensor.setDesignation(designation);
+        assertEquals(expectedResult, result);
+    }
 
-@Test
+    @Test
     public void testIfRenamingASensorWith1ValidStringUpdatesSensorDesignation(){
         Sensor tempSensor= new Sensor("SensorVisibilityLisboa");
         String designation= "SensorVisibilityLisboa";
@@ -56,6 +65,7 @@ class SensorTest {
         result=tempSensor.getDesignation ();
         assertNotEquals(expectedResult,result);
     }
+
 
     @Test
     void checkIfGetLocationReturnsNullBeforeAnyValueIsInputted() {

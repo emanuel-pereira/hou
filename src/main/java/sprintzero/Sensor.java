@@ -5,13 +5,13 @@ import java.util.*;
 
 public class Sensor {
     private String mDesignation;
-    private Calendar mStartDate;
+    public Calendar mStartDate;
     private Location mLocation;
     private DataType mDataTypeDesignation; //temp, humidade,
     private List<Reading> mListOfReadings = new ArrayList<>();
 
     public Sensor() {
-        }
+    }
 
     /**
      * Constructor requiring to set only a specific designation for any object of type Sensor created
@@ -31,12 +31,12 @@ public class Sensor {
      *
      * @param sensorLocation
      */
-    public Sensor(String designation, Calendar startDate, Location sensorLocation,DataType dataType) {
+    public Sensor(String designation, Calendar startDate, Location sensorLocation, DataType dataType) {
         if (designationIsValid(designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
             this.mLocation = sensorLocation;
-            this.mDataTypeDesignation= dataType;
+            this.mDataTypeDesignation = dataType;
         }
     }
 
@@ -46,13 +46,13 @@ public class Sensor {
      *
      * @param sensorLocation
      */
-    public Sensor(String designation, Calendar startDate, Location sensorLocation,DataType dataType, List<Reading> listOfReadings) {
+    public Sensor(String designation, Calendar startDate, Location sensorLocation, DataType dataType, List<Reading> listOfReadings) {
         if (designationIsValid(designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
             this.mLocation = sensorLocation;
-            this.mDataTypeDesignation= dataType;
-            this.mListOfReadings=listOfReadings;
+            this.mDataTypeDesignation = dataType;
+            this.mListOfReadings = listOfReadings;
         }
     }
 
@@ -61,8 +61,6 @@ public class Sensor {
      * Method to check if the designation given to name the sensor meets the criteria defined to be
      * considered a valid designation, namely:
      * - mDesignation cannot be empty or null
-     * - mDesignation must have only alphabetic characters and a maximum length of 40 characters.
-     *
      * @param designation
      * @return
      */
@@ -101,7 +99,7 @@ public class Sensor {
      */
 
     public void setLocation(Location location) {
-            this.mLocation = location;
+        this.mLocation = location;
     }
 
     /**
@@ -140,36 +138,40 @@ public class Sensor {
      */
 
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
-        return Location.calcLinearDistanceBetweenTwoPoints(sensor1.getLocation (), sensor2.getLocation ());
+        return Location.calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation());
     }
 
 
-    /** Method to get the list of readings of a sensor.
+    /**
+     * Method to get the list of readings of a sensor.
+     *
      * @return the list of readings of a sensor
      */
 
-    public List <Reading> getListOfReadings() {
+    public List<Reading> getListOfReadings() {
         return this.mListOfReadings;
     }
 
     /**
      * Method to add a new reading to the list of readings of a sensor.
+     *
      * @param newReading
      */
 
     public void addReading(Reading newReading) {
-        if (!(getListOfReadings ().contains(newReading)))
+        if (!(getListOfReadings().contains(newReading)))
             this.mListOfReadings.add(newReading);
     }
 
     /**
-     *This method looks for the last reading within a list of readings for a sensor.
+     * This method looks for the last reading within a list of readings for a sensor.
+     *
      * @return the last reading of a list of readings
      */
 
     public Reading getLastReadingPerSensor() {
         Reading lastValue;
-        lastValue = mListOfReadings.get(getListOfReadings ().size()-1);
+        lastValue = mListOfReadings.get(getListOfReadings().size() - 1);
         return lastValue;
     }
 
@@ -188,7 +190,7 @@ public class Sensor {
 
         }
 
-        if (counter==0) {
+        if (counter == 0) {
 
             return Double.NaN;
         }
@@ -197,20 +199,29 @@ public class Sensor {
 
     }
 
-    public double getMonthlyMinimumReading (int monthOfReadings) {
+    public double getMonthlyMinimumReading(int monthOfReadings) {
 
         double minimum = mListOfReadings.get(0).returnValueOfReading();
 
 
-        for(int index=1; index<mListOfReadings.size(); index++) {
-            if (mListOfReadings.get(index).getMonthOfReading()==monthOfReadings){
-              if (mListOfReadings.get(index).returnValueOfReading() < minimum){
-                  minimum = mListOfReadings.get(index).returnValueOfReading();
-              }
+        for (int index = 1; index < mListOfReadings.size(); index++) {
+            if (mListOfReadings.get(index).getMonthOfReading() == monthOfReadings) {
+                if (mListOfReadings.get(index).returnValueOfReading() < minimum) {
+                    minimum = mListOfReadings.get(index).returnValueOfReading();
+                }
             }
         }
         return minimum;
+    }
 
+    public boolean checkifMonthisOnReadingList(int monthOfReadings) {
+        for (int index = 0; index < mListOfReadings.size(); index++) {
+            if (mListOfReadings.get(index).getMonthOfReading() == monthOfReadings)
+                return true;
+            else
+                return false;
+        }
+        return false;
     }
 
 

@@ -30,8 +30,7 @@ public class OccupationArea {
     }
 
     public double calculOccupationArea() {
-        this.mOccupation = this.mLength * this.mWidth;
-        return this.mOccupation;
+        return this.mLength * this.mWidth;
     }
 
     /**
@@ -48,7 +47,4 @@ public class OccupationArea {
         this.mWidth = inputWidthMeters * 0.001;
         this.mLength = inputLenghtMeters * 0.001;
     }
-
 }
-
-//metodo para devolver occupation area com string da GA.
