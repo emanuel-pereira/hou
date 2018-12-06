@@ -215,7 +215,7 @@ public class Sensor {
 
     public double[] getMonthlyAverageReadingEachMonth() {
         double[] averageValuesEachMonth = new double[12];
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < averageValuesEachMonth.length; i++) {
             if (isMonthOfReadingList(i+1))
                 averageValuesEachMonth[i] = getMonthlyAverageReadings(i+1);
         }
