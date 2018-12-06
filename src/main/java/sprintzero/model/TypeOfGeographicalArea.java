@@ -1,4 +1,4 @@
-package sprintzero;
+package sprintzero.model;
 
 /**
  * This is one method to enum types of geographical area.

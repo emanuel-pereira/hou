@@ -1,4 +1,4 @@
-package sprintzero;
+package sprintzero.model;
 
 
 import java.util.ArrayList;
