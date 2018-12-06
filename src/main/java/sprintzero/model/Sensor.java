@@ -2,6 +2,8 @@ package sprintzero.model;
 
 import java.util.*;
 
+import static java.lang.Double.isNaN;
+
 
 public class Sensor {
     private String mDesignation;
@@ -61,6 +63,7 @@ public class Sensor {
      * Method to check if the designation given to name the sensor meets the criteria defined to be
      * considered a valid designation, namely:
      * - mDesignation cannot be empty or null
+     *
      * @param designation
      * @return
      */
@@ -216,9 +219,50 @@ public class Sensor {
     public double[] getMonthlyAverageReadingEachMonth() {
         double[] averageValuesEachMonth = new double[12];
         for (int i = 0; i < averageValuesEachMonth.length; i++) {
-            if (isMonthOfReadingList(i+1))
-                averageValuesEachMonth[i] = getMonthlyAverageReadings(i+1);
+            if (isMonthOfReadingList(i + 1))
+                averageValuesEachMonth[i] = getMonthlyAverageReadings(i + 1);
+            if (averageValuesEachMonth[i] == 0) {
+                averageValuesEachMonth[i] = Double.NaN;
+            }
         }
         return averageValuesEachMonth;
     }
+
+    /**
+     * Method to get the average minimum value in a list of average monthly readings
+     *
+     * @return
+     */
+    public double getMinimumAverageReading() {
+        double minimum = getMonthlyAverageReadingEachMonth()[0];
+        for (int i = 1; i < getMonthlyAverageReadingEachMonth().length; i++) {
+            if (Double.isNaN(minimum)){
+            minimum = getMonthlyAverageReadingEachMonth()[i];}
+            if (minimum > getMonthlyAverageReadingEachMonth()[i]) {
+                minimum = getMonthlyAverageReadingEachMonth()[i];
+            }
+        }
+        return minimum;
+
+    }
+
+    /**
+     * Method to get the average maximum value in a list of average monthly readings
+     *
+     * @return
+     */
+
+    public double getMaximumAverageReading() {
+        double maximum = getMonthlyAverageReadingEachMonth()[0];
+        for (int i = 1; i < getMonthlyAverageReadingEachMonth().length; i++) {
+            if (Double.isNaN(maximum)){
+                maximum = getMonthlyAverageReadingEachMonth()[i];}
+            if (maximum < getMonthlyAverageReadingEachMonth()[i]) {
+                maximum = getMonthlyAverageReadingEachMonth()[i];
+            }
+        }
+        return maximum;
+    }
+
+
 }
