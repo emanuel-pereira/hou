@@ -1,7 +1,8 @@
-package sprintzero;
+package sprintzero.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import sprintzero.model.Reading;
 
 
 import java.util.GregorianCalendar;
