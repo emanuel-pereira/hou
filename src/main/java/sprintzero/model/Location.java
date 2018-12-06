@@ -1,4 +1,4 @@
-package sprintzero;
+package sprintzero.model;
 
 public class Location {
 

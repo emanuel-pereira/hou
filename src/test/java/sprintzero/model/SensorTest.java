@@ -1,7 +1,11 @@
-package sprintzero;
+package sprintzero.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import sprintzero.model.DataType;
+import sprintzero.model.Location;
+import sprintzero.model.Reading;
+import sprintzero.model.Sensor;
 
 import java.util.*;
 

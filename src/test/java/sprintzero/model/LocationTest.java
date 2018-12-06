@@ -1,8 +1,9 @@
-package sprintzero;
+package sprintzero.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+import sprintzero.model.Location;
 
 
 class LocationTest {
