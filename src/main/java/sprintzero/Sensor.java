@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Sensor {
     private String mDesignation;
-    public Calendar mStartDate;
+    private Calendar mStartDate;
     private Location mLocation;
     private DataType mDataTypeDesignation; //temp, humidade,
     private List<Reading> mListOfReadings = new ArrayList<>();
@@ -56,7 +56,6 @@ public class Sensor {
         }
     }
 
-
     /**
      * Method to check if the designation given to name the sensor meets the criteria defined to be
      * considered a valid designation, namely:
@@ -97,7 +96,6 @@ public class Sensor {
      *
      * @param location
      */
-
     public void setLocation(Location location) {
         this.mLocation = location;
     }
@@ -136,7 +134,6 @@ public class Sensor {
      * @param sensor2
      * @return
      */
-
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
         return Location.calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation());
     }
@@ -147,7 +144,6 @@ public class Sensor {
      *
      * @return the list of readings of a sensor
      */
-
     public List<Reading> getListOfReadings() {
         return this.mListOfReadings;
     }
@@ -157,7 +153,6 @@ public class Sensor {
      *
      * @param newReading
      */
-
     public void addReading(Reading newReading) {
         if (!(getListOfReadings().contains(newReading)))
             this.mListOfReadings.add(newReading);
@@ -168,7 +163,6 @@ public class Sensor {
      *
      * @return the last reading of a list of readings
      */
-
     public Reading getLastReadingPerSensor() {
         Reading lastValue;
         lastValue = mListOfReadings.get(getListOfReadings().size() - 1);
