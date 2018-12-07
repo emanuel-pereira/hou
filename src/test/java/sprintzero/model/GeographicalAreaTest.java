@@ -2,7 +2,6 @@ package sprintzero.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import sprintzero.model.*;
 
 import java.util.*;
 
@@ -10,16 +9,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GeographicalAreaTest {
 
-    @DisplayName("set street name and type of GA for street")
+   /* @DisplayName("set street name and type of GA for street")
     @Test
     void GeographicalAreaConstructorStreet() {
-        GeographicalArea GA = new GeographicalArea("Aliados", TypeOfGeographicalArea.STREET);
-    }
+        GeographicalArea GA = new GeographicalArea("Aliados", "Street");
+    }*/
 
     @DisplayName("set village name and type of GA for village")
     @Test
     public void defineTypesOfGeograficalAreaVillage() {
-        TypeOfGeographicalArea tga = TypeOfGeographicalArea.VILLAGE;
+        TypeGA tga = new TypeGA ();
+        tga.addTypeOfGA ("village");
         String geographicalAreaName = "Paranhos";
         GeographicalArea GA = new GeographicalArea(geographicalAreaName, tga);
     }
@@ -27,31 +27,47 @@ public class GeographicalAreaTest {
     @DisplayName("set city name and type of GA for city")
     @Test
     public void defineTypesOfGeograficalAreaCity() {
-        TypeOfGeographicalArea tga = TypeOfGeographicalArea.CITY;
+        TypeGA tga = new TypeGA ();
+        tga.addTypeOfGA ("city");
         String geographicalAreaName = "Porto";
         GeographicalArea GA = new GeographicalArea(geographicalAreaName, tga);
     }
 
+    @DisplayName("set wrong city name")
+    @Test
+    public void defineWrongCityName() {
+        TypeGA tga = new TypeGA ();
+        boolean result = tga.addTypeOfGA (" ");
+
+        assertEquals (false, result);
+    }
+
+
     @DisplayName("set district name and type of GA for district")
     @Test
     public void defineTypesOfGeograficalAreaDistrict() {
-        TypeOfGeographicalArea tga = TypeOfGeographicalArea.DISTRICT;
+        TypeGA tga = new TypeGA ();
+        tga.addTypeOfGA ("district");
         String geographicalAreaName = "Area Metropolitana do Porto";
         GeographicalArea GA = new GeographicalArea(geographicalAreaName, tga);
     }
 
+
     @DisplayName("set country name and type of GA for country")
     @Test
     public void defineTypesOfGeograficalAreaCountry() {
-        TypeOfGeographicalArea tga = TypeOfGeographicalArea.COUNTRY;
+        TypeGA tga = new TypeGA ();
+        tga.addTypeOfGA ("country");
         String geographicalAreaName = "Portugal";
         GeographicalArea GA = new GeographicalArea(geographicalAreaName, tga);
     }
 
+
     @DisplayName("set country name and type of GA for country and set of a specific position")
     @Test
     public void defineTypesOfGeograficalAreaCityLocation() {
-        TypeOfGeographicalArea tga = TypeOfGeographicalArea.CITY;
+        TypeGA tga = new TypeGA ();
+        tga.addTypeOfGA ("city");
         String geographicalAreaName = "Porto";
         Location location = new Location(12.3, 35.2, 120);
         GeographicalArea GA = new GeographicalArea(geographicalAreaName, tga, location);
@@ -62,24 +78,32 @@ public class GeographicalAreaTest {
         assertArrayEquals(expectedLocation, result);
     }
 
+
     @DisplayName("Test if getListOfSensors returns null for an empty sensor list")
     @Test
     public void getEmptyListOfSensors(){
-        GeographicalArea a= new GeographicalArea("Beja",TypeOfGeographicalArea.DISTRICT);
+        TypeGA tga = new TypeGA ();
+        tga.addTypeOfGA ("district");
+        GeographicalArea a= new GeographicalArea("Beja", tga);
         List<Sensor> result=a.getListOfSensors();
         assertNull(result);
     }
+
+
 
     @DisplayName("Test if getListOfSensors returns mSensorList for a specific geographic area")
     @Test
     public void getListOfSensor(){
         Sensor sensor1=new Sensor();
         Sensor sensor2=new Sensor();
-        GeographicalArea a= new GeographicalArea("Aveiro",TypeOfGeographicalArea.DISTRICT,new Location(25,-17,15),Arrays.asList(sensor1,sensor2));
+        TypeGA tga = new TypeGA ();
+        tga.addTypeOfGA ("district");
+        GeographicalArea a= new GeographicalArea("Aveiro",tga,new Location(25,-17,15),Arrays.asList(sensor1,sensor2));
         List<Sensor> expectedResult=Arrays.asList(sensor1,sensor2);
         List<Sensor> result=a.getListOfSensors();
         assertEquals(expectedResult,result);
     }
+
 
     @DisplayName("Test if method returns last reading values and respective date of each sensor in a specific geographic area")
     @Test
@@ -96,11 +120,15 @@ public class GeographicalAreaTest {
         Sensor sensor2 = new Sensor("PrecipitationSensor", rTime2,new Location(41, -7.5, 49), DataType.PRECIPITATION, readS2);
         Sensor sensor3 = new Sensor("WindSensor",rTime3, new Location(41, -7.5, 49), DataType.WIND, readS3);
 
-        GeographicalArea gA1 = new GeographicalArea("Porto", TypeOfGeographicalArea.CITY, new Location(41, -8, 50), Arrays.asList(sensor1, sensor2, sensor3));
+        TypeGA tga = new TypeGA ();
+        tga.addTypeOfGA ("city");
+
+        GeographicalArea gA1 = new GeographicalArea("Porto", tga, new Location(41, -8, 50), Arrays.asList(sensor1, sensor2, sensor3));
         List<Reading> expectedResult = Arrays.asList(sensor1.getLastReadingPerSensor(),sensor2.getLastReadingPerSensor(),sensor3.getLastReadingPerSensor());
         List<Reading> result = gA1.getLastValuesOfSensorsInGA();
         assertEquals(expectedResult, result);
     }
+
 
     @DisplayName("Test if method returns last reading values and respective date of each sensor in a specific geographic area")
     @Test
@@ -119,19 +147,27 @@ public class GeographicalAreaTest {
         Sensor sensor2 = new Sensor("PrecipitationSensor",rTime1, new Location(41, -7.5, 49), DataType.PRECIPITATION, readS2);
         Sensor sensor3 = new Sensor("WindSensor",rTime1, new Location(41, -7.5, 49), DataType.WIND, readS3);
 
-        GeographicalArea gA1 = new GeographicalArea("Porto", TypeOfGeographicalArea.CITY, new Location(41, -8, 50), Arrays.asList(sensor1, sensor2, sensor3));
+        TypeGA tga = new TypeGA ();
+        tga.addTypeOfGA ("city");
+
+        GeographicalArea gA1 = new GeographicalArea("Porto", tga, new Location(41, -8, 50), Arrays.asList(sensor1, sensor2, sensor3));
         List<Reading> result = gA1.getLastValuesOfSensorsInGA();
         assertNotEquals(null, result);
     }
 
+
+
     @DisplayName("Calculate distance between to geographical areas")
     @Test
     void calculateDistanceFromPortoToGaia() {
+        TypeGA tga = new TypeGA ();
+        tga.addTypeOfGA ("city");
+
         Location locationPorto = new Location(12.3, 35.2, 120);
-        GeographicalArea PortoGA = new GeographicalArea("Porto", TypeOfGeographicalArea.CITY, locationPorto);
+        GeographicalArea PortoGA = new GeographicalArea("Porto", tga, locationPorto);
 
         Location locationGaia = new Location(5.3, 33.2, 10);
-        GeographicalArea GaiaGA = new GeographicalArea("Porto", TypeOfGeographicalArea.CITY, locationGaia);
+        GeographicalArea GaiaGA = new GeographicalArea("Porto", tga, locationGaia);
 
         double expectedDistance = 110.24;
         double result = PortoGA.calculateDistanceTo(GaiaGA);
@@ -139,14 +175,17 @@ public class GeographicalAreaTest {
         assertEquals(expectedDistance, result, 0.5);
     }
 
+
     @DisplayName("Calculate distance between two geographical areas")
     @Test
     void calculateDistanceFromPortoToFunchal() {
+        TypeGA tga = new TypeGA ();
+        tga.addTypeOfGA ("city");
         Location locationPorto = new Location(12.3, 35.2, 120);
-        GeographicalArea PortoGA = new GeographicalArea("Porto", TypeOfGeographicalArea.CITY, locationPorto);
+        GeographicalArea PortoGA = new GeographicalArea("Porto", tga, locationPorto);
 
         Location locationGaia = new Location(8, -125, 10);
-        GeographicalArea GaiaGA = new GeographicalArea("Porto", TypeOfGeographicalArea.CITY, locationGaia);
+        GeographicalArea GaiaGA = new GeographicalArea("Porto", tga, locationGaia);
 
         double expectedDistance = 194.37;
         double result = PortoGA.calculateDistanceTo(GaiaGA);

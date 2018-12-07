@@ -7,7 +7,7 @@ import static java.lang.Double.isNaN;
 
 public class Sensor {
     private String mDesignation;
-    public Calendar mStartDate;
+    private Calendar mStartDate;
     private Location mLocation;
     private DataType mDataTypeDesignation; //temp, humidade,
     private List<Reading> mListOfReadings = new ArrayList<>();
