@@ -1,6 +1,6 @@
 package sprintzero.model;
 
-public class listTypeGA {
+public class ListTypeGA {
 
 
 
