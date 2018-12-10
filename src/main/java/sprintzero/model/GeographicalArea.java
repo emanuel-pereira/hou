@@ -6,7 +6,7 @@ import java.util.List;
 
 public class GeographicalArea {
     String mDesignation;
-    TypeOfGeographicalArea mTypeArea;
+    TypeGA mTypeArea;
     Location mLocation;
     List<Sensor> mSensorList;
 
@@ -15,7 +15,7 @@ public class GeographicalArea {
      * @param designation GA name
      * @param typeArea    GA type
      */
-    public GeographicalArea(String designation, TypeOfGeographicalArea typeArea) {
+    public GeographicalArea(String designation, TypeGA typeArea) {
         mDesignation = designation;
         mTypeArea = typeArea;
     }
@@ -26,7 +26,7 @@ public class GeographicalArea {
      * @param typeArea    GA type
      * @param location    GA location, latitude, longitude, altitude
      */
-    public GeographicalArea(String designation, TypeOfGeographicalArea typeArea, Location location) {
+    public GeographicalArea(String designation, TypeGA typeArea, Location location) {
         mDesignation = designation;
         mTypeArea = typeArea;
         mLocation = location;
@@ -41,7 +41,7 @@ public class GeographicalArea {
      * @param location    GA location coordinates(latitude, longitude, altitude)
      * @param sensorList  list of sensors within GA
      */
-    public GeographicalArea(String designation, TypeOfGeographicalArea typeArea, Location location, List<Sensor> sensorList) {
+    public GeographicalArea(String designation, TypeGA typeArea, Location location, List<Sensor> sensorList) {
         mDesignation = designation;
         mTypeArea = typeArea;
         mLocation = location;
