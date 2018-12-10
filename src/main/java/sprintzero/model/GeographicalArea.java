@@ -10,6 +10,7 @@ public class GeographicalArea {
     Location mLocation;
     List<Sensor> mSensorList;
 
+    TypeGAList TGAList = new TypeGAList ();
     /**
      * This constructor method does set up the Geographical Area name and it's type
      * @param designation GA name
@@ -30,6 +31,8 @@ public class GeographicalArea {
         mDesignation = designation;
         mTypeArea = typeArea;
         mLocation = location;
+
+        //TGAList.addTypeGA (typeArea);
     }
 
 
