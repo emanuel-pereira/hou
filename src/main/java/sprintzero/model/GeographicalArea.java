@@ -42,14 +42,16 @@ public class GeographicalArea {
      * to calculate its occupation area
      * @param designation GA name
      * @param typeArea    GA type
-     * @param location    GA location, latitude, longitude, altitude
+     * @param longitude    GA longitude
+     * @param latitude    GA latitude
+     * @param altitude    GA altitude
      * @param length GA length
      * @param width GA width
      */
-    public GeographicalArea(String designation, TypeGA typeArea, Location location, double width, double length) {
+    public GeographicalArea(String designation, TypeGA typeArea, double latitude, double longitude, double altitude, double length, double width) {
         mDesignation = designation;
         mTypeArea = typeArea;
-        mLocation = location;
+        mLocation = new Location(latitude,longitude,altitude);
         mOccupation= new OccupationArea(length,width);
     }
 
