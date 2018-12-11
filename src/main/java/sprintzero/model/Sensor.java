@@ -178,6 +178,28 @@ public class Sensor {
         return lastValue;
     }
 
+
+    /**
+     * Method to check if a month has registered readings
+     *
+     * @param monthOfReadings - the month to be checked for readings
+     * @return true if the month has readings, false if it has not
+     */
+    public boolean isMonthOfReadingList(int monthOfReadings) {
+        for (int index = 0; index < mListOfReadings.size(); index++) {
+            if (mListOfReadings.get(index).getMonthOfReading() == monthOfReadings)
+                return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Method to calculate the average value of all the readings for one given month
+     *
+     * @param monthOfReadings - the month from which we want to calculate the average of the registered readings
+     * @return the average of reading values for one month
+     */
     public double getMonthlyAverageReadings(int monthOfReadings) {
 
         double sum = 0;
@@ -194,6 +216,13 @@ public class Sensor {
         return sum / counter;
     }
 
+
+    /**
+     * Method to calculate the smallest value of all the readings for one given month
+     *
+     * @param monthOfReadings - the month from which we want to calculate the smallest value of the registered readings
+     * @return the smallest of reading values for one month
+     */
     public double getMonthlyMinimumReading(int monthOfReadings) {
 
         double minimum = Double.NaN;
@@ -208,14 +237,12 @@ public class Sensor {
         return minimum;
     }
 
-    public boolean isMonthOfReadingList(int monthOfReadings) {
-        for (int index = 0; index < mListOfReadings.size(); index++) {
-            if (mListOfReadings.get(index).getMonthOfReading() == monthOfReadings)
-                return true;
-        }
-        return false;
-    }
 
+    /**
+     * Method to calculate the average value of all the readings for each month of the year
+     *
+     * @return the average of reading values for each month
+     */
     public double[] getMonthlyAverageReadingEachMonth() {
         double[] averageValuesEachMonth = new double[12];
         for (int i = 0; i < averageValuesEachMonth.length; i++) {
@@ -231,13 +258,14 @@ public class Sensor {
     /**
      * Method to get the average minimum value in a list of average monthly readings
      *
-     * @return
+     * @return the average minimum value of
      */
     public double getMinimumAverageReading() {
         double minimum = getMonthlyAverageReadingEachMonth()[0];
         for (int i = 1; i < getMonthlyAverageReadingEachMonth().length; i++) {
-            if (Double.isNaN(minimum)){
-            minimum = getMonthlyAverageReadingEachMonth()[i];}
+            if (Double.isNaN(minimum)) {
+                minimum = getMonthlyAverageReadingEachMonth()[i];
+            }
             if (minimum > getMonthlyAverageReadingEachMonth()[i]) {
                 minimum = getMonthlyAverageReadingEachMonth()[i];
             }
@@ -255,8 +283,9 @@ public class Sensor {
     public double getMaximumAverageReading() {
         double maximum = getMonthlyAverageReadingEachMonth()[0];
         for (int i = 1; i < getMonthlyAverageReadingEachMonth().length; i++) {
-            if (Double.isNaN(maximum)){
-                maximum = getMonthlyAverageReadingEachMonth()[i];}
+            if (Double.isNaN(maximum)) {
+                maximum = getMonthlyAverageReadingEachMonth()[i];
+            }
             if (maximum < getMonthlyAverageReadingEachMonth()[i]) {
                 maximum = getMonthlyAverageReadingEachMonth()[i];
             }
