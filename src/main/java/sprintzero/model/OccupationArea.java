@@ -2,8 +2,7 @@ package sprintzero.model;
 
 public class OccupationArea {
 
-    private double mLength = Double.NaN;
-    private double mWidth = Double.NaN;
+
     private double mOccupation = Double.NaN;
 
 
@@ -16,9 +15,7 @@ public class OccupationArea {
      */
     public OccupationArea(double inputLength, double inputWidth) {
         if (inputLength > 0 && inputWidth > 0) {
-            this.mLength = inputLength;
-            this.mWidth = inputWidth;
-            this.mOccupation = this.mLength * this.mWidth;
+            this.mOccupation = inputLength * inputWidth;
         }
     }
 

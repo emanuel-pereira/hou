@@ -20,7 +20,6 @@ public class TypeGA {
         }
     }
 
-
     //Métodos
 
     public boolean typeOfGAIsValid(String inputTypeGA) {
