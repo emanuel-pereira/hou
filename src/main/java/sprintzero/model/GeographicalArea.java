@@ -41,16 +41,16 @@ public class GeographicalArea {
      * This constructor method defines a Geographical Area with a designation, type, location as well as length and width
      * to calculate its occupation area
      * @param designation GA name
-     * @param typeArea    GA type
+     * @param typeGA    GA type
      * @param longitude    GA longitude
      * @param latitude    GA latitude
      * @param altitude    GA altitude
      * @param length GA length
      * @param width GA width
      */
-    public GeographicalArea(String designation, TypeGA typeArea, double latitude, double longitude, double altitude, double length, double width) {
+    public GeographicalArea(String designation, String typeGA, double latitude, double longitude, double altitude, double length, double width) {
         mDesignation = designation;
-        mTypeArea = typeArea;
+        mTypeArea = new TypeGA(typeGA);
         mLocation = new Location(latitude,longitude,altitude);
         mOccupation= new OccupationArea(length,width);
     }
