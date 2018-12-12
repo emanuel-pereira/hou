@@ -9,6 +9,7 @@ public class GeographicalArea {
     TypeGA mTypeArea;
     Location mLocation;
     List<Sensor> mSensorList;
+    OccupationArea mOccupation;
 
     TypeGAList TGAList = new TypeGAList ();
     /**
@@ -37,6 +38,24 @@ public class GeographicalArea {
 
 
     /**
+     * This constructor method defines a Geographical Area with a designation, type, location as well as length and width
+     * to calculate its occupation area
+     * @param designation GA name
+     * @param typeGA    GA type
+     * @param longitude    GA longitude
+     * @param latitude    GA latitude
+     * @param altitude    GA altitude
+     * @param length GA length
+     * @param width GA width
+     */
+    public GeographicalArea(String designation, String typeGA, double latitude, double longitude, double altitude, double length, double width) {
+        mDesignation = designation;
+        mTypeArea = new TypeGA(typeGA);
+        mLocation = new Location(latitude,longitude,altitude);
+        mOccupation= new OccupationArea(length,width);
+    }
+
+    /**
      * Constructor requiring to set a specific the designation, type, location
      * for a given Geographical Area, as well as its sensor list.
      * @param designation GA name
@@ -50,6 +69,8 @@ public class GeographicalArea {
         mLocation = location;
         mSensorList = sensorList;
     }
+
+
 
     /**
      * @return the list of sensors within a Geographical Area
