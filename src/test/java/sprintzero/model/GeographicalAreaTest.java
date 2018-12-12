@@ -16,14 +16,14 @@ public class GeographicalAreaTest {
         TypeGA city = tga.newTypeGA ("city");
 
         String geographicalAreaName = "Porto";
-        Location location = new Location(12.3, 35.2, 120);
+        Location loc = new Location(12.3, 35.2, 120);
 
-        GeographicalArea GA = new GeographicalArea(geographicalAreaName, city, location);
+        GeographicalArea ga = new GeographicalArea(geographicalAreaName, city, loc);
 
-        double[] expectedLocation = {12.3, 35.2, 120};
-        double[] result = location.getLocation();
+        Location expectedLocation =loc;
+        Location result =ga.getLocation();
 
-        assertArrayEquals(expectedLocation, result);
+        assertEquals(expectedLocation, result);
     }
 
 

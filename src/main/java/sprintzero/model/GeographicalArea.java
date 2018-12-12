@@ -36,7 +36,6 @@ public class GeographicalArea {
         //TGAList.addTypeGA (typeArea);
     }
 
-
     /**
      * This constructor method defines a Geographical Area with a designation, type, location as well as length and width
      * to calculate its occupation area
@@ -109,7 +108,7 @@ public class GeographicalArea {
      *
      * @return return this geographical area location
      */
-    private Location getLocation() {
+    public Location getLocation() {
         return this.mLocation;
     }
 
@@ -122,6 +121,9 @@ public class GeographicalArea {
     private double calculateDistance(Location aLocation) {
         return Location.calcLinearDistanceBetweenTwoPoints(this.mLocation, aLocation);
     }
+
+
+/**/
 
 
 }

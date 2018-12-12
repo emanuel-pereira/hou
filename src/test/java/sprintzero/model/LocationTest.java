@@ -58,18 +58,6 @@ class LocationTest {
 
 
     @Test
-    public void getLocationTest () {
-        Location l = new Location (41.15,-8.61024,83);
-        //Arrange
-        double[] result;
-        double[] expectedresult = {41.15,-8.61024,83};
-        //Act
-        result = l.getLocation();
-        //Assert
-        assertArrayEquals( expectedresult, result);
-    }
-
-    @Test
     public void calcLinearDistanceBetweenL1AndL2Test () {
         Location l1 = new Location (41.15,-8.6,83);
         Location l2 = new Location (38.7, -9.1,4);
@@ -95,4 +83,27 @@ class LocationTest {
         assertNotEquals(expectedresult,result);
     }
 
+    @Test
+    void getLatitude() {
+        Location loc = new Location(15,20,10);
+        double expectedResult= 15;
+        double result = loc.getLatitude();
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void getLongitude() {
+        Location loc = new Location(15,20,10);
+        double expectedResult= 20;
+        double result = loc.getLongitude();
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void getAltitude() {
+        Location loc = new Location(15,20,10);
+        double expectedResult= 10;
+        double result = loc.getAltitude();
+        assertEquals(expectedResult,result);
+    }
 }

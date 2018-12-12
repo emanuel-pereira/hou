@@ -1,9 +1,13 @@
 package sprintzero.model;
 
+import java.util.Locale;
+
 public class Location {
 
 
-    private double[] mCoordinates = new double[3];
+    private double mLatitude;
+    private double mLongitude;
+    private double mAltitude;
 
     /**
      * Constructor to set values for the coordinates array
@@ -12,9 +16,9 @@ public class Location {
      * @param altitude altitude coordinate
      */
     public Location(double latitude, double longitude, double altitude) {
-        this.mCoordinates[0] = latitude;//Coordenadas GPS devem ler-se Latitude primeiro
-        this.mCoordinates[1] = longitude;//Longitude em segundo lugar
-        this.mCoordinates[2] = altitude;
+        this.mLatitude= latitude;
+        this.mLongitude = longitude;
+        this.mAltitude= altitude;
     }
 
     /**
@@ -23,15 +27,15 @@ public class Location {
      * the coordinates is wrongly placed the method will return false
      */
     public boolean checkIfInputValid(){
-        if (mCoordinates[0] > 90 || mCoordinates[0] < -90) {//valores máx e mín de Latitude em Graus. - = Sul & + = Norte
+        if (mLatitude > 90 || mLatitude < -90) {//valores máx e mín de Latitude em Graus. - = Sul & + = Norte
             return false;
         }
 
-        if (mCoordinates[1] > 180 || mCoordinates[1] < -180){//valores máx e mín de Longitude em Graus. - = Oeste & + = Este
+        if (mLongitude > 180 || mLongitude < -180){//valores máx e mín de Longitude em Graus. - = Oeste & + = Este
             return false;
         }
 
-        if (mCoordinates[2] > 8848 || mCoordinates[2] < -12500){//valores máx e mín de Altitude em Metros
+        if (mAltitude > 8848 || mAltitude < -12500){//valores máx e mín de Altitude em Metros
             return false;
         }
 
@@ -49,19 +53,26 @@ public class Location {
      * @return
      */
     public static double calcLinearDistanceBetweenTwoPoints(Location location1, Location location2){
-        return Math.sqrt(Math.pow(location2.mCoordinates[0]- location1.mCoordinates[0],2)
-                +Math.pow(location2.mCoordinates[1]- location1.mCoordinates[1],2)
-                +Math.pow(location2.mCoordinates[2]- location1.mCoordinates[2],2));
+        return Math.sqrt(Math.pow(location2.mLatitude- location1.mLatitude,2)
+                +Math.pow(location2.mLongitude- location1.mLongitude,2)
+                +Math.pow(location2.mAltitude- location1.mAltitude,2));
     }
 
     /**
      * method that simply return this location coordinates array
      * @return coordinates array for the location
      */
-    public double[] getLocation (){
-        return this.mCoordinates;
+    public double getLatitude (){
+        return this.mLatitude;
     }
 
+    public double getLongitude (){
+        return this.mLongitude;
+    }
+
+    public double getAltitude (){
+        return this.mAltitude;
+    }
 }
 
 
