@@ -15,21 +15,16 @@ public class TypeGA {
 
 
     public TypeGA(String inputTypeGA) {
-        if (this.typeOfGAIsValid (inputTypeGA)) {
-            this.mTypeGA = inputTypeGA;
-        }
+        this.mTypeGA = inputTypeGA;
     }
 
 
     //Métodos
 
-    public boolean typeOfGAIsValid(String inputTypeGA) {
-        return inputTypeGA != null && !inputTypeGA.trim ().isEmpty ();
-    }
-
     public String getTypeGA() {
         return this.mTypeGA;
     }
+
 
     //Método Equals (para ser usado na TypeGAList)
 

@@ -66,5 +66,4 @@ class TypeGAListTest {
         assertEquals (expectedResult, result);
     }
 
-
 }
