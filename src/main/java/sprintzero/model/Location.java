@@ -59,17 +59,26 @@ public class Location {
     }
 
     /**
-     * method that simply return this location coordinates array
-     * @return coordinates array for the location
+     * Method that simply returns the latitude of a specific location
+     * @return the latitude of a specific location
      */
     public double getLatitude (){
         return this.mLatitude;
     }
 
+    /**
+     * Method that simply returns the longitude of a specific location
+     * @return the longitude of a specific location
+     */
     public double getLongitude (){
         return this.mLongitude;
     }
 
+
+    /**
+     * Method that simply returns the altitude of a specific location
+     * @return the altitude of a specific location
+     */
     public double getAltitude (){
         return this.mAltitude;
     }

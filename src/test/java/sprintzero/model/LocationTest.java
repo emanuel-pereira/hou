@@ -2,6 +2,7 @@ package sprintzero.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sprintzero.model.Location;
 
@@ -84,6 +85,7 @@ class LocationTest {
     }
 
     @Test
+    @DisplayName("Test if getLatitude returns latitude of an instance of Location")
     void getLatitude() {
         Location loc = new Location(15,20,10);
         double expectedResult= 15;
@@ -92,6 +94,7 @@ class LocationTest {
     }
 
     @Test
+    @DisplayName("Test if getLongitude returns longitude of an instance of Location")
     void getLongitude() {
         Location loc = new Location(15,20,10);
         double expectedResult= 20;
@@ -100,6 +103,7 @@ class LocationTest {
     }
 
     @Test
+    @DisplayName("Test if getAltitude returns altitude of an instance of Location")
     void getAltitude() {
         Location loc = new Location(15,20,10);
         double expectedResult= 10;
