@@ -3,33 +3,35 @@ package sprintzero.model;
 public class OccupationArea {
 
 
-    private double mOccupation = Double.NaN;
+    private double mHeight;
+    private double mWidth;
 
 
     /**
      * Constructor method that determines a length and width for an occupational area and it verifies if
      * both attributes have positive values
-     * @param inputLength - length of the occupation area
+     * @param inputHeight - height of the occupation area
      * @param inputWidth  - width of the occupation area
      * @return true if both expressions are positive or false if one of them is equal or less than zero
      */
-    public OccupationArea(double inputLength, double inputWidth) {
-        if (inputLength > 0 && inputWidth > 0) {
-            this.mOccupation = inputLength * inputWidth;
-        }
+    public OccupationArea(double inputHeight, double inputWidth) {
+        this.mHeight=inputHeight;
+        this.mWidth= inputWidth;
     }
 
     /**
-     * Method that returns the area occupied by a geographical area
-     * @return - value of occupation area
+     * Method to get height of an occupation area
+     * @return
      */
-    public double getOccupationArea() {
-        return this.mOccupation;
+    public double getmHeight() {
+        return mHeight;
     }
 
-
-    /*public void convertMetersToKm(double inputLengthMeters, double inputWidthMeters) {
-        this.mWidth = inputWidthMeters * 0.001;
-        this.mLength = inputLengthMeters * 0.001;
-    }*/
+    /**
+     * Method to get width of an occupation area
+     * @return
+     */
+    public double getmWidth() {
+        return mWidth;
+    }
 }
