@@ -10,7 +10,7 @@ public class Sensor {
     private String mDesignation;
     private Calendar mStartDate;
     private Location mLocation;
-    private DataType mDataTypeDesignation; //temp, humidade,
+    private DataType mDataType; //temp, humidade,
     private List<Reading> mListOfReadings = new ArrayList<>();
 
     public Sensor() {
@@ -40,7 +40,7 @@ public class Sensor {
             this.mDesignation = designation;
             this.mStartDate = startDate;
             this.mLocation = sensorLocation;
-            this.mDataTypeDesignation = dataType;
+            this.mDataType = dataType;
         }
     }
 
@@ -54,7 +54,7 @@ public class Sensor {
             this.mDesignation = designation;
             this.mStartDate = startDate;
             this.mLocation = sensorLocation;
-            this.mDataTypeDesignation = dataType;
+            this.mDataType = dataType;
             this.mListOfReadings = listOfReadings;
         }
     }
@@ -110,16 +110,16 @@ public class Sensor {
      * Changes the dataType of the sensor to the dataType inputted.
      * @param dataType new object from the dataType class.
      */
-    public void setDataTypeDesignation(DataType dataType) {
-        this.mDataTypeDesignation = dataType;
+    public void setDataType(DataType dataType) {
+        this.mDataType = dataType;
     }
 
     /**
      * Returns the dataType of the sensor.
      * @return object dataType
      */
-    public DataType getDataTypeDesignation() {
-        return this.mDataTypeDesignation;
+    public DataType getDataType() {
+        return this.mDataType;
     }
 
     /**

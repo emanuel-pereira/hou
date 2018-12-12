@@ -64,9 +64,13 @@ public class GeographicalAreaTest {
         List<Reading> readS2 = Arrays.asList(new Reading(55, rTime1), new Reading(85, rTime2), new Reading(10, rTime3));
         List<Reading> readS3 = Arrays.asList(new Reading(5, rTime1), new Reading(37, rTime2), new Reading(58, rTime3));
 
-        Sensor sensor1 = new Sensor("TemperatureSensor", rTime1, new Location(41, -7.5, 49), DataType.TEMPERATURE, readS1);
-        Sensor sensor2 = new Sensor("PrecipitationSensor", rTime2,new Location(41, -7.5, 49), DataType.PRECIPITATION, readS2);
-        Sensor sensor3 = new Sensor("WindSensor",rTime3, new Location(41, -7.5, 49), DataType.WIND, readS3);
+        DataType type1 = new DataType ("temperature");
+        DataType type2 = new DataType ("precipitation");
+        DataType type3 = new DataType ("wind");
+
+        Sensor sensor1 = new Sensor("TemperatureSensor", rTime1, new Location(41, -7.5, 49), type1, readS1);
+        Sensor sensor2 = new Sensor("PrecipitationSensor", rTime2,new Location(41, -7.5, 49), type2, readS2);
+        Sensor sensor3 = new Sensor("WindSensor",rTime3, new Location(41, -7.5, 49), type3, readS3);
 
         TypeGAList tga = new TypeGAList ();
         TypeGA city = tga.newTypeGA ("city");
@@ -91,9 +95,13 @@ public class GeographicalAreaTest {
         List<Reading> readS2 = Arrays.asList(new Reading(55, rTime1), new Reading(85, rTime2), new Reading(10, rTime3));
         List<Reading> readS3 = Arrays.asList(new Reading(5, rTime1), new Reading(37, rTime2), new Reading(58, rTime3));
 
-        Sensor sensor1 = new Sensor("TemperatureSensor", rTime1, new Location(41, -7.5, 49), DataType.TEMPERATURE, readS1);
-        Sensor sensor2 = new Sensor("PrecipitationSensor",rTime1, new Location(41, -7.5, 49), DataType.PRECIPITATION, readS2);
-        Sensor sensor3 = new Sensor("WindSensor",rTime1, new Location(41, -7.5, 49), DataType.WIND, readS3);
+        DataType type1 = new DataType ("temperature");
+        DataType type2 = new DataType ("precipitation");
+        DataType type3 = new DataType ("wind");
+
+        Sensor sensor1 = new Sensor("TemperatureSensor", rTime1, new Location(41, -7.5, 49), type1, readS1);
+        Sensor sensor2 = new Sensor("PrecipitationSensor",rTime1, new Location(41, -7.5, 49), type2, readS2);
+        Sensor sensor3 = new Sensor("WindSensor",rTime1, new Location(41, -7.5, 49), type3, readS3);
 
         TypeGAList tga = new TypeGAList ();
         TypeGA city = tga.newTypeGA ("city");
@@ -122,6 +130,7 @@ public class GeographicalAreaTest {
 
         assertEquals(expectedDistance, result, 0.5);
     }
+
 
 
     @DisplayName("Calculate distance between two geographical areas")
@@ -207,7 +216,6 @@ public class GeographicalAreaTest {
         boolean result= g.locationIsInAG(l3.getLatitude(),l3.getLongitude());
         assertEquals(expectedResult,result);
     }
-
 
 }
 
