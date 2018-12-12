@@ -1,8 +1,11 @@
 package sprintzero.model;
 
 
+import org.jetbrains.annotations.Contract;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GeographicalArea {
     String mDesignation;
@@ -56,6 +59,15 @@ public class GeographicalArea {
         mTypeArea = new TypeGA(typeGA);
         mLocation = new Location(latitude, longitude, altitude);
         mOccupation = new OccupationArea(height, width);
+    }
+    /**
+     * method to get this Geographical Area designation
+     *
+     * @return return this geographical area designation
+     */
+
+    public String getGeographicalAreaDesignation() {
+        return this.mDesignation;
     }
 
     /**
@@ -223,6 +235,30 @@ public class GeographicalArea {
     private double calculateDistance(Location aLocation) {
         return Location.calcLinearDistanceBetweenTwoPoints(this.mLocation, aLocation);
     }
+
+    @Contract(value = "null -> false", pure = true)
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof GeographicalArea)) {
+            return false;
+        }
+        GeographicalArea GA = (GeographicalArea) o;
+        if (this.mDesignation.equals (GA.getGeographicalAreaDesignation ())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash (mDesignation);
+    }
+
 }
 
 
