@@ -19,7 +19,9 @@ public class TypeGAList {
     //Métodos
 
     public TypeGA newTypeGA(String inputName) {
-        return new TypeGA (inputName);
+        if (this.typeOfGAIsValid (inputName))
+            return new TypeGA (inputName);
+        return null;
     }
 
 
@@ -27,12 +29,22 @@ public class TypeGAList {
         if (!mTypeGA.contains (inputType)) {
             mTypeGA.add (inputType);
             return true;
+
         } else return false;
     }
 
-
     public List<TypeGA> getGAList() {
         return mTypeGA;
+    }
+
+    /**
+     * Validation of the input used in the method newTypeGA
+     *
+     * @param inputType The input string of the user
+     * @return Don't accept the input if empty (spaces)
+     */
+    public boolean typeOfGAIsValid(String inputType) {
+        return inputType != null && !inputType.trim ().isEmpty ();
     }
 
 }
