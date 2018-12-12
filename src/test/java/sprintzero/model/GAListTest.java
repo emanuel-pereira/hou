@@ -3,19 +3,44 @@ package sprintzero.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GAListTest {
 
-    @Test
     void newGA() {
+
+        GAList ga = new GAList();
+        GeographicalArea area1 = ga.newGA("Porto", "district", 20, 20, 1, 3, -10);
+        String expectedResult = "Porto";
+        String result = area1.getGeographicalAreaDesignation();
+        assertEquals(expectedResult, result);
     }
 
     @Test
     void addGA() {
+        GAList ga = new GAList();
+        GeographicalArea area1  = ga.newGA("Porto", "district", 20, 20, 1, 3, -10);
+        ga.addGA(area1);
+        List<GeographicalArea> expectedResult = Arrays.asList(area1);
+        List<GeographicalArea> result = ga.getGAList();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getGAList() {
+        GAList ga = new GAList();
+        GeographicalArea area1 = ga.newGA("Porto", "district", 20, 20, 1, 3, -10);
+        GeographicalArea area2 = ga.newGA("Braga", "district", 20, 20, 1, 3, -10);
+
+        ga.addGA(area1);
+        ga.addGA(area2);
+
+        List<GeographicalArea> expectedResult = Arrays.asList(area1, area2);
+        List<GeographicalArea> result = ga.getGAList();
+        assertEquals(expectedResult, result);
     }
 
     @Test
