@@ -19,6 +19,7 @@ public class US3CreateGACTRLTest {
         assertEquals(1, list.getGAList ().size ());
     }
 
+
     @Test
     @DisplayName("Add a new geographical area on a list with other GA's")
     void newGAonListwithOthersGAs() {

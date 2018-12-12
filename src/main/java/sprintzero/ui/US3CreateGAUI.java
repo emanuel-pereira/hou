@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 public class US3CreateGAUI {
 
+
     //Atributos
 
     GAList mGAList;
