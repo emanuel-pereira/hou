@@ -18,11 +18,11 @@ public class ReadingTest {
     public void getReadingDateAndValue(){
 
         //Arrange
-        GregorianCalendar c1 = new GregorianCalendar(2018,11,27,21,30);
+        GregorianCalendar calendar1 = new GregorianCalendar(2018,11,27,21,30);
 
         //Act
-        Reading r1 = new Reading(13,c1);
-        double value = r1.returnValueOfReading();
+        Reading reading1 = new Reading(13,calendar1);
+        double value = reading1.returnValueOfReading();
 
         //Assert
         assertEquals(13,value,0.1);
