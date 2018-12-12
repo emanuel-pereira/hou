@@ -140,6 +140,75 @@ public class GeographicalAreaTest {
 
         assertEquals(expectedDistance, result, 0.5);
     }
+
+    @Test
+    @DisplayName("Check if longitude in top left corner of Matosinhos returns 6")
+    void getLongitudeTopLeftCornerGA() {
+        GeographicalArea g= new GeographicalArea("Matosinhos","Cidade",4,5,2,2,5);
+        double expectedResult= 6;
+        double result=g.getLongitudeTopLeftCornerGA();
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    @DisplayName("Check if latitude in top left corner of Matosinhos returns 1.5")
+    void getLatitudeTopLeftCornerGA() {
+        GeographicalArea g= new GeographicalArea("Matosinhos","Cidade",4,5,2,2,5);
+        double expectedResult= 1.5;
+        double result=g.getLatitudeTopLeftCornerGA();
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    @DisplayName("Check if longitude in bottom right corner of Matosinhos returns 4")
+    void getLongitudeBottomRightCornerGA() {
+        GeographicalArea g= new GeographicalArea("Matosinhos","Cidade",4,5,2,2,5);
+        double expectedResult= 4;
+        double result=g.getLongitudeBottomRightCornerGA();
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    @DisplayName("Check if longitude in bottom right corner of Matosinhos returns 4")
+    void getLatitudeBottomRightCornerGA() {
+        GeographicalArea g= new GeographicalArea("Matosinhos","Cidade",4,5,2,2,5);
+        double expectedResult= 6.5;
+        double result=g.getLatitudeBottomRightCornerGA();
+        assertEquals(expectedResult,result);
+    }
+
+
+    @Test
+    @DisplayName("Ensure that location l is within Geographical Area")
+    void locationIsInAG() {
+    Location l = new Location(2.7,5.2,0);
+    GeographicalArea g= new GeographicalArea("Matosinhos","Cidade",4,5,2,2,5);
+    boolean expectedResult= true;
+    boolean result= g.locationIsInAG(l.getLatitude(),l.getLongitude());
+    assertEquals(expectedResult,result);
+    }
+
+    @Test
+    @DisplayName("Ensure that location l2 is not within Geographical Area")
+    void locationIsNotInAGBecauseLatitudeIsOutOfGABounds() {
+        Location l2 = new Location(7,5.2,0);
+        GeographicalArea g= new GeographicalArea("Matosinhos","Cidade",4,5,2,2,5);
+        boolean expectedResult= false;
+        boolean result= g.locationIsInAG(l2.getLatitude(),l2.getLongitude());
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    @DisplayName("Ensure that location l3 is not within Geographical Area")
+    void locationIsNotInAGBecauseLongitudeIsOutOfGABounds() {
+        Location l3 = new Location(2.7,15.2,0);
+        GeographicalArea g= new GeographicalArea("Matosinhos","Cidade",4,5,2,2,5);
+        boolean expectedResult= false;
+        boolean result= g.locationIsInAG(l3.getLatitude(),l3.getLongitude());
+        assertEquals(expectedResult,result);
+    }
+
+
 }
 
 

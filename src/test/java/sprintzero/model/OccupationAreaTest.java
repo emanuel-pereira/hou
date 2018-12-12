@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class OccupationAreaTest {
 
    /* OccupationArea OA = new OccupationArea();*/
-
+/*
     @Test
     @DisplayName("Constructor with both valid parameters")
     public void checkConstructorValidParameters() {
