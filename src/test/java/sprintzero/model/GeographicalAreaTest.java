@@ -141,12 +141,12 @@ public class GeographicalAreaTest {
         Location locationPorto = new Location(12.3, 35.2, 120);
         GeographicalArea PortoGA = new GeographicalArea("Porto", city, locationPorto);
 
-        Location locationGaia = new Location(8, -125, 10);
-        GeographicalArea GaiaGA = new GeographicalArea("Porto", city, locationGaia);
+        Location locationFunchal = new Location(8, -125, 10);
+        GeographicalArea FunchalGA = new GeographicalArea("Funchal", city, locationFunchal);
 
         double expectedDistance = 194.37;
-        double result = PortoGA.calculateDistanceTo(GaiaGA);
-
+        double result = PortoGA.calculateDistanceTo(FunchalGA);
+        assertNotEquals (PortoGA.hashCode (), FunchalGA.hashCode ());//to test the hash code method
         assertEquals(expectedDistance, result, 0.5);
     }
 
@@ -216,7 +216,6 @@ public class GeographicalAreaTest {
         boolean result= g.locationIsInAG(l3.getLatitude(),l3.getLongitude());
         assertEquals(expectedResult,result);
     }
-
 }
 
 

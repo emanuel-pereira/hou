@@ -20,7 +20,6 @@ public class GAList {
         return new GeographicalArea(inputDesignation, typeArea, width, height, latitude, longitude, altitude);
     }
 
-
     public boolean addGA(GeographicalArea inputGA) {
         if (!mGAList.contains(inputGA)) {
             mGAList.add(inputGA);
@@ -34,14 +33,14 @@ public class GAList {
 
     /**
      * Method that checks if a specific location is within a Geographical Area
-x     * the location is inserted. If no match is found, then this method returns null.
-     * @param latitude latitude of the location for which we
-     * @param longitude
+     * the location is inserted. If no match is found, then this method returns null.
+     * @param latitude latitude of the location
+     * @param longitude longitude of the location
      * @return
      */
     public GeographicalArea checkIfLocationIsInGAList(double latitude, double longitude) {
         for (int i = 0; i < mGAList.size(); i++) {
-            if (mGAList.get(i).locationIsInAG(latitude, longitude) == true) {
+            if (mGAList.get(i).locationIsInAG(latitude, longitude)) {
                 return mGAList.get(i);
             }
         }

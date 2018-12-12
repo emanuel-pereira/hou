@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GAListTest {
 
+    @Test
     void newGA() {
 
         GAList ga = new GAList();

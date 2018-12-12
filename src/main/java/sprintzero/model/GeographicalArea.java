@@ -1,8 +1,6 @@
 package sprintzero.model;
 
 
-import org.jetbrains.annotations.Contract;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -133,9 +131,7 @@ public class GeographicalArea {
      * False otherwise
      */
     private boolean longitudeIsInAG(double longitude) {
-        if (getLongitudeBottomRightCornerGA()<=longitude && longitude<=getLongitudeTopLeftCornerGA()) {
-            return true;}
-        else return false;
+        return getLongitudeBottomRightCornerGA() <= longitude && longitude <= getLongitudeTopLeftCornerGA();
     }
 
     /**
@@ -145,9 +141,7 @@ public class GeographicalArea {
      *False otherwise.
      */
     private boolean latitudeIsInAG(double latitude) {
-        if (getLatitudeTopLeftCornerGA() <= latitude && latitude<=getLatitudeBottomRightCornerGA()) {
-            return true;}
-        else return false;
+        return getLatitudeTopLeftCornerGA() <= latitude && latitude <= getLatitudeBottomRightCornerGA();
     }
 
     /**Checks if latitude and longitude coordinates are within a geographical area.
@@ -155,16 +149,8 @@ public class GeographicalArea {
      */
     public boolean locationIsInAG(double latitude, double longitude) {
 
-        if (latitudeIsInAG(latitude)==true && longitudeIsInAG(longitude)==true) {
-            return true;
-        }
-        else return false;
+        return latitudeIsInAG(latitude) && longitudeIsInAG(longitude);
     }
-
-      /* If (latitudeSupEsqAG<=latitudeSensor<=latitudeInfDirAG && longitudeSupEsqAG<=longitudeSensor<=longitudeInfDirAG)
-        Return true;
-        Else return false;*/
-
 
     /**
      * Constructor requiring to set a specific the designation, type, location
@@ -236,29 +222,19 @@ public class GeographicalArea {
         return Location.calcLinearDistanceBetweenTwoPoints(this.mLocation, aLocation);
     }
 
-    @Contract(value = "null -> false", pure = true)
+    @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof GeographicalArea)) {
-            return false;
-        }
-        GeographicalArea GA = (GeographicalArea) o;
-        if (this.mDesignation.equals (GA.getGeographicalAreaDesignation ())) {
-            return true;
-        } else {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GeographicalArea that = (GeographicalArea) o;
+        return Objects.equals(mDesignation, that.mDesignation) &&
+                Objects.equals(mTypeArea, that.mTypeArea);
     }
-
 
     @Override
     public int hashCode() {
-
-        return Objects.hash (mDesignation);
+        return Objects.hash(mDesignation, mTypeArea);
     }
-
 }
 
 
