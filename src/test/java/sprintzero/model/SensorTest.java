@@ -2,16 +2,10 @@ package sprintzero.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import sprintzero.model.DataType;
-import sprintzero.model.Location;
-import sprintzero.model.Reading;
-import sprintzero.model.Sensor;
 
-import java.util.*;
+import java.util.GregorianCalendar;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class SensorTest {
@@ -29,8 +23,8 @@ class SensorTest {
 
     @Test
     public void testIfRenamingASensorWithValidStringReturnsTrue(){
-        Sensor tempSensor= new Sensor ("Sensor004TempPorto");
-        String designation= "Sensor004TempPorto";
+        Sensor tempSensor= new Sensor ("Sensor04TempPorto");
+        String designation= "Sensor04TempPorto";
         boolean expectedResult= true;
         boolean result;
         result=tempSensor.setDesignation(designation);
@@ -266,12 +260,12 @@ class SensorTest {
     @DisplayName("Check monthly average value in September is 31.7")
     void getMonthlyAverageReadings() {
         //Arrange
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,00), new Location(40, 20,10),DataType.VISIBILITY);
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0), new Location(40, 20,10),DataType.VISIBILITY);
 
-        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 00));
-        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 00));
+        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
+        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
 
         s1.addReading(r1);
         s1.addReading(r2);
@@ -290,12 +284,12 @@ class SensorTest {
     @DisplayName("Check if monthly average value is not equal to expected")
     void getMonthlyAverageReadingsNotEquals() {
         //Arrange
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,00), new Location(40, 20,10),DataType.VISIBILITY);
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0), new Location(40, 20,10),DataType.VISIBILITY);
 
-        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 00));
-        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 00));
+        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
+        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
 
         s1.addReading(r1);
         s1.addReading(r2);
@@ -314,7 +308,7 @@ class SensorTest {
     @DisplayName("Check if monthly average returns zero if there are no readings")
     void getMonthlyAverageReadingsNoReadings() {
         //Arrange
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,00), new Location(40, 20,10),DataType.VISIBILITY);
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0), new Location(40, 20,10),DataType.VISIBILITY);
 
         //Act
         double result = s1.getMonthlyAverageReadings(9);
@@ -330,13 +324,13 @@ class SensorTest {
 
 
         //Arrange
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,00), new Location(40, 20,10),DataType.VISIBILITY);
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0), new Location(40, 20,10),DataType.VISIBILITY);
 
-        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 00));
-        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 00));
-        Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 00));
+        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
+        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
+        Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 0));
 
         s1.addReading(r1);
         s1.addReading(r2);
@@ -358,13 +352,13 @@ class SensorTest {
 
 
         //Arrange
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,00), new Location(40, 20,10),DataType.VISIBILITY);
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0), new Location(40, 20,10),DataType.VISIBILITY);
 
-        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 00));
-        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 00));
-        Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 00));
+        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
+        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
+        Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 0));
 
         s1.addReading(r1);
         s1.addReading(r2);
@@ -381,16 +375,16 @@ class SensorTest {
     }
    @Test
     public void getMonthlyAverageReadingListTest() {
-
-
         //Arrange
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,00), new Location(40, 20,10),DataType.VISIBILITY);
+        Sensor s1 = new Sensor("Visibility Sensor",
+                new GregorianCalendar(2018,8,1,9,0),
+                new Location(40, 20,10),DataType.VISIBILITY);
 
-        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 00));
-        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 00));
-        Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 00));
+        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
+        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
+        Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 0));
 
         s1.addReading(r1);
         s1.addReading(r2);
@@ -406,17 +400,47 @@ class SensorTest {
         assertArrayEquals(expectedResult,result);
     }
 
+    @DisplayName("Test the input of 0 in the readings")
+    @Test
+    public void getMonthlyAverageReadingListTest2() {
+        //Arrange
+        Sensor s1 = new Sensor("Visibility Sensor",
+                new GregorianCalendar(2018,8,1,9,0),
+                new Location(40, 20,10),DataType.VISIBILITY);
+
+        Reading r1 = new Reading(0, new GregorianCalendar(2018, 8, 4, 11, 0));
+        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
+        Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 0));
+        Reading r6 = new Reading(0, new GregorianCalendar(2018, 11, 20, 11, 0));
+
+        s1.addReading(r1);
+        s1.addReading(r2);
+        s1.addReading(r3);
+        s1.addReading(r4);
+        s1.addReading(r5);
+        s1.addReading(r6);
+
+        //Act
+        double[] result = s1.getMonthlyAverageReadingEachMonth();
+        double [] expectedResult = new double[]{Double.NaN,Double.NaN,Double.NaN,Double.NaN,Double.NaN,Double.NaN,Double.NaN,0,31.7,33.7,0,Double.NaN};
+
+        //Assert
+        assertArrayEquals(expectedResult,result);
+    }
+
 
     @Test
     @DisplayName("Test if minimum monthly average returns 18.5")
     void getMinimumAverageReading() {
         //Arrange
-        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,00),new Location(40,-5,25),DataType.WIND);
-        Reading r1 = new Reading(60.9, new GregorianCalendar(2018, 8, 4, 11, 00));
-        Reading r2 = new Reading(62.5, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r3 = new Reading(30.2, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r4 = new Reading(25.8, new GregorianCalendar(2018, 10, 4, 11, 00));
-        Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 00));
+        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),new Location(40,-5,25),DataType.WIND);
+        Reading r1 = new Reading(60.9, new GregorianCalendar(2018, 8, 4, 11, 0));
+        Reading r2 = new Reading(62.5, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r3 = new Reading(30.2, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r4 = new Reading(25.8, new GregorianCalendar(2018, 10, 4, 11, 0));
+        Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 0));
         s1.addReading(r1);
         s1.addReading(r2);
         s1.addReading(r3);
@@ -432,12 +456,12 @@ class SensorTest {
     @DisplayName("Test if minimum monthly average does not return zero")
     void getMinimumAverageReading1() {
         //Arrange
-        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,00),new Location(40,-5,25),DataType.WIND);
-        Reading r1 = new Reading(60.9, new GregorianCalendar(2018, 8, 4, 11, 00));
-        Reading r2 = new Reading(62.5, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r3 = new Reading(30.2, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r4 = new Reading(25.8, new GregorianCalendar(2018, 10, 4, 11, 00));
-        Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 00));
+        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),new Location(40,-5,25),DataType.WIND);
+        Reading r1 = new Reading(60.9, new GregorianCalendar(2018, 8, 4, 11, 0));
+        Reading r2 = new Reading(62.5, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r3 = new Reading(30.2, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r4 = new Reading(25.8, new GregorianCalendar(2018, 10, 4, 11, 0));
+        Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 0));
         s1.addReading(r1);
         s1.addReading(r2);
         s1.addReading(r3);
@@ -453,12 +477,12 @@ class SensorTest {
     @DisplayName("Test if maximum monthly average returns 18.5")
     void getMaximumAverageReading() {
         //Arrange
-        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,00),new Location(40,-5,25),DataType.WIND);
-        Reading r1 = new Reading(60.9, new GregorianCalendar(2018, 8, 4, 11, 00));
-        Reading r2 = new Reading(62.5, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r3 = new Reading(30.2, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r4 = new Reading(25.8, new GregorianCalendar(2018, 10, 4, 11, 00));
-        Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 00));
+        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),new Location(40,-5,25),DataType.WIND);
+        Reading r1 = new Reading(60.9, new GregorianCalendar(2018, 8, 4, 11, 0));
+        Reading r2 = new Reading(62.5, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r3 = new Reading(30.2, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r4 = new Reading(25.8, new GregorianCalendar(2018, 10, 4, 11, 0));
+        Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 0));
         s1.addReading(r1);
         s1.addReading(r2);
         s1.addReading(r3);
@@ -474,12 +498,12 @@ class SensorTest {
     @DisplayName("Test if maximum monthly average does not return zero")
     void getMaximumAverageReading1() {
         //Arrange
-        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,00),new Location(40,-5,25),DataType.WIND);
-        Reading r1 = new Reading(30.2, new GregorianCalendar(2018, 8, 4, 11, 00));
-        Reading r2 = new Reading(25.8, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r3 = new Reading(60.9, new GregorianCalendar(2018, 9, 4, 11, 00));
-        Reading r4 = new Reading(62.5, new GregorianCalendar(2018, 10, 4, 11, 00));
-        Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 00));
+        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),new Location(40,-5,25),DataType.WIND);
+        Reading r1 = new Reading(30.2, new GregorianCalendar(2018, 8, 4, 11, 0));
+        Reading r2 = new Reading(25.8, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r3 = new Reading(60.9, new GregorianCalendar(2018, 9, 4, 11, 0));
+        Reading r4 = new Reading(62.5, new GregorianCalendar(2018, 10, 4, 11, 0));
+        Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 0));
         s1.addReading(r1);
         s1.addReading(r2);
         s1.addReading(r3);
