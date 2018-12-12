@@ -18,7 +18,6 @@ public class TypeGA {
         this.mTypeGA = inputTypeGA;
     }
 
-
     //Métodos
 
     public String getTypeGA() {
