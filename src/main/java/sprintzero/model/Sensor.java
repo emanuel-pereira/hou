@@ -1,8 +1,9 @@
 package sprintzero.model;
 
-import java.util.*;
-
-import static java.lang.Double.isNaN;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.List;
 
 
 public class Sensor {
@@ -18,8 +19,7 @@ public class Sensor {
     /**
      * Constructor requiring to set only a specific designation for any object of type Sensor created
      * accordingly with the criteria defined in the "designationIsValid" method.
-     *
-     * @param designation
+     * @param designation refers to sensors name
      */
     public Sensor(String designation) {
         if (designationIsValid(designation)) {
@@ -30,8 +30,10 @@ public class Sensor {
     /**
      * Constructor requiring to set a specific designation and a location for any object of
      * type Sensor created.
-     *
-     * @param sensorLocation
+     * @param designation refers to sensor name
+     * @param startDate refers to the sensor's working status start date
+     * @param sensorLocation refers to the sensors location, with a Location object
+     * @param dataType refers to the sensor's chosen data type, humidity, precipitation
      */
     public Sensor(String designation, Calendar startDate, Location sensorLocation, DataType dataType) {
         if (designationIsValid(designation)) {
@@ -45,8 +47,6 @@ public class Sensor {
     /**
      * Constructor requiring to set a specific designation and a location for any object of
      * type Sensor created.
-     *
-     * @param sensorLocation
      */
     public Sensor(String designation, Calendar startDate, Location sensorLocation, DataType dataType, List<Reading> listOfReadings) {
         if (designationIsValid(designation)) {
@@ -62,9 +62,8 @@ public class Sensor {
      * Method to check if the designation given to name the sensor meets the criteria defined to be
      * considered a valid designation, namely:
      * - mDesignation cannot be empty or null
-     *
-     * @param designation
-     * @return
+     * @param designation sensor's name
+     * @return true if name designation is valid, if it is not null or empty
      */
     public boolean designationIsValid(String designation) {
         return designation != null && !designation.trim().isEmpty();
@@ -73,10 +72,8 @@ public class Sensor {
 
     /**
      * Changes the designation of the sensor to the one inputted by the user.
-     *
-     * @param designation
+     * @param designation sensor's name String
      */
-
     public boolean setDesignation(String designation) {
         if (designationIsValid(designation)) {
             this.mDesignation = designation;
@@ -87,8 +84,7 @@ public class Sensor {
 
     /**
      * Returns the designation of the sensor
-     *
-     * @return
+     * @return is the sensor's name designation
      */
     public String getDesignation() {
         return this.mDesignation;
@@ -96,8 +92,7 @@ public class Sensor {
 
     /**
      * Changes the location of the sensor to the new location coordinates inputted by the user.
-     *
-     * @param location
+     * @param location , of the object Location type, to update the location of the sensor
      */
     public void setLocation(Location location) {
         this.mLocation = location;
@@ -105,8 +100,7 @@ public class Sensor {
 
     /**
      * Returns the location coordinates of the sensor
-     *
-     * @return
+     * @return object Location
      */
     public Location getLocation() {
         return this.mLocation;
@@ -114,8 +108,7 @@ public class Sensor {
 
     /**
      * Changes the dataType of the sensor to the dataType inputted.
-     *
-     * @param dataType
+     * @param dataType new object from the dataType class.
      */
     public void setDataTypeDesignation(DataType dataType) {
         this.mDataTypeDesignation = dataType;
@@ -123,8 +116,7 @@ public class Sensor {
 
     /**
      * Returns the dataType of the sensor.
-     *
-     * @return
+     * @return object dataType
      */
     public DataType getDataTypeDesignation() {
         return this.mDataTypeDesignation;
@@ -132,19 +124,16 @@ public class Sensor {
 
     /**
      * Method to calculate linear distance between two sensors
-     *
-     * @param sensor1
-     * @param sensor2
-     * @return
+     * @param sensor1 object sensor 1
+     * @param sensor2 object sensor 2
+     * @return calculated distance betwwen both objects
      */
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
         return Location.calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation());
     }
 
-
     /**
      * Method to get the list of readings of a sensor.
-     *
      * @return the list of readings of a sensor
      */
     public List<Reading> getListOfReadings() {
@@ -153,8 +142,7 @@ public class Sensor {
 
     /**
      * Method to add a new reading to the list of readings of a sensor.
-     *
-     * @param newReading
+     * @param newReading new reading object with a value and date
      */
     public void addReading(Reading newReading) {
         if (!(getListOfReadings().contains(newReading)))
@@ -163,7 +151,6 @@ public class Sensor {
 
     /**
      * This method looks for the last reading within a list of readings for a sensor.
-     *
      * @return the last reading of a list of readings
      */
     public Reading getLastReadingPerSensor() {
@@ -172,6 +159,11 @@ public class Sensor {
         return lastValue;
     }
 
+    /**
+     * Method to calculate the average value of the previous set readings
+     * @param monthOfReadings month index to execute the calculation based on it
+     * @return the month's average
+     */
     public double getMonthlyAverageReadings(int monthOfReadings) {
 
         double sum = 0;
@@ -210,22 +202,24 @@ public class Sensor {
         return false;
     }
 
+    /**
+     * Method to retrieve the monthly average for each month
+     * For this calculation the method takes into account the measured values
+     * @return array averageValuesEachMonth with the average values for each month
+     */
     public double[] getMonthlyAverageReadingEachMonth() {
         double[] averageValuesEachMonth = new double[12];
+        Arrays.fill(averageValuesEachMonth, Double.NaN);//to populate the array with null values, since before it were 0.0
         for (int i = 0; i < averageValuesEachMonth.length; i++) {
             if (isMonthOfReadingList(i + 1))
                 averageValuesEachMonth[i] = getMonthlyAverageReadings(i + 1);
-            if (averageValuesEachMonth[i] == 0) {
-                averageValuesEachMonth[i] = Double.NaN;
-            }
         }
         return averageValuesEachMonth;
     }
 
     /**
      * Method to get the average minimum value in a list of average monthly readings
-     *
-     * @return
+     * @return the minimum average month readings
      */
     public double getMinimumAverageReading() {
         double minimum = getMonthlyAverageReadingEachMonth()[0];
@@ -242,10 +236,8 @@ public class Sensor {
 
     /**
      * Method to get the average maximum value in a list of average monthly readings
-     *
-     * @return
+     * @return the maximum average month readings
      */
-
     public double getMaximumAverageReading() {
         double maximum = getMonthlyAverageReadingEachMonth()[0];
         for (int i = 1; i < getMonthlyAverageReadingEachMonth().length; i++) {
@@ -257,6 +249,4 @@ public class Sensor {
         }
         return maximum;
     }
-
-
 }
