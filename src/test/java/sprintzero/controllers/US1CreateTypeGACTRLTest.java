@@ -126,5 +126,46 @@ class US1CreateTypeGACTRLTest {
         assertEquals (2, list.getGAList ().size ());
     }
 
+    @Test
+    @DisplayName("Add a string with an unaccepted character 'Ç' type of GA")
+    void newTypeGAIfSpaceNotAdded2() {
+        TypeGAList list = new TypeGAList ();
+        US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
+
+        assertEquals (0, list.getGAList ().size ());
+
+        ctrl1.newTypeGA ("village");
+        assertEquals (1, list.getGAList ().size ());
+
+        ctrl1.newTypeGA ("VillageÇ");
+        assertEquals (1, list.getGAList ().size ());
+
+        ctrl1.newTypeGA ("            ");
+        assertEquals (1, list.getGAList ().size ());
+
+        ctrl1.newTypeGA ("city");
+        assertEquals (2, list.getGAList ().size ());
+    }
+
+    @Test
+    @DisplayName("Add a repetitive string with lower case and a title case and a upper case type of GA")
+    void newTypeGAIfSpaceNotAdded3() {
+        TypeGAList list = new TypeGAList ();
+        US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
+
+        assertEquals (0, list.getGAList ().size ());
+
+        ctrl1.newTypeGA ("village");
+        assertEquals (1, list.getGAList ().size ());
+
+        ctrl1.newTypeGA ("Village");
+        assertEquals (1, list.getGAList ().size ());
+
+        ctrl1.newTypeGA ("VILLAGE");
+        assertEquals (1, list.getGAList ().size ());
+
+        ctrl1.newTypeGA ("VILlage");
+        assertEquals (1, list.getGAList ().size ());
+    }
 
 }
