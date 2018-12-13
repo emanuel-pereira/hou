@@ -25,8 +25,7 @@ public class US1CreateTypeGACTRL {
         TypeGA typeGA = mTypeGAList.newTypeGA (inputType);
         if (typeGA != null)
             return mTypeGAList.addTypeGA (typeGA);
-        else
-            return false;
+        return false;
     }
 
 

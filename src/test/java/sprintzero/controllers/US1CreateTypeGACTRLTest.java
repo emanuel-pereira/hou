@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import sprintzero.model.TypeGAList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class US1CreateTypeGACTRLTest {
 
@@ -155,17 +157,40 @@ class US1CreateTypeGACTRLTest {
 
         assertEquals (0, list.getGAList ().size ());
 
-        ctrl1.newTypeGA ("village");
+        assertTrue(ctrl1.newTypeGA ("village"));
         assertEquals (1, list.getGAList ().size ());
 
-        ctrl1.newTypeGA ("Village");
+        assertFalse(ctrl1.newTypeGA ("Village"));
         assertEquals (1, list.getGAList ().size ());
 
-        ctrl1.newTypeGA ("VILLAGE");
+        assertFalse(ctrl1.newTypeGA ("VILLAGE"));
         assertEquals (1, list.getGAList ().size ());
 
-        ctrl1.newTypeGA ("VILlage");
+        assertFalse(ctrl1.newTypeGA ("VILlage"));
         assertEquals (1, list.getGAList ().size ());
+
+        assertFalse(ctrl1.newTypeGA ("village"));
+        assertEquals (1, list.getGAList ().size ());
+
+        assertTrue(ctrl1.newTypeGA ("city"));
+        assertEquals (2, list.getGAList ().size ());
     }
 
+    @Test
+    @DisplayName("Add a null type of GA")
+    void newTypeGAIfSpaceNotAdded4() {
+        TypeGAList list = new TypeGAList ();
+        US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
+
+        assertEquals (0, list.getGAList ().size ());
+
+        /*ctrl1.newTypeGA (null);
+        assertEquals (0, list.getGAList ().size ());*/
+
+        assertFalse(ctrl1.newTypeGA ("            "));
+        assertEquals (0, list.getGAList ().size ());
+
+
+
+    }
 }
