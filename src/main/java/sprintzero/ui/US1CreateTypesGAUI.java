@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class US1CreateTypesGAUI {
 
-    TypeGAList mTypeGAList;
-    US1CreateTypeGACTRL mCtrlUS1;
+    private TypeGAList mTypeGAList;
+    private US1CreateTypeGACTRL mCtrlUS1;
 
     /**
      * US1CreateTypesGAUI Constructor
@@ -37,11 +37,10 @@ public class US1CreateTypesGAUI {
             String name = typeInputIsValid ();
             if ("r".equals (name)) {
                 System.out.println ("Return to Main Menu");
-                MainUI.main (null);
                 break;
             }
             if (mCtrlUS1.newTypeGA (name)) //Same as if (mCtrlUS1.newTypeGA (name)==true)
-                System.out.println ("Success: " + name + " added.");
+                System.out.println ("Success: " + name + " added."); //System.out.println (mTypeGAList.getGAList ());
             else //when name is not valid, = null, the method enters in this condition
                 System.out.println ("Failure. Please try again.");
         }
