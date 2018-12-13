@@ -1,9 +1,8 @@
 package sprintzero.model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
+import org.jetbrains.annotations.Contract;
+
+import java.util.*;
 
 
 public class Sensor {
@@ -18,11 +17,11 @@ public class Sensor {
 
     /**
      * Constructor requiring to set only a specific designation for any object of type Sensor created
-     * accordingly with the criteria defined in the "designationIsValid" method.
+     * accordingly with the criteria defined in the "sensorDesignationIsValid" method.
      * @param designation refers to sensors name
      */
     public Sensor(String designation) {
-        if (designationIsValid(designation)) {
+        if (sensorDesignationIsValid(designation)) {
             this.mDesignation = designation;
         }
     }
@@ -36,7 +35,7 @@ public class Sensor {
      * @param dataType refers to the sensor's chosen data type, humidity, precipitation
      */
     public Sensor(String designation, Calendar startDate, Location sensorLocation, DataType dataType) {
-        if (designationIsValid(designation)) {
+        if (sensorDesignationIsValid(designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
             this.mLocation = sensorLocation;
@@ -50,7 +49,7 @@ public class Sensor {
      * @param sensorLocation object Location with the sensor's location
      */
     public Sensor(String designation, Calendar startDate, Location sensorLocation, DataType dataType, List<Reading> listOfReadings) {
-        if (designationIsValid(designation)) {
+        if (sensorDesignationIsValid(designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
             this.mLocation = sensorLocation;
@@ -60,23 +59,23 @@ public class Sensor {
     }
 
     /**
-     * Method to check if the designation given to name the sensor meets the criteria defined to be
-     * considered a valid designation, namely:
+     * Method to check if the sensorDesignation given to name the sensor meets the criteria defined to be
+     * considered a valid sensorDesignation, namely:
      * - mDesignation cannot be empty or null
-     * @param designation sensor's name
-     * @return true if name designation is valid, if it is not null or empty
+     * @param sensorDesignation sensor's name
+     * @return true if name sensorDesignation is valid, if it is not null or empty
      */
-    public boolean designationIsValid(String designation) {
-        return designation != null && !designation.trim().isEmpty();
+    public boolean sensorDesignationIsValid(String sensorDesignation) {
+        return sensorDesignation != null && !sensorDesignation.trim().isEmpty();
     }
 
     /**
-     * Changes the designation of the sensor to the one inputted by the user.
-     * @param designation sensor's name String
+     * Changes the sensorDesignation of the sensor to the one inputted by the user.
+     * @param sensorDesignation sensor's name String
      */
-    public boolean setDesignation(String designation) {
-        if (designationIsValid(designation)) {
-            this.mDesignation = designation;
+    public boolean setSensorDesignation(String sensorDesignation) {
+        if (sensorDesignationIsValid(sensorDesignation)) {
+            this.mDesignation = sensorDesignation;
             return true;
         }
         return false;
@@ -86,7 +85,7 @@ public class Sensor {
      * Returns the designation of the sensor
      * @return is the sensor's name designation
      */
-    public String getDesignation() {
+    public String getSensorDesignation() {
         return this.mDesignation;
     }
 
@@ -94,7 +93,7 @@ public class Sensor {
      * Changes the location of the sensor to the new location coordinates inputted by the user.
      * @param location , of the object Location type, to update the location of the sensor
      */
-    public void setLocation(Location location) {
+    public void setSensorLocation(Location location) {
         this.mLocation = location;
     }
 
@@ -102,7 +101,7 @@ public class Sensor {
      * Returns the location coordinates of the sensor
      * @return object Location
      */
-    public Location getLocation() {
+    public Location getSensorLocation() {
         return this.mLocation;
     }
 
@@ -110,7 +109,7 @@ public class Sensor {
      * Changes the dataType of the sensor to the dataType inputted.
      * @param dataType new object from the dataType class.
      */
-    public void setDataType(DataType dataType) {
+    public void setSensorDataType(DataType dataType) {
         this.mDataType = dataType;
     }
 
@@ -118,7 +117,7 @@ public class Sensor {
      * Returns the dataType of the sensor.
      * @return object dataType
      */
-    public DataType getDataType() {
+    public DataType getSensorDataType() {
         return this.mDataType;
     }
 
@@ -129,7 +128,7 @@ public class Sensor {
      * @return calculated distance betwwen both objects
      */
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
-        return Location.calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation());
+        return Location.calcLinearDistanceBetweenTwoPoints(sensor1.getSensorLocation(), sensor2.getSensorLocation());
     }
 
     /**
@@ -144,7 +143,7 @@ public class Sensor {
      * Method to add a new reading to the list of readings of a sensor.
      * @param newReading new reading object with a value and date
      */
-    public void addReading(Reading newReading) {
+    public void addReadingToList(Reading newReading) {
         if (!(getListOfReadings().contains(newReading)))
             this.mListOfReadings.add(newReading);
     }
@@ -263,5 +262,28 @@ public class Sensor {
             }
         }
         return maximum;
+    }
+
+
+    @Contract(value = "null -> false", pure = true)
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Sensor)) {
+            return false;
+        }
+        Sensor sensor = (Sensor) o;
+        if (this.mDesignation.equals(sensor.getSensorDesignation())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mDesignation);
     }
 }
