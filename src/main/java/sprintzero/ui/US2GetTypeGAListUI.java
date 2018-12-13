@@ -24,15 +24,17 @@ public class US2GetTypeGAListUI {
         */
 
     //List, each element in one line
-    public void run(){
-        System.out.println ("Current list of type of geographical area:");
+    public void run() {
         List<TypeGA> list = mCtrlUS2.getTypeGAList ();
-        for (int position = 0; position < list.size(); position++) {
-            int number = position+1;
-            System.out.println (number + " - " + list.get(position).toString ());
+        if (list.size () == 0) {
+            System.out.println ("List of type of geographical area is empty.");
+        } else {
+            System.out.println ("Current list of type of geographical area:");
+            for (int position = 0; position < list.size (); position++) {
+                int number = position + 1;
+                System.out.println (number + " - " + list.get (position).toString ());
+            }
         }
     }
-
-
 
 }
