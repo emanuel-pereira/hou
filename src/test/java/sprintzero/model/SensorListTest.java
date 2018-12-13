@@ -46,23 +46,44 @@ class SensorListTest {
     @Test
     public void notAddRepeatedDataType() {
 
-        //Arrange
-        SensorList list = new SensorList ();
-        Sensor sensor1= list.newSensor ("Sensor1");
-        Sensor sensor2= list.newSensor ("Sensor1");
+       //Arrange
+       SensorList list = new SensorList();
+       Sensor sensor1 = list.newSensor("Sensor1");
+       Sensor sensor2 = list.newSensor("Sensor1");
 
-        //Act
-        assertEquals (0, list.getSensorList().size ());
-        list.addSensor(sensor1);
-        assertEquals (1, list.getSensorList().size ());
-        list.addSensor(sensor2);
-        assertEquals (1, list.getSensorList().size ());
+       //Act
+       assertEquals(0, list.getSensorList().size());
+       list.addSensor(sensor1);
+       assertEquals(1, list.getSensorList().size());
+       list.addSensor(sensor2);
+       assertEquals(1, list.getSensorList().size());
 
-        List<Sensor> expectedResult = Arrays.asList (sensor1);
-        List<Sensor> result = list.getSensorList();
+       List<Sensor> expectedResult = Arrays.asList(sensor1);
+       List<Sensor> result = list.getSensorList();
 
-        //Assert
-        assertEquals (expectedResult, result);
+       //Assert
+       assertEquals(expectedResult, result);
 
+   }
+
+    @Test
+    @DisplayName("Tests if two sensor designations are different")
+    public void checkIfSensorDesignationAreDifferent() {
+
+        Sensor sensor1 = new Sensor ("Sensor1");
+        Sensor sensor2 = new Sensor ("Sensor2");
+
+        boolean result;
+
+        result = sensor1.equals (sensor2);
+
+        assertNotEquals (sensor1.hashCode(),sensor2.hashCode());
+        assertEquals (false, result);
     }
+
+
+
+
+
+
 }
