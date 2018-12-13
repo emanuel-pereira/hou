@@ -17,7 +17,7 @@ class SensorTest {
         String designation= "";
         boolean expectedResult= false;
         boolean result;
-        result=tempSensor.setDesignation(designation);
+        result=tempSensor.setSensorDesignation(designation);
         assertEquals(expectedResult, result);
     }
 
@@ -27,7 +27,7 @@ class SensorTest {
         String designation= "Sensor04TempPorto";
         boolean expectedResult= true;
         boolean result;
-        result=tempSensor.setDesignation(designation);
+        result=tempSensor.setSensorDesignation(designation);
         assertEquals(expectedResult, result);
     }
 
@@ -38,8 +38,8 @@ class SensorTest {
         String designation= "";
         String expectedResult="Sensor01TempMat";
         String result;
-        tempSensor.setDesignation (designation);
-        result=tempSensor.getDesignation ();
+        tempSensor.setSensorDesignation(designation);
+        result=tempSensor.getSensorDesignation();
         assertEquals(expectedResult,result);
     }
 
@@ -49,8 +49,8 @@ class SensorTest {
         String designation= "SensorVisibilityLisbon";
         String expectedResult="SensorVisibilityLisbon";
         String result;
-        tempSensor.setDesignation (designation);
-        result=tempSensor.getDesignation ();
+        tempSensor.setSensorDesignation(designation);
+        result=tempSensor.getSensorDesignation();
         assertEquals(expectedResult,result);
     }
 
@@ -60,8 +60,8 @@ class SensorTest {
         String designation= "SensorVisibilityLisboa";
         String expectedResult="SensorVisibilityLisboa";
         String result;
-        tempSensor.setDesignation (designation);
-        result=tempSensor.getDesignation ();
+        tempSensor.setSensorDesignation(designation);
+        result=tempSensor.getSensorDesignation();
         assertEquals(expectedResult,result);
     }
 
@@ -72,8 +72,8 @@ class SensorTest {
         String designation= "WindSensorLisboa";
         String expectedResult="WindSensorSantarem";
         String result;
-        tempSensor.setDesignation (designation);
-        result=tempSensor.getDesignation ();
+        tempSensor.setSensorDesignation(designation);
+        result=tempSensor.getSensorDesignation();
         assertNotEquals(expectedResult,result);
     }
 
@@ -83,7 +83,7 @@ class SensorTest {
         Sensor rainfallSensor = new Sensor("RainfallSensorOfNowhere");
         Location expectedResult= null;
         Location result;
-        result=rainfallSensor.getLocation ();
+        result=rainfallSensor.getSensorLocation();
         assertEquals(expectedResult,result);}
 
 
@@ -93,8 +93,8 @@ class SensorTest {
         Location loc1 = new Location(30,-12,62);
         Location expectedResult= loc1;
         Location result;
-        rainfallSensor.setLocation (loc1);
-        result=rainfallSensor.getLocation ();
+        rainfallSensor.setSensorLocation(loc1);
+        result=rainfallSensor.getSensorLocation();
         assertEquals(expectedResult,result);
     }
 
@@ -104,7 +104,7 @@ class SensorTest {
         Sensor visibilitySensor=new Sensor("WindSensorOfCoimbra");
         DataType expectedResult= null;
         DataType result;
-        result=visibilitySensor.getDataType();
+        result=visibilitySensor.getSensorDataType();
         assertEquals(expectedResult,result);
     }
 
@@ -119,9 +119,9 @@ class SensorTest {
         String resultDesignation;
         String expectedDesignation="SensorOfCoimbra";
 
-        visibilitySensor.setDataType(visibility);
-        resultDataType=visibilitySensor.getDataType();
-        resultDesignation=visibilitySensor.getDesignation();
+        visibilitySensor.setSensorDataType(visibility);
+        resultDataType=visibilitySensor.getSensorDataType();
+        resultDesignation=visibilitySensor.getSensorDesignation();
 
 
         assertEquals(expectedDataType,resultDataType);
@@ -141,9 +141,9 @@ class SensorTest {
         DataType expectedResult= newType;
         DataType result;
 
-        visibilitySensor.setDataType(oldType);
-        visibilitySensor.setDataType(newType);
-        result=visibilitySensor.getDataType();
+        visibilitySensor.setSensorDataType(oldType);
+        visibilitySensor.setSensorDataType(newType);
+        result=visibilitySensor.getSensorDataType();
 
         assertEquals(expectedResult,result);
     }
@@ -246,9 +246,9 @@ class SensorTest {
         Reading expectedReading = new Reading (8, rTime3);
 
         Sensor sensor2 = new Sensor ("Temp131");
-        sensor2.addReading(readingDate1);
-        sensor2.addReading(readingDate2);
-        sensor2.addReading(expectedReading);
+        sensor2.addReadingToList(readingDate1);
+        sensor2.addReadingToList(readingDate2);
+        sensor2.addReadingToList(expectedReading);
 
         Reading result = sensor2.getLastReadingPerSensor();
 
@@ -269,9 +269,9 @@ class SensorTest {
         Reading expectedReading = new Reading (8, rTime3);
 
         Sensor sensor1 = new Sensor ("Temp131");
-        sensor1.addReading(readingDate1);
-        sensor1.addReading(readingDate2);
-        sensor1.addReading(expectedReading);
+        sensor1.addReadingToList(readingDate1);
+        sensor1.addReadingToList(readingDate2);
+        sensor1.addReadingToList(expectedReading);
 
         Reading result = sensor1.getLastReadingPerSensor();
 
@@ -286,7 +286,7 @@ class SensorTest {
         Reading expectedReading = new Reading (8, cL1);
 
         Sensor sensor1 = new Sensor ("Temp132");
-        sensor1.addReading (expectedReading);
+        sensor1.addReadingToList(expectedReading);
 
         Reading result = sensor1.getLastReadingPerSensor ();
 
@@ -308,10 +308,10 @@ class SensorTest {
         Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 0));
         Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
 
-        s1.addReading(r1);
-        s1.addReading(r2);
-        s1.addReading(r3);
-        s1.addReading(r4);
+        s1.addReadingToList(r1);
+        s1.addReadingToList(r2);
+        s1.addReadingToList(r3);
+        s1.addReadingToList(r4);
 
         //Act
         double result = s1.getMonthlyAverageReadings(9);
@@ -333,10 +333,10 @@ class SensorTest {
         Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 0));
         Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
 
-        s1.addReading(r1);
-        s1.addReading(r2);
-        s1.addReading(r3);
-        s1.addReading(r4);
+        s1.addReadingToList(r1);
+        s1.addReadingToList(r2);
+        s1.addReadingToList(r3);
+        s1.addReadingToList(r4);
 
         //Act
         double result = s1.getMonthlyAverageReadings(9);
@@ -375,11 +375,11 @@ class SensorTest {
         Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
         Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 0));
 
-        s1.addReading(r1);
-        s1.addReading(r2);
-        s1.addReading(r3);
-        s1.addReading(r4);
-        s1.addReading(r5);
+        s1.addReadingToList(r1);
+        s1.addReadingToList(r2);
+        s1.addReadingToList(r3);
+        s1.addReadingToList(r4);
+        s1.addReadingToList(r5);
 
         //Act
         double result = s1.getMonthlyMinimumReading(10);
@@ -403,11 +403,11 @@ class SensorTest {
         Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
         Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 0));
 
-        s1.addReading(r1);
-        s1.addReading(r2);
-        s1.addReading(r3);
-        s1.addReading(r4);
-        s1.addReading(r5);
+        s1.addReadingToList(r1);
+        s1.addReadingToList(r2);
+        s1.addReadingToList(r3);
+        s1.addReadingToList(r4);
+        s1.addReadingToList(r5);
 
         //Act
         double result = s1.getMonthlyMinimumReading(10);
@@ -430,11 +430,11 @@ class SensorTest {
         Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
         Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 0));
 
-        s1.addReading(r1);
-        s1.addReading(r2);
-        s1.addReading(r3);
-        s1.addReading(r4);
-        s1.addReading(r5);
+        s1.addReadingToList(r1);
+        s1.addReadingToList(r2);
+        s1.addReadingToList(r3);
+        s1.addReadingToList(r4);
+        s1.addReadingToList(r5);
 
         //Act
         double[] result = s1.getMonthlyAverageReadingEachMonth();
@@ -460,12 +460,12 @@ class SensorTest {
         Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 0));
         Reading r6 = new Reading(0, new GregorianCalendar(2018, 11, 20, 11, 0));
 
-        s1.addReading(r1);
-        s1.addReading(r2);
-        s1.addReading(r3);
-        s1.addReading(r4);
-        s1.addReading(r5);
-        s1.addReading(r6);
+        s1.addReadingToList(r1);
+        s1.addReadingToList(r2);
+        s1.addReadingToList(r3);
+        s1.addReadingToList(r4);
+        s1.addReadingToList(r5);
+        s1.addReadingToList(r6);
 
         //Act
         double[] result = s1.getMonthlyAverageReadingEachMonth();
@@ -487,11 +487,11 @@ class SensorTest {
         Reading r3 = new Reading(30.2, new GregorianCalendar(2018, 9, 4, 11, 0));
         Reading r4 = new Reading(25.8, new GregorianCalendar(2018, 10, 4, 11, 0));
         Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 0));
-        s1.addReading(r1);
-        s1.addReading(r2);
-        s1.addReading(r3);
-        s1.addReading(r4);
-        s1.addReading(r5);
+        s1.addReadingToList(r1);
+        s1.addReadingToList(r2);
+        s1.addReadingToList(r3);
+        s1.addReadingToList(r4);
+        s1.addReadingToList(r5);
         //Act
         double result=s1.getMinimumAverageReading();
         double expectedResult=18.25;
@@ -509,11 +509,11 @@ class SensorTest {
         Reading r3 = new Reading(30.2, new GregorianCalendar(2018, 9, 4, 11, 0));
         Reading r4 = new Reading(25.8, new GregorianCalendar(2018, 10, 4, 11, 0));
         Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 0));
-        s1.addReading(r1);
-        s1.addReading(r2);
-        s1.addReading(r3);
-        s1.addReading(r4);
-        s1.addReading(r5);
+        s1.addReadingToList(r1);
+        s1.addReadingToList(r2);
+        s1.addReadingToList(r3);
+        s1.addReadingToList(r4);
+        s1.addReadingToList(r5);
         //Act
         double result=s1.getMinimumAverageReading();
         double expectedResult=0;
@@ -531,11 +531,11 @@ class SensorTest {
         Reading r3 = new Reading(30.2, new GregorianCalendar(2018, 9, 4, 11, 0));
         Reading r4 = new Reading(25.8, new GregorianCalendar(2018, 10, 4, 11, 0));
         Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 0));
-        s1.addReading(r1);
-        s1.addReading(r2);
-        s1.addReading(r3);
-        s1.addReading(r4);
-        s1.addReading(r5);
+        s1.addReadingToList(r1);
+        s1.addReadingToList(r2);
+        s1.addReadingToList(r3);
+        s1.addReadingToList(r4);
+        s1.addReadingToList(r5);
         //Act
         double result=s1.getMaximumAverageReading();
         double expectedResult=60.9;
@@ -553,11 +553,11 @@ class SensorTest {
         Reading r3 = new Reading(60.9, new GregorianCalendar(2018, 9, 4, 11, 0));
         Reading r4 = new Reading(62.5, new GregorianCalendar(2018, 10, 4, 11, 0));
         Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 0));
-        s1.addReading(r1);
-        s1.addReading(r2);
-        s1.addReading(r3);
-        s1.addReading(r4);
-        s1.addReading(r5);
+        s1.addReadingToList(r1);
+        s1.addReadingToList(r2);
+        s1.addReadingToList(r3);
+        s1.addReadingToList(r4);
+        s1.addReadingToList(r5);
         //Act
         double result=s1.getMaximumAverageReading();
         double expectedResult=0;
