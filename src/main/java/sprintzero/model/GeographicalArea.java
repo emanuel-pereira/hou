@@ -148,7 +148,6 @@ public class GeographicalArea {
      * @return true if coordinates are within a geographical area and false otherwise.
      */
     public boolean locationIsInAG(double latitude, double longitude) {
-
         return latitudeIsInAG(latitude) && longitudeIsInAG(longitude);
     }
 
