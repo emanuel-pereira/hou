@@ -2,6 +2,8 @@ package sprintzero.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import sprintzero.model.TypeGA;
+import sprintzero.model.GeographicalArea;
 
 public class GAList {
 
@@ -82,4 +84,25 @@ public class GAList {
             return (selectedGA.addSensor(sensor));
         } else return false;
     }
+
+    /**
+     * US04
+     * Method that returns a list of Geographical Areas of a certain Type.
+     * The user inputs the TypeGA he wishes to obtain, for example, "street" and will receive a list of GAs from that Type.
+     * A 'for each' was used for simpler and easier list iteration.
+     * @param inputTypeGA string inserted by user
+     */
+
+    public List<GeographicalArea> GAFromThisType (String inputTypeGA){
+
+        List<GeographicalArea> GAFromTypeList = new ArrayList<>();
+        for (GeographicalArea ga: mGAList){
+            if(ga.getmTypeArea().getTypeGA().equals(inputTypeGA)){
+                GAFromTypeList.add (ga);
+            }
+        }
+        return GAFromTypeList;
+    }
+
+
 }

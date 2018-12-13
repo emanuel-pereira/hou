@@ -218,6 +218,14 @@ public class GeographicalArea {
     }
 
     /**
+     * US04
+     * method to get the Geographic Area Type
+     */
+    public TypeGA getmTypeArea() {
+        return mTypeArea;
+    }
+
+    /**
      * Method to call the method in Location which executes the calculation of the linear distance between two locations
      *
      * @param aLocation second geographical area location

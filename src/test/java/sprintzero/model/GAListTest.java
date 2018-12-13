@@ -3,6 +3,7 @@ package sprintzero.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -144,4 +145,64 @@ class GAListTest {
     }
 
 
+
+    @Test
+    @DisplayName("Check if method returns a List of GA from the type chosen by the user, when there is only 1 result")
+    void GAFromTypeTestOneElement() {
+        GAList gaList= new GAList();
+        GeographicalArea ga1= new GeographicalArea("Gaia","City",20,20,2,2,5);
+        gaList.addGA(ga1);
+        GeographicalArea ga2= new GeographicalArea("Matosinhos","City",4,5,2,2,5);
+        gaList.addGA(ga2);
+        GeographicalArea ga3 = new GeographicalArea("Cedofeita","Street",41,-8, 83,2,5);
+        gaList.addGA(ga3);
+        List<GeographicalArea> expectedresult = new ArrayList<>(Arrays.asList(ga3)); //Usar Arrays.asList dentro de um a nova array list caso dê erro null point exception
+        List<GeographicalArea> result=gaList.GAFromThisType("Street");
+        assertEquals(expectedresult, result);
+    }
+
+    @Test
+    @DisplayName("Check if method returns a List of GA from the type chosen by the user, when there is 2 or more results")
+    void GAFromTypeTestTwoOrMoreElements() {
+        GAList gaList= new GAList();
+        GeographicalArea ga1= new GeographicalArea("Gaia","City",20,20,2,2,5);
+        gaList.addGA(ga1);
+        GeographicalArea ga2= new GeographicalArea("Matosinhos","City",4,5,2,2,5);
+        gaList.addGA(ga2);
+        GeographicalArea ga3 = new GeographicalArea("Cedofeita","Street",41,-8, 83,2,5);
+        gaList.addGA(ga3);
+        List<GeographicalArea> expectedresult = new ArrayList<>(Arrays.asList(ga1,ga2));
+        List<GeographicalArea> result=gaList.GAFromThisType("City");
+        assertEquals(expectedresult, result);
+    }
+
+    @Test
+    @DisplayName("Check if method returns an empty List of GA, when there is no matches")
+    void GAFromTypeTestEmptyNoMatch() {
+        GAList gaList= new GAList();
+        GeographicalArea ga1= new GeographicalArea("Gaia","City",20,20,2,2,5);
+        gaList.addGA(ga1);
+        GeographicalArea ga2= new GeographicalArea("Matosinhos","City",4,5,2,2,5);
+        gaList.addGA(ga2);
+        GeographicalArea ga3 = new GeographicalArea("Cedofeita","Street",41,-8, 83,2,5);
+        gaList.addGA(ga3);
+        List<GeographicalArea> expectedresult = Arrays.asList();
+        List<GeographicalArea> result=gaList.GAFromThisType("Country");
+        assertEquals(expectedresult, result);
+    }
+
+    @Test
+    @DisplayName("Check if method returns an empty List of GA, when there is no input/empty")
+    void GAFromTypeTestEmptyNoInput() {
+        GAList gaList= new GAList();
+        GeographicalArea ga1= new GeographicalArea("Gaia","City",20,20,2,2,5);
+        gaList.addGA(ga1);
+        GeographicalArea ga2= new GeographicalArea("Matosinhos","City",4,5,2,2,5);
+        gaList.addGA(ga2);
+        GeographicalArea ga3 = new GeographicalArea("Cedofeita","Street",41,-8, 83,2,5);
+        gaList.addGA(ga3);
+        List<GeographicalArea> expectedresult = Arrays.asList();
+        List<GeographicalArea> result=gaList.GAFromThisType("");
+        assertEquals(expectedresult, result);
+    }
 }
