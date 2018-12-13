@@ -20,7 +20,8 @@ public class TypeGAList {
      * @return a new object Type of GA with the user's input or null if the input was not valid
      */
     public TypeGA newTypeGA(String inputName) {
-        inputName = inputName.toLowerCase();
+        if (inputName != null)
+                inputName = inputName.toLowerCase();
         if (this.typeOfGAIsValid(inputName))
             return new TypeGA(inputName);
         return null;
@@ -58,4 +59,6 @@ public class TypeGAList {
             return false;
         return inputType.matches("[a-zA-Z]*");
     }
+
+
 }

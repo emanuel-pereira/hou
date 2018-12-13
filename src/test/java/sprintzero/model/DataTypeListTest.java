@@ -34,7 +34,7 @@ class DataTypeListTest {
         DataType wind = type.newDataType("wind");
 
         //Act
-        type.addDataType (wind);
+        assertTrue(type.addDataType (wind));
         List<DataType> expectedResult = Arrays.asList (wind);
         List<DataType> result = type.getDataTypeList();
 
@@ -45,7 +45,6 @@ class DataTypeListTest {
     @DisplayName("Tests if a data type is not added to the list if it is repeated")
     @Test
     public void notAddRepeatedDataType() {
-
         //Arrange
         DataTypeList type = new DataTypeList ();
         DataType visibility1= type.newDataType ("visibility");
@@ -53,9 +52,9 @@ class DataTypeListTest {
 
         //Act
         assertEquals (0, type.getDataTypeList().size ());
-        type.addDataType(visibility1);
+        assertTrue(type.addDataType(visibility1));
         assertEquals (1, type.getDataTypeList().size ());
-        type.addDataType(visibility2);
+        assertFalse(type.addDataType(visibility2));
         assertEquals (1, type.getDataTypeList().size ());
 
         List<DataType> expectedResult = Arrays.asList (visibility1);
@@ -63,7 +62,29 @@ class DataTypeListTest {
 
         //Assert
         assertEquals (expectedResult, result);
+    }
 
+    @DisplayName("Tests if a data type is added to the list if it is not repeated")
+    @Test
+    public void AddDifferentDataTypes() {
+
+        //Arrange
+        DataTypeList type = new DataTypeList ();
+        DataType visibility1= type.newDataType ("visibility");
+        DataType wind= type.newDataType ("wind speed");
+
+        //Act
+        assertEquals (0, type.getDataTypeList().size ());
+        assertTrue(type.addDataType(visibility1));
+        assertEquals (1, type.getDataTypeList().size ());
+        assertTrue(type.addDataType(wind));
+        assertEquals (2, type.getDataTypeList().size ());
+
+        List<DataType> expectedResult = Arrays.asList (visibility1, wind);
+        List<DataType> result = type.getDataTypeList();
+
+        //Assert
+        assertEquals (expectedResult, result);
     }
 
 

@@ -21,7 +21,7 @@ class DataTypeTest {
         result = dataType.equals(type);
 
         //Assert
-        assertEquals(false, result);
+        assertFalse(result);
     }
 
     @Test
@@ -37,7 +37,7 @@ class DataTypeTest {
         result = type1.equals(type2);
 
         assertEquals(type1.hashCode(), type2.hashCode());
-        assertEquals(true, result);
+        assertTrue(result);
     }
 
 
@@ -54,7 +54,8 @@ class DataTypeTest {
         result = type1.equals(type2);
 
         //Assert
-        assertEquals(false, result);
+        assertNotEquals(type1.hashCode(), type2.hashCode());
+        assertFalse(result);
     }
 
 
