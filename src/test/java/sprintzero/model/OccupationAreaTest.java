@@ -2,14 +2,11 @@ package sprintzero.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import sprintzero.model.OccupationArea;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OccupationAreaTest {
 
-   /* OccupationArea OA = new OccupationArea();*/
-/*
     @Test
     @DisplayName("Constructor with both valid parameters")
     public void checkConstructorValidParameters() {
@@ -54,15 +51,5 @@ public class OccupationAreaTest {
         double result = C.getOccupationArea();
         assertEquals(expectedResult, result);
     }
-
-
-    /*@Test
-    public void checkifConvertMetersToKM() {
-        OA.convertMetersToKm(3, 3);
-        double expectedResult = 0.000009;
-        double result = OA.getOccupationArea();
-        assertEquals(expectedResult, result, 0.1);
-    }*/
-
 }
 

@@ -54,6 +54,16 @@ Execute the "org.pitest:pitest-maven:mutationCoverage" goal.
 This generates a PIT Mutation coverage report in folder "target/pit-reports/YYYYMMDDHHMI".
 
 ### How to combine different maven goals in one step? ###
-You can combine different maven goals in the same command. For example, to locally run your project just like on jenkins, use:
+You can combine different maven goals in the same command. For example,
+to locally run your project just like on jenkins, use:
 
 `$ mvn clean test jacoco:report org.pitest:pitest-maven:mutationCoverage`
+
+The previous maven command execution result can be seen as previously in the project folder
+by accessing "local-path/project_g6/target/pit-reports/"
+Here you should be able to see a folder with the test date timestamp and inside you will be
+able to see PIT coverage test for each class and a index.html file which you can open in
+order to easily check the result in your browser.
+
+You can also check this file in the left side panel in the Project folder tab, under
+"target/pit-reports/YYYYMMDDHHMI".

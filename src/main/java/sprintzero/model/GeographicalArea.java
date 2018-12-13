@@ -3,6 +3,7 @@ package sprintzero.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GeographicalArea {
     String mDesignation;
@@ -56,6 +57,15 @@ public class GeographicalArea {
         mTypeArea = new TypeGA(typeGA);
         mLocation = new Location(latitude, longitude, altitude);
         mOccupation = new OccupationArea(height, width);
+    }
+    /**
+     * method to get this Geographical Area designation
+     *
+     * @return return this geographical area designation
+     */
+
+    public String getGeographicalAreaDesignation() {
+        return this.mDesignation;
     }
 
     /**
@@ -121,9 +131,7 @@ public class GeographicalArea {
      * False otherwise
      */
     private boolean longitudeIsInAG(double longitude) {
-        if (getLongitudeBottomRightCornerGA()<=longitude && longitude<=getLongitudeTopLeftCornerGA()) {
-            return true;}
-        else return false;
+        return getLongitudeBottomRightCornerGA() <= longitude && longitude <= getLongitudeTopLeftCornerGA();
     }
 
     /**
@@ -133,9 +141,7 @@ public class GeographicalArea {
      *False otherwise.
      */
     private boolean latitudeIsInAG(double latitude) {
-        if (getLatitudeTopLeftCornerGA() <= latitude && latitude<=getLatitudeBottomRightCornerGA()) {
-            return true;}
-        else return false;
+        return getLatitudeTopLeftCornerGA() <= latitude && latitude <= getLatitudeBottomRightCornerGA();
     }
 
     /**Checks if latitude and longitude coordinates are within a geographical area.
@@ -143,16 +149,8 @@ public class GeographicalArea {
      */
     public boolean locationIsInAG(double latitude, double longitude) {
 
-        if (latitudeIsInAG(latitude)==true && longitudeIsInAG(longitude)==true) {
-            return true;
-        }
-        else return false;
+        return latitudeIsInAG(latitude) && longitudeIsInAG(longitude);
     }
-
-      /* If (latitudeSupEsqAG<=latitudeSensor<=latitudeInfDirAG && longitudeSupEsqAG<=longitudeSensor<=longitudeInfDirAG)
-        Return true;
-        Else return false;*/
-
 
     /**
      * Constructor requiring to set a specific the designation, type, location
@@ -222,6 +220,20 @@ public class GeographicalArea {
      */
     private double calculateDistance(Location aLocation) {
         return Location.calcLinearDistanceBetweenTwoPoints(this.mLocation, aLocation);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GeographicalArea that = (GeographicalArea) o;
+        return Objects.equals(mDesignation, that.mDesignation) &&
+                Objects.equals(mTypeArea, that.mTypeArea);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mDesignation, mTypeArea);
     }
 }
 
