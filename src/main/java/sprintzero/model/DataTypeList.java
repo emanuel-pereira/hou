@@ -35,8 +35,7 @@ public class DataTypeList {
      */
     public boolean addDataType(DataType newDataType) {
         if (!mDataType.contains(newDataType)) {
-            mDataType.add(newDataType);
-            return true;
+            return mDataType.add(newDataType);
         } else return false;
     }
 

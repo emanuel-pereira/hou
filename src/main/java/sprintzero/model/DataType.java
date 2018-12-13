@@ -45,21 +45,23 @@ public class DataType {
 
     @Contract(value = "null -> false", pure = true)
     public boolean equals(Object o) {
-        if (this == o) {
+        if (this == o)
             return true;
-        }
-        if (!(o instanceof DataType)) {
+        if (!(o instanceof DataType))
             return false;
-        }
         DataType dataType = (DataType) o;
-        if (this.mDataType.equals(dataType.getDataTypeDesignation())) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.mDataType.equals(dataType.getDataTypeDesignation());
     }
 
-
+    /**
+     * hashCode() just returns the object's address in memory
+     * This method OverRides the hashCode method defined by class
+     * Object does also return distinct integers for distinct objects.
+     * This is typically implemented by converting the internal
+     * address of the object into an integer
+     *
+     * @return
+     */
     @Override
     public int hashCode() {
         return Objects.hash(mDataType);
