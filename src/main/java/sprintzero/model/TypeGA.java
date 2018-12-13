@@ -70,7 +70,6 @@ public class TypeGA {
      * To do so, the toString method from the parent method Object must be Override to accept that simple String
      * rather then the string representation of the object (name of the class, the at-sign character and the unsigned
      * hexadecimal representation of the hash code of the object).
-     * It is recommended that all subclasses override this method.
      */
     @Override
     public String toString() {
