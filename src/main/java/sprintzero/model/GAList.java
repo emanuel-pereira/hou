@@ -21,10 +21,9 @@ public class GAList {
     }
 
     public boolean addGA(GeographicalArea inputGA) {
-        if (!mGAList.contains(inputGA)) {
-            mGAList.add(inputGA);
-            return true;
-        } else return false;
+        if (mGAList.contains(inputGA))
+            return false;
+        return mGAList.add(inputGA);
     }
 
     public List<GeographicalArea> getGAList() {

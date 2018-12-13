@@ -30,6 +30,20 @@ class GAListTest {
         assertEquals(expectedResult, result);
     }
 
+    @DisplayName("Test addition of multiple equal areas")
+    @Test
+    void addGA2() {
+        GAList ga = new GAList();
+
+        GeographicalArea area1  = ga.newGA("Porto", "district", 20, 20, 1, 3, -10);
+        ga.addGA(area1);
+        assertEquals(Arrays.asList(area1), ga.getGAList());
+
+        GeographicalArea area2  = ga.newGA("Porto", "district", 20, 20, 1, 3, -10);
+        ga.addGA(area2);
+        assertEquals(Arrays.asList(area1), ga.getGAList());
+    }
+
     @Test
     void getGAList() {
         GAList ga = new GAList();

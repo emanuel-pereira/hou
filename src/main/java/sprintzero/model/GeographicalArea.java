@@ -225,7 +225,7 @@ public class GeographicalArea {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof GeographicalArea)) return false;
         GeographicalArea that = (GeographicalArea) o;
         return Objects.equals(mDesignation, that.mDesignation) &&
                 Objects.equals(mTypeArea, that.mTypeArea);
