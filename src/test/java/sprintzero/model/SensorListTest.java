@@ -34,7 +34,7 @@ class SensorListTest {
         Sensor sensor1 = list.newSensor("Sensor1");
 
         //Act
-        list.addSensor(sensor1);
+        assertTrue(list.addSensor(sensor1));
         List<Sensor> expectedResult = Arrays.asList (sensor1);
         List<Sensor> result = list.getSensorList();
 
@@ -53,9 +53,9 @@ class SensorListTest {
 
         //Act
         assertEquals (0, list.getSensorList().size ());
-        list.addSensor(sensor1);
+        assertTrue(list.addSensor(sensor1));
         assertEquals (1, list.getSensorList().size ());
-        list.addSensor(sensor2);
+        assertFalse(list.addSensor(sensor2));
         assertEquals (1, list.getSensorList().size ());
 
         List<Sensor> expectedResult = Arrays.asList (sensor1);

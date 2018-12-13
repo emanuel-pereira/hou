@@ -34,7 +34,7 @@ class DataTypeListTest {
         DataType wind = type.newDataType("wind");
 
         //Act
-        type.addDataType (wind);
+        assertTrue(type.addDataType (wind));
         List<DataType> expectedResult = Arrays.asList (wind);
         List<DataType> result = type.getDataTypeList();
 
@@ -52,9 +52,9 @@ class DataTypeListTest {
 
         //Act
         assertEquals (0, type.getDataTypeList().size ());
-        type.addDataType(visibility1);
+        assertTrue(type.addDataType(visibility1));
         assertEquals (1, type.getDataTypeList().size ());
-        type.addDataType(visibility2);
+        assertFalse(type.addDataType(visibility2));
         assertEquals (1, type.getDataTypeList().size ());
 
         List<DataType> expectedResult = Arrays.asList (visibility1);
@@ -75,9 +75,9 @@ class DataTypeListTest {
 
         //Act
         assertEquals (0, type.getDataTypeList().size ());
-        type.addDataType(visibility1);
+        assertTrue(type.addDataType(visibility1));
         assertEquals (1, type.getDataTypeList().size ());
-        type.addDataType(wind);
+        assertTrue(type.addDataType(wind));
         assertEquals (2, type.getDataTypeList().size ());
 
         List<DataType> expectedResult = Arrays.asList (visibility1, wind);
