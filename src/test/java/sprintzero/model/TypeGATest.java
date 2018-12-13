@@ -53,4 +53,15 @@ class TypeGATest {
         assertTrue(result);
     }
 
+    @Test
+    public void stringToString() {
+        String expected = "City";
+
+        TypeGA typeGA = new TypeGA ("City");
+        String result;
+        result = typeGA.toString ();
+
+        assertEquals(expected, result);
+    }
+
 }
