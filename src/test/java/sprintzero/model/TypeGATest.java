@@ -16,46 +16,41 @@ class TypeGATest {
 
         result = typeGA.equals (person);
 
-        assertEquals (false, result);
+        assertFalse(result);
     }
 
     @Test
     public void equalsIfTypeGAEqualsTypeGA() {
-
+        boolean result;
         TypeGA typeGA1 = new TypeGA ("Vila");
         TypeGA typeGA2 = new TypeGA ("Vila");
-
-        boolean result;
 
         result = typeGA1.equals (typeGA2);
 
         assertEquals (typeGA1.hashCode (), typeGA2.hashCode ());
-        assertEquals (true, result);
+        assertTrue(result);
     }
 
     @Test
     public void equalsIfTypeGAEqualsDifferentTypeGA() {
-
+        boolean result;
         TypeGA typeGA1 = new TypeGA ("Cidade");
         TypeGA typeGA2 = new TypeGA ("Floresta");
 
-        boolean result;
-
         result = typeGA1.equals (typeGA2);
 
-        assertEquals (false, result);
+        assertNotEquals (typeGA1.hashCode (), typeGA2.hashCode ());
+        assertFalse(result);
     }
 
     @Test
     public void equalsIfTypeGAEqualsSameTypeGA() {
-
-        TypeGA typeGA = new TypeGA ("País");
-
         boolean result;
 
+        TypeGA typeGA = new TypeGA ("País");
         result = typeGA.equals (typeGA);
 
-        assertEquals (true, result);
+        assertTrue(result);
     }
 
 }

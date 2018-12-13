@@ -1,7 +1,5 @@
 package sprintzero.model;
 
-import org.jetbrains.annotations.Contract;
-
 import java.util.*;
 
 
@@ -264,26 +262,18 @@ public class Sensor {
         return maximum;
     }
 
-
-    @Contract(value = "null -> false", pure = true)
+    @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Sensor)) {
-            return false;
-        }
+        if (this == o) return true;
+        if (!(o instanceof Sensor)) return false;
         Sensor sensor = (Sensor) o;
-        if (this.mDesignation.equals(sensor.getSensorDesignation())) {
-            return true;
-        } else {
-            return false;
-        }
+        return Objects.equals(mDesignation, sensor.mDesignation) &&
+                Objects.equals(mLocation, sensor.mLocation) &&
+                Objects.equals(mDataType, sensor.mDataType);
     }
-
 
     @Override
     public int hashCode() {
-        return Objects.hash(mDesignation);
+        return Objects.hash(mDesignation, mLocation, mDataType);
     }
 }

@@ -202,9 +202,8 @@ public class GeographicalAreaTest {
     void locationIsNotInAGBecauseLatitudeIsOutOfGABounds() {
         Location l2 = new Location(7,5.2,0);
         GeographicalArea g= new GeographicalArea("Matosinhos","Cidade",4,5,2,2,5);
-        boolean expectedResult= false;
         boolean result= g.locationIsInAG(l2.getLatitude(),l2.getLongitude());
-        assertEquals(expectedResult,result);
+        assertFalse(result);
     }
 
     @Test

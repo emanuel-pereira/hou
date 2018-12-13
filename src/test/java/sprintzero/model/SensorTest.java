@@ -564,5 +564,18 @@ class SensorTest {
         assertNotEquals(expectedResult,result);
     }
 
+    @Test
+    @DisplayName("Comparison of equal sensors")
+    void sensorsComparison() {
+        //Arrange
+        DataType type1 = new DataType ("visibility");
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0), new Location(40, 20,10),type1);
+
+        DataType wind = new DataType ("wind speed");
+        Sensor sensor2 = new Sensor("wind Sensor",new GregorianCalendar(2018,8,1,9,0), new Location(40, 20,10),type1);
+
+        assertFalse(s1.equals(sensor2));
+        assertFalse(sensor2.equals(type1));
+    }
 
 }
