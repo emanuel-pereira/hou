@@ -25,6 +25,10 @@ public class MainUI {
                     US1CreateTypesGAUI ui1 = new US1CreateTypesGAUI(typeGAList);
                     ui1.run();
                     break;
+                case 2:
+                    US2GetTypeGAListUI ui2 = new US2GetTypeGAListUI (typeGAList);
+                    ui2.run ();
+                    break;
                 case 3:
                     US3CreateGAUI ui3 = new US3CreateGAUI(GA);
                     ui3.run();
