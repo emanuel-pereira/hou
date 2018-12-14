@@ -23,10 +23,6 @@ public class GAList {
     public boolean addGA(GeographicalArea inputGA) {
         if (mGAList.contains(inputGA))
             return false;
-        for (GeographicalArea ga : mGAList) {
-            ga.mLocation.equals(inputGA.mLocation);
-            return false;
-        }
         return mGAList.add(inputGA);
     }
 
