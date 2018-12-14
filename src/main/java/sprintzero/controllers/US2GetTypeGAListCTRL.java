@@ -7,12 +7,9 @@ import java.util.List;
 
 public class US2GetTypeGAListCTRL {
 
-    //Atributos
 
     private TypeGAList mTypeGAList;
 
-
-    //Construtor
 
     public US2GetTypeGAListCTRL(TypeGAList inputList) {
         mTypeGAList = inputList;
@@ -20,12 +17,26 @@ public class US2GetTypeGAListCTRL {
 
 
     /**
-     * Get the content of the list
+     * Get the content from TypeGAList of the TypeGA created
      *
-     * @return
+     * @return List of TypeGA
      */
     public List<TypeGA> getTypeGAList() {
-        return mTypeGAList.getGAList ();
+        return mTypeGAList.getTypeGAList ();
+    }
+
+    public String showListInString() {
+        List<TypeGA> list = this.getTypeGAList ();
+        StringBuilder result = new StringBuilder ();
+        String element = " - ";
+        int number = 1;
+        for (TypeGA position : list) {
+            result.append (number++);
+            result.append (element);
+            result.append (position);
+            result.append ("\n");
+        }
+        return result.toString ();
     }
 
 

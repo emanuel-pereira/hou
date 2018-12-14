@@ -44,7 +44,7 @@ public class TypeGAList {
      * Method to return the the list of previously entered GA type's
      * @return the list of previously entered GA type's
      */
-    public List<TypeGA> getGAList() {
+    public List<TypeGA> getTypeGAList() {
         return mTypeGA;
     }
 

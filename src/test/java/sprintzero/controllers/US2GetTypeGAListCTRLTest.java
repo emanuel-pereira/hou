@@ -62,7 +62,7 @@ class US2GetTypeGAListCTRLTest {
         US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
 
         ctrl1.newTypeGA ("village");
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
         ctrl1.newTypeGA ("city");
 
         US2GetTypeGAListCTRL ctrl2 = new US2GetTypeGAListCTRL (list);
@@ -76,7 +76,7 @@ class US2GetTypeGAListCTRLTest {
         US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
 
         ctrl1.newTypeGA ("village");
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
         ctrl1.newTypeGA ("city");
 
         US2GetTypeGAListCTRL ctrl2 = new US2GetTypeGAListCTRL (list);
@@ -85,4 +85,18 @@ class US2GetTypeGAListCTRLTest {
     }
 
 
+    @Test
+    void showListInString() {
+        TypeGAList list = new TypeGAList ();
+        US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
+        ctrl1.newTypeGA ("village");
+        ctrl1.newTypeGA ("city");
+
+        String expected = "1 - village\n2 - city\n";
+
+        US2GetTypeGAListCTRL ctrl2 = new US2GetTypeGAListCTRL (list);
+        String result = ctrl2.showListInString ();
+
+        assertEquals (expected, result);
+    }
 }
