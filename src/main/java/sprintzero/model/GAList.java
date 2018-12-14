@@ -2,8 +2,6 @@ package sprintzero.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import sprintzero.model.TypeGA;
-import sprintzero.model.GeographicalArea;
 
 public class GAList {
 
@@ -25,6 +23,10 @@ public class GAList {
     public boolean addGA(GeographicalArea inputGA) {
         if (mGAList.contains(inputGA))
             return false;
+        for (GeographicalArea ga : mGAList) {
+            ga.mLocation.equals(inputGA.mLocation);
+            return false;
+        }
         return mGAList.add(inputGA);
     }
 
