@@ -26,7 +26,7 @@ class TypeGAListTest {
 
         tga.addTypeGA (city);
         List<TypeGA> expectedResult = Arrays.asList (city);
-        List<TypeGA> result = tga.getGAList ();
+        List<TypeGA> result = tga.getTypeGAList ();
 
         assertEquals (expectedResult, result);
     }
@@ -37,12 +37,12 @@ class TypeGAListTest {
         TypeGAList tga = new TypeGAList ();
         TypeGA village= tga.newTypeGA ("village");
 
-        assertEquals (0, tga.getGAList ().size ());
+        assertEquals (0, tga.getTypeGAList ().size ());
         tga.addTypeGA (village);
-        assertEquals (1, tga.getGAList ().size ());
+        assertEquals (1, tga.getTypeGAList ().size ());
 
         List<TypeGA> expectedResult = Arrays.asList (village);
-        List<TypeGA> result = tga.getGAList ();
+        List<TypeGA> result = tga.getTypeGAList ();
 
         assertEquals (expectedResult, result);
     }
@@ -54,14 +54,14 @@ class TypeGAListTest {
         TypeGA village1= tga.newTypeGA ("village");
         TypeGA village2= tga.newTypeGA ("village");
 
-        assertEquals (0, tga.getGAList ().size ());
+        assertEquals (0, tga.getTypeGAList ().size ());
         tga.addTypeGA (village1);
-        assertEquals (1, tga.getGAList ().size ());
+        assertEquals (1, tga.getTypeGAList ().size ());
         tga.addTypeGA (village2);
-        assertEquals (1, tga.getGAList ().size ());
+        assertEquals (1, tga.getTypeGAList ().size ());
 
         List<TypeGA> expectedResult = Arrays.asList (village1);
-        List<TypeGA> result = tga.getGAList ();
+        List<TypeGA> result = tga.getTypeGAList ();
 
         assertEquals (expectedResult, result);
     }

@@ -27,6 +27,4 @@ public class US1CreateTypeGACTRL {
             return mTypeGAList.addTypeGA (typeGA);
         return false;
     }
-
-
 }

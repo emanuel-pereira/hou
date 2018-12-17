@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class GeographicalArea {
-    String mDesignation;
-    TypeGA mTypeArea;
-    Location mLocation;
-    List<Sensor> mSensorList;
-    OccupationArea mOccupation;
+    private String mDesignation;
+    private TypeGA mTypeArea;
+    private Location mLocation;
+    private List<Sensor> mSensorList = new ArrayList<>();
+    private OccupationArea mOccupation;
 
     TypeGAList TGAList = new TypeGAList();
 
@@ -58,14 +58,20 @@ public class GeographicalArea {
         mLocation = new Location(latitude, longitude, altitude);
         mOccupation = new OccupationArea(height, width);
     }
+
     /**
      * method to get this Geographical Area designation
-     *
      * @return return this geographical area designation
      */
-
     public String getGeographicalAreaDesignation() {
         return this.mDesignation;
+    }
+    /**
+     * method to get this Geographical Area Type designation
+     * @return return this geographical Area Type designation
+     */
+    public String getGeographicalAreaType() {
+        return this.mTypeArea.toString();
     }
 
     /**
@@ -101,7 +107,8 @@ public class GeographicalArea {
      * Assumptions:
      * 1) No inclination of geographical areas is assumed;
      * 2) Attributes Occupation.Height and Location.Longitude are in the same dimension (vertical)
-     *3) Longitude and height have the same unit of measure
+     * 3) Longitude and height have the same unit of measure
+     *
      * @return longitude at the bottom right corner of a Geographical Area
      */
     public double getLongitudeBottomRightCornerGA() {
@@ -122,10 +129,9 @@ public class GeographicalArea {
         return this.mLocation.getLatitude() + this.mOccupation.getmWidth() / 2;
     }
 
-    //====
-
     /**
      * Checks if a longitude coordinate is within the longitude range of a Geographical Area
+     *
      * @param longitude
      * @return true if longitude coordinate is within the longitude range of a Geographical Area.
      * False otherwise
@@ -136,15 +142,18 @@ public class GeographicalArea {
 
     /**
      * Checks if a latitude coordinate is within the latitude range of a Geographical Area
+     *
      * @param latitude
      * @return true if latitude coordinate is within the latitude range of a Geographical Area.
-     *False otherwise.
+     * False otherwise.
      */
     private boolean latitudeIsInAG(double latitude) {
         return getLatitudeTopLeftCornerGA() <= latitude && latitude <= getLatitudeBottomRightCornerGA();
     }
 
-    /**Checks if latitude and longitude coordinates are within a geographical area.
+    /**
+     * Checks if latitude and longitude coordinates are within a geographical area.
+     *
      * @return true if coordinates are within a geographical area and false otherwise.
      */
     public boolean locationIsInAG(double latitude, double longitude) {
@@ -167,7 +176,6 @@ public class GeographicalArea {
         mSensorList = sensorList;
     }
 
-
     /**
      * @return the list of sensors within a Geographical Area
      */
@@ -182,8 +190,8 @@ public class GeographicalArea {
      */
     public List<Reading> getLastValuesOfSensorsInGA() {
         List<Reading> lastSensorsReadings = new ArrayList<>(mSensorList.size());
-        for (int i = 0; i < mSensorList.size(); i++) {
-            lastSensorsReadings.add(mSensorList.get(i).getLastReadingPerSensor());
+        for (Sensor aSensor: mSensorList) {
+            lastSensorsReadings.add(aSensor.getLastReadingPerSensor());
         }
         return lastSensorsReadings;
     }
@@ -212,6 +220,14 @@ public class GeographicalArea {
     }
 
     /**
+     * US04
+     * method to get the Geographic Area Type
+     */
+    public TypeGA getmTypeArea() {
+        return mTypeArea;
+    }
+
+    /**
      * Method to call the method in Location which executes the calculation of the linear distance between two locations
      *
      * @param aLocation second geographical area location
@@ -219,6 +235,17 @@ public class GeographicalArea {
      */
     private double calculateDistance(Location aLocation) {
         return Location.calcLinearDistanceBetweenTwoPoints(this.mLocation, aLocation);
+    }
+
+    /**Method to add a sensor to a list of sensors. Only adds a sensor if it is not already inside of the Sensor list.
+     * @param sensor to add to sensor list
+     * @return true if sensor is added to sensor list. False otherwise.
+     */
+    public boolean addSensor(Sensor sensor) {
+        if (!mSensorList.contains(sensor)) {
+            mSensorList.add(sensor);
+            return true;
+        } else return false;
     }
 
     @Override

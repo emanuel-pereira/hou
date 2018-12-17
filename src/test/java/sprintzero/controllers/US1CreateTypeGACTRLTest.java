@@ -19,10 +19,10 @@ class US1CreateTypeGACTRLTest {
         TypeGAList list = new TypeGAList ();
         US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
 
-        assertEquals (0, list.getGAList ().size ());
+        assertEquals (0, list.getTypeGAList ().size ());
         ctrl1.newTypeGA ("village");
 
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
     }
 
     /**
@@ -34,13 +34,13 @@ class US1CreateTypeGACTRLTest {
         TypeGAList list = new TypeGAList ();
         US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
 
-        assertEquals (0, list.getGAList ().size ());
+        assertEquals (0, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("village");
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("city");
-        assertEquals (2, list.getGAList ().size ());
+        assertEquals (2, list.getTypeGAList ().size ());
     }
 
 
@@ -53,13 +53,13 @@ class US1CreateTypeGACTRLTest {
         TypeGAList list = new TypeGAList ();
         US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
 
-        assertEquals (0, list.getGAList ().size ());
+        assertEquals (0, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("city");
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("city");
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
     }
 
     /**
@@ -72,22 +72,22 @@ class US1CreateTypeGACTRLTest {
         TypeGAList list = new TypeGAList ();
         US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
 
-        assertEquals (0, list.getGAList ().size ());
+        assertEquals (0, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("city");
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("village");
-        assertEquals (2, list.getGAList ().size ());
+        assertEquals (2, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("city");
-        assertEquals (2, list.getGAList ().size ());
+        assertEquals (2, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("country");
-        assertEquals (3, list.getGAList ().size ());
+        assertEquals (3, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("country");
-        assertEquals (3, list.getGAList ().size ());
+        assertEquals (3, list.getTypeGAList ().size ());
     }
 
     /**
@@ -100,10 +100,10 @@ class US1CreateTypeGACTRLTest {
         TypeGAList list = new TypeGAList ();
         US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
 
-        assertEquals (0, list.getGAList ().size ());
+        assertEquals (0, list.getTypeGAList ().size ());
         ctrl1.newTypeGA (" ");
 
-        assertEquals (0, list.getGAList ().size ());
+        assertEquals (0, list.getTypeGAList ().size ());
     }
 
     /**
@@ -116,16 +116,16 @@ class US1CreateTypeGACTRLTest {
         TypeGAList list = new TypeGAList ();
         US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
 
-        assertEquals (0, list.getGAList ().size ());
+        assertEquals (0, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("village");
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("            ");
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("city");
-        assertEquals (2, list.getGAList ().size ());
+        assertEquals (2, list.getTypeGAList ().size ());
     }
 
     @Test
@@ -134,19 +134,19 @@ class US1CreateTypeGACTRLTest {
         TypeGAList list = new TypeGAList ();
         US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
 
-        assertEquals (0, list.getGAList ().size ());
+        assertEquals (0, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("village");
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("VillageÇ");
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("            ");
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
 
         ctrl1.newTypeGA ("city");
-        assertEquals (2, list.getGAList ().size ());
+        assertEquals (2, list.getTypeGAList ().size ());
     }
 
     @Test
@@ -155,25 +155,25 @@ class US1CreateTypeGACTRLTest {
         TypeGAList list = new TypeGAList ();
         US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
 
-        assertEquals (0, list.getGAList ().size ());
+        assertEquals (0, list.getTypeGAList ().size ());
 
         assertTrue(ctrl1.newTypeGA ("village"));
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
 
         assertFalse(ctrl1.newTypeGA ("Village"));
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
 
         assertFalse(ctrl1.newTypeGA ("VILLAGE"));
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
 
         assertFalse(ctrl1.newTypeGA ("VILlage"));
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
 
         assertFalse(ctrl1.newTypeGA ("village"));
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
 
         assertTrue(ctrl1.newTypeGA ("city"));
-        assertEquals (2, list.getGAList ().size ());
+        assertEquals (2, list.getTypeGAList ().size ());
     }
 
     @Test
@@ -182,13 +182,13 @@ class US1CreateTypeGACTRLTest {
         TypeGAList list = new TypeGAList ();
         US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
 
-        assertEquals (0, list.getGAList ().size ());
+        assertEquals (0, list.getTypeGAList ().size ());
 
         /*ctrl1.newTypeGA (null);
-        assertEquals (0, list.getGAList ().size ());*/
+        assertEquals (0, list.getTypeGAList ().size ());*/
 
         assertFalse(ctrl1.newTypeGA ("            "));
-        assertEquals (0, list.getGAList ().size ());
+        assertEquals (0, list.getTypeGAList ().size ());
 
 
 

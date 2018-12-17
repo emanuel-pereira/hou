@@ -9,13 +9,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class US2GetTypeGAListCTRLTest {
 
 
     /**
      * Add new types of geographical area in a list and then confirm that the content is the same when using
-     * the getTypeGAlist method.
+     * the getTypeGAList method.
      */
     @Test
     void getTypeGAListCorrectContent() {
@@ -62,7 +63,7 @@ class US2GetTypeGAListCTRLTest {
         US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
 
         ctrl1.newTypeGA ("village");
-        assertEquals (1, list.getGAList ().size ());
+        assertEquals (1, list.getTypeGAList ().size ());
         ctrl1.newTypeGA ("city");
 
         US2GetTypeGAListCTRL ctrl2 = new US2GetTypeGAListCTRL (list);
@@ -75,14 +76,29 @@ class US2GetTypeGAListCTRLTest {
         TypeGAList list = new TypeGAList ();
         US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
 
-        ctrl1.newTypeGA ("village");
-        assertEquals (1, list.getGAList ().size ());
-        ctrl1.newTypeGA ("city");
+        assertTrue(ctrl1.newTypeGA ("village"));
+        assertEquals (1, list.getTypeGAList ().size ());
+        assertTrue(ctrl1.newTypeGA ("city"));
+        assertEquals (2, list.getTypeGAList ().size ());
 
         US2GetTypeGAListCTRL ctrl2 = new US2GetTypeGAListCTRL (list);
         List<TypeGA> list2 = ctrl2.getTypeGAList ();
-        assertNotEquals (1, list2.size ());
+        assertEquals (2, list2.size ());
     }
 
 
+    @Test
+    void showListInString() {
+        TypeGAList list = new TypeGAList ();
+        US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
+        ctrl1.newTypeGA ("village");
+        ctrl1.newTypeGA ("city");
+
+        String expected = "1 - village\n2 - city\n";
+
+        US2GetTypeGAListCTRL ctrl2 = new US2GetTypeGAListCTRL (list);
+        String result = ctrl2.showListInString ();
+
+        assertEquals (expected, result);
+    }
 }
