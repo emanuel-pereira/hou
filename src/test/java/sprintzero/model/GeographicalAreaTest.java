@@ -33,8 +33,9 @@ public class GeographicalAreaTest {
         TypeGAList tga = new TypeGAList ();
         TypeGA district = tga.newTypeGA ("district");
         GeographicalArea a= new GeographicalArea("Beja", district);
+        List<Sensor> expectedResult= new ArrayList<>();
         List<Sensor> result=a.getListOfSensors();
-        assertNull(result);
+        assertEquals(expectedResult,result);
     }
 
 
