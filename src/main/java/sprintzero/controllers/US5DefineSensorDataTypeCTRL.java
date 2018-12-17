@@ -1,4 +1,4 @@
 package sprintzero.controllers;
 
-public class US5DefineSensorDataTypeCTRL {
-}
+//public class US5DefineSensorDataTypeCTRL {
+//}

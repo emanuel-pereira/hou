@@ -75,7 +75,7 @@ public class US3CreateGAUI {
 
         //mCtrlUS3.newGA(name, typeIndex, width, height, latitude, longitude, altitude);
         mCtrlUS3.newGA2(name, typeIndex, width, height, latitude, longitude, altitude);
-        System.out.print("Name: " + mGAList.getGAList().get(0).getGeographicalAreaDesignation()
+        System.out.println("Name: " + mGAList.getGAList().get(0).getGeographicalAreaDesignation()
                 + ", Type: " + mGAList.getGAList().get(0).getGeographicalAreaType());
     }
 }

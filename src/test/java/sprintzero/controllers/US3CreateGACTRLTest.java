@@ -91,11 +91,11 @@ public class US3CreateGACTRLTest {
         US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (TypeGAList);
         //creation of a new GA Type and it's addition to the initially empty list
         assertTrue(ctrl1.newTypeGA ("village"));
-        assertEquals (1, TypeGAList.getGAList ().size ());
+        assertEquals (1, TypeGAList.getTypeGAList().size ());
         //creation of a new GA Type and it's addition to the previously list already with one element
         assertTrue(ctrl1.newTypeGA ("city"));
         //check the size of the list, now with both elements successfully added
-        assertEquals (2, TypeGAList.getGAList ().size ());
+        assertEquals (2, TypeGAList.getTypeGAList().size ());
 
         //optional
         //pass the list again as a parameter to US2 controller in order for it to spell out the list

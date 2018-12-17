@@ -79,7 +79,7 @@ class US2GetTypeGAListCTRLTest {
         assertTrue(ctrl1.newTypeGA ("village"));
         assertEquals (1, list.getTypeGAList ().size ());
         assertTrue(ctrl1.newTypeGA ("city"));
-        assertEquals (2, list.getGAList ().size ());
+        assertEquals (2, list.getTypeGAList ().size ());
 
         US2GetTypeGAListCTRL ctrl2 = new US2GetTypeGAListCTRL (list);
         List<TypeGA> list2 = ctrl2.getTypeGAList ();

@@ -59,7 +59,7 @@ public class US3CreateGACTRL {
      * @return the prior information is used to invoke the newGA method from the GA's List class making a request to create a new GA with the users input
      */
     public boolean newGA2(String inputDesignation, int typeAreaIndex, double width, double length, double latitude, double longitude, double altitude) {
-        String AreaType = mTypeGAList.getGAList().get(typeAreaIndex-1).toString();
+        String AreaType = mTypeGAList.getTypeGAList().get(typeAreaIndex-1).toString();
         GeographicalArea GA = mGAList.newGA(inputDesignation, AreaType, width, length, latitude, longitude, altitude);
         return mGAList.addGA(GA);
     }

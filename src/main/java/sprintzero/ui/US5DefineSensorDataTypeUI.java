@@ -1,5 +1,5 @@
 package sprintzero.ui;
 
-public class US5DefineSensorDataTypeUI {
+/*public class US5DefineSensorDataTypeUI {
 
-}
+}*/
