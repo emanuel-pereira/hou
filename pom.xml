@@ -141,14 +141,14 @@
                         <param>lapr.project.utils.*</param>
                     </inScopeClasses>-->
                     <targetClasses>
-                        <!--<param>sprintzero.*</param>-->
-                        <param>sprintzero.controllers.*</param>
-                        <param>sprintzero.model.*</param>
+                        <!--<param>smarthome.*</param>-->
+                        <param>smarthome.controller.*</param>
+                        <param>smarthome.model.*</param>
                     </targetClasses>
                     <targetTests>
-                        <!--<param>sprintzero.*</param>-->
-                        <param>sprintzero.controllers.*</param>
-                        <param>sprintzero.model.*</param>
+                        <!--<param>smarthome.*</param>-->
+                        <param>smarthome.controller.*</param>
+                        <param>smarthome.model.*</param>
                     </targetTests>
 
                     <outputFormats>
