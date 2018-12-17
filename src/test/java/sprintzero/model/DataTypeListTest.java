@@ -20,7 +20,7 @@ class DataTypeListTest {
         DataType temperature = type.newDataType("Temperature");
 
         //Assert
-        assertEquals("Temperature", temperature.getDataTypeDesignation());
+        assertEquals("temperature", temperature.getDataTypeDesignation());
     }
 
 
@@ -71,7 +71,7 @@ class DataTypeListTest {
         //Arrange
         DataTypeList type = new DataTypeList ();
         DataType visibility1= type.newDataType ("visibility");
-        DataType wind= type.newDataType ("wind speed");
+        DataType wind= type.newDataType ("wind");
 
         //Act
         assertEquals (0, type.getDataTypeList().size ());
@@ -86,6 +86,32 @@ class DataTypeListTest {
         //Assert
         assertEquals (expectedResult, result);
     }
+
+    @DisplayName("Tests if a data type is not added to the list if it is null or empty")
+    @Test
+    public void AddNullAndEmptyDataTypes() {
+
+        //Arrange
+        DataTypeList type = new DataTypeList ();
+        DataType visibility1= type.newDataType (" ");
+        DataType wind= type.newDataType (null);
+
+        //Act
+        assertEquals (0, type.getDataTypeList().size ());
+        assertFalse(type.addDataType(visibility1));
+
+        assertEquals (0, type.getDataTypeList().size ());
+        assertFalse(type.addDataType(wind));
+
+        assertEquals (0, type.getDataTypeList().size ());
+
+        List<DataType> expectedResult = Arrays.asList ();
+        List<DataType> result = type.getDataTypeList();
+
+        //Assert
+        assertEquals (expectedResult, result);
+    }
+
 
 
 }

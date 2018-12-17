@@ -17,19 +17,8 @@ public class DataType {
      * @param dataTypeDesignation - String that names the type of data
      */
     public DataType(String dataTypeDesignation) {
-        if (this.typeOfDataDesignationIsValid(dataTypeDesignation)) {
-            this.mDataType = dataTypeDesignation;
-        }
-    }
 
-    /**
-     * Method to validate the designation given to a type of data
-     *
-     * @param dataTypeDesignation - String that names the type of data
-     * @return true if the designation is not null or empty after trimming the spaces
-     */
-    public boolean typeOfDataDesignationIsValid(String dataTypeDesignation) {
-        return dataTypeDesignation != null && !dataTypeDesignation.trim().isEmpty();
+            this.mDataType = dataTypeDesignation;
     }
 
 
@@ -43,7 +32,6 @@ public class DataType {
     }
 
 
-    @Contract(value = "null -> false", pure = true)
     public boolean equals(Object o) {
         if (this == o)
             return true;

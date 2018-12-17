@@ -267,9 +267,7 @@ public class Sensor {
         if (this == o) return true;
         if (!(o instanceof Sensor)) return false;
         Sensor sensor = (Sensor) o;
-        return Objects.equals(mDesignation, sensor.mDesignation) &&
-                Objects.equals(mLocation, sensor.mLocation) &&
-                Objects.equals(mDataType, sensor.mDataType);
+        return Objects.equals(mDesignation, sensor.mDesignation);
     }
 
     @Override
