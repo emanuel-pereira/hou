@@ -31,7 +31,7 @@ public class MainUI {
                     ui2.run ();
                     break;
                 case 3:
-                    US3CreateGAUI ui3 = new US3CreateGAUI(GA);
+                    US3CreateGAUI ui3 = new US3CreateGAUI(GA, typeGAList);
                     ui3.run();
                     break;
             }

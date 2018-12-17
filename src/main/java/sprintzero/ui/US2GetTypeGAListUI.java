@@ -27,7 +27,7 @@ public class US2GetTypeGAListUI {
     public void run() {
         List<TypeGA> list = mCtrlUS2.getTypeGAList ();
         if (list.size () == 0) {
-            System.out.println ("List of type of geographical area is empty.");
+            System.out.println ("List of type of geographical area is empty, please insert one first");
         } else {
             System.out.println ("Current list of type of geographical area:");
             for (int position = 0; position < list.size (); position++) {

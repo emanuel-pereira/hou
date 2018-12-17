@@ -9,13 +9,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class US2GetTypeGAListCTRLTest {
 
 
     /**
      * Add new types of geographical area in a list and then confirm that the content is the same when using
-     * the getTypeGAlist method.
+     * the getTypeGAList method.
      */
     @Test
     void getTypeGAListCorrectContent() {
@@ -75,13 +76,14 @@ class US2GetTypeGAListCTRLTest {
         TypeGAList list = new TypeGAList ();
         US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL (list);
 
-        ctrl1.newTypeGA ("village");
+        assertTrue(ctrl1.newTypeGA ("village"));
         assertEquals (1, list.getGAList ().size ());
-        ctrl1.newTypeGA ("city");
+        assertTrue(ctrl1.newTypeGA ("city"));
+        assertEquals (2, list.getGAList ().size ());
 
         US2GetTypeGAListCTRL ctrl2 = new US2GetTypeGAListCTRL (list);
         List<TypeGA> list2 = ctrl2.getTypeGAList ();
-        assertNotEquals (1, list2.size ());
+        assertEquals (2, list2.size ());
     }
 
 

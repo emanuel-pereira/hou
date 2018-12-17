@@ -20,8 +20,8 @@ public class GeographicalAreaTest {
 
         GeographicalArea ga = new GeographicalArea(geographicalAreaName, city, loc);
 
-        Location expectedLocation =loc;
-        Location result =ga.getLocation();
+        Location expectedLocation = loc;
+        Location result = ga.getLocation();
 
         assertEquals(expectedLocation, result);
     }
@@ -186,7 +186,6 @@ public class GeographicalAreaTest {
         assertEquals(expectedResult,result);
     }
 
-
     @Test
     @DisplayName("Ensure that location l is within Geographical Area")
     void locationIsInAG() {
@@ -214,6 +213,59 @@ public class GeographicalAreaTest {
         boolean expectedResult= false;
         boolean result= g.locationIsInAG(l3.getLatitude(),l3.getLongitude());
         assertEquals(expectedResult,result);
+    }
+
+    @DisplayName("Test if getListOfSensors returns null for an empty sensor list")
+    @Test
+    public void GAComparison(){
+        TypeGAList tGAList = new TypeGAList ();
+        TypeGA district = tGAList.newTypeGA ("district");
+        TypeGA city = tGAList.newTypeGA ("City");
+        GeographicalArea ga1 = new GeographicalArea("Beja", district);
+        GeographicalArea ga2 = new GeographicalArea("Funchal", city);
+
+        assertFalse(ga1.equals(ga2));
+        assertFalse(ga2.equals(city));
+    }
+
+    @Test
+    @DisplayName("Ensure that conditional boundary is tested")
+    void checkLocationIsInAGConditionalBoundary() {
+        Location l = new Location(3, 7.5, 0);
+        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        assertTrue(g.locationIsInAG(l.getLatitude(), l.getLongitude()));
+    }
+
+    @Test
+    @DisplayName("Ensure that conditional boundary is tested")
+    void checkLocationIsInAGConditionalBoundary2() {
+        Location l = new Location(3, 2.5, 0);
+        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        assertTrue(g.locationIsInAG(l.getLatitude(), l.getLongitude()));
+    }
+
+    @Test
+    @DisplayName("Ensure that conditional boundary is tested")
+    void checkLocationIsInAGConditionalBoundary3() {
+        Location l = new Location(3, 1.5, 0);
+        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        assertFalse(g.locationIsInAG(l.getLatitude(), l.getLongitude()));
+    }
+
+    @Test
+    @DisplayName("Ensure that conditional boundary is tested")
+    void checkLocationIsInAGConditionalBoundary4() {
+        Location l = new Location(5, 2.5, 0);
+        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        assertTrue(g.locationIsInAG(l.getLatitude(), l.getLongitude()));
+    }
+
+    @Test
+    @DisplayName("Ensure that conditional boundary is tested")
+    void checkLocationIsInAGConditionalBoundary5() {
+        Location l = new Location(3, 1.5, 0);
+        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        assertFalse(g.locationIsInAG(l.getLatitude(), l.getLongitude()));
     }
 }
 

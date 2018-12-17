@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Objects;
 
 public class GeographicalArea {
-    String mDesignation;
-    TypeGA mTypeArea;
-    Location mLocation;
-    List<Sensor> mSensorList;
-    OccupationArea mOccupation;
+    private String mDesignation;
+    private TypeGA mTypeArea;
+    private Location mLocation;
+    private List<Sensor> mSensorList;
+    private OccupationArea mOccupation;
 
     TypeGAList TGAList = new TypeGAList();
 
@@ -66,6 +66,10 @@ public class GeographicalArea {
 
     public String getGeographicalAreaDesignation() {
         return this.mDesignation;
+    }
+
+    public String getGeographicalAreaType() {
+        return this.mTypeArea.toString();
     }
 
     /**
@@ -182,8 +186,8 @@ public class GeographicalArea {
      */
     public List<Reading> getLastValuesOfSensorsInGA() {
         List<Reading> lastSensorsReadings = new ArrayList<>(mSensorList.size());
-        for (int i = 0; i < mSensorList.size(); i++) {
-            lastSensorsReadings.add(mSensorList.get(i).getLastReadingPerSensor());
+        for (Sensor aSensor: mSensorList) {
+            lastSensorsReadings.add(aSensor.getLastReadingPerSensor());
         }
         return lastSensorsReadings;
     }
