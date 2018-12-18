@@ -539,14 +539,14 @@ class SensorTest {
     void sensorsComparison() {
         //Arrange
         DataType type1 = new DataType ("visibility");
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
+        Sensor sensor1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
 
         DataType wind = new DataType ("wind speed");
         Sensor sensor2 = new Sensor("wind Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
 
-        assertFalse(s1.equals(s2));
-        assertFalse(s2.equals(type1));
-        assertNotEquals(s1.hashCode(),s2.hashCode());
+        assertFalse(sensor1.equals(sensor2));
+        assertFalse(sensor2.equals(type1));
+        assertNotEquals(sensor1.hashCode(),sensor2.hashCode());
     }
 
 }

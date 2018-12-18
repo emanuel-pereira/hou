@@ -37,16 +37,16 @@ public class GAList {
      * @return Geographical Area in index position i
      */
 
-    public GeographicalArea get(int i) {
+    /*public GeographicalArea get(int i) {
         return this.mGAList.get(i);
-    }
+    }*/
 
     /**
      * @return
      */
-    public int size() {
+    /*public int size() {
         return this.mGAList.size();
-    }
+    }*/
 
     /**
      * Method that checks if a specific location is within one or more Geographical Areas and returns the
@@ -75,34 +75,16 @@ public class GAList {
         List<GeographicalArea>  l = listOfGAsContainingLocation(sensor.getLocation().getLatitude(),sensor.getLocation().getLongitude());
         if(l.size()==0){return false;}
         GeographicalArea smallerGA = l.get(0);
-        double smallerArea = l.get(0).mOccupation.getOccupationArea();
+        double smallerArea = l.get(0).getOcupation().getOccupationArea();
         for (int i = 1; i < l.size(); i++){
-            if (smallerArea>l.get(i).mOccupation.getOccupationArea()) {
-                smallerArea=l.get(i).mOccupation.getOccupationArea();
+            if (smallerArea>l.get(i).getOcupation().getOccupationArea()) {
+                smallerArea=l.get(i).getOcupation().getOccupationArea();
                 smallerGA=l.get(i);
             }}
 
         return smallerGA.addSensor(sensor);
     }
 
-
-    /**
-     * Method that enables the user to add a sensor to the Sensor List of a specific Geographical Area
-     * in a list of Geographical Areas that contain the sensor's location.
-     *
-     * @param sensor    to be added to Geographical Area in index position of GAList
-     * @param indexOfGA in GAList to which the user wants to add the Sensor
-     * @return true if sensor is added to GA in index position, otherwise false.
-     */
-   /* public boolean addSensorToGAInListOfGAs(Sensor sensor, int indexOfGA) {
-        List<GeographicalArea> l = new ArrayList<>();
-        l.listOfGAsContainingLocation(sensor.getLocation().getLatitude(),
-                sensor.getLocation().getLongitude());
-        if (indexOfGA < listOfGAsContainingSensor.size()) {
-            GeographicalArea selectedGA = listOfGAsContainingSensor.get(indexOfGA);
-            return (selectedGA.addSensor(sensor));
-        } else return false;
-    }*/
 
     /**
      * US04

@@ -268,6 +268,19 @@ public class GeographicalAreaTest {
         GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
         assertFalse(g.locationIsInAG(l.getLatitude(), l.getLongitude()));
     }
+
+    @Test
+    @DisplayName("Ensure that the same sensor is not added to a Geographical Area twice.")
+    void addSensor() {
+        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        Sensor sensor = new Sensor("SetubalTemperatureSensor", new GregorianCalendar(2018, 8, 4, 11, 0),2.7,5.2,0,new DataType ("Temperature"));
+        g.addSensor(sensor);
+        boolean expected=false;
+        boolean result= g.addSensor(sensor);
+        assertEquals(expected,result);
+
+
+    }
 }
 
 

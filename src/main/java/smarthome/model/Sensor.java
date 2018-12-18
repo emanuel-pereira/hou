@@ -3,6 +3,9 @@ package smarthome.model;
 import java.util.*;
 
 
+/**
+ *
+ */
 public class Sensor {
     private String mDesignation;
     private Calendar mStartDate;
@@ -29,7 +32,9 @@ public class Sensor {
      * type Sensor created.
      * @param designation refers to sensor name
      * @param startDate refers to the sensor's working status start date
-     * @param sensorLocation refers to the sensors location, with a Location object
+     * @param latitude refers to the sensor's latitude
+     * @param longitude refers to the sensor's longitude
+     * @param altitude refers to the sensor's altitude
      * @param dataType refers to the sensor's chosen data type, humidity, precipitation
      */
     public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, DataType dataType) {
@@ -42,9 +47,14 @@ public class Sensor {
     }
 
     /**
-     * Constructor requiring to set a specific designation and a location for any object of
-     * type Sensor created.
-     * @param sensorLocation object Location with the sensor's location
+     * Constructor requiring to set a specific designation, start date, location, data reading type and list of readings
+     * for an object of type Sensor created.
+     * @param designation sensor designation
+     * @param startDate sensor start date
+     * @param sensorLocation sensor location
+     * @param dataType sensor data type
+     * @param listOfReadings sensor's list of readings
+     *
      */
     public Sensor(String designation, Calendar startDate, Location sensorLocation, DataType dataType, List<Reading> listOfReadings) {
         if (nameIsValid(designation)) {

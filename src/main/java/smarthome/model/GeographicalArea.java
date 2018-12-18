@@ -248,6 +248,10 @@ public class GeographicalArea {
         } else return false;
     }
 
+    public OccupationArea getOcupation(){
+        return this.mOccupation;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
