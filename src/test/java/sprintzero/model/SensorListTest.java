@@ -19,7 +19,7 @@ class SensorListTest {
         Sensor sensor1 = list1.newSensor("Sensor1");
 
         //Assert
-        assertEquals("Sensor1", sensor1.getSensorDesignation());
+        assertEquals("Sensor1", sensor1.getDesignation());
     }
 
     @Test

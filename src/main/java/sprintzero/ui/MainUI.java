@@ -34,6 +34,11 @@ public class MainUI {
                     US3CreateGAUI ui3 = new US3CreateGAUI(GA);
                     ui3.run();
                     break;
+
+               /* case 6:
+                    US6CreateSensorUI ui6 = new US6CreateSensorUI(sensorList);
+                    ui6.run();
+                    break;*/
             }
         }
     }

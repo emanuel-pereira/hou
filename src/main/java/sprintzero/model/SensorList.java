@@ -1,6 +1,7 @@
 package sprintzero.model;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class SensorList {
@@ -51,5 +52,17 @@ public class SensorList {
         return mSensor;
     }
 
-
+    /**
+     *
+     * @param inputName name of Sensor
+     * @param startDate startDate of Sensor
+     * @param latitude latitude in which the user wants to place the sensor
+     * @param longitude longitude in which the user wants to place the sensor
+     * @param altitude altitude in which the user wants to place the sensor
+     * @param inputDataType dataType the user wants to assign for the sensor.
+     * @return
+     */
+    public Sensor newSensor(String inputName, GregorianCalendar startDate, double latitude, double longitude, double altitude, DataType inputDataType) {
+        return new Sensor(inputName, startDate, latitude, longitude, altitude,inputDataType);
+    }
 }
