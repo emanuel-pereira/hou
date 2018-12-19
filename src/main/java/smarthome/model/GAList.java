@@ -55,26 +55,6 @@ public class GAList {
     }
 
     /**
-     * Method to get a specific Geographical Area in index position i
-     *
-     * @param i index position of the GA's List
-     * @return the specific requested Geographical Area
-     */
-    public GeographicalArea get(int i) {
-        return this.mGAList.get(i);
-    }
-
-    /**
-     *  Method similar to the size method for Lists but as the List is private in the class it is
-     *  needed to exist a method that publicly returns the size of Lists to other methods to read
-     *
-     * @return the size of the List
-     */
-    public int size() {
-        return this.mGAList.size();
-    }
-
-    /**
      * Method that checks if a specific location is within one or more Geographical Areas and returns the
      * list of Geographical Areas that contain that location. If no match is found, then this method returns null.
      *
