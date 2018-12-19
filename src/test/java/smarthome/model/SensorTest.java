@@ -202,9 +202,8 @@ class SensorTest {
     void addReadingValue() {
         GregorianCalendar rTime1 = new GregorianCalendar(2018, 11, 27, 9, 0);
         GregorianCalendar rTime2 = new GregorianCalendar(2018, 11, 28, 12, 0);
-        DataType type1 = new DataType ("wind");
-        Sensor sensor1= new Sensor("WindSensor1",rTime1,20,10,15,type1);
-        Sensor sensor2= new Sensor("WindSensor2",rTime2,30,25,20,type1);
+        Sensor sensor1= new Sensor("WindSensor1",rTime1,20,10,15,"wind");
+        Sensor sensor2= new Sensor("WindSensor2",rTime2,30,25,20,"wind");
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertNotEquals(expectedResult,result);
@@ -271,8 +270,7 @@ class SensorTest {
     @DisplayName("Check monthly average value in September is 31.7")
     void getMonthlyAverageReadings() {
         //Arrange
-        DataType type1 = new DataType ("visibility");
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,"visibility");
 
 
 
@@ -298,8 +296,7 @@ class SensorTest {
     @DisplayName("Check if monthly average value is not equal to expected")
     void getMonthlyAverageReadingsNotEquals() {
         //Arrange
-        DataType type1 = new DataType ("visibility");
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,"visibility");
 
         Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
         Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
@@ -323,8 +320,7 @@ class SensorTest {
     @DisplayName("Check if monthly average returns zero if there are no readings")
     void getMonthlyAverageReadingsNoReadings() {
         //Arrange
-        DataType type1 = new DataType ("visibility");
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,"visibility");
 
         //Act
         double result = s1.getMonthlyAverageReadings(9);
@@ -339,8 +335,8 @@ class SensorTest {
     public void getMonthlyMinimumReading() {
 
         //Arrange
-        DataType type1 = new DataType ("visibility");
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
+
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,"visibility");
 
         Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
         Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));

@@ -11,6 +11,7 @@ public class MainUI {
     public static void main(String[] args) {
         TypeGAList typeGAList = new TypeGAList();
         GAList GAList = new GAList();
+        SensorList sensorList= new SensorList();
         DataTypeList dataTypeList = new DataTypeList(); //substituir lista por string
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
@@ -41,16 +42,16 @@ public class MainUI {
                     ui3.run();
                     break;
                 case 4:
-                    /*US4UI ui4 = new ;
-                    ui4.runUS5();*/
+                    US4ReturnGAsWithThisTypeUI ui4 = new US4ReturnGAsWithThisTypeUI (GA, typeGAList);
+                    ui4.run();
                     break;
                 case 5:
                     US5DefineSensorDataTypeUI ui5 = new US5DefineSensorDataTypeUI(dataTypeList);
                     ui5.runUS5();
                     break;
                 case 6:
-                    /*US6UI ui6 = new ;
-                    ui6.runUS5();*/
+                    US6CreateSensorUI ui6 = new US6CreateSensorUI(dataTypeList,GA,sensorList);
+                    ui6.run();
                     break;
                 case 7:
                     /*US7UI ui7 = new ;

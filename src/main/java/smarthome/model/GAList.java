@@ -55,6 +55,16 @@ public class GAList {
     }
 
     /**
+     * Method to get Geographical Area in index position i
+     *
+     * @param i index position of Geographical Area
+     * @return Geographical Area in index position i
+     */
+    public GeographicalArea get(int i) {
+        return this.mGAList.get(i);
+    }
+
+    /**
      * Method that checks if a specific location is within one or more Geographical Areas and returns the
      * list of Geographical Areas that contain that location. If no match is found, then this method returns null.
      *
@@ -77,9 +87,9 @@ public class GAList {
      * @param sensor sensor to be added to Geographical Area with the smallest occupation area
      * @return true is sensor is added to the smallest Geographical Area that contains the sensor
      */
-    public boolean addSensorToSmallestGA(Sensor sensor) {
+    public GeographicalArea getSmallestGAContainingSensor(Sensor sensor) {
         List<GeographicalArea>  l = listOfGAsContainingLocation(sensor.getLocation().getLatitude(),sensor.getLocation().getLongitude());
-        if(l.size()==0){return false;}
+        if(l.size()==0){return null;}
         GeographicalArea smallerGA = l.get(0);
         double smallerArea = l.get(0).getOcupation().getOccupationArea();
         for (int i = 1; i < l.size(); i++){
@@ -88,7 +98,11 @@ public class GAList {
                 smallerGA=l.get(i);
             }}
 
-        return smallerGA.addSensor(sensor);
+        return smallerGA;
+    }
+
+    public boolean addSensorToSmallestGA (Sensor sensor){
+        return getSmallestGAContainingSensor(sensor).addSensor(sensor);
     }
 
     /**
@@ -101,8 +115,8 @@ public class GAList {
      */
     public List<GeographicalArea> GAFromThisType(String inputTypeGA) {
         List<GeographicalArea> GAFromTypeList = new ArrayList<>();
-        for (GeographicalArea ga: mGAList){
-            if(ga.getmTypeArea().getTypeGA().equals(inputTypeGA)){
+        for (GeographicalArea ga : mGAList) {
+            if (ga.getmTypeArea().getTypeGA().equals(inputTypeGA)) {
                 GAFromTypeList.add(ga);
             }
         }
