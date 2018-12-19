@@ -74,5 +74,4 @@ public class US5DefineSensorDataTypeUI {
             return null;
         return dataTypeDesignationInput.toLowerCase();
     }
-
 }

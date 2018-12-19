@@ -48,11 +48,7 @@ public class TypeGA {
             return false;
         }
         TypeGA typeOfGA = (TypeGA) o; //
-        if (this.mTypeGA.equals (typeOfGA.getTypeGA ())) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.mTypeGA.equals(typeOfGA.getTypeGA());
     }
 
 

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TypeGAListTest {
 
@@ -33,7 +33,7 @@ class TypeGAListTest {
 
     @DisplayName("set type of GA for village")
     @Test
-    public void defineTypesOfGeograficalAreaVillage() {
+    public void defineTypesOfGeographicalAreaVillage() {
         TypeGAList tga = new TypeGAList ();
         TypeGA village= tga.newTypeGA ("village");
 

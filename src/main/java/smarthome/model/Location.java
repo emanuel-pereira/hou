@@ -33,13 +33,7 @@ public class Location {
             return false;
         }
 
-        if (mAltitude > 8848 || mAltitude < -12500){//valores máx e mín de Altitude em Metros
-            return false;
-        }
-
-        else {
-            return true;
-        }
+        return !(mAltitude > 8848) && !(mAltitude < -12500);
     }
 
     /**
@@ -48,7 +42,7 @@ public class Location {
      * which can be then calculated using the Pitagoric Theorem
      * @param location1 this is the Location object for the first GA
      * @param location2 this is the Location object for the second GA
-     * @return
+     * @return distance between location in meters
      */
     public static double calcLinearDistanceBetweenTwoPoints(Location location1, Location location2){
         return Math.sqrt(Math.pow(location2.mLatitude- location1.mLatitude,2)

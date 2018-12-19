@@ -84,7 +84,7 @@ public class US3CreateGACTRLTest {
 
     @DisplayName("Add GA with GA type from GA type's list with usage of US1 and US3 Controller methods")
     @Test
-    void addGAFromList(){
+    void addGATypeFromList() {
         //invoke new empty list
         TypeGAList TypeGAList = new TypeGAList ();
         //pass the empty list as a parameter to US1 controller

@@ -6,7 +6,6 @@ import smarthome.model.TypeGAList;
 
 public class US3CreateGACTRL {
 
-
     private GAList mGAList;
     private TypeGAList mTypeGAList;
 

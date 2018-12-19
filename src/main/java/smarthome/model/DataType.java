@@ -15,7 +15,6 @@ public class DataType {
      * @param dataTypeDesignation - String that names the type of data
      */
     public DataType(String dataTypeDesignation) {
-
             this.mDataType = dataTypeDesignation;
     }
 
@@ -28,7 +27,6 @@ public class DataType {
     public String getDataTypeDesignation() {
         return this.mDataType;
     }
-
 
     public boolean equals(Object o) {
         if (this == o)
@@ -46,7 +44,7 @@ public class DataType {
      * This is typically implemented by converting the internal
      * address of the object into an integer
      *
-     * @return
+     * @return hashcode int value of the object
      */
     @Override
     public int hashCode() {

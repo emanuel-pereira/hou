@@ -11,6 +11,7 @@ public class GeographicalArea {
     private Location mLocation;
     private List<Sensor> mSensorList = new ArrayList<>();
     private OccupationArea mOccupation;
+    private GeographicalArea mParentGA;
 
     TypeGAList TGAList = new TypeGAList();
 
@@ -75,6 +76,14 @@ public class GeographicalArea {
     }
 
     /**
+     * method to get this Geographical Area Parent Geographical Area
+     *
+     * @return return this geographical Area Parent
+     */
+    public GeographicalArea getGeographicalParentGA() {
+        return mParentGA;
+    }
+    /**
      * Method that returns the longitude at the top left corner of a Geographical Area
      * based on its central location longitude and the height of its occupation area.
      * Assumptions:
@@ -99,7 +108,6 @@ public class GeographicalArea {
     public double getLatitudeTopLeftCornerGA() {
         return this.mLocation.getLatitude() - this.mOccupation.getmWidth() / 2;
     }
-//====================================
 
     /**
      * Method that returns the longitude at the bottom right corner of a Geographical Area
