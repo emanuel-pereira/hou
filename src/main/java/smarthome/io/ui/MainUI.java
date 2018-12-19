@@ -2,6 +2,7 @@ package smarthome.io.ui;
 
 import smarthome.model.DataTypeList;
 import smarthome.model.GAList;
+import smarthome.model.SensorList;
 import smarthome.model.TypeGAList;
 
 import java.util.Scanner;
@@ -42,7 +43,7 @@ public class MainUI {
                     ui3.run();
                     break;
                 case 4:
-                    US4ReturnGAsWithThisTypeUI ui4 = new US4ReturnGAsWithThisTypeUI (GA, typeGAList);
+                    US4ReturnGAsWithThisTypeUI ui4 = new US4ReturnGAsWithThisTypeUI(GAList, typeGAList);
                     ui4.run();
                     break;
                 case 5:
@@ -50,7 +51,7 @@ public class MainUI {
                     ui5.runUS5();
                     break;
                 case 6:
-                    US6CreateSensorUI ui6 = new US6CreateSensorUI(dataTypeList,GA,sensorList);
+                    US6CreateSensorUI ui6 = new US6CreateSensorUI(dataTypeList, GAList, sensorList);
                     ui6.run();
                     break;
                 case 7:

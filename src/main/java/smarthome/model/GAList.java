@@ -55,10 +55,10 @@ public class GAList {
     }
 
     /**
-     * Method to get Geographical Area in index position i
+     * Method to get a specific Geographical Area in index position i
      *
-     * @param i index position of Geographical Area
-     * @return Geographical Area in index position i
+     * @param i index position of the GA's List
+     * @return the specific requested Geographical Area
      */
     public GeographicalArea get(int i) {
         return this.mGAList.get(i);
@@ -72,8 +72,8 @@ public class GAList {
      * @param longitude longitude of the location
      * @return a list of Geographical Areas that contain a specific location
      */
-    public List<GeographicalArea>  listOfGAsContainingLocation(double latitude, double longitude) {
-        List<GeographicalArea>  listOfGAsContainingLocation = new ArrayList<>();
+    public List<GeographicalArea> listOfGAsContainingLocation(double latitude, double longitude) {
+        List<GeographicalArea> listOfGAsContainingLocation = new ArrayList<>();
         for (int i = 0; i < mGAList.size(); i++) {
             if (mGAList.get(i).locationIsInAG(latitude, longitude)) {
                 listOfGAsContainingLocation.add(mGAList.get(i));
@@ -84,24 +84,28 @@ public class GAList {
 
     /**
      * Method to add a sensor to smallest Geographical Area in the list of Geographical Areas that contains a specific sensor's location.
+     *
      * @param sensor sensor to be added to Geographical Area with the smallest occupation area
      * @return true is sensor is added to the smallest Geographical Area that contains the sensor
      */
     public GeographicalArea getSmallestGAContainingSensor(Sensor sensor) {
-        List<GeographicalArea>  l = listOfGAsContainingLocation(sensor.getLocation().getLatitude(),sensor.getLocation().getLongitude());
-        if(l.size()==0){return null;}
+        List<GeographicalArea> l = listOfGAsContainingLocation(sensor.getLocation().getLatitude(), sensor.getLocation().getLongitude());
+        if (l.size() == 0) {
+            return null;
+        }
         GeographicalArea smallerGA = l.get(0);
         double smallerArea = l.get(0).getOcupation().getOccupationArea();
-        for (int i = 1; i < l.size(); i++){
-            if (smallerArea>l.get(i).getOcupation().getOccupationArea()) {
-                smallerArea=l.get(i).getOcupation().getOccupationArea();
-                smallerGA=l.get(i);
-            }}
+        for (int i = 1; i < l.size(); i++) {
+            if (smallerArea > l.get(i).getOcupation().getOccupationArea()) {
+                smallerArea = l.get(i).getOcupation().getOccupationArea();
+                smallerGA = l.get(i);
+            }
+        }
 
         return smallerGA;
     }
 
-    public boolean addSensorToSmallestGA (Sensor sensor){
+    public boolean addSensorToSmallestGA(Sensor sensor) {
         return getSmallestGAContainingSensor(sensor).addSensor(sensor);
     }
 
