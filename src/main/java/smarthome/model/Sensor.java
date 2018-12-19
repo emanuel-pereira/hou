@@ -19,24 +19,36 @@ public class Sensor {
     /**
      * Constructor requiring to set only a specific designation for any object of type Sensor created
      * accordingly with the criteria defined in the "nameIsValid" method.
+     *
      * @param designation refers to sensors name
      */
     public Sensor(String designation) {
         if (nameIsValid(designation)) {
             this.mDesignation = designation;
         }
+
     }
 
     /**
      * Constructor requiring to set a specific designation and a location for any object of
      * type Sensor created.
+     *
      * @param designation refers to sensor name
-     * @param startDate refers to the sensor's working status start date
-     * @param latitude refers to the sensor's latitude
-     * @param longitude refers to the sensor's longitude
-     * @param altitude refers to the sensor's altitude
-     * @param dataType refers to the sensor's chosen data type, humidity, precipitation
+     * @param startDate   refers to the sensor's working status start date
+     * @param latitude    refers to the sensor's latitude
+     * @param longitude   refers to the sensor's longitude
+     * @param altitude    refers to the sensor's altitude
+     * @param dataType    refers to the sensor's chosen data type, humidity, precipitation
      */
+    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, String dataType) {
+        if (nameIsValid(designation)) {
+            this.mDesignation = designation;
+            this.mStartDate = startDate;
+            this.mLocation = new Location(latitude, longitude, altitude);
+            this.mDataType = new DataType(dataType);
+        }
+    }
+
     public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, DataType dataType) {
         if (nameIsValid(designation)) {
             this.mDesignation = designation;
@@ -46,30 +58,31 @@ public class Sensor {
         }
     }
 
-    /**
-     * Constructor requiring to set a specific designation, start date, location, data reading type and list of readings
-     * for an object of type Sensor created.
-     * @param designation sensor designation
-     * @param startDate sensor start date
-     * @param sensorLocation sensor location
-     * @param dataType sensor data type
-     * @param listOfReadings sensor's list of readings
-     *
-     */
-    public Sensor(String designation, Calendar startDate, Location sensorLocation, DataType dataType, List<Reading> listOfReadings) {
+
+    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, DataType dataType, List<Reading> listOfReadings) {
         if (nameIsValid(designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
-            this.mLocation = sensorLocation;
+            this.mLocation = new Location(latitude, longitude, altitude);
             this.mDataType = dataType;
             this.mListOfReadings = listOfReadings;
         }
     }
 
+    public Sensor(String designation, Calendar startDate, String dataType) {
+        if (nameIsValid(designation)) {
+            this.mDesignation = designation;
+            this.mStartDate = startDate;
+            this.mDataType = new DataType(dataType);
+        }
+    }
+
+
     /**
      * Method to check if the sensorDesignation given to name the sensor meets the criteria defined to be
      * considered a valid sensorDesignation, namely:
      * - mDesignation cannot be empty or null
+     *
      * @param sensorDesignation sensor's name
      * @return true if name sensorDesignation is valid, if it is not null or empty
      */
@@ -79,6 +92,7 @@ public class Sensor {
 
     /**
      * Changes the sensorDesignation of the sensor to the one inputted by the user.
+     *
      * @param sensorDesignation sensor's name String
      */
     public boolean setSensorDesignation(String sensorDesignation) {
@@ -91,6 +105,7 @@ public class Sensor {
 
     /**
      * Returns the designation of the sensor
+     *
      * @return is the sensor's name designation
      */
     public String getDesignation() {
@@ -99,6 +114,7 @@ public class Sensor {
 
     /**
      * Changes the location of the sensor to the new location coordinates inputted by the user.
+     *
      * @param location , of the object Location type, to update the location of the sensor
      */
     public void setSensorLocation(Location location) {
@@ -107,6 +123,7 @@ public class Sensor {
 
     /**
      * Returns the location coordinates of the sensor
+     *
      * @return object Location
      */
     public Location getLocation() {
@@ -115,6 +132,7 @@ public class Sensor {
 
     /**
      * Changes the dataType of the sensor to the dataType inputted.
+     *
      * @param dataType new object from the dataType class.
      */
     public void setSensorDataType(DataType dataType) {
@@ -123,6 +141,7 @@ public class Sensor {
 
     /**
      * Returns the dataType of the sensor.
+     *
      * @return object dataType
      */
     public DataType getSensorDataType() {
@@ -131,6 +150,7 @@ public class Sensor {
 
     /**
      * Method to calculate linear distance between two sensors
+     *
      * @param sensor1 object sensor 1
      * @param sensor2 object sensor 2
      * @return calculated distance betwwen both objects
@@ -141,6 +161,7 @@ public class Sensor {
 
     /**
      * Method to get the list of readings of a sensor.
+     *
      * @return the list of readings of a sensor
      */
     public List<Reading> getListOfReadings() {
@@ -149,6 +170,7 @@ public class Sensor {
 
     /**
      * Method to add a new reading to the list of readings of a sensor.
+     *
      * @param newReading new reading object with a value and date
      */
     public void addReadingToList(Reading newReading) {
@@ -158,6 +180,7 @@ public class Sensor {
 
     /**
      * This method looks for the last reading within a list of readings for a sensor.
+     *
      * @return the last reading of a list of readings
      */
     public Reading getLastReadingPerSensor() {
@@ -226,6 +249,7 @@ public class Sensor {
     /**
      * Method to retrieve the monthly average for each month
      * For this calculation the method takes into account the measured values
+     *
      * @return array averageValuesEachMonth with the average values for each month
      */
     public double[] getMonthlyAverageReadingEachMonth() {
@@ -240,6 +264,7 @@ public class Sensor {
 
     /**
      * Method to get the average minimum value in a list of average monthly readings
+     *
      * @return the average minimum value of
      */
     public double getMinimumAverageReading() {
@@ -257,6 +282,7 @@ public class Sensor {
 
     /**
      * Method to get the average maximum value in a list of average monthly readings
+     *
      * @return the maximum average month readings
      */
     public double getMaximumAverageReading() {
@@ -271,6 +297,7 @@ public class Sensor {
         }
         return maximum;
     }
+
 
     @Override
     public boolean equals(Object o) {

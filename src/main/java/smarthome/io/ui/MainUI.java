@@ -2,6 +2,7 @@ package smarthome.io.ui;
 
 import smarthome.model.DataTypeList;
 import smarthome.model.GAList;
+import smarthome.model.SensorList;
 import smarthome.model.TypeGAList;
 
 import java.util.Scanner;
@@ -11,6 +12,7 @@ public class MainUI {
     public static void main(String[] args) {
         TypeGAList typeGAList = new TypeGAList();
         GAList GA = new GAList();
+        SensorList sensorList= new SensorList();
         DataTypeList dataTypeList = new DataTypeList(); //substituir lista por string
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
@@ -20,6 +22,7 @@ public class MainUI {
             System.out.println("Click 2. US02: As System Administrator I want to get the list of previously defined types of geographical areas");
             System.out.println("Click 3. US03: As System Administrator I want create a new geographical area");
             System.out.println("Click 4. US05: As System Administrator I want to specify a new meteorological characteristic that sensors can measure/register");
+            System.out.println("Click 5. US06: As System Administrator I want to create a new sensor and assign it to a Geographical Area");
             System.out.println("Click 0. Exit");
 
             option = Integer.parseInt(keyboard.nextLine());
@@ -39,6 +42,10 @@ public class MainUI {
                 case 4:
                     US5DefineSensorDataTypeUI ui5 = new US5DefineSensorDataTypeUI(dataTypeList);
                     ui5.runUS5();
+                    break;
+                case 5:
+                    US6CreateSensorUI ui6 = new US6CreateSensorUI(dataTypeList,GA,sensorList);
+                    ui6.run();
                     break;
             }
         }

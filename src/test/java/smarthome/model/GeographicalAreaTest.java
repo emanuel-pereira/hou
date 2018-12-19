@@ -69,9 +69,9 @@ public class GeographicalAreaTest {
         DataType type2 = new DataType ("precipitation");
         DataType type3 = new DataType ("wind");
 
-        Sensor sensor1 = new Sensor("TemperatureSensor", rTime1, new Location(41, -7.5, 49), type1, readS1);
-        Sensor sensor2 = new Sensor("PrecipitationSensor", rTime2,new Location(41, -7.5, 49), type2, readS2);
-        Sensor sensor3 = new Sensor("WindSensor",rTime3, new Location(41, -7.5, 49), type3, readS3);
+        Sensor sensor1 = new Sensor("TemperatureSensor", rTime1, 41, -7.5, 49, type1, readS1);
+        Sensor sensor2 = new Sensor("PrecipitationSensor", rTime2,41, -7.5, 49, type2, readS2);
+        Sensor sensor3 = new Sensor("WindSensor",rTime3, 41, -7.5, 49, type3, readS3);
 
         TypeGAList tga = new TypeGAList ();
         TypeGA city = tga.newTypeGA ("city");
@@ -100,9 +100,9 @@ public class GeographicalAreaTest {
         DataType type2 = new DataType ("precipitation");
         DataType type3 = new DataType ("wind");
 
-        Sensor sensor1 = new Sensor("TemperatureSensor", rTime1, new Location(41, -7.5, 49), type1, readS1);
-        Sensor sensor2 = new Sensor("PrecipitationSensor",rTime1, new Location(41, -7.5, 49), type2, readS2);
-        Sensor sensor3 = new Sensor("WindSensor",rTime1, new Location(41, -7.5, 49), type3, readS3);
+        Sensor sensor1 = new Sensor("TemperatureSensor", rTime1, 41, -7.5, 49, type1, readS1);
+        Sensor sensor2 = new Sensor("PrecipitationSensor",rTime1, 41, -7.5, 49, type2, readS2);
+        Sensor sensor3 = new Sensor("WindSensor",rTime1, 41, -7.5, 49, type3, readS3);
 
         TypeGAList tga = new TypeGAList ();
         TypeGA city = tga.newTypeGA ("city");

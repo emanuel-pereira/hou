@@ -37,9 +37,9 @@ public class GAList {
      * @return Geographical Area in index position i
      */
 
-    /*public GeographicalArea get(int i) {
+    public GeographicalArea get(int i) {
         return this.mGAList.get(i);
-    }*/
+    }
 
     /**
      * @return
@@ -66,14 +66,15 @@ public class GAList {
         return listOfGAsContainingLocation;
     }
 
+
     /**
      * Method to add a sensor to smallest Geographical Area in the list of Geographical Areas that contains a specific sensor's location.
      * @param sensor sensor to be added to Geographical Area with the smallest occupation area
      * @return true is sensor is added to the smallest Geographical Area that contains the sensor
      */
-    public boolean addSensorToSmallestGA(Sensor sensor) {
+    public GeographicalArea getSmallestGAContainingSensor(Sensor sensor) {
         List<GeographicalArea>  l = listOfGAsContainingLocation(sensor.getLocation().getLatitude(),sensor.getLocation().getLongitude());
-        if(l.size()==0){return false;}
+        if(l.size()==0){return null;}
         GeographicalArea smallerGA = l.get(0);
         double smallerArea = l.get(0).getOcupation().getOccupationArea();
         for (int i = 1; i < l.size(); i++){
@@ -82,7 +83,11 @@ public class GAList {
                 smallerGA=l.get(i);
             }}
 
-        return smallerGA.addSensor(sensor);
+        return smallerGA;
+    }
+
+    public boolean addSensorToSmallestGA (Sensor sensor){
+        return getSmallestGAContainingSensor(sensor).addSensor(sensor);
     }
 
 
@@ -105,6 +110,8 @@ public class GAList {
         }
         return GAFromTypeList;
     }
+
+
 
 
 }
