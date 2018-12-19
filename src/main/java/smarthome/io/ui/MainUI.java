@@ -20,9 +20,10 @@ public class MainUI {
         while (option != 0) {
             System.out.println("Click 1. US01: As System Administrator I want to define a new type of geographical area to later classify the geographical areas");
             System.out.println("Click 2. US02: As System Administrator I want to get the list of previously defined types of geographical areas");
-            System.out.println("Click 3. US03: As System Administrator I want create a new geographical area");
-            System.out.println("Click 4. US05: As System Administrator I want to specify a new meteorological characteristic that sensors can measure/register");
-            System.out.println("Click 5. US06: As System Administrator I want to create a new sensor and assign it to a Geographical Area");
+            System.out.println("Click 3. US03: As System Administrator I want to create a new geographical area");
+            System.out.println("Click 4. US04: As System Administrator I want to know the geographic areas of a certain type");
+            System.out.println("Click 5. US05: As System Administrator I want to specify a new meteorological characteristic that sensors can measure/register");
+            System.out.println("Click 6. US06: As System Administrator I want to create a new sensor and assign it to a Geographical Area");
             System.out.println("Click 0. Exit");
 
             option = Integer.parseInt(keyboard.nextLine());
@@ -40,10 +41,14 @@ public class MainUI {
                     ui3.run();
                     break;
                 case 4:
+                    US4ReturnGAsWithThisTypeUI ui4 = new US4ReturnGAsWithThisTypeUI (GA, typeGAList);
+                    ui4.run();
+                    break;
+                case 5:
                     US5DefineSensorDataTypeUI ui5 = new US5DefineSensorDataTypeUI(dataTypeList);
                     ui5.runUS5();
                     break;
-                case 5:
+                case 6:
                     US6CreateSensorUI ui6 = new US6CreateSensorUI(dataTypeList,GA,sensorList);
                     ui6.run();
                     break;
