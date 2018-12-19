@@ -1,38 +1,41 @@
 package smarthome.model;
 
+import java.util.Objects;
+
 public class House {
 
-    private String mAddress;
-    private String mZipCode;
-    private Location mGPSLocation;
+    private Address mAddress;
     private GeographicalArea mGA;
 
 
-    public House (String address, String zipCode, Location gpsLocation,GeographicalArea GA ){
+    public House(Address houseAddress, GeographicalArea GA) {
 
-        mAddress = address;
-        mZipCode = zipCode;
-        mGPSLocation = gpsLocation;
+        mAddress = houseAddress;
         mGA = GA;
 
     }
 
-    public String getAddress (){
+    public Address getAddress() {
 
         return mAddress;
     }
 
-    public String getZipCode (){
-        return mZipCode;
-    }
 
-    public Location getGPSLocation (){
-        return mGPSLocation;
-    }
-
-    public GeographicalArea getGA(){
+    public GeographicalArea getGA() {
         return mGA;
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof House)) return false;
+        House house = (House) o;
+        return Objects.equals(mAddress, house.mAddress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mAddress);
+    }
 }
