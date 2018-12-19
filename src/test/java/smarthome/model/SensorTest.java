@@ -39,7 +39,7 @@ class SensorTest {
         String expectedResult="Sensor01TempMat";
         String result;
         tempSensor.setSensorDesignation(designation);
-        result=tempSensor.getSensorDesignation();
+        result=tempSensor.getDesignation();
         assertEquals(expectedResult,result);
     }
 
@@ -50,7 +50,7 @@ class SensorTest {
         String expectedResult="SensorVisibilityLisbon";
         String result;
         tempSensor.setSensorDesignation(designation);
-        result=tempSensor.getSensorDesignation();
+        result=tempSensor.getDesignation();
         assertEquals(expectedResult,result);
     }
 
@@ -61,7 +61,7 @@ class SensorTest {
         String expectedResult="SensorVisibilityLisboa";
         String result;
         tempSensor.setSensorDesignation(designation);
-        result=tempSensor.getSensorDesignation();
+        result=tempSensor.getDesignation();
         assertEquals(expectedResult,result);
     }
 
@@ -73,7 +73,7 @@ class SensorTest {
         String expectedResult="WindSensorSantarem";
         String result;
         tempSensor.setSensorDesignation(designation);
-        result=tempSensor.getSensorDesignation();
+        result=tempSensor.getDesignation();
         assertNotEquals(expectedResult,result);
     }
 
@@ -83,7 +83,7 @@ class SensorTest {
         Sensor rainfallSensor = new Sensor("RainfallSensorOfNowhere");
         Location expectedResult= null;
         Location result;
-        result=rainfallSensor.getSensorLocation();
+        result=rainfallSensor.getLocation();
         assertEquals(expectedResult,result);}
 
 
@@ -94,7 +94,7 @@ class SensorTest {
         Location expectedResult= loc1;
         Location result;
         rainfallSensor.setSensorLocation(loc1);
-        result=rainfallSensor.getSensorLocation();
+        result=rainfallSensor.getLocation();
         assertEquals(expectedResult,result);
     }
 
@@ -121,7 +121,7 @@ class SensorTest {
 
         visibilitySensor.setSensorDataType(visibility);
         resultDataType=visibilitySensor.getSensorDataType();
-        resultDesignation=visibilitySensor.getSensorDesignation();
+        resultDesignation=visibilitySensor.getDesignation();
 
 
         assertEquals(expectedDataType,resultDataType);
@@ -155,14 +155,11 @@ class SensorTest {
 
         GregorianCalendar rTime2 = new GregorianCalendar(2018, 11, 28, 12, 0);
 
-        Location locationSensor1=new Location(20,10,15);
-        Location locationSensor2=new Location(30,25,20);
-
         DataType type1 = new DataType ("precipitation");
         DataType type2 =  new DataType ("temperature");
 
-        Sensor sensor1= new Sensor("PrecipitationSensor",rTime1,locationSensor1, type1);
-        Sensor sensor2= new Sensor("TemperatureSensor",rTime2,locationSensor2,type2);
+        Sensor sensor1= new Sensor("PrecipitationSensor",rTime1,20,10,15, type1);
+        Sensor sensor2= new Sensor("TemperatureSensor",rTime2,30,25,20,type2);
 
         double expectedResult=18.708286933869708;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
@@ -176,13 +173,10 @@ class SensorTest {
 
         GregorianCalendar rTime2 = new GregorianCalendar(2018, 11, 28, 12, 0);
 
-        Location locationSensor1=new Location(10,10,10);
-        Location locationSensor2=new Location(10,10,10);
-
         DataType type1 = new DataType ("temperature");
 
-        Sensor sensor1= new Sensor("TemperatureSensor1",rTime1,locationSensor1,type1);
-        Sensor sensor2= new Sensor("TemperatureSensor2",rTime2,locationSensor2,type1);
+        Sensor sensor1= new Sensor("TemperatureSensor1",rTime1,10,10,10,type1);
+        Sensor sensor2= new Sensor("TemperatureSensor2",rTime2,10,10,10,type1);
 
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
@@ -193,17 +187,10 @@ class SensorTest {
     @Test
     void checkIfCalculateLinearDistanceBetweenTwoSensorsDoesNotReturnZero() {
         GregorianCalendar rTime1 = new GregorianCalendar(2018, 11, 27, 9, 0);
-
         GregorianCalendar rTime2 = new GregorianCalendar(2018, 11, 28, 12, 0);
-
-        Location locationSensor1=new Location(20,10,15);
-        Location locationSensor2=new Location(30,25,20);
-
         DataType type1 = new DataType ("wind");
-
-        Sensor sensor1= new Sensor("WindSensor1",rTime1,locationSensor1,type1);
-        Sensor sensor2= new Sensor("WindSensor2",rTime2,locationSensor2,type1);
-
+        Sensor sensor1= new Sensor("WindSensor1",rTime1,20,10,15,type1);
+        Sensor sensor2= new Sensor("WindSensor2",rTime2,30,25,20,type1);
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertNotEquals(expectedResult,result);
@@ -214,17 +201,10 @@ class SensorTest {
     @Test
     void addReadingValue() {
         GregorianCalendar rTime1 = new GregorianCalendar(2018, 11, 27, 9, 0);
-
         GregorianCalendar rTime2 = new GregorianCalendar(2018, 11, 28, 12, 0);
-
-        Location locationSensor1=new Location(20,10,15);
-        Location locationSensor2=new Location(30,25,20);
-
         DataType type1 = new DataType ("wind");
-
-        Sensor sensor1= new Sensor("WindSensor1",rTime1,locationSensor1,type1);
-        Sensor sensor2= new Sensor("WindSensor2",rTime2,locationSensor2,type1);
-
+        Sensor sensor1= new Sensor("WindSensor1",rTime1,20,10,15,type1);
+        Sensor sensor2= new Sensor("WindSensor2",rTime2,30,25,20,type1);
         double expectedResult=0;
         double result=sensor1.calcLinearDistanceBetweenTwoSensors(sensor1,sensor2);
         assertNotEquals(expectedResult,result);
@@ -235,23 +215,16 @@ class SensorTest {
     @Test
     void getLastReadingOfSensorIfThreeReadings() {
         GregorianCalendar rTime1 = new GregorianCalendar(2018,11,27,21,0);
-
         GregorianCalendar rTime2 = new GregorianCalendar(2018,11,27,22,0);
-
         GregorianCalendar rTime3 = new GregorianCalendar(2018,11,27,23,0);
-
-
         Reading readingDate1 = new Reading (11, rTime1);
         Reading readingDate2 = new Reading (10, rTime2);
         Reading expectedReading = new Reading (8, rTime3);
-
         Sensor sensor2 = new Sensor ("Temp131");
         sensor2.addReadingToList(readingDate1);
         sensor2.addReadingToList(readingDate2);
         sensor2.addReadingToList(expectedReading);
-
         Reading result = sensor2.getLastReadingPerSensor();
-
         assertEquals(expectedReading, result);
     }
 
@@ -299,7 +272,7 @@ class SensorTest {
     void getMonthlyAverageReadings() {
         //Arrange
         DataType type1 = new DataType ("visibility");
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0), new Location(40, 20,10),type1);
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
 
 
 
@@ -326,7 +299,7 @@ class SensorTest {
     void getMonthlyAverageReadingsNotEquals() {
         //Arrange
         DataType type1 = new DataType ("visibility");
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0), new Location(40, 20,10),type1);
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
 
         Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
         Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
@@ -351,7 +324,7 @@ class SensorTest {
     void getMonthlyAverageReadingsNoReadings() {
         //Arrange
         DataType type1 = new DataType ("visibility");
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0), new Location(40, 20,10),type1);
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
 
         //Act
         double result = s1.getMonthlyAverageReadings(9);
@@ -367,7 +340,7 @@ class SensorTest {
 
         //Arrange
         DataType type1 = new DataType ("visibility");
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0), new Location(40, 20,10),type1);
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
 
         Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
         Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
@@ -395,7 +368,7 @@ class SensorTest {
 
         //Arrange
         DataType type1 = new DataType ("visibility");
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0), new Location(40, 20,10),type1);
+        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
 
         Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
         Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
@@ -420,9 +393,7 @@ class SensorTest {
     public void getMonthlyAverageReadingListTest() {
         //Arrange
         DataType type1 = new DataType ("visibility");
-        Sensor s1 = new Sensor("Visibility Sensor",
-                new GregorianCalendar(2018,8,1,9,0),
-                new Location(40, 20,10),type1);
+        Sensor s1 = new Sensor("Visibility Sensor", new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
 
         Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
         Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
@@ -450,8 +421,7 @@ class SensorTest {
         //Arrange
         DataType type1 = new DataType ("visibility");
         Sensor s1 = new Sensor("Visibility Sensor",
-                new GregorianCalendar(2018,8,1,9,0),
-                new Location(40, 20,10),type1);
+                new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
 
         Reading r1 = new Reading(0, new GregorianCalendar(2018, 8, 4, 11, 0));
         Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
@@ -481,7 +451,7 @@ class SensorTest {
     void getMinimumAverageReading() {
         //Arrange
         DataType type1 = new DataType ("wind");
-        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),new Location(40,-5,25),type1);
+        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),40,-5,25,type1);
         Reading r1 = new Reading(60.9, new GregorianCalendar(2018, 8, 4, 11, 0));
         Reading r2 = new Reading(62.5, new GregorianCalendar(2018, 9, 4, 11, 0));
         Reading r3 = new Reading(30.2, new GregorianCalendar(2018, 9, 4, 11, 0));
@@ -503,7 +473,7 @@ class SensorTest {
     void getMinimumAverageReading1() {
         //Arrange
         DataType type1 = new DataType ("wind");
-        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),new Location(40,-5,25),type1);
+        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),40,-5,25,type1);
         Reading r1 = new Reading(60.9, new GregorianCalendar(2018, 8, 4, 11, 0));
         Reading r2 = new Reading(62.5, new GregorianCalendar(2018, 9, 4, 11, 0));
         Reading r3 = new Reading(30.2, new GregorianCalendar(2018, 9, 4, 11, 0));
@@ -525,7 +495,7 @@ class SensorTest {
     void getMaximumAverageReading() {
         //Arrange
         DataType type1 = new DataType ("wind");
-        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),new Location(40,-5,25),type1);
+        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),40,-5,25,type1);
         Reading r1 = new Reading(60.9, new GregorianCalendar(2018, 8, 4, 11, 0));
         Reading r2 = new Reading(62.5, new GregorianCalendar(2018, 9, 4, 11, 0));
         Reading r3 = new Reading(30.2, new GregorianCalendar(2018, 9, 4, 11, 0));
@@ -547,7 +517,7 @@ class SensorTest {
     void getMaximumAverageReading1() {
         //Arrange
         DataType type1 = new DataType ("wind");
-        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),new Location(40,-5,25),type1);
+        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),40,-5,25,type1);
         Reading r1 = new Reading(30.2, new GregorianCalendar(2018, 8, 4, 11, 0));
         Reading r2 = new Reading(25.8, new GregorianCalendar(2018, 9, 4, 11, 0));
         Reading r3 = new Reading(60.9, new GregorianCalendar(2018, 9, 4, 11, 0));
@@ -569,16 +539,14 @@ class SensorTest {
     void sensorsComparison() {
         //Arrange
         DataType type1 = new DataType ("visibility");
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0), new Location(40, 20,10),type1);
+        Sensor sensor1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
 
-        DataType type2 = new DataType ("wind speed");
-        Sensor s2 = new Sensor("Wind Sensor",new GregorianCalendar(2018,8,1,9,0), new Location(40, 20,10),type2);
+        DataType wind = new DataType ("wind speed");
+        Sensor sensor2 = new Sensor("wind Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
 
-        assertFalse(s1.equals(s2));
-        assertFalse(s2.equals(type1));
-        assertNotEquals(s1.hashCode(),s2.hashCode());
+        assertFalse(sensor1.equals(sensor2));
+        assertFalse(sensor2.equals(type1));
+        assertNotEquals(sensor1.hashCode(),sensor2.hashCode());
     }
-
-
 
 }
