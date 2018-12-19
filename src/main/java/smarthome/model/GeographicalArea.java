@@ -136,7 +136,7 @@ public class GeographicalArea {
      * @return true if longitude coordinate is within the longitude range of a Geographical Area.
      * False otherwise
      */
-    private boolean longitudeIsInAG(double longitude) {
+    public boolean longitudeIsInAG(double longitude) {
         return getLongitudeBottomRightCornerGA() <= longitude && longitude <= getLongitudeTopLeftCornerGA();
     }
 
@@ -147,7 +147,7 @@ public class GeographicalArea {
      * @return true if latitude coordinate is within the latitude range of a Geographical Area.
      * False otherwise.
      */
-    private boolean latitudeIsInAG(double latitude) {
+    public boolean latitudeIsInAG(double latitude) {
         return getLatitudeTopLeftCornerGA() <= latitude && latitude <= getLatitudeBottomRightCornerGA();
     }
 
@@ -246,6 +246,10 @@ public class GeographicalArea {
             mSensorList.add(sensor);
             return true;
         } else return false;
+    }
+
+    public OccupationArea getOcupation(){
+        return this.mOccupation;
     }
 
     @Override

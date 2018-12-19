@@ -3,6 +3,9 @@ package smarthome.model;
 import java.util.*;
 
 
+/**
+ *
+ */
 public class Sensor {
     private String mDesignation;
     private Calendar mStartDate;
@@ -15,11 +18,11 @@ public class Sensor {
 
     /**
      * Constructor requiring to set only a specific designation for any object of type Sensor created
-     * accordingly with the criteria defined in the "sensorDesignationIsValid" method.
+     * accordingly with the criteria defined in the "nameIsValid" method.
      * @param designation refers to sensors name
      */
     public Sensor(String designation) {
-        if (sensorDesignationIsValid(designation)) {
+        if (nameIsValid(designation)) {
             this.mDesignation = designation;
         }
     }
@@ -29,25 +32,32 @@ public class Sensor {
      * type Sensor created.
      * @param designation refers to sensor name
      * @param startDate refers to the sensor's working status start date
-     * @param sensorLocation refers to the sensors location, with a Location object
+     * @param latitude refers to the sensor's latitude
+     * @param longitude refers to the sensor's longitude
+     * @param altitude refers to the sensor's altitude
      * @param dataType refers to the sensor's chosen data type, humidity, precipitation
      */
-    public Sensor(String designation, Calendar startDate, Location sensorLocation, DataType dataType) {
-        if (sensorDesignationIsValid(designation)) {
+    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, DataType dataType) {
+        if (nameIsValid(designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
-            this.mLocation = sensorLocation;
+            this.mLocation = new Location(latitude, longitude, altitude);
             this.mDataType = dataType;
         }
     }
 
     /**
-     * Constructor requiring to set a specific designation and a location for any object of
-     * type Sensor created.
-     * @param sensorLocation object Location with the sensor's location
+     * Constructor requiring to set a specific designation, start date, location, data reading type and list of readings
+     * for an object of type Sensor created.
+     * @param designation sensor designation
+     * @param startDate sensor start date
+     * @param sensorLocation sensor location
+     * @param dataType sensor data type
+     * @param listOfReadings sensor's list of readings
+     *
      */
     public Sensor(String designation, Calendar startDate, Location sensorLocation, DataType dataType, List<Reading> listOfReadings) {
-        if (sensorDesignationIsValid(designation)) {
+        if (nameIsValid(designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
             this.mLocation = sensorLocation;
@@ -63,7 +73,7 @@ public class Sensor {
      * @param sensorDesignation sensor's name
      * @return true if name sensorDesignation is valid, if it is not null or empty
      */
-    public boolean sensorDesignationIsValid(String sensorDesignation) {
+    public boolean nameIsValid(String sensorDesignation) {
         return sensorDesignation != null && !sensorDesignation.trim().isEmpty();
     }
 
@@ -72,7 +82,7 @@ public class Sensor {
      * @param sensorDesignation sensor's name String
      */
     public boolean setSensorDesignation(String sensorDesignation) {
-        if (sensorDesignationIsValid(sensorDesignation)) {
+        if (nameIsValid(sensorDesignation)) {
             this.mDesignation = sensorDesignation;
             return true;
         }
@@ -83,7 +93,7 @@ public class Sensor {
      * Returns the designation of the sensor
      * @return is the sensor's name designation
      */
-    public String getSensorDesignation() {
+    public String getDesignation() {
         return this.mDesignation;
     }
 
@@ -99,7 +109,7 @@ public class Sensor {
      * Returns the location coordinates of the sensor
      * @return object Location
      */
-    public Location getSensorLocation() {
+    public Location getLocation() {
         return this.mLocation;
     }
 
@@ -126,7 +136,7 @@ public class Sensor {
      * @return calculated distance betwwen both objects
      */
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
-        return Location.calcLinearDistanceBetweenTwoPoints(sensor1.getSensorLocation(), sensor2.getSensorLocation());
+        return Location.calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation());
     }
 
     /**
