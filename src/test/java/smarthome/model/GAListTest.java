@@ -221,4 +221,5 @@ class GAListTest {
         GeographicalArea result = gaList.getSmallestGAContainingSensor(sensor);
         assertEquals(expected,result);
     }
+
 }

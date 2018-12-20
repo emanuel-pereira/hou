@@ -55,8 +55,8 @@ public class MainUI {
                     ui6.run();
                     break;
                 case 7:
-                    /*US7UI ui7 = new ;
-                    ui7.run();*/
+                    US7SetParentOfGAUI ui7 = new US7SetParentOfGAUI(GAList);
+                    ui7.run();
                     break;
                 case 8:
                     US8ListParentGAUI ui8 = new US8ListParentGAUI(GAList);

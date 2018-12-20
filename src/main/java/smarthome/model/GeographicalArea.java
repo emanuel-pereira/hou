@@ -289,9 +289,25 @@ public class GeographicalArea {
     public int hashCode() {
         return Objects.hash(mDesignation, mTypeArea);
     }
+
+
+    /**
+     * US07
+     * Method that tell´s if a Geographical Area is parented or contained on other.
+     * @param ga1 is defined as an geographical area parented with other.
+     */
+
+
+    public void setmParentGA(GeographicalArea ga1) {
+
+        this.mParentGA = ga1;
+
+    }
+
+    public GeographicalArea getmParentGA() {
+
+        return mParentGA;
+    }
+
+
 }
-
-
-
-
-

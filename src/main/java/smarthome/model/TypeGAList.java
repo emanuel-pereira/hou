@@ -29,7 +29,7 @@ public class TypeGAList {
 
     /**
      * Method to add the previous created new object into the mTypeGA ArrayList of GA's types
-     * @param inputType bject Type of GA with the user's input
+     * @param inputType object Type of GA with the user's input
      * @return true if it was possible to add the user new input, false if the input type is
      * already contained.
      */

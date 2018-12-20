@@ -359,6 +359,36 @@ public class GeographicalAreaTest {
 
 
 
+
+
+    @Test
+    @DisplayName("Define the parent Geographical Area of another Geographical Area")
+    public void setmParentGA() {
+
+        GeographicalArea ga1= new GeographicalArea("Porto","city",2,4,5,5,6);
+        GeographicalArea ga2= new GeographicalArea("Portugal","Country",3,4,5,6,7);
+
+        ga1.setmParentGA(ga2);
+
+        GeographicalArea expectedResult = ga2;
+        GeographicalArea result = ga1.getmParentGA();
+        assertEquals(expectedResult, result);
+
+    }
+
+
+    @Test
+    @DisplayName("Return the parent of a Geographical Area of another Geographical Area")
+    public void getmParentGA() {
+
+        GeographicalArea ga1 = new GeographicalArea("Porto", "city", 2, 4, 5, 5, 6);
+        GeographicalArea ga2 = new GeographicalArea("Portugal", "Country", 3, 4, 5, 6, 7);
+
+        ga1.getmParentGA();
+
+        GeographicalArea expectedResult = null;
+        GeographicalArea result = ga1.getmParentGA();
+        assertEquals(expectedResult, result);
+
+    }
 }
-
-
