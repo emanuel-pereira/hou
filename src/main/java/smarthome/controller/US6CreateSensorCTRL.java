@@ -63,6 +63,26 @@ public class US6CreateSensorCTRL {
     }
 
     /**
+     * Method to return the GA's List size in int form
+     *
+     * @return int parameter size of list, if 0/null the list is empty
+     * if the list is not empty then the showListInString() method will be called next
+     */
+    public int getGAListSize() {
+        return mGAList.getGAList().size();
+    }
+
+    /**
+     * Method to return the GA's List size in int form
+     *
+     * @return int parameter size of list, if 0/null the list is empty
+     * if the list is not empty then the showListInString() method will be called next
+     */
+    public int getDataTypeListSize() {
+        return mDataTypeList.getDataTypeList().size();
+    }
+
+    /**
      * Method that creates a sensor object before the user chooses which area he wants to add it.
      *
      * @param inputName name for the instance of sensor created
@@ -70,6 +90,7 @@ public class US6CreateSensorCTRL {
      * @param dataTypeIndex data type the sensor will read
      * @return adds the sensor to a list of sensors
      */
+
 
     public boolean newSensor(String inputName, GregorianCalendar startDate, int dataTypeIndex) {
         String inputDataType = mDataTypeList.getDataTypeList().get(dataTypeIndex - 1).toString();

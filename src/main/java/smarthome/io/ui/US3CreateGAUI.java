@@ -58,7 +58,9 @@ public class US3CreateGAUI {
         System.out.println("Success");*/
 
             System.out.println("Insert the width of a geographical area:");
-            Double width = read.nextDouble();
+            Double width = read.nextDouble(
+
+            );
             System.out.println("Success");
 
             System.out.println("Insert the height of a geographical area:");

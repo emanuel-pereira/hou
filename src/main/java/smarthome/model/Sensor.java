@@ -77,7 +77,6 @@ public class Sensor {
         }
     }
 
-
     /**
      * Method to check if the sensorDesignation given to name the sensor meets the criteria defined to be
      * considered a valid sensorDesignation, namely:

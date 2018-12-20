@@ -25,7 +25,7 @@ public class US1CreateTypesGAUI {
     /**
      * Run the US1
      * With the while statement is possible to add several TypeGAs. By writing the r letter the user is redirected to
-     * the MainUI and leaves the US1UI.
+     * the SystemAdministrationUI and leaves the US1UI.
      * First the method that receives and validates the user input is called. If valid, the input goes to the variable
      * name, if not, the valid name is set to null.
      * If the input is valid a newTypeGA by that name is added. If not, nothing is added.
