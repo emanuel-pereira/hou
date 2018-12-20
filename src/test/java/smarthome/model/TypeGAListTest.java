@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class TypeGAListTest {
 
@@ -66,4 +67,19 @@ class TypeGAListTest {
         assertEquals (expectedResult, result);
     }
 
+    @DisplayName("set Already Contained type of GA for village")
+    @Test
+    public void empty() {
+        TypeGAList tga = new TypeGAList ();
+        TypeGA village1= tga.newTypeGA (" ");
+
+        assertEquals (0, tga.getTypeGAList ().size ());
+        tga.addTypeGA (village1);
+        assertEquals (0, tga.getTypeGAList ().size ());
+
+        List<TypeGA> expectedResult = Arrays.asList ();
+        List<TypeGA> result = tga.getTypeGAList ();
+
+        assertEquals (expectedResult, result);
+    }
 }

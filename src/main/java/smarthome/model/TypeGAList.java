@@ -34,7 +34,7 @@ public class TypeGAList {
      * already contained.
      */
     public boolean addTypeGA(TypeGA inputType) {
-        if (!mTypeGA.contains(inputType)) {
+        if (inputType != null && !mTypeGA.contains(inputType)) {
             mTypeGA.add(inputType);
             return true;
         } else return false;
