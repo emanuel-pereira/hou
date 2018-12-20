@@ -78,13 +78,18 @@ class GAListTest {
         GAList gaList= new GAList();
         GeographicalArea ga1= new GeographicalArea("Gaia","City",20,20,2,2,5);
         gaList.addGA(ga1);
-        GeographicalArea ga2= new GeographicalArea("Matosinhos","City",4,5,2,2,5);
+        GeographicalArea ga2= new GeographicalArea("Matosinhos","City",7.5,10,2,15,20);
         gaList.addGA(ga2);
+        GeographicalArea ga3= new GeographicalArea("Coimbra","City",7.5,10,2,15,19);
+        gaList.addGA(ga3);
         Location loc = new Location(2.7,5.2,0);
-        List<GeographicalArea>  listOfGAsContainingLocation=gaList.listOfGAsContainingLocation(loc.getLatitude(),loc.getLongitude());
-        int expectedResult=1;
-        int result=listOfGAsContainingLocation.size();
+        GAList  listOfGAsContainingLocation=gaList.listOfGAsContainingLocation(loc.getLatitude(),loc.getLongitude());
+        int expectedResult=2;
+        int result=listOfGAsContainingLocation.getGAList().size();
         assertEquals(expectedResult,result);
+        Sensor sensor = new Sensor("TempSensor",new GregorianCalendar(2018,12,1),2.7,5.2,0,"Temperature");
+        GeographicalArea result1 = listOfGAsContainingLocation.getSmallestGAContainingSensor(sensor);
+        assertEquals(ga3,result1);
     }
 
     @Test
@@ -96,9 +101,9 @@ class GAListTest {
         GeographicalArea ga2= new GeographicalArea("Matosinhos","City",4,5,2,2,5);
         gaList.addGA(ga2);
         Location loc = new Location(22.7,5.2,0);
-        List<GeographicalArea>  listOfGAsContainingLocation=gaList.listOfGAsContainingLocation(loc.getLatitude(),loc.getLongitude());
+        GAList listOfGAsContainingLocation=gaList.listOfGAsContainingLocation(loc.getLatitude(),loc.getLongitude());
         int expectedResult=0;
-        int result=listOfGAsContainingLocation.size();
+        int result=listOfGAsContainingLocation.getGAList().size();
         assertEquals(expectedResult,result);
     }
 
@@ -168,13 +173,15 @@ class GAListTest {
         GAList gaList= new GAList();
         Sensor sensor = new Sensor("GaiaTemperatureSensor", new GregorianCalendar(2018, 8, 4, 11, 0),2.7,5.2,0,new DataType ("Temperature"));
 
-        GeographicalArea ga1= new GeographicalArea("Gaia","City",4,5,2,2,10);
-        GeographicalArea ga2= new GeographicalArea("Porto","District",4,5,2,3,10);
-        GeographicalArea ga3= new GeographicalArea("Lisboa","City",85,-127,15,152,85);
+        GeographicalArea ga1= new GeographicalArea("Porto","District",4,5,2,3,10);
+        GeographicalArea ga2= new GeographicalArea("Matosinhos","Cidade",4,5,2,2,5);
+        GeographicalArea ga3= new GeographicalArea("Gaia","City",4,5,2,2,4);
+        GeographicalArea ga4= new GeographicalArea("Lisboa","City",85,-127,15,152,85);
 
         gaList.addGA(ga1);
         gaList.addGA(ga2);
         gaList.addGA(ga3);
+        gaList.addGA(ga4);
 
         boolean expectedResult=true;
         boolean result = gaList.addSensorToSmallestGA(sensor);
@@ -190,13 +197,10 @@ class GAListTest {
         GeographicalArea ga1= new GeographicalArea("Gaia","City",54,5,2,2,10);
         GeographicalArea ga2= new GeographicalArea("Porto","District",4,45,2,3,10);
         GeographicalArea ga3= new GeographicalArea("Lisboa","City",4,5,2,3,10);
-        GeographicalArea ga4= new GeographicalArea("Setúbal","City",4,5,2,2,10);
-        GeographicalArea ga5= new GeographicalArea("Lisboa Distrito","District",4,5,2,2,10);
+
         gaList.addGA(ga1);
         gaList.addGA(ga2);
         gaList.addGA(ga3);
-        gaList.addGA(ga4);
-        gaList.addGA(ga5);
 
         boolean expectedResult=true;
         boolean result = gaList.addSensorToSmallestGA(sensor);

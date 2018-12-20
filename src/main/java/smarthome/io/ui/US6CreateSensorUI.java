@@ -10,24 +10,26 @@ import java.util.Scanner;
 
 public class US6CreateSensorUI {
     private GAList mGAList;
+    private DataTypeList mDataTypeList;
     private SensorList mSensorList;
     private US6CreateSensorCTRL mCtrlUS6;
-    private US3CreateGAUI ui3;
     private US5DefineSensorDataTypeUI ui5; //in order to invoke methods from ui5 to print out the list of Data types for the user to select
 
 
     public US6CreateSensorUI(DataTypeList dataTypeList, GAList listOfGA, SensorList sensorList) {
         mCtrlUS6 = new US6CreateSensorCTRL(dataTypeList, listOfGA, sensorList);
         mGAList = listOfGA;
-        mSensorList= sensorList;
+        mSensorList = sensorList;
+        mDataTypeList=dataTypeList;
         /*ui3 = new US3CreateGAUI(listOfGA, typeOfGAList);*/
     }
 
 
     public void run() {
         Scanner read = new Scanner(System.in);
+
         String name;
-        /*while (true) {
+        while (true) {
             System.out.println("Insert a name for the sensor(or click r to return to Main Menu):");
             name = read.nextLine();
             if ((name == null || name.trim().isEmpty())) {
@@ -38,7 +40,7 @@ public class US6CreateSensorUI {
                 break;
             } else System.out.println("Success " + name + " added as sensor name.");
             break;
-        }*/
+        }
 
         System.out.println("Insert a name for the sensor(or click r to return to Main Menu):");
         name = read.nextLine();
@@ -97,11 +99,19 @@ public class US6CreateSensorUI {
         GregorianCalendar calendar = new GregorianCalendar(year, month, day);
         System.out.println("Start date of sensor is: " + year + "/" + month + "/" + day);
 
-        System.out.println("Choose a data type for the sensor from one of the data types below:");
-        System.out.println(mCtrlUS6.showDataTypeListInString());
-        int dataTypeIndex = read.nextInt();
-        System.out.println("Success");
-        mCtrlUS6.newSensor(name, calendar, dataTypeIndex);
+        if(returnDataTypeStringList()){
+            int dataTypeIndex = read.nextInt();
+            if(dataTypeIndex==0)
+            {System.out.println("Return to main menu");}
+            else{returnDataTypeStringList();}
+
+
+        }
+       /* System.out.println("Choose a data type for the sensor from one of the data types below:");
+        System.out.println(mCtrlUS6.showDataTypeListInString());*/
+
+       /* System.out.println("Success");
+        mCtrlUS6.newSensor(name, calendar, dataTypeIndex);*/
 
         /*System.out.println("Insert the latitude of the sensor:");
         double latitude = read.nextDouble();
@@ -115,12 +125,38 @@ public class US6CreateSensorUI {
         double altitude = read.nextDouble();
         System.out.println("Success");*/
 
+
         System.out.println("Choose the Geographical Area for which you want add this sensor, from the list below:");
         System.out.println(mCtrlUS6.showGAListInString());
         int indexGA = read.nextInt();
-        System.out.println("Success");
+        System.out.println("Success. Sensor: " + mSensorList.getSensorList().get(mSensorList.getSensorList().size()-1).getDesignation() + " added" +
+                " to Geographical Area: " + mGAList.get(indexGA-1).getGeographicalAreaDesignation());
         mCtrlUS6.addNewSensorToGA(indexGA);
+        System.out.println("Name: " + mGAList.getGAList().get(mGAList.getGAList().size() - 1).getGeographicalAreaDesignation()
+                + ", Type: " + mGAList.getGAList().get(mGAList.getGAList().size() - 1).getGeographicalAreaType());
+    }
+
+    public boolean returnGAStringList() {
+        if (mCtrlUS6.getGAListSize() == 0) {
+            System.out.println("List of geographical areas is empty, please insert one first in US3 \n \n");
+            return false;
+        } else {
+            System.out.println("Choose the Geographical Area for which you want add this sensor, from the list below:");
+            System.out.println(mCtrlUS6.showGAListInString());
+            //ask the user for a number input to check the Parent GA of the GA he chooses
+            return true;
+        }
+    }
+
+    public boolean returnDataTypeStringList() {
+        if (mCtrlUS6.getDataTypeListSize() == 0) {
+            System.out.println("List of data types that the sensor might read is empty, please insert one first in US5 \n \n");
+            return false;
+        } else {
+            System.out.println("Choose a data type for the sensor from one of the data types below:");
+            return true;
+        }
     }
 
 
-    }
+}

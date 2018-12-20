@@ -72,11 +72,11 @@ public class GAList {
      * @param longitude longitude of the location
      * @return a list of Geographical Areas that contain a specific location
      */
-    public List<GeographicalArea> listOfGAsContainingLocation(double latitude, double longitude) {
-        List<GeographicalArea> listOfGAsContainingLocation = new ArrayList<>();
+    public GAList listOfGAsContainingLocation(double latitude, double longitude) {
+        GAList listOfGAsContainingLocation = new GAList();
         for (int i = 0; i < mGAList.size(); i++) {
             if (mGAList.get(i).locationIsInAG(latitude, longitude)) {
-                listOfGAsContainingLocation.add(mGAList.get(i));
+                listOfGAsContainingLocation.addGA(mGAList.get(i));
             }
         }
         return listOfGAsContainingLocation;
@@ -89,13 +89,13 @@ public class GAList {
      * @return true is sensor is added to the smallest Geographical Area that contains the sensor
      */
     public GeographicalArea getSmallestGAContainingSensor(Sensor sensor) {
-        List<GeographicalArea> l = listOfGAsContainingLocation(sensor.getLocation().getLatitude(), sensor.getLocation().getLongitude());
-        if (l.size() == 0) {
+        GAList l = listOfGAsContainingLocation(sensor.getLocation().getLatitude(), sensor.getLocation().getLongitude());
+        if (l.getGAList().size() == 0) {
             return null;
         }
         GeographicalArea smallerGA = l.get(0);
         double smallerArea = l.get(0).getOcupation().getOccupationArea();
-        for (int i = 1; i < l.size(); i++) {
+        for (int i = 1; i < l.getGAList().size(); i++) {
             if (smallerArea > l.get(i).getOcupation().getOccupationArea()) {
                 smallerArea = l.get(i).getOcupation().getOccupationArea();
                 smallerGA = l.get(i);

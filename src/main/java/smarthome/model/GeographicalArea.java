@@ -42,7 +42,7 @@ public class GeographicalArea {
     }
 
     /**
-     * This constructor method defines a Geographical Area with a designation, type, location as well as height and width
+     * This constructor method defines a Geographical Area with a designation, type, location as well as length and width
      * to calculate its occupation area
      *
      * @param designation GA name
@@ -50,25 +50,28 @@ public class GeographicalArea {
      * @param longitude   GA longitude
      * @param latitude    GA latitude
      * @param altitude    GA altitude
-     * @param height      GA height
+     * @param length      GA length
      * @param width       GA width
      */
-    public GeographicalArea(String designation, String typeGA, double latitude, double longitude, double altitude, double height, double width) {
+    public GeographicalArea(String designation, String typeGA, double latitude, double longitude, double altitude, double length, double width) {
         mDesignation = designation;
         mTypeArea = new TypeGA(typeGA);
         mLocation = new Location(latitude, longitude, altitude);
-        mOccupation = new OccupationArea(height, width);
+        mOccupation = new OccupationArea(length, width);
     }
 
     /**
      * method to get this Geographical Area designation
+     *
      * @return return this geographical area designation
      */
     public String getGeographicalAreaDesignation() {
         return this.mDesignation;
     }
+
     /**
      * method to get this Geographical Area Type designation
+     *
      * @return return this geographical Area Type designation
      */
     public String getGeographicalAreaType() {
@@ -83,44 +86,47 @@ public class GeographicalArea {
     public GeographicalArea getGeographicalParentGA() {
         return mParentGA;
     }
+
     /**
      * Method that returns the longitude at the top left corner of a Geographical Area
-     * based on its central location longitude and the height of its occupation area.
+     * based on its central location longitude and the width of its occupation area.
      * Assumptions:
      * 1) No inclination of geographical areas is assumed;
-     * 2) Attributes Occupation.Height and Location.Longitude are in the same dimension (vertical)
+     * 2) Attributes Occupation.Width and Location.Longitude are in the same dimension (vertical),
+     * assuming both have the same unit of measure as well
      *
      * @return longitude at the top left corner of a Geographical Area
      */
     public double getLongitudeTopLeftCornerGA() {
-        return this.mLocation.getLongitude() + this.mOccupation.getmHeight() / 2;
+        return this.mLocation.getLongitude() - this.mOccupation.getmWidth() / 2;
     }
 
     /**
      * Method that returns the latitude at the top left corner of a Geographical Area
-     * based on its central location latitude and the width of its occupation area.
+     * based on its central location latitude and the length of its occupation area.
      * Assumptions:
      * 1) No inclination of geographical areas is assumed;
-     * 2) Attributes Occupation.Width and Location.Latitude are in the same dimension (horizontal)
+     * 2) Attributes Occupation.Length and Location.Latitude are in the same dimension (horizontal),
+     * assuming both have the same unit of measure as well
      *
      * @return latitude at the top left corner of a Geographical Area
      */
     public double getLatitudeTopLeftCornerGA() {
-        return this.mLocation.getLatitude() - this.mOccupation.getmWidth() / 2;
+        return this.mLocation.getLatitude() + this.mOccupation.getmLength() / 2;
     }
 
     /**
      * Method that returns the longitude at the bottom right corner of a Geographical Area
-     * based on its central location longitude and the height of its occupation area.
+     * based on its central location longitude and the width of its occupation area.
      * Assumptions:
      * 1) No inclination of geographical areas is assumed;
-     * 2) Attributes Occupation.Height and Location.Longitude are in the same dimension (vertical)
-     * 3) Longitude and height have the same unit of measure
+     * 2) Attributes Occupation.Width and Location.Longitude are in the same dimension (vertical)
+     * 3) Longitude and width have the same unit of measure
      *
      * @return longitude at the bottom right corner of a Geographical Area
      */
     public double getLongitudeBottomRightCornerGA() {
-        return this.mLocation.getLongitude() - this.mOccupation.getmHeight() / 2;
+        return this.mLocation.getLongitude() + this.mOccupation.getmWidth() / 2;
     }
 
     /**
@@ -129,12 +135,12 @@ public class GeographicalArea {
      * Assumptions:
      * 1) No inclination of geographical areas is assumed;
      * 2) Attributes Occupation.Width and Location.Latitude are in the same dimension (horizontal)
-     * 3) Width and Latitude have the same unit of measure
+     * 3) Length and Latitude have the same unit of measure
      *
      * @return latitude at the bottom right corner of a Geographical Area
      */
     public double getLatitudeBottomRightCornerGA() {
-        return this.mLocation.getLatitude() + this.mOccupation.getmWidth() / 2;
+        return this.mLocation.getLatitude() - this.mOccupation.getmLength() / 2;
     }
 
     /**
@@ -145,7 +151,11 @@ public class GeographicalArea {
      * False otherwise
      */
     public boolean longitudeIsInAG(double longitude) {
-        return getLongitudeBottomRightCornerGA() <= longitude && longitude <= getLongitudeTopLeftCornerGA();
+        if (longitude > getLongitudeBottomRightCornerGA())
+            return false;
+        else if (longitude >= getLongitudeTopLeftCornerGA())
+            return true;
+        return false;
     }
 
     /**
@@ -156,7 +166,11 @@ public class GeographicalArea {
      * False otherwise.
      */
     public boolean latitudeIsInAG(double latitude) {
-        return getLatitudeTopLeftCornerGA() <= latitude && latitude <= getLatitudeBottomRightCornerGA();
+        if(latitude>getLatitudeTopLeftCornerGA())
+            return false;
+        else if(latitude>=getLatitudeBottomRightCornerGA())
+            return true;
+        return false;
     }
 
     /**
@@ -198,7 +212,7 @@ public class GeographicalArea {
      */
     public List<Reading> getLastValuesOfSensorsInGA() {
         List<Reading> lastSensorsReadings = new ArrayList<>(mSensorList.size());
-        for (Sensor aSensor: mSensorList) {
+        for (Sensor aSensor : mSensorList) {
             lastSensorsReadings.add(aSensor.getLastReadingPerSensor());
         }
         return lastSensorsReadings;
@@ -245,7 +259,9 @@ public class GeographicalArea {
         return Location.calcLinearDistanceBetweenTwoPoints(this.mLocation, aLocation);
     }
 
-    /**Method to add a sensor to a list of sensors. Only adds a sensor if it is not already inside of the Sensor list.
+    /**
+     * Method to add a sensor to a list of sensors. Only adds a sensor if it is not already inside of the Sensor list.
+     *
      * @param sensor to add to sensor list
      * @return true if sensor is added to sensor list. False otherwise.
      */
@@ -256,7 +272,7 @@ public class GeographicalArea {
         } else return false;
     }
 
-    public OccupationArea getOcupation(){
+    public OccupationArea getOcupation() {
         return this.mOccupation;
     }
 

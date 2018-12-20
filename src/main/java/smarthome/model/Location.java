@@ -50,6 +50,7 @@ public class Location {
                 +Math.pow(location2.mAltitude- location1.mAltitude,2));
     }
 
+
     /**
      * Method that simply returns the latitude of a specific location
      * @return the latitude of a specific location
