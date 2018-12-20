@@ -90,9 +90,8 @@ public class GAList {
      */
     public GeographicalArea getSmallestGAContainingSensor(Sensor sensor) {
         GAList l = listOfGAsContainingLocation(sensor.getLocation().getLatitude(), sensor.getLocation().getLongitude());
-        if (l.getGAList().size() == 0) {
+        if (l.getGAList().size() == 0)
             return null;
-        }
         GeographicalArea smallerGA = l.get(0);
         double smallerArea = l.get(0).getOcupation().getOccupationArea();
         for (int i = 1; i < l.getGAList().size(); i++) {
@@ -101,7 +100,6 @@ public class GAList {
                 smallerGA = l.get(i);
             }
         }
-
         return smallerGA;
     }
 

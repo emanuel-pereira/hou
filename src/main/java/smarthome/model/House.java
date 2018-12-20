@@ -6,7 +6,7 @@ public class House {
 
     private Address mAddress;
     private GeographicalArea mGA;
-
+    private HouseGrid mHouseGrid;
 
     public House(Address houseAddress, GeographicalArea GA) {
 

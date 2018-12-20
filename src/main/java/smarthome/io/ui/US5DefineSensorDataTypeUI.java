@@ -30,7 +30,7 @@ public class US5DefineSensorDataTypeUI {
     /**
      * Method to runUS5 the US5's UI
      * With the while loop it is possible to add one or several data types
-     * By writing "r", the user is redirected to the MainUI and leaves the US5UI
+     * By writing "r", the user is redirected to the SystemAdministrationUI and leaves the US5UI
      * First, a new data type with designation is created
      * the method that receives and validates the designation is called
      * The Failure message appears when the String is not valid or if the list already contains the same type name.
