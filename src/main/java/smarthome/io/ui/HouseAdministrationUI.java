@@ -1,10 +1,15 @@
 package smarthome.io.ui;
 
+import smarthome.model.Room;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class HouseAdministrationUI {
 
     public static void houseAdministration() {
+        List<Room> roomList= new ArrayList<> ();
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("House administration UI");
@@ -12,7 +17,7 @@ public class HouseAdministrationUI {
 
         while (option != 0) {
             System.out.println("Click 1. US101: As System Administrator I want to .........");
-            System.out.println("Click 2. US105: As System Administrator I want to .........");
+            System.out.println("Click 2. US105: As an Administrator, I want to add a new room to the house");
             System.out.println("Click 3. US108: As System Administrator I want to .........");
             System.out.println("Click 4. US130: As System Administrator I want to .........");
             System.out.println("Click 5. US135: As System Administrator I want to .........");
@@ -28,7 +33,8 @@ public class HouseAdministrationUI {
                     System.out.println("US101");
                     break;
                 case 2:
-                    System.out.println("US105");
+                    US105AddNewRoomToHouseUI ui105 = new US105AddNewRoomToHouseUI(roomList);
+                    ui105.run ();
                     break;
                 case 3:
                     System.out.println("US108");

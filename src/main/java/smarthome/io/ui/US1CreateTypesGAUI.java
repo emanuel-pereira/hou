@@ -42,7 +42,7 @@ public class US1CreateTypesGAUI {
             if (mCtrlUS1.newTypeGA (name)) //Same as if (mCtrlUS1.newTypeGA (name)==true)
                 System.out.println ("Success: " + name + " added."); //System.out.println (mTypeGAList.getTypeGAList ());
             else //when name is not valid, = null, the method enters in this condition
-                System.out.println ("Failure. Please try again.");
+                System.out.println ("Error. ");
         }
     }
 

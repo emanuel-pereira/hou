@@ -11,7 +11,15 @@ public class US105AddNewRoomToHouseCTRL {
         mRoomList = inputList;
     }
 
-    public boolean newRoom(String name, int floor, double height, double width) {
+    /**
+     * Method to create a Room object and add to a list in the House
+     * @param name Name of the floor (string)
+     * @param floor Number of the floor (integer)
+     * @param height Height of the room (double) to calculate the area
+     * @param width Height of the room (double) to calculate the area
+     * @return
+     */
+    public boolean newRoom(String name, Integer floor, double height, double width) {
         Room room = mRoomList.newRoom (name, floor, height, width);
                return mRoomList.addRoom (room);
     }

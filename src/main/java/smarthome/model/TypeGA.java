@@ -6,19 +6,13 @@ import java.util.Objects;
 
 public class TypeGA {
 
-    //Atributos
-
     private String mTypeGA;
-
-
-    //Construtores
 
 
     public TypeGA(String inputTypeGA) {
         this.mTypeGA = inputTypeGA;
     }
 
-    //Métodos
 
     public String getTypeGA() {
         return this.mTypeGA;
@@ -35,8 +29,8 @@ public class TypeGA {
      * Final: typecast o to TypeGA so that we can compare data member (cast the argument to the correct type so that
      * we can compare data members). Then compare the data members and return accordingly.
      *
-     * @param o Any kind og object
-     * @return If the object is compared with itself then return true.Check if the argument has the correct type. If not, return false.
+     * @param o Any kind of object
+     * @return If the object is compared with itself then return true. Check if the argument has the correct type. If not, return false.
      * Check if that field of the argument matches the corresponding field of this object.
      */
     @Contract(value = "null -> false", pure = true)
