@@ -62,4 +62,52 @@ public class RoomTest {
         assertFalse(result);
     }
 
+    /**
+     * Test to define/edit the name of the room.
+     */
+    @Test
+    public void setmName() {
+
+        Room bedroom = new Room("bedroom",1,2,3);
+        bedroom.setmName("bedroom1");
+
+        String expectedResult = "bedroom1";
+        String result = bedroom.getName();
+
+        assertEquals(expectedResult, result);
+
+    }
+
+    /**
+     * Test to define/edit the floor of the room.
+     */
+    @Test
+    public void setmFloor() {
+
+        Room bedroom = new Room ("bedroom",1,2,3);
+        bedroom.setmFloor(2);
+
+        int expectedResult = 2;
+        int result = bedroom.getFloor();
+
+        assertEquals(expectedResult, result);
+    }
+
+    /**
+     * Test to define/edit the dimensions of the room.
+     */
+    @Test
+    public void setmArea() {
+
+        OccupationArea oa = new OccupationArea(3,2);
+        Room bedroom = new Room ("bedroom",1,2,3);
+        bedroom.setmArea(oa);
+
+        OccupationArea expectedResult = oa;
+        OccupationArea result = bedroom.getArea();
+
+        assertEquals(expectedResult,result);
+
+
+    }
 }

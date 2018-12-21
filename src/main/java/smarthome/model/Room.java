@@ -45,9 +45,38 @@ public class Room {
      * Method to get the area (from the OccupationArea class)
      * @return Area of the room (height*width)
      */
+
+
     public OccupationArea getArea() {
         return mArea;
     }
+
+    /**
+     * Method to set the name of String mName.
+     * @param setNameRoom  name of the room of the house.
+     */
+
+    public void setmName(String setNameRoom) {
+        this.mName = setNameRoom;
+
+    }
+
+    /**
+     * Method to set the floor of the room on the house.
+     * @param mFloor set the floor room the house.
+     */
+    public void setmFloor(int mFloor) {
+        this.mFloor = mFloor;
+    }
+
+    /**
+     * Method to set the dimensions of the room on the house.
+     * @param mArea set the dimensions of the the room on the house.
+     */
+    public void setmArea(OccupationArea mArea) {
+        this.mArea = mArea;
+    }
+
 
     /**
      * Method that checks if a text is only spaces
