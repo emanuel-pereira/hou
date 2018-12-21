@@ -14,15 +14,15 @@ public class Room {
      * This constructor sets up the Room
      * @param name Unique name of the room
      * @param floor The number of the floor
-     * @param height The height of the room to calculate the area
+     * @param length The height of the room to calculate the area
      * @param width The width of the room to calculate the area
      */
-    public Room(String name, Integer floor, double height, double width) {
+    public Room(String name, Integer floor, double length, double width) {
         if (this.validateName ( name )) {
             mName = name;
         }
         mFloor = floor;
-        mArea = new OccupationArea ( height, width );
+        mArea = new OccupationArea ( length, width );
     }
 
     /**

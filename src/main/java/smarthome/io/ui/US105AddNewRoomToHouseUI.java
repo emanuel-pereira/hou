@@ -16,7 +16,7 @@ public class US105AddNewRoomToHouseUI {
 
     }
 
-    Scanner keyboard = new Scanner ( System.in );
+    Scanner readKeyboard = new Scanner ( System.in );
 
     /**
      * First: checks if the size of the room list in the house is 0, if so it doesn't exist and it needs to be create in the previous US.
@@ -27,7 +27,7 @@ public class US105AddNewRoomToHouseUI {
      */
     public void run() {
 
-        if (mRoomList.size () != 0) {
+        if (mRoomList.isEmpty ()) { //mRoomList.size () != 0
 
             String name;
             while (true) {
@@ -36,7 +36,7 @@ public class US105AddNewRoomToHouseUI {
                 if (name != null)
                     break;
                 else
-                    System.out.print ( "Try again. " );
+                    this.tryAgainMessage ();
             }
             String tempFloor;
             Integer floor;
@@ -46,43 +46,47 @@ public class US105AddNewRoomToHouseUI {
                 if (tempFloor != null)
                     break;
                 else
-                    System.out.print ( "Try again. " );
+                    this.tryAgainMessage ();
             }
-            String tempHeight;
-            double height;
+            String tempLength;
+            double length;
             while (true) {
-                System.out.println ( "Insert the height of the room (in meters):" );
-                tempHeight = heightOrWidthAreValid ();
-                if (tempHeight != null)
+                System.out.println ( "Insert the length of the room (in meters):" );
+                tempLength = lengthOrWidthAreValid ();
+                if (tempLength != null)
                     break;
                 else
-                    System.out.print ( "Try again. " );
+                    this.tryAgainMessage ();
             }
             String tempWidth;
             double width;
             while (true) {
                 System.out.println ( "Insert the width of the room (in meters):" );
-                tempWidth = heightOrWidthAreValid ();
+                tempWidth = lengthOrWidthAreValid ();
                 if (tempWidth != null)
                     break;
                 else
-                    System.out.print ( "Try again. " );
+                    this.tryAgainMessage ();
             }
             floor = Integer.parseInt ( tempFloor );
-            height = Double.parseDouble ( tempHeight );
+            length = Double.parseDouble ( tempLength );
             width = Double.parseDouble ( tempWidth );
-            System.out.println ( "Success: The " + name + " on the " + floor + " floor with " + height*width + "m2 was created." );
-            mUS105CTRL.newRoom ( name, floor, height, width );
+            System.out.println ( "Success: The " + name + " on the " + floor + " floor with " + length*width + "m2 was created." );
+            mUS105CTRL.newRoom ( name, floor, length, width );
         } else {
             System.out.println ( "No House was found, please insert one first in US101. \n" );
         }
     }
 
+    public void tryAgainMessage(){
+        System.out.print ( "Try again. " );
+    }
+
 
     public String nameIsValid() {
-        String name = keyboard.nextLine ();
+        String name = readKeyboard.nextLine ();
         if (name == null || name.trim ().isEmpty ()) {//verification of empty and null parameters
-            System.out.println ( "Empty spaces are not accepted." );
+            System.out.println ( "Empty spaces are not accepted" );
             return null;
         }
         if (!name.matches ( "^(?![\\s]).*" )) {
@@ -94,7 +98,7 @@ public class US105AddNewRoomToHouseUI {
 
 
     public String floorIsValid() {
-        String floor = keyboard.nextLine ();
+        String floor = readKeyboard.nextLine ();
         if (floor == null || floor.trim ().isEmpty ()) {//verification of empty and null parameters
             System.out.println ( "Empty spaces are not accepted." );
             return null;
@@ -107,10 +111,10 @@ public class US105AddNewRoomToHouseUI {
     }
 
 
-    public String heightOrWidthAreValid() {
-        String number = keyboard.nextLine ();
+    public String lengthOrWidthAreValid() {
+        String number = readKeyboard.nextLine ();
         if (number == null || number.trim ().isEmpty ()) {//verification of empty and null parameters
-            System.out.println ( "Empty spaces are not accepted." );
+            System.out.println ( "Empty spaces aren't accepted." );
             return null;
         }
         if (!number.matches ( "[0-9]+([,.][0-9]{1,2})?" )) {
