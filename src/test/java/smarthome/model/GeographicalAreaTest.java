@@ -1,6 +1,6 @@
 package smarthome.model;
 
-import org.junit.jupiter.api.AfterEach;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -343,9 +343,6 @@ public class GeographicalAreaTest {
         assertFalse(ga2.equals(city));
     }
 
-    @AfterEach
-    void tearDown() {
-    }
 
     @Test
     void addSensor() {
@@ -371,7 +368,7 @@ public class GeographicalAreaTest {
         ga1.setmParentGA(ga2);
 
         GeographicalArea expectedResult = ga2;
-        GeographicalArea result = ga1.getmParentGA();
+        GeographicalArea result = ga1.getGeographicalParentGA();
         assertEquals(expectedResult, result);
 
     }
@@ -384,11 +381,90 @@ public class GeographicalAreaTest {
         GeographicalArea ga1 = new GeographicalArea("Porto", "city", 2, 4, 5, 5, 6);
         GeographicalArea ga2 = new GeographicalArea("Portugal", "Country", 3, 4, 5, 6, 7);
 
-        ga1.getmParentGA();
+        ga1.getGeographicalParentGA();
 
         GeographicalArea expectedResult = null;
-        GeographicalArea result = ga1.getmParentGA();
+        GeographicalArea result = ga1.getGeographicalParentGA();
         assertEquals(expectedResult, result);
 
     }
+
+
+    @Test
+    @DisplayName("Tests if a new house is created in a House List")
+    void createNewHouseObject() {
+        //Arrange
+        Location l1 = new Location(54, 40.1, 200);
+        Address a1 = new Address("Rua Júlio Dinis", 345, null, null, "3380-45", "Porto", l1);
+        TypeGA t1 = new TypeGA("street");
+        GeographicalArea g1 = new GeographicalArea("Porto", t1,l1);
+
+
+        //Act
+        House house1 = g1.newHouse(a1, g1);
+
+        Address result = house1.getAddress();
+        Address expectedResult = a1;
+
+
+        GeographicalArea result2 = house1.getGA();
+        GeographicalArea expectedResult2 = g1;
+
+
+        //Assert
+        assertEquals(expectedResult, result);
+        assertEquals(expectedResult2, result2);
+    }
+
+    @Test
+    @DisplayName("Tests if a new house is added to the House list")
+    void addHouseToList() {
+
+        //Arrange
+        Location l1 = new Location(54, 40.1, 200);
+        Address a1 = new Address("Rua Júlio Dinis", 345, null, null, "3380-45", "Porto", l1);
+        TypeGA t1 = new TypeGA("street");
+        GeographicalArea g1 = new GeographicalArea("Porto", t1,l1);
+
+        House h1 = g1.newHouse(a1, g1);
+
+        //Act
+        assertTrue(g1.addHouse(h1));
+
+        List<House> expectedResult = Arrays.asList (h1);
+        List<House> result = g1.getHouseList();
+
+        //Assert
+        assertEquals (expectedResult, result);
+    }
+
+    @DisplayName("Tests if a house is not added to the list if it is repeated")
+    @Test
+    public void notAddRepeatedHouse() {
+        //Arrange
+        TypeGA t1 = new TypeGA("street");
+        Location l1 = new Location(54, 40.1, 200);
+        GeographicalArea g1 = new GeographicalArea("Porto",t1,l1);
+
+
+        Address a1 = new Address("Rua Júlio Dinis", 345, null, null, "3380-45", "Porto", l1);
+
+        House h1 = g1.newHouse(a1, g1);
+        House h2 = g1.newHouse(a1, g1);
+
+        //Act
+
+        assertEquals (0, g1.getHouseList().size ());
+        assertTrue(g1.addHouse(h1));
+        assertEquals (1, g1.getHouseList().size ());
+        assertFalse(g1.addHouse(h2));
+        assertEquals (1, g1.getHouseList().size ());
+
+        List<House> expectedResult = Arrays.asList (h1);
+        List<House> result = g1.getHouseList();
+
+        //Assert
+        assertEquals (expectedResult, result);
+    }
+
 }

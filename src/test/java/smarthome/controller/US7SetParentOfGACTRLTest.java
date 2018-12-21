@@ -33,7 +33,7 @@ public class US7SetParentOfGACTRLTest {
         US7SetParentOfGACTRL ctrl7 = new US7SetParentOfGACTRL(gaList);
         ctrl7.setParentofGA(indexGA1,indexGA2);
 
-        String result = ga1.getmParentGA().getGeographicalAreaDesignation();
+        String result = ga1.getGeographicalParentGA().getGeographicalAreaDesignation();
         String expectedResult = "Portugal";
         assertEquals(expectedResult, result);
     }
@@ -56,7 +56,7 @@ public class US7SetParentOfGACTRLTest {
         US7SetParentOfGACTRL ctrl7 = new US7SetParentOfGACTRL(gaList);
         ctrl7.setParentofGA(indexGA1,indexGA2);
 
-        String result = ga1.getmParentGA().getGeographicalAreaDesignation();
+        String result = ga1.getGeographicalParentGA().getGeographicalAreaDesignation();
         String expectedResult = "Espanha";
         assertNotEquals(expectedResult, result);
     }
