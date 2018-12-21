@@ -12,6 +12,8 @@ public class GeographicalArea {
     private List<Sensor> mSensorList = new ArrayList<>();
     private OccupationArea mOccupation;
     private GeographicalArea mParentGA;
+    private List<House> mHouseList;
+
 
     TypeGAList TGAList = new TypeGAList();
 
@@ -37,6 +39,7 @@ public class GeographicalArea {
         mDesignation = designation;
         mTypeArea = typeArea;
         mLocation = location;
+        mHouseList = new ArrayList<>();
 
         //TGAList.addTypeGA (typeArea);
     }
@@ -304,10 +307,32 @@ public class GeographicalArea {
 
     }
 
-    public GeographicalArea getmParentGA() {
+    /*public GeographicalArea getmParentGA() {
 
-        return mParentGA;
+        return mParentGA
+    }*/
+
+
+    public House newHouse(Address houseAddress,GeographicalArea GA) {
+        return new House(houseAddress, GA);
     }
 
+    public boolean addHouse(House inputHouse) {
+        if (!mHouseList.contains(inputHouse)) {
+            mHouseList.add(inputHouse);
+            return true;
+        } else return false;
+    }
+
+    public List<House> getHouseList(){
+        return mHouseList;
+    }
 
 }
+
+
+
+
+
+
+

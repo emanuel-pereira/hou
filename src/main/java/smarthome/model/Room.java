@@ -7,6 +7,7 @@ public class Room {
     private String mName;
     private int mFloor;
     private OccupationArea mArea;
+    private HouseGrid mHouseGrid; //each room has only a house grid
 
 
     public Room(String name, int floor, double height, double width) {

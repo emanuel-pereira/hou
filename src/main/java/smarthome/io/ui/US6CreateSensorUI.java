@@ -20,7 +20,7 @@ public class US6CreateSensorUI {
         mCtrlUS6 = new US6CreateSensorCTRL(dataTypeList, listOfGA, sensorList);
         mGAList = listOfGA;
         mSensorList = sensorList;
-        mDataTypeList=dataTypeList;
+        mDataTypeList = dataTypeList;
         /*ui3 = new US3CreateGAUI(listOfGA, typeOfGAList);*/
     }
 
@@ -38,20 +38,19 @@ public class US6CreateSensorUI {
             if ("r".equals(name)) {
                 System.out.println("Return to Main Menu");
                 break;
-            } else System.out.println("Success " + name + " added as sensor name.");
-            break;
+            } else break;
         }
 
-        System.out.println("Insert a name for the sensor(or click r to return to Main Menu):");
-        name = read.nextLine();
+        /* System.out.println("Insert a name for the sensor(or click r to return to Main Menu):");*/
         System.out.println("Success " + name + " added as sensor name.");
-
+        name = read.nextLine();
+        /*System.out.println("Success " + name + " added as sensor name.");*/
         int year;
         System.out.println("Insert the year when the sensor will start(or click r to return to Main Menu):");
         year = read.nextInt();
         System.out.println("Success");
 
-        /*while (true) {
+        while (true) {
             System.out.println("Insert the year when the sensor will start(or click r to return to Main Menu):");
             year = read.nextInt();
             if (year < Year.now().getValue()) {
@@ -63,7 +62,6 @@ public class US6CreateSensorUI {
                 break;
             } else System.out.println("Success");
         }
-*/
         int month;
        /* while (true) {
             System.out.println("Insert the month (between 1 and 12) when the sensor will start(or click r to return to Main Menu):");
@@ -99,16 +97,18 @@ public class US6CreateSensorUI {
         GregorianCalendar calendar = new GregorianCalendar(year, month, day);
         System.out.println("Start date of sensor is: " + year + "/" + month + "/" + day);
 
-        if(returnDataTypeStringList()){
+        if (returnDataTypeStringList()) {
             int dataTypeIndex = read.nextInt();
-            if(dataTypeIndex==0)
-            {System.out.println("Return to main menu");}
-            else{returnDataTypeStringList();}
+            if (dataTypeIndex == 0) {
+                System.out.println("Return to main menu");
+            } else {
+                returnDataTypeStringList();
+            }
 
 
         }
        /* System.out.println("Choose a data type for the sensor from one of the data types below:");
-        System.out.println(mCtrlUS6.showDataTypeListInString());*/
+        System.out.println(mCtrlUS6.showHouseGridListInString());*/
 
        /* System.out.println("Success");
         mCtrlUS6.newSensor(name, calendar, dataTypeIndex);*/
@@ -129,8 +129,8 @@ public class US6CreateSensorUI {
         System.out.println("Choose the Geographical Area for which you want add this sensor, from the list below:");
         System.out.println(mCtrlUS6.showGAListInString());
         int indexGA = read.nextInt();
-        System.out.println("Success. Sensor: " + mSensorList.getSensorList().get(mSensorList.getSensorList().size()-1).getDesignation() + " added" +
-                " to Geographical Area: " + mGAList.get(indexGA-1).getGeographicalAreaDesignation());
+        System.out.println("Success. Sensor: " + mSensorList.getSensorList().get(mSensorList.getSensorList().size() - 1).getDesignation() + " added" +
+                " to Geographical Area: " + mGAList.get(indexGA - 1).getGeographicalAreaDesignation());
         mCtrlUS6.addNewSensorToGA(indexGA);
         System.out.println("Name: " + mGAList.getGAList().get(mGAList.getGAList().size() - 1).getGeographicalAreaDesignation()
                 + ", Type: " + mGAList.getGAList().get(mGAList.getGAList().size() - 1).getGeographicalAreaType());
