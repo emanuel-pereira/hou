@@ -32,7 +32,7 @@ public class SystemAdministrationUI {
             switch (option) {
                 case 1:
                     US1CreateTypesGAUI ui1 = new US1CreateTypesGAUI(typeGAList);
-                    ui1.run();
+                    ui1.createTypesGA();
                     break;
                 case 2:
                     US2GetTypeGAListUI ui2 = new US2GetTypeGAListUI(typeGAList);

@@ -8,6 +8,9 @@ import java.util.Scanner;
 
 public class US105AddNewRoomToHouseUI {
 
+    Scanner read = new Scanner ( System.in );
+
+
     private List<Room> mRoomList;
     private US105AddNewRoomToHouseCTRL mUS105CTRL;
 
@@ -16,8 +19,6 @@ public class US105AddNewRoomToHouseUI {
 
     }
 
-    Scanner readKeyboard = new Scanner ( System.in );
-
     /**
      * First: checks if the size of the room list in the house is 0, if so it doesn't exist and it needs to be create in the previous US.
      * Second: several cycles check if a validation method is not null. If true, the parameter is added to the Room.
@@ -25,7 +26,7 @@ public class US105AddNewRoomToHouseUI {
      * Third: All validations are for strings, so at this point they are "converted" to the correspondent type.
      * Fourth: The inputs are used to create a new Room and a success message is shown.
      */
-    public void run() {
+    public void addRoomToTheHouse() {
 
         if (mRoomList.isEmpty ()) { //mRoomList.size () != 0
 
@@ -84,7 +85,7 @@ public class US105AddNewRoomToHouseUI {
 
 
     public String nameIsValid() {
-        String name = readKeyboard.nextLine ();
+        String name = read.nextLine ();
         if (name == null || name.trim ().isEmpty ()) {//verification of empty and null parameters
             System.out.println ( "Empty spaces are not accepted" );
             return null;
@@ -98,7 +99,7 @@ public class US105AddNewRoomToHouseUI {
 
 
     public String floorIsValid() {
-        String floor = readKeyboard.nextLine ();
+        String floor = read.nextLine ();
         if (floor == null || floor.trim ().isEmpty ()) {//verification of empty and null parameters
             System.out.println ( "Empty spaces are not accepted." );
             return null;
@@ -112,7 +113,7 @@ public class US105AddNewRoomToHouseUI {
 
 
     public String lengthOrWidthAreValid() {
-        String number = readKeyboard.nextLine ();
+        String number = read.nextLine ();
         if (number == null || number.trim ().isEmpty ()) {//verification of empty and null parameters
             System.out.println ( "Empty spaces aren't accepted." );
             return null;

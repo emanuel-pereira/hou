@@ -7,6 +7,8 @@ import java.util.Scanner;
 
 public class US1CreateTypesGAUI {
 
+    Scanner read = new Scanner ( System.in );
+
     private TypeGAList mTypeGAList;
     private US1CreateTypeGACTRL mCtrlUS1;
 
@@ -19,9 +21,6 @@ public class US1CreateTypesGAUI {
         mCtrlUS1 = new US1CreateTypeGACTRL (mTypeGAList);
     }
 
-    //sets an object 'keyboard' to invoke user inputs methods in order to read the keyboard inputs
-    Scanner keyboard = new Scanner (System.in);
-
     /**
      * Run the US1
      * With the while statement is possible to add several TypeGAs. By writing the r letter the user is redirected to
@@ -31,7 +30,7 @@ public class US1CreateTypesGAUI {
      * If the input is valid a newTypeGA by that name is added. If not, nothing is added.
      * The Failure message appears when the String is not valid and if the list already contains the exact same type name.
      */
-    public void run() {
+    public void createTypesGA() {
         while (true) {
             System.out.println ("Insert the name of the new type of geographical area (or click r to return to Main Menu):");
             String name = typeInputIsValid();
@@ -52,7 +51,7 @@ public class US1CreateTypesGAUI {
      * If valid returns the input name, in lower case format to avoid multiple input of the same String
      */
     public String typeInputIsValid() {
-        String inputTypeName = keyboard.nextLine ();
+        String inputTypeName = read.nextLine ();
         if (inputTypeName == null || inputTypeName.trim ().isEmpty ()) {//verification of empty and null parameters
             return null;
         }
