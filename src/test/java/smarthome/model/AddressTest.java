@@ -189,4 +189,65 @@ class AddressTest {
 
         assertEquals (location1, result);
     }
+
+    /**
+     * Validate street name if correctly written and return true using another constructor
+     */
+    @Test
+    void otherConstructorValidateNameIfCorrect() {
+
+        String streetName = "Rua António Nobre";
+        Address address1 = new Address (streetName, 2, "", "", "333-568", "Paranhos", 23, 67, 89);
+
+        boolean result = address1.validateName (streetName);
+
+        assertEquals (true, result);
+        assertEquals ( streetName,address1.getName ());
+    }
+
+    /**
+     * Validate house number if correctly written and return true using another constructor
+     */
+    @Test
+    void otherConstructorValidateHouseNumberIfCorrect() {
+
+        Integer number = 2;
+        Address address1 = new Address ("Rua Julio Dinis", number, "", "", "333-568", "Paranhos", 112, 22, 189);
+
+        boolean result = address1.validateNumber (number);
+
+        assertEquals (true, result);
+        assertEquals (number, address1.getHouseNumber ());
+    }
+
+    /**
+     * Validate county if correctly written and return true using another constructor
+     */
+    @Test
+    void otherConstructorValidateCountyIfCorrect() {
+
+        String county = "Florida";
+        Address address1 = new Address ("Twelve Street", 2, "", "", "FL 44456", county, 23, 47, 70);
+
+        boolean result = address1.validateCounty (county);
+
+        assertEquals (true, result);
+        assertEquals ( county,address1.getCounty ());
+    }
+
+    /**
+     * Validate zip code if correctly written and return true using another constructor
+     */
+    @Test
+    void otherConstructorValidateZipCodeIfCorrect() {
+
+        String code = "3370-767";
+        Address address1 = new Address ("Twelve Street", 2, "", "", code, "Paranhos", 23, 67, 89);
+
+        boolean result = address1.validateZipCode (code);
+
+        assertEquals (true, result);
+        assertEquals ( code,address1.getZipCode ());
+    }
+
 }
