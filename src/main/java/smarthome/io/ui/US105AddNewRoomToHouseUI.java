@@ -1,7 +1,7 @@
 package smarthome.io.ui;
 
 import smarthome.controller.US105AddNewRoomToHouseCTRL;
-import smarthome.model.Room;
+import smarthome.model.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -10,13 +10,11 @@ public class US105AddNewRoomToHouseUI {
 
     Scanner read = new Scanner ( System.in );
 
-
     private List<Room> mRoomList;
     private US105AddNewRoomToHouseCTRL mUS105CTRL;
 
     public US105AddNewRoomToHouseUI(List<Room> inputList) {
         mRoomList = inputList;
-
     }
 
     /**
@@ -28,7 +26,7 @@ public class US105AddNewRoomToHouseUI {
      */
     public void addRoomToTheHouse() {
 
-        if (mRoomList.isEmpty ()) { //mRoomList.size () != 0
+        if (!mRoomList.isEmpty ()) { //mRoomList.size () != 0
 
             String name;
             while (true) {

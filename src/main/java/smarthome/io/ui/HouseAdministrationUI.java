@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.model.Room;
+import smarthome.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,4 +60,5 @@ public class HouseAdministrationUI {
             }
         }
     }
+
 }

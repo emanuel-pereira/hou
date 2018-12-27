@@ -66,10 +66,10 @@ public class RoomTest {
      * Test to define/edit the name of the room.
      */
     @Test
-    public void setmName() {
+    public void setName() {
 
         Room bedroom = new Room("bedroom",1,2,3);
-        bedroom.setmName("bedroom1");
+        bedroom.setName ("bedroom1");
 
         String expectedResult = "bedroom1";
         String result = bedroom.getName();
@@ -82,10 +82,10 @@ public class RoomTest {
      * Test to define/edit the floor of the room.
      */
     @Test
-    public void setmFloor() {
+    public void setFloor() {
 
         Room bedroom = new Room ("bedroom",1,2,3);
-        bedroom.setmFloor(2);
+        bedroom.setFloor (2);
 
         int expectedResult = 2;
         int result = bedroom.getFloor();
@@ -97,11 +97,11 @@ public class RoomTest {
      * Test to define/edit the dimensions of the room.
      */
     @Test
-    public void setmArea() {
+    public void setArea() {
 
         OccupationArea oa = new OccupationArea(3,2);
         Room bedroom = new Room ("bedroom",1,2,3);
-        bedroom.setmArea(oa);
+        bedroom.setArea (oa);
 
         OccupationArea expectedResult = oa;
         OccupationArea result = bedroom.getArea();

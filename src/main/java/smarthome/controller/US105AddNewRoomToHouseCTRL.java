@@ -1,7 +1,6 @@
 package smarthome.controller;
 
-import smarthome.model.House;
-import smarthome.model.Room;
+import smarthome.model.*;
 
 public class US105AddNewRoomToHouseCTRL {
 

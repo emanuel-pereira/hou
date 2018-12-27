@@ -56,7 +56,7 @@ public class Room {
      * @param setNameRoom  name of the room of the house.
      */
 
-    public void setmName(String setNameRoom) {
+    public void setName(String setNameRoom) {
         this.mName = setNameRoom;
 
     }
@@ -65,7 +65,7 @@ public class Room {
      * Method to set the floor of the room on the house.
      * @param mFloor set the floor room the house.
      */
-    public void setmFloor(int mFloor) {
+    public void setFloor(int mFloor) {
         this.mFloor = mFloor;
     }
 
@@ -73,7 +73,7 @@ public class Room {
      * Method to set the dimensions of the room on the house.
      * @param mArea set the dimensions of the the room on the house.
      */
-    public void setmArea(OccupationArea mArea) {
+    public void setArea(OccupationArea mArea) {
         this.mArea = mArea;
     }
 

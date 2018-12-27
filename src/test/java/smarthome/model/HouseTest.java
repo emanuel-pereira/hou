@@ -29,12 +29,9 @@ class HouseTest {
         GeographicalArea result2 = house1.getGA();
         GeographicalArea expectedResult2 = ga1;
 
-
         //Assert
         assertEquals(expectedResult, result);
         assertEquals(expectedResult2, result2);
-
-
     }
 
 
@@ -49,7 +46,6 @@ class HouseTest {
         GeographicalArea ga1 = new GeographicalArea("Porto", type1);
 
         House house1 = new House(a1, ga1);
-
 
         House house2 = new House(a1, ga1);
 
@@ -73,7 +69,6 @@ class HouseTest {
 
         House house1 = new House(a1, ga1);
         House house2 = new House(a2, ga1);
-
 
         //Assert
         assertNotEquals(house1.hashCode(), house2.hashCode());
@@ -99,6 +94,9 @@ class HouseTest {
 
     //RoomList
 
+    /**
+     * Check if a new room is created and confirm that the get methods are working
+     */
     @Test
     void newRoom() {
         Location l1 = new Location(41, 12.3, 110);
@@ -115,6 +113,9 @@ class HouseTest {
     }
 
 
+    /**
+     * Check if a room is create and added to the RoomList
+     */
     @Test
     void addOneRoom() {
         Location l1 = new Location(41, 12.3, 110);
@@ -132,7 +133,9 @@ class HouseTest {
         assertEquals(expectedResult, result);
     }
 
-
+    /**
+     * Check if two rooms are create and added to the RoomList
+     */
     @Test
     void addTwoRooms() {
         Location l1 = new Location(41, 12.3, 110);
@@ -156,7 +159,9 @@ class HouseTest {
         assertEquals(expectedResult, result);
     }
 
-
+    /**
+     * Try to add two rooms but one is empty so only the correct one is added
+     */
     @Test
     void addOneRoomEmptyName() {
         Location l1 = new Location(41, 12.3, 110);
@@ -176,40 +181,15 @@ class HouseTest {
         list.addRoom(room1);
         assertEquals(1, list.getRoomList().size());
 
-
-        List<Room> expectedResult = Arrays.asList(room);
-        List<Room> result = list.getRoomList();
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void addOneRoomEmptyNameGetFalse() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", 345, null, null, "3380-45", "Porto", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
-
-        House list = new House(a1, ga1);
-        Room room = list.newRoom("bedroom", 1, 2, 2.5);
-        Room room1 = list.newRoom("  ", 0, 2.5, 3);
-
-
-        assertEquals(0, list.getRoomList().size());
-
-        list.addRoom(room);
-        assertEquals(1, list.getRoomList().size());
-
-
-        list.addRoom(room1);
-        assertEquals(1, list.getRoomList().size());
-
-
         List<Room> expectedResult = Arrays.asList(room);
         List<Room> result = list.getRoomList();
         assertEquals(expectedResult, result);
     }
 
 
+    /**
+     * Don't validate room name if empty and return false
+     */
     @Test
     void nameNotValid() {
         Location l1 = new Location(41, 12.3, 110);
@@ -229,7 +209,6 @@ class HouseTest {
         list.addRoom(room1);
         assertEquals(1, list.getRoomList().size());
 
-
         boolean expectedResult = false;
         String name = " ";
 
@@ -237,8 +216,11 @@ class HouseTest {
         assertEquals(expectedResult, result);
     }
 
+    /**
+     * Validate correct room name and return true and also validate empty room name and return false
+     */
     @Test
-    void addOneGetThrueAddAnotherGetFalse() {
+    void addOneGetTrueAddAnotherGetFalse() {
         Location l1 = new Location(41, 12.3, 110);
         Address a1 = new Address("Rua Júlio Dinis", 345, null, null, "3380-45", "Porto", l1);
         TypeGA type1 = new TypeGA("cidade");
@@ -262,6 +244,7 @@ class HouseTest {
         List<Room> result2 = list.getRoomList();
         assertEquals(expectedResult, result2);
     }
+
 
 
     @Test
