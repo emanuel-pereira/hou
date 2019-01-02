@@ -86,10 +86,7 @@ public class Sensor {
     public boolean nameIsValid(String name) {
         if (name == null || name.trim().isEmpty())
         return false;
-        if (!name.matches("[A-Za-z0-9]*")) {
-            return false;
-        }
-        return true;
+        return name.matches("[A-Za-z0-9]*");
     }
 
     /**
