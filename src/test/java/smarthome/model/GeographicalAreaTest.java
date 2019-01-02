@@ -307,7 +307,7 @@ public class GeographicalAreaTest {
 
     @Test
     @DisplayName("Define the parent Geographical Area of another Geographical Area")
-    public void setmParentGA() {
+    public void setParentGA() {
 
         GeographicalArea ga1= new GeographicalArea("Porto","city",2,4,5,5,6);
         GeographicalArea ga2= new GeographicalArea("Portugal","Country",3,4,5,6,7);
@@ -323,7 +323,7 @@ public class GeographicalAreaTest {
 
     @Test
     @DisplayName("Return the parent of a Geographical Area of another Geographical Area")
-    public void getmParentGA() {
+    public void getParentGA() {
 
         GeographicalArea ga1 = new GeographicalArea("Porto", "city", 2, 4, 5, 5, 6);
         GeographicalArea ga2 = new GeographicalArea("Portugal", "Country", 3, 4, 5, 6, 7);
@@ -342,7 +342,7 @@ public class GeographicalAreaTest {
     void createNewHouseObject() {
         //Arrange
         Location l1 = new Location(54, 40.1, 200);
-        Address a1 = new Address("Rua Júlio Dinis", 345, null, null, "3380-45", "Porto", l1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", null, "3380-45 Porto", l1);
         TypeGA t1 = new TypeGA("street");
         GeographicalArea g1 = new GeographicalArea("Porto", t1,l1);
 
@@ -369,7 +369,7 @@ public class GeographicalAreaTest {
 
         //Arrange
         Location l1 = new Location(54, 40.1, 200);
-        Address a1 = new Address("Rua Júlio Dinis", 345, null, null, "3380-45", "Porto", l1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", null, "3380-45",l1);
         TypeGA t1 = new TypeGA("street");
         GeographicalArea g1 = new GeographicalArea("Porto", t1,l1);
 
@@ -394,7 +394,7 @@ public class GeographicalAreaTest {
         GeographicalArea g1 = new GeographicalArea("Porto",t1,l1);
 
 
-        Address a1 = new Address("Rua Júlio Dinis", 345, null, null, "3380-45", "Porto", l1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", null, "3380-45 Porto", l1);
 
         House h1 = g1.newHouse(a1, g1);
         House h2 = g1.newHouse(a1, g1);
