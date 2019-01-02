@@ -85,9 +85,9 @@ public class US6CreateSensorUI {
                 System.out.println("Success. Sensor: " + mGAList.get(indexGA - 1).getListOfSensors().get(mGAList.get(indexGA - 1).getListOfSensors().size()-1).getDesignation() + " added" +
                         " to Geographical Area: " + mGAList.get(indexGA - 1).getGeographicalAreaDesignation());
             } else
-                System.out.println("List of Geographical Areas is empty. Please insert at least one Geographical Area in US3.");
+                System.out.println("List of sensor's reading data types is empty. Please insert at least one first in US6.");
         } else
-            System.out.println("List of sensor's reading data types is empty. Please insert at least one first in US6.");
+            System.out.println("List of Geographical Areas is empty. Please insert at least one Geographical Area in US3.");
     }
 
     public String yearIsValid() {
