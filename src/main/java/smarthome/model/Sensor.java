@@ -3,13 +3,12 @@ package smarthome.model;
 import java.util.*;
 
 
-
 public class Sensor {
     private String mDesignation;
     private Calendar mStartDate;
     private Location mLocation;
     private DataType mDataType; //temp, humidade,
-    private List<Reading> mListOfReadings = new ArrayList<>();
+    private List<Reading> mListOfReadings = new ArrayList<> ();
 
     public Sensor() {
     }
@@ -21,7 +20,7 @@ public class Sensor {
      * @param designation refers to sensors name
      */
     public Sensor(String designation) {
-        if (nameIsValid(designation)) {
+        if (nameIsValid (designation)) {
             this.mDesignation = designation;
         }
 
@@ -39,39 +38,39 @@ public class Sensor {
      * @param dataType    refers to the sensor's chosen data type, humidity, precipitation
      */
     public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, String dataType) {
-        if (nameIsValid(designation)) {
+        if (nameIsValid (designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
-            this.mLocation = new Location(latitude, longitude, altitude);
-            this.mDataType = new DataType(dataType);
+            this.mLocation = new Location (latitude, longitude, altitude);
+            this.mDataType = new DataType (dataType);
         }
     }
 
     public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, DataType dataType) {
-        if (nameIsValid(designation)) {
+        if (nameIsValid (designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
-            this.mLocation = new Location(latitude, longitude, altitude);
+            this.mLocation = new Location (latitude, longitude, altitude);
             this.mDataType = dataType;
         }
     }
 
 
     public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, DataType dataType, List<Reading> listOfReadings) {
-        if (nameIsValid(designation)) {
+        if (nameIsValid (designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
-            this.mLocation = new Location(latitude, longitude, altitude);
+            this.mLocation = new Location (latitude, longitude, altitude);
             this.mDataType = dataType;
             this.mListOfReadings = listOfReadings;
         }
     }
 
     public Sensor(String designation, Calendar startDate, String dataType) {
-        if (nameIsValid(designation)) {
+        if (nameIsValid (designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
-            this.mDataType = new DataType(dataType);
+            this.mDataType = new DataType (dataType);
         }
     }
 
@@ -80,13 +79,15 @@ public class Sensor {
      * considered a valid sensorDesignation, namely:
      * - name cannot be empty or null
      * - name must have only alphanumeric characters
+     *
      * @param name sensor's name
      * @return true if name sensorDesignation is valid, if it is not null or empty
      */
     public boolean nameIsValid(String name) {
-        if (name == null || name.trim().isEmpty())
-        return false;
-        return name.matches("[A-Za-z0-9]*");
+        if (name == null || name.trim ().isEmpty ()) {
+            return false;
+        }
+        return name.matches ("[A-Za-z0-9]*");
     }
 
     /**
@@ -95,7 +96,7 @@ public class Sensor {
      * @param sensorDesignation sensor's name String
      */
     public boolean setSensorDesignation(String sensorDesignation) {
-        if (nameIsValid(sensorDesignation)) {
+        if (nameIsValid (sensorDesignation)) {
             this.mDesignation = sensorDesignation;
             return true;
         }
@@ -155,7 +156,7 @@ public class Sensor {
      * @return calculated distance betwwen both objects
      */
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
-        return Location.calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation());
+        return Location.calcLinearDistanceBetweenTwoPoints (sensor1.getLocation (), sensor2.getLocation ());
     }
 
     /**
@@ -173,8 +174,8 @@ public class Sensor {
      * @param newReading new reading object with a value and date
      */
     public void addReadingToList(Reading newReading) {
-        if (!(getListOfReadings().contains(newReading)))
-            this.mListOfReadings.add(newReading);
+        if (!(getListOfReadings ().contains (newReading)))
+            this.mListOfReadings.add (newReading);
     }
 
     /**
@@ -184,7 +185,7 @@ public class Sensor {
      */
     public Reading getLastReadingPerSensor() {
         Reading lastValue;
-        lastValue = mListOfReadings.get(getListOfReadings().size() - 1);
+        lastValue = mListOfReadings.get (getListOfReadings ().size () - 1);
         return lastValue;
     }
 
@@ -195,8 +196,8 @@ public class Sensor {
      * @return true if the month has readings, false if it has not
      */
     public boolean isMonthOfReadingList(int monthOfReadings) {
-        for (int index = 0; index < mListOfReadings.size(); index++) {
-            if (mListOfReadings.get(index).getMonthOfReading() == monthOfReadings)
+        for (int index = 0; index < mListOfReadings.size (); index++) {
+            if (mListOfReadings.get (index).getMonthOfReading () == monthOfReadings)
                 return true;
         }
         return false;
@@ -212,9 +213,9 @@ public class Sensor {
 
         double sum = 0;
         int counter = 0;
-        for (int index = 0; index < mListOfReadings.size(); index++) {
-            if (mListOfReadings.get(index).getMonthOfReading() == monthOfReadings) {
-                sum += mListOfReadings.get(index).returnValueOfReading();
+        for (int index = 0; index < mListOfReadings.size (); index++) {
+            if (mListOfReadings.get (index).getMonthOfReading () == monthOfReadings) {
+                sum += mListOfReadings.get (index).returnValueOfReading ();
                 counter++;
             }
         }
@@ -234,11 +235,11 @@ public class Sensor {
     public double getMonthlyMinimumReading(int monthOfReadings) {
 
         double minimum = Double.NaN;
-        if (isMonthOfReadingList(monthOfReadings)) {
-            minimum = mListOfReadings.get(0).returnValueOfReading();
-            for (int index = 0; index < mListOfReadings.size(); index++) {
-                if (mListOfReadings.get(index).returnValueOfReading() < minimum) {
-                    minimum = mListOfReadings.get(index).returnValueOfReading();
+        if (isMonthOfReadingList (monthOfReadings)) {
+            minimum = mListOfReadings.get (0).returnValueOfReading ();
+            for (int index = 0; index < mListOfReadings.size (); index++) {
+                if (mListOfReadings.get (index).returnValueOfReading () < minimum) {
+                    minimum = mListOfReadings.get (index).returnValueOfReading ();
                 }
             }
         }
@@ -253,10 +254,10 @@ public class Sensor {
      */
     public double[] getMonthlyAverageReadingEachMonth() {
         double[] averageValuesEachMonth = new double[12];
-        Arrays.fill(averageValuesEachMonth, Double.NaN);//to populate the array with null values, since before it were 0.0
+        Arrays.fill (averageValuesEachMonth, Double.NaN);//to populate the array with null values, since before it were 0.0
         for (int i = 0; i < averageValuesEachMonth.length; i++) {
-            if (isMonthOfReadingList(i + 1))
-                averageValuesEachMonth[i] = getMonthlyAverageReadings(i + 1);
+            if (isMonthOfReadingList (i + 1))
+                averageValuesEachMonth[i] = getMonthlyAverageReadings (i + 1);
         }
         return averageValuesEachMonth;
     }
@@ -267,13 +268,13 @@ public class Sensor {
      * @return the average minimum value of
      */
     public double getMinimumAverageReading() {
-        double minimum = getMonthlyAverageReadingEachMonth()[0];
-        for (int i = 1; i < getMonthlyAverageReadingEachMonth().length; i++) {
-            if (Double.isNaN(minimum)) {
-                minimum = getMonthlyAverageReadingEachMonth()[i];
+        double minimum = getMonthlyAverageReadingEachMonth ()[0];
+        for (int i = 1; i < getMonthlyAverageReadingEachMonth ().length; i++) {
+            if (Double.isNaN (minimum)) {
+                minimum = getMonthlyAverageReadingEachMonth ()[i];
             }
-            if (minimum > getMonthlyAverageReadingEachMonth()[i]) {
-                minimum = getMonthlyAverageReadingEachMonth()[i];
+            if (minimum > getMonthlyAverageReadingEachMonth ()[i]) {
+                minimum = getMonthlyAverageReadingEachMonth ()[i];
             }
         }
         return minimum;
@@ -285,13 +286,13 @@ public class Sensor {
      * @return the maximum average month readings
      */
     public double getMaximumAverageReading() {
-        double maximum = getMonthlyAverageReadingEachMonth()[0];
-        for (int i = 1; i < getMonthlyAverageReadingEachMonth().length; i++) {
-            if (Double.isNaN(maximum)) {
-                maximum = getMonthlyAverageReadingEachMonth()[i];
+        double maximum = getMonthlyAverageReadingEachMonth ()[0];
+        for (int i = 1; i < getMonthlyAverageReadingEachMonth ().length; i++) {
+            if (Double.isNaN (maximum)) {
+                maximum = getMonthlyAverageReadingEachMonth ()[i];
             }
-            if (maximum < getMonthlyAverageReadingEachMonth()[i]) {
-                maximum = getMonthlyAverageReadingEachMonth()[i];
+            if (maximum < getMonthlyAverageReadingEachMonth ()[i]) {
+                maximum = getMonthlyAverageReadingEachMonth ()[i];
             }
         }
         return maximum;
@@ -303,11 +304,11 @@ public class Sensor {
         if (this == o) return true;
         if (!(o instanceof Sensor)) return false;
         Sensor sensor = (Sensor) o;
-        return Objects.equals(mDesignation, sensor.mDesignation);
+        return Objects.equals (mDesignation, sensor.mDesignation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mDesignation, mLocation, mDataType);
+        return Objects.hash (mDesignation, mLocation, mDataType);
     }
 }
