@@ -169,9 +169,9 @@ public class GeographicalArea {
      * False otherwise.
      */
     public boolean latitudeIsInAG(double latitude) {
-        if(latitude>getLatitudeTopLeftCornerGA())
+        if (latitude > getLatitudeTopLeftCornerGA())
             return false;
-        else if(latitude>=getLatitudeBottomRightCornerGA())
+        else if (latitude >= getLatitudeBottomRightCornerGA())
             return true;
         return false;
     }
@@ -263,16 +263,21 @@ public class GeographicalArea {
     }
 
     /**
-     * Method to add a sensor to a list of sensors. Only adds a sensor if it is not already inside of the Sensor list.
+     * Method to add a sensor to a list of sensors. Only adds a sensor if it is not already inside of the Geographical Area's sensor list.
      *
      * @param sensor to add to sensor list
      * @return true if sensor is added to sensor list. False otherwise.
      */
+
+
     public boolean addSensor(Sensor sensor) {
-        if (!mSensorList.contains(sensor)) {
-            mSensorList.add(sensor);
-            return true;
-        } else return false;
+        if (mSensorList.contains(sensor))
+            return false;
+        if (sensor.nameIsValid(sensor.getDesignation())) {
+                mSensorList.add(sensor);
+                return true;
+            }
+        else return false;
     }
 
     public OccupationArea getOcupation() {
@@ -297,6 +302,7 @@ public class GeographicalArea {
     /**
      * US07
      * Method that tell´s if a Geographical Area is parented or contained on other.
+     *
      * @param ga1 is defined as an geographical area parented with other.
      */
 
@@ -313,7 +319,7 @@ public class GeographicalArea {
     }*/
 
 
-    public House newHouse(Address houseAddress,GeographicalArea GA) {
+    public House newHouse(Address houseAddress, GeographicalArea GA) {
         return new House(houseAddress, GA);
     }
 
@@ -324,7 +330,7 @@ public class GeographicalArea {
         } else return false;
     }
 
-    public List<House> getHouseList(){
+    public List<House> getHouseList() {
         return mHouseList;
     }
 

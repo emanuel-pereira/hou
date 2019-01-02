@@ -9,17 +9,11 @@ public class US6CreateSensorCTRL {
 
     private DataTypeList mDataTypeList;
     private GAList mGAList;
-    private SensorList mSensorList;
 
-    /**
-     * @param dataTypeList
-     * @param listOfGA
-     */
 
-    public US6CreateSensorCTRL(DataTypeList dataTypeList, GAList listOfGA, SensorList sensorList) {
+    public US6CreateSensorCTRL(DataTypeList dataTypeList, GAList listOfGA) {
         mDataTypeList = dataTypeList;
         mGAList = listOfGA;
-        mSensorList = sensorList;
     }
 
     /**
@@ -63,48 +57,16 @@ public class US6CreateSensorCTRL {
     }
 
     /**
-     * Method to return the GA's List size in int form
-     *
-     * @return int parameter size of list, if 0/null the list is empty
-     * if the list is not empty then the showListInString() method will be called next
-     */
-    public int getGAListSize() {
-        return mGAList.getGAList().size();
-    }
-
-    /**
-     * Method to return the GA's List size in int form
-     *
-     * @return int parameter size of list, if 0/null the list is empty
-     * if the list is not empty then the showListInString() method will be called next
-     */
-    public int getDataTypeListSize() {
-        return mDataTypeList.getDataTypeList().size();
-    }
-
-    /**
-     * Method that creates a sensor object before the user chooses which area he wants to add it.
-     *
-     * @param inputName name for the instance of sensor created
-     * @param startDate date when the sensor will start
-     * @param dataTypeIndex data type the sensor will read
-     * @return adds the sensor to a list of sensors
-     */
-
-
-    public boolean newSensor(String inputName, GregorianCalendar startDate, int dataTypeIndex) {
-        String inputDataType = mDataTypeList.getDataTypeList().get(dataTypeIndex - 1).toString();
-        Sensor sensor=mSensorList.newSensor2(inputName,startDate,inputDataType);
-        return mSensorList.addSensor(sensor);
-    }
-
-    /**
-     * Method that adds the Sensor created to the Geographical Area in the
-     * index position of the List of Geographical Areas inputted by the user
+     * Method that adds a new sensor to a Geographical Area in the
+     * index position of the List of Geographical Areas chosen by the user
+     * @param inputName name inputted by the user for the sensor
+     * @param startDate start date inputted by the user for the sensor
+     * @param dataTypeIndex index position of data type chosen by the user
      * @param indexOfGA index position of Geographical Areas List to which the user wants to add the Geographical Area
      * @return adds the sensor created to the Geographical Area chosen by the user
      */
-    public boolean addNewSensorToGA(int indexOfGA) {
-        return mGAList.get(indexOfGA-1).addSensor(mSensorList.getSensorList().get(mSensorList.getSensorList().size()-1));
+    public boolean addNewSensorToGA(String inputName, GregorianCalendar startDate, int dataTypeIndex, int indexOfGA) {
+
+        return mGAList.get(indexOfGA-1).addSensor(new Sensor(inputName,startDate,mDataTypeList.getDataTypeList().get(dataTypeIndex - 1).toString()));
     }
 }

@@ -12,7 +12,6 @@ public class SystemAdministrationUI {
     public static void systemAdministration() {
         TypeGAList typeGAList = new TypeGAList();
         GAList GAList = new GAList();
-        SensorList sensorList = new SensorList();
         DataTypeList dataTypeList = new DataTypeList(); //substituir lista por string
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
@@ -51,7 +50,7 @@ public class SystemAdministrationUI {
                     ui5.runUS5();
                     break;
                 case 6:
-                    US6CreateSensorUI ui6 = new US6CreateSensorUI(dataTypeList, GAList, sensorList);
+                    US6CreateSensorUI ui6 = new US6CreateSensorUI(dataTypeList, GAList);
                     ui6.run();
                     break;
                 case 7:
@@ -62,9 +61,8 @@ public class SystemAdministrationUI {
                     US8ListParentGAUI ui8 = new US8ListParentGAUI(GAList);
                     ui8.run();
                     break;
-                /*case 9:
-                    example.test();
-                    break;*/
+                default:
+                    System.out.println("Please choose a valid option.");
             }
         }
     }

@@ -15,10 +15,6 @@ public class SensorList {
         mSensor = new ArrayList<>();
     }
 
-    public Sensor newSensor2(String inputName, GregorianCalendar startDate, String dataType) {
-        return new Sensor(inputName, startDate, dataType);
-    }
-
     /**
      * Method to add a sensor object to Sensor list, if it is not on the list yet
      *

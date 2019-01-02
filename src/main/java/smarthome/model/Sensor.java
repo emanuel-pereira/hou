@@ -3,9 +3,7 @@ package smarthome.model;
 import java.util.*;
 
 
-/**
- *
- */
+
 public class Sensor {
     private String mDesignation;
     private Calendar mStartDate;
@@ -80,13 +78,17 @@ public class Sensor {
     /**
      * Method to check if the sensorDesignation given to name the sensor meets the criteria defined to be
      * considered a valid sensorDesignation, namely:
-     * - mDesignation cannot be empty or null
-     *
-     * @param sensorDesignation sensor's name
+     * - name cannot be empty or null
+     * - name must have only alphanumeric characters
+     * @param name sensor's name
      * @return true if name sensorDesignation is valid, if it is not null or empty
      */
-    public boolean nameIsValid(String sensorDesignation) {
-        return sensorDesignation != null && !sensorDesignation.trim().isEmpty();
+    public boolean nameIsValid(String name) {
+        if (name == null || name.trim().isEmpty())
+        return false;
+        if (!name.matches("[A-Za-z0-9]*"))
+            return false;
+        return true;
     }
 
     /**

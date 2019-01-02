@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,10 +13,10 @@ public class RoomTest {
     @Test
     public void nameNotValid() {
 
-        Room roomOne = new Room("  ", 0, 2.5,3);
+        Room roomOne = new Room("  ", 0, 2.5, 3);
 
         String name = "  ";
-        boolean result = roomOne.validateName (name);
+        boolean result = roomOne.validateName(name);
 
         assertFalse(result);
     }
@@ -26,10 +27,10 @@ public class RoomTest {
     @Test
     public void nameValid() {
 
-        Room roomOne = new Room("bedroom", 0, 2.5,3);
+        Room roomOne = new Room("bedroom", 0, 2.5, 3);
 
         String name = "bedroom";
-        boolean result = roomOne.validateName (name);
+        boolean result = roomOne.validateName(name);
 
         assertTrue(result);
     }
@@ -39,12 +40,12 @@ public class RoomTest {
      */
     @Test
     public void equalsIfTypeGAEqualsTypeGA() {
-        Room room1 = new Room("bedroom", 0, 2.5,3);
-        Room room2 = new Room("bedroom", 0, 2.5,3);
+        Room room1 = new Room("bedroom", 0, 2.5, 3);
+        Room room2 = new Room("bedroom", 0, 2.5, 3);
 
-        boolean result = room1.equals (room2);
+        boolean result = room1.equals(room2);
 
-        assertEquals (room1.hashCode (), room2.hashCode ());
+        assertEquals(room1.hashCode(), room2.hashCode());
         assertTrue(result);
     }
 
@@ -53,15 +54,25 @@ public class RoomTest {
      */
     @Test
     public void equalsIfTypeGAEqualsDifferentTypeGA() {
-        Room room1 = new Room("bedroom", 0, 2.5,3);
-        Room room2 = new Room("garden", 0, 2.5,3);
+        Room room1 = new Room("bedroom", 0, 2.5, 3);
+        Room room2 = new Room("garden", 0, 2.5, 3);
 
-        boolean result = room1.equals (room2);
+        boolean result = room1.equals(room2);
 
-        assertNotEquals (room1.hashCode (), room2.hashCode ());
+        assertNotEquals(room1.hashCode(), room2.hashCode());
         assertFalse(result);
     }
 
+    @Test
+    @DisplayName("Check if house grid with nominal power of 1500 is assigned to living room")
+    void setmHouseGrid() {
+        HouseGrid grid = new HouseGrid(1500);
+        Room room1 = new Room("Living Room", 0, 5, 6);
+        room1.setmHouseGrid(grid);
+        double expectedResult = 1500;
+        double result = room1.getmHouseGrid().getmContractedMaximumPower();
+        assertEquals(expectedResult, result);
+    }
     /**
      * Test to define/edit the name of the room.
      */

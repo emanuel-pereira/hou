@@ -16,8 +16,7 @@ class US6CreateSensorCTRLTest {
     void showDataTypeListInString() {
         DataTypeList dataTypeList = new DataTypeList();
         GAList gaList = new GAList ();
-        SensorList sensorList = new SensorList();
-        US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(dataTypeList,gaList, sensorList);
+        US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(dataTypeList,gaList);
         DataType type1= new DataType("Temperature");
         DataType type2= new DataType("Wind");
         dataTypeList.addDataType(type1);
@@ -33,8 +32,7 @@ class US6CreateSensorCTRLTest {
     void showGAListInString() {
         DataTypeList dataTypeList = new DataTypeList();
         GAList gaList = new GAList ();
-        SensorList sensorList = new SensorList();
-        US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(dataTypeList,gaList, sensorList);
+        US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(dataTypeList,gaList);
         GeographicalArea ga1= new GeographicalArea("Porto","city",25,15,12,32,41);
         GeographicalArea ga2= new GeographicalArea("Lisboa","city",45,25,32,42,41);
         gaList.addGA(ga1);
@@ -43,14 +41,12 @@ class US6CreateSensorCTRLTest {
         String result =  ctrl6.showGAListInString();
         assertEquals(expected,result);
     }
-
     @DisplayName("Ensure that two different sensors are added to the respective Geographical Area")
     @Test
     void addNewSensorToGA() {
         DataTypeList dataTypeList = new DataTypeList();
         GAList gaList = new GAList ();
-        SensorList sensorList = new SensorList();
-        US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(dataTypeList,gaList, sensorList);
+        US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(dataTypeList,gaList);
         GeographicalArea ga1= new GeographicalArea("Porto","city",25,15,12,32,41);
         GeographicalArea ga2= new GeographicalArea("Lisboa","city",45,25,32,42,41);
         gaList.addGA(ga1);
@@ -60,30 +56,11 @@ class US6CreateSensorCTRLTest {
         dataTypeList.addDataType(type1);
         dataTypeList.addDataType(type2);
 
-        Sensor sensor1= new Sensor("TemperatureSensor", new GregorianCalendar(2018,11,12),type1.getDataTypeDesignation());
-        sensorList.addSensor(sensor1);
-        ctrl6.addNewSensorToGA(2);
+        boolean result= ctrl6.addNewSensorToGA("LisboaTempSensor",new GregorianCalendar(2018,12,26),1,2);
+        assertEquals(true,result);
 
-        Sensor sensor2= new Sensor("WindSensor", new GregorianCalendar(2018,11,12),type2.getDataTypeDesignation());
-        sensorList.addSensor(sensor2);
-        boolean expected = true;
-        boolean result= ctrl6.addNewSensorToGA(2);
+        boolean result1= ctrl6.addNewSensorToGA("PortoWindSensor",new GregorianCalendar(2018,12,26),2,1);
+        assertEquals(true,result1);
 
-        assertEquals(expected,result);
-
-    }
-
-    @DisplayName("Test if size of sensor List is updated when a new Sensor is added to a Sensor List")
-    @Test
-    void newSensor() {
-        DataTypeList dataTypeList = new DataTypeList();
-        GAList gaList = new GAList ();
-        SensorList sensorList = new SensorList();
-        US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(dataTypeList,gaList, sensorList);
-        assertEquals(0,sensorList.getSensorList().size());
-        DataType dataType = new DataType("Temperature");
-        dataTypeList.addDataType(dataType);
-        assertTrue(ctrl6.newSensor("TempSensor", new GregorianCalendar(2018,12,25),1));
-        assertEquals(1,sensorList.getSensorList().size());
     }
 }
