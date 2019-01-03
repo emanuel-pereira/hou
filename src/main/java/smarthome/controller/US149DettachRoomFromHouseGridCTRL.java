@@ -7,17 +7,15 @@ import smarthome.model.Room;
 import java.util.ArrayList;
 import java.util.List;
 
-public class US145ListOfExistingRoomsCTRL {
+public class US149DettachRoomFromHouseGridCTRL {
     private House mHouse;
-    private Room mRoom;
 
-    public US145ListOfExistingRoomsCTRL(House inputHouse) {
-        mHouse = inputHouse;
+    public US149DettachRoomFromHouseGridCTRL(House house) {
+        mHouse = house;
     }
 
-
     /**
-     * @return shows the list of houseGrids in a single string
+     * @return shows the list of houseGrids in a single string for the user to select a HouseGrid
      */
     public String showHouseGridListInString() {
         List<HouseGrid> list = mHouse.getHouseGridList();
@@ -34,33 +32,25 @@ public class US145ListOfExistingRoomsCTRL {
         return result.toString();
     }
 
-    /* /**
-     *
-     * @param indexOfHouseGrid
-     * @return
-     *//*
-    public String showListOfRoomsWithHouseGridInString(int indexOfHouseGrid){
-    List<Room> listOfRoomsWithHouseGrid = getListRoomsWithHouseGrid(indexOfHouseGrid);
-    StringBuilder result=new StringBuilder();
-    String element = " - ";
-    int number=1;
-    for(Room r:listOfRoomsWithHouseGrid){
-    result.append(number++);
-    result.append(element);
-    result.append(r.getName());
-    result.append("\n");}
-    return result.toString();
-}
-
-public boolean removeRoom (int indexOfHouseGrid, int indexOfRoom){
-    List<Room> listOfRoomsWithHouseGrid = getListRoomsWithHouseGrid(indexOfHouseGrid);
-    return mHouse.removeRoom(mHouse.getRoomList().get(indexOfRoom-1));
+    public List<HouseGrid> getHouseGridList() {
+        return mHouse.getHouseGridList();
     }
 
-    public boolean attachRoom (int indexOfHouseGrid, int indexOfRoom){
-        List<Room> listOfRoomsWithHouseGrid = getListRoomsWithHouseGrid(indexOfHouseGrid);
-        return mHouse.addRoom(mHouse.getRoomList().get(indexOfRoom-1));
-    }*/
+
+    /**
+     * Method to detach room from HouseGrid
+     *
+     * @param indexOfHouseGrid
+     * @param indexOfRoom      room in the index position selected by the user
+     * @return true if room in index position of RoomList has its HouseGrid set as null, false otherwise.
+     */
+    public boolean detachRoomFromHouseGrid(int indexOfHouseGrid, int indexOfRoom) {
+        List<Room> listOfRoomsWithHouseGrid = getListOfRoomsWithHouseGrid(indexOfHouseGrid);
+        if(listOfRoomsWithHouseGrid.size()!=0){
+        Room r = listOfRoomsWithHouseGrid.get(indexOfRoom-1);
+        r.setmHouseGrid(mHouse.getHouseGridList().get(indexOfHouseGrid-1));
+        return true;}
+        else return false;}
 
     /**
      * Method to get a list of rooms with the house grid in the index position of the HouseGridList
@@ -69,8 +59,7 @@ public boolean removeRoom (int indexOfHouseGrid, int indexOfRoom){
      * @param indexOfHouseGrid index position of the house grid in the list of house grids of the house instance
      * @return the list of rooms with the house grid chosen by the user
      */
-    public List<Room> getListRoomsWithHouseGrid(int indexOfHouseGrid) {
-        //  HouseGrid grid = mHouse.getHouseGridList().get(indexOfHouseGrid - 1);
+    public List<Room> getListOfRoomsWithHouseGrid(int indexOfHouseGrid) {
         List<Room> listOfRoomsWithHouseGrid = new ArrayList<>();
         for (Room r : mHouse.getRoomList()) {
             if (r.getmHouseGrid().equals(mHouse.getHouseGridList().get(indexOfHouseGrid - 1))) {
@@ -79,5 +68,4 @@ public boolean removeRoom (int indexOfHouseGrid, int indexOfRoom){
         }
         return listOfRoomsWithHouseGrid;
     }
-
 }

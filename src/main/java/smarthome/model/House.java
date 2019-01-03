@@ -14,7 +14,10 @@ public class House {
     /*public House() {
     }*/
 
-    public House() {
+
+    public House(){
+        mRoomList = new ArrayList<>();
+        mHouseGridList = new ArrayList<>();
         mRoomList = new ArrayList<>();
         mHouseGridList = new ArrayList<>();
     }

@@ -1,9 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.model.DataTypeList;
-import smarthome.model.GAList;
-import smarthome.model.House;
-import smarthome.model.Room;
+import smarthome.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +16,14 @@ public class HouseAdministrationUI {
 
 
         while (option != 0) {
-            System.out.println("Click 1. US101: As System Administrator I want to .........");
+            System.out.println("Click 1. US101: As System Administrator I want to configure a house");
             System.out.println("Click 2. US105: As an Administrator, I want to add a new room to the house");
             System.out.println("Click 3. US108: As System Administrator I want to .........");
             System.out.println("Click 4. US130: As an Administrator I want to create a house grid");
             System.out.println("Click 5. US135: As System Administrator I want to .........");
-            System.out.println("Click 6. US145: As System Administrator I want to .........");
-            System.out.println("Click 7. US147: As System Administrator I want to .........");
-            System.out.println("Click 8. US149: As System Administrator I want to .........");
+            System.out.println("Click 6. US145: As an Administrator, I want to have a list of existing rooms attached to a house grid");
+            System.out.println("Click 7. US147: As an Administrator, I want to attach a room to a house grid.");
+            System.out.println("Click 8. US149: As System Administrator I want to detach a room from a house grid.");
             System.out.println("Click 9. US253: As System Administrator I want to .........");
             System.out.println("Click 0. Exit");
 
@@ -44,7 +41,6 @@ public class HouseAdministrationUI {
                     System.out.println("US108");
                     break;
                 case 4:
-                    System.out.println("US130");
                     US130newHouseGridUI ui130 = new US130newHouseGridUI(house);
                     ui130.run();
                     break;
@@ -52,13 +48,16 @@ public class HouseAdministrationUI {
                     System.out.println("US135");
                     break;
                 case 6:
-                    System.out.println("US145");
+                    US145ListOfRoomsAttachedToGridUI ui145 = new US145ListOfRoomsAttachedToGridUI(house);
+                    ui145.run();
                     break;
                 case 7:
-                    System.out.println("US147");
+                    US147AttachRoomToGridUI ui147 = new US147AttachRoomToGridUI(house);
+                    ui147.run();
                     break;
                 case 8:
-                    System.out.println("US149");
+                    US149DetachRoomFromGridUI ui149 = new US149DetachRoomFromGridUI(house);
+                    ui149.run();
                     break;
                 case 9:
                     US253AddSensorToRoomUI ui253 = new US253AddSensorToRoomUI(roomList, dataTypeList);
