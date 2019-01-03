@@ -9,6 +9,7 @@ public class Sensor {
     private Location mLocation;
     private DataType mDataType; //temp, humidade,
     private List<Reading> mListOfReadings = new ArrayList<> ();
+    private Room mRoom;
 
     public Sensor() {
     }
@@ -296,6 +297,13 @@ public class Sensor {
             }
         }
         return maximum;
+    }
+
+    public void setRoom(Room room) {
+        this.mRoom=room;
+    }
+    public Room getRoom() {
+        return this.mRoom;
     }
 
 

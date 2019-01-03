@@ -1,5 +1,7 @@
 package smarthome.io.ui;
 
+import smarthome.model.DataTypeList;
+
 import java.util.Scanner;
 
 import static smarthome.io.ui.HouseAdministrationUI.houseAdministration;
@@ -8,6 +10,7 @@ import static smarthome.io.ui.SystemAdministrationUI.systemAdministration;
 
 public class MainUI {
     public static void main(String[] args) {
+        DataTypeList dataTypeList = new DataTypeList();
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
 
@@ -20,10 +23,10 @@ public class MainUI {
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
                 case 1:
-                    systemAdministration();
+                    systemAdministration(dataTypeList);
                     break;
                 case 2:
-                    houseAdministration();
+                    houseAdministration(dataTypeList);
                     break;
                 case 3:
                     regularUsage();

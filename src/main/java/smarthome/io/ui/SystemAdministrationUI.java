@@ -2,17 +2,15 @@ package smarthome.io.ui;
 
 import smarthome.model.DataTypeList;
 import smarthome.model.GAList;
-import smarthome.model.SensorList;
 import smarthome.model.TypeGAList;
 
 import java.util.Scanner;
 
 public class SystemAdministrationUI {
 
-    public static void systemAdministration() {
+    public static void systemAdministration(DataTypeList dataTypeList) {
         TypeGAList typeGAList = new TypeGAList();
         GAList GAList = new GAList();
-        DataTypeList dataTypeList = new DataTypeList(); //substituir lista por string
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
 

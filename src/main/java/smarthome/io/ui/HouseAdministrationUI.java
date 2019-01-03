@@ -1,6 +1,7 @@
 package smarthome.io.ui;
 
-import smarthome.model.*;
+import smarthome.model.DataTypeList;
+import smarthome.model.Room;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Scanner;
 
 public class HouseAdministrationUI {
 
-    public static void houseAdministration() {
+    public static void houseAdministration(DataTypeList dataTypeList) {
         List<Room> roomList= new ArrayList<> ();
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
@@ -55,6 +56,8 @@ public class HouseAdministrationUI {
                     System.out.println("US149");
                     break;
                 case 9:
+                    US253AddSensorToRoomUI ui253 = new US253AddSensorToRoomUI(roomList,dataTypeList);
+                    ui253.run();
                     System.out.println("US253");
                     break;
             }
