@@ -94,13 +94,13 @@ public class US101ConfigureHouseLocationUI {
 
 
     public String streetNameIsValid() {
-        String streetName = read.nextLine();
-        if (streetName == null || streetName.trim().isEmpty()) {
-            System.out.println("Empty spaces are not accepted.");
+        String streetName = read.nextLine ();
+        if (streetName == null || streetName.trim ().isEmpty ()) {
+            System.out.println ( "Empty spaces are not accepted" );
             return null;
         }
-        if (!streetName.matches("[A-Za-z0-9]*")) {
-            System.out.println("Please insert only alphanumeric characters.");
+        if (!streetName.matches ( "^(?![\\s]).*" )) {
+            System.out.println ( "Please start with words." );
             return null;
         }
         return streetName;
@@ -125,7 +125,7 @@ public class US101ConfigureHouseLocationUI {
             System.out.println("Empty spaces are not accepted.");
             return null;
         }
-        if (!zipCode.matches("[A-Za-z0-9]*")) {
+        if (!zipCode.matches("^(?![\\s]).*")) {
             System.out.println("Please insert only alphanumeric characters.");
             return null;
         }

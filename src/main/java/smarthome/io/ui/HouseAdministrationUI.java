@@ -15,7 +15,7 @@ public class HouseAdministrationUI {
 
 
         while (option != 0) {
-            System.out.println("Click 1. US101: As System Administrator I want to configure a house");
+            System.out.println("Click 1. US101: As an Administrator, I want to configure the location of the house");
             System.out.println("Click 2. US105: As an Administrator, I want to add a new room to the house");
             System.out.println("Click 3. US108: As System Administrator I want to .........");
             System.out.println("Click 4. US130: As an Administrator I want to create a house grid");
