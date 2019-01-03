@@ -1,7 +1,7 @@
 package smarthome.controller;
 
-import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import smarthome.model.Room;
 
 import java.util.ArrayList;
