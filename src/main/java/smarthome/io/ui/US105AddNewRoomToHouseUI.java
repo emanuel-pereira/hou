@@ -3,6 +3,7 @@ package smarthome.io.ui;
 import smarthome.controller.US105AddNewRoomToHouseCTRL;
 import smarthome.model.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,11 +11,13 @@ public class US105AddNewRoomToHouseUI {
 
     Scanner read = new Scanner ( System.in );
 
-    private List<Room> mRoomList;
     private US105AddNewRoomToHouseCTRL mUS105CTRL;
+    private House mHouse;
 
-    public US105AddNewRoomToHouseUI(List<Room> inputList) {
-        mRoomList = inputList;
+    public US105AddNewRoomToHouseUI(House house) {
+        mHouse = house;
+        mUS105CTRL = new US105AddNewRoomToHouseCTRL(house);
+
     }
 
     /**
@@ -25,8 +28,6 @@ public class US105AddNewRoomToHouseUI {
      * Fourth: The inputs are used to create a new Room and a success message is shown.
      */
     public void addRoomToTheHouse() {
-
-        if (!mRoomList.isEmpty ()) { //mRoomList.size () != 0
 
             String name;
             while (true) {
@@ -70,11 +71,14 @@ public class US105AddNewRoomToHouseUI {
             floor = Integer.parseInt ( tempFloor );
             length = Double.parseDouble ( tempLength );
             width = Double.parseDouble ( tempWidth );
-            System.out.println ( "Success: The " + name + " on the " + floor + " floor with " + length*width + "m2 was created." );
-            mUS105CTRL.newRoom ( name, floor, length, width );
+
+
+        if (mUS105CTRL.newRoom ( name, floor, length, width )) {
+            System.out.println( "Success: The " + name + " on the " + floor + " floor with " + length*width + "m² was created.");
         } else {
-            System.out.println ( "No House was found, please insert one first in US101. \n" );
+            System.out.println("Fail! Please try again.");
         }
+
     }
 
     public void tryAgainMessage(){

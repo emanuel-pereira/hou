@@ -8,8 +8,7 @@ import java.util.Scanner;
 
 public class HouseAdministrationUI {
 
-    public static void houseAdministration(DataTypeList dataTypeList, GAList gaList, House house) {
-        List<Room> roomList = new ArrayList<>();
+    public static void houseAdministration(DataTypeList dataTypeList, GAList gaList, List<Room> roomList, House house) {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("House administration UI");
@@ -34,7 +33,7 @@ public class HouseAdministrationUI {
                     ui101.configureHouseLocationUS101();
                     break;
                 case 2:
-                    US105AddNewRoomToHouseUI ui105 = new US105AddNewRoomToHouseUI(roomList);
+                    US105AddNewRoomToHouseUI ui105 = new US105AddNewRoomToHouseUI(house);
                     ui105.addRoomToTheHouse();
                     break;
                 case 3:

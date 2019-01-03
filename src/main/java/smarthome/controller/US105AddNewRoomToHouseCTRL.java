@@ -6,8 +6,10 @@ public class US105AddNewRoomToHouseCTRL {
 
     private House mRoomList;
 
+
     public US105AddNewRoomToHouseCTRL(House inputList) {
         mRoomList = inputList;
+
     }
 
     /**
