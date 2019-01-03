@@ -226,7 +226,7 @@ class HouseTest {
 
 
     @Test
-    @DisplayName("Add a new house grid to the house grid list of a house and check that the" +
+    @DisplayName("Add a new house grid to the house grid list of a house and check that the " +
             "same house grid object cannot be added twice")
     void newHouseGrid() {
         Location l1 = new Location(41, 12.3, 110);

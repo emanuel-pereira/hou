@@ -11,7 +11,12 @@ public class House {
     private List<Room> mRoomList;
     private List<HouseGrid> mHouseGridList;
 
+    /*public House() {
+    }*/
+
     public House() {
+        mRoomList = new ArrayList<>();
+        mHouseGridList = new ArrayList<>();
     }
 
     public House(Address houseAddress, GeographicalArea GA) {
@@ -118,15 +123,13 @@ public class House {
     }
 
     /**
-     * checks if the inputted
+     * checks if the inputted Maximum Power is Positive
      *
-     * @param inputContractedMaximumPower
+     * @param inputContractedMaximumPower Double number
      * @return
      */
     public boolean isValidContractedPower(double inputContractedMaximumPower) {
-        if (inputContractedMaximumPower > 0)
-            return true;
-        return false;
+        return inputContractedMaximumPower > 0;
     }
 }
 

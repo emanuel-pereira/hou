@@ -22,7 +22,7 @@ public class HouseAdministrationUI {
             System.out.println("Click 1. US101: As System Administrator I want to .........");
             System.out.println("Click 2. US105: As an Administrator, I want to add a new room to the house");
             System.out.println("Click 3. US108: As System Administrator I want to .........");
-            System.out.println("Click 4. US130: As System Administrator I want to .........");
+            System.out.println("Click 4. US130: As an Administrator I want to create a house grid");
             System.out.println("Click 5. US135: As System Administrator I want to .........");
             System.out.println("Click 6. US145: As System Administrator I want to .........");
             System.out.println("Click 7. US147: As System Administrator I want to .........");
@@ -45,6 +45,8 @@ public class HouseAdministrationUI {
                     break;
                 case 4:
                     System.out.println("US130");
+                    US130newHouseGridUI ui130 = new US130newHouseGridUI(house);
+                    ui130.run();
                     break;
                 case 5:
                     System.out.println("US135");

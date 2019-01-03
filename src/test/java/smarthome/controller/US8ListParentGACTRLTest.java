@@ -33,12 +33,56 @@ public class US8ListParentGACTRLTest {
         //check the size of the list, now with both elements successfully added
         assertEquals(3, TypeGAList.getTypeGAList().size());
 
-        //optional
-        //pass the list again as a parameter to US2 controller in order for it to spell out the list
-        US2GetTypeGAListCTRL ctrl2 = new US2GetTypeGAListCTRL(TypeGAList);
-        //check size of the list in US2 controller
-        List<TypeGA> list2 = ctrl2.getTypeGAList();
-        assertEquals(3, list2.size());
+        //creation of a new list of GA's, for now empty
+        GAList GAList = new GAList();
+        //invocation of the controller for the US3, passing both list's: GA's and GATypes's as parameters
+        US3CreateGACTRL ctrl3 = new US3CreateGACTRL(GAList, TypeGAList);
+        //GA's list size is initially zero
+        assertEquals(0, GAList.getGAList().size());
+
+        //String for new city GA
+        String name1 = "Funchal";
+        //Int for new city GA types, from the list previously create of GA Types
+        int GATypeIndexFromList1 = 2;
+        //method that invokes the GA creation by passing all the nre city GA parameters
+        assertTrue(ctrl3.newGA2(name1, GATypeIndexFromList1, 20, 20, 1, 3, -10));
+
+        //String for new city GA
+        String name2 = "Rua 31 de Janeiro";
+        //Int for new city GA types, from the list previously create of GA Types
+        int GATypeIndexFromList2 = 3;
+        //method that invokes the GA creation by passing all the nre city GA parameters
+        assertTrue(ctrl3.newGA2(name2, GATypeIndexFromList2, 2, 2, 1, 3, -10));
+
+        //US7
+        US7SetParentOfGACTRL ctrl7 = new US7SetParentOfGACTRL(GAList);
+        //set Funchal as Parent GA of Rua 31 de Janeiro
+        ctrl7.setParentofGA(2,1);//index 2 Rua 31 de Janeiro // index 1 Funchal
+
+        //US8
+        US8ListParentGACTRL ctrl8 = new US8ListParentGACTRL(GAList);
+        //check a GA parent GA
+        assertEquals("Funchal", GAList.getGAList().get(1).getGeographicalParentGA().getGeographicalAreaDesignation());
+        assertEquals("Funchal", ctrl8.isParentOf(2));
+    }
+
+    @DisplayName("Add four GA's with success and look for the first one's Parent GA")
+    @Test
+    void add4GACheckParent() {
+        //invoke new empty list
+        TypeGAList TypeGAList = new TypeGAList();
+        //pass the empty list as a parameter to US1 controller
+        US1CreateTypeGACTRL ctrl1 = new US1CreateTypeGACTRL(TypeGAList);
+        //creation of a new GA Type and it's addition to the initially empty list
+        assertTrue(ctrl1.newTypeGA("district"));
+        assertEquals(1, TypeGAList.getTypeGAList().size());
+        //creation of a new GA Type and it's addition to the previously list already with one element
+        assertTrue(ctrl1.newTypeGA("city"));
+        //check the size of the list, now with both elements successfully added
+        assertEquals(2, TypeGAList.getTypeGAList().size());
+        assertTrue(ctrl1.newTypeGA("street"));
+        //check the size of the list, now with both elements successfully added
+        assertEquals(3, TypeGAList.getTypeGAList().size());
 
         //creation of a new list of GA's, for now empty
         GAList GAList = new GAList();
@@ -61,17 +105,24 @@ public class US8ListParentGACTRLTest {
         //method that invokes the GA creation by passing all the nre city GA parameters
         assertTrue(ctrl3.newGA2(name2, GATypeIndexFromList2, 2, 2, 1, 3, -10));
 
+        //String for new city GA
+        String name3 = "Madeira";
+        //Int for new city GA types, from the list previously create of GA Types
+        int GATypeIndexFromList3 = 1;
+        //method that invokes the GA creation by passing all the nre city GA parameters
+        assertTrue(ctrl3.newGA2(name3, GATypeIndexFromList3, 3,3,3, 3, -10));
+
+        //US7
+        US7SetParentOfGACTRL ctrl7 = new US7SetParentOfGACTRL(GAList);
+        //set Funchal as Parent GA of Rua 31 de Janeiro
+        ctrl7.setParentofGA(2,1);//index 2 Rua 31 de Janeiro //index 1 Funchal
+        //set Madeira as Parent GA of Funchal
+        ctrl7.setParentofGA(1,3);//index 3 Madeira //index 1 Funchal
+
         //US8
         US8ListParentGACTRL ctrl8 = new US8ListParentGACTRL(GAList);
-        //check GA List size with the newly added GA
-        assertEquals(2, ctrl8.getGAListSize());
-        //check the new GA designation from the GA's list
-        assertEquals("Funchal", GAList.getGAList().get(0).getGeographicalAreaDesignation());
-        //check the new GA type from the GA's list
-        assertEquals("city", GAList.getGAList().get(0).getGeographicalAreaType());
-        assertEquals("1 - Funchal\n2 - Rua 31 de Janeiro\n", ctrl8.showListInString());
-
-        assertNull(ctrl8.isParentOf(1));
+        //check a GA parent GA
+        assertEquals("Funchal, Madeira", ctrl8.isParentOf(2));
     }
 
 }

@@ -28,11 +28,14 @@ public class US8ListParentGACTRL {
      */
     public String isParentOf(int inputIndex) {
         GeographicalArea parentGA = mGAList.getGAList().get(inputIndex - 1).getGeographicalParentGA();
-        /*if (parentGA != null)//in stand by till US7 release
-            return parentGA.getGeographicalAreaDesignation();
-        else*/
-        return null;
-
+        StringBuilder parents = new StringBuilder();
+                while (parentGA != null) { //while there is a parent GA
+                    parents.append(parentGA.getGeographicalAreaDesignation()); //append parent GA to list
+                    if (parentGA.getGeographicalParentGA() != null)
+                        parents.append(", "); //append parent GA to list
+                    parentGA = parentGA.getGeographicalParentGA(); //next/upper parentGA
+                }
+                return parents.toString(); //return direct/indirect parents GA's list as String
     }
 
     /**
