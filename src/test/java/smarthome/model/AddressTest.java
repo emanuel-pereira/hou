@@ -1,10 +1,45 @@
 package smarthome.model;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AddressTest {
+
+    @Test
+    @DisplayName("define and check house address, zip code, location and geographical area")
+    void checkHouseLocation() {
+        //Arrange
+        Location l1 = new Location(41, 12.3, 110);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+
+
+        //Act
+        a1.setStreetName("Rua Júlio Dinis");
+        a1.setHouseNumber("345");
+        a1.setZipCode("3380-45");
+        l1.setLatitude(41);
+        l1.setLongitude(12.3);
+        l1.setAltitude(110);
+
+
+        String result1 = a1.getName();
+        String result2 = a1.getHouseNumber();
+        String result3 = a1.getZipCode();
+        double  result4 = l1.getLatitude();
+        double result5 = l1.getLongitude();
+        double result6 = l1.getAltitude();
+
+
+        //Assert
+        assertEquals("Rua Júlio Dinis", result1);
+        assertEquals("345", result2);
+        assertEquals("3380-45", result3);
+        assertEquals(41, result4);
+        assertEquals(12.3, result5);
+        assertEquals(110, result6);
+    }
 
     /**
      * Validate street name if correctly written and return true
@@ -14,7 +49,7 @@ class AddressTest {
 
         Location location1 = new Location (23, 67, 89);
         String streetName = "Rua António Nobre";
-        Address address1 = new Address (streetName, "2", "", "333-568", location1);
+        Address address1 = new Address (streetName, "2", "333-568", location1);
 
         boolean result = address1.validateName (streetName);
 
@@ -30,7 +65,7 @@ class AddressTest {
 
         Location location1 = new Location (23, 67, 89);
         String streetName = " ";
-        Address address1 = new Address (streetName, "2", "", "333-568", location1);
+        Address address1 = new Address (streetName, "2", "333-568", location1);
 
         boolean result = address1.validateName (streetName);
 
@@ -45,7 +80,7 @@ class AddressTest {
 
         Location location1 = new Location (23, 67, 89);
         String streetName = " Rua Pacheco";
-        Address address1 = new Address (streetName, "2", "", "333-568", location1);
+        Address address1 = new Address (streetName, "2", "333-568", location1);
 
         boolean result = address1.validateName (streetName);
 
@@ -60,7 +95,7 @@ class AddressTest {
 
         Location location1 = new Location (23, 67, 89);
         String number = "2";
-        Address address1 = new Address ("Rua Julio Dinis", number, "", "333-568", location1);
+        Address address1 = new Address ("Rua Julio Dinis", number, "333-568", location1);
 
         boolean result = address1.validateNumber (number);
 
@@ -76,7 +111,7 @@ class AddressTest {
 
         Location location1 = new Location (23, 67, 89);
         String number = null;
-        Address address1 = new Address ("Rua Pacheco da Cunha", number, "", "333-568", location1);
+        Address address1 = new Address ("Rua Pacheco da Cunha", number, "333-568", location1);
 
         boolean result = address1.validateNumber (number);
 
@@ -91,7 +126,7 @@ class AddressTest {
 
         Location location1 = new Location (23, 67, 89);
         String number = " 3";
-        Address address1 = new Address ("Rua Pacheco da Cunha", number, "", "333-568", location1);
+        Address address1 = new Address ("Rua Pacheco da Cunha", number, "333-568", location1);
 
         boolean result = address1.validateNumber (number);
 
@@ -106,7 +141,7 @@ class AddressTest {
 
         Location location1 = new Location (23, 67, 89);
         String code = "3370-767 Porto";
-        Address address1 = new Address ("Twelve Street", "2", "6", code, location1);
+        Address address1 = new Address ("Twelve Street", "2", code, location1);
 
         boolean result = address1.validateZipCode (code);
 
@@ -122,7 +157,7 @@ class AddressTest {
 
         Location location1 = new Location (23, 67, 89);
         String code = "  ";
-        Address address1 = new Address ("Newport Junction", "2", "", code, location1);
+        Address address1 = new Address ("Newport Junction", "2", code, location1);
 
         boolean result = address1.validateZipCode (code);
 
@@ -137,7 +172,7 @@ class AddressTest {
 
         Location location1 = new Location (23, 67, 89);
         String code = " LW 3343";
-        Address address1 = new Address ("Madison Avenue", "2", "4 Esquerdo", code, location1);
+        Address address1 = new Address ("Madison Avenue", "2", code, location1);
 
         boolean result = address1.validateZipCode (code);
 
@@ -151,7 +186,7 @@ class AddressTest {
     void gpsLocation() {
 
         Location location1 = new Location (23, 67, 89);
-        Address address1 = new Address ("Twelve Street", "2", "", "3370-767", location1);
+        Address address1 = new Address ("Twelve Street", "2", "3370-767", location1);
 
         Location result = address1.getGPSLocation ();
 
@@ -165,7 +200,7 @@ class AddressTest {
     void otherConstructorValidateNameIfCorrect() {
 
         String streetName = "Rua António Nobre";
-        Address address1 = new Address (streetName, "2", "6", "333-568", 23, 67, 89);
+        Address address1 = new Address (streetName, "2", "333-568", 23, 67, 89);
 
         boolean result = address1.validateName (streetName);
 
@@ -180,7 +215,7 @@ class AddressTest {
     void otherConstructorValidateHouseNumberIfCorrect() {
 
         String number = "233";
-        Address address1 = new Address ("Rua Julio Dinis", number, "", "333-568 Paranhos", 112, 22, 189);
+        Address address1 = new Address ("Rua Julio Dinis", number, "333-568 Paranhos", 112, 22, 189);
 
         boolean result = address1.validateNumber (number);
 
@@ -196,7 +231,7 @@ class AddressTest {
     void otherConstructorValidateZipCodeIfCorrect() {
 
         String code = "3370-767 Lisboa";
-        Address address1 = new Address ("Twelve Street", "2", "", code, 23, 67, 89);
+        Address address1 = new Address ("Twelve Street", "2", code, 23, 67, 89);
 
         boolean result = address1.validateZipCode (code);
 

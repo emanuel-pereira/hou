@@ -11,29 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HouseTest {
 
-    @Test
-    @DisplayName("define and check house address, zip code, location and geographical area")
-    void checkHouseLocation() {
-        //Arrange
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", null, "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
-
-        House house1 = new House(a1, ga1);
-
-        //Act
-        Address result = house1.getAddress();
-        Address expectedResult = a1;
-
-        GeographicalArea result2 = house1.getGA();
-        GeographicalArea expectedResult2 = ga1;
-
-        //Assert
-        assertEquals(expectedResult, result);
-        assertEquals(expectedResult2, result2);
-    }
-
 
     @Test
     @DisplayName("Tests if two different instances of house are the same")
@@ -41,13 +18,13 @@ class HouseTest {
 
         //Arrange
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", null, "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        TypeGA t1 = new TypeGA("city");
+        GeographicalArea g1 = new GeographicalArea("Porto", t1, l1);
 
-        House house1 = new House(a1, ga1);
+        House house1 = new House(a1, g1);
 
-        House house2 = new House(a1, ga1);
+        House house2 = new House(a1, g1);
 
         //Assert
         assertEquals(house1.hashCode(), house2.hashCode());
@@ -61,14 +38,15 @@ class HouseTest {
 
         //Arrange
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "34", null, "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address("Rua Júlio Dinis", "34", "3380-45", l1);
+        TypeGA t1 = new TypeGA("city");
+        GeographicalArea g1 = new GeographicalArea("Porto", t1, l1);
 
-        Address a2 = new Address("Rua Júlio Dinis", "34", null, "3380-45", l1);
 
-        House house1 = new House(a1, ga1);
-        House house2 = new House(a2, ga1);
+        Address a2 = new Address("Rua Júlio Dinis", "34", "3380-45", l1);
+
+        House house1 = new House(a1, g1);
+        House house2 = new House(a2, g1);
 
         //Assert
         assertNotEquals(house1.hashCode(), house2.hashCode());
@@ -81,14 +59,14 @@ class HouseTest {
 
         //Arrange
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", null, "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        TypeGA t1 = new TypeGA("cidade");
+        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House house1 = new House(a1, ga1);
+        House house1 = new House(a1, g1);
 
         //Assert
-        assertFalse(house1.equals(type1));
+        assertFalse(house1.equals(t1));
     }
 
 
@@ -100,11 +78,12 @@ class HouseTest {
     @Test
     void newRoom() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", null, "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        TypeGA t1 = new TypeGA("cidade");
+        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House list = new House(a1, ga1);
+
+        House list = new House(a1, g1);
         Room room = list.newRoom("bedroom", 1, 2, 2.5);
 
         assertEquals("bedroom", room.getName());
@@ -119,11 +98,11 @@ class HouseTest {
     @Test
     void addOneRoom() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", null, "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        TypeGA t1 = new TypeGA("cidade");
+        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House list = new House(a1, ga1);
+        House list = new House(a1, g1);
         Room room = list.newRoom("bedroom", 1, 2, 2.5);
 
         list.addRoom(room);
@@ -139,11 +118,11 @@ class HouseTest {
     @Test
     void addTwoRooms() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", null, "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        TypeGA t1 = new TypeGA("cidade");
+        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House list = new House(a1, ga1);
+        House list = new House(a1, g1);
         Room room = list.newRoom("bedroom", 1, 2, 2.5);
         Room room1 = list.newRoom("garden", 0, 2.5, 3);
         assertEquals(0, list.getRoomList().size());
@@ -165,11 +144,11 @@ class HouseTest {
     @Test
     void addOneRoomEmptyName() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "6", "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        TypeGA t1 = new TypeGA("cidade");
+        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House list = new House(a1, ga1);
+        House list = new House(a1, g1);
         Room room = list.newRoom("bedroom", 1, 2, 2.5);
         Room room1 = list.newRoom("  ", 0, 2.5, 3);
 
@@ -193,11 +172,11 @@ class HouseTest {
     @Test
     void nameNotValid() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", null, "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        TypeGA t1 = new TypeGA("cidade");
+        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House list = new House(a1, ga1);
+        House list = new House(a1, g1);
         Room room = list.newRoom("bedroom", 1, 2, 2.5);
         Room room1 = list.newRoom("  ", 0, 2.5, 3);
 
@@ -222,11 +201,11 @@ class HouseTest {
     @Test
     void addOneGetTrueAddAnotherGetFalse() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", null, "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        TypeGA t1 = new TypeGA("cidade");
+        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House list = new House(a1, ga1);
+        House list = new House(a1, g1);
         Room room = list.newRoom("bedroom", 1, 2, 2.5);
         Room room1 = list.newRoom("  ", 0, 2.5, 3);
 
@@ -246,63 +225,65 @@ class HouseTest {
     }
 
 
-
     @Test
     @DisplayName("Add a new house grid to the house grid list of a house and check that the" +
             "same house grid object cannot be added twice")
     void newHouseGrid() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", null, "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
-        House house = new House(a1, ga1);
-        HouseGrid h1= house.newHouseGrid(5);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        TypeGA t1 = new TypeGA("cidade");
+        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
+
+        House house = new House(a1, g1);
+        HouseGrid h1 = house.newHouseGrid(5);
 
         house.addHouseGrid(h1);
-        assertEquals(1,house.getHouseGridList().size());
+        assertEquals(1, house.getHouseGridList().size());
         //Ensure the same house grid cannot be added twice
         house.addHouseGrid(h1);
-        assertEquals(1,house.getHouseGridList().size());
+        assertEquals(1, house.getHouseGridList().size());
         //Ensure a house grid with 0 inputContractedPower cannot be added to the list
-        HouseGrid h2= house.newHouseGrid(0);
+        HouseGrid h2 = house.newHouseGrid(0);
         house.addHouseGrid(h2);
-        assertEquals(1,house.getHouseGridList().size());
+        assertEquals(1, house.getHouseGridList().size());
     }
 
     @Test
     @DisplayName("Ensure a room is removed from the list of rooms of a house ")
     void removeRoom() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", null, "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        TypeGA t1 = new TypeGA("cidade");
+        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House house = new House(a1, ga1);
+        House house = new House(a1, g1);
         Room room1 = house.newRoom("bedroom", 1, 2, 2.5);
         Room room2 = house.newRoom("kitchen", 1, 4, 5);
 
         house.addRoom(room1);
         house.addRoom(room2);
-        assertEquals(2,house.getRoomList().size());
+        assertEquals(2, house.getRoomList().size());
         house.removeRoom(room2);
-        assertEquals(1,house.getRoomList().size());
+        assertEquals(1, house.getRoomList().size());
     }
+
     @Test
     @DisplayName("Ensure a room not contained in the list of rooms of a house" +
             "cannot be removed")
     void removeRoomReturnsFalse() {
 
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", null,  "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        TypeGA t1 = new TypeGA("cidade");
+        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House house = new House(a1, ga1);
+
+        House house = new House(a1, g1);
         Room room1 = house.newRoom("bedroom", 1, 2, 2.5);
         house.addRoom(room1);
         Room room2 = house.newRoom("kitchen", 1, 4, 5);
 
-        assertEquals(false,house.removeRoom(room2));
+        assertEquals(false, house.removeRoom(room2));
     }
 
 

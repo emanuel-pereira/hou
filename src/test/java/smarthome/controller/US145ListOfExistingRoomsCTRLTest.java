@@ -14,10 +14,11 @@ class US145ListOfExistingRoomsCTRLTest {
     @Test
     void showHouseGridListInString() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", null, "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
-        House house = new House(a1, ga1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        TypeGA t1 = new TypeGA("city");
+        GeographicalArea g1 = new GeographicalArea("Porto", t1,l1);
+
+        House house = new House(a1,g1);
         US145ListOfExistingRoomsCTRL ctrl = new US145ListOfExistingRoomsCTRL(house);
 
         HouseGrid grid1 = new HouseGrid(45);
@@ -35,10 +36,11 @@ class US145ListOfExistingRoomsCTRLTest {
     void getListRoomsWithHouseGrid() {
 
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25",null, "4000-285", l1);
-        TypeGA type1 = new TypeGA("City");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
-        House house = new House(a1, ga1);
+        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", l1);
+        TypeGA t1 = new TypeGA("district");
+        GeographicalArea g1 = new GeographicalArea("Gondomar", t1,l1);
+
+        House house = new House(a1,g1);
         US145ListOfExistingRoomsCTRL ctrl = new US145ListOfExistingRoomsCTRL(house);
 
         HouseGrid grid= new HouseGrid(1500);

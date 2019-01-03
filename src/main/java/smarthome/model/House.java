@@ -11,6 +11,8 @@ public class House {
     private List<Room> mRoomList;
     private List<HouseGrid> mHouseGridList;
 
+    public House() {
+    }
 
     public House(Address houseAddress, GeographicalArea GA) {
         mAddress = houseAddress;
@@ -20,11 +22,18 @@ public class House {
     }
 
 
+    public void setHouseGA(GeographicalArea houseGA) {
+        mGA = houseGA;
+    }
+
     public Address getAddress() {
 
         return mAddress;
     }
 
+    public void setHouseAddress(String streetName, String houseNumber, String zipCode, double latitude, double longitude, double altitude) {
+        mAddress = new Address(streetName, houseNumber, zipCode, latitude, longitude, altitude);
+    }
 
     public GeographicalArea getGA() {
         return mGA;
@@ -90,6 +99,7 @@ public class House {
     /**
      * Adds a house grid to the list of grids of a house if it isn't null or
      * already contained in the houseGrid list of the respective house instance.
+     *
      * @param inputHouseGrid houseGrid to be added to list of HouseGrids of a house instance.
      * @return true if houseGrid is added to list or false otherwise.
      */
@@ -109,6 +119,7 @@ public class House {
 
     /**
      * checks if the inputted
+     *
      * @param inputContractedMaximumPower
      * @return
      */

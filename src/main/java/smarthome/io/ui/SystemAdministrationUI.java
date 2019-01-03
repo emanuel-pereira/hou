@@ -8,9 +8,9 @@ import java.util.Scanner;
 
 public class SystemAdministrationUI {
 
-    public static void systemAdministration(DataTypeList dataTypeList) {
+    public static void systemAdministration(DataTypeList dataTypeList,GAList gaList) {
         TypeGAList typeGAList = new TypeGAList();
-        GAList GAList = new GAList();
+        GAList GAList = gaList;
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
 
