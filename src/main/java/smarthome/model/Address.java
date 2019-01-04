@@ -1,47 +1,40 @@
 package smarthome.model;
 
-import java.util.Objects;
-
 public class Address {
 
-    private String mStreetName;
-    private String mHouseNumber;
+    private String mStreet;
     private String mZipCode;
+    private String mTown;
     private Location mGPSLocation;
 
     /**
      * This constructor sets up the Address that will be used in the House
      *
      * @param streetName  Required street name
-     * @param houseNumber Required house number
      * @param zipCode     Required zip code
+     * @param town        Required town
      * @param gpsLocation Required GPS location
      */
-    public Address(String streetName, String houseNumber, String zipCode, Location gpsLocation) {
-        mStreetName = streetName;
-        mHouseNumber = houseNumber;
+    public Address(String streetName, String zipCode, String town, Location gpsLocation) {
+        mStreet = streetName;
         mZipCode = zipCode;
+        mTown = town;
         mGPSLocation = gpsLocation;
     }
 
-    public Address(String streetName, String houseNumber, String zipCode, double latitude, double longitude, double altitude) {
-        mStreetName = streetName;
-        mHouseNumber = houseNumber;
+    public Address(String streetName, String zipCode, String town, double latitude, double longitude, double altitude) {
+        mStreet = streetName;
         mZipCode = zipCode;
+        mTown = town;
         mGPSLocation = new Location(latitude, longitude, altitude);
     }
 
-    public void setStreetName(String streetName) {
+    public void setStreet(String streetName) {
         if (this.validateName(streetName)) {
-            mStreetName = streetName;
+            mStreet = streetName;
         }
     }
 
-    public void setHouseNumber(String houseNumber) {
-        if (this.validateNumber(houseNumber)) {
-            mHouseNumber = houseNumber;
-        }
-    }
 
     public void setZipCode(String zipCode) {
         if (this.validateZipCode(zipCode)) {
@@ -49,7 +42,11 @@ public class Address {
         }
     }
 
-
+    public void setTown(String town) {
+        if (this.validateTown (town)) {
+            mTown = town;
+        }
+    }
 
     /**
      * Validates the name of the street
@@ -73,20 +70,20 @@ public class Address {
      * @return Name of the street
      */
     public String getName() {
-        return mStreetName;
+        return mStreet;
     }
 
     /**
      * Validates the number of the house. It accepts only numbers with no spaces
      *
-     * @param number The number of the house
+     * @param town The town of the house
      * @return False if nulls, empty spaces and numbers that starts and ends with spaces
      */
-    public boolean validateNumber(String number) {
-        if (number == null || number.trim().isEmpty()) {
+    public boolean validateTown(String town) {
+        if (town == null || town.trim().isEmpty()) {
             return false;
         }
-        if (!number.matches("^(?![\\s])\\d*")) {
+        if (!town.matches("^(?![\\s]).*")) {
             return false;
         }
         return true;
@@ -97,8 +94,8 @@ public class Address {
      *
      * @return Number of the house
      */
-    public String getHouseNumber() {
-        return mHouseNumber;
+    public String getTown() {
+        return mTown;
     }
 
     /**

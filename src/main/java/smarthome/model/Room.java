@@ -20,9 +20,7 @@ public class Room {
      * @param height The height of the room
      */
     public Room(String name, Integer floor, double length, double width, double height) {
-        if (this.validateName ( name )) {
-            mName = name;
-        }
+        mName = name;
         mFloor = floor;
         mArea = new OccupationArea ( length, width );
         mHeight = height;

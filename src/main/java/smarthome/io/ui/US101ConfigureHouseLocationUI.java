@@ -53,18 +53,18 @@ public class US101ConfigureHouseLocationUI {
             else
                 System.out.println("Please insert a valid street name");
         }
-        String houseNumber;
-        while (true) {
-            System.out.println("Insert the house number:");
-            houseNumber = houseNumberIsValid();
-            if (houseNumber != null)
-                break;
-        }
         String zipCode;
         while (true) {
             System.out.println("Insert the zip-code:");
             zipCode = zipCodeIsValid();
             if (zipCode != null)
+                break;
+        }
+        String town;
+        while (true) {
+            System.out.println("Insert the town:");
+            town = townIsValid ();
+            if (town != null)
                 break;
         }
 
@@ -84,7 +84,7 @@ public class US101ConfigureHouseLocationUI {
         String a3 = read.nextLine();
         altitude = Double.parseDouble(a3);
 
-        if (mCtrlUS101.configureHouseLocation(indexGA, streetName, houseNumber, zipCode, latitude, longitude, altitude)) {
+        if (mCtrlUS101.configureHouseLocation(indexGA, streetName, zipCode, town, latitude, longitude, altitude)) {
             System.out.println("Success!The house location has been configured.");
         } else {
             System.out.println("Fail! Please try again.");
@@ -106,20 +106,7 @@ public class US101ConfigureHouseLocationUI {
         return streetName;
     }
 
-    public String houseNumberIsValid() {
-        String houseNumber = read.nextLine();
-        if (houseNumber == null || houseNumber.trim().isEmpty()) {
-            System.out.println("Empty spaces are not accepted.");
-            return null;
-        }
-        if (!houseNumber.matches("[A-Za-z0-9]*")) {
-            System.out.println("Please insert only alphanumeric characters.");
-            return null;
-        }
-        return houseNumber;
-    }
-
-    public String zipCodeIsValid() {
+       public String zipCodeIsValid() {
         String zipCode = read.nextLine();
         if (zipCode == null || zipCode.trim().isEmpty()) {
             System.out.println("Empty spaces are not accepted.");
@@ -130,6 +117,18 @@ public class US101ConfigureHouseLocationUI {
             return null;
         }
         return zipCode;
+    }
 
+    public String townIsValid() {
+        String town = read.nextLine();
+        if (town == null || town.trim().isEmpty()) {
+            System.out.println("Empty spaces are not accepted.");
+            return null;
+        }
+        if (!town.matches("^(?![\\s]).*")) {
+            System.out.println("Please start with words.");
+            return null;
+        }
+        return town;
     }
 }

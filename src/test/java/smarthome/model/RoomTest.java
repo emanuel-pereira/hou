@@ -22,6 +22,19 @@ public class RoomTest {
     }
 
     /**
+     * Checks if the room name is null, if so the validation method returns False
+     */
+    @Test
+    public void nullNameNotValid() {
+
+        String name = " ";
+        Room roomOne = new Room(name, 0, 2.5, 3, 2);
+
+        boolean result = roomOne.validateName(name);
+
+        assertFalse(result);
+    }
+    /**
      * Checks if the room name is correct, if so the validation method returns True
      */
     @Test
@@ -62,6 +75,21 @@ public class RoomTest {
         assertNotEquals(room1.hashCode(), room2.hashCode());
         assertFalse(result);
     }
+
+    /**
+     * Check if two different types objects are not equal
+     */
+    @Test
+    public void equalsIfStringEqualsRoom() {
+        String person1 = "Joana";
+        Room room1 = new Room("bedroom", 0, 2.5, 3, 3);
+        boolean result;
+
+        result = room1.equals (person1);
+
+        assertFalse(result);
+    }
+
 
     @Test
     @DisplayName("Check if house grid with nominal power of 1500 is assigned to living room")

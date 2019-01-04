@@ -35,10 +35,10 @@ public class US101ConfigureHouseLocationCTRL {
     }
 
 
-    public boolean configureHouseLocation(int indexOfGA, String streetName, String houseNumber, String zipCode, double latitude, double longitude, double altitude) {
+    public boolean configureHouseLocation(int indexOfGA, String streetName, String zipCode, String town,  double latitude, double longitude, double altitude) {
         GeographicalArea ga = mGAList.getGAList().get(indexOfGA-1);
         mHouse.setHouseGA(ga);
-        mHouse.setHouseAddress(streetName, houseNumber, zipCode, latitude, longitude, altitude);
+        mHouse.setHouseAddress(streetName, zipCode, town, latitude, longitude, altitude);
         return mHouse.getAddress() != null;
 
     }

@@ -18,7 +18,7 @@ class HouseTest {
 
         //Arrange
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Porto", l1);
         TypeGA t1 = new TypeGA("city");
         GeographicalArea g1 = new GeographicalArea("Porto", t1, l1);
 
@@ -38,12 +38,12 @@ class HouseTest {
 
         //Arrange
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "34", "3380-45", l1);
+        Address a1 = new Address("Rua Júlio Dinis, 34", "3380-45", "Aveiro", l1);
         TypeGA t1 = new TypeGA("city");
         GeographicalArea g1 = new GeographicalArea("Porto", t1, l1);
 
 
-        Address a2 = new Address("Rua Júlio Dinis", "34", "3380-45", l1);
+        Address a2 = new Address("Rua Júlio Dinis, 34", "3380-45", "Aveiro", l1);
 
         House house1 = new House(a1, g1);
         House house2 = new House(a2, g1);
@@ -59,7 +59,7 @@ class HouseTest {
 
         //Arrange
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Beja", l1);
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
@@ -78,7 +78,7 @@ class HouseTest {
     @Test
     void newRoom() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", l1);
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
@@ -98,7 +98,7 @@ class HouseTest {
     @Test
     void addOneRoom() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "345", "Lisboa", l1);
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
@@ -118,7 +118,7 @@ class HouseTest {
     @Test
     void addTwoRooms() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", l1);
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
@@ -144,7 +144,7 @@ class HouseTest {
     @Test
     void addOneRoomEmptyName() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", l1);
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
@@ -172,7 +172,7 @@ class HouseTest {
     @Test
     void nameNotValid() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        Address a1 = new Address("Rua Júlio Dinis", "3380-45", "Lisboa", l1);
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
@@ -201,7 +201,7 @@ class HouseTest {
     @Test
     void addOneGetTrueAddAnotherGetFalse() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        Address a1 = new Address("Rua Júlio Dinis", "3380-45", "Lisboa", l1);
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
@@ -230,7 +230,7 @@ class HouseTest {
             "same house grid object cannot be added twice")
     void newHouseGrid() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", l1);
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
@@ -252,7 +252,7 @@ class HouseTest {
     @DisplayName("Ensure a room is removed from the list of rooms of a house ")
     void removeRoom() {
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", l1);
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
@@ -273,7 +273,7 @@ class HouseTest {
     void removeRoomReturnsFalse() {
 
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
+        Address a1 = new Address("Rua Júlio Dinis", "3380-45", "Lisboa", l1);
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
