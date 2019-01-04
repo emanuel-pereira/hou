@@ -57,7 +57,7 @@ public class TypeGAList {
     public boolean typeOfGAIsValid(String inputType) {
         if (inputType == null || inputType.trim().isEmpty())
             return false;
-        return inputType.matches("[a-zA-Z]*");
+        return inputType.matches("^[A-Za-z ]+$");
     }
 
 
