@@ -35,7 +35,7 @@ public class US1CreateTypesGAUI {
             System.out.println ("Insert the name of the new type of geographical area (or click r to return to Main Menu):");
             String name = typeInputIsValid();
             if ("r".equals (name)) {
-                System.out.println ("Return to Main Menu");
+                System.out.println ("Return to Main Menu\n");
                 break;
             }
             if (mCtrlUS1.newTypeGA (name)) //Same as if (mCtrlUS1.newTypeGA (name)==true)

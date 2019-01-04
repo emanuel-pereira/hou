@@ -83,12 +83,12 @@ public class US3CreateGAUI {
 
             System.out.println("Insert the altitude of the new geographical area:");
             Double altitude = read.nextDouble();
-            System.out.println("Success");
+            System.out.println("Success\n");
 
             //mCtrlUS3.newGA(name, typeIndex, width, height, latitude, longitude, altitude);
             mCtrlUS3.newGA2(id, name, typeIndex, width, height, latitude, longitude, altitude);
-            System.out.println("Name: " + mGAList.getGAList().get(mGAList.getGAList().size() - 1).getGeographicalAreaDesignation()
-                    + ", Type: " + mGAList.getGAList().get(mGAList.getGAList().size() - 1).getGeographicalAreaType());
+            System.out.println("The geographical area " + mGAList.getGAList().get(mGAList.getGAList().size() - 1).getGeographicalAreaDesignation()
+                    + " of type " + mGAList.getGAList().get(mGAList.getGAList().size() - 1).getGeographicalAreaType() + " was created.\n");
         } else
             System.out.println("No Geographical Area type were found, please insert one first in US1 \n \n");
     }

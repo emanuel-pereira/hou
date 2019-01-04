@@ -27,14 +27,11 @@ public class US4ReturnGAsWithThisTypeCTRL {
         List<GeographicalArea> list = this.getGAListFromType(typeAreaIndex);
         StringBuilder result = new StringBuilder();
         String element1 = " - ";
-        String element2 = " ";
         int number = 1;
         for (GeographicalArea position : list){
             result.append (number++);
             result.append (element1);
             result.append (position.getGeographicalAreaDesignation());
-            result.append (element2);
-            result.append (position.getGeographicalAreaType());
             result.append ("\n");
         }
         return result.toString();

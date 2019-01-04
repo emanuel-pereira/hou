@@ -195,7 +195,7 @@ class US4ReturnGAsWithThisTypeCTRLTest {
         ctrl3.newGA("Pt","Gaia", "city", 10, 10, 10, 40, 8);
         ctrl3.newGA("Pt","Cedofeita", "street", 10, 10, 10, 40, 8);
 
-        String expected = "1 - Porto city\n2 - Gaia city\n";
+        String expected = "1 - Porto\n2 - Gaia\n";
         US4ReturnGAsWithThisTypeCTRL ctrl4 = new US4ReturnGAsWithThisTypeCTRL(listGa,listType);
         String result = ctrl4.showListInString (typeIndex);
 

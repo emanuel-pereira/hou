@@ -22,8 +22,8 @@ public class SystemAdministrationUI {
             System.out.println("Click 4. US04: See which geographical areas correspond to a specific type");
             System.out.println("Click 5. US05: Specify a new meteorological characteristic that sensors can measure/register");
             System.out.println("Click 6. US06: Create a new sensor and associate it to a Geographical Area");
-            System.out.println("Click 7. US07: Specify that a geographical area is a parent of another one");
-            System.out.println("Click 8. US08: Check direct/indirect Parent geographical areas");
+            System.out.println("Click 7. US07: Specify that a geographical area is added to another one");
+            System.out.println("Click 8. US08: Check if a a geographical area is direct/indirectly included to another one");
             System.out.println("Click 0. Exit");
 
             option = Integer.parseInt(keyboard.nextLine());

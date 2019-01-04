@@ -22,7 +22,7 @@ public class US4ReturnGAsWithThisTypeUI {
 
    public void run () {
            Scanner read = new Scanner(System.in);
-           System.out.println("Choose the Type of Geographical Area you wish to see from the list below:");
+           System.out.println("Choose the Type of Geographical Area you wish to see from the list below.");
            //calls the list of previously inserted types for the user to choose from.
            ui2.run();
            //user chooses the number of type he wishes to see.
