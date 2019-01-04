@@ -17,12 +17,12 @@ public class US7SetParentOfGAUI {
     public void run() {
         Scanner read = new Scanner(System.in);
 
-        System.out.println("Choose a Geographical Area from the list below:");
+        System.out.println("Choose a Geographical Area from the list below: ");
         System.out.println(mCtrlUS7.showListInString());
         int gaIndex1 = read.nextInt();
         System.out.println("Success");
 
-        System.out.println("Choose a Geographical Area from the list below to set as parent of" + mGAList.getGAList().get(gaIndex1 - 1).getGeographicalAreaDesignation());
+        System.out.println("Choose a Geographical Area from the list below to set as parent of " + mGAList.getGAList().get(gaIndex1 - 1).getGeographicalAreaDesignation());
         System.out.println(mCtrlUS7.showListInString());
         int gaIndex2 = read.nextInt();
         System.out.println("Success");

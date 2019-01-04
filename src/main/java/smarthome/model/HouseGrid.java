@@ -2,24 +2,32 @@ package smarthome.model;
 
 public class HouseGrid {
     //The electrical network of the house
-    private Double mContractedMaximumPower;
+    private Double mContractedMaximumPower = Double.NaN;
     private String mDesignation;
 
     public HouseGrid(double inputContractedMaximumPower) {
-        mContractedMaximumPower = inputContractedMaximumPower;
+        if (valueIsPositive(inputContractedMaximumPower))
+            mContractedMaximumPower = inputContractedMaximumPower;
     }
 
-    /*public HouseGrid(double inputContractedMaximumPower, String Designation) {
-        mContractedMaximumPower = inputContractedMaximumPower;
-        mDesignation = Designation;
-    }*/
+    public HouseGrid(double inputContractedMaximumPower, String Designation) {
+        if (valueIsPositive(inputContractedMaximumPower)) {
+            mContractedMaximumPower = inputContractedMaximumPower;
+            mDesignation = Designation;
+        }
+    }
 
-    public Double getmContractedMaximumPower() {
+    public Double getContractedMaximumPower() {
         return mContractedMaximumPower;
     }
 
-    public void setmContractedMaximumPower(Double ContractedMaximumPower) {
-        this.mContractedMaximumPower = ContractedMaximumPower;
+    public void setContractedMaximumPower(Double ContractedMaximumPower) {
+        if (valueIsPositive(ContractedMaximumPower))
+            this.mContractedMaximumPower = ContractedMaximumPower;
+    }
+
+    private boolean valueIsPositive(Double ContractedMaximumPower) {
+        return (ContractedMaximumPower > 0);
     }
 
     public String getGridID() {

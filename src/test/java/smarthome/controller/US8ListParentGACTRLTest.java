@@ -62,8 +62,10 @@ public class US8ListParentGACTRLTest {
         //US8
         US8ListParentGACTRL ctrl8 = new US8ListParentGACTRL(GAList);
         //check a GA parent GA
+        assertEquals(2,ctrl8.getGAListSize());
         assertEquals("Funchal", GAList.getGAList().get(1).getGeographicalParentGA().getGeographicalAreaDesignation());
         assertEquals("Funchal", ctrl8.isParentOf(2));
+        assertEquals("1 - Funchal\n2 - Rua 31 de Janeiro\n",ctrl8.showListInString());
     }
 
     @DisplayName("Add four GA's with success and look for the first one's Parent GA")
@@ -122,6 +124,7 @@ public class US8ListParentGACTRLTest {
         //US8
         US8ListParentGACTRL ctrl8 = new US8ListParentGACTRL(GAList);
         //check a GA parent GA
+        assertEquals(3,ctrl8.getGAListSize());
         assertEquals("Funchal, Madeira", ctrl8.isParentOf(2));
     }
 

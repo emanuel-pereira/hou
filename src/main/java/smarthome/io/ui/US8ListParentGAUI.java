@@ -35,12 +35,10 @@ public class US8ListParentGAUI {
             int inputIndex = keyboard.nextInt();
             if (inputIndex == 0) {//input 0 returns to main US's menu
                 System.out.println("Return to Main Menu");
-            } else {//inputIndex = 1-9999 print chosen GA from the List
-                if (mCtrlUS8.isParentOf(inputIndex) != null) {
-                    System.out.println("Chosen GA parent is: " + mCtrlUS8.isParentOf(inputIndex));
-                } else {
-                    System.out.println("No parent GA was defined yet, please select US7 to set up Parent GA's in the next menu \n");
-                }
+            } else {
+                if (mCtrlUS8.isParentOf(inputIndex).isEmpty())
+                    System.out.println("No parent GA was defined yet for this Geographical Area, please select US7 to set up Parent GA's in the next menu \n");
+                else System.out.println("Chosen GA parent is: " + mCtrlUS8.isParentOf(inputIndex));
             }
         }
     }

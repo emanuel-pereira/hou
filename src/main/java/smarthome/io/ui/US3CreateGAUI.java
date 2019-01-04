@@ -41,7 +41,7 @@ public class US3CreateGAUI {
      */
     public void run() {
         if (mtypeGAList.getTypeGAList().size() != 0) {
-            System.out.println("Insert the name of a geographical area:");
+            System.out.println("Insert the name of the new geographical area:");
             Scanner read = new Scanner(System.in);
 
             String name = read.nextLine();
@@ -57,25 +57,25 @@ public class US3CreateGAUI {
         String type = read.nextLine();
         System.out.println("Success");*/
 
-            System.out.println("Insert the width of a geographical area:");
+            System.out.println("Insert the width of the new geographical area:");
             Double width = read.nextDouble(
 
             );
             System.out.println("Success");
 
-            System.out.println("Insert the height of a geographical area:");
+            System.out.println("Insert the length of the new geographical area:");
             Double height = read.nextDouble();
             System.out.println("Success");
 
-            System.out.println("Insert the latitude of a geographical area:");
+            System.out.println("Insert the latitude of the new geographical area:");
             Double latitude = read.nextDouble();
             System.out.println("Success");
 
-            System.out.println("Insert the longitude of a geographical area:");
+            System.out.println("Insert the longitude of the new geographical area:");
             Double longitude = read.nextDouble();
             System.out.println("Success");
 
-            System.out.println("Insert the altitude of a geographical area:");
+            System.out.println("Insert the altitude of the new geographical area:");
             Double altitude = read.nextDouble();
             System.out.println("Success");
 
@@ -84,6 +84,6 @@ public class US3CreateGAUI {
             System.out.println("Name: " + mGAList.getGAList().get(mGAList.getGAList().size() - 1).getGeographicalAreaDesignation()
                     + ", Type: " + mGAList.getGAList().get(mGAList.getGAList().size() - 1).getGeographicalAreaType());
         } else
-            System.out.println("No Geographical Area type were found please insert one first in US1 \n \n");
+            System.out.println("No Geographical Area type were found, please insert one first in US1 \n \n");
     }
 }

@@ -37,10 +37,6 @@ public class House {
         mAddress = new Address(streetName, houseNumber, zipCode, latitude, longitude, altitude);
     }
 
-    public GeographicalArea getGA() {
-        return mGA;
-    }
-
 
     @Override
     public boolean equals(Object o) {
@@ -91,9 +87,9 @@ public class House {
 
     //HouseGridList
 
-    public HouseGrid newHouseGrid(double inputContractedMaximumPower) {
+    public HouseGrid newHouseGrid(double inputContractedMaximumPower, String ID) {
         if (isValidContractedPower(inputContractedMaximumPower)) {
-            return new HouseGrid(inputContractedMaximumPower);
+            return new HouseGrid(inputContractedMaximumPower, ID);
         }
         return null;
     }

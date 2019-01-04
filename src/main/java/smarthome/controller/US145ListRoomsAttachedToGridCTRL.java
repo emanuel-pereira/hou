@@ -26,7 +26,7 @@ public class US145ListRoomsAttachedToGridCTRL {
             result.append(number++);
             result.append(element);
             result.append("Nominal Power: ");
-            result.append(houseGrid.getmContractedMaximumPower());
+            result.append(houseGrid.getContractedMaximumPower());
             result.append("\n");
         }
         return result.toString();

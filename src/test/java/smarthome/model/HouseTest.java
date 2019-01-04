@@ -235,7 +235,7 @@ class HouseTest {
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
         House house = new House(a1, g1);
-        HouseGrid h1 = house.newHouseGrid(5);
+        HouseGrid h1 = house.newHouseGrid(5,"main grid");
 
         house.addHouseGrid(h1);
         assertEquals(1, house.getHouseGridList().size());
@@ -243,7 +243,7 @@ class HouseTest {
         house.addHouseGrid(h1);
         assertEquals(1, house.getHouseGridList().size());
         //Ensure a house grid with 0 inputContractedPower cannot be added to the list
-        HouseGrid h2 = house.newHouseGrid(0);
+        HouseGrid h2 = house.newHouseGrid(0,"main grid");
         house.addHouseGrid(h2);
         assertEquals(1, house.getHouseGridList().size());
     }
