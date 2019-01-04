@@ -33,8 +33,8 @@ public class US253AddSensorToRoomTest {
         DataTypeList dataTypeList = new DataTypeList();
         List <Room> roomList = new ArrayList<>();
         US253AddSensorToRoomCTRL ctrl = new US253AddSensorToRoomCTRL(dataTypeList,roomList);
-        Room r1= new Room("Living Room",1,2,3);
-        Room r2= new Room("Bed Room",1,2,3);
+        Room r1= new Room("Living Room",1,2,3, 2);
+        Room r2= new Room("Bed Room",1,2,3, 2);
         roomList.add(r1);
         roomList.add(r2);
         String expected = "1 - Living Room\n2 - Bed Room\n";
@@ -47,8 +47,8 @@ public class US253AddSensorToRoomTest {
         DataTypeList dataTypeList = new DataTypeList();
         List <Room> roomList = new ArrayList<>();
         US253AddSensorToRoomCTRL ctrl = new US253AddSensorToRoomCTRL(dataTypeList,roomList);
-        Room r1= new Room("Living Room",1,2,3);
-        Room r2= new Room("Bed Room",1,2,3);
+        Room r1= new Room("Living Room",1,2,3, 2);
+        Room r2= new Room("Bed Room",1,2,3, 2);
         roomList.add(r1);
         roomList.add(r2);
         DataType type1= new DataType("Temperature");

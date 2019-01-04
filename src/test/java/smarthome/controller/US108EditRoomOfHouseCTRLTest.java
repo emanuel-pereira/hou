@@ -16,13 +16,13 @@ public class US108EditRoomOfHouseCTRLTest {
     public void setRoomListBedroom() {
 
 
-        Room bedroom = new Room("bedroom", 2, 2, 3);
+        Room bedroom = new Room("bedroom", 2, 2, 3,3);
         List<Room> roomList = new ArrayList<>();
         roomList.add(bedroom);
 
         US108EditRoomOfHouseCTRL ctrl108 = new US108EditRoomOfHouseCTRL(roomList);
 
-        ctrl108.setRoom(0, "Quarto da Maria", 3, 3, 3);
+        ctrl108.setRoom(0, "Quarto da Maria", 3, 3, 3,3);
 
         String expectedResultName = "Quarto da Maria";
 
@@ -35,13 +35,13 @@ public class US108EditRoomOfHouseCTRLTest {
     @DisplayName("Ensure that kitchen has been edited has Cozinha")
     public void setRoomListKitchen() {
 
-        Room kitchen = new Room("kitchen", 2, 2, 3);
+        Room kitchen = new Room("kitchen", 2, 2, 3, 2);
         List<Room> roomList = new ArrayList<>();
         roomList.add(kitchen);
 
         US108EditRoomOfHouseCTRL ctrl108 = new US108EditRoomOfHouseCTRL(roomList);
 
-        ctrl108.setRoom(0, "Cozinha", 3, 3, 3);
+        ctrl108.setRoom(0, "Cozinha", 3, 3, 3,2);
 
         String expectedResultName = "Cozinha";
 
@@ -53,13 +53,13 @@ public class US108EditRoomOfHouseCTRLTest {
     @DisplayName("Ensure that bathroom has been edited has Quarto de Banho")
     public void setRoomListBathroom() {
 
-        Room bathroom = new Room("bedroom", 2, 2, 3);
+        Room bathroom = new Room("bedroom", 2, 2, 3, 2);
         List<Room> roomList = new ArrayList<>();
         roomList.add(bathroom);
 
         US108EditRoomOfHouseCTRL ctrl108 = new US108EditRoomOfHouseCTRL(roomList);
 
-        ctrl108.setRoom(0, "Quarto de banho", 3, 3, 3);
+        ctrl108.setRoom(0, "Quarto de banho", 3, 3, 3,2);
 
         String expectedResultName = "Quarto de banho";
 
@@ -76,9 +76,9 @@ public class US108EditRoomOfHouseCTRLTest {
 
         US108EditRoomOfHouseCTRL ctrl108 = new US108EditRoomOfHouseCTRL(roomList);
 
-        Room bedroom = new Room("Quarto da Maria",1,2,3);
-        Room kitchen = new Room("Cozinha",1,2,3);
-        Room bathroom = new Room("Quarto de banho",1,2,3);
+        Room bedroom = new Room("Quarto da Maria",1,2,3, 2);
+        Room kitchen = new Room("Cozinha",1,2,3, 2);
+        Room bathroom = new Room("Quarto de banho",1,2,3, 2);
 
         roomList.add(0,bedroom);
         roomList.add(1,kitchen);

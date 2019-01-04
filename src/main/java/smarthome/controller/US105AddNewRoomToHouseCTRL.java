@@ -20,8 +20,8 @@ public class US105AddNewRoomToHouseCTRL {
      * @param width Height of the room (double) to calculate the area
      * @return
      */
-    public boolean newRoom(String name, Integer floor, double length, double width) {
-        Room room = mRoomList.newRoom (name, floor, length, width);
+    public boolean newRoom(String name, Integer floor, double length, double width, double height) {
+        Room room = mRoomList.newRoom (name, floor, length, width, height);
                return mRoomList.addRoom (room);
     }
 

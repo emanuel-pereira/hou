@@ -27,12 +27,15 @@ public class US108EditRoomOfHouseCTRL {
      * @param mFloor to set the floor position on the house.
      * @param length to set the dimensions of the room.
      * @param width to set the dimensions of the room.
+     * @param width to set the height of the room.
+     *
      */
-    public void setRoom(int IndexOfRoom, String mName, int mFloor, double length, double width) {
+    public void setRoom(int IndexOfRoom, String mName, int mFloor, double length, double width, double height) {
         this.mRoom = mRoomList.get(IndexOfRoom);
         this.mRoom.setName(mName);
         this.mRoom.setFloor(mFloor);
         this.mRoom.setArea(new OccupationArea(length, width));
+        this.mRoom.setHeight (height);
     }
 
     /**

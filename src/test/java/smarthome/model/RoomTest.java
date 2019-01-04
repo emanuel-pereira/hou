@@ -13,7 +13,7 @@ public class RoomTest {
     @Test
     public void nameNotValid() {
 
-        Room roomOne = new Room("  ", 0, 2.5, 3);
+        Room roomOne = new Room("  ", 0, 2.5, 3, 2);
 
         String name = "  ";
         boolean result = roomOne.validateName(name);
@@ -27,7 +27,7 @@ public class RoomTest {
     @Test
     public void nameValid() {
 
-        Room roomOne = new Room("bedroom", 0, 2.5, 3);
+        Room roomOne = new Room("bedroom", 0, 2.5, 3, 4.7);
 
         String name = "bedroom";
         boolean result = roomOne.validateName(name);
@@ -40,8 +40,8 @@ public class RoomTest {
      */
     @Test
     public void equalsIfTypeGAEqualsTypeGA() {
-        Room room1 = new Room("bedroom", 0, 2.5, 3);
-        Room room2 = new Room("bedroom", 0, 2.5, 3);
+        Room room1 = new Room("bedroom", 0, 2.5, 3, 3);
+        Room room2 = new Room("bedroom", 0, 2.5, 3, 3);
 
         boolean result = room1.equals(room2);
 
@@ -54,8 +54,8 @@ public class RoomTest {
      */
     @Test
     public void equalsIfTypeGAEqualsDifferentTypeGA() {
-        Room room1 = new Room("bedroom", 0, 2.5, 3);
-        Room room2 = new Room("garden", 0, 2.5, 3);
+        Room room1 = new Room("bedroom", 0, 2.5, 3, 3);
+        Room room2 = new Room("garden", 0, 2.5, 3, 3);
 
         boolean result = room1.equals(room2);
 
@@ -67,7 +67,7 @@ public class RoomTest {
     @DisplayName("Check if house grid with nominal power of 1500 is assigned to living room")
     void setHouseGrid() {
         HouseGrid grid = new HouseGrid(1500);
-        Room room1 = new Room("Living Room", 0, 5, 6);
+        Room room1 = new Room("Living Room", 0, 5, 6, 4);
         room1.setmHouseGrid(grid);
         double expectedResult = 1500;
         double result = room1.getmHouseGrid().getContractedMaximumPower();
@@ -79,7 +79,7 @@ public class RoomTest {
     @Test
     public void setName() {
 
-        Room bedroom = new Room("bedroom",1,2,3);
+        Room bedroom = new Room("bedroom",1,2,3, 2.5);
         bedroom.setName ("bedroom1");
 
         String expectedResult = "bedroom1";
@@ -95,7 +95,7 @@ public class RoomTest {
     @Test
     public void setFloor() {
 
-        Room bedroom = new Room ("bedroom",1,2,3);
+        Room bedroom = new Room ("bedroom",1,2,3, 2);
         bedroom.setFloor (2);
 
         int expectedResult = 2;
@@ -111,7 +111,7 @@ public class RoomTest {
     public void setArea() {
 
         OccupationArea oa = new OccupationArea(3,2);
-        Room bedroom = new Room ("bedroom",1,2,3);
+        Room bedroom = new Room ("bedroom",1,2,3, 2);
         bedroom.setArea (oa);
 
         OccupationArea expectedResult = oa;
@@ -121,4 +121,20 @@ public class RoomTest {
 
 
     }
+
+    /**
+     * Test to define/edit the floor of the room.
+     */
+    @Test
+    public void setHeight() {
+
+        Room bedroom = new Room ("bedroom",1,2,3, 2);
+        bedroom.setHeight (3);
+
+        double expectedResult = 3;
+        double result = bedroom.getHeight ();
+
+        assertEquals(expectedResult, result);
+    }
+
 }

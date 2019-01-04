@@ -54,9 +54,9 @@ public class House {
 
     //RoomList
 
-    public Room newRoom(String name, int floor, double height, double width) {
+    public Room newRoom(String name, int floor, double length, double width, double height) {
         if (this.roomNameValid(name)) {
-            return new Room(name, floor, height, width);
+            return new Room(name, floor, length, width, height);
         }
         return null;
     }

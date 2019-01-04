@@ -27,7 +27,7 @@ class US105AddNewRoomToHouseCTRLTest {
         US105AddNewRoomToHouseCTRL ctrl1 = new US105AddNewRoomToHouseCTRL(house1);
         assertEquals(0, house1.getRoomList().size());
 
-        ctrl1.newRoom("kitchen", 1, 3, 3.5);
+        ctrl1.newRoom("kitchen", 1, 3, 3.5, 2);
         assertEquals(1, house1.getRoomList().size());
     }
 
@@ -49,7 +49,7 @@ class US105AddNewRoomToHouseCTRLTest {
         US105AddNewRoomToHouseCTRL ctrl1 = new US105AddNewRoomToHouseCTRL(house2);
         assertEquals(0, house2.getRoomList().size());
 
-        ctrl1.newRoom(" ", 1, 3, 3.5);
+        ctrl1.newRoom(" ", 1, 3, 3.5, 2);
         assertEquals(0, house2.getRoomList().size());
     }
 
@@ -71,11 +71,11 @@ class US105AddNewRoomToHouseCTRLTest {
         US105AddNewRoomToHouseCTRL ctrl1 = new US105AddNewRoomToHouseCTRL(house2);
         assertEquals(0, house2.getRoomList().size());
 
-        boolean result = ctrl1.newRoom("kitchen", 1, 3, 3.5);
+        boolean result = ctrl1.newRoom("kitchen", 1, 3, 3.5, 2);
         assertEquals(1, house2.getRoomList().size());
         assertTrue(result);
 
-        boolean result1 = ctrl1.newRoom(" ", 1, 3, 3.5);
+        boolean result1 = ctrl1.newRoom(" ", 1, 3, 3.5, 2);
         assertEquals(1, house2.getRoomList().size());
         assertFalse(result1);
 

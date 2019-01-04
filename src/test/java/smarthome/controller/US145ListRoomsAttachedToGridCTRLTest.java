@@ -64,10 +64,10 @@ class US145ListRoomsAttachedToGridCTRLTest {
         house.addHouseGrid(grid);
         house.addHouseGrid(grid2);
 
-        Room kitchen= new Room("Kitchen",0,5,4);
-        Room wc= new Room("Bathroom",0,4,3);
-        Room bedroom1 = new Room("Bedroom1",1,4,5);
-        Room bedroom2 = new Room("Bedroom2",1,4,5);
+        Room kitchen= new Room("Kitchen",0,5,4, 3);
+        Room wc= new Room("Bathroom",0,4,3, 3);
+        Room bedroom1 = new Room("Bedroom1",1,4,5, 3);
+        Room bedroom2 = new Room("Bedroom2",1,4,5, 3);
         house.addRoom(kitchen);
         house.addRoom(wc);
         house.addRoom(bedroom1);
@@ -99,10 +99,10 @@ class US145ListRoomsAttachedToGridCTRLTest {
         house.addHouseGrid(grid);
         house.addHouseGrid(grid2);
 
-        Room kitchen= new Room("Kitchen",0,5,4);
-        Room wc= new Room("Bathroom",0,4,3);
-        Room bedroom1 = new Room("Bedroom1",1,4,5);
-        Room bedroom2 = new Room("Bedroom2",1,4,5);
+        Room kitchen= new Room("Kitchen",0,5,4, 1.5);
+        Room wc= new Room("Bathroom",0,4,3, 1.5);
+        Room bedroom1 = new Room("Bedroom1",1,4,5, 1.5);
+        Room bedroom2 = new Room("Bedroom2",1,4,5, 1.5);
         house.addRoom(kitchen);
         house.addRoom(wc);
         house.addRoom(bedroom1);

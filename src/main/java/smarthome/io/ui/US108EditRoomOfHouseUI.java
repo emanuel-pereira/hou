@@ -52,10 +52,14 @@ public class US108EditRoomOfHouseUI {
 
         double inputAreaWidth = read.nextDouble();
 
+        System.out.println("Success! Insert room height" + mRoom.getHeight ());
+
+        double inputHeight = read.nextDouble();
+
         System.out.println(mCtrlUS108.showListRoomInString());
 
 
-        mCtrlUS108.setRoom(indexRoom, inputRoomName, inputFloor, inputAreaLength, inputAreaWidth);
+        mCtrlUS108.setRoom(indexRoom, inputRoomName, inputFloor, inputAreaLength, inputAreaWidth, inputHeight);
     }
 
 }

@@ -7,6 +7,7 @@ public class Room {
     private String mName;
     private Integer mFloor;
     private OccupationArea mArea;
+    private double mHeight;
     private HouseGrid mHouseGrid; //each room has only a house grid
 
 
@@ -16,13 +17,15 @@ public class Room {
      * @param floor The number of the floor
      * @param length The height of the room to calculate the area
      * @param width The width of the room to calculate the area
+     * @param height The height of the room
      */
-    public Room(String name, Integer floor, double length, double width) {
+    public Room(String name, Integer floor, double length, double width, double height) {
         if (this.validateName ( name )) {
             mName = name;
         }
         mFloor = floor;
         mArea = new OccupationArea ( length, width );
+        mHeight = height;
     }
 
     /**
@@ -45,17 +48,23 @@ public class Room {
      * Method to get the area (from the OccupationArea class)
      * @return Area of the room (height*width)
      */
-
-
     public OccupationArea getArea() {
         return mArea;
     }
 
     /**
+     * Method to get the height
+     * @return Height of the room
+     */
+    public double getHeight() {
+        return mHeight;
+    }
+
+
+    /**
      * Method to set the name of String mName.
      * @param setNameRoom  name of the room of the house.
      */
-
     public void setName(String setNameRoom) {
         this.mName = setNameRoom;
 
@@ -77,6 +86,13 @@ public class Room {
         this.mArea = mArea;
     }
 
+    /**
+     * Method to set the height of the room on the house.
+     * @param height of the room
+     */
+    public void setHeight(double height) {
+        this.mHeight = height;
+    }
 
     /**
      * Method that checks if a text is only spaces
