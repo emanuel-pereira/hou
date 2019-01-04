@@ -1,0 +1,52 @@
+@startuml
+title US003 \n Definition of a new Geographical Area
+
+actor SystemAdministrator order 1
+participant UI2 order 4
+participant Controller2 order 5
+participant TypeGAList order 6
+participant GAList order 7
+participant GeographicalArea order 8
+
+create boundary UI order 2
+SystemAdministrator -> UI: newGeographicArea()
+
+create control Controller order 3
+UI -> Controller: newGeographicArea()
+
+SystemAdministrator -> UI: run()
+activate UI
+UI --> SystemAdministrator: Ask for name
+SystemAdministrator -> UI: Input requested data
+activate UI2
+UI --> UI2: run()
+activate Controller2
+UI2 --> Controller2: showListInString()
+Controller2 --> TypeGAList: getTypeGAList()
+deactivate Controller2
+deactivate UI2
+Controller2 -> SystemAdministrator: List of Geographical Area types
+SystemAdministrator -> UI: Input requested type index
+UI --> SystemAdministrator: Ask for area measures
+SystemAdministrator -> UI: Input requested data
+UI --> SystemAdministrator: Ask for GPS coordinates
+SystemAdministrator -> UI: Input requested data
+activate Controller
+UI -> Controller: newGA(name, typeIndex, width, height, latitude, longitude, altitude)
+activate GAList
+Controller -> GAList: newGA(inputDesignation, AreaType, ...)
+GAList -> GeographicalArea: GeographicalArea(inputDesignation, typeArea, ...)
+activate GeographicalArea
+GeographicalArea -> GeographicalArea: setDesignation
+GeographicalArea -> GeographicalArea: new TypeGA(typeGA)
+GeographicalArea -> GeographicalArea: new Location(latitude, longitude, altitude)
+GeographicalArea -> GeographicalArea: new OccupationArea(length, width)
+GeographicalArea --> GAList: newGA
+deactivate GeographicalArea
+GAList --> Controller: Success
+deactivate GAList
+Controller --> UI: Success
+deactivate Controller
+UI --> SystemAdministrator: Print Success message
+deactivate UI
+@enduml
