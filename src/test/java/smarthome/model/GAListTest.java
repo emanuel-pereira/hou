@@ -17,7 +17,7 @@ class GAListTest {
     void newGA() {
 
         GAList ga = new GAList();
-        GeographicalArea area1 = ga.newGA("Porto", "district", 20, 20, 1, 3, -10);
+        GeographicalArea area1 = ga.newGA("Pt","Porto", "district", 20, 20, 1, 3, -10);
         String expectedResult = "Porto";
         String result = area1.getGeographicalAreaDesignation();
         assertEquals(expectedResult, result);
@@ -26,7 +26,7 @@ class GAListTest {
     @Test
     void addGA() {
         GAList ga = new GAList();
-        GeographicalArea area1  = ga.newGA("Porto", "district", 20, 20, 1, 3, -10);
+        GeographicalArea area1  = ga.newGA("Pt","Porto", "district", 20, 20, 1, 3, -10);
         ga.addGA(area1);
         List<GeographicalArea> expectedResult = Arrays.asList(area1);
         List<GeographicalArea> result = ga.getGAList();
@@ -38,11 +38,11 @@ class GAListTest {
     void addGA2() {
         GAList ga = new GAList();
 
-        GeographicalArea area1  = ga.newGA("Porto", "district", 20, 20, 1, 3, -10);
+        GeographicalArea area1  = ga.newGA("Pt","Porto", "district", 20, 20, 1, 3, -10);
         ga.addGA(area1);
         assertEquals(Arrays.asList(area1), ga.getGAList());
 
-        GeographicalArea area2  = ga.newGA("Porto", "district", 20, 20, 1, 3, -10);
+        GeographicalArea area2  = ga.newGA("Pt","Porto", "district", 20, 20, 1, 3, -10);
         ga.addGA(area2);
         assertEquals(Arrays.asList(area1), ga.getGAList());
     }
@@ -50,8 +50,8 @@ class GAListTest {
     @Test
     void getGAList() {
         GAList ga = new GAList();
-        GeographicalArea area1 = ga.newGA("Porto", "district", 20, 20, 1, 3, -10);
-        GeographicalArea area2 = ga.newGA("Braga", "district", 20, 20, 1, 3, -10);
+        GeographicalArea area1 = ga.newGA("Pt","Porto", "district", 20, 20, 1, 3, -10);
+        GeographicalArea area2 = ga.newGA("Pt","Braga", "district", 20, 20, 1, 3, -10);
 
         ga.addGA(area1);
         ga.addGA(area2);
@@ -65,7 +65,7 @@ class GAListTest {
     @DisplayName("Ensure GAList doesn't allow to add the same GA twice.")
     void addGAReturnsFalse() {
         GAList ga = new GAList();
-        GeographicalArea area1  = ga.newGA("Porto", "district", 20, 20, 1, 3, -10);
+        GeographicalArea area1  = ga.newGA("Pt","Porto", "district", 20, 20, 1, 3, -10);
         ga.addGA(area1);
         boolean expectedResult = false;
         boolean result = ga.addGA(area1);
@@ -76,11 +76,11 @@ class GAListTest {
     @DisplayName("Test if listOfGAsContainingLocation method returns list of GAs with only one GA")
     void checkIfLocationIsInGAList() {
         GAList gaList= new GAList();
-        GeographicalArea ga1= new GeographicalArea("Gaia","City",20,20,2,2,5);
+        GeographicalArea ga1= new GeographicalArea("Pt","Gaia","City",20,20,2,2,5);
         gaList.addGA(ga1);
-        GeographicalArea ga2= new GeographicalArea("Matosinhos","City",7.5,10,2,15,20);
+        GeographicalArea ga2= new GeographicalArea("Pt","Matosinhos","City",7.5,10,2,15,20);
         gaList.addGA(ga2);
-        GeographicalArea ga3= new GeographicalArea("Coimbra","City",7.5,10,2,15,19);
+        GeographicalArea ga3= new GeographicalArea("Pt","Coimbra","City",7.5,10,2,15,19);
         gaList.addGA(ga3);
         Location loc = new Location(2.7,5.2,0);
         GAList  listOfGAsContainingLocation=gaList.listOfGAsContainingLocation(loc.getLatitude(),loc.getLongitude());
@@ -96,9 +96,9 @@ class GAListTest {
     @DisplayName("Ensure that Location loc is not within any geographical area in gaList")
     void checkIfLocationIsNotInGAList() {
         GAList gaList= new GAList();
-        GeographicalArea ga1= new GeographicalArea("Gaia","City",20,20,2,2,5);
+        GeographicalArea ga1= new GeographicalArea("Pt","Gaia","City",20,20,2,2,5);
         gaList.addGA(ga1);
-        GeographicalArea ga2= new GeographicalArea("Matosinhos","City",4,5,2,2,5);
+        GeographicalArea ga2= new GeographicalArea("Pt","Matosinhos","City",4,5,2,2,5);
         gaList.addGA(ga2);
         Location loc = new Location(22.7,5.2,0);
         GAList listOfGAsContainingLocation=gaList.listOfGAsContainingLocation(loc.getLatitude(),loc.getLongitude());
@@ -111,11 +111,11 @@ class GAListTest {
     @DisplayName("Check if method returns a List of GA from the type chosen by the user, when there is only 1 result")
     void GAFromTypeTestOneElement() {
         GAList gaList= new GAList();
-        GeographicalArea ga1= new GeographicalArea("Gaia","City",20,20,2,2,5);
+        GeographicalArea ga1= new GeographicalArea("Pt","Gaia","City",20,20,2,2,5);
         gaList.addGA(ga1);
-        GeographicalArea ga2= new GeographicalArea("Matosinhos","City",4,5,2,2,5);
+        GeographicalArea ga2= new GeographicalArea("Pt","Matosinhos","City",4,5,2,2,5);
         gaList.addGA(ga2);
-        GeographicalArea ga3 = new GeographicalArea("Cedofeita","Street",41,-8, 83,2,5);
+        GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita","Street",41,-8, 83,2,5);
         gaList.addGA(ga3);
         List<GeographicalArea> expectedresult = new ArrayList<>(Arrays.asList(ga3)); //Usar Arrays.asList dentro de um a nova array list caso dê erro null point exception
         List<GeographicalArea> result=gaList.GAFromThisType("Street");
@@ -126,11 +126,11 @@ class GAListTest {
     @DisplayName("Check if method returns a List of GA from the type chosen by the user, when there is 2 or more results")
     void GAFromTypeTestTwoOrMoreElements() {
         GAList gaList= new GAList();
-        GeographicalArea ga1= new GeographicalArea("Gaia","City",20,20,2,2,5);
+        GeographicalArea ga1= new GeographicalArea("Pt","Gaia","City",20,20,2,2,5);
         gaList.addGA(ga1);
-        GeographicalArea ga2= new GeographicalArea("Matosinhos","City",4,5,2,2,5);
+        GeographicalArea ga2= new GeographicalArea("Pt","Matosinhos","City",4,5,2,2,5);
         gaList.addGA(ga2);
-        GeographicalArea ga3 = new GeographicalArea("Cedofeita","Street",41,-8, 83,2,5);
+        GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita","Street",41,-8, 83,2,5);
         gaList.addGA(ga3);
         List<GeographicalArea> expectedresult = new ArrayList<>(Arrays.asList(ga1,ga2));
         List<GeographicalArea> result=gaList.GAFromThisType("City");
@@ -141,11 +141,11 @@ class GAListTest {
     @DisplayName("Check if method returns an empty List of GA, when there is no matches")
     void GAFromTypeTestEmptyNoMatch() {
         GAList gaList= new GAList();
-        GeographicalArea ga1= new GeographicalArea("Gaia","City",20,20,2,2,5);
+        GeographicalArea ga1= new GeographicalArea("Pt","Gaia","City",20,20,2,2,5);
         gaList.addGA(ga1);
-        GeographicalArea ga2= new GeographicalArea("Matosinhos","City",4,5,2,2,5);
+        GeographicalArea ga2= new GeographicalArea("Pt","Matosinhos","City",4,5,2,2,5);
         gaList.addGA(ga2);
-        GeographicalArea ga3 = new GeographicalArea("Cedofeita","Street",41,-8, 83,2,5);
+        GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita","Street",41,-8, 83,2,5);
         gaList.addGA(ga3);
         List<GeographicalArea> expectedresult = Arrays.asList();
         List<GeographicalArea> result=gaList.GAFromThisType("Country");
@@ -156,11 +156,11 @@ class GAListTest {
     @DisplayName("Check if method returns an empty List of GA, when there is no input/empty")
     void GAFromTypeTestEmptyNoInput() {
         GAList gaList= new GAList();
-        GeographicalArea ga1= new GeographicalArea("Gaia","City",20,20,2,2,5);
+        GeographicalArea ga1= new GeographicalArea("Pt","Gaia","City",20,20,2,2,5);
         gaList.addGA(ga1);
-        GeographicalArea ga2= new GeographicalArea("Matosinhos","City",4,5,2,2,5);
+        GeographicalArea ga2= new GeographicalArea("Pt","Matosinhos","City",4,5,2,2,5);
         gaList.addGA(ga2);
-        GeographicalArea ga3 = new GeographicalArea("Cedofeita","Street",41,-8, 83,2,5);
+        GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita","Street",41,-8, 83,2,5);
         gaList.addGA(ga3);
         List<GeographicalArea> expectedresult = Arrays.asList();
         List<GeographicalArea> result=gaList.GAFromThisType("");
@@ -173,10 +173,10 @@ class GAListTest {
         GAList gaList= new GAList();
         Sensor sensor = new Sensor("GaiaTemperatureSensor", new GregorianCalendar(2018, 8, 4, 11, 0),2.7,5.2,0,new DataType ("Temperature"));
 
-        GeographicalArea ga1= new GeographicalArea("Porto","District",4,5,2,3,10);
-        GeographicalArea ga2= new GeographicalArea("Matosinhos","Cidade",4,5,2,2,5);
-        GeographicalArea ga3= new GeographicalArea("Gaia","City",4,5,2,2,4);
-        GeographicalArea ga4= new GeographicalArea("Lisboa","City",85,-127,15,152,85);
+        GeographicalArea ga1= new GeographicalArea("Pt","Porto","District",4,5,2,3,10);
+        GeographicalArea ga2= new GeographicalArea("Pt","Matosinhos","Cidade",4,5,2,2,5);
+        GeographicalArea ga3= new GeographicalArea("Pt","Gaia","City",4,5,2,2,4);
+        GeographicalArea ga4= new GeographicalArea("Pt","Lisboa","City",85,-127,15,152,85);
 
         gaList.addGA(ga1);
         gaList.addGA(ga2);
@@ -194,9 +194,9 @@ class GAListTest {
         GAList gaList= new GAList();
         Sensor sensor = new Sensor("SetubalTemperatureSensor", new GregorianCalendar(2018, 8, 4, 11, 0),2.7,5.2,0,new DataType ("Temperature"));
 
-        GeographicalArea ga1= new GeographicalArea("Gaia","City",54,5,2,2,10);
-        GeographicalArea ga2= new GeographicalArea("Porto","District",4,45,2,3,10);
-        GeographicalArea ga3= new GeographicalArea("Lisboa","City",4,5,2,3,10);
+        GeographicalArea ga1= new GeographicalArea("Pt","Gaia","City",54,5,2,2,10);
+        GeographicalArea ga2= new GeographicalArea("Pt","Porto","District",4,45,2,3,10);
+        GeographicalArea ga3= new GeographicalArea("Pt","Lisboa","City",4,5,2,3,10);
 
         gaList.addGA(ga1);
         gaList.addGA(ga2);
@@ -213,7 +213,7 @@ class GAListTest {
         GAList gaList= new GAList();
         Sensor sensor = new Sensor("GaiaTemperatureSensor", new GregorianCalendar(2018, 8, 4, 11, 0),2.7,5.2,0,new DataType ("Temperature"));
 
-        GeographicalArea ga3= new GeographicalArea("Lisboa","City",85,-127,15,152,85);
+        GeographicalArea ga3= new GeographicalArea("Pt","Lisboa","City",85,-127,15,152,85);
 
         gaList.addGA(ga3);
 

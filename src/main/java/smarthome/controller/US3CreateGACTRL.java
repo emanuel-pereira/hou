@@ -40,8 +40,8 @@ public class US3CreateGACTRL {
      * @return the prior information is used to invoke the newGA method from the GA's List class making a request to create a new GA with the users input
      * #deprecated a second solution using a GA type from a previously created list was created, where instead of receiving the GAType input from a String it is received as an index from the US2 List
      */
-    public boolean newGA(String inputDesignation, String typeArea, double width, double length, double latitude, double longitude, double altitude) {
-        GeographicalArea GA = mGAList.newGA(inputDesignation, typeArea, width, length, latitude, longitude, altitude);
+    public boolean newGA(String id, String inputDesignation, String typeArea, double width, double length, double latitude, double longitude, double altitude) {
+        GeographicalArea GA = mGAList.newGA(id, inputDesignation, typeArea, width, length, latitude, longitude, altitude);
         return mGAList.addGA(GA);
     }
 
@@ -57,9 +57,9 @@ public class US3CreateGACTRL {
      * @param altitude double altitude of the GA being created
      * @return the prior information is used to invoke the newGA method from the GA's List class making a request to create a new GA with the users input
      */
-    public boolean newGA2(String inputDesignation, int typeAreaIndex, double width, double length, double latitude, double longitude, double altitude) {
+    public boolean newGA2(String id, String inputDesignation, int typeAreaIndex, double width, double length, double latitude, double longitude, double altitude) {
         String AreaType = mTypeGAList.getTypeGAList().get(typeAreaIndex-1).toString();
-        GeographicalArea GA = mGAList.newGA(inputDesignation, AreaType, width, length, latitude, longitude, altitude);
+        GeographicalArea GA = mGAList.newGA(id, inputDesignation, AreaType, width, length, latitude, longitude, altitude);
         return mGAList.addGA(GA);
     }
 

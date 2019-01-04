@@ -18,7 +18,7 @@ public class US3CreateGACTRLTest {
         US3CreateGACTRL ctrl1 = new US3CreateGACTRL (list);
 
         assertEquals(0, list.getGAList ().size ());
-        assertTrue(ctrl1.newGA ("Porto", "district", 20, 20, 1, 3, -10));
+        assertTrue(ctrl1.newGA ("Pt","Porto", "district", 20, 20, 1, 3, -10));
 
         assertEquals(1, list.getGAList ().size ());
     }
@@ -32,10 +32,10 @@ public class US3CreateGACTRLTest {
 
         assertEquals (0, list.getGAList ().size ());
 
-        assertTrue(ctrl1.newGA("Porto", "district", 20, 20, 1, 3, -10));
+        assertTrue(ctrl1.newGA("Pt","Porto", "district", 20, 20, 1, 3, -10));
         assertEquals (1, list.getGAList ().size ());
 
-        assertTrue(ctrl1.newGA ("Lisboa", "district", 60, 20, 100, 200, -11));
+        assertTrue(ctrl1.newGA ("Pt","Lisboa", "district", 60, 20, 100, 200, -11));
         assertEquals (2, list.getGAList ().size ());
     }
 
@@ -51,10 +51,10 @@ public class US3CreateGACTRLTest {
 
         assertEquals (0, list.getGAList ().size ());
 
-        assertTrue(ctrl1.newGA ("Lisboa", "district", 60, 20, 100, 200, -11));
+        assertTrue(ctrl1.newGA ("Pt","Lisboa", "district", 60, 20, 100, 200, -11));
         assertEquals (1, list.getGAList ().size ());
 
-        assertFalse(ctrl1.newGA ("Lisboa", "district", 60, 20, 100, 200, -11));
+        assertFalse(ctrl1.newGA ("Pt","Lisboa", "district", 60, 20, 100, 200, -11));
         assertEquals (1, list.getGAList ().size ());
     }
 
@@ -66,19 +66,19 @@ public class US3CreateGACTRLTest {
 
         assertEquals (0, list.getGAList ().size ());
 
-        assertTrue(ctrl1.newGA ("Porto", "district", 20, 20, 1, 3, -10));
+        assertTrue(ctrl1.newGA ("Pt","Porto", "district", 20, 20, 1, 3, -10));
         assertEquals (1, list.getGAList ().size ());
 
-        assertTrue(ctrl1.newGA ("Lisboa", "district", 60, 20, 100, 200, -11));
+        assertTrue(ctrl1.newGA ("Pt","Lisboa", "district", 60, 20, 100, 200, -11));
         assertEquals (2, list.getGAList ().size ());
 
-        assertFalse(ctrl1.newGA ("Porto", "district", 20, 20, 1, 3, -10));
+        assertFalse(ctrl1.newGA ("Pt","Porto", "district", 20, 20, 1, 3, -10));
         assertEquals (2, list.getGAList ().size ());
 
-        assertTrue(ctrl1.newGA ("Braga", "district", 10, 10, 50, 30, 1));
+        assertTrue(ctrl1.newGA ("Pt","Braga", "district", 10, 10, 50, 30, 1));
         assertEquals (3, list.getGAList ().size ());
 
-        assertFalse(ctrl1.newGA ("Braga", "district", 10, 10, 50, 30, 1));
+        assertFalse(ctrl1.newGA ("Pt","Braga", "district", 10, 10, 50, 30, 1));
         assertEquals (3, list.getGAList ().size ());
     }
 
@@ -114,9 +114,9 @@ public class US3CreateGACTRLTest {
         String name = "Funchal";
         //Int for new city GA types, from the list previously create of GA Types
         int GATypeIndexFromList = 2;
-
+        String id= "Pt";
         //method that invokes the GA creation by passing all the nre city GA parameters
-        assertTrue(ctrl3.newGA2(name, GATypeIndexFromList, 20, 20, 1, 3, -10));
+        assertTrue(ctrl3.newGA2(id, name, GATypeIndexFromList, 20, 20, 1, 3, -10));
         //check GA List size with the newly added GA
         assertEquals (1, GAList.getGAList ().size ());
         //check the new GA designation from the GA's list

@@ -29,9 +29,9 @@ class US4ReturnGAsWithThisTypeCTRLTest {
         listType.addTypeGA(inputType2);
         listType.addTypeGA(inputType3);
 
-        GeographicalArea ga1 = new GeographicalArea("Porto", "city", 10, 10, 10, 10, 10);
-        GeographicalArea ga2 = new GeographicalArea("Gaia", "city", 10, 10, 10, 10, 10);
-        GeographicalArea ga3 = new GeographicalArea("Cedofeita", "street", 10, 10, 10, 10, 10);
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 10, 10, 10, 10, 10);
+        GeographicalArea ga2 = new GeographicalArea("Pt","Gaia", "city", 10, 10, 10, 10, 10);
+        GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita", "street", 10, 10, 10, 10, 10);
 
         listGa.addGA(ga1);
         listGa.addGA(ga2);
@@ -59,9 +59,9 @@ class US4ReturnGAsWithThisTypeCTRLTest {
         int typeIndex = 1;
 
         US3CreateGACTRL ctrl3 = new US3CreateGACTRL(listGa, listType);
-        ctrl3.newGA("Porto", "city", 10, 10, 10, 40, 8);
-        ctrl3.newGA("Gaia", "city", 10, 10, 10, 40, 8);
-        ctrl3.newGA("Cedofeita", "street", 10, 10, 10, 40, 8);
+        ctrl3.newGA("Pt","Porto", "city", 10, 10, 10, 40, 8);
+        ctrl3.newGA("Pt","Gaia", "city", 10, 10, 10, 40, 8);
+        ctrl3.newGA("Pt","Cedofeita", "street", 10, 10, 10, 40, 8);
 
         List<GeographicalArea> expected = Arrays.asList(listGa.get(2));
 
@@ -85,9 +85,9 @@ class US4ReturnGAsWithThisTypeCTRLTest {
         listType.addTypeGA(inputType2);
         listType.addTypeGA(inputType3);
 
-        GeographicalArea ga1 = new GeographicalArea("Porto", "city", 10, 10, 10, 10, 10);
-        GeographicalArea ga2 = new GeographicalArea("Gaia", "city", 10, 10, 10, 10, 10);
-        GeographicalArea ga3 = new GeographicalArea("Cedofeita", "street", 10, 10, 10, 10, 10);
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 10, 10, 10, 10, 10);
+        GeographicalArea ga2 = new GeographicalArea("Pt","Gaia", "city", 10, 10, 10, 10, 10);
+        GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita", "street", 10, 10, 10, 10, 10);
 
         listGa.addGA(ga1);
         listGa.addGA(ga2);
@@ -114,9 +114,9 @@ class US4ReturnGAsWithThisTypeCTRLTest {
         int typeIndex = 2;
 
         US3CreateGACTRL ctrl3 = new US3CreateGACTRL(listGa, listType);
-        ctrl3.newGA("Porto", "city", 10, 10, 10, 40, 8);
-        ctrl3.newGA("Gaia", "city", 10, 10, 10, 40, 8);
-        ctrl3.newGA("Cedofeita", "street", 10, 10, 10, 40, 8);
+        ctrl3.newGA("Pt","Porto", "city", 10, 10, 10, 40, 8);
+        ctrl3.newGA("Pt","Gaia", "city", 10, 10, 10, 40, 8);
+        ctrl3.newGA("Pt","Cedofeita", "street", 10, 10, 10, 40, 8);
 
         List<GeographicalArea> expected = Arrays.asList(listGa.get(0),listGa.get(1));
 
@@ -140,9 +140,9 @@ class US4ReturnGAsWithThisTypeCTRLTest {
         listType.addTypeGA(inputType3);
 
 
-        GeographicalArea ga1 = new GeographicalArea("Porto", "city", 10, 10, 10, 10, 10);
-        GeographicalArea ga2 = new GeographicalArea("Gaia", "city", 10, 10, 10, 10, 10);
-        GeographicalArea ga3 = new GeographicalArea("Cedofeita", "street", 10, 10, 10, 10, 10);
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 10, 10, 10, 10, 10);
+        GeographicalArea ga2 = new GeographicalArea("Pt","Gaia", "city", 10, 10, 10, 10, 10);
+        GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita", "street", 10, 10, 10, 10, 10);
 
         listGa.addGA(ga1);
         listGa.addGA(ga2);
@@ -169,9 +169,9 @@ class US4ReturnGAsWithThisTypeCTRLTest {
         int typeIndex = 3;
 
         US3CreateGACTRL ctrl3 = new US3CreateGACTRL(listGa, listType);
-        ctrl3.newGA("Porto", "city", 10, 10, 10, 40, 8);
-        ctrl3.newGA("Gaia", "city", 10, 10, 10, 40, 8);
-        ctrl3.newGA("Cedofeita", "street", 10, 10, 10, 40, 8);
+        ctrl3.newGA("Pt","Porto", "city", 10, 10, 10, 40, 8);
+        ctrl3.newGA("Pt","Gaia", "city", 10, 10, 10, 40, 8);
+        ctrl3.newGA("Pt","Cedofeita", "street", 10, 10, 10, 40, 8);
 
         List<GeographicalArea> expected = Arrays.asList();
 
@@ -191,9 +191,9 @@ class US4ReturnGAsWithThisTypeCTRLTest {
 
         GAList listGa = new GAList();
         US3CreateGACTRL ctrl3 = new US3CreateGACTRL(listGa);
-        ctrl3.newGA("Porto", "city", 10, 10, 10, 40, 8);
-        ctrl3.newGA("Gaia", "city", 10, 10, 10, 40, 8);
-        ctrl3.newGA("Cedofeita", "street", 10, 10, 10, 40, 8);
+        ctrl3.newGA("Pt","Porto", "city", 10, 10, 10, 40, 8);
+        ctrl3.newGA("Pt","Gaia", "city", 10, 10, 10, 40, 8);
+        ctrl3.newGA("Pt","Cedofeita", "street", 10, 10, 10, 40, 8);
 
         String expected = "1 - Porto city\n2 - Gaia city\n";
         US4ReturnGAsWithThisTypeCTRL ctrl4 = new US4ReturnGAsWithThisTypeCTRL(listGa,listType);

@@ -51,12 +51,12 @@ public class US1CreateTypesGAUI {
      * If valid returns the input name, in lower case format to avoid multiple input of the same String
      */
     public String typeInputIsValid() {
-        String inputTypeName = read.next();
+        String inputTypeName = read.nextLine();
         if (inputTypeName == null || inputTypeName.trim ().isEmpty ()) {//verification of empty and null parameters
             return null;
         }
         //match returns true if the input string "inputTypeName" matches the given regular expression
-        if (!inputTypeName.matches("[A-Za-z\\s]*"))
+        if (!inputTypeName.matches("^[A-Za-z ]+$"))
             return null;
         return inputTypeName.toLowerCase();//set input name to lower case
     }

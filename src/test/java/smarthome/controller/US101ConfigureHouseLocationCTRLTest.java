@@ -18,8 +18,8 @@ class US101ConfigureHouseLocationCTRLTest {
         GAList gl1 = new GAList();
         US101ConfigureHouseLocationCTRL ctrl101 = new US101ConfigureHouseLocationCTRL(gl1, h1);
 
-        GeographicalArea ga1 = new GeographicalArea("Porto", "city", 25, 15, 12, 32, 41);
-        GeographicalArea ga2 = new GeographicalArea("Lisboa", "city", 45, 25, 32, 42, 41);
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 25, 15, 12, 32, 41);
+        GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", 45, 25, 32, 42, 41);
 
         gl1.addGA(ga1);
         gl1.addGA(ga2);
@@ -36,8 +36,8 @@ class US101ConfigureHouseLocationCTRLTest {
         GAList gl1 = new GAList();
         US101ConfigureHouseLocationCTRL ctrl101 = new US101ConfigureHouseLocationCTRL(gl1, h1);
 
-        GeographicalArea ga1 = new GeographicalArea("Porto", "city", 25, 15, 12, 32, 41);
-        GeographicalArea ga2 = new GeographicalArea("Lisboa", "city", 45, 25, 32, 42, 41);
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 25, 15, 12, 32, 41);
+        GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", 45, 25, 32, 42, 41);
 
         gl1.addGA(ga1);
         gl1.addGA(ga2);
@@ -56,8 +56,8 @@ class US101ConfigureHouseLocationCTRLTest {
         House h1 = new House();
         US101ConfigureHouseLocationCTRL ctrl101 = new US101ConfigureHouseLocationCTRL(gl1, h1);
 
-        GeographicalArea ga1 = new GeographicalArea("Porto", "city", 25, 15, 12, 32, 41);
-        GeographicalArea ga2 = new GeographicalArea("Lisboa", "city", 45, 25, 32, 42, 41);
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 25, 15, 12, 32, 41);
+        GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", 45, 25, 32, 42, 41);
 
 
         gl1.addGA(ga1);

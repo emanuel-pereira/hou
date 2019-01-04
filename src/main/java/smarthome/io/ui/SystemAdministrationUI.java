@@ -15,14 +15,15 @@ public class SystemAdministrationUI {
         int option = -1;
 
         while (option != 0) {
-            System.out.println("Click 1. US01: As System Administrator I want to define a new type of geographical area to later classify the geographical areas");
-            System.out.println("Click 2. US02: As System Administrator I want to get the list of previously defined types of geographical areas");
-            System.out.println("Click 3. US03: As System Administrator I want create a new geographical area");
-            System.out.println("Click 4. US04: As System Administrator I want to see which geographical areas correspond to a specific type");
-            System.out.println("Click 5. US05: As System Administrator I want to specify a new meteorological characteristic that sensors can measure/register");
-            System.out.println("Click 6. US06: As System Administrator I want to create a new sensor and associate it to a Geographical Area");
-            System.out.println("Click 7. US07: As System Administrator I want to specify that a geographical area is a parent of another one");
-            System.out.println("Click 8. US08: As System Administrator I want to check direct/indirect Parent geographical areas");
+            System.out.println("As System Administrator I want to:");
+            System.out.println("Click 1. US01: Define a new type of geographical area to later classify the geographical areas");
+            System.out.println("Click 2. US02: Get the list of previously defined types of geographical areas");
+            System.out.println("Click 3. US03: Create a new geographical area");
+            System.out.println("Click 4. US04: See which geographical areas correspond to a specific type");
+            System.out.println("Click 5. US05: Specify a new meteorological characteristic that sensors can measure/register");
+            System.out.println("Click 6. US06: Create a new sensor and associate it to a Geographical Area");
+            System.out.println("Click 7. US07: Specify that a geographical area is a parent of another one");
+            System.out.println("Click 8. US08: Check direct/indirect Parent geographical areas");
             System.out.println("Click 0. Exit");
 
             option = Integer.parseInt(keyboard.nextLine());

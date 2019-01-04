@@ -41,11 +41,17 @@ public class US3CreateGAUI {
      */
     public void run() {
         if (mtypeGAList.getTypeGAList().size() != 0) {
-            System.out.println("Insert the name of the new geographical area:");
             Scanner read = new Scanner(System.in);
+            System.out.println("Insert the ID of the new geographical area:");
+            String id = read.nextLine();
+            System.out.println("Success");
 
+
+
+            System.out.println("Insert the description of the new geographical area:");
             String name = read.nextLine();
             System.out.println("Success");
+
 
             System.out.println("Choose a type of geographical area from the list below:");
             ui2.run();
@@ -80,7 +86,7 @@ public class US3CreateGAUI {
             System.out.println("Success");
 
             //mCtrlUS3.newGA(name, typeIndex, width, height, latitude, longitude, altitude);
-            mCtrlUS3.newGA2(name, typeIndex, width, height, latitude, longitude, altitude);
+            mCtrlUS3.newGA2(id, name, typeIndex, width, height, latitude, longitude, altitude);
             System.out.println("Name: " + mGAList.getGAList().get(mGAList.getGAList().size() - 1).getGeographicalAreaDesignation()
                     + ", Type: " + mGAList.getGAList().get(mGAList.getGAList().size() - 1).getGeographicalAreaType());
         } else

@@ -33,8 +33,8 @@ class US6CreateSensorCTRLTest {
         DataTypeList dataTypeList = new DataTypeList();
         GAList gaList = new GAList ();
         US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(dataTypeList,gaList);
-        GeographicalArea ga1= new GeographicalArea("Porto","city",25,15,12,32,41);
-        GeographicalArea ga2= new GeographicalArea("Lisboa","city",45,25,32,42,41);
+        GeographicalArea ga1= new GeographicalArea("Pt","Porto","city",25,15,12,32,41);
+        GeographicalArea ga2= new GeographicalArea("Pt","Lisboa","city",45,25,32,42,41);
         gaList.addGA(ga1);
         gaList.addGA(ga2);
         String expected = "1 - Porto\n2 - Lisboa\n";
@@ -47,8 +47,8 @@ class US6CreateSensorCTRLTest {
         DataTypeList dataTypeList = new DataTypeList();
         GAList gaList = new GAList ();
         US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(dataTypeList,gaList);
-        GeographicalArea ga1= new GeographicalArea("Porto","city",25,15,12,32,41);
-        GeographicalArea ga2= new GeographicalArea("Lisboa","city",45,25,32,42,41);
+        GeographicalArea ga1= new GeographicalArea("Pt","Porto","city",25,15,12,32,41);
+        GeographicalArea ga2= new GeographicalArea("Pt","Lisboa","city",45,25,32,42,41);
         gaList.addGA(ga1);
         gaList.addGA(ga2);
         DataType type1= new DataType("Temperature");
