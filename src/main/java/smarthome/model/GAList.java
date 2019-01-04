@@ -26,8 +26,8 @@ public class GAList {
      * @param altitude         GA altitude coordinate
      * @return the newly created Geographical Area
      */
-    public GeographicalArea newGA(String inputDesignation, String typeArea, double width, double height, double latitude, double longitude, double altitude) {
-        return new GeographicalArea(inputDesignation, typeArea, width, height, latitude, longitude, altitude);
+    public GeographicalArea newGA(String inputID, String inputDesignation, String typeArea, double width, double height, double latitude, double longitude, double altitude) {
+        return new GeographicalArea(inputID, inputDesignation, typeArea, width, height, latitude, longitude, altitude);
     }
 
     /**

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class GeographicalArea {
+    private String mID;
     private String mDesignation;
     private TypeGA mTypeArea;
     private Location mLocation;
@@ -55,7 +56,8 @@ public class GeographicalArea {
      * @param length      GA length
      * @param width       GA width
      */
-    public GeographicalArea(String designation, String typeGA, double latitude, double longitude, double altitude, double length, double width) {
+    public GeographicalArea(String id, String designation, String typeGA, double latitude, double longitude, double altitude, double length, double width) {
+        mID=id;
         mDesignation = designation;
         mTypeArea = new TypeGA(typeGA);
         mLocation = new Location(latitude, longitude, altitude);
@@ -283,20 +285,21 @@ public class GeographicalArea {
         return this.mOccupation;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof GeographicalArea)) return false;
         GeographicalArea that = (GeographicalArea) o;
-        return Objects.equals(mDesignation, that.mDesignation) &&
+        return Objects.equals(mID, that.mID) &&
+                Objects.equals(mDesignation, that.mDesignation) &&
                 Objects.equals(mTypeArea, that.mTypeArea);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mDesignation, mTypeArea);
+        return Objects.hash(mID, mDesignation, mTypeArea);
     }
-
 
     /**
      * US07

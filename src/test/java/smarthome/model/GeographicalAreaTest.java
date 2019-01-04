@@ -155,7 +155,7 @@ public class GeographicalAreaTest {
     @Test
     @DisplayName("Check if longitude in top left corner of Matosinhos returns 4")
     void getLongitudeTopLeftCornerGA() {
-        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        GeographicalArea g = new GeographicalArea("Mt","Matosinhos", "Cidade", 4, 5, 2, 5, 2);
         double expectedResult = 4;
         double result = g.getLongitudeTopLeftCornerGA();
         assertEquals(expectedResult, result);
@@ -164,7 +164,7 @@ public class GeographicalAreaTest {
     @Test
     @DisplayName("Check if latitude in top left corner of Matosinhos returns 6.5")
     void getLatitudeTopLeftCornerGA() {
-        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        GeographicalArea g = new GeographicalArea("Mt","Matosinhos", "Cidade", 4, 5, 2, 5, 2);
         double expectedResult = 6.5;
         double result = g.getLatitudeTopLeftCornerGA();
         assertEquals(expectedResult, result);
@@ -173,7 +173,7 @@ public class GeographicalAreaTest {
     @Test
     @DisplayName("Check if longitude in bottom right corner of Matosinhos returns 6")
     void getLongitudeBottomRightCornerGA() {
-        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        GeographicalArea g = new GeographicalArea("Mt","Matosinhos", "Cidade", 4, 5, 2, 5, 2);
         double expectedResult = 6;
         double result = g.getLongitudeBottomRightCornerGA();
         assertEquals(expectedResult, result);
@@ -182,7 +182,7 @@ public class GeographicalAreaTest {
     @Test
     @DisplayName("Check if latitude in bottom right corner of Matosinhos returns 1.5")
     void getLatitudeBottomRightCornerGA() {
-        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        GeographicalArea g = new GeographicalArea("Mt","Matosinhos", "Cidade", 4, 5, 2, 5, 2);
         double expectedResult = 1.5;
         double result = g.getLatitudeBottomRightCornerGA();
         assertEquals(expectedResult, result);
@@ -192,7 +192,7 @@ public class GeographicalAreaTest {
     @DisplayName("Ensure that location is within Geographical Area")
     void locationIsInAG() {
         Location l = new Location(5, 4, 0);
-        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        GeographicalArea g = new GeographicalArea("Mt","Matosinhos", "Cidade", 4, 5, 2, 5, 2);
         boolean expectedResult = true;
         boolean result = g.locationIsInAG(l.getLatitude(), l.getLongitude());
         assertEquals(expectedResult, result);
@@ -202,7 +202,7 @@ public class GeographicalAreaTest {
     @DisplayName("Ensure that location is within Geographical Area (limit test)")
     void locationIsInTopLeftLimitOfGA() {
         Location l = new Location(6.5, 4, 0);
-        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        GeographicalArea g = new GeographicalArea("Mt","Matosinhos", "Cidade", 4, 5, 2, 5, 2);
         boolean result = g.locationIsInAG(l.getLatitude(), l.getLongitude());
         assertEquals(true, result);
     }
@@ -211,7 +211,7 @@ public class GeographicalAreaTest {
     @DisplayName("Ensure that location is within Geographical Area (limit test)")
     void locationIsInBottomLeftLimitOfGA() {
         Location l = new Location(1.5, 4, 0);
-        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        GeographicalArea g = new GeographicalArea("Mt","Matosinhos", "Cidade", 4, 5, 2, 5, 2);
         boolean result = g.locationIsInAG(l.getLatitude(), l.getLongitude());
         assertEquals(true, result);
     }
@@ -220,7 +220,7 @@ public class GeographicalAreaTest {
     @DisplayName("Ensure that location is within Geographical Area (limit test)")
     void locationIsInTopRightLimitOfGA() {
         Location l = new Location(6.5, 6, 0);
-        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        GeographicalArea g = new GeographicalArea("Pt","Matosinhos", "Cidade", 4, 5, 2, 5, 2);
         boolean result = g.locationIsInAG(l.getLatitude(), l.getLongitude());
         assertEquals(true, result);
     }
@@ -229,7 +229,7 @@ public class GeographicalAreaTest {
     @DisplayName("Ensure that location is within Geographical Area (limit test)")
     void locationIsInBottomRightLimitOfGA() {
         Location l = new Location(1.5, 6, 0);
-        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        GeographicalArea g = new GeographicalArea("Mt","Matosinhos", "Cidade", 4, 5, 2, 5, 2);
         boolean result = g.locationIsInAG(l.getLatitude(), l.getLongitude());
         assertTrue(result);
     }
@@ -238,7 +238,7 @@ public class GeographicalAreaTest {
     @DisplayName("Ensure that location l is not within Geographical Area")
     void locationIsNotInGABecauseLatitudeIsOutOfGABoundsLeft() {
         Location l = new Location(1, 4.5, 0);
-        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 2, 5);
+        GeographicalArea g = new GeographicalArea("Pt","Matosinhos", "Cidade", 4, 5, 2, 2, 5);
         boolean expectedResult = false;
         boolean result = g.locationIsInAG(l.getLatitude(), l.getLongitude());
         assertEquals(expectedResult, result);
@@ -248,7 +248,7 @@ public class GeographicalAreaTest {
     @DisplayName("Ensure that location is not within Geographical Area")
     void locationIsNotInGABecauseLatitudeIsOutOfGABoundsRight() {
         Location l = new Location(7, 5, 0);
-        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 2, 5);
+        GeographicalArea g = new GeographicalArea("Pt","Matosinhos", "Cidade", 4, 5, 2, 2, 5);
         boolean expectedResult = false;
         boolean result = g.locationIsInAG(l.getLatitude(), l.getLongitude());
         assertEquals(expectedResult, result);
@@ -258,7 +258,7 @@ public class GeographicalAreaTest {
     @DisplayName("Ensure that location is not within Geographical Area (limit test)")
     void locationIsNotInGABecauseLongitudeIsOutOfBoundsLeft() {
         Location l = new Location(2, -5, 0);
-        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        GeographicalArea g = new GeographicalArea("Pt","Matosinhos", "Cidade", 4, 5, 2, 5, 2);
         boolean result = g.locationIsInAG(l.getLatitude(), l.getLongitude());
         assertEquals(false, result);
     }
@@ -267,7 +267,7 @@ public class GeographicalAreaTest {
     @DisplayName("Ensure that location is not within Geographical Area (limit test)")
     void locationIsNotInGABecauseLongitudeIsOutOfBoundsRight() {
         Location l4 = new Location(2, 7, 0);
-        GeographicalArea g = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        GeographicalArea g = new GeographicalArea("Pt","Matosinhos", "Cidade", 4, 5, 2, 5, 2);
         boolean result = g.longitudeIsInAG(l4.getLongitude());
         assertEquals(false, result);
     }
@@ -289,7 +289,7 @@ public class GeographicalAreaTest {
     @Test
     void addSensor() {
         Sensor sensor = new Sensor("TemperatureSensor", new GregorianCalendar(2018, 12, 1), 2, 2, 0, "Temperature");
-        GeographicalArea ga = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        GeographicalArea ga = new GeographicalArea("Pt","Matosinhos", "Cidade", 4, 5, 2, 5, 2);
         ga.addSensor(sensor);
         assertTrue(ga.getListOfSensors().size() == 1);
         ga.addSensor(sensor);
@@ -300,7 +300,7 @@ public class GeographicalAreaTest {
     @DisplayName("Ensure that addSensor returns false when trying to add a sensor with a name containing non-alphanumeric characters")
     void addSensorReturnsFalse() {
         Sensor sensor = new Sensor("Temperature.Sensor", new GregorianCalendar(2018, 12, 1), 2, 2, 0, "Temperature");
-        GeographicalArea ga = new GeographicalArea("Matosinhos", "Cidade", 4, 5, 2, 5, 2);
+        GeographicalArea ga = new GeographicalArea("Pt","Matosinhos", "Cidade", 4, 5, 2, 5, 2);
         boolean result = ga.addSensor(sensor);
         assertEquals(false, result);
     }
@@ -309,8 +309,8 @@ public class GeographicalAreaTest {
     @DisplayName("Define the parent Geographical Area of another Geographical Area")
     public void setParentGA() {
 
-        GeographicalArea ga1 = new GeographicalArea("Porto", "city", 2, 4, 5, 5, 6);
-        GeographicalArea ga2 = new GeographicalArea("Portugal", "Country", 3, 4, 5, 6, 7);
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 2, 4, 5, 5, 6);
+        GeographicalArea ga2 = new GeographicalArea("Pt","Portugal", "Country", 3, 4, 5, 6, 7);
 
         ga1.setmParentGA(ga2);
 
@@ -325,8 +325,8 @@ public class GeographicalAreaTest {
     @DisplayName("Return the parent of a Geographical Area of another Geographical Area")
     public void getParentGA() {
 
-        GeographicalArea ga1 = new GeographicalArea("Porto", "city", 2, 4, 5, 5, 6);
-        GeographicalArea ga2 = new GeographicalArea("Portugal", "Country", 3, 4, 5, 6, 7);
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 2, 4, 5, 5, 6);
+        GeographicalArea ga2 = new GeographicalArea("Pt","Portugal", "Country", 3, 4, 5, 6, 7);
 
         ga1.getGeographicalParentGA();
 

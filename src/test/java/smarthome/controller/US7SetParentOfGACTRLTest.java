@@ -21,8 +21,8 @@ public class US7SetParentOfGACTRLTest {
 
         GAList gaList = new GAList();
 
-        GeographicalArea ga1 = new GeographicalArea("Porto", "city", 2, 3, 4, 5, 6);
-        GeographicalArea ga2 = new GeographicalArea("Portugal", "Country", 2, 3, 4, 5, 6);
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 2, 3, 4, 5, 6);
+        GeographicalArea ga2 = new GeographicalArea("Pt","Portugal", "Country", 2, 3, 4, 5, 6);
 
         int indexGA1 = 1;
         int indexGA2 = 2;
@@ -44,8 +44,8 @@ public class US7SetParentOfGACTRLTest {
 
         GAList gaList = new GAList();
 
-        GeographicalArea ga1 = new GeographicalArea("Porto", "city", 2, 3, 4, 5, 6);
-        GeographicalArea ga2 = new GeographicalArea("Portugal", "Country", 2, 3, 4, 5, 6);
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 2, 3, 4, 5, 6);
+        GeographicalArea ga2 = new GeographicalArea("Pt","Portugal", "Country", 2, 3, 4, 5, 6);
 
         int indexGA1 = 1;
         int indexGA2 = 2;
@@ -85,8 +85,8 @@ public class US7SetParentOfGACTRLTest {
 
         US7SetParentOfGACTRL ctrl7 = new US7SetParentOfGACTRL(gaList);
 
-        GeographicalArea ga1 = new GeographicalArea ("Porto","city",3,4,5,6,7);
-        GeographicalArea ga2 = new GeographicalArea("Portugal","Country",5,3,6,7,3);
+        GeographicalArea ga1 = new GeographicalArea ("Pt","Porto","city",3,4,5,6,7);
+        GeographicalArea ga2 = new GeographicalArea("Pt","Portugal","Country",5,3,6,7,3);
 
         gaList.addGA(ga1);
         gaList.addGA(ga2);
