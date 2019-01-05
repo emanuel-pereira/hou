@@ -38,7 +38,7 @@ public class US6CreateSensorUI {
                 }
                 int year;
                 while (true) {
-                    System.out.println("Insert the year when the sensor will start(equal or greater than current year):");
+                    System.out.println("Insert the year when the sensor will start:");
                     tempYear = yearIsValid();
                     if (tempYear != null)
                         break;
@@ -77,7 +77,7 @@ public class US6CreateSensorUI {
                     System.out.println("Choose the Geographical Area for which you want add this sensor, from the list below:");
                     System.out.println(mCtrlUS6.showGAListInString());
                     indexGA = read.nextInt();
-                    if (indexGA > mDataTypeList.getDataTypeList().size())
+                    if (indexGA > mGAList.getGAList().size())
                         System.out.println("Please insert a valid option \n.");
                     else break;
                 }
@@ -96,8 +96,8 @@ public class US6CreateSensorUI {
             System.out.println("Empty spaces are not accepted");
             return null;
         }
-        if (!year.matches("^201[8-9]|20[2-9][0-9]$")) { //only accepts years between 2018 and 2099
-            System.out.println("Please insert a valid year between 2018 and 2099.");
+        if (!year.matches("^201[0-9]|20[2-9][0-9]$")) { //only accepts years between 2010 and 2099
+            System.out.println("Please insert a valid year between 2010 and 2099.");
             return null;
         }
         return year;
@@ -146,8 +146,8 @@ public class US6CreateSensorUI {
             System.out.println("Empty spaces are not accepted.");
             return null;
         }
-        if (!name.matches("[A-Za-z0-9]*")) {
-            System.out.println("Please insert only alphanumeric characters.");
+        if (!name.matches("^[A-Za-z -]+$")) { //accepts alphanumeric characters, spaces
+            System.out.println("Please insert only alphabetic characters with spaces or hyphens.");
             return null;
         }
         return name;
