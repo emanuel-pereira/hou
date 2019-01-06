@@ -20,11 +20,11 @@ class USAttachRoomToGridAndListCTRLTest {
         GeographicalArea ga1 = new GeographicalArea("Porto", type1);
         House house = new House(a1, ga1);
         USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
-        HouseGrid grid1 = new HouseGrid(45);
-        HouseGrid grid2 = new HouseGrid(50);
+        HouseGrid grid1 = new HouseGrid(45,"Grid 1");
+        HouseGrid grid2 = new HouseGrid(50, "Grid 2");
         house.addHouseGrid(grid1);
         house.addHouseGrid(grid2);
-        String expected = "1 - Nominal Power: 45.0\n2 - Nominal Power: 50.0\n";
+        String expected = "1 - Grid 1 | Nominal Power: 45.0\n2 - Grid 2 | Nominal Power: 50.0\n";
         String result =  ctrl.showHouseGridListInString();
         assertEquals(expected,result);
     }
