@@ -5,15 +5,18 @@ public class HouseGrid {
     private Double mContractedMaximumPower = Double.NaN;
     private String mDesignation;
 
+    public HouseGrid() {
+    }
+
     public HouseGrid(double inputContractedMaximumPower) {
         if (valueIsPositive(inputContractedMaximumPower))
             mContractedMaximumPower = inputContractedMaximumPower;
     }
 
-    public HouseGrid(double inputContractedMaximumPower, String Designation) {
+    public HouseGrid(double inputContractedMaximumPower, String designation) {
         if (valueIsPositive(inputContractedMaximumPower)) {
             mContractedMaximumPower = inputContractedMaximumPower;
-            mDesignation = Designation;
+            mDesignation = designation;
         }
     }
 
@@ -21,13 +24,13 @@ public class HouseGrid {
         return mContractedMaximumPower;
     }
 
-    public void setContractedMaximumPower(Double ContractedMaximumPower) {
-        if (valueIsPositive(ContractedMaximumPower))
-            this.mContractedMaximumPower = ContractedMaximumPower;
+    public void setContractedMaximumPower(Double contractedMaximumPower) {
+        if (valueIsPositive(contractedMaximumPower))
+            this.mContractedMaximumPower = contractedMaximumPower;
     }
 
-    private boolean valueIsPositive(Double ContractedMaximumPower) {
-        return (ContractedMaximumPower > 0);
+    private boolean valueIsPositive(Double contractedMaximumPower) {
+        return (contractedMaximumPower > 0);
     }
 
     public String getGridID() {

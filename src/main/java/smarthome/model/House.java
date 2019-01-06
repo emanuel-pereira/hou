@@ -7,11 +7,12 @@ import java.util.Objects;
 public class House {
 
     private Address mAddress;
+    private String mID;
     private GeographicalArea mGA;
     private List<Room> mRoomList;
     private List<HouseGrid> mHouseGridList;
 
-    public House(){
+    public House() {
         mRoomList = new ArrayList<>();
         mHouseGridList = new ArrayList<>();
     }
@@ -23,9 +24,26 @@ public class House {
         mHouseGridList = new ArrayList<>();
     }
 
+    public House(String id, Address houseAddress, GeographicalArea GA) {
+        mID = id;
+        mAddress = houseAddress;
+        mGA = GA;
+        mRoomList = new ArrayList<>();
+        mHouseGridList = new ArrayList<>();
+    }
+
 
     public void setHouseGA(GeographicalArea houseGA) {
         mGA = houseGA;
+    }
+
+    public GeographicalArea getHouseGA (){
+        return mGA;
+    }
+
+
+    public void setHouseAddress(String streetName, String houseNumber, String zipCode, double latitude, double longitude, double altitude) {
+        mAddress = new Address(streetName, houseNumber, zipCode, latitude, longitude, altitude);
     }
 
     public Address getAddress() {
@@ -33,26 +51,22 @@ public class House {
         return mAddress;
     }
 
-    public void setHouseAddress(String streetName, String houseNumber, String zipCode, double latitude, double longitude, double altitude) {
-        mAddress = new Address(streetName, houseNumber, zipCode, latitude, longitude, altitude);
-    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof House)) return false;
         House house = (House) o;
-        return Objects.equals(mAddress, house.mAddress);
+        return Objects.equals(mAddress, house.mAddress) &&
+                Objects.equals(mID, house.mID) &&
+                Objects.equals(mGA, house.mGA);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mAddress);
+        return Objects.hash(mAddress, mID, mGA);
     }
 
-
-    //RoomList
+//RoomList
 
     public Room newRoom(String name, int floor, double length, double width, double height) {
         if (this.roomNameValid(name)) {

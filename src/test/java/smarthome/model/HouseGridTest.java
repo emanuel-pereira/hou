@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class HouseGridTest {
 
@@ -27,16 +28,19 @@ class HouseGridTest {
     @Test
     @DisplayName("Set new House Grid with incorrect Power Value")
     void setNegativeAndGetContractedMaximumPower() {
-        HouseGrid hg = new HouseGrid(-35);
+        HouseGrid hg = new HouseGrid();
+
+        hg.setContractedMaximumPower(-35.0);
+
         Double result = hg.getContractedMaximumPower();
         assertEquals(Double.NaN, result, 0.1);
     }
+
 
     @Test
     @DisplayName("Set new House Grid with name ID")
     void setContractedMaximumPowerAndGridID() {
         HouseGrid hg = new HouseGrid(2350, "main grid");
-        Double result = hg.getContractedMaximumPower();
         assertEquals("main grid", hg.getGridID());
     }
 }

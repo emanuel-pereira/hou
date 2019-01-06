@@ -22,15 +22,32 @@ class HouseTest {
         TypeGA t1 = new TypeGA("city");
         GeographicalArea g1 = new GeographicalArea("Porto", t1, l1);
 
-        House house1 = new House(a1, g1);
+        House house1 = new House("Prédio1", a1, g1);
 
-        House house2 = new House(a1, g1);
+        House house2 = new House("Prédio1", a1, g1);
 
         //Assert
         assertEquals(house1.hashCode(), house2.hashCode());
-        assertTrue(house2.equals(house1));
+        assertEquals(house1, house2);
     }
 
+    @Test
+    @DisplayName("Check if two objects are the same")
+    public void checkIfSameHouse() {
+
+        //Arrange
+        Location l1 = new Location(41, 12.3, 110);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Porto", l1);
+        TypeGA t1 = new TypeGA("city");
+        GeographicalArea g1 = new GeographicalArea("Porto", t1, l1);
+
+        House house1 = new House("Prédio1", a1, g1);
+
+
+        //Assert
+        assertEquals(house1.hashCode(), house1.hashCode());
+        assertEquals(house1, house1);
+    }
 
     @Test
     @DisplayName("Tests if two different instances of house are different")
@@ -45,12 +62,12 @@ class HouseTest {
 
         Address a2 = new Address("Rua Júlio Dinis, 34", "3380-45", "Aveiro", l1);
 
-        House house1 = new House(a1, g1);
-        House house2 = new House(a2, g1);
+        House house1 = new House("Prédio1", a1, g1);
+        House house2 = new House("Prédio2", a2, g1);
 
         //Assert
         assertNotEquals(house1.hashCode(), house2.hashCode());
-        assertFalse(house1.equals(house2));
+        assertNotEquals(house1, house2);
     }
 
     @Test
@@ -63,10 +80,10 @@ class HouseTest {
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House house1 = new House(a1, g1);
+        House house1 = new House("Prédio", a1, g1);
 
         //Assert
-        assertFalse(house1.equals(t1));
+        assertNotEquals(house1, t1);
     }
 
 
@@ -83,8 +100,8 @@ class HouseTest {
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
 
-        House list = new House(a1, g1);
-        Room room = list.newRoom("bedroom", 1, 2, 2.5,2);
+        House list = new House("Prédio", a1, g1);
+        Room room = list.newRoom("bedroom", 1, 2, 2.5, 2);
 
         assertEquals("bedroom", room.getName());
         assertEquals(1, room.getFloor());
@@ -102,8 +119,8 @@ class HouseTest {
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House list = new House(a1, g1);
-        Room room = list.newRoom("bedroom", 1, 2, 2.5,2);
+        House list = new House("Prédio", a1, g1);
+        Room room = list.newRoom("bedroom", 1, 2, 2.5, 2);
 
         list.addRoom(room);
         List<Room> expectedResult = Arrays.asList(room);
@@ -122,7 +139,7 @@ class HouseTest {
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House list = new House(a1, g1);
+        House list = new House("Prédio", a1, g1);
         Room room = list.newRoom("bedroom", 1, 2, 2.5, 2);
         Room room1 = list.newRoom("garden", 0, 2.5, 3, 2);
         assertEquals(0, list.getRoomList().size());
@@ -148,9 +165,9 @@ class HouseTest {
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House list = new House(a1, g1);
-        Room room = list.newRoom("bedroom", 1, 2, 2.5,2);
-        Room room1 = list.newRoom("  ", 0, 2.5, 3,2);
+        House list = new House("Casa", a1, g1);
+        Room room = list.newRoom("bedroom", 1, 2, 2.5, 2);
+        Room room1 = list.newRoom("  ", 0, 2.5, 3, 2);
 
         assertEquals(0, list.getRoomList().size());
 
@@ -176,9 +193,9 @@ class HouseTest {
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House list = new House(a1, g1);
-        Room room = list.newRoom("bedroom", 1, 2, 2.5,2);
-        Room room1 = list.newRoom("  ", 0, 2.5, 3,2);
+        House list = new House("Casa", a1, g1);
+        Room room = list.newRoom("bedroom", 1, 2, 2.5, 2);
+        Room room1 = list.newRoom("  ", 0, 2.5, 3, 2);
 
         assertEquals(0, list.getRoomList().size());
 
@@ -205,7 +222,7 @@ class HouseTest {
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House list = new House(a1, g1);
+        House list = new House("Casa", a1, g1);
         Room room = list.newRoom("bedroom", 1, 2, 2.5, 1.7);
         Room room1 = list.newRoom("  ", 0, 2.5, 3, 2);
 
@@ -226,29 +243,6 @@ class HouseTest {
 
 
     @Test
-    @DisplayName("Add a new house grid to the house grid list of a house and check that the " +
-            "same house grid object cannot be added twice")
-    void newHouseGrid() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", l1);
-        TypeGA t1 = new TypeGA("cidade");
-        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
-
-        House house = new House(a1, g1);
-        HouseGrid h1 = house.newHouseGrid(5,"main grid");
-
-        house.addHouseGrid(h1);
-        assertEquals(1, house.getHouseGridList().size());
-        //Ensure the same house grid cannot be added twice
-        house.addHouseGrid(h1);
-        assertEquals(1, house.getHouseGridList().size());
-        //Ensure a house grid with 0 inputContractedPower cannot be added to the list
-        HouseGrid h2 = house.newHouseGrid(0,"main grid");
-        house.addHouseGrid(h2);
-        assertEquals(1, house.getHouseGridList().size());
-    }
-
-    @Test
     @DisplayName("Ensure a room is removed from the list of rooms of a house ")
     void removeRoom() {
         Location l1 = new Location(41, 12.3, 110);
@@ -256,15 +250,16 @@ class HouseTest {
         TypeGA t1 = new TypeGA("cidade");
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
-        House house = new House(a1, g1);
+        House house = new House("Casa", a1, g1);
         Room room1 = house.newRoom("bedroom", 1, 2, 2.5, 2);
         Room room2 = house.newRoom("kitchen", 1, 4, 5, 2);
 
         house.addRoom(room1);
         house.addRoom(room2);
         assertEquals(2, house.getRoomList().size());
-        house.removeRoom(room2);
+        assertTrue(house.removeRoom(room2));
         assertEquals(1, house.getRoomList().size());
+
     }
 
     @Test
@@ -278,13 +273,39 @@ class HouseTest {
         GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
 
 
-        House house = new House(a1, g1);
+        House house = new House("Casa", a1, g1);
         Room room1 = house.newRoom("bedroom", 1, 2, 2.5, 2);
         house.addRoom(room1);
         Room room2 = house.newRoom("kitchen", 1, 4, 5, 2);
 
-        assertEquals(false, house.removeRoom(room2));
+        assertFalse(house.removeRoom(room2));
     }
+
+    @Test
+    @DisplayName("Add a new house grid to the house grid list of a house and check that the " +
+            "same house grid object cannot be added twice")
+    void newHouseGrid() {
+        Location l1 = new Location(41, 12.3, 110);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", l1);
+        TypeGA t1 = new TypeGA("cidade");
+        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
+
+        House house = new House("Casa", a1, g1);
+        HouseGrid h1 = house.newHouseGrid(5, "main grid");
+
+        assertTrue(house.addHouseGrid(h1));
+
+        assertEquals(1, house.getHouseGridList().size());
+        //Ensure the same house grid cannot be added twice
+        house.addHouseGrid(h1);
+        assertEquals(1, house.getHouseGridList().size());
+        //Ensure a house grid with 0 inputContractedPower cannot be added to the list
+        HouseGrid h2 = house.newHouseGrid(0, "main grid");
+        assertFalse(house.addHouseGrid(h2));
+        assertEquals(1, house.getHouseGridList().size());
+    }
+
+
 
 
 }
