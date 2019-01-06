@@ -78,7 +78,7 @@ public class USAttachRoomToGridAndListCTRL {
     public boolean attachRoomToHouseGrid(int indexOfHouseGrid, int indexOfRoom) {
         List<Room> listOfRoomsWithoutHouseGrid = getListOfRoomsWithoutHouseGrid();
         if (listOfRoomsWithoutHouseGrid.size() != 0) {
-            Room r = listOfRoomsWithoutHouseGrid.get(indexOfRoom-1);
+            Room r = listOfRoomsWithoutHouseGrid.get(indexOfRoom - 1);
             r.setmHouseGrid(mHouse.getHouseGridList().get(indexOfHouseGrid - 1));
             return true;
         } else return false;
@@ -94,11 +94,12 @@ public class USAttachRoomToGridAndListCTRL {
     public List<Room> getListOfRoomsWithHouseGrid(int indexOfHouseGrid) {
         List<Room> listOfRoomsWithHouseGrid = new ArrayList<>();
         for (Room r : mHouse.getRoomList()) {
-            if(r.getmHouseGrid()!=null){
-            if (r.getmHouseGrid().equals(mHouse.getHouseGridList().get(indexOfHouseGrid - 1))) {
-                listOfRoomsWithHouseGrid.add(r);
+            if (r.getmHouseGrid() != null) {
+                if (r.getmHouseGrid().equals(mHouse.getHouseGridList().get(indexOfHouseGrid - 1))) {
+                    listOfRoomsWithHouseGrid.add(r);
+                }
             }
-        }}
+        }
         return listOfRoomsWithHouseGrid;
     }
 
