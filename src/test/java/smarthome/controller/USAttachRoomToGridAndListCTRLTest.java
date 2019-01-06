@@ -4,9 +4,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-class US147AttachRoomToHouseGridCTRLTest {
+class USAttachRoomToGridAndListCTRLTest {
 
     @Test
     @DisplayName("Ensure HouseGrid List is displayed as String")
@@ -16,7 +19,7 @@ class US147AttachRoomToHouseGridCTRLTest {
         TypeGA type1 = new TypeGA("cidade");
         GeographicalArea ga1 = new GeographicalArea("Porto", type1);
         House house = new House(a1, ga1);
-        US147AttachRoomToHouseGridCTRL ctrl = new US147AttachRoomToHouseGridCTRL(house);
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
         HouseGrid grid1 = new HouseGrid(45);
         HouseGrid grid2 = new HouseGrid(50);
         house.addHouseGrid(grid1);
@@ -34,7 +37,7 @@ class US147AttachRoomToHouseGridCTRLTest {
         TypeGA type1 = new TypeGA("cidade");
         GeographicalArea ga1 = new GeographicalArea("Porto", type1);
         House house = new House(a1, ga1);
-        US147AttachRoomToHouseGridCTRL ctrl = new US147AttachRoomToHouseGridCTRL(house);
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
         HouseGrid grid1 = new HouseGrid(45);
         HouseGrid grid2 = new HouseGrid(50);
         house.addHouseGrid(grid1);
@@ -52,7 +55,7 @@ class US147AttachRoomToHouseGridCTRLTest {
         TypeGA type1 = new TypeGA("City");
         GeographicalArea ga1 = new GeographicalArea("Porto", type1);
         House house = new House(a1, ga1);
-        US147AttachRoomToHouseGridCTRL ctrl = new US147AttachRoomToHouseGridCTRL(house);
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
 
         HouseGrid grid= new HouseGrid(1500);
         HouseGrid grid2= new HouseGrid(2000);
@@ -82,7 +85,7 @@ class US147AttachRoomToHouseGridCTRLTest {
         TypeGA type1 = new TypeGA("City");
         GeographicalArea ga1 = new GeographicalArea("Porto", type1);
         House house = new House(a1, ga1);
-        US147AttachRoomToHouseGridCTRL ctrl = new US147AttachRoomToHouseGridCTRL(house);
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
 
         HouseGrid grid= new HouseGrid(1500);
         HouseGrid grid2= new HouseGrid(2000);
@@ -100,7 +103,7 @@ class US147AttachRoomToHouseGridCTRLTest {
         bedroom1.setmHouseGrid(grid);
         bedroom2.setmHouseGrid(grid);
         String expected = "1 - Kitchen\n2 - Bathroom\n";
-        String result =  ctrl.listOfRoomsWithoutHouseGridInString();
+        String result =  ctrl.showRoomsWithoutHouseGridInStr();
         assertEquals(expected,result);
     }
 
@@ -112,7 +115,7 @@ class US147AttachRoomToHouseGridCTRLTest {
         TypeGA type1 = new TypeGA("City");
         GeographicalArea ga1 = new GeographicalArea("Porto", type1);
         House house = new House(a1, ga1);
-        US147AttachRoomToHouseGridCTRL ctrl = new US147AttachRoomToHouseGridCTRL(house);
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
 
         HouseGrid grid= new HouseGrid(1500);
         HouseGrid grid2= new HouseGrid(2000);
@@ -142,7 +145,7 @@ class US147AttachRoomToHouseGridCTRLTest {
         TypeGA type1 = new TypeGA("City");
         GeographicalArea ga1 = new GeographicalArea("Porto", type1);
         House house = new House(a1, ga1);
-        US147AttachRoomToHouseGridCTRL ctrl = new US147AttachRoomToHouseGridCTRL(house);
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
 
         HouseGrid grid= new HouseGrid(1500);
         HouseGrid grid2= new HouseGrid(2000);
@@ -154,8 +157,80 @@ class US147AttachRoomToHouseGridCTRLTest {
         house.addRoom(bedroom2);
         bedroom1.setmHouseGrid(grid);
         bedroom2.setmHouseGrid(grid);
-        boolean expected = false;
         boolean result =  ctrl.attachRoomToHouseGrid(2,1);
+        assertFalse(result);
+    }
+    @Test
+    @DisplayName("Ensure that list of Rooms with HouseGrid is displayed in string")
+    void showListOfRoomsWithHouseGridInString() {
+        Location l1 = new Location(41, 12.3, 110);
+        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", l1);
+        TypeGA t1 = new TypeGA("district");
+        GeographicalArea g1 = new GeographicalArea("Gondomar", t1,l1);
+
+        House house = new House(a1,g1);
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
+
+        HouseGrid grid= new HouseGrid(1500);
+        HouseGrid grid2= new HouseGrid(2000);
+        house.addHouseGrid(grid);
+        house.addHouseGrid(grid2);
+
+        Room kitchen= new Room("Kitchen",0,5,4, 3);
+        Room wc= new Room("Bathroom",0,4,3, 3);
+        Room bedroom1 = new Room("Bedroom1",1,4,5, 3);
+        Room bedroom2 = new Room("Bedroom2",1,4,5, 3);
+        house.addRoom(kitchen);
+        house.addRoom(wc);
+        house.addRoom(bedroom1);
+        house.addRoom(bedroom2);
+
+        bedroom1.setmHouseGrid(grid);
+        bedroom2.setmHouseGrid(grid);
+        kitchen.setmHouseGrid(grid2);
+        wc.setmHouseGrid(grid2);
+        String expected = "1 - Bedroom1\n2 - Bedroom2\n";
+        String result =  ctrl.showRoomsWithHouseGridInStr(1);
         assertEquals(expected,result);
     }
+
+
+    @DisplayName("Get list of rooms connected to grid2")
+    @Test
+    void getListRoomsWithHouseGrid() {
+
+        Location l1 = new Location(41, 12.3, 110);
+        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", l1);
+        TypeGA type1 = new TypeGA("City");
+        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        House house = new House(a1, ga1);
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
+
+        HouseGrid grid= new HouseGrid(1500);
+        HouseGrid grid2= new HouseGrid(2000);
+        house.addHouseGrid(grid);
+        house.addHouseGrid(grid2);
+
+        Room kitchen= new Room("Kitchen",0,5,4, 1.5);
+        Room wc= new Room("Bathroom",0,4,3, 1.5);
+        Room bedroom1 = new Room("Bedroom1",1,4,5, 1.5);
+        Room bedroom2 = new Room("Bedroom2",1,4,5, 1.5);
+        house.addRoom(kitchen);
+        house.addRoom(wc);
+        house.addRoom(bedroom1);
+        house.addRoom(bedroom2);
+
+        bedroom1.setmHouseGrid(grid);
+        bedroom2.setmHouseGrid(grid);
+        kitchen.setmHouseGrid(grid2);
+        wc.setmHouseGrid(grid2);
+
+        List<Room> listExpected = new ArrayList<>();
+        listExpected.add(kitchen);
+        listExpected.add(wc);
+        List<Room> result= ctrl.getListOfRoomsWithHouseGrid(2);
+
+        assertEquals(listExpected,result);
+    }
+
 }
