@@ -4,6 +4,7 @@ package smarthome.io.ui;
 import smarthome.controller.US6CreateSensorCTRL;
 import smarthome.model.*;
 
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class US6CreateSensorUI {
@@ -188,19 +189,18 @@ public class US6CreateSensorUI {
                     else break;
                 }
                 mCtrlUS6.addNewSensorToGA(name, calendar, dataTypeIndex, unit, latitude, longitude, altitude, indexGA, readingList);
-                System.out.println("Sensor " + mGAList.get(indexGA - 1).getListOfSensors().get(mGAList.get(indexGA - 1).getListOfSensors().size() - 1).getDesignation() + " added" +
-                        " to Geographical Area: " + mGAList.get(indexGA - 1).getGeographicalAreaDesignation());
-                System.out.println("Start Date: "+year+"/"+month+"/"+"/"+day);
-                System.out.println("Type: "+unit+"\n");
-                System.out.println("List of Readings:");
+                System.out.println("The following sensor was successfully created: ");
+                System.out.println("NAME: " + name);
+                System.out.println("GEOGRAPHICAL AREA: "+ mGAList.get(indexGA - 1).getGeographicalAreaDesignation());
+                System.out.println("START DATE: "+year+"/"+month+"/"+"/"+day);
+                System.out.println("READING TYPE: "+mDataTypeList.getDataTypeList().get(dataTypeIndex-1).getDataTypeDesignation());
+                System.out.println("TYPE: "+unit);
+                System.out.println("LIST OF READINGS:");
                 for (Reading r : readingList) {
-                    System.out.println("[timestamp:" + r.getDateAndTime().getTime() + " value: " + r.returnValueOfReading()+"]");
+                    System.out.println("[timestamp: " + r.getDateAndTime().getTime() + " value: " + r.returnValueOfReading()+"]");
                 }
-                System.out.println();
-                System.out.println("GPS Location:");
-                System.out.println("Latitude: "+latitude);
-                System.out.println("Longitude: "+longitude);
-                System.out.println("Altitude: "+altitude);
+                System.out.println("GPS LOCATION - [Latitude: "+latitude+" | Longitude: "+longitude+" | Altitude: "+altitude+"]");
+
             } else
                 System.out.println("List of sensor's reading data types is empty. Please insert at least one first in US6.");
         } else

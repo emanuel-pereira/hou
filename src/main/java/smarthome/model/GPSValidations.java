@@ -36,6 +36,4 @@ public class GPSValidations {
         throw new IllegalArgumentException("longitude must be between [-12.500 m, 8848 m]");
 
     }
-
-
 }

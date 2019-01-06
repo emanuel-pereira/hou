@@ -6,11 +6,12 @@ import smarthome.model.Room;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class US147AttachRoomToHouseGridCTRL {
+public class USAttachRoomToGridAndListCTRL {
     private House mHouse;
 
-    public US147AttachRoomToHouseGridCTRL(House house) {
+    public USAttachRoomToGridAndListCTRL(House house) {
         mHouse = house;
     }
 
@@ -21,12 +22,12 @@ public class US147AttachRoomToHouseGridCTRL {
     public String showHouseGridListInString() {
         List<HouseGrid> list = mHouse.getHouseGridList();
         StringBuilder result = new StringBuilder();
-        String element = " - ";
         int number = 1;
         for (HouseGrid houseGrid : list) {
             result.append(number++);
-            result.append(element);
-            result.append("Nominal Power: ");
+            result.append(" - ");
+            result.append(houseGrid.getGridID());
+            result.append(" | Nominal Power: ");
             result.append(houseGrid.getContractedMaximumPower());
             result.append("\n");
         }
@@ -53,7 +54,7 @@ public class US147AttachRoomToHouseGridCTRL {
     /**
      * @return shows the list of rooms without houseGrid in a single string
      */
-    public String listOfRoomsWithoutHouseGridInString() {
+    public String showRoomsWithoutHouseGridInStr() {
         List<Room> listOfRoomsWithoutHouseGrid = getListOfRoomsWithoutHouseGrid();
         StringBuilder result = new StringBuilder();
         String element = " - ";
@@ -77,9 +78,62 @@ public class US147AttachRoomToHouseGridCTRL {
     public boolean attachRoomToHouseGrid(int indexOfHouseGrid, int indexOfRoom) {
         List<Room> listOfRoomsWithoutHouseGrid = getListOfRoomsWithoutHouseGrid();
         if (listOfRoomsWithoutHouseGrid.size() != 0) {
-            Room r = listOfRoomsWithoutHouseGrid.get(indexOfRoom);
+            Room r = listOfRoomsWithoutHouseGrid.get(indexOfRoom - 1);
             r.setmHouseGrid(mHouse.getHouseGridList().get(indexOfHouseGrid - 1));
             return true;
         } else return false;
+    }
+
+    /**
+     * Method to get a list of rooms with the house grid in the index position of the HouseGridList
+     * and shows the list of rooms with that grid.
+     *
+     * @param indexOfHouseGrid index position of the house grid in the list of house grids of the house instance
+     * @return the list of rooms with the house grid chosen by the user
+     */
+    public List<Room> getListOfRoomsWithHouseGrid(int indexOfHouseGrid) {
+        List<Room> listOfRoomsWithHouseGrid = new ArrayList<>();
+        for (Room r : mHouse.getRoomList()) {
+            if (r.getmHouseGrid() != null) {
+                if (r.getmHouseGrid().equals(mHouse.getHouseGridList().get(indexOfHouseGrid - 1))) {
+                    listOfRoomsWithHouseGrid.add(r);
+                }
+            }
+        }
+        return listOfRoomsWithHouseGrid;
+    }
+
+    /**
+     * Method to show a list of rooms with the house grid in the index position of the HouseGridList
+     * and shows the list of rooms with that grid.
+     *
+     * @param indexOfHouseGrid
+     * @return
+     */
+    public String showRoomsWithHouseGridInStr(int indexOfHouseGrid) {
+        List<Room> listOfRoomsWithHouseGrid = getListOfRoomsWithHouseGrid(indexOfHouseGrid);
+        StringBuilder result = new StringBuilder();
+        String element = " - ";
+        int number = 1;
+        for (Room r : listOfRoomsWithHouseGrid) {
+            result.append(number++);
+            result.append(element);
+            result.append(r.getName());
+            result.append("\n");
+        }
+        return result.toString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof USAttachRoomToGridAndListCTRL)) return false;
+        USAttachRoomToGridAndListCTRL that = (USAttachRoomToGridAndListCTRL) o;
+        return Objects.equals(mHouse, that.mHouse);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mHouse);
     }
 }
