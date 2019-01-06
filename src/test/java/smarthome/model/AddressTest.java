@@ -4,6 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AddressTest {
 
@@ -19,9 +21,6 @@ class AddressTest {
         a1.setStreet ("Rua Júlio Dinis, 345");
         a1.setZipCode ("3380-45");
         a1.setTown ("Porto");
-        l1.setLatitude (41);
-        l1.setLongitude (12.3);
-        l1.setAltitude (110);
 
 
         String result1 = a1.getName ();
@@ -53,7 +52,7 @@ class AddressTest {
 
         boolean result = address1.validateName (streetName);
 
-        assertEquals (true, result);
+        assertTrue (result);
         assertEquals (streetName, address1.getName ());
     }
 
@@ -69,7 +68,7 @@ class AddressTest {
 
         boolean result = address1.validateName (streetName);
 
-        assertEquals (false, result);
+        assertFalse (result);
     }
 
     /**
@@ -207,9 +206,6 @@ class AddressTest {
         a1.setStreet (" ");
         a1.setZipCode(" ");
         a1.setTown (" ");
-        l1.setLatitude(41);
-        l1.setLongitude(12.3);
-        l1.setAltitude(110);
 
         String result1 = a1.getName();
         String result2 = a1.getZipCode();
@@ -250,7 +246,7 @@ class AddressTest {
     void otherConstructorValidateTownIfCorrect() {
 
         String town = "Porto";
-        Address address1 = new Address ("Rua Julio Dinis", "333-568", town, 112, 22, 189);
+        Address address1 = new Address ("Rua Julio Dinis", "333-568", town, 12, 22, 189);
 
         boolean result = address1.validateTown (town);
 
@@ -296,7 +292,7 @@ class AddressTest {
     void otherConstructorValidateTownIfIncorrect() {
 
         String town = " ";
-        Address address1 = new Address ("Rua Julio Dinis", "333-568", town, 112, 22, 189);
+        Address address1 = new Address ("Rua Julio Dinis", "333-568", town, 10, 22, 18);
 
         boolean result = address1.validateTown (town);
 

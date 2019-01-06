@@ -1,6 +1,7 @@
 package smarthome.model;
 
 public class Location {
+    GPSValidations v = new GPSValidations();
 
 
     private double mLatitude;
@@ -8,35 +9,46 @@ public class Location {
     private double mAltitude;
 
     /**
-     * Constructor to set values for the coordinates array
-     *
+     * Constructor requiring latitude, longitude and altitude parameters to create a location. Latitude, longitude and altitude
+     * must comply with range values defined in the respective validation methods to create an instance of a location.
+     * Otherwise it will throw an IllegalArgumentException.
      * @param latitude  latitude coordinates
      * @param longitude longitude coordinates
      * @param altitude  altitude coordinate
      */
     public Location(double latitude, double longitude, double altitude) {
-        this.mLatitude = latitude;
-        this.mLongitude = longitude;
-        this.mAltitude = altitude;
+        setLatitude(latitude);
+        setLongitude(longitude);
+        setAltitude(altitude);
     }
 
     /**
-     * Method to check and validate in the previously defined coordinates
-     *
-     * @return true if all coordinates are correct, else if at least one of
-     * the coordinates is wrongly placed the method will return false
+     * Method to set latitude as the one inputted by the user if it complies with latitudeIsValid criteria
+     * @param latitude user input
      */
-    public boolean checkIfInputValid() {
-        if (mLatitude > 90 || mLatitude < -90) {//valores máx e mín de Latitude em Graus. - = Sul & + = Norte
-            return false;
-        }
-
-        if (mLongitude > 180 || mLongitude < -180) {//valores máx e mín de Longitude em Graus. - = Oeste & + = Este
-            return false;
-        }
-
-        return !(mAltitude > 8848) && !(mAltitude < -12500);
+    private void setLatitude(double latitude) {
+        if (v.latitudeIsValid(latitude))
+            mLatitude = latitude;
     }
+
+    /**
+     * Method to set longitude as the one inputted by the user if it complies with longitudeIsValid criteria
+     *@param longitude user input
+     */
+    private void setLongitude(double longitude) {
+        if (v.longitudeIsValid(longitude))
+            mLongitude = longitude;
+    }
+
+    /**
+     * Method to set altitude as the one inputted by the user if it complies with altitudeIsValid criteria
+     * @param altitude user input
+     */
+    private void setAltitude(double altitude) {
+        if (v.altitudeIsValid(altitude))
+            mAltitude = altitude;
+    }
+
 
     /**
      * Method to calculate the linear distance between two location, used in both exercise 1 and 2
@@ -54,12 +66,6 @@ public class Location {
     }
 
 
-    public void setLatitude(double latitude) {
-        mLatitude = latitude;
-
-
-    }
-
     /**
      * Method that simply returns the latitude of a specific location
      *
@@ -69,12 +75,6 @@ public class Location {
         return this.mLatitude;
     }
 
-
-    public void setLongitude(double longitude) {
-        mLongitude = longitude;
-
-    }
-
     /**
      * Method that simply returns the longitude of a specific location
      *
@@ -82,12 +82,6 @@ public class Location {
      */
     public double getLongitude() {
         return this.mLongitude;
-    }
-
-
-    public void setAltitude(double altitude) {
-        mAltitude = altitude;
-
     }
 
     /**

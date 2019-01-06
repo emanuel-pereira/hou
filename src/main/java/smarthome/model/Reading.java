@@ -34,6 +34,7 @@ public class Reading {
         return mDateAndTime.get(Calendar.MONTH);
     }
 
-
-
+    public Calendar getDateAndTime(){
+        return mDateAndTime;
+    }
 }

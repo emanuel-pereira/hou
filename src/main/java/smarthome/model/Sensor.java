@@ -7,7 +7,8 @@ public class Sensor {
     private String mDesignation;
     private Calendar mStartDate;
     private Location mLocation;
-    private DataType mDataType; //temp, humidade,
+    private DataType mDataType;
+    private String mUnit; //to analyse the creation of a class unit so we may have a list of units for a specific Datatype (eg. DataType: temperature with list of units containing: celsius, kelvin and fahrenheit)
     private List<Reading> mListOfReadings = new ArrayList<> ();
     private Room mRoom;
 
@@ -72,6 +73,18 @@ public class Sensor {
             this.mDesignation = designation;
             this.mStartDate = startDate;
             this.mDataType = new DataType (dataType);
+        }
+    }
+
+
+    public Sensor(String designation, Calendar startDate, String dataType, String unit, double latitude, double longitude, double altitude, List<Reading> readings) {
+        if (nameIsValid (designation)) {
+            mDesignation = designation;
+            mStartDate = startDate;
+            mDataType = new DataType (dataType);
+            mUnit= unit;
+            mLocation = new Location(latitude,longitude,altitude);
+            mListOfReadings=readings;
         }
     }
 
