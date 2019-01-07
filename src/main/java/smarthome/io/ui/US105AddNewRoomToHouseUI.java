@@ -83,7 +83,7 @@ public class US105AddNewRoomToHouseUI {
 
 
         if (mUS105CTRL.newRoom (name, floor, length, width, height)) {
-            System.out.println ("Success: The " + name + " on the " + floor + " floor with " + height + "m of height and "+ length * width + "m² was created.");
+            System.out.println ("Success. The " + name + " on the " + floor + " floor with " + height + "m of height and "+ length * width + "m² was created.");
         } else {
             System.out.println ("Fail! Please try again.");
         }
