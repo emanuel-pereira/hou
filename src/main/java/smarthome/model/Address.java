@@ -26,18 +26,18 @@ public class Address {
         mStreet = streetName;
         mZipCode = zipCode;
         mTown = town;
-        mGPSLocation = new Location(latitude, longitude, altitude);
+        mGPSLocation = new Location (latitude, longitude, altitude);
     }
 
     public void setStreet(String streetName) {
-        if (this.validateName(streetName)) {
+        if (this.validateName (streetName)) {
             mStreet = streetName;
         }
     }
 
 
     public void setZipCode(String zipCode) {
-        if (this.validateZipCode(zipCode)) {
+        if (this.validateZipCode (zipCode)) {
             mZipCode = zipCode;
         }
     }
@@ -55,13 +55,10 @@ public class Address {
      * @return False if nulls, empty spaces and texts that start with spaces
      */
     public boolean validateName(String name) {
-        if (name == null || name.trim().isEmpty()) {
+        if (name == null || name.trim ().isEmpty ()) {
             return false;
         }
-        if (!name.matches("^(?![\\s]).*")) {
-            return false;
-        }
-        return true;
+        return this.noStartWithSpaces (name);
     }
 
     /**
@@ -80,13 +77,10 @@ public class Address {
      * @return False if nulls, empty spaces and numbers that starts and ends with spaces
      */
     public boolean validateTown(String town) {
-        if (town == null || town.trim().isEmpty()) {
+        if (town == null || town.trim ().isEmpty ()) {
             return false;
         }
-        if (!town.matches("^(?![\\s]).*")) {
-            return false;
-        }
-        return true;
+        return this.noStartWithSpaces (town);
     }
 
     /**
@@ -105,13 +99,15 @@ public class Address {
      * @return False if nulls, empty spaces and if it starts with spaces
      */
     public boolean validateZipCode(String code) {
-        if (code == null || code.trim().isEmpty()) {
+        if (code == null || code.trim ().isEmpty ()) {
             return false;
         }
-        if (!code.matches("^(?![\\s]).*")) {
-            return false;
-        }
-        return true;
+        return this.noStartWithSpaces (code);
+    }
+
+
+    public boolean noStartWithSpaces(String text) {
+        return text.matches ("^(?![\\s]).*");
     }
 
     /**

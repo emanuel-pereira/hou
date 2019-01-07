@@ -67,9 +67,9 @@ class TypeGAListTest {
         assertEquals (expectedResult, result);
     }
 
-    @DisplayName("set Already Contained type of GA for village")
+    @DisplayName("empty type of GA")
     @Test
-    public void empty() {
+    public void nameEmpty() {
         TypeGAList tga = new TypeGAList ();
         TypeGA village1= tga.newTypeGA (" ");
 
@@ -82,4 +82,27 @@ class TypeGAListTest {
 
         assertEquals (expectedResult, result);
     }
+
+    @DisplayName("null type of GA")
+    @Test
+    public void nameNull() {
+        TypeGAList tga = new TypeGAList ();
+        TypeGA village1= tga.newTypeGA (null);
+        TypeGA village2= tga.newTypeGA ("city");
+        TypeGA village3= tga.newTypeGA ("country");
+
+        assertEquals (0, tga.getTypeGAList ().size ());
+        tga.addTypeGA (village1);
+        assertEquals (0, tga.getTypeGAList ().size ());
+        tga.addTypeGA (village2);
+        assertEquals (1, tga.getTypeGAList ().size ());
+        tga.addTypeGA (village3);
+        assertEquals (2, tga.getTypeGAList ().size ());
+
+        List<TypeGA> expectedResult = Arrays.asList (village2, village3);
+        List<TypeGA> result = tga.getTypeGAList ();
+
+        assertEquals (expectedResult, result);
+    }
+
 }
