@@ -32,7 +32,7 @@ public class HouseAdministrationUI {
                     break;
                 case 2:
                     US105AddNewRoomToHouseUI ui105 = new US105AddNewRoomToHouseUI(house);
-                    ui105.addRoomToTheHouse();
+                    ui105.addRoomToHouse ();
                     break;
                 case 3:
                     System.out.println("US108");

@@ -544,4 +544,5 @@ class SensorTest {
         assertFalse(sensor2.equals(type1));
         assertNotEquals(sensor1.hashCode(),sensor2.hashCode());
     }
+
 }
