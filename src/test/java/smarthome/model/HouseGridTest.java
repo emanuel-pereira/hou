@@ -26,6 +26,14 @@ class HouseGridTest {
     }
 
     @Test
+    @DisplayName("Set new House Grid with zero Power Value")
+    void setZeroContractedMaximumPower() {
+        HouseGrid hg = new HouseGrid(0);
+        hg.setContractedMaximumPower(0.0);
+        Double result = hg.getContractedMaximumPower();
+        assertEquals(Double.NaN, result, 0.1);
+    }
+    @Test
     @DisplayName("Set new House Grid with incorrect Power Value")
     void setNegativeAndGetContractedMaximumPower() {
         HouseGrid hg = new HouseGrid();
