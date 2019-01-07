@@ -3,6 +3,7 @@ package smarthome.io.ui;
 
 import smarthome.controller.US101ConfigureHouseLocationCTRL;
 import smarthome.model.GAList;
+import smarthome.model.GPSValidations;
 import smarthome.model.House;
 
 import java.util.Scanner;
@@ -27,6 +28,7 @@ public class US101ConfigureHouseLocationUI {
 
 
     Scanner read = new Scanner(System.in);
+    GPSValidations validations = new GPSValidations();
 
 
     public void configureHouseLocationUS101() {
@@ -63,7 +65,7 @@ public class US101ConfigureHouseLocationUI {
         String town;
         while (true) {
             System.out.println("Insert the town:");
-            town = townIsValid ();
+            town = townIsValid();
             if (town != null)
                 break;
         }
@@ -72,17 +74,38 @@ public class US101ConfigureHouseLocationUI {
         double longitude;
         double altitude;
 
-        System.out.println("Insert the latitude of the house");
-        String a1 = read.nextLine();
-        latitude = Double.parseDouble(a1);
+        while (true) {
+            try {
+                System.out.println("Insert the latitude of the new geographical area:");
+                latitude = read.nextDouble();
+                if (validations.latitudeIsValid(latitude))
+                    break;
+            } catch (IllegalArgumentException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
 
-        System.out.println("Insert the longitude of the house");
-        String a2 = read.nextLine();
-        longitude = Double.parseDouble(a2);
+        while (true) {
+            try {
+                System.out.println("Insert the longitude of the new geographical area:");
+                longitude = read.nextDouble();
+                if (validations.longitudeIsValid(longitude))
+                    break;
+            } catch (IllegalArgumentException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
 
-        System.out.println("Insert the altitude of the house");
-        String a3 = read.nextLine();
-        altitude = Double.parseDouble(a3);
+        while (true) {
+            try {
+                System.out.println("Insert the altitude of the new geographical area:");
+                altitude = read.nextDouble();
+                if (validations.altitudeIsValid(altitude))
+                    break;
+            } catch (IllegalArgumentException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
 
         if (mCtrlUS101.configureHouseLocation(indexGA, streetName, zipCode, town, latitude, longitude, altitude)) {
             System.out.println("Success!The house location has been configured.");
@@ -92,21 +115,20 @@ public class US101ConfigureHouseLocationUI {
     }
 
 
-
     public String streetNameIsValid() {
-        String streetName = read.nextLine ();
-        if (streetName == null || streetName.trim ().isEmpty ()) {
-            System.out.println ( "Empty spaces are not accepted" );
+        String streetName = read.nextLine();
+        if (streetName == null || streetName.trim().isEmpty()) {
+            System.out.println("Empty spaces are not accepted");
             return null;
         }
-        if (!streetName.matches ( "^(?![\\s]).*" )) {
-            System.out.println ( "Please start with words." );
+        if (!streetName.matches("^(?![\\s]).*")) {
+            System.out.println("Please start with words.");
             return null;
         }
         return streetName;
     }
 
-       public String zipCodeIsValid() {
+    public String zipCodeIsValid() {
         String zipCode = read.nextLine();
         if (zipCode == null || zipCode.trim().isEmpty()) {
             System.out.println("Empty spaces are not accepted.");
