@@ -25,7 +25,7 @@ public class US105AddNewRoomToHouseUI {
      * Third: All validations are for strings, so at this point they are "converted" to the correspondent type.
      * Fourth: The inputs are used to create a new Room and a success message is shown.
      */
-    public void addRoomToTheHouse() {
+    public void addRoomToHouse() {
 
         String name;
         while (true) {
