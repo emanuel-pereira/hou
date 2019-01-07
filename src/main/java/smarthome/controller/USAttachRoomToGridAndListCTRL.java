@@ -52,6 +52,13 @@ public class USAttachRoomToGridAndListCTRL {
     }
 
     /**
+     * @return the list of rooms without HouseGrid
+     */
+    public List<Room> getListOfRooms() {
+        return mHouse.getRoomList();
+    }
+
+    /**
      * @return shows the list of rooms without houseGrid in a single string
      */
     public String showRoomsWithoutHouseGridInStr() {
@@ -124,16 +131,19 @@ public class USAttachRoomToGridAndListCTRL {
         return result.toString();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof USAttachRoomToGridAndListCTRL)) return false;
-        USAttachRoomToGridAndListCTRL that = (USAttachRoomToGridAndListCTRL) o;
-        return Objects.equals(mHouse, that.mHouse);
-    }
+    /**
+     * Method to detach room from HouseGrid
+     *
+     * @param indexOfHouseGrid
+     * @param indexOfRoom      room in the index position selected by the user
+     * @return true if room in index position of RoomList has its HouseGrid set as null, false otherwise.
+     */
+    public boolean detachRoomFromHouseGrid(int indexOfHouseGrid, int indexOfRoom) {
+        List<Room> listOfRoomsWithHouseGrid = getListOfRoomsWithHouseGrid(indexOfHouseGrid);
+        if(listOfRoomsWithHouseGrid.size()!=0){
+            Room r = listOfRoomsWithHouseGrid.get(indexOfRoom-1);
+            r.setmHouseGrid(mHouse.getHouseGridList().get(indexOfHouseGrid-1));
+            return true;}
+        else return false;}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(mHouse);
-    }
 }
