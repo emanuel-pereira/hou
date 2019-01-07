@@ -8,10 +8,10 @@ import java.util.List;
 public class US253AddSensorToRoomCTRL {
 
     private DataTypeList mDataTypeList;
-    private List<Room> mRoomList;
+    private House mHouse;
 
-    public US253AddSensorToRoomCTRL(DataTypeList dataTypeList, List<Room> inputList) {
-        mRoomList = inputList;
+    public US253AddSensorToRoomCTRL(DataTypeList dataTypeList, House house) {
+        mHouse = house;
         mDataTypeList = dataTypeList;
     }
 
@@ -30,13 +30,13 @@ public class US253AddSensorToRoomCTRL {
     }
 
     public void addNewSensorToRoom(String inputName, GregorianCalendar startDate, int dataTypeIndex, int indexOfRoom) {
-        Room r = mRoomList.get(indexOfRoom - 1);
+        Room r = mHouse.getRoomList().get(indexOfRoom-1);
         Sensor s = new Sensor(inputName, startDate, mDataTypeList.getDataTypeList().get(dataTypeIndex - 1).toString());
         s.setRoom(r);
     }
 
     public String showRoomListInString() {
-        List<Room> list = mRoomList;
+        List<Room> list = mHouse.getRoomList();
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;

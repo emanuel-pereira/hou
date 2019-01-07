@@ -2,22 +2,21 @@ package smarthome.io.ui;
 
 import smarthome.controller.US253AddSensorToRoomCTRL;
 import smarthome.model.DataTypeList;
-import smarthome.model.Room;
+import smarthome.model.House;
 
 import java.util.GregorianCalendar;
-import java.util.List;
 import java.util.Scanner;
 
 public class US253AddSensorToRoomUI {
 
     private DataTypeList mDataTypeList;
+    private House mHouse;
     private US253AddSensorToRoomCTRL mCtrlUS253;
-    private List<Room> mRoomList;
 
 
-    public US253AddSensorToRoomUI(List<Room> inputList, DataTypeList dataTypeList) {
-        mCtrlUS253 = new US253AddSensorToRoomCTRL(dataTypeList, inputList);
-        mRoomList = inputList;
+    public US253AddSensorToRoomUI(House house, DataTypeList dataTypeList) {
+        mCtrlUS253 = new US253AddSensorToRoomCTRL(dataTypeList, house);
+        mHouse = house;
         mDataTypeList = dataTypeList;
     }
 
@@ -29,7 +28,7 @@ public class US253AddSensorToRoomUI {
 
 
     public void run() {
-        if (mRoomList.size() != 0) {
+        if (mHouse.getRoomList().size() != 0) {
             if (mDataTypeList.getDataTypeList().size() != 0) {
                 String name;
                 while (true) {

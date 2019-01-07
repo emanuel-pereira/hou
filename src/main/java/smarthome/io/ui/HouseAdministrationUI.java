@@ -54,7 +54,7 @@ public class HouseAdministrationUI {
                     break;
 
                 case 8:
-                    US253AddSensorToRoomUI ui253 = new US253AddSensorToRoomUI(roomList, dataTypeList);
+                    US253AddSensorToRoomUI ui253 = new US253AddSensorToRoomUI(house, dataTypeList);
                     ui253.run();
                     System.out.println("US253");
                     break;
