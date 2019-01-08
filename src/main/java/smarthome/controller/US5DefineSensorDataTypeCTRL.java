@@ -12,7 +12,7 @@ public class US5DefineSensorDataTypeCTRL {
 
     /**
      * Controller constructor
-     * @param dataTypeList the list object on which the user will be able to create new type of GA's
+     * @param dataTypeList the list object on which the user will be able to create new type of Sensor
      */
     public US5DefineSensorDataTypeCTRL(DataTypeList dataTypeList) {
         mDataTypeList = dataTypeList;
@@ -31,7 +31,7 @@ public class US5DefineSensorDataTypeCTRL {
         return false;
     }
 
-
+    /**Method that shows the list of GAs returned by the previous method in a string*/
     public String returnDataTypeList() {
         List<DataType> DataTypeList = mDataTypeList.getDataTypeList();
         StringBuilder result = new StringBuilder();

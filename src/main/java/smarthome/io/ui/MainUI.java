@@ -1,9 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.model.DataTypeList;
-import smarthome.model.GAList;
-import smarthome.model.House;
-import smarthome.model.Room;
+import smarthome.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +14,7 @@ public class MainUI {
     public static void main(String[] args) {
         DataTypeList dataTypeList = new DataTypeList();
         GAList gaList = new GAList();
-        House newHouse = new House();
-        List<Room> roomList = new ArrayList<> ();
-
+        House house = new House();
 
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
@@ -36,7 +31,7 @@ public class MainUI {
                     systemAdministration(dataTypeList,gaList);
                     break;
                 case 2:
-                    houseAdministration(dataTypeList,gaList,roomList,newHouse);
+                    houseAdministration(dataTypeList,gaList,house);
                     break;
                 case 3:
                     regularUsage();
