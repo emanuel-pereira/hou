@@ -6,7 +6,7 @@ import smarthome.model.SensorTypeList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class US5DefineSensorSensorTypeCTRLTest {
+class US5DefineSensorTypeCTRLTest {
 
 
     @Test

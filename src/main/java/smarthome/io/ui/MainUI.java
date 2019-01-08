@@ -3,7 +3,10 @@ package smarthome.io.ui;
 import smarthome.model.SensorTypeList;
 import smarthome.model.GAList;
 import smarthome.model.House;
+import smarthome.model.Room;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import static smarthome.io.ui.HouseAdministrationUI.houseAdministration;
@@ -15,7 +18,7 @@ public class MainUI {
         SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
         House house = new House();
-
+        List<Room> roomList = new ArrayList<>();
 
 
         Scanner keyboard = new Scanner(System.in);
@@ -33,7 +36,7 @@ public class MainUI {
                     systemAdministration(sensorTypeList,gaList);
                     break;
                 case 2:
-                    houseAdministration(sensorTypeList,gaList,house);
+                    houseAdministration(sensorTypeList,gaList,roomList,house);
                     break;
                 case 3:
                     regularUsage();
