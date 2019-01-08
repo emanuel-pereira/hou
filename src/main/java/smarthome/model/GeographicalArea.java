@@ -15,9 +15,6 @@ public class GeographicalArea {
     private GeographicalArea mParentGA;
 
 
-
-    TypeGAList TGAList = new TypeGAList();
-
     /**
      * This constructor method does set up the Geographical Area name and it's type
      *
@@ -40,8 +37,6 @@ public class GeographicalArea {
         mDesignation = designation;
         mTypeArea = typeArea;
         mLocation = location;
-
-        //TGAList.addTypeGA (typeArea);
     }
 
     /**
@@ -57,7 +52,7 @@ public class GeographicalArea {
      * @param width       GA width
      */
     public GeographicalArea(String id, String designation, String typeGA, double latitude, double longitude, double altitude, double length, double width) {
-        mID=id;
+        mID = id;
         mDesignation = designation;
         mTypeArea = new TypeGA(typeGA);
         mLocation = new Location(latitude, longitude, altitude);
@@ -273,12 +268,11 @@ public class GeographicalArea {
 
     public boolean addSensor(Sensor sensor) {
         if (mSensorList.contains(sensor))
-        return false;
+            return false;
         if (sensor.nameIsValid(sensor.getDesignation())) {
             mSensorList.add(sensor);
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
     public OccupationArea getOcupation() {
@@ -314,12 +308,6 @@ public class GeographicalArea {
         this.mParentGA = ga1;
 
     }
-
-    /*public GeographicalArea getmParentGA() {
-
-        return mParentGA
-    }*/
-
 
 
 }

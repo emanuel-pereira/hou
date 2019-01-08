@@ -8,17 +8,16 @@ public class HouseGrid {
     private Double mContractedMaximumPower = Double.NaN;
     private String mDesignation;
     private PowerSource mPowerSource;
-    private List<PowerSource> mPowerSourceList;
+    private List<PowerSource> mPowerSourceList = new ArrayList<>();
     private HouseGrid mHouseGrid;
 
     public HouseGrid() {
-        mPowerSourceList = new ArrayList<>();
     }
 
     public HouseGrid(double inputContractedMaximumPower) {
+
         if (valueIsPositive(inputContractedMaximumPower))
             mContractedMaximumPower = inputContractedMaximumPower;
-            mPowerSourceList = new ArrayList<>();
 
     }
 
@@ -26,7 +25,7 @@ public class HouseGrid {
         if (valueIsPositive(inputContractedMaximumPower)) {
             mContractedMaximumPower = inputContractedMaximumPower;
             mDesignation = designation;
-            mPowerSourceList = new ArrayList<>();
+
         }
     }
 

@@ -17,11 +17,13 @@ public class USAttachRoomToGridAndListUI {
     Scanner read = new Scanner(System.in);
 
     public void run() {
+        String insertValidOption = "Please insert a valid option \n.";
+        String listRoomsAttachedToHousegridMsg="List of rooms attached to HouseGrid: ";
         int indexOfHouseGrid;
         int indexOfRoom;
         while (true) {
-            if (mCtrlUS147.getHouseGridList().size() != 0) {
-                if (mCtrlUS147.getListOfRooms().size() != 0) {
+            if (!(mCtrlUS147.getHouseGridList().isEmpty())) {
+                if (!(mCtrlUS147.getListOfRooms().isEmpty())) {
 
                     String option;
                     while (true) {
@@ -41,18 +43,18 @@ public class USAttachRoomToGridAndListUI {
                             read.nextLine();
 
                             if (indexOfHouseGrid > mCtrlUS147.getHouseGridList().size()) {
-                                System.out.println("Please insert a valid option \n.");
+                                System.out.println(insertValidOption);
                                 break;
                             }
 
-                            if (mCtrlUS147.getListOfRoomsWithoutHouseGrid().size() != 0) {
+                            if (!(mCtrlUS147.getListOfRoomsWithoutHouseGrid().isEmpty())) {
                                 System.out.println("Choose a room to attach from the list below:");
                                 System.out.println(mCtrlUS147.showRoomsWithoutHouseGridInStr());
                                 indexOfRoom = read.nextInt();
                                 read.nextLine();
                                 mCtrlUS147.attachRoomToHouseGrid(indexOfHouseGrid, indexOfRoom);
-                                System.out.println("Room " + mHouse.getRoomList().get(indexOfRoom - 1).getName() + " was successfully attached to HouseGrid: " + mHouse.getHouseGridList().get(indexOfHouseGrid - 1).getGridID() + " | Nominal Power: " + mHouse.getHouseGridList().get(indexOfHouseGrid - 1).getContractedMaximumPower()+".\n");
-                                System.out.println("List of rooms attached to HouseGrid: ");
+                                System.out.println("Room " + mHouse.getRoomList().get(indexOfRoom - 1).getName() + " was successfully attached to HouseGrid: " + mHouse.getHouseGridList().get(indexOfHouseGrid - 1).getGridID() + " | Nominal Power: " + mHouse.getHouseGridList().get(indexOfHouseGrid - 1).getContractedMaximumPower() + ".\n");
+                                System.out.println(listRoomsAttachedToHousegridMsg);
                                 System.out.println(mCtrlUS147.showRoomsWithHouseGridInStr(indexOfHouseGrid));
                                 break;
                             }
@@ -66,14 +68,14 @@ public class USAttachRoomToGridAndListUI {
                             read.nextLine();
 
                             if (indexOfHouseGrid > mCtrlUS147.getHouseGridList().size()) {
-                                System.out.println("Please insert a valid option \n.");
+                                System.out.println(insertValidOption);
                                 break;
                             }
-                            if (mCtrlUS147.getListOfRoomsWithHouseGrid(indexOfHouseGrid).size() == 0) {
-                                System.out.println("List of rooms attached to HouseGrid: " + mHouse.getHouseGridList().get(indexOfHouseGrid - 1).getGridID() + " is empty. Please attach rooms first.\n");
+                            if (!(mCtrlUS147.getListOfRoomsWithHouseGrid(indexOfHouseGrid).isEmpty())) {
+                                System.out.println(listRoomsAttachedToHousegridMsg + mHouse.getHouseGridList().get(indexOfHouseGrid - 1).getGridID() + " is empty. Please attach rooms first.\n");
                                 break;
                             }
-                            System.out.println("List of rooms attached to HouseGrid: ");
+                            System.out.println(listRoomsAttachedToHousegridMsg);
                             System.out.println(mCtrlUS147.showRoomsWithHouseGridInStr(indexOfHouseGrid));
                             break;
                         }
@@ -84,7 +86,7 @@ public class USAttachRoomToGridAndListUI {
                             indexOfHouseGrid = read.nextInt();
                             read.nextLine();
                             if (indexOfHouseGrid > mCtrlUS147.getHouseGridList().size()) {
-                                System.out.println("Please insert a valid option \n.");
+                                System.out.println(insertValidOption);
                                 break;
                             }
                             System.out.println("Choose a room to detach from the list below:");
@@ -92,7 +94,7 @@ public class USAttachRoomToGridAndListUI {
                             indexOfRoom = read.nextInt();
                             read.nextLine();
                             mCtrlUS147.detachRoomFromHouseGrid(indexOfHouseGrid, indexOfRoom);
-                            System.out.println("The room was successfully detached from housegrid " + mHouse.getHouseGridList().get(indexOfHouseGrid - 1).getGridID()+".\n");
+                            System.out.println("The room was successfully detached from housegrid " + mHouse.getHouseGridList().get(indexOfHouseGrid - 1).getGridID() + ".\n");
                             break;
                         }
                         break;
