@@ -12,6 +12,7 @@ public class House {
     private List<Room> mRoomList;
     private List<HouseGrid> mHouseGridList;
 
+
     public House() {
         mRoomList = new ArrayList<>();
         mHouseGridList = new ArrayList<>();

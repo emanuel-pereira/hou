@@ -273,11 +273,11 @@ public class GeographicalArea {
 
     public boolean addSensor(Sensor sensor) {
         if (mSensorList.contains(sensor))
-            return false;
+        return false;
         if (sensor.nameIsValid(sensor.getDesignation())) {
-                mSensorList.add(sensor);
-                return true;
-            }
+            mSensorList.add(sensor);
+            return true;
+        }
         else return false;
     }
 
