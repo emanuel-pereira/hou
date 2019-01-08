@@ -10,11 +10,11 @@ public class RegularUsageUI {
         System.out.println("Regular Users UI");
 
         while (option != 0) {
-            System.out.println("Click 1. US600: As System Administrator I want to .........");
-            System.out.println("Click 2. US605: As System Administrator I want to .........");
-            System.out.println("Click 3. US610: As System Administrator I want to .........");
-            System.out.println("Click 4. US620: As System Administrator I want to .........");
-            System.out.println("Click 5. US623: As System Administrator I want to .........");
+            System.out.println("Click 1. US600: As a Regular User, I want to .........");
+            System.out.println("Click 2. US605: As a Regular User, I want to .........");
+            System.out.println("Click 3. US610: As a Regular User, I want to .........");
+            System.out.println("Click 4. US620: As a Regular User, I want to  .........");
+            System.out.println("Click 5. US623: As a Regular User, I want to get the average daily rainfall in the house area for a given period (days)");
             System.out.println("Click 0. Exit");
 
             option = Integer.parseInt(keyboard.nextLine());

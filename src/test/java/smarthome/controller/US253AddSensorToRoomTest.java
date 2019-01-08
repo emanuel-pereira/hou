@@ -11,16 +11,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class US253AddSensorToRoomTest {
-    @DisplayName("Test if DataType List is showed as a string to the user")
+    @DisplayName("Test if SensorType List is showed as a string to the user")
     @Test
-    void showDataTypeListInString() {
-        DataTypeList dataTypeList = new DataTypeList();
+    void showSensorTypeListInString() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
         House h1 = new House();
-        US253AddSensorToRoomCTRL ctr1 = new US253AddSensorToRoomCTRL(dataTypeList, h1);
-        DataType type1 = new DataType("Temperature");
-        DataType type2 = new DataType("Wind");
-        dataTypeList.addDataType(type1);
-        dataTypeList.addDataType(type2);
+        US253AddSensorToRoomCTRL ctr1 = new US253AddSensorToRoomCTRL(sensorTypeList, h1);
+        SensorType type1 = new SensorType("Temperature");
+        SensorType type2 = new SensorType("Wind");
+        sensorTypeList.addSensorType(type1);
+        sensorTypeList.addSensorType(type2);
         String expected = "1 - Temperature\n2 - Wind\n";
         String result = ctr1.showDataTypeListInString();
         assertEquals(expected, result);
@@ -29,10 +29,10 @@ public class US253AddSensorToRoomTest {
     @DisplayName("Test if Room List is showed as a string to the user")
     @Test
     void showRoomListInString() {
-        DataTypeList dataTypeList = new DataTypeList();
+        SensorTypeList sensorTypeList = new SensorTypeList();
         House h1 = new House();
         List<Room> roomList = h1.getRoomList();
-        US253AddSensorToRoomCTRL ctrl = new US253AddSensorToRoomCTRL(dataTypeList, h1);
+        US253AddSensorToRoomCTRL ctrl = new US253AddSensorToRoomCTRL(sensorTypeList, h1);
         Room r1 = new Room("Living Room", 1, 2, 3, 2);
         Room r2 = new Room("Bed Room", 1, 2, 3, 2);
         roomList.add(r1);
@@ -45,18 +45,18 @@ public class US253AddSensorToRoomTest {
     @DisplayName("Ensure that two different sensors are added to the respective Rooms")
     @Test
     void addNewSensorToRoom() {
-        DataTypeList dataTypeList = new DataTypeList();
+        SensorTypeList sensorTypeList = new SensorTypeList();
         House h1 = new House();
         List<Room> roomList = h1.getRoomList();
-        US253AddSensorToRoomCTRL ctrl = new US253AddSensorToRoomCTRL(dataTypeList, h1);
+        US253AddSensorToRoomCTRL ctrl = new US253AddSensorToRoomCTRL(sensorTypeList, h1);
         Room r1 = new Room("Living Room", 1, 2, 3, 2);
         Room r2 = new Room("Bed Room", 1, 2, 3, 2);
         roomList.add(r1);
         roomList.add(r2);
-        DataType type1 = new DataType("Temperature");
-        DataType type2 = new DataType("Wind");
-        dataTypeList.addDataType(type1);
-        dataTypeList.addDataType(type2);
+        SensorType type1 = new SensorType("Temperature");
+        SensorType type2 = new SensorType("Wind");
+        sensorTypeList.addSensorType(type1);
+        sensorTypeList.addSensorType(type2);
         Sensor s1 = new Sensor();
         Sensor s2 = new Sensor();
         s1.setRoom(r1);

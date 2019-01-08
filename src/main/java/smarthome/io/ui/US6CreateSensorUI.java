@@ -4,19 +4,18 @@ package smarthome.io.ui;
 import smarthome.controller.US6CreateSensorCTRL;
 import smarthome.model.*;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class US6CreateSensorUI {
     private GAList mGAList;
-    private DataTypeList mDataTypeList;
+    private SensorTypeList mSensorTypeList;
     private US6CreateSensorCTRL mCtrlUS6;
 
 
-    public US6CreateSensorUI(DataTypeList dataTypeList, GAList listOfGA) {
-        mCtrlUS6 = new US6CreateSensorCTRL(dataTypeList, listOfGA);
+    public US6CreateSensorUI(SensorTypeList sensorTypeList, GAList listOfGA) {
+        mCtrlUS6 = new US6CreateSensorCTRL(sensorTypeList, listOfGA);
         mGAList = listOfGA;
-        mDataTypeList = dataTypeList;
+        mSensorTypeList = sensorTypeList;
     }
 
 
@@ -35,7 +34,7 @@ public class US6CreateSensorUI {
         String tempDayOfReading;
         String tempHourOfReading;
         if (mGAList.getGAList().size() != 0) {
-            if (mDataTypeList.getDataTypeList().size() != 0) {
+            if (mSensorTypeList.getSensorTypeList().size() != 0) {
                 String name;
                 while (true) {
                     System.out.println("Insert a name for the sensor:");
@@ -71,13 +70,13 @@ public class US6CreateSensorUI {
                 day = Integer.parseInt(tempDay);
 
                 GregorianCalendar calendar = new GregorianCalendar(year, month, day);
-                int dataTypeIndex;
+                int sensorTypeIndex;
                 while (true) {
-                    System.out.println("Choose a data type for the sensor from one of the data types below:");
-                    System.out.println(mCtrlUS6.showDataTypeListInString());
-                    dataTypeIndex = read.nextInt();
+                    System.out.println("Choose a type for the sensor from one of the sensor types below:");
+                    System.out.println(mCtrlUS6.showSensorTypeListInString());
+                    sensorTypeIndex = read.nextInt();
                     read.nextLine();
-                    if (dataTypeIndex > mDataTypeList.getDataTypeList().size())
+                    if (sensorTypeIndex > mSensorTypeList.getSensorTypeList().size())
                         System.out.println("Please insert a valid option \n.");
                     else break;
                 }
@@ -188,13 +187,13 @@ public class US6CreateSensorUI {
                         System.out.println("Please insert a valid option \n.");
                     else break;
                 }
-                mCtrlUS6.addNewSensorToGA(name, calendar, dataTypeIndex, unit, latitude, longitude, altitude, indexGA, readingList);
+                mCtrlUS6.addNewSensorToGA(name, calendar, sensorTypeIndex, unit, latitude, longitude, altitude, indexGA, readingList);
                 System.out.println("The following sensor was successfully created: ");
                 System.out.println("NAME: " + name);
                 System.out.println("GEOGRAPHICAL AREA: "+ mGAList.get(indexGA - 1).getGeographicalAreaDesignation());
                 System.out.println("START DATE: "+year+"/"+month+"/"+"/"+day);
-                System.out.println("READING TYPE: "+mDataTypeList.getDataTypeList().get(dataTypeIndex-1).getDataTypeDesignation());
-                System.out.println("TYPE: "+unit);
+                System.out.println("TYPE: "+ mSensorTypeList.getSensorTypeList().get(sensorTypeIndex-1).getSensorTypeDesignation());
+                System.out.println("UNITS: "+unit);
                 System.out.println("LIST OF READINGS:");
                 for (Reading r : readingList) {
                     System.out.println("[timestamp: " + r.getDateAndTime().getTime() + " value: " + r.returnValueOfReading()+"]");

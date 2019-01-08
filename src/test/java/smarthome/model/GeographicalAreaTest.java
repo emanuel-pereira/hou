@@ -68,9 +68,9 @@ public class GeographicalAreaTest {
         List<Reading> readS2 = Arrays.asList(new Reading(55, rTime1), new Reading(85, rTime2), new Reading(10, rTime3));
         List<Reading> readS3 = Arrays.asList(new Reading(5, rTime1), new Reading(37, rTime2), new Reading(58, rTime3));
 
-        DataType type1 = new DataType("temperature");
-        DataType type2 = new DataType("precipitation");
-        DataType type3 = new DataType("wind");
+        SensorType type1 = new SensorType("temperature");
+        SensorType type2 = new SensorType("precipitation");
+        SensorType type3 = new SensorType("wind");
 
         Sensor sensor1 = new Sensor("TemperatureSensor", rTime1, 41, -7.5, 49, type1, readS1);
         Sensor sensor2 = new Sensor("PrecipitationSensor", rTime2, 41, -7.5, 49, type2, readS2);
@@ -99,9 +99,9 @@ public class GeographicalAreaTest {
         List<Reading> readS2 = Arrays.asList(new Reading(55, rTime1), new Reading(85, rTime2), new Reading(10, rTime3));
         List<Reading> readS3 = Arrays.asList(new Reading(5, rTime1), new Reading(37, rTime2), new Reading(58, rTime3));
 
-        DataType type1 = new DataType("temperature");
-        DataType type2 = new DataType("precipitation");
-        DataType type3 = new DataType("wind");
+        SensorType type1 = new SensorType("temperature");
+        SensorType type2 = new SensorType("precipitation");
+        SensorType type3 = new SensorType("wind");
 
         Sensor sensor1 = new Sensor("TemperatureSensor", rTime1, 41, -7.5, 49, type1, readS1);
         Sensor sensor2 = new Sensor("PrecipitationSensor", rTime1, 41, -7.5, 49, type2, readS2);

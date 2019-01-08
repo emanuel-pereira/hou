@@ -1,7 +1,7 @@
 package smarthome.io.ui;
 
 import smarthome.controller.US253AddSensorToRoomCTRL;
-import smarthome.model.DataTypeList;
+import smarthome.model.SensorTypeList;
 import smarthome.model.House;
 
 import java.util.GregorianCalendar;
@@ -9,15 +9,15 @@ import java.util.Scanner;
 
 public class US253AddSensorToRoomUI {
 
-    private DataTypeList mDataTypeList;
+    private SensorTypeList mSensorTypeList;
     private House mHouse;
     private US253AddSensorToRoomCTRL mCtrlUS253;
 
 
-    public US253AddSensorToRoomUI(House house, DataTypeList dataTypeList) {
-        mCtrlUS253 = new US253AddSensorToRoomCTRL(dataTypeList, house);
+    public US253AddSensorToRoomUI(House house, SensorTypeList sensorTypeList) {
+        mCtrlUS253 = new US253AddSensorToRoomCTRL(sensorTypeList, house);
         mHouse = house;
-        mDataTypeList = dataTypeList;
+        mSensorTypeList = sensorTypeList;
     }
 
     Scanner read = new Scanner(System.in);
@@ -29,7 +29,7 @@ public class US253AddSensorToRoomUI {
 
     public void run() {
         if (mHouse.getRoomList().size() != 0) {
-            if (mDataTypeList.getDataTypeList().size() != 0) {
+            if (mSensorTypeList.getSensorTypeList().size() != 0) {
                 String name;
                 while (true) {
                     System.out.println("Insert a name for the sensor:");
@@ -70,7 +70,7 @@ public class US253AddSensorToRoomUI {
                     System.out.println("Choose a data type for the sensor from one of the data types below:");
                     System.out.println(mCtrlUS253.showDataTypeListInString());
                     dataTypeIndex = read.nextInt();
-                    if (dataTypeIndex > mDataTypeList.getDataTypeList().size())
+                    if (dataTypeIndex > mSensorTypeList.getSensorTypeList().size())
                         System.out.println("Please insert a valid option \n.");
                     else break;
                 }
@@ -80,7 +80,7 @@ public class US253AddSensorToRoomUI {
                     System.out.println("Choose the Room for which you want add this sensor, from the list below:");
                     System.out.println(mCtrlUS253.showRoomListInString());
                     indexRoom = read.nextInt();
-                    if (indexRoom > mDataTypeList.getDataTypeList().size())
+                    if (indexRoom > mSensorTypeList.getSensorTypeList().size())
                         System.out.println("Please insert a valid option \n.");
                     else break;
                 }

@@ -14,18 +14,18 @@ import static org.junit.jupiter.api.Assertions.*;
 class US6CreateSensorCTRLTest {
 
 
-    @DisplayName("Test if DataType List is showed as a string to the user")
+    @DisplayName("Test if SensorTypeList is showed as a string to the user")
     @Test
-    void showDataTypeListInString() {
-        DataTypeList dataTypeList = new DataTypeList();
+    void showSensorTypeListInString() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList ();
-        US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(dataTypeList,gaList);
-        DataType type1= new DataType("Temperature");
-        DataType type2= new DataType("Wind");
-        dataTypeList.addDataType(type1);
-        dataTypeList.addDataType(type2);
+        US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(sensorTypeList,gaList);
+        SensorType type1= new SensorType("Temperature");
+        SensorType type2= new SensorType("Wind");
+        sensorTypeList.addSensorType(type1);
+        sensorTypeList.addSensorType(type2);
         String expected = "1 - Temperature\n2 - Wind\n";
-        String result =  ctrl6.showDataTypeListInString();
+        String result =  ctrl6.showSensorTypeListInString();
         assertEquals(expected,result);
 
     }
@@ -33,9 +33,9 @@ class US6CreateSensorCTRLTest {
     @DisplayName("Test if Geographical Area List is showed as a string to the user")
     @Test
     void showGAListInString() {
-        DataTypeList dataTypeList = new DataTypeList();
+        SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList ();
-        US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(dataTypeList,gaList);
+        US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(sensorTypeList,gaList);
         GeographicalArea ga1= new GeographicalArea("Pt","Porto","city",25,15,12,32,41);
         GeographicalArea ga2= new GeographicalArea("Lis","Lisboa","city",45,25,32,42,41);
         gaList.addGA(ga1);
@@ -47,9 +47,9 @@ class US6CreateSensorCTRLTest {
     @DisplayName("Ensure that two different sensors are added to the respective Geographical Area")
     @Test
     void addNewSensorToGA() {
-        DataTypeList dataTypeList = new DataTypeList();
+        SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList ();
-        US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(dataTypeList,gaList);
+        US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(sensorTypeList,gaList);
 
         GeographicalArea ga1= new GeographicalArea("Pt","Porto","city",25,15,12,32,41);
         GeographicalArea ga2= new GeographicalArea("Lis","Lisboa","city",45,25,32,42,41);
@@ -57,10 +57,10 @@ class US6CreateSensorCTRLTest {
         gaList.addGA(ga1);
         gaList.addGA(ga2);
 
-        DataType type1= new DataType("Temperature");
-        DataType type2= new DataType("Wind");
-        dataTypeList.addDataType(type1);
-        dataTypeList.addDataType(type2);
+        SensorType type1= new SensorType("Temperature");
+        SensorType type2= new SensorType("Wind");
+        sensorTypeList.addSensorType(type1);
+        sensorTypeList.addSensorType(type2);
 
         Reading r1Porto= new Reading(15,new GregorianCalendar(2018,12,26,12,00));
         Reading r2Porto= new Reading(18,new GregorianCalendar(2018,12,26,13,00));

@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.model.DataTypeList;
+import smarthome.model.SensorTypeList;
 import smarthome.model.GAList;
 import smarthome.model.TypeGAList;
 
@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class SystemAdministrationUI {
 
-    public static void systemAdministration(DataTypeList dataTypeList,GAList gaList) {
+    public static void systemAdministration(SensorTypeList sensorTypeList, GAList gaList) {
         TypeGAList typeGAList = new TypeGAList();
         GAList GAList = gaList;
         Scanner keyboard = new Scanner(System.in);
@@ -45,11 +45,11 @@ public class SystemAdministrationUI {
                     ui4.run();
                     break;
                 case 5:
-                    US5DefineSensorDataTypeUI ui5 = new US5DefineSensorDataTypeUI(dataTypeList);
+                    US5DefineSensorTypeUI ui5 = new US5DefineSensorTypeUI(sensorTypeList);
                     ui5.runUS5();
                     break;
                 case 6:
-                    US6CreateSensorUI ui6 = new US6CreateSensorUI(dataTypeList, GAList);
+                    US6CreateSensorUI ui6 = new US6CreateSensorUI(sensorTypeList, GAList);
                     ui6.run();
                     break;
                 case 7:

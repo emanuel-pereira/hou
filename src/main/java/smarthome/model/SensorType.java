@@ -3,19 +3,19 @@ package smarthome.model;
 
 import java.util.Objects;
 
-public class DataType {
+public class SensorType {
 
 
-    private String mDataType;
+    private String mSensorType;
 
 
     /**
      * Constructor method that defines a designation for a type of data
      *
-     * @param dataTypeDesignation - String that names the type of data
+     * @param sensorTypeDesignation - String that names the type of data
      */
-    public DataType(String dataTypeDesignation) {
-            this.mDataType = dataTypeDesignation;
+    public SensorType(String sensorTypeDesignation) {
+            this.mSensorType = sensorTypeDesignation;
     }
 
 
@@ -24,17 +24,17 @@ public class DataType {
      *
      * @return designation of a data type
      */
-    public String getDataTypeDesignation() {
-        return this.mDataType;
+    public String getSensorTypeDesignation() {
+        return this.mSensorType;
     }
 
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof DataType))
+        if (!(o instanceof SensorType))
             return false;
-        DataType dataType = (DataType) o;
-        return this.mDataType.equals(dataType.getDataTypeDesignation());
+        SensorType sensorType = (SensorType) o;
+        return this.mSensorType.equals(sensorType.getSensorTypeDesignation());
     }
 
     /**
@@ -48,7 +48,7 @@ public class DataType {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(mDataType);
+        return Objects.hash(mSensorType);
     }
 }
 

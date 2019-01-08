@@ -18,7 +18,7 @@ class SensorListTest {
         SensorList list1 = new SensorList();
 
         //Act
-        Sensor sensor1 = list1.newSensor("Sensor1", new GregorianCalendar(2018, 12, 15), 25, 32, 2, new DataType("Temperature"));
+        Sensor sensor1 = list1.newSensor("Sensor1", new GregorianCalendar(2018, 12, 15), 25, 32, 2, new SensorType("Temperature"));
 
         //Assert
         assertEquals("Sensor1", sensor1.getDesignation());
@@ -29,7 +29,7 @@ class SensorListTest {
     void addSensorToList() {
         //Arrange
         SensorList list = new SensorList();
-        Sensor sensor1 = list.newSensor("TempSensor", new GregorianCalendar(2018, 12, 15), 25, 32, 2, new DataType("Temperature"));
+        Sensor sensor1 = list.newSensor("TempSensor", new GregorianCalendar(2018, 12, 15), 25, 32, 2, new SensorType("Temperature"));
 
         //Act
         assertTrue(list.addSensor(sensor1));
@@ -42,11 +42,11 @@ class SensorListTest {
 
     @DisplayName("Tests if a Sensor is not added to the list if it is repeated")
     @Test
-    public void notAddRepeatedDataType() {
+    public void notAddRepeatedSensorType() {
         //Arrange
         SensorList list = new SensorList();
-        Sensor sensor1 = list.newSensor("TempSensor", new GregorianCalendar(2018, 12, 15), 25, 32, 2, new DataType("Temperature"));
-        Sensor sensor2 = list.newSensor("WindSensor", new GregorianCalendar(2018, 12, 15), 25, 32, 2, new DataType("Wind"));
+        Sensor sensor1 = list.newSensor("TempSensor", new GregorianCalendar(2018, 12, 15), 25, 32, 2, new SensorType("Temperature"));
+        Sensor sensor2 = list.newSensor("WindSensor", new GregorianCalendar(2018, 12, 15), 25, 32, 2, new SensorType("Wind"));
 
         //Act
         assertEquals(0, list.getSensorList().size());

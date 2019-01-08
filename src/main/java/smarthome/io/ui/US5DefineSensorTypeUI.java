@@ -1,30 +1,30 @@
 package smarthome.io.ui;
 
-import smarthome.controller.US5DefineSensorDataTypeCTRL;
-import smarthome.model.DataTypeList;
+import smarthome.controller.US5DefineSensorTypeCTRL;
+import smarthome.model.SensorTypeList;
 
 import java.util.Scanner;
 
-public class US5DefineSensorDataTypeUI {
+public class US5DefineSensorTypeUI {
 
 
     //US 05 - As System Admin, I want to specify meteorological characteristics
     // that the several sensors are able to measure/register
 
 
-    private DataTypeList mDataTypeList;
-    private US5DefineSensorDataTypeCTRL mCtrlUS5;
+    private SensorTypeList mSensorTypeList;
+    private US5DefineSensorTypeCTRL mCtrlUS5;
 
     Scanner keyboard = new Scanner(System.in);
 
     /**
-     * US5DefineSensorDataTypeUI Constructor that assigns
+     * US5DefineSensorTypeUI Constructor that assigns
      *
-     * @param inputDataType - list where the newTypeGA is added
+     * @param inputSensorType - list where the newSensorType is added
      */
-    public US5DefineSensorDataTypeUI(DataTypeList inputDataType) {
-        mDataTypeList = inputDataType;
-        mCtrlUS5 = new US5DefineSensorDataTypeCTRL(mDataTypeList);
+    public US5DefineSensorTypeUI(SensorTypeList inputSensorType) {
+        mSensorTypeList = inputSensorType;
+        mCtrlUS5 = new US5DefineSensorTypeCTRL(mSensorTypeList);
     }
 
     /**
@@ -40,15 +40,15 @@ public class US5DefineSensorDataTypeUI {
     public void runUS5() {
         while (true) {
             System.out.println("Insert a new meteorological characteristic OR Press 'R' to return to Main Menu");
-            String inputDesignation = dataTypeDesignationInputIsValid();
+            String inputDesignation = sensorTypeDesignationInputIsValid();
 
             if ("r".equals(inputDesignation)) {
                 System.out.println("Return to Main Menu");
                 break;
             }
-            if (mCtrlUS5.newDataType(inputDesignation)) {
+            if (mCtrlUS5.newSensorType(inputDesignation)) {
                 System.out.println("Success: " + inputDesignation + " was added to the list:");
-                System.out.print(mCtrlUS5.returnDataTypeList());
+                System.out.print(mCtrlUS5.returnSensorTypeList());
             } else
                 System.out.println("Failure. Please try again.");
         }
@@ -63,15 +63,15 @@ public class US5DefineSensorDataTypeUI {
      *
      * @return null if input is not valid; return the designation if valid
      */
-    public String dataTypeDesignationInputIsValid() {
-        String dataTypeDesignationInput = keyboard.nextLine();
+    public String sensorTypeDesignationInputIsValid() {
+        String sensorTypeDesignationInput = keyboard.nextLine();
 
-        if (dataTypeDesignationInput == null || dataTypeDesignationInput.trim().isEmpty()) {
+        if (sensorTypeDesignationInput == null || sensorTypeDesignationInput.trim().isEmpty()) {
             return null;
         }
 
-        if (!dataTypeDesignationInput.matches("[a-zA-Z]*"))
+        if (!sensorTypeDesignationInput.matches("[a-zA-Z]*"))
             return null;
-        return dataTypeDesignationInput.toLowerCase();
+        return sensorTypeDesignationInput.toLowerCase();
     }
 }

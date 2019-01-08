@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class HouseAdministrationUI {
 
-    public static void houseAdministration(DataTypeList dataTypeList, GAList gaList, List<Room> roomList, House house) {
+    public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList, List<Room> roomList, House house) {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("House administration UI");
@@ -49,7 +49,7 @@ public class HouseAdministrationUI {
                     break;
 
                 case 7:
-                    US253AddSensorToRoomUI ui253 = new US253AddSensorToRoomUI(house, dataTypeList);
+                    US253AddSensorToRoomUI ui253 = new US253AddSensorToRoomUI(house, sensorTypeList);
                     ui253.run();
                     System.out.println("US253");
                     break;

@@ -171,7 +171,7 @@ class GAListTest {
     @DisplayName("Test if a sensor is added to the smallest Geographical Area Gaia")
     void addSensorToSmallestGA(){
         GAList gaList= new GAList();
-        Sensor sensor = new Sensor("GaiaTemperatureSensor", new GregorianCalendar(2018, 8, 4, 11, 0),2.7,5.2,0,new DataType ("Temperature"));
+        Sensor sensor = new Sensor("GaiaTemperatureSensor", new GregorianCalendar(2018, 8, 4, 11, 0),2.7,5.2,0,new SensorType("Temperature"));
 
         GeographicalArea ga1= new GeographicalArea("Pt","Porto","District",4,5,2,3,10);
         GeographicalArea ga2= new GeographicalArea("Pt","Matosinhos","Cidade",4,5,2,2,5);
@@ -192,7 +192,7 @@ class GAListTest {
     @DisplayName("Test if a sensor is added to the smallest Geographical Area Setúbal")
     void addSensorToSmallestGA5(){
         GAList gaList= new GAList();
-        Sensor sensor = new Sensor("SetubalTemperatureSensor", new GregorianCalendar(2018, 8, 4, 11, 0),2.7,5.2,0,new DataType ("Temperature"));
+        Sensor sensor = new Sensor("SetubalTemperatureSensor", new GregorianCalendar(2018, 8, 4, 11, 0),2.7,5.2,0,new SensorType("Temperature"));
 
         GeographicalArea ga1= new GeographicalArea("Pt","Gaia","City",54,5,2,2,10);
         GeographicalArea ga2= new GeographicalArea("Pt","Porto","District",4,45,2,3,10);
@@ -211,7 +211,7 @@ class GAListTest {
     @DisplayName("Test that sensor is not added any area in a list of Geographical Areas that do not contain the sensor's location")
     void EnsureSensorIsNotAddedToSmallestGA(){
         GAList gaList= new GAList();
-        Sensor sensor = new Sensor("GaiaTemperatureSensor", new GregorianCalendar(2018, 8, 4, 11, 0),2.7,5.2,0,new DataType ("Temperature"));
+        Sensor sensor = new Sensor("GaiaTemperatureSensor", new GregorianCalendar(2018, 8, 4, 11, 0),2.7,5.2,0,new SensorType("Temperature"));
 
         GeographicalArea ga3= new GeographicalArea("Pt","Lisboa","City",85,-127,15,152,85);
 

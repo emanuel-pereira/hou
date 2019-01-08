@@ -7,12 +7,12 @@ import java.util.List;
 
 public class US6CreateSensorCTRL {
 
-    private DataTypeList mDataTypeList;
+    private SensorTypeList mSensorTypeList;
     private GAList mGAList;
 
 
-    public US6CreateSensorCTRL(DataTypeList dataTypeList, GAList listOfGA) {
-        mDataTypeList = dataTypeList;
+    public US6CreateSensorCTRL(SensorTypeList sensorTypeList, GAList listOfGA) {
+        mSensorTypeList = sensorTypeList;
         mGAList = listOfGA;
     }
 
@@ -20,15 +20,15 @@ public class US6CreateSensorCTRL {
      *
      * @return Method that shows the list of dataTypes inputted by the user in a unique string
      */
-    public String showDataTypeListInString() {
-        List<DataType> list = mDataTypeList.getDataTypeList();
+    public String showSensorTypeListInString() {
+        List<SensorType> list = mSensorTypeList.getSensorTypeList();
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
-        for (DataType dataType : list) {
+        for (SensorType sensorType : list) {
             result.append(number++);
             result.append(element);
-            result.append(dataType.getDataTypeDesignation());
+            result.append(sensorType.getSensorTypeDesignation());
             result.append("\n");
         }
         return result.toString();
@@ -67,6 +67,6 @@ public class US6CreateSensorCTRL {
      */
     public boolean addNewSensorToGA(String inputName, GregorianCalendar startDate, int dataTypeIndex, String inputUnit, double latitude, double longitude, double altitude,  int indexOfGA, List<Reading> readings) {
 
-        return mGAList.get(indexOfGA-1).addSensor(new Sensor(inputName,startDate,mDataTypeList.getDataTypeList().get(dataTypeIndex - 1).toString(),inputUnit,latitude,longitude,altitude,readings));
+        return mGAList.get(indexOfGA-1).addSensor(new Sensor(inputName,startDate, mSensorTypeList.getSensorTypeList().get(dataTypeIndex - 1).toString(),inputUnit,latitude,longitude,altitude,readings));
     }
 }

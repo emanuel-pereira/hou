@@ -7,8 +7,8 @@ public class Sensor {
     private String mDesignation;
     private Calendar mStartDate;
     private Location mLocation;
-    private DataType mDataType;
-    private String mUnit; //to analyse the creation of a class unit so we may have a list of units for a specific Datatype (eg. DataType: temperature with list of units containing: celsius, kelvin and fahrenheit)
+    private SensorType mDataType;
+    private String mUnit; //to analyse the creation of a class unit so we may have a list of units for a specific Datatype (eg. SensorType: temperature with list of units containing: celsius, kelvin and fahrenheit)
     private List<Reading> mListOfReadings = new ArrayList<> ();
     private Room mRoom;
 
@@ -44,11 +44,11 @@ public class Sensor {
             this.mDesignation = designation;
             this.mStartDate = startDate;
             this.mLocation = new Location (latitude, longitude, altitude);
-            this.mDataType = new DataType (dataType);
+            this.mDataType = new SensorType(dataType);
         }
     }
 
-    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, DataType dataType) {
+    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, SensorType dataType) {
         if (nameIsValid (designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
@@ -58,7 +58,7 @@ public class Sensor {
     }
 
 
-    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, DataType dataType, List<Reading> listOfReadings) {
+    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, SensorType dataType, List<Reading> listOfReadings) {
         if (nameIsValid (designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
@@ -72,7 +72,7 @@ public class Sensor {
         if (nameIsValid (designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
-            this.mDataType = new DataType (dataType);
+            this.mDataType = new SensorType(dataType);
         }
     }
 
@@ -81,7 +81,7 @@ public class Sensor {
         if (nameIsValid (designation)) {
             mDesignation = designation;
             mStartDate = startDate;
-            mDataType = new DataType (dataType);
+            mDataType = new SensorType(dataType);
             mUnit= unit;
             mLocation = new Location(latitude,longitude,altitude);
             mListOfReadings=readings;
@@ -149,7 +149,7 @@ public class Sensor {
      *
      * @param dataType new object from the dataType class.
      */
-    public void setSensorDataType(DataType dataType) {
+    public void setSensorDataType(SensorType dataType) {
         this.mDataType = dataType;
     }
 
@@ -158,7 +158,7 @@ public class Sensor {
      *
      * @return object dataType
      */
-    public DataType getSensorDataType() {
+    public SensorType getSensorType() {
         return this.mDataType;
     }
 

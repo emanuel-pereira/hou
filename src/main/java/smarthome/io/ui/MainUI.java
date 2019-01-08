@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.model.DataTypeList;
+import smarthome.model.SensorTypeList;
 import smarthome.model.GAList;
 import smarthome.model.House;
 import smarthome.model.Room;
@@ -15,7 +15,7 @@ import static smarthome.io.ui.SystemAdministrationUI.systemAdministration;
 
 public class MainUI {
     public static void main(String[] args) {
-        DataTypeList dataTypeList = new DataTypeList();
+        SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
         House newHouse = new House();
         List<Room> roomList = new ArrayList<> ();
@@ -33,10 +33,10 @@ public class MainUI {
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
                 case 1:
-                    systemAdministration(dataTypeList,gaList);
+                    systemAdministration(sensorTypeList,gaList);
                     break;
                 case 2:
-                    houseAdministration(dataTypeList,gaList,roomList,newHouse);
+                    houseAdministration(sensorTypeList,gaList,roomList,newHouse);
                     break;
                 case 3:
                     regularUsage();

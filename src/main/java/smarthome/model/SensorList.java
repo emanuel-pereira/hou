@@ -49,7 +49,7 @@ public class SensorList {
      * @param inputDataType dataType the user wants to assign for the sensor.
      * @return
      */
-    public Sensor newSensor(String inputName, GregorianCalendar startDate, double latitude, double longitude, double altitude, DataType inputDataType) {
+    public Sensor newSensor(String inputName, GregorianCalendar startDate, double latitude, double longitude, double altitude, SensorType inputDataType) {
         return new Sensor(inputName, startDate, latitude, longitude, altitude,inputDataType);
     }
 }

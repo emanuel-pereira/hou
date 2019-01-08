@@ -5,32 +5,32 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DataTypeTest {
+class SensorTypeTest {
 
 
     @Test
     @DisplayName("Tests designation not equal to input string")
-    public void dataTypeDesignationEqualsString() {
+    public void sensorTypeDesignationEqualsString() {
 
         //Arrange
         String type = "humidity";
-        DataType dataType = new DataType("temperature");
+        SensorType sensorType = new SensorType("temperature");
 
         //Act
         boolean result;
-        result = dataType.equals(type);
+        result = sensorType.equals(type);
 
         //Assert
         assertFalse(result);
     }
 
     @Test
-    @DisplayName("Tests if two data type designations of different instances are the same")
-    public void differentDataTypeInstancesHaveEqualDesignation() {
+    @DisplayName("Tests if two sensor type designations of different instances are the same")
+    public void differentSensorTypeInstancesHaveEqualDesignation() {
 
         //Arrange
-        DataType type1 = new DataType("Wind");
-        DataType type2 = new DataType("Wind");
+        SensorType type1 = new SensorType("Wind");
+        SensorType type2 = new SensorType("Wind");
 
         //Act
         boolean result;
@@ -42,12 +42,12 @@ class DataTypeTest {
 
 
     @Test
-    @DisplayName("Tests if two data type designations of different instances are different")
-    public void differentDataTypeInstancesHaveNotEqualDesignation() {
+    @DisplayName("Tests if two sensor type designations of different instances are different")
+    public void differentSensorTypeInstancesHaveNotEqualDesignation() {
 
         //Arrange
-        DataType type1 = new DataType("Rainfall");
-        DataType type2 = new DataType("Visibility");
+        SensorType type1 = new SensorType("Rainfall");
+        SensorType type2 = new SensorType("Visibility");
 
         //Act
         boolean result;
