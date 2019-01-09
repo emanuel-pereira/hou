@@ -16,7 +16,7 @@ public class US253AddSensorToRoomTest {
     void showSensorTypeListInString() {
         SensorTypeList sensorTypeList = new SensorTypeList();
         House h1 = new House();
-        US253AddSensorToRoomCTRL ctr1 = new US253AddSensorToRoomCTRL(sensorTypeList, h1);
+        US253AddSensorToRoomCTRL ctr1 = new US253AddSensorToRoomCTRL(h1,sensorTypeList);
         SensorType type1 = new SensorType("Temperature");
         SensorType type2 = new SensorType("Wind");
         sensorTypeList.addSensorType(type1);
@@ -31,8 +31,8 @@ public class US253AddSensorToRoomTest {
     void showRoomListInString() {
         SensorTypeList sensorTypeList = new SensorTypeList();
         House h1 = new House();
-        List<Room> roomList = h1.getRoomList();
-        US253AddSensorToRoomCTRL ctrl = new US253AddSensorToRoomCTRL(sensorTypeList, h1);
+        List<Room> roomList = h1.getRoomListFromHouse().getRoomList();
+        US253AddSensorToRoomCTRL ctrl = new US253AddSensorToRoomCTRL(h1,sensorTypeList);
         Room r1 = new Room("Living Room", 1, 2, 3, 2);
         Room r2 = new Room("Bed Room", 1, 2, 3, 2);
         roomList.add(r1);
@@ -45,27 +45,24 @@ public class US253AddSensorToRoomTest {
     @DisplayName("Ensure that two different sensors are added to the respective Rooms")
     @Test
     void addNewSensorToRoom() {
-        SensorTypeList sensorTypeList = new SensorTypeList();
         House h1 = new House();
-        List<Room> roomList = h1.getRoomList();
-        US253AddSensorToRoomCTRL ctrl = new US253AddSensorToRoomCTRL(sensorTypeList, h1);
-        Room r1 = new Room("Living Room", 1, 2, 3, 2);
-        Room r2 = new Room("Bed Room", 1, 2, 3, 2);
-        roomList.add(r1);
-        roomList.add(r2);
+        RoomList roomList = h1.getRoomListFromHouse();
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        US253AddSensorToRoomCTRL ctr1 = new US253AddSensorToRoomCTRL(h1,sensorTypeList);
+        Room r1 = roomList.createNewRoom("Living Room", 1, 2, 3, 2);
+        Room r2 = roomList.createNewRoom("Bed Room", 1, 2, 3, 2);
+
         SensorType type1 = new SensorType("Temperature");
         SensorType type2 = new SensorType("Wind");
         sensorTypeList.addSensorType(type1);
         sensorTypeList.addSensorType(type2);
-        Sensor s1 = new Sensor();
-        Sensor s2 = new Sensor();
-        s1.setRoom(r1);
-        s2.setRoom(r2);
 
-        ctrl.addNewSensorToRoom("LivingRoomTempSensor", new GregorianCalendar(2018, 12, 26), 1, 1);
-        assertEquals(r1, s1.getRoom());
 
-        ctrl.addNewSensorToRoom("BedRoomWindSensor", new GregorianCalendar(2018, 12, 26), 2, 2);
-        assertEquals(r2, s2.getRoom());
+        roomList.addRoom(r1);
+        roomList.addRoom(r2);
+
+        ctr1.addNewSensorToRoom("S1",new GregorianCalendar(2018,3,3),1,1);
+
+        assertEquals(2, h1.getRoomListFromHouse().getRoomList().size());
     }
 }

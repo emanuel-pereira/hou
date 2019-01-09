@@ -2,16 +2,19 @@ package smarthome.io.ui;
 
 import smarthome.controller.USAttachRoomToGridAndListCTRL;
 import smarthome.model.House;
+import smarthome.model.RoomList;
 
 import java.util.Scanner;
 
 public class USAttachRoomToGridAndListUI {
     private House mHouse;
+    private RoomList mRoomList;
     private USAttachRoomToGridAndListCTRL mCtrlUS147;
 
     public USAttachRoomToGridAndListUI(House house) {
         mHouse = house;
         mCtrlUS147 = new USAttachRoomToGridAndListCTRL(house);
+        mRoomList = mHouse.getRoomListFromHouse();
     }
 
     Scanner read = new Scanner(System.in);
@@ -53,7 +56,7 @@ public class USAttachRoomToGridAndListUI {
                                 indexOfRoom = read.nextInt();
                                 read.nextLine();
                                 mCtrlUS147.attachRoomToHouseGrid(indexOfHouseGrid, indexOfRoom);
-                                System.out.println("Room " + mHouse.getRoomList().get(indexOfRoom - 1).getName() + " was successfully attached to HouseGrid: " + mHouse.getHouseGridList().get(indexOfHouseGrid - 1).getGridID() + " | Nominal Power: " + mHouse.getHouseGridList().get(indexOfHouseGrid - 1).getContractedMaximumPower() + ".\n");
+                                System.out.println("Room " + mRoomList.get(indexOfRoom - 1).getName() + " was successfully attached to HouseGrid: " + mHouse.getHouseGridList().get(indexOfHouseGrid - 1).getGridID() + " | Nominal Power: " + mHouse.getHouseGridList().get(indexOfHouseGrid - 1).getContractedMaximumPower() + ".\n");
                                 System.out.println(listRoomsAttachedToHousegridMsg);
                                 System.out.println(mCtrlUS147.showRoomsWithHouseGridInStr(indexOfHouseGrid));
                                 break;

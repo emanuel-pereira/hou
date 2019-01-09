@@ -8,7 +8,8 @@ public class Room {
     private Integer mFloor;
     private OccupationArea mArea;
     private double mHeight;
-    private HouseGrid mHouseGrid; //each room has only a house grid
+    private HouseGrid mHouseGrid;//each room has only a house grid
+    private SensorList mSensorListInRoom = new SensorList();
 
 
     /**
@@ -111,6 +112,10 @@ public class Room {
 
     public HouseGrid getmHouseGrid() {
         return mHouseGrid;
+    }
+
+    public SensorList getSensorListInRoom() {
+        return mSensorListInRoom;
     }
 
     /**

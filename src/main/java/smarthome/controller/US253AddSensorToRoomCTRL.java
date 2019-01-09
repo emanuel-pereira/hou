@@ -9,9 +9,11 @@ public class US253AddSensorToRoomCTRL {
 
     private SensorTypeList mSensorTypeList;
     private House mHouse;
+    private RoomList mRoomList;
 
-    public US253AddSensorToRoomCTRL(SensorTypeList sensorTypeList, House house) {
+    public US253AddSensorToRoomCTRL(House house, SensorTypeList sensorTypeList) {
         mHouse = house;
+        mRoomList = mHouse.getRoomListFromHouse();
         mSensorTypeList = sensorTypeList;
     }
 
@@ -30,13 +32,13 @@ public class US253AddSensorToRoomCTRL {
     }
 
     public void addNewSensorToRoom(String inputName, GregorianCalendar startDate, int sensorTypeIndex, int indexOfRoom) {
-        Room r = mHouse.getRoomList().get(indexOfRoom-1);
-        Sensor s = new Sensor(inputName, startDate, mSensorTypeList.getSensorTypeList().get(sensorTypeIndex - 1).toString());
-        s.setRoom(r);
+        Room r = mRoomList.get(indexOfRoom - 1);
+        Sensor s= r.getSensorListInRoom().createNewInternalSensor(inputName, startDate, mSensorTypeList.getSensorTypeList().get(sensorTypeIndex-1));
+        r.getSensorListInRoom().addSensor(s);
     }
 
     public String showRoomListInString() {
-        List<Room> list = mHouse.getRoomList();
+        List<Room> list = mRoomList.getRoomList();
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;

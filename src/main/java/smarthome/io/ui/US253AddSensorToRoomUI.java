@@ -1,6 +1,7 @@
 package smarthome.io.ui;
 
 import smarthome.controller.US253AddSensorToRoomCTRL;
+import smarthome.model.RoomList;
 import smarthome.model.SensorTypeList;
 import smarthome.model.House;
 
@@ -11,13 +12,15 @@ public class US253AddSensorToRoomUI {
 
     private SensorTypeList mSensorTypeList;
     private House mHouse;
+    private RoomList mRoomList;
     private US253AddSensorToRoomCTRL mCtrlUS253;
 
 
     public US253AddSensorToRoomUI(House house, SensorTypeList sensorTypeList) {
-        mCtrlUS253 = new US253AddSensorToRoomCTRL(sensorTypeList, house);
+        mCtrlUS253 = new US253AddSensorToRoomCTRL(house,sensorTypeList);
         mHouse = house;
         mSensorTypeList = sensorTypeList;
+        mRoomList = mHouse.getRoomListFromHouse();
     }
 
     Scanner read = new Scanner(System.in);
@@ -28,7 +31,7 @@ public class US253AddSensorToRoomUI {
 
 
     public void run() {
-        if (mHouse.getRoomList().size() != 0) {
+        if (mRoomList.getRoomList().size() != 0) {
             if (mSensorTypeList.getSensorTypeList().size() != 0) {
                 String name;
                 while (true) {

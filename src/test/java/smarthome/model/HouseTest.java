@@ -3,7 +3,6 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
@@ -92,8 +91,8 @@ class HouseTest {
         GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
 
-        House list = new House("Prédio", a1, g1);
-        Room room = list.newRoom("bedroom", 1, 2, 2.5, 2);
+        House h = new House("Prédio", a1, g1);
+        Room room = h.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
 
         assertEquals("bedroom", room.getName());
         assertEquals(1, room.getFloor());
@@ -109,12 +108,12 @@ class HouseTest {
         Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
         GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
-        House list = new House("Prédio", a1, g1);
-        Room room = list.newRoom("bedroom", 1, 2, 2.5, 2);
+        House h1 = new House("Prédio", a1, g1);
+        Room room = h1.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
 
-        list.addRoom(room);
+        h1.getRoomListFromHouse().addRoom(room);
         List<Room> expectedResult = Arrays.asList(room);
-        List<Room> result = list.getRoomList();
+        List<Room> result = h1.getRoomListFromHouse().getRoomList();
 
         assertEquals(expectedResult, result);
     }
@@ -127,19 +126,19 @@ class HouseTest {
         Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
         GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
-        House list = new House("Prédio", a1, g1);
-        Room room = list.newRoom("bedroom", 1, 2, 2.5, 2);
-        Room room1 = list.newRoom("garden", 0, 2.5, 3, 2);
-        assertEquals(0, list.getRoomList().size());
+        House h = new House("Prédio", a1, g1);
+        Room room = h.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
+        Room room1 = h.getRoomListFromHouse().createNewRoom("garden", 0, 2.5, 3, 2);
+        assertEquals(0, h.getRoomListFromHouse().getRoomList().size());
 
-        list.addRoom(room);
-        assertEquals(1, list.getRoomList().size());
+        h.getRoomListFromHouse().addRoom(room);
+        assertEquals(1, h.getRoomListFromHouse().getRoomList().size());
 
-        list.addRoom(room1);
-        assertEquals(2, list.getRoomList().size());
+        h.getRoomListFromHouse().addRoom(room1);
+        assertEquals(2, h.getRoomListFromHouse().getRoomList().size());
 
         List<Room> expectedResult = Arrays.asList(room, room1);
-        List<Room> result = list.getRoomList();
+        List<Room> result = h.getRoomListFromHouse().getRoomList();
         assertEquals(expectedResult, result);
     }
 
@@ -151,20 +150,20 @@ class HouseTest {
         Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
         GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
-        House list = new House("Casa", a1, g1);
-        Room room = list.newRoom("bedroom", 1, 2, 2.5, 2);
-        Room room1 = list.newRoom("  ", 0, 2.5, 3, 2);
+        House h = new House("Casa", a1, g1);
+        Room room = h.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
+        Room room1 = h.getRoomListFromHouse().createNewRoom("  ", 0, 2.5, 3, 2);
 
-        assertEquals(0, list.getRoomList().size());
+        assertEquals(0, h.getRoomListFromHouse().getRoomList().size());
 
-        list.addRoom(room);
-        assertEquals(1, list.getRoomList().size());
+        h.getRoomListFromHouse().addRoom(room);
+        assertEquals(1, h.getRoomListFromHouse().getRoomList().size());
 
-        list.addRoom(room1);
-        assertEquals(1, list.getRoomList().size());
+        h.getRoomListFromHouse().addRoom(room1);
+        assertEquals(1, h.getRoomListFromHouse().getRoomList().size());
 
         List<Room> expectedResult = Arrays.asList(room);
-        List<Room> result = list.getRoomList();
+        List<Room> result = h.getRoomListFromHouse().getRoomList();
         assertEquals(expectedResult, result);
     }
 
@@ -177,17 +176,17 @@ class HouseTest {
         Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
         GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
-        House list = new House("Casa", a1, g1);
-        Room room = list.newRoom("bedroom", 1, 2, 2.5, 2);
-        Room room1 = list.newRoom("  ", 0, 2.5, 3, 2);
+        House h = new House("Casa", a1, g1);
+        Room room = h.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
+        Room room1 = h.getRoomListFromHouse().createNewRoom("  ", 0, 2.5, 3, 2);
 
-        assertEquals(0, list.getRoomList().size());
+        assertEquals(0, h.getRoomListFromHouse().getRoomList().size());
 
-        list.addRoom(room);
-        assertEquals(1, list.getRoomList().size());
+        h.getRoomListFromHouse().addRoom(room);
+        assertEquals(1, h.getRoomListFromHouse().getRoomList().size());
 
-        list.addRoom(room1);
-        assertEquals(1, list.getRoomList().size());
+        h.getRoomListFromHouse().addRoom(room1);
+        assertEquals(1, h.getRoomListFromHouse().getRoomList().size());
 
         boolean expectedResult = false;
         String name = " ";
@@ -204,22 +203,22 @@ class HouseTest {
         Address a1 = new Address("Rua Júlio Dinis", "3380-45", "Lisboa",41, 12.3, 110);
         GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
-        House list = new House("Casa", a1, g1);
-        Room room = list.newRoom("bedroom", 1, 2, 2.5, 1.7);
-        Room room1 = list.newRoom("  ", 0, 2.5, 3, 2);
+        House h = new House("Casa", a1, g1);
+        Room room = h.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 1.7);
+        Room room1 = h.getRoomListFromHouse().createNewRoom("  ", 0, 2.5, 3, 2);
 
-        assertEquals(0, list.getRoomList().size());
+        assertEquals(0, h.getRoomListFromHouse().getRoomList().size());
 
-        boolean result = list.addRoom(room);
-        assertEquals(1, list.getRoomList().size());
+        boolean result = h.getRoomListFromHouse().addRoom(room);
+        assertEquals(1, h.getRoomListFromHouse().getRoomList().size());
         assertTrue(result);
 
-        boolean result1 = list.addRoom(room1);
-        assertEquals(1, list.getRoomList().size());
+        boolean result1 = h.getRoomListFromHouse().addRoom(room1);
+        assertEquals(1, h.getRoomListFromHouse().getRoomList().size());
         assertFalse(result1);
 
         List<Room> expectedResult = Arrays.asList(room);
-        List<Room> result2 = list.getRoomList();
+        List<Room> result2 = h.getRoomListFromHouse().getRoomList();
         assertEquals(expectedResult, result2);
     }
 
@@ -231,15 +230,14 @@ class HouseTest {
         GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
         House house = new House("Casa", a1, g1);
-        Room room1 = house.newRoom("bedroom", 1, 2, 2.5, 2);
-        Room room2 = house.newRoom("kitchen", 1, 4, 5, 2);
+        Room room1 = house.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
+        Room room2 = house.getRoomListFromHouse().createNewRoom("kitchen", 1, 4, 5, 2);
 
-        house.addRoom(room1);
-        house.addRoom(room2);
-        assertEquals(2, house.getRoomList().size());
-        assertTrue(house.removeRoom(room2));
-        assertEquals(1, house.getRoomList().size());
-
+        house.getRoomListFromHouse().addRoom(room1);
+        house.getRoomListFromHouse().addRoom(room2);
+        assertEquals(2, house.getRoomListFromHouse().getRoomList().size());
+        assertTrue(house.getRoomListFromHouse().removeRoom(room2));
+        assertEquals(1, house.getRoomListFromHouse().getRoomList().size());
     }
 
     @Test
@@ -252,11 +250,11 @@ class HouseTest {
 
 
         House house = new House("Casa", a1, g1);
-        Room room1 = house.newRoom("bedroom", 1, 2, 2.5, 2);
-        house.addRoom(room1);
-        Room room2 = house.newRoom("kitchen", 1, 4, 5, 2);
+        Room room1 = house.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
+        house.getRoomListFromHouse().addRoom(room1);
+        Room room2 = house.getRoomListFromHouse().createNewRoom("kitchen", 1, 4, 5, 2);
 
-        assertFalse(house.removeRoom(room2));
+        assertFalse(house.getRoomListFromHouse().removeRoom(room2));
     }
 
     @Test

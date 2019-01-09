@@ -65,10 +65,10 @@ class USAttachRoomToGridAndListCTRLTest {
         Room wc= new Room("Bathroom",0,4,3,2 );
         Room bedroom1 = new Room("Bedroom1",1,4,5, 2);
         Room bedroom2 = new Room("Bedroom2",1,4,5, 2);
-        house.addRoom(kitchen);
-        house.addRoom(wc);
-        house.addRoom(bedroom1);
-        house.addRoom(bedroom2);
+        house.getRoomListFromHouse().addRoom(kitchen);
+        house.getRoomListFromHouse().addRoom(wc);
+        house.getRoomListFromHouse().addRoom(bedroom1);
+        house.getRoomListFromHouse().addRoom(bedroom2);
         bedroom1.setmHouseGrid(grid);
         bedroom2.setmHouseGrid(grid);
 
@@ -90,10 +90,10 @@ class USAttachRoomToGridAndListCTRLTest {
         Room wc= new Room("Bathroom",0,4,3,2 );
         Room bedroom1 = new Room("Bedroom1",1,4,5, 2);
         Room bedroom2 = new Room("Bedroom2",1,4,5, 2);
-        house.addRoom(kitchen);
-        house.addRoom(wc);
-        house.addRoom(bedroom1);
-        house.addRoom(bedroom2);
+        house.getRoomListFromHouse().addRoom(kitchen);
+        house.getRoomListFromHouse().addRoom(wc);
+        house.getRoomListFromHouse().addRoom(bedroom1);
+        house.getRoomListFromHouse().addRoom(bedroom2);
 
         int expectedResult=4;
         int result=ctrl.getListOfRooms().size();
@@ -118,10 +118,10 @@ class USAttachRoomToGridAndListCTRLTest {
         Room wc= new Room("Bathroom",0,4,3, 2.5);
         Room bedroom1 = new Room("Bedroom1",1,4,5, 2.5);
         Room bedroom2 = new Room("Bedroom2",1,4,5, 2.5);
-        house.addRoom(kitchen);
-        house.addRoom(wc);
-        house.addRoom(bedroom1);
-        house.addRoom(bedroom2);
+        house.getRoomListFromHouse().addRoom(kitchen);
+        house.getRoomListFromHouse().addRoom(wc);
+        house.getRoomListFromHouse().addRoom(bedroom1);
+        house.getRoomListFromHouse().addRoom(bedroom2);
         bedroom1.setmHouseGrid(grid);
         bedroom2.setmHouseGrid(grid);
         String expected = "1 - Kitchen\n2 - Bathroom\n";
@@ -146,10 +146,10 @@ class USAttachRoomToGridAndListCTRLTest {
         Room wc= new Room("Bathroom",0,4,3, 2);
         Room bedroom1 = new Room("Bedroom1",1,4,5, 2);
         Room bedroom2 = new Room("Bedroom2",1,4,5, 2);
-        house.addRoom(kitchen);
-        house.addRoom(wc);
-        house.addRoom(bedroom1);
-        house.addRoom(bedroom2);
+        house.getRoomListFromHouse().addRoom(kitchen);
+        house.getRoomListFromHouse().addRoom(wc);
+        house.getRoomListFromHouse().addRoom(bedroom1);
+        house.getRoomListFromHouse().addRoom(bedroom2);
         bedroom1.setmHouseGrid(grid);
         bedroom2.setmHouseGrid(grid);
 
@@ -172,8 +172,8 @@ class USAttachRoomToGridAndListCTRLTest {
         house.addHouseGrid(grid2);
         Room bedroom1 = new Room("Bedroom1",1,4,5, 2);
         Room bedroom2 = new Room("Bedroom2",1,4,5, 2);
-        house.addRoom(bedroom1);
-        house.addRoom(bedroom2);
+        house.getRoomListFromHouse().addRoom(bedroom1);
+        house.getRoomListFromHouse().addRoom(bedroom2);
         bedroom1.setmHouseGrid(grid);
         bedroom2.setmHouseGrid(grid);
         boolean result =  ctrl.attachRoomToHouseGrid(2,1);
@@ -197,10 +197,10 @@ class USAttachRoomToGridAndListCTRLTest {
         Room wc= new Room("Bathroom",0,4,3, 3);
         Room bedroom1 = new Room("Bedroom1",1,4,5, 3);
         Room bedroom2 = new Room("Bedroom2",1,4,5, 3);
-        house.addRoom(kitchen);
-        house.addRoom(wc);
-        house.addRoom(bedroom1);
-        house.addRoom(bedroom2);
+        house.getRoomListFromHouse().addRoom(kitchen);
+        house.getRoomListFromHouse().addRoom(wc);
+        house.getRoomListFromHouse().addRoom(bedroom1);
+        house.getRoomListFromHouse().addRoom(bedroom2);
 
         bedroom1.setmHouseGrid(grid);
         bedroom2.setmHouseGrid(grid);
@@ -230,10 +230,10 @@ class USAttachRoomToGridAndListCTRLTest {
         Room wc= new Room("Bathroom",0,4,3, 1.5);
         Room bedroom1 = new Room("Bedroom1",1,4,5, 1.5);
         Room bedroom2 = new Room("Bedroom2",1,4,5, 1.5);
-        house.addRoom(kitchen);
-        house.addRoom(wc);
-        house.addRoom(bedroom1);
-        house.addRoom(bedroom2);
+        house.getRoomListFromHouse().addRoom(kitchen);
+        house.getRoomListFromHouse().addRoom(wc);
+        house.getRoomListFromHouse().addRoom(bedroom1);
+        house.getRoomListFromHouse().addRoom(bedroom2);
 
         bedroom1.setmHouseGrid(grid);
         bedroom2.setmHouseGrid(grid);
@@ -265,10 +265,10 @@ class USAttachRoomToGridAndListCTRLTest {
         Room wc= new Room("Bathroom",0,4,3, 2);
         Room bedroom1 = new Room("Bedroom1",1,4,5, 2);
         Room bedroom2 = new Room("Bedroom2",1,4,5, 2);
-        house.addRoom(kitchen);
-        house.addRoom(wc);
-        house.addRoom(bedroom1);
-        house.addRoom(bedroom2);
+        house.getRoomListFromHouse().addRoom(kitchen);
+        house.getRoomListFromHouse().addRoom(wc);
+        house.getRoomListFromHouse().addRoom(bedroom1);
+        house.getRoomListFromHouse().addRoom(bedroom2);
 
         bedroom1.setmHouseGrid(grid);
         bedroom2.setmHouseGrid(grid);
@@ -295,9 +295,9 @@ class USAttachRoomToGridAndListCTRLTest {
 
         Room bedroom1 = new Room("Bedroom1",1,4,5, 2.5);
         Room bedroom2 = new Room("Bedroom2",1,4,5, 2.5);
-
-        house.addRoom(bedroom1);
-        house.addRoom(bedroom2);
+        
+        house.getRoomListFromHouse().addRoom(bedroom1);
+        house.getRoomListFromHouse().addRoom(bedroom2);
 
         bedroom1.setmHouseGrid(grid);
         bedroom2.setmHouseGrid(grid);

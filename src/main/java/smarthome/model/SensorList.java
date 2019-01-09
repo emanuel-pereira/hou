@@ -52,5 +52,16 @@ public class SensorList {
     public Sensor newSensor(String inputName, GregorianCalendar startDate, String inputDataType, String inputUnit, double latitude, double longitude, double altitude, List<Reading> readings) {
         return new Sensor(inputName, startDate, inputDataType, inputUnit, latitude, longitude, altitude, readings);
     }
+
+    /**
+     *
+     * @param inputName name of Sensor
+     * @param startDate startDate of Sensor
+     * @param inputDataType dataType the user wants to assign for the sensor.
+     * @return
+     */
+    public Sensor createNewInternalSensor(String inputName, GregorianCalendar startDate, SensorType inputDataType) {
+        return new Sensor(inputName, startDate, inputDataType);
+    }
 }
 

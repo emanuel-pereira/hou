@@ -4,11 +4,13 @@ import smarthome.model.*;
 
 public class US105AddNewRoomToHouseCTRL {
 
-    private House mRoomList;
+    private House mHouse;
+    private RoomList mRoomList;
 
 
-    public US105AddNewRoomToHouseCTRL(House inputList) {
-        mRoomList = inputList;
+    public US105AddNewRoomToHouseCTRL(House house) {
+        mHouse = house;
+        mRoomList = mHouse.getRoomListFromHouse();
 
     }
 
@@ -21,7 +23,7 @@ public class US105AddNewRoomToHouseCTRL {
      * @return
      */
     public boolean newRoom(String name, Integer floor, double length, double width, double height) {
-        Room room = mRoomList.newRoom (name, floor, length, width, height);
+        Room room = mRoomList.createNewRoom (name, floor, length, width, height);
                return mRoomList.addRoom (room);
     }
 
