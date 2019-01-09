@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class US6CreateSensorCTRLTest {
 
 
-    @DisplayName("Test if SensorTypeList is showed as a string to the user")
+   @DisplayName("Test if SensorTypeList is showed as a string to the user")
     @Test
     void showSensorTypeListInString() {
         SensorTypeList sensorTypeList = new SensorTypeList();
@@ -79,6 +79,5 @@ class US6CreateSensorCTRLTest {
 
         boolean result1= ctrl6.addNewSensorToGA("PortoWindSensor",new GregorianCalendar(2018,12,26),2,"km/h",55,40,15,2,readingsLis);
         assertTrue(result1);
-
     }
 }

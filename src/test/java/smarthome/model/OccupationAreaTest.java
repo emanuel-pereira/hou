@@ -69,5 +69,22 @@ public class OccupationAreaTest {
         double result = C.getOccupationArea();
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    @DisplayName("Ensure getLength in occupation area o returns 4")
+    void getmLength() {
+        OccupationArea o = new OccupationArea(4, 3);
+        double expectedResult= 4;
+        double result= o.getmLength();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getmWidth() {
+        OccupationArea o = new OccupationArea(4, 3);
+        double expectedResult= 3;
+        double result= o.getmWidth();
+        assertEquals(expectedResult, result);
+    }
 }
 

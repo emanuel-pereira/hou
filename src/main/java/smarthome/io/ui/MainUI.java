@@ -1,9 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.model.SensorTypeList;
-import smarthome.model.GAList;
-import smarthome.model.House;
-import smarthome.model.Room;
+import smarthome.model.*;
 
 import java.util.ArrayList;
 import java.util.List;

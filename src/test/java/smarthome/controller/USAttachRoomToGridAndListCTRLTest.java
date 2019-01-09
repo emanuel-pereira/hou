@@ -14,10 +14,9 @@ class USAttachRoomToGridAndListCTRLTest {
     @Test
     @DisplayName("Ensure HouseGrid List is displayed as String")
     void showHouseGridListInString() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45",41, 12.3, 110);
+        GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
         USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
         HouseGrid grid1 = new HouseGrid(45,"Grid 1");
@@ -34,10 +33,8 @@ class USAttachRoomToGridAndListCTRLTest {
     @Test
     @DisplayName("Ensure HouseGrid List size is 2")
     void getHouseGridList() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
-        TypeGA type1 = new TypeGA("cidade");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", 41, 12.3, 110);
+        GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
         USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
         HouseGrid grid1 = new HouseGrid(45);
@@ -54,10 +51,8 @@ class USAttachRoomToGridAndListCTRLTest {
     @Test
     @DisplayName("Ensure that list of Rooms without HouseGrid returns 2")
     void getListOfRoomsWithoutHouseGrid() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", l1);
-        TypeGA type1 = new TypeGA("City");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", 41, 12.3, 110);
+        GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
         USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
 
@@ -86,10 +81,8 @@ class USAttachRoomToGridAndListCTRLTest {
     @Test
     @DisplayName("Ensure that get list of rooms returns size 4")
     void getListOfRooms() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", l1);
-        TypeGA type1 = new TypeGA("City");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", 41, 12.3, 110);
+        GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
         USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
 
@@ -111,10 +104,8 @@ class USAttachRoomToGridAndListCTRLTest {
     @Test
     @DisplayName("Ensure that list of Rooms without HouseGrid is displayed in string")
     void listOfRoomsWithoutHouseGridInString() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", l1);
-        TypeGA type1 = new TypeGA("City");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", 41, 12.3, 110);
+        GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
         USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
 
@@ -141,10 +132,8 @@ class USAttachRoomToGridAndListCTRLTest {
     @Test
     @DisplayName("Ensure that grid2 is set as kitchen HouseGrid")
     void attachRoomToHouseGrid() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", l1);
-        TypeGA type1 = new TypeGA("City");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", 41, 12.3, 110);
+        GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
         USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
 
@@ -172,10 +161,8 @@ class USAttachRoomToGridAndListCTRLTest {
     @Test
     @DisplayName("Ensure that grid2 is not set to any room as the list of rooms without HouseGrid is empty.")
     void attachRoomToHouseGridReturnsFalseAsAllRoomsAlreadyHaveGrid() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25","4000-285", l1);
-        TypeGA type1 = new TypeGA("City");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25","4000-285", 41, 12.3, 110);
+        GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
         USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
 
@@ -195,10 +182,8 @@ class USAttachRoomToGridAndListCTRLTest {
     @Test
     @DisplayName("Ensure that list of Rooms with HouseGrid is displayed in string")
     void showListOfRoomsWithHouseGridInString() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", l1);
-        TypeGA t1 = new TypeGA("district");
-        GeographicalArea g1 = new GeographicalArea("Gondomar", t1,l1);
+        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", 41, 12.3, 110);
+        GeographicalArea g1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
 
         House house = new House(a1,g1);
         USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
@@ -231,10 +216,8 @@ class USAttachRoomToGridAndListCTRLTest {
     @Test
     void getListRoomsWithHouseGrid() {
 
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", l1);
-        TypeGA type1 = new TypeGA("City");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", 41, 12.3, 110);
+        GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
         USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
 
@@ -268,10 +251,8 @@ class USAttachRoomToGridAndListCTRLTest {
     @Test
     @DisplayName("Ensure that grid2 is detached from kitchen")
     void detachRoomFromHouseGrid() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25","4000-285", l1);
-        TypeGA type1 = new TypeGA("City");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25","4000-285", 41, 12.3, 110);
+        GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
         USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
 
@@ -302,10 +283,8 @@ class USAttachRoomToGridAndListCTRLTest {
     @Test
     @DisplayName("Ensure that method detachRoomFromHouseGrid returns false as grid2 does not have any rooms attached.")
     void detachRoomFromHouseGridReturnsFale() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", l1);
-        TypeGA type1 = new TypeGA("City");
-        GeographicalArea ga1 = new GeographicalArea("Porto", type1);
+        Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285",41, 12.3, 110);
+        GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
         USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
 

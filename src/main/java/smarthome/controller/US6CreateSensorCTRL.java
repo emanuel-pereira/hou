@@ -17,7 +17,6 @@ public class US6CreateSensorCTRL {
     }
 
     /**
-     *
      * @return Method that shows the list of dataTypes inputted by the user in a unique string
      */
     public String showSensorTypeListInString() {
@@ -39,7 +38,6 @@ public class US6CreateSensorCTRL {
     }
 
     /**
-     *
      * @return Method that shows the list of Geographical Areas in a unique string
      */
     public String showGAListInString() {
@@ -59,14 +57,17 @@ public class US6CreateSensorCTRL {
     /**
      * Method that adds a new sensor to a Geographical Area in the
      * index position of the List of Geographical Areas chosen by the user
-     * @param inputName name inputted by the user for the sensor
-     * @param startDate start date inputted by the user for the sensor
-     * @param dataTypeIndex index position of data type chosen by the user
-     * @param indexOfGA index position of Geographical Areas List to which the user wants to add the Geographical Area
+     *
+     * @param inputName       name inputted by the user for the sensor
+     * @param startDate       start date inputted by the user for the sensor
+     * @param sensorTypeIndex index position of data type chosen by the user
+     * @param indexOfGA       index position of Geographical Areas List to which the user wants to add the Geographical Area
      * @return adds the sensor created to the Geographical Area chosen by the user
      */
-    public boolean addNewSensorToGA(String inputName, GregorianCalendar startDate, int dataTypeIndex, String inputUnit, double latitude, double longitude, double altitude,  int indexOfGA, List<Reading> readings) {
 
-        return mGAList.get(indexOfGA-1).addSensor(new Sensor(inputName,startDate, mSensorTypeList.getSensorTypeList().get(dataTypeIndex - 1).toString(),inputUnit,latitude,longitude,altitude,readings));
+    public boolean addNewSensorToGA(String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, double latitude, double longitude, double altitude, int indexOfGA, List<Reading> readings) {
+        Sensor sensor = mGAList.getGAList().get(indexOfGA - 1).getSensorListInGA().newSensor(inputName, startDate, mSensorTypeList.getSensorTypeList().get(sensorTypeIndex - 1).toString(), inputUnit, latitude, longitude, altitude, readings);
+        return mGAList.getGAList().get(indexOfGA - 1).getSensorListInGA().addSensor(sensor);
     }
+
 }

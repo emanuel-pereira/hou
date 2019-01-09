@@ -17,10 +17,9 @@ class HouseTest {
     public void differentHouseInstancesAreEqual() {
 
         //Arrange
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Porto", l1);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Porto", 41, 12.3, 110);
         TypeGA t1 = new TypeGA("city");
-        GeographicalArea g1 = new GeographicalArea("Porto", t1, l1);
+        GeographicalArea g1 = new GeographicalArea("VNG","Gaia","City",20,20,2,2,5);
 
         House house1 = new House("Prédio1", a1, g1);
 
@@ -36,10 +35,8 @@ class HouseTest {
     public void checkIfSameHouse() {
 
         //Arrange
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Porto", l1);
-        TypeGA t1 = new TypeGA("city");
-        GeographicalArea g1 = new GeographicalArea("Porto", t1, l1);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Porto", 41, 12.3, 110);
+        GeographicalArea g1 = new GeographicalArea("POR","Porto","City",20,20,2,2,5);
 
         House house1 = new House("Prédio1", a1, g1);
 
@@ -54,13 +51,11 @@ class HouseTest {
     public void differentHouseInstancesAreNotEqual() {
 
         //Arrange
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 34", "3380-45", "Aveiro", l1);
-        TypeGA t1 = new TypeGA("city");
-        GeographicalArea g1 = new GeographicalArea("Porto", t1, l1);
+        Address a1 = new Address("Rua Júlio Dinis, 34", "3380-45", "Porto", 41, 12.3, 110);
+        GeographicalArea g1 = new GeographicalArea("POR","Porto","City",20,20,2,2,5);
 
 
-        Address a2 = new Address("Rua Júlio Dinis, 34", "3380-45", "Aveiro", l1);
+        Address a2 = new Address("Rua Júlio Dinis, 32", "3380-45", "Porto", 41, 12.3, 110);
 
         House house1 = new House("Prédio1", a1, g1);
         House house2 = new House("Prédio2", a2, g1);
@@ -75,10 +70,9 @@ class HouseTest {
     public void differentObjectsAreNotEqual() {
 
         //Arrange
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Beja", l1);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Beja", 41, 12.3, 110);
         TypeGA t1 = new TypeGA("cidade");
-        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
+        GeographicalArea g1 = new GeographicalArea("POR","Porto","City",20,20,2,2,5);
 
         House house1 = new House("Prédio", a1, g1);
 
@@ -94,10 +88,8 @@ class HouseTest {
      */
     @Test
     void newRoom() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", l1);
-        TypeGA t1 = new TypeGA("cidade");
-        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
+        Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
+        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
 
         House list = new House("Prédio", a1, g1);
@@ -114,10 +106,8 @@ class HouseTest {
      */
     @Test
     void addOneRoom() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 345", "345", "Lisboa", l1);
-        TypeGA t1 = new TypeGA("cidade");
-        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
+        Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
+        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
         House list = new House("Prédio", a1, g1);
         Room room = list.newRoom("bedroom", 1, 2, 2.5, 2);
@@ -134,10 +124,8 @@ class HouseTest {
      */
     @Test
     void addTwoRooms() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", l1);
-        TypeGA t1 = new TypeGA("cidade");
-        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
+        Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
+        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
         House list = new House("Prédio", a1, g1);
         Room room = list.newRoom("bedroom", 1, 2, 2.5, 2);
@@ -160,10 +148,8 @@ class HouseTest {
      */
     @Test
     void addOneRoomEmptyName() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", l1);
-        TypeGA t1 = new TypeGA("cidade");
-        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
+        Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
+        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
         House list = new House("Casa", a1, g1);
         Room room = list.newRoom("bedroom", 1, 2, 2.5, 2);
@@ -188,10 +174,8 @@ class HouseTest {
      */
     @Test
     void nameNotValid() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "3380-45", "Lisboa", l1);
-        TypeGA t1 = new TypeGA("cidade");
-        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
+        Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
+        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
         House list = new House("Casa", a1, g1);
         Room room = list.newRoom("bedroom", 1, 2, 2.5, 2);
@@ -217,10 +201,8 @@ class HouseTest {
      */
     @Test
     void addOneGetTrueAddAnotherGetFalse() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "3380-45", "Lisboa", l1);
-        TypeGA t1 = new TypeGA("cidade");
-        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
+        Address a1 = new Address("Rua Júlio Dinis", "3380-45", "Lisboa",41, 12.3, 110);
+        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
         House list = new House("Casa", a1, g1);
         Room room = list.newRoom("bedroom", 1, 2, 2.5, 1.7);
@@ -245,10 +227,8 @@ class HouseTest {
     @Test
     @DisplayName("Ensure a room is removed from the list of rooms of a house ")
     void removeRoom() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", l1);
-        TypeGA t1 = new TypeGA("cidade");
-        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", 41, 12.3, 110);
+        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
         House house = new House("Casa", a1, g1);
         Room room1 = house.newRoom("bedroom", 1, 2, 2.5, 2);
@@ -267,10 +247,8 @@ class HouseTest {
             "cannot be removed")
     void removeRoomReturnsFalse() {
 
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "3380-45", "Lisboa", l1);
-        TypeGA t1 = new TypeGA("cidade");
-        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", 41, 12.3, 110);
+        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
 
         House house = new House("Casa", a1, g1);
@@ -285,10 +263,8 @@ class HouseTest {
     @DisplayName("Add a new house grid to the house grid list of a house and check that the " +
             "same house grid object cannot be added twice")
     void newHouseGrid() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", l1);
-        TypeGA t1 = new TypeGA("cidade");
-        GeographicalArea g1 = new GeographicalArea("Lisboa", t1, l1);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", 41, 12.3, 110);
+        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
 
         House house = new House("Casa", a1, g1);
         HouseGrid h1 = house.newHouseGrid(5, "main grid");

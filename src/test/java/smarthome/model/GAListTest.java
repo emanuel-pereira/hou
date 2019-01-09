@@ -5,11 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GAListTest {
 
@@ -73,41 +71,6 @@ class GAListTest {
     }
 
     @Test
-    @DisplayName("Test if listOfGAsContainingLocation method returns list of GAs with only one GA")
-    void checkIfLocationIsInGAList() {
-        GAList gaList= new GAList();
-        GeographicalArea ga1= new GeographicalArea("Pt","Gaia","City",20,20,2,2,5);
-        gaList.addGA(ga1);
-        GeographicalArea ga2= new GeographicalArea("Pt","Matosinhos","City",7.5,10,2,15,20);
-        gaList.addGA(ga2);
-        GeographicalArea ga3= new GeographicalArea("Pt","Coimbra","City",7.5,10,2,15,19);
-        gaList.addGA(ga3);
-        Location loc = new Location(2.7,5.2,0);
-        GAList  listOfGAsContainingLocation=gaList.listOfGAsContainingLocation(loc.getLatitude(),loc.getLongitude());
-        int expectedResult=2;
-        int result=listOfGAsContainingLocation.getGAList().size();
-        assertEquals(expectedResult,result);
-        Sensor sensor = new Sensor("TempSensor",new GregorianCalendar(2018,12,1),2.7,5.2,0,"Temperature");
-        GeographicalArea result1 = listOfGAsContainingLocation.getSmallestGAContainingSensor(sensor);
-        assertEquals(ga3,result1);
-    }
-
-    @Test
-    @DisplayName("Ensure that Location loc is not within any geographical area in gaList")
-    void checkIfLocationIsNotInGAList() {
-        GAList gaList= new GAList();
-        GeographicalArea ga1= new GeographicalArea("Pt","Gaia","City",20,20,2,2,5);
-        gaList.addGA(ga1);
-        GeographicalArea ga2= new GeographicalArea("Pt","Matosinhos","City",4,5,2,2,5);
-        gaList.addGA(ga2);
-        Location loc = new Location(22.7,5.2,0);
-        GAList listOfGAsContainingLocation=gaList.listOfGAsContainingLocation(loc.getLatitude(),loc.getLongitude());
-        int expectedResult=0;
-        int result=listOfGAsContainingLocation.getGAList().size();
-        assertEquals(expectedResult,result);
-    }
-
-    @Test
     @DisplayName("Check if method returns a List of GA from the type chosen by the user, when there is only 1 result")
     void GAFromTypeTestOneElement() {
         GAList gaList= new GAList();
@@ -166,60 +129,4 @@ class GAListTest {
         List<GeographicalArea> result=gaList.GAFromThisType("");
         assertEquals(expectedresult, result);
     }
-
-    @Test
-    @DisplayName("Test if a sensor is added to the smallest Geographical Area Gaia")
-    void addSensorToSmallestGA(){
-        GAList gaList= new GAList();
-        Sensor sensor = new Sensor("GaiaTemperatureSensor", new GregorianCalendar(2018, 8, 4, 11, 0),2.7,5.2,0,new SensorType("Temperature"));
-
-        GeographicalArea ga1= new GeographicalArea("Pt","Porto","District",4,5,2,3,10);
-        GeographicalArea ga2= new GeographicalArea("Pt","Matosinhos","Cidade",4,5,2,2,5);
-        GeographicalArea ga3= new GeographicalArea("Pt","Gaia","City",4,5,2,2,4);
-        GeographicalArea ga4= new GeographicalArea("Pt","Lisboa","City",85,-127,15,152,85);
-
-        gaList.addGA(ga1);
-        gaList.addGA(ga2);
-        gaList.addGA(ga3);
-        gaList.addGA(ga4);
-
-        boolean expectedResult=true;
-        boolean result = gaList.addSensorToSmallestGA(sensor);
-        assertTrue(result);
-    }
-
-    @Test
-    @DisplayName("Test if a sensor is added to the smallest Geographical Area Setúbal")
-    void addSensorToSmallestGA5(){
-        GAList gaList= new GAList();
-        Sensor sensor = new Sensor("SetubalTemperatureSensor", new GregorianCalendar(2018, 8, 4, 11, 0),2.7,5.2,0,new SensorType("Temperature"));
-
-        GeographicalArea ga1= new GeographicalArea("Pt","Gaia","City",54,5,2,2,10);
-        GeographicalArea ga2= new GeographicalArea("Pt","Porto","District",4,45,2,3,10);
-        GeographicalArea ga3= new GeographicalArea("Pt","Lisboa","City",4,5,2,3,10);
-
-        gaList.addGA(ga1);
-        gaList.addGA(ga2);
-        gaList.addGA(ga3);
-
-        boolean expectedResult=true;
-        boolean result = gaList.addSensorToSmallestGA(sensor);
-        assertTrue(result);
-    }
-
-    @Test
-    @DisplayName("Test that sensor is not added any area in a list of Geographical Areas that do not contain the sensor's location")
-    void EnsureSensorIsNotAddedToSmallestGA(){
-        GAList gaList= new GAList();
-        Sensor sensor = new Sensor("GaiaTemperatureSensor", new GregorianCalendar(2018, 8, 4, 11, 0),2.7,5.2,0,new SensorType("Temperature"));
-
-        GeographicalArea ga3= new GeographicalArea("Pt","Lisboa","City",85,-127,15,152,85);
-
-        gaList.addGA(ga3);
-
-        GeographicalArea expected=null;
-        GeographicalArea result = gaList.getSmallestGAContainingSensor(sensor);
-        assertEquals(expected,result);
-    }
-
 }

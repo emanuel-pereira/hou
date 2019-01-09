@@ -16,11 +16,8 @@ class US105AddNewRoomToHouseCTRLTest {
 
     @Test
     void createNewRoom() {
-
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
-        TypeGA t1 = new TypeGA("city");
-        GeographicalArea g1 = new GeographicalArea("Porto", t1,l1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45",25,34,15);
+        GeographicalArea g1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
 
         House house1 = new House(a1, g1);
 
@@ -39,10 +36,8 @@ class US105AddNewRoomToHouseCTRLTest {
 
     @Test
     void cantCreateNewRoom() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", l1);
-        TypeGA t1 = new TypeGA("city");
-        GeographicalArea g1 = new GeographicalArea("Porto", t1,l1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", 22,32,8);
+        GeographicalArea g1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
 
         House house2 = new House(a1,g1);
 
@@ -61,10 +56,8 @@ class US105AddNewRoomToHouseCTRLTest {
 
     @Test
     void createOneRoomSuccessAnotherFail() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45 Porto", l1);
-        TypeGA t1 = new TypeGA("city");
-        GeographicalArea g1 = new GeographicalArea("Porto", t1,l1);
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45 Porto", 41, 12.3, 110);
+        GeographicalArea g1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
 
         House house2 = new House(a1,g1);
 

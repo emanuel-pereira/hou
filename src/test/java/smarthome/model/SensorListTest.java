@@ -3,6 +3,7 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -16,49 +17,58 @@ class SensorListTest {
     void createNewSensorObject() {
         //Arrange
         SensorList list1 = new SensorList();
-
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 00));
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 00));
+        List<Reading> readings = new ArrayList<>();
+        readings.add(r1);
+        readings.add(r2);
         //Act
-        Sensor sensor1 = list1.newSensor("Sensor1", new GregorianCalendar(2018, 12, 15), 25, 32, 2, new SensorType("Temperature"));
+
+
+        Sensor sensor1 = list1.newSensor("Sensor1", new GregorianCalendar(2018, 12, 15), "Temperature", "Celsius", 25, 32, 2, readings);
 
         //Assert
         assertEquals("Sensor1", sensor1.getDesignation());
     }
 
     @Test
-    @DisplayName("Tests if a new sensor is added to the Sensor list")
-    void addSensorToList() {
+    @DisplayName("Tests if a new sensor is created and is added to a sensor list")
+    void createAndAddSensorToList() {
         //Arrange
         SensorList list = new SensorList();
-        Sensor sensor1 = list.newSensor("TempSensor", new GregorianCalendar(2018, 12, 15), 25, 32, 2, new SensorType("Temperature"));
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 00));
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 00));
+        List<Reading> readings = new ArrayList<>();
+        readings.add(r1);
+        readings.add(r2);
+        Sensor sensor1 = list.newSensor("Sensor1", new GregorianCalendar(2018, 12, 15), "Temperature", "Celsius", 25, 32, 2, readings);
 
         //Act
         assertTrue(list.addSensor(sensor1));
-        List<Sensor> expectedResult = Arrays.asList(sensor1);
-        List<Sensor> result = list.getSensorList();
+        int expectedResult = 1;
+        int result = list.getSensorList().size();
 
         //Assert
         assertEquals(expectedResult, result);
     }
 
-    @DisplayName("Tests if a Sensor is not added to the list if it is repeated")
+    @DisplayName("Tests if a Ssensor is not added to the lit if the list already contains that sensor")
     @Test
     public void notAddRepeatedSensorType() {
         //Arrange
         SensorList list = new SensorList();
-        Sensor sensor1 = list.newSensor("TempSensor", new GregorianCalendar(2018, 12, 15), 25, 32, 2, new SensorType("Temperature"));
-        Sensor sensor2 = list.newSensor("WindSensor", new GregorianCalendar(2018, 12, 15), 25, 32, 2, new SensorType("Wind"));
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 00));
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 00));
+        List<Reading> readings = new ArrayList<>();
+        readings.add(r1);
+        readings.add(r2);
+        Sensor sensor1 = list.newSensor("Sensor1", new GregorianCalendar(2018, 12, 15), "Temperature", "Celsius", 25, 32, 2, readings);
 
-        //Act
-        assertEquals(0, list.getSensorList().size());
-        assertTrue(list.addSensor(sensor1));
-        assertEquals(1, list.getSensorList().size());
-        assertFalse(list.addSensor(sensor1));
-
-        List<Sensor> expectedResult = Arrays.asList(sensor1);
-        List<Sensor> result = list.getSensorList();
-
-        //Assert
-        assertEquals(expectedResult, result);
+        list.addSensor(sensor1);
+        list.addSensor(sensor1);
+        int expectedResult=1;
+        int result=list.getSensorList().size();
+        assertEquals(expectedResult,result);
     }
 
     @Test
