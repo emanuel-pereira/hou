@@ -1,6 +1,7 @@
 package smarthome.controller;
 
 
+import smarthome.model.House;
 import smarthome.model.OccupationArea;
 import smarthome.model.Room;
 
@@ -8,11 +9,15 @@ import java.util.List;
 
 public class US108EditRoomOfHouseCTRL {
 
+
     private Room mRoom;
     private List<Room> mRoomList;
+    private House mHouse;
+
 
     /**
      * Method to call the RoomList
+     *
      * @param inputRoomList
      */
 
@@ -22,24 +27,28 @@ public class US108EditRoomOfHouseCTRL {
 
     /**
      * Method to edit/set the features of the room.
-     * @param IndexOfRoom to list the room.
-     * @param mName to set the name of the room.
-     * @param mFloor to set the floor position on the house.
-     * @param length to set the dimensions of the room.
-     * @param width to set the dimensions of the room.
-     * @param width to set the height of the room.
      *
+     * @param IndexOfRoom to list the room.
+     * @param mName       to set the name of the room.
+     * @param mFloor      to set the floor position on the house.
+     * @param length      to set the dimensions of the room.
+     * @param width       to set the dimensions of the room.
+     * @param width       to set the height of the room.
      */
     public void setRoom(int IndexOfRoom, String mName, int mFloor, double length, double width, double height) {
+
+
         this.mRoom = mRoomList.get(IndexOfRoom);
         this.mRoom.setName(mName);
         this.mRoom.setFloor(mFloor);
         this.mRoom.setArea(new OccupationArea(length, width));
-        this.mRoom.setHeight (height);
+        this.mRoom.setHeight(height);
     }
+
 
     /**
      * Method that shows the rooms in string.
+     *
      * @return the features of the room.
      */
 

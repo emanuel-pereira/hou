@@ -18,7 +18,7 @@ public class HouseAdministrationUI {
         while (option != 0) {
             System.out.println("Click 1. US101: As an Administrator, I want to configure the location of the house");
             System.out.println("Click 2. US105: As an Administrator, I want to add a new room to the house");
-            System.out.println("Click 3. US108: As System Administrator I want to .........");
+            System.out.println("Click 3. US108: As System Administrator, I want to select a room and edit.");
             System.out.println("Click 4. US130: As an Administrator I want to create a house grid");
             System.out.println("Click 5. US135: As System Administrator I want to add a new power source to a house grid");
             System.out.println("Click 6. As an Administrator, I want to attach/detach a room to/from a house grid and list rooms attached to a house grid");
@@ -36,7 +36,8 @@ public class HouseAdministrationUI {
                     ui105.addRoomToHouse();
                     break;
                 case 3:
-                    System.out.println("US108");
+                    US108EditRoomOfHouseUI ui108 = new US108EditRoomOfHouseUI(house.getRoomListFromHouse().getRoomList());
+                    ui108.run();
                     break;
                 case 4:
 

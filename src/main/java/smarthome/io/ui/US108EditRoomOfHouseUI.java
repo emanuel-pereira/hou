@@ -1,6 +1,7 @@
 package smarthome.io.ui;
 
 import smarthome.controller.US108EditRoomOfHouseCTRL;
+import smarthome.model.House;
 import smarthome.model.Room;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public class US108EditRoomOfHouseUI {
     private List<Room> mRoomList;
 
     private US108EditRoomOfHouseCTRL mCtrlUS108;
-
+    private House mHouse;
     private Room mRoom;
 
 
@@ -23,6 +24,11 @@ public class US108EditRoomOfHouseUI {
         mCtrlUS108 = new US108EditRoomOfHouseCTRL(inputList);
 
     }
+        /**
+         *  IMPORTANT!
+         *  The room attributes such as name, floor and dimensions can be edited,
+         *  but can´t save the changes that was made.
+         */
 
     public void run() {
 
@@ -34,32 +40,32 @@ public class US108EditRoomOfHouseUI {
 
         int indexRoom = read.nextInt();
 
-        System.out.println("Success! Room selected.");
-
-        System.out.println("Edit room name" + mRoom.getName());
+        System.out.println("Success! Room selected. Edit room name (Spaces characters are not allowed).");
 
         String inputRoomName = read.next();
 
-        System.out.println("Success! Edit room floor" + mRoom.getFloor());
+        System.out.println("Success! Name room edited. Insert room floor");
+
 
         int inputFloor = read.nextInt();
 
-        System.out.println("Success! Edit room dimensions. Insert room length" + mRoom.getArea());
+        System.out.println("Success! Edit room dimensions. Insert room length" );
 
         double inputAreaLength = read.nextDouble();
 
-        System.out.println("Success! Insert room width" + mRoom.getArea());
+        System.out.println("Success! Insert room width" );
 
         double inputAreaWidth = read.nextDouble();
 
-        System.out.println("Success! Insert room height" + mRoom.getHeight ());
+        System.out.println("Success! Insert room height" );
 
         double inputHeight = read.nextDouble();
 
-        System.out.println(mCtrlUS108.showListRoomInString());
+        System.out.println("Success! Room height edited.");
 
-
-        mCtrlUS108.setRoom(indexRoom, inputRoomName, inputFloor, inputAreaLength, inputAreaWidth, inputHeight);
+        //System.out.println(mCtrlUS108.showListRoomInString());
+       // mCtrlUS108.setRoom(indexRoom, inputRoomName, inputFloor, inputAreaLength, inputAreaWidth, inputHeight);
+        System.out.println("Success. The " + inputRoomName + " on the " + inputFloor + " floor with " + inputHeight + "m of height and " + inputAreaLength * inputAreaWidth + "m² was edited.");
     }
 
 }
