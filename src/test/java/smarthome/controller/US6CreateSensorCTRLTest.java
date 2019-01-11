@@ -64,15 +64,15 @@ class US6CreateSensorCTRLTest {
 
         Reading r1Porto= new Reading(15,new GregorianCalendar(2018,12,26,12,00));
         Reading r2Porto= new Reading(18,new GregorianCalendar(2018,12,26,13,00));
-        List<Reading> readingsPt= new ArrayList<>();
-        readingsPt.add(r1Porto);
-        readingsPt.add(r2Porto);
+        ReadingList readingsPt= new ReadingList();
+        readingsPt.addReading (r1Porto);
+        readingsPt.addReading (r2Porto);
 
         Reading r1Lis= new Reading(27,new GregorianCalendar(2018,12,26,12,00));
         Reading r2Lis= new Reading(21,new GregorianCalendar(2018,12,26,13,00));
-        List<Reading> readingsLis= new ArrayList<>();
-        readingsLis.add(r1Lis);
-        readingsLis.add(r2Lis);
+        ReadingList readingsLis= new ReadingList();
+        readingsLis.addReading (r1Lis);
+        readingsLis.addReading (r2Lis);
 
         boolean result= ctrl6.addNewSensorToGA("LisboaTempSensor",new GregorianCalendar(2018,12,26),1,"C",55,40,15,1,readingsPt);
         assertTrue(result);

@@ -15,7 +15,7 @@ public class SensorType {
      * @param sensorTypeDesignation - String that names the type of data
      */
     public SensorType(String sensorTypeDesignation) {
-            this.mSensorType = sensorTypeDesignation;
+        this.mSensorType = sensorTypeDesignation;
     }
 
 
@@ -34,7 +34,7 @@ public class SensorType {
         if (!(o instanceof SensorType))
             return false;
         SensorType sensorType = (SensorType) o;
-        return this.mSensorType.equals(sensorType.getSensorTypeDesignation());
+        return this.mSensorType.equals (sensorType.getSensorTypeDesignation ());
     }
 
     /**
@@ -48,8 +48,10 @@ public class SensorType {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(mSensorType);
+        return Objects.hash (mSensorType);
     }
+
+
 }
 
 

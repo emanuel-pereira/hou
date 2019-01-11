@@ -112,6 +112,52 @@ class SensorTypeListTest {
         assertEquals (expectedResult, result);
     }
 
+    /**
+     * Check if required SensorType exists in the SensorTypeList and return true
+     */
+    @Test
+    public void checkIfSensorTypeExists() {
 
+        //Arrange
+        SensorTypeList type = new SensorTypeList();
+        SensorType temp = type.newSensorType("temperature");
+        SensorType rain = type.newSensorType("rain");
+
+        //Act
+        assertEquals (0, type.getSensorTypeList().size ());
+        assertTrue(type.addSensorType(temp));
+        assertEquals (1, type.getSensorTypeList().size ());
+        assertTrue(type.addSensorType(rain));
+        assertEquals (2, type.getSensorTypeList().size ());
+
+        boolean result = type.checkIfRequiredSensorTypeExists ("temperature");
+
+        //Assert
+        assertEquals (true, result);
+    }
+
+    /**
+     * Check if required SensorType exists in the SensorTypeList and return true
+     */
+    @Test
+    public void checkIfSensorTypeDontExist() {
+
+        //Arrange
+        SensorTypeList type = new SensorTypeList();
+        SensorType wind = type.newSensorType("wind");
+        SensorType rain = type.newSensorType("rain");
+
+        //Act
+        assertEquals (0, type.getSensorTypeList().size ());
+        assertTrue(type.addSensorType(wind));
+        assertEquals (1, type.getSensorTypeList().size ());
+        assertTrue(type.addSensorType(rain));
+        assertEquals (2, type.getSensorTypeList().size ());
+
+        boolean result = type.checkIfRequiredSensorTypeExists ("temperature");
+
+        //Assert
+        assertEquals (false, result);
+    }
 
 }

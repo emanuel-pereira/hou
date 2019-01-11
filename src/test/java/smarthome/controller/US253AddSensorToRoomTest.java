@@ -61,7 +61,13 @@ public class US253AddSensorToRoomTest {
         roomList.addRoom(r1);
         roomList.addRoom(r2);
 
-        ctr1.addNewSensorToRoom("S1",new GregorianCalendar(2018,3,3),1,1);
+        Reading r1Lis= new Reading(27,new GregorianCalendar(2018,12,26,12,00));
+        Reading r2Lis= new Reading(21,new GregorianCalendar(2018,12,26,13,00));
+        ReadingList readingsLis= new ReadingList();
+        readingsLis.addReading (r1Lis);
+        readingsLis.addReading (r2Lis);
+
+        ctr1.addNewSensorToRoom("S1",new GregorianCalendar(2018,3,3),1,1,"C", readingsLis);
 
         assertEquals(2, h1.getRoomListFromHouse().getRoomList().size());
     }

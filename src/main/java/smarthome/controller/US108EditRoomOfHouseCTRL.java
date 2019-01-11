@@ -27,8 +27,7 @@ public class US108EditRoomOfHouseCTRL {
      * @param mFloor to set the floor position on the house.
      * @param length to set the dimensions of the room.
      * @param width to set the dimensions of the room.
-     * @param width to set the height of the room.
-     *
+     * @param height to set the height of the room.
      */
     public void setRoom(int IndexOfRoom, String mName, int mFloor, double length, double width, double height) {
         this.mRoom = mRoomList.get(IndexOfRoom);
@@ -42,7 +41,6 @@ public class US108EditRoomOfHouseCTRL {
      * Method that shows the rooms in string.
      * @return the features of the room.
      */
-
     public String showListRoomInString() {
         List<Room> list = this.mRoomList;
         StringBuilder result = new StringBuilder();

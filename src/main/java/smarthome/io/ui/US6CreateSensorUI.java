@@ -22,7 +22,7 @@ public class US6CreateSensorUI {
     Scanner read = new Scanner(System.in);
     GPSValidations v = new GPSValidations();
 
-    List<Reading> readingList = new ArrayList<>();
+    ReadingList readingList = new ReadingList();
 
     String tempMonth;
     String tempMonthOfReading;
@@ -133,7 +133,7 @@ public class US6CreateSensorUI {
 
                         GregorianCalendar date = new GregorianCalendar(yearOfReading, monthOfReading, dayOfReading, hourOfReading, 0);
                         Reading r = new Reading(readingValue, date);
-                        readingList.add(r);
+                        readingList.addReading (r);
                     }
                 }
 
@@ -195,13 +195,13 @@ public class US6CreateSensorUI {
                 System.out.println("TYPE: "+ mSensorTypeList.getSensorTypeList().get(sensorTypeIndex-1).getSensorTypeDesignation());
                 System.out.println("UNITS: "+unit);
                 System.out.println("LIST OF READINGS:");
-                for (Reading r : readingList) {
+                for (Reading r : readingList.getReadingList ()) {
                     System.out.println("[timestamp: " + r.getDateAndTime().getTime() + " value: " + r.returnValueOfReading()+"]");
                 }
                 System.out.println("GPS LOCATION - [Latitude: "+latitude+" | Longitude: "+longitude+" | Altitude: "+altitude+"]");
 
             } else
-                System.out.println("List of sensor's reading data types is empty. Please insert at least one first in US6.");
+                System.out.println("List of sensor's reading data types is empty. Please insert at least one first in US5.");
         } else
             System.out.println("List of Geographical Areas is empty. Please insert at least one Geographical Area in US3.");
     }

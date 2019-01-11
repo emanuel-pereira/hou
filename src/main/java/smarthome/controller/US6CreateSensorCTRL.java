@@ -65,8 +65,8 @@ public class US6CreateSensorCTRL {
      * @return adds the sensor created to the Geographical Area chosen by the user
      */
 
-    public boolean addNewSensorToGA(String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, double latitude, double longitude, double altitude, int indexOfGA, List<Reading> readings) {
-        Sensor sensor = mGAList.getGAList().get(indexOfGA - 1).getSensorListInGA().newSensor(inputName, startDate, mSensorTypeList.getSensorTypeList().get(sensorTypeIndex - 1).toString(), inputUnit, latitude, longitude, altitude, readings);
+    public boolean addNewSensorToGA(String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, double latitude, double longitude, double altitude, int indexOfGA, ReadingList readings) {
+        Sensor sensor = mGAList.getGAList().get(indexOfGA - 1).getSensorListInGA().newSensor(inputName, startDate, latitude, longitude, altitude, mSensorTypeList.getSensorTypeList().get(sensorTypeIndex - 1), inputUnit, readings);
         return mGAList.getGAList().get(indexOfGA - 1).getSensorListInGA().addSensor(sensor);
     }
 

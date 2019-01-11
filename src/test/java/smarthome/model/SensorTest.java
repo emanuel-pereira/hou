@@ -227,6 +227,43 @@ class SensorTest {
         assertEquals(expectedReading, result);
     }
 
+    /**
+     * Novo
+     */
+    @Test
+    void getCorrectLastValueOfSensorIfThreeReadings() {
+        GregorianCalendar rTime1 = new GregorianCalendar(2018,11,27,21,0);
+        GregorianCalendar rTime2 = new GregorianCalendar(2018,11,27,22,0);
+        GregorianCalendar rTime3 = new GregorianCalendar(2018,11,27,23,0);
+        Reading readingDate1 = new Reading (11, rTime1);
+        Reading readingDate2 = new Reading (10, rTime2);
+        Reading readingDate3 = new Reading (8, rTime3);
+        Sensor sensor2 = new Sensor ("Temp131");
+        sensor2.addReadingToList(readingDate1);
+        sensor2.addReadingToList(readingDate2);
+        sensor2.addReadingToList(readingDate3);
+        double result = sensor2.getLastReadingValuePerSensor ();
+        assertEquals(8, result);
+    }
+
+    /**
+     * Novo
+     */
+    @Test
+    void getIncorrectLastValueOfSensorIfThreeReadingsIfWrong() {
+        GregorianCalendar rTime1 = new GregorianCalendar(2018,11,27,21,0);
+        GregorianCalendar rTime2 = new GregorianCalendar(2018,11,27,22,0);
+        GregorianCalendar rTime3 = new GregorianCalendar(2018,11,27,23,0);
+        Reading readingDate1 = new Reading (11, rTime1);
+        Reading readingDate2 = new Reading (10, rTime2);
+        Reading readingDate3 = new Reading (8, rTime3);
+        Sensor sensor2 = new Sensor ("Temp131");
+        sensor2.addReadingToList(readingDate1);
+        sensor2.addReadingToList(readingDate2);
+        sensor2.addReadingToList(readingDate3);
+        double result = sensor2.getLastReadingValuePerSensor ();
+        assertNotEquals(10, result);
+    }
 
     @Test
     void getLastReadingOfSensorIfWrongExpectedResult() {
@@ -265,270 +302,6 @@ class SensorTest {
         assertEquals(expectedReading, result);
     }
 
-
-    @Test
-    @DisplayName("Check monthly average value in September is 31.7")
-    void getMonthlyAverageReadings() {
-        //Arrange
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,"visibility");
-
-
-
-        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
-        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
-
-        s1.addReadingToList(r1);
-        s1.addReadingToList(r2);
-        s1.addReadingToList(r3);
-        s1.addReadingToList(r4);
-
-        //Act
-        double result = s1.getMonthlyAverageReadings(9);
-        double expectedResult= 31.7;
-
-        //Assert
-        assertEquals(expectedResult,result,0.1);
-    }
-
-    @Test
-    @DisplayName("Check if monthly average value is not equal to expected")
-    void getMonthlyAverageReadingsNotEquals() {
-        //Arrange
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,"visibility");
-
-        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
-        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
-
-        s1.addReadingToList(r1);
-        s1.addReadingToList(r2);
-        s1.addReadingToList(r3);
-        s1.addReadingToList(r4);
-
-        //Act
-        double result = s1.getMonthlyAverageReadings(9);
-        double expectedResult= 20;
-
-        //Assert
-        assertNotEquals(expectedResult,result);
-    }
-
-    @Test
-    @DisplayName("Check if monthly average returns zero if there are no readings")
-    void getMonthlyAverageReadingsNoReadings() {
-        //Arrange
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,"visibility");
-
-        //Act
-        double result = s1.getMonthlyAverageReadings(9);
-        double expectedResult= Double.NaN;
-
-        //Assert
-        assertEquals(expectedResult,result);
-    }
-
-    @Test
-    @DisplayName("Test to verify the minimum reading in October")
-    public void getMonthlyMinimumReading() {
-
-        //Arrange
-
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,"visibility");
-
-        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
-        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
-        Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 0));
-
-        s1.addReadingToList(r1);
-        s1.addReadingToList(r2);
-        s1.addReadingToList(r3);
-        s1.addReadingToList(r4);
-        s1.addReadingToList(r5);
-
-        //Act
-        double result = s1.getMonthlyMinimumReading(10);
-        double expectedResult = 13.4;
-
-        //Assert
-        assertEquals(expectedResult,result,0.1);
-    }
-
-    @Test
-    @DisplayName("Test to verify the minimum reading in October")
-    public void getMonthlyMinimumReadingNotEquals() {
-
-        //Arrange
-        SensorType type1 = new SensorType("visibility");
-        Sensor s1 = new Sensor("Visibility Sensor",new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
-
-        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
-        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
-        Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 0));
-
-        s1.addReadingToList(r1);
-        s1.addReadingToList(r2);
-        s1.addReadingToList(r3);
-        s1.addReadingToList(r4);
-        s1.addReadingToList(r5);
-
-        //Act
-        double result = s1.getMonthlyMinimumReading(10);
-        double expectedResult = 10;
-
-        //Assert
-        assertNotEquals(expectedResult,result);
-    }
-   @Test
-    public void getMonthlyAverageReadingListTest() {
-        //Arrange
-        SensorType type1 = new SensorType("visibility");
-        Sensor s1 = new Sensor("Visibility Sensor", new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
-
-        Reading r1 = new Reading(50, new GregorianCalendar(2018, 8, 4, 11, 0));
-        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
-        Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 0));
-
-        s1.addReadingToList(r1);
-        s1.addReadingToList(r2);
-        s1.addReadingToList(r3);
-        s1.addReadingToList(r4);
-        s1.addReadingToList(r5);
-
-        //Act
-        double[] result = s1.getMonthlyAverageReadingEachMonth();
-        double [] expectedResult = new double[]{Double.NaN,Double.NaN,Double.NaN,Double.NaN,Double.NaN,Double.NaN,Double.NaN,50,31.7,33.7,Double.NaN,Double.NaN};
-
-        //Assert
-        assertArrayEquals(expectedResult,result);
-    }
-
-    @DisplayName("Test the input of 0 in the readings")
-    @Test
-    public void getMonthlyAverageReadingListTest2() {
-        //Arrange
-        SensorType type1 = new SensorType("visibility");
-        Sensor s1 = new Sensor("Visibility Sensor",
-                new GregorianCalendar(2018,8,1,9,0),40, 20,10,type1);
-
-        Reading r1 = new Reading(0, new GregorianCalendar(2018, 8, 4, 11, 0));
-        Reading r2 = new Reading(13.4, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r3 = new Reading(50, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r4 = new Reading(13.4, new GregorianCalendar(2018, 10, 4, 11, 0));
-        Reading r5 = new Reading(54, new GregorianCalendar(2018, 10, 20, 11, 0));
-        Reading r6 = new Reading(0, new GregorianCalendar(2018, 11, 20, 11, 0));
-
-        s1.addReadingToList(r1);
-        s1.addReadingToList(r2);
-        s1.addReadingToList(r3);
-        s1.addReadingToList(r4);
-        s1.addReadingToList(r5);
-        s1.addReadingToList(r6);
-
-        //Act
-        double[] result = s1.getMonthlyAverageReadingEachMonth();
-        double [] expectedResult = new double[]{Double.NaN,Double.NaN,Double.NaN,Double.NaN,Double.NaN,Double.NaN,Double.NaN,0,31.7,33.7,0,Double.NaN};
-
-        //Assert
-        assertArrayEquals(expectedResult,result);
-    }
-
-
-    @Test
-    @DisplayName("Test if minimum monthly average returns 18.5")
-    void getMinimumAverageReading() {
-        //Arrange
-        SensorType type1 = new SensorType("wind");
-        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),40,-5,25,type1);
-        Reading r1 = new Reading(60.9, new GregorianCalendar(2018, 8, 4, 11, 0));
-        Reading r2 = new Reading(62.5, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r3 = new Reading(30.2, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r4 = new Reading(25.8, new GregorianCalendar(2018, 10, 4, 11, 0));
-        Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 0));
-        s1.addReadingToList(r1);
-        s1.addReadingToList(r2);
-        s1.addReadingToList(r3);
-        s1.addReadingToList(r4);
-        s1.addReadingToList(r5);
-        //Act
-        double result=s1.getMinimumAverageReading();
-        double expectedResult=18.25;
-        assertEquals(expectedResult,result);
-    }
-
-    @Test
-    @DisplayName("Test if minimum monthly average does not return zero")
-    void getMinimumAverageReading1() {
-        //Arrange
-        SensorType type1 = new SensorType("wind");
-        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),40,-5,25,type1);
-        Reading r1 = new Reading(60.9, new GregorianCalendar(2018, 8, 4, 11, 0));
-        Reading r2 = new Reading(62.5, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r3 = new Reading(30.2, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r4 = new Reading(25.8, new GregorianCalendar(2018, 10, 4, 11, 0));
-        Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 0));
-        s1.addReadingToList(r1);
-        s1.addReadingToList(r2);
-        s1.addReadingToList(r3);
-        s1.addReadingToList(r4);
-        s1.addReadingToList(r5);
-        //Act
-        double result=s1.getMinimumAverageReading();
-        double expectedResult=0;
-        assertNotEquals(expectedResult,result);
-    }
-
-    @Test
-    @DisplayName("Test if maximum monthly average returns 18.5")
-    void getMaximumAverageReading() {
-        //Arrange
-        SensorType type1 = new SensorType("wind");
-        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),40,-5,25,type1);
-        Reading r1 = new Reading(60.9, new GregorianCalendar(2018, 8, 4, 11, 0));
-        Reading r2 = new Reading(62.5, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r3 = new Reading(30.2, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r4 = new Reading(25.8, new GregorianCalendar(2018, 10, 4, 11, 0));
-        Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 0));
-        s1.addReadingToList(r1);
-        s1.addReadingToList(r2);
-        s1.addReadingToList(r3);
-        s1.addReadingToList(r4);
-        s1.addReadingToList(r5);
-        //Act
-        double result=s1.getMaximumAverageReading();
-        double expectedResult=60.9;
-        assertEquals(expectedResult,result);
-    }
-
-    @Test
-    @DisplayName("Test if maximum monthly average does not return zero")
-    void getMaximumAverageReading1() {
-        //Arrange
-        SensorType type1 = new SensorType("wind");
-        Sensor s1 = new Sensor("WindSensor", new GregorianCalendar(2018,8,4,11,0),40,-5,25,type1);
-        Reading r1 = new Reading(30.2, new GregorianCalendar(2018, 8, 4, 11, 0));
-        Reading r2 = new Reading(25.8, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r3 = new Reading(60.9, new GregorianCalendar(2018, 9, 4, 11, 0));
-        Reading r4 = new Reading(62.5, new GregorianCalendar(2018, 10, 4, 11, 0));
-        Reading r5 = new Reading(10.7, new GregorianCalendar(2018, 10, 20, 11, 0));
-        s1.addReadingToList(r1);
-        s1.addReadingToList(r2);
-        s1.addReadingToList(r3);
-        s1.addReadingToList(r4);
-        s1.addReadingToList(r5);
-        //Act
-        double result=s1.getMaximumAverageReading();
-        double expectedResult=0;
-        assertNotEquals(expectedResult,result);
-    }
 
     @Test
     @DisplayName("Comparison of not equal sensors")

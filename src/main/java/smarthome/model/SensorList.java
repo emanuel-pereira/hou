@@ -5,14 +5,14 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class SensorList {
-    private List<Sensor> mSensor;
+    private List<Sensor> mSensorList;
 
 
     /**
      * Constructor method that creates a new list to save sensor objects
      */
     public SensorList() {
-        mSensor = new ArrayList<>();
+        mSensorList = new ArrayList<> ();
     }
 
     /**
@@ -22,12 +22,11 @@ public class SensorList {
      * @return true if the object is added to the list
      */
     public boolean addSensor(Sensor newSensor) {
-        if (!mSensor.contains(newSensor)) {
-            mSensor.add(newSensor);
+        if (!mSensorList.contains (newSensor)) {
+            mSensorList.add (newSensor);
             return true;
         } else return false;
     }
-
 
 
     /**
@@ -36,32 +35,53 @@ public class SensorList {
      * @return list of sensors created
      */
     public List<Sensor> getSensorList() {
-        return mSensor;
+        return mSensorList;
     }
 
     /**
-     *
      * @param inputName name of Sensor
      * @param startDate startDate of Sensor
-     * @param latitude latitude in which the user wants to place the sensor
+     * @param latitude  latitude in which the user wants to place the sensor
      * @param longitude longitude in which the user wants to place the sensor
-     * @param altitude altitude in which the user wants to place the sensor
-     * @param inputDataType dataType the user wants to assign for the sensor.
+     * @param altitude  altitude in which the user wants to place the sensor
      * @return
      */
-    public Sensor newSensor(String inputName, GregorianCalendar startDate, String inputDataType, String inputUnit, double latitude, double longitude, double altitude, List<Reading> readings) {
-        return new Sensor(inputName, startDate, inputDataType, inputUnit, latitude, longitude, altitude, readings);
+    public Sensor newSensor(String inputName, GregorianCalendar startDate, double latitude, double longitude, double altitude, SensorType sensorType, String inputUnit, ReadingList readings) {
+        return new Sensor (inputName, startDate, latitude, longitude, altitude, sensorType, inputUnit, readings);
     }
 
     /**
-     *
-     * @param inputName name of Sensor
-     * @param startDate startDate of Sensor
-     * @param inputDataType dataType the user wants to assign for the sensor.
+     * @param name
+     * @param startDate
+     * @param sensorType
+     * @param unit
      * @return
      */
-    public Sensor createNewInternalSensor(String inputName, GregorianCalendar startDate, SensorType inputDataType) {
-        return new Sensor(inputName, startDate, inputDataType);
+    public Sensor createNewInternalSensor(String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+        return new Sensor (name, startDate, sensorType, unit, readings);
+    }
+
+    /**
+     * Some SensorTypes are required in some User Stories, so this method checks if a mandatory sensor type exists
+     *
+     * @param sensorType input sensor type designation
+     * @return input sensor type designation
+     */
+    public boolean checkIfRequiredSensorTypeExists(String sensorType) {
+        for (Sensor s : mSensorList) {
+            if (s.getSensorType ().getSensorTypeDesignation ().equals (sensorType)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Sensor getRequiredSensorPerType(String type) {
+       Sensor requiredSensor = null;
+        for (Sensor sensor : mSensorList) {
+            if (sensor.getSensorType ().getSensorTypeDesignation ().equals(type)) {
+                requiredSensor = sensor;
+            }
+        }return requiredSensor;
     }
 }
-

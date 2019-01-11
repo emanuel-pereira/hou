@@ -118,6 +118,12 @@ public class Room {
         return mSensorListInRoom;
     }
 
+    public SensorList getSensorListIn(Room room) {
+        return mSensorListInRoom;
+    }
+
+
+
     /**
      * When two objects (o1 and o2) with the same data are compare, the result is that they are different objects.
      * If there's the need to check for equality of values inside the objects the inherit equals method need to be override.
