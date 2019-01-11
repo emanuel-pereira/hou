@@ -65,11 +65,93 @@ class US101ConfigureHouseLocationCTRLTest {
 
         boolean result = ctrl101.configureHouseLocation(1,"Rua Júlio Dinis", "345", "3380-45", 41, 12.3, 110);
         GeographicalArea result2 = h1.getHouseGA();
-        GeographicalArea expectedResult = ga1;
+
 
         assertTrue(result);
-        assertEquals (expectedResult,result2);
+        assertEquals (ga1,result2);
 
 
+    }
+
+    @DisplayName("Check if throws exception when the latitude is wrong")
+    @Test
+    void throwsIllegalArgumentExceptionForLatitude() {
+
+        GAList gl1 = new GAList();
+        House h1 = new House();
+
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 25, 15, 12, 32, 41);
+        GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", 45, 25, 32, 42, 41);
+
+        gl1.addGA(ga1);
+        gl1.addGA(ga2);
+
+
+        US101ConfigureHouseLocationCTRL ctrl101 = new US101ConfigureHouseLocationCTRL(gl1,h1);
+
+        boolean thrown = false;
+
+        try {
+
+            ctrl101.configureHouseLocation(1,"Rua Júlio Dinis", "345", "3380-45", 400, 12.3, 110);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+
+        assertTrue(thrown);
+    }
+
+    @DisplayName("Check if throws exception when the longitude is wrong")
+    @Test
+    void throwsIllegalArgumentExceptionForLongitude() {
+
+        GAList gl1 = new GAList();
+        House h1 = new House();
+
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 25, 15, 12, 32, 41);
+        GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", 45, 25, 32, 42, 41);
+
+        gl1.addGA(ga1);
+        gl1.addGA(ga2);
+
+        US101ConfigureHouseLocationCTRL ctrl101 = new US101ConfigureHouseLocationCTRL(gl1,h1);
+
+        boolean thrown = false;
+
+        try {
+
+            ctrl101.configureHouseLocation(1,"Rua Júlio Dinis", "345", "3380-45", 80, 181, 110);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+
+        assertTrue(thrown);
+    }
+
+    @DisplayName("Check if throws exception when the altitude is wrong")
+    @Test
+    void throwsIllegalArgumentExceptionForAltitude() {
+
+        GAList gl1 = new GAList();
+        House h1 = new House();
+
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 25, 15, 12, 32, 41);
+        GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", 45, 25, 32, 42, 41);
+
+        gl1.addGA(ga1);
+        gl1.addGA(ga2);
+
+        US101ConfigureHouseLocationCTRL ctrl101 = new US101ConfigureHouseLocationCTRL(gl1,h1);
+
+        boolean thrown = false;
+
+        try {
+
+            ctrl101.configureHouseLocation(1,"Rua Júlio Dinis", "345", "3380-45", 80, -170, -13000);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+
+        assertTrue(thrown);
     }
 }

@@ -11,7 +11,7 @@ public class GPSValidations {
     public boolean latitudeIsValid(double latitude) {
         if (latitude >= -90 && latitude <= 90)
             return true;
-        throw new IllegalArgumentException("latitude must be between [-90º,90º]");
+        throw new IllegalArgumentException("latitude must be between [-90,90]");
     }
 
     /**
@@ -22,7 +22,7 @@ public class GPSValidations {
     public boolean longitudeIsValid(double longitude) {
         if (longitude >= -180 && longitude <= 180)
             return true;
-        throw new IllegalArgumentException("longitude must be between [-180º,180º]");
+        throw new IllegalArgumentException("longitude must be between [-180,180]");
     }
 
     /**
@@ -33,7 +33,7 @@ public class GPSValidations {
     public boolean altitudeIsValid(double altitude) {
         if (altitude >= -12500 && altitude <= 8848)
             return true;
-        throw new IllegalArgumentException("longitude must be between [-12.500 m, 8848 m]");
+        throw new IllegalArgumentException("altitude must be between [-12.500, 8848]");
 
     }
 }
