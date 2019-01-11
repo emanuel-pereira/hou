@@ -82,8 +82,6 @@ public class RoomListTest {
         assertEquals(expectedResult, result);
     }
 
-
-
     @Test
     @DisplayName("Tests if two sensor designations are different")
     public void checkIfRoomDesignationAreDifferent() {

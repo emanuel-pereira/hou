@@ -78,7 +78,13 @@ public class RoomList {
         return result.toString ();
     }
 
-    public int getSensorListInRoomByType(String type) {
+    /**
+     * Check if Sensor Type exist in Room. If the the result is 0, there's no defined Sensor Type
+     *
+     * @param type Name of the required Sensor Type
+     * @return size of the list of defined Sensor Type
+     */
+    public int checkIfSensorTypeExistInRoomBySize(String type) {
         int result = 0;
         List<Room> list = getRoomList ();
         for (Room r : list) {
@@ -87,4 +93,24 @@ public class RoomList {
         }
         return result;
     }
+
+    public boolean checkIfSensorTypeExistsInRoom (String input) {
+        List<Room> list = getRoomList ();
+        for (Room r : list) {
+            if (r.getSensorListInRoom ().checkIfRequiredSensorTypeExists (input)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public boolean checkIfRoomLisNotEmpty(){
+        if (this.getRoomList ().size () == 0){
+            return false;
+        }
+        return true;
+    }
+
+
 }

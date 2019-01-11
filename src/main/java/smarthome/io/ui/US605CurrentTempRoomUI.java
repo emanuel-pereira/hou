@@ -43,19 +43,21 @@ public class US605CurrentTempRoomUI {
 
 
     public void checkIfRoomExists() {
+
+        if (mCTRL605.checkIfRoomListNotEmpty ()){
         while (true) {
             System.out.println ("Choose the Room for which you want add this sensor, from the list below:");
             System.out.println (mCTRL605.showRoomListInString ());
             indexRoom = read.nextInt ();
             this.checkIfTempSensorExistInRooms ();
-            if (indexRoom > mSensorTypeList.getSensorTypeList ().size ())
-                System.out.println ("Please insert a valid option \n.");
+            if (indexRoom > mCTRL605.getSensorTypeList ().size ())
+                System.out.println ("Please insert a valid option \n");
             else break;
-        }
+        }} System.out.println ("Please ask the House Administrator to create a Room");
     }
 
     private void checkIfTempSensorExistInRooms() {
-         if (mRoomList.getSensorListInRoomByType (temp) != 0) {
+         if (mCTRL605.checkIfSensorTypeExistInRoom (temp)) {
             System.out.println ("Current temperature in the room: " + mCTRL605.getCurrentTemp (indexRoom));
         } else System.out.println ("Please ask the House Administrator to add a Temperature Sensor to this Room");
     }
