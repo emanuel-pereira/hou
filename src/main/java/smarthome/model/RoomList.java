@@ -64,6 +64,10 @@ public class RoomList {
         return mRoomList;
     }
 
+    /**
+     * Transforms a list of rooms in a numbered list of strings with thw names of the rooms
+     * @return List of room sin string
+     */
     public String showRoomListInString() {
         List<Room> list = getRoomList ();
         StringBuilder result = new StringBuilder ();
@@ -76,40 +80,6 @@ public class RoomList {
             result.append ("\n");
         }
         return result.toString ();
-    }
-
-    /**
-     * Check if Sensor Type exist in Room. If the the result is 0, there's no defined Sensor Type
-     *
-     * @param type Name of the required Sensor Type
-     * @return size of the list of defined Sensor Type
-     */
-    public int checkIfSensorTypeExistInRoomBySize(String type) {
-        int result = 0;
-        List<Room> list = getRoomList ();
-        for (Room r : list) {
-            r.getSensorListInRoom ().checkIfRequiredSensorTypeExists (type);
-            result = r.getSensorListInRoom ().getSensorList ().size ();
-        }
-        return result;
-    }
-
-    public boolean checkIfSensorTypeExistsInRoom (String input) {
-        List<Room> list = getRoomList ();
-        for (Room r : list) {
-            if (r.getSensorListInRoom ().checkIfRequiredSensorTypeExists (input)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    public boolean checkIfRoomLisNotEmpty(){
-        if (this.getRoomList ().size () == 0){
-            return false;
-        }
-        return true;
     }
 
 

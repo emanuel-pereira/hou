@@ -63,9 +63,8 @@ public class SensorList {
 
     /**
      * Some SensorTypes are required in some User Stories, so this method checks if a mandatory sensor type exists
-     *
-     * @param sensorType input sensor type designation
-     * @return input sensor type designation
+     * @param sensorType Sensor type designation
+     * @return Sensor type designation
      */
     public boolean checkIfRequiredSensorTypeExists(String sensorType) {
         for (Sensor s : mSensorList) {
@@ -76,6 +75,11 @@ public class SensorList {
         return false;
     }
 
+    /**
+     * Gets a sensor of one specific type
+     * @param type Sensor type designation
+     * @return A specific type sensor
+     */
     public Sensor getRequiredSensorPerType(String type) {
        Sensor requiredSensor = null;
         for (Sensor sensor : mSensorList) {

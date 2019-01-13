@@ -221,13 +221,6 @@ public class Sensor {
         return lastValue;
     }
 
-    public boolean sensorHasReadings(){
-        if(getListOfReadings ().getReadingList ().isEmpty ()){
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -16,15 +16,15 @@ class US605CurrentTempRoomCTRLTest {
         House h = new House();
 
         SensorList sList = new SensorList();
-        Reading r1 = new Reading(15, new GregorianCalendar (2018, 12, 26, 12, 00));
-        Reading r2 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 00));
+        Reading r1 = new Reading(15, new GregorianCalendar (2018, 12, 26, 12, 0));
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0));
         ReadingList readings1 = new ReadingList ();
         readings1.addReading (r1);
         readings1.addReading (r2);
         SensorType temp = new SensorType ("temperature");
         Sensor sensor1 = sList.createNewInternalSensor ("SensorLight", new GregorianCalendar(2018, 12, 15), temp, "Percentage", readings1);
-        Reading r3 = new Reading(80, new GregorianCalendar(2018, 12, 26, 12, 00));
-        Reading r4 = new Reading(81, new GregorianCalendar(2018, 12, 26, 13, 00));
+        Reading r3 = new Reading(80, new GregorianCalendar(2018, 12, 26, 12, 0));
+        Reading r4 = new Reading(81, new GregorianCalendar(2018, 12, 26, 13, 0));
         ReadingList readings2 = new ReadingList ();
         readings2.addReading (r3);
         readings2.addReading (r4);
@@ -63,8 +63,8 @@ class US605CurrentTempRoomCTRLTest {
         rList.addRoom(r1);
         rList.addRoom(r2);
 
-        Reading r11 = new Reading(15, new GregorianCalendar (2018, 12, 26, 12, 00));
-        Reading r12 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 00));
+        Reading r11 = new Reading(15, new GregorianCalendar (2018, 12, 26, 12, 0));
+        Reading r12 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0));
         ReadingList readings1 = new ReadingList ();
         readings1.addReading (r11);
         readings1.addReading(r12);
@@ -75,6 +75,9 @@ class US605CurrentTempRoomCTRLTest {
 
         r1.getSensorListInRoom ().addSensor (sensor1);
         US605CurrentTempRoomCTRL ctr2 = new US605CurrentTempRoomCTRL(h1,sL);
+
+        assertEquals(2, ctr2.getRoomList ().size ());
+        assertEquals(1, ctr2.getSensorTypeList ().size ());
 
         double result = ctr2.getCurrentTemp (1);
         double expected = 18;
@@ -150,8 +153,8 @@ class US605CurrentTempRoomCTRLTest {
         rList.addRoom(r1);
         rList.addRoom(r2);
 
-        Reading r11 = new Reading(15, new GregorianCalendar (2018, 12, 26, 12, 00));
-        Reading r12 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 00));
+        Reading r11 = new Reading(15, new GregorianCalendar (2018, 12, 26, 12, 0));
+        Reading r12 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0));
         ReadingList readings1 = new ReadingList ();
         readings1.addReading (r11);
         readings1.addReading(r12);
@@ -160,10 +163,17 @@ class US605CurrentTempRoomCTRLTest {
         sensor1.addReadingToList (r11);
         sensor1.addReadingToList (r12);
 
+        Sensor sensor2 = r2.getSensorListInRoom ().createNewInternalSensor ("rain", new GregorianCalendar(2018, 12, 15), temp, "C", readings1);
+        sensor1.addReadingToList (r11);
+        sensor1.addReadingToList (r12);
+
         r1.getSensorListInRoom ().addSensor (sensor1);
+        r2.getSensorListInRoom ().addSensor (sensor2);
+
+
         US605CurrentTempRoomCTRL ctr2 = new US605CurrentTempRoomCTRL(h1,sL);
 
-        boolean result = ctr2.checkIfSensorTypeExistInRoom ("temperature");
+        boolean result = ctr2.checkIfSensorTypeExistsInRoom (1,"temperature");
 
         assertTrue (result);
     }
@@ -172,7 +182,7 @@ class US605CurrentTempRoomCTRLTest {
      * Check if sensor type exists in room and return false
      */
     @Test
-    void checkIfSensorTypeDoenstExistInRoom() {
+    void checkIfSensorTypeDoesntExistInRoom() {
 
         SensorType temp = new SensorType ("temperature");
         SensorTypeList sL = new SensorTypeList ();
@@ -187,8 +197,8 @@ class US605CurrentTempRoomCTRLTest {
         rList.addRoom(r1);
         rList.addRoom(r2);
 
-        Reading r11 = new Reading(15, new GregorianCalendar (2018, 12, 26, 12, 00));
-        Reading r12 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 00));
+        Reading r11 = new Reading(15, new GregorianCalendar (2018, 12, 26, 12, 0));
+        Reading r12 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0));
         ReadingList readings1 = new ReadingList ();
         readings1.addReading (r11);
         readings1.addReading(r12);
@@ -200,55 +210,9 @@ class US605CurrentTempRoomCTRLTest {
         r1.getSensorListInRoom ().addSensor (sensor1);
         US605CurrentTempRoomCTRL ctr2 = new US605CurrentTempRoomCTRL(h1,sL);
 
-        boolean result = ctr2.checkIfSensorTypeExistInRoom ("rain");
-
-        assertEquals(false,result);
-    }
-
-    /**
-     * Check if room list size is equal to zero and return false because is empty
-     */
-    @Test
-    void checkIfRoomListIsNotEmptyA() {
-
-        SensorType temp = new SensorType ("temperature");
-        SensorTypeList sL = new SensorTypeList ();
-        sL.addSensorType (temp);
-
-        House h1 = new House ();
-        RoomList rList = h1.getRoomListFromHouse ();
-
-        US605CurrentTempRoomCTRL ctr2 = new US605CurrentTempRoomCTRL(h1,sL);
-
-        boolean result = ctr2.checkIfRoomListNotEmpty ();
+        boolean result = ctr2.checkIfSensorTypeExistsInRoom (1,"rain");
 
         assertFalse (result);
-    }
-
-    /**
-     * Check if room list size is equal to zero and return true because is not empty
-     */
-    @Test
-    void checkIfRoomListIstEmpty() {
-
-        SensorType temp = new SensorType ("temperature");
-        SensorTypeList sL = new SensorTypeList ();
-        sL.addSensorType (temp);
-
-        House h1 = new House ();
-        RoomList rList = h1.getRoomListFromHouse ();
-
-        Room r1 = rList.createNewRoom("Living Room", 1, 2, 3, 2);
-        Room r2 = rList.createNewRoom("Bed Room", 1, 2, 3, 2);
-
-        rList.addRoom(r1);
-        rList.addRoom(r2);
-
-        US605CurrentTempRoomCTRL ctr2 = new US605CurrentTempRoomCTRL(h1,sL);
-
-        boolean result = ctr2.checkIfRoomListNotEmpty ();
-
-        assertTrue (result);
     }
 
 }

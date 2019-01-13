@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Room {
@@ -118,9 +119,21 @@ public class Room {
         return mSensorListInRoom;
     }
 
-    public SensorList getSensorListIn(Room room) {
-        return mSensorListInRoom;
+    /**
+     * Checks if a sensor type exists in a room
+     * @param input Sensor type designation
+     * @return True if the sensor type exist in the room or false if not
+     */
+    public boolean checkIfSensorTypeExistsInRoom (String input) {
+        List<Sensor> list = this.getSensorListInRoom ().getSensorList ();
+        for (Sensor s : list) {
+            if (s.getSensorType ().getSensorTypeDesignation ().equals (input)) {
+                return true;
+            }
+        }
+        return false;
     }
+
 
 
 
