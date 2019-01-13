@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,11 +19,12 @@ class USAttachRoomToGridAndListCTRLTest {
         Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45",41, 12.3, 110);
         GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
-        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
-        HouseGrid grid1 = new HouseGrid(45,"Grid 1");
-        HouseGrid grid2 = new HouseGrid(50, "Grid 2");
-        house.addHouseGrid(grid1);
-        house.addHouseGrid(grid2);
+        HouseGridList hgList = new HouseGridList();
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house,hgList);
+        HouseGrid grid1 = new HouseGrid("Grid 1",45);
+        HouseGrid grid2 = new HouseGrid("Grid 2", 50);
+        hgList.addHouseGrid(grid1);
+        hgList.addHouseGrid(grid2);
 
         String expected = "1 - Grid 1 | Nominal Power: 45.0\n2 - Grid 2 | Nominal Power: 50.0\n";
         String result =  ctrl.showHouseGridListInString();
@@ -30,20 +32,40 @@ class USAttachRoomToGridAndListCTRLTest {
         assertEquals(expected,result);
     }
 
-    @Test
+    /*@Test
     @DisplayName("Ensure HouseGrid List size is 2")
-    void getHouseGridList() {
+    void getHouseGridListSize() {
         Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", 41, 12.3, 110);
         GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
-        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
+        HouseGridList hgList = new HouseGridList();
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house,hgList);
         HouseGrid grid1 = new HouseGrid(45);
         HouseGrid grid2 = new HouseGrid(50);
-        house.addHouseGrid(grid1);
-        house.addHouseGrid(grid2);
+        house.addhgList.addHouseGrid(grid1);
+        hgList.addHouseGrid(grid2);
 
         int expectedResult=2;
-        int result=ctrl.getHouseGridList().size();
+        int result=ctrl.;
+
+        assertEquals(expectedResult,result);
+    }*/
+
+    @Test
+    @DisplayName("Ensure HouseGrid List is listing the correct items")
+    void getHouseGridListTest() {
+        Address a1 = new Address("Rua Júlio Dinis", "345", "3380-45", 41, 12.3, 110);
+        GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
+        House house = new House(a1, ga1);
+        HouseGridList hgList = new HouseGridList();
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house,hgList);
+        HouseGrid grid1 = new HouseGrid(45);
+        HouseGrid grid2 = new HouseGrid(50);
+        hgList.addHouseGrid(grid1);
+        hgList.addHouseGrid(grid2);
+
+        List<HouseGrid> expectedResult = Arrays.asList(grid1,grid2);
+        HouseGridList result = ctrl.getHouseGridListCtrl();
 
         assertEquals(expectedResult,result);
     }
@@ -54,12 +76,13 @@ class USAttachRoomToGridAndListCTRLTest {
         Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", 41, 12.3, 110);
         GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
-        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
+        HouseGridList hgList = new HouseGridList();
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house, hgList);
 
         HouseGrid grid= new HouseGrid(1500);
         HouseGrid grid2= new HouseGrid(2000);
-        house.addHouseGrid(grid);
-        house.addHouseGrid(grid2);
+        hgList.addHouseGrid(grid);
+        hgList.addHouseGrid(grid2);
 
         Room kitchen= new Room("Kitchen",0,5,4, 2);
         Room wc= new Room("Bathroom",0,4,3,2 );
@@ -84,7 +107,8 @@ class USAttachRoomToGridAndListCTRLTest {
         Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", 41, 12.3, 110);
         GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
-        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
+        HouseGridList hgList = new HouseGridList();
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house, hgList);
 
         Room kitchen= new Room("Kitchen",0,5,4, 2);
         Room wc= new Room("Bathroom",0,4,3,2 );
@@ -107,12 +131,13 @@ class USAttachRoomToGridAndListCTRLTest {
         Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", 41, 12.3, 110);
         GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
-        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
+        HouseGridList hgList = new HouseGridList();
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house, hgList);
 
         HouseGrid grid= new HouseGrid(1500);
         HouseGrid grid2= new HouseGrid(2000);
-        house.addHouseGrid(grid);
-        house.addHouseGrid(grid2);
+        hgList.addHouseGrid(grid);
+        hgList.addHouseGrid(grid2);
 
         Room kitchen= new Room("Kitchen",0,5,4, 2.5);
         Room wc= new Room("Bathroom",0,4,3, 2.5);
@@ -135,12 +160,13 @@ class USAttachRoomToGridAndListCTRLTest {
         Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", 41, 12.3, 110);
         GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
-        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
+        HouseGridList hgList = new HouseGridList();
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house,hgList);
 
         HouseGrid grid= new HouseGrid(1500);
         HouseGrid grid2= new HouseGrid(2000);
-        house.addHouseGrid(grid);
-        house.addHouseGrid(grid2);
+        hgList.addHouseGrid(grid);
+        hgList.addHouseGrid(grid2);
 
         Room kitchen= new Room("Kitchen",0,5,4, 2);
         Room wc= new Room("Bathroom",0,4,3, 2);
@@ -164,12 +190,13 @@ class USAttachRoomToGridAndListCTRLTest {
         Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25","4000-285", 41, 12.3, 110);
         GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
-        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
+        HouseGridList hgList = new HouseGridList();
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house, hgList);
 
         HouseGrid grid= new HouseGrid(1500);
         HouseGrid grid2= new HouseGrid(2000);
-        house.addHouseGrid(grid);
-        house.addHouseGrid(grid2);
+        hgList.addHouseGrid(grid);
+        hgList.addHouseGrid(grid2);
         Room bedroom1 = new Room("Bedroom1",1,4,5, 2);
         Room bedroom2 = new Room("Bedroom2",1,4,5, 2);
         house.getRoomListFromHouse().addRoom(bedroom1);
@@ -186,12 +213,13 @@ class USAttachRoomToGridAndListCTRLTest {
         GeographicalArea g1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
 
         House house = new House(a1,g1);
-        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
+        HouseGridList hgList = new HouseGridList();
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house, hgList);
 
         HouseGrid grid= new HouseGrid(1500);
         HouseGrid grid2= new HouseGrid(2000);
-        house.addHouseGrid(grid);
-        house.addHouseGrid(grid2);
+        hgList.addHouseGrid(grid);
+        hgList.addHouseGrid(grid2);
 
         Room kitchen= new Room("Kitchen",0,5,4, 3);
         Room wc= new Room("Bathroom",0,4,3, 3);
@@ -219,12 +247,13 @@ class USAttachRoomToGridAndListCTRLTest {
         Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", 41, 12.3, 110);
         GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
-        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
+        HouseGridList hgList = new HouseGridList();
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house,hgList);
 
         HouseGrid grid= new HouseGrid(1500);
         HouseGrid grid2= new HouseGrid(2000);
-        house.addHouseGrid(grid);
-        house.addHouseGrid(grid2);
+        hgList.addHouseGrid(grid);
+        hgList.addHouseGrid(grid2);
 
         Room kitchen= new Room("Kitchen",0,5,4, 1.5);
         Room wc= new Room("Bathroom",0,4,3, 1.5);
@@ -254,12 +283,13 @@ class USAttachRoomToGridAndListCTRLTest {
         Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25","4000-285", 41, 12.3, 110);
         GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
-        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
+        HouseGridList hgList = new HouseGridList();
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house,hgList);
 
         HouseGrid grid= new HouseGrid(1500);
         HouseGrid grid2= new HouseGrid(2000);
-        house.addHouseGrid(grid);
-        house.addHouseGrid(grid2);
+        hgList.addHouseGrid(grid);
+        hgList.addHouseGrid(grid2);
 
         Room kitchen= new Room("Kitchen",0,5,4, 2);
         Room wc= new Room("Bathroom",0,4,3, 2);
@@ -286,12 +316,13 @@ class USAttachRoomToGridAndListCTRLTest {
         Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285",41, 12.3, 110);
         GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
-        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
+        HouseGridList hgList = new HouseGridList();
+        USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house, hgList);
 
         HouseGrid grid= new HouseGrid(1500);
         HouseGrid grid2= new HouseGrid(2000);
-        house.addHouseGrid(grid);
-        house.addHouseGrid(grid2);
+        hgList.addHouseGrid(grid);
+        hgList.addHouseGrid(grid2);
 
         Room bedroom1 = new Room("Bedroom1",1,4,5, 2.5);
         Room bedroom2 = new Room("Bedroom2",1,4,5, 2.5);

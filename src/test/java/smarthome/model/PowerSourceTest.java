@@ -79,38 +79,18 @@ class PowerSourceTest {
     }
 
     @Test
-    void checkIfPublicPowerGridTestFalse() {
-        PowerSource ps1 = new PowerSource("panel002","solar",250,14);
-        boolean expectedResult = false;
-        boolean result;
-        result = ps1.CheckIfPublicPowerGrid();
-        assertEquals(expectedResult, result);
+    void nameISValidTestTrue(){
+        PowerSource ps1 = new PowerSource("panel002","solar",
+                250,14);
+        boolean result = ps1.nameIsValid(ps1.getName());
+        assertTrue(result);
     }
 
     @Test
-    void checkIfPublicPowerGridTestFalseNotEquals() {
-        PowerSource ps1 = new PowerSource("panel002","solar",250,14);
-        boolean expectedResult = true;
-        boolean result;
-        result = ps1.CheckIfPublicPowerGrid();
-        assertNotEquals(expectedResult, result);
-    }
-
-    @Test
-    void checkIfPublicPowerGridTestTrue() {
-        PowerSource ps1 = new PowerSource("porto4150175","public",250,14);
-        boolean expectedResult = true;
-        boolean result;
-        result = ps1.CheckIfPublicPowerGrid();
-        assertEquals(expectedResult, result);
-    }
-
-    @Test
-    void checkIfPublicPowerGridTestTrueNotEquals() {
-        PowerSource ps1 = new PowerSource("porto4150175","public",250,14);
-        boolean expectedResult = false;
-        boolean result;
-        result = ps1.CheckIfPublicPowerGrid();
-        assertNotEquals(expectedResult, result);
+    void nameISValidTestFalse(){
+        PowerSource ps1 = new PowerSource("","solar",
+                250,14);
+        boolean result = ps1.nameIsValid(ps1.getName());
+        assertFalse(result);
     }
 }

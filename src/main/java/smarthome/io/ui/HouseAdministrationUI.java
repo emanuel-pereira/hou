@@ -1,15 +1,14 @@
 package smarthome.io.ui;
 
-import smarthome.model.GAList;
-import smarthome.model.House;
-import smarthome.model.RoomList;
-import smarthome.model.SensorTypeList;
+import smarthome.model.*;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class HouseAdministrationUI {
 
-    public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList, RoomList roomList, House house) {
+    public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList, List<Room> roomList,
+                                           House house, HouseGridList hgList, PowerSourceList pslist) {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("House administration UI");
@@ -41,16 +40,16 @@ public class HouseAdministrationUI {
                     break;
                 case 4:
 
-                    US130newHouseGridUI ui130 = new US130newHouseGridUI(house);
-                    ui130.run();
-                    break;
-                case 5:
-                    System.out.println("US135");
-                    US135AddPowerSourceToGridUI ui135 = new US135AddPowerSourceToGridUI(house);
-                    ui135.addPowerSourceToHouseGrid();
-                    break;
-                case 6:
-                    USAttachRoomToGridAndListUI ui145 = new USAttachRoomToGridAndListUI(house);
+                        US130newHouseGridUI ui130 = new US130newHouseGridUI(house, hgList);
+                        ui130.run();
+                        break;
+                    case 5:
+                        System.out.println("US135");
+                        US135AddPowerSourceToGridUI ui135 = new US135AddPowerSourceToGridUI(house,hgList,pslist);
+                        ui135.addPowerSourceToHouseGrid();
+                        break;
+                    case 6:
+                        USAttachRoomToGridAndListUI ui145 = new USAttachRoomToGridAndListUI(house, hgList);
                     ui145.run();
                     break;
 

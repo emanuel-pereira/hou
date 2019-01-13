@@ -9,28 +9,28 @@ public class House {
     private Address mAddress;
     private String mID;
     private GeographicalArea mGA;
-    private RoomList mRoomList;
-    private List<HouseGrid> mHouseGridList;
+    private List<Room> mRoomList;
+    private HouseGridList mHGListInHouse;
 
 
     public House() {
-        mRoomList = new RoomList();
-        mHouseGridList = new ArrayList<>();
+        mRoomList = new ArrayList<>();
+        mHGListInHouse = new HouseGridList();
     }
 
     public House(Address houseAddress, GeographicalArea GA) {
         mAddress = houseAddress;
         mGA = GA;
-        mRoomList = new RoomList();
-        mHouseGridList = new ArrayList<>();
+        mRoomList = new ArrayList<>();
+        mHGListInHouse = new HouseGridList();
     }
 
     public House(String id, Address houseAddress, GeographicalArea GA) {
         mID = id;
         mAddress = houseAddress;
         mGA = GA;
-        mRoomList = new RoomList();
-        mHouseGridList = new ArrayList<>();
+        mRoomList = new ArrayList<>();
+        mHGListInHouse = new HouseGridList();
     }
 
 
@@ -38,7 +38,7 @@ public class House {
         mGA = houseGA;
     }
 
-    public GeographicalArea getHouseGA() {
+    public GeographicalArea getHouseGA (){
         return mGA;
     }
 
@@ -48,6 +48,7 @@ public class House {
     }
 
     public Address getAddress() {
+
         return mAddress;
     }
 
@@ -66,32 +67,45 @@ public class House {
         return Objects.hash(mAddress, mID, mGA);
     }
 
-    //RoomList
-    public RoomList getRoomListFromHouse() {
-        return mRoomList;
-    }
+//RoomList
 
-    //HouseGridList
-
-    public HouseGrid newHouseGrid(double inputContractedMaximumPower, String ID) {
-        if (isValidContractedPower(inputContractedMaximumPower)) {
-            return new HouseGrid(inputContractedMaximumPower, ID);
+    public Room newRoom(String name, int floor, double length, double width, double height) {
+        if (this.roomNameValid(name)) {
+            return new Room(name, floor, length, width, height);
         }
         return null;
     }
 
-    /**
-     * Adds a house grid to the list of grids of a house if it isn't null or
-     * already contained in the houseGrid list of the respective house instance.
-     *
-     * @param inputHouseGrid houseGrid to be added to list of HouseGrids of a house instance.
-     * @return true if houseGrid is added to list or false otherwise.
-     */
-    public boolean addHouseGrid(HouseGrid inputHouseGrid) {
-        if (inputHouseGrid != null && !mHouseGridList.contains(inputHouseGrid)) {
-            mHouseGridList.add(inputHouseGrid);
+    public boolean addRoom(Room inputRoom) {
+        if (inputRoom != null && !mRoomList.contains(inputRoom)) {
+            mRoomList.add(inputRoom);
             return true;
         } else return false;
+    }
+
+    public boolean removeRoom(Room inputRoom) {
+        if (mRoomList.contains(inputRoom)) {
+            mRoomList.remove(inputRoom);
+            return true;
+        } else return false;
+    }
+
+
+    public List<Room> getRoomList() {
+        return mRoomList;
+    }
+
+
+    public boolean roomNameValid(String name) {
+        return name != null && !name.trim().isEmpty();
+    }
+
+    public boolean addHGinHGLinHouse (HouseGrid inputHG) {
+        return mHGListInHouse.addHouseGrid(inputHG);
+    }
+
+    public HouseGridList getHGListInHouse () {
+        return mHGListInHouse;
     }
 
     /**

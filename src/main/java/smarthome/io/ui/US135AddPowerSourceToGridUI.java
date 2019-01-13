@@ -1,19 +1,27 @@
 package smarthome.io.ui;
 
 import smarthome.controller.US135AddPowerSourceToGridCTRL;
-import smarthome.model.House;
+import smarthome.model.*;
+
 import java.util.Scanner;
 
 public class US135AddPowerSourceToGridUI {
 
     private House mHouse;
+    private HouseGrid mHouseGrid;
+    private HouseGridList mHGList;
+    private PowerSource mPowerSource;
+    private PowerSourceList mPSList;
     private US135AddPowerSourceToGridCTRL mCtrlUS135;
 
     Scanner read = new Scanner(System.in);
 
-    public US135AddPowerSourceToGridUI(House house/*, PowerSource powerSource*/) {
+    public US135AddPowerSourceToGridUI(House house, HouseGridList hglist, PowerSourceList pslist) {
         mHouse = house;
-        mCtrlUS135 = new US135AddPowerSourceToGridCTRL(house);
+        mHGList = hglist;
+        //mPowerSource = powerSource;
+        mPSList = pslist;
+        mCtrlUS135 = new US135AddPowerSourceToGridCTRL(house,hglist,pslist);
     }
 
     public void addPowerSourceToHouseGrid() {
@@ -72,11 +80,18 @@ public class US135AddPowerSourceToGridUI {
             }
             maxPower = Double.parseDouble(tempMaxPower);
             storageCapacity = Double.parseDouble(tempStorageCapacity);
-            if (mCtrlUS135.addNewPS(indexHG, name, type, maxPower, storageCapacity)) {
+            if (mCtrlUS135.addNewPSToGrid(indexHG, name, type, maxPower, storageCapacity)) {
                 System.out.println("Success! The power source " + name + " of the " + type +
                         " type, with maximum power of " + maxPower + " watts and storage capacity of "
-                        + storageCapacity + " kilowatts was created.\n\n");
-            } else {
+                        + storageCapacity + " kilowatts was created.\n\n" /*+mCtrlUS135.showPowerSourceListInString()+ "\n"*/);
+                /*while(mCtrlUS135.getPowerSourceListCtrl().size()!= 0){
+                    System.out.println(mCtrlUS135.showPowerSourceListInString()+"\n");
+                }*/
+            }
+            /*if(mCtrlUS135.getPowerSourceList().size() != 0){
+                System.out.println("Here is complete list of Power Sources in the current grid:\n"+mCtrlUS135.showPowerSourceListInString()+"\n\n");
+            }*/
+            else {
                 System.out.println("Fail! Please try again.");
             }
         }

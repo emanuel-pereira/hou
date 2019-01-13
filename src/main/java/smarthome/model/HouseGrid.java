@@ -2,13 +2,15 @@ package smarthome.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 
 public class HouseGrid {
     //The electrical network of the house
     private Double mContractedMaximumPower = Double.NaN;
     private String mDesignation;
     private PowerSource mPowerSource;
-    private List<PowerSource> mPowerSourceList = new ArrayList<>();
+    private PowerSourceList mPSListInHG;
     private HouseGrid mHouseGrid;
 
     public HouseGrid() {
@@ -21,15 +23,13 @@ public class HouseGrid {
 
     }
 
-    public HouseGrid(double inputContractedMaximumPower, String designation) {
+    public HouseGrid(String designation, double inputContractedMaximumPower) {
         if (valueIsPositive(inputContractedMaximumPower)) {
             mContractedMaximumPower = inputContractedMaximumPower;
             mDesignation = designation;
 
         }
     }
-
-
 
     public Double getContractedMaximumPower() {
         return mContractedMaximumPower;
@@ -48,24 +48,7 @@ public class HouseGrid {
         return mDesignation; }
 
 
-    public PowerSource newPowerSource (String inputName, String inputType, double inputMaxPower, double inputStorageCapacity){
-        return mPowerSource = new PowerSource(inputName,inputType,inputMaxPower,inputStorageCapacity);
-    }
-
-    public boolean addPS(PowerSource inputPS) {
-        if (mPowerSourceList.contains(inputPS))
-        return false;
-        else {
-            mPowerSourceList.add(inputPS);
-            return true;
-        }
-    }
-
-    public PowerSource getPowerSource (){
-        return mPowerSource;
-    }
-
-    public List<PowerSource> getPSList() {
-        return mPowerSourceList;
+    public PowerSourceList getPSListInHG () {
+        return mPSListInHG;
     }
 }

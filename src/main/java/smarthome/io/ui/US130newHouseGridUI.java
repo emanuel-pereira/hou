@@ -9,11 +9,13 @@ public class US130newHouseGridUI {
 
     private Scanner keyboard = new Scanner(System.in);
     private House mHouse;
+    private HouseGridList mHGList;
     private US130newHouseGridController mCtrlUS130;
 
-    public US130newHouseGridUI(House house) {
+    public US130newHouseGridUI(House house, HouseGridList hglist) {
         this.mHouse = house;
-        mCtrlUS130 = new US130newHouseGridController(house);
+        this.mHGList = hglist;
+        mCtrlUS130 = new US130newHouseGridController(house, hglist);
     }
 
     /**
@@ -40,7 +42,7 @@ public class US130newHouseGridUI {
             ID = keyboard.next();
         }
 
-        if (mCtrlUS130.createNewHouseGrid(inputMaxPower, mHouse, ID)) {
+        if (mCtrlUS130.createNewHouseGrid(ID, inputMaxPower, mHGList)) {
             System.out.println("It was created a new House Grid set with " + inputMaxPower + " kVA of Maximum Power for the house");
             System.out.println(mCtrlUS130.showGridsListInString());
         }

@@ -32,10 +32,17 @@ public class PowerSource {
         return mStorageCapacity;
     }
 
-    public boolean CheckIfPublicPowerGrid () {
+    public boolean nameIsValid(String name) {
+        if (name == null || name.trim ().isEmpty ()) {
+            return false;
+        }
+        return name.matches ("[A-Za-z0-9]*");
+    }
+
+    /*public boolean CheckIfPublicPowerGrid () {
         if (mTypePS.equals("public")){
             return true;}
         else{
             return false;}
-    }
+    }*/
 }

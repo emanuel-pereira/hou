@@ -256,30 +256,4 @@ class HouseTest {
 
         assertFalse(house.getRoomListFromHouse().removeRoom(room2));
     }
-
-    @Test
-    @DisplayName("Add a new house grid to the house grid list of a house and check that the " +
-            "same house grid object cannot be added twice")
-    void newHouseGrid() {
-        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
-
-        House house = new House("Casa", a1, g1);
-        HouseGrid h1 = house.newHouseGrid(5, "main grid");
-
-        assertTrue(house.addHouseGrid(h1));
-
-        assertEquals(1, house.getHouseGridList().size());
-        //Ensure the same house grid cannot be added twice
-        house.addHouseGrid(h1);
-        assertEquals(1, house.getHouseGridList().size());
-        //Ensure a house grid with 0 inputContractedPower cannot be added to the list
-        HouseGrid h2 = house.newHouseGrid(0, "main grid");
-        assertFalse(house.addHouseGrid(h2));
-        assertEquals(1, house.getHouseGridList().size());
-    }
-
-
-
-
 }

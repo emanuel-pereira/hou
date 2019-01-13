@@ -17,6 +17,7 @@ public class US6CreateSensorCTRL {
     }
 
     /**
+     *
      * @return Method that shows the list of dataTypes inputted by the user in a unique string
      */
     public String showSensorTypeListInString() {
@@ -66,8 +67,8 @@ public class US6CreateSensorCTRL {
      */
 
     public boolean addNewSensorToGA(String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, double latitude, double longitude, double altitude, int indexOfGA, List<Reading> readings) {
-        Sensor sensor = mGAList.getGAList().get(indexOfGA - 1).getSensorListInGA().newSensor(inputName, startDate, mSensorTypeList.getSensorTypeList().get(sensorTypeIndex - 1).toString(), inputUnit, latitude, longitude, altitude, readings);
+        Sensor sensor = mGAList.getGAList().get(indexOfGA - 1).getSensorListInGA().newSensor(inputName, startDate,
+                mSensorTypeList.getSensorTypeList().get(sensorTypeIndex - 1).toString(), inputUnit, latitude, longitude, altitude, readings);
         return mGAList.getGAList().get(indexOfGA - 1).getSensorListInGA().addSensor(sensor);
     }
-
 }
