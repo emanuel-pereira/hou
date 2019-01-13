@@ -5,6 +5,7 @@ import smarthome.model.GAList;
 import smarthome.model.GPSValidations;
 import smarthome.model.TypeGAList;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class US3CreateGAUI {
@@ -86,7 +87,7 @@ public class US3CreateGAUI {
                     latitude = read.nextDouble();
                     if (validations.latitudeIsValid(latitude))
                         break;
-                } catch (IllegalArgumentException ex) {
+                } catch (InputMismatchException ex) {
                     System.out.println(ex.getMessage());
                 }
             }
@@ -97,7 +98,7 @@ public class US3CreateGAUI {
                     longitude = read.nextDouble();
                     if (validations.longitudeIsValid(longitude))
                         break;
-                } catch (IllegalArgumentException ex) {
+                } catch (InputMismatchException ex) {
                     System.out.println(ex.getMessage());
                 }
             }
@@ -108,7 +109,7 @@ public class US3CreateGAUI {
                     altitude = read.nextDouble();
                     if (validations.altitudeIsValid(altitude))
                         break;
-                } catch (IllegalArgumentException ex) {
+                } catch (InputMismatchException ex) {
                     System.out.println(ex.getMessage());
                 }
             }

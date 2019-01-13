@@ -110,6 +110,7 @@ public class House {
     public boolean isValidContractedPower(double inputContractedMaximumPower) {
         return inputContractedMaximumPower > 0;
     }
+
 }
 
 
