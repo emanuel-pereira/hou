@@ -1,6 +1,8 @@
 package smarthome.model;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Objects;
 
 
 public class Sensor {
@@ -9,10 +11,9 @@ public class Sensor {
     private Location mLocation;
     private SensorType mDataType;
     private String mUnit; //to analyse the creation of a class unit so we may have a list of units for a specific Datatype (eg. SensorType: temperature with list of units containing: celsius, kelvin and fahrenheit)
-    private List<Reading> mListOfReadings = new ArrayList<> ();
 
-    public Sensor() {
-    }
+    private ReadingList mReadingList = new ReadingList ();
+
 
     /**
      * Constructor requiring to set only a specific designation for any object of type Sensor created
@@ -43,7 +44,7 @@ public class Sensor {
             this.mDesignation = designation;
             this.mStartDate = startDate;
             this.mLocation = new Location (latitude, longitude, altitude);
-            this.mDataType = new SensorType(dataType);
+            this.mDataType = new SensorType (dataType);
         }
     }
 
@@ -57,33 +58,45 @@ public class Sensor {
     }
 
 
-    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, SensorType dataType, List<Reading> listOfReadings) {
+    /**
+     * Sensor for Rooms
+     *
+     * @param designation
+     * @param startDate
+     * @param dataType
+     * @param unit
+     * @param readings
+     */
+    public Sensor(String designation, Calendar startDate, SensorType dataType, String unit, ReadingList readings) {
         if (nameIsValid (designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
-            this.mLocation = new Location (latitude, longitude, altitude);
             this.mDataType = dataType;
-            this.mListOfReadings = listOfReadings;
+            this.mUnit = unit;
+            this.mReadingList = readings;
         }
     }
 
-    public Sensor(String designation, Calendar startDate, SensorType dataType) {
-        if (nameIsValid (designation)) {
-            this.mDesignation = designation;
-            this.mStartDate = startDate;
-            this.mDataType = dataType;
-        }
-    }
-
-
-    public Sensor(String designation, Calendar startDate, String dataType, String unit, double latitude, double longitude, double altitude, List<Reading> readings) {
+    /**
+     * Sensor for GA
+     *
+     * @param designation
+     * @param startDate
+     * @param latitude
+     * @param longitude
+     * @param altitude
+     * @param dataType
+     * @param unit
+     * @param readings
+     */
+    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, SensorType dataType, String unit, ReadingList readings) {
         if (nameIsValid (designation)) {
             mDesignation = designation;
             mStartDate = startDate;
-            mDataType = new SensorType(dataType);
-            mUnit= unit;
-            mLocation = new Location(latitude,longitude,altitude);
-            mListOfReadings=readings;
+            mLocation = new Location (latitude, longitude, altitude);
+            mDataType = dataType;
+            mUnit = unit;
+            mReadingList = readings;
         }
     }
 
@@ -177,8 +190,8 @@ public class Sensor {
      *
      * @return the list of readings of a sensor
      */
-    public List<Reading> getListOfReadings() {
-        return this.mListOfReadings;
+    public ReadingList getListOfReadings() {
+        return mReadingList;
     }
 
     /**
@@ -187,8 +200,8 @@ public class Sensor {
      * @param newReading new reading object with a value and date
      */
     public void addReadingToList(Reading newReading) {
-        if (!(getListOfReadings ().contains (newReading)))
-            this.mListOfReadings.add (newReading);
+        if (!(mReadingList.getReadingList ().contains (newReading)))
+            this.mReadingList.addReading (newReading);
     }
 
     /**
@@ -198,117 +211,14 @@ public class Sensor {
      */
     public Reading getLastReadingPerSensor() {
         Reading lastValue;
-        lastValue = mListOfReadings.get (getListOfReadings ().size () - 1);
+        lastValue = mReadingList.getReadingList ().get (mReadingList.getReadingList ().size () - 1);
         return lastValue;
     }
 
-    /**
-     * Method to check if a month has registered readings
-     *
-     * @param monthOfReadings - the month to be checked for readings
-     * @return true if the month has readings, false if it has not
-     */
-    public boolean isMonthOfReadingList(int monthOfReadings) {
-        for (int index = 0; index < mListOfReadings.size (); index++) {
-            if (mListOfReadings.get (index).getMonthOfReading () == monthOfReadings)
-                return true;
-        }
-        return false;
-    }
-
-    /**
-     * Method to calculate the average value of all the readings for one given month
-     *
-     * @param monthOfReadings - the month from which we want to calculate the average of the registered readings
-     * @return the average of reading values for one month
-     */
-    public double getMonthlyAverageReadings(int monthOfReadings) {
-
-        double sum = 0;
-        int counter = 0;
-        for (int index = 0; index < mListOfReadings.size (); index++) {
-            if (mListOfReadings.get (index).getMonthOfReading () == monthOfReadings) {
-                sum += mListOfReadings.get (index).returnValueOfReading ();
-                counter++;
-            }
-        }
-        if (counter == 0) {
-            return Double.NaN;
-        }
-        return sum / counter;
-    }
-
-
-    /**
-     * Method to calculate the smallest value of all the readings for one given month
-     *
-     * @param monthOfReadings - the month from which we want to calculate the smallest value of the registered readings
-     * @return the smallest of reading values for one month
-     */
-    public double getMonthlyMinimumReading(int monthOfReadings) {
-
-        double minimum = Double.NaN;
-        if (isMonthOfReadingList (monthOfReadings)) {
-            minimum = mListOfReadings.get (0).returnValueOfReading ();
-            for (int index = 0; index < mListOfReadings.size (); index++) {
-                if (mListOfReadings.get (index).returnValueOfReading () < minimum) {
-                    minimum = mListOfReadings.get (index).returnValueOfReading ();
-                }
-            }
-        }
-        return minimum;
-    }
-
-    /**
-     * Method to retrieve the monthly average for each month
-     * For this calculation the method takes into account the measured values
-     *
-     * @return array averageValuesEachMonth with the average values for each month
-     */
-    public double[] getMonthlyAverageReadingEachMonth() {
-        double[] averageValuesEachMonth = new double[12];
-        Arrays.fill (averageValuesEachMonth, Double.NaN);//to populate the array with null values, since before it were 0.0
-        for (int i = 0; i < averageValuesEachMonth.length; i++) {
-            if (isMonthOfReadingList (i + 1))
-                averageValuesEachMonth[i] = getMonthlyAverageReadings (i + 1);
-        }
-        return averageValuesEachMonth;
-    }
-
-    /**
-     * Method to get the average minimum value in a list of average monthly readings
-     *
-     * @return the average minimum value of
-     */
-    public double getMinimumAverageReading() {
-        double minimum = getMonthlyAverageReadingEachMonth ()[0];
-        for (int i = 1; i < getMonthlyAverageReadingEachMonth ().length; i++) {
-            if (Double.isNaN (minimum)) {
-                minimum = getMonthlyAverageReadingEachMonth ()[i];
-            }
-            if (minimum > getMonthlyAverageReadingEachMonth ()[i]) {
-                minimum = getMonthlyAverageReadingEachMonth ()[i];
-            }
-        }
-        return minimum;
-    }
-
-    /**
-     * Method to get the average maximum value in a list of average monthly readings
-     *
-     * @return the maximum average month readings
-     */
-    public double getMaximumAverageReading() {
-        double maximum = getMonthlyAverageReadingEachMonth ()[0];
-        for (int i = 1; i < getMonthlyAverageReadingEachMonth ().length; i++) {
-            if (Double.isNaN (maximum)) {
-                maximum = getMonthlyAverageReadingEachMonth ()[i];
-            }
-            if (maximum < getMonthlyAverageReadingEachMonth ()[i]) {
-                maximum = getMonthlyAverageReadingEachMonth ()[i];
-            }
-        }
-        return maximum;
+    public double getLastReadingValuePerSensor() {
+        double lastValue;
+        lastValue = mReadingList.getReadingList ().get (mReadingList.getReadingList ().size () - 1).returnValueOfReading ();
+        return lastValue;
     }
 
     @Override

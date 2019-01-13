@@ -37,4 +37,5 @@ public class Reading {
     public Calendar getDateAndTime(){
         return mDateAndTime;
     }
+
 }

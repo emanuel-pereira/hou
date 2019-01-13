@@ -7,7 +7,6 @@ public class SensorTypeList {
 
     private List<SensorType> mSensorTypeList;
 
-
     /**
      * Constructor method that creates a new list to save data type objects
      */
@@ -66,6 +65,21 @@ public class SensorTypeList {
             return false;
         return sensorTypeDesignation.matches("[a-zA-Z]*");
     }
+
+    /**
+     * Some SensorTypes are required in some User Stories, so this method checks if a mandatory sensor type exists
+     * @param input sensor type designation
+     * @return true if exists and false if not
+     */
+    public boolean checkIfRequiredSensorTypeExists (String input) {
+        for (SensorType type : mSensorTypeList) {
+            if (type.getSensorTypeDesignation ().toLowerCase ().equals (input)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 

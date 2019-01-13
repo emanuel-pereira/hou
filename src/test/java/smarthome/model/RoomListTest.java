@@ -83,7 +83,6 @@ public class RoomListTest {
     }
 
 
-
     @Test
     @DisplayName("Tests if two sensor designations are different")
     public void checkIfRoomDesignationAreDifferent() {

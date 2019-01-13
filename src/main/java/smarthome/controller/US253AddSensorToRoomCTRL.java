@@ -11,6 +11,8 @@ public class US253AddSensorToRoomCTRL {
     private House mHouse;
     private RoomList mRoomList;
 
+    ReadingList readingList = new ReadingList();
+
     public US253AddSensorToRoomCTRL(House house, SensorTypeList sensorTypeList) {
         mHouse = house;
         mRoomList = mHouse.getRoomListFromHouse();
@@ -31,12 +33,14 @@ public class US253AddSensorToRoomCTRL {
         return result.toString();
     }
 
-    public void addNewSensorToRoom(String inputName, GregorianCalendar startDate, int sensorTypeIndex, int indexOfRoom) {
+    //Ir à classe
+    public void addNewSensorToRoom(String inputName, GregorianCalendar startDate, int sensorTypeIndex, int indexOfRoom, String unit, ReadingList readingList) {
         Room r = mRoomList.get(indexOfRoom - 1);
-        Sensor s= r.getSensorListInRoom().createNewInternalSensor(inputName, startDate, mSensorTypeList.getSensorTypeList().get(sensorTypeIndex-1));
+        Sensor s= r.getSensorListInRoom().createNewInternalSensor(inputName, startDate, mSensorTypeList.getSensorTypeList().get(sensorTypeIndex-1), unit, readingList);
         r.getSensorListInRoom().addSensor(s);
     }
 
+    //Ir à classe
     public String showRoomListInString() {
         List<Room> list = mRoomList.getRoomList();
         StringBuilder result = new StringBuilder();
