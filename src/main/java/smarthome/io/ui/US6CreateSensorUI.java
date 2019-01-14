@@ -132,7 +132,7 @@ public class US6CreateSensorUI {
                         hourOfReading = Integer.parseInt(tempHourOfReading);
 
                         GregorianCalendar date = new GregorianCalendar(yearOfReading, monthOfReading, dayOfReading, hourOfReading, 0);
-                        Reading r = new Reading(readingValue, date);
+                        Reading r = readingList.newReading(readingValue, date);
                         readingList.addReading (r);
                     }
                 }

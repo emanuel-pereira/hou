@@ -59,7 +59,7 @@ public class Location {
      * @param location2 this is the Location object for the second GA
      * @return distance between location in meters
      */
-    public static double calcLinearDistanceBetweenTwoPoints(Location location1, Location location2) {
+    public double calcLinearDistanceBetweenTwoPoints(Location location1, Location location2) {
         return Math.sqrt(Math.pow(location2.mLatitude - location1.mLatitude, 2)
                 + Math.pow(location2.mLongitude - location1.mLongitude, 2)
                 + Math.pow(location2.mAltitude - location1.mAltitude, 2));

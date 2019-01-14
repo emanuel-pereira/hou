@@ -1,14 +1,14 @@
 package smarthome.io.ui;
 
+import smarthome.model.GAList;
 import smarthome.model.House;
-import smarthome.model.RoomList;
 import smarthome.model.SensorTypeList;
 
 import java.util.Scanner;
 
 public class RegularUsageUI {
 
-    public static void regularUsage(House house, SensorTypeList sensorTypeList) {
+    public static void regularUsage(House house, SensorTypeList sensorTypeList, GAList gaList) {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("Regular Users UI");
@@ -24,7 +24,8 @@ public class RegularUsageUI {
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
                 case 1:
-                    System.out.println("US600");
+                    US600GetCurrentMeteoValueHouseAreaUI us600 = new US600GetCurrentMeteoValueHouseAreaUI(house,sensorTypeList,gaList);
+                    us600.run();
                     break;
                 case 2:
                     US605CurrentTempRoomUI uS605CurrentTempRoomUI = new US605CurrentTempRoomUI (house, sensorTypeList);

@@ -38,7 +38,7 @@ public class MainUI {
                     houseAdministration(sensorTypeList,gaList,roomList,house,hglist,pslist);
                     break;
                 case 3:
-                    regularUsage(house,sensorTypeList);
+                    regularUsage(house,sensorTypeList,gaList);
                     break;
             }
         }
