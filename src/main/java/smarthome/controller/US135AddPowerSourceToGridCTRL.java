@@ -6,15 +6,11 @@ import java.util.List;
 
 public class US135AddPowerSourceToGridCTRL {
 
-    private  House mHouse;
+    private House mHouse;
     private HouseGridList mHGList;
     private PowerSourceList mPSList;
     private HouseGrid mHouseGrid;
 
-    public US135AddPowerSourceToGridCTRL(House house,HouseGridList hgList){
-        mHouse = house;
-        mHGList = hgList;
-    }
 
     public US135AddPowerSourceToGridCTRL (House house,HouseGridList hgList, PowerSourceList psList) {
         mHouse = house;
@@ -32,11 +28,7 @@ public class US135AddPowerSourceToGridCTRL {
         return mHouseGrid.getPSList();
     }*/
     public List<HouseGrid> getHouseGridList() {
-        return mHGList.getHouseGridList();
-    }
-
-    public boolean addHouseGridCtrl(HouseGrid inputHouseGrid) {
-        return mHouse.addHGinHGLinHouse(inputHouseGrid);
+        return mHouse.getHGListInHouse().getHouseGridList();
     }
 
     public String showHouseGridListInString() {
@@ -55,17 +47,13 @@ public class US135AddPowerSourceToGridCTRL {
         return result.toString();
     }
 
-    /*public  List<PowerSource> getPowerSourceListCtrl() {
-        return mHouseGrid.getPSListHG();
+    public  List<PowerSource> getPowerSourceListCtrl(HouseGrid houseGrid) {
+        mHouseGrid = houseGrid;
+        return mHouseGrid.getPSListInHG().getPSList();
     }
 
-    public boolean createNewPowerSource (String namePS, String typePS,double maxPower, double storageCapacity, PowerSourceList psList){
-        PowerSource ps = psList.newPowerSource(namePS,typePS,maxPower,storageCapacity);
-        return psList.addPSpslist(ps);
-    }
-
-    public String showPowerSourceListInString() {
-        List <PowerSource> list = getPowerSourceListCtrl();
+    public String showPowerSourceListInString(HouseGrid houseGrid) {
+        List <PowerSource> list = getPowerSourceListCtrl(houseGrid);
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
@@ -79,21 +67,13 @@ public class US135AddPowerSourceToGridCTRL {
             result.append(ps.getMaxPower());
             result.append(" kw, Storage Capacity ");
             result.append(ps.getStorageCapacity());
-            result.append(" kw. \n");
+            result.append(" kw.\n");
         }
         return result.toString();
-    }*/
-
-    public PowerSourceList getPSListInHGCtrl () {
-        return mHouseGrid.getPSListInHG();
     }
 
+
     public boolean addNewPSToGrid(int indexOfHG, String namePS, String typePS, double maxPower, double storageCapacity) {
-        //mHGList.getHouseGridListCtrl().get(indexOfHG-1);
-        //HouseGrid grid = mHGList.getHouseGridListCtrl().get(indexOfHG-1);
-        //PowerSource ps = mPSList.newPowerSource(namePS,typePS,maxPower,storageCapacity);
-        //return mHGList.get(indexOfHG-1).addPS(new PowerSource(namePS,typePS,maxPower,storageCapacity));
-        //mPSList.addPS(ps);//return mPSList.addPS( new PowerSource (namePS, typePS, maxPower, storageCapacity));
         PowerSource ps = mHouse.getHGListInHouse().getHouseGridList().get(indexOfHG-1).getPSListInHG().newPowerSource(namePS,typePS,maxPower,storageCapacity);
         return mHouse.getHGListInHouse().getHouseGridList().get(indexOfHG-1).getPSListInHG().addPS(ps);
     }

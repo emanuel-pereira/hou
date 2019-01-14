@@ -15,7 +15,7 @@ public class US130newHouseGridUI {
     public US130newHouseGridUI(House house, HouseGridList hglist) {
         this.mHouse = house;
         this.mHGList = hglist;
-        mCtrlUS130 = new US130newHouseGridController(house, hglist);
+        mCtrlUS130 = new US130newHouseGridController(house);
     }
 
     /**
@@ -42,7 +42,7 @@ public class US130newHouseGridUI {
             ID = keyboard.next();
         }
 
-        if (mCtrlUS130.createNewHouseGrid(ID, inputMaxPower, mHGList)) {
+        if (mCtrlUS130.createNewHouseGrid(ID, inputMaxPower)) {
             System.out.println("It was created a new House Grid set with " + inputMaxPower + " kVA of Maximum Power for the house");
             System.out.println(mCtrlUS130.showGridsListInString());
         }

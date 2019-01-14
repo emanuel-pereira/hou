@@ -14,20 +14,19 @@ public class HouseGrid {
     private HouseGrid mHouseGrid;
 
     public HouseGrid() {
+        mPSListInHG = new PowerSourceList();
     }
 
     public HouseGrid(double inputContractedMaximumPower) {
-
         if (valueIsPositive(inputContractedMaximumPower))
             mContractedMaximumPower = inputContractedMaximumPower;
-
     }
 
     public HouseGrid(String designation, double inputContractedMaximumPower) {
         if (valueIsPositive(inputContractedMaximumPower)) {
             mContractedMaximumPower = inputContractedMaximumPower;
             mDesignation = designation;
-
+            mPSListInHG = new PowerSourceList();
         }
     }
 

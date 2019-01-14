@@ -3,18 +3,21 @@ package smarthome.io.ui;
 import smarthome.controller.USAttachRoomToGridAndListCTRL;
 import smarthome.model.House;
 import smarthome.model.HouseGridList;
+import smarthome.model.RoomList;
 
 import java.util.Scanner;
 
 public class USAttachRoomToGridAndListUI {
     private House mHouse;
     private HouseGridList mHouseGridList;
+    private RoomList mRoomList;
     private USAttachRoomToGridAndListCTRL mCtrlUS147;
 
-    public USAttachRoomToGridAndListUI(House house, HouseGridList hglist) {
+    public USAttachRoomToGridAndListUI(House house) {
         mHouse = house;
-        mHouseGridList = hglist;
-        mCtrlUS147 = new USAttachRoomToGridAndListCTRL(house,hglist);
+        mCtrlUS147 = new USAttachRoomToGridAndListCTRL(house);
+        mRoomList = mHouse.getRoomListFromHouse();
+        mHouseGridList = mHouse.getHGListInHouse();
     }
 
     Scanner read = new Scanner(System.in);
@@ -25,8 +28,8 @@ public class USAttachRoomToGridAndListUI {
         int indexOfHouseGrid;
         int indexOfRoom;
         while (true) {
-            if (!(mCtrlUS147.getHouseGridListCtrl().getHouseGridList().isEmpty())) {
-                if (!(mCtrlUS147.getListOfRooms().isEmpty())) {
+            if (!(mCtrlUS147.getHouseGridListCtrl().isEmpty())) {
+                if (!(mCtrlUS147.getListOfRooms().getRoomList().isEmpty())) {
 
                     String option;
                     while (true) {
@@ -45,7 +48,7 @@ public class USAttachRoomToGridAndListUI {
                             indexOfHouseGrid = read.nextInt();
                             read.nextLine();
 
-                            if (indexOfHouseGrid > mCtrlUS147.getHouseGridListCtrl().getHouseGridList().size()) {
+                            if (indexOfHouseGrid > mCtrlUS147.getHouseGridListCtrl().size()) {
                                 System.out.println(insertValidOption);
                                 break;
                             }
@@ -56,7 +59,7 @@ public class USAttachRoomToGridAndListUI {
                                 indexOfRoom = read.nextInt();
                                 read.nextLine();
                                 mCtrlUS147.attachRoomToHouseGrid(indexOfHouseGrid, indexOfRoom);
-                                System.out.println("Room " + mHouse.getRoomList().get(indexOfRoom - 1).getName() + " was successfully attached to HouseGrid: " + mHouseGridList.getHouseGridList().get(indexOfHouseGrid - 1).getGridID() +
+                                System.out.println("Room " + mHouse.getRoomListFromHouse().get(indexOfRoom - 1).getName() + " was successfully attached to HouseGrid: " + mHouseGridList.getHouseGridList().get(indexOfHouseGrid - 1).getGridID() +
                                         " | Nominal Power: " + mHouseGridList.getHouseGridList().get(indexOfHouseGrid - 1).getContractedMaximumPower() + ".\n");
                                 System.out.println(listRoomsAttachedToHousegridMsg);
                                 System.out.println(mCtrlUS147.showRoomsWithHouseGridInStr(indexOfHouseGrid));
@@ -71,7 +74,7 @@ public class USAttachRoomToGridAndListUI {
                             indexOfHouseGrid = read.nextInt();
                             read.nextLine();
 
-                            if (indexOfHouseGrid > mCtrlUS147.getHouseGridListCtrl().getHouseGridList().size()) {
+                            if (indexOfHouseGrid > mCtrlUS147.getHouseGridListCtrl().size()) {
                                 System.out.println(insertValidOption);
                                 break;
                             }
@@ -89,7 +92,7 @@ public class USAttachRoomToGridAndListUI {
                             System.out.println(mCtrlUS147.showHouseGridListInString());
                             indexOfHouseGrid = read.nextInt();
                             read.nextLine();
-                            if (indexOfHouseGrid > mCtrlUS147.getHouseGridListCtrl().getHouseGridList().size()) {
+                            if (indexOfHouseGrid > mCtrlUS147.getHouseGridListCtrl().size()) {
                                 System.out.println(insertValidOption);
                                 break;
                             }

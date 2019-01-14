@@ -8,23 +8,20 @@ import java.util.List;
 public class US130newHouseGridController {
 
     private House mHouse;
-    private HouseGridList mHGList;
 
-    public US130newHouseGridController(House house, HouseGridList hgList) {
+    public US130newHouseGridController(House house) {
         mHouse = house;
-        mHGList = hgList;
     }
 
     /**
      * Method to create invoke the new House grid model method
      *
      * @param inputMaxPower double max power
-     * @param house         house class
      * @return boolean true or false if the new House Grid was added or not respectively
      */
-    public boolean createNewHouseGrid(String ID, double inputMaxPower, HouseGridList hgList) {
-        HouseGrid housegrid = hgList.newHouseGrid(ID, inputMaxPower);
-        return hgList.addHouseGrid(housegrid);
+    public boolean createNewHouseGrid(String ID, double inputMaxPower) {
+        HouseGrid housegrid = mHouse.getHGListInHouse().newHouseGrid(ID, inputMaxPower);
+        return mHouse.getHGListInHouse().addHouseGrid(housegrid);
     }
 
     /**
@@ -33,7 +30,7 @@ public class US130newHouseGridController {
      * @return list of objects of HouseGrid type
      */
     public List<HouseGrid> getHouseGridList() {
-        return mHGList.getHouseGridList();
+        return mHouse.getHGListInHouse().getHouseGridList();
     }
 
     /**

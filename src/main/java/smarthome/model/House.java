@@ -9,19 +9,19 @@ public class House {
     private Address mAddress;
     private String mID;
     private GeographicalArea mGA;
-    private List<Room> mRoomList;
+    private RoomList mRoomList;
     private HouseGridList mHGListInHouse;
 
 
     public House() {
-        mRoomList = new ArrayList<>();
+        mRoomList = new RoomList();
         mHGListInHouse = new HouseGridList();
     }
 
     public House(Address houseAddress, GeographicalArea GA) {
         mAddress = houseAddress;
         mGA = GA;
-        mRoomList = new ArrayList<>();
+        mRoomList = new RoomList();
         mHGListInHouse = new HouseGridList();
     }
 
@@ -29,7 +29,7 @@ public class House {
         mID = id;
         mAddress = houseAddress;
         mGA = GA;
-        mRoomList = new ArrayList<>();
+        mRoomList = new RoomList();
         mHGListInHouse = new HouseGridList();
     }
 
@@ -69,60 +69,12 @@ public class House {
 
 //RoomList
 
-    public Room newRoom(String name, int floor, double length, double width, double height) {
-        if (this.roomNameValid(name)) {
-            return new Room(name, floor, length, width, height);
-        }
-        return null;
-    }
-
-    public boolean addRoom(Room inputRoom) {
-        if (inputRoom != null && !mRoomList.contains(inputRoom)) {
-            mRoomList.add(inputRoom);
-            return true;
-        } else return false;
-    }
-
-    public boolean removeRoom(Room inputRoom) {
-        if (mRoomList.contains(inputRoom)) {
-            mRoomList.remove(inputRoom);
-            return true;
-        } else return false;
-    }
-
-
-    public List<Room> getRoomList() {
+    public RoomList getRoomListFromHouse() {
         return mRoomList;
-    }
-
-
-    public boolean roomNameValid(String name) {
-        return name != null && !name.trim().isEmpty();
-    }
-
-    public boolean addHGinHGLinHouse (HouseGrid inputHG) {
-        return mHGListInHouse.addHouseGrid(inputHG);
     }
 
     public HouseGridList getHGListInHouse () {
         return mHGListInHouse;
-    }
-
-    /**
-     * @return the list of housegrids in the house
-     */
-    public List<HouseGrid> getHouseGridList() {
-        return mHouseGridList;
-    }
-
-    /**
-     * checks if the inputted Maximum Power is Positive
-     *
-     * @param inputContractedMaximumPower Double number
-     * @return
-     */
-    public boolean isValidContractedPower(double inputContractedMaximumPower) {
-        return inputContractedMaximumPower > 0;
     }
 
 }

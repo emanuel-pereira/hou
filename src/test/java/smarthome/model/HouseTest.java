@@ -256,4 +256,22 @@ class HouseTest {
 
         assertFalse(house.getRoomListFromHouse().removeRoom(room2));
     }
+
+    @Test
+    @DisplayName("Get House Grid List from the House")
+    void getHouseGridListFromHouseTest () {
+        House house = new House();
+        HouseGridList hgList = new HouseGridList();
+        HouseGrid hg01 = new HouseGrid("grid01",1000);
+        HouseGrid hg02 = new HouseGrid("grid02",2020);
+
+        house.getHGListInHouse().addHouseGrid(hg01);
+        house.getHGListInHouse().addHouseGrid(hg02);
+
+        List<HouseGrid> expectedResult = Arrays.asList(hg01,hg02);
+        List<HouseGrid> result = house.getHGListInHouse().getHouseGridList();
+
+        assertEquals(expectedResult,result);
+
+    }
 }

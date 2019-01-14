@@ -1,5 +1,6 @@
 package smarthome.io.ui;
 
+import smarthome.controller.US130newHouseGridController;
 import smarthome.controller.US135AddPowerSourceToGridCTRL;
 import smarthome.model.*;
 
@@ -13,27 +14,28 @@ public class US135AddPowerSourceToGridUI {
     private PowerSource mPowerSource;
     private PowerSourceList mPSList;
     private US135AddPowerSourceToGridCTRL mCtrlUS135;
+    private US130newHouseGridController mCtrlUS130;
 
     Scanner read = new Scanner(System.in);
 
-    public US135AddPowerSourceToGridUI(House house, HouseGridList hglist, PowerSourceList pslist) {
+    public US135AddPowerSourceToGridUI(House house, HouseGridList hgList, PowerSourceList psList) {
         mHouse = house;
-        mHGList = hglist;
-        //mPowerSource = powerSource;
-        mPSList = pslist;
-        mCtrlUS135 = new US135AddPowerSourceToGridCTRL(house,hglist,pslist);
+        mHGList = hgList;
+        mPSList = psList;
+        mCtrlUS135 = new US135AddPowerSourceToGridCTRL(house, hgList, psList);
+        mCtrlUS130 = new US130newHouseGridController(house);
     }
 
     public void addPowerSourceToHouseGrid() {
-        if(mCtrlUS135.getHouseGridList().size() != 0) {
+        if (mCtrlUS130.getHouseGridList().size() != 0) {
 
             System.out.println("Please select the House Grid to which you wish to add your Power Source to:");
-            System.out.println(mCtrlUS135.showHouseGridListInString());
+            System.out.println(mCtrlUS130.showGridsListInString());
             int indexHG;
             while (true) {
                 Scanner read1 = new Scanner(System.in);
                 indexHG = read1.nextInt();
-                if (indexHG > mCtrlUS135.getHouseGridList().size())
+                if (indexHG > mCtrlUS130.getHouseGridList().size())
                     System.out.println("Please insert a valid option \n.");
                 else
                     break;
@@ -84,9 +86,7 @@ public class US135AddPowerSourceToGridUI {
                 System.out.println("Success! The power source " + name + " of the " + type +
                         " type, with maximum power of " + maxPower + " watts and storage capacity of "
                         + storageCapacity + " kilowatts was created.\n\n" /*+mCtrlUS135.showPowerSourceListInString()+ "\n"*/);
-                /*while(mCtrlUS135.getPowerSourceListCtrl().size()!= 0){
-                    System.out.println(mCtrlUS135.showPowerSourceListInString()+"\n");
-                }*/
+                System.out.println(mCtrlUS135.showPowerSourceListInString(mHouse.getHGListInHouse().getHouseGridList().get(indexHG - 1)) + "\n");
             }
             /*if(mCtrlUS135.getPowerSourceList().size() != 0){
                 System.out.println("Here is complete list of Power Sources in the current grid:\n"+mCtrlUS135.showPowerSourceListInString()+"\n\n");
@@ -94,37 +94,36 @@ public class US135AddPowerSourceToGridUI {
             else {
                 System.out.println("Fail! Please try again.");
             }
-        }
-        else {
-            System.out.println( "No House Grids have been found, please create (at least)one in US130");
+        } else {
+            System.out.println("No House Grids have been found, please create (at least)one in US130");
         }
     }
 
-    public void tryAgainMessage(){
-        System.out.print ( "Try again. " );
+    public void tryAgainMessage() {
+        System.out.print("Try again. ");
     }
 
     public String nameOrTypeIsValid() {
-        String name = read.nextLine ();
-        if (name == null || name.trim ().isEmpty ()) {//verification of empty and null parameters
-            System.out.println ( "Empty spaces are not accepted" );
+        String name = read.nextLine();
+        if (name == null || name.trim().isEmpty()) {//verification of empty and null parameters
+            System.out.println("Empty spaces are not accepted");
             return null;
         }
-        if (!name.matches ( "^(?![\\s]).*" )) {
-            System.out.println ( "Please start with words." );
+        if (!name.matches("^(?![\\s]).*")) {
+            System.out.println("Please start with words.");
             return null;
         }
         return name;
     }
 
     public String maxPowerOrStorageCapacityIsValid() {
-        String number = read.nextLine ();
-        if (number == null || number.trim ().isEmpty ()) {//verification of empty and null parameters
-            System.out.println ( "Empty spaces aren't accepted." );
+        String number = read.nextLine();
+        if (number == null || number.trim().isEmpty()) {//verification of empty and null parameters
+            System.out.println("Empty spaces aren't accepted.");
             return null;
         }
-        if (!number.matches ( "[0-9]+([,.][0-9]{1,2})?" )) {
-            System.out.println ( "Please use only numbers and dots if necessary." );
+        if (!number.matches("[0-9]+([,.][0-9]{1,2})?")) {
+            System.out.println("Please use only numbers and dots if necessary.");
             return null;
         }
         return number;

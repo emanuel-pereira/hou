@@ -8,26 +8,26 @@ import smarthome.model.RoomList;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 
 public class USAttachRoomToGridAndListCTRL {
     private House mHouse;
+    private RoomList mRoomList;
     private HouseGridList mHGList;
 
-    public USAttachRoomToGridAndListCTRL(House house, HouseGridList hgList) {
+    public USAttachRoomToGridAndListCTRL(House house) {
         mHouse = house;
+        mRoomList = mHouse.getRoomListFromHouse();
         mHGList = mHouse.getHGListInHouse();
     }
-    /*public USAttachRoomToGridAndListCTRL(HouseGridList hgList) {
-        mHGList = hgList;
-    }*/
+
 
 
     /**
      * @return shows the list of houseGrids in a single string for the user to select a HouseGrid
      */
     public String showHouseGridListInString() {
-        List<HouseGrid> list = mHGList.getHouseGridList();
+        List<HouseGrid> list = getHouseGridListCtrl();
         StringBuilder result = new StringBuilder();
         int number = 1;
         for (HouseGrid houseGrid : list) {
@@ -41,8 +41,8 @@ public class USAttachRoomToGridAndListCTRL {
         return result.toString();
     }
 
-    public HouseGridList getHouseGridListCtrl() {
-        return mHouse.getHGListInHouse();
+    public List<HouseGrid> getHouseGridListCtrl() {
+        return mHouse.getHGListInHouse().getHouseGridList();
     }
 
     /**
@@ -50,7 +50,7 @@ public class USAttachRoomToGridAndListCTRL {
      */
     public List<Room> getListOfRoomsWithoutHouseGrid() {
         List<Room> listOfRoomsWithoutHouseGrid = new ArrayList<>();
-        for (Room r : mHouse.getRoomList()) {
+        for (Room r : mRoomList.getRoomList()) {
             if (r.getmHouseGrid() == null) {
                 listOfRoomsWithoutHouseGrid.add(r);
             }
@@ -61,8 +61,8 @@ public class USAttachRoomToGridAndListCTRL {
     /**
      * @return the list of rooms without HouseGrid
      */
-    public List<Room> getListOfRooms() {
-        return mHouse.getRoomList();
+    public RoomList getListOfRooms() {
+        return mHouse.getRoomListFromHouse();
     }
 
     /**
@@ -107,7 +107,7 @@ public class USAttachRoomToGridAndListCTRL {
      */
     public List<Room> getListOfRoomsWithHouseGrid(int indexOfHouseGrid) {
         List<Room> listOfRoomsWithHouseGrid = new ArrayList<>();
-        for (Room r : mHouse.getRoomList()) {
+        for (Room r : mHouse.getRoomListFromHouse().getRoomList()) {
             if (r.getmHouseGrid() != null) {
                 if (r.getmHouseGrid().equals(mHGList.getHouseGridList().get(indexOfHouseGrid - 1))) {
                     listOfRoomsWithHouseGrid.add(r);

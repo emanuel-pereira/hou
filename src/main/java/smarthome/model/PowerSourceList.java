@@ -6,7 +6,6 @@ import java.util.List;
 public class PowerSourceList {
     private List<PowerSource> mPSList;
 
-
     public PowerSourceList () {
         mPSList = new ArrayList<>();
 
