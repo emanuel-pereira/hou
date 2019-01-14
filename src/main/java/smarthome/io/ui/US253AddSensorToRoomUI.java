@@ -76,7 +76,7 @@ public class US253AddSensorToRoomUI {
                 int dataTypeIndex;
                 while (true) {
                     System.out.println ("Choose a data type for the sensor from one of the data types below:");
-                    System.out.println (mCtrlUS253.showDataTypeListInString ());
+                    System.out.println (mSensorTypeList.showSensorTypeListInString ());
                     dataTypeIndex = read.nextInt ();
                     if (dataTypeIndex > mSensorTypeList.getSensorTypeList ().size ())
                         System.out.println ("Please insert a valid option \n.");
@@ -153,9 +153,9 @@ public class US253AddSensorToRoomUI {
                 int indexRoom;
                 while (true) {
                     System.out.println ("Choose the Room for which you want add this sensor, from the list below:");
-                    System.out.println (mCtrlUS253.showRoomListInString ());
+                    System.out.println (mRoomList.showRoomListInString ());
                     indexRoom = read.nextInt ();
-                    if (indexRoom > mSensorTypeList.getSensorTypeList ().size ())
+                    if (indexRoom > mRoomList.getRoomList().size ())
                         System.out.println ("Please insert a valid option \n.");
                     else break;
                 }
@@ -251,5 +251,26 @@ public class US253AddSensorToRoomUI {
             return null;
         }
         return unit;
+    }
+
+
+    public void run2() {
+        if (mRoomList.getRoomList().size() != 0) {
+            while (true) {
+                int indexRoom;
+                while (true) {
+                    System.out.println("Choose the Room for which you want to list all sensor, from the list below:");
+                    System.out.println(mRoomList.showRoomListInString());
+                    indexRoom = read.nextInt();
+                    if (indexRoom > mRoomList.getRoomList().size())
+                        System.out.println("Please insert a valid option \n.");
+                    else break;
+                }
+                System.out.println("The sensors in the " + mRoomList.getRoomList().get(indexRoom-1).getName() + " are: ");
+                System.out.println(mRoomList.getRoomList().get(indexRoom - 1).getSensorListInRoom().showSensorListInString());
+                break;
+            }
+        } else
+            System.out.println("List of Rooms is empty. Please insert at least one Room.");
     }
 }
