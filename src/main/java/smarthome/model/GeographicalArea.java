@@ -98,7 +98,7 @@ public class GeographicalArea {
      * @return returns the linear distance already calculated
      */
     private double calculateDistance(Location aLocation) {
-        return Location.calcLinearDistanceBetweenTwoPoints(this.mLocation, aLocation);
+        return mLocation.calcLinearDistanceBetweenTwoPoints(this.mLocation, aLocation);
     }
 
 
@@ -130,6 +130,10 @@ public class GeographicalArea {
 
         this.mParentGA = ga1;
 
+    }
+
+    public SensorList getGASensorsByType(String type){
+        return getSensorListInGA().getSensorListOfRequiredSensorPerType(type);
     }
 
 

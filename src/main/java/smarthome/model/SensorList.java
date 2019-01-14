@@ -8,6 +8,8 @@ public class SensorList {
     private List<Sensor> mSensorList;
 
 
+
+
     /**
      * Constructor method that creates a new list to save sensor objects
      */
@@ -88,4 +90,18 @@ public class SensorList {
             }
         }return requiredSensor;
     }
+
+    public SensorList getSensorListOfRequiredSensorPerType(String type) {
+        SensorList typeSensorList = new SensorList();
+
+        for (Sensor sensor : mSensorList) {
+            if (sensor.getSensorType ().getSensorTypeDesignation ().equals(type)) {
+                typeSensorList.addSensor(sensor);
+            }
+        }return typeSensorList;
+    }
+
+
+
+
 }

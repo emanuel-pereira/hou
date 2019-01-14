@@ -88,10 +88,10 @@ class SensorListTest {
     }
 
     /**
-     * Check if required SensorType doesn't exists in the SensorTypeList and return false
+     * Check if required SensorType doesn't exist in the SensorTypeList and return false
      */
     @Test
-    public void checkIfSensorDoesntTypeExists() {
+    public void checkIfSensorTypeDoesntExist() {
 
         SensorList list = new SensorList();
         Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 00));

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,12 +14,11 @@ class HouseTest {
 
     @Test
     @DisplayName("Tests if two different instances of house are the same")
-    public void differentHouseInstancesAreEqual() {
+    void differentHouseInstancesAreEqual() {
 
         //Arrange
         Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Porto", 41, 12.3, 110);
-        TypeGA t1 = new TypeGA("city");
-        GeographicalArea g1 = new GeographicalArea("VNG","Gaia","City",20,20,2,2,5);
+        GeographicalArea g1 = new GeographicalArea("VNG", "Gaia", "City", 20, 20, 2, 2, 5);
 
         House house1 = new House("Prédio1", a1, g1);
 
@@ -31,11 +31,11 @@ class HouseTest {
 
     @Test
     @DisplayName("Check if two objects are the same")
-    public void checkIfSameHouse() {
+    void checkIfSameHouse() {
 
         //Arrange
         Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Porto", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("POR","Porto","City",20,20,2,2,5);
+        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", 20, 20, 2, 2, 5);
 
         House house1 = new House("Prédio1", a1, g1);
 
@@ -47,11 +47,11 @@ class HouseTest {
 
     @Test
     @DisplayName("Tests if two different instances of house are different")
-    public void differentHouseInstancesAreNotEqual() {
+    void differentHouseInstancesAreNotEqual() {
 
         //Arrange
         Address a1 = new Address("Rua Júlio Dinis, 34", "3380-45", "Porto", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("POR","Porto","City",20,20,2,2,5);
+        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", 20, 20, 2, 2, 5);
 
 
         Address a2 = new Address("Rua Júlio Dinis, 32", "3380-45", "Porto", 41, 12.3, 110);
@@ -66,17 +66,71 @@ class HouseTest {
 
     @Test
     @DisplayName("Tests if two different objects are different")
-    public void differentObjectsAreNotEqual() {
+    void differentObjectsAreNotEqual() {
 
         //Arrange
         Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Beja", 41, 12.3, 110);
         TypeGA t1 = new TypeGA("cidade");
-        GeographicalArea g1 = new GeographicalArea("POR","Porto","City",20,20,2,2,5);
+        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", 20, 20, 2, 2, 5);
 
         House house1 = new House("Prédio", a1, g1);
 
         //Assert
         assertNotEquals(house1, t1);
+    }
+
+    @Test
+    @DisplayName("Tests if returns house location")
+    void getHouseLocation() {
+
+        //Arrange
+        Location l1 = new Location(41, 12.3, 110);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Beja", l1);
+        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", 20, 20, 2, 2, 5);
+
+        House house1 = new House("Prédio", a1, g1);
+
+        Location result = house1.getHouseLocation();
+        Location expected = l1;
+        //Assert
+        assertEquals(expected, result);
+    }
+
+
+    @Test
+    @DisplayName("Tests if returns the nearest GA sensor of a given type")
+    void getGASensorsOfGivenType() {
+
+        //Arrange
+        Location l1 = new Location(41, 12.3, 110);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Beja", l1);
+        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", 41, 12.3, 110, 2, 5);
+
+        House house1 = new House("Prédio", a1, g1);
+
+        ReadingList rL = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 1));
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0));
+        rL.addReading(r1);
+        rL.addReading(r2);
+
+        SensorType sT1 = new SensorType("temperature");
+        SensorType sR1 = new SensorType("rainfall");
+
+        ReadingList rL2 = new ReadingList();
+
+        Sensor s1 = g1.getSensorListInGA().newSensor("TempSensor", new GregorianCalendar(2018, 12, 15), 42, 12.4, 112, sT1, "C", rL);
+        Sensor s2 = g1.getSensorListInGA().newSensor("RainSensor", new GregorianCalendar(2018, 12, 15), 40, 13, 190, sR1, "Percentage", rL2);
+        Sensor s3 = g1.getSensorListInGA().newSensor("RainSensor2", new GregorianCalendar(2018, 12, 15), 41, 12.3, 110, sR1, "Percentage", rL2);
+
+        g1.getSensorListInGA().addSensor(s1);
+        g1.getSensorListInGA().addSensor(s2);
+        g1.getSensorListInGA().addSensor(s3);
+
+        Sensor result = house1.findClosestGASensorByType("rainfall");
+
+        //Assert
+        assertEquals(s2, result);
     }
 
 
@@ -88,7 +142,7 @@ class HouseTest {
     @Test
     void newRoom() {
         Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
 
 
         House h = new House("Prédio", a1, g1);
@@ -106,7 +160,7 @@ class HouseTest {
     @Test
     void addOneRoom() {
         Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
 
         House h1 = new House("Prédio", a1, g1);
         Room room = h1.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
@@ -124,7 +178,7 @@ class HouseTest {
     @Test
     void addTwoRooms() {
         Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
 
         House h = new House("Prédio", a1, g1);
         Room room = h.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
@@ -148,7 +202,7 @@ class HouseTest {
     @Test
     void addOneRoomEmptyName() {
         Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
 
         House h = new House("Casa", a1, g1);
         Room room = h.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
@@ -174,7 +228,7 @@ class HouseTest {
     @Test
     void nameNotValid() {
         Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
 
         House h = new House("Casa", a1, g1);
         Room room = h.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
@@ -200,8 +254,8 @@ class HouseTest {
      */
     @Test
     void addOneGetTrueAddAnotherGetFalse() {
-        Address a1 = new Address("Rua Júlio Dinis", "3380-45", "Lisboa",41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
+        Address a1 = new Address("Rua Júlio Dinis", "3380-45", "Lisboa", 41, 12.3, 110);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
 
         House h = new House("Casa", a1, g1);
         Room room = h.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 1.7);
@@ -227,7 +281,7 @@ class HouseTest {
     @DisplayName("Ensure a room is removed from the list of rooms of a house ")
     void removeRoom() {
         Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
 
         House house = new House("Casa", a1, g1);
         Room room1 = house.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
@@ -246,7 +300,7 @@ class HouseTest {
     void removeRoomReturnsFalse() {
 
         Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
 
 
         House house = new House("Casa", a1, g1);
@@ -262,7 +316,7 @@ class HouseTest {
             "same house grid object cannot be added twice")
     void newHouseGrid() {
         Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS","Lisboa","City",20,20,2,2,5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
 
         House house = new House("Casa", a1, g1);
         HouseGrid h1 = house.newHouseGrid(5, "main grid");
@@ -278,8 +332,6 @@ class HouseTest {
         assertFalse(house.addHouseGrid(h2));
         assertEquals(1, house.getHouseGridList().size());
     }
-
-
 
 
 }

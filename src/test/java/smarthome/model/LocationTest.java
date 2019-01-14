@@ -99,7 +99,7 @@ class LocationTest {
         double result;
         double expectedresult = 79.0395;
         //Act
-        result = Location.calcLinearDistanceBetweenTwoPoints(l1, l2);
+        result =l1.calcLinearDistanceBetweenTwoPoints(l1, l2);
         //Assert
         assertEquals(expectedresult, result, 0.0001);
     }
@@ -112,7 +112,7 @@ class LocationTest {
         double result;
         double expectedresult = 0;
         //Act
-        result = Location.calcLinearDistanceBetweenTwoPoints(l1, l2);
+        result = l1.calcLinearDistanceBetweenTwoPoints(l1, l2);
         //Assert
         assertNotEquals(expectedresult, result);
     }

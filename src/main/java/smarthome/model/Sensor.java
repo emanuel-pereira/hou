@@ -182,8 +182,13 @@ public class Sensor {
      * @return calculated distance betwwen both objects
      */
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
-        return Location.calcLinearDistanceBetweenTwoPoints (sensor1.getLocation (), sensor2.getLocation ());
+        return mLocation.calcLinearDistanceBetweenTwoPoints (sensor1.getLocation (), sensor2.getLocation ());
     }
+
+    public ReadingList getReadingList(){
+        return mReadingList;
+    }
+
 
     /**
      * Method to add a new reading to the list of readings of a sensor.
@@ -211,6 +216,7 @@ public class Sensor {
         lastValue = mReadingList.getReadingList ().get (mReadingList.getReadingList ().size () - 1).returnValueOfReading ();
         return lastValue;
     }
+
 
     @Override
     public boolean equals(Object o) {
