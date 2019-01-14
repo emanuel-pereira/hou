@@ -186,15 +186,6 @@ public class Sensor {
     }
 
     /**
-     * Method to get the list of readings of a sensor.
-     *
-     * @return the list of readings of a sensor
-     */
-    public ReadingList getListOfReadings() {
-        return mReadingList;
-    }
-
-    /**
      * Method to add a new reading to the list of readings of a sensor.
      *
      * @param newReading new reading object with a value and date

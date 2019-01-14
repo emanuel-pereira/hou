@@ -42,4 +42,14 @@ public class ReadingTest {
         assertEquals(calendar1,dateAndTime);
     }
 
+    @Test
+    @DisplayName("Ensure get month of reading returns 11.")
+    void getMonthOfReading() {
+        GregorianCalendar calendar1 = new GregorianCalendar(2018,11,27,21,30);
+        Reading reading1 = new Reading(13,calendar1);
+        int expected= 11;
+        int result = reading1.getMonthOfReading();
+        assertEquals(expected,result);
+
+    }
 }

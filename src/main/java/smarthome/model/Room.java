@@ -11,6 +11,7 @@ public class Room {
     private double mHeight;
     private HouseGrid mHouseGrid;//each room has only a house grid
     private SensorList mSensorListInRoom = new SensorList();
+    private DeviceList mDeviceList;
 
 
     /**
@@ -26,6 +27,7 @@ public class Room {
         mFloor = floor;
         mArea = new OccupationArea ( length, width );
         mHeight = height;
+        mDeviceList= new DeviceList();
     }
 
     /**
@@ -134,6 +136,12 @@ public class Room {
         return false;
     }
 
+
+
+
+    public DeviceList getDeviceList() {
+        return mDeviceList;
+    }
 
 
 

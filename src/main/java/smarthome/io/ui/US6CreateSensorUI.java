@@ -144,11 +144,11 @@ public class US6CreateSensorUI {
                 double latitude;
                 while (true) {
                     try {
-                        System.out.println("Insert the latitude of the new geographical area:");
+                        System.out.println("Insert the latitude of the new sensor:");
                         latitude = read.nextDouble();
                         if (v.latitudeIsValid(latitude))
                             break;
-                    } catch (IllegalArgumentException ex) {
+                    } catch (InputMismatchException ex) {
                         System.out.println(ex.getMessage());
                     }
                 }
@@ -156,24 +156,25 @@ public class US6CreateSensorUI {
                 double longitude;
                 while (true) {
                     try {
-                        System.out.println("Insert the longitude of the new geographical area:");
+                        System.out.println("Insert the longitude of the new sensor:");
                         longitude = read.nextDouble();
                         if (v.longitudeIsValid(longitude))
                             break;
-                    } catch (IllegalArgumentException ex) {
+                    } catch (InputMismatchException ex) {
                         System.out.println(ex.getMessage());
                     }
                 }
+
 
                 double altitude;
                 while (true) {
                     try {
 
-                        System.out.println("Insert the altitude of the new geographical area:");
+                        System.out.println("Insert the altitude of the new sensor:");
                         altitude = read.nextDouble();
                         if (v.altitudeIsValid(altitude))
                             break;
-                    } catch (IllegalArgumentException ex) {
+                    } catch (InputMismatchException ex) {
                         System.out.println(ex.getMessage());
                     }
                 }

@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import java.util.InputMismatchException;
+
 public class GPSValidations {
 
 
