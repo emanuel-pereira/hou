@@ -2,6 +2,7 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.controller.US253AddSensorToRoomCTRL;
 
 import java.util.Arrays;
 import java.util.List;
@@ -158,6 +159,22 @@ class SensorTypeListTest {
 
         //Assert
         assertEquals (false, result);
+    }
+
+    @DisplayName("Test if SensorType List is showed as a string to the user")
+    @Test
+    void showSensorTypeListInString() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        House h1 = new House();
+        RoomList roomList = h1.getRoomListFromHouse();
+        US253AddSensorToRoomCTRL ctr1 = new US253AddSensorToRoomCTRL(h1,sensorTypeList);
+        SensorType type1 = new SensorType("Temperature");
+        SensorType type2 = new SensorType("Wind");
+        sensorTypeList.addSensorType(type1);
+        sensorTypeList.addSensorType(type2);
+        String expected = "1 - Temperature\n2 - Wind\n";
+        String result = sensorTypeList.showSensorTypeListInString();
+        assertEquals(expected, result);
     }
 
 }

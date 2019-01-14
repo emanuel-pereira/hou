@@ -1,4 +1,6 @@
 package smarthome.model;
+
+import java.util.List;
 import java.util.Objects;
 
 public class GeographicalArea {
@@ -29,7 +31,7 @@ public class GeographicalArea {
         mTypeOfGA = new TypeGA(typeGA);
         mLocation = new Location(latitude, longitude, altitude);
         mOccupation = new OccupationArea(length, width);
-        mSensorListInGA= new SensorList();
+        mSensorListInGA = new SensorList();
     }
 
     /**
@@ -62,6 +64,7 @@ public class GeographicalArea {
 
     /**
      * Method to get list of Sensors in GA attribute
+     *
      * @return the list of sensors in a Geographical Area
      */
     public SensorList getSensorListInGA() {
@@ -101,6 +104,19 @@ public class GeographicalArea {
         return mLocation.calcLinearDistanceBetweenTwoPoints(this.mLocation, aLocation);
     }
 
+    public Sensor getTheClosestSensor(List<Sensor> sensorList) {
+        double dist;
+        double minDist = calculateDistance((sensorList.get(0)).getLocation());
+        Sensor closestSensor = sensorList.get(0);
+        for (Sensor sensor : sensorList) {
+            dist = calculateDistance(sensor.getLocation());
+            if (dist < minDist) {
+                minDist = dist;
+                closestSensor = sensor;
+            }
+        }
+        return closestSensor;
+    }
 
 
     @Override

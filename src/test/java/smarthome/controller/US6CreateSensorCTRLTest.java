@@ -6,11 +6,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class US6CreateSensorCTRLTest {
 
@@ -75,6 +74,7 @@ class US6CreateSensorCTRLTest {
         ReadingList readingsLis = new ReadingList();
         readingsLis.addReading (r1Lis);
         readingsLis.addReading (r2Lis);
+
 
         boolean result = ctrl6.addNewSensorToGA("LisboaTempSensor", new GregorianCalendar(2018, 12, 26), 1, "C", 55, 40, 15, 1, readingsPt);
         assertTrue(result);

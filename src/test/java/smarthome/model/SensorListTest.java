@@ -3,7 +3,6 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -144,4 +143,95 @@ class SensorListTest {
 
         assertTrue (result);
     }
+    @DisplayName("Test if Sensors List is showed as a string to the user")
+    @Test
+    void showSensorListInString() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        House h1 = new House();
+        SensorType type1 = new SensorType("Temperature");
+        SensorType type2 = new SensorType("Wind");
+        sensorTypeList.addSensorType(type1);
+        sensorTypeList.addSensorType(type2);
+        Sensor s1 = new Sensor("sensor1");
+        Sensor s2 = new Sensor("sensor2");
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+
+        String expected = "1 - sensor1\n2 - sensor2\n";
+        String result = sensorList.showSensorListInString();
+        assertEquals(expected, result);
+    }
+
+    @DisplayName("Ensure that two different sensors are added to the respective Room")
+    @Test
+    void addNewSensorToRoom() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        RoomList roomList = new RoomList();
+
+        Room r1 = new Room("room1",1,1,1,1);
+        Room r2 = new Room("room2",1,1,1,1);
+
+        roomList.addRoom(r1);
+        roomList.addRoom(r2);
+
+        SensorType type1 = new SensorType("Temperature");
+        SensorType type2 = new SensorType("Wind");
+        sensorTypeList.addSensorType(type1);
+        sensorTypeList.addSensorType(type2);
+
+        Reading r1Porto = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 00));
+        Reading r2Porto = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 00));
+        ReadingList readingsPt = new ReadingList();
+        readingsPt.addReading (r1Porto);
+        readingsPt.addReading (r2Porto);
+
+        Reading r1Lis = new Reading(27, new GregorianCalendar(2018, 12, 26, 12, 00));
+        Reading r2Lis = new Reading(21, new GregorianCalendar(2018, 12, 26, 13, 00));
+        ReadingList readingsLis = new ReadingList();
+        readingsLis.addReading (r1Lis);
+        readingsLis.addReading (r2Lis);
+
+        Sensor s1 = r1.getSensorListInRoom().createNewInternalSensor("sensor1", new GregorianCalendar(2018, 12, 26, 12, 00),type1,"c",readingsLis);
+        Sensor s2 = r1.getSensorListInRoom().createNewInternalSensor("sensor2", new GregorianCalendar(2018, 12, 26, 12, 00),type1,"c",readingsLis);
+
+        r1.getSensorListInRoom().addSensor(s1);
+        r1.getSensorListInRoom().addSensor(s2);
+        assertEquals(2,r1.getSensorListInRoom().getSensorList().size());
+    }
+    @Test
+    void createNewInternalSensor() {
+        SensorType type1 = new SensorType("Temperature");
+        ReadingList readingsLis = new ReadingList();
+        Reading r1Lis = new Reading(27, new GregorianCalendar(2018, 12, 26, 12, 00));
+        readingsLis.addReading (r1Lis);
+        SensorList sensorList = new SensorList();
+
+        Sensor s1 = sensorList.createNewInternalSensor("sensor1", new GregorianCalendar(2018, 12, 26, 12, 00),type1,"c",readingsLis);
+
+        assertEquals("sensor1",s1.getDesignation());
+    }
+
+    @Test
+    void getListOfSensorsByType() {
+        SensorType temp = new SensorType("temperature");
+        SensorType wind = new SensorType("wind");
+        GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26, 12, 00);
+        ReadingList readings = new ReadingList();
+        Sensor s1 = new Sensor("sensor1", startDate,temp,"c",readings);
+        Sensor s2 = new Sensor("sensor2",startDate,temp,"c",readings);
+        Sensor s3 = new Sensor("sensor3",startDate,wind,"c",readings);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        sensorList.addSensor(s3);
+
+        List<Sensor> sListByType = sensorList.getListOfSensorsByType(temp);
+
+        assertEquals(2,sListByType.size());
+
+    }
+
+
+
 }

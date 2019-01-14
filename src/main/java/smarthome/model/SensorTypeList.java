@@ -80,6 +80,19 @@ public class SensorTypeList {
         return false;
     }
 
+    public String showSensorTypeListInString() {
+        StringBuilder result = new StringBuilder();
+        String element = " - ";
+        int number = 1;
+        for (SensorType sensorType : mSensorTypeList) {
+            result.append(number++);
+            result.append(element);
+            result.append(sensorType.getSensorTypeDesignation());
+            result.append("\n");
+        }
+        return result.toString();
+    }
+
 
 
 

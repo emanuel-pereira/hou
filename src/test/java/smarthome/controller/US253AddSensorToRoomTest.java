@@ -5,40 +5,26 @@ import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class US253AddSensorToRoomTest {
-    @DisplayName("Test if SensorType List is showed as a string to the user")
-    @Test
-    void showSensorTypeListInString() {
-        SensorTypeList sensorTypeList = new SensorTypeList();
-        House h1 = new House();
-        US253AddSensorToRoomCTRL ctr1 = new US253AddSensorToRoomCTRL(h1,sensorTypeList);
-        SensorType type1 = new SensorType("Temperature");
-        SensorType type2 = new SensorType("Wind");
-        sensorTypeList.addSensorType(type1);
-        sensorTypeList.addSensorType(type2);
-        String expected = "1 - Temperature\n2 - Wind\n";
-        String result = ctr1.showDataTypeListInString();
-        assertEquals(expected, result);
-    }
+
 
     @DisplayName("Test if Room List is showed as a string to the user")
     @Test
     void showRoomListInString() {
         SensorTypeList sensorTypeList = new SensorTypeList();
         House h1 = new House();
-        List<Room> roomList = h1.getRoomListFromHouse().getRoomList();
+        RoomList roomList = h1.getRoomListFromHouse();
         US253AddSensorToRoomCTRL ctrl = new US253AddSensorToRoomCTRL(h1,sensorTypeList);
         Room r1 = new Room("Living Room", 1, 2, 3, 2);
         Room r2 = new Room("Bed Room", 1, 2, 3, 2);
-        roomList.add(r1);
-        roomList.add(r2);
+        roomList.addRoom(r1);
+        roomList.addRoom(r2);
         String expected = "1 - Living Room\n2 - Bed Room\n";
-        String result = ctrl.showRoomListInString();
+        String result = roomList.showRoomListInString();
         assertEquals(expected, result);
     }
 
