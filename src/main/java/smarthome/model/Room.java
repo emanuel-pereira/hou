@@ -3,7 +3,7 @@ package smarthome.model;
 import java.util.List;
 import java.util.Objects;
 
-public class Room {
+public class Room implements Metered{
 
     private String mName;
     private Integer mFloor;
@@ -62,6 +62,17 @@ public class Room {
         return mHeight;
     }
 
+    /**
+     * Get the nominal power of a room by adding all the devices in the room device list
+     * @return nominal power sum
+     */
+    public double getNominalPower(){
+        double sum = 0;
+            for (Device device : mDeviceList.getDeviceList ()){
+                sum += device.getNominalPower ();
+             }
+            return sum;
+    }
 
     /**
      * Method to set the name of String mName.

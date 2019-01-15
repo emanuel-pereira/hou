@@ -1,6 +1,6 @@
 package smarthome.model;
 
-public class Device implements DeviceSpecs{
+public class Device implements DeviceSpecs,Metered{
 
     private String mName;
     private DeviceSpecs mDeviceSpecs;
