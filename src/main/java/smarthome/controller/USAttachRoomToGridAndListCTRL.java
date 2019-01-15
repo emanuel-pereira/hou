@@ -1,36 +1,25 @@
 package smarthome.controller;
 
-import smarthome.model.House;
-import smarthome.model.HouseGrid;
-import smarthome.model.HouseGridList;
-import smarthome.model.Room;
-import smarthome.model.RoomList;
+import smarthome.model.*;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 public class USAttachRoomToGridAndListCTRL {
     private House mHouse;
-    private RoomList mRoomList;
-    private HouseGridList mHGList;
 
     public USAttachRoomToGridAndListCTRL(House house) {
         mHouse = house;
-        mRoomList = mHouse.getRoomListFromHouse();
-        mHGList = mHouse.getHGListInHouse();
     }
-
 
 
     /**
      * @return shows the list of houseGrids in a single string for the user to select a HouseGrid
      */
     public String showHouseGridListInString() {
-        List<HouseGrid> list = getHouseGridListCtrl();
+        HouseGridList hgList = mHouse.getHGListInHouse();
         StringBuilder result = new StringBuilder();
         int number = 1;
-        for (HouseGrid houseGrid : list) {
+        for (HouseGrid houseGrid : hgList.getHouseGridList()) {
             result.append(number++);
             result.append(" - ");
             result.append(houseGrid.getGridID());
@@ -41,18 +30,18 @@ public class USAttachRoomToGridAndListCTRL {
         return result.toString();
     }
 
-    public List<HouseGrid> getHouseGridListCtrl() {
-        return mHouse.getHGListInHouse().getHouseGridList();
+    public HouseGridList getHouseGridList() {
+        return mHouse.getHGListInHouse();
     }
 
     /**
      * @return the list of rooms without HouseGrid
      */
-    public List<Room> getListOfRoomsWithoutHouseGrid() {
-        List<Room> listOfRoomsWithoutHouseGrid = new ArrayList<>();
-        for (Room r : mRoomList.getRoomList()) {
+    public RoomList getListOfRoomsWithoutHouseGrid() {
+        RoomList listOfRoomsWithoutHouseGrid = new RoomList();
+        for (Room r : mHouse.getRoomListFromHouse().getRoomList()) {
             if (r.getmHouseGrid() == null) {
-                listOfRoomsWithoutHouseGrid.add(r);
+                listOfRoomsWithoutHouseGrid.addRoom(r);
             }
         }
         return listOfRoomsWithoutHouseGrid;
@@ -69,11 +58,11 @@ public class USAttachRoomToGridAndListCTRL {
      * @return shows the list of rooms without houseGrid in a single string
      */
     public String showRoomsWithoutHouseGridInStr() {
-        List<Room> listOfRoomsWithoutHouseGrid = getListOfRoomsWithoutHouseGrid();
+        RoomList listOfRoomsWithoutHouseGrid = getListOfRoomsWithoutHouseGrid();
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
-        for (Room r : listOfRoomsWithoutHouseGrid) {
+        for (Room r : listOfRoomsWithoutHouseGrid.getRoomList()) {
             result.append(number++);
             result.append(element);
             result.append(r.getName());
@@ -90,10 +79,10 @@ public class USAttachRoomToGridAndListCTRL {
      * @return true if houseGrid previously selected by the user is set as room's HouseGrid
      */
     public boolean attachRoomToHouseGrid(int indexOfHouseGrid, int indexOfRoom) {
-        List<Room> listOfRoomsWithoutHouseGrid = getListOfRoomsWithoutHouseGrid();
-        if (listOfRoomsWithoutHouseGrid.size() != 0) {
+        RoomList listOfRoomsWithoutHouseGrid = getListOfRoomsWithoutHouseGrid();
+        if (listOfRoomsWithoutHouseGrid.getRoomList().size() != 0) {
             Room r = listOfRoomsWithoutHouseGrid.get(indexOfRoom - 1);
-            r.setmHouseGrid(mHGList.getHouseGridList().get(indexOfHouseGrid - 1));
+            r.setmHouseGrid(mHouse.getHGListInHouse().get(indexOfHouseGrid - 1));
             return true;
         } else return false;
     }
@@ -105,12 +94,12 @@ public class USAttachRoomToGridAndListCTRL {
      * @param indexOfHouseGrid index position of the house grid in the list of house grids of the house instance
      * @return the list of rooms with the house grid chosen by the user
      */
-    public List<Room> getListOfRoomsWithHouseGrid(int indexOfHouseGrid) {
-        List<Room> listOfRoomsWithHouseGrid = new ArrayList<>();
+    public RoomList getListOfRoomsWithHouseGrid(int indexOfHouseGrid) {
+        RoomList listOfRoomsWithHouseGrid = new RoomList();
         for (Room r : mHouse.getRoomListFromHouse().getRoomList()) {
             if (r.getmHouseGrid() != null) {
-                if (r.getmHouseGrid().equals(mHGList.getHouseGridList().get(indexOfHouseGrid - 1))) {
-                    listOfRoomsWithHouseGrid.add(r);
+                if (r.getmHouseGrid().equals(mHouse.getHGListInHouse().get(indexOfHouseGrid - 1))) {
+                    listOfRoomsWithHouseGrid.addRoom(r);
                 }
             }
         }
@@ -125,11 +114,11 @@ public class USAttachRoomToGridAndListCTRL {
      * @return
      */
     public String showRoomsWithHouseGridInStr(int indexOfHouseGrid) {
-        List<Room> listOfRoomsWithHouseGrid = getListOfRoomsWithHouseGrid(indexOfHouseGrid);
+        RoomList listOfRoomsWithHouseGrid = getListOfRoomsWithHouseGrid(indexOfHouseGrid);
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
-        for (Room r : listOfRoomsWithHouseGrid) {
+        for (Room r : listOfRoomsWithHouseGrid.getRoomList()) {
             result.append(number++);
             result.append(element);
             result.append(r.getName());
@@ -146,11 +135,12 @@ public class USAttachRoomToGridAndListCTRL {
      * @return true if room in index position of RoomList has its HouseGrid set as null, false otherwise.
      */
     public boolean detachRoomFromHouseGrid(int indexOfHouseGrid, int indexOfRoom) {
-        List<Room> listOfRoomsWithHouseGrid = getListOfRoomsWithHouseGrid(indexOfHouseGrid);
-        if(listOfRoomsWithHouseGrid.size()!=0){
+        RoomList listOfRoomsWithHouseGrid = getListOfRoomsWithHouseGrid(indexOfHouseGrid);
+        if(listOfRoomsWithHouseGrid.getRoomList().size()!=0){
+
             Room r = listOfRoomsWithHouseGrid.get(indexOfRoom-1);
-            r.setmHouseGrid(mHGList.getHouseGridList().get(indexOfHouseGrid-1));
-            return true;
-        } else return false;}
+            r.setmHouseGrid(null);
+            return true;}
+        else return false;}
 
 }

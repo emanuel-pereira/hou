@@ -14,6 +14,11 @@ public class US210AddNewDeviceToRoomCTRL {
     public String showRoomListInString() {
         return mHouse.getRoomListFromHouse().showRoomListInString();
     }
+
+    public String showDeviceListInString(int indexOfRoom){
+        return mHouse.getRoomListFromHouse().getRoomList().get(indexOfRoom-1).getDeviceList().showDeviceListInString();
+    }
+
     public boolean addDeviceWithSpecsToRoom(int indexOfRoom, String inputName, DeviceSpecs deviceSpecs, double nominalPower) {
         Device device = mHouse.getRoomListFromHouse().get(indexOfRoom-1).getDeviceList().newDeviceWithSpecs(inputName,deviceSpecs,mHouse.getRoomListFromHouse().get(indexOfRoom-1),nominalPower);
         return mHouse.getRoomListFromHouse().get(indexOfRoom-1).getDeviceList().addDevice(device);

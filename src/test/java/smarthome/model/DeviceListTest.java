@@ -84,4 +84,17 @@ class DeviceListTest {
     }
 
 
+    @Test
+    void showDeviceListInString() {
+        Room kitchen= new Room("Kitchen",0,6,4,2.5);
+        DeviceList deviceList = new DeviceList();
+        Device microwave = new Device("Samsung Microwave",kitchen,DeviceType.MICROWAVE_OVEN.getType(),0.8);
+        Fridge fridge = new Fridge(DeviceType.FRIDGE,50,350,50);
+        Device dFridge = new Device("LG Fridge",fridge,kitchen,1.5);
+        deviceList.addDevice(microwave);
+        deviceList.addDevice(dFridge);
+        String expected="1 - Device: Samsung Microwave | Type: Microwave Oven\n2 - Device: LG Fridge | Type: Fridge\n";
+        String result= deviceList.showDeviceListInString();
+        assertEquals(expected,result);
+    }
 }

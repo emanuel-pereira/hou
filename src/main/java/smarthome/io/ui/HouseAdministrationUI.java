@@ -1,5 +1,8 @@
 package smarthome.io.ui;
 
+import smarthome.model.GAList;
+import smarthome.model.House;
+import smarthome.model.SensorTypeList;
 import smarthome.model.*;
 
 import java.util.List;
@@ -23,7 +26,7 @@ public class HouseAdministrationUI {
             System.out.println("Click 6. As an Administrator, I want to attach/detach a room to/from a house grid and list rooms attached to a house grid");
             System.out.println("Click 7. I want to add a new sensor to a room from the list of available sensor types, in order to configure it. ");
             System.out.println("Click 8. I want to list all sensors in a room");
-            System.out.println("Click 9. US210: , I want to add a new device to a room from the list of available device types, so that I can configure it. ");
+            System.out.println("Click 9. As an Administrator, I want add a new device to a room, list all devices in a room or edit the configuration of an existing device");
             System.out.println("Click 0. Exit");
 
             option = Integer.parseInt(keyboard.nextLine());
@@ -64,8 +67,8 @@ public class HouseAdministrationUI {
                     us250.run2();
                     break;
                 case 9:
-                    US210AddNewDeviceToRoomUI ui210 = new US210AddNewDeviceToRoomUI(house);
-                    ui210.roomSelectionToAddDevice();
+                    USAddSetAndListDevicesInRoomUI ui210 = new USAddSetAndListDevicesInRoomUI(house);
+                    ui210.selectOption();
                     break;
             }
         }

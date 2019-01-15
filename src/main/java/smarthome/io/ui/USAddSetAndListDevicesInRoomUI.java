@@ -5,26 +5,13 @@ import smarthome.model.*;
 
 import java.util.Scanner;
 
-public class US210AddNewDeviceToRoomUI {
+public class USAddSetAndListDevicesInRoomUI {
     private House mHouse;
     private US210AddNewDeviceToRoomCTRL mCtrl;
     ProgramList mProgramList;
     Scanner read = new Scanner(System.in);
-/*
-    1 - Listar Rooms ao user para selecionar o room onde o device deve ser adicionado
-    2 - User seleciona room
-    3 - Questiona atributos genérios de qualquer device (nome e nominal power)
-    4 - Lista tipos de devices ao user (user seleciona um tipo de device)
-    5 - Questiona device specs associadas a esse device
 
-Dúvidas:
-    1) testar throw exceptions (ex: classe GPSValidations)
-    2) DeviceSpecs
-    4) Verificar otimização de UI de fluxo de UIs (Exceto validações a consolidar nas férias em classes de validações próprias)
-
-*/
-
-    public US210AddNewDeviceToRoomUI(House house) {
+    public USAddSetAndListDevicesInRoomUI(House house) {
         mCtrl = new US210AddNewDeviceToRoomCTRL(house);
         mHouse = house;
         mProgramList = new ProgramList();
@@ -37,18 +24,89 @@ Dúvidas:
     int mDeviceTypeIndex;
     String insertValidOption = "Please insert a valid option \n.";
 
+    public void selectOption() {
+        int option = -1;
+        while (option != 0) {
+            System.out.println("Choose an option from the list below:");
+            System.out.println("1 - Add a device to a Room from the list of the available device types.");
+            System.out.println("2 - Get a list of all Devices in a Room");
+            System.out.println("3 - Edit the configuration of an existing device");
+            System.out.println("0 - Exit");
+            option = Integer.parseInt(read.nextLine());
+            switch (option) {
+                case 1:
+                    this.roomSelectionToAddDevice();
+                    break;
+                case 2:
+                    this.roomSelectionToListDevice();
+                    break;
+                case 3:
+                    break;
+                default:
+                    System.out.println("Please choose a valid option.");
+            }
+        }
+    }
+
+
     public void roomSelectionToAddDevice() {
 
         while (true) {
+            if (roomListIsEmpty()) break;
             System.out.println("Select a room from the list below where you want to add the device:");
             System.out.println(mCtrl.showRoomListInString());
             mRoomIndex = read.nextInt();
             read.nextLine();
-            if (mRoomIndex > mHouse.getRoomListFromHouse().getRoomList().size())
-                System.out.println(insertValidOption);
+            roomIndexIsOutOfBounds();
             this.selectDeviceType();
             break;
         }
+        return;
+    }
+
+    public void roomSelectionToListDevice() {
+
+        while (true) {
+            if (roomListIsEmpty()) break;
+            if (mHouse.getRoomListFromHouse().getRoomList().size() != 0) {
+                System.out.println("Select a room from the list below where to get the list of all devices in that room:");
+                System.out.println(mCtrl.showRoomListInString());
+                mRoomIndex = read.nextInt();
+                read.nextLine();
+                if (deviceListInRoomIsEmpty()) break;
+                roomIndexIsOutOfBounds();
+                this.listDevicesInRoom();
+                break;
+            }
+            break;
+        }
+        return;
+    }
+
+    private void roomIndexIsOutOfBounds() {
+        if (mRoomIndex > mHouse.getRoomListFromHouse().getRoomList().size())
+            System.out.println(insertValidOption);
+    }
+
+    private boolean deviceListInRoomIsEmpty() {
+        if (mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getDeviceList().isEmpty()) {
+            System.out.println("The device list in " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getName() + " is empty.\n");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean roomListIsEmpty() {
+        if (mHouse.getRoomListFromHouse().getRoomList().isEmpty()) {
+            System.out.println("The room list is empty. Please add new rooms in US105.\n");
+            return true;
+        }
+        return false;
+    }
+
+    public void listDevicesInRoom() {
+        System.out.println("List of devices in " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getName() + ":");
+        System.out.println(mCtrl.showDeviceListInString(mRoomIndex));
         return;
     }
 

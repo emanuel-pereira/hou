@@ -51,4 +51,17 @@ class US210AddNewDeviceToRoomCTRLTest {
         String result= livingRoom.getDeviceList().getLastElement().getName();
         assertEquals(expected,result);
     }
+
+    @Test
+    void showDeviceListInString() {
+        House house = new House();
+        US210AddNewDeviceToRoomCTRL ctrl = new US210AddNewDeviceToRoomCTRL(house);
+        Room kitchen= new Room("Kitchen",0,6,4,2.5);
+        house.getRoomListFromHouse().addRoom(kitchen);
+        Fridge fridge = new Fridge(DeviceType.FRIDGE,50,350,50);
+        ctrl.addDeviceWithoutSpecsToRoom("Samsung Microwave",1,"Microwave Oven",0.8);
+        ctrl.addDeviceWithSpecsToRoom(1,"LG Fridge",fridge,1.5);
+        String expected="1 - Device: Samsung Microwave | Type: Microwave Oven\n2 - Device: LG Fridge | Type: Fridge\n";
+        String result= ctrl.showDeviceListInString(1);
+        assertEquals(expected,result); }
 }

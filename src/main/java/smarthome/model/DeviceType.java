@@ -40,7 +40,6 @@ public enum DeviceType implements DeviceSpecs {
     public static String displayDeviceTypes() {
         StringBuilder result = new StringBuilder ();
         String element = " - ";
-        int number = 1;
         for (DeviceType d : EnumSet.allOf(DeviceType.class)) {
             result.append (d.getIndex()).append(element).append(d.getType()).append(";\n");
         }

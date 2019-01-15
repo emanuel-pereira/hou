@@ -65,7 +65,7 @@ class USAttachRoomToGridAndListCTRLTest {
         house.getHGListInHouse().addHouseGrid(grid2);
 
         List<HouseGrid> expectedResult = Arrays.asList(grid1,grid2);
-        List<HouseGrid> result = ctrl.getHouseGridListCtrl();
+        List<HouseGrid> result = ctrl.getHouseGridList().getHouseGridList();
 
         assertEquals(expectedResult,result);
     }
@@ -96,7 +96,7 @@ class USAttachRoomToGridAndListCTRLTest {
         bedroom2.setmHouseGrid(grid);
 
         int expectedResult=2;
-        int result=ctrl.getListOfRoomsWithoutHouseGrid().size();
+        int result=ctrl.getListOfRoomsWithoutHouseGrid().getRoomList().size();
 
         assertEquals(expectedResult,result);
     }
@@ -248,7 +248,6 @@ class USAttachRoomToGridAndListCTRLTest {
         Address a1 = new Address(" Rua dos Heróis e Mártires de Angola", "25", "4000-285", 41, 12.3, 110);
         GeographicalArea ga1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
         House house = new House(a1, ga1);
-        HouseGridList hgList = new HouseGridList();
         USAttachRoomToGridAndListCTRL ctrl = new USAttachRoomToGridAndListCTRL(house);
 
         HouseGrid grid= new HouseGrid(1500);
@@ -270,12 +269,10 @@ class USAttachRoomToGridAndListCTRLTest {
         kitchen.setmHouseGrid(grid2);
         wc.setmHouseGrid(grid2);
 
-        List<Room> listExpected = new ArrayList<>();
-        listExpected.add(kitchen);
-        listExpected.add(wc);
-        List<Room> result= ctrl.getListOfRoomsWithHouseGrid(2);
+        String expected = "1 - Kitchen\n2 - Bathroom\n";
+        String result= ctrl.getListOfRoomsWithHouseGrid(2).showRoomListInString();
 
-        assertEquals(listExpected,result);
+        assertEquals(expected,result);
     }
 
     @Test
@@ -327,7 +324,7 @@ class USAttachRoomToGridAndListCTRLTest {
 
         Room bedroom1 = new Room("Bedroom1",1,4,5, 2.5);
         Room bedroom2 = new Room("Bedroom2",1,4,5, 2.5);
-        
+
         house.getRoomListFromHouse().addRoom(bedroom1);
         house.getRoomListFromHouse().addRoom(bedroom2);
 

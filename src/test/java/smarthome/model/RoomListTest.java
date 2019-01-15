@@ -96,5 +96,19 @@ public class RoomListTest {
         assertNotEquals(r1.hashCode(), r2.hashCode());
         assertFalse(result);
     }
+
+    @Test
+    @DisplayName("Ensure that method size() of RoomList class returns 2")
+    void size() {
+        RoomList roomList = new RoomList();
+        Room livingRoom = new Room("LivingRoom",1,3,4,5);
+        Room garage = new Room("Garage",0,1,3,1);
+        roomList.addRoom(livingRoom);
+        roomList.addRoom(garage);
+        int expected=2;
+        int result= roomList.size();
+        assertEquals(expected,result);
+
+    }
 }
 

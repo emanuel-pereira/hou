@@ -55,6 +55,10 @@ public class RoomList {
         return this.mRoomList.get (i);
     }
 
+    public int size(){
+        return this.mRoomList.size();
+    }
+
     /**
      * Method to return the rooms included in the list
      *
