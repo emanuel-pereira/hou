@@ -68,14 +68,17 @@ class HouseGridTest {
     @Test
     @DisplayName("Get the list of Previously added Power Sources")
     void getPSListTest () {
-        HouseGrid hg1 = new HouseGrid();
-        PowerSourceList psList = new PowerSourceList();
+        HouseGrid houseGrid = new HouseGrid();
         PowerSource ps1 = new PowerSource("panel002","solar",250,14);
         PowerSource ps2 = new PowerSource("panel003","solar",250,14);
-        psList.addPS(ps1);
-        psList.addPS(ps2);
+        houseGrid.getPSListInHG().addPS(ps1);
+        houseGrid.getPSListInHG().addPS(ps2);
+
         List<PowerSource> expectedResult = Arrays.asList(ps1,ps2);
-        PowerSourceList result = hg1.getPSListInHG();
+        List<PowerSource> result = houseGrid.getPSListInHG().getPSList();
+
+        assertEquals(expectedResult,result);
+
     }
 }
 
