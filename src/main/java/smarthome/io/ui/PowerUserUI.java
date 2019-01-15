@@ -1,14 +1,12 @@
 package smarthome.io.ui;
 
-import smarthome.model.GAList;
-import smarthome.model.House;
-import smarthome.model.SensorTypeList;
+import smarthome.model.*;
 
 import java.util.Scanner;
 
 public class PowerUserUI {
 
-    public static void powerUser() {
+    public static void powerUser(House house) {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("Power Users UI");
@@ -16,6 +14,7 @@ public class PowerUserUI {
         while (option != 0) {
             System.out.println("Click 1. I want to .........");
             System.out.println("Click 2. I want to know the total nominal power connected to a grid");
+            System.out.println("Click 3. I want to know the total nominal power of a Room");
             System.out.println("Click 0. Exit");
 
             option = Integer.parseInt(keyboard.nextLine());
@@ -26,6 +25,11 @@ public class PowerUserUI {
                     break;
                 case 2:
                     System.out.println("US172");
+                    break;
+                case 3:
+                    System.out.println("US230");
+                    US230TotalNominalPowerRoomUI ui230 = new US230TotalNominalPowerRoomUI(house);
+                    ui230.showTotalNominalPowerRoom();
                     break;
             }
 

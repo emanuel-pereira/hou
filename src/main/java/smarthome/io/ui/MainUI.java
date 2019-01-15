@@ -10,6 +10,7 @@ import static smarthome.io.ui.HouseAdministrationUI.houseAdministration;
 import static smarthome.io.ui.PowerUserUI.powerUser;
 import static smarthome.io.ui.RegularUsageUI.regularUsage;
 import static smarthome.io.ui.SystemAdministrationUI.systemAdministration;
+import static smarthome.io.ui.RoomOwnerUI.RoomOwner;
 
 public class MainUI {
     public static void main(String[] args) {
@@ -29,6 +30,7 @@ public class MainUI {
             System.out.println("Click 2 House Administration");
             System.out.println("Click 3 Regular User");
             System.out.println("Click 4 Power User");
+            System.out.println("Click 5 Room Owner");
             System.out.println("Click 0 Exit");
 
             option = Integer.parseInt(keyboard.nextLine());
@@ -43,8 +45,11 @@ public class MainUI {
                     regularUsage(house,sensorTypeList,gaList);
                     break;
                 case 4:
-                    powerUser();
+                    powerUser(house);
                     break;
+                case 5:
+                    RoomOwner(house);
+                break;
             }
         }
     }

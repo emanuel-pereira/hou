@@ -223,7 +223,7 @@ public class USAddSetAndListDevicesInRoomUI {
             case 12:
             case 14:
                 String deviceType = DeviceType.values()[mDeviceTypeIndex - 1].getType();
-                mCtrl.addDeviceWithoutSpecsToRoom(mName, mRoomIndex, deviceType, mNominalPower);
+                mCtrl.addDeviceWithoutSpecsToRoom(mRoomIndex, mName, deviceType, mNominalPower);
                 break;
             case 13:
                 System.out.println("Insert the lamp luminous flux(lm):");

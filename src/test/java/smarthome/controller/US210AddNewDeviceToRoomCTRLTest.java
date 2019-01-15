@@ -45,8 +45,8 @@ class US210AddNewDeviceToRoomCTRLTest {
         Room livingRoom= new Room("Living Room",0,5,5,2.5);
         house.getRoomListFromHouse().addRoom(kitchen);
         house.getRoomListFromHouse().addRoom(livingRoom);
-        ctrl.addDeviceWithoutSpecsToRoom("Sony Tv",2,DeviceType.TV.getType(),0.2);
-        ctrl.addDeviceWithoutSpecsToRoom("Bosch Washing Machine",2,DeviceType.WASHING_MACHINE.getType(),0.2);
+        ctrl.addDeviceWithoutSpecsToRoom(2,"Sony Tv",DeviceType.TV.getType(),0.2);
+        ctrl.addDeviceWithoutSpecsToRoom(2,"Bosch Washing Machine",DeviceType.WASHING_MACHINE.getType(),0.2);
         String expected="Bosch Washing Machine";
         String result= livingRoom.getDeviceList().getLastElement().getName();
         assertEquals(expected,result);
@@ -59,7 +59,7 @@ class US210AddNewDeviceToRoomCTRLTest {
         Room kitchen= new Room("Kitchen",0,6,4,2.5);
         house.getRoomListFromHouse().addRoom(kitchen);
         Fridge fridge = new Fridge(DeviceType.FRIDGE,50,350,50);
-        ctrl.addDeviceWithoutSpecsToRoom("Samsung Microwave",1,"Microwave Oven",0.8);
+        ctrl.addDeviceWithoutSpecsToRoom(1,"Samsung Microwave","Microwave Oven",0.8);
         ctrl.addDeviceWithSpecsToRoom(1,"LG Fridge",fridge,1.5);
         String expected="1 - Device: Samsung Microwave | Type: Microwave Oven\n2 - Device: LG Fridge | Type: Fridge\n";
         String result= ctrl.showDeviceListInString(1);
