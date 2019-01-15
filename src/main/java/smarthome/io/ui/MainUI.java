@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static smarthome.io.ui.HouseAdministrationUI.houseAdministration;
+import static smarthome.io.ui.PowerUserUI.powerUser;
 import static smarthome.io.ui.RegularUsageUI.regularUsage;
 import static smarthome.io.ui.SystemAdministrationUI.systemAdministration;
 
@@ -26,7 +27,8 @@ public class MainUI {
         while (option != 0) {
             System.out.println("Click 1 System Administration");
             System.out.println("Click 2 House Administration");
-            System.out.println("Click 3 Regular Usage");
+            System.out.println("Click 3 Regular User");
+            System.out.println("Click 4 Power User");
             System.out.println("Click 0 Exit");
 
             option = Integer.parseInt(keyboard.nextLine());
@@ -39,6 +41,9 @@ public class MainUI {
                     break;
                 case 3:
                     regularUsage(house,sensorTypeList,gaList);
+                    break;
+                case 4:
+                    powerUser();
                     break;
             }
         }
