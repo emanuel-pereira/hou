@@ -6,7 +6,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
+import java.util.Arrays;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -43,6 +45,21 @@ class US6CreateSensorCTRLTest {
         String expected = "1 - Porto\n2 - Lisboa\n";
         String result = ctrl6.showGAListInString();
         assertEquals(expected, result);
+    }
+
+    @Test
+    void getGAList() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        GAList gaList = new GAList();
+        US6CreateSensorCTRL ctrl6 = new US6CreateSensorCTRL(sensorTypeList, gaList);
+        GeographicalArea area1 = gaList.newGA("Pt","Porto", "district", 20, 20, 1, 3, -10);
+        GeographicalArea area2 = gaList.newGA("Pt","Braga", "district", 20, 20, 1, 3, -10);
+        gaList.addGA(area1);
+        gaList.addGA(area2);
+
+        List<GeographicalArea> expectedResult = Arrays.asList(area1, area2);
+        List<GeographicalArea> result = ctrl6.getGAList();
+        assertEquals(expectedResult, result);
     }
 
     @DisplayName("Ensure that two different sensors are added to the respective Geographical Area")

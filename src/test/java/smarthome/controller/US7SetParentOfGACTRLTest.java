@@ -68,12 +68,13 @@ public class US7SetParentOfGACTRLTest {
     public void getGAList() {
 
         GAList gaList = new GAList();
+        US7SetParentOfGACTRL ctrl7 = new US7SetParentOfGACTRL(gaList);
 
         List<GeographicalArea> expectedResult = new ArrayList<>();
         List<GeographicalArea> result;
-        result = gaList.getGAList();
+        
+        result = ctrl7.getGAList();
         assertEquals(expectedResult, result);
-
     }
 
     @Test
@@ -96,5 +97,6 @@ public class US7SetParentOfGACTRLTest {
 
         assertEquals(expectedResult, result);
     }
+
 
 }

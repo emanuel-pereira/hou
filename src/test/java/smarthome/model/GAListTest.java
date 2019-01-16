@@ -129,4 +129,18 @@ class GAListTest {
         List<GeographicalArea> result=gaList.GAFromThisType("");
         assertEquals(expectedresult, result);
     }
+
+    @DisplayName("Test if Geographical Area List is showed as a string to the user")
+    @Test
+    void showGAListInString() {
+        GAList gaList = new GAList();
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 25, 15, 12, 32, 41);
+        GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", "city", 45, 25, 32, 42, 41);
+        gaList.addGA(ga1);
+        gaList.addGA(ga2);
+        String expected = "1 - Porto\n2 - Lisboa\n";
+        String result = gaList.showGAListInString();
+        assertEquals(expected, result);
+    }
+
 }

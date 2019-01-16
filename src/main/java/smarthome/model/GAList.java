@@ -65,10 +65,6 @@ public class GAList {
     }
 
 
-
-
-
-
     /**
      * US04
      * Method that returns a list of Geographical Areas of a certain Type.
@@ -86,4 +82,22 @@ public class GAList {
         }
         return GAFromTypeList;
     }
+
+    /**
+     * @return Method that shows the list of Geographical Areas in a unique string
+     */
+    public String showGAListInString() {
+        List<GeographicalArea> list = this.getGAList();
+        StringBuilder result = new StringBuilder();
+        String element = " - ";
+        int number = 1;
+        for (GeographicalArea ga : list) {
+            result.append(number++);
+            result.append(element);
+            result.append(ga.getGeographicalAreaDesignation());
+            result.append("\n");
+        }
+        return result.toString();
+    }
+
 }
