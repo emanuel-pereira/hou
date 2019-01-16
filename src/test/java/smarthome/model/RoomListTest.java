@@ -110,5 +110,50 @@ public class RoomListTest {
         assertEquals(expected,result);
 
     }
+
+    /**
+     * Show sum of nominal power in a house grid
+     */
+    @Test
+    public void getCorrectNominalPower() {
+
+        House h = new House();
+
+        HouseGridList hGl = h.getHGListInHouse ();
+        HouseGrid hG = hGl.newHouseGrid ("mainGrid",800);
+        hGl.addHouseGrid (hG);
+
+        RoomList list = h.getRoomListFromHouse ();
+
+        Room bedroom = list.createNewRoom ("bedroom", 1, 2, 3, 2);
+        list.addRoom (bedroom);
+        DeviceList dLb = bedroom.getDeviceList ();
+        Room kitchen = list.createNewRoom ("kitchen", 0, 1,2,1.5);
+        list.addRoom (kitchen);
+        DeviceList dLK = kitchen.getDeviceList ();
+
+        Device d1 = dLb.newDeviceWithoutSpecs ("lamp1", bedroom, "lamp", 20);
+        Device d2 = dLb.newDeviceWithoutSpecs("lamp2", bedroom, "lamp", 22);
+
+        dLb.addDevice (d1);
+        dLb.addDevice (d2);
+
+        Device d3 = dLb.newDeviceWithoutSpecs ("fridge", bedroom, "fridge", 150);
+        Device d4 = dLb.newDeviceWithoutSpecs("dishwasher", bedroom, "dishwasher", 100);
+
+        dLK.addDevice (d3);
+        dLK.addDevice (d4);
+
+        bedroom.setmHouseGrid (hG);
+        kitchen.setmHouseGrid (hG);
+
+
+        double expectedResult = 292;
+        double result = list.getNominalPower (hG);
+
+
+        assertEquals (expectedResult, result);
+    }
+
 }
 

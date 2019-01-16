@@ -35,7 +35,7 @@ public class US605CurrentTempRoomCTRL {
     }
 
     /**
-     * Shows the the list of room from the RoomList in Strim
+     * Shows the the list of room from the RoomList in String
      * @return List of rooms in string
      */
     public String showRoomListInString() {

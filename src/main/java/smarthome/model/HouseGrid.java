@@ -1,9 +1,5 @@
 package smarthome.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 
 public class HouseGrid {
     //The electrical network of the house
@@ -11,22 +7,22 @@ public class HouseGrid {
     private String mDesignation;
     private PowerSource mPowerSource;
     private PowerSourceList mPSListInHG;
-    private HouseGrid mHouseGrid;
 
     public HouseGrid() {
-        mPSListInHG = new PowerSourceList();
+        mPSListInHG = new PowerSourceList ();
     }
 
     public HouseGrid(double inputContractedMaximumPower) {
-        if (valueIsPositive(inputContractedMaximumPower))
+        if (valueIsPositive (inputContractedMaximumPower))
             mContractedMaximumPower = inputContractedMaximumPower;
+
     }
 
     public HouseGrid(String designation, double inputContractedMaximumPower) {
-        if (valueIsPositive(inputContractedMaximumPower)) {
+        if (valueIsPositive (inputContractedMaximumPower)) {
             mContractedMaximumPower = inputContractedMaximumPower;
             mDesignation = designation;
-            mPSListInHG = new PowerSourceList();
+            mPSListInHG = new PowerSourceList ();
         }
     }
 
@@ -35,7 +31,7 @@ public class HouseGrid {
     }
 
     public void setContractedMaximumPower(Double contractedMaximumPower) {
-        if (valueIsPositive(contractedMaximumPower))
+        if (valueIsPositive (contractedMaximumPower))
             this.mContractedMaximumPower = contractedMaximumPower;
     }
 
@@ -44,10 +40,12 @@ public class HouseGrid {
     }
 
     public String getGridID() {
-        return mDesignation; }
+        return mDesignation;
+    }
 
-
-    public PowerSourceList getPSListInHG () {
+    public PowerSourceList getPSListInHG() {
         return mPSListInHG;
     }
+
+
 }

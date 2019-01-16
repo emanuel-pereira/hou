@@ -74,6 +74,10 @@ public class HouseAdministrationUI {
                     USAddSetAndListDevicesInRoomUI ui210 = new USAddSetAndListDevicesInRoomUI(house);
                     ui210.selectOption();
                     break;
+                case 11:
+                    US172TotalNominalPowerInGridUI uS172 = new US172TotalNominalPowerInGridUI (house);
+                    uS172.run ();
+                    break;
             }
         }
     }
