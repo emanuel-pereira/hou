@@ -9,17 +9,18 @@ public class ProgramList {
     /**
      * Constructor initializing an empty program list that can be associated to programmable devices.
      */
-    public ProgramList(){
-       mProgramList=new ArrayList<>();
+    public ProgramList() {
+        mProgramList = new ArrayList<>();
     }
 
     /**
      * Method to add a new program to the ProgramList of a specific device
+     *
      * @param newProgram of the device
      * @return true if program is added to the ProgramList. False otherwise.
      */
-    public boolean addProgram(Program newProgram){
-        if(!mProgramList.contains(newProgram)){
+    public boolean addProgram(Program newProgram) {
+        if (!mProgramList.contains(newProgram)) {
             mProgramList.add(newProgram);
             return true;
         } else return false;
@@ -27,12 +28,13 @@ public class ProgramList {
 
     /**
      * Method that creates a local instance of a program
-     * @param duration time duration parameter of the program
+     *
+     * @param duration          time duration parameter of the program
      * @param energyConsumption consumption of the program
      * @return an instance of a Program
      */
-    public Program newProgram(int duration, double energyConsumption){
-        return new Program(duration,energyConsumption);
+    public Program newProgram(int duration, double energyConsumption) {
+        return new Program(duration, energyConsumption);
     }
 
     /**
@@ -40,5 +42,20 @@ public class ProgramList {
      */
     public List<Program> getProgramList() {
         return mProgramList;
+    }
+
+    public String showProgramListInString() {
+        StringBuilder result = new StringBuilder();
+        String element = " - ";
+        int number = 1;
+        for (Program program : mProgramList) {
+            result.append(number++);
+            result.append(element);
+            result.append(program.getDuration());
+            result.append("\n");
+            result.append(program.getEnergyConstumption());
+            result.append("\n");
+        }
+        return result.toString();
     }
 }

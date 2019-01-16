@@ -1,25 +1,43 @@
 package smarthome.model;
 
-public class Device implements DeviceSpecs, Powered {
+public class Device implements DeviceSpecs, Metered {
 
     private String mName;
     private DeviceSpecs mDeviceSpecs;
+    private String mDeviceType;
     private Room mRoom;
     private double mNominalPower;
 
     /**
      * Constructor set for devices with their own specific features
-     * @param name device name
-     * @param deviceSpecs device specific features, including, for example, device type
-     * @param room where the device is installed
+     *
+     * @param name         device name
+     * @param deviceSpecs  device specific features, including, for example, device type
+     * @param room         where the device is installed
      * @param nominalPower of the device
      */
-    public Device(String name, DeviceSpecs deviceSpecs, Room room, double nominalPower){
-        mName=name;
-        mDeviceSpecs=deviceSpecs;
-        mRoom=room;
-        mNominalPower=nominalPower;
+    public Device(String name, DeviceSpecs deviceSpecs, Room room, double nominalPower) {
+        mName = name;
+        mDeviceSpecs = deviceSpecs;
+        mRoom = room;
+        mNominalPower = nominalPower;
     }
+
+    /**
+     * Constructor set for devices that only require generic features to any type of device
+     *
+     * @param name         device name
+     * @param room         where the device is installed
+     * @param deviceType   the type of device
+     * @param nominalPower of the device
+     */
+    public Device(String name, Room room, String deviceType, double nominalPower) {
+        mName = name;
+        mRoom = room;
+        mNominalPower = nominalPower;
+        mDeviceType = deviceType;
+    }
+
     /**
      * @return the device name
      */
@@ -49,6 +67,41 @@ public class Device implements DeviceSpecs, Powered {
     }
 
     /**
+     * @return the type of device for a device that only require generic features to any type of device
+     */
+    public String getDeviceType() {
+        return mDeviceType;
+    }
+
+    public void setDeviceName(String name) {
+        this.mName = name;
+    }
+
+    public void setRoom(Room room) {
+        mRoom.getDeviceList().getDeviceList().remove(this);
+        mRoom = room;
+        mRoom.getDeviceList().addDevice(this);
+    }
+
+    public void setNominalPower(double nominalPower) {
+        this.mNominalPower = nominalPower;
+    }
+
+    public String showDeviceListAttributesInString() {
+        StringBuilder result = new StringBuilder();
+        result.append("1 - Device name : " + this.getName());
+        result.append("\n");
+        result.append("2 - Device room: " + this.getRoom().getName());
+        result.append("\n");
+        result.append("3 - Nominal Power : " + this.getNominalPower() + " unit");
+        result.append("\n");
+        if (this.mDeviceSpecs != null)
+            result.append(this.showDeviceSpecsListAttributesInString());
+        return result.toString();
+    }
+
+
+    /**
      * @return the type of device for a device types that have their own specific features
      */
     @Override
@@ -63,5 +116,9 @@ public class Device implements DeviceSpecs, Powered {
     @Override
     public String getTypeFromIndex(int index) {
         return mDeviceSpecs.getTypeFromIndex(index);
+    }
+
+    public String showDeviceSpecsListAttributesInString() {
+        return mDeviceSpecs.showDeviceSpecsListAttributesInString();
     }
 }

@@ -12,4 +12,6 @@ public interface DeviceSpecs {
      * @return the type of device for a device types that have their own specific features
      */
     String getTypeFromIndex(int index);
+
+    String showDeviceSpecsListAttributesInString();
 }

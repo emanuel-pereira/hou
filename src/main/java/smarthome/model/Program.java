@@ -14,4 +14,11 @@ public class Program {
         mDuration=duration;
         mEnergyConstumption=energyConsumption;
     }
+    public int getDuration(){
+        return mDuration;
+    }
+    public double getEnergyConstumption(){
+        return mEnergyConstumption;
+    }
+
 }

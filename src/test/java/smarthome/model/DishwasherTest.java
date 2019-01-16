@@ -28,4 +28,11 @@ class DishwasherTest {
 
         assertEquals(expected,result);
     }
+    @Test
+    void setCapacityTest() {
+        Dishwasher dw = new Dishwasher(DeviceType.DISHWASHER,8);
+        int newCapacity = 7;
+        dw.setCapacity(newCapacity);
+        assertEquals(dw.getCapacity(),newCapacity);
+    }
 }
