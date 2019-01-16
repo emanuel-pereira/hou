@@ -14,11 +14,18 @@ public class Dishwasher implements DeviceSpecs {
     }
 
     public void setCapacity(int newCapacity) {
+
         mCapacity = newCapacity;
+    }
+
+    public int getCapacity() {
+
+        return mCapacity;
     }
 
     @Override
     public String getType() {
+
         return mDeviceType.getType();
     }
 
@@ -29,22 +36,7 @@ public class Dishwasher implements DeviceSpecs {
 
     public String showDeviceSpecsListAttributesInString() {
         StringBuilder result = new StringBuilder();
-        result.append("4 - Capacity : " + this.mCapacity);
-        result.append("\n");
-        result.append("6 - Program List : " + this.mProgramListInDW.showProgramListInString());
-
+        result.append("4 - Dishwater Capacity : " + this.mCapacity);
         return result.toString();
-    }
-
-    public int getCapacity() {
-        return mCapacity;
-    }
-
-    public double getEnergyConsumption() {
-        return mEnergyConsumption;
-    }
-
-    public ProgramList getmProgramListInDW() {
-        return mProgramListInDW;
     }
 }

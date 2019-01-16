@@ -44,18 +44,4 @@ public class ProgramList {
         return mProgramList;
     }
 
-    public String showProgramListInString() {
-        StringBuilder result = new StringBuilder();
-        String element = " - ";
-        int number = 1;
-        for (Program program : mProgramList) {
-            result.append(number++);
-            result.append(element);
-            result.append(program.getDuration());
-            result.append("\n");
-            result.append(program.getEnergyConstumption());
-            result.append("\n");
-        }
-        return result.toString();
-    }
 }

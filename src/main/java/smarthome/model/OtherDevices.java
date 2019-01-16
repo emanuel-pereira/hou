@@ -13,9 +13,12 @@ public class OtherDevices implements DeviceSpecs {
         return mDeviceType.getType();
     }
 
-
     @Override
     public String getTypeFromIndex(int index) {
         return mDeviceType.getTypeFromIndex(index);
+    }
+
+    public String showDeviceSpecsListAttributesInString(){
+        return null;
     }
 }

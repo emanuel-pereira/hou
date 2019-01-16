@@ -35,4 +35,12 @@ class DishwasherTest {
         dw.setCapacity(newCapacity);
         assertEquals(dw.getCapacity(),newCapacity);
     }
+    @Test
+    void showDeviceSpecsListAttributesInStringTest(){
+        Dishwasher dw = new Dishwasher(DeviceType.DISHWASHER,10);
+
+        String result = dw.showDeviceSpecsListAttributesInString();
+        assertEquals("4 - Dishwater Capacity : "+dw.getCapacity(),result);
+
+    }
 }

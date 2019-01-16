@@ -23,6 +23,12 @@ public class USAddSetAndListDevicesInRoomUI {
     private double mNominalPower;
     private int mDeviceTypeIndex;
     private String insertValidOption = "Please insert a valid option \n.";
+    private int mDeviceIndex;
+    private Room selectedRoom;
+    Device selectedDevice;
+    int mAtttributeIndex;
+    int mRoomIndexToChange;
+
 
     public void selectOption() {
         int option = -1;
@@ -42,6 +48,7 @@ public class USAddSetAndListDevicesInRoomUI {
                     this.roomSelectionToListDevice();
                     break;
                 case 3:
+                    this.editDeviceAttributes();
                     break;
                 default:
                     System.out.println("Please choose a valid option.");
@@ -212,7 +219,7 @@ public class USAddSetAndListDevicesInRoomUI {
                 System.out.println("Insert the lamp luminous flux(lm):");
                 int luminousFlux = read.nextInt();
                 read.nextLine();
-                Lamp lamp = new Lamp(DeviceType.TV, luminousFlux);
+                Lamp lamp = new Lamp(DeviceType.LAMP, luminousFlux);
                 mCtrl.addDevice(mRoomIndex, mName, lamp, mNominalPower);
                 break;
             default:
@@ -262,5 +269,128 @@ public class USAddSetAndListDevicesInRoomUI {
         }
         return false;
     }
+//
 
+    public void deviceSelectionToEdit() {
+        while (true) {
+            mDeviceIndex = read.nextInt();
+            read.nextLine();
+            if (mDeviceIndex > mCtrl.getDeviceList(selectedRoom).getDeviceList().size()) {
+                System.out.println(insertValidOption);
+                break;
+            }
+            return;
+        }
+    }
+
+    public void attributeSelectionToEdit() {
+        while (true) {
+            System.out.println("Select a attribute of the device to edit: ");
+            System.out.println(mCtrl.getDeviceAttributesListInString(selectedDevice));
+            mAtttributeIndex = read.nextInt();
+            read.nextLine();
+            //if (mAttributeIndex > mCtrl.)
+            //  System.out.println(insertValidOption);
+            break;
+        }
+        return;
+    }
+
+    public void editDeviceAttributes() {
+        roomSelectionToListDevice();
+        selectedRoom = mCtrl.getRoomList().get(mRoomIndex - 1);
+        deviceSelectionToEdit();
+        selectedDevice = mCtrl.getDeviceList(selectedRoom).get(mDeviceIndex - 1);
+        attributeSelectionToEdit();
+        setDeviceAttributes();
+    }
+
+    public void setDeviceAttributes() {
+        if (mAtttributeIndex == 1) {
+            System.out.println("Set the new name: ");
+            mName = mCtrl.alphanumericName(mName);
+            mCtrl.setDeviceName(selectedDevice, mName);
+            System.out.println("Success");
+        }
+        if (mAtttributeIndex == 2) {
+            System.out.println("Set the new room from the list of rooms: ");
+            System.out.println(mCtrl.showRoomListInString());
+            mRoomIndexToChange = read.nextInt();
+            read.nextLine();
+            roomIndexIsOutOfBounds();
+            selectedRoom = mCtrl.getRoomList().get(mRoomIndexToChange - 1);
+            mCtrl.setDeviceRoom(selectedDevice, selectedRoom);
+        }
+        if (mAtttributeIndex == 3) {
+            System.out.println("Set the nominal power (kW):");
+            mNominalPower = read.nextDouble(); //to validate only positive values
+            read.nextLine();
+            mCtrl.setNominalPower(selectedDevice, mNominalPower);
+        }
+        if (selectedDevice.getType().equals(DeviceType.FRIDGE.getType())) {
+            if (mAtttributeIndex == 4) {
+                System.out.println("Set the freezer capacity:");
+                int mFreezerCapacity = read.nextInt(); //to validate only positive values
+                read.nextLine();
+                mCtrl.setFridgeFreezerCapacity(selectedDevice, mFreezerCapacity);
+                System.out.println("Success");
+            }
+            if (mAtttributeIndex == 5) {
+                System.out.println("Set the refrigerator capacity:");
+                int mRefCapacity = read.nextInt(); //to validate only positive values
+                read.nextLine();
+                mCtrl.setFridgeRefrigeratorCapacity(selectedDevice, mRefCapacity);
+                System.out.println("Sucess");
+            }
+        }
+        if (selectedDevice.getType().equals(DeviceType.DISHWASHER.getType())) {
+            if (mAtttributeIndex == 4) {
+                System.out.println("Set the dishwasher capacity:");
+                int dwCapacity = read.nextInt(); //to validate only positive values
+                read.nextLine();
+                mCtrl.setDWCapacity(selectedDevice, dwCapacity);
+                System.out.println("Sucess");
+            }
+        }
+        if (selectedDevice.getType().equals(DeviceType.ELECTRIC_WATER_HEATER.getType())) {
+            if (mAtttributeIndex == 4) {
+                System.out.println("Set the Electric Water Heater volume of water:");
+                double volumeOfWater = read.nextInt(); //to validate only positive values
+                read.nextLine();
+                mCtrl.setEWHVolumeOfWater(selectedDevice, volumeOfWater);
+                System.out.println("Sucess");
+            }
+            if (mAtttributeIndex == 5) {
+                System.out.println("Set the Electric Water Heater hot water temperature:");
+                double newHotWaterTemp = read.nextInt(); //to validate only positive values
+                read.nextLine();
+                mCtrl.setEWHHotWaterTemperature(selectedDevice, newHotWaterTemp);
+                System.out.println("Sucess");
+            }
+            if (mAtttributeIndex == 6) {
+                System.out.println("Set the Electric Water Heater cold water temperature:");
+                double newColdWaterTemp = read.nextInt(); //to validate only positive values
+                read.nextLine();
+                mCtrl.setEWHColdWaterTemperature(selectedDevice, newColdWaterTemp);
+                System.out.println("Sucess");
+            }
+            if (mAtttributeIndex == 7) {
+                System.out.println("Set the Electric Water Heater performance ratio:");
+                double newPerformanceRatio = read.nextInt(); //to validate only positive values
+                read.nextLine();
+                mCtrl.setEWHPerformanceRatio(selectedDevice, newPerformanceRatio);
+                System.out.println("Sucess");
+            }
+        }
+        if (selectedDevice.getType().equals(DeviceType.LAMP.getType())) {
+            if (mAtttributeIndex == 4) {
+                System.out.println("Set the Lamp Luminous Flux:");
+                int newLuminousFlux = read.nextInt(); //to validate only positive values
+                read.nextLine();
+                mCtrl.setLampLuminousFlux(selectedDevice, newLuminousFlux);
+                System.out.println("Sucess");
+            }
+        }
+        return;
+    }
 }

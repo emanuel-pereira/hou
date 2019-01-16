@@ -1,6 +1,6 @@
 package smarthome.model;
 
-public class Device implements DeviceSpecs, Metered {
+public class Device implements DeviceSpecs, Powered {
 
     private String mName;
     private DeviceSpecs mDeviceSpecs;
@@ -66,13 +66,6 @@ public class Device implements DeviceSpecs, Metered {
         return mNominalPower;
     }
 
-    /**
-     * @return the type of device for a device that only require generic features to any type of device
-     */
-    public String getDeviceType() {
-        return mDeviceType;
-    }
-
     public void setDeviceName(String name) {
         this.mName = name;
     }
@@ -91,15 +84,14 @@ public class Device implements DeviceSpecs, Metered {
         StringBuilder result = new StringBuilder();
         result.append("1 - Device name : " + this.getName());
         result.append("\n");
-        result.append("2 - Device room: " + this.getRoom().getName());
+        result.append("2 - Device room : " + this.getRoom().getName());
         result.append("\n");
-        result.append("3 - Nominal Power : " + this.getNominalPower() + " unit");
+        result.append("3 - Nominal Power : " + this.getNominalPower() + " kW");
         result.append("\n");
         if (this.mDeviceSpecs != null)
             result.append(this.showDeviceSpecsListAttributesInString());
         return result.toString();
     }
-
 
     /**
      * @return the type of device for a device types that have their own specific features

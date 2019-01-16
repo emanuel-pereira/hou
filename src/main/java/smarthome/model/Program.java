@@ -2,7 +2,7 @@ package smarthome.model;
 
 public class Program {
     private int mDuration;
-    private double mEnergyConstumption;
+    private double mEnergyConsumption;
 
     /**
      * Constructor requiring to set a duration and respective energy consumption for any program of a device
@@ -12,13 +12,7 @@ public class Program {
 
     public Program(int duration, double energyConsumption){
         mDuration=duration;
-        mEnergyConstumption=energyConsumption;
-    }
-    public int getDuration(){
-        return mDuration;
-    }
-    public double getEnergyConstumption(){
-        return mEnergyConstumption;
+        mEnergyConsumption=energyConsumption;
     }
 
 }
