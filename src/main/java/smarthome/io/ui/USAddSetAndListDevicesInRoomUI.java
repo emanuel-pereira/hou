@@ -1,18 +1,18 @@
 package smarthome.io.ui;
 
-import smarthome.controller.US210AddNewDeviceToRoomCTRL;
+import smarthome.controller.USAddSetAndListDevicesInRoomCTRL;
 import smarthome.model.*;
 
 import java.util.Scanner;
 
 public class USAddSetAndListDevicesInRoomUI {
     private House mHouse;
-    private US210AddNewDeviceToRoomCTRL mCtrl;
+    private USAddSetAndListDevicesInRoomCTRL mCtrl;
     ProgramList mProgramList;
     Scanner read = new Scanner(System.in);
 
     public USAddSetAndListDevicesInRoomUI(House house) {
-        mCtrl = new US210AddNewDeviceToRoomCTRL(house);
+        mCtrl = new USAddSetAndListDevicesInRoomCTRL(house);
         mHouse = house;
         mProgramList = new ProgramList();
     }
@@ -64,38 +64,6 @@ public class USAddSetAndListDevicesInRoomUI {
         return;
     }
 
-    public void roomSelectionToListDevice() {
-
-        while (true) {
-            if (roomListIsEmpty()) break;
-            if (mHouse.getRoomListFromHouse().getRoomList().size() != 0) {
-                System.out.println("Select a room from the list below where to get the list of all devices in that room:");
-                System.out.println(mCtrl.showRoomListInString());
-                mRoomIndex = read.nextInt();
-                read.nextLine();
-                if (deviceListInRoomIsEmpty()) break;
-                roomIndexIsOutOfBounds();
-                this.listDevicesInRoom();
-                break;
-            }
-            break;
-        }
-        return;
-    }
-
-    private void roomIndexIsOutOfBounds() {
-        if (mRoomIndex > mHouse.getRoomListFromHouse().getRoomList().size())
-            System.out.println(insertValidOption);
-    }
-
-    private boolean deviceListInRoomIsEmpty() {
-        if (mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getDeviceList().isEmpty()) {
-            System.out.println("The device list in " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getName() + " is empty.\n");
-            return true;
-        }
-        return false;
-    }
-
     private boolean roomListIsEmpty() {
         if (mHouse.getRoomListFromHouse().getRoomList().isEmpty()) {
             System.out.println("The room list is empty. Please add new rooms in US105.\n");
@@ -104,10 +72,9 @@ public class USAddSetAndListDevicesInRoomUI {
         return false;
     }
 
-    public void listDevicesInRoom() {
-        System.out.println("List of devices in " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getName() + ":");
-        System.out.println(mCtrl.showDeviceListInString(mRoomIndex));
-        return;
+    private void roomIndexIsOutOfBounds() {
+        if (mRoomIndex > mHouse.getRoomListFromHouse().getRoomList().size())
+            System.out.println(insertValidOption);
     }
 
     public void selectDeviceType() {
@@ -125,12 +92,28 @@ public class USAddSetAndListDevicesInRoomUI {
     }
 
     public void insertDeviceStdInputs() {
-        System.out.println("Insert the device name:");
-        mName = nameIsValid();
-        System.out.println("Insert the nominal power (kW):");
-        mNominalPower = read.nextDouble(); //to validate only positive values
-        read.nextLine();
-        this.insertDeviceSpecs();
+        while (true) {
+            System.out.println("Insert the device name:");
+            mName = read.nextLine();
+            mName = mCtrl.alphanumericName(mName);
+            if (mName != null) {
+                this.insertNominalPower();
+                break;
+            } else
+                System.out.println("Please insert a valid name");
+        }
+    }
+
+    public void insertNominalPower() {
+        while (true) {
+            System.out.println("Insert the nominal power (kW):");
+            mNominalPower = read.nextDouble();
+            read.nextLine();
+            if (mNominalPower > 0) {
+                this.insertDeviceSpecs();
+                break;
+            } else System.out.println("Please insert only positive values.");
+        }
         return;
     }
 
@@ -148,7 +131,7 @@ public class USAddSetAndListDevicesInRoomUI {
                 System.out.println("Insert the performance ratio for the Electric Water Heater:");
                 double performanceRatio = read.nextDouble();
                 ElectricWaterHeater electricWaterHeater = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, volumeOfWater, hotWaterTemperature, coldWaterTemperature, performanceRatio);
-                mCtrl.addDeviceWithSpecsToRoom(mRoomIndex, mName, electricWaterHeater, mNominalPower);
+                mCtrl.addDevice(mRoomIndex, mName, electricWaterHeater, mNominalPower);
                 break;
             case 2:
                 System.out.println("Insert the capacity(kg):");
@@ -169,7 +152,7 @@ public class USAddSetAndListDevicesInRoomUI {
                     }
                     if (option.matches("n")) {
                         WashingMachine washingMachine = new WashingMachine(DeviceType.WASHING_MACHINE, capacity);
-                        mCtrl.addDeviceWithSpecsToRoom(mRoomIndex, mName, washingMachine, mNominalPower);
+                        mCtrl.addDevice(mRoomIndex, mName, washingMachine, mNominalPower);
                         break;
                     }
                 }
@@ -195,7 +178,7 @@ public class USAddSetAndListDevicesInRoomUI {
                     if (option.matches("n")) {
 
                         Dishwasher dishwasher = new Dishwasher(DeviceType.DISHWASHER, capacity);
-                        mCtrl.addDeviceWithSpecsToRoom(mRoomIndex, mName, dishwasher, mNominalPower);
+                        mCtrl.addDevice(mRoomIndex, mName, dishwasher, mNominalPower);
                         break;
                     }
                 }
@@ -211,7 +194,7 @@ public class USAddSetAndListDevicesInRoomUI {
                 int annualEnergyConsumption = read.nextInt();
                 read.nextLine();
                 Fridge fridge = new Fridge(DeviceType.FRIDGE, freezerCapacity, refrigeratorCapacity, annualEnergyConsumption);
-                mCtrl.addDeviceWithSpecsToRoom(mRoomIndex, mName, fridge, mNominalPower);
+                mCtrl.addDevice(mRoomIndex, mName, fridge, mNominalPower);
                 break;
             case 5:
             case 6:
@@ -222,15 +205,15 @@ public class USAddSetAndListDevicesInRoomUI {
             case 11:
             case 12:
             case 14:
-                String deviceType = DeviceType.values()[mDeviceTypeIndex - 1].getType();
-                mCtrl.addDeviceWithoutSpecsToRoom(mRoomIndex, mName, deviceType, mNominalPower);
+                OtherDevices others = new OtherDevices(DeviceType.values()[mDeviceTypeIndex - 1]);
+                mCtrl.addDevice(mRoomIndex, mName, others, mNominalPower);
                 break;
             case 13:
                 System.out.println("Insert the lamp luminous flux(lm):");
                 int luminousFlux = read.nextInt();
                 read.nextLine();
                 Lamp lamp = new Lamp(DeviceType.TV, luminousFlux);
-                mCtrl.addDeviceWithSpecsToRoom(mRoomIndex, mName, lamp, mNominalPower);
+                mCtrl.addDevice(mRoomIndex, mName, lamp, mNominalPower);
                 break;
             default:
                 System.out.println("Please choose a valid option.");
@@ -239,7 +222,7 @@ public class USAddSetAndListDevicesInRoomUI {
         if (mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getDeviceSpecs() != null) {
             System.out.println("[DEVICE TYPE]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getTypeFromIndex(mDeviceTypeIndex - 1));
         } else {
-            System.out.println("[DEVICE TYPE]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getDeviceType());
+            System.out.println("[DEVICE TYPE]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getType());
         }
         System.out.println("[NAME]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getName());
         System.out.println("[ROOM]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getRoom().getName());
@@ -247,18 +230,37 @@ public class USAddSetAndListDevicesInRoomUI {
 
     }
 
-    private String nameIsValid() {
-        String name = read.nextLine();
-        if (name == null || name.trim().isEmpty()) {
-            System.out.println("Empty spaces are not accepted.");
-            return null;
+    public void roomSelectionToListDevice() {
+
+        while (true) {
+            if (roomListIsEmpty()) break;
+            if (mHouse.getRoomListFromHouse().getRoomList().size() != 0) {
+                System.out.println("Select a room from the list below where to get the list of all devices in that room:");
+                System.out.println(mCtrl.showRoomListInString());
+                mRoomIndex = read.nextInt();
+                read.nextLine();
+                if (deviceListInRoomIsEmpty()) break;
+                roomIndexIsOutOfBounds();
+                this.listDevicesInRoom();
+                break;
+            }
+            break;
         }
-        if (!name.matches("^[A-Za-z -]+$")) { //accepts alphanumeric characters, spaces
-            System.out.println("Please insert only alphabetic characters with spaces or hyphens.");
-            return null;
-        }
-        return name;
+        return;
     }
 
+    public void listDevicesInRoom() {
+        System.out.println("List of devices in " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getName() + ":");
+        System.out.println(mCtrl.showDeviceListInString(mRoomIndex));
+        return;
+    }
+
+    private boolean deviceListInRoomIsEmpty() {
+        if (mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getDeviceList().isEmpty()) {
+            System.out.println("The device list in " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getName() + " is empty.\n");
+            return true;
+        }
+        return false;
+    }
 
 }

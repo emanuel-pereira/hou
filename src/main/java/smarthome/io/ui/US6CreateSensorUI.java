@@ -206,6 +206,7 @@ public class US6CreateSensorUI {
             }
             if (option.matches("y")) {
                 this.inputReading();
+                break;
             }
         }
 

@@ -56,9 +56,9 @@ class US172TotalNominalPowerInGridCTRLTest {
         Room room1 = roomList.createNewRoom ("Bedroom1", 2, 2, 1,2);
         roomList.addRoom (room1);
         DeviceList deviceList = room1.getDeviceList ();
-        Device lamp1 = deviceList.newDeviceWithoutSpecs ("Lamp1", room1, "Lamp", 120);
+        Device lamp1 = deviceList.newDevice ("Lamp1",DeviceType.LAMP, room1, 120);
         deviceList.addDevice (lamp1);
-        Device lamp2 = deviceList.newDeviceWithoutSpecs ("Lamp2", room1, "Lamp", 120);
+        Device lamp2 = deviceList.newDevice ("Lamp2", DeviceType.LAMP, room1, 120);
         deviceList.addDevice (lamp2);
         US172TotalNominalPowerInGridCTRL US172CTRL = new US172TotalNominalPowerInGridCTRL (house);
 
@@ -134,12 +134,12 @@ class US172TotalNominalPowerInGridCTRLTest {
         Room kitchen = list.createNewRoom ("kitchen", 0, 1,2,1.5);
         list.addRoom (kitchen);
         DeviceList dLK = kitchen.getDeviceList ();
-        Device d1 = dLb.newDeviceWithoutSpecs ("lamp1", bedroom, "lamp", 20);
-        Device d2 = dLb.newDeviceWithoutSpecs("lamp2", bedroom, "lamp", 22);
+        Device d1 = dLb.newDevice ("lamp1",DeviceType.LAMP, bedroom,20);
+        Device d2 = dLb.newDevice("lamp2",DeviceType.LAMP, bedroom, 22);
         dLb.addDevice (d1);
         dLb.addDevice (d2);
-        Device d3 = dLb.newDeviceWithoutSpecs ("fridge", bedroom, "fridge", 150);
-        Device d4 = dLb.newDeviceWithoutSpecs("dishwasher", bedroom, "dishwasher", 100);
+        Device d3 = dLb.newDevice ("fridge",DeviceType.FRIDGE, bedroom, 150);
+        Device d4 = dLb.newDevice("dishwasher", DeviceType.DISHWASHER,bedroom, 100);
         dLK.addDevice (d3);
         dLK.addDevice (d4);
         bedroom.setmHouseGrid (hG1);
@@ -169,12 +169,12 @@ class US172TotalNominalPowerInGridCTRLTest {
         Room kitchen = list.createNewRoom ("kitchen", 0, 1,2,1.5);
         list.addRoom (kitchen);
         DeviceList dLK = kitchen.getDeviceList ();
-        Device d1 = dLb.newDeviceWithoutSpecs ("lamp1", bedroom, "lamp", 10);
-        Device d2 = dLb.newDeviceWithoutSpecs("lamp2", bedroom, "lamp", 10);
+        Device d1 = dLb.newDevice ("lamp1",DeviceType.LAMP, bedroom,10);
+        Device d2 = dLb.newDevice("lamp2",DeviceType.LAMP, bedroom, 10);
         dLb.addDevice (d1);
         dLb.addDevice (d2);
-        Device d3 = dLb.newDeviceWithoutSpecs ("fridge", bedroom, "fridge", 100);
-        Device d4 = dLb.newDeviceWithoutSpecs("dishwasher", bedroom, "dishwasher", 100);
+        Device d3 = dLb.newDevice ("fridge",DeviceType.FRIDGE, bedroom, 100);
+        Device d4 = dLb.newDevice("dishwasher",DeviceType.DISHWASHER, bedroom, 100);
         dLK.addDevice (d3);
         dLK.addDevice (d4);
         bedroom.setmHouseGrid (hG);

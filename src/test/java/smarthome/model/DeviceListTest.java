@@ -11,7 +11,7 @@ class DeviceListTest {
     @DisplayName("Ensure same device instance is only added once to device list")
     void addDevice() {
         Room kitchen= new Room("Kitchen",0,6,4,2.5);
-        Device microwave = new Device("Samsung Microwave",kitchen,DeviceType.MICROWAVE_OVEN.getType(),0.8);
+        Device microwave = new Device("Samsung Microwave",DeviceType.MICROWAVE_OVEN,kitchen,0.8);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(microwave);
         int expectedResult1= 1;
@@ -29,7 +29,7 @@ class DeviceListTest {
         DeviceList deviceList= new DeviceList();
         Room kitchen= new Room("Kitchen",0,6,4,2.5);
         Fridge fridge = new Fridge(DeviceType.FRIDGE,50,350,50);
-        Device device = deviceList.newDeviceWithSpecs("LG Fridge",fridge,kitchen,1.2);
+        Device device = deviceList.newDevice("LG Fridge",fridge,kitchen,1.2);
         deviceList.addDevice(device);
 
         Device expected= device;
@@ -43,7 +43,7 @@ class DeviceListTest {
     void newDeviceWithoutSpecs() {
         DeviceList deviceList= new DeviceList();
         Room kitchen= new Room("Kitchen",0,6,4,2.5);
-        Device device = deviceList.newDeviceWithoutSpecs("Samsung Microwave",kitchen,"Microwave",0.8);
+        Device device = deviceList.newDevice("Samsung Microwave",DeviceType.MICROWAVE_OVEN,kitchen,0.8);
         deviceList.addDevice(device);
 
         Device expected= device;
@@ -56,7 +56,7 @@ class DeviceListTest {
     @DisplayName("Ensure getLastElement().getName() returns last element from device list and respective device name")
     void getLastElement() {
         Room kitchen= new Room("Kitchen",0,6,4,2.5);
-        Device microwave = new Device("Samsung Microwave",kitchen,DeviceType.MICROWAVE_OVEN.getType(),0.8);
+        Device microwave = new Device("Samsung Microwave",DeviceType.MICROWAVE_OVEN,kitchen,0.8);
         Fridge fridge = new Fridge(DeviceType.FRIDGE,50,350,50);
         Device dFridge = new Device("LG Fridge",fridge,kitchen,1.5);
 
@@ -73,11 +73,11 @@ class DeviceListTest {
     @DisplayName("Ensure get(0).getDeviceType methods returns first element of deviceList and respective deviceType")
     void get() {
         Room kitchen= new Room("Kitchen",0,6,4,2.5);
-        Device microwave = new Device("Samsung Microwave",kitchen,DeviceType.MICROWAVE_OVEN.getType(),0.8);
+        Device microwave = new Device("Samsung Microwave",DeviceType.MICROWAVE_OVEN,kitchen,0.8);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(microwave);
 
-        String expectedResult= deviceList.get(0).getDeviceType();
+        String expectedResult= deviceList.get(0).getType();
         String result= "Microwave Oven";
 
         assertEquals(expectedResult,result);
@@ -88,7 +88,7 @@ class DeviceListTest {
     void showDeviceListInString() {
         Room kitchen= new Room("Kitchen",0,6,4,2.5);
         DeviceList deviceList = new DeviceList();
-        Device microwave = new Device("Samsung Microwave",kitchen,DeviceType.MICROWAVE_OVEN.getType(),0.8);
+        Device microwave = new Device("Samsung Microwave",DeviceType.MICROWAVE_OVEN,kitchen,0.8);
         Fridge fridge = new Fridge(DeviceType.FRIDGE,50,350,50);
         Device dFridge = new Device("LG Fridge",fridge,kitchen,1.5);
         deviceList.addDevice(microwave);
@@ -97,4 +97,5 @@ class DeviceListTest {
         String result= deviceList.showDeviceListInString();
         assertEquals(expected,result);
     }
+
 }

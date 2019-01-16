@@ -35,21 +35,8 @@ public class DeviceList {
      * @param nominalPower of the device
      * @return a new Device instance
      */
-    public Device newDeviceWithSpecs(String name, DeviceSpecs deviceSpecs, Room room, double nominalPower) {
+    public Device newDevice(String name, DeviceSpecs deviceSpecs, Room room, double nominalPower) {
         return new Device(name, deviceSpecs, room, nominalPower);
-    }
-
-    /**
-     * Method that creates a local instance of a device that only require generic features to any type of device
-     *
-     * @param name         of the device
-     * @param room         where the device will be installed
-     * @param deviceType   the type of device
-     * @param nominalPower of the device
-     * @return a new Device instance
-     */
-    public Device newDeviceWithoutSpecs(String name, Room room, String deviceType, double nominalPower) {
-        return new Device(name, room, deviceType, nominalPower);
     }
 
     /**
@@ -85,11 +72,7 @@ public class DeviceList {
             result.append(element);
             result.append(device.getName());
             result.append(typeStr);
-            if (device.getDeviceType() != null)
-                result.append(device.getDeviceType());
-            else {
-                result.append(device.getType());
-            }
+            result.append(device.getType());
             result.append("\n");
         }
         return result.toString();

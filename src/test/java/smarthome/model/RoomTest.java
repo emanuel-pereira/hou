@@ -169,15 +169,15 @@ public class RoomTest {
 
     /**
      * Check if sum of nominal power of devices in room is correct and return correct number
-     */
+     *//*
     @Test
     public void getCorrectNominalPower() {
 
         Room bedroom = new Room ("bedroom", 1, 2, 3, 2);
         DeviceList dL = bedroom.getDeviceList ();
 
-        Device d1 = dL.newDeviceWithoutSpecs ("fridge", bedroom, "fridge", 100);
-        Device d2 = dL.newDeviceWithoutSpecs("lamp", bedroom, "lamp", 50);
+        Device d1 = dL.newDevice ("fridge", bedroom, "fridge", 100);
+        Device d2 = dL.newDevice("lamp", bedroom, "lamp", 50);
 
         dL.addDevice (d1);
         dL.addDevice (d2);
@@ -190,9 +190,9 @@ public class RoomTest {
         assertEquals (expectedResult, result);
     }
 
-    /**
+    *//**
      * Check if sum of nominal power of devices in room is correct and return incorrect number
-     */
+     *//*
     @Test
     public void getIncorrectNominalPower() {
 
@@ -211,6 +211,6 @@ public class RoomTest {
 
 
         assertNotEquals (expectedResult, result);
-    }
+    }*/
 
 }
