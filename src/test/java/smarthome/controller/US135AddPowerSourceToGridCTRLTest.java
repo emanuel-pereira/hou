@@ -63,7 +63,7 @@ class US135AddPowerSourceToGridCTRLTest {
         house.getHGListInHouse().addHouseGrid(hg02);
 
         String expectedResult = "1 - energygrid01, Nominal Power: 300.0\n2 - energygrid02, Nominal Power: 200.0\n";
-        String result = ctrl135.showHouseGridListInString();
+        String result = ctrl135.showGridListInStringWithInfo ();
         assertEquals(expectedResult,result);
     }
 
