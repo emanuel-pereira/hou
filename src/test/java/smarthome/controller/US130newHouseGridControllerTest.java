@@ -2,9 +2,12 @@ package smarthome.controller;
 
 import org.junit.jupiter.api.Test;
 import smarthome.model.House;
+import smarthome.model.HouseGrid;
 import smarthome.model.HouseGridList;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +15,7 @@ class US130newHouseGridControllerTest {
 
 
     @Test
-    void createNewHouseGrid() {
+    void createNewHouseGridTestSize() {
         House house = new House();
         HouseGridList hgList = new HouseGridList();
         US130newHouseGridController ctrl130 = new US130newHouseGridController(house);
@@ -27,6 +30,27 @@ class US130newHouseGridControllerTest {
         assertEquals(2, ctrl130.getHouseGridList().size());
         //assert a list of grids in String format
         //assertEquals(,ctrl130.getHouseGridListString());
+    }
+
+    @Test
+    void createNewHouseGridTestList() {
+        House house = new House();
+        HouseGridList hgList = new HouseGridList();
+        /*HouseGrid hg1 = new HouseGrid("main",123);
+        HouseGrid hg2 = new HouseGrid("backup",223);
+        house.getHGListInHouse().addHouseGrid(hg1);
+        house.getHGListInHouse().addHouseGrid(hg2);*/
+
+        US130newHouseGridController ctrl130 = new US130newHouseGridController(house);
+        //confirm that initial list size is of zero
+
+        //create new grid
+
+        boolean expectedResult = true;
+        boolean result = ctrl130.createNewHouseGrid("main",123);
+
+        assertEquals(expectedResult,result);
+
     }
 
     @Test
