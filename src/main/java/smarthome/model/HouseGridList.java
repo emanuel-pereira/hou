@@ -55,4 +55,24 @@ public class HouseGridList {
     public HouseGrid get(int i) {
         return this.mHGList.get(i);
     }
+
+
+    /**
+     * Transforms a list of house grids in a numbered list of strings with the ids of the house grids
+     * @return List of house grids in string
+     */
+    public String showHouseGridListInString() {
+        List<HouseGrid> list = getHouseGridList ();
+        StringBuilder result = new StringBuilder ();
+        String element = " - ";
+        int number = 1;
+        for (HouseGrid houseGrid : list) {
+            result.append (number++);
+            result.append (element);
+            result.append (houseGrid.getGridID ());
+            result.append ("\n");
+        }
+        return result.toString ();
+    }
+
 }

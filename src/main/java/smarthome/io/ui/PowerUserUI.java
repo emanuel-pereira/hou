@@ -24,10 +24,10 @@ public class PowerUserUI {
                     System.out.println("US160");
                     break;
                 case 2:
-                    System.out.println("US172");
+                    US172TotalNominalPowerInGridUI uS172 = new US172TotalNominalPowerInGridUI (house);
+                    uS172.run ();
                     break;
                 case 3:
-                    System.out.println("US230");
                     US230TotalNominalPowerRoomUI ui230 = new US230TotalNominalPowerRoomUI(house);
                     ui230.showTotalNominalPowerRoom();
                     break;

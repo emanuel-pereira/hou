@@ -86,5 +86,15 @@ public class RoomList {
         return result.toString ();
     }
 
+    public double getNominalPower(HouseGrid houseGrid) {
+        double sum = 0;
+        for (Room room : this.getRoomList ()) {
+            if (room.getmHouseGrid ().equals (houseGrid)){
+                sum += room.getNominalPower ();
+            }
+        }
+        return sum;
+    }
+
 
 }
