@@ -27,6 +27,21 @@ class US230TotalNominalPowerRoomCTRLTest {
     }
 
     @Test
+    void getRoomNameCtrlTest() {
+        House house = new House();
+        US230TotalNominalPowerRoomCTRL ctrl230 = new US230TotalNominalPowerRoomCTRL(house);
+        Room r1 = new Room("cozinha",1,10,20,3);
+        Room r2 = new Room("sala",1,10,20,3);
+        house.getRoomListFromHouse().addRoom(r1);
+        house.getRoomListFromHouse().addRoom(r2);
+
+        String expectedResult = "cozinha";
+        String result = ctrl230.getRoomNameCtrl(1);
+
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
     void showListRoomInStringTest() {
         House house = new House();
         US230TotalNominalPowerRoomCTRL ctrl230 = new US230TotalNominalPowerRoomCTRL(house);
@@ -64,4 +79,31 @@ class US230TotalNominalPowerRoomCTRLTest {
 
         assertEquals(expectedResult,result);
     }
+
+    @Test
+    void getDeviceListInRoomTest () {
+        House house = new House();
+        US230TotalNominalPowerRoomCTRL ctrl230 = new US230TotalNominalPowerRoomCTRL(house);
+        Room r1 = new Room("cozinha",1,10,20,3);
+        Room r2 = new Room("sala",1,10,20,3);
+        house.getRoomListFromHouse().addRoom(r1);
+        house.getRoomListFromHouse().addRoom(r2);
+
+        Device d1 = new Device("tv",r2,"Television",200);
+        Device d2 = new Device("fridge",r1,"Fridge",300);
+        Device d3 = new Device("stove",r1,"Stove",500);
+        Device d4 = new Device("lamp",r2,"Lamp",100);
+        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d2);
+        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d3);
+        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d1);
+        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d4);
+
+        List <Device> expectedResult = Arrays.asList(d1,d4);
+        List<Device> result = ctrl230.getDeviceListInRoomCtrl(2);
+
+        assertEquals(expectedResult,result);
+    }
+
+
+
 }

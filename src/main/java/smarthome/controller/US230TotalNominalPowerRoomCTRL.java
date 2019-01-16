@@ -17,15 +17,6 @@ public class US230TotalNominalPowerRoomCTRL {
         mHouse = house;
     }
 
-    public US230TotalNominalPowerRoomCTRL (Room room) {
-        mRoom = room;
-    }
-
-    public US230TotalNominalPowerRoomCTRL (RoomList roomList) {
-        mRoomList = roomList;
-    }
-
-
     public List<Room> getRoomListCtrl() {
         return mHouse.getRoomListFromHouse().getRoomList();
     }

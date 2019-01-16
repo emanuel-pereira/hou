@@ -29,6 +29,7 @@ class US130newHouseGridControllerTest {
         //assertEquals(,ctrl130.getHouseGridListString());
     }
 
+
     @Test
     void presentHouseGridsList() {
         House house = new House();
