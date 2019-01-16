@@ -50,7 +50,7 @@ public class SystemAdministrationUI {
                     break;
                 case 6:
                     US6CreateSensorUI ui6 = new US6CreateSensorUI(sensorTypeList, GAList);
-                    ui6.run();
+                    ui6.checkIfGAListIsEmtpy();
                     break;
                 case 7:
                     US7SetParentOfGAUI ui7 = new US7SetParentOfGAUI(GAList);

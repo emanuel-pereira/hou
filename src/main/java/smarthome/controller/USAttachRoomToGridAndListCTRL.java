@@ -23,7 +23,7 @@ public class USAttachRoomToGridAndListCTRL {
             result.append(number++);
             result.append(" - ");
             result.append(houseGrid.getGridID());
-            result.append(" | Nominal Power: ");
+            result.append(" | Maximum Power Output: ");
             result.append(houseGrid.getContractedMaximumPower());
             result.append("\n");
         }

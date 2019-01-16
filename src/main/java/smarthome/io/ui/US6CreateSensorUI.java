@@ -9,279 +9,294 @@ import java.util.*;
 public class US6CreateSensorUI {
     private GAList mGAList;
     private SensorTypeList mSensorTypeList;
-    private US6CreateSensorCTRL mCtrlUS6;
+    private US6CreateSensorCTRL mCtrl;
+
+    //
+    private String mName;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
+    private int mIndexOfSensorType;
+    private GregorianCalendar mCalendar;
+    private double mLatitude;
+    private double mLongitude;
+    private double mAltitude;
+    private String mUnit;
+    private int mIndexOfGA;
+    //to store list of readings inputted by the user before sensor creation
+    ReadingList mReadingList = new ReadingList();
 
 
     public US6CreateSensorUI(SensorTypeList sensorTypeList, GAList listOfGA) {
-        mCtrlUS6 = new US6CreateSensorCTRL(sensorTypeList, listOfGA);
+        mCtrl = new US6CreateSensorCTRL(sensorTypeList, listOfGA);
         mGAList = listOfGA;
         mSensorTypeList = sensorTypeList;
     }
 
-
     Scanner read = new Scanner(System.in);
-    GPSValidations v = new GPSValidations();
-
-    ReadingList readingList = new ReadingList();
-
-    String tempMonth;
-    String tempMonthOfReading;
-
-    public void run() {
-        String tempYear;
-        String tempDay;
-        String tempYearOfReading;
-        String tempDayOfReading;
-        String tempHourOfReading;
-        if (mGAList.getGAList().size() != 0) {
-            if (mSensorTypeList.getSensorTypeList().size() != 0) {
-                String name;
-                while (true) {
-                    System.out.println("Insert a name for the sensor:");
-                    name = nameIsValid();
-                    if (name != null)
-                        break;
-                    else
-                        System.out.println("Please insert a valid name");
-                }
-                int year;
-                while (true) {
-                    System.out.println("Insert the year when the sensor will start:");
-                    tempYear = yearIsValid();
-                    if (tempYear != null)
-                        break;
-                }
-                int month;
-                while (true) {
-                    System.out.println("Insert the month when the sensor will start(insert values between 1 and 12):");
-                    tempMonth = monthIsValid();
-                    if (tempMonth != null)
-                        break;
-                }
-                int day;
-                while (true) {
-                    System.out.println("Insert the day when the sensor will start:");
-                    tempDay = dayIsValid();
-                    if (tempDay != null)
-                        break;
-                }
-                year = Integer.parseInt(tempYear);
-                month = Integer.parseInt(tempMonth);
-                day = Integer.parseInt(tempDay);
-
-                GregorianCalendar calendar = new GregorianCalendar(year, month, day);
-                int sensorTypeIndex;
-                while (true) {
-                    System.out.println("Choose a type for the sensor from one of the sensor types below:");
-                    System.out.println(mCtrlUS6.showSensorTypeListInString());
-                    sensorTypeIndex = read.nextInt();
-                    read.nextLine();
-                    if (sensorTypeIndex > mSensorTypeList.getSensorTypeList().size())
-                        System.out.println("Please insert a valid option \n.");
-                    else break;
-                }
-                String option;
-
-                while (true) {
-                    System.out.println("Do you want to insert readings for the sensor(y/n)?");
-                    option = read.nextLine();
-                    if (option.matches("n")) {
-                        break;
-                    }
-                    if (option.matches("y")) {
-                        int yearOfReading;
-                        int monthOfReading;
-                        int dayOfReading;
-                        int hourOfReading;
-                        double readingValue;
-
-                        while (true) {
-                            System.out.println("Insert the year when the reading was made:");
-                            tempYearOfReading = yearIsValid();
-                            if (tempYearOfReading != null)
-                                break;
-                        }
-                        while (true) {
-                            System.out.println("Insert the month when the reading was made:");
-                            tempMonthOfReading = monthIsValid();
-                            if (tempMonthOfReading != null)
-                                break;
-                        }
-
-                        while (true) {
-                            System.out.println("Insert the day when the reading was made:");
-                            tempDayOfReading = dayIsValid();
-                            if (tempDayOfReading != null)
-                                break;
-                        }
-
-                        while (true) {
-                            System.out.println("Insert the hour when the reading was made:");
-                            tempHourOfReading = hourIsValid();
-                            if (tempHourOfReading != null)
-                                break;
-                        }
-
-                        System.out.println("Insert the value of the reading:");
-                        readingValue = read.nextDouble();
-                        read.nextLine();
-
-                        yearOfReading = Integer.parseInt(tempYearOfReading);
-                        monthOfReading = Integer.parseInt(tempMonthOfReading);
-                        dayOfReading = Integer.parseInt(tempDayOfReading);
-                        hourOfReading = Integer.parseInt(tempHourOfReading);
-
-                        GregorianCalendar date = new GregorianCalendar(yearOfReading, monthOfReading, dayOfReading, hourOfReading, 0);
-                        Reading r = readingList.newReading(readingValue, date);
-                        readingList.addReading (r);
-                    }
-                }
-
-                String unit;
-                System.out.println("Insert the unit the sensor will read:");
-                unit = read.nextLine();
-
-                double latitude;
-                while (true) {
-                    try {
-                        System.out.println("Insert the latitude of the new sensor:");
-                        latitude = read.nextDouble();
-                        if (v.latitudeIsValid(latitude))
-                            break;
-                    } catch (InputMismatchException ex) {
-                        System.out.println(ex.getMessage());
-                    }
-                }
-
-                double longitude;
-                while (true) {
-                    try {
-                        System.out.println("Insert the longitude of the new sensor:");
-                        longitude = read.nextDouble();
-                        if (v.longitudeIsValid(longitude))
-                            break;
-                    } catch (InputMismatchException ex) {
-                        System.out.println(ex.getMessage());
-                    }
-                }
 
 
-                double altitude;
-                while (true) {
-                    try {
+    public void checkIfGAListIsEmtpy() {
 
-                        System.out.println("Insert the altitude of the new sensor:");
-                        altitude = read.nextDouble();
-                        if (v.altitudeIsValid(altitude))
-                            break;
-                    } catch (InputMismatchException ex) {
-                        System.out.println(ex.getMessage());
-                    }
-                }
-
-                int indexGA;
-                while (true) {
-                    System.out.println("Choose the Geographical Area for which you want add this sensor, from the list below:");
-                    System.out.println(mCtrlUS6.showGAListInString());
-                    indexGA = read.nextInt();
-                    if (indexGA > mGAList.getGAList().size())
-                        System.out.println("Please insert a valid option \n.");
-                    else break;
-                }
-                mCtrlUS6.addNewSensorToGA(name, calendar, sensorTypeIndex, unit, latitude, longitude, altitude, indexGA, readingList);
-                System.out.println("The following sensor was successfully created: ");
-                System.out.println("NAME: " + name);
-                System.out.println("GEOGRAPHICAL AREA: "+ mGAList.get(indexGA - 1).getGeographicalAreaDesignation());
-                System.out.println("START DATE: "+year+"/"+month+"/"+"/"+day);
-                System.out.println("TYPE: "+ mSensorTypeList.getSensorTypeList().get(sensorTypeIndex-1).getSensorTypeDesignation());
-                System.out.println("UNITS: "+unit);
-                System.out.println("LIST OF READINGS:");
-                for (Reading r : readingList.getReadingList ()) {
-                    System.out.println("[timestamp: " + r.getDateAndTime().getTime() + " value: " + r.returnValueOfReading()+"]");
-                }
-                System.out.println("GPS LOCATION - [Latitude: "+latitude+" | Longitude: "+longitude+" | Altitude: "+altitude+"]");
-
-            } else
-                System.out.println("List of sensor's reading data types is empty. Please insert at least one first in US5.");
-        } else
+        if (mGAList.getGAList().isEmpty()) {
             System.out.println("List of Geographical Areas is empty. Please insert at least one Geographical Area in US3.");
+            return;
+        }
+        this.checkIfSensorTypeListIsEmtpy();
     }
 
-
-    private String yearIsValid() {
-        String year = read.nextLine();
-        if (year == null || year.trim().isEmpty()) {
-            System.out.println("Empty spaces are not accepted");
-            return null;
+    public void checkIfSensorTypeListIsEmtpy() {
+        if (mSensorTypeList.getSensorTypeList().isEmpty()) {
+            System.out.println("List of sensor's reading data types is empty. Please insert at least one first in US5.");
+            return;
         }
-        if (!year.matches("^201[0-9]|20[2-9][0-9]$")) { //only accepts years between 2010 and 2099
-            System.out.println("Please insert a valid year between 2010 and 2099.");
-            return null;
-        }
-        return year;
+        this.inputName();
     }
 
-    private String monthIsValid() {
-        String month = read.nextLine();
-        if (month == null || month.trim().isEmpty()) {
-            System.out.println("Empty spaces are not accepted");
-            return null;
+    public void inputName() {
+        while (true) {
+            System.out.println("Insert a name for the sensor:");
+            mName = read.nextLine();
+            mName = mCtrl.nameIsValid(mName);
+            if (mName != null){
+                this.inputStartYear();
+                break;}
+            else
+                System.out.println("Please insert a valid name");
         }
-        if (!month.matches("^([1-9]|1[0-2])$")) { //only accepts values between 1 and 12
-            System.out.println("Please insert a valid month.");
-            return null;
-        }
-        return month;
     }
 
-    private String dayIsValid() {
-        String day = read.nextLine();
-        if (day == null || day.trim().isEmpty()) {
-            System.out.println("Empty spaces are not accepted");
-            return null;
-        }
-        if (!day.matches("^(3[01]|[12][0-9]|[1-9])$")) { //only accepts values between 1 and 31
-            System.out.println("Please insert a valid day.");
-            return null;
-        }
-        if (tempMonth.matches("^(4|6|9|11)$")) {
-            if (day.matches("^31$")) {
-                System.out.println("Please insert a valid day for the selected month: (" + tempMonth + ")");
-                return null;
+    public void inputStartYear() {
+        while (true) {
+            System.out.println("Insert the year when the sensor will start:");
+            String inputYear = read.nextLine();
+            inputYear = mCtrl.yearIsValid(inputYear);
+            if (inputYear != null) {
+                mYear = Integer.parseInt(inputYear);
+                this.inputStartMonth();
+                break;
             }
         }
-        if (tempMonth.matches("^2$")) {
-            if (day.matches("^(29|30|31)$")) {
-                System.out.println("Please insert a valid day for the selected month: (" + tempMonth + ")");
-                return null;
+    }
+
+    public void inputStartMonth() {
+        while (true) {
+            System.out.println("Insert the month when the sensor will start(insert values between 1 and 12):");
+            String inputMonth = read.nextLine();
+            inputMonth = mCtrl.monthIsValid(inputMonth);
+            if (inputMonth != null) {
+                mMonth = Integer.parseInt(inputMonth);
+                this.inputStartDay();
+                break;
             }
         }
-        return day;
     }
 
-    private String hourIsValid() {
-        String hour = read.nextLine();
-        if (hour == null || hour.trim().isEmpty()) {
-            System.out.println("Empty spaces are not accepted");
-            return null;
+    public void inputStartDay() {
+        while (true) {
+            System.out.println("Insert the day when the sensor will start:");
+            String inputDay = read.nextLine();
+            inputDay = mCtrl.dayIsValid(inputDay, mMonth, mYear);
+            if (inputDay != null) {
+                mDay = Integer.parseInt(inputDay);
+                this.createStartDate();
+                break;
+            }
         }
-        if (!hour.matches("^(2[0-4]|[1][0-9]|[1-9])")) { //only accepts values between 1 and 12
-            System.out.println("Please insert a valid hour.");
-            return null;
-        }
-        return hour;
     }
 
-    private String nameIsValid() {
-        String name = read.nextLine();
-        if (name == null || name.trim().isEmpty()) {
-            System.out.println("Empty spaces are not accepted.");
-            return null;
+    public void createStartDate() {
+        mCalendar = new GregorianCalendar(mYear, mMonth, mDay);
+        this.inputSensorType();
+    }
+
+    public void inputSensorType() {
+        while (true) {
+            System.out.println("Choose a type for the sensor from one of the sensor types below:");
+            System.out.println(mCtrl.showSensorTypeListInString());
+            mIndexOfSensorType = read.nextInt();
+            read.nextLine();
+            if (!(mIndexOfSensorType > mSensorTypeList.getSensorTypeList().size())) {
+                System.out.println("Please fill in the following fields to add at least a reading to a sensor: \n");
+                this.inputReading();
+                break;
+            }
+            System.out.println("Please insert a valid option \n.");
         }
-        if (!name.matches("^[A-Za-z -]+$")) { //accepts alphanumeric characters, spaces
-            System.out.println("Please insert only alphabetic characters with spaces or hyphens.");
-            return null;
+    }
+
+    public void inputReading() {
+        int yearOfReading = getYearOfReading();
+        int monthOfReading = getMonthOfReading();
+        int dayOfReading = getDayOfReading(yearOfReading, monthOfReading);
+        int hourOfReading = getHourOfReading();
+        System.out.println("Insert the value of the reading:");
+        double readingValue = read.nextDouble();
+        read.nextLine();
+        GregorianCalendar date = new GregorianCalendar(yearOfReading, monthOfReading, dayOfReading, hourOfReading, 0);
+        Reading r = mReadingList.newReading(readingValue, date);
+        mReadingList.addReading(r);
+        this.askToAddNewReadings();
+    }
+
+    private int getYearOfReading() {
+        int yearOfReading;
+        while (true) {
+            System.out.println("Insert the year when the reading was made:");
+            String inputYearOfReading = read.nextLine();
+            inputYearOfReading = mCtrl.yearIsValid(inputYearOfReading);
+            if (inputYearOfReading != null) {
+                yearOfReading = Integer.parseInt(inputYearOfReading);
+                break;
+            }
         }
-        return name;
+        return yearOfReading;
+    }
+
+    private int getMonthOfReading() {
+        int monthOfReading;
+        while (true) {
+            System.out.println("Insert the month when the reading was made:");
+            String inputMonthOfReading = read.nextLine();
+            inputMonthOfReading = mCtrl.monthIsValid(inputMonthOfReading);
+            if (inputMonthOfReading != null) {
+                monthOfReading = Integer.parseInt(inputMonthOfReading);
+                break;
+            }
+        }
+        return monthOfReading;
+    }
+
+    private int getDayOfReading(int yearOfReading, int monthOfReading) {
+        int dayOfReading;
+        while (true) {
+            System.out.println("Insert the day when the reading was made:");
+            String inputDayOfReading = read.nextLine();
+            inputDayOfReading = mCtrl.dayIsValid(inputDayOfReading, monthOfReading, yearOfReading);
+            if (inputDayOfReading != null) {
+                dayOfReading = Integer.parseInt(inputDayOfReading);
+                break;
+            }
+        }
+        return dayOfReading;
+    }
+
+    private int getHourOfReading() {
+        int hourOfReading;
+        while (true) {
+            System.out.println("Insert the hour when the reading was made:");
+            String inputHourOfReading = read.nextLine();
+            inputHourOfReading = mCtrl.hourIsValid(inputHourOfReading);
+            if (inputHourOfReading != null) {
+                hourOfReading = Integer.parseInt(inputHourOfReading);
+                break;
+            }
+        }
+        return hourOfReading;
+    }
+
+    public void askToAddNewReadings() {
+        String option;
+        while (true) {
+            System.out.println("Do you want to insert new readings for the sensor(y/n)?");
+            option = read.nextLine();
+            if (option.matches("n")) {
+                inputSensorUnit();
+                break;
+            }
+            if (option.matches("y")) {
+                this.inputReading();
+            }
+        }
+
+    }
+
+    public void inputSensorUnit() {
+        System.out.println("Insert the unit the sensor will read:");
+        mUnit = read.nextLine();
+        this.inputGPSLocation();
+    }
+
+    public void inputGPSLocation() {
+        getLatitude();
+        getLongitude();
+        getAltitude();
+    }
+
+    private void getLatitude() {
+        while (true) {
+            try {
+                System.out.println("Insert the latitude of the new sensor:");
+                mLatitude = read.nextDouble();
+                if (mCtrl.latitudeIsValid(mLatitude)) {
+                    break;
+                }
+            } catch (IllegalArgumentException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+
+    private void getLongitude() {
+        while (true) {
+            try {
+                System.out.println("Insert the longitude of the new sensor:");
+                mLongitude = read.nextDouble();
+                if (mCtrl.longitudeIsValid(mLongitude))
+                    break;
+            } catch (IllegalArgumentException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+
+    private void getAltitude() {
+        while (true) {
+            try {
+
+                System.out.println("Insert the altitude of the new sensor:");
+                mAltitude = read.nextDouble();
+                if (mCtrl.altitudeIsValid(mAltitude))
+                    this.inputGAOfSensor();
+                break;
+            } catch (IllegalArgumentException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
+
+    public void inputGAOfSensor() {
+        while (true) {
+            System.out.println("Choose the Geographical Area for which you want add this sensor, from the list below:");
+            System.out.println(mCtrl.showGAListInString());
+            mIndexOfGA = read.nextInt();
+            if (mIndexOfGA > mGAList.getGAList().size())
+                System.out.println("Please insert a valid option \n.");
+            else this.addSensorToGA();
+            break;
+        }
+    }
+
+    public void addSensorToGA() {
+        mCtrl.addNewSensorToGA(mName, mCalendar, mIndexOfSensorType, mUnit, mLatitude, mLongitude, mAltitude, mIndexOfGA, mReadingList);
+        System.out.println("The following sensor was successfully created: ");
+        System.out.println("NAME: " + mName);
+        System.out.println("GEOGRAPHICAL AREA: " + mGAList.get(mIndexOfGA - 1).
+
+                getGeographicalAreaDesignation());
+        System.out.println("START DATE: " + mYear + "/" + mMonth + "/" + "/" + mDay);
+        System.out.println("TYPE: " + mSensorTypeList.getSensorTypeList().
+
+                get(mIndexOfSensorType - 1).
+
+                getSensorTypeDesignation());
+        System.out.println("UNITS: " + mUnit);
+        System.out.println("LIST OF READINGS:");
+        for (
+                Reading r : mReadingList.getReadingList()) {
+            System.out.println("[timestamp: " + r.getDateAndTime().getTime() + " value: " + r.returnValueOfReading() + "]");
+        }
+        System.out.println("GPS LOCATION - [Latitude: " + mLatitude + " | Longitude: " + mLongitude + " | Altitude: " + mAltitude + "]");
+
     }
 }

@@ -26,7 +26,7 @@ class USAttachRoomToGridAndListCTRLTest {
         house.getHGListInHouse().addHouseGrid(grid1);
         house.getHGListInHouse().addHouseGrid(grid2);
 
-        String expected = "1 - Grid 1 | Nominal Power: 45.0\n2 - Grid 2 | Nominal Power: 50.0\n";
+        String expected = "1 - Grid 1 | Maximum Power Output: 45.0\n2 - Grid 2 | Maximum Power Output: 50.0\n";
         String result =  ctrl.showHouseGridListInString();
 
         assertEquals(expected,result);

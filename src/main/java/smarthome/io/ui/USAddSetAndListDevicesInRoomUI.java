@@ -18,11 +18,11 @@ public class USAddSetAndListDevicesInRoomUI {
     }
 
     //Generic attributes of any device regardless of its type:
-    int mRoomIndex;
-    String mName;
-    double mNominalPower;
-    int mDeviceTypeIndex;
-    String insertValidOption = "Please insert a valid option \n.";
+    private int mRoomIndex;
+    private String mName;
+    private double mNominalPower;
+    private int mDeviceTypeIndex;
+    private String insertValidOption = "Please insert a valid option \n.";
 
     public void selectOption() {
         int option = -1;
@@ -32,7 +32,8 @@ public class USAddSetAndListDevicesInRoomUI {
             System.out.println("2 - Get a list of all Devices in a Room");
             System.out.println("3 - Edit the configuration of an existing device");
             System.out.println("0 - Exit");
-            option = Integer.parseInt(read.nextLine());
+            option = read.nextInt();
+            read.nextLine();
             switch (option) {
                 case 1:
                     this.roomSelectionToAddDevice();
@@ -47,7 +48,6 @@ public class USAddSetAndListDevicesInRoomUI {
             }
         }
     }
-
 
     public void roomSelectionToAddDevice() {
 
