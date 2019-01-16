@@ -11,7 +11,7 @@ class DeviceTest {
     @DisplayName("Ensure getRoom method from microwave returns kitchen")
     void getRoom() {
         Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
-        Device microwave = new Device("Samsung Microwave", kitchen, DeviceType.MICROWAVE_OVEN.getType(), 0.8);
+        Device microwave = new Device("Samsung Microwave", DeviceType.MICROWAVE_OVEN,kitchen, 0.8);
 
         Room expected = kitchen;
         Room result = microwave.getRoom();
@@ -22,7 +22,7 @@ class DeviceTest {
     @Test
     void getNominalPower() {
         Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
-        Device microwave = new Device("Samsung Microwave", kitchen, DeviceType.MICROWAVE_OVEN.getType(), 0.8);
+        Device microwave = new Device("Samsung Microwave", DeviceType.MICROWAVE_OVEN,kitchen,0.8);
 
         double expected = 0.8;
         double result = microwave.getNominalPower();

@@ -65,10 +65,10 @@ class US230TotalNominalPowerRoomCTRLTest {
         house.getRoomListFromHouse().addRoom(r1);
         house.getRoomListFromHouse().addRoom(r2);
 
-        Device d1 = new Device("tv",r2,"Television",200);
-        Device d2 = new Device("fridge",r1,"Fridge",300);
-        Device d3 = new Device("stove",r1,"Stove",500);
-        Device d4 = new Device("lamp",r2,"Lamp",100);
+        Device d1 = new Device("tv",DeviceType.TV,r2,200);
+        Device d2 = new Device("fridge",DeviceType.FRIDGE,r1,300);
+        Device d3 = new Device("stove",DeviceType.STOVE,r1,500);
+        Device d4 = new Device("lamp",DeviceType.LAMP,r2,100);
         house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d2);
         house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d3);
         house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d1);
@@ -88,11 +88,10 @@ class US230TotalNominalPowerRoomCTRLTest {
         Room r2 = new Room("sala",1,10,20,3);
         house.getRoomListFromHouse().addRoom(r1);
         house.getRoomListFromHouse().addRoom(r2);
-
-        Device d1 = new Device("tv",r2,"Television",200);
-        Device d2 = new Device("fridge",r1,"Fridge",300);
-        Device d3 = new Device("stove",r1,"Stove",500);
-        Device d4 = new Device("lamp",r2,"Lamp",100);
+        Device d1 = new Device("tv",DeviceType.TV,r2,200);
+        Device d2 = new Device("fridge",DeviceType.FRIDGE,r1,300);
+        Device d3 = new Device("stove",DeviceType.STOVE,r1,500);
+        Device d4 = new Device("lamp",DeviceType.LAMP,r2,100);
         house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d2);
         house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d3);
         house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d1);

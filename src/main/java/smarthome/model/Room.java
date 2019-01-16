@@ -3,7 +3,7 @@ package smarthome.model;
 import java.util.List;
 import java.util.Objects;
 
-public class Room implements Metered{
+public class Room implements Powered {
 
     private String mName;
     private Integer mFloor;

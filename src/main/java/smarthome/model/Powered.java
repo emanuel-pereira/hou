@@ -1,6 +1,6 @@
 package smarthome.model;
 
-public interface Metered {
+public interface Powered {
 
     double getNominalPower();
 }

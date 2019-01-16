@@ -1,10 +1,9 @@
 package smarthome.model;
 
-public class Device implements DeviceSpecs,Metered{
+public class Device implements DeviceSpecs, Powered {
 
     private String mName;
     private DeviceSpecs mDeviceSpecs;
-    private String mDeviceType;
     private Room mRoom;
     private double mNominalPower;
 
@@ -21,21 +20,6 @@ public class Device implements DeviceSpecs,Metered{
         mRoom=room;
         mNominalPower=nominalPower;
     }
-    /**
-     * Constructor set for devices that only require generic features to any type of device
-     * @param name device name
-     * @param room where the device is installed
-     * @param deviceType the type of device
-     * @param nominalPower of the device
-     */
-    public Device(String name, Room room, String deviceType, double nominalPower){
-        mName=name;
-        mRoom=room;
-        mNominalPower=nominalPower;
-        mDeviceType=deviceType;
-    }
-
-
     /**
      * @return the device name
      */
@@ -62,13 +46,6 @@ public class Device implements DeviceSpecs,Metered{
      */
     public double getNominalPower() {
         return mNominalPower;
-    }
-
-    /**
-     * @return the type of device for a device that only require generic features to any type of device
-     */
-    public String getDeviceType() {
-        return mDeviceType;
     }
 
     /**
