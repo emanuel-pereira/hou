@@ -34,4 +34,7 @@ public class USEnergyConsumptionOfEWHCTRL {
     public boolean valueIsPositive(double value){
         return mNumberValidations.valueIsPositive(value);
     }
+    public boolean isLowerThanHotWater(double coldWaterTemperature){
+        return mHouse.isLowerThanHotWater(coldWaterTemperature);
+    }
 }

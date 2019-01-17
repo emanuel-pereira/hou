@@ -81,6 +81,7 @@ public class DeviceList {
         }
         return result.toString();
     }
+
     public String showElectricWaterHeaterList() {
         DeviceList electricWaterHeaterList = getElectricWaterHeaterList();
         StringBuilder result = new StringBuilder();
@@ -101,7 +102,6 @@ public class DeviceList {
         }
         return electricWaterHeaterList;
     }
-
 
 
     /**
@@ -140,7 +140,18 @@ public class DeviceList {
         }
     }
 
-    public int size(){
+    public boolean isLowerThanHotWater(double coldWaterTemperature) {
+        DeviceList listOfEWH = getElectricWaterHeaterList();
+        for (Device device : listOfEWH.getDeviceList()) {
+
+            if (coldWaterTemperature > ((ElectricWaterHeater) device.getDeviceSpecs()).getHotWaterTemperature())
+                return false;
+
+        }
+        return true;
+    }
+
+    public int size() {
         return mDeviceList.size();
     }
 }

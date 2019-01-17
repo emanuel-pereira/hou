@@ -106,7 +106,7 @@ class DeviceListTest {
         deviceList.addDevice(stove);
         deviceList.setVolumeOfWaterEWHList(65);
         deviceList.setColdWaterTemperatureEWHList(20);
-        double expected = 6123.195;
+        double expected = 146956.68;
         double result = deviceList.getEnergyConsumptionOfEWHList();
         assertEquals(expected, result);
     }
@@ -173,7 +173,7 @@ class DeviceListTest {
                 "5 - Hot water temperature : 65.0\n" +
                 "6 - Cold water temperature : 0.0\n" +
                 "7 - Performance Ratio : 1.0\n" +
-                "8 - Energy Consumption: 0.0 KWh\n" +
+                "8 - Daily Energy Consumption: 0.0 KWh\n" +
                 "\n" +
                 "1 - Device name : Daikin - Electric Water Heater2\n" +
                 "2 - Device room : Kitchen\n" +
@@ -182,9 +182,43 @@ class DeviceListTest {
                 "5 - Hot water temperature : 65.0\n" +
                 "6 - Cold water temperature : 0.0\n" +
                 "7 - Performance Ratio : 1.0\n" +
-                "8 - Energy Consumption: 0.0 KWh\n\n";
+                "8 - Daily Energy Consumption: 0.0 KWh\n\n";
         String result = deviceList.showElectricWaterHeaterList();
         assertEquals(expected, result);
 
+    }
+
+
+    @Test
+    @DisplayName("Ensure that isLowerThanHotWater() method does not accept cold water temperature values higher than any hot water temperature value")
+    void isLowerThanHotWaterReturnsTrue() {
+
+        Room kitchen = new Room("Kitchen", 0, 6, 3.5, 3);
+        ;
+        ElectricWaterHeater ewh1 = new ElectricWaterHeater(65, 1);
+        ElectricWaterHeater ewh2 = new ElectricWaterHeater(60, 0.9);
+        Device dEWH1 = new Device("Daikin - Electric Water Heater1", ewh1, kitchen, 3, DeviceType.ELECTRIC_WATER_HEATER);
+        Device dEWH2 = new Device("Daikin - Electric Water Heater2", ewh2, kitchen, 2.5, DeviceType.ELECTRIC_WATER_HEATER);
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(dEWH1);
+        deviceList.addDevice(dEWH2);
+        boolean result = deviceList.isLowerThanHotWater(58);
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Ensure that isLowerThanHotWater() method does not accept cold water temperature values higher than any hot water temperature value")
+    void isLowerThanHotWaterReturnsFalse() {
+
+        Room kitchen = new Room("Kitchen", 0, 6, 3.5, 3);
+        ElectricWaterHeater ewh1 = new ElectricWaterHeater(65, 1);
+        ElectricWaterHeater ewh2 = new ElectricWaterHeater(60, 0.9);
+        Device dEWH1 = new Device("Daikin - Electric Water Heater1", ewh1, kitchen, 3, DeviceType.ELECTRIC_WATER_HEATER);
+        Device dEWH2 = new Device("Daikin - Electric Water Heater2", ewh2, kitchen, 2.5, DeviceType.ELECTRIC_WATER_HEATER);
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(dEWH1);
+        deviceList.addDevice(dEWH2);
+        boolean result = deviceList.isLowerThanHotWater(66);
+        assertFalse(result);
     }
 }

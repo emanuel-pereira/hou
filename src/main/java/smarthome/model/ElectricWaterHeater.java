@@ -60,12 +60,12 @@ public class ElectricWaterHeater implements DeviceSpecs,Metered {
         result.append("\n");
         result.append("7 - Performance Ratio : " + this.mPerformanceRatio);
         result.append("\n");
-        result.append("8 - Energy Consumption: "+this.getEnergyConsumption()+" KWh");
+        result.append("8 - Daily Energy Consumption: "+this.getEnergyConsumption()+" KWh");
         result.append("\n");
         return result.toString();
     }
 
     public double getEnergyConsumption() {
-        return mEnergyConsumption=1.163 * mVolumeOfWater * (mHotWaterTemperature - mColdWaterTemperature) * mPerformanceRatio;
+        return mEnergyConsumption=(1.163 * mVolumeOfWater * (mHotWaterTemperature - mColdWaterTemperature) * mPerformanceRatio)*24;
     }
 }

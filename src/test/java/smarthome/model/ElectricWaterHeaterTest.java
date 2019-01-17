@@ -34,7 +34,7 @@ class ElectricWaterHeaterTest {
                 "5 - Hot water temperature : 18.0\n" +
                 "6 - Cold water temperature : 0.0\n" +
                 "7 - Performance Ratio : 0.9\n" +
-                "8 - Energy Consumption: 0.0 KWh\n";
+                "8 - Daily Energy Consumption: 0.0 KWh\n";
         assertEquals(expected, result);
     }
 }

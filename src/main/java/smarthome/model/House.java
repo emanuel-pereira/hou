@@ -134,6 +134,24 @@ public class House {
         return totalEnergyConsumption;
     }
 
+    /**
+     * Method to ensure that cold water value inputted by the user must be lower than the lowest hot
+     * temperature of a Electric Water Heater
+     * @param coldWaterTemperature double inputted as cold water temperature
+     * @return true if cold water temperature inputted by the user is lower than any hot temperature value
+     * of all devices of type Electric Water Heater
+     */
+    public boolean isLowerThanHotWater(double coldWaterTemperature) {
+        for (Room room : mRoomList.getRoomList()) {
+            if (room.getDeviceList().isLowerThanHotWater(coldWaterTemperature)==false)
+                return false;
+        }
+        return true;
+    }
+
+    /**
+     * @return Displays all devices of type Electric Water Heater in string and respective attributes
+     */
     public String showElectricWaterHeaterList() {
         StringBuilder result = new StringBuilder();
         String element = "ELECTRIC WATER HEATER \n";
