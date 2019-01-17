@@ -28,7 +28,7 @@ public class US230TotalNominalPowerRoomUI {
                 if(indexRoom > mCtrlUS230.getRoomListCtrl().size())
                     System.out.println("Please insert a valid option.\n");
                 if(mCtrlUS230.getDeviceListInRoomCtrl(indexRoom).size() == 0){
-                    System.out.println("No Devices were found, please add a Device to a Room in US210");
+                    System.out.println("No Devices were found, please add a Device to a Room");
                     break;
                 }
                 else {
@@ -38,7 +38,7 @@ public class US230TotalNominalPowerRoomUI {
             }
         }
         if(mCtrlUS230.getRoomListCtrl().size() == 0) {
-            System.out.println("No Rooms have been found, please create some in US105");
+            System.out.println("No Rooms have been found, please create at least one");
         }
         else{
             System.out.println("\n");

@@ -36,16 +36,7 @@ class US130newHouseGridControllerTest {
     void createNewHouseGridTestList() {
         House house = new House();
         HouseGridList hgList = new HouseGridList();
-        /*HouseGrid hg1 = new HouseGrid("main",123);
-        HouseGrid hg2 = new HouseGrid("backup",223);
-        house.getHGListInHouse().addHouseGrid(hg1);
-        house.getHGListInHouse().addHouseGrid(hg2);*/
-
         US130newHouseGridController ctrl130 = new US130newHouseGridController(house);
-        //confirm that initial list size is of zero
-
-        //create new grid
-
         boolean expectedResult = true;
         boolean result = ctrl130.createNewHouseGrid("main",123);
 

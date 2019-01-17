@@ -36,7 +36,7 @@ public class House {
         mGA = houseGA;
     }
 
-    public GeographicalArea getHouseGA (){
+    public GeographicalArea getHouseGA() {
         return mGA;
     }
 
@@ -68,8 +68,8 @@ public class House {
         double minDistance = getHouseLocation().calcLinearDistanceBetweenTwoPoints(listSensorsOfType.getSensorList().get(0).getLocation(), mAddress.getGPSLocation());
 
         for (Sensor sensor : listSensorsOfType.getSensorList()) {
-            if (minDistance > getHouseLocation().calcLinearDistanceBetweenTwoPoints(mAddress.getGPSLocation(),sensor.getLocation())&& !sensor.getReadingList().getReadingList().isEmpty()) {
-                minDistance = getHouseLocation().calcLinearDistanceBetweenTwoPoints( mAddress.getGPSLocation(),sensor.getLocation());
+            if (minDistance > getHouseLocation().calcLinearDistanceBetweenTwoPoints(mAddress.getGPSLocation(), sensor.getLocation()) && !sensor.getReadingList().getReadingList().isEmpty()) {
+                minDistance = getHouseLocation().calcLinearDistanceBetweenTwoPoints(mAddress.getGPSLocation(), sensor.getLocation());
                 nearestSensor = sensor;
             }
 
@@ -100,9 +100,55 @@ public class House {
         return mRoomList;
     }
 
-    public HouseGridList getHGListInHouse () {
+    public HouseGridList getHGListInHouse() {
         return mHGListInHouse;
     }
+
+    /**
+     * Sets volume of water for all devices of type Electric Water Heater that may be installed in any room of the house.
+     *
+     * @param volumeOfWater double value parameter to set the volume of water of every Electric Water Heater installed in all rooms of the house.
+     */
+    public void setVolumeOfWaterInGlobalEWHList(double volumeOfWater) {
+        for (Room room : mRoomList.getRoomList())
+            room.getDeviceList().setVolumeOfWaterEWHList(volumeOfWater);
+    }
+
+    /**
+     * Sets cold water temperature for all devices of type Electric Water Heater that may be installed in any room of the house.
+     *
+     * @param coldWaterTemperature double value parameter to set the cold water temperature of every Electric Water Heater installed in all rooms of the house.
+     */
+    public void setColdWaterTemperatureInGlobalEWHList(double coldWaterTemperature) {
+        for (Room room : mRoomList.getRoomList())
+            room.getDeviceList().setColdWaterTemperatureEWHList(coldWaterTemperature);
+    }
+
+    /**
+     * @return the total energy consumed by all electric water heaters installed in the house.
+     */
+    public double getEnergyConsumptionOfEWHGlobalList() {
+        double totalEnergyConsumption = 0;
+        for (Room room : mRoomList.getRoomList())
+            totalEnergyConsumption += room.getDeviceList().getEnergyConsumptionOfEWHList();
+        return totalEnergyConsumption;
+    }
+
+    public String showElectricWaterHeaterList() {
+        StringBuilder result = new StringBuilder();
+        String element = "ELECTRIC WATER HEATER \n";
+        for (Room room : mRoomList.getRoomList()) {
+            if (room.getDeviceList().getElectricWaterHeaterList().size() != 0) {
+                result.append(element);
+                result.append("Room: ");
+                result.append(room.getName());
+                result.append("\n");
+                result.append(room.getDeviceList().showElectricWaterHeaterList());
+            }
+        }
+        return result.toString();
+    }
+
 
 }
 

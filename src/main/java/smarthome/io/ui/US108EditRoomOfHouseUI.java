@@ -24,11 +24,7 @@ public class US108EditRoomOfHouseUI {
         mCtrlUS108 = new US108EditRoomOfHouseCTRL(inputList);
 
     }
-        /**
-         *  IMPORTANT!
-         *  The room attributes such as name, floor and dimensions can be edited,
-         *  but can´t save the changes that was made.
-         */
+
 
     public void run() {
 
@@ -40,7 +36,7 @@ public class US108EditRoomOfHouseUI {
 
         int indexRoom = read.nextInt();
 
-        System.out.println("Success! Room selected. Edit room name (Spaces characters are not allowed).");
+        System.out.println("Success! Room selected. Edit room name (Space character are not allowed).");
 
         String inputRoomName = read.next();
 
@@ -63,8 +59,8 @@ public class US108EditRoomOfHouseUI {
 
         System.out.println("Success! Room height edited.");
 
-        //System.out.println(mCtrlUS108.showListRoomInString());
-       // mCtrlUS108.setRoom(indexRoom, inputRoomName, inputFloor, inputAreaLength, inputAreaWidth, inputHeight);
+        indexRoom--;
+        mCtrlUS108.setRoom(indexRoom, inputRoomName, inputFloor, inputAreaLength, inputAreaWidth, inputHeight);
         System.out.println("Success. The " + inputRoomName + " on the " + inputFloor + " floor with " + inputHeight + "m of height and " + inputAreaLength * inputAreaWidth + "m² was edited.");
     }
 

@@ -7,6 +7,7 @@ public class Device implements DeviceSpecs, Powered {
     private DeviceType mDeviceType;
     private Room mRoom;
     private double mNominalPower;
+    private Metered mEnergyConsumption;
 
     /**
      * Constructor set for devices with their own specific features
@@ -93,4 +94,10 @@ public class Device implements DeviceSpecs, Powered {
     public String showDeviceSpecsListAttributesInString() {
         return mDeviceSpecs.showDeviceSpecsListAttributesInString();
     }
+
+   /* @Override
+    public double getEnergyConsumption() {
+        return mEnergyConsumption.getEnergyConsumption();
+
+    }*/
 }

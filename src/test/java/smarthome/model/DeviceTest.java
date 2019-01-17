@@ -73,4 +73,17 @@ class DeviceTest {
     }
 
 
+    /*@Test
+    void getEnergyConsumption() {
+        Room kitchen= new Room("Kitchen",0,5,2,3);
+        ElectricWaterHeater ewh= new ElectricWaterHeater(65,1);
+        ewh.setColdWaterTemperature(20);
+        ewh.setVolumeOfWater(65);
+        Device device = new Device("Dakin EWH",ewh,kitchen,7,DeviceType.ELECTRIC_WATER_HEATER);
+        double expected=0;
+        double result=device.getEnergyConsumption();
+        assertEquals(expected,result);
+
+
+    }*/
 }

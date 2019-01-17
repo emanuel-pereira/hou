@@ -35,7 +35,7 @@ public class US135AddPowerSourceToGridUI {
             while (true) {
                 Scanner read1 = new Scanner(System.in);
                 indexHG = read1.nextInt();
-                if (indexHG > mCtrlUS130.getHouseGridList().size())
+                if (indexHG > mCtrlUS130.getHouseGridList().size() || indexHG<=0)
                     System.out.println("Please insert a valid option.\n");
                 else
                     break;

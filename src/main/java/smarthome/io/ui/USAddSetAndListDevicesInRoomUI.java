@@ -130,15 +130,11 @@ public class USAddSetAndListDevicesInRoomUI {
 
         switch (mDeviceTypeIndex) {
             case 1:
-                System.out.println("Insert the volume of water (l):");
-                double volumeOfWater = read.nextDouble();
                 System.out.println("Insert the hot water temperature (ºC):");
                 double hotWaterTemperature = read.nextDouble();
-                System.out.println("Insert the cold water temperature (ºC):");
-                double coldWaterTemperature = read.nextDouble();
                 System.out.println("Insert the performance ratio for the Electric Water Heater:");
                 double performanceRatio = read.nextDouble();
-                ElectricWaterHeater electricWaterHeater = new ElectricWaterHeater(volumeOfWater, hotWaterTemperature, coldWaterTemperature, performanceRatio);
+                ElectricWaterHeater electricWaterHeater = new ElectricWaterHeater(hotWaterTemperature, performanceRatio);
                 mCtrl.addDevice(mRoomIndex, mName, electricWaterHeater, mNominalPower,DeviceType.ELECTRIC_WATER_HEATER);
                 break;
             case 2:
@@ -371,28 +367,28 @@ public class USAddSetAndListDevicesInRoomUI {
         if (selectedDevice.getDeviceType().equals(DeviceType.ELECTRIC_WATER_HEATER)) {
             if (mAtttributeIndex == 4) {
                 System.out.println("Set the Electric Water Heater volume of water:");
-                double volumeOfWater = read.nextInt(); //to validate only positive values
+                double volumeOfWater = read.nextDouble(); //to validate only positive values
                 read.nextLine();
                 mCtrl.setEWHVolumeOfWater(selectedDevice, volumeOfWater);
                 System.out.println("Sucess");
             }
             if (mAtttributeIndex == 5) {
                 System.out.println("Set the Electric Water Heater hot water temperature:");
-                double newHotWaterTemp = read.nextInt(); //to validate only positive values
+                double newHotWaterTemp = read.nextDouble(); //to validate only positive values
                 read.nextLine();
                 mCtrl.setEWHHotWaterTemperature(selectedDevice, newHotWaterTemp);
                 System.out.println("Sucess");
             }
             if (mAtttributeIndex == 6) {
                 System.out.println("Set the Electric Water Heater cold water temperature:");
-                double newColdWaterTemp = read.nextInt(); //to validate only positive values
+                double newColdWaterTemp = read.nextDouble(); //to validate only positive values
                 read.nextLine();
                 mCtrl.setEWHColdWaterTemperature(selectedDevice, newColdWaterTemp);
                 System.out.println("Sucess");
             }
             if (mAtttributeIndex == 7) {
                 System.out.println("Set the Electric Water Heater performance ratio:");
-                double newPerformanceRatio = read.nextInt(); //to validate only positive values
+                double newPerformanceRatio = read.nextDouble(); //to validate only positive values
                 read.nextLine();
                 mCtrl.setEWHPerformanceRatio(selectedDevice, newPerformanceRatio);
                 System.out.println("Sucess");
