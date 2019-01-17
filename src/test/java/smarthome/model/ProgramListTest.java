@@ -12,7 +12,7 @@ class ProgramListTest {
 
     void addProgram() {
         ProgramList programList= new ProgramList();
-        Program p1= new Program(2,50);
+        Program p1= new Program("Fast",50);
         programList.addProgram(p1);
 
         int expected1= 1;
@@ -29,7 +29,7 @@ class ProgramListTest {
     @DisplayName("Ensure newProgram method creates local instance of program and that addProgram method adds it programList")
     void newProgram() {
         ProgramList programList= new ProgramList();
-        Program program = programList.newProgram(2,50);
+        Program program = programList.newProgram("Economic",50);
         programList.addProgram(program);
 
         Program expected= program;

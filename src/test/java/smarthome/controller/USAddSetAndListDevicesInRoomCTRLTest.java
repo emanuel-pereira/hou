@@ -175,7 +175,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     void setEWaterHeaterAttributesTest() {
         House h = new House();
         USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(h);
-        ElectricWaterHeater ewh = new ElectricWaterHeater( 12, 1.5);
+        ElectricWaterHeater ewh = new ElectricWaterHeater(115, 12, 1.5);
         Room r1 = new Room("B", 1, 1, 1, 1);
         Device d1 = new Device("A", ewh, r1, 150.1,DeviceType.ELECTRIC_WATER_HEATER);
 

@@ -26,11 +26,6 @@ public class USAddSetAndListDevicesInRoomCTRL {
         return mHouse.getRoomListFromHouse().get(indexOfRoom-1).getDeviceList().addDevice(device);
     }
 
-   /* public boolean addDeviceWithoutSpecsToRoom(int indexOfRoom, String inputName, String deviceType, double nominalPower){
-        Device device = mHouse.getRoomListFromHouse().get(indexOfRoom-1).getDeviceList().newDeviceWithoutSpecs(inputName,mHouse.getRoomListFromHouse().get(indexOfRoom-1),deviceType,nominalPower);
-        return mHouse.getRoomListFromHouse().get(indexOfRoom-1).getDeviceList().addDevice(device);
-    }
-*/
     /**Method to validate Strings only accepting alphanumeric characters as well as spaces and hyphens.
      * @param inputName valid name
      * @return name if if is

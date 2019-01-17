@@ -130,11 +130,14 @@ public class USAddSetAndListDevicesInRoomUI {
 
         switch (mDeviceTypeIndex) {
             case 1:
+                System.out.println("Insert the volume of water capacity (l) of the Electric Water Heater");
+                int volumeOfWater=read.nextInt();
+                read.nextLine();
                 System.out.println("Insert the hot water temperature (ºC):");
                 double hotWaterTemperature = read.nextDouble();
                 System.out.println("Insert the performance ratio for the Electric Water Heater:");
                 double performanceRatio = read.nextDouble();
-                ElectricWaterHeater electricWaterHeater = new ElectricWaterHeater(hotWaterTemperature, performanceRatio);
+                ElectricWaterHeater electricWaterHeater = new ElectricWaterHeater(volumeOfWater,hotWaterTemperature, performanceRatio);
                 mCtrl.addDevice(mRoomIndex, mName, electricWaterHeater, mNominalPower,DeviceType.ELECTRIC_WATER_HEATER);
                 break;
             case 2:
@@ -145,14 +148,7 @@ public class USAddSetAndListDevicesInRoomUI {
                     System.out.println("Do you want to insert a program for the washing machine(y/n)?");
                     String option = read.nextLine();
                     if (option.matches("y")) {
-                        System.out.println("Insert the duration for the program:");
-                        int duration = read.nextInt();
-                        read.nextLine();
-                        System.out.println("Insert the washing machine consumption in this program:");
-                        double consumption = read.nextDouble();
-                        read.nextLine();
-                        Program program = new Program(duration, consumption);
-                        mProgramList.addProgram(program);
+                        insertNewProgram("washing machine");
                     }
                     if (option.matches("n")) {
                         WashingMachine washingMachine = new WashingMachine(capacity);
@@ -170,14 +166,7 @@ public class USAddSetAndListDevicesInRoomUI {
                     String option = read.nextLine();
 
                     if (option.matches("y")) {
-                        System.out.println("Insert the duration for the program:");
-                        int duration = read.nextInt();
-                        read.nextLine();
-                        System.out.println("Insert the washing machine consumption in this program:");
-                        double consumption = read.nextInt();
-                        read.nextLine();
-                        Program program = new Program(duration, consumption);
-                        mProgramList.addProgram(program);
+                        insertNewProgram("dishwasher");
                     }
                     if (option.matches("n")) {
 
@@ -247,6 +236,16 @@ public class USAddSetAndListDevicesInRoomUI {
         System.out.println("[ROOM]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getRoom().getName());
         System.out.println("[NOMINAL POWER]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getNominalPower());
 
+    }
+
+    private void insertNewProgram(final String deviceType) {
+        System.out.println("Insert a name for the program:");
+        String programName = read.nextLine();
+        System.out.println("Insert the " + deviceType + " consumption in this program:");
+        double consumption = read.nextDouble();
+        read.nextLine();
+        Program program = new Program(programName, consumption);
+        mProgramList.addProgram(program);
     }
 
     public void roomSelectionToListDevice() {

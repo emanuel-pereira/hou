@@ -109,9 +109,9 @@ public class House {
      *
      * @param volumeOfWater double value parameter to set the volume of water of every Electric Water Heater installed in all rooms of the house.
      */
-    public void setVolumeOfWaterInGlobalEWHList(double volumeOfWater) {
+    public void setVolumeOfWaterToHeatInEWHList(double volumeOfWater) {
         for (Room room : mRoomList.getRoomList())
-            room.getDeviceList().setVolumeOfWaterEWHList(volumeOfWater);
+            room.getDeviceList().setVolumeOfWaterToHeat(volumeOfWater);
     }
 
     /**

@@ -1,17 +1,17 @@
 package smarthome.model;
 
 public class Program {
-    private int mDuration;
+    private String mName;
     private double mEnergyConsumption;
 
     /**
-     * Constructor requiring to set a duration and respective energy consumption for any program of a device
-     * @param duration time duration of the program
+     * Constructor requiring to set a program name and respective energy consumption for any programmable device
+     * @param name program name
      * @param energyConsumption the amount of energy consumed by the program
      */
 
-    public Program(int duration, double energyConsumption){
-        mDuration=duration;
+    public Program(String name, double energyConsumption){
+        mName=name;
         mEnergyConsumption=energyConsumption;
     }
 
