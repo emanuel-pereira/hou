@@ -17,7 +17,7 @@ public class RoomListTest {
         RoomList roomList = new RoomList();
 
         //Act
-        Room r1 = new Room("BedRoom",2,3,4,1);
+        Room r1 = new Room("BedRoom", 2, 3, 4, 1);
         roomList.addRoom(r1);
 
         //Assert
@@ -29,7 +29,7 @@ public class RoomListTest {
     void addRoomToList() {
         //Arrange
         RoomList roomList = new RoomList();
-        Room r1 = new Room("LivingRoom",1,3,4,5);
+        Room r1 = new Room("LivingRoom", 1, 3, 4, 5);
 
         //Act
         assertTrue(roomList.addRoom(r1));
@@ -45,8 +45,8 @@ public class RoomListTest {
     public void notAddRepeatedRoom() {
         //Arrange
         RoomList roomList = new RoomList();
-        Room r1 = new Room("Hall",0,1,1,3);
-        Room r2 = new Room("Garage",1,3,3,4);
+        Room r1 = new Room("Hall", 0, 1, 1, 3);
+        Room r2 = new Room("Garage", 1, 3, 3, 4);
 
         //Act
         assertEquals(0, roomList.getRoomList().size());
@@ -66,8 +66,8 @@ public class RoomListTest {
     void removeRoomFromRoomList() {
         //Arrange
         RoomList roomList = new RoomList();
-        Room r1 = new Room("LivingRoom",1,3,4,5);
-        Room r2 = new Room("Garage",0,1,3,1);
+        Room r1 = new Room("LivingRoom", 1, 3, 4, 5);
+        Room r2 = new Room("Garage", 0, 1, 3, 1);
 
         //Act
         roomList.addRoom(r1);
@@ -86,8 +86,8 @@ public class RoomListTest {
     @Test
     @DisplayName("Tests if two sensor designations are different")
     public void checkIfRoomDesignationAreDifferent() {
-        Room r1 = new Room("A",1,3,3,1);
-        Room r2 = new Room("B",2,3,4,5);
+        Room r1 = new Room("A", 1, 3, 3, 1);
+        Room r2 = new Room("B", 2, 3, 4, 5);
 
         boolean result;
 
@@ -101,13 +101,13 @@ public class RoomListTest {
     @DisplayName("Ensure that method size() of RoomList class returns 2")
     void size() {
         RoomList roomList = new RoomList();
-        Room livingRoom = new Room("LivingRoom",1,3,4,5);
-        Room garage = new Room("Garage",0,1,3,1);
+        Room livingRoom = new Room("LivingRoom", 1, 3, 4, 5);
+        Room garage = new Room("Garage", 0, 1, 3, 1);
         roomList.addRoom(livingRoom);
         roomList.addRoom(garage);
-        int expected=2;
-        int result= roomList.size();
-        assertEquals(expected,result);
+        int expected = 2;
+        int result = roomList.size();
+        assertEquals(expected, result);
 
     }
 
@@ -119,40 +119,42 @@ public class RoomListTest {
 
         House h = new House();
 
-        HouseGridList hGl = h.getHGListInHouse ();
-        HouseGrid hG = hGl.newHouseGrid ("mainGrid",800);
-        hGl.addHouseGrid (hG);
+        HouseGridList hGl = h.getHGListInHouse();
+        HouseGrid hG = hGl.newHouseGrid("mainGrid", 800);
+        hGl.addHouseGrid(hG);
 
-        RoomList list = h.getRoomListFromHouse ();
+        RoomList list = h.getRoomListFromHouse();
 
-        Room bedroom = list.createNewRoom ("bedroom", 1, 2, 3, 2);
-        list.addRoom (bedroom);
-        DeviceList dLb = bedroom.getDeviceList ();
-        Room kitchen = list.createNewRoom ("kitchen", 0, 1,2,1.5);
-        list.addRoom (kitchen);
-        DeviceList dLK = kitchen.getDeviceList ();
+        Room bedroom = list.createNewRoom("bedroom", 1, 2, 3, 2);
+        list.addRoom(bedroom);
+        DeviceList dLb = bedroom.getDeviceList();
+        Room kitchen = list.createNewRoom("kitchen", 0, 1, 2, 1.5);
+        list.addRoom(kitchen);
+        DeviceList dLK = kitchen.getDeviceList();
 
-        Device d1 = dLb.newDevice ("lamp1",DeviceType.LAMP,bedroom, 20);
-        Device d2 = dLb.newDevice("lamp2", DeviceType.LAMP,bedroom, 22);
+        Lamp l = new Lamp(20);
 
-        dLb.addDevice (d1);
-        dLb.addDevice (d2);
+        Device d1 = dLb.newDevice("lamp1", DeviceType.LAMP, l, kitchen, 20);
+        Device d2 = dLb.newDevice("lamp2", DeviceType.LAMP, l, bedroom, 22);
 
-        Device d3 = dLb.newDevice ("fridge",DeviceType.FRIDGE, bedroom, 150);
-        Device d4 = dLb.newDevice("dishwasher",DeviceType.DISHWASHER, bedroom, 100);
+        dLb.addDevice(d1);
+        dLb.addDevice(d2);
 
-        dLK.addDevice (d3);
-        dLK.addDevice (d4);
+        Device d3 = dLb.newDevice("fridge", DeviceType.FRIDGE, l,bedroom, 150);
+        Device d4 = dLb.newDevice("dishwasher", DeviceType.DISHWASHER,l, bedroom, 100);
 
-        bedroom.setmHouseGrid (hG);
-        kitchen.setmHouseGrid (hG);
+        dLK.addDevice(d3);
+        dLK.addDevice(d4);
+
+        bedroom.setmHouseGrid(hG);
+        kitchen.setmHouseGrid(hG);
 
 
         double expectedResult = 292;
-        double result = list.getNominalPower (hG);
+        double result = list.getNominalPower(hG);
 
 
-        assertEquals (expectedResult, result);
+        assertEquals(expectedResult, result);
     }
 
 }

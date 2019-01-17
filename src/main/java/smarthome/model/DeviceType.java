@@ -2,7 +2,7 @@ package smarthome.model;
 
 import java.util.EnumSet;
 
-public enum DeviceType implements DeviceSpecs {
+public enum DeviceType {
     ELECTRIC_WATER_HEATER("Electric Water Heater", 1),
     WASHING_MACHINE("Washing Machine", 2),
     DISHWASHER("Dishwasher", 3),
@@ -26,7 +26,7 @@ public enum DeviceType implements DeviceSpecs {
         mIndex = index;
     }
 
-    public String getType() {
+    public String getTypeString() {
         return mDeviceTypeName;
     }
 
@@ -35,23 +35,15 @@ public enum DeviceType implements DeviceSpecs {
     }
 
     public String getTypeFromIndex(int index) {
-        return DeviceType.values()[index].getType();
+        return DeviceType.values()[index].getTypeString();
     }
 
     public static String displayDeviceTypes() {
         StringBuilder result = new StringBuilder();
         String element = " - ";
         for (DeviceType d : EnumSet.allOf(DeviceType.class)) {
-            result.append(d.getIndex()).append(element).append(d.getType()).append(";\n");
+            result.append(d.getIndex()).append(element).append(d.getTypeString()).append(";\n");
         }
         return result.toString();
-    }
-
-    public String showDeviceSpecsListAttributesInString() {
-        String s=null;
-        for (DeviceType d : EnumSet.allOf(DeviceType.class)) {
-            s = d.showDeviceSpecsListAttributesInString();
-        }
-        return s;
     }
 }

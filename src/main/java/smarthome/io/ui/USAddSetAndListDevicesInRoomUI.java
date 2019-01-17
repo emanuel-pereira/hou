@@ -28,6 +28,7 @@ public class USAddSetAndListDevicesInRoomUI {
     Device selectedDevice;
     int mAtttributeIndex;
     int mRoomIndexToChange;
+    OtherDevices others = new OtherDevices();
 
 
     public void selectOption() {
@@ -137,8 +138,8 @@ public class USAddSetAndListDevicesInRoomUI {
                 double coldWaterTemperature = read.nextDouble();
                 System.out.println("Insert the performance ratio for the Electric Water Heater:");
                 double performanceRatio = read.nextDouble();
-                ElectricWaterHeater electricWaterHeater = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, volumeOfWater, hotWaterTemperature, coldWaterTemperature, performanceRatio);
-                mCtrl.addDevice(mRoomIndex, mName, electricWaterHeater, mNominalPower);
+                ElectricWaterHeater electricWaterHeater = new ElectricWaterHeater(volumeOfWater, hotWaterTemperature, coldWaterTemperature, performanceRatio);
+                mCtrl.addDevice(mRoomIndex, mName, electricWaterHeater, mNominalPower,DeviceType.ELECTRIC_WATER_HEATER);
                 break;
             case 2:
                 System.out.println("Insert the capacity(kg):");
@@ -158,8 +159,8 @@ public class USAddSetAndListDevicesInRoomUI {
                         mProgramList.addProgram(program);
                     }
                     if (option.matches("n")) {
-                        WashingMachine washingMachine = new WashingMachine(DeviceType.WASHING_MACHINE, capacity);
-                        mCtrl.addDevice(mRoomIndex, mName, washingMachine, mNominalPower);
+                        WashingMachine washingMachine = new WashingMachine(capacity);
+                        mCtrl.addDevice(mRoomIndex, mName, washingMachine, mNominalPower,DeviceType.WASHING_MACHINE);
                         break;
                     }
                 }
@@ -184,8 +185,8 @@ public class USAddSetAndListDevicesInRoomUI {
                     }
                     if (option.matches("n")) {
 
-                        Dishwasher dishwasher = new Dishwasher(DeviceType.DISHWASHER, capacity);
-                        mCtrl.addDevice(mRoomIndex, mName, dishwasher, mNominalPower);
+                        Dishwasher dishwasher = new Dishwasher(capacity);
+                        mCtrl.addDevice(mRoomIndex, mName, dishwasher, mNominalPower,DeviceType.DISHWASHER);
                         break;
                     }
                 }
@@ -200,36 +201,51 @@ public class USAddSetAndListDevicesInRoomUI {
                 System.out.println("Insert the annual Energy Consumption:");
                 int annualEnergyConsumption = read.nextInt();
                 read.nextLine();
-                Fridge fridge = new Fridge(DeviceType.FRIDGE, freezerCapacity, refrigeratorCapacity, annualEnergyConsumption);
-                mCtrl.addDevice(mRoomIndex, mName, fridge, mNominalPower);
+                Fridge fridge = new Fridge(freezerCapacity, refrigeratorCapacity, annualEnergyConsumption);
+                mCtrl.addDevice(mRoomIndex, mName, fridge, mNominalPower,DeviceType.FRIDGE);
                 break;
             case 5:
+                mCtrl.addDevice(mRoomIndex, mName, others, mNominalPower,DeviceType.KETTLER);
+                break;
             case 6:
+                mCtrl.addDevice(mRoomIndex, mName, others, mNominalPower,DeviceType.OVEN);
+                break;
             case 7:
+                mCtrl.addDevice(mRoomIndex, mName, others, mNominalPower,DeviceType.STOVE);
+                break;
             case 8:
+                mCtrl.addDevice(mRoomIndex, mName, others, mNominalPower,DeviceType.MICROWAVE_OVEN);
+                break;
             case 9:
+                mCtrl.addDevice(mRoomIndex, mName, others, mNominalPower,DeviceType.WALL_ELECTRIC_HEATER);
+                break;
             case 10:
+                mCtrl.addDevice(mRoomIndex, mName, others, mNominalPower,DeviceType.PORTABLE_ELECTRIC_OIL_HEATER);
+                break;
             case 11:
+                mCtrl.addDevice(mRoomIndex, mName, others, mNominalPower,DeviceType.PORTABLE_ELECTRIC_CONVENCTION_HEATER);
+                break;
             case 12:
-            case 14:
-                OtherDevices others = new OtherDevices(DeviceType.values()[mDeviceTypeIndex - 1]);
-                mCtrl.addDevice(mRoomIndex, mName, others, mNominalPower);
+                mCtrl.addDevice(mRoomIndex, mName, others, mNominalPower,DeviceType.WALL_TOWEL_HEATER);
                 break;
             case 13:
                 System.out.println("Insert the lamp luminous flux(lm):");
                 int luminousFlux = read.nextInt();
                 read.nextLine();
-                Lamp lamp = new Lamp(DeviceType.LAMP, luminousFlux);
-                mCtrl.addDevice(mRoomIndex, mName, lamp, mNominalPower);
+                Lamp lamp = new Lamp(luminousFlux);
+                mCtrl.addDevice(mRoomIndex, mName, lamp, mNominalPower,DeviceType.LAMP);
+                break;
+            case 14:
+                mCtrl.addDevice(mRoomIndex, mName, others, mNominalPower,DeviceType.LAMP);
                 break;
             default:
                 System.out.println("Please choose a valid option.");
         }
         System.out.println("The following device was successfully created:");
         if (mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getDeviceSpecs() != null) {
-            System.out.println("[DEVICE TYPE]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getTypeFromIndex(mDeviceTypeIndex - 1));
+            System.out.println("[DEVICE TYPE]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getDeviceType().getTypeString());
         } else {
-            System.out.println("[DEVICE TYPE]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getType());
+            System.out.println("[DEVICE TYPE]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getDeviceType());
         }
         System.out.println("[NAME]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getName());
         System.out.println("[ROOM]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getRoom().getName());
@@ -327,7 +343,7 @@ public class USAddSetAndListDevicesInRoomUI {
             read.nextLine();
             mCtrl.setNominalPower(selectedDevice, mNominalPower);
         }
-        if (selectedDevice.getType().equals(DeviceType.FRIDGE.getType())) {
+        if (selectedDevice.getDeviceType().equals(DeviceType.FRIDGE)) {
             if (mAtttributeIndex == 4) {
                 System.out.println("Set the freezer capacity:");
                 int mFreezerCapacity = read.nextInt(); //to validate only positive values
@@ -343,7 +359,7 @@ public class USAddSetAndListDevicesInRoomUI {
                 System.out.println("Sucess");
             }
         }
-        if (selectedDevice.getType().equals(DeviceType.DISHWASHER.getType())) {
+        if (selectedDevice.getDeviceType().equals(DeviceType.DISHWASHER)) {
             if (mAtttributeIndex == 4) {
                 System.out.println("Set the dishwasher capacity:");
                 int dwCapacity = read.nextInt(); //to validate only positive values
@@ -352,7 +368,7 @@ public class USAddSetAndListDevicesInRoomUI {
                 System.out.println("Sucess");
             }
         }
-        if (selectedDevice.getType().equals(DeviceType.ELECTRIC_WATER_HEATER.getType())) {
+        if (selectedDevice.getDeviceType().equals(DeviceType.ELECTRIC_WATER_HEATER)) {
             if (mAtttributeIndex == 4) {
                 System.out.println("Set the Electric Water Heater volume of water:");
                 double volumeOfWater = read.nextInt(); //to validate only positive values
@@ -382,7 +398,7 @@ public class USAddSetAndListDevicesInRoomUI {
                 System.out.println("Sucess");
             }
         }
-        if (selectedDevice.getType().equals(DeviceType.LAMP.getType())) {
+        if (selectedDevice.getDeviceType().equals(DeviceType.LAMP)) {
             if (mAtttributeIndex == 4) {
                 System.out.println("Set the Lamp Luminous Flux:");
                 int newLuminousFlux = read.nextInt(); //to validate only positive values

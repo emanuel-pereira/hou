@@ -31,25 +31,10 @@ class USAddSetAndListDevicesInRoomCTRLTest {
         Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
         house.getRoomListFromHouse().addRoom(kitchen);
         DeviceList deviceList = new DeviceList();
-        Fridge fridge = new Fridge(DeviceType.FRIDGE, 50, 350, 50);
-        ctrl.addDevice(1, "LG Fridge", fridge, 2);
+        Fridge fridge = new Fridge( 50, 350, 50);
+        ctrl.addDevice(1, "LG Fridge", fridge, 2,DeviceType.FRIDGE);
         String expected = "LG Fridge";
         String result = kitchen.getDeviceList().get(0).getName();
-        assertEquals(expected, result);
-    }
-
-    @Test
-    void addDeviceWithoutSpecsToRoom() {
-        House house = new House();
-        USAddSetAndListDevicesInRoomCTRL ctrl = new USAddSetAndListDevicesInRoomCTRL(house);
-        Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
-        Room livingRoom = new Room("Living Room", 0, 5, 5, 2.5);
-        house.getRoomListFromHouse().addRoom(kitchen);
-        house.getRoomListFromHouse().addRoom(livingRoom);
-        ctrl.addDevice(2, "Sony Tv", DeviceType.TV, 0.2);
-        ctrl.addDevice(2, "Bosch Washing Machine", DeviceType.WASHING_MACHINE, 0.2);
-        String expected = "Bosch Washing Machine";
-        String result = livingRoom.getDeviceList().getLastElement().getName();
         assertEquals(expected, result);
     }
 
@@ -59,10 +44,11 @@ class USAddSetAndListDevicesInRoomCTRLTest {
         USAddSetAndListDevicesInRoomCTRL ctrl = new USAddSetAndListDevicesInRoomCTRL(house);
         Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
         house.getRoomListFromHouse().addRoom(kitchen);
-        Fridge fridge = new Fridge(DeviceType.FRIDGE, 50, 350, 50);
-        ctrl.addDevice(1, "Samsung Microwave", DeviceType.MICROWAVE_OVEN, 0.8);
-        ctrl.addDevice(1, "LG Fridge", fridge, 1.5);
-        String expected = "1 - Device: Samsung Microwave | Type: Microwave Oven\n2 - Device: LG Fridge | Type: Fridge\n";
+        Fridge fridge = new Fridge( 50, 350, 50);
+        OtherDevices otherDevices = new OtherDevices();
+        ctrl.addDevice(1, "Samsung Microwave",otherDevices, 0.8,DeviceType.MICROWAVE_OVEN);
+        ctrl.addDevice(1, "LG Fridge", fridge, 1.5,DeviceType.FRIDGE);
+        String expected = "1 - Device: Samsung Microwave | Type: MICROWAVE_OVEN\n2 - Device: LG Fridge | Type: FRIDGE\n";
         String result = ctrl.showDeviceListInString(1);
         assertEquals(expected, result);
     }
@@ -113,9 +99,9 @@ class USAddSetAndListDevicesInRoomCTRLTest {
         Room r2 = new Room("A", 1, 1, 1, 1);
         h.getRoomListFromHouse().addRoom(r1);
         h.getRoomListFromHouse().addRoom(r2);
-        Device d1 = new Device("A", r1, "type1", 150.1);
-        Device d2 = new Device("B", r1, "type2", 53.1);
-        Device d3 = new Device("C", r1, "type3", 5.5);
+        Device d1 = new Device("A",DeviceType.STOVE, r1, 150.1);
+        Device d2 = new Device("B",DeviceType.STOVE, r1, 53.1);
+        Device d3 = new Device("C",DeviceType.STOVE, r1, 5.5);
         d1.setRoom(r1);
         d2.setRoom(r2);
         d3.setRoom(r1);
@@ -130,7 +116,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
         USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(h);
         Room r1 = new Room("B", 1, 1, 1, 1);
         h.getRoomListFromHouse().addRoom(r1);
-        Device d1 = new Device("A", r1, "type1", 150.1);
+        Device d1 = new Device("A",DeviceType.STOVE, r1, 150.1);
         d1.setRoom(r1);
         ctr.setDeviceName(d1, "B");
         assertEquals(d1.getName(), "B");
@@ -143,7 +129,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
         Room r1 = new Room("B", 1, 1, 1, 1);
         Room r2 = new Room("A", 1, 1, 1, 1);
         h.getRoomListFromHouse().addRoom(r1);
-        Device d1 = new Device("A", r1, "type1", 150.1);
+        Device d1 = new Device("A",DeviceType.STOVE, r1, 150.1);
         ctr.setDeviceRoom(d1, r2);
         assertEquals(d1.getRoom(), r2);
     }
@@ -154,7 +140,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
         USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(h);
         Room r1 = new Room("B", 1, 1, 1, 1);
         h.getRoomListFromHouse().addRoom(r1);
-        Device d1 = new Device("A", r1, "type1", 150.1);
+        Device d1 = new Device("A",DeviceType.STOVE, r1, 150.1);
         ctr.setNominalPower(d1, 68.9);
         assertEquals(d1.getNominalPower(), 68.9);
     }
@@ -163,9 +149,9 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     void setFridgeAttributesTest() {
         House h = new House();
         USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(h);
-        Fridge fr = new Fridge(DeviceType.FRIDGE, 2, 3, 6);
+        Fridge fr = new Fridge(2, 3, 6);
         Room r1 = new Room("B", 1, 1, 1, 1);
-        Device d1 = new Device("A", fr, r1, 150.1);
+        Device d1 = new Device("A", fr, r1, 150.1,DeviceType.FRIDGE);
 
         ctr.setFridgeFreezerCapacity(d1, 7);
         assertEquals(fr.getFreezerCapacity(), 7);
@@ -177,9 +163,9 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     void setDishWaterAttributesTest() {
         House h = new House();
         USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(h);
-        Dishwasher dw = new Dishwasher(DeviceType.DISHWASHER, 1);
+        Dishwasher dw = new Dishwasher( 1);
         Room r1 = new Room("B", 1, 1, 1, 1);
-        Device d1 = new Device("A", dw, r1, 150.1);
+        Device d1 = new Device("A", dw, r1, 150.1,DeviceType.DISHWASHER);
 
         ctr.setDWCapacity(d1, 7);
         assertEquals(dw.getCapacity(), 7);
@@ -189,9 +175,9 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     void setEWaterHeaterAttributesTest() {
         House h = new House();
         USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(h);
-        ElectricWaterHeater ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 100, 34, 12, 1.5);
+        ElectricWaterHeater ewh = new ElectricWaterHeater(100, 34, 12, 1.5);
         Room r1 = new Room("B", 1, 1, 1, 1);
-        Device d1 = new Device("A", ewh, r1, 150.1);
+        Device d1 = new Device("A", ewh, r1, 150.1,DeviceType.ELECTRIC_WATER_HEATER);
 
         ctr.setEWHVolumeOfWater(d1, 120);
         assertEquals(ewh.getVolumeOfWater(), 120);
@@ -206,10 +192,10 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     void setLampAttributesTest(){
         House h = new House();
         USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(h);
-        Lamp l = new Lamp(DeviceType.LAMP,10);
+        Lamp l = new Lamp(10);
 
         Room r1 = new Room("B", 1, 1, 1, 1);
-        Device d1 = new Device("A", l, r1, 150.1);
+        Device d1 = new Device("A", l, r1, 150.1, DeviceType.LAMP);
 
         ctr.setLampLuminousFlux(d1, 12);
         assertEquals(l.getLuminousFlux(), 12);
@@ -218,10 +204,10 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     void setWashingMachineAttributes() {
         House h = new House();
         USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(h);
-        WashingMachine wm = new WashingMachine(DeviceType.WASHING_MACHINE,20);
+        WashingMachine wm = new WashingMachine(20);
 
         Room r1 = new Room("B", 1, 1, 1, 1);
-        Device d1 = new Device("A", wm, r1, 150.1);
+        Device d1 = new Device("A", wm, r1, 150.1, DeviceType.WASHING_MACHINE);
 
         ctr.setWashingMachineCapacity(d1, 15);
         assertEquals(wm.getCapacity(), 15);
@@ -230,10 +216,9 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     void getDeviceAttributesListInStringTest() {
         House h = new House();
         USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(h);
-        WashingMachine wm = new WashingMachine(DeviceType.WASHING_MACHINE,20);
-
+        WashingMachine wm = new WashingMachine(20);
         Room r1 = new Room("B", 1, 1, 1, 1);
-        Device d1 = new Device("A", wm, r1, 150.1);
+        Device d1 = new Device("A", wm, r1, 150.1, DeviceType.WASHING_MACHINE);
         String result = ctr.getDeviceAttributesListInString(d1);
         String expected = "1 - Device name : "+d1.getName()+"\n2 - Device room : "+d1.getRoom().getName()+"\n3 - Nominal Power : "+d1.getNominalPower()+ " kW\n4 - Capacity : 20" ;
         assertEquals(expected,result);

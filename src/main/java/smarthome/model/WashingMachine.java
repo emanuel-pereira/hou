@@ -1,31 +1,20 @@
 package smarthome.model;
 
 public class WashingMachine implements DeviceSpecs {
-    private DeviceType mDeviceType;
     private int mCapacity;
     private ProgramList mProgramListInWM;
 
-    public WashingMachine(DeviceType deviceType, int capacity) {
-        mDeviceType = deviceType;
+    public WashingMachine(int capacity) {
         mCapacity = capacity;
         mProgramListInWM = new ProgramList();
     }
 
-    public void setCapacity(int newCapacity){
+    public void setCapacity(int newCapacity) {
         mCapacity = newCapacity;
     }
-    public int getCapacity(){
+
+    public int getCapacity() {
         return mCapacity;
-    }
-
-    @Override
-    public String getType() {
-        return mDeviceType.getType();
-    }
-
-    @Override
-    public String getTypeFromIndex(int index) {
-        return mDeviceType.getTypeFromIndex(index);
     }
 
     public String showDeviceSpecsListAttributesInString() {
@@ -34,5 +23,4 @@ public class WashingMachine implements DeviceSpecs {
 
         return result.toString();
     }
-
 }

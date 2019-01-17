@@ -35,10 +35,13 @@ public class DeviceList {
      * @param nominalPower of the device
      * @return a new Device instance
      */
-    public Device newDevice(String name, DeviceSpecs deviceSpecs, Room room, double nominalPower) {
-        return new Device(name, deviceSpecs, room, nominalPower);
+    public Device newDevice(String name,DeviceType deviceType, DeviceSpecs deviceSpecs, Room room, double nominalPower) {
+        return new Device(name, deviceSpecs, room, nominalPower,deviceType);
     }
 
+    public Device newDevice(String name,  DeviceType deviceType, Room room, double nominalPower) {
+        return new Device(name, deviceType, room, nominalPower);
+    }
     /**
      * @param index position in the device list
      * @return the device in index position in the device list
@@ -72,7 +75,7 @@ public class DeviceList {
             result.append(element);
             result.append(device.getName());
             result.append(typeStr);
-            result.append(device.getType());
+            result.append(device.getDeviceType());
             result.append("\n");
         }
         return result.toString();

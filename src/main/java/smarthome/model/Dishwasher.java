@@ -1,14 +1,12 @@
 package smarthome.model;
 
 public class Dishwasher implements DeviceSpecs {
-    private DeviceType mDeviceType;
     private int mCapacity;
     private double mEnergyConsumption;
     private ProgramList mProgramListInDW;
 
 
-    public Dishwasher(DeviceType deviceType, int capacity) {
-        mDeviceType = deviceType;
+    public Dishwasher(int capacity) {
         mCapacity = capacity;
         mProgramListInDW = new ProgramList();
     }
@@ -21,17 +19,6 @@ public class Dishwasher implements DeviceSpecs {
     public int getCapacity() {
 
         return mCapacity;
-    }
-
-    @Override
-    public String getType() {
-
-        return mDeviceType.getType();
-    }
-
-    @Override
-    public String getTypeFromIndex(int index) {
-        return mDeviceType.getTypeFromIndex(index);
     }
 
     public String showDeviceSpecsListAttributesInString() {
