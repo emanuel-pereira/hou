@@ -1,0 +1,43 @@
+@startuml
+autonumber
+hidefootbox
+
+actor "Regular User/Power User"
+
+'== INITIALIZATION ==
+
+"Regular User/Power User" -> ":UI": initiate
+create ":Controller"
+":UI" -> ":Controller": create( )
+
+":UI" -> ":UI": run( )
+
+
+
+'== COLD WATER TEMPERATURE ==
+
+":UI" --> "Regular User/Power User": ask for cold water temperature\nin a given day
+"Regular User/Power User" -> ":UI": input cold water temperature
+ref over ":UI",":Controller", ":House", ":RoomList", ":Room", ":DeviceList",":Device": setColdWaterTemperatureInGlobalEWHList(double coldWaterTemperature)
+
+
+'== VOLUME OF WATER PRODUCED ==
+
+":UI" --> "Regular User/Power User": ask for volume of water\nproduced in each water heater
+"Regular User/Power User" -> ":UI": input volume of produced water
+ref over ":UI",":Controller",":House",":RoomList",":Room",":DeviceList",":Device": setVolumeOfWaterInGlobalEWHList(volumeOfWater)
+
+
+
+'== ENERGY CONSUMPTION ==
+
+ref over ":UI", ":Controller",":House",":RoomList",":Room",":DeviceList",":Device":  double: getEnergyConsumptionOfEWHGlobalList( )
+
+
+'== FINAL MESSAGE ==
+
+":UI" --> "Regular User/Power User": message with estimated value\nfor total energy consumption\n in a given day
+
+
+
+@enduml
