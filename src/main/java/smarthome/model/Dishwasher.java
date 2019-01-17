@@ -1,31 +1,29 @@
 package smarthome.model;
 
 public class Dishwasher implements DeviceSpecs {
-    private DeviceType mDeviceType;
-    private int mCapatity;
+    private int mCapacity;
     private double mEnergyConsumption;
     private ProgramList mProgramListInDW;
 
 
-    public Dishwasher(DeviceType deviceType, int capacity){
-        mDeviceType=deviceType;
-        mCapatity=capacity;
-        mProgramListInDW= new ProgramList();
+    public Dishwasher(int capacity) {
+        mCapacity = capacity;
+        mProgramListInDW = new ProgramList();
     }
 
-    @Override
-    public String getType() {
-        return mDeviceType.getType();
+    public void setCapacity(int newCapacity) {
+
+        mCapacity = newCapacity;
     }
 
-    @Override
-    public String getTypeFromIndex(int index) {
-        return mDeviceType.getTypeFromIndex(index);
+    public int getCapacity() {
+
+        return mCapacity;
     }
 
-
-    /*
-    Dishwasher quer adicionar um novo programa (y/n)?
-    Y- add new program to ProgramList (duração, energyConsumption KWh)*/
-
+    public String showDeviceSpecsListAttributesInString() {
+        StringBuilder result = new StringBuilder();
+        result.append("4 - Dishwater Capacity : " + this.mCapacity);
+        return result.toString();
+    }
 }

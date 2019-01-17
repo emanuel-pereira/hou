@@ -15,8 +15,7 @@ class DeviceTypeTest {
         String result= DeviceType.displayDeviceTypes();
 
         assertEquals(expectedResult,result);
-
-
-
     }
+
+
 }
