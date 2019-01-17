@@ -3,8 +3,6 @@ package smarthome.controller;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -89,7 +87,7 @@ class US172TotalNominalPowerInGridCTRLTest {
         US172TotalNominalPowerInGridCTRL US172CTRL = new US172TotalNominalPowerInGridCTRL (house);
 
         double expectedResult = 1;
-        double result = US172CTRL.getListOfRoomsWithHouseGrid (1).getRoomList ().size ();
+        double result = US172CTRL.getListOfRoomsWithThisGrid (1).getRoomList ().size ();
 
         assertEquals (expectedResult, result);
 

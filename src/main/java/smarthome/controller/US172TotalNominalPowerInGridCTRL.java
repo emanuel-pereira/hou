@@ -43,7 +43,7 @@ public class US172TotalNominalPowerInGridCTRL {
      * @param indexOfHouseGrid Position of the chosen option
      * @return list of rooms in a grid
      */
-    public RoomList getListOfRoomsWithHouseGrid(int indexOfHouseGrid) {
+    public RoomList getListOfRoomsWithThisGrid(int indexOfHouseGrid) {
         RoomList listOfRoomsWithHouseGrid = new RoomList();
         for (Room r : mHouse.getRoomListFromHouse().getRoomList()) {
             if (r.getmHouseGrid() != null) {
