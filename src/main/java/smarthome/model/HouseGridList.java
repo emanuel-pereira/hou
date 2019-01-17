@@ -74,20 +74,4 @@ public class HouseGridList {
         }
         return result.toString ();
     }
-
-    public String showGridListInStringWithInfo() {
-        List<HouseGrid> list = getHouseGridList();
-        StringBuilder result = new StringBuilder();
-        String element = " - ";
-        int number = 1;
-        for (HouseGrid houseGrid : list) {
-            result.append(number++);
-            result.append(element);
-            result.append(houseGrid.getGridID());
-            result.append(", Nominal Power: ");
-            result.append(houseGrid.getContractedMaximumPower());
-            result.append("\n");
-        }
-        return result.toString();
-    }
 }
