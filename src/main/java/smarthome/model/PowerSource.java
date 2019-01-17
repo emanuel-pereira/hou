@@ -6,7 +6,6 @@ public class PowerSource {
     private String mTypePS;
     private double mMaxPower; //watts per hour
     private double mStorageCapacity;//in kWh
-    private HouseGrid mHouseGrid;
 
 
     public PowerSource (String inputName,String inputType, double inputMaxPower, double inputStorageCapacity){
@@ -39,10 +38,5 @@ public class PowerSource {
         return name.matches ("[A-Za-z0-9]*");
     }
 
-    /*public boolean CheckIfPublicPowerGrid () {
-        if (mTypePS.equals("public")){
-            return true;}
-        else{
-            return false;}
-    }*/
+
 }
