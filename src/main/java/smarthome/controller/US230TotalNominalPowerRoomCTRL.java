@@ -9,12 +9,12 @@ import java.util.List;
 
 public class US230TotalNominalPowerRoomCTRL {
 
-    private Room mRoom;
     private RoomList mRoomList;
     private House mHouse;
 
     public US230TotalNominalPowerRoomCTRL (House house) {
         mHouse = house;
+        mRoomList = house.getRoomListFromHouse ();
     }
 
     public List<Room> getRoomListCtrl() {
@@ -26,17 +26,7 @@ public class US230TotalNominalPowerRoomCTRL {
     }
 
     public String showListRoomInString() {
-        List<Room> list = getRoomListCtrl();
-        StringBuilder result = new StringBuilder();
-        String element = " - ";
-        int number = 1;
-        for (Room mRoom : list) {
-            result.append(number++);
-            result.append(element);
-            result.append(mRoom.getName());
-            result.append("\n");
-        }
-        return result.toString();
+        return mRoomList.showRoomListInString ();
     }
 
     public List<Device> getDeviceListInRoomCtrl (int indexRoom) {

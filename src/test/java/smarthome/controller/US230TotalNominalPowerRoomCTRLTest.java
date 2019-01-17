@@ -44,6 +44,7 @@ class US230TotalNominalPowerRoomCTRLTest {
     @Test
     void showListRoomInStringTest() {
         House house = new House();
+
         US230TotalNominalPowerRoomCTRL ctrl230 = new US230TotalNominalPowerRoomCTRL(house);
         Room r1 = new Room("cozinha",1,10,20,3);
         Room r2 = new Room("sala",1,10,20,3);
