@@ -1,6 +1,6 @@
 package smarthome.model;
 
-public class ElectricWaterHeater implements DeviceSpecs {
+public class ElectricWaterHeater implements DeviceSpecs,Metered {
 
 
     private double mVolumeOfWater;
@@ -13,6 +13,7 @@ public class ElectricWaterHeater implements DeviceSpecs {
     public ElectricWaterHeater(double hotWaterTemperature, double performanceRatio) {
         this.mHotWaterTemperature = hotWaterTemperature;
         this.mPerformanceRatio = performanceRatio;
+        this.mEnergyConsumption=getEnergyConsumption();
     }
 
     public void setVolumeOfWater(double newVolumeOfWater) {
@@ -58,6 +59,8 @@ public class ElectricWaterHeater implements DeviceSpecs {
         result.append("6 - Cold water temperature : " + this.mColdWaterTemperature);
         result.append("\n");
         result.append("7 - Performance Ratio : " + this.mPerformanceRatio);
+        result.append("\n");
+        result.append("8 - Energy Consumption: "+this.getEnergyConsumption()+" KWh");
         result.append("\n");
         return result.toString();
     }
