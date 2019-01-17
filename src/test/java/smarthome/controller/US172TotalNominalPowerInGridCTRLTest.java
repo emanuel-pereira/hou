@@ -3,6 +3,9 @@ package smarthome.controller;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -70,7 +73,7 @@ class US172TotalNominalPowerInGridCTRLTest {
      * Check if the the room list in a grid is correct by confirming the correct size of that list
      */
     @Test
-    void getListOfRoomsWithHouseGrid() {
+    void getListOfRoomsWithHouseGridTestSize() {
         House house = new House ();
         HouseGridList houseGridList = house.getHGListInHouse ();
         HouseGrid houseGrid1 = houseGridList.newHouseGrid ("InternalGrid", 100);
@@ -90,8 +93,31 @@ class US172TotalNominalPowerInGridCTRLTest {
         double result = US172CTRL.getListOfRoomsWithThisGrid (1).getRoomList ().size ();
 
         assertEquals (expectedResult, result);
-
     }
+
+    @Test
+    void getListOfRoomsWithHouseGridTest() {
+        House house = new House ();
+        HouseGridList houseGridList = house.getHGListInHouse ();
+        HouseGrid houseGrid1 = houseGridList.newHouseGrid ("InternalGrid", 100);
+        houseGridList.addHouseGrid (houseGrid1);
+        HouseGrid houseGrid2 = houseGridList.newHouseGrid ("ExternalGrid", 100);
+        houseGridList.addHouseGrid (houseGrid2);
+        RoomList roomList = house.getRoomListFromHouse ();
+        Room room1 = roomList.createNewRoom ("Bedroom", 2, 1.5, 2, 1.7);
+        roomList.addRoom (room1);
+        room1.setmHouseGrid (houseGrid1);
+        Room room2 = roomList.createNewRoom ("Kitchen", 0, 1.5, 2, 1.7);
+        roomList.addRoom (room2);
+        room2.setmHouseGrid (houseGrid2);
+        US172TotalNominalPowerInGridCTRL US172CTRL = new US172TotalNominalPowerInGridCTRL (house);
+
+        List<Room> expectedResult = Arrays.asList(room1);
+        List<Room> result = US172CTRL.getListOfRoomsWithThisGrid (1).getRoomList();
+
+        assertEquals (expectedResult, result);
+    }
+
 
     /**
      * Show the house grid list in string is correct by confirming the content
