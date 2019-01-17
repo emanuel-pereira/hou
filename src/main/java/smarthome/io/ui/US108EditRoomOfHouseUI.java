@@ -59,7 +59,7 @@ public class US108EditRoomOfHouseUI {
 
         System.out.println("Success! Room height edited.");
 
-
+        indexRoom--;
         mCtrlUS108.setRoom(indexRoom, inputRoomName, inputFloor, inputAreaLength, inputAreaWidth, inputHeight);
         System.out.println("Success. The " + inputRoomName + " on the " + inputFloor + " floor with " + inputHeight + "m of height and " + inputAreaLength * inputAreaWidth + "m² was edited.");
     }
