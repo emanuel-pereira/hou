@@ -21,15 +21,6 @@ class SensorTest {
         assertEquals(expectedResult, result);
     }
 
-    @Test
-    public void testIfRenamingASensorWithNULLtringReturnsFalse(){
-        Sensor tempSensor= new Sensor (null);
-        String designation= null;
-        boolean expectedResult= false;
-        boolean result;
-        result=tempSensor.setSensorDesignation(designation);
-        assertEquals(expectedResult, result);
-    }
 
     @Test
     public void testIfRenamingASensorWithValidStringReturnsTrue(){

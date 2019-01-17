@@ -110,7 +110,7 @@ public class Sensor {
      * @return true if name sensorDesignation is valid, if it is not null or empty
      */
     public boolean nameIsValid(String name) {
-        if (name == null || name.trim ().isEmpty ()) {
+        if (name.trim ().isEmpty ()) {
             return false;
         }
         return name.matches ("[A-Za-z0-9]*");
