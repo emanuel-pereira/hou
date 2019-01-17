@@ -104,6 +104,35 @@ public class House {
         return mHGListInHouse;
     }
 
+    /**
+     * Sets volume of water for all devices of type Electric Water Heater that may be installed in any room of the house.
+     * @param volumeOfWater double value parameter to set the volume of water of every Electric Water Heater installed in all rooms of the house.
+     */
+    public void setVolumeOfWaterInGlobalEWHList(double volumeOfWater) {
+        for (Room room : mRoomList.getRoomList())
+            room.getDeviceList().setVolumeOfWaterEWHList(volumeOfWater);
+    }
+
+    /**
+     * Sets cold water temperature for all devices of type Electric Water Heater that may be installed in any room of the house.
+     * @param coldWaterTemperature double value parameter to set the cold water temperature of every Electric Water Heater installed in all rooms of the house.
+     */
+    public void setColdWaterTemperatureInGlobalEWHList(double coldWaterTemperature) {
+        for (Room room : mRoomList.getRoomList())
+            room.getDeviceList().setColdWaterTemperatureEWHList(coldWaterTemperature);
+    }
+
+    /**
+     * @return the total energy consumed by all electric water heaters installed in the house.
+     */
+    public double getEnergyConsumptionOfEWHGlobalList(){
+        double totalEnergyConsumption=0;
+        for (Room room:mRoomList.getRoomList())
+            totalEnergyConsumption+=room.getDeviceList().getEnergyConsumptionOfEWHList();
+        return totalEnergyConsumption;
+    }
+
+
 }
 
 

@@ -10,12 +10,9 @@ public class ElectricWaterHeater implements DeviceSpecs {
     private double mEnergyConsumption;
 
 
-    public ElectricWaterHeater(double volumeOfWater, double hotWaterTemperature, double coldWaterTemperature, double performanceRatio) {
-        this.mVolumeOfWater = volumeOfWater;
+    public ElectricWaterHeater(double hotWaterTemperature, double performanceRatio) {
         this.mHotWaterTemperature = hotWaterTemperature;
-        this.mColdWaterTemperature = coldWaterTemperature;
         this.mPerformanceRatio = performanceRatio;
-        this.mEnergyConsumption = 1.163 * volumeOfWater * (hotWaterTemperature - coldWaterTemperature) * performanceRatio; //obter no getEnergyConsumption
     }
 
     public void setVolumeOfWater(double newVolumeOfWater) {
@@ -65,4 +62,7 @@ public class ElectricWaterHeater implements DeviceSpecs {
         return result.toString();
     }
 
+    public double getEnergyConsumption() {
+        return mEnergyConsumption=1.163 * mVolumeOfWater * (mHotWaterTemperature - mColdWaterTemperature) * mPerformanceRatio;
+    }
 }

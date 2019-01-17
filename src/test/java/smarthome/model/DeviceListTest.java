@@ -70,5 +70,85 @@ class DeviceListTest {
         String result= deviceList.showDeviceListInString();
         assertEquals(expected,result);
     }
+    @Test
+    @DisplayName("Ensure that electric water list has 2 electric water heaters in a global device list containing another device of other type")
+    void getElectricWaterHeaterList() {
+        Room kitchen = new Room("Kitchen",0,6,3.5,3);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(60,0.9);
+        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
+        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,kitchen,2.5,DeviceType.ELECTRIC_WATER_HEATER);
+        Device stove= new Device("Stove 1",DeviceType.STOVE,kitchen,1);
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(dEWH1);
+        deviceList.addDevice(dEWH2);
+        deviceList.addDevice(stove);
+        int expected= 2;
+        int result=deviceList.getElectricWaterHeaterList().getDeviceList().size();
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Ensure t")
+    void getEnergyConsumptionOfEWHList() {
+        Room kitchen = new Room("Kitchen",0,6,3.5,3);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(60,0.9);
+        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
+        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,kitchen,2.5,DeviceType.ELECTRIC_WATER_HEATER);
+        Device stove= new Device("Stove 1",DeviceType.STOVE,kitchen,1);
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(dEWH1);
+        deviceList.addDevice(dEWH2);
+        deviceList.addDevice(stove);
+        deviceList.setVolumeOfWaterEWHList(65);
+        deviceList.setColdWaterTemperatureEWHList(20);
+        double expected=6123.195;
+        double result=deviceList.getEnergyConsumptionOfEWHList();
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Ensure that volume of water is set to all devices of type Electric Water Heater")
+    void setVolumeOfWaterEWHList() {
+        Room kitchen = new Room("Kitchen",0,6,3.5,3);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(60,0.9);
+        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
+        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,kitchen,2.5,DeviceType.ELECTRIC_WATER_HEATER);
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(dEWH1);
+        deviceList.addDevice(dEWH2);
+        deviceList.setVolumeOfWaterEWHList(65);
+
+        double expected=65;
+        double resultEWH1=((ElectricWaterHeater)dEWH1.getDeviceSpecs()).getVolumeOfWater();
+        assertEquals(expected,resultEWH1);
+
+        double resultEWH2=((ElectricWaterHeater)dEWH2.getDeviceSpecs()).getVolumeOfWater();
+        assertEquals(expected,resultEWH2);
+    }
+
+    @Test
+    @DisplayName("Ensure that cold water temperature is set to all devices of type Electric Water Heater")
+    void setColdWaterTemperatureEWHList() {
+
+        Room kitchen = new Room("Kitchen",0,6,3.5,3);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(65,1);
+        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
+        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,kitchen,2.5,DeviceType.ELECTRIC_WATER_HEATER);
+        DeviceList deviceList = new DeviceList();
+        deviceList.addDevice(dEWH1);
+        deviceList.addDevice(dEWH2);
+        deviceList.setColdWaterTemperatureEWHList(25);
+
+        double expected=25;
+        double resultEWH1=((ElectricWaterHeater)dEWH1.getDeviceSpecs()).getColdWaterTemperature();
+        assertEquals(expected,resultEWH1);
+
+        double resultEWH2=((ElectricWaterHeater)dEWH2.getDeviceSpecs()).getColdWaterTemperature();
+        assertEquals(expected,resultEWH2);
+    }
 
 }
