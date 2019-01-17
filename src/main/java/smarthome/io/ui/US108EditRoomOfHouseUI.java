@@ -24,7 +24,7 @@ public class US108EditRoomOfHouseUI {
         mCtrlUS108 = new US108EditRoomOfHouseCTRL(inputList);
 
     }
-        
+
 
     public void run() {
 

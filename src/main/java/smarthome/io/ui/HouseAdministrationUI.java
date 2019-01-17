@@ -40,9 +40,9 @@ public class HouseAdministrationUI {
                     US105AddNewRoomToHouseUI ui105 = new US105AddNewRoomToHouseUI(house);
                     ui105.addRoomToHouse();
                     break;
-                case 3:/*
+                case 3:
                     US108EditRoomOfHouseUI ui108 = new US108EditRoomOfHouseUI(house.getRoomListFromHouse().getRoomList());
-                    ui108.run();*/
+                    ui108.run();
                     break;
                 case 4:
 
