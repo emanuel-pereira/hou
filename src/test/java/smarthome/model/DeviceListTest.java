@@ -11,7 +11,8 @@ class DeviceListTest {
     @DisplayName("Ensure same device instance is only added once to device list")
     void addDevice() {
         Room kitchen= new Room("Kitchen",0,6,4,2.5);
-        Device microwave = new Device("Samsung Microwave",DeviceType.MICROWAVE_OVEN,kitchen,0.8);
+        OtherDevices otherDevices= new OtherDevices();
+        Device microwave = new Device("Samsung Microwave",otherDevices,kitchen,0.8,DeviceType.MICROWAVE_OVEN);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(microwave);
         int expectedResult1= 1;
@@ -28,22 +29,8 @@ class DeviceListTest {
     void newDeviceWithSpecs() {
         DeviceList deviceList= new DeviceList();
         Room kitchen= new Room("Kitchen",0,6,4,2.5);
-        Fridge fridge = new Fridge(DeviceType.FRIDGE,50,350,50);
-        Device device = deviceList.newDevice("LG Fridge",fridge,kitchen,1.2);
-        deviceList.addDevice(device);
-
-        Device expected= device;
-        Device result= deviceList.getDeviceList().get(0);
-
-        assertEquals(expected,result);
-    }
-
-    @Test
-    @DisplayName("Ensure newDevice method creates local instance of device without specs and that addDevice method adds it deviceList")
-    void newDeviceWithoutSpecs() {
-        DeviceList deviceList= new DeviceList();
-        Room kitchen= new Room("Kitchen",0,6,4,2.5);
-        Device device = deviceList.newDevice("Samsung Microwave",DeviceType.MICROWAVE_OVEN,kitchen,0.8);
+        Fridge fridge = new Fridge(50,350,50);
+        Device device = deviceList.newDevice("LG Fridge",DeviceType.FRIDGE,fridge,kitchen,1.2);
         deviceList.addDevice(device);
 
         Device expected= device;
@@ -56,9 +43,10 @@ class DeviceListTest {
     @DisplayName("Ensure getLastElement().getName() returns last element from device list and respective device name")
     void getLastElement() {
         Room kitchen= new Room("Kitchen",0,6,4,2.5);
-        Device microwave = new Device("Samsung Microwave",DeviceType.MICROWAVE_OVEN,kitchen,0.8);
-        Fridge fridge = new Fridge(DeviceType.FRIDGE,50,350,50);
-        Device dFridge = new Device("LG Fridge",fridge,kitchen,1.5);
+        OtherDevices otherDevices = new OtherDevices();
+        Device microwave = new Device("Samsung Microwave",otherDevices,kitchen,0.8,DeviceType.MICROWAVE_OVEN);
+        Fridge fridge = new Fridge(50,350,50);
+        Device dFridge = new Device("LG Fridge",fridge,kitchen,1.5,DeviceType.FRIDGE);
 
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(microwave);
@@ -70,30 +58,15 @@ class DeviceListTest {
     }
 
     @Test
-    @DisplayName("Ensure get(0).getDeviceType methods returns first element of deviceList and respective deviceType")
-    void get() {
-        Room kitchen= new Room("Kitchen",0,6,4,2.5);
-        Device microwave = new Device("Samsung Microwave",DeviceType.MICROWAVE_OVEN,kitchen,0.8);
-        DeviceList deviceList = new DeviceList();
-        deviceList.addDevice(microwave);
-
-        String expectedResult= deviceList.get(0).getType();
-        String result= "Microwave Oven";
-
-        assertEquals(expectedResult,result);
-    }
-
-
-    @Test
     void showDeviceListInString() {
         Room kitchen= new Room("Kitchen",0,6,4,2.5);
         DeviceList deviceList = new DeviceList();
-        Device microwave = new Device("Samsung Microwave",DeviceType.MICROWAVE_OVEN,kitchen,0.8);
-        Fridge fridge = new Fridge(DeviceType.FRIDGE,50,350,50);
-        Device dFridge = new Device("LG Fridge",fridge,kitchen,1.5);
+        OtherDevices otherDevices = new OtherDevices();
+        Device microwave = new Device("Samsung Microwave",otherDevices,kitchen,0.8,DeviceType.MICROWAVE_OVEN);        Fridge fridge = new Fridge(50,350,50);
+        Device dFridge = new Device("LG Fridge",fridge,kitchen,1.5,DeviceType.FRIDGE);
         deviceList.addDevice(microwave);
         deviceList.addDevice(dFridge);
-        String expected="1 - Device: Samsung Microwave | Type: Microwave Oven\n2 - Device: LG Fridge | Type: Fridge\n";
+        String expected="1 - Device: Samsung Microwave | Type: "+microwave.getDeviceType()+"\n2 - Device: LG Fridge | Type: "+dFridge.getDeviceType()+"\n";
         String result= deviceList.showDeviceListInString();
         assertEquals(expected,result);
     }

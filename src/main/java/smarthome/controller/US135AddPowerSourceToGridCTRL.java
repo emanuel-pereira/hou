@@ -18,33 +18,8 @@ public class US135AddPowerSourceToGridCTRL {
         mPSList = psList;
     }
 
-
-    /*public boolean newPS (String namePS, String typePS, double maxPower, double storageCapacity) {
-        PowerSource ps = mHouseGrid.newPowerSource(namePS,typePS,maxPower,storageCapacity);
-        return mHouseGrid.addPS (ps);
-    }*/
-
-   /* public List<PowerSource> getPowerSourceList () {
-        return mHouseGrid.getPSList();
-    }*/
     public List<HouseGrid> getHouseGridList() {
         return mHouse.getHGListInHouse().getHouseGridList();
-    }
-
-    public String showHouseGridListInString() {
-        List<HouseGrid> list = getHouseGridList();
-        StringBuilder result = new StringBuilder();
-        String element = " - ";
-        int number = 1;
-        for (HouseGrid houseGrid : list) {
-            result.append(number++);
-            result.append(element);
-            result.append(houseGrid.getGridID());
-            result.append(", Nominal Power: ");
-            result.append(houseGrid.getContractedMaximumPower());
-            result.append("\n");
-        }
-        return result.toString();
     }
 
     public  List<PowerSource> getPowerSourceListCtrl(HouseGrid houseGrid) {

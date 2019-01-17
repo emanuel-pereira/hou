@@ -93,4 +93,12 @@ class PowerSourceTest {
         boolean result = ps1.nameIsValid(ps1.getName());
         assertFalse(result);
     }
+
+    @Test
+    void nameISNOTValidNullTestFalse(){
+        PowerSource ps1 = new PowerSource(null,"solar",
+                250,14);
+        boolean result = ps1.nameIsValid(ps1.getName());
+        assertFalse(result);
+    }
 }

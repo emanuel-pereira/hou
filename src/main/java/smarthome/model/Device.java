@@ -4,7 +4,7 @@ public class Device implements DeviceSpecs, Powered {
 
     private String mName;
     private DeviceSpecs mDeviceSpecs;
-    private String mDeviceType;
+    private DeviceType mDeviceType;
     private Room mRoom;
     private double mNominalPower;
 
@@ -16,22 +16,15 @@ public class Device implements DeviceSpecs, Powered {
      * @param room         where the device is installed
      * @param nominalPower of the device
      */
-    public Device(String name, DeviceSpecs deviceSpecs, Room room, double nominalPower) {
+    public Device(String name, DeviceSpecs deviceSpecs, Room room, double nominalPower, DeviceType deviceType) {
         mName = name;
         mDeviceSpecs = deviceSpecs;
         mRoom = room;
         mNominalPower = nominalPower;
+        mDeviceType = deviceType;
     }
 
-    /**
-     * Constructor set for devices that only require generic features to any type of device
-     *
-     * @param name         device name
-     * @param room         where the device is installed
-     * @param deviceType   the type of device
-     * @param nominalPower of the device
-     */
-    public Device(String name, Room room, String deviceType, double nominalPower) {
+    public Device(String name, DeviceType deviceType, Room room, double nominalPower) {
         mName = name;
         mRoom = room;
         mNominalPower = nominalPower;
@@ -62,6 +55,10 @@ public class Device implements DeviceSpecs, Powered {
     /**
      * @return the nominal power of the device
      */
+    public DeviceType getDeviceType() {
+        return mDeviceType;
+    }
+
     public double getNominalPower() {
         return mNominalPower;
     }
@@ -80,6 +77,7 @@ public class Device implements DeviceSpecs, Powered {
         this.mNominalPower = nominalPower;
     }
 
+
     public String showDeviceListAttributesInString() {
         StringBuilder result = new StringBuilder();
         result.append("1 - Device name : " + this.getName());
@@ -88,26 +86,8 @@ public class Device implements DeviceSpecs, Powered {
         result.append("\n");
         result.append("3 - Nominal Power : " + this.getNominalPower() + " kW");
         result.append("\n");
-        if (this.mDeviceSpecs != null)
-            result.append(this.showDeviceSpecsListAttributesInString());
+        result.append(this.showDeviceSpecsListAttributesInString());
         return result.toString();
-    }
-
-    /**
-     * @return the type of device for a device types that have their own specific features
-     */
-    @Override
-    public String getType() {
-        return mDeviceSpecs.getType();
-    }
-
-    /**
-     * @param index device type in the specified index enum position
-     * @return the type of device for a device types that have their own specific features
-     */
-    @Override
-    public String getTypeFromIndex(int index) {
-        return mDeviceSpecs.getTypeFromIndex(index);
     }
 
     public String showDeviceSpecsListAttributesInString() {

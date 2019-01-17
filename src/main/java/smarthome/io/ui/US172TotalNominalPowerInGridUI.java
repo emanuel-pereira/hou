@@ -55,14 +55,14 @@ public class US172TotalNominalPowerInGridUI {
                 System.out.println ("Please insert a valid option \n");
             else break;
         }
-        this.checkIfRoomsAttachToGris ();
+        this.checkIfRoomsAttachToGrid ();
     }
 
     /**
      * Before showing the total nominal power this method checks if there are any rooms attached to the grid
      */
-    public void checkIfRoomsAttachToGris() {
-        if (!mUS172CTRL.getListOfRoomsWithHouseGrid (indexGrid).getRoomList ().isEmpty ()) {
+    public void checkIfRoomsAttachToGrid() {
+        if (!mUS172CTRL.getListOfRoomsWithThisGrid (indexGrid).getRoomList ().isEmpty ()) {
             this.checkIfDevicesExists ();
         } else System.out.println ("Please ask the House Administrator to attach Rooms to a Grid ");
     }

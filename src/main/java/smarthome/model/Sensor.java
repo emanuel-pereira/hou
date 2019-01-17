@@ -220,7 +220,9 @@ public class Sensor {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Sensor)) return false;
+        if (!(o instanceof Sensor)) {
+            return false;
+        }
         Sensor sensor = (Sensor) o;
         return Objects.equals (mDesignation, sensor.mDesignation);
     }

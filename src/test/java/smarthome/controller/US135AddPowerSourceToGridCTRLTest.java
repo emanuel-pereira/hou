@@ -50,26 +50,7 @@ class US135AddPowerSourceToGridCTRLTest {
         assertNotEquals(expectedResult, result);
     }
 
-    @Test
-    @DisplayName("Method that shows the House Grid List in a String")
-    void showHouseGridListInString(){
-        House house = new House();
-        HouseGridList hgList = new HouseGridList();
-        PowerSourceList psList = new PowerSourceList();
-        US135AddPowerSourceToGridCTRL ctrl135 = new US135AddPowerSourceToGridCTRL(house,hgList, psList);
-        HouseGrid hg01 = new HouseGrid("energygrid01",300);
-        HouseGrid hg02 = new HouseGrid("energygrid02",200);
-        house.getHGListInHouse().addHouseGrid(hg01);
-        house.getHGListInHouse().addHouseGrid(hg02);
-
-        String expectedResult = "1 - energygrid01, Nominal Power: 300.0\n2 - energygrid02, Nominal Power: 200.0\n";
-        String result = ctrl135.showHouseGridListInString();
-        assertEquals(expectedResult,result);
-    }
-
-
-
-    @Test
+       @Test
     @DisplayName("Add a Power Source to a House Grid from the List")
     void addPSTest() {
         House house = new House();

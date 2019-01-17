@@ -21,8 +21,8 @@ public class USAddSetAndListDevicesInRoomCTRL {
         return mHouse.getRoomListFromHouse().getRoomList().get(indexOfRoom-1).getDeviceList().showDeviceListInString();
     }
 
-    public boolean addDevice(int indexOfRoom, String inputName, DeviceSpecs deviceSpecs, double nominalPower) {
-        Device device = mHouse.getRoomListFromHouse().get(indexOfRoom-1).getDeviceList().newDevice(inputName,deviceSpecs,mHouse.getRoomListFromHouse().get(indexOfRoom-1),nominalPower);
+    public boolean addDevice(int indexOfRoom, String inputName, DeviceSpecs deviceSpecs, double nominalPower, DeviceType deviceType) {
+        Device device = mHouse.getRoomListFromHouse().get(indexOfRoom-1).getDeviceList().newDevice(inputName,deviceType,deviceSpecs,mHouse.getRoomListFromHouse().get(indexOfRoom-1),nominalPower);
         return mHouse.getRoomListFromHouse().get(indexOfRoom-1).getDeviceList().addDevice(device);
     }
 
