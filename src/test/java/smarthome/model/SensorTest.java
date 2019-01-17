@@ -167,6 +167,29 @@ class SensorTest {
         assertEquals(expectedResult,result);
     }
 
+    @Test
+    void checkIfValidNameIsNotValidToAnotherConstructor() {
+        GregorianCalendar rTime1 = new GregorianCalendar(2018, 11, 27, 9, 0);
+        SensorType type1 = new SensorType("precipitation");
+        Sensor sensor1= new Sensor("   ",rTime1,20,10,15, type1);
+        String designation = "   ";
+        boolean expectedResult= false;
+        boolean result;
+        result=sensor1.setSensorDesignation(designation);
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void checkIfValidNameIsNotValidToFinalConstructor() {
+        GregorianCalendar rTime1 = new GregorianCalendar(2018, 11, 27, 9, 0);
+        Sensor sensor1= new Sensor("   ",rTime1,20,10,15, "precipitation");
+        String designation = "   ";
+        boolean expectedResult= false;
+        boolean result;
+        result=sensor1.setSensorDesignation(designation);
+        assertEquals(expectedResult, result);
+    }
+
 
     @Test
     void calculateLinearDistanceBetweenTwoSensorsInTheSamePositionReturnsZero() {
