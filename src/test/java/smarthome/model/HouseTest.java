@@ -338,35 +338,37 @@ class HouseTest {
         house.getRoomListFromHouse().addRoom(kitchen);
         house.getRoomListFromHouse().addRoom(garage);
         house.getRoomListFromHouse().addRoom(bedroom);
-        ElectricWaterHeater ewh1=new ElectricWaterHeater(65,1);
-        ElectricWaterHeater ewh2=new ElectricWaterHeater(60,0.9);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(100,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(80,60,0.9);
         Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
         kitchen.getDeviceList().addDevice(dEWH1);
         garage.getDeviceList().addDevice(dEWH2);
-        house.setVolumeOfWaterInGlobalEWHList(65);
+        house.setVolumeOfWaterToHeatInEWHList(65);
         house.setColdWaterTemperatureInGlobalEWHList(20);
         String expected="ELECTRIC WATER HEATER \n" +
                 "Room: Kitchen\n" +
                 "1 - Device name : Daikin - Electric Water Heater1\n" +
                 "2 - Device room : Kitchen\n" +
                 "3 - Nominal Power : 3.0 kW\n" +
-                "4 - Volume of water : 65.0\n" +
+                "4 - Volume of water capacity (l) : 100.0\n" +
                 "5 - Hot water temperature : 65.0\n" +
                 "6 - Cold water temperature : 20.0\n" +
                 "7 - Performance Ratio : 1.0\n" +
-                "8 - Daily Energy Consumption: 816.4259999999999 KWh\n" +
+                "8 - Volume of water to heat: 65.0\n" +
+                "9 - Daily Energy Consumption: 816.4259999999999 KWh\n" +
                 "\n" +
                 "ELECTRIC WATER HEATER \n" +
                 "Room: Garage\n" +
                 "1 - Device name : Daikin - Electric Water Heater2\n" +
                 "2 - Device room : Garage\n" +
                 "3 - Nominal Power : 2.5 kW\n" +
-                "4 - Volume of water : 65.0\n" +
+                "4 - Volume of water capacity (l) : 80.0\n" +
                 "5 - Hot water temperature : 60.0\n" +
                 "6 - Cold water temperature : 20.0\n" +
                 "7 - Performance Ratio : 0.9\n" +
-                "8 - Daily Energy Consumption: 653.1408 KWh\n\n";
+                "8 - Volume of water to heat: 65.0\n" +
+                "9 - Daily Energy Consumption: 653.1408 KWh\n\n";
         String result=house.showElectricWaterHeaterList();
         assertEquals(expected,result);
 
@@ -382,8 +384,8 @@ class HouseTest {
         house.getRoomListFromHouse().addRoom(kitchen);
         house.getRoomListFromHouse().addRoom(garage);
         house.getRoomListFromHouse().addRoom(bedroom);
-        ElectricWaterHeater ewh1=new ElectricWaterHeater(65,1);
-        ElectricWaterHeater ewh2=new ElectricWaterHeater(60,0.9);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(150,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(120,60,0.9);
         Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
         kitchen.getDeviceList().addDevice(dEWH1);
@@ -402,8 +404,8 @@ class HouseTest {
         house.getRoomListFromHouse().addRoom(kitchen);
         house.getRoomListFromHouse().addRoom(garage);
         house.getRoomListFromHouse().addRoom(bedroom);
-        ElectricWaterHeater ewh1=new ElectricWaterHeater(65,1);
-        ElectricWaterHeater ewh2=new ElectricWaterHeater(60,0.9);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(115,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(105,60,0.9);
         Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
         kitchen.getDeviceList().addDevice(dEWH1);

@@ -77,8 +77,8 @@ class DeviceListTest {
     @DisplayName("Ensure that electric water list has 2 electric water heaters in a global device list containing another device of other type")
     void getElectricWaterHeaterList() {
         Room kitchen = new Room("Kitchen", 0, 6, 3.5, 3);
-        ElectricWaterHeater ewh1 = new ElectricWaterHeater(65, 1);
-        ElectricWaterHeater ewh2 = new ElectricWaterHeater(60, 0.9);
+        ElectricWaterHeater ewh1 = new ElectricWaterHeater(100,65, 1);
+        ElectricWaterHeater ewh2 = new ElectricWaterHeater(125,60, 0.9);
         Device dEWH1 = new Device("Daikin - Electric Water Heater1", ewh1, kitchen, 3, DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2 = new Device("Daikin - Electric Water Heater2", ewh2, kitchen, 2.5, DeviceType.ELECTRIC_WATER_HEATER);
         Device stove = new Device("Stove 1", DeviceType.STOVE, kitchen, 1);
@@ -95,8 +95,8 @@ class DeviceListTest {
     @DisplayName("Ensure t")
     void getEnergyConsumptionOfEWHList() {
         Room kitchen = new Room("Kitchen", 0, 6, 3.5, 3);
-        ElectricWaterHeater ewh1 = new ElectricWaterHeater(65, 1);
-        ElectricWaterHeater ewh2 = new ElectricWaterHeater(60, 0.9);
+        ElectricWaterHeater ewh1 = new ElectricWaterHeater(125,65, 1);
+        ElectricWaterHeater ewh2 = new ElectricWaterHeater(115,60, 0.9);
         Device dEWH1 = new Device("Daikin - Electric Water Heater1", ewh1, kitchen, 3, DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2 = new Device("Daikin - Electric Water Heater2", ewh2, kitchen, 2.5, DeviceType.ELECTRIC_WATER_HEATER);
         Device stove = new Device("Stove 1", DeviceType.STOVE, kitchen, 1);
@@ -104,7 +104,7 @@ class DeviceListTest {
         deviceList.addDevice(dEWH1);
         deviceList.addDevice(dEWH2);
         deviceList.addDevice(stove);
-        deviceList.setVolumeOfWaterEWHList(65);
+        deviceList.setVolumeOfWaterToHeat(65);
         deviceList.setColdWaterTemperatureEWHList(20);
         double expected = 1469.5668;
         double result = deviceList.getEnergyConsumptionOfEWHList();
@@ -115,20 +115,20 @@ class DeviceListTest {
     @DisplayName("Ensure that volume of water is set to all devices of type Electric Water Heater")
     void setVolumeOfWaterEWHList() {
         Room kitchen = new Room("Kitchen", 0, 6, 3.5, 3);
-        ElectricWaterHeater ewh1 = new ElectricWaterHeater(65, 1);
-        ElectricWaterHeater ewh2 = new ElectricWaterHeater(60, 0.9);
+        ElectricWaterHeater ewh1 = new ElectricWaterHeater(130,65, 1);
+        ElectricWaterHeater ewh2 = new ElectricWaterHeater(175,60, 0.9);
         Device dEWH1 = new Device("Daikin - Electric Water Heater1", ewh1, kitchen, 3, DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2 = new Device("Daikin - Electric Water Heater2", ewh2, kitchen, 2.5, DeviceType.ELECTRIC_WATER_HEATER);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(dEWH1);
         deviceList.addDevice(dEWH2);
-        deviceList.setVolumeOfWaterEWHList(65);
+        deviceList.setVolumeOfWaterToHeat(65);
 
         double expected = 65;
-        double resultEWH1 = ((ElectricWaterHeater) dEWH1.getDeviceSpecs()).getVolumeOfWater();
+        double resultEWH1 = ((ElectricWaterHeater) dEWH1.getDeviceSpecs()).getVolumeOfWaterToHeat();
         assertEquals(expected, resultEWH1);
 
-        double resultEWH2 = ((ElectricWaterHeater) dEWH2.getDeviceSpecs()).getVolumeOfWater();
+        double resultEWH2 = ((ElectricWaterHeater) dEWH2.getDeviceSpecs()).getVolumeOfWaterToHeat();
         assertEquals(expected, resultEWH2);
     }
 
@@ -137,8 +137,8 @@ class DeviceListTest {
     void setColdWaterTemperatureEWHList() {
 
         Room kitchen = new Room("Kitchen", 0, 6, 3.5, 3);
-        ElectricWaterHeater ewh1 = new ElectricWaterHeater(65, 1);
-        ElectricWaterHeater ewh2 = new ElectricWaterHeater(65, 1);
+        ElectricWaterHeater ewh1 = new ElectricWaterHeater(130,65, 1);
+        ElectricWaterHeater ewh2 = new ElectricWaterHeater(135,65, 1);
         Device dEWH1 = new Device("Daikin - Electric Water Heater1", ewh1, kitchen, 3, DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2 = new Device("Daikin - Electric Water Heater2", ewh2, kitchen, 2.5, DeviceType.ELECTRIC_WATER_HEATER);
         DeviceList deviceList = new DeviceList();
@@ -157,8 +157,8 @@ class DeviceListTest {
     @Test
     void showElectricWaterHeaterList() {
         Room kitchen = new Room("Kitchen", 0, 6, 3.5, 3);
-        ElectricWaterHeater ewh1 = new ElectricWaterHeater(65, 1);
-        ElectricWaterHeater ewh2 = new ElectricWaterHeater(65, 1);
+        ElectricWaterHeater ewh1 = new ElectricWaterHeater(150,65, 1);
+        ElectricWaterHeater ewh2 = new ElectricWaterHeater(220,65, 1);
         Device dEWH1 = new Device("Daikin - Electric Water Heater1", ewh1, kitchen, 3, DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2 = new Device("Daikin - Electric Water Heater2", ewh2, kitchen, 2.5, DeviceType.ELECTRIC_WATER_HEATER);
         Device stove = new Device("Stove 1", DeviceType.STOVE, kitchen, 1);
@@ -169,20 +169,22 @@ class DeviceListTest {
         String expected = "1 - Device name : Daikin - Electric Water Heater1\n" +
                 "2 - Device room : Kitchen\n" +
                 "3 - Nominal Power : 3.0 kW\n" +
-                "4 - Volume of water : 0.0\n" +
+                "4 - Volume of water capacity (l) : 150.0\n" +
                 "5 - Hot water temperature : 65.0\n" +
                 "6 - Cold water temperature : 0.0\n" +
                 "7 - Performance Ratio : 1.0\n" +
-                "8 - Daily Energy Consumption: 0.0 KWh\n" +
+                "8 - Volume of water to heat: 0.0\n" +
+                "9 - Daily Energy Consumption: 0.0 KWh\n" +
                 "\n" +
                 "1 - Device name : Daikin - Electric Water Heater2\n" +
                 "2 - Device room : Kitchen\n" +
                 "3 - Nominal Power : 2.5 kW\n" +
-                "4 - Volume of water : 0.0\n" +
+                "4 - Volume of water capacity (l) : 220.0\n" +
                 "5 - Hot water temperature : 65.0\n" +
                 "6 - Cold water temperature : 0.0\n" +
                 "7 - Performance Ratio : 1.0\n" +
-                "8 - Daily Energy Consumption: 0.0 KWh\n\n";
+                "8 - Volume of water to heat: 0.0\n" +
+                "9 - Daily Energy Consumption: 0.0 KWh\n\n";
         String result = deviceList.showElectricWaterHeaterList();
         assertEquals(expected, result);
 
@@ -195,8 +197,8 @@ class DeviceListTest {
 
         Room kitchen = new Room("Kitchen", 0, 6, 3.5, 3);
         ;
-        ElectricWaterHeater ewh1 = new ElectricWaterHeater(65, 1);
-        ElectricWaterHeater ewh2 = new ElectricWaterHeater(60, 0.9);
+        ElectricWaterHeater ewh1 = new ElectricWaterHeater(200,65, 1);
+        ElectricWaterHeater ewh2 = new ElectricWaterHeater(150,60, 0.9);
         Device dEWH1 = new Device("Daikin - Electric Water Heater1", ewh1, kitchen, 3, DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2 = new Device("Daikin - Electric Water Heater2", ewh2, kitchen, 2.5, DeviceType.ELECTRIC_WATER_HEATER);
         DeviceList deviceList = new DeviceList();
@@ -211,8 +213,8 @@ class DeviceListTest {
     void isLowerThanHotWaterReturnsFalse() {
 
         Room kitchen = new Room("Kitchen", 0, 6, 3.5, 3);
-        ElectricWaterHeater ewh1 = new ElectricWaterHeater(65, 1);
-        ElectricWaterHeater ewh2 = new ElectricWaterHeater(60, 0.9);
+        ElectricWaterHeater ewh1 = new ElectricWaterHeater(130,65, 1);
+        ElectricWaterHeater ewh2 = new ElectricWaterHeater(120,60, 0.9);
         Device dEWH1 = new Device("Daikin - Electric Water Heater1", ewh1, kitchen, 3, DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2 = new Device("Daikin - Electric Water Heater2", ewh2, kitchen, 2.5, DeviceType.ELECTRIC_WATER_HEATER);
         DeviceList deviceList = new DeviceList();

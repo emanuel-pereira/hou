@@ -17,19 +17,19 @@ class USEnergyConsumptionOfEWHCTRLTest {
         Room garage = new Room("Garage",0,6,4,3);
         house.getRoomListFromHouse().addRoom(kitchen);
         house.getRoomListFromHouse().addRoom(garage);
-        ElectricWaterHeater ewh1=new ElectricWaterHeater(65,1);
-        ElectricWaterHeater ewh2=new ElectricWaterHeater(60,0.9);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(110,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(110,60,0.9);
         Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh1,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
         kitchen.getDeviceList().addDevice(dEWH1);
         garage.getDeviceList().addDevice(dEWH2);
-        ctrl.setVolumeOfWaterInGlobalEWHList(70);
+        ctrl.setVolumeOfWaterToHeatInEWHList(70);
 
         double expected=70;
-        double resultEWH1=((ElectricWaterHeater)dEWH1.getDeviceSpecs()).getVolumeOfWater();
+        double resultEWH1=((ElectricWaterHeater)dEWH1.getDeviceSpecs()).getVolumeOfWaterToHeat();
         assertEquals(expected,resultEWH1);
 
-        double resultEWH2=((ElectricWaterHeater)dEWH2.getDeviceSpecs()).getVolumeOfWater();
+        double resultEWH2=((ElectricWaterHeater)dEWH2.getDeviceSpecs()).getVolumeOfWaterToHeat();
         assertEquals(expected,resultEWH2);
     }
 
@@ -42,8 +42,8 @@ class USEnergyConsumptionOfEWHCTRLTest {
         Room garage = new Room("Garage",0,6,4,3);
         house.getRoomListFromHouse().addRoom(kitchen);
         house.getRoomListFromHouse().addRoom(garage);
-        ElectricWaterHeater ewh1=new ElectricWaterHeater(65,1);
-        ElectricWaterHeater ewh2=new ElectricWaterHeater(60,0.9);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(120,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(120,60,0.9);
         Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
         kitchen.getDeviceList().addDevice(dEWH1);
@@ -66,14 +66,14 @@ class USEnergyConsumptionOfEWHCTRLTest {
         Room garage = new Room("Garage",0,6,4,3);
         house.getRoomListFromHouse().addRoom(kitchen);
         house.getRoomListFromHouse().addRoom(garage);
-        ElectricWaterHeater ewh1=new ElectricWaterHeater(65,1);
-        ElectricWaterHeater ewh2=new ElectricWaterHeater(60,0.9);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(120,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(120,60,0.9);
         Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
         kitchen.getDeviceList().addDevice(dEWH1);
         garage.getDeviceList().addDevice(dEWH2);
         ctrl.setColdWaterTemperatureInGlobalEWHList(15);
-        ctrl.setVolumeOfWaterInGlobalEWHList(70);
+        ctrl.setVolumeOfWaterToHeatInEWHList(70);
 
         double expected=1768.22;
         double result=ctrl.getEnergyConsumptionOfEWHGlobalList();
@@ -89,35 +89,37 @@ class USEnergyConsumptionOfEWHCTRLTest {
         Room garage = new Room("Garage",0,6,4,3);
         house.getRoomListFromHouse().addRoom(kitchen);
         house.getRoomListFromHouse().addRoom(garage);
-        ElectricWaterHeater ewh1=new ElectricWaterHeater(65,1);
-        ElectricWaterHeater ewh2=new ElectricWaterHeater(60,0.9);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(120,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(150,60,0.9);
         Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
         kitchen.getDeviceList().addDevice(dEWH1);
         garage.getDeviceList().addDevice(dEWH2);
-        house.setVolumeOfWaterInGlobalEWHList(65);
+        house.setVolumeOfWaterToHeatInEWHList(65);
         house.setColdWaterTemperatureInGlobalEWHList(20);
         String expected="ELECTRIC WATER HEATER \n" +
                 "Room: Kitchen\n" +
                 "1 - Device name : Daikin - Electric Water Heater1\n" +
                 "2 - Device room : Kitchen\n" +
                 "3 - Nominal Power : 3.0 kW\n" +
-                "4 - Volume of water : 65.0\n" +
+                "4 - Volume of water capacity (l) : 120.0\n" +
                 "5 - Hot water temperature : 65.0\n" +
                 "6 - Cold water temperature : 20.0\n" +
                 "7 - Performance Ratio : 1.0\n" +
-                "8 - Daily Energy Consumption: 816.4259999999999 KWh\n" +
+                "8 - Volume of water to heat: 65.0\n" +
+                "9 - Daily Energy Consumption: 816.4259999999999 KWh\n" +
                 "\n" +
                 "ELECTRIC WATER HEATER \n" +
                 "Room: Garage\n" +
                 "1 - Device name : Daikin - Electric Water Heater2\n" +
                 "2 - Device room : Garage\n" +
                 "3 - Nominal Power : 2.5 kW\n" +
-                "4 - Volume of water : 65.0\n" +
+                "4 - Volume of water capacity (l) : 150.0\n" +
                 "5 - Hot water temperature : 60.0\n" +
                 "6 - Cold water temperature : 20.0\n" +
                 "7 - Performance Ratio : 0.9\n" +
-                "8 - Daily Energy Consumption: 653.1408 KWh\n\n";
+                "8 - Volume of water to heat: 65.0\n" +
+                "9 - Daily Energy Consumption: 653.1408 KWh\n\n";
         String result=ctrl.showElectricWaterHeaterList();
         assertEquals(expected,result);
     }
@@ -163,8 +165,8 @@ class USEnergyConsumptionOfEWHCTRLTest {
         house.getRoomListFromHouse().addRoom(kitchen);
         house.getRoomListFromHouse().addRoom(garage);
         house.getRoomListFromHouse().addRoom(bedroom);
-        ElectricWaterHeater ewh1=new ElectricWaterHeater(65,1);
-        ElectricWaterHeater ewh2=new ElectricWaterHeater(60,0.9);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(150,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(120,60,0.9);
         Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
         kitchen.getDeviceList().addDevice(dEWH1);
@@ -184,8 +186,8 @@ class USEnergyConsumptionOfEWHCTRLTest {
         house.getRoomListFromHouse().addRoom(kitchen);
         house.getRoomListFromHouse().addRoom(garage);
         house.getRoomListFromHouse().addRoom(bedroom);
-        ElectricWaterHeater ewh1=new ElectricWaterHeater(65,1);
-        ElectricWaterHeater ewh2=new ElectricWaterHeater(60,0.9);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(115,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(130,60,0.9);
         Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
         Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
         kitchen.getDeviceList().addDevice(dEWH1);

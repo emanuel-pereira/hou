@@ -130,11 +130,14 @@ public class USAddSetAndListDevicesInRoomUI {
 
         switch (mDeviceTypeIndex) {
             case 1:
+                System.out.println("Insert the volume of water capacity (l) of the Electric Water Heater");
+                int volumeOfWater=read.nextInt();
+                read.nextLine();
                 System.out.println("Insert the hot water temperature (ºC):");
                 double hotWaterTemperature = read.nextDouble();
                 System.out.println("Insert the performance ratio for the Electric Water Heater:");
                 double performanceRatio = read.nextDouble();
-                ElectricWaterHeater electricWaterHeater = new ElectricWaterHeater(hotWaterTemperature, performanceRatio);
+                ElectricWaterHeater electricWaterHeater = new ElectricWaterHeater(volumeOfWater,hotWaterTemperature, performanceRatio);
                 mCtrl.addDevice(mRoomIndex, mName, electricWaterHeater, mNominalPower,DeviceType.ELECTRIC_WATER_HEATER);
                 break;
             case 2:

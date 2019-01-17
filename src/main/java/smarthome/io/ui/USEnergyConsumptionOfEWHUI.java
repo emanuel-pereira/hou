@@ -2,7 +2,6 @@ package smarthome.io.ui;
 
 import smarthome.controller.USEnergyConsumptionOfEWHCTRL;
 import smarthome.model.House;
-import smarthome.model.Room;
 import smarthome.model.RoomList;
 
 import java.util.Scanner;
@@ -48,7 +47,7 @@ public class USEnergyConsumptionOfEWHUI {
             mVolumeOfWater = read.nextDouble();
             read.nextLine();
             if (mCtrl.valueIsPositive(mVolumeOfWater)) {
-                mCtrl.setVolumeOfWaterInGlobalEWHList(mVolumeOfWater);
+                mCtrl.setVolumeOfWaterToHeatInEWHList(mVolumeOfWater);
                 break;
             }
             System.out.println("Please insert a positive value for volume of water.");

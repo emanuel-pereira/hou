@@ -15,8 +15,8 @@ public class USEnergyConsumptionOfEWHCTRL {
         mNumberValidations= new NumberValidations();
     }
 
-    public void setVolumeOfWaterInGlobalEWHList(double volumeOfWater) {
-        mHouse.setVolumeOfWaterInGlobalEWHList(volumeOfWater);
+    public void setVolumeOfWaterToHeatInEWHList(double volumeOfWater) {
+        mHouse.setVolumeOfWaterToHeatInEWHList(volumeOfWater);
     }
 
     public void setColdWaterTemperatureInGlobalEWHList(double coldWaterTemperature) {

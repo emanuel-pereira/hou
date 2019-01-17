@@ -121,10 +121,10 @@ public class DeviceList {
      *
      * @param volumeOfWater double value parameter to set the volume of water of every Electric Water Heater installed in all rooms of the house.
      */
-    public void setVolumeOfWaterEWHList(double volumeOfWater) {
+    public void setVolumeOfWaterToHeat(double volumeOfWater) {
         DeviceList listOfEWH = getElectricWaterHeaterList();
         for (Device device : listOfEWH.getDeviceList()) {
-            ((ElectricWaterHeater) device.getDeviceSpecs()).setVolumeOfWater(volumeOfWater);
+            ((ElectricWaterHeater) device.getDeviceSpecs()).setVolumeOfWaterToHeat(volumeOfWater);
         }
     }
 
