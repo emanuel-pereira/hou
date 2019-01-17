@@ -1,0 +1,14 @@
+@startuml
+autonumber
+hidefootbox
+
+actor "Regular User/Power User"
+
+"EnergyConsumptionOfWaterHeating:UI" -> ":Controller": h.setColdWaterTemperatureInEWHList(coldWaterTemperature)
+":Controller" -> ":House": h.setColdWaterTemperatureInEWHList(coldWaterTemperature)
+":House"->":RoomList": h.setColdWaterTemperatureInEWHList(coldWaterTemperature)
+":RoomList" -> ":Room": h.setColdWaterTemperatureInEWHList(coldWaterTemperature)
+":Room" -> ":DeviceList": h.setColdWaterTemperatureInEWHList(coldWaterTemperature)
+":DeviceList" -> ":Device": h.setColdWaterTemperatureInEWHList(coldWaterTemperature)
+
+@enduml

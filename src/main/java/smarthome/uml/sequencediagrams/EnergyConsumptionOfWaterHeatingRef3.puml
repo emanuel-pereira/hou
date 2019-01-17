@@ -1,0 +1,20 @@
+@startuml
+autonumber
+hidefootbox
+
+actor "Regular User/Power User"
+
+"EnergyConsumptionOfWaterHeating:UI" -> ":Controller": h.getEnergyConsumptionInEWHList( ): double
+":Controller" -> "h:House": h.getEnergyConsumptionInEWHList( ): double
+"h:House"->":RoomList": h.getEnergyConsumptionInEWHList( ): double
+":RoomList" -> ":Room": h.getEnergyConsumptionInEWHList( ): double
+":Room" -> ":DeviceList": h.getEnergyConsumptionInEWHList( ): double
+":DeviceList" -> ":Device": h.getEnergyConsumptionInEWHList( ): double
+
+":Device" -->> ":DeviceList": energy consumption estimated value
+":DeviceList" -->> ":Room": energy consumption estimated value
+":Room" -->> ":RoomList": energy consumption estimated value
+":RoomList" -->> "h:House": energy consumption estimated value
+"h:House" -->> ":Controller": energy consumption estimated value
+":Controller" -->> "EnergyConsumptionOfWaterHeating:UI": energy consumption estimated value
+@enduml

@@ -1,0 +1,43 @@
+@startuml
+autonumber
+hidefootbox
+
+actor "Regular User/Power User"
+
+'== INITIALIZATION ==
+
+"Regular User/Power User" -> "EnergyConsumptionOfWaterHeating:UI": Estimate energy consumed\nby electric water heater
+create ":Controller"
+"EnergyConsumptionOfWaterHeating:UI" -->> ":Controller": create
+
+"EnergyConsumptionOfWaterHeating:UI" -> "EnergyConsumptionOfWaterHeating:UI": run( )
+
+
+
+'== COLD WATER TEMPERATURE ==
+
+"EnergyConsumptionOfWaterHeating:UI" -->> "Regular User/Power User": ask for cold water temperature\nin a given day
+"Regular User/Power User" -> "EnergyConsumptionOfWaterHeating:UI": input cold water temperature
+ref over "EnergyConsumptionOfWaterHeating:UI",":Controller", "h:House", ":RoomList", ":Room", ":DeviceList",":Device": h.setColdWaterTemperatureInEWHList(coldWaterTemperature)
+
+
+'== VOLUME OF WATER PRODUCED ==
+
+"EnergyConsumptionOfWaterHeating:UI" -->> "Regular User/Power User": ask for volume of water\nproduced in each water heater
+"Regular User/Power User" -> "EnergyConsumptionOfWaterHeating:UI": input volume of produced water
+ref over "EnergyConsumptionOfWaterHeating:UI",":Controller","h:House",":RoomList",":Room",":DeviceList",":Device": h.setVolumeOfWaterInEWHList(volumeOfWater)
+
+
+
+'== ENERGY CONSUMPTION ==
+
+ref over "EnergyConsumptionOfWaterHeating:UI", ":Controller","h:House",":RoomList",":Room",":DeviceList",":Device":  h.getEnergyConsumptionInEWHList( ): double
+
+
+'== FINAL MESSAGE ==
+
+"EnergyConsumptionOfWaterHeating:UI" -->> "Regular User/Power User": message with estimated value\nfor total energy consumption\n in a given day
+
+
+
+@enduml
