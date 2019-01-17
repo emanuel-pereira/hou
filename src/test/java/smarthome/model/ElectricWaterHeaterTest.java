@@ -30,7 +30,11 @@ class ElectricWaterHeaterTest {
     void showDeviceSpecsListAttributesInStringTest() {
         ElectricWaterHeater ewh = new ElectricWaterHeater(  18, 0.9);
         String result = ewh.showDeviceSpecsListAttributesInString();
-        String expected = "4 - Volume of water : " + ewh.getVolumeOfWater() + "\n5 - Hot water temperature : " + ewh.getHotWaterTemperature() + "\n6 - Cold water temperature : " + ewh.getColdWaterTemperature() + "\n7 - Performance Ratio : " + ewh.getPerformanceRatio() + "\n";
+        String expected = "4 - Volume of water : 0.0\n" +
+                "5 - Hot water temperature : 18.0\n" +
+                "6 - Cold water temperature : 0.0\n" +
+                "7 - Performance Ratio : 0.9\n" +
+                "8 - Energy Consumption: 0.0 KWh\n";
         assertEquals(expected, result);
     }
 }

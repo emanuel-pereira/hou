@@ -28,14 +28,18 @@ public class USEnergyConsumptionOfEWHUI {
         mColdWaterTemperature = read.nextDouble();
         read.nextLine();
         mCtrl.setColdWaterTemperatureInGlobalEWHList(mColdWaterTemperature);
-        System.out.println("Please insert the volume of water (l) produced in each water heater:");
-        mVolumeOfWater = read.nextDouble();
-        read.nextLine();
-        mCtrl.setVolumeOfWaterInGlobalEWHList(mVolumeOfWater);
-        System.out.println("The estimated energy used in heating water in a given day is: " + mCtrl.getEnergyConsumptionOfEWHGlobalList());
-        //getEnergyConsumption de todos os devices do tipo EWH
-
-        //device do tipo electric water heater
-
+        while (true) {
+            System.out.println("Please insert the volume of water (l) produced in each water heater:");
+            mVolumeOfWater = read.nextDouble();
+            read.nextLine();
+            if (mCtrl.valueIsPositive(mVolumeOfWater)) {
+                mCtrl.setVolumeOfWaterInGlobalEWHList(mVolumeOfWater);
+                break;
+            }
+            System.out.println("Please insert a positive value for volume of water.");
+        }
+        System.out.println("Current Electric Water Heaters installed in the house: \n");
+        System.out.println(mCtrl.showElectricWaterHeaterList());
+        System.out.println("The estimated energy used in heating water in a given day is: " + mCtrl.getEnergyConsumptionOfEWHGlobalList() + " KWh.");
     }
 }

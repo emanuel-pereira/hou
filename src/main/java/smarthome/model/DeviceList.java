@@ -81,7 +81,18 @@ public class DeviceList {
         }
         return result.toString();
     }
+    public String showElectricWaterHeaterList() {
+        DeviceList electricWaterHeaterList = getElectricWaterHeaterList();
+        StringBuilder result = new StringBuilder();
+        for (Device device : electricWaterHeaterList.getDeviceList()) {
+            result.append(device.showDeviceListAttributesInString());
+            result.append("\n");
+        }
+        return result.toString();
+    }
 
+
+    //show electric list in string for each room
     public DeviceList getElectricWaterHeaterList() {
         DeviceList electricWaterHeaterList = new DeviceList();
         for (Device device : mDeviceList) {
@@ -90,6 +101,8 @@ public class DeviceList {
         }
         return electricWaterHeaterList;
     }
+
+
 
     /**
      * @return the total energy consumed by all electric water heaters in a specific device list.
@@ -125,5 +138,9 @@ public class DeviceList {
         for (Device device : listOfEWH.getDeviceList()) {
             ((ElectricWaterHeater) device.getDeviceSpecs()).setColdWaterTemperature(coldWaterTemperature);
         }
+    }
+
+    public int size(){
+        return mDeviceList.size();
     }
 }

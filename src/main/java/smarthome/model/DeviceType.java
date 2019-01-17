@@ -34,10 +34,6 @@ public enum DeviceType {
         return mIndex;
     }
 
-    public String getTypeFromIndex(int index) {
-        return DeviceType.values()[index].getTypeString();
-    }
-
     public static String displayDeviceTypes() {
         StringBuilder result = new StringBuilder();
         String element = " - ";
