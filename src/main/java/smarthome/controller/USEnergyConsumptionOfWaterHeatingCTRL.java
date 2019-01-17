@@ -2,14 +2,14 @@ package smarthome.controller;
 
 import smarthome.model.*;
 
-public class USEnergyConsumptionOfEWHCTRL {
+public class USEnergyConsumptionOfWaterHeatingCTRL {
 
 
     private House mHouse;
     private RoomList mRoomList;
     private NumberValidations mNumberValidations;
 
-    public USEnergyConsumptionOfEWHCTRL(House house) {
+    public USEnergyConsumptionOfWaterHeatingCTRL(House house) {
         mHouse = house;
         mRoomList = house.getRoomListFromHouse();
         mNumberValidations= new NumberValidations();

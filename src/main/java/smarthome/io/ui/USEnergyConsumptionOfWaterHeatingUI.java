@@ -1,22 +1,22 @@
 package smarthome.io.ui;
 
-import smarthome.controller.USEnergyConsumptionOfEWHCTRL;
+import smarthome.controller.USEnergyConsumptionOfWaterHeatingCTRL;
 import smarthome.model.House;
 import smarthome.model.RoomList;
 
 import java.util.Scanner;
 
-public class USEnergyConsumptionOfEWHUI {
+public class USEnergyConsumptionOfWaterHeatingUI {
 
     private House mHouse;
     private RoomList mRoomList;
-    private USEnergyConsumptionOfEWHCTRL mCtrl;
+    private USEnergyConsumptionOfWaterHeatingCTRL mCtrl;
     Scanner read = new Scanner(System.in);
 
-    public USEnergyConsumptionOfEWHUI(House house) {
+    public USEnergyConsumptionOfWaterHeatingUI(House house) {
         mHouse = house;
         mRoomList = house.getRoomListFromHouse();
-        mCtrl = new USEnergyConsumptionOfEWHCTRL(house);
+        mCtrl = new USEnergyConsumptionOfWaterHeatingCTRL(house);
     }
 
     private double mColdWaterTemperature;

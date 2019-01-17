@@ -6,13 +6,13 @@ import smarthome.model.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class USEnergyConsumptionOfEWHCTRLTest {
+class USEnergyConsumptionOfWaterHeatingCTRLTest {
 
     @Test
     @DisplayName("Ensure that method sets volume of water for all electric water heater devices installed in all rooms of the house")
     void setVolumeOfWaterInGlobalEWHList() {
         House house = new House();
-        USEnergyConsumptionOfEWHCTRL ctrl= new USEnergyConsumptionOfEWHCTRL(house);
+        USEnergyConsumptionOfWaterHeatingCTRL ctrl= new USEnergyConsumptionOfWaterHeatingCTRL(house);
         Room kitchen = new Room("Kitchen",0,6,3.5,3);
         Room garage = new Room("Garage",0,6,4,3);
         house.getRoomListFromHouse().addRoom(kitchen);
@@ -37,7 +37,7 @@ class USEnergyConsumptionOfEWHCTRLTest {
     @DisplayName("Ensure that method sets cold water temperature for all electric water heater devices installed in all rooms of the house")
     void setColdWaterTemperatureInGlobalEWHList() {
         House house = new House();
-        USEnergyConsumptionOfEWHCTRL ctrl= new USEnergyConsumptionOfEWHCTRL(house);
+        USEnergyConsumptionOfWaterHeatingCTRL ctrl= new USEnergyConsumptionOfWaterHeatingCTRL(house);
         Room kitchen = new Room("Kitchen",0,6,3.5,3);
         Room garage = new Room("Garage",0,6,4,3);
         house.getRoomListFromHouse().addRoom(kitchen);
@@ -61,7 +61,7 @@ class USEnergyConsumptionOfEWHCTRLTest {
     @Test
     void getEnergyConsumptionOfEWHGlobalList() {
         House house = new House();
-        USEnergyConsumptionOfEWHCTRL ctrl= new USEnergyConsumptionOfEWHCTRL(house);
+        USEnergyConsumptionOfWaterHeatingCTRL ctrl= new USEnergyConsumptionOfWaterHeatingCTRL(house);
         Room kitchen = new Room("Kitchen",0,6,3.5,3);
         Room garage = new Room("Garage",0,6,4,3);
         house.getRoomListFromHouse().addRoom(kitchen);
@@ -84,7 +84,7 @@ class USEnergyConsumptionOfEWHCTRLTest {
     @Test
     void showElectricWaterHeaterList() {
         House house = new House();
-        USEnergyConsumptionOfEWHCTRL ctrl = new USEnergyConsumptionOfEWHCTRL(house);
+        USEnergyConsumptionOfWaterHeatingCTRL ctrl = new USEnergyConsumptionOfWaterHeatingCTRL(house);
         Room kitchen = new Room("Kitchen",0,6,3.5,3);
         Room garage = new Room("Garage",0,6,4,3);
         house.getRoomListFromHouse().addRoom(kitchen);
@@ -128,7 +128,7 @@ class USEnergyConsumptionOfEWHCTRLTest {
     @DisplayName("Ensure that negative value returns false")
     void negativeValueReturnsFalse() {
         House house = new House();
-        USEnergyConsumptionOfEWHCTRL ctrl= new USEnergyConsumptionOfEWHCTRL(house);
+        USEnergyConsumptionOfWaterHeatingCTRL ctrl= new USEnergyConsumptionOfWaterHeatingCTRL(house);
         double value= -0.5;
         boolean result= ctrl.valueIsPositive(value);
         assertFalse(result);
@@ -138,7 +138,7 @@ class USEnergyConsumptionOfEWHCTRLTest {
     @DisplayName("Ensure that 0 returns false")
     void zeroReturnsFalse() {
         House house = new House();
-        USEnergyConsumptionOfEWHCTRL ctrl= new USEnergyConsumptionOfEWHCTRL(house);
+        USEnergyConsumptionOfWaterHeatingCTRL ctrl= new USEnergyConsumptionOfWaterHeatingCTRL(house);
         double value= 0;
         boolean result= ctrl.valueIsPositive(value);
         assertFalse(result);
@@ -148,7 +148,7 @@ class USEnergyConsumptionOfEWHCTRLTest {
     @DisplayName("Ensure that positive value returns true")
     void zeroReturnsTrue() {
         House house = new House();
-        USEnergyConsumptionOfEWHCTRL ctrl= new USEnergyConsumptionOfEWHCTRL(house);
+        USEnergyConsumptionOfWaterHeatingCTRL ctrl= new USEnergyConsumptionOfWaterHeatingCTRL(house);
         double value= 15;
         boolean result= ctrl.valueIsPositive(value);
         assertTrue(result);
@@ -158,7 +158,7 @@ class USEnergyConsumptionOfEWHCTRLTest {
     @DisplayName("Ensure that isLowerThanHotWater() method returns false if cold water temperature is higher than any hot water temperature")
     void isLowerThanHotWater() {
         House house = new House();
-        USEnergyConsumptionOfEWHCTRL ctrl= new USEnergyConsumptionOfEWHCTRL(house);
+        USEnergyConsumptionOfWaterHeatingCTRL ctrl= new USEnergyConsumptionOfWaterHeatingCTRL(house);
         Room kitchen = new Room("Kitchen",0,6,3.5,3);
         Room garage = new Room("Garage",0,6,4,3);
         Room bedroom= new Room("Bedroom",1,5,5,3);
@@ -179,7 +179,7 @@ class USEnergyConsumptionOfEWHCTRLTest {
     @DisplayName("Ensure that isLowerThanHotWater() method returns true if cold water temperature is lower than any hot water temperature")
     void isLowerThanHotWater1() {
         House house = new House();
-        USEnergyConsumptionOfEWHCTRL ctrl= new USEnergyConsumptionOfEWHCTRL(house);
+        USEnergyConsumptionOfWaterHeatingCTRL ctrl= new USEnergyConsumptionOfWaterHeatingCTRL(house);
         Room kitchen = new Room("Kitchen",0,6,3.5,3);
         Room garage = new Room("Garage",0,6,4,3);
         Room bedroom= new Room("Bedroom",1,5,5,3);
