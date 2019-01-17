@@ -1,0 +1,101 @@
+@startuml
+
+object House{
+mID: String
+}
+
+object Address {
+mStreet: String
+mZipCode: String
+mTown: String
+}
+
+object GeographicalArea{
+mID: String
+mDesignation: String
+}
+
+object Location{
+mLatitude: double
+mLongitude: double
+mAltitude: double
+}
+
+object TypeGA
+
+
+object OccupationArea{
+mLength: double
+mWidth: double
+}
+
+
+object Room{
+mName: String
+mFloor: Integer
+mHeight: double
+}
+
+
+object Sensor{
+mDesignation: String
+mStartDate: Calendar
+mUnit: String
+}
+
+object SensorType
+
+object HouseGrid {
+mDesignation: String
+mContractedMaximumPower: double
+}
+
+object Reading{
+mValue: double
+mDateAndTime: Calendar
+}
+
+object Device {
+mName: String
+mDeviceType: String
+mNominalPower: double
+}
+
+object DeviceType
+
+object PowerSource{
+mName: String
+mTypePS: String
+mMaxPower: double
+mStorageCapacity: double
+}
+
+
+
+House -- "1" GeographicalArea: belongs to
+House -- "1" Address: has
+House *-- "*" Room: contains
+House o-- "*" HouseGrid: contains
+
+Address "1" -- "1" Location: has
+
+GeographicalArea ->  GeographicalArea: is in 0..1
+GeographicalArea "1..*"-- "1" TypeGA: has
+GeographicalArea" 1" o-- "1..*" Sensor
+GeographicalArea "   1"-- "1" OccupationArea: has
+GeographicalArea "1..*  "-- "1" Location: has
+
+Room "1" o-- "          *"Sensor: contains
+Room "1"*-- "1..*"Device: contains
+Room "0..*"-- "1" HouseGrid: belongs to
+Room "1"-- "1" OccupationArea: has
+
+
+Sensor *-- "1..*"Reading: contains
+Sensor "1" -- "1" SensorType: has
+Sensor "1" -- "1" Location: is in
+
+HouseGrid "1" o--  "*" PowerSource: has
+
+Device "1..*" -- "1" DeviceType: has
+@enduml
