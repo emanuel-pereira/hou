@@ -29,12 +29,12 @@ public class ProgramList {
     /**
      * Method that creates a local instance of a program
      *
-     * @param duration          time duration parameter of the program
+     * @param name program name
      * @param energyConsumption consumption of the program
      * @return an instance of a Program
      */
-    public Program newProgram(int duration, double energyConsumption) {
-        return new Program(duration, energyConsumption);
+    public Program newProgram(String name, double energyConsumption) {
+        return new Program(name, energyConsumption);
     }
 
     /**

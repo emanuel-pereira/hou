@@ -145,14 +145,7 @@ public class USAddSetAndListDevicesInRoomUI {
                     System.out.println("Do you want to insert a program for the washing machine(y/n)?");
                     String option = read.nextLine();
                     if (option.matches("y")) {
-                        System.out.println("Insert the duration for the program:");
-                        int duration = read.nextInt();
-                        read.nextLine();
-                        System.out.println("Insert the washing machine consumption in this program:");
-                        double consumption = read.nextDouble();
-                        read.nextLine();
-                        Program program = new Program(duration, consumption);
-                        mProgramList.addProgram(program);
+                        insertNewProgram("washing machine");
                     }
                     if (option.matches("n")) {
                         WashingMachine washingMachine = new WashingMachine(capacity);
@@ -170,14 +163,7 @@ public class USAddSetAndListDevicesInRoomUI {
                     String option = read.nextLine();
 
                     if (option.matches("y")) {
-                        System.out.println("Insert the duration for the program:");
-                        int duration = read.nextInt();
-                        read.nextLine();
-                        System.out.println("Insert the washing machine consumption in this program:");
-                        double consumption = read.nextInt();
-                        read.nextLine();
-                        Program program = new Program(duration, consumption);
-                        mProgramList.addProgram(program);
+                        insertNewProgram("dishwasher");
                     }
                     if (option.matches("n")) {
 
@@ -247,6 +233,16 @@ public class USAddSetAndListDevicesInRoomUI {
         System.out.println("[ROOM]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getRoom().getName());
         System.out.println("[NOMINAL POWER]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getNominalPower());
 
+    }
+
+    private void insertNewProgram(final String deviceType) {
+        System.out.println("Insert a name for the program:");
+        String programName = read.nextLine();
+        System.out.println("Insert the " + deviceType + " consumption in this program:");
+        double consumption = read.nextDouble();
+        read.nextLine();
+        Program program = new Program(programName, consumption);
+        mProgramList.addProgram(program);
     }
 
     public void roomSelectionToListDevice() {

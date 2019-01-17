@@ -355,7 +355,7 @@ class HouseTest {
                 "5 - Hot water temperature : 65.0\n" +
                 "6 - Cold water temperature : 20.0\n" +
                 "7 - Performance Ratio : 1.0\n" +
-                "8 - Daily Energy Consumption: 81642.6 KWh\n" +
+                "8 - Daily Energy Consumption: 816.4259999999999 KWh\n" +
                 "\n" +
                 "ELECTRIC WATER HEATER \n" +
                 "Room: Garage\n" +
@@ -366,7 +366,7 @@ class HouseTest {
                 "5 - Hot water temperature : 60.0\n" +
                 "6 - Cold water temperature : 20.0\n" +
                 "7 - Performance Ratio : 0.9\n" +
-                "8 - Daily Energy Consumption: 65314.08 KWh\n\n";
+                "8 - Daily Energy Consumption: 653.1408 KWh\n\n";
         String result=house.showElectricWaterHeaterList();
         assertEquals(expected,result);
 

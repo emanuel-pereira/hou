@@ -75,7 +75,7 @@ class USEnergyConsumptionOfEWHCTRLTest {
         ctrl.setColdWaterTemperatureInGlobalEWHList(15);
         ctrl.setVolumeOfWaterInGlobalEWHList(70);
 
-        double expected=176822.52;
+        double expected=1768.22;
         double result=ctrl.getEnergyConsumptionOfEWHGlobalList();
         assertEquals(expected,result,0.01);
 
@@ -106,7 +106,7 @@ class USEnergyConsumptionOfEWHCTRLTest {
                 "5 - Hot water temperature : 65.0\n" +
                 "6 - Cold water temperature : 20.0\n" +
                 "7 - Performance Ratio : 1.0\n" +
-                "8 - Daily Energy Consumption: 81642.6 KWh\n" +
+                "8 - Daily Energy Consumption: 816.4259999999999 KWh\n" +
                 "\n" +
                 "ELECTRIC WATER HEATER \n" +
                 "Room: Garage\n" +
@@ -117,7 +117,7 @@ class USEnergyConsumptionOfEWHCTRLTest {
                 "5 - Hot water temperature : 60.0\n" +
                 "6 - Cold water temperature : 20.0\n" +
                 "7 - Performance Ratio : 0.9\n" +
-                "8 - Daily Energy Consumption: 65314.08 KWh\n\n";
+                "8 - Daily Energy Consumption: 653.1408 KWh\n\n";
         String result=ctrl.showElectricWaterHeaterList();
         assertEquals(expected,result);
     }
@@ -127,7 +127,6 @@ class USEnergyConsumptionOfEWHCTRLTest {
     void negativeValueReturnsFalse() {
         House house = new House();
         USEnergyConsumptionOfEWHCTRL ctrl= new USEnergyConsumptionOfEWHCTRL(house);
-        NumberValidations n= new NumberValidations();
         double value= -0.5;
         boolean result= ctrl.valueIsPositive(value);
         assertFalse(result);
@@ -138,7 +137,6 @@ class USEnergyConsumptionOfEWHCTRLTest {
     void zeroReturnsFalse() {
         House house = new House();
         USEnergyConsumptionOfEWHCTRL ctrl= new USEnergyConsumptionOfEWHCTRL(house);
-        NumberValidations n= new NumberValidations();
         double value= 0;
         boolean result= ctrl.valueIsPositive(value);
         assertFalse(result);
@@ -149,7 +147,6 @@ class USEnergyConsumptionOfEWHCTRLTest {
     void zeroReturnsTrue() {
         House house = new House();
         USEnergyConsumptionOfEWHCTRL ctrl= new USEnergyConsumptionOfEWHCTRL(house);
-        NumberValidations n= new NumberValidations();
         double value= 15;
         boolean result= ctrl.valueIsPositive(value);
         assertTrue(result);

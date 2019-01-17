@@ -106,7 +106,7 @@ class DeviceListTest {
         deviceList.addDevice(stove);
         deviceList.setVolumeOfWaterEWHList(65);
         deviceList.setColdWaterTemperatureEWHList(20);
-        double expected = 146956.68;
+        double expected = 1469.5668;
         double result = deviceList.getEnergyConsumptionOfEWHList();
         assertEquals(expected, result);
     }

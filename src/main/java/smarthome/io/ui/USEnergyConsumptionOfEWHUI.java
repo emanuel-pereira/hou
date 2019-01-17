@@ -24,6 +24,12 @@ public class USEnergyConsumptionOfEWHUI {
     private double mVolumeOfWater;
 
     public void run() {
+        inputColdWaterTemperature();
+        inputVolumeOfWater();
+        displayTotalEnergyConsumed();
+    }
+
+    private void inputColdWaterTemperature() {
         while (true) {
             System.out.println("Please insert the cold water temperature (ºC) in a given day:");
             mColdWaterTemperature = read.nextDouble();
@@ -35,7 +41,8 @@ public class USEnergyConsumptionOfEWHUI {
             System.out.println("Cold water temperature must be set with a lower value than the lower hot water temperature in all" +
                     "Electric Water Heaters.");
         }
-
+    }
+    private void inputVolumeOfWater() {
         while (true) {
             System.out.println("Please insert the volume of water (l) produced in each water heater:");
             mVolumeOfWater = read.nextDouble();
@@ -46,9 +53,13 @@ public class USEnergyConsumptionOfEWHUI {
             }
             System.out.println("Please insert a positive value for volume of water.");
         }
-
+    }
+    private void displayTotalEnergyConsumed() {
         System.out.println("Current Electric Water Heaters installed in the house: \n");
         System.out.println(mCtrl.showElectricWaterHeaterList());
         System.out.println("The estimated total energy used in heating water in a given day is: " + mCtrl.getEnergyConsumptionOfEWHGlobalList() + " KWh.");
     }
+
+
+
 }

@@ -66,6 +66,6 @@ public class ElectricWaterHeater implements DeviceSpecs,Metered {
     }
 
     public double getEnergyConsumption() {
-        return mEnergyConsumption=(1.163 * mVolumeOfWater * (mHotWaterTemperature - mColdWaterTemperature) * mPerformanceRatio)*24;
+        return mEnergyConsumption=(0.01163 * mVolumeOfWater * (mHotWaterTemperature - mColdWaterTemperature) * mPerformanceRatio)*24;
     }
 }
