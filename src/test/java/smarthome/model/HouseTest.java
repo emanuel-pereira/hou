@@ -155,7 +155,7 @@ class HouseTest {
 
         Sensor s1 = g1.getSensorListInGA().newSensor("TempSensor", new GregorianCalendar(2018, 12, 15), 42, 12.4, 112, sT1, "C", rL);
         Sensor s2 = g1.getSensorListInGA().newSensor("RainSensor", new GregorianCalendar(2018, 12, 15), 40, 13, 190, sR1, "Percentage", rL2);
-        Sensor s3 = g1.getSensorListInGA().newSensor("RainSensor2", new GregorianCalendar(2018, 12, 15), 41, 12.3, 110, sR1, "Percentage", rL2);
+        Sensor s3 = g1.getSensorListInGA().newSensor("RainSensor2", new GregorianCalendar(2018, 12, 15), 50, 12.3, 110, sR1, "Percentage", rL);
 
         g1.getSensorListInGA().addSensor(s1);
         g1.getSensorListInGA().addSensor(s2);
@@ -164,7 +164,7 @@ class HouseTest {
         Sensor result = house1.findClosestGASensorByType("rainfall");
 
         //Assert
-        assertEquals(s2, result);
+        assertEquals(s3, result);
     }
 
 
