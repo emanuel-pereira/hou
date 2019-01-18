@@ -3,7 +3,9 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,6 +27,25 @@ class ReadingListTest {
         assertEquals(expected2, result2);
 
 
+    }
+
+    @Test
+    @DisplayName("Ensure newReading method creates local instance of reading and that addReading method is not add to readingList")
+    void cantAddSameReadingTwice() {
+        ReadingList readingList = new ReadingList();
+        Reading r1 = readingList.newReading(15, new GregorianCalendar(2019, 2, 2));
+        readingList.addReading(r1);
+        Reading expected1 = r1;
+        Reading result1 = readingList.getReadingList().get(0);
+        assertEquals(expected1, result1);
+
+        boolean result2 = readingList.addReading(r1);
+        assertEquals(false, result2);
+
+
+        List<Reading> result3 = readingList.getReadingList ();
+        List<Reading> expected3 = Arrays.asList(r1);
+        assertEquals(expected3, result3);
     }
 
 

@@ -2,19 +2,18 @@
 autonumber
 hidefootbox
 
-actor "Regular User/Power User"
 
-"EnergyConsumptionOfWaterHeating:UI" -> ":Controller": h.getEnergyConsumptionInEWHList( ): double
-":Controller" -> "h:House": h.getEnergyConsumptionInEWHList( ): double
-"h:House"->":RoomList": h.getEnergyConsumptionInEWHList( ): double
-":RoomList" -> ":Room": h.getEnergyConsumptionInEWHList( ): double
-":Room" -> ":DeviceList": h.getEnergyConsumptionInEWHList( ): double
-":DeviceList" -> ":Device": h.getEnergyConsumptionInEWHList( ): double
+"EnergyConsumptionOfWaterHeating:UI" -> ":Controller": h.getEnergyConsumption\nInEWHList( ): double
+":Controller" -> "h:House": h.getEnergyConsumption\nInEWHList( ): double
+"h:House"->":RoomList": h.getEnergyConsumption\nInEWHList( ): double
+":RoomList" -> ":Room": h.getEnergyConsumption\nInEWHList( ): double
+":Room" -> ":DeviceList": h.getEnergyConsumption\nInEWHList( ): double
+":DeviceList" -> ":Device": h.getEnergyConsumption\nInEWHList( ): double
 
-":Device" -->> ":DeviceList": energy consumption estimated value
-":DeviceList" -->> ":Room": energy consumption estimated value
-":Room" -->> ":RoomList": energy consumption estimated value
-":RoomList" -->> "h:House": energy consumption estimated value
-"h:House" -->> ":Controller": energy consumption estimated value
-":Controller" -->> "EnergyConsumptionOfWaterHeating:UI": energy consumption estimated value
+":Device" -->> ":DeviceList": energy consumption\nestimated value
+":DeviceList" -->> ":Room": energy consumption\nestimated value
+":Room" -->> ":RoomList": energy consumption\nestimated value
+":RoomList" -->> "h:House": energy consumption\nestimated value
+"h:House" -->> ":Controller": energy consumption\nestimated value
+":Controller" -->> "EnergyConsumptionOfWaterHeating:UI": energy consumption\nestimated value
 @enduml

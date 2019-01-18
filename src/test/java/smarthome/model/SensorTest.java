@@ -3,7 +3,9 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -324,6 +326,23 @@ class SensorTest {
         Reading result = sensor1.getLastReadingPerSensor ();
 
         assertEquals(expectedReading, result);
+    }
+
+    @Test
+    void showReadingListFromSensor() {
+        GregorianCalendar cL1 = new GregorianCalendar(2018,11,27,21,0);
+        GregorianCalendar cL2 = new GregorianCalendar(2018,11,27,22,0);
+
+        Sensor sensor1 = new Sensor ("Temp132");
+        Reading r1 = sensor1.getReadingList ().newReading (8,cL1);
+        Reading r2 = sensor1.getReadingList ().newReading (10,cL2);
+        sensor1.getReadingList ().addReading (r1);
+        sensor1.getReadingList ().addReading (r2);
+
+        List<Reading> expected = Arrays.asList(r1,r2);
+        List<Reading> result = sensor1.getReadingList ().getReadingList ();
+
+        assertEquals(expected, result);
     }
 
 
