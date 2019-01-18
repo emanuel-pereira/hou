@@ -11,25 +11,19 @@ public class US172TotalNominalPowerInGridUI {
 
     Scanner read = new Scanner (System.in);
 
-    private House mHouse;
-    private RoomList mRoomList;
-    private HouseGridList mHouseGridList;
     private US172TotalNominalPowerInGridCTRL mUS172CTRL;
 
     public US172TotalNominalPowerInGridUI(House house) {
-        mHouse = house;
-        mRoomList = mHouse.getRoomListFromHouse ();
-        mHouseGridList = mHouse.getHGListInHouse ();
         mUS172CTRL = new US172TotalNominalPowerInGridCTRL (house);
     }
 
-    private int indexGrid;
+    public int indexGrid;
 
     /**
      * Check if there is any house Grid before continuing
      */
     public void run() {
-        if (!mUS172CTRL.getHouseGridList ().getHouseGridList ().isEmpty ()) {
+        if (!mUS172CTRL. getHouseGridList ().getHouseGridList ().isEmpty ()) {
             this.checkIfRoomsExists ();
         } else System.out.println ("Please ask the Administrator to create a House Grid");
     }

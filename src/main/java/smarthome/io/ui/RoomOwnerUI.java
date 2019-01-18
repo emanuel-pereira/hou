@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class RoomOwnerUI {
 
-    public static void RoomOwner(House house) {
+    public static void roomOwner(House house) {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("Room Owners UI");
@@ -21,6 +21,9 @@ public class RoomOwnerUI {
                     System.out.println("US230");
                     US230TotalNominalPowerRoomUI ui230 = new US230TotalNominalPowerRoomUI(house);
                     ui230.showTotalNominalPowerRoom();
+                    break;
+                case 2:
+                    System.out.println("new functions are coming soon");
                     break;
             }
 

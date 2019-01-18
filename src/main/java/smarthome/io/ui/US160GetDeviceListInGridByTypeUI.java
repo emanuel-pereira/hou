@@ -7,11 +7,9 @@ import java.util.Scanner;
 
 public class US160GetDeviceListInGridByTypeUI {
 
-    private House mHouse;
     private US160GetDeviceListInGridByTypeCTRL mCtrl160;
 
     public US160GetDeviceListInGridByTypeUI(House house) {
-        mHouse = house;
         mCtrl160 = new US160GetDeviceListInGridByTypeCTRL(house);
     }
 

@@ -10,7 +10,7 @@ import static smarthome.io.ui.HouseAdministrationUI.houseAdministration;
 import static smarthome.io.ui.PowerUserUI.powerUser;
 import static smarthome.io.ui.RegularUsageUI.regularUsage;
 import static smarthome.io.ui.SystemAdministrationUI.systemAdministration;
-import static smarthome.io.ui.RoomOwnerUI.RoomOwner;
+import static smarthome.io.ui.RoomOwnerUI.roomOwner;
 
 public class MainUI {
     public static void main(String[] args) {
@@ -50,7 +50,7 @@ public class MainUI {
                     powerUser(house);
                     break;
                 case 5:
-                    RoomOwner(house);
+                    roomOwner(house);
                 break;
             }
         }
