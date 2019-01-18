@@ -2,11 +2,11 @@
 autonumber
 hidefootbox
 
-"EnergyConsumptionOfWaterHeating:UI" -> ":Controller": h.setVolumeOfWater\nInEWHList (volumeOfWater)
-":Controller" -> ":House": h.setVolumeOfWater\nInEWHList (volumeOfWater)
-":House"->":RoomList": h.setVolumeOfWater\nInEWHList (volumeOfWater)
-":RoomList" -> ":Room": h.setVolumeOfWater\nInEWHList (volumeOfWater)
-":Room" -> ":DeviceList": h.setVolumeOfWater\nInEWHList (volumeOfWater)
-":DeviceList" -> ":Device": h.setVolumeOfWater\nInEWHList (volumeOfWater)
+"EnergyConsumptionOfWaterHeating:UI" -> ":Controller": setVolumeOfWater\nInEWHList (volumeOfWater)
+":Controller" -> ":House": setVolumeOfWater\nInEWHList (volumeOfWater)
+":House"->":RoomList": setVolumeOfWater\nInEWHList (volumeOfWater)
+":RoomList" -> ":Room": setVolumeOfWater\nInEWHList (volumeOfWater)
+":Room" -> ":DeviceList": setVolumeOfWater\nInEWHList (volumeOfWater)
+":DeviceList" -> ":Device": setVolumeOfWater\nInEWHList (volumeOfWater)
 
 @enduml

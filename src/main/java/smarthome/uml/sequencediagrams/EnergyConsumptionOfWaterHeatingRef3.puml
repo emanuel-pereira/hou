@@ -3,12 +3,12 @@ autonumber
 hidefootbox
 
 
-"EnergyConsumptionOfWaterHeating:UI" -> ":Controller": h.getEnergyConsumption\nInEWHList( ): double
-":Controller" -> "h:House": h.getEnergyConsumption\nInEWHList( ): double
-"h:House"->":RoomList": h.getEnergyConsumption\nInEWHList( ): double
-":RoomList" -> ":Room": h.getEnergyConsumption\nInEWHList( ): double
-":Room" -> ":DeviceList": h.getEnergyConsumption\nInEWHList( ): double
-":DeviceList" -> ":Device": h.getEnergyConsumption\nInEWHList( ): double
+"EnergyConsumptionOfWaterHeating:UI" -> ":Controller": getEnergyConsumption\nInEWHList( ): double
+":Controller" -> "h:House": getEnergyConsumption\nInEWHList( ): double
+"h:House"->":RoomList": getEnergyConsumption\nInEWHList( ): double
+":RoomList" -> ":Room": getEnergyConsumption\nInEWHList( ): double
+":Room" -> ":DeviceList": getEnergyConsumption\nInEWHList( ): double
+":DeviceList" -> ":Device": getEnergyConsumption\nInEWHList( ): double
 
 ":Device" -->> ":DeviceList": energy consumption\nestimated value
 ":DeviceList" -->> ":Room": energy consumption\nestimated value

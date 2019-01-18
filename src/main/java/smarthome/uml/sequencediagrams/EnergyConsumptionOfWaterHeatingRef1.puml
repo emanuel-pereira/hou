@@ -3,11 +3,11 @@ autonumber
 hidefootbox
 
 
-"EnergyConsumptionOfWaterHeating:UI" -> ":Controller": h.setColdWaterTemperature\nInEWHList\n(coldWaterTemperature)
-":Controller" -> ":House": h.setColdWaterTemperature\nInEWHList\n(coldWaterTemperature)
-":House"->":RoomList": h.setColdWaterTemperature\nInEWHList\n(coldWaterTemperature)
-":RoomList" -> ":Room": h.setColdWaterTemperature\nInEWHList\n(coldWaterTemperature)
-":Room" -> ":DeviceList": h.setColdWaterTemperature\nInEWHList\n(coldWaterTemperature)
-":DeviceList" -> ":Device": h.setColdWaterTemperature\nInEWHList\n(coldWaterTemperature)
+"EnergyConsumptionOfWaterHeating:UI" -> ":Controller": setColdWaterTemperature\nInEWHList\n(coldWaterTemperature)
+":Controller" -> ":House": setColdWaterTemperature\nInEWHList\n(coldWaterTemperature)
+":House"->":RoomList": setColdWaterTemperature\nInEWHList\n(coldWaterTemperature)
+":RoomList" -> ":Room": setColdWaterTemperature\nInEWHList\n(coldWaterTemperature)
+":Room" -> ":DeviceList": setColdWaterTemperature\nInEWHList\n(coldWaterTemperature)
+":DeviceList" -> ":Device": setColdWaterTemperature\nInEWHList\n(coldWaterTemperature)
 
 @enduml
