@@ -50,4 +50,5 @@ public class Fridge implements DeviceSpecs {
     public int getRefrigeratorCapacity() {
         return mRefrigeratorCapacity;
     }
+
 }
