@@ -9,13 +9,13 @@ public class PowerUserUI {
     public static void powerUser(House house) {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
-        System.out.println("Power Users UI");
+        System.out.println("POWER USER");
 
         while (option != 0) {
-            System.out.println("Click 1. I want to know all the devices connected to a grid");
-            System.out.println("Click 2. I want to know the total nominal power connected to a grid");
-            System.out.println("Click 3. I want to know the total nominal power of a Room");
-            System.out.println("Click 4. I want to estimate the total energy used in heating water in a given day");
+            System.out.println("Click 1. Show all the devices connected to a grid");
+            System.out.println("Click 2. Get the total nominal power connected to a grid");
+            System.out.println("Click 3. Get the total nominal power of a room");
+            System.out.println("Click 4. Estimate the total energy used in heating water in a given day\n");
             System.out.println("Click 0. Exit");
 
             option = Integer.parseInt(keyboard.nextLine());

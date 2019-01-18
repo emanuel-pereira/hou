@@ -18,18 +18,18 @@ public class HouseAdministrationUI {
 
 
         while (option != 0) {
-            System.out.println("Click 1. US101: As an Administrator, I want to configure the location of the house");
-            System.out.println("Click 2. US105: As an Administrator, I want to add a new room to the house");
-            System.out.println("Click 3. US108: As a House Administrator, I want to see all rooms of the house.");
-            System.out.println("Click 4. US130: As an Administrator I want to create a house grid");
-            System.out.println("Click 5. US135: As System Administrator I want to add a new power source to a house grid");
-            System.out.println("Click 6. As an Administrator, I want to attach/detach a room to/from a house grid and list rooms attached to a house grid");
-            System.out.println("Click 7. Get the Total Nominal Power from a Room.");
-            System.out.println("Click 8. I want to add a new sensor to a room from the list of available sensor types, in order to configure it.");
-            System.out.println("Click 9. I want to list all sensors in a room");
-            System.out.println("Click 10. As an Administrator, I want add a new device to a room, list all devices in a room or edit the configuration of an existing device");
-            System.out.println("Click 11. I want to know all the devices connected to a grid");
-            System.out.println("Click 12. I want to know the total nominal power connected to a grid");
+            System.out.println("Click 1. Configure the location of the house");
+            System.out.println("Click 2. Add a new room to the house");
+            System.out.println("Click 3. Show the list of existing rooms");
+            System.out.println("Click 4. Create a house grid");
+            System.out.println("Click 5. Add a new power source to a house grid");
+            System.out.println("Click 6. Attach/detach a room to/from a house grid and list rooms attached to a house grid");
+            System.out.println("Click 7. Show the Total Nominal Power from a Room.");
+            System.out.println("Click 8. Add a new sensor to a room");
+            System.out.println("Click 9. Show list all sensors in a room");
+            System.out.println("Click 10. Add a new device to a room, list all devices in a room or edit the configuration of an existing device");
+            System.out.println("Click 11. Show all the devices connected to a grid");
+            System.out.println("Click 12. Show the total nominal power connected to a grid");
             System.out.println("Click 0. Exit");
 
             option = Integer.parseInt(keyboard.nextLine());

@@ -1,5 +1,10 @@
 package smarthome.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.Integer.parseInt;
+
 public class Fridge implements DeviceSpecs {
     private int mFreezerCapacity;
     private int mRefrigeratorCapacity;
@@ -11,14 +16,23 @@ public class Fridge implements DeviceSpecs {
         this.mEnergyConsumption = annualEnergyConsumption / 365;
     }
 
-    public String showDeviceSpecsListAttributesInString() {
-        StringBuilder result = new StringBuilder();
-        result.append("4 - Freezer Capacity : " + this.mFreezerCapacity);
-        result.append("\n");
-        result.append("5 - Refrigerator Capacity : " + this.mRefrigeratorCapacity);
-        result.append("\n");
+    public List<String> getDeviceAttributesInString() {
+        List<String> result = new ArrayList<>();
+        String FreezerCapacity = "4 - Freezer Capacity : " + this.mFreezerCapacity;
+        String RefrigeratorCapacity = "5 - Refrigerator Capacity : " + this.mRefrigeratorCapacity;
+        result.add(FreezerCapacity);
+        result.add(RefrigeratorCapacity);
+        return result;
+    }
 
-        return result.toString();
+    @Override
+    public void setAttributeValue(String attribute, String newValue) {
+        String FreezerCapacity = "4 - Freezer Capacity : " + this.mFreezerCapacity;
+        String RefrigeratorCapacity = "5 - Refrigerator Capacity : " + this.mRefrigeratorCapacity;
+        if (attribute.equals(FreezerCapacity))
+            setFreezerCapacity(parseInt(newValue));
+        if (attribute.equals(RefrigeratorCapacity))
+            setRefrigeratorCapacity(parseInt(newValue));
     }
 
     public void setFreezerCapacity(int freezerCapacity) {
@@ -36,4 +50,5 @@ public class Fridge implements DeviceSpecs {
     public int getRefrigeratorCapacity() {
         return mRefrigeratorCapacity;
     }
+
 }

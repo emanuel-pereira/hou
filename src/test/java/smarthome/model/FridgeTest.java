@@ -2,6 +2,9 @@ package smarthome.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FridgeTest {
@@ -20,9 +23,17 @@ public class FridgeTest {
     @Test
     public void showDeviceSpecsListAttributesInString() {
         Fridge f = new Fridge(2, 3, 6);
-        String result = f.showDeviceSpecsListAttributesInString();
-        String expected = "4 - Freezer Capacity : 2\n5 - Refrigerator Capacity : 3\n";
+        List<String> result = f.getDeviceAttributesInString();
+        List<String> expected = Arrays.asList("4 - Freezer Capacity : "+f.getFreezerCapacity(),"5 - Refrigerator Capacity : " +f.getRefrigeratorCapacity());
         assertEquals(expected,result);
     }
+    @Test
+    void setAttributeValueTest() {
+        Fridge f = new Fridge(2, 3, 6);
+        String FreezerCapacity = "4 - Freezer Capacity : " + f.getFreezerCapacity();
+        String RefrigeratorCapacity = "5 - Refrigerator Capacity : " + f.getRefrigeratorCapacity();
+        f.setAttributeValue(FreezerCapacity,"20");
+        assertEquals(20,f.getFreezerCapacity());
 
+    }
 }

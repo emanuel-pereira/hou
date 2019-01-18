@@ -25,10 +25,8 @@ public class US160GetDeviceListInGridByTypeCTRL {
     public RoomList getListOfRoomsInGrid(int indexOfHouseGrid) {
         RoomList listOfRoomsWithHouseGrid = new RoomList();
         for (Room r : mHouse.getRoomListFromHouse().getRoomList()) {
-            if (r.getmHouseGrid() != null) {
-                if (r.getmHouseGrid().equals(mHouse.getHGListInHouse().get(indexOfHouseGrid - 1))) {
-                    listOfRoomsWithHouseGrid.addRoom(r);
-                }
+            if (r.getmHouseGrid() != null && r.getmHouseGrid().equals(mHouse.getHGListInHouse().get(indexOfHouseGrid - 1))) {
+                   listOfRoomsWithHouseGrid.addRoom(r);
             }
         }
         return listOfRoomsWithHouseGrid;

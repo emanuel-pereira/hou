@@ -96,5 +96,8 @@ public class RoomList {
         return sum;
     }
 
+    public Room get(int index){
+        return mRoomList.get(index);
+    }
 
 }

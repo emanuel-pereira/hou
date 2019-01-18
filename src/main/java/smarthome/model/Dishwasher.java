@@ -1,5 +1,10 @@
 package smarthome.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.Integer.parseInt;
+
 public class Dishwasher implements DeviceSpecs {
     private int mCapacity;
     private double mEnergyConsumption;
@@ -20,10 +25,21 @@ public class Dishwasher implements DeviceSpecs {
 
         return mCapacity;
     }
-
-    public String showDeviceSpecsListAttributesInString() {
-        StringBuilder result = new StringBuilder();
-        result.append("4 - Dishwater Capacity : " + this.mCapacity);
-        return result.toString();
+    public List<String> getDeviceAttributesInString() {
+        List<String> result = new ArrayList<>();
+        String Capacity = "4 - Dishwater Capacity : " + this.mCapacity;
+        result.add(Capacity);
+        return result;
     }
+
+    public void setAttributeValue(String attribute, String newValue) {
+        String Capacity = "4 - Dishwater Capacity : " + this.mCapacity;
+        if (attribute.equals(Capacity))
+            setCapacity(parseInt(newValue));
+    }
+
+    public ProgramList getmProgramListInDW() {
+        return mProgramListInDW;
+    }
+
 }

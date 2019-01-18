@@ -1,5 +1,10 @@
 package smarthome.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.Double.parseDouble;
+
 public class Device implements DeviceSpecs, Powered {
 
     private String mName;
@@ -7,7 +12,6 @@ public class Device implements DeviceSpecs, Powered {
     private DeviceType mDeviceType;
     private Room mRoom;
     private double mNominalPower;
-    private Metered mEnergyConsumption;
 
     /**
      * Constructor set for devices with their own specific features
@@ -68,36 +72,53 @@ public class Device implements DeviceSpecs, Powered {
         this.mName = name;
     }
 
-    public void setRoom(Room room) {
-        mRoom.getDeviceList().getDeviceList().remove(this);
-        mRoom = room;
-        mRoom.getDeviceList().addDevice(this);
+    public void setRoom(Room newRoom) {
+        mRoom.getDeviceList ().getDeviceList ().remove (this);
+        mRoom = newRoom;
+        mRoom.getDeviceList ().addDevice (this);
     }
 
     public void setNominalPower(double nominalPower) {
         this.mNominalPower = nominalPower;
     }
 
-
-    public String showDeviceListAttributesInString() {
-        StringBuilder result = new StringBuilder();
-        result.append("1 - Device name : " + this.getName());
-        result.append("\n");
-        result.append("2 - Device room : " + this.getRoom().getName());
-        result.append("\n");
-        result.append("3 - Nominal Power : " + this.getNominalPower() + " kW");
-        result.append("\n");
-        result.append(this.showDeviceSpecsListAttributesInString());
-        return result.toString();
+    public String showDeviceAttributesInString() {
+        StringBuilder result = new StringBuilder ();
+        for (String s : getDeviceAttributesInString ()) {
+            result.append (s);
+            result.append ("\n");
+        }
+        return result.toString ();
     }
 
-    public String showDeviceSpecsListAttributesInString() {
-        return mDeviceSpecs.showDeviceSpecsListAttributesInString();
+    public List<String> getDeviceAttributesInString() {
+        List<String> result = new ArrayList<> ();
+        String deviceName = "1 - Device Name : " + this.getName ();
+        String deviceRoom = "2 - Device Room : " + this.mRoom.getName ();
+        String deviceNominalPower = "3 - Device Nominal Power : " + this.mNominalPower;
+        result.add (deviceName);
+        result.add (deviceRoom);
+        result.add (deviceNominalPower);
+        if (this.mDeviceSpecs != null)
+            for (String spec : this.getDeviceSpecs ().getDeviceAttributesInString ())
+                result.add (spec);
+        return result;
     }
 
-   /* @Override
-    public double getEnergyConsumption() {
-        return mEnergyConsumption.getEnergyConsumption();
-
-    }*/
+    public void setAttributeValue(String attribute, String newValue) {
+        String deviceName = "1 - Device Name : " + this.mName;
+        String deviceRoom = "2 - Device Room : " + this.mRoom;
+        String deviceNominalPower = "3 - Device Nominal Power : " + this.mNominalPower;
+        if (attribute.equals (deviceName)) {
+            setDeviceName (newValue);
+        }
+        if (attribute.equals (deviceNominalPower)) {
+            setNominalPower (parseDouble (newValue));
+        }
+        if (this.mDeviceSpecs != null) {
+            this.getDeviceSpecs ().setAttributeValue (attribute, newValue);
+        }
+    }
 }
+
+
