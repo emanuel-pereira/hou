@@ -1,13 +1,13 @@
 @startuml
 hidefootbox
 
-":EditDeviceUI" -> ":EditDeviceCTRL": dL=getListDevices(Room r)
-":EditDeviceCTRL" -> ":House": dL=getListDevices(Room r)
-":House" -> "rL:RoomList": dL=getListDevices(Room r)
-"rL:RoomList" -> ":Room": dL=r.getListDevices()
-":Room" -> "dL:DeviceList": dL=r.getListDevices()
-"dL:DeviceList" -> ":Device": dL=r.getListDevices()
-":Device" -> "DeviceSpecs": dL=r.getListDevices()
+":EditDeviceUI" -> ":EditDeviceCTRL": aL=getDeviceAttributesList()
+":EditDeviceCTRL" -> ":House": aL=getDeviceAttributesList()
+":House" -> "rL:RoomList": aL=getDeviceAttributesList()
+"rL:RoomList" -> ":Room": aL=getDeviceAttributesList()
+":Room" -> "dL:DeviceList": aL=getDeviceAttributesList()
+"dL:DeviceList" -> ":Device": aL=getDeviceAttributesList()
+":Device" -> "DeviceSpecs": aL=getDeviceAttributesList()
 
 "DeviceSpecs" -->> ":Device": return list of device's attributes
 ":Device" -->>  "dL:DeviceList":return list of device's attributes
