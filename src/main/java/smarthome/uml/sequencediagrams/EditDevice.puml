@@ -1,42 +1,30 @@
 @startuml
 autonumber
 hidefootbox
-
 actor Administrator
-
+boundary EditDeviceUI
+control EditDeviceCTRL
 
 Administrator -> EditDeviceUI: Edit a device
-
 create EditDeviceCTRL
-control EditDeviceCTRL
-EditDeviceUI -->> EditDeviceCTRL: create
+EditDeviceUI -> EditDeviceCTRL: create()
 EditDeviceUI -> EditDeviceCTRL: rL=getRoomList()
 EditDeviceCTRL -> "rL:RoomList": rL=getRoomList()
-
-Administrator <<-- EditDeviceUI: show room list
-Administrator -> EditDeviceUI: choose room
-
-EditDeviceUI -> EditDeviceCTRL: dL=getListDevices(index)
-EditDeviceCTRL -> "dL:DeviceList": dL=getListDevices(index)
-
-Administrator <<-- EditDeviceUI: show device list
-Administrator -> EditDeviceUI: choose device
-
-EditDeviceUI -> EditDeviceCTRL: aL=getAttributeNames()
-EditDeviceCTRL -> Device: aL=getAttributeNames()
-
-Device -> DeviceSpecs: aL=getAttributeNames()
-
-Administrator <<-- EditDeviceUI: show attribute list
-Administrator -> EditDeviceUI: choose attribute
-
-EditDeviceUI ->EditDeviceUI: input new value
-
-Administrator -> EditDeviceUI: insert value
-
-EditDeviceUI -> EditDeviceCTRL: changeAttValue(attribute,value)
-EditDeviceCTRL -> Device: changeAttValue(attribute,value)
-
-Device -> DeviceSpecs: setAttValue(attribute,value)
-
+Administrator <-- EditDeviceUI: Show room list
+Administrator -> EditDeviceUI: Choose room
+EditDeviceUI -> EditDeviceCTRL: dL=getListDevices(Room r)
+EditDeviceCTRL -> "dL:DeviceList": dL=r.getListDevices()
+Administrator <-- EditDeviceUI: Show device list
+Administrator -> EditDeviceUI: Choose device
+EditDeviceUI -> EditDeviceCTRL: aL=getDeviceAttributesList(Device d)
+EditDeviceCTRL -> Device: aL=getDeviceAttributesList(Device d)
+Device -> DeviceSpecs: aL=d.getDeviceAttributes()
+Administrator <-- EditDeviceUI: Show attribute list
+Administrator -> EditDeviceUI: Choose attribute
+EditDeviceUI ->EditDeviceUI: Input new value
+Administrator -> EditDeviceUI: Insert value
+EditDeviceUI -> EditDeviceCTRL: setAttributeValue(device,attribute,value)
+EditDeviceCTRL -> Device: setAttributeValue(device,attribute,value)
+Device -> DeviceSpecs: d.setAttValue(attribute,value)
+Administrator <-- EditDeviceUI: Success
 @enduml
