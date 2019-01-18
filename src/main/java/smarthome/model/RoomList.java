@@ -46,16 +46,16 @@ public class RoomList {
     }
 
     /**
-     * Method to get a specific Room in index position i
+     * Method to getRoomWithIndex a specific Room in index position i
      *
      * @param i index position of the Room's List
      * @return the specific requested Room
      */
-    public Room get(int i) {
+    public Room getRoomWithIndex(int i) {
         return this.mRoomList.get (i);
     }
 
-    public int size(){
+    public int getRoomListSize(){
         return this.mRoomList.size();
     }
 
