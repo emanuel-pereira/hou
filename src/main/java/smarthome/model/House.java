@@ -105,7 +105,7 @@ public class House {
      *
      * @param volumeOfWater double value parameter to set the volume of water of every Electric Water Heater installed in all rooms of the house.
      */
-    public void setVolumeOfWaterToHeatInEWHList(double volumeOfWater) {
+    public void setVolumeOfWaterInEWHList(double volumeOfWater) {
         for (Room room : mRoomList.getRoomList())
             room.getDeviceList().setVolumeOfWaterToHeat(volumeOfWater);
     }
@@ -115,7 +115,7 @@ public class House {
      *
      * @param coldWaterTemperature double value parameter to set the cold water temperature of every Electric Water Heater installed in all rooms of the house.
      */
-    public void setColdWaterTemperatureInGlobalEWHList(double coldWaterTemperature) {
+    public void setColdWaterTemperatureInEWHList(double coldWaterTemperature) {
         for (Room room : mRoomList.getRoomList())
             room.getDeviceList().setColdWaterTemperatureEWHList(coldWaterTemperature);
     }
@@ -131,15 +131,29 @@ public class House {
     }
 
     /**
-     * Method to ensure that cold water value inputted by the user must be lower than the lowest hot
-     * temperature of a Electric Water Heater
+     * Method to validate if cold water value inputted by the user is lower than the lowest hot water
+     * temperature in all Electric Water Heaters installed in the house.
+     *
      * @param coldWaterTemperature double inputted as cold water temperature
      * @return true if cold water temperature inputted by the user is lower than any hot temperature value
-     * of all devices of type Electric Water Heater
+     * of all devices of type Electric Water Heater, otherwise returns false
      */
-    public boolean isLowerThanHotWater(double coldWaterTemperature) {
+    public boolean isValidColdWaterTemperature(double coldWaterTemperature) {
         for (Room room : mRoomList.getRoomList()) {
-            if (room.getDeviceList().isLowerThanHotWater(coldWaterTemperature)==false)
+            if (room.getDeviceList().isValidColdWaterTemperature(coldWaterTemperature) == false)
+                return false;
+        }
+        return true;
+    }
+
+    /**
+     *
+     * @param volumeOfWaterToHeat
+     * @return
+     */
+    public boolean isValidVolumeOfWater(double volumeOfWaterToHeat) {
+        for (Room room : mRoomList.getRoomList()) {
+            if (room.getDeviceList().isValidVolumeOfWater(volumeOfWaterToHeat) == false)
                 return false;
         }
         return true;
