@@ -378,8 +378,8 @@ class HouseTest {
         Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
         kitchen.getDeviceList().addDevice(dEWH1);
         garage.getDeviceList().addDevice(dEWH2);
-        house.setVolumeOfWaterToHeatInEWHList(65);
-        house.setColdWaterTemperatureInGlobalEWHList(20);
+        house.setVolumeOfWaterInEWHList(65);
+        house.setColdWaterTemperatureInEWHList(20);
         String expected="ELECTRIC WATER HEATER \n" +
                 "Room: Kitchen\n" +
                 "1 - Device name : Daikin - Electric Water Heater1\n" +
@@ -409,7 +409,7 @@ class HouseTest {
     }
 
     @Test
-    @DisplayName("Ensure that isLowerThanHotWater() method returns true if cold water temperature is lower than any hot water temperature")
+    @DisplayName("Ensure that isValidColdWaterTemperature() method returns true if cold water temperature is lower than any hot water temperature")
     void isLowerThanHotWater() {
         House house = new House();
         Room kitchen = new Room("Kitchen",0,6,3.5,3);
@@ -424,12 +424,12 @@ class HouseTest {
         Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
         kitchen.getDeviceList().addDevice(dEWH1);
         garage.getDeviceList().addDevice(dEWH2);
-        boolean result= house.isLowerThanHotWater(50);
+        boolean result= house.isValidColdWaterTemperature(50);
         assertTrue(result);
     }
 
     @Test
-    @DisplayName("Ensure that isLowerThanHotWater() method returns false if cold water temperature is higher than any hot water temperature")
+    @DisplayName("Ensure that isValidColdWaterTemperature() method returns false if cold water temperature is higher than any hot water temperature")
     void isLowerThanHotWaterReturnsFalse() {
         House house = new House();
         Room kitchen = new Room("Kitchen",0,6,3.5,3);
@@ -444,9 +444,50 @@ class HouseTest {
         Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
         kitchen.getDeviceList().addDevice(dEWH1);
         garage.getDeviceList().addDevice(dEWH2);
-        boolean result= house.isLowerThanHotWater(61);
+        boolean result= house.isValidColdWaterTemperature(61);
         assertFalse(result);
     }
 
 
+    @Test
+    @DisplayName("Ensure that isValidVolumeOfWater() method returns false when volume of water to heat per water heater exceeds" +
+            "a water heater capacity")
+    void isValidVolumeOfWaterReturnsFalse() {
+        House house = new House();
+        Room kitchen = new Room("Kitchen",0,6,3.5,3);
+        Room garage = new Room("Garage",0,6,4,3);
+        Room bedroom= new Room("Bedroom",1,5,5,3);
+        house.getRoomListFromHouse().addRoom(kitchen);
+        house.getRoomListFromHouse().addRoom(garage);
+        house.getRoomListFromHouse().addRoom(bedroom);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(115,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(105,60,0.9);
+        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
+        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
+        kitchen.getDeviceList().addDevice(dEWH1);
+        garage.getDeviceList().addDevice(dEWH2);
+        boolean result= house.isValidVolumeOfWater(106);
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Ensure that isValidVolumeOfWater() method returns true when volume of water to heat per water heater does not exceed" +
+            "any water heater capacity")
+    void isValidVolumeOfWaterReturnsTrue() {
+        House house = new House();
+        Room kitchen = new Room("Kitchen",0,6,3.5,3);
+        Room garage = new Room("Garage",0,6,4,3);
+        Room bedroom= new Room("Bedroom",1,5,5,3);
+        house.getRoomListFromHouse().addRoom(kitchen);
+        house.getRoomListFromHouse().addRoom(garage);
+        house.getRoomListFromHouse().addRoom(bedroom);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(115,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(105,60,0.9);
+        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
+        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
+        kitchen.getDeviceList().addDevice(dEWH1);
+        garage.getDeviceList().addDevice(dEWH2);
+        boolean result= house.isValidVolumeOfWater(55);
+        assertTrue(result);
+    }
 }

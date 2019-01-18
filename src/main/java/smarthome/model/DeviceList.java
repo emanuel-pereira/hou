@@ -140,7 +140,7 @@ public class DeviceList {
         }
     }
 
-    public boolean isLowerThanHotWater(double coldWaterTemperature) {
+    public boolean isValidColdWaterTemperature(double coldWaterTemperature) {
         DeviceList listOfEWH = getElectricWaterHeaterList();
         for (Device device : listOfEWH.getDeviceList()) {
 
@@ -150,6 +150,17 @@ public class DeviceList {
         }
         return true;
     }
+
+    public boolean isValidVolumeOfWater(double volumeOfWaterToHeat) {
+        DeviceList listOfEWH = getElectricWaterHeaterList();
+        for (Device device : listOfEWH.getDeviceList()) {
+            if (volumeOfWaterToHeat > ((ElectricWaterHeater) device.getDeviceSpecs()).getVolumeOfWater()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public int size() {
         return mDeviceList.size();

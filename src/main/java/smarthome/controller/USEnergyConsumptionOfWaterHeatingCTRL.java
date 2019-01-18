@@ -15,12 +15,12 @@ public class USEnergyConsumptionOfWaterHeatingCTRL {
         mNumberValidations= new NumberValidations();
     }
 
-    public void setVolumeOfWaterToHeatInEWHList(double volumeOfWater) {
-        mHouse.setVolumeOfWaterToHeatInEWHList(volumeOfWater);
+    public void setVolumeOfWaterToHeatInAllEWH(double volumeOfWater) {
+        mHouse.setVolumeOfWaterInEWHList(volumeOfWater);
     }
 
-    public void setColdWaterTemperatureInGlobalEWHList(double coldWaterTemperature) {
-        mHouse.setColdWaterTemperatureInGlobalEWHList(coldWaterTemperature);
+    public void setColdWaterTemperatureInAllEWH(double coldWaterTemperature) {
+        mHouse.setColdWaterTemperatureInEWHList(coldWaterTemperature);
     }
 
     public double getEnergyConsumptionOfEWHGlobalList() {
@@ -34,7 +34,11 @@ public class USEnergyConsumptionOfWaterHeatingCTRL {
     public boolean valueIsPositive(double value){
         return mNumberValidations.valueIsPositive(value);
     }
-    public boolean isLowerThanHotWater(double coldWaterTemperature){
-        return mHouse.isLowerThanHotWater(coldWaterTemperature);
+    public boolean isValidColdWaterTemperature(double coldWaterTemperature){
+        return mHouse.isValidColdWaterTemperature(coldWaterTemperature);
     }
+    public boolean isValidVolumeOfWater(double volumeOfWaterToHeat) {
+        return mHouse.isValidVolumeOfWater(volumeOfWaterToHeat);
+    }
+
 }
