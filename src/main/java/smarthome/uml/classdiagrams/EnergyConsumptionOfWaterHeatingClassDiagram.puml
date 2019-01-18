@@ -95,8 +95,8 @@ class Device {
 }
 
 
-House *-- "1" RoomList: has
-RoomList *-- "*"Room: contains
+House *- "1" RoomList: has
+RoomList *- "*"Room: contains
 Room *-- "1"DeviceList: contains
-DeviceList *-- "*"Device: contains
+Device"*" -* DeviceList : contains
 @enduml
