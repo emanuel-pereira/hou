@@ -1,0 +1,20 @@
+@startuml
+hidefootbox
+
+":EditDeviceUI" -> ":EditDeviceCTRL": dL=getListDevices(Room r)
+":EditDeviceCTRL" -> ":House": dL=getListDevices(Room r)
+":House" -> "rL:RoomList": dL=getListDevices(Room r)
+"rL:RoomList" -> ":Room": dL=r.getListDevices()
+":Room" -> "dL:DeviceList": dL=r.getListDevices()
+"dL:DeviceList" -> ":Device": dL=r.getListDevices()
+":Device" -> "DeviceSpecs": dL=r.getListDevices()
+
+"DeviceSpecs" -->> ":Device": return list of device's attributes
+":Device" -->>  "dL:DeviceList":return list of device's attributes
+"dL:DeviceList" -->> ":Room":return list of device's attributes
+":Room" -->> "rL:RoomList":return list of device's attributes
+"rL:RoomList" -->> ":House":return list of device's attributes
+":House" -->> ":EditDeviceCTRL":return list of device's attributes
+":EditDeviceCTRL" -->> ":EditDeviceUI":return list of device's attributes
+
+@enduml

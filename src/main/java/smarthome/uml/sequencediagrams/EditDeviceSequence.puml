@@ -10,29 +10,31 @@ create ":EditDeviceCTRL"
 ":EditDeviceUI" -->> ":EditDeviceCTRL": create
 
 ":EditDeviceUI" -> ":EditDeviceCTRL": rL=getRoomList()
-":EditDeviceCTRL" -> "rL:RoomList": rL=getRoomList()
+":EditDeviceCTRL" -> ":House": rL=getRoomList()
+":House"-> "rL:RoomList": rL=getRoomList()
+
 
 Administrator <<-- ":EditDeviceUI": Show room list
 Administrator -> ":EditDeviceUI": Choose room
 
-":EditDeviceUI" -> ":EditDeviceCTRL": dL=getListDevices(Room r)
-":EditDeviceCTRL" -> "dL:DeviceList": dL=r.getListDevices()
+ref over ":EditDeviceUI", ":EditDeviceCTRL", ":House", "rL:RoomList", ":Room", "dL:DeviceList": dL=r.getListDevices()
+
+
 
 Administrator <<-- ":EditDeviceUI": Show device list
 Administrator -> ":EditDeviceUI": Choose device
 
-":EditDeviceUI" -> ":EditDeviceCTRL": aL=getDeviceAttributesList(Device d)
-":EditDeviceCTRL" -> ":Device": aL=getDeviceAttributesList(Device d)
-":Device" -> DeviceSpecs: aL=d.getDeviceAttributes()
+ref over ":EditDeviceUI", ":EditDeviceCTRL", ":House", "rL:RoomList", ":Room", "dL:DeviceList", ":Device", "DeviceSpecs": aL=getDeviceAttributesList()
+
 
 Administrator <<-- ":EditDeviceUI": Show attribute list
 Administrator -> ":EditDeviceUI": Choose attribute
 ":EditDeviceUI" -> ":EditDeviceUI": Input new value
 Administrator -> ":EditDeviceUI": Insert value
 
-":EditDeviceUI" -> ":EditDeviceCTRL": setAttributeValue(device,attribute,value)
-":EditDeviceCTRL" -> ":Device": setAttributeValue(device,attribute,value)
-":Device" -> DeviceSpecs: d.setAttValue(attribute,value)
+
+ref over ":EditDeviceUI", ":EditDeviceCTRL", ":House", "rL:RoomList", ":Room", "dL:DeviceList", ":Device", "DeviceSpecs": setAttributeValue\n(device,attribute,value)
+
 
 Administrator <<-- ":EditDeviceUI": Success message
 @enduml

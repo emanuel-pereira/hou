@@ -1,5 +1,21 @@
 @startuml
 
+class House {
+- mAddress: Address
+- mID: String
+- mGA: Geographical Area
+- mRoomList: RoomList
+- mHGListInHouse: HouseGridList
++ setHouseGA()
++ getHouseGA()
++ setHouseAddress()
++ getAddress()
++ getHouseLocation()
++ findClosestGASensorByType()
++ getRoomListFromHouse()
++ getHGListInHouse()
+}
+
 class RoomList{
 - mRoomList: List<Room>
 + createNewRoom()
@@ -13,6 +29,32 @@ class RoomList{
 + getNominalPower()
 
 }
+
+class Room{
+- mName: String
+- mFloor: Integer
+- mArea: OccupationArea
+- mHeight: double
+- mHouseGrid: HouseGrid
+- mSensorListInRoom: SensorList
+- mDeviceList: DeviceList
++ getName()
++ getFloor()
++ getArea()
++ getHeight()
++ getNominalPower()
++ setName()
++ setFloor()
++ setArea()
++ setHeight()
++ validateName()
++ setmHouseGrid()
++ getmHouseGrid()
++ getSensorListInRoom()
++ checkIfSensorTypeExistsInRoom()
++ getDeviceList()
+}
+
 
 class DeviceList{
 - mDeviceList: List<Device>
@@ -55,9 +97,11 @@ interface DeviceSpecs{
 + showDeviceSpecsListAttributesInString()
 }
 
-RoomList *- DeviceList
-DeviceList *- Device
-Device ..|> DeviceSpecs
+House  *- "1" RoomList: contains
+RoomList *- "1..*"Room: contains
+Room *- "1"DeviceList: contains
+DeviceList *-- "*"Device: contains
+DeviceSpecs <|. Device
 
 
 

@@ -2,13 +2,11 @@
 autonumber
 hidefootbox
 
-actor "Regular User/Power User"
-
-"EnergyConsumptionOfWaterHeating:UI" -> ":Controller": h.setVolumeOfWaterInEWHList(volumeOfWater)
-":Controller" -> ":House": h.setVolumeOfWaterInEWHList(volumeOfWater)
-":House"->":RoomList": h.setVolumeOfWaterInEWHList(volumeOfWater)
-":RoomList" -> ":Room": h.setVolumeOfWaterInEWHList(volumeOfWater)
-":Room" -> ":DeviceList": h.setVolumeOfWaterInEWHList(volumeOfWater)
-":DeviceList" -> ":Device": h.setVolumeOfWaterInEWHList(volumeOfWater)
+"EnergyConsumptionOfWaterHeating:UI" -> ":Controller": h.setVolumeOfWater\nInEWHList (volumeOfWater)
+":Controller" -> ":House": h.setVolumeOfWater\nInEWHList (volumeOfWater)
+":House"->":RoomList": h.setVolumeOfWater\nInEWHList (volumeOfWater)
+":RoomList" -> ":Room": h.setVolumeOfWater\nInEWHList (volumeOfWater)
+":Room" -> ":DeviceList": h.setVolumeOfWater\nInEWHList (volumeOfWater)
+":DeviceList" -> ":Device": h.setVolumeOfWater\nInEWHList (volumeOfWater)
 
 @enduml
