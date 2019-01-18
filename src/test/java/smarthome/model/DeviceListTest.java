@@ -11,8 +11,7 @@ class DeviceListTest {
     @DisplayName("Ensure same device instance is only added once to device list")
     void addDevice() {
         Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
-        OtherDevices otherDevices = new OtherDevices();
-        Device microwave = new Device("Samsung Microwave", otherDevices, kitchen, 0.8, DeviceType.MICROWAVE_OVEN);
+        Device microwave = new Device("Samsung Microwave", DeviceType.MICROWAVE_OVEN, kitchen, 0.8);
         DeviceList deviceList = new DeviceList();
         deviceList.addDevice(microwave);
         int expectedResult1 = 1;
@@ -44,8 +43,7 @@ class DeviceListTest {
     @DisplayName("Ensure getLastElement().getName() returns last element from device list and respective device name")
     void getLastElement() {
         Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
-        OtherDevices otherDevices = new OtherDevices();
-        Device microwave = new Device("Samsung Microwave", otherDevices, kitchen, 0.8, DeviceType.MICROWAVE_OVEN);
+        Device microwave = new Device("Samsung Microwave",DeviceType.MICROWAVE_OVEN, kitchen, 0.8);
         Fridge fridge = new Fridge(50, 350, 50);
         Device dFridge = new Device("LG Fridge", fridge, kitchen, 1.5, DeviceType.FRIDGE);
 
@@ -62,8 +60,7 @@ class DeviceListTest {
     void showDeviceListInString() {
         Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
         DeviceList deviceList = new DeviceList();
-        OtherDevices otherDevices = new OtherDevices();
-        Device microwave = new Device("Samsung Microwave", otherDevices, kitchen, 0.8, DeviceType.MICROWAVE_OVEN);
+        Device microwave = new Device("Samsung Microwave",DeviceType.MICROWAVE_OVEN, kitchen, 0.8);
         Fridge fridge = new Fridge(50, 350, 50);
         Device dFridge = new Device("LG Fridge", fridge, kitchen, 1.5, DeviceType.FRIDGE);
         deviceList.addDevice(microwave);
@@ -166,25 +163,25 @@ class DeviceListTest {
         deviceList.addDevice(dEWH1);
         deviceList.addDevice(dEWH2);
         deviceList.addDevice(stove);
-        String expected = "1 - Device name : Daikin - Electric Water Heater1\n" +
-                "2 - Device room : Kitchen\n" +
-                "3 - Nominal Power : 3.0 kW\n" +
-                "4 - Volume of water capacity (l) : 150.0\n" +
+        String expected = "1 - Device Name : Daikin - Electric Water Heater1\n" +
+                "2 - Device Room : Kitchen\n" +
+                "3 - Device Nominal Power : 3.0\n" +
+                "4 - Volume of water capacity (l): 150.0\n" +
                 "5 - Hot water temperature : 65.0\n" +
-                "6 - Cold water temperature : 0.0\n" +
+                "6 - Cold Water temperature : 0.0\n" +
                 "7 - Performance Ratio : 1.0\n" +
-                "8 - Volume of water to heat: 0.0\n" +
-                "9 - Daily Energy Consumption: 0.0 KWh\n" +
+                "8 - Volume of water to heat : 0.0\n" +
+                "9 - Daily Energy Consumption : 0.0 KWh\n" +
                 "\n" +
-                "1 - Device name : Daikin - Electric Water Heater2\n" +
-                "2 - Device room : Kitchen\n" +
-                "3 - Nominal Power : 2.5 kW\n" +
-                "4 - Volume of water capacity (l) : 220.0\n" +
+                "1 - Device Name : Daikin - Electric Water Heater2\n" +
+                "2 - Device Room : Kitchen\n" +
+                "3 - Device Nominal Power : 2.5\n" +
+                "4 - Volume of water capacity (l): 220.0\n" +
                 "5 - Hot water temperature : 65.0\n" +
-                "6 - Cold water temperature : 0.0\n" +
+                "6 - Cold Water temperature : 0.0\n" +
                 "7 - Performance Ratio : 1.0\n" +
-                "8 - Volume of water to heat: 0.0\n" +
-                "9 - Daily Energy Consumption: 0.0 KWh\n\n";
+                "8 - Volume of water to heat : 0.0\n" +
+                "9 - Daily Energy Consumption : 0.0 KWh\n\n";
         String result = deviceList.showElectricWaterHeaterList();
         assertEquals(expected, result);
 

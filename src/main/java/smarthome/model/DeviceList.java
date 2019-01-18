@@ -86,7 +86,7 @@ public class DeviceList {
         DeviceList electricWaterHeaterList = getElectricWaterHeaterList();
         StringBuilder result = new StringBuilder();
         for (Device device : electricWaterHeaterList.getDeviceList()) {
-            result.append(device.showDeviceListAttributesInString());
+            result.append(device.showDeviceAttributesInString());
             result.append("\n");
         }
         return result.toString();

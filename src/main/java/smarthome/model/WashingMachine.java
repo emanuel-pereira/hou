@@ -1,5 +1,10 @@
 package smarthome.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static java.lang.Integer.parseInt;
+
 public class WashingMachine implements DeviceSpecs {
     private int mCapacity;
     private ProgramList mProgramListInWM;
@@ -17,10 +22,16 @@ public class WashingMachine implements DeviceSpecs {
         return mCapacity;
     }
 
-    public String showDeviceSpecsListAttributesInString() {
-        StringBuilder result = new StringBuilder();
-        result.append("4 - Capacity : " + this.mCapacity);
+    public List<String> getDeviceAttributesInString() {
+        List<String> result = new ArrayList<>();
+        String Capacity = "4 - Washing Machine Capacity : " + this.mCapacity;
+        result.add(Capacity);
+        return result;
+    }
 
-        return result.toString();
+    public void setAttributeValue(String attribute, String newValue) {
+        String Capacity = "4 - Washing Machine Capacity : " + this.mCapacity;
+        if (attribute.equals(Capacity))
+            setCapacity(parseInt(newValue));
     }
 }

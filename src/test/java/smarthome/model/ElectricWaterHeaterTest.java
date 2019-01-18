@@ -46,4 +46,24 @@ class ElectricWaterHeaterTest {
     @Test
     void getVolumeOfWaterToHeat() {
     }
+    @Test
+    void setAttributeValueTest() {
+        ElectricWaterHeater ewh = new ElectricWaterHeater(150,  18, 0.9);
+        String VolumeOfWater = "4 - Volume of water : " + ewh.getVolumeOfWater();
+        String HotWaterTemperature = "5 - Hot water temperature : " + ewh.getHotWaterTemperature();
+        String ColdWaterTemperature = "6 - Cold Water temperature : " + ewh.getColdWaterTemperature();
+        String PerformanceRatio = "7 - Performance Ratio : " + ewh.getPerformanceRatio();
+        String VolumeOfWaterToHeat = "8 - Volume of water to heat : " + ewh.getVolumeOfWaterToHeat();
+        ewh.setAttributeValue(VolumeOfWater,"200");
+        ewh.setAttributeValue(HotWaterTemperature,"20");
+        ewh.setAttributeValue(ColdWaterTemperature,"1");
+        ewh.setAttributeValue(PerformanceRatio,"3");
+        assertEquals(200,ewh.getVolumeOfWater());
+        assertEquals(20,ewh.getHotWaterTemperature());
+        assertEquals(1,ewh.getColdWaterTemperature());
+        assertEquals(3,ewh.getPerformanceRatio());
+
+    }
+
+
 }

@@ -1,9 +1,11 @@
 package smarthome.model;
 
 
+import java.util.List;
+
 public interface DeviceSpecs {
 
-    String showDeviceSpecsListAttributesInString();
+    List<String> getDeviceAttributesInString();
 
-
+    void setAttributeValue(String attribute, String newValue);
 }

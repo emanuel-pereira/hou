@@ -382,27 +382,27 @@ class HouseTest {
         house.setColdWaterTemperatureInEWHList(20);
         String expected="ELECTRIC WATER HEATER \n" +
                 "Room: Kitchen\n" +
-                "1 - Device name : Daikin - Electric Water Heater1\n" +
-                "2 - Device room : Kitchen\n" +
-                "3 - Nominal Power : 3.0 kW\n" +
-                "4 - Volume of water capacity (l) : 100.0\n" +
+                "1 - Device Name : Daikin - Electric Water Heater1\n" +
+                "2 - Device Room : Kitchen\n" +
+                "3 - Device Nominal Power : 3.0\n" +
+                "4 - Volume of water capacity (l): 100.0\n" +
                 "5 - Hot water temperature : 65.0\n" +
-                "6 - Cold water temperature : 20.0\n" +
+                "6 - Cold Water temperature : 20.0\n" +
                 "7 - Performance Ratio : 1.0\n" +
-                "8 - Volume of water to heat: 65.0\n" +
-                "9 - Daily Energy Consumption: 816.4259999999999 KWh\n" +
+                "8 - Volume of water to heat : 65.0\n" +
+                "9 - Daily Energy Consumption : 816.4259999999999 KWh\n" +
                 "\n" +
                 "ELECTRIC WATER HEATER \n" +
                 "Room: Garage\n" +
-                "1 - Device name : Daikin - Electric Water Heater2\n" +
-                "2 - Device room : Garage\n" +
-                "3 - Nominal Power : 2.5 kW\n" +
-                "4 - Volume of water capacity (l) : 80.0\n" +
+                "1 - Device Name : Daikin - Electric Water Heater2\n" +
+                "2 - Device Room : Garage\n" +
+                "3 - Device Nominal Power : 2.5\n" +
+                "4 - Volume of water capacity (l): 80.0\n" +
                 "5 - Hot water temperature : 60.0\n" +
-                "6 - Cold water temperature : 20.0\n" +
+                "6 - Cold Water temperature : 20.0\n" +
                 "7 - Performance Ratio : 0.9\n" +
-                "8 - Volume of water to heat: 65.0\n" +
-                "9 - Daily Energy Consumption: 653.1408 KWh\n\n";
+                "8 - Volume of water to heat : 65.0\n" +
+                "9 - Daily Energy Consumption : 653.1408 KWh\n\n";
         String result=house.showElectricWaterHeaterList();
         assertEquals(expected,result);
 
