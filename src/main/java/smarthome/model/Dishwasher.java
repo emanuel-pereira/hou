@@ -37,4 +37,9 @@ public class Dishwasher implements DeviceSpecs {
         if (attribute.equals(Capacity))
             setCapacity(parseInt(newValue));
     }
+
+    public ProgramList getmProgramListInDW() {
+        return mProgramListInDW;
+    }
+
 }

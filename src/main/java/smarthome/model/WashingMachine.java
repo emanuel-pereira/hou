@@ -34,4 +34,9 @@ public class WashingMachine implements DeviceSpecs {
         if (attribute.equals(Capacity))
             setCapacity(parseInt(newValue));
     }
+
+    public ProgramList getmProgramListInDW() {
+        return mProgramListInWM;
+    }
+
 }
