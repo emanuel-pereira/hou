@@ -336,19 +336,24 @@ public class USAddSetAndListDevicesInRoomUI {
             System.out.println("Set the new name:");
             mName = read.nextLine();
             mCtrl.setAttribute(selectedDevice, selectedAttribute, mName);
+            System.out.println("Success");
+            System.out.println(mCtrl.showDeviceAttributesInString(selectedDevice));
         }
-        System.out.println("Success");
         if (selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(selectedDevice).get(1))) {
             System.out.println("Set the new room from the list of rooms: ");
             System.out.println(mCtrl.showRoomListInString());
             mRoomIndexToChange = read.nextLine();
             roomIndexIsOutOfBounds();
             mCtrl.setAttribute(selectedDevice, selectedAttribute, mRoomIndexToChange);
+            System.out.println("Success");
+            System.out.println(mCtrl.showDeviceAttributesInString(selectedDevice));
         }
         if (selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(selectedDevice).get(2))) {
             System.out.println("Set the nominal power (kW):");
             String mNominalPower = read.nextLine();
             mCtrl.setAttribute(selectedDevice, selectedAttribute, mNominalPower);
+            System.out.println("Success");
+            System.out.println(mCtrl.showDeviceAttributesInString(selectedDevice));
         }
         if (selectedDevice.getDeviceType().equals(DeviceType.FRIDGE)) {
             if (selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(selectedDevice).get(3))) {
@@ -356,6 +361,7 @@ public class USAddSetAndListDevicesInRoomUI {
                 String mFreezerCapacity = read.nextLine();
                 mCtrl.setAttribute(selectedDevice, selectedAttribute, mFreezerCapacity);
                 System.out.println("Success");
+                System.out.println(mCtrl.showDeviceAttributesInString(selectedDevice));
             }
             if (selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(selectedDevice).get(4))) {
                 System.out.println("Set the new refrigerator capacity:");
@@ -363,6 +369,7 @@ public class USAddSetAndListDevicesInRoomUI {
                 read.nextLine();
                 mCtrl.setAttribute(selectedDevice, selectedAttribute, mRefCapacity);
                 System.out.println("Success");
+                System.out.println(mCtrl.showDeviceAttributesInString(selectedDevice));
             }
         }
         if (selectedDevice.getDeviceType().equals(DeviceType.DISHWASHER)) {
@@ -371,6 +378,7 @@ public class USAddSetAndListDevicesInRoomUI {
                 String dwCapacity = read.nextLine(); //to validate only positive values
                 mCtrl.setAttribute(selectedDevice, selectedAttribute, dwCapacity);
                 System.out.println("Success");
+                System.out.println(mCtrl.showDeviceAttributesInString(selectedDevice));
             }
         }
         if (selectedDevice.getDeviceType().equals(DeviceType.ELECTRIC_WATER_HEATER)) {
@@ -380,6 +388,8 @@ public class USAddSetAndListDevicesInRoomUI {
                 read.nextLine();
                 mCtrl.setAttribute(selectedDevice, selectedAttribute, volumeOfWater);
                 System.out.println("Success");
+                System.out.println(mCtrl.showDeviceAttributesInString(selectedDevice));
+
             }
             if (selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(selectedDevice).get(4))) {
                 System.out.println("Set the new Electric Water Heater hot water temperature:");
@@ -387,6 +397,8 @@ public class USAddSetAndListDevicesInRoomUI {
                 read.nextLine();
                 mCtrl.setAttribute(selectedDevice, selectedAttribute, newHotWaterTemp);
                 System.out.println("Success");
+                System.out.println(mCtrl.showDeviceAttributesInString(selectedDevice));
+
             }
             if (selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(selectedDevice).get(5))) {
                 System.out.println("Set the new Electric Water Heater cold water temperature:");
@@ -394,18 +406,23 @@ public class USAddSetAndListDevicesInRoomUI {
                 read.nextLine();
                 mCtrl.setAttribute(selectedDevice, selectedAttribute, newColdWaterTemp);
                 System.out.println("Success");
+                System.out.println(mCtrl.showDeviceAttributesInString(selectedDevice));
+
             }
             if (selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(selectedDevice).get(6))) {
                 System.out.println("Set the new Electric Water Heater performance ratio:");
                 String newPerformanceRatio = read.nextLine(); //to validate only positive values
                 mCtrl.setAttribute(selectedDevice, selectedAttribute, newPerformanceRatio);
                 System.out.println("Success");
+                System.out.println(mCtrl.showDeviceAttributesInString(selectedDevice));
+
             }
             if (selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(selectedDevice).get(7))) {
                 System.out.println("Set the new Electric Water Heater Volume of water to heat:");
                 String newPerformanceRatio = read.nextLine(); //to validate only positive values
                 mCtrl.setAttribute(selectedDevice, selectedAttribute, newPerformanceRatio);
                 System.out.println("Success");
+                System.out.println(mCtrl.showDeviceAttributesInString(selectedDevice));
             }
 
         }
