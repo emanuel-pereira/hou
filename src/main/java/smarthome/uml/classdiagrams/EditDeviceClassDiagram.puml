@@ -1,0 +1,64 @@
+@startuml
+
+class RoomList{
+- mRoomList: List<Room>
++ createNewRoom()
++ roomNameValid()
++ addRoom()
++ removeRoom()
++ getRoomWithIndex()
++ getRoomListSize()
++ getRoomList()
++ showRoomListInString()
++ getNominalPower()
+
+}
+
+class DeviceList{
+- mDeviceList: List<Device>
++ addDevice()
++ newDevice()
++ newDevice()
++ get()
++ getLastElement()
++ getDeviceList()
++ showDeviceListInString()
++ showElectricWaterHeaterList()
++ getElectricWaterHeaterList()
++ getEnergyConsumptionOfEWHList()
++ setVolumeOfWaterToHeat()
++ setColdWaterTemperatureEWHList()
++ isLowerThanHotWater()
++ size()
+}
+
+class Device {
+- mName: String
+- mDeviceSpecs: DeviceSpecs
+- mDeviceType: DeviceType
+- mRoom: Room
+- mNominalPower: double
+- mEnergyConsumption: Metered
++ getName()
++ getDeviceSpecs()
++ getRoom()
++ getDeviceType()
++ getNominalPower()
++ setDeviceName()
++ setRoom()
++ setNominalPower()
++ showDeviceListAttributesInString()
++ showDeviceSpecsListAttributesInString()
+}
+
+interface DeviceSpecs{
++ showDeviceSpecsListAttributesInString()
+}
+
+RoomList *- DeviceList
+DeviceList *- Device
+Device ..|> DeviceSpecs
+
+
+
+@enduml
