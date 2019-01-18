@@ -98,7 +98,7 @@ public class RoomListTest {
     }
 
     @Test
-    @DisplayName("Ensure that method size() of RoomList class returns 2")
+    @DisplayName("Ensure that method getRoomListSize() of RoomList class returns 2")
     void size() {
         RoomList roomList = new RoomList();
         Room livingRoom = new Room("LivingRoom", 1, 3, 4, 5);
@@ -106,7 +106,7 @@ public class RoomListTest {
         roomList.addRoom(livingRoom);
         roomList.addRoom(garage);
         int expected = 2;
-        int result = roomList.size();
+        int result = roomList.getRoomListSize();
         assertEquals(expected, result);
 
     }
