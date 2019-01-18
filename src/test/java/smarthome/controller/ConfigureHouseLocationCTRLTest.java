@@ -9,14 +9,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class US101ConfigureHouseLocationCTRLTest {
+class ConfigureHouseLocationCTRLTest {
 
     @DisplayName("Tests if Geographical Area List is showed as a string to the user")
     @Test
     void showGAListInString() {
         House h1 = new House();
         GAList gl1 = new GAList();
-        US101ConfigureHouseLocationCTRL ctrl101 = new US101ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
 
         GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 25, 15, 12, 32, 41);
         GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", 45, 25, 32, 42, 41);
@@ -34,7 +34,7 @@ class US101ConfigureHouseLocationCTRLTest {
     void getGAList() {
         House h1 = new House();
         GAList gl1 = new GAList();
-        US101ConfigureHouseLocationCTRL ctrl101 = new US101ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
 
         GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 25, 15, 12, 32, 41);
         GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", 45, 25, 32, 42, 41);
@@ -54,7 +54,7 @@ class US101ConfigureHouseLocationCTRLTest {
     void configureHouseLocation() {
         GAList gl1 = new GAList();
         House h1 = new House();
-        US101ConfigureHouseLocationCTRL ctrl101 = new US101ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
 
         GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 25, 15, 12, 32, 41);
         GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", 45, 25, 32, 42, 41);
@@ -87,7 +87,7 @@ class US101ConfigureHouseLocationCTRLTest {
         gl1.addGA(ga2);
 
 
-        US101ConfigureHouseLocationCTRL ctrl101 = new US101ConfigureHouseLocationCTRL(gl1,h1);
+        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1,h1);
 
         boolean thrown = false;
 
@@ -114,7 +114,7 @@ class US101ConfigureHouseLocationCTRLTest {
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
-        US101ConfigureHouseLocationCTRL ctrl101 = new US101ConfigureHouseLocationCTRL(gl1,h1);
+        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1,h1);
 
         boolean thrown = false;
 
@@ -141,7 +141,7 @@ class US101ConfigureHouseLocationCTRLTest {
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
-        US101ConfigureHouseLocationCTRL ctrl101 = new US101ConfigureHouseLocationCTRL(gl1,h1);
+        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1,h1);
 
         boolean thrown = false;
 

@@ -25,7 +25,7 @@ public class US160GetDeviceListInGridByTypeUI {
                 indexHG = read1.nextInt();
                 if (indexHG > mCtrl160.getHouseGridListCtrl().size() || indexHG<=0)
                     System.out.println("Please insert a valid option.\n");
-                if(mCtrl160.getListOfRoomsInGrid(indexHG).size() == 0) {
+                if(mCtrl160.getListOfRoomsInGrid(indexHG).getRoomListSize() == 0) {
                     System.out.println("No Rooms were found in this grid, please add a Room to a Grid.");
                     break;
                 }

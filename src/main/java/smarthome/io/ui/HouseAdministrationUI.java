@@ -35,7 +35,7 @@ public class HouseAdministrationUI {
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
                 case 1:
-                    US101ConfigureHouseLocationUI ui101 = new US101ConfigureHouseLocationUI(gaList, house);
+                    ConfigureHouseLocationUI ui101 = new ConfigureHouseLocationUI(gaList, house);
                     ui101.configureHouseLocationUS101();
                     break;
                 case 2:

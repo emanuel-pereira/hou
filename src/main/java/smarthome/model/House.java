@@ -57,10 +57,6 @@ public class House {
     }
 
 
-    //TODO Corrigir método através do teste na HouseTest; incluir verificação com método sensorHasReadings da classe Sensor
-    //verificar logo aqui se tem readings para o intervalo pretendido?
-    ///change method to findClosestGASensorByTypeWithReadings
-
     public Sensor findClosestGASensorByType(String type) {
         SensorList listSensorsOfType = mGA.getGASensorsByType(type);
         Sensor nearestSensor = mGA.getGASensorsByType(type).getSensorList().get(0);
@@ -68,7 +64,7 @@ public class House {
         double minDistance = getHouseLocation().calcLinearDistanceBetweenTwoPoints(listSensorsOfType.getSensorList().get(0).getLocation(), mAddress.getGPSLocation());
 
         for (Sensor sensor : listSensorsOfType.getSensorList()) {
-            if (minDistance > getHouseLocation().calcLinearDistanceBetweenTwoPoints(mAddress.getGPSLocation(), sensor.getLocation()) && !sensor.getReadingList().getReadingList().isEmpty()) {
+            if (minDistance > getHouseLocation().calcLinearDistanceBetweenTwoPoints(mAddress.getGPSLocation(), sensor.getLocation())) {
                 minDistance = getHouseLocation().calcLinearDistanceBetweenTwoPoints(mAddress.getGPSLocation(), sensor.getLocation());
                 nearestSensor = sensor;
             }

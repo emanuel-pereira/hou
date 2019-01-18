@@ -57,7 +57,7 @@ public class US605CurrentTempRoomCTRL {
      * @return True if sensor type exist in the room or false if not
      */
     public boolean checkIfSensorTypeExistsInRoom(int roomIndex, String temp) {
-        return mRoomList.get (roomIndex - 1).checkIfSensorTypeExistsInRoom (temp);
+        return mRoomList.getRoomWithIndex(roomIndex - 1).checkIfSensorTypeExistsInRoom (temp);
     }
 
     /**

@@ -5,13 +5,13 @@ import smarthome.model.*;
 import java.util.List;
 
 
-public class US101ConfigureHouseLocationCTRL {
+public class ConfigureHouseLocationCTRL {
 
     private GAList mGAList;
     private House mHouse;
 
 
-    public US101ConfigureHouseLocationCTRL(GAList listOfGA, House house) {
+    public ConfigureHouseLocationCTRL(GAList listOfGA, House house) {
         mGAList = listOfGA;
         mHouse = house;
     }

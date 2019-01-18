@@ -9,7 +9,7 @@ public class Sensor {
     private String mDesignation;
     private Calendar mStartDate;
     private Location mLocation;
-    private SensorType mDataType;
+    private SensorType mSensorType;
     private String mUnit; //to analyse the creation of a class unit so we may have a list of units for a specific Datatype (eg. SensorType: temperature with list of units containing: celsius, kelvin and fahrenheit)
 
     private ReadingList mReadingList = new ReadingList ();
@@ -39,21 +39,21 @@ public class Sensor {
      * @param altitude    refers to the sensor's altitude
      * @param dataType    refers to the sensor's chosen data type, humidity, precipitation
      */
-    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, String dataType) {
-        if (nameIsValid (designation)) {
+    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, String sensorType) {
+        if (nameIsValid(designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
-            this.mLocation = new Location (latitude, longitude, altitude);
-            this.mDataType = new SensorType (dataType);
+            this.mLocation = new Location(latitude, longitude, altitude);
+            this.mSensorType = new SensorType(sensorType);
         }
     }
 
-    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, SensorType dataType) {
-        if (nameIsValid (designation)) {
+    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, SensorType sensorType) {
+        if (nameIsValid(designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
-            this.mLocation = new Location (latitude, longitude, altitude);
-            this.mDataType = dataType;
+            this.mLocation = new Location(latitude, longitude, altitude);
+            this.mSensorType = sensorType;
         }
     }
 
@@ -67,11 +67,11 @@ public class Sensor {
      * @param unit
      * @param readings
      */
-    public Sensor(String designation, Calendar startDate, SensorType dataType, String unit, ReadingList readings) {
-        if (nameIsValid (designation)) {
+    public Sensor(String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+        if (nameIsValid(designation)) {
             this.mDesignation = designation;
             this.mStartDate = startDate;
-            this.mDataType = dataType;
+            this.mSensorType = sensorType;
             this.mUnit = unit;
             this.mReadingList = readings;
         }
@@ -89,12 +89,12 @@ public class Sensor {
      * @param unit
      * @param readings
      */
-    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, SensorType dataType, String unit, ReadingList readings) {
-        if (nameIsValid (designation)) {
+    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, SensorType sensorType, String unit, ReadingList readings) {
+        if (nameIsValid(designation)) {
             mDesignation = designation;
             mStartDate = startDate;
-            mLocation = new Location (latitude, longitude, altitude);
-            mDataType = dataType;
+            mLocation = new Location(latitude, longitude, altitude);
+            mSensorType = sensorType;
             mUnit = unit;
             mReadingList = readings;
         }
@@ -161,8 +161,8 @@ public class Sensor {
      *
      * @param dataType new object from the dataType class.
      */
-    public void setSensorDataType(SensorType dataType) {
-        this.mDataType = dataType;
+    public void setSensorType(SensorType sensorType) {
+        this.mSensorType = sensorType;
     }
 
     /**
@@ -171,7 +171,11 @@ public class Sensor {
      * @return object dataType
      */
     public SensorType getSensorType() {
-        return this.mDataType;
+        return this.mSensorType;
+    }
+
+    public ReadingList getReadingList() {
+        return mReadingList;
     }
 
     /**
@@ -185,11 +189,6 @@ public class Sensor {
         return mLocation.calcLinearDistanceBetweenTwoPoints (sensor1.getLocation (), sensor2.getLocation ());
     }
 
-    public ReadingList getReadingList(){
-        return mReadingList;
-    }
-
-
     /**
      * Method to add a new reading to the list of readings of a sensor.
      *
@@ -199,6 +198,7 @@ public class Sensor {
         if (!(mReadingList.getReadingList ().contains (newReading)))
             this.mReadingList.addReading (newReading);
     }
+
 
     /**
      * This method looks for the last reading within a list of readings for a sensor.
@@ -229,6 +229,6 @@ public class Sensor {
 
     @Override
     public int hashCode() {
-        return Objects.hash (mDesignation, mLocation, mDataType);
+        return Objects.hash(mDesignation, mLocation, mSensorType);
     }
 }

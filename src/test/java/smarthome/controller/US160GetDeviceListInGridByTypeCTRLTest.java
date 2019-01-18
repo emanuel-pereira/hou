@@ -67,11 +67,11 @@ class US160GetDeviceListInGridByTypeCTRLTest {
         Device d4 = new Device("candeeiro",DeviceType.LAMP,r2,10);
         //Lamp lamp2 = new Lamp(DeviceType.LAMP,10);
         Device d5 = new Device("candeeiro2",DeviceType.LAMP,r3,10);
-        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d1);
-        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d2);
-        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d3);
-        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d4);
-        house.getRoomListFromHouse().get(2).getDeviceList().addDevice(d5);
+        house.getRoomListFromHouse().getRoomWithIndex(0).getDeviceList().addDevice(d1);
+        house.getRoomListFromHouse().getRoomWithIndex(0).getDeviceList().addDevice(d2);
+        house.getRoomListFromHouse().getRoomWithIndex(1).getDeviceList().addDevice(d3);
+        house.getRoomListFromHouse().getRoomWithIndex(1).getDeviceList().addDevice(d4);
+        house.getRoomListFromHouse().getRoomWithIndex(2).getDeviceList().addDevice(d5);
 
         r1.setmHouseGrid(hg1);
         r2.setmHouseGrid(hg2);
@@ -109,11 +109,11 @@ class US160GetDeviceListInGridByTypeCTRLTest {
         Device d4 = new Device("candeeiro",DeviceType.LAMP,r2,10);
         //Lamp lamp2 = new Lamp(DeviceType.LAMP,10);
         Device d5 = new Device("candeeiro2",DeviceType.LAMP,r3,10);
-        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d1);
-        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d2);
-        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d3);
-        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d4);
-        house.getRoomListFromHouse().get(2).getDeviceList().addDevice(d5);
+        house.getRoomListFromHouse().getRoomWithIndex(0).getDeviceList().addDevice(d1);
+        house.getRoomListFromHouse().getRoomWithIndex(0).getDeviceList().addDevice(d2);
+        house.getRoomListFromHouse().getRoomWithIndex(1).getDeviceList().addDevice(d3);
+        house.getRoomListFromHouse().getRoomWithIndex(1).getDeviceList().addDevice(d4);
+        house.getRoomListFromHouse().getRoomWithIndex(2).getDeviceList().addDevice(d5);
 
         r1.setmHouseGrid(hg1);
         r2.setmHouseGrid(hg2);
@@ -151,11 +151,11 @@ class US160GetDeviceListInGridByTypeCTRLTest {
         Device d4 = new Device("candeeiro",DeviceType.LAMP,r2,10);
         //Lamp lamp2 = new Lamp(DeviceType.LAMP,10);
         Device d5 = new Device("candeeiro2",DeviceType.LAMP,r3,10);
-        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d1);
-        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d2);
-        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d3);
-        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d4);
-        house.getRoomListFromHouse().get(2).getDeviceList().addDevice(d5);
+        house.getRoomListFromHouse().getRoomWithIndex(0).getDeviceList().addDevice(d1);
+        house.getRoomListFromHouse().getRoomWithIndex(0).getDeviceList().addDevice(d2);
+        house.getRoomListFromHouse().getRoomWithIndex(1).getDeviceList().addDevice(d3);
+        house.getRoomListFromHouse().getRoomWithIndex(1).getDeviceList().addDevice(d4);
+        house.getRoomListFromHouse().getRoomWithIndex(2).getDeviceList().addDevice(d5);
 
         r1.setmHouseGrid(hg1);
         r2.setmHouseGrid(hg2);
@@ -194,11 +194,11 @@ class US160GetDeviceListInGridByTypeCTRLTest {
         Device d4 = new Device("candeeiro",DeviceType.LAMP,r2,10);
         //Lamp lamp2 = new Lamp(DeviceType.LAMP,10);
         Device d5 = new Device("candeeiro2",DeviceType.LAMP,r3,10);
-        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d1);
-        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d2);
-        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d3);
-        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d4);
-        house.getRoomListFromHouse().get(2).getDeviceList().addDevice(d5);
+        house.getRoomListFromHouse().getRoomWithIndex(0).getDeviceList().addDevice(d1);
+        house.getRoomListFromHouse().getRoomWithIndex(0).getDeviceList().addDevice(d2);
+        house.getRoomListFromHouse().getRoomWithIndex(1).getDeviceList().addDevice(d3);
+        house.getRoomListFromHouse().getRoomWithIndex(1).getDeviceList().addDevice(d4);
+        house.getRoomListFromHouse().getRoomWithIndex(2).getDeviceList().addDevice(d5);
 
         r1.setmHouseGrid(hg1);
         r2.setmHouseGrid(hg2);
@@ -236,11 +236,11 @@ class US160GetDeviceListInGridByTypeCTRLTest {
         Device d4 = new Device("candeeiro",DeviceType.LAMP,r2,10);
         //Lamp lamp2 = new Lamp(DeviceType.LAMP,10);
         Device d5 = new Device("candeeiro2",DeviceType.LAMP,r3,10);
-        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d1);
-        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d2);
-        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d3);
-        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d4);
-        house.getRoomListFromHouse().get(2).getDeviceList().addDevice(d5);
+        house.getRoomListFromHouse().getRoomWithIndex(0).getDeviceList().addDevice(d1);
+        house.getRoomListFromHouse().getRoomWithIndex(0).getDeviceList().addDevice(d2);
+        house.getRoomListFromHouse().getRoomWithIndex(1).getDeviceList().addDevice(d3);
+        house.getRoomListFromHouse().getRoomWithIndex(1).getDeviceList().addDevice(d4);
+        house.getRoomListFromHouse().getRoomWithIndex(2).getDeviceList().addDevice(d5);
 
         r1.setmHouseGrid(hg1);
         r2.setmHouseGrid(hg2);

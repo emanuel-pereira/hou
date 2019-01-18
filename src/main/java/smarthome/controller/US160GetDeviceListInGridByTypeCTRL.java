@@ -36,8 +36,8 @@ public class US160GetDeviceListInGridByTypeCTRL {
 
     public List<Device> getDeviceListInGridCtrl(int indexHG) {
         DeviceList deviceListInGrid = new DeviceList();
-        for (int i = 0; i < this.getListOfRoomsInGrid(indexHG).size(); i++) {
-            for (Device d : this.getListOfRoomsInGrid(indexHG).get(i).getDeviceList().getDeviceList()) {
+        for (int i = 0; i < this.getListOfRoomsInGrid(indexHG).getRoomListSize(); i++) {
+            for (Device d : this.getListOfRoomsInGrid(indexHG).getRoomWithIndex(i).getDeviceList().getDeviceList()) {
                 deviceListInGrid.addDevice(d);
             }
         }

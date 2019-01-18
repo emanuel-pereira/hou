@@ -22,8 +22,8 @@ public class USAddSetAndListDevicesInRoomCTRL {
     }
 
     public boolean addDevice(int indexOfRoom, String inputName, DeviceSpecs deviceSpecs, double nominalPower, DeviceType deviceType) {
-        Device device = mHouse.getRoomListFromHouse().get(indexOfRoom-1).getDeviceList().newDevice(inputName,deviceType,deviceSpecs,mHouse.getRoomListFromHouse().get(indexOfRoom-1),nominalPower);
-        return mHouse.getRoomListFromHouse().get(indexOfRoom-1).getDeviceList().addDevice(device);
+        Device device = mHouse.getRoomListFromHouse().getRoomWithIndex(indexOfRoom-1).getDeviceList().newDevice(inputName,deviceType,deviceSpecs,mHouse.getRoomListFromHouse().getRoomWithIndex(indexOfRoom-1),nominalPower);
+        return mHouse.getRoomListFromHouse().getRoomWithIndex(indexOfRoom-1).getDeviceList().addDevice(device);
     }
 
     /**Method to validate Strings only accepting alphanumeric characters as well as spaces and hyphens.

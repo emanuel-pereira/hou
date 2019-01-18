@@ -17,7 +17,7 @@ public class US253AddSensorToRoomCTRL {
     }
 
     public void addNewSensorToRoom(String inputName, GregorianCalendar startDate, int sensorTypeIndex, int indexOfRoom, String unit, ReadingList readingList) {
-        Room r = mRoomList.get(indexOfRoom - 1);
+        Room r = mRoomList.getRoomWithIndex(indexOfRoom - 1);
         Sensor s= r.getSensorListInRoom().createNewInternalSensor(inputName, startDate, mSensorTypeList.getSensorTypeList().get(sensorTypeIndex-1),unit,readingList);
         r.getSensorListInRoom().addSensor(s);
     }

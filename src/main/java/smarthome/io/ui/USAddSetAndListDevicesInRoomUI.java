@@ -227,14 +227,14 @@ public class USAddSetAndListDevicesInRoomUI {
                 System.out.println("Please choose a valid option.");
         }
         System.out.println("The following device was successfully created:");
-        if (mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getDeviceSpecs() != null) {
-            System.out.println("[DEVICE TYPE]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getDeviceType().getTypeString());
+        if (mHouse.getRoomListFromHouse().getRoomWithIndex(mRoomIndex - 1).getDeviceList().getLastElement().getDeviceSpecs() != null) {
+            System.out.println("[DEVICE TYPE]: " + mHouse.getRoomListFromHouse().getRoomWithIndex(mRoomIndex - 1).getDeviceList().getLastElement().getDeviceType().getTypeString());
         } else {
-            System.out.println("[DEVICE TYPE]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getDeviceType());
+            System.out.println("[DEVICE TYPE]: " + mHouse.getRoomListFromHouse().getRoomWithIndex(mRoomIndex - 1).getDeviceList().getLastElement().getDeviceType());
         }
-        System.out.println("[NAME]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getName());
-        System.out.println("[ROOM]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getRoom().getName());
-        System.out.println("[NOMINAL POWER]: " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getLastElement().getNominalPower());
+        System.out.println("[NAME]: " + mHouse.getRoomListFromHouse().getRoomWithIndex(mRoomIndex - 1).getDeviceList().getLastElement().getName());
+        System.out.println("[ROOM]: " + mHouse.getRoomListFromHouse().getRoomWithIndex(mRoomIndex - 1).getDeviceList().getLastElement().getRoom().getName());
+        System.out.println("[NOMINAL POWER]: " + mHouse.getRoomListFromHouse().getRoomWithIndex(mRoomIndex - 1).getDeviceList().getLastElement().getNominalPower());
 
     }
 
@@ -253,7 +253,7 @@ public class USAddSetAndListDevicesInRoomUI {
         while (true) {
             if (roomListIsEmpty()) break;
             if (mHouse.getRoomListFromHouse().getRoomList().size() != 0) {
-                System.out.println("Select a room from the list below where to get the list of all devices in that room:");
+                System.out.println("Select a room from the list below where to getRoomWithIndex the list of all devices in that room:");
                 System.out.println(mCtrl.showRoomListInString());
                 mRoomIndex = read.nextInt();
                 read.nextLine();
@@ -268,14 +268,14 @@ public class USAddSetAndListDevicesInRoomUI {
     }
 
     public void listDevicesInRoom() {
-        System.out.println("List of devices in " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getName() + ":");
+        System.out.println("List of devices in " + mHouse.getRoomListFromHouse().getRoomWithIndex(mRoomIndex - 1).getName() + ":");
         System.out.println(mCtrl.showDeviceListInString(mRoomIndex));
         return;
     }
 
     private boolean deviceListInRoomIsEmpty() {
-        if (mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getDeviceList().getDeviceList().isEmpty()) {
-            System.out.println("The device list in " + mHouse.getRoomListFromHouse().get(mRoomIndex - 1).getName() + " is empty.\n");
+        if (mHouse.getRoomListFromHouse().getRoomWithIndex(mRoomIndex - 1).getDeviceList().getDeviceList().isEmpty()) {
+            System.out.println("The device list in " + mHouse.getRoomListFromHouse().getRoomWithIndex(mRoomIndex - 1).getName() + " is empty.\n");
             return true;
         }
         return false;
@@ -309,7 +309,7 @@ public class USAddSetAndListDevicesInRoomUI {
 
     public void editDeviceAttributes() {
         roomSelectionToListDevice();
-        selectedRoom = mCtrl.getRoomList().get(mRoomIndex - 1);
+        selectedRoom = mCtrl.getRoomList().getRoomWithIndex(mRoomIndex - 1);
         deviceSelectionToEdit();
         selectedDevice = mCtrl.getDeviceList(selectedRoom).get(mDeviceIndex - 1);
         attributeSelectionToEdit();
@@ -329,7 +329,7 @@ public class USAddSetAndListDevicesInRoomUI {
             mRoomIndexToChange = read.nextInt();
             read.nextLine();
             roomIndexIsOutOfBounds();
-            selectedRoom = mCtrl.getRoomList().get(mRoomIndexToChange - 1);
+            selectedRoom = mCtrl.getRoomList().getRoomWithIndex(mRoomIndexToChange - 1);
             mCtrl.setDeviceRoom(selectedDevice, selectedRoom);
         }
         if (mAtttributeIndex == 3) {

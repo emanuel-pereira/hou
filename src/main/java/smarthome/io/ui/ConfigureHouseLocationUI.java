@@ -1,16 +1,16 @@
 package smarthome.io.ui;
 
 
-import smarthome.controller.US101ConfigureHouseLocationCTRL;
+import smarthome.controller.ConfigureHouseLocationCTRL;
 import smarthome.model.GAList;
 import smarthome.model.GPSValidations;
 import smarthome.model.House;
 
 import java.util.Scanner;
 
-public class US101ConfigureHouseLocationUI {
+public class ConfigureHouseLocationUI {
 
-    private US101ConfigureHouseLocationCTRL mCtrlUS101;
+    private ConfigureHouseLocationCTRL mCtrlUS101;
 
     /*
         US101: As Administrator, I want to configure the location of the house
@@ -22,8 +22,8 @@ public class US101ConfigureHouseLocationUI {
    */
 
 
-    public US101ConfigureHouseLocationUI(GAList listOfGA, House house) {
-        mCtrlUS101 = new US101ConfigureHouseLocationCTRL(listOfGA, house);
+    public ConfigureHouseLocationUI(GAList listOfGA, House house) {
+        mCtrlUS101 = new ConfigureHouseLocationCTRL(listOfGA, house);
     }
 
 

@@ -120,7 +120,7 @@ class SensorTest {
         String resultDesignation;
         String expectedDesignation="SensorOfCoimbra";
 
-        visibilitySensor.setSensorDataType(visibility);
+        visibilitySensor.setSensorType(visibility);
         resultSensorType=visibilitySensor.getSensorType();
         resultDesignation=visibilitySensor.getDesignation();
 
@@ -142,8 +142,8 @@ class SensorTest {
         SensorType expectedResult= newType;
         SensorType result;
 
-        visibilitySensor.setSensorDataType(oldType);
-        visibilitySensor.setSensorDataType(newType);
+        visibilitySensor.setSensorType(oldType);
+        visibilitySensor.setSensorType(newType);
         result=visibilitySensor.getSensorType();
 
         assertEquals(expectedResult,result);

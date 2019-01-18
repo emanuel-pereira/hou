@@ -70,10 +70,10 @@ class US230TotalNominalPowerRoomCTRLTest {
         Device d2 = new Device("fridge",DeviceType.FRIDGE,r1,300);
         Device d3 = new Device("stove",DeviceType.STOVE,r1,500);
         Device d4 = new Device("lamp",DeviceType.LAMP,r2,100);
-        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d2);
-        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d3);
-        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d1);
-        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d4);
+        house.getRoomListFromHouse().getRoomWithIndex(0).getDeviceList().addDevice(d2);
+        house.getRoomListFromHouse().getRoomWithIndex(0).getDeviceList().addDevice(d3);
+        house.getRoomListFromHouse().getRoomWithIndex(1).getDeviceList().addDevice(d1);
+        house.getRoomListFromHouse().getRoomWithIndex(1).getDeviceList().addDevice(d4);
 
         double expectedResult = 300;
         double result = ctrl230.getNominalPowerRoomCtrl(2);
@@ -93,10 +93,10 @@ class US230TotalNominalPowerRoomCTRLTest {
         Device d2 = new Device("fridge",DeviceType.FRIDGE,r1,300);
         Device d3 = new Device("stove",DeviceType.STOVE,r1,500);
         Device d4 = new Device("lamp",DeviceType.LAMP,r2,100);
-        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d2);
-        house.getRoomListFromHouse().get(0).getDeviceList().addDevice(d3);
-        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d1);
-        house.getRoomListFromHouse().get(1).getDeviceList().addDevice(d4);
+        house.getRoomListFromHouse().getRoomWithIndex(0).getDeviceList().addDevice(d2);
+        house.getRoomListFromHouse().getRoomWithIndex(0).getDeviceList().addDevice(d3);
+        house.getRoomListFromHouse().getRoomWithIndex(1).getDeviceList().addDevice(d1);
+        house.getRoomListFromHouse().getRoomWithIndex(1).getDeviceList().addDevice(d4);
 
         List <Device> expectedResult = Arrays.asList(d1,d4);
         List<Device> result = ctrl230.getDeviceListInRoomCtrl(2);

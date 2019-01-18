@@ -22,7 +22,7 @@ public class US230TotalNominalPowerRoomCTRL {
     }
 
     public String getRoomNameCtrl (int indexRoom) {
-        return mHouse.getRoomListFromHouse().get(indexRoom - 1).getName();
+        return mHouse.getRoomListFromHouse().getRoomWithIndex(indexRoom - 1).getName();
     }
 
     public String showListRoomInString() {
@@ -30,12 +30,12 @@ public class US230TotalNominalPowerRoomCTRL {
     }
 
     public List<Device> getDeviceListInRoomCtrl (int indexRoom) {
-        return mHouse.getRoomListFromHouse().get(indexRoom-1).getDeviceList().getDeviceList();
+        return mHouse.getRoomListFromHouse().getRoomWithIndex(indexRoom-1).getDeviceList().getDeviceList();
     }
 
     public double getNominalPowerRoomCtrl(int indexRoom){
 
-        return mHouse.getRoomListFromHouse().get(indexRoom - 1).getNominalPower();
+        return mHouse.getRoomListFromHouse().getRoomWithIndex(indexRoom - 1).getNominalPower();
     }
 
 

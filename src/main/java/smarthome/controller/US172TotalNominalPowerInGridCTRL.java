@@ -61,7 +61,7 @@ public class US172TotalNominalPowerInGridCTRL {
      * @return list of devices in a room
      */
     public DeviceList getDeviceList(int indexRoom){
-        return mHouse.getRoomListFromHouse().get (indexRoom-1).getDeviceList ();
+        return mHouse.getRoomListFromHouse().getRoomWithIndex(indexRoom-1).getDeviceList ();
     }
 
     /**
