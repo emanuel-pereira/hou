@@ -98,8 +98,42 @@ class HouseTest {
 
 
     @Test
-    @DisplayName("Tests if returns the nearest GA sensor of a given type")
-    void getGASensorsOfGivenType() {
+    @DisplayName("Tests if returns the nearest rainfall sensor with readings ")
+    void getClosestGASensorOfGivenType() {
+
+        //Arrange
+        Location l1 = new Location(41, 12.3, 110);
+        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Beja", l1);
+        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", 41, 12.3, 110, 2, 5);
+
+        House house1 = new House("Prédio", a1, g1);
+
+        SensorType sT1 = new SensorType("temperature");
+        SensorType sR1 = new SensorType("rainfall");
+
+        ReadingList rL = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 1));
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0));
+        rL.addReading(r1);
+        rL.addReading(r2);
+
+        Sensor s1 = g1.getSensorListInGA().newSensor("TempSensor", new GregorianCalendar(2018, 12, 15), 42, 12.4, 112, sT1, "C", rL);
+        Sensor s2 = g1.getSensorListInGA().newSensor("RainSensor", new GregorianCalendar(2018, 12, 15), 40, 13, 190, sR1, "Percentage", rL);
+        Sensor s3 = g1.getSensorListInGA().newSensor("RainSensor2", new GregorianCalendar(2018, 12, 15), 50, 13, 190, sR1, "Percentage", rL);
+
+        g1.getSensorListInGA().addSensor(s1);
+        g1.getSensorListInGA().addSensor(s2);
+        g1.getSensorListInGA().addSensor(s3);
+
+        Sensor result = house1.findClosestGASensorByType("rainfall");
+
+        //Assert
+        assertEquals(s2, result);
+    }
+
+    @Test
+    @DisplayName("Tests if returns the second nearest GA sensor of a given type, because the first does not have readings")
+    void getSecondClosestGASensorOfGivenType() {
 
         //Arrange
         Location l1 = new Location(41, 12.3, 110);
