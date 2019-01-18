@@ -1,0 +1,102 @@
+@startuml
+
+class House {
+- mAddress: Address
+- mID: String
+- mGA: Geographical Area
+- mRoomList: RoomList
+- mHGListInHouse: HouseGridList
++ setHouseGA()
++ getHouseGA()
++ setHouseAddress()
++ getAddress()
++ getHouseLocation()
++ findClosestGASensorByType()
++ getRoomListFromHouse()
++ getHGListInHouse()
+}
+
+class RoomList{
+- mRoomList: List<Room>
++ createNewRoom()
++ roomNameValid()
++ addRoom()
++ removeRoom()
++ getRoomWithIndex()
++ getRoomListSize()
++ getRoomList()
++ showRoomListInString()
++ getNominalPower()
+
+}
+
+
+class Room{
+- mName: String
+- mFloor: Integer
+- mArea: OccupationArea
+- mHeight: double
+- mHouseGrid: HouseGrid
+- mSensorListInRoom: SensorList
+- mDeviceList: DeviceList
++ getName()
++ getFloor()
++ getArea()
++ getHeight()
++ getNominalPower()
++ setName()
++ setFloor()
++ setArea()
++ setHeight()
++ validateName()
++ setmHouseGrid()
++ getmHouseGrid()
++ getSensorListInRoom()
++ checkIfSensorTypeExistsInRoom()
++ getDeviceList()
+}
+
+
+class DeviceList{
+- mDeviceList: List<Device>
++ addDevice()
++ newDevice()
++ newDevice()
++ get()
++ getLastElement()
++ getDeviceList()
++ showDeviceListInString()
++ showElectricWaterHeaterList()
++ getElectricWaterHeaterList()
++ getEnergyConsumptionOfEWHList()
++ setVolumeOfWaterToHeat()
++ setColdWaterTemperatureEWHList()
++ isLowerThanHotWater()
++ size()
+}
+
+class Device {
+- mName: String
+- mDeviceSpecs: DeviceSpecs
+- mDeviceType: DeviceType
+- mRoom: Room
+- mNominalPower: double
+- mEnergyConsumption: Metered
++ getName()
++ getDeviceSpecs()
++ getRoom()
++ getDeviceType()
++ getNominalPower()
++ setDeviceName()
++ setRoom()
++ setNominalPower()
++ showDeviceListAttributesInString()
++ showDeviceSpecsListAttributesInString()
+}
+
+
+House *-- "1" RoomList: has
+RoomList *-- "*"Room: contains
+Room *-- "1"DeviceList: contains
+DeviceList *-- "*"Device: contains
+@enduml
