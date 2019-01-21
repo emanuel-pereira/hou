@@ -108,11 +108,11 @@ public class RoomList {
     }
 
     public List<Device> getDevicesInAllRoomsByType(DeviceType deviceType) {
-        List<Device> deviceList;
+        DeviceList deviceList;
         List<Device> deviceListByType = new ArrayList<>();
         for (Room room : mRoomList) {
-            deviceList = room.getDeviceList().getDeviceList();
-            for (Device device : deviceList)
+            deviceList = room.getDeviceList();
+            for (Device device : deviceList.getDeviceList())
                 if (device.getDeviceSpecs().getType().equals(deviceType)) {
                     deviceListByType.add(device);
                 }
