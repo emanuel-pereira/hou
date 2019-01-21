@@ -20,10 +20,10 @@ class US105AddNewRoomToHouseCTRLTest {
         GeographicalArea g1 = new GeographicalArea("POR","Porto","City",25,35,15,40,45);
 
         House house1 = new House(a1, g1);
-        RoomList roomList = house1.getRoomListFromHouse();
+        RoomList roomList = house1.getRoomList();
 
                 US105AddNewRoomToHouseCTRL ctrl1 = new US105AddNewRoomToHouseCTRL(house1);
-        assertEquals(0, house1.getRoomListFromHouse().getRoomList().size());
+        assertEquals(0, house1.getRoomList().getRoomList().size());
 
         ctrl1.newRoom("kitchen", 1, 3, 3.5, 2);
         assertEquals(1, roomList.getRoomList().size());
@@ -43,10 +43,10 @@ class US105AddNewRoomToHouseCTRLTest {
         House house2 = new House(a1,g1);
 
         US105AddNewRoomToHouseCTRL ctrl1 = new US105AddNewRoomToHouseCTRL(house2);
-        assertEquals(0, house2.getRoomListFromHouse().getRoomList().size());
+        assertEquals(0, house2.getRoomList().getRoomList().size());
 
         ctrl1.newRoom(" ", 1, 3, 3.5, 2);
-        assertEquals(0, house2.getRoomListFromHouse().getRoomList().size());
+        assertEquals(0, house2.getRoomList().getRoomList().size());
     }
 
     /**
@@ -62,14 +62,14 @@ class US105AddNewRoomToHouseCTRLTest {
         House house2 = new House(a1,g1);
 
         US105AddNewRoomToHouseCTRL ctrl1 = new US105AddNewRoomToHouseCTRL(house2);
-        assertEquals(0, house2.getRoomListFromHouse().getRoomList().size());
+        assertEquals(0, house2.getRoomList().getRoomList().size());
 
         boolean result = ctrl1.newRoom("kitchen", 1, 3, 3.5, 2);
-        assertEquals(1, house2.getRoomListFromHouse().getRoomList().size());
+        assertEquals(1, house2.getRoomList().getRoomList().size());
         assertTrue(result);
 
         boolean result1 = ctrl1.newRoom(" ", 1, 3, 3.5, 2);
-        assertEquals(1, house2.getRoomListFromHouse().getRoomList().size());
+        assertEquals(1, house2.getRoomList().getRoomList().size());
         assertFalse(result1);
 
 

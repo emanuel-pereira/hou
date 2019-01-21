@@ -1,4 +1,4 @@
-package smarthome.controller;
+/*package smarthome.controller;
 
 import smarthome.model.*;
 
@@ -24,7 +24,7 @@ public class US160GetDeviceListInGridByTypeCTRL {
 
     public RoomList getListOfRoomsInGrid(int indexOfHouseGrid) {
         RoomList listOfRoomsWithHouseGrid = new RoomList();
-        for (Room r : mHouse.getRoomListFromHouse().getRoomList()) {
+        for (Room r : mHouse.getRoomList().getRoomList()) {
             if (r.getmHouseGrid() != null && r.getmHouseGrid().equals(mHouse.getHGListInHouse().get(indexOfHouseGrid - 1))) {
                    listOfRoomsWithHouseGrid.addRoom(r);
             }
@@ -35,7 +35,7 @@ public class US160GetDeviceListInGridByTypeCTRL {
     public List<Device> getDeviceListInGridCtrl(int indexHG) {
         DeviceList deviceListInGrid = new DeviceList();
         for (int i = 0; i < this.getListOfRoomsInGrid(indexHG).getRoomListSize(); i++) {
-            for (Device d : this.getListOfRoomsInGrid(indexHG).getRoomWithIndex(i).getDeviceList().getDeviceList()) {
+            for (Device d : this.getListOfRoomsInGrid(indexHG).get(i).getDeviceList().getDeviceList()) {
                 deviceListInGrid.addDevice(d);
             }
         }
@@ -47,7 +47,7 @@ public class US160GetDeviceListInGridByTypeCTRL {
         int i;
         for(i=0;i<14;i++){
             for(Device d : this.getDeviceListInGridCtrl(indexHG)){
-                if(DeviceType.values()[i].getTypeString().equals(d.getDeviceType().getTypeString())){
+                if(DeviceType.values()[i].getTypeString().equals(d.getDeviceSpecs().getType().getTypeString())){
                     deviceListGroupByType.addDevice(d);
                 }
             }
@@ -68,12 +68,12 @@ public class US160GetDeviceListInGridByTypeCTRL {
             result.append(", Nominal Power: ");
             result.append(device.getNominalPower());
             result.append(", Type: ");
-            result.append(device.getDeviceType().getTypeString());
+            result.append(device.getDeviceSpecs().getType().getTypeString());
             result.append(",Location: ");
-            result.append(device.getRoom().getName());
+            *//*result.append(device.getRoom().getName());*//*
             result.append(".\n");
         }
         return result.toString();
     }
 
-}
+}*/

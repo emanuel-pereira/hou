@@ -123,7 +123,7 @@ public class RoomListTest {
         HouseGrid hG = hGl.newHouseGrid("mainGrid", 800);
         hGl.addHouseGrid(hG);
 
-        RoomList list = h.getRoomListFromHouse();
+        RoomList list = h.getRoomList();
 
         Room bedroom = list.createNewRoom("bedroom", 1, 2, 3, 2);
         list.addRoom(bedroom);
@@ -132,16 +132,20 @@ public class RoomListTest {
         list.addRoom(kitchen);
         DeviceList dLK = kitchen.getDeviceList();
 
-        Lamp l = new Lamp(20);
+        Lamp l1 = new Lamp(DeviceType.LAMP,20);
+        Lamp l2 = new Lamp(DeviceType.LAMP,25);
 
-        Device d1 = dLb.newDevice("lamp1", DeviceType.LAMP, l, kitchen, 20);
-        Device d2 = dLb.newDevice("lamp2", DeviceType.LAMP, l, bedroom, 22);
+
+        Device d1 = dLb.newDevice("lamp1",l1,20);
+        Device d2 = dLb.newDevice("lamp2", l1, 22);
 
         dLb.addDevice(d1);
         dLb.addDevice(d2);
+        Fridge f= new Fridge(DeviceType.FRIDGE,25,75,25);
 
-        Device d3 = dLb.newDevice("fridge", DeviceType.FRIDGE, l,bedroom, 150);
-        Device d4 = dLb.newDevice("dishwasher", DeviceType.DISHWASHER,l, bedroom, 100);
+        Device d3 = dLb.newDevice("fridge", f, 150);
+        Dishwasher dw= new Dishwasher(DeviceType.DISHWASHER,32);
+        Device d4 = dLb.newDevice("dishwasher", dw, 100);
 
         dLK.addDevice(d3);
         dLK.addDevice(d4);
@@ -156,6 +160,4 @@ public class RoomListTest {
 
         assertEquals(expectedResult, result);
     }
-
 }
-

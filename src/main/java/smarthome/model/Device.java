@@ -1,39 +1,53 @@
 package smarthome.model;
 
+import smarthome.model.Validations.NameValidations;
+import smarthome.model.Validations.NumberValidations;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Double.parseDouble;
 
-public class Device implements DeviceSpecs, Powered {
+public class Device {
+
+    NumberValidations nrValidation = new NumberValidations();
+    NameValidations nameValidation = new NameValidations();
 
     private String mName;
     private DeviceSpecs mDeviceSpecs;
-    private DeviceType mDeviceType;
-    private Room mRoom;
     private double mNominalPower;
 
     /**
-     * Constructor set for devices with their own specific features
+     * Constructs a Device with a name, device specifications(which include, at least, a device type) and a nominal power
      *
      * @param name         device name
      * @param deviceSpecs  device specific features, including, for example, device type
-     * @param room         where the device is installed
-     * @param nominalPower of the device
+     * @param nominalPower double parameter to set the nominal power of the device
      */
-    public Device(String name, DeviceSpecs deviceSpecs, Room room, double nominalPower, DeviceType deviceType) {
-        mName = name;
+    public Device(String name, DeviceSpecs deviceSpecs, double nominalPower) {
+        setName(name);
         mDeviceSpecs = deviceSpecs;
-        mRoom = room;
-        mNominalPower = nominalPower;
-        mDeviceType = deviceType;
+        setNominalPower(nominalPower);
     }
 
-    public Device(String name, DeviceType deviceType, Room room, double nominalPower) {
-        mName = name;
-        mRoom = room;
-        mNominalPower = nominalPower;
-        mDeviceType = deviceType;
+    /**
+     * Method to set name as the one inputted by the user if it complies with alphanumericName method criteria
+     *
+     * @param name String inputted by the user to name the device
+     */
+    public void setName(String name) {
+        if (nameValidation.alphanumericName(name))
+            this.mName = name;
+    }
+
+    /**
+     * Method to set nominal power as the one inputted by the user if it is a positive value method criteria
+     *
+     * @param nominalPower double inputted as nominal power
+     */
+    public void setNominalPower(double nominalPower) {
+        if (nrValidation.valueIsPositive(nominalPower))
+            this.mNominalPower = nominalPower;
     }
 
     /**
@@ -51,73 +65,44 @@ public class Device implements DeviceSpecs, Powered {
     }
 
     /**
-     * @return the room where the device is installed
+     * @return the device nominal Power
      */
-    public Room getRoom() {
-        return mRoom;
-    }
-
-    /**
-     * @return the nominal power of the device
-     */
-    public DeviceType getDeviceType() {
-        return mDeviceType;
-    }
-
     public double getNominalPower() {
         return mNominalPower;
     }
 
-    public void setDeviceName(String name) {
-        this.mName = name;
-    }
-
-    public void setRoom(Room newRoom) {
-        mRoom.getDeviceList ().getDeviceList ().remove (this);
-        mRoom = newRoom;
-        mRoom.getDeviceList ().addDevice (this);
-    }
-
-    public void setNominalPower(double nominalPower) {
-        this.mNominalPower = nominalPower;
-    }
 
     public String showDeviceAttributesInString() {
-        StringBuilder result = new StringBuilder ();
-        for (String s : getDeviceAttributesInString ()) {
-            result.append (s);
-            result.append ("\n");
+        StringBuilder result = new StringBuilder();
+        for (String s : getDeviceAttributesInString()) {
+            result.append(s);
+            result.append("\n");
         }
-        return result.toString ();
+        return result.toString();
     }
 
+
     public List<String> getDeviceAttributesInString() {
-        List<String> result = new ArrayList<> ();
-        String deviceName = "1 - Device Name : " + this.getName ();
-        String deviceRoom = "2 - Device Room : " + this.mRoom.getName ();
+        List<String> result = new ArrayList<>();
+        String deviceName = "2 - Device Name : " + this.getName();
         String deviceNominalPower = "3 - Device Nominal Power : " + this.mNominalPower;
-        result.add (deviceName);
-        result.add (deviceRoom);
-        result.add (deviceNominalPower);
-        if (this.mDeviceSpecs != null)
-            for (String spec : this.getDeviceSpecs ().getDeviceAttributesInString ())
-                result.add (spec);
+        result.add(deviceName);
+        result.add(deviceNominalPower);
+        for (String deviceSpecs : this.getDeviceSpecs().getDeviceAttributesInString())
+            result.add(deviceSpecs);
         return result;
     }
 
     public void setAttributeValue(String attribute, String newValue) {
-        String deviceName = "1 - Device Name : " + this.mName;
-        String deviceRoom = "2 - Device Room : " + this.mRoom;
+        String deviceName = "2 - Device Name : " + this.mName;
         String deviceNominalPower = "3 - Device Nominal Power : " + this.mNominalPower;
-        if (attribute.equals (deviceName)) {
-            setDeviceName (newValue);
+        if (attribute.equals(deviceName)) {
+            setName(newValue);
         }
-        if (attribute.equals (deviceNominalPower)) {
-            setNominalPower (parseDouble (newValue));
+        if (attribute.equals(deviceNominalPower)) {
+            setNominalPower(parseDouble(newValue));
         }
-        if (this.mDeviceSpecs != null) {
-            this.getDeviceSpecs ().setAttributeValue (attribute, newValue);
-        }
+        this.getDeviceSpecs().setAttributeValue(attribute, newValue);
     }
 }
 

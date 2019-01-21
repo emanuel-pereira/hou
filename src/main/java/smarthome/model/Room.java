@@ -147,14 +147,9 @@ public class Room implements Powered {
         return false;
     }
 
-
-
-
     public DeviceList getDeviceList() {
         return mDeviceList;
     }
-
-
 
     /**
      * When two objects (o1 and o2) with the same data are compare, the result is that they are different objects.

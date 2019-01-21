@@ -37,7 +37,7 @@ class US605CurrentTempRoomCTRLTest {
         sTl.addSensorType (temp);
         sTl.addSensorType (hum);
 
-        RoomList rList = h.getRoomListFromHouse();
+        RoomList rList = h.getRoomList();
         US605CurrentTempRoomCTRL ctrl = new US605CurrentTempRoomCTRL(h, sTl);
         Room room1= new Room("Living Room",1,2,3, 2);
         Room room2= new Room("Bed Room",1,2,3, 2);
@@ -55,7 +55,7 @@ class US605CurrentTempRoomCTRLTest {
         sL.addSensorType (temp);
 
         House h1 = new House ();
-        RoomList rList = h1.getRoomListFromHouse ();
+        RoomList rList = h1.getRoomList();
 
         Room r1 = rList.createNewRoom("Living Room", 1, 2, 3, 2);
         Room r2 = rList.createNewRoom("Bed Room", 1, 2, 3, 2);
@@ -145,7 +145,7 @@ class US605CurrentTempRoomCTRLTest {
         sL.addSensorType (temp);
 
         House h1 = new House ();
-        RoomList rList = h1.getRoomListFromHouse ();
+        RoomList rList = h1.getRoomList();
 
         Room r1 = rList.createNewRoom("Living Room", 1, 2, 3, 2);
         Room r2 = rList.createNewRoom("Bed Room", 1, 2, 3, 2);
@@ -189,7 +189,7 @@ class US605CurrentTempRoomCTRLTest {
         sL.addSensorType (temp);
 
         House h1 = new House ();
-        RoomList rList = h1.getRoomListFromHouse ();
+        RoomList rList = h1.getRoomList();
 
         Room r1 = rList.createNewRoom("Living Room", 1, 2, 3, 2);
         Room r2 = rList.createNewRoom("Bed Room", 1, 2, 3, 2);

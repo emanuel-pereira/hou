@@ -1,4 +1,4 @@
-package smarthome.io.ui;
+/*package smarthome.io.ui;
 
 import smarthome.controller.USEnergyConsumptionOfWaterHeatingCTRL;
 import smarthome.model.House;
@@ -15,20 +15,20 @@ public class USEnergyConsumptionOfWaterHeatingUI {
 
     public USEnergyConsumptionOfWaterHeatingUI(House house) {
         mHouse = house;
-        mRoomList = house.getRoomListFromHouse();
+        mRoomList = house.getRoomList();
         mCtrl = new USEnergyConsumptionOfWaterHeatingCTRL(house);
     }
 
     private double mColdWaterTemperature;
     private double mVolumeOfWater;
 
-    public void run() {
+   *//* public void run() {
         inputColdWaterTemperature();
         inputVolumeOfWater();
         displayTotalEnergyConsumed();
-    }
+    }*//*
 
-    private void inputColdWaterTemperature() {
+   *//* private void inputColdWaterTemperature() {
         while (true) {
             System.out.println("Please insert the cold water temperature (ºC) in a given day:");
             mColdWaterTemperature = read.nextDouble();
@@ -40,9 +40,9 @@ public class USEnergyConsumptionOfWaterHeatingUI {
             System.out.println("Cold water temperature must be set with a lower value than the lower hot water temperature in all" +
                     " Electric Water Heaters.");
         }
-    }
+    }*//*
 
-    private void inputVolumeOfWater() {
+   *//* private void inputVolumeOfWater() {
         while (true) {
             System.out.println("Please insert the volume of water to heat in each water heater:");
             mVolumeOfWater = read.nextDouble();
@@ -54,10 +54,11 @@ public class USEnergyConsumptionOfWaterHeatingUI {
             System.out.println("The volume of water to heat must be positive and cannot exceed any electric water heater capacity.");
         }
     }
-
+*//*
     private void displayTotalEnergyConsumed() {
         System.out.println("Current Electric Water Heaters installed in the house: \n");
         System.out.println(mCtrl.showElectricWaterHeaterList());
         System.out.println("The estimated total energy used in heating water in a given day is: " + mCtrl.getEnergyConsumptionOfEWHGlobalList() + " KWh.");
     }
 }
+*/

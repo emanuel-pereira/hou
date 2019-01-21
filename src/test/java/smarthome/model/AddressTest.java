@@ -75,7 +75,7 @@ class AddressTest {
      * Don't validate street name if null
      */
     @Test
-    void validateNameIfNull() {
+    void validateNameIfFalse() {
 
         Location location1 = new Location (23, 67, 89);
         String streetName = null;
@@ -121,7 +121,7 @@ class AddressTest {
      * Don't validate town if null and return false
      */
     @Test
-    void validateTownIfNull() {
+    void validateTownIfFalse() {
 
         Location location1 = new Location (23, 67, 89);
         String town = null;
@@ -197,7 +197,7 @@ class AddressTest {
      * Don't validate zip code if null and return false
      */
     @Test
-    void validateZipCodeIfNull() {
+    void validateZipCodeIfFalse() {
 
         Location location1 = new Location (23, 67, 89);
         String code = null;

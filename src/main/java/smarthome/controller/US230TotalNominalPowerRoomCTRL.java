@@ -1,4 +1,4 @@
-package smarthome.controller;
+/*package smarthome.controller;
 
 import smarthome.model.Device;
 import smarthome.model.House;
@@ -14,15 +14,15 @@ public class US230TotalNominalPowerRoomCTRL {
 
     public US230TotalNominalPowerRoomCTRL (House house) {
         mHouse = house;
-        mRoomList = house.getRoomListFromHouse ();
+        mRoomList = house.getRoomList();
     }
 
     public List<Room> getRoomListCtrl() {
-        return mHouse.getRoomListFromHouse().getRoomList();
+        return mHouse.getRoomList().getRoomList();
     }
 
     public String getRoomNameCtrl (int indexRoom) {
-        return mHouse.getRoomListFromHouse().getRoomWithIndex(indexRoom - 1).getName();
+        return mHouse.getRoomList().get(indexRoom - 1).getName();
     }
 
     public String showListRoomInString() {
@@ -30,16 +30,16 @@ public class US230TotalNominalPowerRoomCTRL {
     }
 
     public List<Device> getDeviceListInRoomCtrl (int indexRoom) {
-        return mHouse.getRoomListFromHouse().getRoomWithIndex(indexRoom-1).getDeviceList().getDeviceList();
+        return mHouse.getRoomList().get(indexRoom-1).getDeviceList().getDeviceList();
     }
 
     public double getNominalPowerRoomCtrl(int indexRoom){
 
-        return mHouse.getRoomListFromHouse().getRoomWithIndex(indexRoom - 1).getNominalPower();
+        return mHouse.getRoomList().get(indexRoom - 1).getNominalPower();
     }
 
 
 
 
-}
+}*/
 

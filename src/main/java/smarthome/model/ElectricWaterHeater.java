@@ -6,8 +6,7 @@ import java.util.List;
 import static java.lang.Double.parseDouble;
 
 public class ElectricWaterHeater implements DeviceSpecs,Metered {
-
-
+    private DeviceType mDeviceType;
     private double mVolumeOfWater;
     private double mHotWaterTemperature;
     private double mColdWaterTemperature;
@@ -16,7 +15,8 @@ public class ElectricWaterHeater implements DeviceSpecs,Metered {
     private double mEnergyConsumption;
 
 
-    public ElectricWaterHeater(int volumeOfWater, double hotWaterTemperature, double performanceRatio) {
+    public ElectricWaterHeater(DeviceType deviceType,int volumeOfWater, double hotWaterTemperature, double performanceRatio) {
+        this.mDeviceType=deviceType;
         this.mHotWaterTemperature = hotWaterTemperature;
         this.mPerformanceRatio = performanceRatio;
         this.mVolumeOfWater=volumeOfWater;
@@ -80,6 +80,11 @@ public class ElectricWaterHeater implements DeviceSpecs,Metered {
         result.append("9 - Daily Energy Consumption: "+this.getEnergyConsumption()+" KWh");
         result.append("\n");
         return result.toString();
+    }
+
+    @Override
+    public DeviceType getType() {
+        return mDeviceType;
     }
 
     public List<String> getDeviceAttributesInString() {

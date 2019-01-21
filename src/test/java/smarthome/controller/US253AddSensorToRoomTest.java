@@ -17,7 +17,7 @@ public class US253AddSensorToRoomTest {
     void showRoomListInString() {
         SensorTypeList sensorTypeList = new SensorTypeList();
         House h1 = new House();
-        RoomList roomList = h1.getRoomListFromHouse();
+        RoomList roomList = h1.getRoomList();
         US253AddSensorToRoomCTRL ctrl = new US253AddSensorToRoomCTRL(h1,sensorTypeList);
         Room r1 = new Room("Living Room", 1, 2, 3, 2);
         Room r2 = new Room("Bed Room", 1, 2, 3, 2);
@@ -32,7 +32,7 @@ public class US253AddSensorToRoomTest {
     @Test
     void addNewSensorToRoom() {
         House h1 = new House();
-        RoomList roomList = h1.getRoomListFromHouse();
+        RoomList roomList = h1.getRoomList();
         SensorTypeList sensorTypeList = new SensorTypeList();
         US253AddSensorToRoomCTRL ctr1 = new US253AddSensorToRoomCTRL(h1,sensorTypeList);
         Room r1 = roomList.createNewRoom("Living Room", 1, 2, 3, 2);
@@ -55,6 +55,6 @@ public class US253AddSensorToRoomTest {
 
         ctr1.addNewSensorToRoom("S1",new GregorianCalendar(2018,3,3),1,1,"C", readingsLis);
 
-        assertEquals(2, h1.getRoomListFromHouse().getRoomList().size());
+        assertEquals(2, h1.getRoomList().getRoomList().size());
     }
 }

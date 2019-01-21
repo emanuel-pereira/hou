@@ -1,39 +1,39 @@
-package smarthome.model;
+package smarthome.model.Validations;
 
 public class DateValidations {
 
     /**
      * Method that checks if year inputted by the user is valid considering a range between 2010 and 2099
      * @param year input year
-     * @return year if input meets regex criteria, otherwise returns null
+     * @return year if input meets regex criteria, otherwise returns false
      */
-    public String yearIsValid(String year) {
+    public boolean yearIsValid(String year) {
         if (year.trim().isEmpty()) {
             System.out.println("Empty spaces are not accepted");
-            return null;
+            return false;
         }
         if (!year.matches("^201[0-9]|20[2-9][0-9]$")) { //only accepts years between 2010 and 2099
             System.out.println("Please insert a valid year between 2010 and 2099.");
-            return null;
+            return false;
         }
-        return year;
+        return true;
     }
 
     /**
      * Method that checks if month inputted by the user is valid considering a range regex values between 1 to 12
      * @param inputMonth input month
-     * @return month if input meets regex criteria, otherwise returns null
+     * @return month if input meets regex criteria, otherwise returns false
      */
-    public String monthIsValid(String inputMonth) {
+    public boolean monthIsValid(String inputMonth) {
         if (inputMonth.trim().isEmpty()) {
             System.out.println("Empty spaces are not accepted");
-            return null;
+            return false;
         }
         if (!inputMonth.matches("^([1-9]|1[0-2])$")) { //only accepts values between 1 and 12
             System.out.println("Please insert a valid month.");
-            return null;
+            return false;
         }
-        return inputMonth;
+        return true;
     }
 
     /**
@@ -42,51 +42,51 @@ public class DateValidations {
      * @param day input day
      * @param inputMonth previously inputted by the user parsed from string to integer
      * @param inputYear previously inputted by the user parsed from string to integer
-     * @return day if input meets regex criteria, otherwise returns null
+     * @return day if input meets regex criteria, otherwise returns false
      */
-    public String dayIsValid(String day, int inputMonth, int inputYear) {
+    public boolean dayIsValid(String day, int inputMonth, int inputYear) {
         if (day.trim().isEmpty()) {
             System.out.println("Empty spaces are not accepted");
-            return null;
+            return false;
         }
         if (!day.matches("^(3[01]|[12][0-9]|[1-9])$")) { //only accepts values between 1 and 31
             System.out.println("Please insert a valid day.");
-            return null;
+            return false;
         }
         if (inputMonth==4||inputMonth==6||inputMonth==9||inputMonth==11) {
             if (day.matches("^31$")) {
                 System.out.println("Please insert a valid day for the selected month: (" + inputMonth + ")");
-                return null;
+                return false;
             }
         }
         if (inputMonth==2) {
             if (inputYear % 4 != 0) {
                 if (day.matches("^(29|30|31)$")) {
                     System.out.println("Please insert a valid day for the selected month: (" + inputMonth + ")");
-                    return null;
+                    return false;
                 }
             } else if (day.matches("^(30|31)$")) {
                 System.out.println("Please insert a valid day for the selected month: (" + inputMonth + ")");
-                return null;
+                return false;
             }
         }
-        return day;
+        return true;
     }
 
     /**
      * Method that checks if hour inputted by the user is a valid
      * @param hour input hour
-     * @return hour if input meets regex criteria, otherwise returns null
+     * @return hour if input meets regex criteria, otherwise returns false
      */
-        public String hourIsValid(String hour){
+        public boolean hourIsValid(String hour){
             if (hour.trim().isEmpty()) {
                 System.out.println("Empty spaces are not accepted");
-                return null;
+                return false;
             }
             if (!hour.matches("^(2[0-4]|[1][0-9]|[1-9])")) {
                 System.out.println("Please insert a valid hour.");
-                return null;
+                return false;
             }
-            return hour;
+            return true;
         }
     }

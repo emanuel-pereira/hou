@@ -6,12 +6,14 @@ import java.util.List;
 import static java.lang.Integer.parseInt;
 
 public class WashingMachine implements DeviceSpecs {
+    private DeviceType mDeviceType;
     private int mCapacity;
     private ProgramList mProgramListInWM;
 
-    public WashingMachine(int capacity) {
-        mCapacity = capacity;
-        mProgramListInWM = new ProgramList();
+    public WashingMachine(DeviceType deviceType, int capacity) {
+        this.mDeviceType=deviceType;
+        this.mCapacity = capacity;
+        this.mProgramListInWM = new ProgramList();
     }
 
     public void setCapacity(int newCapacity) {
@@ -35,8 +37,12 @@ public class WashingMachine implements DeviceSpecs {
             setCapacity(parseInt(newValue));
     }
 
-    public ProgramList getmProgramListInDW() {
+    /*public ProgramList getmProgramListInDW() {
         return mProgramListInWM;
-    }
+    }*/
 
+    @Override
+    public DeviceType getType() {
+        return mDeviceType;
+    }
 }

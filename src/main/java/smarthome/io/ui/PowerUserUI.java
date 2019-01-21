@@ -21,21 +21,21 @@ public class PowerUserUI {
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
 
-                case 1:
+                /*case 1:
                     US160GetDeviceListInGridByTypeUI ui160 = new US160GetDeviceListInGridByTypeUI(house);
                     ui160.getDeviceListInGrid();
                     break;
                 case 2:
                     US172TotalNominalPowerInGridUI uS172 = new US172TotalNominalPowerInGridUI (house);
                     uS172.run ();
-                    break;
-                case 3:
+                    break;*/
+               /* case 3:
                     US230TotalNominalPowerRoomUI ui230 = new US230TotalNominalPowerRoomUI(house);
                     ui230.showTotalNominalPowerRoom();
-                    break;
+                    break;*/
                 case 4:
-                    USEnergyConsumptionOfWaterHeatingUI ui752= new USEnergyConsumptionOfWaterHeatingUI(house);
-                    ui752.run();
+                    /*USEnergyConsumptionOfWaterHeatingUI ui752= new USEnergyConsumptionOfWaterHeatingUI(house);
+                    ui752.run();*/
 
             }
 

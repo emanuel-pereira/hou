@@ -1,3 +1,4 @@
+/*
 package smarthome.io.ui;
 
 import smarthome.controller.US160GetDeviceListInGridByTypeCTRL;
@@ -45,3 +46,4 @@ public class US160GetDeviceListInGridByTypeUI {
         }
     }
 }
+*/

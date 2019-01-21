@@ -10,7 +10,7 @@ public class US105AddNewRoomToHouseCTRL {
 
     public US105AddNewRoomToHouseCTRL(House house) {
         mHouse = house;
-        mRoomList = mHouse.getRoomListFromHouse();
+        mRoomList = mHouse.getRoomList();
 
     }
 

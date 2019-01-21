@@ -57,11 +57,10 @@ public class US6CreateSensorUI {
         while (true) {
             System.out.println("Insert a name for the sensor:");
             mName = read.nextLine();
-            mName = mCtrl.nameIsValid(mName);
-            if (mName != null){
+            if (mCtrl.nameIsValid(mName)) {
                 this.inputStartYear();
-                break;}
-            else
+                break;
+            } else
                 System.out.println("Please insert a valid name");
         }
     }
@@ -70,8 +69,7 @@ public class US6CreateSensorUI {
         while (true) {
             System.out.println("Insert the year when the sensor will start:");
             String inputYear = read.nextLine();
-            inputYear = mCtrl.yearIsValid(inputYear);
-            if (inputYear != null) {
+            if (mCtrl.yearIsValid(inputYear)) {
                 mYear = Integer.parseInt(inputYear);
                 this.inputStartMonth();
                 break;
@@ -83,8 +81,7 @@ public class US6CreateSensorUI {
         while (true) {
             System.out.println("Insert the month when the sensor will start(insert values between 1 and 12):");
             String inputMonth = read.nextLine();
-            inputMonth = mCtrl.monthIsValid(inputMonth);
-            if (inputMonth != null) {
+            if (mCtrl.monthIsValid(inputMonth)) {
                 mMonth = Integer.parseInt(inputMonth);
                 this.inputStartDay();
                 break;
@@ -96,8 +93,7 @@ public class US6CreateSensorUI {
         while (true) {
             System.out.println("Insert the day when the sensor will start:");
             String inputDay = read.nextLine();
-            inputDay = mCtrl.dayIsValid(inputDay, mMonth, mYear);
-            if (inputDay != null) {
+            if (mCtrl.dayIsValid(inputDay, mMonth, mYear)) {
                 mDay = Integer.parseInt(inputDay);
                 this.createStartDate();
                 break;
@@ -144,8 +140,7 @@ public class US6CreateSensorUI {
         while (true) {
             System.out.println("Insert the year when the reading was made:");
             String inputYearOfReading = read.nextLine();
-            inputYearOfReading = mCtrl.yearIsValid(inputYearOfReading);
-            if (inputYearOfReading != null) {
+            if (mCtrl.yearIsValid(inputYearOfReading)) {
                 yearOfReading = Integer.parseInt(inputYearOfReading);
                 break;
             }
@@ -158,8 +153,7 @@ public class US6CreateSensorUI {
         while (true) {
             System.out.println("Insert the month when the reading was made:");
             String inputMonthOfReading = read.nextLine();
-            inputMonthOfReading = mCtrl.monthIsValid(inputMonthOfReading);
-            if (inputMonthOfReading != null) {
+            if (mCtrl.monthIsValid(inputMonthOfReading)) {
                 monthOfReading = Integer.parseInt(inputMonthOfReading);
                 break;
             }
@@ -172,8 +166,7 @@ public class US6CreateSensorUI {
         while (true) {
             System.out.println("Insert the day when the reading was made:");
             String inputDayOfReading = read.nextLine();
-            inputDayOfReading = mCtrl.dayIsValid(inputDayOfReading, monthOfReading, yearOfReading);
-            if (inputDayOfReading != null) {
+            if (mCtrl.dayIsValid(inputDayOfReading, monthOfReading, yearOfReading)) {
                 dayOfReading = Integer.parseInt(inputDayOfReading);
                 break;
             }
@@ -186,8 +179,7 @@ public class US6CreateSensorUI {
         while (true) {
             System.out.println("Insert the hour when the reading was made:");
             String inputHourOfReading = read.nextLine();
-            inputHourOfReading = mCtrl.hourIsValid(inputHourOfReading);
-            if (inputHourOfReading != null) {
+            if (mCtrl.hourIsValid(inputHourOfReading)) {
                 hourOfReading = Integer.parseInt(inputHourOfReading);
                 break;
             }

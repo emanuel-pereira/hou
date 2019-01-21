@@ -43,7 +43,7 @@ public class HouseAdministrationUI {
                     ui105.addRoomToHouse();
                     break;
                 case 3:
-                    US108ListTheRoomsOfHouseUI ui108 = new US108ListTheRoomsOfHouseUI(house.getRoomListFromHouse().getRoomList());
+                    US108ListTheRoomsOfHouseUI ui108 = new US108ListTheRoomsOfHouseUI(house.getRoomList().getRoomList());
                     ui108.run();
                     break;
                 case 4:
@@ -59,10 +59,10 @@ public class HouseAdministrationUI {
                     USAttachRoomToGridAndListUI ui145 = new USAttachRoomToGridAndListUI(house);
                     ui145.run();
                     break;
-                case 7:
+               /* case 7:
                     US230TotalNominalPowerRoomUI ui230 = new US230TotalNominalPowerRoomUI(house);
                     ui230.showTotalNominalPowerRoom();
-                    break;
+                    break;*/
                 case 8:
                     US253AddSensorToRoomUI ui253 = new US253AddSensorToRoomUI(house, sensorTypeList);
                     ui253.run();
@@ -75,14 +75,14 @@ public class HouseAdministrationUI {
                     USAddSetAndListDevicesInRoomUI ui210 = new USAddSetAndListDevicesInRoomUI(house);
                     ui210.selectOption();
                     break;
-                case 11:
+               /* case 11:
                     US160GetDeviceListInGridByTypeUI ui160 = new US160GetDeviceListInGridByTypeUI(house);
                     ui160.getDeviceListInGrid();
                     break;
                 case 12:
                     US172TotalNominalPowerInGridUI uS172 = new US172TotalNominalPowerInGridUI (house);
                     uS172.run();
-                    break;
+                    break;*/
             }
         }
     }

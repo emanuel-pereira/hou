@@ -160,7 +160,7 @@ class US6CreateSensorCTRLTest {
         assertTrue(thrown);
     }
 
-    @DisplayName("Check if throws exception when the altitude is wrong")
+    @DisplayName("Check if throws exception when the altitude is out of bounds defined in ")
     @Test
     public void throwsIllegalArgumentExceptionForAltitude() {
         SensorTypeList sensorTypeList = new SensorTypeList();
@@ -192,7 +192,7 @@ class US6CreateSensorCTRLTest {
 
 
     @Test
-    @DisplayName("Test if GPS coordinates validation methods return true when GPS cordinates are within defined range")
+    @DisplayName("Test if GPS coordinates validation methods return true when GPS coordinates are within defined range")
     void testIfGPSCoordinatesAreValid() {
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -228,22 +228,18 @@ class US6CreateSensorCTRLTest {
         gaList.addGA(porto);
         US6CreateSensorCTRL ctrl = new US6CreateSensorCTRL(sensorTypeList,gaList);
         String year="2018";
-
-        String expected= "2018";
-        String result= ctrl.yearIsValid(year);
-        assertEquals(expected,result);
+        boolean result= ctrl.yearIsValid(year);
+        assertTrue(result);
 
         String month="11";
-        String expected1= "11";
-        String result1= ctrl.monthIsValid(month);
-        assertEquals(expected1,result1);
+        boolean result1= ctrl.monthIsValid(month);
+        assertTrue(result1);
 
         int yearAsInteger=Integer.parseInt(year);
         int monthAsInteger=Integer.parseInt(month);
         String day="30";
-        String expected2= "30";
-        String result2= ctrl.dayIsValid(day,monthAsInteger,yearAsInteger);
-        assertEquals(expected2,result2);
+        boolean result2= ctrl.dayIsValid(day,monthAsInteger,yearAsInteger);
+        assertTrue(result2);
     }
 
     @Test
@@ -257,10 +253,9 @@ class US6CreateSensorCTRLTest {
         US6CreateSensorCTRL ctrl = new US6CreateSensorCTRL(sensorTypeList,gaList);
         String hour="22";
 
-        String expected="22";
-        String result=ctrl.hourIsValid(hour);
+        boolean result=ctrl.hourIsValid(hour);
 
-        assertEquals(expected,result);
+        assertTrue(result);
     }
 
     @Test
@@ -274,10 +269,9 @@ class US6CreateSensorCTRLTest {
         US6CreateSensorCTRL ctrl = new US6CreateSensorCTRL(sensorTypeList,gaList);
         String inputName="Sensor - ISEP";
 
-        String expected="Sensor - ISEP";
-        String result=ctrl.nameIsValid(inputName);
+        boolean result=ctrl.nameIsValid(inputName);
 
-        assertEquals(expected,result);
+        assertTrue(result);
 
     }
 }

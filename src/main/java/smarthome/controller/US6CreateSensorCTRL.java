@@ -1,6 +1,8 @@
 package smarthome.controller;
 
 import smarthome.model.*;
+import smarthome.model.Validations.DateValidations;
+import smarthome.model.Validations.NameValidations;
 
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -25,7 +27,7 @@ public class US6CreateSensorCTRL {
     /**
      * Method to check if altitude inputted by the user is valid
      * @param altitude Double inputted by the user to represent altitude
-     * @return altitude if it is within [-12.500,8848] range, otherwise returns null to ask again for valid input
+     * @return altitude if it is within [-12.500,8848] range, otherwise returns  to ask again for valid input
      */
     public boolean altitudeIsValid(double altitude){
         return mGPSValidations.altitudeIsValid(altitude);
@@ -34,7 +36,7 @@ public class US6CreateSensorCTRL {
     /**
      * Method to check if longitude inputted by the user is valid
      * @param longitude Double inputted by the user to represent longitude
-     * @return longitude if it is within [-180,180] range, otherwise returns null to ask again for valid input
+     * @return longitude if it is within [-180,180] range, otherwise returns  to ask again for valid input
      */
     public boolean longitudeIsValid(double longitude){
         return mGPSValidations.longitudeIsValid(longitude);
@@ -43,7 +45,7 @@ public class US6CreateSensorCTRL {
     /**
      * Method to check if longitude inputted by the user is valid
      * @param latitude Double inputted by the user to represent longitude
-     * @return latitude if it is within [-90,90] range, otherwise returns null to ask again for valid input
+     * @return latitude if it is within [-90,90] range, otherwise returns  to ask again for valid input
      */
     public boolean latitudeIsValid(double latitude){
         return mGPSValidations.latitudeIsValid(latitude);
@@ -52,18 +54,18 @@ public class US6CreateSensorCTRL {
     /**
      * Method to check if year inputted by the user is considered a valid year
      * @param year inputted by the user
-     * @return year if it is within [2010,2099] range, otherwise returns null to ask again for valid input
+     * @return year if it is within [2010,2099] range, otherwise returns  to ask again for valid input
      */
-    public String yearIsValid(String year){
+    public boolean yearIsValid(String year){
         return mDateValidations.yearIsValid(year);
     }
 
     /**
      * Method to check if month inputted by the user is considered a valid month
      * @param month inputted by the user
-     * @return month if it is a valid month, otherwise returns null to ask again for valid input
+     * @return month if it is a valid month, otherwise returns  to ask again for valid input
      */
-    public String monthIsValid(String month){
+    public boolean monthIsValid(String month){
         return mDateValidations.monthIsValid(month);
     }
 
@@ -73,21 +75,21 @@ public class US6CreateSensorCTRL {
      * @param day inputted by the user
      * @param inputMonth previously inputted by the user parsed from string to integer
      * @param inputYear previously inputted by the user parsed from string to integer
-     * @return day if input meets regex criteria, otherwise returns null
+     * @return day if input meets regex criteria, otherwise returns
      */
-    public String dayIsValid(String day, int inputMonth, int inputYear){
+    public boolean dayIsValid(String day, int inputMonth, int inputYear){
         return mDateValidations.dayIsValid(day, inputMonth,inputYear);
     }
 
     /**
      * Method that checks if hour inputted by the user is a valid
      * @param hour input hour
-     * @return hour if input meets regex criteria, otherwise returns null
+     * @return hour if input meets regex criteria, otherwise returns
      */
-    public String hourIsValid(String hour){
+    public boolean hourIsValid(String hour){
         return mDateValidations.hourIsValid(hour);
     }
-    public String nameIsValid(String inputName){
+    public boolean nameIsValid(String inputName){
         return mNameValidations.nameIsValid(inputName);
     }
 
@@ -120,7 +122,7 @@ public class US6CreateSensorCTRL {
     }
 
     /**
-     * Method that adds a new sensor to a Geographical Area in the
+     *
      * index position of the List of Geographical Areas chosen by the user
      *
      * @param inputName       name inputted by the user for the sensor
@@ -131,8 +133,10 @@ public class US6CreateSensorCTRL {
      */
 
     public boolean addNewSensorToGA(String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, double latitude, double longitude, double altitude, int indexOfGA, ReadingList readings) {
-        Sensor sensor = mGAList.getGAList().get(indexOfGA - 1).getSensorListInGA().newSensor(inputName, startDate, latitude, longitude, altitude, mSensorTypeList.getSensorTypeList().get(sensorTypeIndex - 1), inputUnit, readings);
-        return mGAList.getGAList().get(indexOfGA - 1).getSensorListInGA().addSensor(sensor);
+        GeographicalArea geographicalArea= mGAList.get(indexOfGA-1);
+        SensorType sensorType= mSensorTypeList.getSensorTypeList().get(sensorTypeIndex - 1);
+        Sensor sensor = geographicalArea.getSensorListInGA().newSensor(inputName, startDate, latitude, longitude, altitude, sensorType, inputUnit, readings);
+        return geographicalArea.getSensorListInGA().addSensor(sensor);
     }
 
 }

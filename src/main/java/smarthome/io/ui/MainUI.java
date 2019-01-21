@@ -25,60 +25,60 @@ public class MainUI {
         //Dummy Objects
         SensorType temperature = sensorTypeList.newSensorType ("temperature");
         sensorTypeList.addSensorType (temperature);
-        Room B107 = house.getRoomListFromHouse ().createNewRoom ("B107", 1,7,11, 3.5);
-        house.getRoomListFromHouse ().addRoom (B107);
-        Room B109 = house.getRoomListFromHouse ().createNewRoom ("B109", 1,7,11, 3.5);
-        house.getRoomListFromHouse ().addRoom (B109);
-        Room B106 = house.getRoomListFromHouse ().createNewRoom ("B106", 1,7,13, 3.5);
-        house.getRoomListFromHouse ().addRoom (B106);
+        Room B107 = house.getRoomList().createNewRoom ("B107", 1,7,11, 3.5);
+        house.getRoomList().addRoom (B107);
+        Room B109 = house.getRoomList().createNewRoom ("B109", 1,7,11, 3.5);
+        house.getRoomList().addRoom (B109);
+        Room B106 = house.getRoomList().createNewRoom ("B106", 1,7,13, 3.5);
+        house.getRoomList().addRoom (B106);
         HouseGrid mainGrid = house.getHGListInHouse ().newHouseGrid ("Main Grid", 100);
         house.getHGListInHouse ().addHouseGrid (mainGrid);
-        house.getRoomListFromHouse ().getRoomWithIndex (0).setmHouseGrid (mainGrid);
-        house.getRoomListFromHouse ().getRoomWithIndex (1).setmHouseGrid (mainGrid);
-        house.getRoomListFromHouse ().getRoomWithIndex (2).setmHouseGrid (mainGrid);
-        ElectricWaterHeater ewh109 = new ElectricWaterHeater (100,55,0.91);
-        ElectricWaterHeater ewh106 = new ElectricWaterHeater (150,55,0.92);
-        Dishwasher dish109 = new Dishwasher (100);
-        Program p1dish109 = dish109.getmProgramListInDW ().newProgram ("Glasses",0.9);
+        house.getRoomList().get(0).setmHouseGrid (mainGrid);
+        house.getRoomList().get(1).setmHouseGrid (mainGrid);
+        house.getRoomList().get(2).setmHouseGrid (mainGrid);
+        ElectricWaterHeater ewh109 = new ElectricWaterHeater (DeviceType.ELECTRIC_WATER_HEATER,100,55,0.91);
+        ElectricWaterHeater ewh106 = new ElectricWaterHeater (DeviceType.ELECTRIC_WATER_HEATER,150,55,0.92);
+        Dishwasher dish109 = new Dishwasher (DeviceType.DISHWASHER,100);
+        /*Program p1dish109 = dish109.getmProgramListInDW ().newProgram ("Glasses",0.9);
         Program p2dish109 = dish109.getmProgramListInDW ().newProgram ("Eco",1.3);
         Program p3dish109 = dish109.getmProgramListInDW ().newProgram ("Eco Turbo",1.7);
         Program p4dish109 = dish109.getmProgramListInDW ().newProgram ("Dishes",2.1);
         dish109.getmProgramListInDW ().addProgram (p1dish109);
         dish109.getmProgramListInDW ().addProgram (p2dish109);
         dish109.getmProgramListInDW ().addProgram (p3dish109);
-        dish109.getmProgramListInDW ().addProgram (p4dish109);
+        dish109.getmProgramListInDW ().addProgram (p4dish109);*/
 
-        Dishwasher dish106 = new Dishwasher (100);
-        Program p1dish106 = dish106.getmProgramListInDW ().newProgram ("Glasses",0.8);
+        Dishwasher dish106 = new Dishwasher (DeviceType.DISHWASHER,100);
+    /*    Program p1dish106 = dish106.getmProgramListInDW ().newProgram ("Glasses",0.8);
         Program p2dish106 = dish106.getmProgramListInDW ().newProgram ("Light",1.3);
         Program p3dish106 = dish106.getmProgramListInDW ().newProgram ("Light Turbo",1.9);
         Program p4dish106 = dish106.getmProgramListInDW ().newProgram ("Dishes",2.3);
         dish106.getmProgramListInDW ().addProgram (p1dish106);
         dish106.getmProgramListInDW ().addProgram (p2dish106);
         dish106.getmProgramListInDW ().addProgram (p3dish106);
-        dish106.getmProgramListInDW ().addProgram (p4dish106);
+        dish106.getmProgramListInDW ().addProgram (p4dish106);*/
 
-        WashingMachine washingMachine = new WashingMachine (100);
-        Program p1Wm109 = dish106.getmProgramListInDW ().newProgram ("Wool",0.9);
+        WashingMachine washingMachine = new WashingMachine (DeviceType.WASHING_MACHINE,100);
+      /*  Program p1Wm109 = dish106.getmProgramListInDW ().newProgram ("Wool",0.9);
         Program p2Wm109 = dish106.getmProgramListInDW ().newProgram ("Fast",1.3);
         Program p3Wm109 = dish106.getmProgramListInDW ().newProgram ("Fast Plus",1.7);
         Program p4Wm109 = dish106.getmProgramListInDW ().newProgram ("Synthetic 30",2.1);
         washingMachine.getmProgramListInDW ().addProgram (p1Wm109);
         washingMachine.getmProgramListInDW ().addProgram (p2Wm109);
         washingMachine.getmProgramListInDW ().addProgram (p3Wm109);
-        washingMachine.getmProgramListInDW ().addProgram (p4Wm109);
+        washingMachine.getmProgramListInDW ().addProgram (p4Wm109);*/
 
-        Device eHWB109 = house.getRoomListFromHouse ().getRoomWithIndex (1).getDeviceList ().newDevice ("EHW B109", DeviceType.ELECTRIC_WATER_HEATER, ewh109, B109,1.5);
-        house.getRoomListFromHouse ().getRoomWithIndex (1).getDeviceList ().addDevice (eHWB109);
-        Device dishwasherB109 = house.getRoomListFromHouse ().getRoomWithIndex (1).getDeviceList ().newDevice ("Dishwasher B109",DeviceType.DISHWASHER,dish109,B109,1.5 );
-        house.getRoomListFromHouse ().getRoomWithIndex (1).getDeviceList ().addDevice (dishwasherB109);
-        Device washingMachineB109 = house.getRoomListFromHouse ().getRoomWithIndex (1).getDeviceList ().newDevice ("Washing Machine B109", DeviceType.WASHING_MACHINE,washingMachine,B109,2.5);
-        house.getRoomListFromHouse ().getRoomWithIndex (1).getDeviceList ().addDevice (washingMachineB109);
+        Device eHWB109 = house.getRoomList().get(1).getDeviceList ().newDevice ("EHW B109", ewh109, 1.5);
+        house.getRoomList().get(1).getDeviceList ().addDevice (eHWB109);
+        Device dishwasherB109 = house.getRoomList().get(1).getDeviceList ().newDevice ("Dishwasher B109", dish109,1.5 );
+        house.getRoomList().get(1).getDeviceList ().addDevice (dishwasherB109);
+        Device washingMachineB109 = house.getRoomList().get(1).getDeviceList ().newDevice ("Washing Machine B109", washingMachine,2.5);
+        house.getRoomList().get(1).getDeviceList ().addDevice (washingMachineB109);
 
-        Device eHWB106 = house.getRoomListFromHouse ().getRoomWithIndex (2).getDeviceList ().newDevice ("EHW B106", DeviceType.ELECTRIC_WATER_HEATER, ewh106, B106,2.2);
-        house.getRoomListFromHouse ().getRoomWithIndex (2).getDeviceList ().addDevice (eHWB106);
-        Device dishwasherB106 = house.getRoomListFromHouse ().getRoomWithIndex (2).getDeviceList ().newDevice ("Dishwasher B106", DeviceType.DISHWASHER, dish106, B106,1.4);
-        house.getRoomListFromHouse ().getRoomWithIndex (2).getDeviceList ().addDevice (dishwasherB106);
+        Device eHWB106 = house.getRoomList().get(2).getDeviceList ().newDevice ("EHW B106", ewh106, 2.2);
+        house.getRoomList().get(2).getDeviceList ().addDevice (eHWB106);
+        Device dishwasherB106 = house.getRoomList().get(2).getDeviceList ().newDevice ("Dishwasher B106", dish106, 1.4);
+        house.getRoomList().get(2).getDeviceList ().addDevice (dishwasherB106);
 
 
         Scanner keyboard = new Scanner (System.in);

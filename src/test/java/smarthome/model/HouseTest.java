@@ -180,7 +180,7 @@ class HouseTest {
 
 
         House h = new House("Prédio", a1, g1);
-        Room room = h.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
+        Room room = h.getRoomList().createNewRoom("bedroom", 1, 2, 2.5, 2);
 
         assertEquals("bedroom", room.getName());
         assertEquals(1, room.getFloor());
@@ -197,11 +197,11 @@ class HouseTest {
         GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
 
         House h1 = new House("Prédio", a1, g1);
-        Room room = h1.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
+        Room room = h1.getRoomList().createNewRoom("bedroom", 1, 2, 2.5, 2);
 
-        h1.getRoomListFromHouse().addRoom(room);
+        h1.getRoomList().addRoom(room);
         List<Room> expectedResult = Arrays.asList(room);
-        List<Room> result = h1.getRoomListFromHouse().getRoomList();
+        List<Room> result = h1.getRoomList().getRoomList();
 
         assertEquals(expectedResult, result);
     }
@@ -215,18 +215,18 @@ class HouseTest {
         GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
 
         House h = new House("Prédio", a1, g1);
-        Room room = h.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
-        Room room1 = h.getRoomListFromHouse().createNewRoom("garden", 0, 2.5, 3, 2);
-        assertEquals(0, h.getRoomListFromHouse().getRoomList().size());
+        Room room = h.getRoomList().createNewRoom("bedroom", 1, 2, 2.5, 2);
+        Room room1 = h.getRoomList().createNewRoom("garden", 0, 2.5, 3, 2);
+        assertEquals(0, h.getRoomList().getRoomList().size());
 
-        h.getRoomListFromHouse().addRoom(room);
-        assertEquals(1, h.getRoomListFromHouse().getRoomList().size());
+        h.getRoomList().addRoom(room);
+        assertEquals(1, h.getRoomList().getRoomList().size());
 
-        h.getRoomListFromHouse().addRoom(room1);
-        assertEquals(2, h.getRoomListFromHouse().getRoomList().size());
+        h.getRoomList().addRoom(room1);
+        assertEquals(2, h.getRoomList().getRoomList().size());
 
         List<Room> expectedResult = Arrays.asList(room, room1);
-        List<Room> result = h.getRoomListFromHouse().getRoomList();
+        List<Room> result = h.getRoomList().getRoomList();
         assertEquals(expectedResult, result);
     }
 
@@ -239,19 +239,19 @@ class HouseTest {
         GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
 
         House h = new House("Casa", a1, g1);
-        Room room = h.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
-        Room room1 = h.getRoomListFromHouse().createNewRoom("  ", 0, 2.5, 3, 2);
+        Room room = h.getRoomList().createNewRoom("bedroom", 1, 2, 2.5, 2);
+        Room room1 = h.getRoomList().createNewRoom("  ", 0, 2.5, 3, 2);
 
-        assertEquals(0, h.getRoomListFromHouse().getRoomList().size());
+        assertEquals(0, h.getRoomList().getRoomList().size());
 
-        h.getRoomListFromHouse().addRoom(room);
-        assertEquals(1, h.getRoomListFromHouse().getRoomList().size());
+        h.getRoomList().addRoom(room);
+        assertEquals(1, h.getRoomList().getRoomList().size());
 
-        h.getRoomListFromHouse().addRoom(room1);
-        assertEquals(1, h.getRoomListFromHouse().getRoomList().size());
+        h.getRoomList().addRoom(room1);
+        assertEquals(1, h.getRoomList().getRoomList().size());
 
         List<Room> expectedResult = Arrays.asList(room);
-        List<Room> result = h.getRoomListFromHouse().getRoomList();
+        List<Room> result = h.getRoomList().getRoomList();
         assertEquals(expectedResult, result);
     }
 
@@ -265,16 +265,16 @@ class HouseTest {
         GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
 
         House h = new House("Casa", a1, g1);
-        Room room = h.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
-        Room room1 = h.getRoomListFromHouse().createNewRoom("  ", 0, 2.5, 3, 2);
+        Room room = h.getRoomList().createNewRoom("bedroom", 1, 2, 2.5, 2);
+        Room room1 = h.getRoomList().createNewRoom("  ", 0, 2.5, 3, 2);
 
-        assertEquals(0, h.getRoomListFromHouse().getRoomList().size());
+        assertEquals(0, h.getRoomList().getRoomList().size());
 
-        h.getRoomListFromHouse().addRoom(room);
-        assertEquals(1, h.getRoomListFromHouse().getRoomList().size());
+        h.getRoomList().addRoom(room);
+        assertEquals(1, h.getRoomList().getRoomList().size());
 
-        h.getRoomListFromHouse().addRoom(room1);
-        assertEquals(1, h.getRoomListFromHouse().getRoomList().size());
+        h.getRoomList().addRoom(room1);
+        assertEquals(1, h.getRoomList().getRoomList().size());
 
         boolean expectedResult = false;
         String name = " ";
@@ -292,21 +292,21 @@ class HouseTest {
         GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
 
         House h = new House("Casa", a1, g1);
-        Room room = h.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 1.7);
-        Room room1 = h.getRoomListFromHouse().createNewRoom("  ", 0, 2.5, 3, 2);
+        Room room = h.getRoomList().createNewRoom("bedroom", 1, 2, 2.5, 1.7);
+        Room room1 = h.getRoomList().createNewRoom("  ", 0, 2.5, 3, 2);
 
-        assertEquals(0, h.getRoomListFromHouse().getRoomList().size());
+        assertEquals(0, h.getRoomList().getRoomList().size());
 
-        boolean result = h.getRoomListFromHouse().addRoom(room);
-        assertEquals(1, h.getRoomListFromHouse().getRoomList().size());
+        boolean result = h.getRoomList().addRoom(room);
+        assertEquals(1, h.getRoomList().getRoomList().size());
         assertTrue(result);
 
-        boolean result1 = h.getRoomListFromHouse().addRoom(room1);
-        assertEquals(1, h.getRoomListFromHouse().getRoomList().size());
+        boolean result1 = h.getRoomList().addRoom(room1);
+        assertEquals(1, h.getRoomList().getRoomList().size());
         assertFalse(result1);
 
         List<Room> expectedResult = Arrays.asList(room);
-        List<Room> result2 = h.getRoomListFromHouse().getRoomList();
+        List<Room> result2 = h.getRoomList().getRoomList();
         assertEquals(expectedResult, result2);
     }
 
@@ -318,14 +318,14 @@ class HouseTest {
         GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
 
         House house = new House("Casa", a1, g1);
-        Room room1 = house.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
-        Room room2 = house.getRoomListFromHouse().createNewRoom("kitchen", 1, 4, 5, 2);
+        Room room1 = house.getRoomList().createNewRoom("bedroom", 1, 2, 2.5, 2);
+        Room room2 = house.getRoomList().createNewRoom("kitchen", 1, 4, 5, 2);
 
-        house.getRoomListFromHouse().addRoom(room1);
-        house.getRoomListFromHouse().addRoom(room2);
-        assertEquals(2, house.getRoomListFromHouse().getRoomList().size());
-        assertTrue(house.getRoomListFromHouse().removeRoom(room2));
-        assertEquals(1, house.getRoomListFromHouse().getRoomList().size());
+        house.getRoomList().addRoom(room1);
+        house.getRoomList().addRoom(room2);
+        assertEquals(2, house.getRoomList().getRoomList().size());
+        assertTrue(house.getRoomList().removeRoom(room2));
+        assertEquals(1, house.getRoomList().getRoomList().size());
     }
 
     @Test
@@ -338,11 +338,11 @@ class HouseTest {
 
 
         House house = new House("Casa", a1, g1);
-        Room room1 = house.getRoomListFromHouse().createNewRoom("bedroom", 1, 2, 2.5, 2);
-        house.getRoomListFromHouse().addRoom(room1);
-        Room room2 = house.getRoomListFromHouse().createNewRoom("kitchen", 1, 4, 5, 2);
+        Room room1 = house.getRoomList().createNewRoom("bedroom", 1, 2, 2.5, 2);
+        house.getRoomList().addRoom(room1);
+        Room room2 = house.getRoomList().createNewRoom("kitchen", 1, 4, 5, 2);
 
-        assertFalse(house.getRoomListFromHouse().removeRoom(room2));
+        assertFalse(house.getRoomList().removeRoom(room2));
     }
 
     @Test
@@ -363,21 +363,27 @@ class HouseTest {
 
     }
 
-    @Test
+ /*   @Test
     void showElectricWaterHeaterList() {
         House house = new House();
+
+        RoomList roomList= house.getRoomList();
         Room kitchen = new Room("Kitchen",0,6,3.5,3);
         Room garage = new Room("Garage",0,6,4,3);
         Room bedroom= new Room("Bedroom",1,5,5,3);
-        house.getRoomListFromHouse().addRoom(kitchen);
-        house.getRoomListFromHouse().addRoom(garage);
-        house.getRoomListFromHouse().addRoom(bedroom);
-        ElectricWaterHeater ewh1=new ElectricWaterHeater(100,65,1);
-        ElectricWaterHeater ewh2=new ElectricWaterHeater(80,60,0.9);
-        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
-        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
-        kitchen.getDeviceList().addDevice(dEWH1);
-        garage.getDeviceList().addDevice(dEWH2);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(garage);
+        roomList.addRoom(bedroom);
+
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER,100,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER,80,60,0.9);
+        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,3);
+        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,2.5);
+
+        DeviceList kitchenDeviceList=kitchen.getDeviceList();
+        kitchenDeviceList.addDevice(dEWH1);
+        DeviceList garageDeviceList=garage.getDeviceList();
+        garageDeviceList.addDevice(dEWH2);
         house.setVolumeOfWaterInEWHList(65);
         house.setColdWaterTemperatureInEWHList(20);
         String expected="ELECTRIC WATER HEATER \n" +
@@ -406,22 +412,23 @@ class HouseTest {
         String result=house.showElectricWaterHeaterList();
         assertEquals(expected,result);
 
-    }
+    }*/
 
-    @Test
+
+   /* @Test
     @DisplayName("Ensure that isValidColdWaterTemperature() method returns true if cold water temperature is lower than any hot water temperature")
     void isLowerThanHotWater() {
         House house = new House();
         Room kitchen = new Room("Kitchen",0,6,3.5,3);
         Room garage = new Room("Garage",0,6,4,3);
         Room bedroom= new Room("Bedroom",1,5,5,3);
-        house.getRoomListFromHouse().addRoom(kitchen);
-        house.getRoomListFromHouse().addRoom(garage);
-        house.getRoomListFromHouse().addRoom(bedroom);
-        ElectricWaterHeater ewh1=new ElectricWaterHeater(150,65,1);
-        ElectricWaterHeater ewh2=new ElectricWaterHeater(120,60,0.9);
-        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
-        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
+        house.getRoomList().addRoom(kitchen);
+        house.getRoomList().addRoom(garage);
+        house.getRoomList().addRoom(bedroom);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER,150,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER,120,60,0.9);
+        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3);
+        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5);
         kitchen.getDeviceList().addDevice(dEWH1);
         garage.getDeviceList().addDevice(dEWH2);
         boolean result= house.isValidColdWaterTemperature(50);
@@ -435,13 +442,13 @@ class HouseTest {
         Room kitchen = new Room("Kitchen",0,6,3.5,3);
         Room garage = new Room("Garage",0,6,4,3);
         Room bedroom= new Room("Bedroom",1,5,5,3);
-        house.getRoomListFromHouse().addRoom(kitchen);
-        house.getRoomListFromHouse().addRoom(garage);
-        house.getRoomListFromHouse().addRoom(bedroom);
-        ElectricWaterHeater ewh1=new ElectricWaterHeater(115,65,1);
-        ElectricWaterHeater ewh2=new ElectricWaterHeater(105,60,0.9);
-        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
-        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
+        house.getRoomList().addRoom(kitchen);
+        house.getRoomList().addRoom(garage);
+        house.getRoomList().addRoom(bedroom);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER,115,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER,105,60,0.9);
+        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3);
+        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5);
         kitchen.getDeviceList().addDevice(dEWH1);
         garage.getDeviceList().addDevice(dEWH2);
         boolean result= house.isValidColdWaterTemperature(61);
@@ -457,13 +464,13 @@ class HouseTest {
         Room kitchen = new Room("Kitchen",0,6,3.5,3);
         Room garage = new Room("Garage",0,6,4,3);
         Room bedroom= new Room("Bedroom",1,5,5,3);
-        house.getRoomListFromHouse().addRoom(kitchen);
-        house.getRoomListFromHouse().addRoom(garage);
-        house.getRoomListFromHouse().addRoom(bedroom);
-        ElectricWaterHeater ewh1=new ElectricWaterHeater(115,65,1);
-        ElectricWaterHeater ewh2=new ElectricWaterHeater(105,60,0.9);
-        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
-        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
+        house.getRoomList().addRoom(kitchen);
+        house.getRoomList().addRoom(garage);
+        house.getRoomList().addRoom(bedroom);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER,115,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER,105,60,0.9);
+        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3);
+        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5);
         kitchen.getDeviceList().addDevice(dEWH1);
         garage.getDeviceList().addDevice(dEWH2);
         boolean result= house.isValidVolumeOfWater(106);
@@ -478,16 +485,16 @@ class HouseTest {
         Room kitchen = new Room("Kitchen",0,6,3.5,3);
         Room garage = new Room("Garage",0,6,4,3);
         Room bedroom= new Room("Bedroom",1,5,5,3);
-        house.getRoomListFromHouse().addRoom(kitchen);
-        house.getRoomListFromHouse().addRoom(garage);
-        house.getRoomListFromHouse().addRoom(bedroom);
-        ElectricWaterHeater ewh1=new ElectricWaterHeater(115,65,1);
-        ElectricWaterHeater ewh2=new ElectricWaterHeater(105,60,0.9);
-        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3,DeviceType.ELECTRIC_WATER_HEATER);
-        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5,DeviceType.ELECTRIC_WATER_HEATER);
+        house.getRoomList().addRoom(kitchen);
+        house.getRoomList().addRoom(garage);
+        house.getRoomList().addRoom(bedroom);
+        ElectricWaterHeater ewh1=new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER,115,65,1);
+        ElectricWaterHeater ewh2=new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER,105,60,0.9);
+        Device dEWH1= new Device("Daikin - Electric Water Heater1",ewh1,kitchen,3);
+        Device dEWH2= new Device("Daikin - Electric Water Heater2",ewh2,garage,2.5);
         kitchen.getDeviceList().addDevice(dEWH1);
         garage.getDeviceList().addDevice(dEWH2);
         boolean result= house.isValidVolumeOfWater(55);
         assertTrue(result);
-    }
+    }*/
 }

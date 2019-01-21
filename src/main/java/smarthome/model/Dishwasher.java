@@ -6,12 +6,16 @@ import java.util.List;
 import static java.lang.Integer.parseInt;
 
 public class Dishwasher implements DeviceSpecs {
+    private DeviceType mDeviceType;
     private int mCapacity;
     private double mEnergyConsumption;
     private ProgramList mProgramListInDW;
 
 
-    public Dishwasher(int capacity) {
+
+
+    public Dishwasher(DeviceType deviceType,int capacity) {
+        mDeviceType=deviceType;
         mCapacity = capacity;
         mProgramListInDW = new ProgramList();
     }
@@ -25,10 +29,18 @@ public class Dishwasher implements DeviceSpecs {
 
         return mCapacity;
     }
+
+    @Override
+    public DeviceType getType() {
+        return mDeviceType;
+    }
+
     public List<String> getDeviceAttributesInString() {
         List<String> result = new ArrayList<>();
-        String Capacity = "4 - Dishwater Capacity : " + this.mCapacity;
-        result.add(Capacity);
+        String capacity = "4 - Dishwater Capacity : " + this.mCapacity;
+        //ProgramList programList = "5 - ";
+
+        result.add(capacity);
         return result;
     }
 
@@ -38,8 +50,8 @@ public class Dishwasher implements DeviceSpecs {
             setCapacity(parseInt(newValue));
     }
 
-    public ProgramList getmProgramListInDW() {
+   /* public ProgramList getmProgramListInDW() {
         return mProgramListInDW;
     }
-
+*/
 }

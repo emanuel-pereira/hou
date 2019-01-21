@@ -1,28 +1,30 @@
-package smarthome.model;
+package smarthome.model.Validations;
 
 public class NameValidations {
 
-    public String nameIsValid(String inputName) {
+    public boolean nameIsValid(String inputName) {
         if (inputName.trim().isEmpty()) {
             System.out.println("Empty spaces are not accepted.");
-            return null;
+            return false;
         }
         if (!inputName.matches("^[A-Za-z -]+$")) {
             System.out.println("Please insert only alphabetic characters with spaces or hyphens.");
-            return null;
+            return false;
         }
-        return inputName;
+        return true;
     }
-    public String alphanumericName(String inputName) {
+
+
+    public boolean alphanumericName(String inputName) {
         if (inputName.trim().isEmpty()) {
             System.out.println("Empty spaces are not accepted.");
-            return null;
+            return false;
         }
         if (!inputName.matches("^[A-Za-z0-9 -]+$")) { //accepts alphanumeric characters, spaces
             System.out.println("Please insert only alphabetic characters with spaces or hyphens.");
-            return null;
+            return false;
         }
-        return inputName;
+        return true;
     }
 
 

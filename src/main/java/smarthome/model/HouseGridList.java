@@ -57,10 +57,10 @@ public class HouseGridList {
     }
 
 
-    /**
+  /*  *//**
      * Transforms a list of house grids in a numbered list of strings with the ids of the house grids
      * @return List of house grids in string
-     */
+     *//*
     public String showHouseGridListInString() {
         List<HouseGrid> list = getHouseGridList ();
         StringBuilder result = new StringBuilder ();
@@ -73,5 +73,5 @@ public class HouseGridList {
             result.append ("\n");
         }
         return result.toString ();
-    }
+    }*/
 }

@@ -7,8 +7,10 @@ import static java.lang.Integer.parseInt;
 
 public class Lamp implements DeviceSpecs {
     private int mLuminousFlux;
+    private DeviceType mDeviceType;
 
-    public Lamp(int luminousFlux) {
+    public Lamp(DeviceType deviceType,int luminousFlux) {
+        this.mDeviceType=deviceType;
         this.mLuminousFlux = luminousFlux;
     }
 
@@ -19,6 +21,7 @@ public class Lamp implements DeviceSpecs {
     public int getLuminousFlux() {
         return mLuminousFlux;
     }
+
     public List<String> getDeviceAttributesInString() {
         List<String> result = new ArrayList<>();
         String LuminousFlux = "4 - Luminous Flux : " + this.mLuminousFlux;
@@ -30,6 +33,10 @@ public class Lamp implements DeviceSpecs {
         String LuminousFLux = "4 - Luminous Flux : " + this.mLuminousFlux;
         if (attribute.equals(LuminousFLux))
             setLuminousFlux(parseInt(newValue));
+    }
+    @Override
+    public DeviceType getType() {
+        return mDeviceType;
     }
 }
 

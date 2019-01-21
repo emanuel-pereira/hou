@@ -4,6 +4,10 @@ package smarthome.model;
 import java.util.List;
 
 public interface DeviceSpecs {
+//mandatórios:
+    DeviceType getType();
+    /*getAttributeNames();*/
+    /*getAttributeValue();*/
 
     List<String> getDeviceAttributesInString();
 

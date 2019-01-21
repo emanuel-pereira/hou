@@ -18,7 +18,7 @@ public class US253AddSensorToRoomUI {
         mCtrlUS253 = new US253AddSensorToRoomCTRL (house, sensorTypeList);
         mHouse = house;
         mSensorTypeList = sensorTypeList;
-        mRoomList = mHouse.getRoomListFromHouse ();
+        mRoomList = mHouse.getRoomList();
     }
 
     Scanner read = new Scanner (System.in);

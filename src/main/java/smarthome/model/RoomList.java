@@ -46,12 +46,12 @@ public class RoomList {
     }
 
     /**
-     * Method to getRoomWithIndex a specific Room in index position i
+     * Method to get a specific Room in index position i
      *
      * @param i index position of the Room's List
      * @return the specific requested Room
      */
-    public Room getRoomWithIndex(int i) {
+    public Room get(int i) {
         return this.mRoomList.get (i);
     }
 
@@ -96,8 +96,15 @@ public class RoomList {
         return sum;
     }
 
-    public Room get(int index){
-        return mRoomList.get(index);
+    public boolean removeDeviceFromRoom(Device device, int indexOfRoom) {
+        DeviceList roomDeviceList=mRoomList.get(indexOfRoom-1).getDeviceList();
+        return roomDeviceList.getDeviceList().remove(device);
     }
+
+    public boolean addDeviceToRoom(Device device, int indexOfRoom) {
+        DeviceList roomDeviceList=mRoomList.get(indexOfRoom-1).getDeviceList();
+        return roomDeviceList.getDeviceList().add(device);
+    }
+
 
 }

@@ -31,16 +31,11 @@ public class DeviceList {
      *
      * @param name         of the device
      * @param deviceSpecs  specific characteristics of the device, including, for example, device type
-     * @param room         where the device will be installed
      * @param nominalPower of the device
      * @return a new Device instance
      */
-    public Device newDevice(String name, DeviceType deviceType, DeviceSpecs deviceSpecs, Room room, double nominalPower) {
-        return new Device(name, deviceSpecs, room, nominalPower, deviceType);
-    }
-
-    public Device newDevice(String name, DeviceType deviceType, Room room, double nominalPower) {
-        return new Device(name, deviceType, room, nominalPower);
+    public Device newDevice(String name, DeviceSpecs deviceSpecs, double nominalPower) {
+        return new Device(name, deviceSpecs, nominalPower);
     }
 
     /**
@@ -76,7 +71,7 @@ public class DeviceList {
             result.append(element);
             result.append(device.getName());
             result.append(typeStr);
-            result.append(device.getDeviceType());
+            result.append(device.getDeviceSpecs().getType());
             result.append("\n");
         }
         return result.toString();
@@ -97,7 +92,7 @@ public class DeviceList {
     public DeviceList getElectricWaterHeaterList() {
         DeviceList electricWaterHeaterList = new DeviceList();
         for (Device device : mDeviceList) {
-            if (device.getDeviceType().getTypeString().equals("Electric Water Heater"))
+            if (device.getDeviceSpecs().getType().getTypeString().equals("Electric Water Heater"))
                 electricWaterHeaterList.addDevice(device);
         }
         return electricWaterHeaterList;

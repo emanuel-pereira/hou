@@ -166,7 +166,7 @@ class SensorTypeListTest {
     void showSensorTypeListInString() {
         SensorTypeList sensorTypeList = new SensorTypeList();
         House h1 = new House();
-        RoomList roomList = h1.getRoomListFromHouse();
+        RoomList roomList = h1.getRoomList();
         US253AddSensorToRoomCTRL ctr1 = new US253AddSensorToRoomCTRL(h1,sensorTypeList);
         SensorType type1 = new SensorType("Temperature");
         SensorType type2 = new SensorType("Wind");

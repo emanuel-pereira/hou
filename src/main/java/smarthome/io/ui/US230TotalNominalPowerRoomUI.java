@@ -1,4 +1,4 @@
-package smarthome.io.ui;
+/*package smarthome.io.ui;
 
 import smarthome.controller.US230TotalNominalPowerRoomCTRL;
 import smarthome.model.*;
@@ -45,4 +45,4 @@ public class US230TotalNominalPowerRoomUI {
         }
 
     }
-}
+}*/

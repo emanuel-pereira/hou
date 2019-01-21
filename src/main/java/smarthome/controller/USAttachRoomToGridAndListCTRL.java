@@ -2,8 +2,6 @@ package smarthome.controller;
 
 import smarthome.model.*;
 
-import java.util.List;
-
 public class USAttachRoomToGridAndListCTRL {
     private House mHouse;
 
@@ -39,7 +37,7 @@ public class USAttachRoomToGridAndListCTRL {
      */
     public RoomList getListOfRoomsWithoutHouseGrid() {
         RoomList listOfRoomsWithoutHouseGrid = new RoomList();
-        for (Room r : mHouse.getRoomListFromHouse().getRoomList()) {
+        for (Room r : mHouse.getRoomList().getRoomList()) {
             if (r.getmHouseGrid() == null) {
                 listOfRoomsWithoutHouseGrid.addRoom(r);
             }
@@ -51,7 +49,7 @@ public class USAttachRoomToGridAndListCTRL {
      * @return the list of rooms without HouseGrid
      */
     public RoomList getListOfRooms() {
-        return mHouse.getRoomListFromHouse();
+        return mHouse.getRoomList();
     }
 
     /**
@@ -81,7 +79,7 @@ public class USAttachRoomToGridAndListCTRL {
     public boolean attachRoomToHouseGrid(int indexOfHouseGrid, int indexOfRoom) {
         RoomList listOfRoomsWithoutHouseGrid = getListOfRoomsWithoutHouseGrid();
         if (listOfRoomsWithoutHouseGrid.getRoomList().size() != 0) {
-            Room r = listOfRoomsWithoutHouseGrid.getRoomWithIndex(indexOfRoom - 1);
+            Room r = listOfRoomsWithoutHouseGrid.get(indexOfRoom - 1);
             r.setmHouseGrid(mHouse.getHGListInHouse().get(indexOfHouseGrid - 1));
             return true;
         } else return false;
@@ -96,7 +94,7 @@ public class USAttachRoomToGridAndListCTRL {
      */
     public RoomList getListOfRoomsWithHouseGrid(int indexOfHouseGrid) {
         RoomList listOfRoomsWithHouseGrid = new RoomList();
-        for (Room r : mHouse.getRoomListFromHouse().getRoomList()) {
+        for (Room r : mHouse.getRoomList().getRoomList()) {
             if (r.getmHouseGrid() != null) {
                 if (r.getmHouseGrid().equals(mHouse.getHGListInHouse().get(indexOfHouseGrid - 1))) {
                     listOfRoomsWithHouseGrid.addRoom(r);
@@ -138,7 +136,7 @@ public class USAttachRoomToGridAndListCTRL {
         RoomList listOfRoomsWithHouseGrid = getListOfRoomsWithHouseGrid(indexOfHouseGrid);
         if(listOfRoomsWithHouseGrid.getRoomList().size()!=0){
 
-            Room r = listOfRoomsWithHouseGrid.getRoomWithIndex(indexOfRoom-1);
+            Room r = listOfRoomsWithHouseGrid.get(indexOfRoom-1);
             r.setmHouseGrid(null);
             return true;}
         else return false;}

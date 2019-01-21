@@ -21,7 +21,7 @@ public class US605CurrentTempRoomUI {
 
     public US605CurrentTempRoomUI(House house, SensorTypeList sensorTypeList) {
         mHouse = house;
-        mRoomList = mHouse.getRoomListFromHouse ();
+        mRoomList = mHouse.getRoomList();
         mCTRL605 = new US605CurrentTempRoomCTRL (house, sensorTypeList);
         mSensorTypeList = sensorTypeList;
     }

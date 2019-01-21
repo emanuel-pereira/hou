@@ -1,6 +1,8 @@
+/*
 package smarthome.controller;
 
 import smarthome.model.*;
+import smarthome.model.Validations.NumberValidations;
 
 public class USEnergyConsumptionOfWaterHeatingCTRL {
 
@@ -11,7 +13,7 @@ public class USEnergyConsumptionOfWaterHeatingCTRL {
 
     public USEnergyConsumptionOfWaterHeatingCTRL(House house) {
         mHouse = house;
-        mRoomList = house.getRoomListFromHouse();
+        mRoomList = house.getRoomList();
         mNumberValidations= new NumberValidations();
     }
 
@@ -34,11 +36,14 @@ public class USEnergyConsumptionOfWaterHeatingCTRL {
     public boolean valueIsPositive(double value){
         return mNumberValidations.valueIsPositive(value);
     }
-    public boolean isValidColdWaterTemperature(double coldWaterTemperature){
+   */
+/* public boolean isValidColdWaterTemperature(double coldWaterTemperature){
         return mHouse.isValidColdWaterTemperature(coldWaterTemperature);
     }
     public boolean isValidVolumeOfWater(double volumeOfWaterToHeat) {
         return mHouse.isValidVolumeOfWater(volumeOfWaterToHeat);
-    }
+    }*//*
+
 
 }
+*/

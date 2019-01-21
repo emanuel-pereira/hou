@@ -53,7 +53,7 @@ public class USAttachRoomToGridAndListUI {
                                 indexOfRoom = read.nextInt();
                                 read.nextLine();
                                 mCtrl.attachRoomToHouseGrid(indexOfHouseGrid, indexOfRoom);
-                                System.out.println("Room " + mHouse.getRoomListFromHouse().getRoomWithIndex(indexOfRoom - 1).getName() + " was successfully attached to HouseGrid: " + mHouse.getHGListInHouse().get(indexOfHouseGrid - 1).getGridID() + " | Nominal Power: " + mHouse.getHGListInHouse().get(indexOfHouseGrid - 1).getContractedMaximumPower() + ".\n");
+                                System.out.println("Room " + mHouse.getRoomList().get(indexOfRoom - 1).getName() + " was successfully attached to HouseGrid: " + mHouse.getHGListInHouse().get(indexOfHouseGrid - 1).getGridID() + " | Nominal Power: " + mHouse.getHGListInHouse().get(indexOfHouseGrid - 1).getContractedMaximumPower() + ".\n");
                                 System.out.println(listRoomsAttachedToHousegridMsg);
                                 System.out.println(mCtrl.showRoomsWithHouseGridInStr(indexOfHouseGrid));
                                 break;

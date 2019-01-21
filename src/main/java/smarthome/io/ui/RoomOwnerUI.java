@@ -17,11 +17,11 @@ public class RoomOwnerUI {
 
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
-                case 1:
+               /* case 1:
                     System.out.println("US230");
                     US230TotalNominalPowerRoomUI ui230 = new US230TotalNominalPowerRoomUI(house);
                     ui230.showTotalNominalPowerRoom();
-                    break;
+                    break;*/
                 case 2:
                     System.out.println("new functions are coming soon");
                     break;
