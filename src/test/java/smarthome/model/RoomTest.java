@@ -92,17 +92,6 @@ public class RoomTest {
     }
 
 
-    @Test
-    @DisplayName("Check if house grid with nominal power of 1500 is assigned to living room")
-    void setHouseGrid() {
-        HouseGrid grid = new HouseGrid ("grid01", 1500);
-        Room room1 = new Room ("Living Room", 0, 5, 6, 4);
-        room1.setmHouseGrid (grid);
-        double expectedResult = 1500;
-        double result = room1.getmHouseGrid ().getContractedMaximumPower ();
-        assertEquals (expectedResult, result);
-    }
-
     /**
      * Test to define/edit the name of the room.
      */

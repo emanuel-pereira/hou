@@ -9,7 +9,6 @@ public class Room implements Powered {
     private Integer mFloor;
     private OccupationArea mArea;
     private double mHeight;
-    private HouseGrid mHouseGrid;//each room has only a house grid
     private SensorList mSensorListInRoom = new SensorList();
     private DeviceList mDeviceList;
 
@@ -120,13 +119,6 @@ public class Room implements Powered {
         return true;
     }
 
-    public void setmHouseGrid(HouseGrid inputHouseGrid){
-        mHouseGrid=inputHouseGrid;
-    }
-
-    public HouseGrid getmHouseGrid() {
-        return mHouseGrid;
-    }
 
     public SensorList getSensorListInRoom() {
         return mSensorListInRoom;

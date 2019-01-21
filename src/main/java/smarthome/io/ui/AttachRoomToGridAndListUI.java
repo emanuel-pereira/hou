@@ -1,17 +1,18 @@
+/*
 package smarthome.io.ui;
 
-import smarthome.controller.USAttachRoomToGridAndListCTRL;
+import smarthome.controller.AttachRoomToGridAndListCTRL;
 import smarthome.model.House;
 
 import java.util.Scanner;
 
-public class USAttachRoomToGridAndListUI {
+public class AttachRoomToGridAndListUI {
     private House mHouse;
-    private USAttachRoomToGridAndListCTRL mCtrl;
+    private AttachRoomToGridAndListCTRL mCtrl;
 
-    public USAttachRoomToGridAndListUI(House house) {
+    public AttachRoomToGridAndListUI(House house) {
         mHouse = house;
-        mCtrl = new USAttachRoomToGridAndListCTRL(house);
+        mCtrl = new AttachRoomToGridAndListCTRL (house);
     }
 
     Scanner read = new Scanner(System.in);
@@ -22,9 +23,8 @@ public class USAttachRoomToGridAndListUI {
         int indexOfHouseGrid;
         int indexOfRoom;
         while (true) {
-            if (!(mCtrl.getHouseGridList().getHouseGridList().isEmpty())) {
-                if (!(mCtrl.getListOfRooms().getRoomList().isEmpty())) {
-
+            if (!(mCtrl.getHouseGridListSize() == 0)) {
+                if (!(mCtrl.getListOfRooms ().getRoomList ().isEmpty ())) {
                     String option;
                     while (true) {
                         //attach and list rooms attached to that grid
@@ -42,7 +42,7 @@ public class USAttachRoomToGridAndListUI {
                             indexOfHouseGrid = read.nextInt();
                             read.nextLine();
 
-                            if (indexOfHouseGrid > mCtrl.getHouseGridList().getHouseGridList().size()) {
+                            if (indexOfHouseGrid > mCtrl.getHouseGridListSize()) {
                                 System.out.println(insertValidOption);
                                 break;
                             }
@@ -67,7 +67,7 @@ public class USAttachRoomToGridAndListUI {
                             indexOfHouseGrid = read.nextInt();
                             read.nextLine();
 
-                            if (indexOfHouseGrid > mCtrl.getHouseGridList().getHouseGridList().size()) {
+                            if (indexOfHouseGrid > mCtrl.getHouseGridListSize()) {
                                 System.out.println(insertValidOption);
                                 break;
                             }
@@ -85,7 +85,7 @@ public class USAttachRoomToGridAndListUI {
                             System.out.println(mCtrl.showHouseGridListInString());
                             indexOfHouseGrid = read.nextInt();
                             read.nextLine();
-                            if (indexOfHouseGrid > mCtrl.getHouseGridList().getHouseGridList().size()) {
+                            if (indexOfHouseGrid > mCtrl.getHouseGridListSize()) {
                                 System.out.println(insertValidOption);
                                 break;
                             }
@@ -111,3 +111,4 @@ public class USAttachRoomToGridAndListUI {
     }
 }
 
+*/

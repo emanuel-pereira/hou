@@ -5,20 +5,21 @@ import java.util.List;
 
 public class HouseGridList {
 
-    private HouseGrid mHouseGrid;
     private List<HouseGrid> mHGList;
 
     public HouseGridList() {
-        mHGList = new ArrayList<>();
+        mHGList = new ArrayList<> ();
     }
 
-    //HouseGridList
-
-    public HouseGrid newHouseGrid(String ID, double inputContractedMaximumPower) {
-        if (isValidContractedPower(inputContractedMaximumPower)) {
-            return mHouseGrid = new HouseGrid(ID,inputContractedMaximumPower);
-        }
-        return null;
+    /**
+     * Receives the String ID of the new grid and calls the HouseGrid class constructor that
+     * creates the new house electric grid
+     *
+     * @param ID String object designation of the grid
+     * @return new HouseGrid object
+     */
+    public HouseGrid newHouseGrid(String ID) {
+        return new HouseGrid (ID);
     }
 
     /**
@@ -29,38 +30,45 @@ public class HouseGridList {
      * @return true if houseGrid is added to list or false otherwise.
      */
     public boolean addHouseGrid(HouseGrid inputHouseGrid) {
-        if (inputHouseGrid != null && !mHGList.contains(inputHouseGrid)) {
-            mHGList.add(inputHouseGrid);
+        if (!mHGList.contains (inputHouseGrid)) {
+            mHGList.add (inputHouseGrid);
             return true;
         } else return false;
     }
 
     /**
-     * @return the list of housegrids in the house
+     * Method that gets the List of electric house grids as a new ArrayList object
+     * in order to pass the objects as a clone
+     *
+     * @return the list of house grids in the house as ArrayList
      */
     public List<HouseGrid> getHouseGridList() {
-        return mHGList;
+        List<HouseGrid> gridList = new ArrayList<> ();
+        for (HouseGrid grid : mHGList) {
+            gridList.add (grid);
+        }
+        return gridList;
     }
 
     /**
-     * checks if the inputted Maximum Power is Positive
+     * Method that gets the electric grid list size
      *
-     * @param inputContractedMaximumPower Double number
-     * @return
+     * @return int form value that represents the electric grid list size
      */
-    public boolean isValidContractedPower(double inputContractedMaximumPower) {
-        return inputContractedMaximumPower > 0;
+    public int getSize() {
+        return mHGList.size ();
     }
 
     public HouseGrid get(int i) {
-        return this.mHGList.get(i);
+        return this.mHGList.get (i);
     }
 
 
-  /*  *//**
+    /**
      * Transforms a list of house grids in a numbered list of strings with the ids of the house grids
+     *
      * @return List of house grids in string
-     *//*
+     */
     public String showHouseGridListInString() {
         List<HouseGrid> list = getHouseGridList ();
         StringBuilder result = new StringBuilder ();
@@ -73,5 +81,5 @@ public class HouseGridList {
             result.append ("\n");
         }
         return result.toString ();
-    }*/
+    }
 }

@@ -18,7 +18,7 @@ class US172TotalNominalPowerInGridCTRLTest {
      *//*
 
     @Test
-    void getHouseGridList() {
+    void getHouseGridListSize() {
         House house = new House ();
         HouseGridList houseGridList = house.getHGListInHouse ();
         HouseGrid houseGrid1 = houseGridList.newHouseGrid ("InternalGrid", 100);
@@ -28,7 +28,7 @@ class US172TotalNominalPowerInGridCTRLTest {
         US172TotalNominalPowerInGridCTRL US172CTRL = new US172TotalNominalPowerInGridCTRL (house);
 
         double expectedResult = 2;
-        double result = US172CTRL.getHouseGridList ().getHouseGridList ().size ();
+        double result = US172CTRL.getHouseGridListSize ().getHouseGridListSize ().size ();
 
         assertEquals (expectedResult, result);
     }

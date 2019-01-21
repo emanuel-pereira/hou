@@ -1,3 +1,4 @@
+/*
 package smarthome.io.ui;
 
 import smarthome.model.*;
@@ -39,34 +40,40 @@ public class MainUI {
         ElectricWaterHeater ewh109 = new ElectricWaterHeater (DeviceType.ELECTRIC_WATER_HEATER,100,55,0.91);
         ElectricWaterHeater ewh106 = new ElectricWaterHeater (DeviceType.ELECTRIC_WATER_HEATER,150,55,0.92);
         Dishwasher dish109 = new Dishwasher (DeviceType.DISHWASHER,100);
-        /*Program p1dish109 = dish109.getmProgramListInDW ().newProgram ("Glasses",0.9);
+        */
+/*Program p1dish109 = dish109.getmProgramListInDW ().newProgram ("Glasses",0.9);
         Program p2dish109 = dish109.getmProgramListInDW ().newProgram ("Eco",1.3);
         Program p3dish109 = dish109.getmProgramListInDW ().newProgram ("Eco Turbo",1.7);
         Program p4dish109 = dish109.getmProgramListInDW ().newProgram ("Dishes",2.1);
         dish109.getmProgramListInDW ().addProgram (p1dish109);
         dish109.getmProgramListInDW ().addProgram (p2dish109);
         dish109.getmProgramListInDW ().addProgram (p3dish109);
-        dish109.getmProgramListInDW ().addProgram (p4dish109);*/
+        dish109.getmProgramListInDW ().addProgram (p4dish109);*//*
+
 
         Dishwasher dish106 = new Dishwasher (DeviceType.DISHWASHER,100);
-    /*    Program p1dish106 = dish106.getmProgramListInDW ().newProgram ("Glasses",0.8);
+    */
+/*    Program p1dish106 = dish106.getmProgramListInDW ().newProgram ("Glasses",0.8);
         Program p2dish106 = dish106.getmProgramListInDW ().newProgram ("Light",1.3);
         Program p3dish106 = dish106.getmProgramListInDW ().newProgram ("Light Turbo",1.9);
         Program p4dish106 = dish106.getmProgramListInDW ().newProgram ("Dishes",2.3);
         dish106.getmProgramListInDW ().addProgram (p1dish106);
         dish106.getmProgramListInDW ().addProgram (p2dish106);
         dish106.getmProgramListInDW ().addProgram (p3dish106);
-        dish106.getmProgramListInDW ().addProgram (p4dish106);*/
+        dish106.getmProgramListInDW ().addProgram (p4dish106);*//*
+
 
         WashingMachine washingMachine = new WashingMachine (DeviceType.WASHING_MACHINE,100);
-      /*  Program p1Wm109 = dish106.getmProgramListInDW ().newProgram ("Wool",0.9);
+      */
+/*  Program p1Wm109 = dish106.getmProgramListInDW ().newProgram ("Wool",0.9);
         Program p2Wm109 = dish106.getmProgramListInDW ().newProgram ("Fast",1.3);
         Program p3Wm109 = dish106.getmProgramListInDW ().newProgram ("Fast Plus",1.7);
         Program p4Wm109 = dish106.getmProgramListInDW ().newProgram ("Synthetic 30",2.1);
         washingMachine.getmProgramListInDW ().addProgram (p1Wm109);
         washingMachine.getmProgramListInDW ().addProgram (p2Wm109);
         washingMachine.getmProgramListInDW ().addProgram (p3Wm109);
-        washingMachine.getmProgramListInDW ().addProgram (p4Wm109);*/
+        washingMachine.getmProgramListInDW ().addProgram (p4Wm109);*//*
+
 
         Device eHWB109 = house.getRoomList().get(1).getDeviceList ().newDevice ("EHW B109", ewh109, 1.5);
         house.getRoomList().get(1).getDeviceList ().addDevice (eHWB109);
@@ -113,3 +120,4 @@ public class MainUI {
         }
     }
 }
+*/

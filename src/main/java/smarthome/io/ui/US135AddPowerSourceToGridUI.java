@@ -1,6 +1,7 @@
+/*
 package smarthome.io.ui;
 
-import smarthome.controller.US130newHouseGridController;
+import smarthome.controller.NewHouseGridCTRL;
 import smarthome.controller.US135AddPowerSourceToGridCTRL;
 import smarthome.model.*;
 
@@ -14,7 +15,7 @@ public class US135AddPowerSourceToGridUI {
     private PowerSource mPowerSource;
     private PowerSourceList mPSList;
     private US135AddPowerSourceToGridCTRL mCtrlUS135;
-    private US130newHouseGridController mCtrlUS130;
+    private NewHouseGridCTRL mCtrlUS130;
 
     Scanner read = new Scanner(System.in);
 
@@ -23,11 +24,11 @@ public class US135AddPowerSourceToGridUI {
         mHGList = hgList;
         mPSList = psList;
         mCtrlUS135 = new US135AddPowerSourceToGridCTRL(house, hgList, psList);
-        mCtrlUS130 = new US130newHouseGridController(house);
+        mCtrlUS130 = new NewHouseGridCTRL(house);
     }
 
     public void addPowerSourceToHouseGrid() {
-        if (mCtrlUS130.getHouseGridList().size() != 0) {
+        if (mCtrlUS130.getHouseGridListSize().size() != 0) {
 
             System.out.println("Please select the House Grid to which you wish to add your Power Source to:");
             System.out.println(mCtrlUS130.showGridsListInString());
@@ -35,7 +36,7 @@ public class US135AddPowerSourceToGridUI {
             while (true) {
                 Scanner read1 = new Scanner(System.in);
                 indexHG = read1.nextInt();
-                if (indexHG > mCtrlUS130.getHouseGridList().size() || indexHG<=0)
+                if (indexHG > mCtrlUS130.getHouseGridListSize().size() || indexHG<=0)
                     System.out.println("Please insert a valid option.\n");
                 else
                     break;
@@ -85,12 +86,16 @@ public class US135AddPowerSourceToGridUI {
             if (mCtrlUS135.addNewPSToGrid(indexHG, name, type, maxPower, storageCapacity)) {
                 System.out.println("Success! The power source " + name + " of the " + type +
                         " type, with maximum power of " + maxPower + " watts and storage capacity of "
-                        + storageCapacity + " kilowatts was created.\n\n" /*+mCtrlUS135.showPowerSourceListInString()+ "\n"*/);
-                System.out.println(mCtrlUS135.showPowerSourceListInString(mHouse.getHGListInHouse().getHouseGridList().get(indexHG - 1)) + "\n");
+                        + storageCapacity + " kilowatts was created.\n\n" */
+/*+mCtrlUS135.showPowerSourceListInString()+ "\n"*//*
+);
+                System.out.println(mCtrlUS135.showPowerSourceListInString(mHouse.getHGListInHouse().getHouseGridListSize().get(indexHG - 1)) + "\n");
             }
-            /*if(mCtrlUS135.getPowerSourceList().size() != 0){
+            */
+/*if(mCtrlUS135.getPowerSourceList().size() != 0){
                 System.out.println("Here is complete list of Power Sources in the current grid:\n"+mCtrlUS135.showPowerSourceListInString()+"\n\n");
-            }*/
+            }*//*
+
             else {
                 System.out.println("Fail! Please try again.");
             }
@@ -129,4 +134,4 @@ public class US135AddPowerSourceToGridUI {
         return number;
     }
 
-}
+}*/

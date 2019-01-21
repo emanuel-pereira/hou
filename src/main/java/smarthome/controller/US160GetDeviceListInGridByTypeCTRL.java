@@ -13,7 +13,7 @@ public class US160GetDeviceListInGridByTypeCTRL {
     }
 
     public List<HouseGrid> getHouseGridListCtrl() {
-        return mHouse.getHGListInHouse().getHouseGridList();
+        return mHouse.getHGListInHouse().getHouseGridListSize();
     }
 
     public String showHouseGridListInStringCtrl() {
