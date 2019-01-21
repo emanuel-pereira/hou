@@ -50,6 +50,7 @@ public class USAddSetAndListDevicesInRoomCTRL {
      * @return name if if is
      */
     public boolean alphanumericName(String inputName) {
+
         return mNameValidations.alphanumericName(inputName);
     }
 
@@ -59,11 +60,12 @@ public class USAddSetAndListDevicesInRoomCTRL {
     }
 
     public DeviceList getDeviceList(Room room) {
+
         return room.getDeviceList();
     }
 
-
     public List<String> getDeviceAttributesListInString(Device device) {
+
         return device.getDeviceAttributesInString();
     }
 
@@ -86,7 +88,6 @@ public class USAddSetAndListDevicesInRoomCTRL {
     public boolean addDeviceToRoom(Device device, int indexOfRoom) {
         return mRoomList.addDeviceToRoom(device, indexOfRoom);
     }
-
 }
 
 

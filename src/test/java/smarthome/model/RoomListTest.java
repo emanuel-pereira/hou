@@ -132,19 +132,19 @@ public class RoomListTest {
         list.addRoom(kitchen);
         DeviceList dLK = kitchen.getDeviceList();
 
-        Lamp l1 = new Lamp(DeviceType.LAMP,20);
-        Lamp l2 = new Lamp(DeviceType.LAMP,25);
+        Lamp l1 = new Lamp(DeviceType.LAMP, 20);
+        Lamp l2 = new Lamp(DeviceType.LAMP, 25);
 
 
-        Device d1 = dLb.newDevice("lamp1",l1,20);
+        Device d1 = dLb.newDevice("lamp1", l1, 20);
         Device d2 = dLb.newDevice("lamp2", l1, 22);
 
         dLb.addDevice(d1);
         dLb.addDevice(d2);
-        Fridge f= new Fridge(DeviceType.FRIDGE,25,75,25);
+        Fridge f = new Fridge(DeviceType.FRIDGE, 25, 75, 25);
 
         Device d3 = dLb.newDevice("fridge", f, 150);
-        Dishwasher dw= new Dishwasher(DeviceType.DISHWASHER,32);
+        Dishwasher dw = new Dishwasher(DeviceType.DISHWASHER, 32);
         Device d4 = dLb.newDevice("dishwasher", dw, 100);
 
         dLK.addDevice(d3);
@@ -159,5 +159,36 @@ public class RoomListTest {
 
 
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getDevicesInAllRoomsByTypeTest() {
+        ElectricWaterHeater electricWaterHeater = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER,25, 75, 25);
+        Lamp lamp = new Lamp(DeviceType.LAMP,2);
+        Device device = new Device("Electric Water Heater Bosh 1", electricWaterHeater, 2);
+        Device device2 = new Device("Electric Water Heater Bosh 2", electricWaterHeater, 2);
+        Device device3 = new Device("Lamp", lamp, 2);
+
+        RoomList roomList = new RoomList();
+        Room kitchen = roomList.createNewRoom("kitchen", 3, 12, 3, 4);
+        Room bedroom = roomList.createNewRoom("bedroom", 3, 12, 3, 4);
+        Room livingroom = roomList.createNewRoom("livingroom", 3, 12, 3, 4);
+
+        roomList.addRoom(kitchen);
+        roomList.addRoom(bedroom);
+        roomList.addRoom(livingroom);
+
+        roomList.addDeviceToRoom(device,1);
+        roomList.addDeviceToRoom(device2,2);
+        roomList.addDeviceToRoom(device3,3);
+
+        List<Device> deviceList = roomList.getDevicesInAllRoomsByType(DeviceType.ELECTRIC_WATER_HEATER);
+
+
+        assertEquals(2,deviceList.size());
+
+
+
+
     }
 }
