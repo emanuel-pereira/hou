@@ -195,5 +195,47 @@ class HouseGridTest {
         assertEquals (expectedResult, result);
     }
 
+    @Test
+    public void equalsIfPersonEqualsHouseGrid() {
+        String person = "Ricardo";
+        HouseGrid grid = new HouseGrid ("grid");
+        boolean result;
+
+        result = grid.equals (person);
+
+        assertFalse(result);
+    }
+
+    @Test
+    public void equalsIfGridEqualsGrid() {
+        HouseGrid gridA = new HouseGrid ("InteriorGrid");
+        HouseGrid gridB = new HouseGrid ("InteriorGrid");
+
+        boolean result = gridA.equals (gridB);
+
+        assertEquals (gridA.hashCode (), gridB.hashCode ());
+        assertTrue(result);
+    }
+
+    @Test
+    public void equalsIfGridEqualsDifferentGrid() {
+        HouseGrid gridA = new HouseGrid ("InteriorGrid");
+        HouseGrid gridB = new HouseGrid ("ExteriorGRid");
+
+        boolean result = gridA.equals (gridB);
+
+        assertNotEquals (gridA.hashCode (), gridB.hashCode ());
+        assertFalse(result);
+    }
+
+    @Test
+    public void equalsIfGridEqualsSameGrid() {
+        HouseGrid grid = new HouseGrid ("Main");
+        boolean result = grid.equals (grid);
+
+        assertTrue(result);
+    }
+
+
 }
 
