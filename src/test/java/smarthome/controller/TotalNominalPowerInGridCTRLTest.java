@@ -77,7 +77,7 @@ class TotalNominalPowerInGridCTRLTest {
         TotalNominalPowerInGridCTRL US172CTRL = new TotalNominalPowerInGridCTRL (house);
 
         boolean expectedResult = true;
-        boolean result = US172CTRL.deviceListSizeInGridIsNotEmpty (0);
+        boolean result = US172CTRL.deviceListSizeInGridIsNotEmpty (1);
 
         assertEquals (expectedResult, result);
     }
@@ -108,7 +108,7 @@ class TotalNominalPowerInGridCTRLTest {
         TotalNominalPowerInGridCTRL US172CTRL = new TotalNominalPowerInGridCTRL (house);
 
         boolean expectedResult = true;
-        boolean result = US172CTRL.deviceListSizeInGridIsNotEmpty (0);
+        boolean result = US172CTRL.deviceListSizeInGridIsNotEmpty (1);
 
         assertEquals (expectedResult, result);
     }
@@ -146,7 +146,7 @@ class TotalNominalPowerInGridCTRLTest {
         TotalNominalPowerInGridCTRL US172CTRL = new TotalNominalPowerInGridCTRL (house);
 
         boolean expectedResult = false;
-        boolean result = US172CTRL.deviceListSizeInGridIsNotEmpty (1);
+        boolean result = US172CTRL.deviceListSizeInGridIsNotEmpty (2);
 
         assertEquals (expectedResult, result);
     }
