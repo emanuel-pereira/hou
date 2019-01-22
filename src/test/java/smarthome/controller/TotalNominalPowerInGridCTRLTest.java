@@ -4,9 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -73,8 +70,7 @@ class TotalNominalPowerInGridCTRLTest {
         HouseGridList hGl = house.getHGListInHouse ();
         HouseGrid gridA = hGl.newHouseGrid ("GridA");
         hGl.addHouseGrid (gridA);
-        roomList.addDeviceToRoom (lamp1, 1);
-        roomList.addDeviceToRoom (lamp2, 2);
+
         gridA.attachRoomToGrid (room1);
         gridA.attachRoomToGrid (room2);
 
@@ -105,7 +101,6 @@ class TotalNominalPowerInGridCTRLTest {
         HouseGridList hGl = house.getHGListInHouse ();
         HouseGrid gridA = hGl.newHouseGrid ("GridA");
         hGl.addHouseGrid (gridA);
-        roomList.addDeviceToRoom (lamp1, 1);
         gridA.attachRoomToGrid (room1);
         gridA.attachRoomToGrid (room2);
 
@@ -144,8 +139,6 @@ class TotalNominalPowerInGridCTRLTest {
         hGl.addHouseGrid (gridA);
         HouseGrid gridB = hGl.newHouseGrid ("GridB");
         hGl.addHouseGrid (gridB);
-        roomList.addDeviceToRoom (lamp1, 1);
-        roomList.addDeviceToRoom (lamp2, 1);
         gridA.attachRoomToGrid (room1);
         gridB.attachRoomToGrid (room2);
         gridB.attachRoomToGrid (room3);

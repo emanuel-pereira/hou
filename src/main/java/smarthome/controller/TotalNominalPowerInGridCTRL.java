@@ -9,8 +9,6 @@ public class TotalNominalPowerInGridCTRL {
 
     private House mHouse;
     private HouseGridList mHouseGridList;
-    private HouseGrid mGrid;
-    private Room mRoom;
 
     public TotalNominalPowerInGridCTRL(House house) {
         mHouse = house;
@@ -73,7 +71,7 @@ public class TotalNominalPowerInGridCTRL {
      */
     public boolean deviceListSizeInGridIsNotEmpty(int indexGrid) {
         int sum = 0;
-        for (Room r : mHouseGridList.get (indexGrid).getRoomListInAGrid ().getRoomList ()) {
+        for (Room r : mHouseGridList.get (indexGrid-1).getRoomListInAGrid ().getRoomList ()) {
             sum += r.getDeviceList ().size ();
         }
         return sum > 0;
