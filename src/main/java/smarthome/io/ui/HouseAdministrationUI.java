@@ -57,10 +57,10 @@ public class HouseAdministrationUI {
                     ui145.run ();
                     break;*/
 
-                /*case 7:
-                    US230TotalNominalPowerRoomUI ui230 = new US230TotalNominalPowerRoomUI (house);
+                case 7:
+                    TotalNominalPowerRoomUI ui230 = new TotalNominalPowerRoomUI (house);
                     ui230.showTotalNominalPowerRoom ();
-                    break;*/
+                    break;
                 case 8:
                     US253AddSensorToRoomUI ui253 = new US253AddSensorToRoomUI (house, sensorTypeList);
                     ui253.run ();

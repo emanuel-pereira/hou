@@ -29,10 +29,10 @@ public class PowerUserUI {
                     TotalNominalPowerInGridUI uS172 = new TotalNominalPowerInGridUI (house);
                     uS172.run ();
                     break;
-                /*case 3:
-                    US230TotalNominalPowerRoomUI ui230 = new US230TotalNominalPowerRoomUI(house);
+                case 3:
+                    TotalNominalPowerRoomUI ui230 = new TotalNominalPowerRoomUI(house);
                     ui230.showTotalNominalPowerRoom();
-                    break;*/
+                    break;
                 /*case 4:
                     USEnergyConsumptionOfWaterHeatingUI ui752= new USEnergyConsumptionOfWaterHeatingUI(house);
                     ui752.run();*/
