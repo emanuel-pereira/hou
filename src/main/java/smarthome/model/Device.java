@@ -17,6 +17,8 @@ public class Device {
     private DeviceSpecs mDeviceSpecs;
     private double mNominalPower;
 
+
+
     /**
      * Constructs a Device with a name, device specifications(which include, at least, a device type) and a nominal power
      *
@@ -84,8 +86,8 @@ public class Device {
 
     public List<String> getDeviceAttributesInString() {
         List<String> result = new ArrayList<>();
-        String deviceName = "2 - Device Name : " + this.getName();
-        String deviceNominalPower = "3 - Device Nominal Power : " + this.mNominalPower;
+        String deviceName = "1 - Device Name : " + this.getName();
+        String deviceNominalPower = "2 - Device Nominal Power : " + this.mNominalPower;
         result.add(deviceName);
         result.add(deviceNominalPower);
         for (String deviceSpecs : this.getDeviceSpecs().getDeviceAttributesInString())
@@ -104,6 +106,11 @@ public class Device {
         }
         this.getDeviceSpecs().setAttributeValue(attribute, newValue);
     }
+    public double getEnergyConsumption(){
+        return mDeviceSpecs.getEnergyConsumption();
+    }
+
+
 }
 
 

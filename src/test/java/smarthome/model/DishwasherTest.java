@@ -21,7 +21,7 @@ class DishwasherTest {
         Dishwasher dw = new Dishwasher(DeviceType.DISHWASHER, 10);
 
         List<String> result = dw.getDeviceAttributesInString();
-        List<String> expected = Arrays.asList("4 - Dishwater Capacity : " + dw.getCapacity());
+        List<String> expected = Arrays.asList("3 - Device Type : "+dw.getType().getTypeString(),"4 - Dishwater Capacity : " + dw.getCapacity());
         assertEquals(expected, result);
 
     }

@@ -54,12 +54,22 @@ public class DeviceList {
     }
 
     /**
-     * @return the device list
+     * @param deviceType the type of device that the list returns
+     * @return  a list of devices which have the same type as the one inputted as parameter
      */
-    public List<Device> getDeviceList() {
-        return mDeviceList;
+    public List<Device> getDevicesOfType(DeviceType deviceType){
+        List<Device> deviceListByType = new ArrayList<>();
+        for (Device device:mDeviceList){
+            if(device.getDeviceSpecs().getType().equals(deviceType))
+                deviceListByType.add(device);
+        }
+        return deviceListByType;
     }
 
+    /**
+     * Shows a global device list in string
+     * @return
+     */
     public String showDeviceListInString() {
         List<Device> list = getDeviceList();
         StringBuilder result = new StringBuilder();
@@ -77,85 +87,9 @@ public class DeviceList {
         return result.toString();
     }
 
-    public String showElectricWaterHeaterList() {
-        DeviceList electricWaterHeaterList = getElectricWaterHeaterList();
-        StringBuilder result = new StringBuilder();
-        for (Device device : electricWaterHeaterList.getDeviceList()) {
-            result.append(device.showDeviceAttributesInString());
-            result.append("\n");
-        }
-        return result.toString();
+    public List<Device> getDeviceList() {
+        return mDeviceList;
     }
-
-
-    //show electric list in string for each room
-    public DeviceList getElectricWaterHeaterList() {
-        DeviceList electricWaterHeaterList = new DeviceList();
-        for (Device device : mDeviceList) {
-            if (device.getDeviceSpecs().getType().getTypeString().equals("Electric Water Heater"))
-                electricWaterHeaterList.addDevice(device);
-        }
-        return electricWaterHeaterList;
-    }
-
-
-    /**
-     * @return the total energy consumed by all electric water heaters in a specific device list.
-     */
-    public double getEnergyConsumptionOfEWHList() {
-        DeviceList listOfEWH = getElectricWaterHeaterList();
-        double totalEnergyConsumption = 0;
-        for (Device device : listOfEWH.getDeviceList()) {
-            totalEnergyConsumption += ((ElectricWaterHeater) device.getDeviceSpecs()).getEnergyConsumption();
-        }
-        return totalEnergyConsumption;
-    }
-
-    /**
-     * Sets volume of water for all devices of type Electric Water Heater that may be installed in a device list.
-     *
-     * @param volumeOfWater double value parameter to set the volume of water of every Electric Water Heater installed in all rooms of the house.
-     */
-    public void setVolumeOfWaterToHeat(double volumeOfWater) {
-        DeviceList listOfEWH = getElectricWaterHeaterList();
-        for (Device device : listOfEWH.getDeviceList()) {
-            ((ElectricWaterHeater) device.getDeviceSpecs()).setVolumeOfWaterToHeat(volumeOfWater);
-        }
-    }
-
-    /**
-     * Sets cold water temperature for all devices of type Electric Water Heater that may be installed in a device list.
-     *
-     * @param coldWaterTemperature double value parameter to set the volume of water of every Electric Water Heater installed in a device list.
-     */
-    public void setColdWaterTemperatureEWHList(double coldWaterTemperature) {
-        DeviceList listOfEWH = getElectricWaterHeaterList();
-        for (Device device : listOfEWH.getDeviceList()) {
-            ((ElectricWaterHeater) device.getDeviceSpecs()).setColdWaterTemperature(coldWaterTemperature);
-        }
-    }
-
-    public boolean isValidColdWaterTemperature(double coldWaterTemperature) {
-        DeviceList listOfEWH = getElectricWaterHeaterList();
-        for (Device device : listOfEWH.getDeviceList()) {
-
-            if (coldWaterTemperature > ((ElectricWaterHeater) device.getDeviceSpecs()).getHotWaterTemperature())
-                return false;
-
-        }
-        return true;
-    }
-
-    public boolean isValidVolumeOfWater(double volumeOfWaterToHeat) {
-        DeviceList listOfEWH = getElectricWaterHeaterList();
-        for (Device device : listOfEWH.getDeviceList()) {
-            if (volumeOfWaterToHeat > ((ElectricWaterHeater) device.getDeviceSpecs()).getVolumeOfWater()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
 
     public int size() {
         return mDeviceList.size();

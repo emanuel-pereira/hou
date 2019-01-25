@@ -52,10 +52,10 @@ public class HouseAdministrationUI {
                     US135AddPowerSourceToGridUI ui135 = new US135AddPowerSourceToGridUI (house, hgList, pslist);
                     ui135.addPowerSourceToHouseGrid ();
                     break;*/
-                /*case 6:
+                case 6:
                     AttachRoomToGridAndListUI ui145 = new AttachRoomToGridAndListUI (house);
-                    ui145.run ();
-                    break;*/
+                    ui145.checkIfHGListIsEmtpy ();
+                    break;
 
                 case 7:
                     TotalNominalPowerRoomUI ui230 = new TotalNominalPowerRoomUI (house);

@@ -33,9 +33,9 @@ public class PowerUserUI {
                     TotalNominalPowerRoomUI ui230 = new TotalNominalPowerRoomUI(house);
                     ui230.showTotalNominalPowerRoom();
                     break;
-                /*case 4:
-                    USEnergyConsumptionOfWaterHeatingUI ui752= new USEnergyConsumptionOfWaterHeatingUI(house);
-                    ui752.run();*/
+                case 4:
+                    EnergyConsumptionOfWaterHeatingUI ui752= new EnergyConsumptionOfWaterHeatingUI(house);
+                    ui752.run();
             }
 
         }

@@ -1,165 +1,164 @@
-/*
 
 package smarthome.controller;
 
-import smarthome.model.House;
-import smarthome.model.Room;
-import smarthome.model.RoomList;
-
-import java.util.List;
+import smarthome.model.*;
 
 public class AttachRoomToGridAndListCTRL {
     private House mHouse;
+    private HouseGridList mHouseGridList;
 
     public AttachRoomToGridAndListCTRL(House house) {
         mHouse = house;
+        mHouseGridList = house.getHGListInHouse();
+    }
+
+    /**
+     * Returns the String given to name the room in the index position of the roomList attached to a houseGrid in the index position of the houseGridList.
+     *
+     * @param indexOfHG   index of the houseGrid in the houseGridList
+     * @param indexOfRoom index of the room in the roomList
+     * @return the room name
+     */
+    public String getRoomOfHGName(int indexOfHG, int indexOfRoom) {
+        HouseGrid houseGrid = mHouseGridList.get(indexOfHG - 1);
+        Room room = houseGrid.getRoomListInAGrid().get(indexOfRoom - 1);
+        return room.getName();
+
+    }
+
+    /**
+     * Returns the String given to name the houseGrid in the index position of the houseGridList
+     *
+     * @param indexOfHG index of the houseGrid in the houseGridList
+     * @return the houseGrid name
+     */
+    public String getHGName(int indexOfHG) {
+        HouseGrid houseGrid = mHouseGridList.get(indexOfHG - 1);
+        String houseGridName = houseGrid.getGridID();
+        return houseGridName;
+    }
+
+    /**
+     * @return the size of the house's roomList
+     */
+    public int getListOfRoomsSize() {
+        return mHouse.getRoomList().getRoomListSize();
     }
 
 
-    */
-/**
-     * @return shows the list of houseGrids in a single string for the user to select a HouseGrid
-     *//*
+    /**
+     * Method to get the size of the roomList belonging to the houseGrid in the index position of the houseGridList
+     *
+     * @param indexOfHouseGrid index of the houseGrid selected to get the size of the respective roomList
+     * @return the size of the roomList in the chosen houseGrid
+     */
+    public int getRoomListOfHGSize(int indexOfHouseGrid) {
+        HouseGrid houseGrid = mHouseGridList.get(indexOfHouseGrid - 1);
+        return houseGrid.getRoomListInAGridSize();
+    }
 
 
+    /**
+     * Method to get the name of the lastRoom in the houseGrid
+     *
+     * @param indexOfHouseGrid index position of selected houseGrid
+     * @return name of the room in the last position of the roomList belonging to a houseGrid
+     */
+    public String getNameOfLastRoomInHG(int indexOfHouseGrid) {
+        HouseGrid houseGrid = mHouseGridList.get(indexOfHouseGrid - 1);
+        RoomList roomListInGH = houseGrid.getRoomListInAGrid();
+        int sizeOfRoomList = getRoomListOfHGSize(indexOfHouseGrid);
+        Room lastRoom = roomListInGH.get(sizeOfRoomList - 1);
+        return lastRoom.getName();
+    }
+
+
+    /**
+     * @return the houseGridList in a string format to use in the UI
+     */
     public String showHouseGridListInString() {
-        return mHouse.getHGListInHouse ().showHouseGridListInString ();
+        return mHouseGridList.showHouseGridListInString();
     }
 
+    /**
+     * @return the size of a houseGrid
+     */
     public int getHouseGridListSize() {
-        return mHouse.getHGListInHouse ().getSize ();
+        return mHouseGridList.getSize();
     }
 
-    */
-/**
-     * @return the list of rooms without HouseGrid
-     *//*
-
-
-    public RoomList getListOfRoomsWithoutHouseGrid() {
-        RoomList listOfRoomsWithoutHouseGrid = new RoomList ();
-        for (Room r : mHouse.getRoomList ().getRoomList ()) {
-            if (r.getmHouseGrid () == null) {
-                listOfRoomsWithoutHouseGrid.addRoom (r);
-            }
-        }
-        return listOfRoomsWithoutHouseGrid;
+    /**
+     * @param indexOfHouseGrid index position of selected houseGrid in HouseGridList
+     * @return list of rooms not contained in the specified houseGrid
+     */
+    private RoomList getRoomsWithoutGrid(int indexOfHouseGrid) {
+        HouseGrid houseGrid = mHouseGridList.get(indexOfHouseGrid - 1);
+        return mHouse.getRoomsWithoutGrid(houseGrid);
     }
 
-    */
-/**
-     * @return the list of rooms without HouseGrid
-     *//*
-
-
-    public RoomList getListOfRooms() {
-        return mHouse.getRoomList ();
+    /**
+     * @param indexOfHouseGrid index position of selected houseGrid in HouseGridList
+     * @return the size of the list of rooms not contained in the specified houseGrid
+     */
+    public int getRoomsWithoutGridSize(int indexOfHouseGrid){
+        RoomList roomList=getRoomsWithoutGrid(indexOfHouseGrid);
+        return roomList.getRoomListSize();
     }
 
-    */
-/**
-     * @return shows the list of rooms without houseGrid in a single string
-     *//*
-
-
-    public String showRoomsWithoutHouseGridInStr() {
-        RoomList listOfRoomsWithoutHouseGrid = getListOfRoomsWithoutHouseGrid ();
-        StringBuilder result = new StringBuilder ();
-        String element = " - ";
-        int number = 1;
-        for (Room r : listOfRoomsWithoutHouseGrid.getRoomList ()) {
-            result.append (number++);
-            result.append (element);
-            result.append (r.getName ());
-            result.append ("\n");
-        }
-        return result.toString ();
+    /**
+     * @param indexOfHouseGrid index position of selected houseGrid in HouseGridList
+     * @return a string containing all rooms not contained in the selected houseGrid
+     */
+    public String showRoomsWithoutHouseGrid(int indexOfHouseGrid) {
+        HouseGrid houseGrid = mHouseGridList.get(indexOfHouseGrid - 1);
+        return mHouse.showRoomsWithoutHouseGrid(houseGrid);
     }
 
-    */
-/**
-     * Method to attach a room to a HouseGrid.
-     *
-     * @param indexOfHouseGrid HouseGrid in the index position selected by the user
-     * @param indexOfRoom      room in index position of list of rooms with HpuseGrid as null
-     * @return true if houseGrid previously selected by the user is set as room's HouseGrid
-     *//*
-
-
+    /**
+     * Method to attach a room to a selected houseGrid, which will add that room to the RoomList of the chosen HouseGrid.
+     * @param indexOfHouseGrid index position of selected houseGrid in HouseGridList
+     * @param indexOfRoom index position of selected room in the RoomList of the HouseGrid
+     * @return true if room is attached to a houseGrid or false otherwise
+     */
     public boolean attachRoomToHouseGrid(int indexOfHouseGrid, int indexOfRoom) {
-        RoomList listOfRoomsWithoutHouseGrid = getListOfRoomsWithoutHouseGrid ();
-        if (listOfRoomsWithoutHouseGrid.getRoomList ().size () != 0) {
-            Room r = listOfRoomsWithoutHouseGrid.get (indexOfRoom - 1);
-            r.setmHouseGrid (mHouse.getHGListInHouse ().get (indexOfHouseGrid - 1));
-            return true;
-        } else return false;
+        HouseGrid selectedHG = mHouseGridList.get(indexOfHouseGrid - 1);
+        RoomList roomListWithoutGrid = getRoomsWithoutGrid(indexOfHouseGrid);
+        Room selectedRoom = roomListWithoutGrid.get(indexOfRoom - 1);
+        return selectedHG.attachRoomToGrid(selectedRoom);
     }
 
-    */
-/**
-     * Method to get a list of rooms with the house grid in the index position of the HouseGridList
-     * and shows the list of rooms with that grid.
+    /**
      *
-     * @param indexOfHouseGrid index position of the house grid in the list of house grids of the house instance
-     * @return the list of rooms with the house grid chosen by the user
-     *//*
-
-
-    public RoomList getListOfRoomsWithHouseGrid(int indexOfHouseGrid) {
-        RoomList listOfRoomsWithHouseGrid = new RoomList ();
-        for (Room r : mHouse.getRoomList ().getRoomList ()) {
-            if (r.getmHouseGrid () != null) {
-                if (r.getmHouseGrid ().equals (mHouse.getHGListInHouse ().get (indexOfHouseGrid - 1))) {
-                    listOfRoomsWithHouseGrid.addRoom (r);
-                }
-            }
-        }
-        return listOfRoomsWithHouseGrid;
+     * @param indexOfHouseGrid index position of selected houseGrid in HouseGridList
+     * @return a string containing all rooms attached to the selected houseGrid
+     */
+    public String showRoomsInHouseGrid(int indexOfHouseGrid) {
+        HouseGrid selectedHG = mHouseGridList.get(indexOfHouseGrid - 1);
+        return selectedHG.showRoomsInHouseGrid();
     }
 
-    */
-/**
-     * Method to show a list of rooms with the house grid in the index position of the HouseGridList
-     * and shows the list of rooms with that grid.
+
+    /**
+     * SubMethod to get the list of rooms attached to a grid which is invoked in the detachRoomFromGrid method
      *
-     * @param indexOfHouseGrid
-     * @return
-     *//*
-
-
-    public String showRoomsWithHouseGridInStr(int indexOfHouseGrid) {
-        RoomList listOfRoomsWithHouseGrid = getListOfRoomsWithHouseGrid (indexOfHouseGrid);
-        StringBuilder result = new StringBuilder ();
-        String element = " - ";
-        int number = 1;
-        for (Room r : listOfRoomsWithHouseGrid.getRoomList ()) {
-            result.append (number++);
-            result.append (element);
-            result.append (r.getName ());
-            result.append ("\n");
-        }
-        return result.toString ();
+     * @param indexOfHouseGrid index position of selected houseGrid in the houseGridList
+     * @return the list of rooms attached to the specified houseGrid.
+     */
+    private RoomList getListOfRoomsInGrid(int indexOfHouseGrid) {
+        HouseGrid houseGrid = mHouseGridList.get(indexOfHouseGrid - 1);
+        return houseGrid.getRoomListInAGrid();
     }
 
-    */
-/**
-     * Method to detach room from HouseGrid
-     *
-     * @param indexOfHouseGrid
-     * @param indexOfRoom      room in the index position selected by the user
-     * @return true if room in index position of RoomList has its HouseGrid set as null, false otherwise.
-     *//*
-
-
-    public boolean detachRoomFromHouseGrid(int indexOfHouseGrid, int indexOfRoom) {
-        RoomList listOfRoomsWithHouseGrid = getListOfRoomsWithHouseGrid (indexOfHouseGrid);
-        if (listOfRoomsWithHouseGrid.getRoomList ().size () != 0) {
-
-            Room r = listOfRoomsWithHouseGrid.get (indexOfRoom - 1);
-            r.setmHouseGrid (null);
-            return true;
-        } else return false;
+    /**
+     * Method to detach a room to from the selected houseGrid, which will remove that room from the RoomList of the chosen HouseGrid.
+     * @param indexOfHouseGrid index position of selected houseGrid in HouseGridList
+     * @param indexOfRoom index position of selected room in the RoomList of the HouseGrid
+     * @return true if room is dettached from a houseGrid or false otherwise
+     */
+    public boolean detachRoomFromGrid(int indexOfHouseGrid, int indexOfRoom) {
+        HouseGrid selectedHG = mHouseGridList.get(indexOfHouseGrid - 1);
+        RoomList roomListWithoutGrid = getListOfRoomsInGrid(indexOfHouseGrid);
+        Room selectedRoom = roomListWithoutGrid.get(indexOfRoom - 1);
+        return selectedHG.detachRoomFromGrid(selectedRoom);
     }
-
 }
-*/

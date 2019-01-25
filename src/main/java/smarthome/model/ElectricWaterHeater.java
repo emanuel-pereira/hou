@@ -5,22 +5,20 @@ import java.util.List;
 
 import static java.lang.Double.parseDouble;
 
-public class ElectricWaterHeater implements DeviceSpecs,Metered {
+public class ElectricWaterHeater implements DeviceSpecs, Metered{
     private DeviceType mDeviceType;
     private double mVolumeOfWater;
     private double mHotWaterTemperature;
     private double mColdWaterTemperature;
     private double mVolumeOfWaterToHeat;
     private double mPerformanceRatio;
-    private double mEnergyConsumption;
 
 
-    public ElectricWaterHeater(DeviceType deviceType,int volumeOfWater, double hotWaterTemperature, double performanceRatio) {
-        this.mDeviceType=deviceType;
+    public ElectricWaterHeater(DeviceType deviceType, int volumeOfWater, double hotWaterTemperature, double performanceRatio) {
+        this.mDeviceType = deviceType;
         this.mHotWaterTemperature = hotWaterTemperature;
         this.mPerformanceRatio = performanceRatio;
-        this.mVolumeOfWater=volumeOfWater;
-        this.mEnergyConsumption=getEnergyConsumption();
+        this.mVolumeOfWater = volumeOfWater;
     }
 
     public void setVolumeOfWater(double newVolumeOfWater) {
@@ -48,8 +46,7 @@ public class ElectricWaterHeater implements DeviceSpecs,Metered {
         return mHotWaterTemperature;
     }
 
-    public void setColdWaterTemperature(double newColdWaterTemp)
-    {
+    public void setColdWaterTemperature(double newColdWaterTemp) {
         mColdWaterTemperature = newColdWaterTemp;
     }
 
@@ -67,6 +64,8 @@ public class ElectricWaterHeater implements DeviceSpecs,Metered {
 
     public String showDeviceSpecsListAttributesInString() {
         StringBuilder result = new StringBuilder();
+        result.append("3 - DeviceType : " + this.mDeviceType.getTypeString());
+        result.append("\n");
         result.append("4 - Volume of water capacity (l) : " + this.mVolumeOfWater);
         result.append("\n");
         result.append("5 - Hot water temperature : " + this.mHotWaterTemperature);
@@ -75,9 +74,9 @@ public class ElectricWaterHeater implements DeviceSpecs,Metered {
         result.append("\n");
         result.append("7 - Performance Ratio : " + this.mPerformanceRatio);
         result.append("\n");
-        result.append("8 - Volume of water to heat: "+this.mVolumeOfWaterToHeat);
+        result.append("8 - Volume of water to heat: " + this.mVolumeOfWaterToHeat);
         result.append("\n");
-        result.append("9 - Daily Energy Consumption: "+this.getEnergyConsumption()+" KWh");
+        result.append("9 - Daily Energy Consumption: " + this.getEnergyConsumption() + " KWh");
         result.append("\n");
         return result.toString();
     }
@@ -89,40 +88,43 @@ public class ElectricWaterHeater implements DeviceSpecs,Metered {
 
     public List<String> getDeviceAttributesInString() {
         List<String> result = new ArrayList<>();
-        String VolumeOfWater = "4 - Volume of water capacity (l): " + this.mVolumeOfWater;
-        String HotWaterTemperature = "5 - Hot water temperature : " + this.mHotWaterTemperature;
-        String ColdWaterTemperature = "6 - Cold Water temperature : " + this.mColdWaterTemperature;
-        String PerformanceRatio = "7 - Performance Ratio : " + this.mPerformanceRatio;
-        String VolumeOfWaterToHeat = "8 - Volume of water to heat : " + this.mVolumeOfWaterToHeat;
-        String DailyEnergyConsumption = "9 - Daily Energy Consumption : "+this.getEnergyConsumption()+" KWh";
-        result.add(VolumeOfWater);
-        result.add(HotWaterTemperature);
-        result.add(ColdWaterTemperature);
-        result.add(PerformanceRatio);
-        result.add(VolumeOfWaterToHeat);
-        result.add(DailyEnergyConsumption);
+        String deviceType = "3 - Device Type : " + this.mDeviceType.getTypeString();
+        String volumeOfWater = "4 - Volume of water capacity (l): " + this.mVolumeOfWater;
+        String hotWaterTemperature = "5 - Hot water temperature : " + this.mHotWaterTemperature;
+        String coldWaterTemperature = "6 - Cold Water temperature : " + this.mColdWaterTemperature;
+        String performanceRatio = "7 - Performance Ratio : " + this.mPerformanceRatio;
+        String volumeOfWaterToHeat = "8 - Volume of water to heat : " + this.mVolumeOfWaterToHeat;
+        String dailyEnergyConsumption = "9 - Daily Energy Consumption : " + this.getEnergyConsumption() + " KWh";
+        result.add(deviceType);
+        result.add(volumeOfWater);
+        result.add(hotWaterTemperature);
+        result.add(coldWaterTemperature);
+        result.add(performanceRatio);
+        result.add(volumeOfWaterToHeat);
+        result.add(dailyEnergyConsumption);
         return result;
     }
 
     public void setAttributeValue(String attribute, String newValue) {
-        String VolumeOfWater = "4 - Volume of water : " + this.mVolumeOfWater;
-        String HotWaterTemperature = "5 - Hot water temperature : " + this.mHotWaterTemperature;
-        String ColdWaterTemperature = "6 - Cold Water temperature : " + this.mColdWaterTemperature;
-        String PerformanceRatio = "7 - Performance Ratio : " + this.mPerformanceRatio;
-        String VolumeOfWaterToHeat = "8 - Volume of water to heat : " + this.mVolumeOfWaterToHeat;
-        if (attribute.equals(VolumeOfWater))
+        String volumeOfWater = "volumeOfWater";
+        String hotWaterTemperature = "hotWaterTemperature";
+        String coldWaterTemperature = "coldWaterTemperature";
+        String performanceRatio = "performanceRatio";
+        String volumeOfWaterToHeat = "volumeOfWaterToHeat";
+        if (attribute.equals(volumeOfWater))
             setVolumeOfWater(parseDouble(newValue));
-        if (attribute.equals(HotWaterTemperature))
+        if (attribute.equals(hotWaterTemperature))
             setHotWaterTemperature(parseDouble(newValue));
-        if (attribute.equals(ColdWaterTemperature))
+        if (attribute.equals(coldWaterTemperature))
             setColdWaterTemperature(parseDouble(newValue));
-        if (attribute.equals(PerformanceRatio))
+        if (attribute.equals(performanceRatio))
             setPerformanceRatio(parseDouble(newValue));
-        if (attribute.equals(VolumeOfWaterToHeat))
+        if (attribute.equals(volumeOfWaterToHeat))
             setVolumeOfWaterToHeat(parseDouble(newValue));
     }
 
     public double getEnergyConsumption() {
-        return mEnergyConsumption=(0.01163 * mVolumeOfWaterToHeat * (mHotWaterTemperature - mColdWaterTemperature) * mPerformanceRatio)*24;
+        double energyConsumption = (0.001163 * mVolumeOfWaterToHeat * (mHotWaterTemperature - mColdWaterTemperature) * mPerformanceRatio);
+        return Utils.round(energyConsumption, 2);
     }
 }

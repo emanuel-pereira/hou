@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OtherDevices implements DeviceSpecs {
@@ -16,11 +17,19 @@ public class OtherDevices implements DeviceSpecs {
 
     @Override
     public List<String> getDeviceAttributesInString() {
-        return null;
+        List<String> result = new ArrayList<>();
+        String deviceType = "Device Type : " + this.mDeviceType.getTypeString();
+        result.add(deviceType);
+        return result;
     }
 
     @Override
     public void setAttributeValue(String attribute, String newValue) {
         return;
+    }
+
+    @Override
+    public double getEnergyConsumption() {
+        return 0;
     }
 }

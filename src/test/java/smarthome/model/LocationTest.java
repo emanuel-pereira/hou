@@ -33,19 +33,6 @@ class LocationTest {
 
 
 
-   /* validate why expected=IllegalArgumentException.class is not accepted
-   @Test(expected=IllegalArgumentException.class)
-    @DisplayName("Check if all GPS coordinates are valid while creating an instance of a location.")
-    public void checkIfGPSCoordinatesAreValid1() {
-        //Arrange
-        Location l = new Location(120, -4, 100);
-
-        //Act
-        double expectedLat = 120;
-        double resultLat = l.getLatitude();
-    }*/
-
-
     @Test
     @DisplayName("Check that all max limit GPS coordinates are valid while creating an instance of a location.")
     public void ensureAllMaxLimitGPSCoordinatesAreValid() {

@@ -26,7 +26,9 @@ public class WashingMachine implements DeviceSpecs {
 
     public List<String> getDeviceAttributesInString() {
         List<String> result = new ArrayList<>();
+        String deviceType = "3 - Device Type : " + this.mDeviceType.getTypeString();
         String Capacity = "4 - Washing Machine Capacity : " + this.mCapacity;
+        result.add(deviceType);
         result.add(Capacity);
         return result;
     }
@@ -37,9 +39,11 @@ public class WashingMachine implements DeviceSpecs {
             setCapacity(parseInt(newValue));
     }
 
-    /*public ProgramList getmProgramListInDW() {
-        return mProgramListInWM;
-    }*/
+    @Override
+    public double getEnergyConsumption() {
+        return 0;
+    }
+
 
     @Override
     public DeviceType getType() {

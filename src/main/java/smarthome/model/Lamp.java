@@ -9,8 +9,8 @@ public class Lamp implements DeviceSpecs {
     private int mLuminousFlux;
     private DeviceType mDeviceType;
 
-    public Lamp(DeviceType deviceType,int luminousFlux) {
-        this.mDeviceType=deviceType;
+    public Lamp(DeviceType deviceType, int luminousFlux) {
+        this.mDeviceType = deviceType;
         this.mLuminousFlux = luminousFlux;
     }
 
@@ -34,6 +34,12 @@ public class Lamp implements DeviceSpecs {
         if (attribute.equals(LuminousFLux))
             setLuminousFlux(parseInt(newValue));
     }
+
+    @Override
+    public double getEnergyConsumption() {
+        return 0;
+    }
+
     @Override
     public DeviceType getType() {
         return mDeviceType;

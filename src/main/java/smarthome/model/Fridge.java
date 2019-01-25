@@ -9,13 +9,14 @@ public class Fridge implements DeviceSpecs {
     private DeviceType mDeviceType;
     private int mFreezerCapacity;
     private int mRefrigeratorCapacity;
-    private int mEnergyConsumption;
+    private int mAnnualEnergyConsumption;
+
 
     public Fridge(DeviceType deviceType, int freezerCapacity, int refrigeratorCapacity, int annualEnergyConsumption) {
-        this.mDeviceType=deviceType;
+        this.mDeviceType = deviceType;
         this.mFreezerCapacity = freezerCapacity;
         this.mRefrigeratorCapacity = refrigeratorCapacity;
-        this.mEnergyConsumption = annualEnergyConsumption / 365;
+        this.mAnnualEnergyConsumption = annualEnergyConsumption;
     }
 
     @Override
@@ -25,10 +26,12 @@ public class Fridge implements DeviceSpecs {
 
     public List<String> getDeviceAttributesInString() {
         List<String> result = new ArrayList<>();
-        String FreezerCapacity = "4 - Freezer Capacity : " + this.mFreezerCapacity;
-        String RefrigeratorCapacity = "5 - Refrigerator Capacity : " + this.mRefrigeratorCapacity;
-        result.add(FreezerCapacity);
-        result.add(RefrigeratorCapacity);
+        String deviceType = "3 - Device Type : " + this.mDeviceType.getTypeString();
+        String freezerCapacity = "4 - Freezer Capacity : " + this.mFreezerCapacity;
+        String refrigeratorCapacity = "5 - Refrigerator Capacity : " + this.mRefrigeratorCapacity;
+        result.add(deviceType);
+        result.add(freezerCapacity);
+        result.add(refrigeratorCapacity);
         return result;
     }
 
@@ -40,6 +43,11 @@ public class Fridge implements DeviceSpecs {
             setFreezerCapacity(parseInt(newValue));
         if (attribute.equals(refrigeratorCapacity))
             setRefrigeratorCapacity(parseInt(newValue));
+    }
+
+    @Override
+    public double getEnergyConsumption() {
+        return mAnnualEnergyConsumption / 365;
     }
 
     public void setFreezerCapacity(int freezerCapacity) {

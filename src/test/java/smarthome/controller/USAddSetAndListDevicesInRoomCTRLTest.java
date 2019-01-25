@@ -122,8 +122,9 @@ class USAddSetAndListDevicesInRoomCTRLTest {
         WashingMachine wm = new WashingMachine(DeviceType.WASHING_MACHINE, 20);
         Device d1 = new Device("A", wm, 150.1);
         String result = ctr.showDeviceAttributesInString(d1);
-        String expected = "2 - Device Name : A\n" +
-                "3 - Device Nominal Power : 150.1\n" +
+        String expected = "1 - Device Name : A\n" +
+                "2 - Device Nominal Power : 150.1\n" +
+                "3 - Device Type : Washing Machine\n" +
                 "4 - Washing Machine Capacity : 20\n";
         assertEquals(expected, result);
     }
@@ -135,7 +136,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
         WashingMachine wm = new WashingMachine(DeviceType.WASHING_MACHINE, 20);
         Device d1 = new Device("A", wm, 150.1);
         String result = ctr.getDeviceAttribute(d1, 0);
-        String expected = "2 - Device Name : A";
+        String expected = "1 - Device Name : A";
         assertEquals(expected, result);
     }
 
@@ -156,12 +157,13 @@ class USAddSetAndListDevicesInRoomCTRLTest {
         USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(h);
         WashingMachine wm = new WashingMachine(DeviceType.WASHING_MACHINE, 20);
         Device d1 = new Device("A", wm, 150.1);
-        String deviceName = "2 - Device Name : " + d1.getName();
-        String deviceNominalPower = "3 - Device Nominal Power : " + d1.getNominalPower();
+        String deviceName = "1 - Device Name : " + d1.getName();
+        String deviceNominalPower = "2 - Device Nominal Power : " + d1.getNominalPower();
+        String deviceType = "3 - Device Type : " + d1.getDeviceSpecs().getType().getTypeString();
         String capacity = "4 - Washing Machine Capacity : " + wm.getCapacity();
         ctr.getDeviceAttributesListInString(d1);
         List<String> result = d1.getDeviceAttributesInString();
-        List<String> expected = Arrays.asList(deviceName, deviceNominalPower, capacity);
+        List<String> expected = Arrays.asList(deviceName, deviceNominalPower,deviceType, capacity);
         assertEquals(expected, result);
 
 

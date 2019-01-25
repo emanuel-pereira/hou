@@ -59,16 +59,11 @@ public class HouseGrid {
 
 
     /**
-     * Get a copy of the list of rooms in a grid
      *
      * @return list of rooms in a grid
      */
     public RoomList getRoomListInAGrid() {
-        RoomList roomList = new RoomList ();
-        for (Room room : mRoomList.getRoomList ()) {
-            roomList.addRoom (room);
-        }
-        return roomList;
+       return mRoomList;
     }
 
     public int getRoomListInAGridSize() {
@@ -88,6 +83,21 @@ public class HouseGrid {
         }
         return sum;
     }
+
+    public String showRoomsInHouseGrid() {
+        RoomList listOfRoomsInHG = getRoomListInAGrid();
+        StringBuilder result = new StringBuilder ();
+        String element = " - ";
+        int number = 1;
+        for (Room r : listOfRoomsInHG.getRoomList ()) {
+            result.append (number++);
+            result.append (element);
+            result.append (r.getName ());
+            result.append ("\n");
+        }
+        return result.toString ();
+    }
+
 
     @Override
     public boolean equals(Object o) {

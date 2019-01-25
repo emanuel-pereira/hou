@@ -1,8 +1,9 @@
-/*
 package smarthome.controller;
 
 import smarthome.model.*;
 import smarthome.model.Validations.NumberValidations;
+
+import java.util.List;
 
 public class USEnergyConsumptionOfWaterHeatingCTRL {
 
@@ -14,36 +15,22 @@ public class USEnergyConsumptionOfWaterHeatingCTRL {
     public USEnergyConsumptionOfWaterHeatingCTRL(House house) {
         mHouse = house;
         mRoomList = house.getRoomList();
-        mNumberValidations= new NumberValidations();
+        mNumberValidations = new NumberValidations();
     }
 
-    public void setVolumeOfWaterToHeatInAllEWH(double volumeOfWater) {
-        mHouse.setVolumeOfWaterInEWHList(volumeOfWater);
+    public List<Device> getDevicesInAllRoomsByType() {
+        return mRoomList.getDevicesInAllRoomsByType(DeviceType.ELECTRIC_WATER_HEATER);
     }
 
-    public void setColdWaterTemperatureInAllEWH(double coldWaterTemperature) {
-        mHouse.setColdWaterTemperatureInEWHList(coldWaterTemperature);
+    public String showDeviceAttributesInString(Device device) {
+        return device.showDeviceAttributesInString();
     }
 
-    public double getEnergyConsumptionOfEWHGlobalList() {
-        return mHouse.getEnergyConsumptionOfEWHGlobalList();
+    public double getEnergyConsumptionByDeviceType(DeviceType deviceType) {
+        return mRoomList.getEnergyConsumptionByDeviceType(deviceType);
     }
 
-    public String showElectricWaterHeaterList() {
-        return mHouse.showElectricWaterHeaterList();
+    public void setAttribute(Device device, String attribute, String newValue) {
+        device.setAttributeValue(attribute, newValue);
     }
-
-    public boolean valueIsPositive(double value){
-        return mNumberValidations.valueIsPositive(value);
-    }
-   */
-/* public boolean isValidColdWaterTemperature(double coldWaterTemperature){
-        return mHouse.isValidColdWaterTemperature(coldWaterTemperature);
-    }
-    public boolean isValidVolumeOfWater(double volumeOfWaterToHeat) {
-        return mHouse.isValidVolumeOfWater(volumeOfWaterToHeat);
-    }*//*
-
-
 }
-*/

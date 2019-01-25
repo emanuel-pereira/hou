@@ -12,4 +12,5 @@ public interface DeviceSpecs {
     List<String> getDeviceAttributesInString();
 
     void setAttributeValue(String attribute, String newValue);
+    double getEnergyConsumption();
 }

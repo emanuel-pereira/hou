@@ -90,8 +90,6 @@ public class House {
         return Objects.hash(mAddress, mID, mGA);
     }
 
-//RoomList
-
     public RoomList getRoomList() {
         return mRoomList;
     }
@@ -101,83 +99,41 @@ public class House {
     }
 
     /**
-     * Sets volume of water for all devices of type Electric Water Heater that may be installed in any room of the house.
      *
-     * @param volumeOfWater double value parameter to set the volume of water of every Electric Water Heater installed in all rooms of the house.
-     *//*
-    public void setVolumeOfWaterInEWHList(double volumeOfWater) {
-        for (Room room : mRoomList.getRoomList())
-            room.getDeviceList().setVolumeOfWaterToHeat(volumeOfWater);
-    }
-
-    *//**
-     * Sets cold water temperature for all devices of type Electric Water Heater that may be installed in any room of the house.
-     *
-     * @param coldWaterTemperature double value parameter to set the cold water temperature of every Electric Water Heater installed in all rooms of the house.
-     *//*
-    public void setColdWaterTemperatureInEWHList(double coldWaterTemperature) {
-        for (Room room : mRoomList.getRoomList())
-            room.getDeviceList().setColdWaterTemperatureEWHList(coldWaterTemperature);
-    }
-
-    *//**
-     * @return the total energy consumed by all electric water heaters installed in the house.
-     *//*
-    public double getEnergyConsumptionOfEWHGlobalList() {
-        double totalEnergyConsumption = 0;
-        for (Room room : mRoomList.getRoomList())
-            totalEnergyConsumption += room.getDeviceList().getEnergyConsumptionOfEWHList();
-        return totalEnergyConsumption;
-    }
-
-    *//**
-     * Method to validate if cold water value inputted by the user is lower than the lowest hot water
-     * temperature in all Electric Water Heaters installed in the house.
-     *
-     * @param coldWaterTemperature double inputted as cold water temperature
-     * @return true if cold water temperature inputted by the user is lower than any hot temperature value
-     * of all devices of type Electric Water Heater, otherwise returns false
-     *//*
-   *//* public boolean isValidColdWaterTemperature(double coldWaterTemperature) {
-        for (Room room : mRoomList.getRoomList()) {
-            if (room.getDeviceList().isValidColdWaterTemperature(coldWaterTemperature) == false)
-                return false;
-        }
-        return true;
-    }*//*
-
-    *//**
-     * @return Displays all devices of type Electric Water Heater in string and respective attributes
-     *//*
-    public String showElectricWaterHeaterList() {
-        StringBuilder result = new StringBuilder();
-        String element = "ELECTRIC WATER HEATER \n";
-        for (Room room : mRoomList.getRoomList()) {
-            if (room.getDeviceList().getElectricWaterHeaterList().size() != 0) {
-                result.append(element);
-                result.append("Room: ");
-                result.append(room.getName());
-                result.append("\n");
-                result.append(room.getDeviceList().showElectricWaterHeaterList());
-            }
-        }
-        return result.toString();
-    }*/
-
-
-    /**
-     *
-     * @param volumeOfWaterToHeat
+     * @param houseGrid
      * @return
      */
-   /* public boolean isValidVolumeOfWater(double volumeOfWaterToHeat) {
-        for (Room room : mRoomList.getRoomList()) {
-            if (room.getDeviceList().isValidVolumeOfWater(volumeOfWaterToHeat) == false)
-                return false;
+    public RoomList getRoomsWithoutGrid(HouseGrid houseGrid){
+        RoomList roomListWithoutHouseGrid= new RoomList();
+        RoomList roomListInHouseGrid=houseGrid.getRoomListInAGrid();
+        for(Room room:mRoomList.getRoomList()){
+            if(!(roomListInHouseGrid.getRoomList().contains(room)))
+                roomListWithoutHouseGrid.addRoom(room);
         }
-        return true;
+        return roomListWithoutHouseGrid;
     }
-*/
+
+
+    public String showRoomsWithoutHouseGrid(HouseGrid houseGrid) {
+        RoomList listOfRoomsWithHouseGrid = getRoomsWithoutGrid (houseGrid);
+        StringBuilder result = new StringBuilder ();
+        String element = " - ";
+        int number = 1;
+        for (Room r : listOfRoomsWithHouseGrid.getRoomList ()) {
+            result.append (number++);
+            result.append (element);
+            result.append (r.getName ());
+            result.append ("\n");
+        }
+        return result.toString ();
+    }
+
+
+
+
+
+
+
 }
 
 

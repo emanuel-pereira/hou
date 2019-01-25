@@ -24,7 +24,7 @@ public class FridgeTest {
     public void showDeviceSpecsListAttributesInString() {
         Fridge f = new Fridge(DeviceType.FRIDGE,2, 3, 6);
         List<String> result = f.getDeviceAttributesInString();
-        List<String> expected = Arrays.asList("4 - Freezer Capacity : "+f.getFreezerCapacity(),"5 - Refrigerator Capacity : " +f.getRefrigeratorCapacity());
+        List<String> expected = Arrays.asList("3 - Device Type : " + f.getType().getTypeString(),"4 - Freezer Capacity : "+f.getFreezerCapacity(),"5 - Refrigerator Capacity : " +f.getRefrigeratorCapacity());
         assertEquals(expected,result);
     }
     @Test
@@ -37,6 +37,15 @@ public class FridgeTest {
         f.setAttributeValue(refrigeratorCapacity,"5");
         assertEquals(5,f.getRefrigeratorCapacity());
 
+
+    }
+
+    @Test
+    void getEnergyConsumption() {
+        DeviceSpecs fridgeSpecs= new Fridge(DeviceType.FRIDGE,25,50,1500);
+        double expected=4.1;
+        double result=fridgeSpecs.getEnergyConsumption();
+        assertEquals(expected,result,0.1);
 
     }
 }

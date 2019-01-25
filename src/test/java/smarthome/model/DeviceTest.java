@@ -64,26 +64,25 @@ class DeviceTest {
         Lamp lamp = new Lamp(DeviceType.LAMP, 6);
         Device d1 = new Device("Lamp1", lamp, 40);
         String name = "2 - Device Name : " + d1.getName();
-        d1.setAttributeValue(name,"Lamp 55");
+        d1.setAttributeValue(name, "Lamp 55");
         assertEquals("Lamp 55", d1.getName());
         String nominalPower = "3 - Device Nominal Power : " + d1.getNominalPower();
         d1.setAttributeValue(nominalPower, "50");
         assertEquals(50, d1.getNominalPower());
     }
 
-
-
-    /*@Test
-    void getEnergyConsumption() {
-        Room kitchen= new Room("Kitchen",0,5,2,3);
-        ElectricWaterHeater ewh= new ElectricWaterHeater(65,1);
-        ewh.setColdWaterTemperature(20);
-        ewh.setVolumeOfWater(65);
-        Device device = new Device("Daikin EWH",ewh,kitchen,7,DeviceType.ELECTRIC_WATER_HEATER);
-        double expected=0;
-        double result=device.getEnergyConsumption();
-        assertEquals(expected,result);
-
-
-    }*/
+    @Test
+    @DisplayName("Ensure that getEnergyConsumption returns energy consumed by a Electric Water Heater in a given day.")
+    void getConsumption() {
+        ElectricWaterHeater ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 75, 65, 1);
+        Device dEWH = new Device("EWH", ewh, 150);
+        String volumeOfWaterToHeat = "volumeOfWaterToHeat";
+        String coldWater = "coldWaterTemperature";
+        dEWH.setAttributeValue(volumeOfWaterToHeat, "55");
+        dEWH.setAttributeValue(coldWater, "15");
+        double expected = 3.2;
+        double result = dEWH.getEnergyConsumption();
+        assertEquals(expected, result);
     }
+
+}
