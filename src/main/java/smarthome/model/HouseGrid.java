@@ -3,10 +3,8 @@ package smarthome.model;
 import java.util.Objects;
 
 public class HouseGrid {
-    //The electrical network of the house
     private double mContractedMaximumPower = Double.NaN;
     private String mDesignation;
-    private PowerSource mPowerSource;
     private PowerSourceList mPSListInHG;
     private RoomList mRoomList;
 
@@ -93,8 +91,12 @@ public class HouseGrid {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof HouseGrid)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof HouseGrid)){
+            return false;
+        }
         HouseGrid houseGrid = (HouseGrid) o;
         return Objects.equals (mDesignation, houseGrid.mDesignation);
     }
