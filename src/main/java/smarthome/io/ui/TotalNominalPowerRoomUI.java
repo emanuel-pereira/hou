@@ -6,7 +6,7 @@ import smarthome.model.House;
 import java.util.Scanner;
 
 public class TotalNominalPowerRoomUI {
-    public TotalNominalPowerRoomCTRL mCtrlUS230;
+    private TotalNominalPowerRoomCTRL mCtrlUS230;
     Scanner read = new Scanner(System.in);
 
 
