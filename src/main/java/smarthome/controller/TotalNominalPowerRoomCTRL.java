@@ -1,11 +1,9 @@
 package smarthome.controller;
 
-import smarthome.model.Device;
+
 import smarthome.model.House;
-import smarthome.model.Room;
 import smarthome.model.RoomList;
 
-import java.util.List;
 
 public class TotalNominalPowerRoomCTRL {
 
@@ -30,7 +28,7 @@ public class TotalNominalPowerRoomCTRL {
     }
 
     public int getDeviceListSizeInRoom (int indexRoom) {
-        return mHouse.getRoomList ().get(indexRoom-1).getDeviceList ().size ();
+        return mHouse.getRoomList ().get(indexRoom-1).getDeviceList ().size (); //
     }
 
     public double getNominalPowerRoomCtrl(int indexRoom){
