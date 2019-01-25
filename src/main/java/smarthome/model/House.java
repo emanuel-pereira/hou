@@ -77,8 +77,12 @@ public class House {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof House)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof House)) {
+            return false;
+        }
         House house = (House) o;
         return Objects.equals(mAddress, house.mAddress) &&
                 Objects.equals(mID, house.mID) &&
