@@ -121,10 +121,14 @@ public class GeographicalArea {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof GeographicalArea)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof GeographicalArea)){
+            return false;
+        }
         GeographicalArea that = (GeographicalArea) o;
-        return Objects.equals(mID, that.mID) &&
+        return  Objects.equals(mID, that.mID) &&
                 Objects.equals(mDesignation, that.mDesignation) &&
                 Objects.equals(mTypeOfGA, that.mTypeOfGA);
     }
@@ -149,7 +153,9 @@ public class GeographicalArea {
     }
 
     public SensorList getGASensorsByType(String type){
-        return getSensorListInGA().getSensorListOfRequiredSensorPerType(type);
+        SensorList currentGASensors = this.mSensorListInGA;
+
+        return currentGASensors.getSensorListOfRequiredSensorPerType(type);
     }
 
 
