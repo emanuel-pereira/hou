@@ -11,21 +11,21 @@ public class US3CreateGACTRL {
 
     /**
      * US3 controller constructor
-     * @param GAInputList GA's List where the list methods will be invoked from, the List allows to create GA's and addi to a list of GA's
+     * @param gaInputList GA's List where the list methods will be invoked from, the List allows to create GA's and addi to a list of GA's
      * #deprecated a second solution using a GA type from a previously created list was created
      */
-    public US3CreateGACTRL(GAList GAInputList) {
-        mGAList = GAInputList;
+    public US3CreateGACTRL(GAList gaInputList) {
+        mGAList = gaInputList;
     }
 
     /**
      * US3 controller constructor which is invoked when by US3UI on start to this is controller two parameters need to be passed:
-     * @param GAInputList GA's List where the list methods will be invoked from, the List allows to create GA's and addi to a list of GA's
-     * @param GATypeInputList GA Types List is a List of types (eg. city, country, stree) previously created by the user in US1
+     * @param gaInputList GA's List where the list methods will be invoked from, the List allows to create GA's and addi to a list of GA's
+     * @param gaTypeInputList GA Types List is a List of types (eg. city, country, stree) previously created by the user in US1
      */
-    public US3CreateGACTRL(GAList GAInputList, TypeGAList GATypeInputList) {
-        mGAList = GAInputList;
-        mTypeGAList = GATypeInputList;
+    public US3CreateGACTRL(GAList gaInputList, TypeGAList gaTypeInputList) {
+        mGAList = gaInputList;
+        mTypeGAList = gaTypeInputList;
     }
 
     /**
@@ -41,8 +41,8 @@ public class US3CreateGACTRL {
      * #deprecated a second solution using a GA type from a previously created list was created, where instead of receiving the GAType input from a String it is received as an index from the US2 List
      */
     public boolean newGA(String id, String inputDesignation, String typeArea, double width, double length, double latitude, double longitude, double altitude) {
-        GeographicalArea GA = mGAList.newGA(id, inputDesignation, typeArea, width, length, latitude, longitude, altitude);
-        return mGAList.addGA(GA);
+        GeographicalArea ga = mGAList.newGA(id, inputDesignation, typeArea, width, length, latitude, longitude, altitude);
+        return mGAList.addGA(ga);
     }
 
     /**
@@ -59,9 +59,9 @@ public class US3CreateGACTRL {
      */
     public boolean newGA2(String id, String inputDesignation, int typeAreaIndex, double width, double length,
                           double latitude, double longitude, double altitude) {
-        String AreaType = mTypeGAList.getTypeGAList().get(typeAreaIndex-1).toString();
-        GeographicalArea GA = mGAList.newGA(id, inputDesignation, AreaType, width, length, latitude, longitude, altitude);
-        return mGAList.addGA(GA);
+        String areaType = mTypeGAList.getTypeGAList().get(typeAreaIndex-1).toString();
+        GeographicalArea ga = mGAList.newGA(id, inputDesignation, areaType, width, length, latitude, longitude, altitude);
+        return mGAList.addGA(ga);
     }
 
 }

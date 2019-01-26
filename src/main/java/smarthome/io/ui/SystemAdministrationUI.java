@@ -6,7 +6,7 @@ import smarthome.model.TypeGAList;
 
 import java.util.Scanner;
 
-public class SystemAdministrationUI {
+public final class SystemAdministrationUI {
 
     private SystemAdministrationUI() {
     }

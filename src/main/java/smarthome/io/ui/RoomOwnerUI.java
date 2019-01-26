@@ -1,11 +1,10 @@
 package smarthome.io.ui;
 
 import smarthome.model.House;
-import smarthome.model.Room;
 
 import java.util.Scanner;
 
-public class RoomOwnerUI {
+public final class RoomOwnerUI {
 
     private RoomOwnerUI() {
     }

@@ -6,7 +6,7 @@ import smarthome.model.SensorTypeList;
 
 import java.util.Scanner;
 
-public class RegularUsageUI {
+public final class RegularUsageUI {
 
     private RegularUsageUI() {
     }

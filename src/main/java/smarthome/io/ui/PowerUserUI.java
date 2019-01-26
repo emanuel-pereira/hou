@@ -4,7 +4,7 @@ import smarthome.model.*;
 
 import java.util.Scanner;
 
-public class PowerUserUI {
+public final class PowerUserUI {
 
     private PowerUserUI() {
     }

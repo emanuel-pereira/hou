@@ -15,6 +15,7 @@ public class US3CreateGAUI {
     private US3CreateGACTRL mCtrlUS3;
     private US2GetTypeGAListUI ui2; //in order to invoke methods form ui2 to print out the list of GA types for the user to select
     GPSValidations validations = new GPSValidations();
+    private String mSuccessMsg="Success";
 
     /**
      * Class method constructor where GAList inputList and
@@ -49,13 +50,13 @@ public class US3CreateGAUI {
             Scanner read = new Scanner(System.in);
             System.out.println("Insert the ID of the new geographical area:");
             String id = read.nextLine();
-            System.out.println("Success");
+            System.out.println(mSuccessMsg);
 
 
 
             System.out.println("Insert the description of the new geographical area:");
             String name = read.nextLine();
-            System.out.println("Success");
+            System.out.println(mSuccessMsg);
 
 
             System.out.println("Choose a type of geographical area from the list below:");
@@ -72,11 +73,11 @@ public class US3CreateGAUI {
             Double width = read.nextDouble(
 
             );
-            System.out.println("Success");
+            System.out.println(mSuccessMsg);
 
             System.out.println("Insert the length of the new geographical area:");
             Double height = read.nextDouble();
-            System.out.println("Success");
+            System.out.println(mSuccessMsg);
 
             double latitude;
             double longitude;

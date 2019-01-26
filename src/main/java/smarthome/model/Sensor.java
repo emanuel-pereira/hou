@@ -1,6 +1,5 @@
 package smarthome.model;
 
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -37,7 +36,7 @@ public class Sensor {
      * @param latitude    refers to the sensor's latitude
      * @param longitude   refers to the sensor's longitude
      * @param altitude    refers to the sensor's altitude
-     * @param dataType    refers to the sensor's chosen data type, humidity, precipitation
+     * @param sensorType    refers to the sensor's chosen data type, humidity, precipitation
      */
     public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, String sensorType) {
         if (nameIsValid(designation)) {
@@ -63,7 +62,7 @@ public class Sensor {
      *
      * @param designation
      * @param startDate
-     * @param dataType
+     * @param sensorType
      * @param unit
      * @param readings
      */
@@ -85,7 +84,7 @@ public class Sensor {
      * @param latitude
      * @param longitude
      * @param altitude
-     * @param dataType
+     * @param sensorType
      * @param unit
      * @param readings
      */
@@ -159,7 +158,7 @@ public class Sensor {
     /**
      * Changes the dataType of the sensor to the dataType inputted.
      *
-     * @param dataType new object from the dataType class.
+     * @param sensorType new object from the dataType class.
      */
     public void setSensorType(SensorType sensorType) {
         this.mSensorType = sensorType;
