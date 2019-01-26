@@ -2,7 +2,6 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class UtilsTest {
@@ -35,4 +34,29 @@ class UtilsTest {
         }
         assertTrue(thrown);
     }
+
+    @Test
+    @DisplayName("Ensure that negative value returns false")
+    void negativeValueReturnsFalse() {
+        double value= -0.5;
+        boolean result= Utils.valueIsPositive(value);
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Ensure that 0 returns false")
+    void zeroReturnsFalse() {
+        double value= 0;
+        boolean result= Utils.valueIsPositive(value);
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Ensure that positive value returns true")
+    void zeroReturnsTrue() {
+        double value= 15;
+        boolean result= Utils.valueIsPositive(value);
+        assertTrue(result);
+    }
+
 }

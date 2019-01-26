@@ -13,7 +13,6 @@ public class RoomList {
         mRoomList = new ArrayList<>();
     }
 
-
     public Room createNewRoom(String name, int floor, double length, double width, double height) {
         if (this.roomNameValid(name)) {
             return new Room(name, floor, length, width, height);

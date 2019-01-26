@@ -21,12 +21,8 @@ public class HouseGrid {
     }
 
     public void setContractedMaximumPower(double contractedMaximumPower) {
-        if (valueIsPositive (contractedMaximumPower))
+        if (Utils.valueIsPositive (contractedMaximumPower))
             this.mContractedMaximumPower = contractedMaximumPower;
-    }
-
-    private boolean valueIsPositive(double contractedMaximumPower) {
-        return (contractedMaximumPower > 0);
     }
 
     public String getGridID() {

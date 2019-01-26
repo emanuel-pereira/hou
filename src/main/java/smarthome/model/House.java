@@ -16,17 +16,17 @@ public class House {
         mHGListInHouse = new HouseGridList();
     }
 
-    public House(Address houseAddress, GeographicalArea GA) {
+    public House(Address houseAddress, GeographicalArea ga) {
         mAddress = houseAddress;
-        mGA = GA;
+        mGA = ga;
         mRoomList = new RoomList();
         mHGListInHouse = new HouseGridList();
     }
 
-    public House(String id, Address houseAddress, GeographicalArea GA) {
+    public House(String id, Address houseAddress, GeographicalArea ga) {
         mID = id;
         mAddress = houseAddress;
-        mGA = GA;
+        mGA = ga;
         mRoomList = new RoomList();
         mHGListInHouse = new HouseGridList();
     }
@@ -103,9 +103,9 @@ public class House {
     }
 
     /**
-     *
-     * @param houseGrid
-     * @return
+     * Method to get a list of rooms not included in the roomList of the houseGrid defined as parameter.
+     * @param houseGrid houseGrid instance chosen as parameter
+     * @return a list of all rooms that are not included in the houseGrid specified as parameter
      */
     public RoomList getRoomsWithoutGrid(HouseGrid houseGrid){
         RoomList roomListWithoutHouseGrid= new RoomList();
@@ -117,7 +117,11 @@ public class House {
         return roomListWithoutHouseGrid;
     }
 
-
+    /**
+     * Method to show in a String format a list of rooms not included in the roomList of the houseGrid defined as parameter.
+     * @param houseGrid houseGrid instance chosen as parameter
+     * @return a list of all rooms in String that are not included in the houseGrid specified as parameter
+     */
     public String showRoomsWithoutHouseGrid(HouseGrid houseGrid) {
         RoomList listOfRoomsWithHouseGrid = getRoomsWithoutGrid (houseGrid);
         StringBuilder result = new StringBuilder ();

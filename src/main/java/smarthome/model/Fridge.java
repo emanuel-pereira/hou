@@ -39,10 +39,12 @@ public class Fridge implements DeviceSpecs {
     public void setAttributeValue(String attribute, String newValue) {
         String freezerCapacity = "4 - Freezer Capacity : " + this.mFreezerCapacity;
         String refrigeratorCapacity = "5 - Refrigerator Capacity : " + this.mRefrigeratorCapacity;
-        if (attribute.equals(freezerCapacity))
+        if (attribute.equals(freezerCapacity)) {
             setFreezerCapacity(parseInt(newValue));
-        if (attribute.equals(refrigeratorCapacity))
+        }
+        if (attribute.equals(refrigeratorCapacity)) {
             setRefrigeratorCapacity(parseInt(newValue));
+        }
     }
 
     @Override

@@ -10,20 +10,29 @@ class DateValidationsTest {
 
     @Test
     @DisplayName("Ensure that yearIsValid returns false to empty string")
-    void ensureYearIsValidReturnsfalseWithEmptyInput() {
+    void ensureYearIsValidReturnsFalseWithEmptyInput() {
         DateValidations d = new DateValidations();
-        String year="";
+        String year=" ";
         boolean result=d.yearIsValid(year);
         assertFalse(result);
     }
 
     @Test
     @DisplayName("Ensure that yearIsValid returns false to invalid year 1999")
-    void ensureYearIsValidReturnsfalseForInvalidYear() {
+    void ensureYearIsValidReturnsFalseForInvalidYear() {
         DateValidations d = new DateValidations();
         String year="1999";
         boolean result=d.yearIsValid(year);
         assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Ensure that yearIsValid returns true to year within defined range [2018-2099]")
+    void ensureYearIsValidReturnsTrueToValidYear() {
+        DateValidations d = new DateValidations();
+        String year="2018";
+        boolean result=d.yearIsValid(year);
+        assertTrue(result);
     }
 
     @Test
@@ -45,6 +54,15 @@ class DateValidationsTest {
     }
 
     @Test
+    @DisplayName("Ensure that monthIsValid returns true to valid month")
+    void ensureMonthIsValidReturnsTrueToValidMoth() {
+        DateValidations d = new DateValidations();
+        String month="9";
+        boolean result=d.monthIsValid(month);
+        assertTrue(result);
+    }
+
+    @Test
     @DisplayName("Ensure that dayIsValid returns false to empty input")
     void dayIsValid() {
         DateValidations d = new DateValidations();
@@ -53,6 +71,15 @@ class DateValidationsTest {
         assertFalse(result);
     }
 
+
+    @Test
+    @DisplayName("Ensure that dayIsValid returns true to valid year")
+    void dayIsValidReturnsTrue() {
+        DateValidations d = new DateValidations();
+        String day="5";
+        boolean result=d.dayIsValid(day,1,2019);
+        assertTrue(result);
+    }
     @Test
     @DisplayName("Ensure that dayIsValid returns false to invalid input")
     void dayIsValidReturnsFalseToInvalidDay() {
@@ -80,7 +107,7 @@ class DateValidationsTest {
         assertFalse(result2);
 
         String dayNovember="31";
-        boolean result3=d.dayIsValid(dayNovember,9,2018);
+        boolean result3=d.dayIsValid(dayNovember,11,2018);
         assertFalse(result3);
     }
 
@@ -114,6 +141,15 @@ class DateValidationsTest {
         String hour="29";
         boolean result=d.hourIsValid(hour);
         assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Ensure hour is valid returns true to valid hour")
+    void hourIsValidReturnsTrue() {
+        DateValidations d = new DateValidations();
+        String hour="17";
+        boolean result=d.hourIsValid(hour);
+        assertTrue(result);
     }
 
     @Test

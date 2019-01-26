@@ -1,7 +1,6 @@
 package smarthome.model;
 
 import smarthome.model.Validations.NameValidations;
-import smarthome.model.Validations.NumberValidations;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +9,6 @@ import static java.lang.Double.parseDouble;
 
 public class Device {
 
-    NumberValidations nrValidation = new NumberValidations();
     NameValidations nameValidation = new NameValidations();
 
     private String mName;
@@ -48,7 +46,7 @@ public class Device {
      * @param nominalPower double inputted as nominal power
      */
     public void setNominalPower(double nominalPower) {
-        if (nrValidation.valueIsPositive(nominalPower))
+        if (Utils.valueIsPositive(nominalPower))
             this.mNominalPower = nominalPower;
     }
 

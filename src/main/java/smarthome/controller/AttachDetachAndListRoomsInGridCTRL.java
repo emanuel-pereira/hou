@@ -3,11 +3,11 @@ package smarthome.controller;
 
 import smarthome.model.*;
 
-public class AttachRoomToGridAndListCTRL {
+public class AttachDetachAndListRoomsInGridCTRL {
     private House mHouse;
     private HouseGridList mHouseGridList;
 
-    public AttachRoomToGridAndListCTRL(House house) {
+    public AttachDetachAndListRoomsInGridCTRL(House house) {
         mHouse = house;
         mHouseGridList = house.getHGListInHouse();
     }
@@ -34,8 +34,7 @@ public class AttachRoomToGridAndListCTRL {
      */
     public String getHGName(int indexOfHG) {
         HouseGrid houseGrid = mHouseGridList.get(indexOfHG - 1);
-        String houseGridName = houseGrid.getGridID();
-        return houseGridName;
+        return houseGrid.getGridID();
     }
 
     /**

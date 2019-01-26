@@ -53,8 +53,8 @@ public class HouseAdministrationUI {
                     ui135.addPowerSourceToHouseGrid ();
                     break;*/
                 case 6:
-                    AttachRoomToGridAndListUI ui145 = new AttachRoomToGridAndListUI (house);
-                    ui145.checkIfHGListIsEmtpy ();
+                    AttachDetachAndListRoomsInGridUI ui145 = new AttachDetachAndListRoomsInGridUI(house);
+                    ui145.checkIfHGListIsEmpty();
                     break;
 
                 case 7:
