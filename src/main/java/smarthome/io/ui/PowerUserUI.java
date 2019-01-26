@@ -39,6 +39,7 @@ public class PowerUserUI {
                 case 4:
                     EnergyConsumptionOfWaterHeatingUI ui752 = new EnergyConsumptionOfWaterHeatingUI(house);
                     ui752.run();
+                    break;
                 default:
                     System.out.println("Please choose a valid option.");
             }
