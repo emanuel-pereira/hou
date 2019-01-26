@@ -11,6 +11,8 @@ import java.util.Scanner;
 public class ConfigureHouseLocationUI {
 
     private ConfigureHouseLocationCTRL mCtrlUS101;
+    Scanner read = new Scanner(System.in);
+    GPSValidations validations = new GPSValidations();
 
     /*
         US101: As Administrator, I want to configure the location of the house
@@ -27,8 +29,7 @@ public class ConfigureHouseLocationUI {
     }
 
 
-    Scanner read = new Scanner(System.in);
-    GPSValidations validations = new GPSValidations();
+
 
 
     public void configureHouseLocationUS101() {

@@ -8,6 +8,9 @@ import java.util.Scanner;
 
 public class RegularUsageUI {
 
+    private RegularUsageUI() {
+    }
+
     public static void regularUsage(House house, SensorTypeList sensorTypeList, GAList gaList) {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
@@ -24,13 +27,13 @@ public class RegularUsageUI {
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
                 case 1:
-                    US600GetCurrentMeteoValueHouseAreaUI us600 = new US600GetCurrentMeteoValueHouseAreaUI(house,sensorTypeList,gaList);
+                    US600GetCurrentMeteoValueHouseAreaUI us600 = new US600GetCurrentMeteoValueHouseAreaUI(house, sensorTypeList, gaList);
                     us600.run();
                     break;
                 case 2:
-                    US605CurrentTempRoomUI uS605CurrentTempRoomUI = new US605CurrentTempRoomUI (house, sensorTypeList);
-                    uS605CurrentTempRoomUI.run ();
-                break;
+                    US605CurrentTempRoomUI uS605CurrentTempRoomUI = new US605CurrentTempRoomUI(house, sensorTypeList);
+                    uS605CurrentTempRoomUI.run();
+                    break;
                 case 3:
                     System.out.println("US610");
                     break;
@@ -40,6 +43,8 @@ public class RegularUsageUI {
                 case 5:
                     System.out.println("US623");
                     break;
+                default:
+                    System.out.println("Please choose a valid option.");
             }
 
         }

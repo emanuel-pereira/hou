@@ -8,9 +8,12 @@ import java.util.Scanner;
 
 public class SystemAdministrationUI {
 
+    private SystemAdministrationUI() {
+    }
+
     public static void systemAdministration(SensorTypeList sensorTypeList, GAList gaList) {
         TypeGAList typeGAList = new TypeGAList();
-        GAList GAList = gaList;
+        GAList inputGAList = gaList;
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
 
@@ -37,11 +40,11 @@ public class SystemAdministrationUI {
                     ui2.run();
                     break;
                 case 3:
-                    US3CreateGAUI ui3 = new US3CreateGAUI(GAList, typeGAList);
+                    US3CreateGAUI ui3 = new US3CreateGAUI(inputGAList, typeGAList);
                     ui3.run();
                     break;
                 case 4:
-                    US4ReturnGAsWithThisTypeUI ui4 = new US4ReturnGAsWithThisTypeUI(GAList, typeGAList);
+                    US4ReturnGAsWithThisTypeUI ui4 = new US4ReturnGAsWithThisTypeUI(inputGAList, typeGAList);
                     ui4.run();
                     break;
                 case 5:
@@ -49,15 +52,15 @@ public class SystemAdministrationUI {
                     ui5.runUS5();
                     break;
                 case 6:
-                    US6CreateSensorUI ui6 = new US6CreateSensorUI(sensorTypeList, GAList);
+                    US6CreateSensorUI ui6 = new US6CreateSensorUI(sensorTypeList, inputGAList);
                     ui6.checkIfGAListIsEmtpy();
                     break;
                 case 7:
-                    US7SetParentOfGAUI ui7 = new US7SetParentOfGAUI(GAList);
+                    US7SetParentOfGAUI ui7 = new US7SetParentOfGAUI(inputGAList);
                     ui7.run();
                     break;
                 case 8:
-                    US8ListParentGAUI ui8 = new US8ListParentGAUI(GAList);
+                    US8ListParentGAUI ui8 = new US8ListParentGAUI(inputGAList);
                     ui8.run();
                     break;
                 default:

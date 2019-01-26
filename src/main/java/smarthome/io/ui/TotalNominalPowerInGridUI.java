@@ -10,13 +10,14 @@ public class TotalNominalPowerInGridUI {
     Scanner read = new Scanner (System.in);
 
     private TotalNominalPowerInGridCTRL mUS172CTRL;
+    private int mIndexGrid;
 
 
     public TotalNominalPowerInGridUI(House house) {
         mUS172CTRL = new TotalNominalPowerInGridCTRL (house);
     }
 
-    private int indexGrid;
+
 
 
     /**
@@ -46,8 +47,8 @@ public class TotalNominalPowerInGridUI {
         while (true) {
             System.out.println ("Choose the Grid:");
             System.out.println (mUS172CTRL.showHouseGridListInString ());
-            indexGrid = read.nextInt ();
-            if (indexGrid > mUS172CTRL.getHouseGridListSize ())
+            mIndexGrid = read.nextInt ();
+            if (mIndexGrid > mUS172CTRL.getHouseGridListSize ())
                 System.out.println ("Please insert a valid option \n");
             else break;
         }
@@ -59,7 +60,7 @@ public class TotalNominalPowerInGridUI {
      * Before showing the total nominal power this method checks if there are any rooms attached to the grid
      */
     public void checkIfRoomsAttachToGrid() {
-        if (mUS172CTRL.getRoomListInAGridSize (indexGrid) != 0) {
+        if (mUS172CTRL.getRoomListInAGridSize (mIndexGrid) != 0) {
             this.checkIfDevicesExists ();
         } else System.out.println ("Please ask the House Administrator to attach Rooms to a Grid ");
     }
@@ -69,7 +70,7 @@ public class TotalNominalPowerInGridUI {
      * Before showing the total nominal power this method checks if there are devices added to the rooms
      */
     public void checkIfDevicesExists() {
-        if (mUS172CTRL.deviceListSizeInGridIsNotEmpty (indexGrid)) {
+        if (mUS172CTRL.deviceListSizeInGridIsNotEmpty (mIndexGrid)) {
             this.getTotalNominalPowerInGrid ();
         } else System.out.println ("Please ask the House Administrator to add Devices to a Room");
     }
@@ -79,7 +80,7 @@ public class TotalNominalPowerInGridUI {
      * Shows the total nominal power of the chosen grid
      */
     public void getTotalNominalPowerInGrid() {
-        System.out.println ("The total Nominal Power of this Grid is: " + mUS172CTRL.getTotalNominalPowerInGrid (indexGrid));
+        System.out.println ("The total Nominal Power of this Grid is: " + mUS172CTRL.getTotalNominalPowerInGrid (mIndexGrid));
     }
 
 

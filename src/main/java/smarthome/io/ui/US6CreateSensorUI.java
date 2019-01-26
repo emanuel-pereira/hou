@@ -24,7 +24,8 @@ public class US6CreateSensorUI {
     private String mUnit;
     private int mIndexOfGA;
     //to store list of readings inputted by the user before sensor creation
-    ReadingList mReadingList = new ReadingList();
+    private ReadingList mReadingList = new ReadingList();
+    private Scanner read = new Scanner(System.in);
 
 
     public US6CreateSensorUI(SensorTypeList sensorTypeList, GAList listOfGA) {
@@ -33,7 +34,7 @@ public class US6CreateSensorUI {
         mSensorTypeList = sensorTypeList;
     }
 
-    Scanner read = new Scanner(System.in);
+
 
 
     public void checkIfGAListIsEmtpy() {

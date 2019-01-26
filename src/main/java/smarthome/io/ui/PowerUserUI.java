@@ -6,6 +6,9 @@ import java.util.Scanner;
 
 public class PowerUserUI {
 
+    private PowerUserUI() {
+    }
+
     public static void powerUser(House house) {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
@@ -26,16 +29,18 @@ public class PowerUserUI {
                     ui160.getDeviceListInGrid();
                     break;*/
                 case 2:
-                    TotalNominalPowerInGridUI uS172 = new TotalNominalPowerInGridUI (house);
-                    uS172.run ();
+                    TotalNominalPowerInGridUI uS172 = new TotalNominalPowerInGridUI(house);
+                    uS172.run();
                     break;
                 case 3:
                     TotalNominalPowerRoomUI ui230 = new TotalNominalPowerRoomUI(house);
                     ui230.showTotalNominalPowerRoom();
                     break;
                 case 4:
-                    EnergyConsumptionOfWaterHeatingUI ui752= new EnergyConsumptionOfWaterHeatingUI(house);
+                    EnergyConsumptionOfWaterHeatingUI ui752 = new EnergyConsumptionOfWaterHeatingUI(house);
                     ui752.run();
+                default:
+                    System.out.println("Please choose a valid option.");
             }
 
         }

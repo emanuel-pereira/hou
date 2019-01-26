@@ -14,6 +14,7 @@ public class US3CreateGAUI {
     private TypeGAList mtypeGAList;
     private US3CreateGACTRL mCtrlUS3;
     private US2GetTypeGAListUI ui2; //in order to invoke methods form ui2 to print out the list of GA types for the user to select
+    GPSValidations validations = new GPSValidations();
 
     /**
      * Class method constructor where GAList inputList and
@@ -34,7 +35,7 @@ public class US3CreateGAUI {
         ui2 = new US2GetTypeGAListUI(typeGAList);
     }
 
-    GPSValidations validations = new GPSValidations();
+
 
     /**
      * Main US3 method which presents the user with a list of questions

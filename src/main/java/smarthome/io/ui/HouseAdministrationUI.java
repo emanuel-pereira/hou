@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class HouseAdministrationUI {
+    private HouseAdministrationUI(){}
 
     public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList, List<Room> roomList,
                                            House house, HouseGridList hgList, PowerSourceList pslist) {

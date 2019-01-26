@@ -37,15 +37,14 @@ public class Dishwasher implements DeviceSpecs {
         List<String> result = new ArrayList<>();
         String deviceType = "3 - Device Type : " + this.mDeviceType.getTypeString();
         String capacity = "4 - Dishwater Capacity : " + this.mCapacity;
-        //ProgramList programList = "5 - ";
         result.add(deviceType);
         result.add(capacity);
         return result;
     }
 
     public void setAttributeValue(String attribute, String newValue) {
-        String Capacity = "4 - Dishwater Capacity : " + this.mCapacity;
-        if (attribute.equals(Capacity))
+        String capacity = "4 - Dishwater Capacity : " + this.mCapacity;
+        if (attribute.equals(capacity))
             setCapacity(parseInt(newValue));
     }
 
