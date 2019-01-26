@@ -7,14 +7,11 @@ import java.util.Scanner;
 
 public class EnergyConsumptionOfWaterHeatingUI {
 
-    private House mHouse;
-    private RoomList mRoomList;
+
     private USEnergyConsumptionOfWaterHeatingCTRL mCtrl;
     Scanner read = new Scanner(System.in);
 
     public EnergyConsumptionOfWaterHeatingUI(House house) {
-        mHouse = house;
-        mRoomList = house.getRoomList();
         mCtrl = new USEnergyConsumptionOfWaterHeatingCTRL(house);
     }
 

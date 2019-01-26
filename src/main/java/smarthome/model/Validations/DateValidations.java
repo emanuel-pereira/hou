@@ -1,7 +1,5 @@
 package smarthome.model.Validations;
 
-import java.util.logging.Logger;
-
 public class DateValidations {
 
     /**

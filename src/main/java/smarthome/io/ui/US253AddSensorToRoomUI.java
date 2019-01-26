@@ -12,7 +12,16 @@ public class US253AddSensorToRoomUI {
     private House mHouse;
     private RoomList mRoomList;
     private US253AddSensorToRoomCTRL mCtrlUS253;
-
+    private Scanner read = new Scanner (System.in);
+    private ReadingList mReadingList = new ReadingList();
+    private String mTempYear;
+    private String mTempMonth;
+    private  String mTempDay;
+    private String mTempYearOfReading;
+    private String mTempMonthOfReading;
+    private String mTempDayOfReading;
+    private String mTempHourOfReading;
+    private String mEmptySpacesMsg="Empty spaces are not accepted";
 
     public US253AddSensorToRoomUI(House house, SensorTypeList sensorTypeList) {
         mCtrlUS253 = new US253AddSensorToRoomCTRL (house, sensorTypeList);
@@ -21,19 +30,7 @@ public class US253AddSensorToRoomUI {
         mRoomList = mHouse.getRoomList();
     }
 
-    Scanner read = new Scanner (System.in);
 
-    ReadingList readingList = new ReadingList();
-
-    String tempYear;
-    String tempMonth;
-    String tempDay;
-
-
-    String tempYearOfReading;
-    String tempMonthOfReading;
-    String tempDayOfReading;
-    String tempHourOfReading;
 
     public void run() {
         if (mRoomList.getRoomList ().size () != 0) {
@@ -50,27 +47,27 @@ public class US253AddSensorToRoomUI {
                 int year;
                 while (true) {
                     System.out.println ("Insert the year when the sensor will start (equal or greater than current year):");
-                    tempYear = yearIsValid ();
-                    if (tempYear != null)
+                    mTempYear = yearIsValid ();
+                    if (mTempYear != null)
                         break;
                 }
                 int month;
                 while (true) {
                     System.out.println ("Insert the month when the sensor will start(insert values between 1 and 12):");
-                    tempMonth = monthIsValid ();
-                    if (tempMonth != null)
+                    mTempMonth = monthIsValid ();
+                    if (mTempMonth != null)
                         break;
                 }
                 int day;
                 while (true) {
                     System.out.println ("Insert the day when the sensor will start:");
-                    tempDay = dayIsValid ();
-                    if (tempDay != null)
+                    mTempDay = dayIsValid ();
+                    if (mTempDay != null)
                         break;
                 }
-                year = Integer.parseInt (tempYear);
-                month = Integer.parseInt (tempMonth);
-                day = Integer.parseInt (tempDay);
+                year = Integer.parseInt (mTempYear);
+                month = Integer.parseInt (mTempMonth);
+                day = Integer.parseInt (mTempDay);
 
                 GregorianCalendar calendar = new GregorianCalendar (year, month, day);
                 int dataTypeIndex;
@@ -109,28 +106,28 @@ public class US253AddSensorToRoomUI {
 
                         while (true) {
                             System.out.println ("Insert the year when the reading was made:");
-                            tempYearOfReading = yearIsValid ();
-                            if (tempYearOfReading != null)
+                            mTempYearOfReading = yearIsValid ();
+                            if (mTempYearOfReading != null)
                                 break;
                         }
                         while (true) {
                             System.out.println ("Insert the month when the reading was made:");
-                            tempMonthOfReading = monthIsValid ();
-                            if (tempMonthOfReading != null)
+                            mTempMonthOfReading = monthIsValid ();
+                            if (mTempMonthOfReading != null)
                                 break;
                         }
 
                         while (true) {
                             System.out.println ("Insert the day when the reading was made:");
-                            tempDayOfReading = dayIsValid ();
-                            if (tempDayOfReading != null)
+                            mTempDayOfReading = dayIsValid ();
+                            if (mTempDayOfReading != null)
                                 break;
                         }
 
                         while (true) {
                             System.out.println ("Insert the hour when the reading was made:");
-                            tempHourOfReading = hourIsValid ();
-                            if (tempHourOfReading != null)
+                            mTempHourOfReading = hourIsValid ();
+                            if (mTempHourOfReading != null)
                                 break;
                         }
 
@@ -138,15 +135,15 @@ public class US253AddSensorToRoomUI {
                         readingValue = read.nextDouble ();
                         read.nextLine ();
 
-                        yearOfReading = Integer.parseInt (tempYearOfReading);
-                        monthOfReading = Integer.parseInt (tempMonthOfReading);
-                        dayOfReading = Integer.parseInt (tempDayOfReading);
-                        hourOfReading = Integer.parseInt (tempHourOfReading);
+                        yearOfReading = Integer.parseInt (mTempYearOfReading);
+                        monthOfReading = Integer.parseInt (mTempMonthOfReading);
+                        dayOfReading = Integer.parseInt (mTempDayOfReading);
+                        hourOfReading = Integer.parseInt (mTempHourOfReading);
 
                         GregorianCalendar date = new GregorianCalendar (yearOfReading, monthOfReading, dayOfReading, hourOfReading, 0);
 
-                        Reading r = readingList.newReading (readingValue, date);
-                        readingList.addReading (r);
+                        Reading r = mReadingList.newReading (readingValue, date);
+                        mReadingList.addReading (r);
                     }
                 }
 
@@ -159,7 +156,7 @@ public class US253AddSensorToRoomUI {
                         System.out.println ("Please insert a valid option \n.");
                     else break;
                 }
-                mCtrlUS253.addNewSensorToRoom (name, calendar, dataTypeIndex, indexRoom, unit, readingList);
+                mCtrlUS253.addNewSensorToRoom (name, calendar, dataTypeIndex, indexRoom, unit, mReadingList);
                 System.out.println ("Success");
             } else
                 System.out.println ("List of sensor's reading data types is empty. Please insert at least one first in US5.");
@@ -170,7 +167,7 @@ public class US253AddSensorToRoomUI {
     public String yearIsValid() {
         String year = read.nextLine ();
         if (year == null || year.trim ().isEmpty ()) {
-            System.out.println ("Empty spaces are not accepted");
+            System.out.println (mEmptySpacesMsg);
             return null;
         }
         if (!year.matches ("^201[8-9]|20[2-9][0-9]$")) { //only accepts years between 2018 and 2099
@@ -183,11 +180,11 @@ public class US253AddSensorToRoomUI {
     public String monthIsValid() {
         String month = read.nextLine ();
         if (month == null || month.trim ().isEmpty ()) {
-            System.out.println ("Empty spaces are not accepted");
+            System.out.println (mEmptySpacesMsg);
             return null;
         }
         if (!month.matches ("^([1-9]|1[0-2])$")) { //only accepts values between 1 and 12
-            System.out.println ("Please insert a valid month.");
+            System.out.println (mEmptySpacesMsg);
             return null;
         }
         return month;
@@ -196,22 +193,22 @@ public class US253AddSensorToRoomUI {
     private String dayIsValid() {
         String day = read.nextLine ();
         if (day == null || day.trim ().isEmpty ()) {
-            System.out.println ("Empty spaces are not accepted");
+            System.out.println (mEmptySpacesMsg);
             return null;
         }
         if (!day.matches ("^(3[01]|[12][0-9]|[1-9])$")) { //only accepts values between 1 and 31
             System.out.println ("Please insert a valid day.");
             return null;
         }
-        if (tempMonth.matches ("^(4|6|9|11)$")) {
+        if (mTempMonth.matches ("^(4|6|9|11)$")) {
             if (day.matches ("^31$")) {
-                System.out.println ("Please insert a valid day for the selected month: (" + tempMonth + ")");
+                System.out.println ("Please insert a valid day for the selected month: (" + mTempMonth + ")");
                 return null;
             }
         }
-        if (tempMonth.matches ("^2$")) {
+        if (mTempMonth.matches ("^2$")) {
             if (day.matches ("^(29|30|31)$")) {
-                System.out.println ("Please insert a valid day for the selected month: (" + tempMonth + ")");
+                System.out.println ("Please insert a valid day for the selected month: (" + mTempMonth + ")");
                 return null;
             }
         }
@@ -221,7 +218,7 @@ public class US253AddSensorToRoomUI {
     private String hourIsValid() {
         String hour = read.nextLine();
         if (hour == null || hour.trim().isEmpty()) {
-            System.out.println("Empty spaces are not accepted");
+            System.out.println(mEmptySpacesMsg);
             return null;
         }
         if (!hour.matches("^(2[0-4]|[1][0-9]|[1-9])")) { //only accepts values between 1 and 12
@@ -234,7 +231,7 @@ public class US253AddSensorToRoomUI {
     public String nameIsValid() {
         String name = read.nextLine ();
         if (name == null || name.trim ().isEmpty ()) {
-            System.out.println ("Empty spaces are not accepted.");
+            System.out.println (mEmptySpacesMsg);
             return null;
         }
         if (!name.matches ("[A-Za-z0-9]*")) {
@@ -247,7 +244,7 @@ public class US253AddSensorToRoomUI {
     public String unitIsValid() {
         String unit = read.nextLine ();
         if (unit == null || unit.trim ().isEmpty ()) {
-            System.out.println ("Empty spaces are not accepted.");
+            System.out.println (mEmptySpacesMsg);
             return null;
         }
         return unit;

@@ -125,7 +125,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
         String expected = "1 - Device Name : A\n" +
                 "2 - Device Nominal Power : 150.1\n" +
                 "3 - Device Type : Washing Machine\n" +
-                "4 - Washing Machine Capacity : 20\n";
+                "4 - Washing Machine capacity : 20\n";
         assertEquals(expected, result);
     }
 
@@ -160,7 +160,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
         String deviceName = "1 - Device Name : " + d1.getName();
         String deviceNominalPower = "2 - Device Nominal Power : " + d1.getNominalPower();
         String deviceType = "3 - Device Type : " + d1.getDeviceSpecs().getType().getTypeString();
-        String capacity = "4 - Washing Machine Capacity : " + wm.getCapacity();
+        String capacity = "4 - Washing Machine capacity : " + wm.getCapacity();
         ctr.getDeviceAttributesListInString(d1);
         List<String> result = d1.getDeviceAttributesInString();
         List<String> expected = Arrays.asList(deviceName, deviceNominalPower,deviceType, capacity);

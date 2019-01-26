@@ -11,6 +11,11 @@ public class US600GetCurrentMeteoValueHouseAreaUI {
     private SensorTypeList mSensorTypeList;
     private GAList mGAList;
     private US600GetCurrentMeteoValueHouseAreaCTRL mCTRL600;
+    Scanner read = new Scanner(System.in);
+    private int mIndexOfSensorType;
+    private SensorType mSensorType;
+    private Sensor mClosestSensor;
+    private double mCurrentReading;
 
     public US600GetCurrentMeteoValueHouseAreaUI(House house, SensorTypeList sensorTypeList, GAList gaList) {
         mHouse = house;
@@ -19,11 +24,7 @@ public class US600GetCurrentMeteoValueHouseAreaUI {
         mGAList = gaList;
     }
 
-    Scanner read = new Scanner(System.in);
-    private int indexOfSensorType;
-    private SensorType sensorType;
-    private Sensor closestSensor;
-    private double currentReading;
+
 
     public void run() {
         if (mGAList.getGAList().size() != 0) {
@@ -31,13 +32,13 @@ public class US600GetCurrentMeteoValueHouseAreaUI {
                 while (true) {
                     System.out.println("Choose the meteorologic condition in the house area, you want to check the current value from the available sensor types:");
                     System.out.println(mCTRL600.getSensorTypeListInString());
-                    indexOfSensorType = read.nextInt();
+                    mIndexOfSensorType = read.nextInt();
                     read.nextLine();
-                    if (indexOfSensorType > mSensorTypeList.getSensorTypeList().size())
+                    if (mIndexOfSensorType > mSensorTypeList.getSensorTypeList().size())
                         System.out.println("Please insert a valid option \n.");
                     else break;
                 }
-                sensorType = mCTRL600.getSensorTypeByIndex(indexOfSensorType);
+                mSensorType = mCTRL600.getSensorTypeByIndex(mIndexOfSensorType);
                 while (true) {
                     if (mHouse.getHouseGA() == null)
                         System.out.println("No location");
@@ -45,15 +46,15 @@ public class US600GetCurrentMeteoValueHouseAreaUI {
                 }
 
                 while (true) {
-                    if (mCTRL600.getListSensorsOfOneType(sensorType).isEmpty()) {
+                    if (mCTRL600.getListSensorsOfOneType(mSensorType).isEmpty()) {
                         System.out.println("No sensors of that type in the house area");
                         break;
                     } else break;
                 }
-                closestSensor = mCTRL600.getTheClosestSensorToGA(mCTRL600.getListSensorsOfOneType(sensorType));
+                mClosestSensor = mCTRL600.getTheClosestSensorToGA(mCTRL600.getListSensorsOfOneType(mSensorType));
 
-                currentReading = mCTRL600.getLastReadingOfSensor(closestSensor);
-                System.out.println("The current" + sensorType.getSensorTypeDesignation() + " in the House Area is " + currentReading);
+                mCurrentReading = mCTRL600.getLastReadingOfSensor(mClosestSensor);
+                System.out.println("The current" + mSensorType.getSensorTypeDesignation() + " in the House Area is " + mCurrentReading);
 
             } else
                 System.out.println("List of sensor's reading data types is empty. Please insert at least one first in US5.");

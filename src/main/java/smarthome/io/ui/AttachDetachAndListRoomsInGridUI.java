@@ -72,7 +72,6 @@ public class AttachDetachAndListRoomsInGridUI {
                 break;
             }
             this.chooseRoomToAttach();
-            break;
         }
         return;
     }
@@ -145,7 +144,7 @@ public class AttachDetachAndListRoomsInGridUI {
             System.out.println(mCtrl.showRoomsWithoutHouseGrid(mIndexOfHG));
             mIndexOfRoom = mRead.nextInt();
             mRead.nextLine();
-            if (!(mIndexOfRoom > mCtrl.getRoomsWithoutGridSize(mIndexOfHG))) {
+            if (mIndexOfRoom <= mCtrl.getRoomsWithoutGridSize(mIndexOfHG)) {
                 break;
             }
             printLnInsertValidOption();
@@ -161,7 +160,7 @@ public class AttachDetachAndListRoomsInGridUI {
             mIndexOfRoom = mRead.nextInt();
             mRead.nextLine();
 
-            if (!(mIndexOfRoom > mCtrl.getRoomListOfHGSize(mIndexOfHG))) {
+            if (mIndexOfRoom <= mCtrl.getRoomListOfHGSize(mIndexOfHG)) {
                 break;
             }
             printLnInsertValidOption();
@@ -175,7 +174,7 @@ public class AttachDetachAndListRoomsInGridUI {
             System.out.println(mCtrl.showHouseGridListInString());
             mIndexOfHG = mRead.nextInt();
             mRead.nextLine();
-            if (!(mIndexOfHG > mCtrl.getHouseGridListSize())) {
+            if (mIndexOfHG <= mCtrl.getHouseGridListSize()) {
                 break;
             }
             printLnInsertValidOption();

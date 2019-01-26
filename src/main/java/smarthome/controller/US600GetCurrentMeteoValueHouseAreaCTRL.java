@@ -7,13 +7,11 @@ import java.util.List;
 public class US600GetCurrentMeteoValueHouseAreaCTRL {
 
     private House mHouse;
-    private GeographicalArea mGA;
     private SensorTypeList mSensorTypeList;
 
     public US600GetCurrentMeteoValueHouseAreaCTRL(House house, SensorTypeList sensorTypeList) {
         mHouse = house;
         mSensorTypeList = sensorTypeList;
-        mGA = mHouse.getHouseGA();
     }
 
     public String getSensorTypeListInString() {

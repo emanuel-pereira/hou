@@ -1,6 +1,6 @@
 package smarthome.model;
 
-public class Utils {
+public final class Utils {
 
     /**
      * Private constructor of Utils class, which is a collection of static members, hence is not meant to be instantiated.
