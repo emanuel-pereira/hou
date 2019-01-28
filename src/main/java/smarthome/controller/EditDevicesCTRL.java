@@ -5,14 +5,14 @@ import smarthome.model.Validations.NameValidations;
 
 import java.util.List;
 
-public class USAddSetAndListDevicesInRoomCTRL {
+public class EditDevicesCTRL {
 
     private House mHouse;
     private RoomList mRoomList;
     private NameValidations mNameValidations;
 
 
-    public USAddSetAndListDevicesInRoomCTRL(House house) {
+    public EditDevicesCTRL(House house) {
         mHouse = house;
         mRoomList = mHouse.getRoomList();
         mNameValidations = new NameValidations();
@@ -41,6 +41,32 @@ public class USAddSetAndListDevicesInRoomCTRL {
         Room room = mRoomList.get(indexOfRoom - 1);
         Device device = room.getDeviceList().newDevice(inputName, deviceSpecs, nominalPower);
         return room.getDeviceList().addDevice(device);
+    }
+
+    /**
+     * Method that call the DeviceList method to remove a Device from the the Device's List
+     *
+     * @param indexOfRoom Room Index
+     * @param deviceIndex Device Index
+     * @return boolean result true if device successfully removed from the list
+     */
+    public boolean removeDevice(int indexOfRoom, int deviceIndex) {
+        Room room = mRoomList.get(indexOfRoom - 1);
+        Device device = room.getDeviceList().get(deviceIndex);
+        return room.getDeviceList().removeDevice(device);
+    }
+
+    /**
+     * Method that calls the DeviceList method to set the Device status flag to false (false meaning deactivated)
+     *
+     * @param indexOfRoom Room Index
+     * @param deviceIndex Device Index
+     * @return boolean result true if device status successfully set to false, deactivated
+     */
+    public boolean deactivateDevice(int indexOfRoom, int deviceIndex) {
+        Room room = mRoomList.get(indexOfRoom - 1);
+        Device device = room.getDeviceList().get(deviceIndex);
+        return room.getDeviceList().deactivateDevice(device);
     }
 
     /**

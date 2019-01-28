@@ -17,7 +17,7 @@ public class DeviceList {
      * Method to add a new device instance to a DeviceList
      *
      * @param newDevice instance to be added to the device list
-     * @return
+     * @return boolean result of the device addition
      */
     public boolean addDevice(Device newDevice) {
         if (!mDeviceList.contains(newDevice)) {
@@ -67,14 +67,23 @@ public class DeviceList {
     }
 
     /**
-     * Shows a global device list in string
-     * @return
-     */
+     * Method to get the list of Powered devices of a room
+     * @return the device list
+    public List<Powered> getPoweredDeviceList() {
+    List<Powered> poweredDeviceList;
+    for Device device: mDeviceList
+    {
+    poweredDeviceList.add(mDeviceList.get().)
+    }
+    return ;
+    }*/
+
     public String showDeviceListInString() {
         List<Device> list = getDeviceList();
         StringBuilder result = new StringBuilder();
         String element = " - Device: ";
         String typeStr = " | Type: ";
+        String statusStr = " | Active: ";
         int number = 1;
         for (Device device : list) {
             result.append(number++);
@@ -82,6 +91,8 @@ public class DeviceList {
             result.append(device.getName());
             result.append(typeStr);
             result.append(device.getDeviceSpecs().getType());
+            result.append(statusStr);
+            result.append(device.status());
             result.append("\n");
         }
         return result.toString();
@@ -93,5 +104,25 @@ public class DeviceList {
 
     public int size() {
         return mDeviceList.size();
+    }
+
+    /**
+     * Method that call the Java native method to remove an object from the device's list
+     *
+     * @param device object device that will be removed
+     * @return boolean result of the device's removal
+     */
+    public boolean removeDevice(Device device) {
+        return this.mDeviceList.remove(device);
+    }
+
+    /**
+     * Method that disable the Device by setting it's status to false (false meaning deactivated)
+     *
+     * @param device Device to be deactivated
+     * @return true result if Device successfully deactivated
+     */
+    public boolean deactivateDevice(Device device) {
+        return device.deactivateDevice();
     }
 }

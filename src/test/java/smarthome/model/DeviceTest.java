@@ -25,9 +25,8 @@ class DeviceTest {
         Device dFridge = new Device("LG Fridge", fridge, 1.5);
 
         DeviceSpecs expectedResult = dFridge.getDeviceSpecs();
-        Fridge result = fridge;
 
-        assertEquals(expectedResult, result);
+        assertEquals(expectedResult, fridge);
     }
 
    /* @Test
@@ -85,4 +84,20 @@ class DeviceTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    void status() {
+        OtherDevices micro = new OtherDevices(DeviceType.MICROWAVE_OVEN);
+        Device microwave = new Device("Samsung Microwave", micro, 0.8);
+
+        assertTrue(microwave.status());
+    }
+
+    @Test
+    void deactivateDevice() {
+        OtherDevices micro = new OtherDevices(DeviceType.MICROWAVE_OVEN);
+        Device microwave = new Device("Samsung Microwave", micro, 0.8);
+
+        assertTrue(microwave.deactivateDevice());
+        assertFalse(microwave.status());
+    }
 }

@@ -14,8 +14,7 @@ public class Device {
     private String mName;
     private DeviceSpecs mDeviceSpecs;
     private double mNominalPower;
-
-
+    private boolean mStatus;
 
     /**
      * Constructs a Device with a name, device specifications(which include, at least, a device type) and a nominal power
@@ -28,6 +27,7 @@ public class Device {
         setName(name);
         mDeviceSpecs = deviceSpecs;
         setNominalPower(nominalPower);
+        mStatus = true;
     }
 
     /**
@@ -108,7 +108,24 @@ public class Device {
         return mDeviceSpecs.getEnergyConsumption();
     }
 
+    /**
+     * set Device status to false
+     *
+     * @return true result
+     */
+    public boolean deactivateDevice() {
+        this.mStatus = false;
+        return true;
+    }
 
+    /**
+     * return device status flag
+     *
+     * @return device status flag
+     */
+    public boolean status() {
+        return mStatus;
+    }
 }
 
 

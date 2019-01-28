@@ -8,17 +8,15 @@ import smarthome.model.Validations.NameValidations;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-class USAddSetAndListDevicesInRoomCTRLTest {
+class EditDevicesCTRLTest {
 
     @Test
     @DisplayName("Ensure showRoomListInString method returns a list of two rooms: Kitchen and Bathroom")
     void showRoomListInString() {
         House house = new House();
-        USAddSetAndListDevicesInRoomCTRL ctrl = new USAddSetAndListDevicesInRoomCTRL(house);
+        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
         RoomList roomList = house.getRoomList();
         Room kitchen = new Room("Kitchen", 0, 5.5, 5, 3);
         Room bathroom = new Room("Bathroom", 0, 3, 2, 3);
@@ -33,7 +31,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     @DisplayName("Ensure that RoomList has a size of 2 even though trying to add the same two rooms twice to the RoomList")
     void getRoomList() {
         House house = new House();
-        USAddSetAndListDevicesInRoomCTRL ctrl = new USAddSetAndListDevicesInRoomCTRL(house);
+        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
         RoomList roomList = house.getRoomList();
         Room kitchen = new Room("Kitchen", 0, 5.5, 5, 3);
         Room bathroom = new Room("Bathroom", 0, 3, 2, 3);
@@ -49,7 +47,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     @Test
     void addDeviceToRoom() {
         House house = new House();
-        USAddSetAndListDevicesInRoomCTRL ctrl = new USAddSetAndListDevicesInRoomCTRL(house);
+        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
         Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
         house.getRoomList().addRoom(kitchen);
         Fridge fridge = new Fridge(DeviceType.FRIDGE, 50, 350, 50);
@@ -62,14 +60,14 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     @Test
     void showDeviceListInString() {
         House house = new House();
-        USAddSetAndListDevicesInRoomCTRL ctrl = new USAddSetAndListDevicesInRoomCTRL(house);
+        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
         Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
         house.getRoomList().addRoom(kitchen);
         Fridge fridge = new Fridge(DeviceType.FRIDGE, 50, 350, 50);
         OtherDevices micro = new OtherDevices(DeviceType.MICROWAVE_OVEN);
         ctrl.addDevice(1, "Samsung Microwave", micro, 0.8);
         ctrl.addDevice(1, "LG Fridge", fridge, 1.5);
-        String expected = "1 - Device: Samsung Microwave | Type: MICROWAVE_OVEN\n2 - Device: LG Fridge | Type: FRIDGE\n";
+        String expected = "1 - Device: Samsung Microwave | Type: MICROWAVE_OVEN | Active: true\n2 - Device: LG Fridge | Type: FRIDGE | Active: true\n";
         String result = ctrl.showDeviceListInString(1);
         assertEquals(expected, result);
     }
@@ -78,7 +76,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     @DisplayName("Ensure that an alphanumeric name with spaces and hyphens is valid")
     void alphanumericName() {
         House house = new House();
-        USAddSetAndListDevicesInRoomCTRL ctrl = new USAddSetAndListDevicesInRoomCTRL(house);
+        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
         String name = "Fridge 1 - Sony";
         boolean result = ctrl.alphanumericName(name);
         assertTrue(result);
@@ -96,7 +94,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     @Test
     void getDeviceListTest() {
         House house = new House();
-        USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(house);
+        EditDevicesCTRL ctr = new EditDevicesCTRL(house);
         Room r1 = new Room("B", 1, 1, 1, 1);
         Room r2 = new Room("A", 1, 1, 1, 1);
         RoomList roomList = house.getRoomList();
@@ -118,7 +116,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     @Test
     void getDeviceAttributesListInStringTest() {
         House h = new House();
-        USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(h);
+        EditDevicesCTRL ctr = new EditDevicesCTRL(h);
         WashingMachine wm = new WashingMachine(DeviceType.WASHING_MACHINE, 20);
         Device d1 = new Device("A", wm, 150.1);
         String result = ctr.showDeviceAttributesInString(d1);
@@ -132,7 +130,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     @Test
     void getDeviceAttribute() {
         House h = new House();
-        USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(h);
+        EditDevicesCTRL ctr = new EditDevicesCTRL(h);
         WashingMachine wm = new WashingMachine(DeviceType.WASHING_MACHINE, 20);
         Device d1 = new Device("A", wm, 150.1);
         String result = ctr.getDeviceAttribute(d1, 0);
@@ -143,7 +141,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     @Test
     void setAttributeTest() {
         House h = new House();
-        USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(h);
+        EditDevicesCTRL ctr = new EditDevicesCTRL(h);
         WashingMachine wm = new WashingMachine(DeviceType.WASHING_MACHINE, 20);
         Device d1 = new Device("A", wm, 150.1);
         ctr.setAttribute(d1, "3 - Device Nominal Power : " + d1.getNominalPower(), "155");
@@ -154,7 +152,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     @Test
     void getDeviceAttributesListInStringTest2() {
         House h = new House();
-        USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(h);
+        EditDevicesCTRL ctr = new EditDevicesCTRL(h);
         WashingMachine wm = new WashingMachine(DeviceType.WASHING_MACHINE, 20);
         Device d1 = new Device("A", wm, 150.1);
         String deviceName = "1 - Device Name : " + d1.getName();
@@ -173,7 +171,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     @DisplayName("Ensure that device microwave is removed from room kitchen")
     void removeDeviceFromRoom() {
         House house = new House();
-        USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(house);
+        EditDevicesCTRL ctr = new EditDevicesCTRL(house);
         Room bathroom = new Room("Bathroom", 0, 3, 2, 3);
         Room kitchen = new Room("Kitchen", 0, 5.5, 5, 3);
         RoomList roomList = house.getRoomList();
@@ -197,7 +195,7 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     @DisplayName("Ensure that device microwave is removed from Kitchen and then added to Living Room")
     void changeDeviceRoom() {
         House house = new House();
-        USAddSetAndListDevicesInRoomCTRL ctr = new USAddSetAndListDevicesInRoomCTRL(house);
+        EditDevicesCTRL ctr = new EditDevicesCTRL(house);
         Room livingRoom = new Room("Living Room", 0, 3, 2, 3);
         Room kitchen = new Room("Kitchen", 0, 5.5, 5, 3);
         RoomList roomList = house.getRoomList();
@@ -217,4 +215,70 @@ class USAddSetAndListDevicesInRoomCTRLTest {
     }
 
 
+    @Test
+    @DisplayName("Ensure that device microwave is removed from Kitchen")
+    void removeDevice() {
+        House house = new House();
+        EditDevicesCTRL ctr = new EditDevicesCTRL(house);
+        Room livingRoom = new Room("Living Room", 0, 3, 2, 3);
+        Room kitchen = new Room("Kitchen", 0, 5.5, 5, 3);
+        RoomList roomList = house.getRoomList();
+        assertTrue(roomList.addRoom(livingRoom));
+        assertTrue(roomList.addRoom(kitchen));
+        OtherDevices tv = new OtherDevices(DeviceType.TV);
+        Device microwave = new Device("Samsung Microwave", tv, 0.8);
+        Fridge fridge = new Fridge(DeviceType.FRIDGE, 50, 350, 50);
+        Device dFridge = new Device("LG Fridge", fridge, 1.5);
+        DeviceList kitchenDevList = kitchen.getDeviceList();
+        assertTrue(kitchenDevList.addDevice(microwave));
+        assertTrue(kitchenDevList.addDevice(dFridge));
+
+        assertTrue(ctr.removeDevice(2, 0));
+    }
+
+    @Test
+    void deactivateDevice() {
+        House house = new House();
+        EditDevicesCTRL ctr = new EditDevicesCTRL(house);
+        Room livingRoom = new Room("Living Room", 0, 3, 2, 3);
+        Room kitchen = new Room("Kitchen", 0, 5.5, 5, 3);
+        RoomList roomList = house.getRoomList();
+        assertTrue(roomList.addRoom(livingRoom));
+        assertTrue(roomList.addRoom(kitchen));
+        OtherDevices tv = new OtherDevices(DeviceType.TV);
+        Device microwave = new Device("Samsung Microwave", tv, 0.8);
+        Fridge fridge = new Fridge(DeviceType.FRIDGE, 50, 350, 50);
+        Device dFridge = new Device("LG Fridge", fridge, 1.5);
+        DeviceList kitchenDevList = kitchen.getDeviceList();
+        assertTrue(kitchenDevList.addDevice(microwave));
+        assertTrue(kitchenDevList.addDevice(dFridge));
+
+        assertTrue(ctr.deactivateDevice(2, 0));
+    }
+
+    @Test
+    void NotPossibleToDeactivateDevice() {
+        House house = new House();
+        EditDevicesCTRL ctr = new EditDevicesCTRL(house);
+        Room livingRoom = new Room("Living Room", 0, 3, 2, 3);
+        Room kitchen = new Room("Kitchen", 0, 5.5, 5, 3);
+        RoomList roomList = house.getRoomList();
+        assertTrue(roomList.addRoom(livingRoom));
+        assertTrue(roomList.addRoom(kitchen));
+        OtherDevices tv = new OtherDevices(DeviceType.TV);
+        Device microwave = new Device("Samsung Microwave", tv, 0.8);
+        Fridge fridge = new Fridge(DeviceType.FRIDGE, 50, 350, 50);
+        Device dFridge = new Device("LG Fridge", fridge, 1.5);
+        DeviceList kitchenDevList = kitchen.getDeviceList();
+        assertTrue(kitchenDevList.addDevice(microwave));
+        assertTrue(kitchenDevList.addDevice(dFridge));
+
+        boolean thrown = false;
+        try {
+            ctr.deactivateDevice(2, 3);
+        } catch (IndexOutOfBoundsException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
 }

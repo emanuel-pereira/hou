@@ -1,16 +1,16 @@
 package smarthome.io.ui;
 
-import smarthome.controller.USAddSetAndListDevicesInRoomCTRL;
+import smarthome.controller.EditDevicesCTRL;
 import smarthome.model.*;
 
 import java.util.Scanner;
 
-public class USAddSetAndListDevicesInRoomUI {
+public class EditDevicesUI {
     private House mHouse;
     private RoomList mRoomList;
     private int mRoomIndex;
     private Room mRoom;
-    private USAddSetAndListDevicesInRoomCTRL mCtrl;
+    private EditDevicesCTRL mCtrl;
     private String mName;
     private double mNominalPower;
     private int mDeviceTypeIndex;
@@ -29,8 +29,8 @@ public class USAddSetAndListDevicesInRoomUI {
     String selectedAttribute;
 
 
-    public USAddSetAndListDevicesInRoomUI(House house) {
-        mCtrl = new USAddSetAndListDevicesInRoomCTRL(house);
+    public EditDevicesUI(House house) {
+        mCtrl = new EditDevicesCTRL(house);
         mHouse = house;
         mRoomList = house.getRoomList();
         mProgramList = new ProgramList();
@@ -44,6 +44,8 @@ public class USAddSetAndListDevicesInRoomUI {
             System.out.println("1 - Add a device to a Room from the list of the available device types.");
             System.out.println("2 - Get a list of all Devices in a Room");
             System.out.println("3 - Edit the configuration of an existing device");
+            System.out.println("4 - Remove a device");
+            //System.out.println("5 - Deactivate a device");
             System.out.println("0 - Exit");
             option = read.nextInt();
             read.nextLine();
@@ -57,25 +59,64 @@ public class USAddSetAndListDevicesInRoomUI {
                 case 3:
                     this.editDeviceAttributes();
                     break;
+                case 4:
+                    this.removeDevice();
+                    break;
+                /*case 5:
+                    this.deactivateDevice();
+                    break;*/
                 default:
                     System.out.println("Please choose a valid option.");
             }
         }
     }
 
-    public void roomSelectionToAddDevice() {
+    /**
+     * Method that removes any device from the Rooms device list
+     * First we need to select a Room in order to list all devices contained in it
+     * With that input we list all devices in the room and we then select one
+     */
+    private void removeDevice() {
+        roomSelectionToListDevice();
+        System.out.println("Select a device from the previous list to remove it:");
+        int deviceIndex = read.nextInt() - 1;
+        read.nextLine();
+        if (mCtrl.removeDevice(mRoomIndex, deviceIndex)) {
+            if (deviceListInRoomIsEmpty()) {
+                this.listDevicesInRoom();
+                System.out.println("Success, the device was removed");
+            }
+        }
+        System.out.println("Not possible to remove device");
+    }
 
-        while (true) {
-            if (roomListIsEmpty()) break;
+    /**
+     * Method that changes the Device status flag from true to false when a device is deactivated
+     */
+    public void deactivateDevice() {
+        roomSelectionToListDevice();
+        System.out.println("Select a device from the previous list to deactivate it:");
+        int deviceIndex = read.nextInt() - 1;
+        read.nextLine();
+        if (mCtrl.deactivateDevice(mRoomIndex, deviceIndex)) {
+            if (deviceListInRoomIsEmpty()) {
+                this.listDevicesInRoom();
+                System.out.println("Success, the device was deactivated");
+            }
+        }
+        System.out.println("Not possible to remove device");
+    }
+
+
+    public void roomSelectionToAddDevice() {
+        if (!roomListIsEmpty()) {
             System.out.println("Select a room from the list below where you want to add the device:");
             System.out.println(mCtrl.showRoomListInString());
             mRoomIndex = read.nextInt();
             read.nextLine();
             roomIndexIsOutOfBounds();
             this.selectDeviceType();
-            break;
         }
-        return;
     }
 
     private boolean roomListIsEmpty() {
@@ -92,17 +133,13 @@ public class USAddSetAndListDevicesInRoomUI {
     }
 
     public void selectDeviceType() {
-        while (true) {
-            System.out.println("Choose the type of the device you want to create from the list below:");
-            System.out.println(DeviceType.displayDeviceTypes());
-            mDeviceTypeIndex = read.nextInt();
-            read.nextLine();
-            if (mDeviceTypeIndex > DeviceType.values().length) {
-                System.out.println(insertValidOption);
-            } else this.insertDeviceStdInputs();
-            break;
-        }
-        return;
+        System.out.println("Choose the type of the device you want to create from the list below:");
+        System.out.println(DeviceType.displayDeviceTypes());
+        mDeviceTypeIndex = read.nextInt();
+        read.nextLine();
+        if (mDeviceTypeIndex > DeviceType.values().length) {
+            System.out.println(insertValidOption);
+        } else this.insertDeviceStdInputs();
     }
 
     public void insertDeviceStdInputs() {
@@ -127,7 +164,6 @@ public class USAddSetAndListDevicesInRoomUI {
                 break;
             } else System.out.println("Please insert only positive values.");
         }
-        return;
     }
 
 
@@ -266,53 +302,41 @@ public class USAddSetAndListDevicesInRoomUI {
     }
 
     public void roomSelectionToListDevice() {
-
-        while (true) {
-            if (roomListIsEmpty()) break;
+        if (!roomListIsEmpty()) {
             System.out.println("Select a room from the list below to get the list of all devices in that room:");
             System.out.println(mCtrl.showRoomListInString());
             mRoomIndex = read.nextInt();
             read.nextLine();
             roomIndexIsOutOfBounds();
             mRoom = mRoomList.get(mRoomIndex - 1);
-            if (deviceListInRoomIsEmpty()) break;
-
-            this.listDevicesInRoom();
-            break;
         }
-        return;
+        if (deviceListInRoomIsEmpty())
+            this.listDevicesInRoom();
     }
 
 
     public void listDevicesInRoom() {
         System.out.println("List of devices in " + mRoom.getName() + ":");
         System.out.println(mCtrl.showDeviceListInString(mRoomIndex));
-        return;
     }
 
     private boolean deviceListInRoomIsEmpty() {
         mDeviceList = mRoom.getDeviceList();
         if (mDeviceList.getDeviceList().isEmpty()) {
             System.out.println("The device list in " + mRoom.getName() + " is empty.\n");
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     public void deviceSelectionToEdit() {
-        while (true) {
             mDeviceIndex = read.nextInt();
             read.nextLine();
-            if (mDeviceIndex > mRoom.getDeviceList().size()) {
+        if (mDeviceIndex > mRoom.getDeviceList().size())
                 System.out.println(insertValidOption);
-                break;
-            }
-            return;
-        }
     }
 
     public void attributeSelectionToEdit() {
-        while (true) {
             System.out.println("Select a attribute of the device to edit: ");
             System.out.println("1 - Device Room : " + this.mRoom.getName());
             System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
@@ -323,11 +347,7 @@ public class USAddSetAndListDevicesInRoomUI {
             selectedAttribute = mCtrl.getDeviceAttribute(mDevice, mAttributeIndex - 1);
             //if (mAttributeIndex > mCtrl.)
             //  System.out.println(insertValidOption);
-            break;
-        }
-        return;
     }
-
 
     public void editDeviceAttributes() {
         roomSelectionToListDevice();
@@ -339,13 +359,13 @@ public class USAddSetAndListDevicesInRoomUI {
     }
 
     public void setDeviceAttributes() {
-        if (mAttributeIndex==1) {
+        if (mAttributeIndex == 1) {
             System.out.println("Set the new room:");
             System.out.println(mCtrl.showRoomListInString());
             mRoomIndex = read.nextInt();
             read.nextLine();
-            mCtrl.addDeviceToRoom(mDevice,mRoomIndex);
-            mRoom=mRoomList.get(mRoomIndex-1);
+            mCtrl.addDeviceToRoom(mDevice, mRoomIndex);
+            mRoom = mRoomList.get(mRoomIndex - 1);
             System.out.println("Success");
             System.out.println("1 - Device Room : " + this.mRoom.getName());
             System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
@@ -454,6 +474,5 @@ public class USAddSetAndListDevicesInRoomUI {
                 System.out.println(mCtrl.getDeviceAttributesListInString(mDevice));
             }
         }
-        return;
     }
 }
