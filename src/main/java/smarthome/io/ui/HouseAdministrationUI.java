@@ -44,19 +44,17 @@ public final class HouseAdministrationUI {
                     ui108.run();
                     break;
                 case 4:
-
                     NewHouseGridUI ui130 = new NewHouseGridUI(house, hgList);
                     ui130.run();
                     break;
-                /*case 5:
-                    US135AddPowerSourceToGridUI ui135 = new US135AddPowerSourceToGridUI (house, hgList, pslist);
-                    ui135.addPowerSourceToHouseGrid ();
-                    break;*/
+                case 5:
+                    //US135AddPowerSourceToGridUI ui135 = new US135AddPowerSourceToGridUI(house, hgList, pslist);
+                    //ui135.addPowerSourceToHouseGrid();
+                    break;
                 case 6:
                     AttachDetachAndListRoomsInGridUI ui145 = new AttachDetachAndListRoomsInGridUI(house);
                     ui145.checkIfHGListIsEmpty();
                     break;
-
                 case 7:
                     TotalNominalPowerRoomUI ui230 = new TotalNominalPowerRoomUI(house);
                     ui230.showTotalNominalPowerRoom();
@@ -70,14 +68,13 @@ public final class HouseAdministrationUI {
                     us250.run2();
                     break;
                 case 10:
-                    USAddSetAndListDevicesInRoomUI ui210 = new USAddSetAndListDevicesInRoomUI(house);
+                    EditDevicesUI ui210 = new EditDevicesUI(house);
                     ui210.selectOption();
                     break;
-
-                /*case 11:
-                    US160GetDeviceListInGridByTypeUI ui160 = new US160GetDeviceListInGridByTypeUI (house);
-                    ui160.getDeviceListInGrid ();
-                    break;*/
+                case 11:
+                    //US160GetDeviceListInGridByTypeUI ui160 = new US160GetDeviceListInGridByTypeUI (house);
+                    //ui160.getDeviceListInGrid ();
+                    break;
                 case 12:
                     TotalNominalPowerInGridUI uS172 = new TotalNominalPowerInGridUI(house);
                     uS172.run();

@@ -44,8 +44,8 @@ public final class PowerUserUI {
                     break;
                 case 5:
                     System.out.println("US705");
-                    DisplayVariableTotalNominalPowerUI ui705 = new DisplayVariableTotalNominalPowerUI(house);
-                    ui705.run();
+                    /*DisplayVariableTotalNominalPowerUI ui705 = new DisplayVariableTotalNominalPowerUI(house);
+                    ui705.run();*/
                     break;
                 case 6:
                     System.out.println("US222");
