@@ -17,14 +17,14 @@ create ":EditDeviceCTRL"
 Administrator <<-- ":EditDeviceUI": Show room list
 Administrator -> ":EditDeviceUI": Choose room
 
-ref over ":EditDeviceUI", ":EditDeviceCTRL", ":House", "rL:RoomList", ":Room", "dL:DeviceList": dL=r.getListDevices()
+ref over ":EditDeviceUI", ":EditDeviceCTRL", ":House", "rL:RoomList", ":Room", "dL:DeviceList": Get list of devices in a room
 
 
 
 Administrator <<-- ":EditDeviceUI": Show device list
 Administrator -> ":EditDeviceUI": Choose device
 
-ref over ":EditDeviceUI", ":EditDeviceCTRL", ":House", "rL:RoomList", ":Room", "dL:DeviceList", ":Device", "DeviceSpecs": aL=getDeviceAttributesList()
+ref over ":EditDeviceUI", ":EditDeviceCTRL", ":House", "rL:RoomList", ":Room", "dL:DeviceList", ":Device", "DeviceSpecs": Get list of device attributes
 
 
 Administrator <<-- ":EditDeviceUI": Show attribute list
@@ -33,7 +33,7 @@ Administrator -> ":EditDeviceUI": Choose attribute
 Administrator -> ":EditDeviceUI": Insert value
 
 
-ref over ":EditDeviceUI", ":EditDeviceCTRL", ":House", "rL:RoomList", ":Room", "dL:DeviceList", ":Device", "DeviceSpecs": setAttributeValue\n(device,attribute,value)
+ref over ":EditDeviceUI", ":EditDeviceCTRL", ":House", "rL:RoomList", ":Room", "dL:DeviceList", ":Device", "DeviceSpecs": Change the value of the chosen attribute
 
 
 Administrator <<-- ":EditDeviceUI": Success message

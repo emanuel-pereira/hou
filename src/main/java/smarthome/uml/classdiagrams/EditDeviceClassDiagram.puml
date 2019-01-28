@@ -80,7 +80,6 @@ class Device {
 - mDeviceType: DeviceType
 - mRoom: Room
 - mNominalPower: double
-- mEnergyConsumption: Metered
 + getName()
 + getDeviceSpecs()
 + getRoom()
@@ -89,12 +88,14 @@ class Device {
 + setDeviceName()
 + setRoom()
 + setNominalPower()
-+ showDeviceListAttributesInString()
-+ showDeviceSpecsListAttributesInString()
++ showDeviceAttributesInString()
++ getDeviceAttributesInString()
++ setAttributeValue()
 }
 
 interface DeviceSpecs{
-+ showDeviceSpecsListAttributesInString()
++ getDeviceAttributesInString()
++ setAttributeValue()
 }
 
 House  *- "1" RoomList: contains

@@ -1,20 +1,14 @@
 @startuml
 hidefootbox
 
-":EditDeviceUI" -> ":EditDeviceCTRL": aL=getDeviceAttributesList()
-":EditDeviceCTRL" -> ":House": aL=getDeviceAttributesList()
-":House" -> "rL:RoomList": aL=getDeviceAttributesList()
-"rL:RoomList" -> ":Room": aL=getDeviceAttributesList()
-":Room" -> "dL:DeviceList": aL=getDeviceAttributesList()
-"dL:DeviceList" -> ":Device": aL=getDeviceAttributesList()
-":Device" -> "DeviceSpecs": aL=getDeviceAttributesList()
+actor Administrator
+":EditDeviceUI" -> ":EditDeviceCTRL": aL=getDeviceAttributesList(Device d)
+":EditDeviceCTRL" -> ":House": aL=getDeviceAttributesList(Device d)
+":House" -> "rL:RoomList": aL=getDeviceAttributesList(Device d)
+"rL:RoomList" -> ":Room": aL=getDeviceAttributesList(Device d)
+":Room" -> "dL:DeviceList": aL=getDeviceAttributesList(Device d)
+"dL:DeviceList" -> "d:Device": aL=getDeviceAttributesList()
+"d:Device" -> "DeviceSpecs": aL=getDeviceAttributesList()
 
-"DeviceSpecs" -->> ":Device": return list of device's attributes
-":Device" -->>  "dL:DeviceList":return list of device's attributes
-"dL:DeviceList" -->> ":Room":return list of device's attributes
-":Room" -->> "rL:RoomList":return list of device's attributes
-"rL:RoomList" -->> ":House":return list of device's attributes
-":House" -->> ":EditDeviceCTRL":return list of device's attributes
-":EditDeviceCTRL" -->> ":EditDeviceUI":return list of device's attributes
 
 @enduml
