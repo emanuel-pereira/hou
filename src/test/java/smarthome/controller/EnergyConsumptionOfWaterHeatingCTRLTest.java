@@ -1,11 +1,8 @@
 
 package smarthome.controller;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
-
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +12,7 @@ class EnergyConsumptionOfWaterHeatingCTRLTest {
     void getDevicesInAllRoomsByType() {
         House house = new House();
         RoomList roomList = house.getRoomList();
-        USEnergyConsumptionOfWaterHeatingCTRL ctrl = new USEnergyConsumptionOfWaterHeatingCTRL(house);
+        EnergyConsumptionOfWaterHeatingCTRL ctrl = new EnergyConsumptionOfWaterHeatingCTRL(house);
         ElectricWaterHeater ewh1 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 75, 65, 1);
         Device dEWH1 = new Device("EWH", ewh1, 150);
         ElectricWaterHeater ewh2 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 100, 65, 1);
@@ -37,7 +34,7 @@ class EnergyConsumptionOfWaterHeatingCTRLTest {
     @Test
     void showDeviceAttributesInString() {
         House house = new House();
-        USEnergyConsumptionOfWaterHeatingCTRL ctrl = new USEnergyConsumptionOfWaterHeatingCTRL(house);
+        EnergyConsumptionOfWaterHeatingCTRL ctrl = new EnergyConsumptionOfWaterHeatingCTRL(house);
         ElectricWaterHeater ewh1 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 75, 65, 1);
         Device dEWH1 = new Device("EWH", ewh1, 150);
         String expected = "1 - Device Name : EWH\n" +
@@ -57,7 +54,7 @@ class EnergyConsumptionOfWaterHeatingCTRLTest {
     @Test
     void getEnergyConsumptionByDeviceType() {
         House house = new House();
-        USEnergyConsumptionOfWaterHeatingCTRL ctrl = new USEnergyConsumptionOfWaterHeatingCTRL(house);
+        EnergyConsumptionOfWaterHeatingCTRL ctrl = new EnergyConsumptionOfWaterHeatingCTRL(house);
 
         RoomList roomList = house.getRoomList();
         Room kitchen = new Room("Kitchen", 0, 6, 3.5, 3);
