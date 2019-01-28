@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.USEnergyConsumptionOfWaterHeatingCTRL;
+import smarthome.controller.EnergyConsumptionOfWaterHeatingCTRL;
 import smarthome.model.*;
 
 import java.util.Scanner;
@@ -8,11 +8,11 @@ import java.util.Scanner;
 public class EnergyConsumptionOfWaterHeatingUI {
 
 
-    private USEnergyConsumptionOfWaterHeatingCTRL mCtrl;
+    private EnergyConsumptionOfWaterHeatingCTRL mCtrl;
     Scanner read = new Scanner(System.in);
 
     public EnergyConsumptionOfWaterHeatingUI(House house) {
-        mCtrl = new USEnergyConsumptionOfWaterHeatingCTRL(house);
+        mCtrl = new EnergyConsumptionOfWaterHeatingCTRL(house);
     }
 
     public void run() {

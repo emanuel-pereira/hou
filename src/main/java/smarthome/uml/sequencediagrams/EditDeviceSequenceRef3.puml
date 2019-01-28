@@ -1,11 +1,13 @@
 @startuml
 hidefootbox
 
+actor Administrator
+
 ":EditDeviceUI" -> ":EditDeviceCTRL": setAttributeValue\n(device,attribute,value)
 ":EditDeviceCTRL" -> ":House": setAttributeValue\n(device,attribute,value)
 ":House" -> "rL:RoomList": setAttributeValue\n(device,attribute,value)
-"rL:RoomList" -> ":Room": setAttributeValue\n(device,attribute,value)
-":Room" -> "dL:DeviceList": setAttributeValue\n(device,attribute,value)
+"rL:RoomList" -> "r:Room": setAttributeValue\n(device,attribute,value)
+"r:Room" -> "dL:DeviceList": setAttributeValue\n(device,attribute,value)
 "dL:DeviceList" -> ":Device": setAttributeValue\n(device,attribute,value)
 ":Device" -> "DeviceSpecs": setAttributeValue\n(device,attribute,value)
 

@@ -1,15 +1,13 @@
 @startuml
 hidefootbox
 
+
+actor Administrator
 ":EditDeviceUI" -> ":EditDeviceCTRL": dL=getListDevices(Room r)
 ":EditDeviceCTRL" -> ":House": dL=getListDevices(Room r)
 ":House" -> "rL:RoomList": dL=getListDevices(Room r)
-"rL:RoomList" -> ":Room": dL=r.getListDevices()
-":Room" -> "dL:DeviceList": dL=r.getListDevices()
+"rL:RoomList" -> "r:Room": dL=r.getListDevices()
+"r:Room" -> "dL:DeviceList": dL=r.getListDevices()
 
-"dL:DeviceList" -->> ":Room":return list of devices\nin the chosen room
-":Room" -->> "rL:RoomList":return list of devices\nin the chosen room
-"rL:RoomList" -->> ":House":return list of devices\nin the chosen room
-":House" -->> ":EditDeviceCTRL":return list of devices\nin the chosen room
-":EditDeviceCTRL" -->> ":EditDeviceUI":return list of devices\nin the chosen room
+
 @enduml

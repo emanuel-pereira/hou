@@ -4,12 +4,12 @@ import smarthome.model.*;
 
 import java.util.List;
 
-public class USEnergyConsumptionOfWaterHeatingCTRL {
+public class EnergyConsumptionOfWaterHeatingCTRL {
 
     private RoomList mRoomList;
 
 
-    public USEnergyConsumptionOfWaterHeatingCTRL(House house) {
+    public EnergyConsumptionOfWaterHeatingCTRL(House house) {
         mRoomList = house.getRoomList();
     }
 
