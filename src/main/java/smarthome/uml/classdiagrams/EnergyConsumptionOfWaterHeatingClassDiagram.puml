@@ -6,6 +6,9 @@ class House {
 - mGA: Geographical Area
 - mRoomList: RoomList
 - mHGListInHouse: HouseGridList
++ setVolumeOfWaterInEWHList()
++ setColdWaterTemperatureInEWHList()
++ getEnergyConsumptionOfEWHGlobalList()
 + setHouseGA()
 + getHouseGA()
 + setHouseAddress()
@@ -14,6 +17,7 @@ class House {
 + findClosestGASensorByType()
 + getRoomListFromHouse()
 + getHGListInHouse()
++ showElectricWaterHeaterList()
 }
 
 class RoomList{
@@ -62,7 +66,7 @@ class DeviceList{
 + addDevice()
 + newDevice()
 + newDevice()
-+ get()
++ get(int)
 + getLastElement()
 + getDeviceList()
 + showDeviceListInString()
@@ -71,7 +75,8 @@ class DeviceList{
 + getEnergyConsumptionOfEWHList()
 + setVolumeOfWaterToHeat()
 + setColdWaterTemperatureEWHList()
-+ isLowerThanHotWater()
++ isValidColdWaterTemperature()
++ isValidVolumeOfWater()
 + size()
 }
 
