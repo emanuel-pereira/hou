@@ -18,20 +18,20 @@ create ":Controller"
 
 "EnergyConsumptionOfWaterHeating:UI" -->> "Regular User/Power User": ask for cold water temperature\nin a given day
 "Regular User/Power User" -> "EnergyConsumptionOfWaterHeating:UI": input cold water temperature
-ref over "EnergyConsumptionOfWaterHeating:UI",":Controller", "h:House", ":RoomList", ":Room", ":DeviceList",":Device": h.setColdWaterTemperatureInEWHList(coldWaterTemperature)
+ref over "EnergyConsumptionOfWaterHeating:UI",":Controller", "h:House", ":RoomList", ":Room", ":DeviceList",":Device": Set the cold water temperature for an electric water heater
 
 
 '== VOLUME OF WATER PRODUCED ==
 
 "EnergyConsumptionOfWaterHeating:UI" -->> "Regular User/Power User": ask for volume of water\nproduced in each water heater
 "Regular User/Power User" -> "EnergyConsumptionOfWaterHeating:UI": input volume of produced water
-ref over "EnergyConsumptionOfWaterHeating:UI",":Controller","h:House",":RoomList",":Room",":DeviceList",":Device": h.setVolumeOfWaterInEWHList(volumeOfWater)
+ref over "EnergyConsumptionOfWaterHeating:UI",":Controller","h:House",":RoomList",":Room",":DeviceList",":Device": Set the volume of water for an electric water heater
 
 
 
 '== ENERGY CONSUMPTION ==
 
-ref over "EnergyConsumptionOfWaterHeating:UI", ":Controller","h:House",":RoomList",":Room",":DeviceList",":Device":  h.getEnergyConsumptionInEWHList( ): double
+ref over "EnergyConsumptionOfWaterHeating:UI", ":Controller","h:House",":RoomList",":Room",":DeviceList",":Device":  Get the estimated  energy consumption value for the electric water heater
 
 
 '== FINAL MESSAGE ==

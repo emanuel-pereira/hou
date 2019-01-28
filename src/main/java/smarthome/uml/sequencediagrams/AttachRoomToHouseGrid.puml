@@ -1,0 +1,50 @@
+@startuml
+Activate Administrator
+Administrator <-- ":MainUI" : Show menu
+Activate ":MainUI"
+Administrator -> ":MainUI": Choose House Administration option
+Deactivate ":MainUI"
+create ":House AdministrationUI"
+":MainUI" ->":House AdministrationUI": create
+Administrator <-- ":House AdministrationUI": Show menu
+Activate ":House AdministrationUI"
+Administrator->":House AdministrationUI": choose Attach, Detach and List Rooms in HouseGrid option
+Deactivate ":House AdministrationUI"
+create ":AttachDetachAndListRoomsInGridUI"
+":House AdministrationUI" -> ":AttachDetachAndListRoomsInGridUI": create
+create ":AttachDetachAndListRoomsInGridCTRL"
+":AttachDetachAndListRoomsInGridUI" -> ":AttachDetachAndListRoomsInGridCTRL": create
+Administrator <-- ":AttachDetachAndListRoomsInGridUI": list options to attach, detach or list rooms in Grid
+Activate ":AttachDetachAndListRoomsInGridUI"
+Administrator -> ":AttachDetachAndListRoomsInGridUI": chooses attach room to HouseGrid option
+":AttachDetachAndListRoomsInGridUI" -> ":AttachDetachAndListRoomsInGridCTRL": getHouseGridList()
+Activate ":AttachDetachAndListRoomsInGridCTRL"
+":AttachDetachAndListRoomsInGridCTRL"->":HouseGridList": getHouseGridList()
+Activate ":HouseGridList"
+":AttachDetachAndListRoomsInGridCTRL"<--":HouseGridList": showHouseGridList()
+Deactivate ":HouseGridList"
+":AttachDetachAndListRoomsInGridUI"<--":AttachDetachAndListRoomsInGridCTRL": showHouseGridList()
+Deactivate ":AttachDetachAndListRoomsInGridCTRL"
+Administrator<--":AttachDetachAndListRoomsInGridUI": showHouseGridList()
+Administrator->":AttachDetachAndListRoomsInGridUI": selects houseGrid
+":AttachDetachAndListRoomsInGridUI"->":AttachDetachAndListRoomsInGridCTRL": getRoomsWithoutGrid()
+Activate ":AttachDetachAndListRoomsInGridCTRL"
+":AttachDetachAndListRoomsInGridCTRL"->":RoomList":getRoomsWithoutGrid()
+Activate ":RoomList"
+":AttachDetachAndListRoomsInGridCTRL"<--":RoomList":showRoomsWithoutGrid()
+Deactivate ":RoomList"
+":AttachDetachAndListRoomsInGridUI"<--":AttachDetachAndListRoomsInGridCTRL":showRoomsWithoutGrid()
+Deactivate ":AttachDetachAndListRoomsInGridCTRL"
+Administrator<--":AttachDetachAndListRoomsInGridUI": showRoomsWithoutGrid()
+Administrator->":AttachDetachAndListRoomsInGridUI": selects Room
+":AttachDetachAndListRoomsInGridUI" -> ":AttachDetachAndListRoomsInGridCTRL": attachRoomToGrid()
+Activate ":AttachDetachAndListRoomsInGridCTRL"
+":AttachDetachAndListRoomsInGridCTRL"->":HouseGrid":  attachRoomToGrid()
+Activate ":HouseGrid"
+":HouseGrid"->":HouseGrid":room attached
+Administrator<--":HouseGrid":  room successfully attached to grid
+Deactivate ":AttachDetachAndListRoomsInGridCTRL"
+Deactivate ":HouseGrid"
+Deactivate ":AttachDetachAndListRoomsInGridUI"
+Deactivate Administrator
+@enduml

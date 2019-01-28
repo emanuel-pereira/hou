@@ -13,8 +13,7 @@ public final class HouseAdministrationUI {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("House administration UI");
-
-
+        
         while (option != 0) {
             System.out.println("Click 1. Configure the location of the house");
             System.out.println("Click 2. Add a new room to the house");
