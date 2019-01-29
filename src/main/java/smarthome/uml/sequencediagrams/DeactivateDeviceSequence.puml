@@ -7,8 +7,10 @@ actor Administrator
 Administrator -> ":EditDeviceUI": start
 
 create ":EditDeviceCTRL"
+activate ":EditDeviceUI"
 ":EditDeviceUI" -> ":EditDeviceCTRL": create
 
+activate ":EditDeviceCTRL"
 ":EditDeviceCTRL" -> ":House": rL = getRoomList( )
 
 ":House" -> "rL:RoomList": getRoomList( )
@@ -17,7 +19,7 @@ Administrator <<-- ":EditDeviceUI": Show room list
 
 Administrator -> ":EditDeviceUI": Choose room
 
-"rL:RoomList" -> ":Room": getDevicesList( )
+"rL:RoomList" -> ":Room": dL = getDevicesList( )
 
 ":Room" -> "dL :DeviceList": getDevicesList( )
 
@@ -29,6 +31,11 @@ Administrator -> ":EditDeviceUI": Choose device
 
 ":EditDeviceCTRL" -> ":Room": deactivateDevice(roomIndex, deviceIndex)
 
-":Room" -> "dL :DeviceList": deactivateDevice(roomIndex, deviceIndex)
+":Room" -> "dL :DeviceList": deactivateDevice(deviceIndex)
 
+"dL :DeviceList" -> "d :Device": status( )
+
+"d :Device" -> "d :Device": active: false
+
+deactivate ":EditDeviceCTRL"
 @enduml
