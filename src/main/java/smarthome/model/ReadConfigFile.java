@@ -1,19 +1,17 @@
 package smarthome.model;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 public class ReadConfigFile {
 
+    public /* private static*/ String getConfigValue(String key) {
+        String value;
 
-    private static String getConfigValue(String key) {
-        String value = "";
-        boolean error = true;
+        boolean error = false;
+
 
         Properties properties = new Properties();
         InputStream inputStream = null;
@@ -27,19 +25,29 @@ public class ReadConfigFile {
         }
 
         //Loading the inputStream may cause an IOException. Let's handle that!
+
+
         try {
             properties.load(inputStream);
         } catch (IOException e) {
             error = true;
         }
 
+        try {
+            properties.load(inputStream);
+        } catch (Exception e) {
+            error = true;
+        }
+
         //Return an error or the result
-        if (error == true) {
+        if (error) {
             value = "ERROR";
         } else {
             value = properties.getProperty(key);
         }
-
+        if (value == null){
+            value = "ERROR";
+        }
         return value;
     }
 
@@ -50,7 +58,7 @@ public class ReadConfigFile {
      * @param key is the required metering period
      * @return the metering period in minutes in the interval [1,1440]. -1 denotes an error.
      */
-    private static int getMeteringPeriod(String key) {
+    public /* private static*/ int getMeteringPeriod(String key) {
         int output;
 
         String value = getConfigValue(key);
@@ -74,7 +82,7 @@ public class ReadConfigFile {
      *
      * @return the metering period in minutes in the interval [1,1440]. -1 denotes an error.
      */
-    public static int getGridMeteringPeriod() {
+    public /*private static*/ int getGridMeteringPeriod() {
         return getMeteringPeriod("gridMeteringPeriod");
     }
 
@@ -83,30 +91,29 @@ public class ReadConfigFile {
      *
      * @return the metering period in minutes in the interval [1,1440]. -1 denotes an error.
      */
-    public static int getDevicesMeteringPeriod() {
+    public /*private static*/ int getDevicesMeteringPeriod() {
         return getMeteringPeriod("devicesMeteringPeriod");
     }
 
 
-
-    public static List<String> getDeviceTypes() {
+    public /*private static*/ List<String> getDeviceTypes() {
         List<String> devices = new ArrayList<>();
 
         String value = getConfigValue("TotalDevices");
-        String currentDevice ="";
+        String currentDevice;
 
-        int numberOfDevices=0;
+        int numberOfDevices;
 
         try {
-            numberOfDevices= Integer.parseInt(value);
+            numberOfDevices = Integer.parseInt(value);
         } catch (Exception e) {
             numberOfDevices = 0;
         }
 
-        if (numberOfDevices > 0){
-            for (int i=1;i<=numberOfDevices;i++){
-                currentDevice=getConfigValue("Device"+i);
-                devices.add(i-1,currentDevice);
+        if (numberOfDevices > 0) {
+            for (int i = 1; i <= numberOfDevices; i++) {
+                currentDevice = getConfigValue("devicetype" + i + "");
+                devices.add(i - 1, currentDevice);
             }
         }
 

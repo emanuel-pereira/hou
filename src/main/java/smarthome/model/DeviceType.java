@@ -7,7 +7,7 @@ public enum DeviceType {
     WASHING_MACHINE("Washing Machine", 2),
     DISHWASHER("Dishwasher", 3),
     FRIDGE("Fridge", 4),
-    KETTLER("Kettler", 5),
+    KETTLE("Kettle", 5),
     OVEN("Oven", 6),
     STOVE("Stove", 7),
     MICROWAVE_OVEN("Microwave Oven", 8),

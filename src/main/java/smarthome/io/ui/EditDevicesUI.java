@@ -226,8 +226,8 @@ public class EditDevicesUI {
                 mCtrl.addDevice(mRoomIndex, mName, fridge, mNominalPower);
                 break;
             case 5:
-                OtherDevices kettler = new OtherDevices(DeviceType.KETTLER);
-                mCtrl.addDevice(mRoomIndex, mName, kettler, mNominalPower);
+                OtherDevices kettle = new OtherDevices(DeviceType.KETTLE);
+                mCtrl.addDevice(mRoomIndex, mName, kettle, mNominalPower);
                 break;
             case 6:
                 OtherDevices oven = new OtherDevices(DeviceType.OVEN);
