@@ -1,0 +1,41 @@
+@startuml
+autonumber
+hidefootbox
+
+actor Administrator
+
+Administrator -> ":EditDeviceUI": start
+
+create ":EditDeviceCTRL"
+activate ":EditDeviceUI"
+":EditDeviceUI" -> ":EditDeviceCTRL": create
+
+activate ":EditDeviceCTRL"
+":EditDeviceCTRL" -> ":House": rL = getRoomList( )
+
+":House" -> "rL:RoomList": getRoomList( )
+
+Administrator <<-- ":EditDeviceUI": Show room list
+
+Administrator -> ":EditDeviceUI": Choose room
+
+"rL:RoomList" -> ":Room": dL = getDevicesList( )
+
+":Room" -> "dL :DeviceList": getDevicesList( )
+
+Administrator <<-- ":EditDeviceUI": Show device list
+
+Administrator -> ":EditDeviceUI": Choose device
+
+":EditDeviceUI" -> ":EditDeviceCTRL": deactivateDevice(roomIndex, deviceIndex)
+
+":EditDeviceCTRL" -> ":Room": deactivateDevice(roomIndex, deviceIndex)
+
+":Room" -> "dL :DeviceList": deactivateDevice(deviceIndex)
+
+"dL :DeviceList" -> "d :Device": status( )
+
+"d :Device" -> "d :Device": active: false
+
+deactivate ":EditDeviceCTRL"
+@enduml
