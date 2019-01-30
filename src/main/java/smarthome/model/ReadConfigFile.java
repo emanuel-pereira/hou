@@ -7,7 +7,19 @@ import java.util.Properties;
 
 public class ReadConfigFile {
 
-    private static String getConfigValue(String key) {
+   static String mConfigFilePath= "resources/config.properties";
+   static String mDeviceTypesID= "devicetype";
+   static String mDeviceTotals="";
+
+   public void setConfigPath (String newConfigPath){
+       mConfigFilePath = newConfigPath;
+   }
+
+    public void setDeviceTypesID(String newDeviceTypesID){
+        mConfigFilePath = newDeviceTypesID;
+    }
+
+    public static String getConfigValue(String key) {
         String value;
 
         boolean error = false;
@@ -18,23 +30,18 @@ public class ReadConfigFile {
 
         //Make sure the config file is available and can be read
         try {
-            inputStream = new FileInputStream("resources/config.properties");
+            inputStream = new FileInputStream(mConfigFilePath);
 
         } catch (FileNotFoundException e) {
             error = true;
         }
 
-        //Loading the inputStream may cause an IOException. Let's handle that!
-
-
+        //Loading the inputStream may
+        // cause an IOException. Let's handle that!
         try {
             properties.load(inputStream);
         } catch (IOException e) {
             error = true;
-        }
-
-        try {
-            properties.load(inputStream);
         } catch (Exception e) {
             error = true;
         }
@@ -69,12 +76,7 @@ public class ReadConfigFile {
             output = -1;
         }
 
-        if (output > 1440 || output <= 0) {
-            output = -1;
-        }
-        if (1440 % output == 0) {
 
-        }
 
 
         return output;
@@ -121,6 +123,24 @@ public class ReadConfigFile {
         }
 
         return devices;
+    }
+
+    public boolean isMeteringPeriodValid() {
+        boolean isValid;
+        int gridMeteringPeriod = getGridMeteringPeriod();
+        int deviceMeteringPeriod = getDevicesMeteringPeriod();
+
+        if ( (gridMeteringPeriod > 1440 || gridMeteringPeriod <= 0)||(deviceMeteringPeriod >1440 || deviceMeteringPeriod <=0) ) {
+            isValid = false ;
+        }
+
+        // Devices’ metering period must be a multiple of the grid metering period and the sum of all periods in the day must be 24:00.
+        isValid = ((deviceMeteringPeriod % gridMeteringPeriod) == 0) && ((1440 % deviceMeteringPeriod) == 0) && ((1440 % gridMeteringPeriod) == 0);
+
+
+
+
+        return isValid;
     }
 
 }

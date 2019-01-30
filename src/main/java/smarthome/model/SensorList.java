@@ -88,6 +88,12 @@ public class SensorList {
             }
         }return requiredSensor;
     }
+
+
+    /**
+     * Transforms a list of sensors as a numbered list of strings with the names of the sensors
+     * @return List of sensors as string
+     */
     public String showSensorListInString() {
         StringBuilder result = new StringBuilder();
         String element = " - ";
@@ -119,6 +125,9 @@ public class SensorList {
             }
         }return typeSensorList;
     }
+
+
+
 
 
 

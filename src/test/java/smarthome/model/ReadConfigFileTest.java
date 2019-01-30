@@ -11,7 +11,6 @@ class ReadConfigFileTest {
 
     /*@Test
     void getConfigValueTest() {
-        ReadConfigFile rcf = new ReadConfigFile();
 
         String expectedResult = "Electric Water Heater";
         String result = ReadConfigFile.getConfigValue("devicetype1");
@@ -21,40 +20,37 @@ class ReadConfigFileTest {
 
     @Test
     void getConfigValueTestError() {
-        ReadConfigFile rcf = new ReadConfigFile();
-
         String expectedResult = "ERROR";
-        String result = rcf.getConfigValue("b");
+        String result = ReadConfigFile.getConfigValue("b");
 
         assertEquals(expectedResult,result);
     }
 
     @Test
     void getGridMeteringPeriodTest() {
-        ReadConfigFile rcf = new ReadConfigFile();
+
 
         int expectedResult = 30;
-        int result = rcf.getGridMeteringPeriod();
+        int result = ReadConfigFile.getGridMeteringPeriod();
 
         assertEquals(expectedResult,result);
     }
 
     @Test
     void getDevicesMeteringPeriod() {
-        ReadConfigFile rcf = new ReadConfigFile();
+
 
         int expectedResult = 10;
-        int result = rcf.getDevicesMeteringPeriod();
+        int result = ReadConfigFile.getDevicesMeteringPeriod();
 
         assertEquals(expectedResult,result);
     }
 
     @Test
     void getDeviceTypes() {
-        ReadConfigFile rcf = new ReadConfigFile();
 
         List<String> expectedResult = Arrays.asList("Electric Water Heater","Washing Machine","Dishwasher","Fridge","Kettle","Oven","Stove","Microwave Oven","Wall Electric Heater","Portable Electric Oil Heater","Portable Electric Convection Heater","Wall Towel Heater","Lamp","Television");
-        List<String> result = rcf.getDeviceTypes();
+        List<String> result = ReadConfigFile.getDeviceTypes();
 
         assertEquals(expectedResult,result);
 

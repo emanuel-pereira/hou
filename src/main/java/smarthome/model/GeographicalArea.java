@@ -26,9 +26,10 @@ public class GeographicalArea {
      * @param width       GA width
      */
     public GeographicalArea(String id, String designation, String typeGA, double latitude, double longitude, double altitude, double length, double width) {
+
         mID = id;
         mDesignation = designation;
-        mTypeOfGA = new TypeGA(typeGA);
+        mTypeOfGA = new TypeGAList().newTypeGA(typeGA)/*new TypeGA(typeGA)*/;
         mLocation = new Location(latitude, longitude, altitude);
         mOccupation = new OccupationArea(length, width);
         mSensorListInGA = new SensorList();

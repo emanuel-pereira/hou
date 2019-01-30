@@ -1,5 +1,7 @@
 package smarthome.io.ui;
 
+
+
 import smarthome.model.GAList;
 import smarthome.model.House;
 import smarthome.model.SensorTypeList;
@@ -19,8 +21,8 @@ public final class RegularUsageUI {
         while (option != 0) {
             System.out.println("Click 1. US600: As a Regular User, I want to .........");
             System.out.println("Click 2. Show current temperature in a room");
-            System.out.println("Click 3. US610: As a Regular User, I want to .........");
-            System.out.println("Click 4. US620: As a Regular User, I want to  .........");
+            System.out.println("Click 3. US610: As a Regular User, I want to get the highest temperature recorded in a room");
+            System.out.println("Click 4. US620: As a Regular User, I want to  ");
             System.out.println("Click 5. US623: As a Regular User, I want to get the average daily rainfall in the house area for a given period (days)");
             System.out.println("Click 0. Exit");
 
@@ -36,6 +38,8 @@ public final class RegularUsageUI {
                     break;
                 case 3:
                     System.out.println("US610");
+                    /*US610GetHighestDailyTemperatureInRoomUI us610UI = new US610GetHighestDailyTemperatureInRoomUI (house);
+                    us610UI.run();*/
                     break;
                 case 4:
                     System.out.println("US620");
