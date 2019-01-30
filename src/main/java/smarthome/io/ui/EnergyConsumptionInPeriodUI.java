@@ -12,32 +12,36 @@ public class EnergyConsumptionInPeriodUI {
     private EnergyConsumptionInPeriodCTRL mCtrl;
     private Scanner mRead = new Scanner(System.in);
     private int mIndexOfDevice;
+    private int mIndexOfHG;
+    private int mOption;
     private Calendar mStartDate;
     private Calendar mEndDate;
 
-    public EnergyConsumptionInPeriodUI(House house){mCtrl= new EnergyConsumptionInPeriodCTRL(house);}
+    public EnergyConsumptionInPeriodUI(House house) {
+        mCtrl = new EnergyConsumptionInPeriodCTRL(house);
+    }
 
 
     public void selectOption() {
-        int option = -1;
-        while (option != 0) {
+        mOption = -1;
+        while (mOption != 0) {
             System.out.println("Choose an option from the list below:");
             System.out.println("1 - Get the total energy consumption of a device in a time interval");
             System.out.println("2 - Get the total energy consumption of a room in a time interval");
             System.out.println("3 - Get the total energy consumption of a grid in a time interval");
             System.out.println("0 - Exit");
-            option = mRead.nextInt();
+            mOption = mRead.nextInt();
             mRead.nextLine();
-            switch (option) {
+            switch (mOption) {
                 case 1:
                     this.selectDevice();
                     break;
                /* case 2:
                     this.selectRoom();
-                    break;
+                    break;*/
                 case 3:
                     this.selectHouseGrid();
-                    break;*/
+                    break;
                 default:
                     printLnInsertValidOption();
             }
@@ -45,41 +49,91 @@ public class EnergyConsumptionInPeriodUI {
     }
 
     private void selectDevice() {
-        isValidIndexOfDevice("device");
+        while (true) {
+            System.out.println("Choose a device from the list below to view its energy consumption:");
+            System.out.println(mCtrl.showMeteredDevicesInStr());
+            mIndexOfDevice = mRead.nextInt();
+            mRead.nextLine();
+            if (mIndexOfDevice <= mCtrl.getMeteredDevicesInHouseSize()) {
+                break;
+            }
+            printLnInsertValidOption();
+        }
         this.getStartDate();
     }
 
-    private void getStartDate(){
-        int year=getYear("start");
-        int month=getMonth("start");
-        int day=getDay("start",year,month);
-        int hour=getHour("start");
-        int minute=getMinute("start");
-        mStartDate = new GregorianCalendar(year,month,day,hour, minute);
+    private void getStartDate() {
+        int year = getYear("start");
+        int month = getMonth("start");
+        int day = getDay("start", year, month);
+        int hour = getHour("start");
+        int minute = getMinute("start");
+        mStartDate = new GregorianCalendar(year, month, day, hour, minute);
         this.getEndDate();
     }
 
-    private void getEndDate(){
-        int year=getYear("end");
-        int month=getMonth("end");
-        int day=getDay("end",year,month);
-        int hour=getHour("end");
-        int minute=getMinute("end");
-        mEndDate = new GregorianCalendar(year,month,day,hour, minute);
-        this.getEnergyConsumption();
+    private void getEndDate() {
+        int year = getYear("end");
+        int month = getMonth("end");
+        int day = getDay("end", year, month);
+        int hour = getHour("end");
+        int minute = getMinute("end");
+        mEndDate = new GregorianCalendar(year, month, day, hour, minute);
+        switch (mOption) {
+            case 1:
+                this.getDeviceEnergyConsumption();
+                break;
+            /*case 2:
+                this.getRoomEnergyConsumption;*/
+            case 3:
+                this.getHouseGridEnergyConsumption();
+                break;
+        }
+
     }
 
-    private void getEnergyConsumption(){
-       /* int startDay=mStartDate.DAY_OF_MONTH;
-        int startMonth=mStartDate.MONTH;
-        int startYear=mStartDate.YEAR;
-        int endDay=mEndDate.DAY_OF_MONTH;
-        int endMonth=mEndDate.MONTH;
-        int endYear=mEndDate.YEAR;
+    private void getDeviceEnergyConsumption() {
+        int startDay = mStartDate.get(Calendar.DAY_OF_MONTH);
+        int startMonth = mStartDate.get(Calendar.MONTH);
+        int startYear = mStartDate.get(Calendar.YEAR);
+        int endDay = mEndDate.get(Calendar.DAY_OF_MONTH);
+        int endMonth = mEndDate.get(Calendar.MONTH);
+        int endYear = mEndDate.get(Calendar.YEAR);
+        String deviceName = mCtrl.getDeviceName(mIndexOfDevice);
         System.out.println("Total Energy Consumption of the device in the time period:");
-        System.out.println("[TIME PERIOD]: ["+startDay+"/"+startMonth+"/"+startYear+" - "+endDay+"/"+endMonth+"/"+endYear+"]");*/
-        System.out.println("[Energy Consumption]: "+mCtrl.getEnergyConsumptionInPeriod(mIndexOfDevice,mStartDate,mEndDate));
+        System.out.println("[Device]: " + deviceName);
+        System.out.println("[TIME PERIOD]: [" + startDay + "/" + startMonth + "/" + startYear + " - " + endDay + "/" + endMonth + "/" + endYear + "]");
+        System.out.println("[Energy Consumption]: " + mCtrl.getEnergyConsumptionInPeriod(mIndexOfDevice, mStartDate, mEndDate) + "\n");
     }
+
+    private void getHouseGridEnergyConsumption() {
+        int startDay = mStartDate.get(Calendar.DAY_OF_MONTH);
+        int startMonth = mStartDate.get(Calendar.MONTH);
+        int startYear = mStartDate.get(Calendar.YEAR);
+        int endDay = mEndDate.get(Calendar.DAY_OF_MONTH);
+        int endMonth = mEndDate.get(Calendar.MONTH);
+        int endYear = mEndDate.get(Calendar.YEAR);
+        String houseGrid = mCtrl.getHGName(mIndexOfHG);
+        System.out.println("Total Energy Consumption of the device in the time period:");
+        System.out.println("[Device]: " + houseGrid);
+        System.out.println("[TIME PERIOD]: [" + startDay + "/" + startMonth + "/" + startYear + " - " + endDay + "/" + endMonth + "/" + endYear + "]");
+        System.out.println("[Energy Consumption]: " + mCtrl.getHouseGridEnergyConsumptionInPeriod(mIndexOfHG, mStartDate, mEndDate) + "\n");
+    }
+
+    private void selectHouseGrid() {
+        while (true) {
+            System.out.println("Choose a house grid from the list below to to view its energy consumption:");
+            System.out.println(mCtrl.showHouseGridListInString());
+            mIndexOfHG = mRead.nextInt();
+            mRead.nextLine();
+            if (mIndexOfHG <= mCtrl.getHouseGridListSize()) {
+                break;
+            }
+            printLnInsertValidOption();
+        }
+        this.getStartDate();
+    }
+
 
     private int getYear(final String input) {
         int year;
@@ -126,7 +180,7 @@ public class EnergyConsumptionInPeriodUI {
             System.out.println("Insert the hour for the " + input + " date in the time interval:");
             String inputHour = mRead.nextLine();
             if (mCtrl.hourIsValid(inputHour)) {
-                hour = Integer.parseInt(inputHour);
+                hour = Integer.parseInt(inputHour) - 1;
                 break;
             }
         }
@@ -150,21 +204,6 @@ public class EnergyConsumptionInPeriodUI {
     private void printLnInsertValidOption() {
         System.out.println("Please insert a valid option.");
     }
-
-    private boolean isValidIndexOfDevice(final String action) {
-        while (true) {
-            System.out.println("Choose a "+ action +" from the list below to view its energy consumption:");
-            System.out.println(mCtrl.showMeteredDevicesInStr());
-            mIndexOfDevice = mRead.nextInt();
-            mRead.nextLine();
-            if (mIndexOfDevice <= mCtrl.getMeteredDevicesInHouseSize()) {
-                break;
-            }
-            printLnInsertValidOption();
-        }
-        return true;
-    }
-
 
 
 }

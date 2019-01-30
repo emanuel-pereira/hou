@@ -4,5 +4,5 @@ import java.util.Calendar;
 
 public interface Metered {
 
-    double getEnergyConsumptionInPeriod(Calendar startHour, Calendar endHour);
+    double getEnergyConsumptionInTimeInterval(Calendar startHour, Calendar endHour);
 }
