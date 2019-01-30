@@ -1,4 +1,5 @@
 @startuml
+skinparam linetype polyline
 
 object House{
 mID
@@ -72,8 +73,9 @@ mStorageCapacity
 
 House -- "1" GeographicalArea: > belongs to
 House -- "1" Address: has >
+House *-- "1..*" HouseGrid: contains
+HouseGrid -- "1..*" Room: has attached
 House *-- "*" Room: contains
-House o-- "*" HouseGrid: contains
 
 Address "1" -- "1   " Location: has
 
@@ -85,7 +87,6 @@ GeographicalArea "1..*  "-- "1" Location: has
 
 Room "1 " o-- "*" Sensor: contains
 Room "1"*-- "1..*  "Device: contains
-Room "0..*"-- "1    " HouseGrid: belongs to
 Room "1"-- "1" OccupationArea: has
 
 
