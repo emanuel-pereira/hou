@@ -11,7 +11,6 @@ public class Fridge implements DeviceSpecs {
     private int mFreezerCapacity;
     private int mRefrigeratorCapacity;
     private int mAnnualEnergyConsumption;
-    private ReadingList mActivityLog;
 
 
     public Fridge(DeviceType deviceType, int freezerCapacity, int refrigeratorCapacity, int annualEnergyConsumption) {
@@ -19,20 +18,8 @@ public class Fridge implements DeviceSpecs {
         this.mFreezerCapacity = freezerCapacity;
         this.mRefrigeratorCapacity = refrigeratorCapacity;
         this.mAnnualEnergyConsumption = annualEnergyConsumption;
-        mActivityLog=new ReadingList();
     }
 
-    public ReadingList getActivityLog() {
-        return mActivityLog;
-    }
-
-    public double getEnergyConsumptionInPeriod(Calendar startHour, Calendar endHour) {
-        double energyConsumption=0;
-        if (ReadConfigFile.getDevicesMeteringPeriod()!=-1){
-            energyConsumption=mActivityLog.getValueOfReadingsInTimeInterval(startHour,endHour);
-        }
-        return energyConsumption;
-    }
 
     @Override
     public DeviceType getType() {

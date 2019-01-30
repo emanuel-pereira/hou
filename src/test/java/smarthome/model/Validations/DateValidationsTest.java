@@ -1,4 +1,4 @@
-package smarthome.model;
+package smarthome.model.Validations;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -133,31 +133,51 @@ class DateValidationsTest {
         assertTrue(result1);
     }
 
-
     @Test
-    @DisplayName("Ensure hour is valid does not accept invalid hour 29")
+    @DisplayName("Ensure hour is valid does not accept invalid minute 25")
     void hourIsValid() {
         DateValidations d = new DateValidations();
-        String hour="29";
+        String hour="25";
         boolean result=d.hourIsValid(hour);
         assertFalse(result);
     }
 
     @Test
-    @DisplayName("Ensure hour is valid returns true to valid hour")
+    @DisplayName("Ensure hour is valid returns true to valid minute")
     void hourIsValidReturnsTrue() {
         DateValidations d = new DateValidations();
-        String hour="17";
-        boolean result=d.hourIsValid(hour);
+        String minute="17";
+        boolean result=d.minuteIsValid(minute);
+        assertTrue(result);
+    }
+
+
+
+    @Test
+    @DisplayName("Ensure minute is valid does not accept invalid minute 65")
+    void minuteIsValid() {
+        DateValidations d = new DateValidations();
+        String minute="65";
+        boolean result=d.minuteIsValid(minute);
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Ensure minute is valid returns true to valid minute")
+    void minuteIsValidReturnsTrue() {
+        DateValidations d = new DateValidations();
+        String minute="17";
+        boolean result=d.minuteIsValid(minute);
         assertTrue(result);
     }
 
     @Test
-    @DisplayName("Ensure hour is valid does not accept empty input")
-    void hourIsValidReturnsFalseToEmptyInput() {
+    @DisplayName("Ensure minute is valid does not accept empty input")
+    void minuteIsValidReturnsFalseToEmptyInput() {
         DateValidations d = new DateValidations();
-        String hour=" ";
-        boolean result=d.hourIsValid(hour);
+        String minute=" ";
+        boolean result=d.minuteIsValid(minute);
         assertFalse(result);
     }
+
 }

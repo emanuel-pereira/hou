@@ -38,9 +38,12 @@ public class ReadingList {
         GregorianCalendar date = inputDate;
         double totalRainfallValue = 0;
 
-        for (Reading reading: mReadingList)
-            if(reading.getDateAndTime().equals(inputDate))
-            totalRainfallValue = reading.returnValueOfReading() + totalRainfallValue;
+        for (Reading reading: mReadingList) {
+            if(reading.getDateAndTime().get(Calendar.DATE) == inputDate.get(Calendar.DATE)) {
+                totalRainfallValue = reading.returnValueOfReading() + totalRainfallValue;
+            }
+        }
+
 
         return totalRainfallValue;
     }
