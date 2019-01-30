@@ -124,10 +124,10 @@ public class EnergyConsumptionInPeriodUI {
 
     private void getDeviceEnergyConsumption() {
         int startDay = mStartDate.get(Calendar.DAY_OF_MONTH);
-        int startMonth = mStartDate.get(Calendar.MONTH);
+        int startMonth = mStartDate.get(Calendar.MONTH) + 1;
         int startYear = mStartDate.get(Calendar.YEAR);
         int endDay = mEndDate.get(Calendar.DAY_OF_MONTH);
-        int endMonth = mEndDate.get(Calendar.MONTH);
+        int endMonth = mEndDate.get(Calendar.MONTH) + 1;
         int endYear = mEndDate.get(Calendar.YEAR);
         String deviceName = mCtrl.getDeviceName(mIndexOfDevice);
         System.out.println("Total Energy Consumption of the device in the time period:");
@@ -138,10 +138,10 @@ public class EnergyConsumptionInPeriodUI {
 
     private void getHouseGridEnergyConsumption() {
         int startDay = mStartDate.get(Calendar.DAY_OF_MONTH);
-        int startMonth = mStartDate.get(Calendar.MONTH);
+        int startMonth = mStartDate.get(Calendar.MONTH) + 1;
         int startYear = mStartDate.get(Calendar.YEAR);
         int endDay = mEndDate.get(Calendar.DAY_OF_MONTH);
-        int endMonth = mEndDate.get(Calendar.MONTH);
+        int endMonth = mEndDate.get(Calendar.MONTH) + 1;
         int endYear = mEndDate.get(Calendar.YEAR);
         String houseGrid = mCtrl.getHGName(mIndexOfHG);
         System.out.println("Total Energy Consumption of the grid in the time period:");
@@ -184,7 +184,7 @@ public class EnergyConsumptionInPeriodUI {
             System.out.println("Insert the month for the " + input + " date in the time interval:");
             String inputMonthOfReading = mRead.nextLine();
             if (mCtrl.monthIsValid(inputMonthOfReading)) {
-                month = Integer.parseInt(inputMonthOfReading);
+                month = Integer.parseInt(inputMonthOfReading) - 1;
                 break;
             }
         }
@@ -196,7 +196,7 @@ public class EnergyConsumptionInPeriodUI {
         while (true) {
             System.out.println("Insert the day for the " + input + " date in the time interval:");
             String inputDayOfReading = mRead.nextLine();
-            if (mCtrl.dayIsValid(inputDayOfReading, monthOfReading, yearOfReading)) {
+            if (mCtrl.dayIsValid(inputDayOfReading, monthOfReading + 1, yearOfReading)) {
                 day = Integer.parseInt(inputDayOfReading);
                 break;
             }
