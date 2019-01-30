@@ -20,11 +20,11 @@ public final class HouseAdministrationUI {
             System.out.println("Click 3. Show the list of existing rooms");
             System.out.println("Click 4. Create a house grid");
             System.out.println("Click 5. Add a new power source to a house grid");
-            System.out.println("Click 6. Attach/detach a room to/from a house grid and list rooms attached to a house grid");
+            System.out.println("Click 6. List (Attach/detach) a room to/from a house grid");
             System.out.println("Click 7. Show the Total Nominal Power from a Room.");
             System.out.println("Click 8. Add a new sensor to a room");
             System.out.println("Click 9. Show list all sensors in a room");
-            System.out.println("Click 10. Add a new device to a room, list all devices in a room or edit the configuration of an existing device");
+            System.out.println("Click 10. List (edit/add/remove) devices in a room");
             System.out.println("Click 11. Show all the devices connected to a grid");
             System.out.println("Click 12. Show the total nominal power connected to a grid");
             System.out.println("Click 0. Exit");

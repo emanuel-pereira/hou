@@ -1,12 +1,12 @@
 package smarthome.controller;
 
 import org.junit.jupiter.api.Test;
-import smarthome.model.*;
+import smarthome.model.Address;
+import smarthome.model.GeographicalArea;
+import smarthome.model.House;
+import smarthome.model.RoomList;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class US105AddNewRoomToHouseCTRLTest {
 
@@ -22,7 +22,7 @@ class US105AddNewRoomToHouseCTRLTest {
         House house1 = new House(a1, g1);
         RoomList roomList = house1.getRoomList();
 
-                US105AddNewRoomToHouseCTRL ctrl1 = new US105AddNewRoomToHouseCTRL(house1);
+        US105AddNewRoomToHouseCTRL ctrl1 = new US105AddNewRoomToHouseCTRL(house1);
         assertEquals(0, house1.getRoomList().getRoomList().size());
 
         ctrl1.newRoom("kitchen", 1, 3, 3.5, 2);

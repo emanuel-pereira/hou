@@ -22,6 +22,10 @@ public final class PowerUserUI {
             System.out.println("Click 4. Estimate the total energy used in heating water in a given day");
             System.out.println("Click 5. Get the total nominal power in a subset of rooms and/or devices");
             System.out.println("Click 6. Deactivate a device");
+            System.out.println("Click 7. Get the total metered energy consumption of a device in a given time interval");
+            System.out.println("Click 8. Get the total metered energy consumption of a room in a given time interval");
+            System.out.println("Click 9. Get the total metered energy consumption of a grid in a given time interval");
+            System.out.println("Click 10. Get the data series of the metered energy consumption of a device/room/grid in a given time interval");
             System.out.println("\nClick 0. Exit");
 
             option = Integer.parseInt(keyboard.nextLine());
@@ -49,8 +53,18 @@ public final class PowerUserUI {
                     break;
                 case 6:
                     System.out.println("US222");
-                    EditDevicesUI uiDevices = new EditDevicesUI(house);
-                    uiDevices.deactivateDevice();
+                    break;
+                case 7:
+                    System.out.println("US720");
+                    break;
+                case 8:
+                    System.out.println("US721");
+                    break;
+                case 9:
+                    System.out.println("US722");
+                    break;
+                case 10:
+                    System.out.println("US730");
                     break;
                 default:
                     System.out.println("Input not accepted, please insert a number from 1 to 5\n");

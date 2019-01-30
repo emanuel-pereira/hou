@@ -15,6 +15,7 @@ public class Device {
     private DeviceSpecs mDeviceSpecs;
     private double mNominalPower;
     private boolean mStatus;
+    private ReadingList mActivityLog;
 
     /**
      * Constructs a Device with a name, device specifications(which include, at least, a device type) and a nominal power
@@ -28,6 +29,7 @@ public class Device {
         mDeviceSpecs = deviceSpecs;
         setNominalPower(nominalPower);
         mStatus = true;
+        mActivityLog = new ReadingList();
     }
 
     /**
@@ -126,6 +128,16 @@ public class Device {
     public boolean status() {
         return mStatus;
     }
+
+    /**
+     * return device activity log
+     *
+     * @return device activity log registry
+     */
+    public ReadingList getActivityLog() {
+        return mActivityLog;
+    }
+
 }
 
 

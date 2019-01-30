@@ -100,8 +100,8 @@ interface DeviceSpecs{
 
 House  *- "1" RoomList: contains
 RoomList *- "1..*"Room: contains
-Room *- "1"DeviceList: contains
-DeviceList *-- "*"Device: contains
+Room *-- "1"DeviceList: contains
+Device"*" -* DeviceList: contains
 DeviceSpecs <|. Device
 
 
