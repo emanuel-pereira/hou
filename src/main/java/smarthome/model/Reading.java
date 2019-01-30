@@ -34,8 +34,28 @@ public class Reading {
         return mDateAndTime.get(Calendar.MONTH);
     }
 
-    public Calendar getDateAndTime(){
+    public Calendar getDateAndTime() {
         return mDateAndTime;
     }
+
+
+    //US610
+    /**
+     * @return the date of a reading as a string in YYYY-MM-DD format
+     */
+    public String getDateOfReadingAsString() {
+        int year = mDateAndTime.get(Calendar.YEAR);
+        int month = mDateAndTime.get(Calendar.MONTH);
+        int day = mDateAndTime.get(Calendar.DAY_OF_MONTH);
+
+        StringBuilder output = new StringBuilder();
+        output.append(year);
+        output.append("-");
+        output.append(month);
+        output.append("-");
+        output.append(day);
+        return output.toString();
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package smarthome.model;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -214,6 +215,15 @@ public class Sensor {
         double lastValue;
         lastValue = mReadingList.getReadingList ().get (mReadingList.getReadingList ().size () - 1).returnValueOfReading ();
         return lastValue;
+    }
+
+    /**
+     * This method returns the maximum value within a list of readings for a sensor.
+     *
+     * @return the highest reading of a list of readings
+     */
+    public double getMaxReadingSensor(){
+        return  mReadingList.getMaxReading();
     }
 
     @Override

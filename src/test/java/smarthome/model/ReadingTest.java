@@ -52,4 +52,14 @@ public class ReadingTest {
         assertEquals(expected,result);
 
     }
+
+    @Test
+    @DisplayName("Check that getDateOfReadingAsString() returns a proper string with the date")
+    void getDateOfReadingAsString(){
+        GregorianCalendar calendar1 = new GregorianCalendar(2018,1,27,21,30);
+        Reading reading1 = new Reading(31,calendar1);
+        String expected = "2018-1-27";
+        String result=reading1.getDateOfReadingAsString();
+        assertEquals(expected,result);
+    }
 }
