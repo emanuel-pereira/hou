@@ -144,23 +144,5 @@ public class DeviceList {
         return meteredDeviceList;
     }
 
-    /**
-     *
-     * @return a unique string with a list of all devices that have isMetered parameter set as true
-     */
-    public String showMeteredDevicesInStr() {
-        List<Device> meteredDeviceList = getMeteredDevices();
-        StringBuilder result = new StringBuilder ();
-        String element = " - ";
-        int number = 1;
-        for (Device device : meteredDeviceList) {
-            result.append (number++);
-            result.append (element);
-            result.append (device.getName());
-            result.append ("\n");
-        }
-        return result.toString ();
-    }
-
 }
 
