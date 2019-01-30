@@ -1,0 +1,33 @@
+@startuml
+autonumber
+hidefootbox
+actor Administrator
+
+create ":EnergyConsumptionInPeriodUI"
+Administrator -> ":EnergyConsumptionInPeriodUI": Show Total Metered\nEnergy Consumption
+Administrator <-- ":EnergyConsumptionInPeriodUI": Show Options: Device,Room,Grid
+Administrator -> ":EnergyConsumptionInPeriodUI": Choose Room option
+create ":EnergyConsumptionInPeriodCTRL"
+":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": create()
+":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": rL = getRoomList()
+":EnergyConsumptionInPeriodCTRL" -> "rL:RoomList": rL = getRoomList()
+Administrator <-- ":EnergyConsumptionInPeriodUI": Show Room list
+Administrator -> ":EnergyConsumptionInPeriodUI": Choose a Room
+Administrator <-- ":EnergyConsumptionInPeriodUI": Ask for the time interval
+Administrator -> ":EnergyConsumptionInPeriodUI": Input the time interval
+":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": tMe = getEnergyConsumption\nInPeriod(index, start, end)
+":EnergyConsumptionInPeriodCTRL" -> ":Room": tMe = getEnergyConsumption\nInPeriod(index, start, end)
+":Room" -> ":Device": tMe = getEnergyConsumption\nInPeriod(start, end)
+":Device" -> "i:ReadConfigFile": i:getDevicesMeteringPeriod()
+":Device" -> ":ReadingList": tMe = getValueOfReadings\nInTimeInterval(start, end)
+
+
+
+
+
+
+
+
+
+
+@enduml
