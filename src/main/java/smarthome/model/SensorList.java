@@ -120,10 +120,11 @@ public class SensorList {
     public SensorList getSensorListOfRequiredSensorPerType(String type) {
         SensorList typeSensorList = new SensorList();
         for (Sensor sensor : mSensorList) {
-            if (sensor.getSensorType ().getSensorTypeDesignation ().equals(type)) {
+            if (sensor.getSensorType().getSensorTypeDesignation().equals(type)) {
                 typeSensorList.addSensor(sensor);
             }
-        }return typeSensorList;
+        }
+        return typeSensorList;
     }
 
 
