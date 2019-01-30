@@ -60,6 +60,43 @@ public class EnergyConsumptionInPeriodCTRL {
     }
 
     /**
+     * Method that gets the selected device name in String format
+     * @param indexOfDevice device in the index position of the device list of metered devices
+     * @return the device in the index position of the device list of metered devices
+     */
+    public String getDeviceName(int indexOfDevice) {
+        List<Device> meteredDeviceList = mRoomList.getMeteredDevicesInHouse();
+        Device device= meteredDeviceList.get(indexOfDevice-1);
+        return device.getName();
+    }
+
+    /**
+     * Display a list of all rooms in string format
+     * @return list of rooms in a string
+     */
+    public String showRoomListInStr() {
+        return mRoomList.showRoomListInString ();
+    }
+
+    /**
+     * The size of the room list to check if there are rooms in that list
+     * @return size of the list of rooms
+     */
+    public int getRoomListSize() {
+        return mRoomList.getRoomListSize ();
+    }
+
+    /**
+     * Shows the name given to the Room
+     * @param indexOfHG the index position of the RoomList
+     * @return the room name (string)
+     */
+    public String getRoomName(int indexOfHG) {
+        Room room = mRoomList.get(indexOfHG - 1);
+        return room.getName ();
+    }
+
+    /**
      * Returns the energy consumption for the selected metered device in a specific time interval
      * @param indexOfDevice index position of the selected device
      * @param startDate starting period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
@@ -82,6 +119,20 @@ public class EnergyConsumptionInPeriodCTRL {
     public double getHouseGridEnergyConsumptionInPeriod(int indexOfHouseGrid, Calendar startDate, Calendar endDate) {
         HouseGrid selectedHouseGrid = mHouseGridList.get(indexOfHouseGrid - 1);
         return selectedHouseGrid.getEnergyConsumptionInTimeInterval(startDate, endDate);
+    }
+
+
+    /**
+     * Returns the energy consumption for the selected room in a specific time interval
+     * @param indexOfRoom index position of the selected room in the RoomList
+     * @param startHour starting period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
+     * @param endHour ending period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
+     * @return the energy consumed in the specified time interval
+     */
+    public double getRoomEnergyConsumptionInPeriod(int indexOfRoom, Calendar startHour, Calendar endHour) {
+        List<Room> roomL = mRoomList.getRoomList ();
+        Room room = roomL.get(indexOfRoom - 1);
+        return room.getEnergyConsumptionInTimeInterval (startHour, endHour);
     }
 
     /**
@@ -138,16 +189,7 @@ public class EnergyConsumptionInPeriodCTRL {
         return mDateValidations.minuteIsValid(minute);
     }
 
-    /**
-     * Method that gets the selected device name in String format
-     * @param indexOfDevice device in the index position of the device list of metered devices
-     * @return the device in the index position of the device list of metered devices
-     */
-    public String getDeviceName(int indexOfDevice) {
-        List<Device> meteredDeviceList = mRoomList.getMeteredDevicesInHouse();
-        Device device= meteredDeviceList.get(indexOfDevice-1);
-        return device.getName();
-    }
+
 
 
 }

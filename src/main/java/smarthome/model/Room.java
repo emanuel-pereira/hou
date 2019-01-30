@@ -182,4 +182,5 @@ public class Room implements Powered, Metered {
         total+=device.getEnergyConsumptionInTimeInterval(startHour,endHour);
         return total;
     }
+
 }

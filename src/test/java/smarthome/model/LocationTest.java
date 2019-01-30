@@ -89,6 +89,7 @@ class LocationTest {
         assertTrue(thrown);
     }
 
+
     @Test
     @DisplayName("Check if Illegal Argument Exception is thrown with higher permitted latitude")
     void latitudeReturnsIllegalArgumentException() {

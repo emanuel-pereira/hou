@@ -21,13 +21,4 @@ Administrator -> ":EnergyConsumptionInPeriodUI": Input the time interval
 ":Device" -> "i:ReadConfigFile": i:getDevicesMeteringPeriod()
 ":Device" -> ":ReadingList": tMe = getValueOfReadings\nInTimeInterval(start, end)
 
-
-
-
-
-
-
-
-
-
 @enduml

@@ -325,4 +325,178 @@ class EnergyConsumptionInPeriodCTRLTest {
         int result = ctrl.getHouseGridListSize();
         assertEquals(expected, result);
     }
+
+    @Test
+    void showListRoomInString() {
+        House house = new House ();
+        EnergyConsumptionInPeriodCTRL ctrl = new EnergyConsumptionInPeriodCTRL (house);
+        Room r1 = new Room ("cozinha", 1, 10, 20, 3);
+        Room r2 = new Room ("sala", 1, 10, 20, 3);
+        house.getRoomList ().addRoom (r1);
+        house.getRoomList ().addRoom (r2);
+
+        String expectedResult = "1 - cozinha\n2 - sala\n";
+        String result = ctrl.showRoomListInStr ();
+
+        assertEquals (expectedResult, result);
+    }
+
+    @Test
+    void getRoomListSize() {
+        House house = new House ();
+        EnergyConsumptionInPeriodCTRL ctrl = new EnergyConsumptionInPeriodCTRL (house);
+        Room r1 = new Room ("cozinha", 1, 10, 20, 3);
+        Room r2 = new Room ("sala", 1, 10, 20, 3);
+        house.getRoomList ().addRoom (r1);
+        house.getRoomList ().addRoom (r2);
+
+        int expectedResult = 2;
+        int result = ctrl.getRoomListSize ();
+
+        assertEquals (expectedResult, result);
+    }
+
+    /**
+     * Get the total energy consumption of a room with three devices, two of them area metered from a a list off
+     * two rooms and return the correct sum
+     */
+    @Test
+    void getRoomEnergyConsumptionInPeriod() {
+        House house = new House ();
+        EnergyConsumptionInPeriodCTRL ctrl = new EnergyConsumptionInPeriodCTRL (house);
+
+        RoomList roomList = house.getRoomList ();
+        Room kitchen1 = new Room ("Kitchen1", 0, 5, 5, 3);
+        Room bedroom = new Room ("Bedroom1", 1, 2, 2, 2);
+        roomList.addRoom (kitchen1);
+        roomList.addRoom (bedroom);
+
+        DeviceList k1DeviceList = kitchen1.getDeviceList ();
+        DeviceList roDeviceList = bedroom.getDeviceList ();
+
+        DeviceSpecs ewhSpecs = new ElectricWaterHeater (DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        Device ewh = new Device ("EWH DAIKIN", ewhSpecs, 15);
+        k1DeviceList.addDevice (ewh);
+
+        DeviceSpecs fridgeSpecs = new Fridge (DeviceType.FRIDGE, 25, 50, 25);
+        Device fridge = new Device ("LG Fridge1", fridgeSpecs, 15);
+        Device fridge2 = new Device ("LG Fridge2", fridgeSpecs, 14);
+        k1DeviceList.addDevice (fridge);
+        k1DeviceList.addDevice (fridge2);
+
+        DeviceSpecs stoveSpecs = new OtherDevices (DeviceType.STOVE);
+        Device stove = new Device ("XStove", stoveSpecs, 15);
+        stove.setIsMetered (false);
+        roDeviceList.addDevice (stove);
+
+        ReadingList ewhLog = ewh.getActivityLog ();
+        ReadingList fridgeLog = fridge.getActivityLog ();
+        ReadingList fridge2Log = fridge2.getActivityLog ();
+        Reading r2 = new Reading (18, new GregorianCalendar (2018, 15, 5, 0, 00));
+        Reading r3 = new Reading (22, new GregorianCalendar (2018, 11, 5, 0, 20));
+        Reading r4 = new Reading (37, new GregorianCalendar (2018, 11, 5, 0, 30));
+        Reading r5 = new Reading (31, new GregorianCalendar (2018, 11, 5, 0, 40));
+        Reading r6 = new Reading (18, new GregorianCalendar (2018, 11, 5, 0, 50));
+        Reading r7 = new Reading (22, new GregorianCalendar (2018, 11, 5, 1, 00));
+        Reading r8 = new Reading (37, new GregorianCalendar (2018, 11, 5, 1, 10));
+        ewhLog.addReading (r2);
+        ewhLog.addReading (r3);
+        ewhLog.addReading (r4);
+        ewhLog.addReading (r5);
+        ewhLog.addReading (r6);
+        ewhLog.addReading (r7);
+        ewhLog.addReading (r8);
+
+        fridgeLog.addReading (r2);
+        fridgeLog.addReading (r3);
+        fridgeLog.addReading (r4);
+        fridgeLog.addReading (r5);
+        fridgeLog.addReading (r6);
+        fridgeLog.addReading (r7);
+        fridgeLog.addReading (r8);
+
+        fridge2Log.addReading (r2);
+        fridge2Log.addReading (r3);
+        fridge2Log.addReading (r4);
+        fridge2Log.addReading (r5);
+        fridge2Log.addReading (r6);
+        fridge2Log.addReading (r7);
+        fridge2Log.addReading (r8);
+
+        GregorianCalendar startDate = new GregorianCalendar (2018, 11, 5, 0, 10);
+        GregorianCalendar endDate = new GregorianCalendar (2018, 11, 5, 1, 00);
+        ewh.setIsMetered (true);
+        fridge.setIsMetered (true);
+        fridge2.setIsMetered (false);
+
+        double expected = 260;
+        double result = ctrl.getRoomEnergyConsumptionInPeriod (1, startDate, endDate);
+
+        assertEquals (expected, result);
+    }
+
+
+    /**
+     * Get the total energy consumption of a room with a non metered device from a list of two rooms and return zero
+     */
+    @Test
+    void getRoomEnergyConsumptionInPeriodIfZero() {
+        House house = new House ();
+        EnergyConsumptionInPeriodCTRL ctrl = new EnergyConsumptionInPeriodCTRL (house);
+
+        RoomList roomList = house.getRoomList ();
+        Room kitchen1 = new Room ("Kitchen1", 0, 5, 5, 3);
+        Room bedroom = new Room ("Bedroom1", 1, 2, 2, 2);
+        roomList.addRoom (kitchen1);
+        roomList.addRoom (bedroom);
+
+        DeviceList k1DeviceList = kitchen1.getDeviceList ();
+        DeviceList roDeviceList = bedroom.getDeviceList ();
+
+        DeviceSpecs ewhSpecs = new ElectricWaterHeater (DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        Device ewh = new Device ("EWH DAIKIN", ewhSpecs, 15);
+        roDeviceList.addDevice (ewh);
+
+        DeviceSpecs fridgeSpecs = new Fridge (DeviceType.FRIDGE, 25, 50, 25);
+        Device fridge = new Device ("LG Fridge1", fridgeSpecs, 15);
+        k1DeviceList.addDevice (fridge);
+
+        ReadingList ewhLog = ewh.getActivityLog ();
+        ReadingList fridgeLog = fridge.getActivityLog ();
+        Reading r2 = new Reading (18, new GregorianCalendar (2018, 15, 5, 0, 00));
+        Reading r3 = new Reading (22, new GregorianCalendar (2018, 11, 5, 0, 20));
+        Reading r4 = new Reading (37, new GregorianCalendar (2018, 11, 5, 0, 30));
+        Reading r5 = new Reading (31, new GregorianCalendar (2018, 11, 5, 0, 40));
+        Reading r6 = new Reading (18, new GregorianCalendar (2018, 11, 5, 0, 50));
+        Reading r7 = new Reading (22, new GregorianCalendar (2018, 11, 5, 1, 00));
+        Reading r8 = new Reading (37, new GregorianCalendar (2018, 11, 5, 1, 10));
+        ewhLog.addReading (r2);
+        ewhLog.addReading (r3);
+        ewhLog.addReading (r4);
+        ewhLog.addReading (r5);
+        ewhLog.addReading (r6);
+        ewhLog.addReading (r7);
+        ewhLog.addReading (r8);
+
+        fridgeLog.addReading (r2);
+        fridgeLog.addReading (r3);
+        fridgeLog.addReading (r4);
+        fridgeLog.addReading (r5);
+        fridgeLog.addReading (r6);
+        fridgeLog.addReading (r7);
+        fridgeLog.addReading (r8);
+
+        GregorianCalendar startDate = new GregorianCalendar (2018, 11, 5, 0, 10);
+        GregorianCalendar endDate = new GregorianCalendar (2018, 11, 5, 1, 00);
+        ewh.setIsMetered (false);
+        fridge.setIsMetered (true);
+
+        double expected = 0;
+        double result = ctrl.getRoomEnergyConsumptionInPeriod (2, startDate, endDate);
+
+        assertEquals (expected, result);
+    }
+
+
+
 }

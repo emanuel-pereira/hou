@@ -171,7 +171,7 @@ class HouseTest {
 
     //RoomList
 
-/**
+    /**
      * Check if a new room is created and confirm that the get methods are working
      */
 
@@ -190,7 +190,7 @@ class HouseTest {
     }
 
 
-/**
+    /**
      * Check if a room is create and added to the RoomList
      */
 
@@ -209,7 +209,7 @@ class HouseTest {
         assertEquals(expectedResult, result);
     }
 
-/**
+    /**
      * Check if two rooms are create and added to the RoomList
      */
 
@@ -234,7 +234,7 @@ class HouseTest {
         assertEquals(expectedResult, result);
     }
 
-/**
+    /**
      * Try to add two rooms but one is empty so only the correct one is added
      */
 
@@ -261,7 +261,7 @@ class HouseTest {
     }
 
 
-/**
+    /**
      * Don't validate room name if empty and return false
      */
 
@@ -289,7 +289,7 @@ class HouseTest {
         assertEquals(expectedResult, result);
     }
 
-/**
+    /**
      * Validate correct room name and return true and also validate empty room name and return false
      */
 
