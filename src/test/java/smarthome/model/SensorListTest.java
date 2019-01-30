@@ -122,7 +122,7 @@ class SensorListTest {
         result = sensor1.equals (sensor2);
 
         assertNotEquals (sensor1.hashCode (), sensor2.hashCode ());
-        assertEquals (false, result);
+        assertFalse(result);
     }
 
     /**
@@ -138,7 +138,7 @@ class SensorListTest {
         rL.addReading (r1);
         rL.addReading (r2);
         SensorType sT1 = new SensorType ("Temperature");
-        Sensor sensor1 = list.newSensor ("SensorLight", new GregorianCalendar (2018, 12, 15), 24, 34, 25, sT1, "C", rL);
+        Sensor sensor1 = list.newSensor("SensorTemperature", new GregorianCalendar(2018, 12, 15), 24, 34, 25, sT1, "C", rL);
         Reading r3 = new Reading (80, new GregorianCalendar (2018, 12, 26, 12, 00));
         Reading r4 = new Reading (81, new GregorianCalendar (2018, 12, 26, 13, 00));
         ReadingList rL2 = new ReadingList ();

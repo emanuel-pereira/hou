@@ -130,4 +130,70 @@ class DeviceTest {
 
             assertEquals(expected, result);
         }
+
+    @Test
+    void getActivityLogSumIfMetered() {
+        House house = new House();
+        Room B106 = house.getRoomList().createNewRoom("B106", 1, 7, 13, 3.5);
+        house.getRoomList().addRoom(B106);
+        Room B107 = house.getRoomList().createNewRoom("B107", 1, 7, 11, 3.5);
+        house.getRoomList().addRoom(B107);
+        Room B109 = house.getRoomList().createNewRoom("B109", 1, 7, 11, 3.5);
+        house.getRoomList().addRoom(B109);
+        Dishwasher dish109 = new Dishwasher(DeviceType.DISHWASHER, 100);
+        Device dishwasherB109 = house.getRoomList().get(2).getDeviceList().newDevice("Dishwasher B109", dish109, 1.5);
+        house.getRoomList().get(2).getDeviceList().addDevice(dishwasherB109);
+
+        int year = 2018, month = 1, day = 1, hour = 0, minutes = 0, meteringPeriod = 15;
+        int[] values = new int[]{23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50};
+        for (int i : values) {
+            minutes += meteringPeriod;
+            if (minutes == 60) {
+                minutes = 0;
+                hour++;
+            }
+            if (hour == 24) {
+                hour = 0;
+                day++;
+            }
+            dishwasherB109.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
+        }
+
+        assertEquals(1022, house.getRoomList().getRoomList().get(2).getDeviceList().get(0).getActivityLogSum());
+    }
+
+    @Test
+    void getActivityLogSumIfNotMetered() {
+        House house = new House();
+        Room B106 = house.getRoomList().createNewRoom("B106", 1, 7, 13, 3.5);
+        house.getRoomList().addRoom(B106);
+        Room B107 = house.getRoomList().createNewRoom("B107", 1, 7, 11, 3.5);
+        house.getRoomList().addRoom(B107);
+        Room B109 = house.getRoomList().createNewRoom("B109", 1, 7, 11, 3.5);
+        house.getRoomList().addRoom(B109);
+        Dishwasher dish109 = new Dishwasher(DeviceType.DISHWASHER, 100);
+        Device dishwasherB109 = house.getRoomList().get(2).getDeviceList().newDevice("Dishwasher B109", dish109, 1.5);
+        dishwasherB109.setIsMetered(false);
+        house.getRoomList().get(2).getDeviceList().addDevice(dishwasherB109);
+        int year = 2018, month = 1, day = 1, hour = 0, minutes = 0, meteringPeriod = 15;
+        int[] values = new int[]{23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50};
+        boolean thrown = false;
+        for (int i : values) {
+            minutes += meteringPeriod;
+            if (minutes == 60) {
+                minutes = 0;
+                hour++;
+            }
+            if (hour == 24) {
+                hour = 0;
+                day++;
+            }
+            try {
+                dishwasherB109.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
+            } catch (NullPointerException e) {
+                thrown = true;
+            }
+            assertTrue(thrown);
+        }
+    }
     }
