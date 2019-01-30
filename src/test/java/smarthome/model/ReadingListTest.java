@@ -74,4 +74,20 @@ class ReadingListTest {
 
 
     }
+
+    @Test
+    @DisplayName("Verify that the getMaxReading() method returns the highest recorded reading")
+    void maxReading() {
+        ReadingList readingList = new ReadingList();
+        Reading r1 = readingList.newReading(15, new GregorianCalendar(2019, 2, 2));
+        readingList.addReading(r1);
+        Reading r2 = readingList.newReading(21, new GregorianCalendar(2019, 1, 12));
+        readingList.addReading(r2);
+        Reading r3 = readingList.newReading(-5, new GregorianCalendar(2019, 2, 2));
+        readingList.addReading(r3);
+
+        double expected = 21;
+        double result = readingList.getMaxReading();
+        assertEquals(expected,result);
+    }
 }
