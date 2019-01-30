@@ -19,6 +19,8 @@ public class Device implements Metered{
     private boolean mIsMetered;
     private ReadingList mActivityLog;
 
+
+
     /**
      * Constructs a Device with a name, device specifications(which include, at least, a device type) and a nominal power
      *
@@ -135,7 +137,7 @@ public class Device implements Metered{
     @Override
     public double getEnergyConsumptionInPeriod(Calendar startHour, Calendar endHour) {
         double energyConsumption=0;
-        if (ReadConfigFile.getDevicesMeteringPeriod()!=-1 && this.isMetered ()){
+        if (ReadConfigFile.getDevicesMeteringPeriod()!=-1&&this.isMetered()){
             energyConsumption=mActivityLog.getValueOfReadingsInTimeInterval(startHour,endHour);
         }
         return energyConsumption;
