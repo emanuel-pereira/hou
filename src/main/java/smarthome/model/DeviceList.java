@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class DeviceList implements Metered {
+public class DeviceList {
     private List<Device> mDeviceList;
 
     /**
@@ -128,12 +128,6 @@ public class DeviceList implements Metered {
     public boolean deactivateDevice(Device device) {
         return device.deactivateDevice();
     }
-
-    @Override
-    public double getEnergyConsumptionInPeriod(Calendar startHour, Calendar endHour) {
-        return 0;
-    }
-
 
     /**
      * @return a list of all devices that have isMetered parameter set as true

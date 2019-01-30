@@ -6,32 +6,17 @@ import java.util.List;
 
 import static java.lang.Integer.parseInt;
 
-public class Dishwasher implements DeviceSpecs, Metered {
+public class Dishwasher implements DeviceSpecs {
     private DeviceType mDeviceType;
     private int mCapacity;
     private ProgramList mProgramListInDW;
-    private ReadingList mActivityLog;
 
 
     public Dishwasher(DeviceType deviceType,int capacity) {
         mDeviceType=deviceType;
         mCapacity = capacity;
         mProgramListInDW = new ProgramList();
-        mActivityLog=new ReadingList();
     }
-
-    public ReadingList getActivityLog() {
-        return mActivityLog;
-    }
-
-    public double getEnergyConsumptionInPeriod(Calendar startHour, Calendar endHour) {
-        double energyConsumption=0;
-        if (ReadConfigFile.getDevicesMeteringPeriod()!=-1){
-            energyConsumption=mActivityLog.getValueOfReadingsInTimeInterval(startHour,endHour);
-        }
-        return energyConsumption;
-    }
-
 
     public void setCapacity(int newCapacity) {
 
