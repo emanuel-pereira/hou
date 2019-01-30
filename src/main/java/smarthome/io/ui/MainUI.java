@@ -38,6 +38,8 @@ public class MainUI {
 
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
+                case 0:
+                    break;
                 case 1:
                     systemAdministration(sensorTypeList, gaList);
                     break;
@@ -69,10 +71,10 @@ public class MainUI {
         gaList.addGA(porto);
         SensorList list = porto.getSensorListInGA();
 
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 00));
-        Reading r2 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 00));
-        Reading r3 = new Reading(20, new GregorianCalendar(2018, 12, 26, 14, 00));
-        Reading r4 = new Reading(22, new GregorianCalendar(2018, 12, 26, 15, 00));
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, 1, 1, 12, 0));
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 1, 1, 13, 0));
+        Reading r3 = new Reading(20, new GregorianCalendar(2018, 1, 1, 14, 0));
+        Reading r4 = new Reading(22, new GregorianCalendar(2018, 1, 1, 15, 0));
         ReadingList rl = new ReadingList();
         rl.addReading(r1);
         rl.addReading(r2);
@@ -82,8 +84,8 @@ public class MainUI {
         sensorTypeList.addSensorType(sT1);
         list.addSensor(list.newSensor("RainSensor", new GregorianCalendar(2018, 12, 15), 24, 34, 25, sT1, "C", rl));
 
-        Reading r5 = new Reading(80, new GregorianCalendar(2018, 12, 26, 12, 00));
-        Reading r6 = new Reading(81, new GregorianCalendar(2018, 12, 26, 13, 00));
+        Reading r5 = new Reading(80, new GregorianCalendar(2018, 12, 26, 12, 0));
+        Reading r6 = new Reading(81, new GregorianCalendar(2018, 12, 26, 13, 0));
         ReadingList rl2 = new ReadingList();
         rl2.addReading(r5);
         rl2.addReading(r6);
@@ -107,7 +109,7 @@ public class MainUI {
         mainGrid.attachRoomToGrid(B107);
         mainGrid.attachRoomToGrid(B109);
 
-        int year = 2018, month = 1, day = 1, hour = 0, minutes = 0, meteringPeriod = 15;
+        int year = 2018, month = 11, day = 31, hour = 0, minutes = 0, meteringPeriod = 15;
 
         ElectricWaterHeater ewh106 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 150, 55, 0.92);
         Device eHWB106 = house.getRoomList().get(0).getDeviceList().newDevice("EHW B106", ewh106, 2.2);
@@ -145,14 +147,61 @@ public class MainUI {
 
         ElectricWaterHeater ewh107 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 150, 55, 0.92);
         Device eHWB107 = house.getRoomList().get(1).getDeviceList().newDevice("EHW B107", ewh107, 2.2);
-        eHWB107.setIsMetered(false);
+        //eHWB107.setIsMetered(false);
         house.getRoomList().get(1).getDeviceList().addDevice(eHWB107);
+        double[] valueseHWB107 = new double[]{0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.200, 0.375, 0.375, 0.375, 0.375, 0.250, 0.000, 0.000, 0.000, 0.000, 0.200, 0.200, 0.000, 0.000, 0.000, 0.000, 0.200, 0.375, 0.375, 0.375, 0.375, 0.200, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.100, 0.375, 0.375, 0.375, 0.150, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,};
+        for (double i : valueseHWB107) {
+            minutes += meteringPeriod;
+            if (minutes == 60) {
+                minutes = 0;
+                hour++;
+            }
+            if (hour == 24) {
+                hour = 0;
+                day++;
+            }
+            eHWB107.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
+        }
+
+        Dishwasher dish107 = new Dishwasher(DeviceType.DISHWASHER, 100);
+        Device dishwasherB107 = house.getRoomList().get(1).getDeviceList().newDevice("Dishwasher B107", dish107, 1.5);
+        house.getRoomList().get(1).getDeviceList().addDevice(dishwasherB107);
+        double[] valuesdishwasherB107 = new double[]{0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.200, 0.500, 0.500, 0.500, 0.200, 0.300, 0.200, 0.200, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.200, 0.000, 0.000, 0.000, 0.100, 0.100, 0.375, 0.375, 0.200, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,};
+        for (double i : valuesdishwasherB107) {
+            minutes += meteringPeriod;
+            if (minutes == 60) {
+                minutes = 0;
+                hour++;
+            }
+            if (hour == 24) {
+                hour = 0;
+                day++;
+            }
+            dishwasherB107.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
+        }
+
+        WashingMachine washing107 = new WashingMachine(DeviceType.WASHING_MACHINE, 100);
+        Device washingMachineB107 = house.getRoomList().get(1).getDeviceList().newDevice("Washing Machine B107", washing107, 2.5);
+        house.getRoomList().get(1).getDeviceList().addDevice(washingMachineB107);
+        double[] valueswashingMachineB107 = new double[]{0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.40, 0.20, 0.25, 0.25, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,};
+        for (double i : valueswashingMachineB107) {
+            minutes += meteringPeriod;
+            if (minutes == 60) {
+                minutes = 0;
+                hour++;
+            }
+            if (hour == 24) {
+                hour = 0;
+                day++;
+            }
+            washingMachineB107.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
+        }
 
         ElectricWaterHeater ewh109 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 100, 55, 0.91);
         Device eHWB109 = house.getRoomList().get(2).getDeviceList().newDevice("EHW B109", ewh109, 1.5);
         house.getRoomList().get(2).getDeviceList().addDevice(eHWB109);
-        int[] valueseHWB109 = new int[]{23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50};
-        for (int i : valueseHWB109) {
+        double[] valueseHWB109 = new double[]{0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.20, 0.50, 0.50, 0.50, 0.50, 0.25, 0.00, 0.00, 0.00, 0.00, 0.20, 0.20, 0.00, 0.00, 0.00, 0.00, 0.20, 0.50, 0.50, 0.50, 0.50, 0.20, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.10, 0.50, 0.50, 0.50, 0.15, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00};
+        for (double i : valueseHWB109) {
             minutes += meteringPeriod;
             if (minutes == 60) {
                 minutes = 0;
@@ -168,25 +217,13 @@ public class MainUI {
         Dishwasher dish109 = new Dishwasher(DeviceType.DISHWASHER, 100);
         Device dishwasherB109 = house.getRoomList().get(2).getDeviceList().newDevice("Dishwasher B109", dish109, 1.5);
         house.getRoomList().get(2).getDeviceList().addDevice(dishwasherB109);
-        int[] valuesdishwasherB109 = new int[]{23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50};
-        for (int i : valuesdishwasherB109) {
-            minutes += meteringPeriod;
-            if (minutes == 60) {
-                minutes = 0;
-                hour++;
-            }
-            if (hour == 24) {
-                hour = 0;
-                day++;
-            }
-            dishwasherB109.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
-        }
+        //No energy consumption values were measured
 
         WashingMachine washing109 = new WashingMachine(DeviceType.WASHING_MACHINE, 100);
         Device washingMachineB109 = house.getRoomList().get(2).getDeviceList().newDevice("Washing Machine B109", washing109, 2.5);
         house.getRoomList().get(2).getDeviceList().addDevice(washingMachineB109);
-        int[] valueswashingMachineB109 = new int[]{23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50};
-        for (int i : valueswashingMachineB109) {
+        double[] valueswashingMachineB109 = new double[]{0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.40, 0.20, 0.20, 0.25, 0.25, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,};
+        for (double i : valueswashingMachineB109) {
             minutes += meteringPeriod;
             if (minutes == 60) {
                 minutes = 0;
