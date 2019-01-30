@@ -114,4 +114,34 @@ public class RoomList {
         }
         return Utils.round(totalEnergyConsumption,2);
     }
+
+
+    public List<Device>getMeteredDevicesInHouse(){
+        List<Device> meteredDevListInHouse=new ArrayList<>();
+        for(Room room:mRoomList){
+            List<Device> meteredDevicesInRoom=room.getDeviceList().getMeteredDevices();
+            meteredDevListInHouse.addAll(meteredDevicesInRoom);
+        }
+        return meteredDevListInHouse;
+    }
+
+    public int getMeteredDevicesInHouseSize(){
+        List<Device> meteredDeviceList = getMeteredDevicesInHouse();
+        return meteredDeviceList.size();
+    }
+
+    public String showMeteredDevicesInStr() {
+        List<Device> meteredDeviceList = getMeteredDevicesInHouse();
+        StringBuilder result = new StringBuilder ();
+        String element = " - ";
+        int number = 1;
+        for (Device device : meteredDeviceList) {
+            result.append (number++);
+            result.append (element);
+            result.append (device.getName());
+            result.append ("\n");
+        }
+        return result.toString ();
+    }
+
 }

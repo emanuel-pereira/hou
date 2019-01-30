@@ -3,6 +3,8 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.GregorianCalendar;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DeviceTest {
@@ -100,4 +102,32 @@ class DeviceTest {
         assertTrue(microwave.deactivateDevice());
         assertFalse(microwave.status());
     }
-}
+
+    @Test
+    void getEnergyConsumptionInPeriod() {
+            DeviceSpecs ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+            Device dEWH= new Device("EWH DAIKIN",ewh,15);
+            ReadingList activityLog = dEWH.getActivityLog();
+            Reading r2 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 10));
+            Reading r3 = new Reading(22, new GregorianCalendar(2018, 11, 5, 0, 20));
+            Reading r4 = new Reading(37, new GregorianCalendar(2018, 11, 5, 0, 30));
+            Reading r5 = new Reading(31, new GregorianCalendar(2018, 11, 5, 0, 40));
+            Reading r6 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 50));
+            Reading r7 = new Reading(22, new GregorianCalendar(2018, 11, 5, 1, 00));
+            Reading r8 = new Reading(37, new GregorianCalendar(2018, 11, 5, 1, 10));
+            activityLog.addReading(r2);
+            activityLog.addReading(r3);
+            activityLog.addReading(r4);
+            activityLog.addReading(r5);
+            activityLog.addReading(r6);
+            activityLog.addReading(r7);
+            activityLog.addReading(r8);
+            GregorianCalendar startDate = new GregorianCalendar(2018, 11, 5, 0, 30);
+            GregorianCalendar endDate = new GregorianCalendar(2018, 11, 5, 1, 00);
+            dEWH.setIsMetered(true);
+            double expected = 71;
+            double result = dEWH.getEnergyConsumptionInPeriod(startDate, endDate);
+
+            assertEquals(expected, result);
+        }
+    }

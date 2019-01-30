@@ -1,0 +1,66 @@
+@startuml
+class House {
+- mAddress: Address
+- mID: String
+- mGA: Geographical Area
+- mRoomList: RoomList
+- mHGListInHouse: HouseGridList
+
++ showRoomsWithoutHouseGrid()
++ getHGListInHouse()
++ getRoomList()
++ getRoomsWithoutGrid(HouseGrid houseGrid)
++ showRoomsWithoutHouseGrid(HouseGrid houseGrid)
+
+}
+
+class RoomList{
+- mRoomList: List<Room>
++ addRoom()
++ get()
++ getRoomListSize()
++ showRoomListInString()
++ getRoomsWithoutGrid()
++ getRoomsWithoutGridSize()
+
+
+}
+
+class HouseGridList{
+- mHGList: List<HouseGrid>
++ getSize()
++ get()
++ showHouseGridListInString()
+}
+
+class HouseGrid{
+- mContractedMaximumPower: double
+- mDesignation: String
+- mPSListInHG: PowerSourceList
+- mRoomList: RoomList
++ getGridID()
++ getRoomListInAGrid()
++ getRoomListInAGridSize()
++ showRoomsInHouseGrid()
++ attachRoomToGrid()
+}
+
+
+class Room{
+- mName: String
+- mFloor: Integer
+- mArea: OccupationArea
+- mHeight: double
+- mHouseGrid: HouseGrid
+- mSensorListInRoom: SensorList
+- mDeviceList: DeviceList
++ getName()
+}
+
+
+House *- "1" RoomList: has
+RoomList *- " 0 *"Room: contains
+House *- "1" HouseGridList: has
+HouseGridList *- " 0 *"HouseGrid: contains
+HouseGrid *- "1" RoomList: has
+@enduml

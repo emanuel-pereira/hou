@@ -3,11 +3,12 @@ package smarthome.model;
 import smarthome.model.Validations.NameValidations;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static java.lang.Double.parseDouble;
 
-public class Device {
+public class Device implements Metered{
 
     NameValidations nameValidation = new NameValidations();
 
@@ -15,7 +16,10 @@ public class Device {
     private DeviceSpecs mDeviceSpecs;
     private double mNominalPower;
     private boolean mStatus;
+    private boolean mIsMetered;
     private ReadingList mActivityLog;
+
+
 
     /**
      * Constructs a Device with a name, device specifications(which include, at least, a device type) and a nominal power
@@ -29,7 +33,12 @@ public class Device {
         mDeviceSpecs = deviceSpecs;
         setNominalPower(nominalPower);
         mStatus = true;
-        mActivityLog = new ReadingList();
+        mIsMetered=true;
+        mActivityLog= new ReadingList();
+    }
+
+    public ReadingList getActivityLog() {
+        return mActivityLog;
     }
 
     /**
@@ -129,15 +138,22 @@ public class Device {
         return mStatus;
     }
 
-    /**
-     * return device activity log
-     *
-     * @return device activity log registry
-     */
-    public ReadingList getActivityLog() {
-        return mActivityLog;
+    @Override
+    public double getEnergyConsumptionInPeriod(Calendar startHour, Calendar endHour) {
+        double energyConsumption=0;
+        if (ReadConfigFile.getDevicesMeteringPeriod()!=-1){
+            energyConsumption=mActivityLog.getValueOfReadingsInTimeInterval(startHour,endHour);
+        }
+        return energyConsumption;
+    }
+//put this method as private after reviewing create device US
+    public void setIsMetered(boolean mIsMetered) {
+        this.mIsMetered = mIsMetered;
     }
 
+    public boolean isMetered() {
+        return mIsMetered;
+    }
 }
 
 

@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class ReadConfigFile {
 
-    public /* private static*/ String getConfigValue(String key) {
+    private static String getConfigValue(String key) {
         String value;
 
         boolean error = false;
@@ -45,7 +45,7 @@ public class ReadConfigFile {
         } else {
             value = properties.getProperty(key);
         }
-        if (value == null){
+        if (value == null) {
             value = "ERROR";
         }
         return value;
@@ -58,7 +58,7 @@ public class ReadConfigFile {
      * @param key is the required metering period
      * @return the metering period in minutes in the interval [1,1440]. -1 denotes an error.
      */
-    public /* private static*/ int getMeteringPeriod(String key) {
+    public static int getMeteringPeriod(String key) {
         int output;
 
         String value = getConfigValue(key);
@@ -72,6 +72,9 @@ public class ReadConfigFile {
         if (output > 1440 || output <= 0) {
             output = -1;
         }
+        if (1440 % output == 0) {
+
+        }
 
 
         return output;
@@ -82,7 +85,7 @@ public class ReadConfigFile {
      *
      * @return the metering period in minutes in the interval [1,1440]. -1 denotes an error.
      */
-    public /*private static*/ int getGridMeteringPeriod() {
+    public static int getGridMeteringPeriod() {
         return getMeteringPeriod("gridMeteringPeriod");
     }
 
@@ -91,12 +94,12 @@ public class ReadConfigFile {
      *
      * @return the metering period in minutes in the interval [1,1440]. -1 denotes an error.
      */
-    public /*private static*/ int getDevicesMeteringPeriod() {
+    public static int getDevicesMeteringPeriod() {
         return getMeteringPeriod("devicesMeteringPeriod");
     }
 
 
-    public /*private static*/ List<String> getDeviceTypes() {
+    public static List<String> getDeviceTypes() {
         List<String> devices = new ArrayList<>();
 
         String value = getConfigValue("TotalDevices");

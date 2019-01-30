@@ -2,6 +2,8 @@ package smarthome.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.GregorianCalendar;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class WashingMachineTest {
@@ -27,12 +29,5 @@ class WashingMachineTest {
         WashingMachine wm = new WashingMachine(DeviceType.WASHING_MACHINE,4);
         DeviceType result=wm.getType();
         assertEquals(DeviceType.WASHING_MACHINE,result);}
-
-
-    //@Test
-   // void showDeviceSpecsListAttributesInString() {
-      //  WashingMachine washingMachine = new WashingMachine(80);
-        //List<String> result = washingMachine.getDeviceAttributesInString();
-       // assertEquals("4 - Capacity : " +washingMachine.getCapacity(),result);
 
 }

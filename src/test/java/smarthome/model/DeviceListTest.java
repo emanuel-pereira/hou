@@ -108,4 +108,37 @@ class DeviceListTest {
         int result2 = kitchenDevList.size();
         assertEquals(expectedResult2, result2);
     }
+
+
+    @Test
+    void getMeteredDevices() {
+        DeviceList deviceList = new DeviceList();
+        DeviceSpecs fridge= new Fridge(DeviceType.FRIDGE,25,50,25);
+        Device dFridge= new Device("LG Fridge",fridge,15);
+        dFridge.setIsMetered(true);
+        DeviceSpecs stove= new OtherDevices(DeviceType.STOVE);
+        Device dStove= new Device("XStove",stove,15);
+        dStove.setIsMetered(false);
+        deviceList.addDevice(dFridge);
+        deviceList.addDevice(dStove);
+        int expected=1;
+        int result= deviceList.getMeteredDevices().size();
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void showMeteredDevicesInStr() {
+        DeviceList deviceList = new DeviceList();
+        DeviceSpecs fridge= new Fridge(DeviceType.FRIDGE,25,50,25);
+        Device dFridge= new Device("LG Fridge",fridge,15);
+        dFridge.setIsMetered(true);
+        DeviceSpecs stove= new OtherDevices(DeviceType.STOVE);
+        Device dStove= new Device("XStove",stove,15);
+        deviceList.addDevice(dFridge);
+        deviceList.addDevice(dStove);
+        String expected="1 - Device: LG Fridge | Type: FRIDGE | Active: true\n" +
+                "2 - Device: XStove | Type: STOVE | Active: true\n";
+        String result= deviceList.showDeviceListInString();
+        assertEquals(expected,result);
+    }
 }

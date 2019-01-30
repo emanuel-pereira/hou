@@ -43,7 +43,7 @@ class ReadingListTest {
         assertEquals(false, result2);
 
 
-        List<Reading> result3 = readingList.getReadingList ();
+        List<Reading> result3 = readingList.getReadingList();
         List<Reading> expected3 = Arrays.asList(r1);
         assertEquals(expected3, result3);
     }
@@ -73,5 +73,23 @@ class ReadingListTest {
         assertEquals(expected1, result1);
 
 
+    }
+
+    @Test
+    void getTotalfReadingsInTimeInterval() {
+        ReadingList readingList = new ReadingList();
+
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 15));
+        Reading r3 = new Reading(22, new GregorianCalendar(2018, 11, 5, 0, 30));
+        Reading r4 = new Reading(27, new GregorianCalendar(2018, 11, 5, 0, 45));
+        Reading r5 = new Reading(31, new GregorianCalendar(2018, 11, 5, 1, 00));
+
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+        readingList.addReading(r5);
+        double expected = 80;
+        double result = readingList.getValueOfReadingsInTimeInterval(new GregorianCalendar(2018, 11, 5, 0, 15), new GregorianCalendar(2018, 11, 5, 1, 0));
+        assertEquals(expected, result);
     }
 }

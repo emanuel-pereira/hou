@@ -45,4 +45,16 @@ public class ReadingList {
         return totalRainfallValue;
     }
 
+    public double getValueOfReadingsInTimeInterval(Calendar startHour, Calendar endHour){
+        double totalValue=0;
+        for(Reading reading:mReadingList){
+            Calendar readingTime=reading.getDateAndTime();
+            if(readingTime.after(startHour)&&readingTime.before(endHour)||readingTime.equals(endHour)){
+                totalValue+=reading.returnValueOfReading();
+            }
+        }
+        return totalValue;
+
+    }
+
 }

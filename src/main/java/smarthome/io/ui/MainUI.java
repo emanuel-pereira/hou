@@ -160,6 +160,10 @@ public class MainUI {
         washingMachineB109.getActivityLog().addReading(new Reading(1.5, new GregorianCalendar(2018, 1, 1, 2, 45)));
         washingMachineB109.getActivityLog().addReading(new Reading(1.5, new GregorianCalendar(2018, 1, 1, 3, 00)));
 
+        DeviceSpecs stoveSpecs = new OtherDevices(DeviceType.STOVE);
+        Device stove = house.getRoomList().get(1).getDeviceList().newDevice("Sony Stove", stoveSpecs, 2);
+        house.getRoomList().get(1).getDeviceList().addDevice(stove);
+        stove.setIsMetered(false);
     /*
         Program p1dish106 = dish106.getmProgramListInDW().newProgram("Glasses", 0.8);
         Program p2dish106 = dish106.getmProgramListInDW().newProgram("Light", 1.3);
