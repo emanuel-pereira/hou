@@ -1,8 +1,10 @@
 package smarthome.controller;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -146,12 +148,15 @@ class EnergyConsumptionInPeriodCTRLTest {
 
         GregorianCalendar startDate = new GregorianCalendar(2018, 11, 5, 0, 10);
         GregorianCalendar endDate = new GregorianCalendar(2018, 11, 5, 1, 00);
-        ewh.setIsMetered(true);
 
         double expected = 130;
         double result = ctrl.getEnergyConsumptionInPeriod(2,startDate, endDate);
 
         assertEquals(expected,result);
+
+        String expected1="LG Fridge1";
+        String result1=ctrl.getDeviceName(2);
+        assertEquals(expected1,result1);
     }
 
     @Test
@@ -205,4 +210,119 @@ class EnergyConsumptionInPeriodCTRLTest {
         assertTrue(result1);
     }
 
+    @Test
+    @DisplayName("Ensure that the houseGridName ")
+    void getHGName() {
+        House house = new House();
+        EnergyConsumptionInPeriodCTRL ctrl = new EnergyConsumptionInPeriodCTRL(house);
+        HouseGrid grid1 = new HouseGrid("Grid 1");
+        HouseGrid grid2 = new HouseGrid("Grid 2");
+        HouseGridList hgList = house.getHGListInHouse();
+        hgList.addHouseGrid(grid1);
+        hgList.addHouseGrid(grid2);
+        Room kitchen = new Room("Kitchen", 0, 4, 3, 3);
+        RoomList grid1RoomList = grid1.getRoomListInAGrid();
+        grid1RoomList.addRoom(kitchen);
+        String expected = "Grid 1";
+        String result = ctrl.getHGName(1);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void showHouseGridListInString() {
+        House house = new House();
+        EnergyConsumptionInPeriodCTRL ctrl = new EnergyConsumptionInPeriodCTRL(house);
+        HouseGrid grid1 = new HouseGrid("Grid 1");
+        HouseGrid grid2 = new HouseGrid("Grid 2");
+        HouseGridList hgList = house.getHGListInHouse();
+        hgList.addHouseGrid(grid1);
+        hgList.addHouseGrid(grid2);
+        Room kitchen = new Room("Kitchen", 0, 4, 3, 3);
+        Room bathroom = new Room("Bathroom", 0, 2, 3, 3);
+        RoomList grid1RoomList = grid1.getRoomListInAGrid();
+        grid1RoomList.addRoom(kitchen);
+        grid1RoomList.addRoom(bathroom);
+        String expected = "1 - Grid 1\n" +
+                "2 - Grid 2\n";
+        String result = ctrl.showHouseGridListInString();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void getHouseGridEnergyConsumptionInPeriod() {
+        House house = new House();
+        EnergyConsumptionInPeriodCTRL ctrl = new EnergyConsumptionInPeriodCTRL(house);
+        HouseGridList houseGridList=house.getHGListInHouse();
+        HouseGrid grid= new HouseGrid("MainGrid");
+        houseGridList.addHouseGrid(grid);
+
+
+        RoomList roomList=grid.getRoomListInAGrid();
+        Room kitchen= new Room("Kitchen",0,8,8,3);
+        Room garage= new Room("Living Room",0,5,4,3);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(garage);
+
+        DeviceList kitDeviceList= kitchen.getDeviceList();
+        DeviceList grDeviceList= garage.getDeviceList();
+
+        DeviceSpecs fridgeSpecs= new Fridge(DeviceType.FRIDGE,25,75,2);
+        Device fridge= new Device("LG Fridge",fridgeSpecs,2);
+
+        DeviceSpecs ewhSpecs= new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER,25,75,0.9);
+        Device ewh1= new Device("Daikin EWH1",ewhSpecs,2);
+        Device ewh2= new Device("Daikin EWH1",ewhSpecs,2);
+
+        kitDeviceList.addDevice(fridge);
+        kitDeviceList.addDevice(ewh1);
+        grDeviceList.addDevice(ewh2);
+
+        ReadingList fridgeActivityLog= fridge.getActivityLog();
+        Reading r1= new Reading(20,new GregorianCalendar(2018,2,1,9,10));
+        Reading r2= new Reading(20,new GregorianCalendar(2018,2,1,12,10));
+        Reading r3= new Reading(20,new GregorianCalendar(2018,2,1,12,20));
+        Reading r4= new Reading(20,new GregorianCalendar(2018,2,1,12,30));
+        Reading r5= new Reading(20,new GregorianCalendar(2018,2,1,14,40));
+        Reading r6= new Reading(20,new GregorianCalendar(2018,2,1,17,50));
+        fridgeActivityLog.addReading(r1);
+        fridgeActivityLog.addReading(r2);
+        fridgeActivityLog.addReading(r3);
+        fridgeActivityLog.addReading(r4);
+        fridgeActivityLog.addReading(r5);
+        fridgeActivityLog.addReading(r6);
+
+        ReadingList ewh2ActivityLog= ewh2.getActivityLog();
+        ewh2ActivityLog.addReading(r1);
+        ewh2ActivityLog.addReading(r2);
+        ewh2ActivityLog.addReading(r3);
+        ewh2ActivityLog.addReading(r4);
+        ewh2ActivityLog.addReading(r5);
+        ewh2ActivityLog.addReading(r6);
+
+        Calendar startTime= new GregorianCalendar(2018,2,1,12,20);
+        Calendar endTime= new GregorianCalendar(2018,2,1,15,20);
+
+        double expected=80;
+        double result=ctrl.getHouseGridEnergyConsumptionInPeriod(1,startTime,endTime);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void getHouseGridListSize() {
+        House house = new House();
+        EnergyConsumptionInPeriodCTRL ctrl = new EnergyConsumptionInPeriodCTRL(house);
+        HouseGrid grid1 = new HouseGrid("Grid 1");
+        HouseGrid grid2 = new HouseGrid("Grid 2");
+        HouseGridList hgList = house.getHGListInHouse();
+        hgList.addHouseGrid(grid1);
+        hgList.addHouseGrid(grid2);
+        Room kitchen = new Room("Kitchen", 0, 4, 3, 3);
+        Room bathroom = new Room("Bathroom", 0, 2, 3, 3);
+        RoomList grid1RoomList = grid1.getRoomListInAGrid();
+        grid1RoomList.addRoom(kitchen);
+        grid1RoomList.addRoom(bathroom);
+        int expected = 2;
+        int result = ctrl.getHouseGridListSize();
+        assertEquals(expected, result);
+    }
 }
