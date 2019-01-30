@@ -25,7 +25,7 @@ public class NewHouseGridCTRL {
      *
      * @return String Result List
      */
-    public String showGridsListInStringString() {
+    public String showGridsListInString() {
         return mHouse.getHGListInHouse().showHouseGridListInString();
     }
 
