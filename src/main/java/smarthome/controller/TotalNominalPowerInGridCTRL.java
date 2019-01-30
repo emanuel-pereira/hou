@@ -42,7 +42,7 @@ public class TotalNominalPowerInGridCTRL {
      * @return list in string
      */
     public String showHouseGridListInString() {
-        return mHouseGridList.showHouseGridListInString ();
+        return mHouseGridList.showHouseGridListInString();
     }
 
 
@@ -67,7 +67,7 @@ public class TotalNominalPowerInGridCTRL {
      * Check if the sum of all the device list in the rooms of the grid are all empty
      *
      * @param indexGrid Position of the chosen option
-     * @return
+     * @return boolean result, true if not empty
      */
     public boolean deviceListSizeInGridIsNotEmpty(int indexGrid) {
         int sum = 0;

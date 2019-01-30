@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ReadConfigFileTest {
 
-    @Test
+    /*@Test
     void getConfigValueTest() {
 
         String expectedResult = "Electric Water Heater";
@@ -54,5 +54,5 @@ class ReadConfigFileTest {
 
         assertEquals(expectedResult,result);
 
-    }
+    }*/
 }

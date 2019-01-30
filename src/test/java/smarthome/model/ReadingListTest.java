@@ -43,7 +43,7 @@ class ReadingListTest {
         assertEquals(false, result2);
 
 
-        List<Reading> result3 = readingList.getReadingList ();
+        List<Reading> result3 = readingList.getReadingList();
         List<Reading> expected3 = Arrays.asList(r1);
         assertEquals(expected3, result3);
     }
@@ -76,18 +76,20 @@ class ReadingListTest {
     }
 
     @Test
-    @DisplayName("Verify that the getMaxReading() method returns the highest recorded reading")
-    void maxReading() {
+    void getTotalfReadingsInTimeInterval() {
         ReadingList readingList = new ReadingList();
-        Reading r1 = readingList.newReading(15, new GregorianCalendar(2019, 2, 2));
-        readingList.addReading(r1);
-        Reading r2 = readingList.newReading(21, new GregorianCalendar(2019, 1, 12));
-        readingList.addReading(r2);
-        Reading r3 = readingList.newReading(-5, new GregorianCalendar(2019, 2, 2));
-        readingList.addReading(r3);
 
-        double expected = 21;
-        double result = readingList.getMaxReading();
-        assertEquals(expected,result);
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 15));
+        Reading r3 = new Reading(22, new GregorianCalendar(2018, 11, 5, 0, 30));
+        Reading r4 = new Reading(27, new GregorianCalendar(2018, 11, 5, 0, 45));
+        Reading r5 = new Reading(31, new GregorianCalendar(2018, 11, 5, 1, 00));
+
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+        readingList.addReading(r5);
+        double expected = 80;
+        double result = readingList.getValueOfReadingsInTimeInterval(new GregorianCalendar(2018, 11, 5, 0, 15), new GregorianCalendar(2018, 11, 5, 1, 0));
+        assertEquals(expected, result);
     }
 }

@@ -17,16 +17,16 @@ public class NewHouseGridCTRL {
      * @return list of objects of HouseGrid type
      */
     public int getHouseGridListSize() {
-        return mHouse.getHGListInHouse ().getSize ();
+        return mHouse.getHGListInHouse().getSize();
     }
 
     /**
-     * method to return the list of house grids in String format
+     * Method to return the list of house grids in String format
      *
      * @return String Result List
      */
     public String showGridsListInString() {
-        return mHouse.getHGListInHouse ().showHouseGridListInString ();
+        return mHouse.getHGListInHouse().showHouseGridListInString();
     }
 
     /**
@@ -38,7 +38,7 @@ public class NewHouseGridCTRL {
      * false if not
      */
     public boolean createNewHouseGrid(String id) {
-        HouseGrid newHouseGrid = mHouse.getHGListInHouse ().newHouseGrid (id);
-        return mHouse.getHGListInHouse ().addHouseGrid (newHouseGrid);
+        HouseGrid newHouseGrid = mHouse.getHGListInHouse().newHouseGrid(id);
+        return mHouse.getHGListInHouse().addHouseGrid(newHouseGrid);
     }
 }

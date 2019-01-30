@@ -3,6 +3,7 @@ package smarthome.model;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,4 +49,6 @@ public class FridgeTest {
         assertEquals(expected,result,0.1);
 
     }
+
+
 }

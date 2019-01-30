@@ -3,6 +3,7 @@ package smarthome.model;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -42,4 +43,6 @@ class DishwasherTest {
         DeviceType result = dw.getType();
         assertEquals(DeviceType.DISHWASHER, result);
     }
+
+
 }

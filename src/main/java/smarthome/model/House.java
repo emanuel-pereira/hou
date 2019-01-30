@@ -135,13 +135,6 @@ public class House {
         }
         return result.toString ();
     }
-
-
-
-
-
-
-
 }
 
 

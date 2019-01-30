@@ -76,15 +76,30 @@ public class DateValidations {
     }
 
     /**
-     * Method that checks if hour inputted by the user is a valid
+     * Method that checks if hour inputted by the user is valid
      *
      * @param hour input hour
      * @return hour if input meets regex criteria, otherwise returns false
      */
     public boolean hourIsValid(String hour) {
         checkIfInputIsEmpty(hour);
-        if (!hour.matches("^(2[0-4]|[1][0-9]|[1-9])")) {
+        if (!hour.matches("^(2[0-3]|[1][0-9]|[0-9])")) {
             System.out.println("Please insert a valid hour.");
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Method that checks if minute inputted by the user is valid
+     *
+     * @param minute input hour
+     * @return hour if input meets regex criteria, otherwise returns false
+     */
+    public boolean minuteIsValid(String minute) {
+        checkIfInputIsEmpty(minute);
+        if (!minute.matches("^([0-9]|[1-5][0-9])")) {
+            System.out.println("Please insert a valid minute.");
             return false;
         }
         return true;

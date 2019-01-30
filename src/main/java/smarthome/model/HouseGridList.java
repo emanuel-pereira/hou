@@ -65,19 +65,19 @@ public class HouseGridList {
 
 
     /**
-     * Transforms a list of house grids in a numbered list of strings with the ids of the house grids
+     * Transforms a list of electric grids in a numbered list of strings with the names of the  grids
      *
-     * @return List of house grids in string
+     * @return List of grids in string format
      */
     public String showHouseGridListInString() {
         List<HouseGrid> list = getHouseGridList ();
         StringBuilder result = new StringBuilder ();
         String element = " - ";
         int number = 1;
-        for (HouseGrid houseGrid : list) {
+        for (HouseGrid grid : list) {
             result.append (number++);
             result.append (element);
-            result.append (houseGrid.getGridID ());
+            result.append(grid.getGridID());
             result.append ("\n");
         }
         return result.toString ();

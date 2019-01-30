@@ -79,7 +79,6 @@ public class Room implements Powered {
      */
     public void setName(String setNameRoom) {
         this.mName = setNameRoom;
-
     }
 
     /**
