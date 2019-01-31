@@ -4,13 +4,10 @@ hidefootbox
 actor PowerUser
 
 activate PowerUser
-create ":EnergyConsumptionInPeriodUI"
 PowerUser -> ":EnergyConsumptionInPeriodUI": Get Total Metered\nEnergy Consumption
 activate  ":EnergyConsumptionInPeriodUI"
 PowerUser <-- ":EnergyConsumptionInPeriodUI": Show Options: Device,Room,Grid
 PowerUser -> ":EnergyConsumptionInPeriodUI": Choose Grid option
-create ":EnergyConsumptionInPeriodCTRL"
-":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": create()
 ":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": gL=showHouseGridListInString()
 activate ":EnergyConsumptionInPeriodCTRL"
 ":EnergyConsumptionInPeriodCTRL" -> "gL:HouseGridList": gL=showHouseGridListInString()
