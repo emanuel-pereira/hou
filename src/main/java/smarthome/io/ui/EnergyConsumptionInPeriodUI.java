@@ -49,7 +49,7 @@ public class EnergyConsumptionInPeriodUI {
                     this.selectHouseGrid();
                     break;
                 default:
-                    printLnInsertValidOption();
+                    UtilsUI.printLnInsertValidOption();
             }
         }
     }
@@ -63,7 +63,7 @@ public class EnergyConsumptionInPeriodUI {
             if (mIndexOfDevice <= mCtrl.getMeteredDevicesInHouseSize()) {
                 break;
             }
-            printLnInsertValidOption();
+            UtilsUI.printLnInsertValidOption();
         }
         this.getStartDate();
     }
@@ -77,7 +77,7 @@ public class EnergyConsumptionInPeriodUI {
             if (mIndexOfRoom <= mCtrl.getRoomListSize ()) {
                 break;
             }
-            printLnInsertValidOption();
+            UtilsUI.printLnInsertValidOption();
         }
         this.getStartDate();
     }
@@ -91,7 +91,7 @@ public class EnergyConsumptionInPeriodUI {
             if (mIndexOfHG <= mCtrl.getHouseGridListSize()) {
                 break;
             }
-            printLnInsertValidOption();
+            UtilsUI.printLnInsertValidOption();
         }
         this.getStartDate();
     }
@@ -124,7 +124,7 @@ public class EnergyConsumptionInPeriodUI {
                 this.getHouseGridEnergyConsumption();
                 break;
             default:
-                printLnInsertValidOption();
+                UtilsUI.printLnInsertValidOption();
         }
     }
 
@@ -241,9 +241,7 @@ public class EnergyConsumptionInPeriodUI {
         return minute;
     }
 
-    private void printLnInsertValidOption() {
-        System.out.println("Please insert a valid option.");
-    }
+
 
 
 }
