@@ -1,0 +1,56 @@
+@startuml
+autonumber
+hidefootbox
+
+actor Administrator
+
+Administrator -> ":EditDeviceUI": start
+
+
+":EditDeviceUI" -> ":EditDeviceCTRL": rLs=showRoomListInString()
+
+
+":EditDeviceCTRL" -> ":House": rLs=showRoomListInString()
+
+Administrator <<-- ":EditDeviceUI": Show room list
+
+Administrator -> ":EditDeviceUI": Choose room
+
+":EditDeviceUI" -> ":EditDeviceCTRL": dTl=getDeviceTypes()
+
+":EditDeviceCTRL" -> ":House": dTl=getDeviceTypesList()
+
+":House" -> ":ReadConfigFile": dTl=getListOfDeviceTypes()
+
+":EditDeviceUI" --> "Administrator": Show device types
+
+"Administrator" -> ":EditDeviceUI": Select device type
+
+":EditDeviceUI" -> ":EditDeviceCTRL": getDeviceType()
+
+
+":EditDeviceCTRL" -> ":DeviceList": createNewDevice(room,deviceType)
+
+create "ds:DeviceSpecs"
+":DeviceList" -> "ds:DeviceSpecs": create()
+
+create ":Device"
+":DeviceList" -> ":Device": create(ds)
+
+":Device" <- ":EditDeviceCTRL": getDeviceAttributes()
+
+":EditDeviceCTRL" -> ":EditDeviceUI": showDeviceAttributes
+
+ loop for each attribute
+	    ":EditDeviceUI" -> Administrator: Show attribute
+	    "Administrator" -> ":EditDeviceUI": Insert new value
+        ":EditDeviceUI" -> ":EditDeviceCTRL": setAttribute(newValue)
+        ":EditDeviceCTRL" -> ":Device": setDeviceAttributes(attribute,newValue)
+
+end
+        ":EditDeviceUI" -> "Administrator": Success Message
+
+deactivate ":EditDeviceCTRL"
+deactivate Administrator
+
+@enduml
