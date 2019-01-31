@@ -62,7 +62,7 @@ public class US6CreateSensorUI {
                 this.inputStartYear();
                 break;
             } else
-                System.out.println("Please insert a valid name");
+                UtilsUI.printLnInsertValidParameter("name");
         }
     }
 
@@ -118,7 +118,7 @@ public class US6CreateSensorUI {
                 this.inputReading();
                 break;
             }
-            System.out.println("Please insert a valid option \n.");
+            UtilsUI.printLnInsertValidOption();
         }
     }
 
@@ -267,7 +267,7 @@ public class US6CreateSensorUI {
             System.out.println(mCtrl.showGAListInString());
             mIndexOfGA = read.nextInt();
             if (mIndexOfGA > mGAList.getGAList().size())
-                System.out.println("Please insert a valid option \n.");
+                UtilsUI.printLnInsertValidOption();
             else this.addSensorToGA();
             break;
         }
