@@ -53,31 +53,19 @@ public class DeviceList {
         return mDeviceList.get(mDeviceList.size() - 1);
     }
 
-    /**
-     * @param deviceType the type of device that the list returns
-     * @return a list of devices which have the same type as the one inputted as parameter
-     */
-    public List<Device> getDevicesOfType(DeviceType deviceType) {
-        List<Device> deviceListByType = new ArrayList<>();
-        for (Device device : mDeviceList) {
-            if (device.getDeviceSpecs().getType().equals(deviceType))
-                deviceListByType.add(device);
-        }
-        return deviceListByType;
-    }
 
     /**
      * Method to get the list of Powered devices of a room
      *
      * @return the device list
      * public List<Powered> getPoweredDeviceList() {
-     * List<Powered> poweredDeviceList;
-     * for Device device: mDeviceList
-     * {
-     * poweredDeviceList.add(mDeviceList.get().)
-     * }
-     * return ;
-     * }
+     List<Powered> poweredDeviceList;
+     for Device device: mDeviceList
+     {
+     poweredDeviceList.add(mDeviceList.get().)
+     }
+     return ;
+     }
      */
 
     public String showDeviceListInString() {
