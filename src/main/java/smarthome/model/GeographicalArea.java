@@ -29,7 +29,7 @@ public class GeographicalArea {
 
         mID = id;
         mDesignation = designation;
-        mTypeOfGA = new TypeGA(typeGA);
+        mTypeOfGA = new TypeGAList().newTypeGA(typeGA)/*new TypeGA(typeGA)*/;
         mLocation = new Location(latitude, longitude, altitude);
         mOccupation = new OccupationArea(length, width);
         mSensorListInGA = new SensorList();

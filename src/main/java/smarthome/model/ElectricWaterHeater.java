@@ -1,7 +1,6 @@
 package smarthome.model;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import static java.lang.Double.parseDouble;
@@ -13,7 +12,6 @@ public class ElectricWaterHeater implements DeviceSpecs{
     private double mColdWaterTemperature;
     private double mVolumeOfWaterToHeat;
     private double mPerformanceRatio;
-    private ReadingList mActivityLog;
 
 
 
@@ -22,19 +20,6 @@ public class ElectricWaterHeater implements DeviceSpecs{
         this.mHotWaterTemperature = hotWaterTemperature;
         this.mPerformanceRatio = performanceRatio;
         this.mVolumeOfWater = volumeOfWater;
-        mActivityLog=new ReadingList();
-    }
-
-    public double getEnergyConsumptionInPeriod(Calendar startHour, Calendar endHour) {
-        double energyConsumption=0;
-        if (ReadConfigFile.getDevicesMeteringPeriod()!=-1){
-            energyConsumption=mActivityLog.getValueOfReadingsInTimeInterval(startHour,endHour);
-        }
-        return energyConsumption;
-    }
-
-    public ReadingList getActivityLog() {
-        return mActivityLog;
     }
 
     public void setVolumeOfWater(double newVolumeOfWater) {

@@ -1,0 +1,41 @@
+@startuml
+autonumber
+hidefootbox
+actor PowerUser
+
+activate PowerUser
+PowerUser -> ":EnergyConsumptionInPeriodUI": Get Total Metered\nEnergy Consumption
+activate  ":EnergyConsumptionInPeriodUI"
+PowerUser <-- ":EnergyConsumptionInPeriodUI": Show Options: Device,Room,Grid
+PowerUser -> ":EnergyConsumptionInPeriodUI": Choose Room option
+":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": rLs=showRoomListInStr()
+activate ":EnergyConsumptionInPeriodCTRL"
+":EnergyConsumptionInPeriodCTRL" -> ":RoomList": rLs=showRoomListInStr()
+activate ":RoomList"
+deactivate ":RoomList"
+PowerUser <-- ":EnergyConsumptionInPeriodUI": Show Room List
+PowerUser -> ":EnergyConsumptionInPeriodUI": Choose a Room
+PowerUser <-- ":EnergyConsumptionInPeriodUI": Ask for the time interval
+PowerUser -> ":EnergyConsumptionInPeriodUI": Input the time interval
+":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": tMe=getEnergyConsumption\nInPeriod(index, start, end)
+":EnergyConsumptionInPeriodCTRL" -> ":Room": tMe=getEnergyConsumption\nInPeriod(index, start, end)
+activate ":Room"
+":Room" -> ":Device": tMe = getEnergyConsumption\nInPeriod(start, end)
+activate ":Device"
+":Device" -> ":ReadConfigFile": i=getDevicesMeteringPeriod()
+activate ":ReadConfigFile"
+deactivate ":ReadConfigFile"
+":Device" -> ":ReadingList": tMe=getValueOfReadings\nInTimeInterval(start, end)
+activate ":ReadingList"
+":ReadingList" -> ":Reading": v=returnValueOfReading
+activate ":Reading"
+deactivate ":Reading"
+deactivate ":ReadingList"
+deactivate ":Device"
+PowerUser <-- ":EnergyConsumptionInPeriodUI": Show Total Metered Energy\nConsumption in the Room
+deactivate ":Room"
+deactivate ":EnergyConsumptionInPeriodCTRL"
+deactivate ":EnergyConsumptionInPeriodUI"
+
+
+@enduml

@@ -222,9 +222,9 @@ public class Sensor {
      *
      * @return the highest reading of a list of readings
      */
-    public double getMaxReadingSensor(){
+    /*public double getMaxReadingSensor(){
         return  mReadingList.getMaxReading();
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {

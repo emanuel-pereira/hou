@@ -15,7 +15,7 @@ public class Device implements Metered{
     private String mName;
     private DeviceSpecs mDeviceSpecs;
     private double mNominalPower;
-    private boolean mStatus;
+    private boolean mActive;
     private boolean mIsMetered;
     private ReadingList mActivityLog;
 
@@ -32,13 +32,9 @@ public class Device implements Metered{
         setName(name);
         mDeviceSpecs = deviceSpecs;
         setNominalPower(nominalPower);
-        mStatus = true;
+        mActive = true;
         mIsMetered=true;
         mActivityLog= new ReadingList();
-    }
-
-    public ReadingList getActivityLog() {
-        return mActivityLog;
     }
 
     /**
@@ -125,7 +121,7 @@ public class Device implements Metered{
      * @return true result
      */
     public boolean deactivateDevice() {
-        this.mStatus = false;
+        this.mActive = false;
         return true;
     }
 
@@ -135,24 +131,48 @@ public class Device implements Metered{
      * @return device status flag
      */
     public boolean status() {
-        return mStatus;
+        return mActive;
     }
 
     @Override
-    public double getEnergyConsumptionInPeriod(Calendar startHour, Calendar endHour) {
+    public double getEnergyConsumptionInTimeInterval(Calendar startDate, Calendar endDate) {
         double energyConsumption=0;
-        if (ReadConfigFile.getDevicesMeteringPeriod()!=-1){
-            energyConsumption=mActivityLog.getValueOfReadingsInTimeInterval(startHour,endHour);
+        if (ReadConfigFile.getDevicesMeteringPeriod()!=-1&&this.isMetered()){
+            energyConsumption=mActivityLog.getValueOfReadingsInTimeInterval(startDate,endDate);
         }
         return energyConsumption;
     }
 //put this method as private after reviewing create device US
-    public void setIsMetered(boolean mIsMetered) {
-        this.mIsMetered = mIsMetered;
-    }
+public void setIsMetered(boolean isMetered) {
+    if (!isMetered)
+        mActivityLog = null;
+    this.mIsMetered = isMetered;
+}
 
     public boolean isMetered() {
         return mIsMetered;
+    }
+
+    /**
+     * return device activity log
+     *
+     * @return device activity log registry
+     */
+    public ReadingList getActivityLog() {
+        return mActivityLog;
+    }
+
+    /**
+     * return device activity log values sum for test
+     *
+     * @return int values representative of the activity log values sum
+     */
+    public double getActivityLogSum() {
+        double sum = 0;
+        for (Reading reading : mActivityLog.getReadingList()) {
+            sum += reading.returnValueOfReading();
+        }
+        return sum;
     }
 }
 

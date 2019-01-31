@@ -1,7 +1,6 @@
 package smarthome.model;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -10,20 +9,13 @@ public class WashingMachine implements DeviceSpecs {
     private DeviceType mDeviceType;
     private int mCapacity;
     private ProgramList mProgramListInWM;
-    private ReadingList mActivityLog;
 
     public WashingMachine(DeviceType deviceType, int capacity) {
         this.mDeviceType=deviceType;
         this.mCapacity = capacity;
         this.mProgramListInWM = new ProgramList();
-        mActivityLog=new ReadingList();
     }
 
-
-
-    public ReadingList getActivityLog() {
-        return mActivityLog;
-    }
 
     public void setCapacity(int newCapacity) {
         mCapacity = newCapacity;

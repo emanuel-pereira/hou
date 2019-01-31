@@ -1,7 +1,5 @@
 package smarthome.io.ui;
 
-
-
 import smarthome.model.GAList;
 import smarthome.model.House;
 import smarthome.model.SensorTypeList;
@@ -19,11 +17,11 @@ public final class RegularUsageUI {
         System.out.println("Regular Users UI");
 
         while (option != 0) {
-            System.out.println("Click 1. US600: As a Regular User, I want to .........");
+            System.out.println("Click 1. US600: As a Regular User, I want to get a the current temperature in the house area.");
             System.out.println("Click 2. Show current temperature in a room");
-            System.out.println("Click 3. US610: As a Regular User, I want to get the highest temperature recorded in a room");
-            System.out.println("Click 4. US620: As a Regular User, I want to  ");
-            System.out.println("Click 5. US623: As a Regular User, I want to get the average daily rainfall in the house area for a given period (days)");
+            System.out.println("Click 3. US610: As a Regular User, I want to get the maximum temperature in a room.");
+            System.out.println("Click 4. US620: As a Regular User, I want to get the total rainfall in a given day.");
+            System.out.println("Click 5. US623: As a Regular User, I want to get the average daily rainfall in the house area for a given period (days).");
             System.out.println("Click 0. Exit");
 
             option = Integer.parseInt(keyboard.nextLine());
@@ -38,11 +36,10 @@ public final class RegularUsageUI {
                     break;
                 case 3:
                     System.out.println("US610");
-                    /*US610GetHighestDailyTemperatureInRoomUI us610UI = new US610GetHighestDailyTemperatureInRoomUI (house);
-                    us610UI.run();*/
                     break;
                 case 4:
-                    System.out.println("US620");
+                    US620GetTotalRainfallOnaDayOfHouseUI us620GetTotalRainfallOnaDayOfHouseUI = new US620GetTotalRainfallOnaDayOfHouseUI(house, sensorTypeList);
+                    us620GetTotalRainfallOnaDayOfHouseUI.run();
                     break;
                 case 5:
                     System.out.println("US623");

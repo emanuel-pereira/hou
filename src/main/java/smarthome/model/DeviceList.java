@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class DeviceList implements Metered {
+public class DeviceList {
     private List<Device> mDeviceList;
 
     /**
@@ -129,12 +129,6 @@ public class DeviceList implements Metered {
         return device.deactivateDevice();
     }
 
-    @Override
-    public double getEnergyConsumptionInPeriod(Calendar startHour, Calendar endHour) {
-        return 0;
-    }
-
-
     /**
      * @return a list of all devices that have isMetered parameter set as true
      */
@@ -148,24 +142,6 @@ public class DeviceList implements Metered {
             }
         }
         return meteredDeviceList;
-    }
-
-    /**
-     *
-     * @return a unique string with a list of all devices that have isMetered parameter set as true
-     */
-    public String showMeteredDevicesInStr() {
-        List<Device> meteredDeviceList = getMeteredDevices();
-        StringBuilder result = new StringBuilder ();
-        String element = " - ";
-        int number = 1;
-        for (Device device : meteredDeviceList) {
-            result.append (number++);
-            result.append (element);
-            result.append (device.getName());
-            result.append ("\n");
-        }
-        return result.toString ();
     }
 
 }

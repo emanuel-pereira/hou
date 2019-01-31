@@ -1,6 +1,7 @@
 
 package smarthome.controller;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
@@ -9,25 +10,32 @@ import static org.junit.jupiter.api.Assertions.*;
 class EnergyConsumptionOfWaterHeatingCTRLTest {
 
     @Test
+    @DisplayName("Ensure that ")
     void getDevicesInAllRoomsByType() {
         House house = new House();
         RoomList roomList = house.getRoomList();
         EnergyConsumptionOfWaterHeatingCTRL ctrl = new EnergyConsumptionOfWaterHeatingCTRL(house);
-        ElectricWaterHeater ewh1 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 75, 65, 1);
-        Device dEWH1 = new Device("EWH", ewh1, 150);
-        ElectricWaterHeater ewh2 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 100, 65, 1);
-        Device dEWH2 = new Device("EWH", ewh2, 150);
-        OtherDevices micro = new OtherDevices(DeviceType.MICROWAVE_OVEN);
-        Device microwave = new Device("Samsung Microwave", micro, 25);
+
+        ElectricWaterHeater ewhSpecs1 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 75, 65, 1);
+        Device ewh1 = new Device("EWH", ewhSpecs1, 150);
+        ElectricWaterHeater ewhSpecs2 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 100, 65, 1);
+        Device ewh2 = new Device("EWH", ewhSpecs2, 150);
+        OtherDevices microSpecs = new OtherDevices(DeviceType.MICROWAVE_OVEN);
+        Device microwave = new Device("Samsung Microwave", microSpecs, 25);
+
         Room kitchen = new Room("Kitchen", 0, 6, 3.5, 3);
         Room garage = new Room("Garage", 0, 6, 4, 3);
+
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
+
         kitchen.getDeviceList().addDevice(microwave);
-        kitchen.getDeviceList().addDevice(dEWH1);
-        garage.getDeviceList().addDevice(dEWH2);
+        kitchen.getDeviceList().addDevice(ewh1);
+        garage.getDeviceList().addDevice(ewh2);
+
         int expected = 2;
         int result = ctrl.getDevicesInAllRoomsByType().size();
+
         assertEquals(expected, result);
     }
 

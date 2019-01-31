@@ -29,7 +29,7 @@ public class TotalNominalPowerRoomUI {
 
             // Verify if indexRoom is valid and ask for a valid input if not
             while (indexRoom  > mCtrlUS230.getRoomListSize() || indexRoom <= 0) {
-                System.out.println("Please insert a valid option.\n");
+                UtilsUI.printLnInsertValidOption();
                 indexRoom = read1.nextInt();
             }
 
