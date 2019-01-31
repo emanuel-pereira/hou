@@ -1,11 +1,12 @@
 package smarthome.controller;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -78,16 +79,27 @@ public class US620GetTotalRainfallOnADayOfHouseCTRLTest {
         readingList.addReading(r1);
         readingList.addReading(r2);
 
-        Sensor rainfall = new Sensor("rainSensor", inputDate, 40, 30, 5, sensorTypeRain, "R", readingList);
+
         GeographicalArea GA = new GeographicalArea("01", "Porto", "city", 5, 3, 2, 3, 4);
+        SensorList listInGA = GA.getSensorListInGA();
+        Sensor sensorRain = new Sensor("sensorRain", new GregorianCalendar(2018, 1, 1, 1, 1), 3, 4, 2, sensorTypeRain);
+        listInGA.addSensor(sensorRain);
 
         House house = new House();
         house.setHouseGA(GA);
-        house.getHouseGA().getGASensorsByType("rainfall").addSensor(rainfall);
+        house.getHouseGA().getGASensorsByType("rainfall").addSensor(sensorRain);
+
+        US600GetCurrentMeteoValueHouseAreaCTRL mctrl600 = new US600GetCurrentMeteoValueHouseAreaCTRL(house, sensorTypeList);
+        List<Sensor> sensorList = mctrl600.getListSensorsOfOneType(sensorTypeRain);
+        mctrl600.getTheClosestSensorToGA(sensorList);
+
+        sensorList.add(sensorRain);
+        sensorList.set(1, sensorRain);
+
 
         US620GetTotalRainfallOnADayOfHouseCTRL m620CTRL = new US620GetTotalRainfallOnADayOfHouseCTRL(house, sensorTypeList);
 
-        //m620CTRL.requestReadingRainfall(inputDate);
+        m620CTRL.requestReadingRainfall(inputDate);
 
         double result = 31;
 
@@ -95,6 +107,7 @@ public class US620GetTotalRainfallOnADayOfHouseCTRLTest {
 
         assertEquals(result, expectedResult);
     }
+
 
 }
 
