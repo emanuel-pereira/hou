@@ -24,7 +24,7 @@ activate .getConfigValue
 deactivate .getConfigValue
 .getMeteringPeriod -> .getGridMeteringPeriod
 deactivate .getMeteringPeriod
-.getDevicesMeteringPeriod -> ReadConfigFile : sends value or -1 for error
+.getGridMeteringPeriod -> ReadConfigFile : sends value or -1 for error
 deactivate .getGridMeteringPeriod
 ReadConfigFile -> SomewhereElse
 deactivate ReadConfigFile
