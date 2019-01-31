@@ -88,11 +88,11 @@ public class EnergyConsumptionInPeriodCTRL {
 
     /**
      * Shows the name given to the Room
-     * @param indexOfHG the index position of the RoomList
+     * @param indexOfRoom the index position of the RoomList
      * @return the room name (string)
      */
-    public String getRoomName(int indexOfHG) {
-        Room room = mRoomList.get(indexOfHG - 1);
+    public String getRoomName(int indexOfRoom) {
+        Room room = mRoomList.get(indexOfRoom - 1);
         return room.getName ();
     }
 

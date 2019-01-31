@@ -118,8 +118,9 @@ public class EnergyConsumptionInPeriodUI {
             case 3:
                 this.getHouseGridEnergyConsumption();
                 break;
+            default:
+                printLnInsertValidOption();
         }
-
     }
 
     private void getDeviceEnergyConsumption() {
