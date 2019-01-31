@@ -1,0 +1,32 @@
+@startuml
+SomewhereElse--> ReadConfigFile: Request grid metering period
+activate ReadConfigFile
+ReadConfigFile -> .getGridMeteringPeriod
+activate .getGridMeteringPeriod
+.getGridMeteringPeriod -> .getMeteringPeriod
+
+
+.getMeteringPeriod -> .isMeteringPeriodValid
+activate .getMeteringPeriod
+activate .isMeteringPeriodValid
+.isMeteringPeriodValid -> .getConfigValue: gets metering periods
+activate .getConfigValue
+.getConfigValue -> .isMeteringPeriodValid
+deactivate .getConfigValue
+.isMeteringPeriodValid -> .getMeteringPeriod : OK
+deactivate .isMeteringPeriodValid
+
+
+.getMeteringPeriod -> .getConfigValue: sends key=gridMeteringPeriod
+activate .getConfigValue
+.getConfigValue -> .getMeteringPeriod: OK: returns value found in file
+.getConfigValue -> .getMeteringPeriod: ERROR: returns error value
+deactivate .getConfigValue
+.getMeteringPeriod -> .getGridMeteringPeriod
+deactivate .getMeteringPeriod
+.getGridMeteringPeriod -> ReadConfigFile : sends value or -1 for error
+deactivate .getGridMeteringPeriod
+ReadConfigFile -> SomewhereElse
+deactivate ReadConfigFile
+@enduml
+

@@ -3,6 +3,8 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.GregorianCalendar;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RoomTest {
@@ -163,7 +165,7 @@ public class RoomTest {
     public void getCorrectNominalPower() {
 
         Room bedroom = new Room ("bedroom", 1, 2, 3, 2);
-        DeviceList dL = bedroom.getDeviceList ();
+        DeviceList dL = bedroom.deviceListSizeInGridIsNotEmpty ();
 
         Device d1 = dL.newDevice ("fridge", bedroom, "fridge", 100);
         Device d2 = dL.newDevice("lamp", bedroom, "lamp", 50);
@@ -186,7 +188,7 @@ public class RoomTest {
     public void getIncorrectNominalPower() {
 
         Room bedroom = new Room ("bedroom", 1, 2, 3, 2);
-        DeviceList dL = bedroom.getDeviceList ();
+        DeviceList dL = bedroom.deviceListSizeInGridIsNotEmpty ();
 
         Device d1 = dL.newDeviceWithoutSpecs ("fridge", bedroom, "fridge", 200);
         Device d2 = dL.newDeviceWithoutSpecs("lamp", bedroom, "lamp", 200);
@@ -202,4 +204,125 @@ public class RoomTest {
         assertNotEquals (expectedResult, result);
     }*/
 
+    /**
+     * Check if sum of all metered devices in the room is correct with one metered device
+     */
+    @Test
+    void getRoomEnergyConsumptionInPeriod1() {
+        House house = new House();
+        RoomList roomList = house.getRoomList ();
+        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2,2,2);
+        roomList.addRoom (bedroom);
+
+        DeviceSpecs ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        Device dEWH= new Device("EWH DAIKIN",ewh,15);
+
+        roomList.addDeviceToRoom (dEWH,1);
+
+        ReadingList activityLog = dEWH.getActivityLog();
+        Reading r2 = new Reading(18, new GregorianCalendar (2018, 11, 5, 0, 10));
+        Reading r3 = new Reading(22, new GregorianCalendar(2018, 11, 5, 0, 20));
+        Reading r4 = new Reading(37, new GregorianCalendar(2018, 11, 5, 0, 30));
+        Reading r5 = new Reading(31, new GregorianCalendar(2018, 11, 5, 0, 40));
+        Reading r6 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 50));
+        Reading r7 = new Reading(22, new GregorianCalendar(2018, 11, 5, 1, 00));
+        Reading r8 = new Reading(37, new GregorianCalendar(2018, 11, 5, 1, 10));
+        activityLog.addReading(r2);
+        activityLog.addReading(r3);
+        activityLog.addReading(r4);
+        activityLog.addReading(r5);
+        activityLog.addReading(r6);
+        activityLog.addReading(r7);
+        activityLog.addReading(r8);
+        GregorianCalendar startDate = new GregorianCalendar(2018, 11, 5, 0, 30);
+        GregorianCalendar endDate = new GregorianCalendar(2018, 11, 5, 1, 00);
+        dEWH.setIsMetered(true);
+        double expected = 71;
+        double result = bedroom.getEnergyConsumptionInTimeInterval (startDate, endDate);
+
+        assertEquals(expected, result);
+    }
+
+    /**
+     * Check if sum of all metered devices in the room is correct with two metered devices and one not metered device
+     */
+    @Test
+    void getRoomEnergyConsumptionInPeriod2() {
+        House house = new House();
+        RoomList roomList = house.getRoomList ();
+        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2,2,2);
+        roomList.addRoom (bedroom);
+
+        DeviceSpecs ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        Device dEWH= new Device("EWH DAIKIN",ewh,15);
+        DeviceSpecs tv = new OtherDevices (DeviceType.TV);
+        Device dTv= new Device("Samsung TV",tv,15);
+        DeviceSpecs frid = new Fridge (DeviceType.FRIDGE,20,10,300 );
+        Device dFrid = new Device ("Fridge1",frid,100);
+        Device dOtherFrid = new Device ("Fridge2", frid, 80);
+
+        roomList.addDeviceToRoom (dEWH,1);
+        roomList.addDeviceToRoom (dTv,1);
+        roomList.addDeviceToRoom (dFrid,1);
+        roomList.addDeviceToRoom (dOtherFrid, 1);
+
+        ReadingList activityLog = dEWH.getActivityLog();
+        Reading r2 = new Reading(18, new GregorianCalendar (2018, 11, 5, 0, 10));
+        Reading r3 = new Reading(22, new GregorianCalendar(2018, 11, 5, 0, 20));
+        Reading r4 = new Reading(37, new GregorianCalendar(2018, 11, 5, 0, 30));
+        Reading r5 = new Reading(31, new GregorianCalendar(2018, 11, 5, 0, 40));
+        Reading r6 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 50));
+        Reading r7 = new Reading(22, new GregorianCalendar(2018, 11, 5, 1, 00));
+        Reading r8 = new Reading(37, new GregorianCalendar(2018, 11, 5, 1, 10));
+        activityLog.addReading(r2);
+        activityLog.addReading(r3);
+        activityLog.addReading(r4);
+        activityLog.addReading(r5);
+        activityLog.addReading(r6);
+        activityLog.addReading(r7);
+        activityLog.addReading(r8);
+
+        ReadingList activityLogFrid = dFrid.getActivityLog();
+        Reading rA2 = new Reading(20, new GregorianCalendar (2018, 11, 5, 0, 10));
+        Reading rA3 = new Reading(12, new GregorianCalendar(2018, 11, 5, 0, 20));
+        Reading rA4 = new Reading(12, new GregorianCalendar(2018, 11, 5, 0, 30));
+        Reading rA5 = new Reading(12, new GregorianCalendar(2018, 11, 5, 0, 40));
+        Reading rA6 = new Reading(12, new GregorianCalendar(2018, 11, 5, 0, 50));
+        Reading rA7 = new Reading(10, new GregorianCalendar(2018, 11, 5, 1, 00));
+        Reading rA8 = new Reading(20, new GregorianCalendar(2018, 11, 5, 1, 10));
+        activityLogFrid.addReading(rA2);
+        activityLogFrid.addReading(rA3);
+        activityLogFrid.addReading(rA4);
+        activityLogFrid.addReading(rA5);
+        activityLogFrid.addReading(rA6);
+        activityLogFrid.addReading(rA7);
+        activityLogFrid.addReading(rA8);
+
+        ReadingList activityLogOtherFrid = dOtherFrid.getActivityLog ();
+        Reading rB2 = new Reading(10, new GregorianCalendar (2018, 11, 5, 0, 10));
+        Reading rB3 = new Reading(10, new GregorianCalendar(2018, 11, 5, 0, 20));
+        Reading rB4 = new Reading(10, new GregorianCalendar(2018, 11, 5, 0, 30));
+        Reading rB5 = new Reading(10, new GregorianCalendar(2018, 11, 5, 0, 40));
+        Reading rB6 = new Reading(10, new GregorianCalendar(2018, 11, 5, 0, 50));
+        Reading rB7 = new Reading(10, new GregorianCalendar(2018, 11, 5, 1, 00));
+        Reading rB8 = new Reading(10, new GregorianCalendar(2018, 11, 5, 1, 10));
+        activityLogOtherFrid.addReading(rB2);
+        activityLogOtherFrid.addReading(rB3);
+        activityLogOtherFrid.addReading(rB4);
+        activityLogOtherFrid.addReading(rB5);
+        activityLogOtherFrid.addReading(rB6);
+        activityLogOtherFrid.addReading(rB7);
+        activityLogOtherFrid.addReading(rB8);
+
+        GregorianCalendar startDate = new GregorianCalendar(2018, 11, 5, 0, 30);
+        GregorianCalendar endDate = new GregorianCalendar(2018, 11, 5, 1, 00);
+        dEWH.setIsMetered(true);
+        dFrid.setIsMetered (false);
+        dOtherFrid.setIsMetered (true);
+
+        double expected = 101;
+        double result = bedroom.getEnergyConsumptionInTimeInterval (startDate, endDate);
+
+        assertEquals(expected, result);
+    }
 }

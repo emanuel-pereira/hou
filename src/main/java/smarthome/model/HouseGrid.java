@@ -1,8 +1,9 @@
 package smarthome.model;
 
+import java.util.Calendar;
 import java.util.Objects;
 
-public class HouseGrid {
+public class HouseGrid implements Metered{
     private double mContractedMaximumPower = Double.NaN;
     private String mDesignation;
     private PowerSourceList mPSListInHG;
@@ -110,5 +111,14 @@ public class HouseGrid {
     @Override
     public int hashCode() {
         return Objects.hash (mDesignation);
+    }
+
+    @Override
+    public double getEnergyConsumptionInTimeInterval(Calendar startHour, Calendar endHour) {
+        double total=0;
+        for(Room room : mRoomList.getRoomList()){
+            total+=room.getEnergyConsumptionInTimeInterval(startHour,endHour);
+        }
+        return total;
     }
 }

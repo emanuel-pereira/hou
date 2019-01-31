@@ -53,7 +53,6 @@ public final class PowerUserUI {
                     System.out.println("US222");
                     break;
                 case 7:
-                    System.out.println("US720");
                     EnergyConsumptionInPeriodUI uiEC = new EnergyConsumptionInPeriodUI(house);
                     uiEC.selectOption();
                     break;

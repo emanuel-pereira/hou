@@ -17,9 +17,6 @@ public class EditDevicesUI {
     private DeviceList mDeviceList;
     private Device mDevice;
     private DeviceSpecs mDeviceSpecs;
-
-
-    private String insertValidOption = "Please insert a valid option \n.";
     private ProgramList mProgramList;
     private Scanner read = new Scanner(System.in);
 
@@ -129,7 +126,7 @@ public class EditDevicesUI {
 
     private void roomIndexIsOutOfBounds() {
         if (mRoomIndex > mRoomList.getRoomList().size())
-            System.out.println(insertValidOption);
+            UtilsUI.printLnInsertValidOption();
     }
 
     public void selectDeviceType() {
@@ -138,7 +135,7 @@ public class EditDevicesUI {
         mDeviceTypeIndex = read.nextInt();
         read.nextLine();
         if (mDeviceTypeIndex > DeviceType.values().length) {
-            System.out.println(insertValidOption);
+            UtilsUI.printLnInsertValidOption();
         } else this.insertDeviceStdInputs();
     }
 
@@ -150,7 +147,7 @@ public class EditDevicesUI {
                 this.insertNominalPower();
                 break;
             } else
-                System.out.println("Please insert a valid name");
+            UtilsUI.printLnInsertValidParameter("name");
         }
     }
 
@@ -333,7 +330,7 @@ public class EditDevicesUI {
             mDeviceIndex = read.nextInt();
             read.nextLine();
         if (mDeviceIndex > mRoom.getDeviceList().size())
-                System.out.println(insertValidOption);
+            UtilsUI.printLnInsertValidOption();
     }
 
     public void attributeSelectionToEdit() {

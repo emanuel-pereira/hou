@@ -126,7 +126,7 @@ class DeviceTest {
             GregorianCalendar endDate = new GregorianCalendar(2018, 11, 5, 1, 00);
             dEWH.setIsMetered(true);
             double expected = 71;
-            double result = dEWH.getEnergyConsumptionInPeriod(startDate, endDate);
+            double result = dEWH.getEnergyConsumptionInTimeInterval(startDate, endDate);
 
             assertEquals(expected, result);
         }

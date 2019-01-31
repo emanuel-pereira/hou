@@ -57,5 +57,4 @@ public class Reading {
         return output.toString();
     }
 
-
 }

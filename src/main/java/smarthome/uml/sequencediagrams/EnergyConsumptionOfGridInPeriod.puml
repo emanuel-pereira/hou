@@ -1,0 +1,47 @@
+@startuml
+ autonumber
+ hidefootbox
+ actor Administrator
+
+
+ Activate Administrator
+ Administrator <-- ":MainUI" : Show menu
+ Activate ":MainUI"
+ Administrator -> ":MainUI": Chooses Power User menu
+ Deactivate ":MainUI"
+ create ":PowerUserUI"
+ ":MainUI" ->":PowerUserUI": create
+ Administrator <-- ":PowerUserUI": Show menu
+ Activate ":PowerUserUI"
+ Administrator->":PowerUserUI": chooses Energy Consumption in period of a device, room or grid
+ Deactivate ":PowerUserUI"
+ create ":EnergyConsumptionInPeriodUI"
+ ":PowerUserUI"->":EnergyConsumptionInPeriodUI": create()
+ create ":EnergyConsumptionInPeriodCTRL"
+  ":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": create()
+
+ Administrator <-- ":EnergyConsumptionInPeriodUI": Shows options: Device,Room and Grid
+ Activate ":EnergyConsumptionInPeriodUI"
+ Administrator -> ":EnergyConsumptionInPeriodUI": Selects Grid option
+
+ ":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": hL = showHouseGridListInString()
+ Activate ":EnergyConsumptionInPeriodCTRL"
+ ":EnergyConsumptionInPeriodCTRL" -> "hL:HouseGridList": hL = showHouseGridListInString()
+  Deactivate ":EnergyConsumptionInPeriodCTRL"
+ Administrator <-- ":EnergyConsumptionInPeriodUI": showHouseGridList()
+ Administrator -> ":EnergyConsumptionInPeriodUI": Selects a HouseGrid
+ Administrator <-- ":EnergyConsumptionInPeriodUI": Asks for the time interval
+ Administrator -> ":EnergyConsumptionInPeriodUI": Inputs the time interval
+ ":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": tMe = getEnergyConsumption\nInPeriod(index, start, end)
+  Activate ":EnergyConsumptionInPeriodCTRL"
+
+ ":EnergyConsumptionInPeriodCTRL" -> ":HouseGrid": tMe = getEnergyConsumption\nInPeriod(index, start, end)
+  ":HouseGrid" -> ":Device": tMe = getEnergyConsumption\nInPeriod(index, start, end)
+ ":Device"->
+ Activate  ":HouseGrid"
+ Deactivate  ":HouseGrid"
+ Deactivate  ":EnergyConsumptionInPeriodCTRL"
+ Administrator <-- ":EnergyConsumptionInPeriodUI" : shows Grid EnergyConsumption in period
+ Deactivate  ":EnergyConsumptionInPeriodUI"
+ Deactivate Administrator
+ @enduml

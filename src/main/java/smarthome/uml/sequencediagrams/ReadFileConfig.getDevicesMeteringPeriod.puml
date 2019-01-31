@@ -1,0 +1,32 @@
+@startuml
+SomewhereElse--> ReadConfigFile: Request device metering period
+activate ReadConfigFile
+ReadConfigFile -> .getDevicesMeteringPeriod
+activate .getDevicesMeteringPeriod
+.getDevicesMeteringPeriod -> .getMeteringPeriod
+
+
+.getMeteringPeriod -> .isMeteringPeriodValid
+activate .getMeteringPeriod
+activate .isMeteringPeriodValid
+.isMeteringPeriodValid -> .getConfigValue: gets metering periods
+activate .getConfigValue
+.getConfigValue -> .isMeteringPeriodValid
+deactivate .getConfigValue
+.isMeteringPeriodValid -> .getMeteringPeriod : OK
+deactivate .isMeteringPeriodValid
+
+
+.getMeteringPeriod -> .getConfigValue: sends key=deviceMeteringPeriod
+activate .getConfigValue
+.getConfigValue -> .getMeteringPeriod: OK: returns value found in file
+.getConfigValue -> .getMeteringPeriod: ERROR: returns error value
+deactivate .getConfigValue
+.getMeteringPeriod -> .getDevicesMeteringPeriod
+deactivate .getMeteringPeriod
+.getDevicesMeteringPeriod -> ReadConfigFile : sends value or -1 for error
+deactivate .getDevicesMeteringPeriod
+ReadConfigFile -> SomewhereElse
+deactivate ReadConfigFile
+@enduml
+

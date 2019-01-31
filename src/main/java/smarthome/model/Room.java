@@ -1,9 +1,10 @@
 package smarthome.model;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-public class Room implements Powered {
+public class Room implements Powered, Metered {
 
     private String mName;
     private Integer mFloor;
@@ -71,6 +72,18 @@ public class Room implements Powered {
                 sum += device.getNominalPower ();
              }
             return sum;
+    }
+
+    /**
+     * Get the total energy consumption of a room by adding all the devices in the room device list
+     * @return energy consumption sum
+     */
+    public double getEnergyConsumptionInTimeInterval(Calendar startHour, Calendar endHour) {
+        double sum = 0;
+        for (Device device : mDeviceList.getMeteredDevices ()) {
+            sum += device.getEnergyConsumptionInTimeInterval (startHour, endHour);
+        }
+        return sum;
     }
 
     /**
@@ -173,4 +186,5 @@ public class Room implements Powered {
     public int hashCode() {
         return Objects.hash ( mName );
     }
+
 }

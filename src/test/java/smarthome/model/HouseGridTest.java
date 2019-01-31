@@ -4,6 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -237,5 +239,66 @@ class HouseGridTest {
     }
 
 
+    @Test
+    @DisplayName("Ensure that getEnergyConsumption returns 80 as devices fridge and ewh2 have both two readings each in  defined time interval")
+    void getEnergyConsumptionInTimeInterval() {
+        HouseGrid grid= new HouseGrid("MainGrid");
+        RoomList roomList=grid.getRoomListInAGrid();
+
+        Room kitchen= new Room("Kicthen",0,8,8,3);
+        Room garage= new Room("Living Room",0,5,4,3);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(garage);
+
+        DeviceList kitDeviceList= kitchen.getDeviceList();
+        DeviceList grDeviceList= garage.getDeviceList();
+
+        DeviceSpecs fridgeSpecs= new Fridge(DeviceType.FRIDGE,25,75,2);
+        Device fridge= new Device("LG Fridge",fridgeSpecs,2);
+
+        DeviceSpecs ewhSpecs= new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER,25,75,0.9);
+        Device ewh1= new Device("Daikin EWH1",ewhSpecs,2);
+        Device ewh2= new Device("Daikin EWH1",ewhSpecs,2);
+
+        kitDeviceList.addDevice(fridge);
+        kitDeviceList.addDevice(ewh1);
+        grDeviceList.addDevice(ewh2);
+
+        ReadingList fridgeActivityLog= fridge.getActivityLog();
+        Reading r1= new Reading(20,new GregorianCalendar(2018,2,1,9,10));
+        Reading r2= new Reading(20,new GregorianCalendar(2018,2,1,12,10));
+        Reading r3= new Reading(20,new GregorianCalendar(2018,2,1,12,20));
+        Reading r4= new Reading(20,new GregorianCalendar(2018,2,1,12,30));
+        Reading r5= new Reading(20,new GregorianCalendar(2018,2,1,14,40));
+        Reading r6= new Reading(20,new GregorianCalendar(2018,2,1,17,50));
+        fridgeActivityLog.addReading(r1);
+        fridgeActivityLog.addReading(r2);
+        fridgeActivityLog.addReading(r3);
+        fridgeActivityLog.addReading(r4);
+        fridgeActivityLog.addReading(r5);
+        fridgeActivityLog.addReading(r6);
+
+        ReadingList ewh2ActivityLog= ewh2.getActivityLog();
+        ewh2ActivityLog.addReading(r1);
+        ewh2ActivityLog.addReading(r2);
+        ewh2ActivityLog.addReading(r3);
+        ewh2ActivityLog.addReading(r4);
+        ewh2ActivityLog.addReading(r5);
+        ewh2ActivityLog.addReading(r6);
+
+        Calendar startTime= new GregorianCalendar(2018,2,1,12,20);
+        Calendar endTime= new GregorianCalendar(2018,2,1,15,20);
+
+        double expected=80;
+        double result=grid.getEnergyConsumptionInTimeInterval(startTime,endTime);
+
+        assertEquals(expected,result);
+
+
+
+
+
+
+    }
 }
 
