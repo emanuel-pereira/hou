@@ -497,6 +497,19 @@ class EnergyConsumptionInPeriodCTRLTest {
         assertEquals (expected, result);
     }
 
-
+    @Test
+    @DisplayName("Ensure that the room name is shown")
+    void getRoomName() {
+        House house = new House();
+        EnergyConsumptionInPeriodCTRL ctrl = new EnergyConsumptionInPeriodCTRL(house);
+        Room bedroom = new Room("Bedroom",1,2,2,2);
+        Room office = new Room("Office",0,2,1,1);
+        RoomList rList = house.getRoomList ();
+        rList.addRoom (bedroom);
+        rList.addRoom (office);
+        String expected = "Bedroom";
+        String result = ctrl.getRoomName (1);
+        assertEquals(expected, result);
+    }
 
 }
