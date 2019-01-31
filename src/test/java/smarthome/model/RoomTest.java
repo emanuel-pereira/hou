@@ -336,7 +336,28 @@ public class RoomTest {
         Device dEWH1= new Device("EWH DAIKIN1",ewh,15);
         assertTrue (dL.addDevice (dEWH1));
         assertFalse (dL.addDevice (dEWH1));
-
      }
+
+    @Test
+    public void  getLastDevice() {
+        House house = new House();
+        RoomList roomList = house.getRoomList ();
+        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2,2,2);
+        roomList.addRoom (bedroom);
+        DeviceList dL = bedroom.getDeviceList ();
+        DeviceSpecs ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        Device dEWH1= new Device("EWH DAIKIN1",ewh,15);
+        Device dEWH2= new Device("EWH DAIKIN2",ewh,15);
+        dL.addDevice (dEWH1);
+        dL.addDevice (dEWH2);
+
+        Device expectedResult = dEWH2;
+        Device result = dL.getLastElement ();
+
+        assertEquals (expectedResult,result);
+    }
+
+
+
 
 }
