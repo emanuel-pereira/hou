@@ -54,9 +54,9 @@ class US160GetDeviceListInGridByTypeCTRLTest {
         Room r1 = new Room("cozinha",1,2,2,2);
         Room r2 = new Room("sala",1,2,2,2);
         Room r3 = new Room("quarto",2,2,2,2);
-        house.getRoomList().addRoom(r1);
-        house.getRoomList().addRoom(r2);
-        house.getRoomList().addRoom(r3);
+        house.getRoomListSize().addRoom(r1);
+        house.getRoomListSize().addRoom(r2);
+        house.getRoomListSize().addRoom(r3);
 
         Fridge fridge1 = new Fridge(DeviceType.FRIDGE,50,350,50);
         Device d1 = new Device("frigo",fridge1,r1,50);
@@ -68,11 +68,11 @@ class US160GetDeviceListInGridByTypeCTRLTest {
         Device d4 = new Device("candeeiro",lamp1,r2,10);
         Lamp lamp2 = new Lamp(DeviceType.LAMP,10);
         Device d5 = new Device("candeeiro2",lamp2,r3,10);
-        house.getRoomList().get(0).getDeviceList().addDevice(d1);
-        house.getRoomList().get(0).getDeviceList().addDevice(d2);
-        house.getRoomList().get(1).getDeviceList().addDevice(d3);
-        house.getRoomList().get(1).getDeviceList().addDevice(d4);
-        house.getRoomList().get(2).getDeviceList().addDevice(d5);
+        house.getRoomListSize().get(0).deviceListSizeInGridIsNotEmpty().addDevice(d1);
+        house.getRoomListSize().get(0).deviceListSizeInGridIsNotEmpty().addDevice(d2);
+        house.getRoomListSize().get(1).deviceListSizeInGridIsNotEmpty().addDevice(d3);
+        house.getRoomListSize().get(1).deviceListSizeInGridIsNotEmpty().addDevice(d4);
+        house.getRoomListSize().get(2).deviceListSizeInGridIsNotEmpty().addDevice(d5);
 
         r1.setmHouseGrid(hg1);
         r2.setmHouseGrid(hg2);
@@ -96,9 +96,9 @@ class US160GetDeviceListInGridByTypeCTRLTest {
         Room r1 = new Room("cozinha",1,2,2,2);
         Room r2 = new Room("sala",1,2,2,2);
         Room r3 = new Room("quarto",2,2,2,2);
-        house.getRoomList().addRoom(r1);
-        house.getRoomList().addRoom(r2);
-        house.getRoomList().addRoom(r3);
+        house.getRoomListSize().addRoom(r1);
+        house.getRoomListSize().addRoom(r2);
+        house.getRoomListSize().addRoom(r3);
 
         Fridge fridge1 = new Fridge(DeviceType.FRIDGE,50,350,50);
         Device d1 = new Device("frigo",fridge1,r1,50);
@@ -110,11 +110,11 @@ class US160GetDeviceListInGridByTypeCTRLTest {
         Device d4 = new Device("candeeiro",lamp1,r2,10);
         Lamp lamp2 = new Lamp(DeviceType.LAMP,10);
         Device d5 = new Device("candeeiro2",lamp2,r3,10);
-        house.getRoomList().get(0).getDeviceList().addDevice(d1);
-        house.getRoomList().get(0).getDeviceList().addDevice(d2);
-        house.getRoomList().get(1).getDeviceList().addDevice(d3);
-        house.getRoomList().get(1).getDeviceList().addDevice(d4);
-        house.getRoomList().get(2).getDeviceList().addDevice(d5);
+        house.getRoomListSize().get(0).deviceListSizeInGridIsNotEmpty().addDevice(d1);
+        house.getRoomListSize().get(0).deviceListSizeInGridIsNotEmpty().addDevice(d2);
+        house.getRoomListSize().get(1).deviceListSizeInGridIsNotEmpty().addDevice(d3);
+        house.getRoomListSize().get(1).deviceListSizeInGridIsNotEmpty().addDevice(d4);
+        house.getRoomListSize().get(2).deviceListSizeInGridIsNotEmpty().addDevice(d5);
 
         r1.setmHouseGrid(hg1);
         r2.setmHouseGrid(hg2);
@@ -138,9 +138,9 @@ class US160GetDeviceListInGridByTypeCTRLTest {
         Room r1 = new Room("cozinha",1,2,2,2);
         Room r2 = new Room("sala",1,2,2,2);
         Room r3 = new Room("quarto",2,2,2,2);
-        house.getRoomList().addRoom(r1);
-        house.getRoomList().addRoom(r2);
-        house.getRoomList().addRoom(r3);
+        house.getRoomListSize().addRoom(r1);
+        house.getRoomListSize().addRoom(r2);
+        house.getRoomListSize().addRoom(r3);
 
         Fridge fridge1 = new Fridge(DeviceType.FRIDGE,50,350,50);
         Device d1 = new Device("frigo",fridge1,r1,50);
@@ -152,11 +152,11 @@ class US160GetDeviceListInGridByTypeCTRLTest {
         Device d4 = new Device("candeeiro",lamp1,r2,10);
         Lamp lamp2 = new Lamp(DeviceType.LAMP,10);
         Device d5 = new Device("candeeiro2",lamp2,r3,10);
-        house.getRoomList().get(0).getDeviceList().addDevice(d1);
-        house.getRoomList().get(0).getDeviceList().addDevice(d2);
-        house.getRoomList().get(1).getDeviceList().addDevice(d3);
-        house.getRoomList().get(1).getDeviceList().addDevice(d4);
-        house.getRoomList().get(2).getDeviceList().addDevice(d5);
+        house.getRoomListSize().get(0).deviceListSizeInGridIsNotEmpty().addDevice(d1);
+        house.getRoomListSize().get(0).deviceListSizeInGridIsNotEmpty().addDevice(d2);
+        house.getRoomListSize().get(1).deviceListSizeInGridIsNotEmpty().addDevice(d3);
+        house.getRoomListSize().get(1).deviceListSizeInGridIsNotEmpty().addDevice(d4);
+        house.getRoomListSize().get(2).deviceListSizeInGridIsNotEmpty().addDevice(d5);
 
         r1.setmHouseGrid(hg1);
         r2.setmHouseGrid(hg2);
@@ -180,9 +180,9 @@ class US160GetDeviceListInGridByTypeCTRLTest {
         Room r1 = new Room("cozinha",1,2,2,2);
         Room r2 = new Room("sala",1,2,2,2);
         Room r3 = new Room("quarto",2,2,2,2);
-        house.getRoomList().addRoom(r1);
-        house.getRoomList().addRoom(r2);
-        house.getRoomList().addRoom(r3);
+        house.getRoomListSize().addRoom(r1);
+        house.getRoomListSize().addRoom(r2);
+        house.getRoomListSize().addRoom(r3);
 
         Fridge fridge1 = new Fridge(DeviceType.FRIDGE,50,350,50);
         Device d1 = new Device("frigo",fridge1,r1,50);
@@ -194,11 +194,11 @@ class US160GetDeviceListInGridByTypeCTRLTest {
         Device d4 = new Device("candeeiro",lamp1,r2,10);
         Lamp lamp2 = new Lamp(DeviceType.LAMP,10);
         Device d5 = new Device("candeeiro2",lamp2,r3,10);
-        house.getRoomList().get(0).getDeviceList().addDevice(d1);
-        house.getRoomList().get(0).getDeviceList().addDevice(d2);
-        house.getRoomList().get(1).getDeviceList().addDevice(d3);
-        house.getRoomList().get(1).getDeviceList().addDevice(d4);
-        house.getRoomList().get(2).getDeviceList().addDevice(d5);
+        house.getRoomListSize().get(0).deviceListSizeInGridIsNotEmpty().addDevice(d1);
+        house.getRoomListSize().get(0).deviceListSizeInGridIsNotEmpty().addDevice(d2);
+        house.getRoomListSize().get(1).deviceListSizeInGridIsNotEmpty().addDevice(d3);
+        house.getRoomListSize().get(1).deviceListSizeInGridIsNotEmpty().addDevice(d4);
+        house.getRoomListSize().get(2).deviceListSizeInGridIsNotEmpty().addDevice(d5);
 
         r1.setmHouseGrid(hg1);
         r2.setmHouseGrid(hg2);
@@ -222,9 +222,9 @@ class US160GetDeviceListInGridByTypeCTRLTest {
         Room r1 = new Room("cozinha",1,2,2,2);
         Room r2 = new Room("sala",1,2,2,2);
         Room r3 = new Room("quarto",2,2,2,2);
-        house.getRoomList().addRoom(r1);
-        house.getRoomList().addRoom(r2);
-        house.getRoomList().addRoom(r3);
+        house.getRoomListSize().addRoom(r1);
+        house.getRoomListSize().addRoom(r2);
+        house.getRoomListSize().addRoom(r3);
 
         Fridge fridge1 = new Fridge(DeviceType.FRIDGE,50,350,50);
         Device d1 = new Device("frigo",fridge1,r1,50);
@@ -236,11 +236,11 @@ class US160GetDeviceListInGridByTypeCTRLTest {
         Device d4 = new Device("candeeiro",lamp1,r2,10);
         Lamp lamp2 = new Lamp(DeviceType.LAMP,10);
         Device d5 = new Device("candeeiro2",lamp2,r3,10);
-        house.getRoomList().get(0).getDeviceList().addDevice(d1);
-        house.getRoomList().get(0).getDeviceList().addDevice(d2);
-        house.getRoomList().get(1).getDeviceList().addDevice(d3);
-        house.getRoomList().get(1).getDeviceList().addDevice(d4);
-        house.getRoomList().get(2).getDeviceList().addDevice(d5);
+        house.getRoomListSize().get(0).deviceListSizeInGridIsNotEmpty().addDevice(d1);
+        house.getRoomListSize().get(0).deviceListSizeInGridIsNotEmpty().addDevice(d2);
+        house.getRoomListSize().get(1).deviceListSizeInGridIsNotEmpty().addDevice(d3);
+        house.getRoomListSize().get(1).deviceListSizeInGridIsNotEmpty().addDevice(d4);
+        house.getRoomListSize().get(2).deviceListSizeInGridIsNotEmpty().addDevice(d5);
 
         r1.setmHouseGrid(hg1);
         r2.setmHouseGrid(hg2);
