@@ -75,6 +75,18 @@ public class Room implements Powered, Metered {
     }
 
     /**
+     * Get the total energy consumption of a room by adding all the devices in the room device list
+     * @return energy consumption sum
+     */
+    public double getEnergyConsumptionInTimeInterval(Calendar startHour, Calendar endHour) {
+        double sum = 0;
+        for (Device device : mDeviceList.getMeteredDevices ()) {
+            sum += device.getEnergyConsumptionInTimeInterval (startHour, endHour);
+        }
+        return sum;
+    }
+
+    /**
      * Method to set the name of String mName.
      * @param setNameRoom  name of the room of the house.
      */
@@ -173,14 +185,6 @@ public class Room implements Powered, Metered {
     @Override
     public int hashCode() {
         return Objects.hash ( mName );
-    }
-
-    @Override
-    public double getEnergyConsumptionInTimeInterval(Calendar startHour, Calendar endHour) {
-        double total=0;
-        for(Device device:mDeviceList.getMeteredDevices())
-        total+=device.getEnergyConsumptionInTimeInterval(startHour,endHour);
-        return total;
     }
 
 }
