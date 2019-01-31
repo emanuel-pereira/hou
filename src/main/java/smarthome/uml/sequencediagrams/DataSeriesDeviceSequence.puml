@@ -1,0 +1,51 @@
+@startuml
+ autonumber
+ hidefootbox
+
+ actor Administrator
+ activate Administrator
+
+ Administrator -> ":EnergyConsumptionInPeriodUI": start
+activate ":EnergyConsumptionInPeriodUI"
+
+ ":EnergyConsumptionInPeriodUI" -> ":EnergyConsumption\nInPeriodCTRL": mL = showMeteredDevicesInStr( )
+
+activate ":EnergyConsumption\nInPeriodCTRL"
+ ":EnergyConsumption\nInPeriodCTRL" -> ":RoomList": mL = showMeteredDevicesInStr( )
+ activate ":RoomList"
+deactivate ":EnergyConsumption\nInPeriodCTRL"
+deactivate ":RoomList"
+
+
+ Administrator <-- ":EnergyConsumptionInPeriodUI": Show list of Metered Devices
+ Administrator -> ":EnergyConsumptionInPeriodUI": Select a Device
+ Administrator <-- ":EnergyConsumptionInPeriodUI": Ask for time interval
+ Administrator -> ":EnergyConsumptionInPeriodUI": Input time interval
+
+ ":EnergyConsumptionInPeriodUI" -> ":EnergyConsumption\nInPeriodCTRL": tMe = getEnergyConsumptionChart\n(indexOfDevice, startDate, endDate)
+
+
+  activate ":EnergyConsumption\nInPeriodCTRL"
+
+ ":EnergyConsumption\nInPeriodCTRL" -> ":Device": tMe = getEnergyConsumptionChart\n(indexOfDevice, startDate, endDate)
+ activate ":Device"
+ deactivate  ":EnergyConsumption\nInPeriodCTRL"
+
+loop N periods between startDate and endDate
+    ":Device" -> ":ReadingList": vR = getValueOfReadingsInTime\nInterval(nDate,nDate+meteringPeriod)
+    activate ":ReadingList"
+
+    ":ReadingList" -> ":Reading":vR = returnValueOfReading( )
+    activate ":Reading"
+    deactivate ":Reading"
+    ":ReadingList" -->> ":Device": Readings[ ] = add(vR)
+    deactivate ":ReadingList"
+ end
+
+ ":Device" -->> ":EnergyConsumption\nInPeriodCTRL": Readings[ ]
+ deactivate ":Device"
+ Administrator <-- ":EnergyConsumptionInPeriodUI" : Show Device Energy\nConsumption in period
+ deactivate  ":EnergyConsumptionInPeriodUI"
+ deactivate Administrator
+
+ @enduml
