@@ -51,6 +51,8 @@ public final class PowerUserUI {
                     break;
                 case 6:
                     System.out.println("US222");
+                    EditDevicesUI devicesUI = new EditDevicesUI(house);
+                    devicesUI.deactivateDevice();
                     break;
                 case 7:
                     EnergyConsumptionInPeriodUI uiEC = new EnergyConsumptionInPeriodUI(house);
@@ -58,6 +60,8 @@ public final class PowerUserUI {
                     break;
                 case 8:
                     System.out.println("US730");
+                    EnergyConsumptionInPeriodUI uiEC2 = new EnergyConsumptionInPeriodUI(house);
+                    uiEC2.selectChartOption();
                     System.out.println(house.getRoomList().getRoomList().get(2).getDeviceList().get(1).getActivityLogSum());
                     break;
                 default:
