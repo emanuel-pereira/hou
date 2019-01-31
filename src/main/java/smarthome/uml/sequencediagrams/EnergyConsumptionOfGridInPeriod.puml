@@ -24,13 +24,9 @@
  Activate ":EnergyConsumptionInPeriodUI"
  Administrator -> ":EnergyConsumptionInPeriodUI": Selects Grid option
 
- ":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": hL = getHouseGridList()
+ ":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": hL = showHouseGridListInString()
  Activate ":EnergyConsumptionInPeriodCTRL"
- ":EnergyConsumptionInPeriodCTRL" -> "hL:HouseGridList": hL = getHouseGridList()
- Activate "hL:HouseGridList"
- ":EnergyConsumptionInPeriodCTRL"<--"hL:HouseGridList":showHouseGridList()
- Deactivate "hL:HouseGridList"
- ":EnergyConsumptionInPeriodUI"<--":EnergyConsumptionInPeriodCTRL":showHouseGridList()
+ ":EnergyConsumptionInPeriodCTRL" -> "hL:HouseGridList": hL = showHouseGridListInString()
   Deactivate ":EnergyConsumptionInPeriodCTRL"
  Administrator <-- ":EnergyConsumptionInPeriodUI": showHouseGridList()
  Administrator -> ":EnergyConsumptionInPeriodUI": Selects a HouseGrid
@@ -40,10 +36,10 @@
   Activate ":EnergyConsumptionInPeriodCTRL"
 
  ":EnergyConsumptionInPeriodCTRL" -> ":HouseGrid": tMe = getEnergyConsumption\nInPeriod(index, start, end)
+  ":HouseGrid" -> ":Device": tMe = getEnergyConsumption\nInPeriod(index, start, end)
+ ":Device"->
  Activate  ":HouseGrid"
- ":EnergyConsumptionInPeriodCTRL" <-- ":HouseGrid": shows Grid EnergyConsumption
  Deactivate  ":HouseGrid"
- ":EnergyConsumptionInPeriodUI" <-- ":EnergyConsumptionInPeriodCTRL": shows Grid EnergyConsumption
  Deactivate  ":EnergyConsumptionInPeriodCTRL"
  Administrator <-- ":EnergyConsumptionInPeriodUI" : shows Grid EnergyConsumption in period
  Deactivate  ":EnergyConsumptionInPeriodUI"

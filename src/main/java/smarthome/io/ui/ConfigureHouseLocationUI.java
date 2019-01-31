@@ -29,9 +29,6 @@ public class ConfigureHouseLocationUI {
     }
 
 
-
-
-
     public void configureHouseLocationUS101() {
 
         System.out.println("Select the Geographical Area where the house is located:");
@@ -42,7 +39,7 @@ public class ConfigureHouseLocationUI {
             Scanner read1 = new Scanner(System.in);
             indexGA = read1.nextInt();
             if (indexGA > mCtrlUS101.getGAList().size())
-                System.out.println("Please insert a valid option \n.");
+                UtilsUI.printLnInsertValidOption();
             else
                 break;
         }
@@ -54,7 +51,7 @@ public class ConfigureHouseLocationUI {
             if (streetName != null)
                 break;
             else
-                System.out.println("Please insert a valid street name");
+                UtilsUI.printLnInsertValidParameter("street name");
         }
         String zipCode;
         while (true) {
