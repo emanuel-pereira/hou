@@ -24,7 +24,7 @@ public class US160GetDeviceListInGridByTypeCTRL {
 
     public RoomList getListOfRoomsInGrid(int indexOfHouseGrid) {
         RoomList listOfRoomsWithHouseGrid = new RoomList();
-        for (Room r : mHouse.getRoomList().getRoomList()) {
+        for (Room r : mHouse.getRoomListSize().getRoomListSize()) {
             if (r.getmHouseGrid() != null && r.getmHouseGrid().equals(mHouse.getHGListInHouse().get(indexOfHouseGrid - 1))) {
                    listOfRoomsWithHouseGrid.addRoom(r);
             }
@@ -35,11 +35,11 @@ public class US160GetDeviceListInGridByTypeCTRL {
     public List<Device> getDeviceListInGridCtrl(int indexHG) {
         DeviceList deviceListInGrid = new DeviceList();
         for (int i = 0; i < this.getListOfRoomsInGrid(indexHG).getRoomListSize(); i++) {
-            for (Device d : this.getListOfRoomsInGrid(indexHG).get(i).getDeviceList().getDeviceList()) {
+            for (Device d : this.getListOfRoomsInGrid(indexHG).get(i).deviceListSizeInGridIsNotEmpty().deviceListSizeInGridIsNotEmpty()) {
                 deviceListInGrid.addDevice(d);
             }
         }
-        return deviceListInGrid.getDeviceList();
+        return deviceListInGrid.deviceListSizeInGridIsNotEmpty();
     }
 
     public List<Device> deviceListGroupByTypeCtrl(int indexHG){
@@ -52,7 +52,7 @@ public class US160GetDeviceListInGridByTypeCTRL {
                 }
             }
         }
-    return deviceListGroupByType.getDeviceList();
+    return deviceListGroupByType.deviceListSizeInGridIsNotEmpty();
     }
 
 

@@ -1,0 +1,24 @@
+@startuml
+title Total Nominal Power In a Grid
+actor PowerUser
+
+PowerUser -> ":TotalNominalPowerUI": Show Total Nominal\nPower of a Grid
+":TotalNominalPowerUI" -> ":TotalNominalPowerCTRL": run()
+":TotalNominalPowerCTRL" -> ":HouseGridList": getHouseGridList()
+":TotalNominalPowerUI" -> ":TotalNominalPowerCTRL": checkIfRoomsExists()
+":TotalNominalPowerCTRL" -> ":RoomList": getRoomList()
+":TotalNominalPowerUI" -> ":TotalNominalPowerCTRL": gLs = showGridList()
+":TotalNominalPowerCTRL" -> ":HouseGridList": gLs = showHouseGridListInString()
+":TotalNominalPowerUI" --> PowerUser: gLs = showGridList
+PowerUser -> ":TotalNominalPowerUI": Choose Grid
+":TotalNominalPowerUI" -> ":TotalNominalPowerCTRL": lR = checkIfRoomsAttachToGrid()
+":TotalNominalPowerCTRL" -> ":RoomList": lR= getListOfRoomsWithThisGrid()
+":TotalNominalPowerUI" -> ":TotalNominalPowerCTRL": dL = checkIfDevicesExists()
+":TotalNominalPowerCTRL" -> ":Room": dL = getDeviceList()
+":TotalNominalPowerUI" -> ":TotalNominalPowerCTRL": tNp = getTotalNominalPowerInGrid()
+":TotalNominalPowerCTRL" -> ":RoomList": tNp:getTotalNominalPowerInGrid
+":TotalNominalPowerUI" -->PowerUser: tNp: Show Total Nominal\nPower of a Grid
+
+
+
+@enduml
