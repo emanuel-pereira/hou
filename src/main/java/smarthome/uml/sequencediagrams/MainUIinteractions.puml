@@ -1,0 +1,41 @@
+@startuml
+ autonumber
+ hidefootbox
+ actor User
+
+User -> MainUI: main()
+MainUI ->MainUI: setUp()
+MainUI <- MainUI: showUserRoles()
+User <-- MainUI: Show Users Role
+User -> MainUI: Choose User Role
+
+create ":{userRole}UI"
+MainUI -> ":{userRole}UI": create()
+note right
+	{userRole} can be:
+	 System Administration
+	 House Administration
+	 Regular User
+	 Power User
+	 Room Owner
+end note
+
+MainUI -> ":{userRole}UI": run()
+":{userRole}UI" -> ":{userRole}UI": showOptions()
+User <-- ":{userRole}UI": Show Options
+User -> ":{userRole}UI": Select Option
+create ":{option}UI"
+":{userRole}UI" -> ":{option}UI": create()
+note right
+	{option} is dependent of the Use Story
+end note
+":{userRole}UI" -> ":{option}UI": run()
+create ":{option}CTRL"
+":{option}UI" -> ":{option}CTRL": create(...)
+
+
+
+
+
+
+@enduml
