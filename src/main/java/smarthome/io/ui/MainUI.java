@@ -68,30 +68,51 @@ public class MainUI {
 
 
         GeographicalArea porto = new GeographicalArea("001", "Porto", "city", 2, 4, 5, 5, 6);
+        house.setHouseGA(porto);
         gaList.addGA(porto);
         SensorList list = porto.getSensorListInGA();
 
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 1, 1, 12, 0));
-        Reading r2 = new Reading(18, new GregorianCalendar(2018, 1, 1, 13, 0));
-        Reading r3 = new Reading(20, new GregorianCalendar(2018, 1, 1, 14, 0));
-        Reading r4 = new Reading(22, new GregorianCalendar(2018, 1, 1, 15, 0));
+        Reading r1 = new Reading(0.5, new GregorianCalendar(2018, 11, 29, 12, 0));
+        Reading r2 = new Reading(1.2, new GregorianCalendar(2018, 11, 30, 13, 0));
+        Reading r3 = new Reading(1.5, new GregorianCalendar(2018, 11, 31, 14, 0));
+        Reading r4 = new Reading(0.3, new GregorianCalendar(2019, 0, 1, 15, 0));
+        Reading r5 = new Reading(0, new GregorianCalendar(2019, 0, 2, 13, 0));
+        Reading r6 = new Reading(0, new GregorianCalendar(2019, 0, 2, 14, 0));
+        Reading r7 = new Reading(0, new GregorianCalendar(2019, 0, 3, 15, 0));
+
+
         ReadingList rl = new ReadingList();
         rl.addReading(r1);
         rl.addReading(r2);
         rl.addReading(r3);
         rl.addReading(r4);
+        rl.addReading(r5);
+        rl.addReading(r6);
+        rl.addReading(r7);
         SensorType sT1 = sensorTypeList.newSensorType("rainfall");
         sensorTypeList.addSensorType(sT1);
-        list.addSensor(list.newSensor("RainSensor", new GregorianCalendar(2018, 12, 15), 24, 34, 25, sT1, "C", rl));
+        list.addSensor(list.newSensor("RainSensor1", new GregorianCalendar(2018, 12, 15), 24, 34, 25, sT1, "C", rl));
 
-        Reading r5 = new Reading(80, new GregorianCalendar(2018, 11, 26, 12, 0));
-        Reading r6 = new Reading(81, new GregorianCalendar(2018, 11, 26, 13, 0));
+        Reading r8 = new Reading(85, new GregorianCalendar(2019, 0, 4, 16, 0));
         ReadingList rl2 = new ReadingList();
+        rl2.addReading(r1);
+        rl2.addReading(r2);
+        rl2.addReading(r3);
+        rl2.addReading(r4);
         rl2.addReading(r5);
         rl2.addReading(r6);
+        rl2.addReading(r8);
+        list.addSensor(list.newSensor("RainSensor2", new GregorianCalendar(2018, 1, 15), 24, 34, 25, sT1, "C", rl2));
+
+
+        Reading r9 = new Reading(80, new GregorianCalendar(2018, 11, 26, 12, 0));
+        Reading r10 = new Reading(81, new GregorianCalendar(2018, 11, 26, 13, 0));
+        ReadingList rl3 = new ReadingList();
+        rl2.addReading(r9);
+        rl2.addReading(r10);
         SensorType sH1 = sensorTypeList.newSensorType("humidity");
         sensorTypeList.addSensorType(sH1);
-        list.addSensor(list.newSensor("HumiditySensor", new GregorianCalendar(2018, 12, 15), 25, 32, 25, sH1, "Percentage", rl2));
+        list.addSensor(list.newSensor("HumiditySensor", new GregorianCalendar(2018, 12, 15), 25, 32, 25, sH1, "Percentage", rl3));
 
 
         SensorType temperature = sensorTypeList.newSensorType("temperature");
