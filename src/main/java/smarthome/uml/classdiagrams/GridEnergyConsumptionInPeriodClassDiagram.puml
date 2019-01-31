@@ -1,0 +1,96 @@
+@startuml
+skinparam linetype ortho
+
+
+
+class HouseGridList{
+- mHGList: List<HouseGrid>
++ getSize()
++ get()
++ showHouseGridListInString()
+}
+class HouseGrid{
+- mContractedMaximumPower: double
+- mDesignation: String
+- mPSListInHG: PowerSourceList
+- mRoomList: RoomList
++ getGridID()
++ getEnergyConsumptionInTimeInterval()
+}
+
+
+
+class Device{
+- mName: String
+- mDeviceSpecs: DeviceSpecs
+- mNominalPower: double
+- mActive: boolean
+- mIsMetered: boolean
+- mActivityLog: ReadingList
++ getName()
++ getEnergyConsumptionInTimeInterval()
+}
+
+class RoomList{
+- mRoomList: List<Room>
++ getRoomListSize()
++ get()
++showMeteredDevicesInStr()
++getMeteredDevicesInHouseSize()
+}
+
+class ReadConfigFile{
+- mConfigFilePath: String
++ getDevicesMeteringPeriod()
+}
+
+class ReadingList{
+-mReadingList: List<Reading>
++getValueOfReadingsInTimeInterval()
+}
+
+class Reading{
+ -mValue: double
+ -mDateAndTime: Calendar
+ +returnValueOfReading()
+}
+class House{
+- mAddress: Address
+- mID: String
+- mGA: GeographicalArea
+- mRoomList: RoomList
+- mHGListInHouse: HouseGridList
++ getRoomList()
++ getHouseGridList()
+}
+
+class Room{
+- mName: String
+- mFloor: Integer
+- mArea: OccupationArea
+- mHeight: double
+- mSensorListInRoom: SensorList
+- mDeviceList: DeviceList
++ getName()
++ getDeviceList()
++ getEnergyConsumptionInTimeInterval()
+}
+
+interface Metered{
++ getEnergyConsumptionInTimeInterval()
+}
+Metered <|.. HouseGrid
+Metered <|.. Room
+Metered <|.. Device
+
+
+House *-- "1" HouseGridList:  contains
+House *-- "1" RoomList: contains
+RoomList *- " 0..*"Room: contains
+HouseGridList *-- " 0..*"HouseGrid: contains
+HouseGrid -up- "1"RoomList: > contains
+Room *- " 0 *"Device: contains
+Device *-down- "1"ReadingList: has
+ReadingList *-- " 0..*"Reading: contains
+
+@enduml
