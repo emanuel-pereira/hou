@@ -235,7 +235,7 @@ public class MainUI {
             washingMachineB109.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
 
-        Program p1dish106 = dish106.getProgramListInDW().newProgram("Glasses", 0.8);
+        /*Program p1dish106 = dish106.getProgramListInDW().newProgram("Glasses", 0.8);
         Program p2dish106 = dish106.getProgramListInDW().newProgram("Light", 1.3);
         Program p3dish106 = dish106.getProgramListInDW().newProgram("Light Turbo", 1.9);
         Program p4dish106 = dish106.getProgramListInDW().newProgram("Dishes", 2.3);
@@ -251,6 +251,6 @@ public class MainUI {
         washing109.getProgramListInWM().addProgram(p1Wm109);
         washing109.getProgramListInWM().addProgram(p2Wm109);
         washing109.getProgramListInWM().addProgram(p3Wm109);
-        washing109.getProgramListInWM().addProgram(p4Wm109);
+        washing109.getProgramListInWM().addProgram(p4Wm109);*/
     }
 }
