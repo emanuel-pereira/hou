@@ -17,6 +17,12 @@ public class US620GetTotalRainfallOnaDayOfHouseUI {
     private US620GetTotalRainfallOnADayOfHouseCTRL mCTRL620;
     private House mHouse;
     private DateValidations mValidations;
+    Scanner read = new Scanner(System.in);
+    private String sensorTypeRainfall = "rainfall";
+    private GregorianCalendar inputDate;
+    private int inputYear;
+    private int inputMonth;
+    private int inputDay;
 
     public US620GetTotalRainfallOnaDayOfHouseUI(House house, SensorTypeList rainSensorList) {
 
@@ -27,17 +33,6 @@ public class US620GetTotalRainfallOnaDayOfHouseUI {
         mValidations = new DateValidations();
 
     }
-
-    Scanner read = new Scanner(System.in);
-
-    private String sensorTypeRainfall = "rainfall";
-
-    private GregorianCalendar inputDate;
-
-    private int inputYear;
-    private int inputMonth;
-    private int inputDay;
-
 
     public void run() {
 
