@@ -19,11 +19,11 @@ public class MainUI {
         SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
         House house = new House();
-        HouseGridList hglist = new HouseGridList();
-        PowerSourceList pslist = new PowerSourceList();
+        HouseGridList hgList = new HouseGridList();
+        PowerSourceList psList = new PowerSourceList();
         List<Room> roomList = new ArrayList<>();
 
-        bootstrap(house, hglist, pslist, roomList, gaList, sensorTypeList);
+        bootstrap(house, hgList, psList, roomList, gaList, sensorTypeList);
 
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
@@ -44,7 +44,7 @@ public class MainUI {
                     systemAdministration(sensorTypeList, gaList);
                     break;
                 case 2:
-                    houseAdministration(sensorTypeList, gaList, roomList, house, hglist, pslist);
+                    houseAdministration(sensorTypeList, gaList, roomList, house, hgList, psList);
                     break;
                 case 3:
                     regularUsage(house, sensorTypeList, gaList);
@@ -84,8 +84,8 @@ public class MainUI {
         sensorTypeList.addSensorType(sT1);
         list.addSensor(list.newSensor("RainSensor", new GregorianCalendar(2018, 12, 15), 24, 34, 25, sT1, "C", rl));
 
-        Reading r5 = new Reading(80, new GregorianCalendar(2018, 12, 26, 12, 0));
-        Reading r6 = new Reading(81, new GregorianCalendar(2018, 12, 26, 13, 0));
+        Reading r5 = new Reading(80, new GregorianCalendar(2018, 11, 26, 12, 0));
+        Reading r6 = new Reading(81, new GregorianCalendar(2018, 11, 26, 13, 0));
         ReadingList rl2 = new ReadingList();
         rl2.addReading(r5);
         rl2.addReading(r6);
@@ -96,18 +96,18 @@ public class MainUI {
 
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
-        Room B106 = house.getRoomList().createNewRoom("B106", 1, 7, 13, 3.5);
-        house.getRoomList().addRoom(B106);
-        Room B107 = house.getRoomList().createNewRoom("B107", 1, 7, 11, 3.5);
-        house.getRoomList().addRoom(B107);
-        Room B109 = house.getRoomList().createNewRoom("B109", 1, 7, 11, 3.5);
-        house.getRoomList().addRoom(B109);
+        Room b106 = house.getRoomList().createNewRoom("B106", 1, 7, 13, 3.5);
+        house.getRoomList().addRoom(b106);
+        Room b107 = house.getRoomList().createNewRoom("B107", 1, 7, 11, 3.5);
+        house.getRoomList().addRoom(b107);
+        Room b109 = house.getRoomList().createNewRoom("B109", 1, 7, 11, 3.5);
+        house.getRoomList().addRoom(b109);
         HouseGrid mainGrid = house.getHGListInHouse().newHouseGrid("Main Grid");
         house.getHGListInHouse().addHouseGrid(mainGrid);
 
-        mainGrid.attachRoomToGrid(B106);
-        mainGrid.attachRoomToGrid(B107);
-        mainGrid.attachRoomToGrid(B109);
+        mainGrid.attachRoomToGrid(b106);
+        mainGrid.attachRoomToGrid(b107);
+        mainGrid.attachRoomToGrid(b109);
 
         int year = 2018, month = 11, day = 31, hour = 0, minutes = 0, meteringPeriod = 15;
 
@@ -147,7 +147,6 @@ public class MainUI {
 
         ElectricWaterHeater ewh107 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 150, 55, 0.92);
         Device eHWB107 = house.getRoomList().get(1).getDeviceList().newDevice("EHW B107", ewh107, 2.2);
-        //eHWB107.setIsMetered(false);
         house.getRoomList().get(1).getDeviceList().addDevice(eHWB107);
         double[] valueseHWB107 = new double[]{0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.200, 0.375, 0.375, 0.375, 0.375, 0.250, 0.000, 0.000, 0.000, 0.000, 0.200, 0.200, 0.000, 0.000, 0.000, 0.000, 0.200, 0.375, 0.375, 0.375, 0.375, 0.200, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.100, 0.375, 0.375, 0.375, 0.150, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,};
         for (double i : valueseHWB107) {
@@ -235,24 +234,23 @@ public class MainUI {
             }
             washingMachineB109.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
-    /*
-        Program p1dish106 = dish106.getmProgramListInDW().newProgram("Glasses", 0.8);
-        Program p2dish106 = dish106.getmProgramListInDW().newProgram("Light", 1.3);
-        Program p3dish106 = dish106.getmProgramListInDW().newProgram("Light Turbo", 1.9);
-        Program p4dish106 = dish106.getmProgramListInDW().newProgram("Dishes", 2.3);
-        dish106.getmProgramListInDW().addProgram(p1dish106);
-        dish106.getmProgramListInDW().addProgram(p2dish106);
-        dish106.getmProgramListInDW().addProgram(p3dish106);
-        dish106.getmProgramListInDW().addProgram(p4dish106);
-    */
-    /*  Program p1Wm109 = dish106.getmProgramListInDW ().newProgram ("Wool",0.9);
-        Program p2Wm109 = dish106.getmProgramListInDW ().newProgram ("Fast",1.3);
-        Program p3Wm109 = dish106.getmProgramListInDW ().newProgram ("Fast Plus",1.7);
-        Program p4Wm109 = dish106.getmProgramListInDW ().newProgram ("Synthetic 30",2.1);
-        washing109.getmProgramListInDW ().addProgram (p1Wm109);
-        washing109.getmProgramListInDW ().addProgram (p2Wm109);
-        washing109.getmProgramListInDW ().addProgram (p3Wm109);
-        washing109.getmProgramListInDW ().addProgram (p4Wm109);
-    */
+
+        /*Program p1dish106 = dish106.getProgramListInDW().newProgram("Glasses", 0.8);
+        Program p2dish106 = dish106.getProgramListInDW().newProgram("Light", 1.3);
+        Program p3dish106 = dish106.getProgramListInDW().newProgram("Light Turbo", 1.9);
+        Program p4dish106 = dish106.getProgramListInDW().newProgram("Dishes", 2.3);
+        dish106.getProgramListInDW().addProgram(p1dish106);
+        dish106.getProgramListInDW().addProgram(p2dish106);
+        dish106.getProgramListInDW().addProgram(p3dish106);
+        dish106.getProgramListInDW().addProgram(p4dish106);
+
+        Program p1Wm109 = dish106.getProgramListInDW().newProgram("Wool", 0.9);
+        Program p2Wm109 = dish106.getProgramListInDW().newProgram("Fast", 1.3);
+        Program p3Wm109 = dish106.getProgramListInDW().newProgram("Fast Plus", 1.7);
+        Program p4Wm109 = dish106.getProgramListInDW().newProgram("Synthetic 30", 2.1);
+        washing109.getProgramListInWM().addProgram(p1Wm109);
+        washing109.getProgramListInWM().addProgram(p2Wm109);
+        washing109.getProgramListInWM().addProgram(p3Wm109);
+        washing109.getProgramListInWM().addProgram(p4Wm109);*/
     }
 }

@@ -35,7 +35,7 @@ public class US600GetCurrentMeteoValueHouseAreaUI {
                     mIndexOfSensorType = read.nextInt();
                     read.nextLine();
                     if (mIndexOfSensorType > mSensorTypeList.getSensorTypeList().size())
-                        System.out.println("Please insert a valid option \n.");
+                        UtilsUI.printLnInsertValidOption();
                     else break;
                 }
                 mSensorType = mCTRL600.getSensorTypeByIndex(mIndexOfSensorType);

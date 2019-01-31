@@ -43,7 +43,7 @@ public class US605CurrentTempRoomUI {
                 System.out.println (mCTRL605.showRoomListInString ());
                 mRoomIndex = read.nextInt ();
                 if (mRoomIndex > mCTRL605.getRoomList ().size ())
-                    System.out.println ("Please insert a valid option \n");
+                    UtilsUI.printLnInsertValidOption();
                 else break;
             }
             this.checkIfTempSensorExistInRooms ();

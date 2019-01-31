@@ -147,7 +147,7 @@ public class EditDevicesUI {
                 this.insertNominalPower();
                 break;
             } else
-                System.out.println("Please insert a valid name");
+            UtilsUI.printLnInsertValidParameter("name");
         }
     }
 
