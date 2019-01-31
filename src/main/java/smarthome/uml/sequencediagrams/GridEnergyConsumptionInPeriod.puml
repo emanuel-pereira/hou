@@ -8,11 +8,11 @@ PowerUser -> ":EnergyConsumptionInPeriodUI": Get Total Metered\nEnergy Consumpti
 activate  ":EnergyConsumptionInPeriodUI"
 PowerUser <-- ":EnergyConsumptionInPeriodUI": Show Options: Device,Room,Grid
 PowerUser -> ":EnergyConsumptionInPeriodUI": Choose Grid option
-":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": gL=showHouseGridListInString()
+":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": gLs=showHouseGridListInString()
 activate ":EnergyConsumptionInPeriodCTRL"
-":EnergyConsumptionInPeriodCTRL" -> "gL:HouseGridList": gL=showHouseGridListInString()
-activate "gL:HouseGridList"
-deactivate "gL:HouseGridList"
+":EnergyConsumptionInPeriodCTRL" -> ":HouseGridList": gLs=showHouseGridListInString()
+activate ":HouseGridList"
+deactivate ":HouseGridList"
 PowerUser <-- ":EnergyConsumptionInPeriodUI": Show Grid list
 PowerUser -> ":EnergyConsumptionInPeriodUI": Choose a Grid
 PowerUser <-- ":EnergyConsumptionInPeriodUI": Ask for the time interval
@@ -22,14 +22,14 @@ PowerUser -> ":EnergyConsumptionInPeriodUI": Input the time interval
 activate ":Grid"
 ":Grid" -> ":Device": tMe = getEnergyConsumption\nInPeriod(start, end)
 activate ":Device"
-":Device" -> "i:ReadConfigFile": i:getDevicesMeteringPeriod()
-activate "i:ReadConfigFile"
-deactivate "i:ReadConfigFile"
+":Device" -> ":ReadConfigFile": i:getDevicesMeteringPeriod()
+activate ":ReadConfigFile"
+deactivate ":ReadConfigFile"
 ":Device" -> ":ReadingList": tMe=getValueOfReadings\nInTimeInterval(start, end)
 activate ":ReadingList"
-":ReadingList" -> "r:Reading": r=returnValueOfReading
-activate "r:Reading"
-deactivate "r:Reading"
+":ReadingList" -> ":Reading": v=returnValueOfReading
+activate ":Reading"
+deactivate ":Reading"
 deactivate ":ReadingList"
 deactivate ":Device"
 PowerUser <-- ":EnergyConsumptionInPeriodUI": Show Total Metered Energy\nConsumption in the Grid
