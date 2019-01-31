@@ -91,7 +91,7 @@ public class MainUI {
         rl.addReading(r7);
         SensorType sT1 = sensorTypeList.newSensorType("rainfall");
         sensorTypeList.addSensorType(sT1);
-        list.addSensor(list.newSensor("RainSensor1", new GregorianCalendar(2018, 12, 15), 24, 34, 25, sT1, "C", rl));
+        list.addSensor(list.newSensor("RainSensor1", new GregorianCalendar(2018, 11, 15), 24, 34, 25, sT1, "C", rl));
 
         Reading r8 = new Reading(85, new GregorianCalendar(2019, 0, 4, 16, 0));
         ReadingList rl2 = new ReadingList();
@@ -112,7 +112,7 @@ public class MainUI {
         rl2.addReading(r10);
         SensorType sH1 = sensorTypeList.newSensorType("humidity");
         sensorTypeList.addSensorType(sH1);
-        list.addSensor(list.newSensor("HumiditySensor", new GregorianCalendar(2018, 12, 15), 25, 32, 25, sH1, "Percentage", rl3));
+        list.addSensor(list.newSensor("HumiditySensor", new GregorianCalendar(2018, 11, 15), 25, 32, 25, sH1, "Percentage", rl3));
 
 
         SensorType temperature = sensorTypeList.newSensorType("temperature");
