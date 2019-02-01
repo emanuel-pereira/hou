@@ -50,7 +50,6 @@ public final class PowerUserUI {
                     ui705.run();*/
                     break;
                 case 6:
-                    System.out.println("US222");
                     EditDevicesUI devicesUI = new EditDevicesUI(house);
                     devicesUI.deactivateDevice();
                     break;

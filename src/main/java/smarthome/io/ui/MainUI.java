@@ -69,6 +69,7 @@ public class MainUI {
 
         GeographicalArea porto = new GeographicalArea("001", "Porto", "city", 2, 4, 5, 5, 6);
         house.setHouseGA(porto);
+        house.setHouseAddress("Rua Dr António Bernardino de Almeida", "431", "4200-072", 41.177748, -8.607745, 112);
         gaList.addGA(porto);
         SensorList list = porto.getSensorListInGA();
 
@@ -93,7 +94,7 @@ public class MainUI {
         sensorTypeList.addSensorType(sT1);
         list.addSensor(list.newSensor("RainSensor1", new GregorianCalendar(2018, 11, 15), 24, 34, 25, sT1, "C", rl));
 
-        Reading r8 = new Reading(85, new GregorianCalendar(2019, 0, 4, 16, 0));
+        Reading r8 = new Reading(2, new GregorianCalendar(2019, 0, 3, 16, 0));
         ReadingList rl2 = new ReadingList();
         rl2.addReading(r1);
         rl2.addReading(r2);
