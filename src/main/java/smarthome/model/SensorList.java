@@ -106,11 +106,11 @@ public class SensorList {
         return result.toString();
     }
 
-    public SensorList getListOfSensorsByType(SensorType sensorType) {
-        SensorList listOfSensorsByType = new SensorList();
+    public List<Sensor> getListOfSensorsByType(SensorType sensorType) {
+        List<Sensor> listOfSensorsByType = new ArrayList<>();
         for (Sensor sensor : mSensorList) {
             if (sensor.getSensorType().equals(sensorType))
-                listOfSensorsByType.addSensor(sensor);
+                listOfSensorsByType.add(sensor);
         }
         return listOfSensorsByType;
     }
