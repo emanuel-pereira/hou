@@ -40,6 +40,10 @@ public class WashingMachine implements DeviceSpecs {
             setCapacity(parseInt(newValue));
     }
 
+    public ProgramList getProgramListInWM() {
+        return mProgramListInWM;
+    }
+
     @Override
     public double getEnergyConsumption() {
         return 0;

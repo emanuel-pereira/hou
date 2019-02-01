@@ -37,8 +37,7 @@ public class US7SetParentOfGAUI {
                 } else break;
             }
             mCtrlUS7.setParentofGA(gaIndex1, gaIndex2);
-            System.out.println("Success, the area " + mCtrlUS7.getGAList ().get (gaIndex1-1).getGeographicalAreaDesignation () +" was added to "+ mCtrlUS7.getGAList ().get (gaIndex2-1).getGeographicalAreaDesignation ()
-            );
+            System.out.println("Success, the area " + mCtrlUS7.getGAList().get(gaIndex1 - 1).getGeographicalAreaDesignation() + " was added to " + mCtrlUS7.getGAList().get(gaIndex2 - 1).getGeographicalAreaDesignation());
             break;
         }
     }

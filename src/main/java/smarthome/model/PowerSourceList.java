@@ -8,7 +8,6 @@ public class PowerSourceList {
 
     public PowerSourceList () {
         mPSList = new ArrayList<>();
-
     }
 
 

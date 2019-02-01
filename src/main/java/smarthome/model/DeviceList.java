@@ -102,7 +102,7 @@ public class DeviceList {
      * @param device object device that will be removed
      * @return boolean result of the device's removal
      */
-    public boolean removeDevice(Device device) {
+    public boolean remove(Device device) {
         return this.mDeviceList.remove(device);
     }
 
@@ -124,7 +124,7 @@ public class DeviceList {
         List<Device> meteredDeviceList = new ArrayList<>();
 
         for (Device device : mDeviceList) {
-            if (device.isMetered() == true) {
+            if (device.isMetered()) {
                 meteredDeviceList.add(device);
             }
         }

@@ -22,11 +22,13 @@ public class SensorTypeList {
      * @return new data type object with designation
      */
     public SensorType newSensorType(String sensorTypeDesignation) {
+        String sensorTypeDesignationLowerCase = null;
         if (sensorTypeDesignation != null)
-            sensorTypeDesignation = sensorTypeDesignation.toLowerCase();
-        if (this.sensorTypeDesignationIsValid(sensorTypeDesignation))
-            return new SensorType(sensorTypeDesignation);
+            sensorTypeDesignationLowerCase = sensorTypeDesignation.toLowerCase();
+        if (this.sensorTypeDesignationIsValid(sensorTypeDesignationLowerCase))
+            return new SensorType(sensorTypeDesignationLowerCase);
         return null;
+        //TODO both if statement's can be combined
     }
 
 
@@ -73,7 +75,7 @@ public class SensorTypeList {
      */
     public boolean checkIfRequiredSensorTypeExists (String input) {
         for (SensorType type : mSensorTypeList) {
-            if (type.getSensorTypeDesignation ().toLowerCase ().equals (input)) {
+            if (type.getSensorTypeDesignation().equalsIgnoreCase(input)) {
                 return true;
             }
         }

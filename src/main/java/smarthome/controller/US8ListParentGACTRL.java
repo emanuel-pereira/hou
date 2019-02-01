@@ -12,10 +12,10 @@ public class US8ListParentGACTRL {
     /**
      * Constructor method to set up the attributes for the class
      *
-     * @param GAInputList GA's List for the class to work on
+     * @param gaInputList GA's List for the class to work on
      */
-    public US8ListParentGACTRL(GAList GAInputList) {
-        mGAList = GAInputList;
+    public US8ListParentGACTRL(GAList gaInputList) {
+        mGAList = gaInputList;
     }
 
     /**
@@ -37,7 +37,6 @@ public class US8ListParentGACTRL {
             } //next/upper parentGA
             else break;
         }
-        //if (parentGA == null) return null;
         return parents.toString(); //return direct/indirect parents GA's list as String
     }
 
@@ -59,11 +58,11 @@ public class US8ListParentGACTRL {
      * @return List of GA's designations as a number ordered List
      */
     public String showListInString() {
-        List<GeographicalArea> GAList = mGAList.getGAList();
+        List<GeographicalArea> gaList = mGAList.getGAList();
         StringBuilder result = new StringBuilder();
         //String element = " - ";
         int number = 1;
-        for (GeographicalArea GA : GAList) {
+        for (GeographicalArea GA : gaList) {
             result.append(number++);
             result.append(" - ");
             result.append(GA.getGeographicalAreaDesignation());

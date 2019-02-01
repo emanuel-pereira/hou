@@ -32,8 +32,8 @@ public class US253AddSensorToRoomUI {
 
 
     public void run() {
-        if (mRoomList.getRoomList().size() != 0) {
-            if (mSensorTypeList.getSensorTypeList().size() != 0) {
+        if (!mRoomList.getRoomList().isEmpty()) {
+            if (!mSensorTypeList.getSensorTypeList().isEmpty()) {
                 String name;
                 while (true) {
                     System.out.println("Insert a name for the sensor:");
@@ -199,18 +199,13 @@ public class US253AddSensorToRoomUI {
             UtilsUI.printLnInsertValidParameter("day");
             return null;
         }
-        if (mTempMonth.matches("^(4|6|9|11)$")) {
-            if (day.matches("^31$")) {
-                UtilsUI.printLnInsertValidParameter("day for the selected month: (" + mTempMonth +")");
-
-                return null;
-            }
+        if (mTempMonth.matches("^(4|6|9|11)$") && day.matches("^31$")) {
+            UtilsUI.printLnInsertValidParameter("day for the selected month: (" + mTempMonth + ")");
+            return null;
         }
-        if (mTempMonth.matches("^2$")) {
-            if (day.matches("^(29|30|31)$")) {
-                UtilsUI.printLnInsertValidParameter("day for the selected month: (" + mTempMonth +")");
-                return null;
-            }
+        if (mTempMonth.matches("^2$") && day.matches("^(29|30|31)$")) {
+            UtilsUI.printLnInsertValidParameter("day for the selected month: (" + mTempMonth + ")");
+            return null;
         }
         return day;
     }

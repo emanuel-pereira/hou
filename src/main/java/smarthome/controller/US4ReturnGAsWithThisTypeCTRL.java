@@ -23,7 +23,7 @@ public class US4ReturnGAsWithThisTypeCTRL {
      * @param typeAreaIndex is a number that matches a position in the list of types from which the user can choose from */
     public List<GeographicalArea> getGAListFromType (int typeAreaIndex) {
         String areaType = mTypeGAList.getTypeGAList().get(typeAreaIndex-1).toString();
-        return mGAList.GAFromThisType(areaType);
+        return mGAList.gAFromThisType(areaType);
     }
 
     /**US4 method that shows the list of GAs returned by the previous method in a string

@@ -1,17 +1,15 @@
 package smarthome.model;
 
 import java.util.Calendar;
-import java.util.List;
 import java.util.Objects;
 
 
 public class Sensor {
     private String mDesignation;
-    private Calendar mStartDate;
     private Location mLocation;
     private SensorType mSensorType;
+    private Calendar mStartDate;
     private String mUnit; //to analyse the creation of a class unit so we may have a list of units for a specific Datatype (eg. SensorType: temperature with list of units containing: celsius, kelvin and fahrenheit)
-
     private ReadingList mReadingList = new ReadingList ();
 
 
@@ -69,11 +67,11 @@ public class Sensor {
      */
     public Sensor(String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         if (nameIsValid(designation)) {
-            this.mDesignation = designation;
-            this.mStartDate = startDate;
-            this.mSensorType = sensorType;
-            this.mUnit = unit;
-            this.mReadingList = readings;
+            mDesignation = designation;
+            mStartDate = startDate;
+            mSensorType = sensorType;
+            mUnit = unit;
+            mReadingList = readings;
         }
     }
 

@@ -23,7 +23,7 @@ public class US2GetTypeGAListUI {
      * The last statement allows the numbering of each element.
      */
     public void run() {
-        if (mCtrlUS2.getTypeGAList ().size () == 0) {
+        if (mCtrlUS2.getTypeGAList().isEmpty()) {
             System.out.println ("List of type of geographical area is empty, please insert one first");
         } else {
             System.out.println ("Current list of types of geographical area:");

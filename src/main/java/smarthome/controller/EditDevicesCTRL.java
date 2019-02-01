@@ -53,7 +53,7 @@ public class EditDevicesCTRL {
     public boolean removeDevice(int indexOfRoom, int deviceIndex) {
         Room room = mRoomList.get(indexOfRoom - 1);
         Device device = room.getDeviceList().get(deviceIndex);
-        return room.getDeviceList().removeDevice(device);
+        return room.getDeviceList().remove(device);
     }
 
     /**

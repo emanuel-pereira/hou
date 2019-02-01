@@ -2,19 +2,18 @@ package smarthome.controller;
 
 import smarthome.model.*;
 import smarthome.model.Validations.DateValidations;
+
 import java.util.Calendar;
 import java.util.List;
 
 public class EnergyConsumptionInPeriodCTRL {
-    private House mHouse;
     private RoomList mRoomList;
     private HouseGridList mHouseGridList;
     private DateValidations mDateValidations;
 
     public EnergyConsumptionInPeriodCTRL(House house) {
-        mHouse = house;
         mRoomList = house.getRoomList();
-        mHouseGridList=house.getHGListInHouse();
+        mHouseGridList = house.getHGListInHouse();
         mDateValidations = new DateValidations();
     }
 
@@ -46,6 +45,7 @@ public class EnergyConsumptionInPeriodCTRL {
 
     /**
      * Method to display a list of all metered devices in string format
+     *
      * @return list of all metered devices in string format
      */
     public String showMeteredDevicesInStr() {
@@ -61,46 +61,51 @@ public class EnergyConsumptionInPeriodCTRL {
 
     /**
      * Method that gets the selected device name in String format
+     *
      * @param indexOfDevice device in the index position of the device list of metered devices
      * @return the device in the index position of the device list of metered devices
      */
     public String getDeviceName(int indexOfDevice) {
         List<Device> meteredDeviceList = mRoomList.getMeteredDevicesInHouse();
-        Device device= meteredDeviceList.get(indexOfDevice-1);
+        Device device = meteredDeviceList.get(indexOfDevice - 1);
         return device.getName();
     }
 
     /**
      * Display a list of all rooms in string format
+     *
      * @return list of rooms in a string
      */
     public String showRoomListInStr() {
-        return mRoomList.showRoomListInString ();
+        return mRoomList.showRoomListInString();
     }
 
     /**
      * The size of the room list to check if there are rooms in that list
+     *
      * @return size of the list of rooms
      */
     public int getRoomListSize() {
-        return mRoomList.getRoomListSize ();
+        return mRoomList.getRoomListSize();
     }
 
     /**
      * Shows the name given to the Room
+     *
      * @param indexOfRoom the index position of the RoomList
      * @return the room name (string)
      */
     public String getRoomName(int indexOfRoom) {
         Room room = mRoomList.get(indexOfRoom - 1);
-        return room.getName ();
+        return room.getName();
     }
 
     /**
      * Returns the energy consumption for the selected metered device in a specific time interval
+     *
      * @param indexOfDevice index position of the selected device
-     * @param startDate starting period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
-     * @param endDate ending period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
+     * @param startDate     starting period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
+     * @param endDate       ending period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
      * @return the energy consumed in the specified time interval
      */
     public double getEnergyConsumptionInPeriod(int indexOfDevice, Calendar startDate, Calendar endDate) {
@@ -109,11 +114,18 @@ public class EnergyConsumptionInPeriodCTRL {
         return selectedDevice.getEnergyConsumptionInTimeInterval(startDate, endDate);
     }
 
+    public double getEnergyConsumptionSeriesInPeriod(int indexOfDevice, Calendar startDate, Calendar endDate) {
+        List<Device> meteredDevices = mRoomList.getMeteredDevicesInHouse();
+        Device selectedDevice = meteredDevices.get(indexOfDevice - 1);
+        return selectedDevice.getEnergyConsumptionInTimeInterval(startDate, endDate);
+    }
+
     /**
      * Returns the energy consumption for the selected houseGrid in a specific time interval
+     *
      * @param indexOfHouseGrid index position of the selected houseGrid in the houseGridList
-     * @param startDate starting period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
-     * @param endDate ending period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
+     * @param startDate        starting period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
+     * @param endDate          ending period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
      * @return the energy consumed in the specified time interval
      */
     public double getHouseGridEnergyConsumptionInPeriod(int indexOfHouseGrid, Calendar startDate, Calendar endDate) {
@@ -124,15 +136,16 @@ public class EnergyConsumptionInPeriodCTRL {
 
     /**
      * Returns the energy consumption for the selected room in a specific time interval
+     *
      * @param indexOfRoom index position of the selected room in the RoomList
-     * @param startHour starting period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
-     * @param endHour ending period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
+     * @param startHour   starting period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
+     * @param endHour     ending period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
      * @return the energy consumed in the specified time interval
      */
     public double getRoomEnergyConsumptionInPeriod(int indexOfRoom, Calendar startHour, Calendar endHour) {
-        List<Room> roomL = mRoomList.getRoomList ();
+        List<Room> roomL = mRoomList.getRoomList();
         Room room = roomL.get(indexOfRoom - 1);
-        return room.getEnergyConsumptionInTimeInterval (startHour, endHour);
+        return room.getEnergyConsumptionInTimeInterval(startHour, endHour);
     }
 
     /**
@@ -188,8 +201,6 @@ public class EnergyConsumptionInPeriodCTRL {
     public boolean minuteIsValid(String minute) {
         return mDateValidations.minuteIsValid(minute);
     }
-
-
 
 
 }

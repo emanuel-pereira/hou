@@ -47,6 +47,10 @@ public class Dishwasher implements DeviceSpecs {
             setCapacity(parseInt(newValue));
     }
 
+    public ProgramList getProgramListInDW() {
+        return mProgramListInDW;
+    }
+
     @Override
     public double getEnergyConsumption() {
         return 0;

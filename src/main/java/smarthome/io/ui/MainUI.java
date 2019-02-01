@@ -23,7 +23,7 @@ public class MainUI {
         PowerSourceList psList = new PowerSourceList();
         List<Room> roomList = new ArrayList<>();
 
-        bootstrap(house, hgList, psList, roomList, gaList, sensorTypeList);
+        bootstrap(house, gaList, sensorTypeList);
 
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
@@ -64,7 +64,7 @@ public class MainUI {
     }
 
 
-    private static void bootstrap(House house, HouseGridList hglist, PowerSourceList pslist, List<Room> roomList, GAList gaList, SensorTypeList sensorTypeList) {
+    private static void bootstrap(House house, GAList gaList, SensorTypeList sensorTypeList) {
 
 
         GeographicalArea porto = new GeographicalArea("001", "Porto", "city", 2, 4, 5, 5, 6);
@@ -130,7 +130,12 @@ public class MainUI {
         mainGrid.attachRoomToGrid(b107);
         mainGrid.attachRoomToGrid(b109);
 
-        int year = 2018, month = 11, day = 31, hour = 0, minutes = 0, meteringPeriod = 15;
+        int year = 2018;
+        int month = 11;
+        int day = 31;
+        int hour = 0;
+        int minutes = 0;
+        int meteringPeriod = 15;
 
         ElectricWaterHeater ewh106 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 150, 55, 0.92);
         Device eHWB106 = house.getRoomList().get(0).getDeviceList().newDevice("EHW B106", ewh106, 2.2);
