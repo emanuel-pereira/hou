@@ -267,7 +267,7 @@ class SensorListTest {
         sensorList.addSensor (s2);
         sensorList.addSensor (s3);
 
-        List<Sensor> sListByType = sensorList.getListOfSensorsByType (temp);
+        SensorList sListByType = sensorList.getListOfSensorsByType (temp);
 
         assertEquals (2, sListByType.size ());
 

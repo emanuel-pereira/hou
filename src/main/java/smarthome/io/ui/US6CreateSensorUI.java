@@ -10,8 +10,6 @@ public class US6CreateSensorUI {
     private GAList mGAList;
     private SensorTypeList mSensorTypeList;
     private US6CreateSensorCTRL mCtrl;
-
-    //
     private String mName;
     private int mYear;
     private int mMonth;
@@ -33,9 +31,6 @@ public class US6CreateSensorUI {
         mGAList = listOfGA;
         mSensorTypeList = sensorTypeList;
     }
-
-
-
 
     public void checkIfGAListIsEmtpy() {
 

@@ -14,24 +14,30 @@ public class US600GetCurrentMeteoValueHouseAreaCTRL {
         mSensorTypeList = sensorTypeList;
     }
 
-    public String getSensorTypeListInString() {
-        return mSensorTypeList.showSensorTypeListInString();
+    public int getSensorTypeListSize(){
+        return mSensorTypeList.size();
     }
 
-    public List <SensorType> getSensorTypeList() {
-        return mSensorTypeList.getSensorTypeList();
+    public GeographicalArea getHouseGA(){
+        return mHouse.getHouseGA();
+    }
+    public String showSensorTypeList() {
+        return mSensorTypeList.showSensorTypeListInString();
     }
 
     public SensorType getSensorTypeByIndex(int indexOfSensorType) {
         return mSensorTypeList.getSensorTypeList().get(indexOfSensorType - 1);
     }
 
-    public List<Sensor> getListSensorsOfOneType(SensorType sensorType) {
-        return mHouse.getHouseGA().getSensorListInGA().getListOfSensorsByType(sensorType);
+    public int getSensorListOfTypeSize(SensorType sensorType) {
+        GeographicalArea houseGA= mHouse.getHouseGA();
+        SensorList gaOfHouseSensorList=houseGA.getSensorListInGA();
+        return gaOfHouseSensorList.getListOfSensorsByType(sensorType).size();
+
     }
 
-    public Sensor getTheClosestSensorToGA(List<Sensor> sensorList) {
-        return mHouse.getHouseGA().getTheClosestSensor(sensorList);
+    public Sensor getClosestSensorByType(SensorType sensorType) {
+        return mHouse.getHouseGA().getSensorWithLatestReadingsByType(sensorType);
     }
     public double getLastReadingOfSensor(Sensor sensor){
         return sensor.getLastReadingValuePerSensor();

@@ -10,7 +10,7 @@ public class Sensor {
     private SensorType mSensorType;
     private Calendar mStartDate;
     private String mUnit; //to analyse the creation of a class unit so we may have a list of units for a specific Datatype (eg. SensorType: temperature with list of units containing: celsius, kelvin and fahrenheit)
-    private ReadingList mReadingList = new ReadingList ();
+    private ReadingList mReadingList;
 
 
     /**
@@ -187,15 +187,6 @@ public class Sensor {
         return mLocation.calcLinearDistanceBetweenTwoPoints (sensor1.getLocation (), sensor2.getLocation ());
     }
 
-    /**
-     * Method to add a new reading to the list of readings of a sensor.
-     *
-     * @param newReading new reading object with a value and date
-     */
-    public void addReadingToList(Reading newReading) {
-        if (!(mReadingList.getReadingList ().contains (newReading)))
-            this.mReadingList.addReading (newReading);
-    }
 
 
     /**
@@ -204,9 +195,7 @@ public class Sensor {
      * @return the last reading of a list of readings
      */
     public Reading getLastReadingPerSensor() {
-        Reading lastValue;
-        lastValue = mReadingList.getReadingList ().get (mReadingList.getReadingList ().size () - 1);
-        return lastValue;
+        return mReadingList.getLastReading();
     }
 
     public double getLastReadingValuePerSensor() {

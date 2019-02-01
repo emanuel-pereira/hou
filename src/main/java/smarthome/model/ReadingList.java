@@ -27,6 +27,11 @@ public class ReadingList {
         return mReadingList;
     }
 
+    public Reading getLastReading(){
+        return mReadingList.get(mReadingList.size()-1);
+    }
+
+
     /**
      * Method to get total rainfall in a given day
      *

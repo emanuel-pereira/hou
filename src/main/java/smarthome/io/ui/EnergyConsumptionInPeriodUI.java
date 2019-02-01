@@ -17,9 +17,9 @@ public class EnergyConsumptionInPeriodUI {
     private int mOption;
     private Calendar mStartDate;
     private Calendar mEndDate;
-    private String mStartDateStr="start date in the time interval:";
-    private String mEndDateStr="end date in the time interval:";
-    private String mTimePeriodStr="[Time Period]: [";
+    private String mStartDateStr="Start Date:";
+    private String mEndDateStr="End Date:";
+    private String mTimePeriodStr="[Time Period]: ";
     private String mEConsumptionStr="[Energy Consumption]: ";
 
 
@@ -138,7 +138,6 @@ public class EnergyConsumptionInPeriodUI {
         String deviceName = mCtrl.getDeviceName(mIndexOfDevice);
         System.out.println("Total Energy Consumption of the device in the time period:");
         System.out.println("[Device]: " + deviceName);
-        System.out.println("[Time Period]: " + startDay + "/" + startMonth + "/" + startYear + " - " + endDay + "/" + endMonth + "/" + endYear);
         System.out.println(mTimePeriodStr + startDay + "/" + startMonth + "/" + startYear + " - " + endDay + "/" + endMonth + "/" + endYear + "]");
         System.out.println(mEConsumptionStr+ mCtrl.getEnergyConsumptionInPeriod(mIndexOfDevice, mStartDate, mEndDate) + "\n");
     }
@@ -153,19 +152,16 @@ public class EnergyConsumptionInPeriodUI {
         String houseGrid = mCtrl.getHGName(mIndexOfHG);
         System.out.println("Total Energy Consumption of the grid in the time period:");
         System.out.println("[Grid]: " + houseGrid);
-        System.out.println("[Time Period]: " + startDay + "/" + startMonth + "/" + startYear + " - " + endDay + "/" + endMonth + "/" + endYear);
-        System.out.println("Total Energy Consumption of the device in the time period:");
-        System.out.println("[Device]: " + houseGrid);
         System.out.println(mTimePeriodStr + startDay + "/" + startMonth + "/" + startYear + " - " + endDay + "/" + endMonth + "/" + endYear + "]");
         System.out.println(mEConsumptionStr + mCtrl.getHouseGridEnergyConsumptionInPeriod(mIndexOfHG, mStartDate, mEndDate) + "\n");
     }
 
     private void getRoomEnergyConsumption() {
         int startDay = mStartDate.get(Calendar.DAY_OF_MONTH);
-        int startMonth = mStartDate.get(Calendar.MONTH);
+        int startMonth = mStartDate.get(Calendar.MONTH)+1;
         int startYear = mStartDate.get(Calendar.YEAR);
         int endDay = mEndDate.get(Calendar.DAY_OF_MONTH);
-        int endMonth = mEndDate.get(Calendar.MONTH);
+        int endMonth = mEndDate.get(Calendar.MONTH)+1;
         int endYear = mEndDate.get(Calendar.YEAR);
         String room = mCtrl.getRoomName (mIndexOfRoom);
         System.out.println("Total Energy Consumption of the room in the time period:");
@@ -240,8 +236,4 @@ public class EnergyConsumptionInPeriodUI {
         }
         return minute;
     }
-
-
-
-
 }

@@ -70,8 +70,8 @@ class US605CurrentTempRoomCTRLTest {
         readings1.addReading(r12);
 
         Sensor sensor1 = r1.getSensorListInRoom ().createNewInternalSensor ("temperature", new GregorianCalendar(2018, 12, 15), temp, "C", readings1);
-        sensor1.addReadingToList (r11);
-        sensor1.addReadingToList (r12);
+        sensor1.getReadingList().addReading(r11);
+        sensor1.getReadingList().addReading(r12);
 
         r1.getSensorListInRoom ().addSensor (sensor1);
         US605CurrentTempRoomCTRL ctr2 = new US605CurrentTempRoomCTRL(h1,sL);
@@ -160,12 +160,12 @@ class US605CurrentTempRoomCTRLTest {
         readings1.addReading(r12);
 
         Sensor sensor1 = r1.getSensorListInRoom ().createNewInternalSensor ("temperature", new GregorianCalendar(2018, 12, 15), temp, "C", readings1);
-        sensor1.addReadingToList (r11);
-        sensor1.addReadingToList (r12);
+        sensor1.getReadingList().addReading(r11);
+        sensor1.getReadingList().addReading(r12);
 
         Sensor sensor2 = r2.getSensorListInRoom ().createNewInternalSensor ("rain", new GregorianCalendar(2018, 12, 15), temp, "C", readings1);
-        sensor1.addReadingToList (r11);
-        sensor1.addReadingToList (r12);
+        sensor2.getReadingList().addReading(r11);
+        sensor2.getReadingList().addReading(r12);
 
         r1.getSensorListInRoom ().addSensor (sensor1);
         r2.getSensorListInRoom ().addSensor (sensor2);
@@ -204,8 +204,8 @@ class US605CurrentTempRoomCTRLTest {
         readings1.addReading(r12);
 
         Sensor sensor1 = r1.getSensorListInRoom ().createNewInternalSensor ("temperature", new GregorianCalendar(2018, 12, 15), temp, "C", readings1);
-        sensor1.addReadingToList (r11);
-        sensor1.addReadingToList (r12);
+        sensor1.getReadingList().addReading(r11);
+        sensor1.getReadingList().addReading(r12);
 
         r1.getSensorListInRoom ().addSensor (sensor1);
         US605CurrentTempRoomCTRL ctr2 = new US605CurrentTempRoomCTRL(h1,sL);

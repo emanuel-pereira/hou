@@ -44,6 +44,11 @@ public class SensorTypeList {
         return mSensorTypeList.add(newSensorType);
     }
 
+    public int size(){
+        return mSensorTypeList.size();
+
+    }
+
 
 
     /**

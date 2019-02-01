@@ -10,7 +10,7 @@ public class US600GetCurrentMeteoValueHouseAreaUI {
     private House mHouse;
     private SensorTypeList mSensorTypeList;
     private GAList mGAList;
-    private US600GetCurrentMeteoValueHouseAreaCTRL mCTRL600;
+    private US600GetCurrentMeteoValueHouseAreaCTRL mCtrl;
     Scanner read = new Scanner(System.in);
     private int mIndexOfSensorType;
     private SensorType mSensorType;
@@ -19,47 +19,58 @@ public class US600GetCurrentMeteoValueHouseAreaUI {
 
     public US600GetCurrentMeteoValueHouseAreaUI(House house, SensorTypeList sensorTypeList, GAList gaList) {
         mHouse = house;
-        mCTRL600 = new US600GetCurrentMeteoValueHouseAreaCTRL(house, sensorTypeList);
+        mCtrl = new US600GetCurrentMeteoValueHouseAreaCTRL(house, sensorTypeList);
         mSensorTypeList = sensorTypeList;
         mGAList = gaList;
     }
 
 
-
     public void run() {
-        if (mGAList.getGAList().size() != 0) {
-            if (mSensorTypeList.getSensorTypeList().size() != 0) {
-                while (true) {
-                    System.out.println("Choose the meteorologic condition in the house area, you want to check the current value from the available sensor types:");
-                    System.out.println(mCTRL600.getSensorTypeListInString());
-                    mIndexOfSensorType = read.nextInt();
-                    read.nextLine();
-                    if (mIndexOfSensorType > mSensorTypeList.getSensorTypeList().size())
-                        UtilsUI.printLnInsertValidOption();
-                    else break;
-                }
-                mSensorType = mCTRL600.getSensorTypeByIndex(mIndexOfSensorType);
-                while (true) {
-                    if (mHouse.getHouseGA() == null)
-                        System.out.println("No location");
-                    else break;
-                }
 
-                while (true) {
-                    if (mCTRL600.getListSensorsOfOneType(mSensorType).isEmpty()) {
-                        System.out.println("No sensors of that type in the house area");
-                        break;
-                    } else break;
-                }
-                mClosestSensor = mCTRL600.getTheClosestSensorToGA(mCTRL600.getListSensorsOfOneType(mSensorType));
+        if (mCtrl.getSensorTypeListSize() == 0) {
+            System.out.println("The list of sensor types is empty. Please insert one first in US005\n");
+            return;
+        }
+        this.checkHouseGA();
+    }
 
-                mCurrentReading = mCTRL600.getLastReadingOfSensor(mClosestSensor);
-                System.out.println("The current" + mSensorType.getSensorTypeDesignation() + " in the House Area is " + mCurrentReading);
+    private void checkHouseGA() {
+        if (mCtrl.getHouseGA() == null) {
+            System.out.println("The house configuration does not have a geographical area. Please configure the location of the house in US101.\n");
+            return;
+        }
+        this.chooseSensorType();
+    }
 
-            } else
-                System.out.println("List of sensor's reading data types is empty. Please insert at least one first in US5.");
-        } else
-            System.out.println("List of Geographical Areas is empty. Please insert at least one Geographical Area in US3.");
+    private void chooseSensorType() {
+        while (true) {
+            System.out.println("Choose the meteorologic condition in the house area, you want to check the current value from the available sensor types:");
+            System.out.println(mCtrl.showSensorTypeList());
+            mIndexOfSensorType = read.nextInt();
+            read.nextLine();
+            if (mIndexOfSensorType > 0 && mIndexOfSensorType <= mCtrl.getSensorTypeListSize()){
+                mSensorType = mCtrl.getSensorTypeByIndex(mIndexOfSensorType);
+                this.checkLstSizeOfSensorType();
+            }
+            else
+                UtilsUI.printLnInsertValidOption();
+        }
+    }
+
+        private void checkLstSizeOfSensorType(){
+        while (true) {
+            if (mCtrl.getSensorListOfTypeSize(mSensorType) == 0) {
+                System.out.println("No sensors of that type in the house area");
+                return;
+            }
+            else break;
+        }
+
+        mClosestSensor = mCtrl.getClosestSensorByType(mSensorType);
+
+        mCurrentReading = mCtrl.getLastReadingOfSensor(mClosestSensor);
+        System.out.println("The current " + mSensorType.getSensorTypeDesignation() + " in the House Area is " + mCurrentReading);
+
     }
 }
 
