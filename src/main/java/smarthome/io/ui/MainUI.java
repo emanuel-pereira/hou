@@ -153,6 +153,7 @@ public class MainUI {
             }
             eHWB106.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
+        eHWB106.setIsMetered (true);
 
         Dishwasher dish106 = new Dishwasher(DeviceType.DISHWASHER, 100);
         Device dishwasherB106 = house.getRoomList().get(0).getDeviceList().newDevice("Dishwasher B106", dish106, 1.4);
@@ -170,6 +171,7 @@ public class MainUI {
             }
             dishwasherB106.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
+        dishwasherB106.setIsMetered (true);
 
         ElectricWaterHeater ewh107 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 150, 55, 0.92);
         Device eHWB107 = house.getRoomList().get(1).getDeviceList().newDevice("EHW B107", ewh107, 2.2);
@@ -187,6 +189,7 @@ public class MainUI {
             }
             eHWB107.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
+        eHWB107.setIsMetered (true);
 
         Dishwasher dish107 = new Dishwasher(DeviceType.DISHWASHER, 100);
         Device dishwasherB107 = house.getRoomList().get(1).getDeviceList().newDevice("Dishwasher B107", dish107, 1.5);
@@ -204,6 +207,7 @@ public class MainUI {
             }
             dishwasherB107.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
+        dishwasherB107.setIsMetered (true);
 
         WashingMachine washing107 = new WashingMachine(DeviceType.WASHING_MACHINE, 100);
         Device washingMachineB107 = house.getRoomList().get(1).getDeviceList().newDevice("Washing Machine B107", washing107, 2.5);
@@ -221,6 +225,7 @@ public class MainUI {
             }
             washingMachineB107.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
+        washingMachineB107.setIsMetered (true);
 
         ElectricWaterHeater ewh109 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 100, 55, 0.91);
         Device eHWB109 = house.getRoomList().get(2).getDeviceList().newDevice("EHW B109", ewh109, 1.5);
@@ -238,11 +243,13 @@ public class MainUI {
             }
             eHWB109.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
+        eHWB109.setIsMetered (true);
 
         Dishwasher dish109 = new Dishwasher(DeviceType.DISHWASHER, 100);
         Device dishwasherB109 = house.getRoomList().get(2).getDeviceList().newDevice("Dishwasher B109", dish109, 1.5);
         house.getRoomList().get(2).getDeviceList().addDevice(dishwasherB109);
         //No energy consumption values were measured
+        dishwasherB109.setIsMetered (false);
 
         WashingMachine washing109 = new WashingMachine(DeviceType.WASHING_MACHINE, 100);
         Device washingMachineB109 = house.getRoomList().get(2).getDeviceList().newDevice("Washing Machine B109", washing109, 2.5);
@@ -260,6 +267,7 @@ public class MainUI {
             }
             washingMachineB109.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
+        washingMachineB109.setIsMetered (true);
 
         /*Program p1dish106 = dish106.getProgramListInDW().newProgram("Glasses", 0.8);
         Program p2dish106 = dish106.getProgramListInDW().newProgram("Light", 1.3);

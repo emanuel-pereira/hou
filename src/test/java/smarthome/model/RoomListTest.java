@@ -25,6 +25,29 @@ public class RoomListTest {
     }
 
     @Test
+    @DisplayName("Tests if null name room is not accepted")
+    void  roomNameValidIfNull() {
+
+        RoomList roomList = new RoomList();
+
+        boolean result = roomList.roomNameValid (null);
+
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Tests if empty name room is not accepted")
+    void  roomNameValidIfEmpty() {
+
+        RoomList roomList = new RoomList();
+
+        boolean result = roomList.roomNameValid ("    ");
+
+        assertFalse(result);
+    }
+
+
+    @Test
     @DisplayName("Tests if a new room is added to the Room list")
     void addRoomToList() {
         //Arrange
