@@ -40,7 +40,7 @@ class EditDevicesCTRLTest {
         roomList.addRoom(kitchen);
         roomList.addRoom(bathroom);
         int expected = 2;
-        int result = ctrl.getRoomList().getRoomList().size();
+        int result = ctrl.getRoomListSize();
         assertEquals(expected, result);
     }
 
