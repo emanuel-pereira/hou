@@ -27,8 +27,8 @@ public class ReadingList {
         return mReadingList;
     }
 
-    public Reading getLastReading(){
-        return mReadingList.get(mReadingList.size()-1);
+    public Reading getLastReading() {
+        return mReadingList.get(mReadingList.size() - 1);
     }
 
 
@@ -38,8 +38,7 @@ public class ReadingList {
      * @param inputDate
      * @return totalRainfallValue
      */
-    public double totalValueInGivenDay(GregorianCalendar inputDate) {
-        GregorianCalendar date = inputDate;
+    public double totalValueInGivenDay(Calendar inputDate) {
         double totalRainfallValue = 0;
 
         for (Reading reading : mReadingList) {
@@ -60,6 +59,20 @@ public class ReadingList {
         }
         return totalValue;
 
+    }
+
+    public ReadingList getReadingsInSpecificDay(Calendar date) {
+        ReadingList readingListInDate = new ReadingList();
+
+        for (Reading reading : mReadingList) {
+            int rYear = reading.getDateAndTime().get(Calendar.YEAR);
+            int rMonth=reading.getDateAndTime().get(Calendar.MONTH);
+            int rDay=reading.getDateAndTime().get(Calendar.DAY_OF_MONTH);
+            Calendar date1= new GregorianCalendar(rYear,rMonth,rDay);
+            if (date.equals(date1))
+                readingListInDate.addReading(reading);
+        }
+        return readingListInDate;
     }
 
     public ReadingList getReadingsInTimeInterval(Calendar startDate, Calendar endDate) {

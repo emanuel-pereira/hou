@@ -106,6 +106,7 @@ public class US620GetTotalRainfallOnADayOfHouseCTRLTest {
         GeographicalArea ga = new GeographicalArea("PORTO", "Porto", "City", 1, 1, 1, 1, 1);
         House house = new House();
         house.setHouseGA(ga);
+        house.setHouseAddress("Street","15","4420",5,5,5);
         SensorList houseGASensorList = house.getHouseGA().getSensorListInGA();
 
 
@@ -126,9 +127,9 @@ public class US620GetTotalRainfallOnADayOfHouseCTRLTest {
         readingList1.addReading(r3);
 
         ReadingList readingList2 = new ReadingList();
-        Reading r4 = readingList2.newReading(27, new GregorianCalendar(2019, 2, 3, 11, 0));
-        Reading r5 = readingList2.newReading(35, new GregorianCalendar(2019, 2, 3, 12, 0));
-        Reading r6 = readingList2.newReading(42, new GregorianCalendar(2019, 2, 3, 17, 0));
+        Reading r4 = readingList2.newReading(0, new GregorianCalendar(2019, 2, 3, 11, 0));
+        Reading r5 = readingList2.newReading(0, new GregorianCalendar(2019, 2, 3, 12, 0));
+        Reading r6 = readingList2.newReading(0, new GregorianCalendar(2019, 2, 3, 17, 0));
         readingList2.addReading(r4);
         readingList2.addReading(r5);
         readingList2.addReading(r6);
@@ -150,7 +151,7 @@ public class US620GetTotalRainfallOnADayOfHouseCTRLTest {
 
 
         double result = ctr.requestReadingRainfall(date, wind);
-        double expected = 104;
+        double expected = 0;
 
         assertEquals(expected, result);
     }
