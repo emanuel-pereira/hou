@@ -1,5 +1,4 @@
-/*
-package smarthome.io.ui;
+/*package smarthome.io.ui;
 
 import smarthome.controller.US160GetDeviceListInGridByTypeCTRL;
 import smarthome.model.*;
@@ -45,5 +44,4 @@ public class US160GetDeviceListInGridByTypeUI {
             System.out.println("\n");
         }
     }
-}
-*/
+}*/

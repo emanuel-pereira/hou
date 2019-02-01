@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Objects;
@@ -114,7 +115,22 @@ public class GeographicalArea {
         SensorList closestSensors = new SensorList();
         for (Sensor sensor : sensorListOfType.getSensorList()) {
             distance = calculateDistance(sensor.getLocation());
-            if (distance == minDistance) {
+            /*Floating point math is imprecise because of the challenges of storing such values in a binary representation.
+            Even worse, floating point math is not associative; push a float or a double through a series of simple mathematical
+            operations and the answer will be different based on the order of those operation because of the rounding that takes
+            place at each step.
+            Even simple floating point assignments are not simple:
+            float f = 0.1; // 0.100000001490116119384765625
+            double d = 0.1; // 0.1000000000000000055511151231257827021181583404541015625
+            (Results will vary based on compiler and compiler settings);
+            Therefore, the use of the equality (==) and inequality (!=) operators on float or double values is almost always an
+            error. Instead the best course is to avoid floating point comparisons altogether. When that is not possible, you
+            should consider using one of Java's float-handling Numbers such as BigDecimal which can properly handle floating
+            point comparisons. A third option is to look not for equality but for whether the value is close enough. I.e. compare
+            the absolute value of the difference between the stored value and the expected value against a margin of acceptable
+            error. Note that this does not cover all cases (NaN and Infinity for instance).*/
+
+            if (BigDecimal.valueOf(distance) == BigDecimal.valueOf(minDistance)) {
                 closestSensors.addSensor(sensor);
             }
             if (distance < minDistance) {
@@ -127,9 +143,9 @@ public class GeographicalArea {
 
     public SensorList getSensorsWithReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
         SensorList closestSensorsByType = this.getTheClosestSensorsByType(sensorType);
-        SensorList sensorsWithReadingsInDate= new SensorList();
-        for(Sensor sensor:closestSensorsByType.getSensorList()){
-            if(sensor.getReadingList().totalValueInGivenDay(inputDate)!=0){
+        SensorList sensorsWithReadingsInDate = new SensorList();
+        for (Sensor sensor : closestSensorsByType.getSensorList()) {
+            if (BigDecimal.valueOf(sensor.getReadingList().totalValueInGivenDay(inputDate)) != BigDecimal.valueOf(0)) {
                 sensorsWithReadingsInDate.addSensor(sensor);
             }
         }
@@ -139,10 +155,10 @@ public class GeographicalArea {
     public Sensor getSensorWithLatestReadingsByType(SensorType sensorType) {
         SensorList closestSensors = this.getTheClosestSensorsByType(sensorType);
         Sensor closestSensorWithLatestReading = closestSensors.getSensorList().get(0);
-        Reading lastReading =closestSensorWithLatestReading.getLastReadingPerSensor();
+        Reading lastReading = closestSensorWithLatestReading.getLastReadingPerSensor();
         Calendar lastDate = lastReading.getDateAndTime();
         for (Sensor sensor : closestSensors.getSensorList()) {
-            Reading sensorLastReading=sensor.getLastReadingPerSensor();
+            Reading sensorLastReading = sensor.getLastReadingPerSensor();
             if (sensorLastReading.getDateAndTime().after(lastDate)) {
                 lastDate = sensor.getLastReadingPerSensor().getDateAndTime();
                 closestSensorWithLatestReading = sensor;
@@ -152,12 +168,12 @@ public class GeographicalArea {
     }
 
     public Sensor getSensorOfTypeWithReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
-        SensorList closestSensors = this.getSensorsWithReadingsInDate(inputDate,sensorType);
+        SensorList closestSensors = this.getSensorsWithReadingsInDate(inputDate, sensorType);
         Sensor closestSensorWithLatestReading = closestSensors.getSensorList().get(0);
-        Reading lastReading =closestSensorWithLatestReading.getLastReadingPerSensor();
+        Reading lastReading = closestSensorWithLatestReading.getLastReadingPerSensor();
         Calendar lastDate = lastReading.getDateAndTime();
         for (Sensor sensor : closestSensors.getSensorList()) {
-            Reading sensorLastReading=sensor.getLastReadingPerSensor();
+            Reading sensorLastReading = sensor.getLastReadingPerSensor();
             if (sensorLastReading.getDateAndTime().after(lastDate)) {
                 lastDate = sensor.getLastReadingPerSensor().getDateAndTime();
                 closestSensorWithLatestReading = sensor;
@@ -165,8 +181,6 @@ public class GeographicalArea {
         }
         return closestSensorWithLatestReading;
     }
-
-
 
 
     @Override

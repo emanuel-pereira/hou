@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ReadingListTest {
 
@@ -50,7 +50,7 @@ class ReadingListTest {
 
 
     @Test
-    @DisplayName("Ensure that returns the total values of reading list in a  specific day")
+    @DisplayName("Ensure that returns the total values of reading list in a specific day")
     public void totalValueInGivenDay() {
 
 

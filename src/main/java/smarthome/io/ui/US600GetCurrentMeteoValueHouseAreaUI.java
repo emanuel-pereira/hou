@@ -48,22 +48,21 @@ public class US600GetCurrentMeteoValueHouseAreaUI {
             System.out.println(mCtrl.showSensorTypeList());
             mIndexOfSensorType = read.nextInt();
             read.nextLine();
-            if (mIndexOfSensorType > 0 && mIndexOfSensorType <= mCtrl.getSensorTypeListSize()){
+            if (mIndexOfSensorType > 0 && mIndexOfSensorType <= mCtrl.getSensorTypeListSize()) {
                 mSensorType = mCtrl.getSensorTypeByIndex(mIndexOfSensorType);
                 this.checkLstSizeOfSensorType();
-            }
-            else
+            } else
                 UtilsUI.printLnInsertValidOption();
+            break;
         }
     }
 
-        private void checkLstSizeOfSensorType(){
+    private void checkLstSizeOfSensorType() {
         while (true) {
             if (mCtrl.getSensorListOfTypeSize(mSensorType) == 0) {
                 System.out.println("No sensors of that type in the house area");
                 return;
-            }
-            else break;
+            } else break;
         }
 
         mClosestSensor = mCtrl.getClosestSensorByType(mSensorType);

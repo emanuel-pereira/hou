@@ -13,7 +13,7 @@ public class US160GetDeviceListInGridByTypeCTRL {
     }
 
     public List<HouseGrid> getHouseGridListCtrl() {
-        return mHouse.getHGListInHouse().getHouseGridListSize();
+        return mHouse.getHGListInHouse().getHouseGridList();
     }
 
     public String showHouseGridListInStringCtrl() {
@@ -24,7 +24,7 @@ public class US160GetDeviceListInGridByTypeCTRL {
 
     public RoomList getListOfRoomsInGrid(int indexOfHouseGrid) {
         RoomList listOfRoomsWithHouseGrid = new RoomList();
-        for (Room r : mHouse.getRoomListSize().getRoomListSize()) {
+        for (Room r : mHouse.getRoomList().getRoomList()) {
             if (r.getmHouseGrid() != null && r.getmHouseGrid().equals(mHouse.getHGListInHouse().get(indexOfHouseGrid - 1))) {
                    listOfRoomsWithHouseGrid.addRoom(r);
             }
@@ -70,10 +70,11 @@ public class US160GetDeviceListInGridByTypeCTRL {
             result.append(", Type: ");
             result.append(device.getDeviceSpecs().getType().getTypeString());
             result.append(",Location: ");
-            *//*result.append(device.getRoom().getName());*//*
+            result.append(device.getRoom().getName());
             result.append(".\n");
         }
         return result.toString();
     }
 
-}*/
+}
+*/
