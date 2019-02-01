@@ -143,7 +143,7 @@ public class House {
         return mAddress.getGPSLocation().calcLinearDistanceBetweenTwoPoints(mAddress.getGPSLocation(), aLocation);
     }
 
-    public SensorList getTheClosestSensorsByType(SensorType sensorType) {
+    public SensorList getClosestSensorsByType(SensorType sensorType) {
         SensorList gaSensorList= mGA.getSensorListInGA();
 
         SensorList sensorListOfType = gaSensorList.getListOfSensorsByType(sensorType);
@@ -165,7 +165,7 @@ public class House {
     }
 
     public SensorList getSensorsWithReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
-        SensorList closestSensorsByType = this.getTheClosestSensorsByType(sensorType);
+        SensorList closestSensorsByType = this.getClosestSensorsByType(sensorType);
         SensorList sensorsWithReadingsInDate = new SensorList();
         for (Sensor sensor : closestSensorsByType.getSensorList()) {
             ReadingList readingListInDay=sensor.getReadingList().getReadingsInSpecificDay(inputDate);
@@ -178,7 +178,7 @@ public class House {
     }
 
     public Sensor getSensorWithLatestReadingsByType(SensorType sensorType) {
-        SensorList closestSensors = this.getTheClosestSensorsByType(sensorType);
+        SensorList closestSensors = this.getClosestSensorsByType(sensorType);
         Sensor closestSensorWithLatestReading = closestSensors.getSensorList().get(0);
         Reading lastReading = closestSensorWithLatestReading.getLastReadingPerSensor();
         Calendar lastDate = lastReading.getDateAndTime();

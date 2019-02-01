@@ -143,14 +143,6 @@ public class Device implements Metered {
         return energyConsumption;
     }
 
-    public ReadingList getDataSeriesInTimeInterval(Calendar startDate, Calendar endDate) {
-        ReadingList dataSeries = new ReadingList();
-        if (ReadConfigFile.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
-            dataSeries = mActivityLog.getReadingsInTimeInterval(startDate, endDate);
-        }
-        return dataSeries;
-    }
-
     //put this method as private after reviewing create device US
     public void setIsMetered(boolean isMetered) {
         if (!isMetered)
