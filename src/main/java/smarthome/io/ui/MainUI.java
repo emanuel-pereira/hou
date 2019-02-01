@@ -141,7 +141,7 @@ public class MainUI {
         ElectricWaterHeater ewh106 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 150, 55, 0.92);
         Device eHWB106 = house.getRoomList().get(0).getDeviceList().newDevice("EHW B106", ewh106, 2.2);
         house.getRoomList().get(0).getDeviceList().addDevice(eHWB106);
-        int[] valueseHWB106 = new int[]{23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50};
+        /*int[] valueseHWB106 = new int[]{23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50};
         for (int i : valueseHWB106) {
             minutes += meteringPeriod;
             if (minutes == 60) {
@@ -153,13 +153,13 @@ public class MainUI {
                 day++;
             }
             eHWB106.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
-        }
+        }*/
         eHWB106.setIsMetered (true);
 
         Dishwasher dish106 = new Dishwasher(DeviceType.DISHWASHER, 100);
         Device dishwasherB106 = house.getRoomList().get(0).getDeviceList().newDevice("Dishwasher B106", dish106, 1.4);
         house.getRoomList().get(0).getDeviceList().addDevice(dishwasherB106);
-        int[] valuesdishwasherB106 = new int[]{23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50};
+        /*int[] valuesdishwasherB106 = new int[]{23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50};
         for (int i : valuesdishwasherB106) {
             minutes += meteringPeriod;
             if (minutes == 60) {
@@ -171,7 +171,7 @@ public class MainUI {
                 day++;
             }
             dishwasherB106.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
-        }
+        }*/
         dishwasherB106.setIsMetered (true);
 
         ElectricWaterHeater ewh107 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 150, 55, 0.92);

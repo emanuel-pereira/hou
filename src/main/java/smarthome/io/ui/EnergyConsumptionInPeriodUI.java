@@ -3,6 +3,7 @@ package smarthome.io.ui;
 import smarthome.controller.EnergyConsumptionInPeriodCTRL;
 import smarthome.model.House;
 
+import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
@@ -153,7 +154,9 @@ public class EnergyConsumptionInPeriodUI {
         System.out.println("Total Energy Consumption of the grid in the time period:");
         System.out.println("[Grid]: " + houseGrid);
         System.out.println(mTimePeriodStr + startDay + "/" + startMonth + "/" + startYear + " - " + endDay + "/" + endMonth + "/" + endYear + "]");
-        System.out.println(mEConsumptionStr + mCtrl.getHouseGridEnergyConsumptionInPeriod(mIndexOfHG, mStartDate, mEndDate) + "\n");
+        DecimalFormat result = new DecimalFormat("##.00");
+        String roundedConsumption = result.format(mCtrl.getHouseGridEnergyConsumptionInPeriod(mIndexOfHG, mStartDate, mEndDate));
+        System.out.println(mEConsumptionStr + roundedConsumption + "\n");
     }
 
     private void getRoomEnergyConsumption() {
