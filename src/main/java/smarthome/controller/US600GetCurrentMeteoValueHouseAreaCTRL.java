@@ -37,7 +37,7 @@ public class US600GetCurrentMeteoValueHouseAreaCTRL {
     }
 
     public Sensor getClosestSensorByType(SensorType sensorType) {
-        return mHouse.getHouseGA().getSensorWithLatestReadingsByType(sensorType);
+        return mHouse.getSensorWithLatestReadingsByType(sensorType);
     }
     public double getLastReadingOfSensor(Sensor sensor){
         return sensor.getLastReadingValuePerSensor();

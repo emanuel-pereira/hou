@@ -92,6 +92,8 @@ public class Location {
     public double getAltitude() {
         return this.mAltitude;
     }
+
+
 }
 
 

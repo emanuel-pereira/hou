@@ -46,7 +46,7 @@ public class US3CreateGAUI {
      * GA creation in the respective class
      */
     public void run() {
-        if (mtypeGAList.getTypeGAList().isEmpty()) {
+        if (!mtypeGAList.getTypeGAList().isEmpty()) {
             Scanner read = new Scanner(System.in);
             System.out.println("Insert the ID of the new geographical area:");
             String id = read.nextLine();

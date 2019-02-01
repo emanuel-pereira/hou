@@ -7,8 +7,7 @@ import java.util.GregorianCalendar;
 
 public class US620GetTotalRainfallOnADayOfHouseCTRL {
 
-    private US600GetCurrentMeteoValueHouseAreaCTRL mCTRL600;
-    private GeographicalArea mGA;
+
     private SensorTypeList mSensorTypeList;
     private House mHouse;
     private DateValidations mDateValidations;
@@ -16,9 +15,7 @@ public class US620GetTotalRainfallOnADayOfHouseCTRL {
     public US620GetTotalRainfallOnADayOfHouseCTRL(House house, SensorTypeList sensorTypeList) {
 
         mSensorTypeList = sensorTypeList;
-        mCTRL600 = new US600GetCurrentMeteoValueHouseAreaCTRL(house, sensorTypeList);
         mHouse = house;
-        mGA = house.getHouseGA();
         mDateValidations = new DateValidations();
     }
 
@@ -27,7 +24,7 @@ public class US620GetTotalRainfallOnADayOfHouseCTRL {
     }
 
     public double requestReadingRainfall(GregorianCalendar inputDate, SensorType sensorType) {
-        Sensor sensor=mHouse.getHouseGA().getSensorOfTypeWithReadingsInDate(inputDate,sensorType);
+        Sensor sensor=mHouse.getSensorOfTypeWithReadingsInDate(inputDate,sensorType);
         return sensor.getReadingList().totalValueInGivenDay(inputDate);
     }
 

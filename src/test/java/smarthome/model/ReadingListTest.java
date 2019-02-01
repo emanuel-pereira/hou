@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -91,5 +92,25 @@ class ReadingListTest {
         double expected = 80;
         double result = readingList.getValueOfReadingsInTimeInterval(new GregorianCalendar(2018, 11, 5, 0, 15), new GregorianCalendar(2018, 11, 5, 1, 0));
         assertEquals(expected, result);
+    }
+
+    @Test
+    void getReadingsInSpecificDay() {
+        Calendar date = new GregorianCalendar(2018,1,1);
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(25, new GregorianCalendar(2018, 1, 1, 15, 30));
+        Reading r2 = new Reading(25, new GregorianCalendar(2018, 1, 1, 17, 30));
+        Reading r3 = new Reading(25, new GregorianCalendar(2018, 1, 1, 15, 30));
+        Reading r4 = new Reading(25, new GregorianCalendar(2018, 1, 1, 15, 30));
+        Reading r5 = new Reading(25, new GregorianCalendar(2018, 1, 1, 15, 30));
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+        readingList.addReading(r5);
+        int result=readingList.getReadingsInSpecificDay(date).getReadingList().size();
+        int expected=5;
+        assertEquals(expected,result);
+
     }
 }
