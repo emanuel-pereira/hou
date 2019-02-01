@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Objects;
@@ -149,9 +150,10 @@ public class House {
         double distance;
         double minDistance = this.calculateDistance(sensorListOfType.getSensorList().get(0).getLocation());
         SensorList closestSensors = new SensorList();
+
         for (Sensor sensor : sensorListOfType.getSensorList()) {
             distance = calculateDistance(sensor.getLocation());
-            if (distance == minDistance) {
+            if (BigDecimal.valueOf(distance).equals(BigDecimal.valueOf(minDistance))) {
                 closestSensors.addSensor(sensor);
             }
             if (distance < minDistance) {
