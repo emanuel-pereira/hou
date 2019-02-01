@@ -1,4 +1,3 @@
-/*
 package smarthome.controller;
 
 import smarthome.model.*;
@@ -54,4 +53,3 @@ public class US135AddPowerSourceToGridCTRL {
         return mHouse.getHGListInHouse().getHouseGridList().get(indexOfHG-1).getPSListInHG().addPS(ps);
     }
 }
-*/
