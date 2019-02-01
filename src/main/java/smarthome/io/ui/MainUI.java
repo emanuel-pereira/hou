@@ -108,8 +108,8 @@ public class MainUI {
         Reading r9 = new Reading(80, new GregorianCalendar(2018, 11, 26, 12, 0));
         Reading r10 = new Reading(81, new GregorianCalendar(2018, 11, 26, 13, 0));
         ReadingList rl3 = new ReadingList();
-        rl2.addReading(r9);
-        rl2.addReading(r10);
+        rl3.addReading(r9);
+        rl3.addReading(r10);
         SensorType sH1 = sensorTypeList.newSensorType("humidity");
         sensorTypeList.addSensorType(sH1);
         list.addSensor(list.newSensor("HumiditySensor", new GregorianCalendar(2018, 11, 15), 25, 32, 25, sH1, "Percentage", rl3));

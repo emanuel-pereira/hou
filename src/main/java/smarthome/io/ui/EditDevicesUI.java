@@ -118,9 +118,9 @@ public class EditDevicesUI {
     }
 
     private void roomIndexIsOutOfBounds() {
-        if ((mRoomIndex > mRoomList.getRoomList().size()) || (mRoomIndex <= 0))
+        if (mRoomIndex > mRoomList.getRoomList().size() || mRoomIndex <= 0) {
             UtilsUI.printLnInsertValidOption();
-        roomSelectionToAddDevice();
+        }
     }
 
     public void selectDeviceType() {
@@ -294,7 +294,7 @@ public class EditDevicesUI {
     }
 
     public void roomSelectionToListDevice() {
-        if (!roomListIsEmpty()) {
+        if (!roomListIsEmpty() /*&& 0 >= mRoomIndex && mRoomIndex > mRoomList.getRoomList().size()*/) {
             System.out.println("Select a room from the list below to get the list of all devices in that room:");
             System.out.println(mCtrl.showRoomListInString());
             mRoomIndex = read.nextInt();

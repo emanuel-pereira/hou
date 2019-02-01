@@ -81,10 +81,6 @@ public class EditDevicesCTRL {
     }
 
 
-    public RoomList getRoomList() {
-        return mRoomList;
-    }
-
     public DeviceList getDeviceList(Room room) {
 
         return room.getDeviceList();
@@ -113,6 +109,14 @@ public class EditDevicesCTRL {
 
     public boolean addDeviceToRoom(Device device, int indexOfRoom) {
         return mRoomList.addDeviceToRoom(device, indexOfRoom);
+    }
+
+    public List<Room> getRoomList() {
+        return mRoomList.getRoomList();
+    }
+
+    public int getRoomListSize() {
+        return mRoomList.getRoomListSize();
     }
 }
 
