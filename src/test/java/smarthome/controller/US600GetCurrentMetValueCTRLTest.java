@@ -83,6 +83,7 @@ public class US600GetCurrentMetValueCTRLTest {
     void getLastReadingOfSensorTest() {
         GeographicalArea ga = new GeographicalArea("PORTO", "Porto", "City", 1, 1, 1, 1, 1);        House house = new House();
         house.setHouseGA(ga);
+        house.setHouseAddress("Rua das Flores","15","4430-250",5,5,5);
         SensorList houseGASensorList=house.getHouseGA().getSensorListInGA();
 
 
