@@ -190,6 +190,11 @@ public class MainUI {
             }
             eHWB107.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
+        year = 2018;
+        month = 11;
+        day = 31;
+        hour = 0;
+        minutes = 0;
         eHWB107.setIsMetered (true);
 
         Dishwasher dish107 = new Dishwasher(DeviceType.DISHWASHER, 100);
@@ -208,6 +213,8 @@ public class MainUI {
             }
             dishwasherB107.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
+        hour = 0;
+        minutes = 0;
         dishwasherB107.setIsMetered (true);
 
         WashingMachine washing107 = new WashingMachine(DeviceType.WASHING_MACHINE, 100);
@@ -226,6 +233,11 @@ public class MainUI {
             }
             washingMachineB107.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
+        year = 2018;
+        month = 11;
+        day = 31;
+        hour = 0;
+        minutes = 0;
         washingMachineB107.setIsMetered (true);
 
         ElectricWaterHeater ewh109 = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 100, 55, 0.91);
@@ -244,6 +256,11 @@ public class MainUI {
             }
             eHWB109.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
+        year = 2018;
+        month = 11;
+        day = 31;
+        hour = 0;
+        minutes = 0;
         eHWB109.setIsMetered (true);
 
         Dishwasher dish109 = new Dishwasher(DeviceType.DISHWASHER, 100);
@@ -269,23 +286,5 @@ public class MainUI {
             washingMachineB109.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
         washingMachineB109.setIsMetered (true);
-
-        /*Program p1dish106 = dish106.getProgramListInDW().newProgram("Glasses", 0.8);
-        Program p2dish106 = dish106.getProgramListInDW().newProgram("Light", 1.3);
-        Program p3dish106 = dish106.getProgramListInDW().newProgram("Light Turbo", 1.9);
-        Program p4dish106 = dish106.getProgramListInDW().newProgram("Dishes", 2.3);
-        dish106.getProgramListInDW().addProgram(p1dish106);
-        dish106.getProgramListInDW().addProgram(p2dish106);
-        dish106.getProgramListInDW().addProgram(p3dish106);
-        dish106.getProgramListInDW().addProgram(p4dish106);
-
-        Program p1Wm109 = dish106.getProgramListInDW().newProgram("Wool", 0.9);
-        Program p2Wm109 = dish106.getProgramListInDW().newProgram("Fast", 1.3);
-        Program p3Wm109 = dish106.getProgramListInDW().newProgram("Fast Plus", 1.7);
-        Program p4Wm109 = dish106.getProgramListInDW().newProgram("Synthetic 30", 2.1);
-        washing109.getProgramListInWM().addProgram(p1Wm109);
-        washing109.getProgramListInWM().addProgram(p2Wm109);
-        washing109.getProgramListInWM().addProgram(p3Wm109);
-        washing109.getProgramListInWM().addProgram(p4Wm109);*/
     }
 }
