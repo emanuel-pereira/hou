@@ -16,16 +16,10 @@ public class EditDevicesUI {
     private int mDeviceTypeIndex;
     private DeviceList mDeviceList;
     private Device mDevice;
-    private DeviceSpecs mDeviceSpecs;
-
-
-    private String insertValidOption = "Please insert a valid option \n.";
     private ProgramList mProgramList;
     private Scanner read = new Scanner(System.in);
-
     private int mDeviceIndex;
     int mAttributeIndex;
-    private String mRoomIndexToChange;
     String selectedAttribute;
 
 
@@ -45,11 +39,13 @@ public class EditDevicesUI {
             System.out.println("2 - Get a list of all Devices in a Room");
             System.out.println("3 - Edit the configuration of an existing device");
             System.out.println("4 - Remove a device");
-            //System.out.println("5 - Deactivate a device");
+            System.out.println("5 - Deactivate a device");
             System.out.println("0 - Exit");
             option = read.nextInt();
             read.nextLine();
             switch (option) {
+                case 0:
+                    break;
                 case 1:
                     this.roomSelectionToAddDevice();
                     break;
@@ -62,9 +58,9 @@ public class EditDevicesUI {
                 case 4:
                     this.removeDevice();
                     break;
-                /*case 5:
+                case 5:
                     this.deactivateDevice();
-                    break;*/
+                    break;
                 default:
                     System.out.println("Please choose a valid option.");
             }
@@ -81,13 +77,10 @@ public class EditDevicesUI {
         System.out.println("Select a device from the previous list to remove it:");
         int deviceIndex = read.nextInt() - 1;
         read.nextLine();
-        if (mCtrl.removeDevice(mRoomIndex, deviceIndex)) {
-            if (deviceListInRoomIsEmpty()) {
-                this.listDevicesInRoom();
-                System.out.println("Success, the device was removed");
-            }
-        }
-        System.out.println("Not possible to remove device");
+        if (mCtrl.removeDevice(mRoomIndex, deviceIndex) && deviceListInRoomIsNotEmpty()) {
+            this.listDevicesInRoom();
+            System.out.println("Success, the device was removed");
+        } else System.out.println("Not possible to remove device");
     }
 
     /**
@@ -98,13 +91,10 @@ public class EditDevicesUI {
         System.out.println("Select a device from the previous list to deactivate it:");
         int deviceIndex = read.nextInt() - 1;
         read.nextLine();
-        if (mCtrl.deactivateDevice(mRoomIndex, deviceIndex)) {
-            if (deviceListInRoomIsEmpty()) {
-                this.listDevicesInRoom();
-                System.out.println("Success, the device was deactivated");
-            }
-        }
-        System.out.println("Not possible to remove device");
+        if (mCtrl.deactivateDevice(mRoomIndex, deviceIndex) && deviceListInRoomIsNotEmpty()) {
+            this.listDevicesInRoom();
+            System.out.println("Success, the device was deactivated");
+        } else System.out.println("Not possible to deactivate device");
     }
 
 
@@ -128,8 +118,9 @@ public class EditDevicesUI {
     }
 
     private void roomIndexIsOutOfBounds() {
-        if (mRoomIndex > mRoomList.getRoomList().size())
-            System.out.println(insertValidOption);
+        if (mRoomIndex > mRoomList.getRoomList().size() || mRoomIndex <= 0) {
+            UtilsUI.printLnInsertValidOption();
+        }
     }
 
     public void selectDeviceType() {
@@ -138,7 +129,7 @@ public class EditDevicesUI {
         mDeviceTypeIndex = read.nextInt();
         read.nextLine();
         if (mDeviceTypeIndex > DeviceType.values().length) {
-            System.out.println(insertValidOption);
+            UtilsUI.printLnInsertValidOption();
         } else this.insertDeviceStdInputs();
     }
 
@@ -150,7 +141,7 @@ public class EditDevicesUI {
                 this.insertNominalPower();
                 break;
             } else
-                System.out.println("Please insert a valid name");
+                UtilsUI.printLnInsertValidParameter("name");
         }
     }
 
@@ -168,6 +159,7 @@ public class EditDevicesUI {
 
 
     public void insertDeviceSpecs() {
+        DeviceSpecs mDeviceSpecs;
 
         switch (mDeviceTypeIndex) {
             case 1:
@@ -302,15 +294,15 @@ public class EditDevicesUI {
     }
 
     public void roomSelectionToListDevice() {
-        if (!roomListIsEmpty()) {
+        if (!roomListIsEmpty() /*&& 0 >= mRoomIndex && mRoomIndex > mRoomList.getRoomList().size()*/) {
             System.out.println("Select a room from the list below to get the list of all devices in that room:");
             System.out.println(mCtrl.showRoomListInString());
             mRoomIndex = read.nextInt();
             read.nextLine();
-            roomIndexIsOutOfBounds();
-            mRoom = mRoomList.get(mRoomIndex - 1);
         }
-        if (deviceListInRoomIsEmpty())
+        roomIndexIsOutOfBounds();
+        mRoom = mRoomList.get(mRoomIndex - 1);
+        if (deviceListInRoomIsNotEmpty())
             this.listDevicesInRoom();
     }
 
@@ -320,7 +312,7 @@ public class EditDevicesUI {
         System.out.println(mCtrl.showDeviceListInString(mRoomIndex));
     }
 
-    private boolean deviceListInRoomIsEmpty() {
+    private boolean deviceListInRoomIsNotEmpty() {
         mDeviceList = mRoom.getDeviceList();
         if (mDeviceList.getDeviceList().isEmpty()) {
             System.out.println("The device list in " + mRoom.getName() + " is empty.\n");
@@ -330,23 +322,21 @@ public class EditDevicesUI {
     }
 
     public void deviceSelectionToEdit() {
-            mDeviceIndex = read.nextInt();
-            read.nextLine();
+        mDeviceIndex = read.nextInt();
+        read.nextLine();
         if (mDeviceIndex > mRoom.getDeviceList().size())
-                System.out.println(insertValidOption);
+            UtilsUI.printLnInsertValidOption();
     }
 
     public void attributeSelectionToEdit() {
-            System.out.println("Select a attribute of the device to edit: ");
-            System.out.println("1 - Device Room : " + this.mRoom.getName());
-            System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
-            mAttributeIndex = read.nextInt();
-            read.nextLine();
-            if (mAttributeIndex == 1)
-                mCtrl.removeDeviceFromRoom(mDevice, mRoomIndex);
-            selectedAttribute = mCtrl.getDeviceAttribute(mDevice, mAttributeIndex - 1);
-            //if (mAttributeIndex > mCtrl.)
-            //  System.out.println(insertValidOption);
+        System.out.println("Select a attribute of the device to edit: ");
+        System.out.println("1 - Device Room : " + this.mRoom.getName());
+        System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
+        mAttributeIndex = read.nextInt();
+        read.nextLine();
+        if (mAttributeIndex == 1)
+            mCtrl.removeDeviceFromRoom(mDevice, mRoomIndex);
+        selectedAttribute = mCtrl.getDeviceAttribute(mDevice, mAttributeIndex - 1);
     }
 
     public void editDeviceAttributes() {
@@ -359,6 +349,8 @@ public class EditDevicesUI {
     }
 
     public void setDeviceAttributes() {
+        String successMessage = "Success";
+        String mRoomIndexToChange;
         if (mAttributeIndex == 1) {
             System.out.println("Set the new room:");
             System.out.println(mCtrl.showRoomListInString());
@@ -366,7 +358,7 @@ public class EditDevicesUI {
             read.nextLine();
             mCtrl.addDeviceToRoom(mDevice, mRoomIndex);
             mRoom = mRoomList.get(mRoomIndex - 1);
-            System.out.println("Success");
+            System.out.println(successMessage);
             System.out.println("1 - Device Room : " + this.mRoom.getName());
             System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
             return;
@@ -375,7 +367,7 @@ public class EditDevicesUI {
             System.out.println("Set the new name:");
             mName = read.nextLine();
             mCtrl.setAttribute(mDevice, selectedAttribute, mName);
-            System.out.println("Success");
+            System.out.println(successMessage);
             System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
         }
         if (selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(mDevice).get(1))) {
@@ -384,14 +376,14 @@ public class EditDevicesUI {
             mRoomIndexToChange = read.nextLine();
             roomIndexIsOutOfBounds();
             mCtrl.setAttribute(mDevice, selectedAttribute, mRoomIndexToChange);
-            System.out.println("Success");
+            System.out.println(successMessage);
             System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
         }
         if (selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(mDevice).get(2))) {
             System.out.println("Set the nominal power (kW):");
-            String mNominalPower = read.nextLine();
+            String mNominalPower = read.nextLine();//TODO same variable is started as double and then re-written as a string, we need a new method
             mCtrl.setAttribute(mDevice, selectedAttribute, mNominalPower);
-            System.out.println("Success");
+            System.out.println(successMessage);
             System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
         }
         if (mDevice.getDeviceSpecs().getType().equals(DeviceType.FRIDGE)) {
@@ -399,7 +391,7 @@ public class EditDevicesUI {
                 System.out.println("Set the freezer capacity:");
                 String mFreezerCapacity = read.nextLine();
                 mCtrl.setAttribute(mDevice, selectedAttribute, mFreezerCapacity);
-                System.out.println("Success");
+                System.out.println(successMessage);
                 System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
             }
             if (selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(mDevice).get(4))) {
@@ -407,18 +399,16 @@ public class EditDevicesUI {
                 String mRefCapacity = read.nextLine(); //to validate only positive values
                 read.nextLine();
                 mCtrl.setAttribute(mDevice, selectedAttribute, mRefCapacity);
-                System.out.println("Success");
+                System.out.println(successMessage);
                 System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
             }
         }
-        if (mDevice.getDeviceSpecs().getType().equals(DeviceType.DISHWASHER)) {
-            if (selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(mDevice).get(3))) {
-                System.out.println("Set the dishwasher capacity:");
-                String dwCapacity = read.nextLine(); //to validate only positive values
-                mCtrl.setAttribute(mDevice, selectedAttribute, dwCapacity);
-                System.out.println("Success");
-                System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
-            }
+        if (mDevice.getDeviceSpecs().getType().equals(DeviceType.DISHWASHER) && selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(mDevice).get(3))) {
+            System.out.println("Set the dishwasher capacity:");
+            String dwCapacity = read.nextLine(); //to validate only positive values
+            mCtrl.setAttribute(mDevice, selectedAttribute, dwCapacity);
+            System.out.println(successMessage);
+            System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
         }
         if (mDevice.getDeviceSpecs().getType().equals(DeviceType.ELECTRIC_WATER_HEATER)) {
             if (selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(mDevice).get(3))) {
@@ -426,7 +416,7 @@ public class EditDevicesUI {
                 String volumeOfWater = read.nextLine(); //to validate only positive values
                 read.nextLine();
                 mCtrl.setAttribute(mDevice, selectedAttribute, volumeOfWater);
-                System.out.println("Success");
+                System.out.println(successMessage);
                 System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
 
             }
@@ -435,7 +425,7 @@ public class EditDevicesUI {
                 String newHotWaterTemp = read.nextLine(); //to validate only positive values
                 read.nextLine();
                 mCtrl.setAttribute(mDevice, selectedAttribute, newHotWaterTemp);
-                System.out.println("Success");
+                System.out.println(successMessage);
                 System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
 
             }
@@ -444,7 +434,7 @@ public class EditDevicesUI {
                 String newColdWaterTemp = read.nextLine(); //to validate only positive values
                 read.nextLine();
                 mCtrl.setAttribute(mDevice, selectedAttribute, newColdWaterTemp);
-                System.out.println("Success");
+                System.out.println(successMessage);
                 System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
 
             }
@@ -452,7 +442,7 @@ public class EditDevicesUI {
                 System.out.println("Set the new Electric Water Heater performance ratio:");
                 String newPerformanceRatio = read.nextLine(); //to validate only positive values
                 mCtrl.setAttribute(mDevice, selectedAttribute, newPerformanceRatio);
-                System.out.println("Success");
+                System.out.println(successMessage);
                 System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
 
             }
@@ -460,19 +450,17 @@ public class EditDevicesUI {
                 System.out.println("Set the new Electric Water Heater Volume of water to heat:");
                 String newPerformanceRatio = read.nextLine(); //to validate only positive values
                 mCtrl.setAttribute(mDevice, selectedAttribute, newPerformanceRatio);
-                System.out.println("Success");
+                System.out.println(successMessage);
                 System.out.println(mCtrl.showDeviceAttributesInString(mDevice));
             }
 
         }
-        if (mDevice.getDeviceSpecs().getType().equals(DeviceType.LAMP)) {
-            if (selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(mDevice).get(3))) {
-                System.out.println("Set the new Lamp Luminous Flux:");
-                String newLuminousFlux = read.nextLine();
-                mCtrl.setAttribute(mDevice, selectedAttribute, newLuminousFlux);
-                System.out.println("Success");
-                System.out.println(mCtrl.getDeviceAttributesListInString(mDevice));
-            }
+        if (mDevice.getDeviceSpecs().getType().equals(DeviceType.LAMP) && selectedAttribute.equals(mCtrl.getDeviceAttributesListInString(mDevice).get(3))) {
+            System.out.println("Set the new Lamp Luminous Flux:");
+            String newLuminousFlux = read.nextLine();
+            mCtrl.setAttribute(mDevice, selectedAttribute, newLuminousFlux);
+            System.out.println(successMessage);
+            System.out.println(mCtrl.getDeviceAttributesListInString(mDevice));
         }
     }
 }

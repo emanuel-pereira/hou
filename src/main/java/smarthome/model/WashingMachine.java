@@ -1,7 +1,6 @@
 package smarthome.model;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -39,6 +38,10 @@ public class WashingMachine implements DeviceSpecs {
         String Capacity = "4 - Washing Machine Capacity : " + this.mCapacity;
         if (attribute.equals(Capacity))
             setCapacity(parseInt(newValue));
+    }
+
+    public ProgramList getProgramListInWM() {
+        return mProgramListInWM;
     }
 
     @Override

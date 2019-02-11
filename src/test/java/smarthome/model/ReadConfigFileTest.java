@@ -49,8 +49,8 @@ class ReadConfigFileTest {
     }
 
     @Test
-    void isMeteringPeriodValidTestFailValueTooLow() {
-        ReadConfigFile.setConfigPath("resources/configFilesForTests/configFalseTooLow.properties");
+    void isMeteringPeriodValidTestFailValueTooLowGrid() {
+        ReadConfigFile.setConfigPath("resources/configFilesForTests/configFalseTooLowGrid.properties");
 
         boolean result = ReadConfigFile.isMeteringPeriodValid();
 
@@ -58,12 +58,70 @@ class ReadConfigFileTest {
     }
 
     @Test
-    void isMeteringPeriodValidTestFailValueTooHigh() {
-        ReadConfigFile.setConfigPath("resources/configFilesForTests/configFalseTooHigh.properties");
+    void isMeteringPeriodValidTestFailValueTooLowGridNotEquals() {
+        ReadConfigFile.setConfigPath("resources/configFilesForTests/configFalseTooLowGrid.properties");
+
+        boolean expectedResult = true;
+        boolean result = ReadConfigFile.isMeteringPeriodValid();
+
+        assertNotEquals(expectedResult,result);
+    }
+
+    @Test
+    void isMeteringPeriodValidTestFailValueTooLowDevice() {
+        ReadConfigFile.setConfigPath("resources/configFilesForTests/configFalseTooLowDevice.properties");
 
         boolean result = ReadConfigFile.isMeteringPeriodValid();
 
         assertFalse(result);
+    }
+
+    @Test
+    void isMeteringPeriodValidTestFailValueTooLowDeviceNotEquals() {
+        ReadConfigFile.setConfigPath("resources/configFilesForTests/configFalseTooLowDevice.properties");
+
+        boolean expectedResult = true;
+        boolean result = ReadConfigFile.isMeteringPeriodValid();
+
+        assertNotEquals(expectedResult,result);
+    }
+
+    @Test
+    void isMeteringPeriodValidTestFailValueTooHighGrid() {
+        ReadConfigFile.setConfigPath("resources/configFilesForTests/configFalseTooHighGrid.properties");
+
+        boolean result = ReadConfigFile.isMeteringPeriodValid();
+
+        assertFalse(result);
+    }
+
+    @Test
+    void isMeteringPeriodValidTestFailValueTooHighGridNotEquals() {
+        ReadConfigFile.setConfigPath("resources/configFilesForTests/configFalseTooHighGrid.properties");
+
+        boolean expectedResult = true;
+        boolean result = ReadConfigFile.isMeteringPeriodValid();
+
+        assertNotEquals(expectedResult,result);
+    }
+
+    @Test
+    void isMeteringPeriodValidTestFailValueTooHighDevice() {
+        ReadConfigFile.setConfigPath("resources/configFilesForTests/configFalseTooHighDevice.properties");
+
+        boolean result = ReadConfigFile.isMeteringPeriodValid();
+
+        assertFalse(result);
+    }
+
+    @Test
+    void isMeteringPeriodValidTestFailValueTooHighDeviceNotEquals() {
+        ReadConfigFile.setConfigPath("resources/configFilesForTests/configFalseTooHighDevice.properties");
+
+        boolean expectedResult = true;
+        boolean result = ReadConfigFile.isMeteringPeriodValid();
+
+        assertNotEquals(expectedResult,result);
     }
 
 
@@ -75,6 +133,16 @@ class ReadConfigFileTest {
 
         assertFalse(result);
     }
+
+    @Test
+    void isMeteringPeriodValidTestFailValueNotMultipleOF1440Device() {
+        ReadConfigFile.setConfigPath("resources/configFilesForTests/configFalseNotMultipleOf1440.properties");
+
+        boolean result = ReadConfigFile.isMeteringPeriodValid();
+
+        assertFalse(result);
+    }
+
 
     @Test
     void getMeteringPeriodTestFailValueNotAnInt() {
@@ -120,6 +188,17 @@ class ReadConfigFileTest {
     @Test
     void getDeviceTypesFailValueNotAnInt() {
         ReadConfigFile.setConfigPath("resources/configFiles/configFalseNotAnInt.properties");
+
+        List<String> expectedResult = Arrays.asList();
+        List<String> result = ReadConfigFile.getDeviceTypes();
+
+        assertEquals(expectedResult,result);
+
+    }
+
+    @Test
+    void getDeviceTypesFailValueTooLowTotalDevices() {
+        ReadConfigFile.setConfigPath("resources/configFiles/configFalseTooLowTotal.properties");
 
         List<String> expectedResult = Arrays.asList();
         List<String> result = ReadConfigFile.getDeviceTypes();

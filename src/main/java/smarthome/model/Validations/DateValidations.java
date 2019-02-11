@@ -1,5 +1,7 @@
 package smarthome.model.Validations;
 
+import smarthome.io.ui.UtilsUI;
+
 public class DateValidations {
 
     /**
@@ -11,7 +13,7 @@ public class DateValidations {
     public boolean yearIsValid(String year) {
         checkIfInputIsEmpty(year);
         if (!year.matches("^201[0-9]|20[2-9][0-9]$")) {
-            System.out.println("Please insert a valid year between 2010 and 2099.");
+            UtilsUI.printLnInsertValidParameter("year between 2010 and 2099");
             return false;
         }
         return true;
@@ -27,7 +29,7 @@ public class DateValidations {
     public boolean monthIsValid(String inputMonth) {
         checkIfInputIsEmpty(inputMonth);
         if (!inputMonth.matches("^([1-9]|1[0-2])$")) { //only accepts values between 1 and 12
-            System.out.println("Please insert a valid month.");
+            UtilsUI.printLnInsertValidParameter("month");
             return false;
         }
         return true;
@@ -45,23 +47,23 @@ public class DateValidations {
     public boolean dayIsValid(String day, int inputMonth, int inputYear) {
         checkIfInputIsEmpty(day);
         if (!day.matches("^(3[01]|[12][0-9]|[1-9])$")) { //only accepts values between 1 and 31
-            System.out.println("Please insert a valid day.");
+            UtilsUI.printLnInsertValidParameter("day");
             return false;
         }
         if (inputMonth == 4 || inputMonth == 6 || inputMonth == 9 || inputMonth == 11) {
             if (day.matches("^31$")) {
-                System.out.println("Please insert a valid day for the selected month: (" + inputMonth + ")");
+                UtilsUI.printLnInsertValidParameter("day for the selected month: ("+inputMonth+")");
                 return false;
             }
         }
         if (inputMonth == 2) {
             if (inputYear % 4 != 0) {
                 if (day.matches("^(29|30|31)$")) {
-                    System.out.println("Please insert a valid day for the selected month: (" + inputMonth + ")");
+                    UtilsUI.printLnInsertValidParameter("day for the selected month: ("+inputMonth+")");
                     return false;
                 }
             } else if (day.matches("^(30|31)$")) {
-                System.out.println("Please insert a valid day for the selected month: (" + inputMonth + ")");
+                UtilsUI.printLnInsertValidParameter("day for the selected month: ("+inputMonth+")");
                 return false;
             }
         }
@@ -84,7 +86,7 @@ public class DateValidations {
     public boolean hourIsValid(String hour) {
         checkIfInputIsEmpty(hour);
         if (!hour.matches("^(2[0-3]|[1][0-9]|[0-9])")) {
-            System.out.println("Please insert a valid hour.");
+            System.out.println("Please False hour.");
             return false;
         }
         return true;
@@ -99,7 +101,8 @@ public class DateValidations {
     public boolean minuteIsValid(String minute) {
         checkIfInputIsEmpty(minute);
         if (!minute.matches("^([0-9]|[1-5][0-9])")) {
-            System.out.println("Please insert a valid minute.");
+            UtilsUI.printLnInsertValidOption();
+            UtilsUI.printLnInsertValidParameter("minute");
             return false;
         }
         return true;

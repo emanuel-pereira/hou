@@ -1,4 +1,3 @@
-/*
 package smarthome.io.ui;
 
 import smarthome.controller.NewHouseGridCTRL;
@@ -28,7 +27,7 @@ public class US135AddPowerSourceToGridUI {
     }
 
     public void addPowerSourceToHouseGrid() {
-        if (mCtrlUS130.getHouseGridListSize().size() != 0) {
+        if (mCtrlUS130.getHouseGridListSize() != 0) {
 
             System.out.println("Please select the House Grid to which you wish to add your Power Source to:");
             System.out.println(mCtrlUS130.showGridsListInString());
@@ -36,7 +35,7 @@ public class US135AddPowerSourceToGridUI {
             while (true) {
                 Scanner read1 = new Scanner(System.in);
                 indexHG = read1.nextInt();
-                if (indexHG > mCtrlUS130.getHouseGridListSize().size() || indexHG<=0)
+                if (indexHG > mCtrlUS130.getHouseGridListSize() || indexHG <= 0)
                     System.out.println("Please insert a valid option.\n");
                 else
                     break;
@@ -86,17 +85,14 @@ public class US135AddPowerSourceToGridUI {
             if (mCtrlUS135.addNewPSToGrid(indexHG, name, type, maxPower, storageCapacity)) {
                 System.out.println("Success! The power source " + name + " of the " + type +
                         " type, with maximum power of " + maxPower + " watts and storage capacity of "
-                        + storageCapacity + " kilowatts was created.\n\n" */
-/*+mCtrlUS135.showPowerSourceListInString()+ "\n"*//*
-);
-                System.out.println(mCtrlUS135.showPowerSourceListInString(mHouse.getHGListInHouse().getHouseGridListSize().get(indexHG - 1)) + "\n");
+                        + storageCapacity + " kilowatts was created.\n\n"
+                        + mCtrlUS135.showPowerSourceListInString(mHouseGrid) + "\n"
+                );
+                System.out.println(mCtrlUS135.showPowerSourceListInString(mHouse.getHGListInHouse().getHouseGridList().get(indexHG - 1)) + "\n");
             }
-            */
-/*if(mCtrlUS135.getPowerSourceList().size() != 0){
-                System.out.println("Here is complete list of Power Sources in the current grid:\n"+mCtrlUS135.showPowerSourceListInString()+"\n\n");
-            }*//*
-
-            else {
+            if (mCtrlUS135.getPowerSourceListCtrl(mHouseGrid).size() != 0) {
+                System.out.println("Here is complete list of Power Sources in the current grid:\n" + mCtrlUS135.showPowerSourceListInString(mHouseGrid) + "\n\n");
+            } else {
                 System.out.println("Fail! Please try again.");
             }
         } else {
@@ -134,4 +130,4 @@ public class US135AddPowerSourceToGridUI {
         return number;
     }
 
-}*/
+}

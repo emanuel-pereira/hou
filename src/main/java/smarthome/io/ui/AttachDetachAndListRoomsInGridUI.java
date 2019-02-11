@@ -55,7 +55,7 @@ public class AttachDetachAndListRoomsInGridUI {
                     this.selectHGToDetachRoom();
                     break;
                 default:
-                    printLnInsertValidOption();
+                    UtilsUI.printLnInsertValidOption();
             }
         }
     }
@@ -77,11 +77,11 @@ public class AttachDetachAndListRoomsInGridUI {
     }
 
     private void chooseRoomToAttach() {
-            isValidIndexOfRoom();
-            mCtrl.attachRoomToHouseGrid(mIndexOfHG, mIndexOfRoom);
-            System.out.println("Room " + mCtrl.getNameOfLastRoomInHG(mIndexOfHG) + " was successfully attached to HouseGrid: " + mCtrl.getHGName(mIndexOfHG) + ".\n");
-            showRoomsInHG();
-            return;
+        isValidIndexOfRoom();
+        mCtrl.attachRoomToHouseGrid(mIndexOfHG, mIndexOfRoom);
+        System.out.println("Room " + mCtrl.getNameOfLastRoomInHG(mIndexOfHG) + " was successfully attached to HouseGrid: " + mCtrl.getHGName(mIndexOfHG) + ".\n");
+        showRoomsInHG();
+        return;
     }
 
 
@@ -134,9 +134,6 @@ public class AttachDetachAndListRoomsInGridUI {
     }
 
 
-    private void printLnInsertValidOption() {
-        System.out.println("Please insert a valid option.");
-    }
 
     private boolean isValidIndexOfRoom() {
         while (true) {
@@ -147,7 +144,7 @@ public class AttachDetachAndListRoomsInGridUI {
             if (mIndexOfRoom <= mCtrl.getRoomsWithoutGridSize(mIndexOfHG)) {
                 break;
             }
-            printLnInsertValidOption();
+            UtilsUI.printLnInsertValidOption();
 
         }
         return true;
@@ -163,7 +160,7 @@ public class AttachDetachAndListRoomsInGridUI {
             if (mIndexOfRoom <= mCtrl.getRoomListOfHGSize(mIndexOfHG)) {
                 break;
             }
-            printLnInsertValidOption();
+            UtilsUI.printLnInsertValidOption();
         }
         return true;
     }
@@ -177,7 +174,7 @@ public class AttachDetachAndListRoomsInGridUI {
             if (mIndexOfHG <= mCtrl.getHouseGridListSize()) {
                 break;
             }
-            printLnInsertValidOption();
+            UtilsUI.printLnInsertValidOption();
         }
         return true;
     }

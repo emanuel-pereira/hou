@@ -73,14 +73,14 @@ public class GAList {
      *
      * @param inputTypeGA string inserted by user
      */
-    public List<GeographicalArea> GAFromThisType(String inputTypeGA) {
-        List<GeographicalArea> GAFromTypeList = new ArrayList<>();
+    public List<GeographicalArea> gAFromThisType(String inputTypeGA) {
+        List<GeographicalArea> gAFromTypeList = new ArrayList<>();
         for (GeographicalArea ga : mGAList) {
             if (ga.getGeographicalAreaType().equals(inputTypeGA)) {
-                GAFromTypeList.add(ga);
+                gAFromTypeList.add(ga);
             }
         }
-        return GAFromTypeList;
+        return gAFromTypeList;
     }
 
     /**

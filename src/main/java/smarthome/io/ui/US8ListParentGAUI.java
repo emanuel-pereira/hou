@@ -8,18 +8,16 @@ import java.util.Scanner;
 public class US8ListParentGAUI {
 
     private Scanner keyboard = new Scanner(System.in);
-    private GAList mGAList;
     private US8ListParentGACTRL mCtrlUS8;
 
     /**
      * This is the constructor method for the UI, it will receive the GA's list in order to
      * present to the user and do the proceeding methods
      *
-     * @param GAList attribute List were all previously created GA's are listed
+     * @param gaList attribute List were all previously created GA's are listed
      */
-    public US8ListParentGAUI(GAList GAList) {
-        mGAList = GAList;
-        mCtrlUS8 = new US8ListParentGACTRL(GAList);
+    public US8ListParentGAUI(GAList gaList) {
+        mCtrlUS8 = new US8ListParentGACTRL(gaList);
     }
 
     /**

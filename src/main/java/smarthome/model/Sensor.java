@@ -1,18 +1,16 @@
 package smarthome.model;
 
 import java.util.Calendar;
-import java.util.List;
 import java.util.Objects;
 
 
 public class Sensor {
     private String mDesignation;
-    private Calendar mStartDate;
     private Location mLocation;
     private SensorType mSensorType;
+    private Calendar mStartDate;
     private String mUnit; //to analyse the creation of a class unit so we may have a list of units for a specific Datatype (eg. SensorType: temperature with list of units containing: celsius, kelvin and fahrenheit)
-
-    private ReadingList mReadingList = new ReadingList ();
+    private ReadingList mReadingList;
 
 
     /**
@@ -69,11 +67,11 @@ public class Sensor {
      */
     public Sensor(String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         if (nameIsValid(designation)) {
-            this.mDesignation = designation;
-            this.mStartDate = startDate;
-            this.mSensorType = sensorType;
-            this.mUnit = unit;
-            this.mReadingList = readings;
+            mDesignation = designation;
+            mStartDate = startDate;
+            mSensorType = sensorType;
+            mUnit = unit;
+            mReadingList = readings;
         }
     }
 
@@ -189,15 +187,6 @@ public class Sensor {
         return mLocation.calcLinearDistanceBetweenTwoPoints (sensor1.getLocation (), sensor2.getLocation ());
     }
 
-    /**
-     * Method to add a new reading to the list of readings of a sensor.
-     *
-     * @param newReading new reading object with a value and date
-     */
-    public void addReadingToList(Reading newReading) {
-        if (!(mReadingList.getReadingList ().contains (newReading)))
-            this.mReadingList.addReading (newReading);
-    }
 
 
     /**
@@ -206,9 +195,7 @@ public class Sensor {
      * @return the last reading of a list of readings
      */
     public Reading getLastReadingPerSensor() {
-        Reading lastValue;
-        lastValue = mReadingList.getReadingList ().get (mReadingList.getReadingList ().size () - 1);
-        return lastValue;
+        return mReadingList.getLastReading();
     }
 
     public double getLastReadingValuePerSensor() {

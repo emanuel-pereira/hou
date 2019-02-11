@@ -10,10 +10,8 @@ public class US105AddNewRoomToHouseUI {
     Scanner read = new Scanner (System.in);
 
     private US105AddNewRoomToHouseCTRL mUS105CTRL;
-    private House mHouse;
 
     public US105AddNewRoomToHouseUI(House house) {
-        mHouse = house;
         mUS105CTRL = new US105AddNewRoomToHouseCTRL (house);
 
     }

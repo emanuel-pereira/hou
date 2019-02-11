@@ -81,7 +81,7 @@ class GAListTest {
         GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita","Street",41,-8, 83,2,5);
         gaList.addGA(ga3);
         List<GeographicalArea> expectedresult = new ArrayList<>(Arrays.asList(ga3)); //Usar Arrays.asList dentro de um a nova array list caso dê erro null point exception
-        List<GeographicalArea> result = gaList.GAFromThisType("street");
+        List<GeographicalArea> result = gaList.gAFromThisType("street");
         assertEquals(expectedresult, result);
     }
 
@@ -96,7 +96,7 @@ class GAListTest {
         GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita","Street",41,-8, 83,2,5);
         gaList.addGA(ga3);
         List<GeographicalArea> expectedresult = new ArrayList<>(Arrays.asList(ga1,ga2));
-        List<GeographicalArea> result = gaList.GAFromThisType("city");
+        List<GeographicalArea> result = gaList.gAFromThisType("city");
         assertEquals(expectedresult, result);
     }
 
@@ -111,7 +111,7 @@ class GAListTest {
         GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita","Street",41,-8, 83,2,5);
         gaList.addGA(ga3);
         List<GeographicalArea> expectedresult = Arrays.asList();
-        List<GeographicalArea> result=gaList.GAFromThisType("Country");
+        List<GeographicalArea> result = gaList.gAFromThisType("Country");
         assertEquals(expectedresult, result);
     }
 
@@ -126,7 +126,7 @@ class GAListTest {
         GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita","Street",41,-8, 83,2,5);
         gaList.addGA(ga3);
         List<GeographicalArea> expectedresult = Arrays.asList();
-        List<GeographicalArea> result=gaList.GAFromThisType("");
+        List<GeographicalArea> result = gaList.gAFromThisType("");
         assertEquals(expectedresult, result);
     }
 

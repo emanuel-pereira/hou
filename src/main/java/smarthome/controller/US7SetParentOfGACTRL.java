@@ -15,11 +15,10 @@ public class US7SetParentOfGACTRL {
     }
 
     public void setParentofGA(int indexGA1, int indexGA2) {
-        GeographicalArea GA = mGAList.getGAList ().get (indexGA1 - 1);
-        GeographicalArea GA2 = mGAList.getGAList ().get (indexGA2 - 1);
-        if (!(GA.getGeographicalAreaType ().equals (GA2.getGeographicalAreaType ())))
-            GA.setmParentGA (GA2);
-
+        GeographicalArea ga = mGAList.getGAList().get(indexGA1 - 1);
+        GeographicalArea ga2 = mGAList.getGAList().get(indexGA2 - 1);
+        if (!(ga.getGeographicalAreaType().equals(ga2.getGeographicalAreaType())))
+            ga.setmParentGA(ga2);
     }
 
 

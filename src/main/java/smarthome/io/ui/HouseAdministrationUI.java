@@ -48,8 +48,8 @@ public final class HouseAdministrationUI {
                     ui130.run();
                     break;
                 case 5:
-                    //US135AddPowerSourceToGridUI ui135 = new US135AddPowerSourceToGridUI(house, hgList, pslist);
-                    //ui135.addPowerSourceToHouseGrid();
+                    US135AddPowerSourceToGridUI ui135 = new US135AddPowerSourceToGridUI(house, hgList, pslist);
+                    ui135.addPowerSourceToHouseGrid();
                     break;
                 case 6:
                     AttachDetachAndListRoomsInGridUI ui145 = new AttachDetachAndListRoomsInGridUI(house);

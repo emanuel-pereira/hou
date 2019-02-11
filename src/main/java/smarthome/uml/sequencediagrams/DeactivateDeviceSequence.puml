@@ -1,57 +1,49 @@
 @startuml
 autonumber
+hidefootbox
 
 actor Administrator
-participant ":House" order 4
-participant "rL:RoomList" order 5
-participant "r:Room" order 6
-participant "dL:DeviceList" order 7
-participant "d:Device" order 8
-create ":EditDeviceUI"
-Administrator -> ":EditDeviceUI": deactivate Device
+participant "rL:RoomList" order 4
+participant "r:Room" order 5
+participant "dL:DeviceList" order 6
+participant "d:Device" order 7
 
-create ":EditDeviceCTRL"
+Administrator -> ":EditDeviceUI": Deactivate Device
+
+
 activate ":EditDeviceUI"
-":EditDeviceUI" -> ":EditDeviceCTRL": create
+":EditDeviceUI" -> ":EditDeviceCTRL": rList = showRoomListInString( )
 
 activate ":EditDeviceCTRL"
-
-":EditDeviceCTRL" -> ":House": rL = getRoomList( )
-activate ":House"
-deactivate ":House"
-":EditDeviceCTRL" -> "rL:RoomList": rLasString = showRoomListInString( )
+":EditDeviceCTRL" -> "rL:RoomList": rList = showRoomListInString( )
 activate "rL:RoomList"
 deactivate "rL:RoomList"
-":EditDeviceCTRL" -->> ":EditDeviceUI": rLasString
-
 Administrator <<-- ":EditDeviceUI": Show room list
 
 Administrator -> ":EditDeviceUI": Choose room
-
-":EditDeviceCTRL" -> "r:Room": dL = getDeviceList( )
-activate "r:Room"
-":EditDeviceCTRL" -> "dL:DeviceList": dLasString = showDeviceListInString( )
+":EditDeviceUI" -> ":EditDeviceCTRL": dList = showDeviceListInString( )
+":EditDeviceCTRL" -> "dL:DeviceList": dList = showDeviceListInString( )
 activate "dL:DeviceList"
-":EditDeviceCTRL" -->>  ":EditDeviceUI": dLasString
-
+deactivate "dL:DeviceList"
 Administrator <<-- ":EditDeviceUI": Show device list
 
 Administrator -> ":EditDeviceUI": Choose device
 
 ":EditDeviceUI" -> ":EditDeviceCTRL": deactivateDevice(roomIndex, deviceIndex)
 
-":EditDeviceCTRL" -> "r:Room": deactivateDevice(roomIndex, deviceIndex)
-
+":EditDeviceCTRL" -> "rL:RoomList": deactivateDevice(roomIndex, deviceIndex)
+activate "r:Room"
 "r:Room" -> "dL:DeviceList": deactivateDevice(deviceIndex)
-
-"dL:DeviceList" -> "d:Device": status( )
+activate "dL:DeviceList"
+"dL:DeviceList" -> "d:Device": deactivateDevice( )
 activate "d:Device"
-"d:Device" -> "d:Device": active: false
-":EditDeviceCTRL" -> "dL:DeviceList": dLasString = showDeviceListInString( )
 deactivate "d:Device"
-":EditDeviceCTRL" -->>  ":EditDeviceUI": dLasString
+":EditDeviceUI" -> ":EditDeviceCTRL": dList = showDeviceListInString( )
+":EditDeviceCTRL" -> "dL:DeviceList": dList = showDeviceListInString( )
+
 deactivate "dL:DeviceList"
 deactivate "r:Room"
-Administrator <<-- ":EditDeviceUI": Show device list with new status
 deactivate ":EditDeviceCTRL"
+Administrator <<-- ":EditDeviceUI": Show updated device list
+deactivate ":EditDeviceUI"
 @enduml

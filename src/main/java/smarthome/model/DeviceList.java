@@ -1,7 +1,6 @@
 package smarthome.model;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class DeviceList {
@@ -54,31 +53,19 @@ public class DeviceList {
         return mDeviceList.get(mDeviceList.size() - 1);
     }
 
-    /**
-     * @param deviceType the type of device that the list returns
-     * @return a list of devices which have the same type as the one inputted as parameter
-     */
-    public List<Device> getDevicesOfType(DeviceType deviceType) {
-        List<Device> deviceListByType = new ArrayList<>();
-        for (Device device : mDeviceList) {
-            if (device.getDeviceSpecs().getType().equals(deviceType))
-                deviceListByType.add(device);
-        }
-        return deviceListByType;
-    }
 
     /**
      * Method to get the list of Powered devices of a room
      *
      * @return the device list
      * public List<Powered> getPoweredDeviceList() {
-     * List<Powered> poweredDeviceList;
-     * for Device device: mDeviceList
-     * {
-     * poweredDeviceList.add(mDeviceList.get().)
-     * }
-     * return ;
-     * }
+     List<Powered> poweredDeviceList;
+     for Device device: mDeviceList
+     {
+     poweredDeviceList.add(mDeviceList.get().)
+     }
+     return ;
+     }
      */
 
     public String showDeviceListInString() {
@@ -115,7 +102,7 @@ public class DeviceList {
      * @param device object device that will be removed
      * @return boolean result of the device's removal
      */
-    public boolean removeDevice(Device device) {
+    public boolean remove(Device device) {
         return this.mDeviceList.remove(device);
     }
 
@@ -137,29 +124,11 @@ public class DeviceList {
         List<Device> meteredDeviceList = new ArrayList<>();
 
         for (Device device : mDeviceList) {
-            if (device.isMetered() == true) {
+            if (device.isMetered()) {
                 meteredDeviceList.add(device);
             }
         }
         return meteredDeviceList;
-    }
-
-    /**
-     *
-     * @return a unique string with a list of all devices that have isMetered parameter set as true
-     */
-    public String showMeteredDevicesInStr() {
-        List<Device> meteredDeviceList = getMeteredDevices();
-        StringBuilder result = new StringBuilder ();
-        String element = " - ";
-        int number = 1;
-        for (Device device : meteredDeviceList) {
-            result.append (number++);
-            result.append (element);
-            result.append (device.getName());
-            result.append ("\n");
-        }
-        return result.toString ();
     }
 
 }

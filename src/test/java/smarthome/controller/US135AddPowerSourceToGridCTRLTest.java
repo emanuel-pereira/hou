@@ -1,4 +1,3 @@
-/*
 package smarthome.controller;
 
 import org.junit.jupiter.api.DisplayName;
@@ -16,18 +15,17 @@ class US135AddPowerSourceToGridCTRLTest {
     @DisplayName("Method to get a list of the previously inserted House Grids")
     void getHouseGridListTest (){
         House house = new House();
-        HouseGrid houseGrid = new HouseGrid();
         HouseGridList hgList = new HouseGridList();
         PowerSourceList psList = new PowerSourceList();
         US135AddPowerSourceToGridCTRL ctrl135 = new US135AddPowerSourceToGridCTRL(house,hgList,psList);
-        HouseGrid hg01 = new HouseGrid("energygrid01",300);
-        HouseGrid hg02 = new HouseGrid("energygrid02",200);
+        HouseGrid hg01 = new HouseGrid("energygrid01");
+        HouseGrid hg02 = new HouseGrid("energygrid02");
         house.getHGListInHouse().addHouseGrid(hg01);
         house.getHGListInHouse().addHouseGrid(hg02);
 
 
         List<HouseGrid> expectedResult = Arrays.asList(hg01,hg02);
-        List<HouseGrid> result = ctrl135.getHouseGridListSize();
+        List<HouseGrid> result = ctrl135.getHouseGridList();
 
         assertEquals(expectedResult, result);
     }
@@ -39,14 +37,14 @@ class US135AddPowerSourceToGridCTRLTest {
         HouseGridList hgList = new HouseGridList();
         PowerSourceList psList = new PowerSourceList();
         US135AddPowerSourceToGridCTRL ctrl135 = new US135AddPowerSourceToGridCTRL(house,hgList,psList);
-        HouseGrid hg01 = new HouseGrid("energygrid01",300);
-        HouseGrid hg02 = new HouseGrid("energygrid02",200);
+        HouseGrid hg01 = new HouseGrid("energygrid01");
+        HouseGrid hg02 = new HouseGrid("energygrid02");
         house.getHGListInHouse().addHouseGrid(hg01);
         house.getHGListInHouse().addHouseGrid(hg02);
 
 
         List<HouseGrid> expectedResult = Arrays.asList(hg01);
-        List<HouseGrid> result = ctrl135.getHouseGridListSize();
+        List<HouseGrid> result = ctrl135.getHouseGridList();
 
         assertNotEquals(expectedResult, result);
     }
@@ -58,8 +56,8 @@ class US135AddPowerSourceToGridCTRLTest {
         HouseGridList hgList = new HouseGridList();
         PowerSourceList psList = new PowerSourceList();
         US135AddPowerSourceToGridCTRL ctrl135 = new US135AddPowerSourceToGridCTRL(house,hgList,psList);
-        HouseGrid hg01 = new HouseGrid("energygrid01",300);
-        HouseGrid hg02 = new HouseGrid("energygrid02",200);
+           HouseGrid hg01 = new HouseGrid("energygrid01");
+           HouseGrid hg02 = new HouseGrid("energygrid02");
         house.getHGListInHouse().addHouseGrid(hg01);
         house.getHGListInHouse().addHouseGrid(hg02);
 
@@ -75,13 +73,13 @@ class US135AddPowerSourceToGridCTRLTest {
         HouseGridList hgList = new HouseGridList();
         PowerSourceList psList = new PowerSourceList();
         US135AddPowerSourceToGridCTRL ctrl135 = new US135AddPowerSourceToGridCTRL(house,hgList, psList);
-        HouseGrid hg01 = new HouseGrid("energygrid01",300);
-        HouseGrid hg02 = new HouseGrid("energygrid02",200);
+        HouseGrid hg01 = new HouseGrid("energygrid01");
+        HouseGrid hg02 = new HouseGrid("energygrid02");
         house.getHGListInHouse().addHouseGrid(hg01);
         house.getHGListInHouse().addHouseGrid(hg02);
 
-        boolean expectedResult = false; */
-/*new PowerSource("panel002", "solar", 100, 100);*//*
+        boolean expectedResult = false;
+        new PowerSource("panel002", "solar", 100, 100);
 
         boolean result = ctrl135.addNewPSToGrid(1,"panel002","solar",100,100);
 
@@ -95,8 +93,8 @@ class US135AddPowerSourceToGridCTRLTest {
         HouseGridList hgList = new HouseGridList();
         PowerSourceList psList = new PowerSourceList();
         US135AddPowerSourceToGridCTRL ctrl135 = new US135AddPowerSourceToGridCTRL(house,hgList,psList);
-        HouseGrid hg01 = new HouseGrid("energygrid01",300);
-        HouseGrid hg02 = new HouseGrid("energygrid02",200);
+        HouseGrid hg01 = new HouseGrid("energygrid01");
+        HouseGrid hg02 = new HouseGrid("energygrid02");
         house.getHGListInHouse().addHouseGrid(hg01);
         house.getHGListInHouse().addHouseGrid(hg02);
 
@@ -118,8 +116,8 @@ class US135AddPowerSourceToGridCTRLTest {
         HouseGridList hgList = new HouseGridList();
         PowerSourceList psList = new PowerSourceList();
         US135AddPowerSourceToGridCTRL ctrl135 = new US135AddPowerSourceToGridCTRL(house,hgList,psList);
-        HouseGrid hg01 = new HouseGrid("energygrid01",300);
-        HouseGrid hg02 = new HouseGrid("energygrid02",200);
+        HouseGrid hg01 = new HouseGrid("energygrid01");
+        HouseGrid hg02 = new HouseGrid("energygrid02");
         house.getHGListInHouse().addHouseGrid(hg01);
         house.getHGListInHouse().addHouseGrid(hg02);
 
@@ -139,8 +137,8 @@ class US135AddPowerSourceToGridCTRLTest {
         HouseGridList hgList = new HouseGridList();
         PowerSourceList psList = new PowerSourceList();
         US135AddPowerSourceToGridCTRL ctrl135 = new US135AddPowerSourceToGridCTRL(house,hgList,psList);
-        HouseGrid hg01 = new HouseGrid("energygrid01",300);
-        HouseGrid hg02 = new HouseGrid("energygrid02",200);
+        HouseGrid hg01 = new HouseGrid("energygrid01");
+        HouseGrid hg02 = new HouseGrid("energygrid02");
         house.getHGListInHouse().addHouseGrid(hg01);
         house.getHGListInHouse().addHouseGrid(hg02);
 
@@ -153,4 +151,4 @@ class US135AddPowerSourceToGridCTRLTest {
         assertEquals(expectedResult,result);
 
     }
-}*/
+}

@@ -50,15 +50,18 @@ public final class PowerUserUI {
                     ui705.run();*/
                     break;
                 case 6:
-                    System.out.println("US222");
+                    EditDevicesUI devicesUI = new EditDevicesUI(house);
+                    devicesUI.deactivateDevice();
                     break;
                 case 7:
-                    System.out.println("US720");
                     EnergyConsumptionInPeriodUI uiEC = new EnergyConsumptionInPeriodUI(house);
                     uiEC.selectOption();
                     break;
                 case 8:
                     System.out.println("US730");
+                    /*EnergyConsumptionInPeriodUI uiEC2 = new EnergyConsumptionInPeriodUI(house);
+                    uiEC2.selectChartOption();
+                    */
                     System.out.println(house.getRoomList().getRoomList().get(2).getDeviceList().get(1).getActivityLogSum());
                     break;
                 default:

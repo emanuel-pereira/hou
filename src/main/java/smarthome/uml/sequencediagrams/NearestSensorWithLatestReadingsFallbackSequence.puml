@@ -1,0 +1,35 @@
+@startuml
+autonumber
+hidefootbox
+
+'1. sensores do mesmo tipo
+'2. obter sensor mais próximo
+'3. caso haja >1 sensor à mesma distância:
+'   a) 600: devolve valor da reading mais recente dos sensores obtidos
+
+'      620: verifica quais os sensores com readings para a data pedida e, caso haja > 1,
+'devolve o que tem a reading mais recente nesse dia
+' -> calcula-se o valor de precipitação total desse sensor
+
+'      623: verifica quais os sensores com readings para o intervalo dado e:
+' - caso haja só 1, calcula-se a média das suas readings para o intervalo
+' - caso haja mais do que 1, verifica-se qual tem a reading mais recente e retorna-se esse sensor
+' calculando de seguida a média
+
+
+
+":House"-> "sL:SensorList": sL = getClosestSensors\nByType (sensorType)
+loop for each sensor
+ "sL:SensorList" -> "s:Sensor": sL = getClosestSensors\nByType (sensorType)
+end
+
+
+":House" -> "sL:SensorList": s = getSensorWithLatestReadings\nByType(sensorType)
+loop for each sensor
+"sL:SensorList" -> "s:Sensor": s = getSensorWithLatestReadings\nByType(sensorType)
+end
+
+
+
+
+@enduml

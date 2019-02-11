@@ -13,7 +13,7 @@ public class US160GetDeviceListInGridByTypeCTRL {
     }
 
     public List<HouseGrid> getHouseGridListCtrl() {
-        return mHouse.getHGListInHouse().getHouseGridListSize();
+        return mHouse.getHGListInHouse().getHouseGridList();
     }
 
     public String showHouseGridListInStringCtrl() {
@@ -35,11 +35,11 @@ public class US160GetDeviceListInGridByTypeCTRL {
     public List<Device> getDeviceListInGridCtrl(int indexHG) {
         DeviceList deviceListInGrid = new DeviceList();
         for (int i = 0; i < this.getListOfRoomsInGrid(indexHG).getRoomListSize(); i++) {
-            for (Device d : this.getListOfRoomsInGrid(indexHG).get(i).getDeviceList().getDeviceList()) {
+            for (Device d : this.getListOfRoomsInGrid(indexHG).get(i).deviceListSizeInGridIsNotEmpty().deviceListSizeInGridIsNotEmpty()) {
                 deviceListInGrid.addDevice(d);
             }
         }
-        return deviceListInGrid.getDeviceList();
+        return deviceListInGrid.deviceListSizeInGridIsNotEmpty();
     }
 
     public List<Device> deviceListGroupByTypeCtrl(int indexHG){
@@ -52,7 +52,7 @@ public class US160GetDeviceListInGridByTypeCTRL {
                 }
             }
         }
-    return deviceListGroupByType.getDeviceList();
+    return deviceListGroupByType.deviceListSizeInGridIsNotEmpty();
     }
 
 
@@ -70,10 +70,11 @@ public class US160GetDeviceListInGridByTypeCTRL {
             result.append(", Type: ");
             result.append(device.getDeviceSpecs().getType().getTypeString());
             result.append(",Location: ");
-            *//*result.append(device.getRoom().getName());*//*
+            result.append(device.getRoom().getName());
             result.append(".\n");
         }
         return result.toString();
     }
 
-}*/
+}
+*/

@@ -1,7 +1,6 @@
 package smarthome.model;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -46,6 +45,10 @@ public class Dishwasher implements DeviceSpecs {
         String capacity = "4 - Dishwater Capacity : " + this.mCapacity;
         if (attribute.equals(capacity))
             setCapacity(parseInt(newValue));
+    }
+
+    public ProgramList getProgramListInDW() {
+        return mProgramListInDW;
     }
 
     @Override

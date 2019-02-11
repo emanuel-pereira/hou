@@ -8,7 +8,7 @@ import java.util.List;
 
 import static java.lang.Double.parseDouble;
 
-public class Device implements Metered{
+public class Device implements Metered {
 
     NameValidations nameValidation = new NameValidations();
 
@@ -18,7 +18,6 @@ public class Device implements Metered{
     private boolean mActive;
     private boolean mIsMetered;
     private ReadingList mActivityLog;
-
 
 
     /**
@@ -33,8 +32,8 @@ public class Device implements Metered{
         mDeviceSpecs = deviceSpecs;
         setNominalPower(nominalPower);
         mActive = true;
-        mIsMetered=true;
-        mActivityLog= new ReadingList();
+        mIsMetered = true;
+        mActivityLog = new ReadingList();
     }
 
     /**
@@ -111,7 +110,8 @@ public class Device implements Metered{
         }
         this.getDeviceSpecs().setAttributeValue(attribute, newValue);
     }
-    public double getEnergyConsumption(){
+
+    public double getEnergyConsumption() {
         return mDeviceSpecs.getEnergyConsumption();
     }
 
@@ -135,19 +135,20 @@ public class Device implements Metered{
     }
 
     @Override
-    public double getEnergyConsumptionInPeriod(Calendar startHour, Calendar endHour) {
-        double energyConsumption=0;
-        if (ReadConfigFile.getDevicesMeteringPeriod()!=-1&&this.isMetered()){
-            energyConsumption=mActivityLog.getValueOfReadingsInTimeInterval(startHour,endHour);
+    public double getEnergyConsumptionInTimeInterval(Calendar startDate, Calendar endDate) {
+        double energyConsumption = 0;
+        if (ReadConfigFile.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
+            energyConsumption = mActivityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
         }
         return energyConsumption;
     }
-//put this method as private after reviewing create device US
-public void setIsMetered(boolean isMetered) {
-    if (!isMetered)
-        mActivityLog = null;
-    this.mIsMetered = isMetered;
-}
+
+    //put this method as private after reviewing create device US
+    public void setIsMetered(boolean isMetered) {
+        if (!isMetered)
+            mActivityLog = null;
+        this.mIsMetered = isMetered;
+    }
 
     public boolean isMetered() {
         return mIsMetered;

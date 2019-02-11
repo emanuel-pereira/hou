@@ -1,0 +1,62 @@
+@startuml
+
+class House {
+- mAddress: Address
+- mID: String
+- mGA: Geographical Area
+- mRoomList: RoomList
+- mHGListInHouse: HouseGridList
++ getRoomListFromHouse()
+}
+
+class RoomList{
+- mRoomList: List<Room>
++ getRoomList()
++ showRoomListInString()
+}
+
+class Room{
+- mName: String
+- mFloor: Integer
+- mArea: OccupationArea
+- mHeight: double
+- mSensorListInRoom: SensorList
+- mDeviceList: DeviceList
++ getDeviceList()
+}
+
+
+class DeviceList{
+- mDeviceList: List<Device>
++ get()
++ getDeviceList()
++ showDeviceListInString()
++ removeDevice(Device device)
++ deactivateDevice(Device device)
+}
+
+class Device {
+- mName: String
+- mDeviceSpecs: DeviceSpecs
+- mNominalPower: double
+- mActive: boolean;
+- mIsMetered: boolean;
+- mActivityLog: ReadingList ;
++ status()
++ deactivateDevice()
+}
+
+interface DeviceSpecs{
++ getDeviceAttributesInString()
++ setAttributeValue()
+}
+
+House  *- "1" RoomList: contains
+RoomList *- "1..*"Room: contains
+Room *-- "1"DeviceList: contains
+Device"*" -* DeviceList: contains
+DeviceSpecs <|. Device
+
+
+
+@enduml

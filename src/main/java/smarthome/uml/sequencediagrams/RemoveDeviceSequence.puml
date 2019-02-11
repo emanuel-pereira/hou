@@ -3,34 +3,53 @@ autonumber
 hidefootbox
 
 actor Administrator
+participant ":EditDeviceUI" order 1
+participant ":EditDeviceCTRL" order 2
+participant ":House" order 3
+participant "rL:RoomList" order 4
+participant "r:Room" order 5
+participant "dL:DeviceList" order 6
 
-Administrator -> ":EditDeviceUI": start
+Administrator -> ":EditDeviceUI": Remove Device
 
-create ":EditDeviceCTRL"
 activate ":EditDeviceUI"
-":EditDeviceUI" -> ":EditDeviceCTRL": create
+":EditDeviceUI" -> ":EditDeviceCTRL": rList = showRoomListInString( )
 
 activate ":EditDeviceCTRL"
-":EditDeviceCTRL" -> ":House": rL = getRoomList( )
+":EditDeviceCTRL" -> ":House": rList = showRoomListInString( )
 
-":House" -> "rL:RoomList": getRoomList( )
+activate ":House"
+":House" -> "rL:RoomList": rList = showRoomListInString( )
+activate "rL:RoomList"
+deactivate "rL:RoomList"
+deactivate ":House"
 
-Administrator <<-- ":EditDeviceUI": Show room list
+Administrator <<-- ":EditDeviceUI": Show list of Rooms
+Administrator -> ":EditDeviceUI": Choose Room
 
-Administrator -> ":EditDeviceUI": Choose room
-
-"rL:RoomList" -> ":Room": dL = getDevicesList( )
-
-":Room" -> "dL :DeviceList": getDevicesList( )
+'":EditDeviceCTRL" -> "r:Room": dL = getDeviceList( )
+":EditDeviceUI" -> ":EditDeviceCTRL": dList = showDeviceListInString( )
+":EditDeviceCTRL" -> "dL:DeviceList": dList = showDeviceListInString( )
+activate "dL:DeviceList"
+deactivate "dL:DeviceList"
 
 Administrator <<-- ":EditDeviceUI": Show device list
 
 Administrator -> ":EditDeviceUI": Choose device
 
 ":EditDeviceUI" -> ":EditDeviceCTRL": removeDevice(roomIndex, deviceIndex)
+":EditDeviceCTRL" -> "rL:RoomList": removeDevice(roomIndex, deviceIndex)
+"rL:RoomList" -> "r:Room": remove(deviceIndex)
+"r:Room" -> "dL:DeviceList": remove(device)
 
-":EditDeviceCTRL" -> ":Room": removeDevice(roomIndex, deviceIndex)
+'device = room.getDeviceList().get(deviceIndex)
+":EditDeviceUI" -> ":EditDeviceCTRL": dList = showDeviceListInString( )
+":EditDeviceCTRL" -> "dL:DeviceList": dList = showDeviceListInString( )
 deactivate ":EditDeviceCTRL"
-":Room" -> "dL :DeviceList": removeDevice(deviceIndex)
+activate "dL:DeviceList"
+deactivate "dL:DeviceList"
+deactivate "r:Room"
+Administrator <<-- ":EditDeviceUI": Show updated device list
+deactivate ":EditDeviceCTRL"
 
 @enduml
