@@ -69,7 +69,7 @@ public class Fridge implements DeviceSpecs {
 
     @Override
     public double getEnergyConsumption() {
-        return mAnnualEnergyConsumption / 365;
+        return (double)mAnnualEnergyConsumption / 365.00;
     }
 
     public void setFreezerCapacity(int freezerCapacity) {

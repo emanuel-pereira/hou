@@ -105,8 +105,7 @@ public class EditDevicesCTRL {
     }
 
     public Room getRoomFromListIndex(int roomIndex) {
-        Room room = mHouse.getRoomList().getRoomList().get(roomIndex - 1);
-        return room;
+        return mHouse.getRoomList().getRoomList().get(roomIndex - 1);
     }
 
     public String showDeviceTypesListInString() {
@@ -129,8 +128,8 @@ public class EditDevicesCTRL {
     }
 
     public Device getDeviceFromIndex(int indexOfRoom, int indexOfDevice) {
-        Device device = getRoomFromListIndex(indexOfRoom).getDeviceList().get(indexOfDevice - 1);
-        return device;
+       return getRoomFromListIndex(indexOfRoom).getDeviceList().get(indexOfDevice - 1);
+
     }
 
     public List<String> getDeviceAttributesListInString(Device device) {
