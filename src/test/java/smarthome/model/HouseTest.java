@@ -354,7 +354,7 @@ class HouseTest {
 
     @Test
     @DisplayName("Get House Grid List from the House")
-    void getHouseGridListFromHouseTest () {
+    void getHouseGridListFromHouseTest() {
         House house = new House();
         HouseGrid hg01 = new HouseGrid("grid01");
         HouseGrid hg02 = new HouseGrid("grid02");
@@ -362,22 +362,22 @@ class HouseTest {
         house.getHGListInHouse().addHouseGrid(hg01);
         house.getHGListInHouse().addHouseGrid(hg02);
 
-        List<HouseGrid> expectedResult = Arrays.asList(hg01,hg02);
+        List<HouseGrid> expectedResult = Arrays.asList(hg01, hg02);
         List<HouseGrid> result = house.getHGListInHouse().getHouseGridList();
 
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
 
     }
 
     @Test
-    void showRoomsWithoutGrid(){
+    void showRoomsWithoutGrid() {
         House house = new House();
         HouseGrid hg1 = new HouseGrid("grid01");
         HouseGrid hg2 = new HouseGrid("grid02");
-        HouseGridList hgLst= house.getHGListInHouse();
+        HouseGridList hgLst = house.getHGListInHouse();
         hgLst.addHouseGrid(hg1);
         hgLst.addHouseGrid(hg2);
-        RoomList roomLstOfHouse=house.getRoomList();
+        RoomList roomLstOfHouse = house.getRoomList();
         Room kitchen = new Room("kitchen", 1, 2, 2.5, 2);
         roomLstOfHouse.addRoom(kitchen);
         hg1.attachRoomToGrid(kitchen);
@@ -387,9 +387,9 @@ class HouseTest {
         roomLstOfHouse.addRoom(bedroom);
         hg1.attachRoomToGrid(kitchen);
         hg1.attachRoomToGrid(bathroom);
-        int expected= 1;
-        int result= house.getRoomsWithoutGrid(hg1).getRoomListSize();
-        assertEquals(expected,result);
+        int expected = 1;
+        int result = house.getRoomsWithoutGrid(hg1).getRoomListSize();
+        assertEquals(expected, result);
     }
 
     @Test
@@ -397,10 +397,10 @@ class HouseTest {
         House house = new House();
         HouseGrid hg1 = new HouseGrid("grid01");
         HouseGrid hg2 = new HouseGrid("grid02");
-        HouseGridList hgLst= house.getHGListInHouse();
+        HouseGridList hgLst = house.getHGListInHouse();
         hgLst.addHouseGrid(hg1);
         hgLst.addHouseGrid(hg2);
-        RoomList roomLstOfHouse=house.getRoomList();
+        RoomList roomLstOfHouse = house.getRoomList();
         Room kitchen = new Room("Kitchen", 1, 2, 2.5, 2);
         roomLstOfHouse.addRoom(kitchen);
         Room bathroom = new Room("bathroom", 1, 2, 2.5, 2);
@@ -409,9 +409,46 @@ class HouseTest {
         roomLstOfHouse.addRoom(bedroom);
 
         hg1.attachRoomToGrid(bathroom);
-        String expected= "1 - Kitchen\n" +
+        String expected = "1 - Kitchen\n" +
                 "2 - Bedroom\n";
-        String result= house.showRoomsWithoutHouseGrid(hg1);
+        String result = house.showRoomsWithoutHouseGrid(hg1);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void showDeviceTypesListTest() {
+        House h = new House();
+        List<String> result = h.getListOfDeviceTypesInString();
+        List<String> expected = Arrays.asList("ElectricWaterHeater", "WashingMachine", "Dishwasher", "Fridge", "Kettle", "Oven", "Stove", "MicrowaveOven", "WallElectricHeater", "PortableElectricOilHeater", "PortableElectricConvectionHeater", "WallTowelHeater", "Lamp", "Television");
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void getListOfDeviceTypes() {
+        House h = new House();
+        List<DeviceType> result = h.getListOfDeviceTypes();
+        assertEquals(result.size(),14);
+    }
+
+    @Test
+    void showDeviceTypesList() {
+        House h = new House();
+        String expected="1 - ElectricWaterHeater\n" +
+                "2 - WashingMachine\n" +
+                "3 - Dishwasher\n" +
+                "4 - Fridge\n" +
+                "5 - Kettle\n" +
+                "6 - Oven\n" +
+                "7 - Stove\n" +
+                "8 - MicrowaveOven\n" +
+                "9 - WallElectricHeater\n" +
+                "10 - PortableElectricOilHeater\n" +
+                "11 - PortableElectricConvectionHeater\n" +
+                "12 - WallTowelHeater\n" +
+                "13 - Lamp\n" +
+                "14 - Television\n";
+        String result = h.showDeviceTypesList();
         assertEquals(expected,result);
+
     }
 }

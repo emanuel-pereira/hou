@@ -9,7 +9,7 @@ public final class HouseAdministrationUI {
     private HouseAdministrationUI(){}
 
     public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList, List<Room> roomList,
-                                           House house, HouseGridList hgList, PowerSourceList pslist) {
+                                           House house, HouseGridList hgList, PowerSourceList pslist) throws ClassNotFoundException,IllegalAccessException, InstantiationException {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("House administration UI");
@@ -68,7 +68,7 @@ public final class HouseAdministrationUI {
                     us250.run2();
                     break;
                 case 10:
-                    EditDevicesUI ui210 = new EditDevicesUI(house);
+                    EditDevicesUI ui210  = new EditDevicesUI(house);
                     ui210.selectOption();
                     break;
                 case 11:

@@ -13,15 +13,15 @@ public class EnergyConsumptionOfWaterHeatingCTRL {
         mRoomList = house.getRoomList();
     }
 
-    public List<Device> getDevicesInAllRoomsByType() {
-        return mRoomList.getDevicesInAllRoomsByType(DeviceType.ELECTRIC_WATER_HEATER);
+    public List<Device> getDevicesInAllRoomsByType(String deviceType) {
+        return mRoomList.getDevicesInAllRoomsByType(deviceType);
     }
 
     public String showDeviceAttributesInString(Device device) {
         return device.showDeviceAttributesInString();
     }
 
-    public double getEnergyConsumptionByDeviceType(DeviceType deviceType) {
+    public double getEnergyConsumptionByDeviceType(String deviceType) {
         return mRoomList.getEnergyConsumptionByDeviceType(deviceType);
     }
 

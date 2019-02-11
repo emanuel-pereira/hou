@@ -26,17 +26,19 @@ class EnergyConsumptionInPeriodCTRLTest {
         DeviceList k1DeviceList= kitchen1.getDeviceList();
         DeviceList k2DeviceList= kitchen2.getDeviceList();
 
-        DeviceSpecs fridgeSpecs= new Fridge(DeviceType.FRIDGE,25,50,25);
+
+
+        DeviceSpecs fridgeSpecs= new Fridge(25,50,25);
         Device fridge= new Device("LG Fridge1",fridgeSpecs,15);
         fridge.setIsMetered(true);
-        DeviceSpecs stoveSpecs= new OtherDevices(DeviceType.STOVE);
+        DeviceSpecs stoveSpecs= new OtherDevices();
         Device stove= new Device("XStove",stoveSpecs,15);
         stove.setIsMetered(false);
 
-        DeviceSpecs fridgeSpecs2= new Fridge(DeviceType.FRIDGE,25,50,25);
+        DeviceSpecs fridgeSpecs2= new Fridge(25,50,25);
         Device fridge2= new Device("LG Fridge2",fridgeSpecs2,15);
 
-        DeviceSpecs stoveSpecs2= new OtherDevices(DeviceType.STOVE);
+        DeviceSpecs stoveSpecs2= new OtherDevices();
         Device stove2= new Device("XStove",stoveSpecs2,15);
         stove2.setIsMetered(false);
 
@@ -65,16 +67,16 @@ class EnergyConsumptionInPeriodCTRLTest {
         DeviceList r1DevLst= r1.getDeviceList();
         DeviceList r2DevLst= r2.getDeviceList();
 
-        DeviceSpecs fridge= new Fridge(DeviceType.FRIDGE,25,50,25);
+        DeviceSpecs fridge= new Fridge(25,50,25);
         Device dFridge= new Device("LG Fridge1",fridge,15);
 
-        DeviceSpecs stove= new OtherDevices(DeviceType.STOVE);
+        DeviceSpecs stove= new OtherDevices();
         Device dStove= new Device("XStove",stove,15);
 
-        DeviceSpecs fridge2= new Fridge(DeviceType.FRIDGE,25,50,25);
+        DeviceSpecs fridge2= new Fridge(25,50,25);
         Device dFridge2= new Device("LG Fridge2",fridge2,15);
 
-        DeviceSpecs stove2= new OtherDevices(DeviceType.STOVE);
+        DeviceSpecs stove2= new OtherDevices();
         Device dStove2= new Device("XStove",stove2,15);
 
         dStove.setIsMetered(false);
@@ -106,17 +108,16 @@ class EnergyConsumptionInPeriodCTRLTest {
 
         DeviceList k1DeviceList= kitchen1.getDeviceList();
 
-
-        DeviceSpecs ewhSpecs = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        DeviceSpecs ewhSpecs = new ElectricWaterHeater( 25, 50, 2);
         Device ewh= new Device("EWH DAIKIN",ewhSpecs,15);
         k1DeviceList.addDevice(ewh);
 
-        DeviceSpecs fridgeSpecs= new Fridge(DeviceType.FRIDGE,25,50,25);
+        DeviceSpecs fridgeSpecs= new Fridge(25,50,25);
         Device fridge= new Device("LG Fridge1",fridgeSpecs,15);
         k1DeviceList.addDevice(fridge);
 
 
-        DeviceSpecs stoveSpecs= new OtherDevices(DeviceType.STOVE);
+        DeviceSpecs stoveSpecs= new OtherDevices();
         Device stove= new Device("XStove",stoveSpecs,15);
         stove.setIsMetered(false);
         k1DeviceList.addDevice(stove);

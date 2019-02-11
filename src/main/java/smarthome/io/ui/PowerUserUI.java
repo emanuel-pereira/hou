@@ -42,7 +42,7 @@ public final class PowerUserUI {
                     break;
                 case 4:
                     EnergyConsumptionOfWaterHeatingUI ui752 = new EnergyConsumptionOfWaterHeatingUI(house);
-                    ui752.run();
+                    //ui752.run();
                     break;
                 case 5:
                     System.out.println("US705");

@@ -3,51 +3,53 @@ package smarthome.model;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class LampTest {
 
     @Test
     void setNewLuminousFluxTest() {
-        Lamp l = new Lamp(DeviceType.LAMP, 2);
-        String luminousFlux = "4 - Luminous Flux : " + l.getLuminousFlux();
-
+        Lamp l = new Lamp(2);
+        String luminousFlux = "Luminous Flux";
         l.setAttributeValue(luminousFlux, "16");
-
         int expected = 16;
         int result = l.getLuminousFlux();
-
         assertEquals(expected, result);
-    }
-
-    @Test
-    void setAttributeValue() {
-        Dishwasher dw = new Dishwasher(DeviceType.DISHWASHER, 10);
-        String Capacity = "4 - Dishwater Capacity : " + dw.getCapacity();
-
-        dw.setAttributeValue(Capacity, "20");
-        assertEquals(20, dw.getCapacity());
-
     }
 
     @Test
     void showDeviceSpecsListAttributesInString() {
-        Lamp l = new Lamp(DeviceType.LAMP, 2);
-        List<String> expected = Arrays.asList("4 - Luminous Flux : " + l.getLuminousFlux());
-        List<String> result = l.getDeviceAttributesInString();
+        Lamp l = new Lamp(2);
+        List<String> expected = Arrays.asList("Luminous Flux");
+        List<String> result = l.getAttributesNames();
         assertEquals(expected, result);
     }
 
     @Test
-    void getType() {
-        Lamp l = new Lamp(DeviceType.LAMP, 2);
-        DeviceType expected = DeviceType.LAMP;
-        DeviceType result = l.getType();
-        assertEquals(expected, result);
+    void showDeviceAttributeNamesAndValuesTest() {
+        Lamp lamp = new Lamp();
+        String result = lamp.showDeviceAttributeNamesAndValues();
+        String expected ="3 - Luminous Flux : 0\n";
+        assertEquals(expected,result);
     }
 
+    @Test
+    void getEnergyConsumptionTest() {
+        Lamp lamp = new Lamp();
+        double result = lamp.getEnergyConsumption();
+        double expected = 0;
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void setAndGetType(){
+        Lamp lamp = new Lamp();
+        DeviceType lampType = new DeviceType("Lamp");
+        lamp.setType(lampType);
+        String result = lamp.getDeviceType().getDeviceTypeName();
+        assertEquals("Lamp",result);
+
+    }
 }

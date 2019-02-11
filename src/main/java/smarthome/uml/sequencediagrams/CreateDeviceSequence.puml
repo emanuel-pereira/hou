@@ -3,12 +3,15 @@ autonumber
 hidefootbox
 
 actor Administrator
+activate Administrator
 
 Administrator -> ":EditDeviceUI": start
 
+activate ":EditDeviceUI"
 
 ":EditDeviceUI" -> ":EditDeviceCTRL": rLs=showRoomListInString()
 
+activate ":EditDeviceCTRL"
 
 ":EditDeviceCTRL" -> ":House": rLs=showRoomListInString()
 

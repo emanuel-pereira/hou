@@ -11,7 +11,7 @@ class DeviceTest {
 
     @Test
     void getNominalPower() {
-        OtherDevices micro = new OtherDevices(DeviceType.MICROWAVE_OVEN);
+        OtherDevices micro = new OtherDevices();
         Device microwave = new Device("Samsung Microwave", micro, 0.8);
 
         double expected = 0.8;
@@ -23,7 +23,7 @@ class DeviceTest {
     @Test
     @DisplayName("Ensure getDeviceSpecs() returns fridge as Device Specs")
     void getDeviceSpecs() {
-        Fridge fridge = new Fridge(DeviceType.FRIDGE, 50, 350, 50);
+        Fridge fridge = new Fridge(50, 350, 50);
         Device dFridge = new Device("LG Fridge", fridge, 1.5);
 
         DeviceSpecs expectedResult = dFridge.getDeviceSpecs();
@@ -62,7 +62,7 @@ class DeviceTest {
 
     @Test
     void setAttributeValue() {
-        Lamp lamp = new Lamp(DeviceType.LAMP, 6);
+        Lamp lamp = new Lamp(6);
         Device d1 = new Device("Lamp1", lamp, 40);
         String name = "2 - Device Name : " + d1.getName();
         d1.setAttributeValue(name, "Lamp 55");
@@ -75,12 +75,18 @@ class DeviceTest {
     @Test
     @DisplayName("Ensure that getEnergyConsumption returns energy consumed by a Electric Water Heater in a given day.")
     void getConsumption() {
-        ElectricWaterHeater ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 75, 65, 1);
-        Device dEWH = new Device("EWH", ewh, 150);
-        String volumeOfWaterToHeat = "volumeOfWaterToHeat";
-        String coldWater = "coldWaterTemperature";
+        ElectricWaterHeater ewh = new ElectricWaterHeater();
+        Device dEWH = new Device(ewh);
+        String volumeOfWater = "Volume of water capacity";
+        String hotWaterTemperature = "Hot water temperature";
+        String coldWaterTemperature = "Cold water temperature";
+        String performanceRatio = "Performance Ratio";
+        String volumeOfWaterToHeat = "Volume of water to heat";
+        dEWH.setAttributeValue(performanceRatio, "1");
+        dEWH.setAttributeValue(hotWaterTemperature, "65");
+        dEWH.setAttributeValue(volumeOfWater, "75");
         dEWH.setAttributeValue(volumeOfWaterToHeat, "55");
-        dEWH.setAttributeValue(coldWater, "15");
+        dEWH.setAttributeValue(coldWaterTemperature, "15");
         double expected = 3.2;
         double result = dEWH.getEnergyConsumption();
         assertEquals(expected, result);
@@ -88,7 +94,7 @@ class DeviceTest {
 
     @Test
     void status() {
-        OtherDevices micro = new OtherDevices(DeviceType.MICROWAVE_OVEN);
+        OtherDevices micro = new OtherDevices();
         Device microwave = new Device("Samsung Microwave", micro, 0.8);
 
         assertTrue(microwave.status());
@@ -96,7 +102,7 @@ class DeviceTest {
 
     @Test
     void deactivateDevice() {
-        OtherDevices micro = new OtherDevices(DeviceType.MICROWAVE_OVEN);
+        OtherDevices micro = new OtherDevices();
         Device microwave = new Device("Samsung Microwave", micro, 0.8);
 
         assertTrue(microwave.deactivateDevice());
@@ -105,31 +111,31 @@ class DeviceTest {
 
     @Test
     void getEnergyConsumptionInPeriod() {
-            DeviceSpecs ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
-            Device dEWH= new Device("EWH DAIKIN",ewh,15);
-            ReadingList activityLog = dEWH.getActivityLog();
-            Reading r2 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 10));
-            Reading r3 = new Reading(22, new GregorianCalendar(2018, 11, 5, 0, 20));
-            Reading r4 = new Reading(37, new GregorianCalendar(2018, 11, 5, 0, 30));
-            Reading r5 = new Reading(31, new GregorianCalendar(2018, 11, 5, 0, 40));
-            Reading r6 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 50));
-            Reading r7 = new Reading(22, new GregorianCalendar(2018, 11, 5, 1, 00));
-            Reading r8 = new Reading(37, new GregorianCalendar(2018, 11, 5, 1, 10));
-            activityLog.addReading(r2);
-            activityLog.addReading(r3);
-            activityLog.addReading(r4);
-            activityLog.addReading(r5);
-            activityLog.addReading(r6);
-            activityLog.addReading(r7);
-            activityLog.addReading(r8);
-            GregorianCalendar startDate = new GregorianCalendar(2018, 11, 5, 0, 30);
-            GregorianCalendar endDate = new GregorianCalendar(2018, 11, 5, 1, 00);
-            dEWH.setIsMetered(true);
-            double expected = 71;
-            double result = dEWH.getEnergyConsumptionInTimeInterval(startDate, endDate);
+        DeviceSpecs ewh = new ElectricWaterHeater(25, 50, 2);
+        Device dEWH = new Device("EWH DAIKIN", ewh, 15);
+        ReadingList activityLog = dEWH.getActivityLog();
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 10));
+        Reading r3 = new Reading(22, new GregorianCalendar(2018, 11, 5, 0, 20));
+        Reading r4 = new Reading(37, new GregorianCalendar(2018, 11, 5, 0, 30));
+        Reading r5 = new Reading(31, new GregorianCalendar(2018, 11, 5, 0, 40));
+        Reading r6 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 50));
+        Reading r7 = new Reading(22, new GregorianCalendar(2018, 11, 5, 1, 00));
+        Reading r8 = new Reading(37, new GregorianCalendar(2018, 11, 5, 1, 10));
+        activityLog.addReading(r2);
+        activityLog.addReading(r3);
+        activityLog.addReading(r4);
+        activityLog.addReading(r5);
+        activityLog.addReading(r6);
+        activityLog.addReading(r7);
+        activityLog.addReading(r8);
+        GregorianCalendar startDate = new GregorianCalendar(2018, 11, 5, 0, 30);
+        GregorianCalendar endDate = new GregorianCalendar(2018, 11, 5, 1, 00);
+        dEWH.setIsMetered(true);
+        double expected = 71;
+        double result = dEWH.getEnergyConsumptionInPeriod(startDate, endDate);
 
-            assertEquals(expected, result);
-        }
+        assertEquals(expected, result);
+    }
 
     @Test
     void getActivityLogSumIfMetered() {
@@ -140,7 +146,7 @@ class DeviceTest {
         house.getRoomList().addRoom(B107);
         Room B109 = house.getRoomList().createNewRoom("B109", 1, 7, 11, 3.5);
         house.getRoomList().addRoom(B109);
-        Dishwasher dish109 = new Dishwasher(DeviceType.DISHWASHER, 100);
+        Dishwasher dish109 = new Dishwasher(100);
         Device dishwasherB109 = house.getRoomList().get(2).getDeviceList().newDevice("Dishwasher B109", dish109, 1.5);
         house.getRoomList().get(2).getDeviceList().addDevice(dishwasherB109);
 
@@ -171,7 +177,7 @@ class DeviceTest {
         house.getRoomList().addRoom(B107);
         Room B109 = house.getRoomList().createNewRoom("B109", 1, 7, 11, 3.5);
         house.getRoomList().addRoom(B109);
-        Dishwasher dish109 = new Dishwasher(DeviceType.DISHWASHER, 100);
+        Dishwasher dish109 = new Dishwasher(100);
         Device dishwasherB109 = house.getRoomList().get(2).getDeviceList().newDevice("Dishwasher B109", dish109, 1.5);
         dishwasherB109.setIsMetered(false);
         house.getRoomList().get(2).getDeviceList().addDevice(dishwasherB109);
@@ -196,4 +202,26 @@ class DeviceTest {
             assertTrue(thrown);
         }
     }
+
+    @Test
+    void newDeviceV2Test() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        House house = new House();
+        Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
+        DeviceList kitchenDevList = kitchen.getDeviceList();
+        DeviceType fridge = new DeviceType("Fridge");
+        Device device = kitchenDevList.newDeviceV2(fridge);
+        kitchenDevList.addDevice(device);
+        String result = device.getDeviceSpecs().getDeviceType().getDeviceTypeName();
+        assertEquals("Fridge", result);
     }
+    void newDeviceOtherDevicesTest() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        House house = new House();
+        Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
+        DeviceList kitchenDevList = kitchen.getDeviceList();
+        DeviceType deviceType = new DeviceType("Television");
+        Device device = kitchenDevList.newDeviceV2(deviceType);
+        kitchenDevList.addDevice(device);
+        String result = device.getDeviceSpecs().getDeviceType().getDeviceTypeName();
+        assertEquals("Television", result);
+    }
+}

@@ -185,7 +185,7 @@ class HouseGridTest {
         houseGrid.attachRoomToGrid (roomA);
         houseGrid.attachRoomToGrid (roomB);
         DeviceList deviceList = roomA.getDeviceList ();
-        Fridge fridge = new Fridge (DeviceType.FRIDGE, 20, 100, 100);
+        Fridge fridge = new Fridge ( 20, 100, 100);
         Device fridgeA = deviceList.newDevice ("FridgeA", fridge, 150);
         Device fridgeB = deviceList.newDevice ("FridgeB", fridge, 150);
         deviceList.addDevice (fridgeA);

@@ -9,8 +9,9 @@ public class Lamp implements DeviceSpecs {
     private int mLuminousFlux;
     private DeviceType mDeviceType;
 
-    public Lamp(DeviceType deviceType, int luminousFlux) {
-        this.mDeviceType = deviceType;
+    public Lamp(){}
+
+    public Lamp(int luminousFlux) {
         this.mLuminousFlux = luminousFlux;
     }
 
@@ -22,27 +23,42 @@ public class Lamp implements DeviceSpecs {
         return mLuminousFlux;
     }
 
-    public List<String> getDeviceAttributesInString() {
+    public List<String> getAttributesNames() {
         List<String> result = new ArrayList<>();
-        String LuminousFlux = "4 - Luminous Flux : " + this.mLuminousFlux;
+        String LuminousFlux = "Luminous Flux";
         result.add(LuminousFlux);
         return result;
     }
 
     public void setAttributeValue(String attribute, String newValue) {
-        String LuminousFLux = "4 - Luminous Flux : " + this.mLuminousFlux;
+        String LuminousFLux = "Luminous Flux";
         if (attribute.equals(LuminousFLux))
             setLuminousFlux(parseInt(newValue));
     }
+
+    public String showDeviceAttributeNamesAndValues() {
+        StringBuilder result = new StringBuilder();
+        int number=3;
+        for (String s : getAttributesNames()) {
+            result.append(number);
+            result.append(" - ");
+            if (s.contains("Luminous Flux"))
+                result.append(s.concat(" : " + this.getLuminousFlux()));
+            result.append("\n");
+            number++;
+        }
+        return result.toString();}
 
     @Override
     public double getEnergyConsumption() {
         return 0;
     }
 
-    @Override
-    public DeviceType getType() {
+    public DeviceType getDeviceType() {
         return mDeviceType;
     }
+    @Override
+    public void setType(DeviceType deviceType) {
+        mDeviceType = deviceType;
+    }
 }
-

@@ -15,7 +15,7 @@ public class EnergyConsumptionOfWaterHeatingUI {
         mCtrl = new EnergyConsumptionOfWaterHeatingCTRL(house);
     }
 
-    public void run() {
+   /* public void run() {
 
         for (Device device : mCtrl.getDevicesInAllRoomsByType()) {
             String coldWaterTemperature = "coldWaterTemperature";
@@ -30,7 +30,6 @@ public class EnergyConsumptionOfWaterHeatingUI {
             mCtrl.setAttribute(device, volumeOfWaterToHeat, newVolumeOfWater);
             System.out.println("The following Electric Water Heater was successfully updated with the following parameters:");
             System.out.println(mCtrl.showDeviceAttributesInString(device));
-        }
-        System.out.println("The total energy used in heating water in a given day is "+mCtrl.getEnergyConsumptionByDeviceType(DeviceType.ELECTRIC_WATER_HEATER)+" KWh.\n");
+        }*/
+       // System.out.println("The total energy used in heating water in a given day is "+mCtrl.getEnergyConsumptionByDeviceType(DeviceType.ELECTRIC_WATER_HEATER)+" KWh.\n");
     }
-}
