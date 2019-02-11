@@ -12,6 +12,11 @@ public class ElectricWaterHeater implements DeviceSpecs{
     private double mVolumeOfWaterToHeat;
     private double mPerformanceRatio;
     private DeviceType mDeviceType;
+    private String volumeOfWater = "Volume of water capacity";
+    private String hotWaterTemperature = "Hot water temperature";
+    private String coldWaterTemperature = "Cold water temperature";
+    private String performanceRatio = "Performance Ratio";
+    private String volumeOfWaterToHeat = "Volume of water to heat";
 
     public ElectricWaterHeater() {
     }
@@ -92,27 +97,15 @@ public class ElectricWaterHeater implements DeviceSpecs{
 
     public List<String> getAttributesNames() {
         List<String> result = new ArrayList<>();
-        String volumeOfWater = "Volume of water capacity";
-        String hotWaterTemperature = "Hot water temperature";
-        String coldWaterTemperature = "Cold water temperature";
-        String performanceRatio = "Performance Ratio";
-        String volumeOfWaterToHeat = "Volume of water to heat";
-        //String dailyEnergyConsumption = "Daily Energy Consumption : " + this.getEnergyConsumption() + " KWh";
         result.add(volumeOfWater);
         result.add(hotWaterTemperature);
         result.add(coldWaterTemperature);
         result.add(performanceRatio);
         result.add(volumeOfWaterToHeat);
-        //result.add(dailyEnergyConsumption);
         return result;
     }
 
     public void setAttributeValue(String attribute, String newValue) {
-        String volumeOfWater = "Volume of water capacity";
-        String hotWaterTemperature = "Hot water temperature";
-        String coldWaterTemperature = "Cold water temperature";
-        String performanceRatio = "Performance Ratio";
-        String volumeOfWaterToHeat = "Volume of water to heat";
         if (attribute.contains(volumeOfWater))
             setVolumeOfWater(parseDouble(newValue));
         if (attribute.contains(hotWaterTemperature))
@@ -131,15 +124,15 @@ public class ElectricWaterHeater implements DeviceSpecs{
         for (String s : getAttributesNames()) {
             result.append(number);
             result.append(" - ");
-            if (s.contains("Volume of water capacity"))
+            if (s.contains(volumeOfWater))
                 result.append(s.concat(" : " + this.getVolumeOfWater()));
-            if (s.contains("Hot water temperature"))
+            if (s.contains(hotWaterTemperature))
                 result.append(s.concat(" : " + this.getHotWaterTemperature()));
-            if (s.contains("Cold water temperature"))
+            if (s.contains(coldWaterTemperature))
                 result.append(s.concat(" : " + this.getColdWaterTemperature()));
-            if (s.contains("Performance Ratio"))
+            if (s.contains(performanceRatio))
                 result.append(s.concat(" : " + this.getPerformanceRatio()));
-            if (s.contains("Volume of water to heat"))
+            if (s.contains(volumeOfWaterToHeat))
                 result.append(s.concat(" : " + this.getVolumeOfWaterToHeat()));
             result.append("\n");
             number++;

@@ -113,8 +113,7 @@ public class EditDevicesCTRL {
     }
 
     public DeviceType getDeviceTypeFromIndex(int deviceTypeIndex) {
-        DeviceType deviceType = mHouse.getListOfDeviceTypes().get(deviceTypeIndex - 1);
-        return deviceType;
+        return mHouse.getListOfDeviceTypes().get(deviceTypeIndex - 1);
     }
 
     public Device createDevice(Room room, DeviceType deviceType) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
