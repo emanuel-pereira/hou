@@ -7,8 +7,6 @@ import java.util.Scanner;
 
 public class US600GetCurrentMeteoValueHouseAreaUI {
 
-    private House mHouse;
-    private SensorTypeList mSensorTypeList;
     private GAList mGAList;
     private US600GetCurrentMeteoValueHouseAreaCTRL mCtrl;
     Scanner read = new Scanner(System.in);
@@ -18,9 +16,7 @@ public class US600GetCurrentMeteoValueHouseAreaUI {
     private double mCurrentReading;
 
     public US600GetCurrentMeteoValueHouseAreaUI(House house, SensorTypeList sensorTypeList, GAList gaList) {
-        mHouse = house;
         mCtrl = new US600GetCurrentMeteoValueHouseAreaCTRL(house, sensorTypeList);
-        mSensorTypeList = sensorTypeList;
         mGAList = gaList;
     }
 

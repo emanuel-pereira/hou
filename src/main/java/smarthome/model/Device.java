@@ -97,7 +97,6 @@ public class Device implements Metered {
         return result.toString();
     }
 
-
     public List<String> getDeviceAttributesInString() {
         List<String> result = new ArrayList<>();
         String deviceName = "Device Name";
@@ -145,10 +144,10 @@ public class Device implements Metered {
     }
 
     @Override
-    public double getEnergyConsumptionInPeriod(Calendar startHour, Calendar endHour) {
+    public double getEnergyConsumptionInTimeInterval(Calendar startDate, Calendar endDate) {
         double energyConsumption = 0;
         if (ReadConfigFile.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
-            energyConsumption = mActivityLog.getValueOfReadingsInTimeInterval(startHour, endHour);
+            energyConsumption = mActivityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
         }
         return energyConsumption;
     }
@@ -185,7 +184,4 @@ public class Device implements Metered {
         }
         return sum;
     }
-
 }
-
-

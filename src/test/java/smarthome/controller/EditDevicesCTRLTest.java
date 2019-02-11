@@ -29,7 +29,7 @@ class EditDevicesCTRLTest {
 
     @Test
     @DisplayName("Ensure that RoomList has a size of 2 even though trying to add the same two rooms twice to the RoomList")
-    void getRoomList() {
+    void getRoomListTest() {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
         RoomList roomList = house.getRoomList();
@@ -42,6 +42,10 @@ class EditDevicesCTRLTest {
         int expected = 2;
         int result = ctrl.getRoomListSize();
         assertEquals(expected, result);
+
+        int result2 = ctrl.getRoomList().getRoomListSize();
+        int expected2= 2;
+        assertEquals(expected,result);
     }
 
     @Test
@@ -56,23 +60,25 @@ class EditDevicesCTRLTest {
         String result = kitchen.getDeviceList().get(0).getName();
         assertEquals(expected, result);
     }
-/**
+
     @Test
-    void showDeviceListInString() {
+    void showDeviceListInString() throws ClassNotFoundException, IllegalAccessException, InstantiationException  {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
         Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
         house.getRoomList().addRoom(kitchen);
-        DeviceType fridge1 = new DeviceType("Fridge");
+        DeviceType fridge = new DeviceType("Fridge");
         DeviceType microwave = new DeviceType("MicrowaveOven");
-        Fridge fridge = new Fridge( 50, 350, 50);
-        OtherDevices micro = new OtherDevices();
-        ctrl.addDevice(1, "Samsung Microwave", micro, 0.8);
-        ctrl.addDevice(1, "LG Fridge", fridge, 1.5);
-        String expected = "1 - Device: Samsung Microwave | Type: MICROWAVE_OVEN | Active: true\n2 - Device: LG Fridge | Type: FRIDGE | Active: true\n";
+        Device fr = kitchen.getDeviceList().newDeviceV2(fridge);
+        kitchen.getDeviceList().addDevice(fr);
+        fr.setAttributeValue("Device Name","LG Fridge");
+        Device mic = kitchen.getDeviceList().newDeviceV2(microwave);
+        kitchen.getDeviceList().addDevice(mic);
+        mic.setAttributeValue("Device Name","Samsung Microwave");
+        String expected = "1 - Device: LG Fridge | Type: Fridge | Active: true\n2 - Device: Samsung Microwave | Type: MicrowaveOven | Active: true\n";
         String result = ctrl.showDeviceListInString(1);
         assertEquals(expected, result);
-    }**/
+    }
 
     @Test
     @DisplayName("Ensure that an alphanumeric name with spaces and hyphens is valid")

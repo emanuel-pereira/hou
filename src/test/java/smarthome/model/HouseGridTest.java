@@ -253,10 +253,10 @@ class HouseGridTest {
         DeviceList kitDeviceList= kitchen.getDeviceList();
         DeviceList grDeviceList= garage.getDeviceList();
 
-        DeviceSpecs fridgeSpecs= new Fridge(DeviceType.FRIDGE,25,75,2);
+        DeviceSpecs fridgeSpecs= new Fridge();
         Device fridge= new Device("LG Fridge",fridgeSpecs,2);
 
-        DeviceSpecs ewhSpecs= new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER,25,75,0.9);
+        DeviceSpecs ewhSpecs= new ElectricWaterHeater();
         Device ewh1= new Device("Daikin EWH1",ewhSpecs,2);
         Device ewh2= new Device("Daikin EWH1",ewhSpecs,2);
 
@@ -293,12 +293,6 @@ class HouseGridTest {
         double result=grid.getEnergyConsumptionInTimeInterval(startTime,endTime);
 
         assertEquals(expected,result);
-
-
-
-
-
-
     }
 }
 

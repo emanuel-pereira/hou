@@ -65,11 +65,11 @@ public class EditDevicesUI {
         System.out.println("Select a room from the list below where you want to add the device:");
         System.out.println(ctrl.showRoomListInString());
         selectedRoomIndex = read.nextInt();
-        if (selectedRoomIndex <= mRoomList.getRoomList().size() && selectedRoomIndex>0)
+        if (selectedRoomIndex <= mRoomList.getRoomList().size() && selectedRoomIndex > 0)
             selectedRoom = ctrl.getRoomFromListIndex(selectedRoomIndex);
         else {
             System.out.println("Error, room not found! Please, select a valid room.");
-            roomSelection(); //alterar para ciclo
+            roomSelection(); //
         }
     }
 
@@ -88,11 +88,10 @@ public class EditDevicesUI {
         for (String attribute : ctrl.getDeviceAttributesListInString(newDevice)) {
             System.out.println(attribute);
             String newValue = read.next();
-            ctrl.setAttribute(newDevice,attribute,newValue);
+            ctrl.setAttribute(newDevice, attribute, newValue);
         }
 
     }
-
 
     public void roomSelectionToAddDevice() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         roomSelection();
@@ -101,10 +100,7 @@ public class EditDevicesUI {
         deviceSpecsConfiguration();
         System.out.println("Success! NEW DEVICE CREATED ");
         System.out.println(ctrl.showDeviceAttributesInString(newDevice));
-        //System.out.println("Confirm? (y/n)");
-        //read.next();
-        //condição y or n;
-        //se n return;
+
     }
 
     public void roomSelectionToListDevice() {
@@ -112,6 +108,7 @@ public class EditDevicesUI {
         System.out.println(ctrl.showRoomListInString());
         selectedRoomIndex = read.nextInt();
         System.out.println(ctrl.showDeviceListInString(selectedRoomIndex));
+        selectedRoom = ctrl.getRoomFromListIndex(selectedRoomIndex);
     }
 
     public void editDeviceAttributes() {
@@ -130,14 +127,20 @@ public class EditDevicesUI {
         System.out.println("Success!");
     }
 
+    /**
+     * Method that removes any device from the Rooms device list
+     * First we need to select a Room in order to list all devices contained in it
+     * With that input we list all devices in the room and we then select one
+     */
     private void removeDevice() {
         roomSelectionToListDevice();
         System.out.println("Select a device from the previous list to remove it:");
         int deviceIndex = read.nextInt() - 1;
         read.nextLine();
-        if (ctrl.removeDevice(selectedRoomIndex, deviceIndex))
+        if (ctrl.removeDevice(selectedRoomIndex, deviceIndex) && deviceListInRoomIsNotEmpty()) {
+            this.listDevicesInRoom();
             System.out.println("Success, the device was removed");
-        else System.out.println("Not possible to remove device");
+        } else System.out.println("Not possible to remove device");
     }
 
     /**
@@ -148,9 +151,23 @@ public class EditDevicesUI {
         System.out.println("Select a device from the previous list to deactivate it:");
         int deviceIndex = read.nextInt() - 1;
         read.nextLine();
-        if (ctrl.deactivateDevice(selectedRoomIndex, deviceIndex))
+        if (ctrl.deactivateDevice(selectedRoomIndex, deviceIndex) && deviceListInRoomIsNotEmpty()) {
+            this.listDevicesInRoom();
             System.out.println("Success, the device was deactivated");
-        else
-            System.out.println("Not possible to remove device");
+        } else System.out.println("Not possible to deactivate device");
     }
+
+    public void listDevicesInRoom() {
+        System.out.println("List of devices in " + selectedRoom.getName() + ":");
+        System.out.println(ctrl.showDeviceListInString(selectedRoomIndex));
+    }
+
+    private boolean deviceListInRoomIsNotEmpty() {
+        if (ctrl.getDeviceList(selectedRoom).getDeviceList().isEmpty()) {
+            System.out.println("The device list in " + selectedRoom.getName() + " is empty.\n");
+            return false;
+        }
+        return true;
+    }
+
 }

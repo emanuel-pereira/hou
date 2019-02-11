@@ -8,7 +8,6 @@ import static java.lang.Integer.parseInt;
 public class Dishwasher implements DeviceSpecs {
     private int mCapacity;
     private double mEnergyConsumption;
-    private Programmable mProgramList;
     private DeviceType mDeviceType;
 
 

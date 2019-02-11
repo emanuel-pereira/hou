@@ -1,9 +1,7 @@
 package smarthome.model;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Objects;
+import java.util.*;
 
 public class House {
 
@@ -206,7 +204,32 @@ public class House {
         }
         return closestSensorWithLatestReading;
     }
+    public List<String> getListOfDeviceTypesInString() {
+        List<String> listOfDeviceTypes = ReadConfigFile.getDeviceTypes();
+        return listOfDeviceTypes;
 
+    }
+
+    public List<DeviceType> getListOfDeviceTypes() {
+        List<String> listOfDeviceTypes = ReadConfigFile.getDeviceTypes();
+        List<DeviceType> deviceTypeList = new ArrayList<>();
+        for (String type : listOfDeviceTypes)
+            deviceTypeList.add(new DeviceType(type));
+        return deviceTypeList;
+    }
+
+    public String showDeviceTypesList() {
+        StringBuilder result = new StringBuilder();
+        int number = 1;
+        for (String deviceType : getListOfDeviceTypesInString()) {
+            result.append(number);
+            result.append(" - ");
+            result.append(deviceType);
+            result.append("\n");
+            number++;
+        }
+        return result.toString();
+    }
 }
 
 

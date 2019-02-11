@@ -80,7 +80,6 @@ public class EditDevicesCTRL {
         return mNameValidations.alphanumericName(inputName);
     }
 
-
     public RoomList getRoomList() {
         return mRoomList;
     }
@@ -138,9 +137,7 @@ public class EditDevicesCTRL {
         return device.getDeviceAttributesInString();
     }
 
-
+    public int getRoomListSize() {
+        return mRoomList.getRoomListSize();
+    }
 }
-
-   /* public String showDeviceAttributesInString(Device device) {
-        return device.showDeviceAttributesInString();
-    }*/

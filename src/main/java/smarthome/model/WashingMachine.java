@@ -7,7 +7,6 @@ import static java.lang.Integer.parseInt;
 
 public class WashingMachine implements DeviceSpecs {
     private int mCapacity;
-    private ProgramList mProgramListInWM;
     private DeviceType mDeviceType;
 
     public WashingMachine() {
@@ -15,7 +14,6 @@ public class WashingMachine implements DeviceSpecs {
 
     public WashingMachine(int capacity) {
         this.mCapacity = capacity;
-        this.mProgramListInWM = new ProgramList();
     }
 
     public void setCapacity(int newCapacity) {

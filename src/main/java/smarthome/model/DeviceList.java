@@ -115,7 +115,7 @@ public class DeviceList {
      * @param device object device that will be removed
      * @return boolean result of the device's removal
      */
-    public boolean remove(Device device) {
+    public boolean removeDevice(Device device) {
         return this.mDeviceList.remove(device);
     }
 

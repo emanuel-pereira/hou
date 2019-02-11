@@ -267,10 +267,10 @@ class EnergyConsumptionInPeriodCTRLTest {
         DeviceList kitDeviceList= kitchen.getDeviceList();
         DeviceList grDeviceList= garage.getDeviceList();
 
-        DeviceSpecs fridgeSpecs= new Fridge(DeviceType.FRIDGE,25,75,2);
+        DeviceSpecs fridgeSpecs= new Fridge();
         Device fridge= new Device("LG Fridge",fridgeSpecs,2);
 
-        DeviceSpecs ewhSpecs= new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER,25,75,0.9);
+        DeviceSpecs ewhSpecs= new ElectricWaterHeater();
         Device ewh1= new Device("Daikin EWH1",ewhSpecs,2);
         Device ewh2= new Device("Daikin EWH1",ewhSpecs,2);
 
@@ -375,17 +375,17 @@ class EnergyConsumptionInPeriodCTRLTest {
         DeviceList k1DeviceList = kitchen1.getDeviceList ();
         DeviceList roDeviceList = bedroom.getDeviceList ();
 
-        DeviceSpecs ewhSpecs = new ElectricWaterHeater (DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        DeviceSpecs ewhSpecs = new ElectricWaterHeater ();
         Device ewh = new Device ("EWH DAIKIN", ewhSpecs, 15);
         k1DeviceList.addDevice (ewh);
 
-        DeviceSpecs fridgeSpecs = new Fridge (DeviceType.FRIDGE, 25, 50, 25);
+        DeviceSpecs fridgeSpecs = new Fridge ();
         Device fridge = new Device ("LG Fridge1", fridgeSpecs, 15);
         Device fridge2 = new Device ("LG Fridge2", fridgeSpecs, 14);
         k1DeviceList.addDevice (fridge);
         k1DeviceList.addDevice (fridge2);
 
-        DeviceSpecs stoveSpecs = new OtherDevices (DeviceType.STOVE);
+        DeviceSpecs stoveSpecs = new OtherDevices ();
         Device stove = new Device ("XStove", stoveSpecs, 15);
         stove.setIsMetered (false);
         roDeviceList.addDevice (stove);
@@ -454,11 +454,11 @@ class EnergyConsumptionInPeriodCTRLTest {
         DeviceList k1DeviceList = kitchen1.getDeviceList ();
         DeviceList roDeviceList = bedroom.getDeviceList ();
 
-        DeviceSpecs ewhSpecs = new ElectricWaterHeater (DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        DeviceSpecs ewhSpecs = new ElectricWaterHeater ();
         Device ewh = new Device ("EWH DAIKIN", ewhSpecs, 15);
         roDeviceList.addDevice (ewh);
 
-        DeviceSpecs fridgeSpecs = new Fridge (DeviceType.FRIDGE, 25, 50, 25);
+        DeviceSpecs fridgeSpecs = new Fridge ();
         Device fridge = new Device ("LG Fridge1", fridgeSpecs, 15);
         k1DeviceList.addDevice (fridge);
 

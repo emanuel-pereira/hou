@@ -132,7 +132,7 @@ class DeviceTest {
         GregorianCalendar endDate = new GregorianCalendar(2018, 11, 5, 1, 00);
         dEWH.setIsMetered(true);
         double expected = 71;
-        double result = dEWH.getEnergyConsumptionInPeriod(startDate, endDate);
+        double result = dEWH.getEnergyConsumptionInTimeInterval(startDate, endDate);
 
         assertEquals(expected, result);
     }
@@ -214,6 +214,7 @@ class DeviceTest {
         String result = device.getDeviceSpecs().getDeviceType().getDeviceTypeName();
         assertEquals("Fridge", result);
     }
+    @Test
     void newDeviceOtherDevicesTest() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         House house = new House();
         Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
@@ -223,5 +224,20 @@ class DeviceTest {
         kitchenDevList.addDevice(device);
         String result = device.getDeviceSpecs().getDeviceType().getDeviceTypeName();
         assertEquals("Television", result);
+    }
+    @Test
+    void showDeviceListInStringTest() throws ClassNotFoundException, IllegalAccessException, InstantiationException  {
+        DeviceType fridge = new DeviceType("Fridge");
+        DeviceList dList = new DeviceList();
+        Device d1 = dList.newDeviceV2(fridge);
+        Device d2 = dList.newDeviceV2(fridge);
+        dList.addDevice(d1);
+        d1.setAttributeValue("Device Name","Fridge A");
+        dList.addDevice(d2);
+        d2.setAttributeValue("Device Name", "Fridge B");
+        String result = dList.showDeviceListInString();
+        String expected = "1 - Device: Fridge A | Type: Fridge | Active: true\n" +
+                "2 - Device: Fridge B | Type: Fridge | Active: true\n";
+        assertEquals(expected,result);
     }
 }
