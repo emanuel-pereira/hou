@@ -90,7 +90,7 @@ public class AddPowerSourceToGridUI {
                 );
                 System.out.println(mCtrlUS135.showPowerSourceListInString(mHouse.getHGListInHouse().getHouseGridList().get(indexHG - 1)) + "\n");
             }
-            if (mCtrlUS135.getPowerSourceListCtrl(mHouseGrid).size() != 0) {
+            if (!mCtrlUS135.getPowerSourceListCtrl(mHouseGrid).isEmpty()) {
                 System.out.println("Here is complete list of Power Sources in the current grid:\n" + mCtrlUS135.showPowerSourceListInString(mHouseGrid) + "\n\n");
             } else {
                 System.out.println("Fail! Please try again.");

@@ -13,6 +13,7 @@ public class OtherDevices implements DeviceSpecs {
     public DeviceType getDeviceType() {
         return mDeviceType;
     }
+
     @Override
     public void setType(DeviceType deviceType) {
         mDeviceType = deviceType;
@@ -33,4 +34,7 @@ public class OtherDevices implements DeviceSpecs {
         return 0;
     }
 
-    public String showDeviceAttributeNamesAndValues() {return "";}}
+    public String showDeviceAttributeNamesAndValues() {
+        return "";
+    }
+}

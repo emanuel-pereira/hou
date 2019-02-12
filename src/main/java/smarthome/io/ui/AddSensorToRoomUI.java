@@ -248,7 +248,7 @@ public class AddSensorToRoomUI {
 
 
     public void run2() {
-        if (mRoomList.getRoomList().size() != 0) {
+        if (!mRoomList.getRoomList().isEmpty()) {
             while (true) {
                 int indexRoom;
                 while (true) {

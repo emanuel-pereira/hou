@@ -37,7 +37,7 @@ public class GetCurrentTemperatureInRoomUI {
      */
     public void checkIfRoomExists() {
 
-        if (mCTRL605.getRoomList ().size () > 0) {
+        if (!mCTRL605.getRoomList ().isEmpty()) {
             while (true) {
                 System.out.println ("Choose the Room for which you want add this sensor, from the list below:");
                 System.out.println (mCTRL605.showRoomListInString ());
