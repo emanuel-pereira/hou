@@ -36,11 +36,11 @@ public final class HouseAdministrationUI {
                     ui101.configureHouseLocationUS101();
                     break;
                 case 2:
-                    US105AddNewRoomToHouseUI ui105 = new US105AddNewRoomToHouseUI(house);
+                    AddRoomToHouseUI ui105 = new AddRoomToHouseUI(house);
                     ui105.addRoomToHouse();
                     break;
                 case 3:
-                    US108ListTheRoomsOfHouseUI ui108 = new US108ListTheRoomsOfHouseUI(house.getRoomList().getRoomList());
+                    ListRoomsOfHouseUI ui108 = new ListRoomsOfHouseUI(house.getRoomList().getRoomList());
                     ui108.run();
                     break;
                 case 4:
@@ -48,7 +48,7 @@ public final class HouseAdministrationUI {
                     ui130.run();
                     break;
                 case 5:
-                    US135AddPowerSourceToGridUI ui135 = new US135AddPowerSourceToGridUI(house, hgList, pslist);
+                    AddPowerSourceToGridUI ui135 = new AddPowerSourceToGridUI(house, hgList, pslist);
                     ui135.addPowerSourceToHouseGrid();
                     break;
                 case 6:
@@ -56,15 +56,15 @@ public final class HouseAdministrationUI {
                     ui145.checkIfHGListIsEmpty();
                     break;
                 case 7:
-                    TotalNominalPowerRoomUI ui230 = new TotalNominalPowerRoomUI(house);
+                    GetRoomTotalNominalPowerUI ui230 = new GetRoomTotalNominalPowerUI(house);
                     ui230.showTotalNominalPowerRoom();
                     break;
                 case 8:
-                    US253AddSensorToRoomUI ui253 = new US253AddSensorToRoomUI(house, sensorTypeList);
+                    AddSensorToRoomUI ui253 = new AddSensorToRoomUI(house, sensorTypeList);
                     ui253.run();
                     break;
                 case 9:
-                    US253AddSensorToRoomUI us250 = new US253AddSensorToRoomUI(house, sensorTypeList);
+                    AddSensorToRoomUI us250 = new AddSensorToRoomUI(house, sensorTypeList);
                     us250.run2();
                     break;
                 case 10:
@@ -76,7 +76,7 @@ public final class HouseAdministrationUI {
                     //ui160.getDeviceListInGrid ();
                     break;
                 case 12:
-                    TotalNominalPowerInGridUI uS172 = new TotalNominalPowerInGridUI(house);
+                    GetGridTotalNominalPowerUI uS172 = new GetGridTotalNominalPowerUI(house);
                     uS172.run();
                     break;
 
