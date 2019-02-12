@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class ReadConfigFile {
+public class Configuration {
 
     static String mConfigFilePath = "resources/config.properties";
 

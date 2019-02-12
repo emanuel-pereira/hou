@@ -167,7 +167,7 @@ public class House {
         SensorList sensorsWithReadingsInDate = new SensorList();
         for (Sensor sensor : closestSensorsByType.getSensorList()) {
             ReadingList readingListInDay=sensor.getReadingList().getReadingsInSpecificDay(inputDate);
-            if (readingListInDay.getReadingList().size() != 0) {
+            if (readingListInDay.getReadingList().isEmpty()) {
                 sensorsWithReadingsInDate.addSensor(sensor);
             }
         }
@@ -205,13 +205,13 @@ public class House {
         return closestSensorWithLatestReading;
     }
     public List<String> getListOfDeviceTypesInString() {
-        List<String> listOfDeviceTypes = ReadConfigFile.getDeviceTypes();
-        return listOfDeviceTypes;
+
+        return Configuration.getDeviceTypes();
 
     }
 
     public List<DeviceType> getListOfDeviceTypes() {
-        List<String> listOfDeviceTypes = ReadConfigFile.getDeviceTypes();
+        List<String> listOfDeviceTypes = Configuration.getDeviceTypes();
         List<DeviceType> deviceTypeList = new ArrayList<>();
         for (String type : listOfDeviceTypes)
             deviceTypeList.add(new DeviceType(type));

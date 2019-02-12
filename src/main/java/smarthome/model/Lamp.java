@@ -9,7 +9,8 @@ public class Lamp implements DeviceSpecs {
     private int mLuminousFlux;
     private DeviceType mDeviceType;
 
-    public Lamp(){}
+    public Lamp() {
+    }
 
     public Lamp(int luminousFlux) {
         this.mLuminousFlux = luminousFlux;
@@ -38,7 +39,7 @@ public class Lamp implements DeviceSpecs {
 
     public String showDeviceAttributeNamesAndValues() {
         StringBuilder result = new StringBuilder();
-        int number=3;
+        int number = 3;
         for (String s : getAttributesNames()) {
             result.append(number);
             result.append(" - ");
@@ -47,7 +48,9 @@ public class Lamp implements DeviceSpecs {
             result.append("\n");
             number++;
         }
-        return result.toString();}
+        return result.toString();
+    }
+
 
     @Override
     public double getEnergyConsumption() {
@@ -57,6 +60,7 @@ public class Lamp implements DeviceSpecs {
     public DeviceType getDeviceType() {
         return mDeviceType;
     }
+
     @Override
     public void setType(DeviceType deviceType) {
         mDeviceType = deviceType;

@@ -2,8 +2,6 @@ package smarthome.controller;
 
 import smarthome.model.*;
 
-import java.util.List;
-
 public class GetCurrentTemperatureInHouseAreaCTRL {
 
     private House mHouse;
