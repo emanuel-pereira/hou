@@ -25,6 +25,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRL {
 
     public double requestReadingRainfall(GregorianCalendar inputDate, SensorType sensorType) {
         Sensor sensor=mHouse.getSensorOfTypeWithReadingsInDate(inputDate,sensorType);
+
         return sensor.getReadingList().totalValueInGivenDay(inputDate);
     }
 
