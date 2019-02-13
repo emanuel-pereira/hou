@@ -9,6 +9,8 @@ public class Lamp implements DeviceSpecs {
     private int mLuminousFlux;
     private DeviceType mDeviceType;
 
+    private String luminousFlux = "Luminous Flux";
+
     public Lamp() {
     }
 
@@ -26,14 +28,12 @@ public class Lamp implements DeviceSpecs {
 
     public List<String> getAttributesNames() {
         List<String> result = new ArrayList<>();
-        String LuminousFlux = "Luminous Flux";
-        result.add(LuminousFlux);
+        result.add(luminousFlux);
         return result;
     }
 
     public void setAttributeValue(String attribute, String newValue) {
-        String LuminousFLux = "Luminous Flux";
-        if (attribute.equals(LuminousFLux))
+        if (attribute.equals(luminousFlux))
             setLuminousFlux(parseInt(newValue));
     }
 
@@ -43,7 +43,7 @@ public class Lamp implements DeviceSpecs {
         for (String s : getAttributesNames()) {
             result.append(number);
             result.append(" - ");
-            if (s.contains("Luminous Flux"))
+            if (s.contains(luminousFlux))
                 result.append(s.concat(" : " + this.getLuminousFlux()));
             result.append("\n");
             number++;
