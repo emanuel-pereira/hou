@@ -44,8 +44,8 @@ public class Dishwasher implements DeviceSpecs {
     }
 
     public void setAttributeValue(String attribute, String newValue) {
-        String Capacity = "Dishwasher Capacity";
-        if (attribute.equals(Capacity))
+        String capacity = "Dishwasher Capacity";
+        if (attribute.equals(capacity))
             setCapacity(parseInt(newValue));
     }
 
