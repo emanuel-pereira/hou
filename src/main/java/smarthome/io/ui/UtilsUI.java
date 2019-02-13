@@ -22,23 +22,26 @@ public final class UtilsUI {
     /**
      * Reads user input from the console and returns it as a string
      *
-     * @return
+     * @return the input
      */
     private static String getUserInput() {
         Scanner read = new Scanner(System.in);
-        String input = read.nextLine();
-        return input;
+        return read.nextLine();
     }
 
 
     private static boolean isInteger(String input) {
+
         try {
             Integer.parseInt(input);
         } catch (Exception e) {
             return false;
         }
+
         return true;
     }
+
+    //private static int
 
     /**
      * @param input any String
@@ -61,7 +64,7 @@ public final class UtilsUI {
 
     private static boolean isDate(String input) {
         String userInput = input.trim(); // remove any spaces from input as the user may be stupid.
-        String[] splitInput = new String[3];
+        String[] splitInput;
 
         splitInput = userInput.split("-", 3);
 
@@ -108,7 +111,7 @@ public final class UtilsUI {
             return -1;
         }
         String userInput = input.trim();
-        String[] splitInput = new String[3];
+        String[] splitInput;
         splitInput = userInput.split("-", 3);
         System.out.println(Integer.parseInt(splitInput[field]));
 
@@ -117,7 +120,7 @@ public final class UtilsUI {
 
     private static boolean isTime(String input) {
         String userInput = input.trim(); // remove any spaces from input as the user may be stupid.
-        String[] splitInput = new String[2];
+        String[] splitInput;
 
         splitInput = userInput.split(":", 2);
 
@@ -137,11 +140,7 @@ public final class UtilsUI {
         int hour = Integer.parseInt(sHour);
         int minute = Integer.parseInt(sMinute);
 
-        if (hour > 23 || hour < 0 || minute > 59 || minute < 0) {
-            return false;
-        }
-
-        return true;
+        return !(hour > 23 || hour < 0 || minute > 59 || minute < 0);
     }
 
     /**
@@ -156,6 +155,20 @@ public final class UtilsUI {
         String sTime = dateAndTime[1];
 
         return (isDate(sDate) && isTime(sTime));
+    }
+
+    public static String requestText(String errorMessage) {
+        String input;
+
+        while (true) {
+            input = getUserInput();
+            input = input.trim();
+            if (input.trim().matches("[A-Za-z ]*")) {
+                break;
+            }
+            print(errorMessage);
+        }
+        return input;
     }
 
 
@@ -189,37 +202,55 @@ public final class UtilsUI {
     }
 
     /**
-     * UI method that requests a double in a preset interval
+     * UI method that requests any double
      *
-     * @param minimum
-     * @param maximum
      * @param errorMessage
      * @return
      */
-    public static double requestDoubleInInterval(double minimum, double maximum, String errorMessage) {
-        String userInput = "-";
-        double parsedUserInput = minimum - 1;
+    public static double requestDouble(String errorMessage) {
+        String userInput;
+        double parsedUserInput;
 
-        while (!isDouble(userInput)) {
+        while (true) {
             userInput = getUserInput();
             if (isDouble(userInput)) {
                 parsedUserInput = Double.parseDouble(userInput);
+                break;
             }
+            System.out.println(errorMessage);
+        }
+        return parsedUserInput;
+    }
+
+
+    /**
+     * UI method that requests a double in a preset interval
+     *
+     * @param minimum      lower limit of the interval
+     * @param maximum      higher limit of the interval
+     * @param errorMessage custom error message
+     * @return
+     */
+    public static double requestDoubleInInterval(double minimum, double maximum, String errorMessage) {
+
+        double parsedUserInput;
+
+        while (true) {
+            parsedUserInput = requestDouble(errorMessage);
             if (parsedUserInput >= minimum && parsedUserInput <= maximum) {
                 break;
             }
             System.out.println(errorMessage);
-            userInput = "-";
-        }
 
+        }
         return parsedUserInput;
     }
 
     /**
      * UI method that requests a date input from the user and validates it.
      *
-     * @param errorMessage
-     * @return a GregorianClass object set to the user defined date
+     * @param errorMessage a custom error message if the date is not valid
+     * @return a GregorianCalendar object set to the user defined date
      */
     public static GregorianCalendar requestDate(String errorMessage) {
         String userInput = "";
@@ -236,13 +267,12 @@ public final class UtilsUI {
         }
 
         year = getFieldValueFromDate(userInput, 0);
-        month = getFieldValueFromDate(userInput, 1) - 1; // have to correct for the way months are stored [0,11] and not [1,12}
+        month = getFieldValueFromDate(userInput, 1) - 1; // correction for the way months are stored i.e., 0-11 and not 1-12
         day = getFieldValueFromDate(userInput, 2);
 
-        GregorianCalendar c = new GregorianCalendar(year, month, day);
-
-        return c;
+        return new GregorianCalendar(year, month, day);
     }
+
 
     /**
      * Wrapper for TextStyle Enum class. Prints an ANSI escape code at the current cursor position.
@@ -261,15 +291,35 @@ public final class UtilsUI {
     public static void format(String format1, String format2, String format3) {
         System.out.print(TextStyle.valueOf(format1).toString());
         System.out.print(TextStyle.valueOf(format2).toString());
-        System.out.print(TextStyle.valueOf(format2).toString());
+        System.out.print(TextStyle.valueOf(format3).toString());
+    }
+
+
+    public static void showList(String title, List<String> listToShow, boolean numbered, int padding) {
+        showFormattedList(title, listToShow, numbered, padding);
+    }
+
+    public static void showList(String title, List<String> listToShow, boolean numbered) {
+        showFormattedList(title, listToShow, numbered, 15);
     }
 
     public static void showList(String title, List<String> listToShow) {
-        //boolean numbered, int leftAlignment, int padding
+        showFormattedList(title, listToShow, false, 15);
+    }
+
+    /**
+     * UI method for displaying a formatted list to the user
+     *
+     * @param title      of the list/table
+     * @param listToShow the list containing the items to show
+     * @param numbered   shows the item as a numbered list
+     * @param padding    the amount of spaces to the left and right of the widest element in the table
+     */
+
+    private static void showFormattedList(String title, List<String> listToShow, boolean numbered, int padding) {
 
         int tableWidth;
         int widestString = listToShow.get(0).length();
-        int numberOfItems = listToShow.size();
 
         for (String item : listToShow
         ) {
@@ -277,29 +327,70 @@ public final class UtilsUI {
                 widestString = item.length();
             }
         }
-        if (title.length() > widestString) {
-            widestString = title.length();
+
+        if (title.length() > widestString) widestString = title.length();
+
+        tableWidth = widestString + padding * 2;
+        if (tableWidth % 2 == 1) {
+            tableWidth++;
         }
 
-        //tableWidth = widestString + padding * 2;
 
-        format("BG_BLUE");
+        //Display a title
+        final String a = "BG_BLUE";
+        final String b = "BOLD";
+        final String c = "BLACK";
 
-        System.out.println("\n"+title+"\n");
-        format("RESET");
-        format("REVERSED");
+        format(a, b, c);
+        print(padWithSpaces("", tableWidth, padding));
+        format(a, b, c);
+        print(padWithSpaces(title, tableWidth, padding));
+        format(a, b, c);
+        print(padWithSpaces("", tableWidth, padding));
 
-        for (String item:listToShow
-             ) {
-            System.out.println(item);
+        // Display the items
+        format("BG_WHITE", c);
+        String paddedOutput;
+        for (String item : listToShow
+        ) {
+            paddedOutput = padWithSpaces(item, tableWidth, padding);
+
+            format("BG_WHITE", c);
+            print(paddedOutput);
         }
 
     }
 
-    private static String padWithSpaces(String string, int length) {
+    private static String createWhiteSpace(int spaces) {
+        if (spaces <= 0) return "";
         StringBuilder output = new StringBuilder();
+
+        for (int i = 1; i < spaces; i++) {
+            output.append(" ");
+        }
+
+        return output.toString();
+
+    }
+
+    private static void print(String string) {
+        System.out.print(string);
+        format("RESET");
+        System.out.print("\n");
+    }
+
+    private static String padWithSpaces(String string, int maxLength, int padding) {
+        StringBuilder output = new StringBuilder();
+
+        output.append(createWhiteSpace(padding));
         output.append(string);
-        return "";
+
+        int spacesToAdd = maxLength - padding * 2 - string.length();
+
+        output.append(createWhiteSpace(spacesToAdd));
+        output.append(createWhiteSpace(padding));
+
+        return output.toString();
     }
 
 }
