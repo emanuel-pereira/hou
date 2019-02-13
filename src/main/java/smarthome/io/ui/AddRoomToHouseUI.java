@@ -11,9 +11,19 @@ public class AddRoomToHouseUI {
 
     private AddRoomToHouseCTRL mUS105CTRL;
 
-    public AddRoomToHouseUI(House house) {
-        mUS105CTRL = new AddRoomToHouseCTRL(house);
+    private String name;
+    private String tempFloor;
+    private Integer floor;
+    private String tempLength;
+    private double length;
+    private String tempWidth;
+    private double width;
+    private String tempHeight;
+    private double height;
 
+
+    public AddRoomToHouseUI(House house) {
+        mUS105CTRL = new AddRoomToHouseCTRL (house);
     }
 
     /**
@@ -25,7 +35,6 @@ public class AddRoomToHouseUI {
      */
     public void addRoomToHouse() {
 
-        String name;
         while (true) {
             System.out.println ("Insert the name of the room:");
             name = nameIsValid ();
@@ -34,8 +43,11 @@ public class AddRoomToHouseUI {
             else
                 this.tryAgainMessage ();
         }
-        String tempFloor;
-        Integer floor;
+        this.insertFloor ();
+    }
+
+
+    private void insertFloor() {
         while (true) {
             System.out.println ("Insert the floor where the room is:");
             tempFloor = floorIsValid ();
@@ -44,8 +56,11 @@ public class AddRoomToHouseUI {
             else
                 this.tryAgainMessage ();
         }
-        String tempLength;
-        double length;
+        this.insertLength ();
+    }
+
+    private void insertLength() {
+
         while (true) {
             System.out.println ("Insert the length of the room (in meters):");
             tempLength = lengthWidthOrHeightAreValid ();
@@ -54,8 +69,12 @@ public class AddRoomToHouseUI {
             else
                 this.tryAgainMessage ();
         }
-        String tempWidth;
-        double width;
+        this.insertWidth ();
+    }
+
+
+    private void insertWidth() {
+
         while (true) {
             System.out.println ("Insert the width of the room (in meters):");
             tempWidth = lengthWidthOrHeightAreValid ();
@@ -64,8 +83,10 @@ public class AddRoomToHouseUI {
             else
                 this.tryAgainMessage ();
         }
-        String tempHeight;
-        double height;
+        this.insertHeight ();
+    }
+
+    private void insertHeight() {
         while (true) {
             System.out.println ("Insert the height of the room (in meters):");
             tempHeight = lengthWidthOrHeightAreValid ();
@@ -74,21 +95,28 @@ public class AddRoomToHouseUI {
             else
                 this.tryAgainMessage ();
         }
+        this.addNewRoom ();
+    }
+
+
+    private void addNewRoom() {
+        Integer floor;
+        double length;
+        double width;
+        double height;
         floor = Integer.parseInt (tempFloor);
         length = Double.parseDouble (tempLength);
         width = Double.parseDouble (tempWidth);
         height = Double.parseDouble (tempHeight);
-
-
         if (mUS105CTRL.newRoom (name, floor, length, width, height)) {
-            System.out.println ("Success. The " + name + " on the " + floor + " floor with " + height + "m of height and "+ length * width + "m² was created.");
+            System.out.println ("Success. The " + name + " on the " + floor + " floor with " + height + "m of height and " + length * width + "m² was created.");
         } else {
             System.out.println ("Fail! Please try again.");
         }
 
     }
 
-    public void tryAgainMessage() {
+    private void tryAgainMessage() {
         System.out.print ("Try again. ");
     }
 
@@ -107,7 +135,7 @@ public class AddRoomToHouseUI {
     }
 
 
-    public String floorIsValid() {
+    private String floorIsValid() {
         String floor = read.nextLine ();
         if (floor == null || floor.trim ().isEmpty ()) {//verification of empty and null parameters
             System.out.println ("Empty spaces are not accepted.");
@@ -121,7 +149,7 @@ public class AddRoomToHouseUI {
     }
 
 
-    public String lengthWidthOrHeightAreValid() {
+    private String lengthWidthOrHeightAreValid() {
         String number = read.nextLine ();
         if (number == null || number.trim ().isEmpty ()) {//verification of empty and null parameters
             System.out.println ("Empty spaces aren't accepted.");
