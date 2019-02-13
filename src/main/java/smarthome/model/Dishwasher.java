@@ -6,15 +6,16 @@ import java.util.List;
 import static java.lang.Integer.parseInt;
 
 public class Dishwasher implements DeviceSpecs {
-    private DeviceType mDeviceType;
     private int mCapacity;
-    private ProgramList mProgramListInDW;
+    private double mEnergyConsumption;
+    private DeviceType mDeviceType;
 
 
-    public Dishwasher(DeviceType deviceType,int capacity) {
-        mDeviceType=deviceType;
+    public Dishwasher() {
+    }
+
+    public Dishwasher(int capacity) {
         mCapacity = capacity;
-        mProgramListInDW = new ProgramList();
     }
 
     public void setCapacity(int newCapacity) {
@@ -27,30 +28,42 @@ public class Dishwasher implements DeviceSpecs {
         return mCapacity;
     }
 
-    @Override
-    public DeviceType getType() {
+    public DeviceType getDeviceType() {
         return mDeviceType;
     }
+    @Override
+    public void setType(DeviceType deviceType) {
+        mDeviceType = deviceType;
+    }
 
-    public List<String> getDeviceAttributesInString() {
+    public List<String> getAttributesNames() {
         List<String> result = new ArrayList<>();
-        String deviceType = "3 - Device Type : " + this.mDeviceType.getTypeString();
-        String capacity = "4 - Dishwater Capacity : " + this.mCapacity;
-        result.add(deviceType);
+        String capacity = "Dishwasher Capacity";
         result.add(capacity);
         return result;
     }
 
     public void setAttributeValue(String attribute, String newValue) {
-        String capacity = "4 - Dishwater Capacity : " + this.mCapacity;
+        String capacity = "Dishwasher Capacity";
         if (attribute.equals(capacity))
             setCapacity(parseInt(newValue));
     }
 
+    public String showDeviceAttributeNamesAndValues() {
+        StringBuilder result = new StringBuilder();
+        int number = 3;
+        for (String s : getAttributesNames()) {
+            result.append(number);
+            result.append(" - ");
+            if (s.contains("Dishwasher Capacity"))
+                result.append(s.concat(" : " + this.getCapacity()));
+            result.append("\n");
+            number++;
+        }
+        return result.toString();
+    }
     @Override
     public double getEnergyConsumption() {
         return 0;
     }
-
-
 }

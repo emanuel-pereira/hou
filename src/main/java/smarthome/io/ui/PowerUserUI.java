@@ -33,16 +33,16 @@ public final class PowerUserUI {
                     ui160.getDeviceListInGrid();
                     break;*/
                 case 2:
-                    TotalNominalPowerInGridUI uS172 = new TotalNominalPowerInGridUI(house);
+                    GetGridTotalNominalPowerUI uS172 = new GetGridTotalNominalPowerUI(house);
                     uS172.run();
                     break;
                 case 3:
-                    TotalNominalPowerRoomUI ui230 = new TotalNominalPowerRoomUI(house);
+                    GetRoomTotalNominalPowerUI ui230 = new GetRoomTotalNominalPowerUI(house);
                     ui230.showTotalNominalPowerRoom();
                     break;
                 case 4:
-                    EnergyConsumptionOfWaterHeatingUI ui752 = new EnergyConsumptionOfWaterHeatingUI(house);
-                    ui752.run();
+                    GetEnergyConsumptionOfWaterHeatingUI ui752 = new GetEnergyConsumptionOfWaterHeatingUI(house);
+                    //ui752.run();
                     break;
                 case 5:
                     System.out.println("US705");
@@ -50,14 +50,18 @@ public final class PowerUserUI {
                     ui705.run();*/
                     break;
                 case 6:
-                    System.out.println("US222");
+                    EditDevicesUI devicesUI = new EditDevicesUI(house);
+                    devicesUI.deactivateDevice();
                     break;
                 case 7:
-                    EnergyConsumptionInPeriodUI uiEC = new EnergyConsumptionInPeriodUI(house);
+                    GetEnergyConsumptionInPeriodUI uiEC = new GetEnergyConsumptionInPeriodUI(house);
                     uiEC.selectOption();
                     break;
                 case 8:
                     System.out.println("US730");
+                    /*GetEnergyConsumptionInPeriodUI uiEC2 = new GetEnergyConsumptionInPeriodUI(house);
+                    uiEC2.selectChartOption();
+                    */
                     System.out.println(house.getRoomList().getRoomList().get(2).getDeviceList().get(1).getActivityLogSum());
                     break;
                 default:

@@ -2,15 +2,13 @@ package smarthome.model;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.GregorianCalendar;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class WashingMachineTest {
 
     @Test
     void setAndGetCapacityValueTest() {
-        WashingMachine washingMachine = new WashingMachine(DeviceType.WASHING_MACHINE,80);
+        WashingMachine washingMachine = new WashingMachine(80);
         washingMachine.setCapacity(90);
         int result = washingMachine.getCapacity();
         assertEquals(90,result);
@@ -18,16 +16,26 @@ class WashingMachineTest {
 
     @Test
     void setAttributeValueTest() {
-        WashingMachine wm = new WashingMachine(DeviceType.WASHING_MACHINE,4);
+        WashingMachine wm = new WashingMachine(4);
         String Capacity = "4 - Washing Machine Capacity : " + wm.getCapacity();
         wm.setAttributeValue(Capacity,"20");
         assertEquals(20,wm.getCapacity());
     }
 
-    @Test
-    void getType() {
-        WashingMachine wm = new WashingMachine(DeviceType.WASHING_MACHINE,4);
-        DeviceType result=wm.getType();
-        assertEquals(DeviceType.WASHING_MACHINE,result);}
 
+        @Test
+    void setAndGetTypeTest() {
+        WashingMachine wm = new WashingMachine();
+        DeviceType deviceType = new DeviceType("WashingMachine");
+        wm.setType(deviceType);
+        String result = wm.getDeviceType().getDeviceTypeName();
+        assertEquals("WashingMachine", result);
+
+    }
+    @Test
+    void getEnergyConsumptionTest(){
+        WashingMachine wm = new WashingMachine();
+        double result = wm.getEnergyConsumption();
+        assertEquals(0,result);
+    }
 }

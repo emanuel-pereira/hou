@@ -14,7 +14,7 @@ public class ReadingTest {
 
     @Test
     @DisplayName("Constructor with date and value")
-    public void getReadingDateAndValue(){
+    public void getReadingDateAndValue() {
 
         //Arrange
         GregorianCalendar calendar1 = new GregorianCalendar(2018,11,27,21,30);
@@ -32,34 +32,35 @@ public class ReadingTest {
     @DisplayName("Ensure that method getDateAndTime returns Reading1 dateAndTime attribute")
     void getDateAndTime() {
         //Arrange
-        GregorianCalendar calendar1 = new GregorianCalendar(2018,11,27,21,30);
+        GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 27, 21, 30);
 
         //Act
-        Reading reading1 = new Reading(13,calendar1);
+        Reading reading1 = new Reading(13, calendar1);
         Calendar dateAndTime = reading1.getDateAndTime();
 
         //Assert
-        assertEquals(calendar1,dateAndTime);
+        assertEquals(calendar1, dateAndTime);
     }
 
     @Test
     @DisplayName("Ensure get month of reading returns 11.")
     void getMonthOfReading() {
-        GregorianCalendar calendar1 = new GregorianCalendar(2018,11,27,21,30);
-        Reading reading1 = new Reading(13,calendar1);
-        int expected= 11;
+        GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 27, 21, 30);
+        Reading reading1 = new Reading(13, calendar1);
+        int expected = 11;
         int result = reading1.getMonthOfReading();
-        assertEquals(expected,result);
+        assertEquals(expected, result);
 
     }
 
     @Test
-    @DisplayName("Check that getDateOfReadingAsString() returns a proper string with the date")
-    void getDateOfReadingAsString(){
-        GregorianCalendar calendar1 = new GregorianCalendar(2018,1,27,21,30);
-        Reading reading1 = new Reading(31,calendar1);
-        String expected = "2018-1-27";
-        String result=reading1.getDateOfReadingAsString();
-        assertEquals(expected,result);
+    void getDateOfReadingAsString() {
+        GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 27, 21, 30);
+        Reading reading1 = new Reading(13, calendar1);
+
+        String expected = "2018-11-27";
+        String result = reading1.getDateOfReadingAsString ();
+        assertEquals(expected, result);
     }
+
 }

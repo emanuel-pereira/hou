@@ -13,6 +13,7 @@ public class ConfigureHouseLocationUI {
     private ConfigureHouseLocationCTRL mCtrlUS101;
     Scanner read = new Scanner(System.in);
     GPSValidations validations = new GPSValidations();
+    String invalidCharacters = "^(?![\\s]).*";
 
     /*
         US101: As Administrator, I want to configure the location of the house
@@ -119,7 +120,7 @@ public class ConfigureHouseLocationUI {
             System.out.println("Empty spaces are not accepted");
             return null;
         }
-        if (!streetName.matches("^(?![\\s]).*")) {
+        if (!streetName.matches(invalidCharacters)) {
             System.out.println("Please start with words.");
             return null;
         }
@@ -132,7 +133,7 @@ public class ConfigureHouseLocationUI {
             System.out.println("Empty spaces are not accepted.");
             return null;
         }
-        if (!zipCode.matches("^(?![\\s]).*")) {
+        if (!zipCode.matches(invalidCharacters)) {
             System.out.println("Please insert only alphanumeric characters.");
             return null;
         }
@@ -145,7 +146,7 @@ public class ConfigureHouseLocationUI {
             System.out.println("Empty spaces are not accepted.");
             return null;
         }
-        if (!town.matches("^(?![\\s]).*")) {
+        if (!town.matches(invalidCharacters)) {
             System.out.println("Please start with words.");
             return null;
         }

@@ -10,7 +10,6 @@ public final class UtilsUI {
     private UtilsUI() {
     }
 
-
     public static void printLnInsertValidOption() {
         System.out.println("Please insert a valid option.");
     }

@@ -1,6 +1,5 @@
 package smarthome.model;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.GregorianCalendar;
@@ -55,7 +54,7 @@ public class RoomTest {
      * Checks if two different room objects are equals because of their content
      */
     @Test
-    public void equalsIfTypeGAEqualsTypeGA() {
+    public void equalsIfRoomEqualsRoom() {
         Room room1 = new Room ("bedroom", 0, 2.5, 3, 3);
         Room room2 = new Room ("bedroom", 0, 2.5, 3, 3);
 
@@ -69,7 +68,7 @@ public class RoomTest {
      * Checks if two different room objects are different because of their content
      */
     @Test
-    public void equalsIfTypeGAEqualsDifferentTypeGA() {
+    public void equalsIfRoomEqualsDifferentRoom() {
         Room room1 = new Room ("bedroom", 0, 2.5, 3, 3);
         Room room2 = new Room ("garden", 0, 2.5, 3, 3);
 
@@ -160,49 +159,48 @@ public class RoomTest {
 
     /**
      * Check if sum of nominal power of devices in room is correct and return correct number
-     *//*
+     */
     @Test
     public void getCorrectNominalPower() {
+        House house = new House();
+        RoomList roomList = house.getRoomList ();
+        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2,2,2);
+        roomList.addRoom (bedroom);
+        DeviceSpecs ewh = new ElectricWaterHeater();
+        Device dEWH1= new Device("EWH DAIKIN1",ewh,15);
+        Device dEWH2= new Device("EWH DAIKIN2",ewh,15);
+        roomList.addDeviceToRoom (dEWH1,1);
+        roomList.addDeviceToRoom (dEWH2,1);
 
-        Room bedroom = new Room ("bedroom", 1, 2, 3, 2);
-        DeviceList dL = bedroom.deviceListSizeInGridIsNotEmpty ();
-
-        Device d1 = dL.newDevice ("fridge", bedroom, "fridge", 100);
-        Device d2 = dL.newDevice("lamp", bedroom, "lamp", 50);
-
-        dL.addDevice (d1);
-        dL.addDevice (d2);
-
-
-        double expectedResult = 150;
+        double expectedResult = 30;
         double result = bedroom.getNominalPower ();
-
 
         assertEquals (expectedResult, result);
     }
 
-    *//**
+    /**
      * Check if sum of nominal power of devices in room is correct and return incorrect number
-     *//*
+     */
     @Test
     public void getIncorrectNominalPower() {
 
-        Room bedroom = new Room ("bedroom", 1, 2, 3, 2);
-        DeviceList dL = bedroom.deviceListSizeInGridIsNotEmpty ();
+        House house = new House();
+        RoomList roomList = house.getRoomList ();
+        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2,2,2);
+        roomList.addRoom (bedroom);
 
-        Device d1 = dL.newDeviceWithoutSpecs ("fridge", bedroom, "fridge", 200);
-        Device d2 = dL.newDeviceWithoutSpecs("lamp", bedroom, "lamp", 200);
+        DeviceSpecs ewh = new ElectricWaterHeater();
+        Device dEWH= new Device("EWH DAIKIN",ewh,15);
 
-        dL.addDevice (d1);
-        dL.addDevice (d2);
+        roomList.addDeviceToRoom (dEWH,1);
 
 
-        double expectedResult = 410;
+        double expectedResult = 10;
         double result = bedroom.getNominalPower ();
 
 
         assertNotEquals (expectedResult, result);
-    }*/
+    }
 
     /**
      * Check if sum of all metered devices in the room is correct with one metered device
@@ -214,7 +212,7 @@ public class RoomTest {
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2,2,2);
         roomList.addRoom (bedroom);
 
-        DeviceSpecs ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        DeviceSpecs ewh = new ElectricWaterHeater();
         Device dEWH= new Device("EWH DAIKIN",ewh,15);
 
         roomList.addDeviceToRoom (dEWH,1);
@@ -253,11 +251,11 @@ public class RoomTest {
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2,2,2);
         roomList.addRoom (bedroom);
 
-        DeviceSpecs ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        DeviceSpecs ewh = new ElectricWaterHeater();
         Device dEWH= new Device("EWH DAIKIN",ewh,15);
-        DeviceSpecs tv = new OtherDevices (DeviceType.TV);
+        DeviceSpecs tv = new OtherDevices ();
         Device dTv= new Device("Samsung TV",tv,15);
-        DeviceSpecs frid = new Fridge (DeviceType.FRIDGE,20,10,300 );
+        DeviceSpecs frid = new Fridge ();
         Device dFrid = new Device ("Fridge1",frid,100);
         Device dOtherFrid = new Device ("Fridge2", frid, 80);
 
@@ -325,4 +323,40 @@ public class RoomTest {
 
         assertEquals(expected, result);
     }
+
+    @Test
+    public void checkIfSameDeviceIsAddedTwice() {
+        House house = new House();
+        RoomList roomList = house.getRoomList ();
+        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2,2,2);
+        roomList.addRoom (bedroom);
+        DeviceList dL = bedroom.getDeviceList ();
+        DeviceSpecs ewh = new ElectricWaterHeater();
+        Device dEWH1= new Device("EWH DAIKIN1",ewh,15);
+        assertTrue (dL.addDevice (dEWH1));
+        assertFalse (dL.addDevice (dEWH1));
+     }
+
+    @Test
+    public void  getLastDevice() {
+        House house = new House();
+        RoomList roomList = house.getRoomList ();
+        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2,2,2);
+        roomList.addRoom (bedroom);
+        DeviceList dL = bedroom.getDeviceList ();
+        DeviceSpecs ewh = new ElectricWaterHeater();
+        Device dEWH1= new Device("EWH DAIKIN1",ewh,15);
+        Device dEWH2= new Device("EWH DAIKIN2",ewh,15);
+        dL.addDevice (dEWH1);
+        dL.addDevice (dEWH2);
+
+        Device expectedResult = dEWH2;
+        Device result = dL.getLastElement ();
+
+        assertEquals (expectedResult,result);
+    }
+
+
+
+
 }

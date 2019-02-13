@@ -77,11 +77,11 @@ public class AttachDetachAndListRoomsInGridUI {
     }
 
     private void chooseRoomToAttach() {
-            isValidIndexOfRoom();
-            mCtrl.attachRoomToHouseGrid(mIndexOfHG, mIndexOfRoom);
-            System.out.println("Room " + mCtrl.getNameOfLastRoomInHG(mIndexOfHG) + " was successfully attached to HouseGrid: " + mCtrl.getHGName(mIndexOfHG) + ".\n");
-            showRoomsInHG();
-            return;
+        isValidIndexOfRoom();
+        mCtrl.attachRoomToHouseGrid(mIndexOfHG, mIndexOfRoom);
+        System.out.println("Room " + mCtrl.getNameOfLastRoomInHG(mIndexOfHG) + " was successfully attached to HouseGrid: " + mCtrl.getHGName(mIndexOfHG) + ".\n");
+        showRoomsInHG();
+        return;
     }
 
 

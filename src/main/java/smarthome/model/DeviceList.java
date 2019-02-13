@@ -1,7 +1,6 @@
 package smarthome.model;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class DeviceList {
@@ -39,6 +38,19 @@ public class DeviceList {
         return new Device(name, deviceSpecs, nominalPower);
     }
 
+    public Device newDeviceV2(DeviceType deviceType) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        String path = "smarthome.model.";
+        String deviceTypeName = deviceType.getDeviceTypeName();
+        if (!(deviceTypeName.contains("Fridge") || deviceTypeName.contains("WashingMachine") || deviceTypeName.contains("ElectricWaterHeater")
+                || deviceTypeName.contains("Dishwasher") || deviceTypeName.contains("Lamp")))
+            deviceTypeName = "OtherDevices";
+        String deviceTypeNameAndPath = path.concat(deviceTypeName);
+        DeviceSpecs deviceSpecs = (DeviceSpecs) Class.forName(deviceTypeNameAndPath).newInstance();
+        Device device = new Device(deviceSpecs);
+        device.getDeviceSpecs().setType(deviceType);
+        return device;
+    }
+
     /**
      * @param index position in the device list
      * @return the device in index position in the device list
@@ -54,31 +66,19 @@ public class DeviceList {
         return mDeviceList.get(mDeviceList.size() - 1);
     }
 
-    /**
-     * @param deviceType the type of device that the list returns
-     * @return a list of devices which have the same type as the one inputted as parameter
-     */
-    public List<Device> getDevicesOfType(DeviceType deviceType) {
-        List<Device> deviceListByType = new ArrayList<>();
-        for (Device device : mDeviceList) {
-            if (device.getDeviceSpecs().getType().equals(deviceType))
-                deviceListByType.add(device);
-        }
-        return deviceListByType;
-    }
 
     /**
      * Method to get the list of Powered devices of a room
      *
      * @return the device list
      * public List<Powered> getPoweredDeviceList() {
-     * List<Powered> poweredDeviceList;
-     * for Device device: mDeviceList
-     * {
-     * poweredDeviceList.add(mDeviceList.get().)
-     * }
-     * return ;
-     * }
+     List<Powered> poweredDeviceList;
+     for Device device: mDeviceList
+     {
+     poweredDeviceList.add(mDeviceList.get().)
+     }
+     return ;
+     }
      */
 
     public String showDeviceListInString() {
@@ -93,7 +93,7 @@ public class DeviceList {
             result.append(element);
             result.append(device.getName());
             result.append(typeStr);
-            result.append(device.getDeviceSpecs().getType());
+            result.append(device.getDeviceSpecs().getDeviceType().getDeviceTypeName());
             result.append(statusStr);
             result.append(device.status());
             result.append("\n");
@@ -137,7 +137,7 @@ public class DeviceList {
         List<Device> meteredDeviceList = new ArrayList<>();
 
         for (Device device : mDeviceList) {
-            if (device.isMetered() == true) {
+            if (device.isMetered()) {
                 meteredDeviceList.add(device);
             }
         }

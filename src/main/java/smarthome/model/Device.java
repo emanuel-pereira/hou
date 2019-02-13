@@ -8,7 +8,7 @@ import java.util.List;
 
 import static java.lang.Double.parseDouble;
 
-public class Device implements Metered{
+public class Device implements Metered {
 
     NameValidations nameValidation = new NameValidations();
 
@@ -18,7 +18,6 @@ public class Device implements Metered{
     private boolean mActive;
     private boolean mIsMetered;
     private ReadingList mActivityLog;
-
 
 
     /**
@@ -33,8 +32,15 @@ public class Device implements Metered{
         mDeviceSpecs = deviceSpecs;
         setNominalPower(nominalPower);
         mActive = true;
-        mIsMetered=true;
-        mActivityLog= new ReadingList();
+        mIsMetered = true;
+        mActivityLog = new ReadingList();
+    }
+
+    public Device(DeviceSpecs deviceSpecs) {
+        mDeviceSpecs = deviceSpecs;
+        mActive = true;
+        mIsMetered = true;
+        mActivityLog = new ReadingList();
     }
 
     /**
@@ -81,37 +87,40 @@ public class Device implements Metered{
 
     public String showDeviceAttributesInString() {
         StringBuilder result = new StringBuilder();
-        for (String s : getDeviceAttributesInString()) {
-            result.append(s);
-            result.append("\n");
-        }
+        result.append(this.getDeviceSpecs().getDeviceType().getDeviceTypeName());
+        result.append("\n");
+        result.append("1 - Device Name : " + this.getName());
+        result.append("\n");
+        result.append("2 - Device Nominal Power : " + this.getNominalPower());
+        result.append("\n");
+        result.append(this.getDeviceSpecs().showDeviceAttributeNamesAndValues());
         return result.toString();
     }
 
-
     public List<String> getDeviceAttributesInString() {
         List<String> result = new ArrayList<>();
-        String deviceName = "1 - Device Name : " + this.getName();
-        String deviceNominalPower = "2 - Device Nominal Power : " + this.mNominalPower;
+        String deviceName = "Device Name";
+        String deviceNominalPower = "Device Nominal Power";
         result.add(deviceName);
         result.add(deviceNominalPower);
-        for (String deviceSpecs : this.getDeviceSpecs().getDeviceAttributesInString())
+        for (String deviceSpecs : this.getDeviceSpecs().getAttributesNames())
             result.add(deviceSpecs);
         return result;
     }
 
     public void setAttributeValue(String attribute, String newValue) {
-        String deviceName = "2 - Device Name : " + this.mName;
-        String deviceNominalPower = "3 - Device Nominal Power : " + this.mNominalPower;
-        if (attribute.equals(deviceName)) {
+        String deviceName = "Device Name";
+        String deviceNominalPower = "Device Nominal Power";
+        if (attribute.contains(deviceName)) {
             setName(newValue);
         }
-        if (attribute.equals(deviceNominalPower)) {
+        if (attribute.contains(deviceNominalPower)) {
             setNominalPower(parseDouble(newValue));
         }
         this.getDeviceSpecs().setAttributeValue(attribute, newValue);
     }
-    public double getEnergyConsumption(){
+
+    public double getEnergyConsumption() {
         return mDeviceSpecs.getEnergyConsumption();
     }
 
@@ -136,18 +145,19 @@ public class Device implements Metered{
 
     @Override
     public double getEnergyConsumptionInTimeInterval(Calendar startDate, Calendar endDate) {
-        double energyConsumption=0;
-        if (ReadConfigFile.getDevicesMeteringPeriod()!=-1&&this.isMetered()){
-            energyConsumption=mActivityLog.getValueOfReadingsInTimeInterval(startDate,endDate);
+        double energyConsumption = 0;
+        if (Configuration.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
+            energyConsumption = mActivityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
         }
         return energyConsumption;
     }
-//put this method as private after reviewing create device US
-public void setIsMetered(boolean isMetered) {
-    if (!isMetered)
-        mActivityLog = null;
-    this.mIsMetered = isMetered;
-}
+
+    //put this method as private after reviewing create device US
+    public void setIsMetered(boolean isMetered) {
+        if (!isMetered)
+            mActivityLog = null;
+        this.mIsMetered = isMetered;
+    }
 
     public boolean isMetered() {
         return mIsMetered;
@@ -175,5 +185,3 @@ public void setIsMetered(boolean isMetered) {
         return sum;
     }
 }
-
-

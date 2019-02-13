@@ -65,8 +65,7 @@ public class TypeGA {
      */
     @Override
     public String toString() {
-        String str = mTypeGA;
-        return str;
+        return mTypeGA;
     }
 }
 
