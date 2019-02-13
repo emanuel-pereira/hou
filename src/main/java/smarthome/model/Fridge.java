@@ -11,6 +11,10 @@ public class Fridge implements DeviceSpecs {
     private int mAnnualEnergyConsumption;
     private DeviceType mDeviceType;
 
+    private String freezerCapacity = "Freezer Capacity";
+    private String refrigeratorCapacity = "Refrigerator Capacity";
+
+
 
     public Fridge() {
     }
@@ -33,8 +37,6 @@ public class Fridge implements DeviceSpecs {
 
     public List<String> getAttributesNames() {
         List<String> result = new ArrayList<>();
-        String freezerCapacity = "Freezer Capacity";
-        String refrigeratorCapacity = "Refrigerator Capacity";
         result.add(freezerCapacity);
         result.add(refrigeratorCapacity);
         return result;
@@ -42,8 +44,6 @@ public class Fridge implements DeviceSpecs {
 
     @Override
     public void setAttributeValue(String attribute, String newValue) {
-        String freezerCapacity = "Freezer Capacity";
-        String refrigeratorCapacity = "Refrigerator Capacity";
         if (attribute.contains(freezerCapacity))
             setFreezerCapacity(parseInt(newValue));
         if (attribute.contains(refrigeratorCapacity))
@@ -56,9 +56,9 @@ public class Fridge implements DeviceSpecs {
         for (String s : getAttributesNames()) {
             result.append(number);
             result.append(" - ");
-            if (s.contains("Freezer Capacity"))
+            if (s.contains(freezerCapacity))
                 result.append(s.concat(" : " + this.getFreezerCapacity()));
-            if (s.contains("Refrigerator Capacity"))
+            if (s.contains(refrigeratorCapacity))
                 result.append(s.concat(" : " + this.getRefrigeratorCapacity()));
             result.append("\n");
             number++;
