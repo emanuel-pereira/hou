@@ -13,13 +13,9 @@ public class AddRoomToHouseUI {
 
     private String name;
     private String tempFloor;
-    private Integer floor;
     private String tempLength;
-    private double length;
     private String tempWidth;
-    private double width;
     private String tempHeight;
-    private double height;
 
 
     public AddRoomToHouseUI(House house) {
@@ -41,7 +37,7 @@ public class AddRoomToHouseUI {
             if (name != null)
                 break;
             else
-                this.tryAgainMessage ();
+                tryAgainMessage ();
         }
         this.insertFloor ();
     }
@@ -54,7 +50,7 @@ public class AddRoomToHouseUI {
             if (tempFloor != null)
                 break;
             else
-                this.tryAgainMessage ();
+                tryAgainMessage ();
         }
         this.insertLength ();
     }
@@ -67,7 +63,7 @@ public class AddRoomToHouseUI {
             if (tempLength != null)
                 break;
             else
-                this.tryAgainMessage ();
+                tryAgainMessage ();
         }
         this.insertWidth ();
     }
@@ -81,7 +77,7 @@ public class AddRoomToHouseUI {
             if (tempWidth != null)
                 break;
             else
-                this.tryAgainMessage ();
+                tryAgainMessage ();
         }
         this.insertHeight ();
     }
@@ -93,7 +89,7 @@ public class AddRoomToHouseUI {
             if (tempHeight != null)
                 break;
             else
-                this.tryAgainMessage ();
+                tryAgainMessage ();
         }
         this.addNewRoom ();
     }
@@ -116,13 +112,13 @@ public class AddRoomToHouseUI {
 
     }
 
-    private void tryAgainMessage() {
+    private static void tryAgainMessage() {
         System.out.print ("Try again. ");
     }
 
 
     public String nameIsValid() {
-        String name = read.nextLine ();
+        name = read.nextLine ();
         if (name == null || name.trim ().isEmpty ()) {//verification of empty and null parameters
             System.out.println ("Empty spaces are not accepted");
             return null;
