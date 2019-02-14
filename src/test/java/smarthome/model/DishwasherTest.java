@@ -58,7 +58,7 @@ class DishwasherTest {
         String expected ="3 - Dishwasher Capacity : 0\n";
         assertEquals(expected,result);
     }
-    @Test
+     @Test
     void getEnergyConsumptionTest(){
         Dishwasher dishwasher = new Dishwasher();
         double result = dishwasher.getEnergyConsumption();

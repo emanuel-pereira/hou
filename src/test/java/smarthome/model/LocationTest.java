@@ -78,7 +78,7 @@ class LocationTest {
 
     @Test
     @DisplayName("Check if Illegal Argument Exception is thrown with higher permitted altitude")
-    void altitudeReturnsIllegalArgumentException() {
+    void higherAltitudeReturnsIllegalArgumentException() {
         GPSValidations validations = new GPSValidations ();
         boolean thrown = false;
         try {
@@ -89,6 +89,18 @@ class LocationTest {
         assertTrue(thrown);
     }
 
+    @Test
+    @DisplayName("Check if Illegal Argument Exception is thrown with lower permitted altitude")
+    void lowerAltitudeReturnsIllegalArgumentException() {
+        GPSValidations validations = new GPSValidations ();
+        boolean thrown = false;
+        try {
+            validations.altitudeIsValid (-20000);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
 
     @Test
     @DisplayName("Check if Illegal Argument Exception is thrown with higher permitted latitude")
