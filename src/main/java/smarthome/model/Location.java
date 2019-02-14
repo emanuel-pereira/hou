@@ -26,7 +26,7 @@ public class Location {
      * Method to set latitude as the one inputted by the user if it complies with latitudeIsValid criteria
      * @param latitude user input
      */
-    public void setLatitude(double latitude) {
+    private void setLatitude(double latitude) {
         if (v.latitudeIsValid(latitude))
             mLatitude = latitude;
     }
@@ -35,7 +35,7 @@ public class Location {
      * Method to set longitude as the one inputted by the user if it complies with longitudeIsValid criteria
      *@param longitude user input
      */
-    public void setLongitude(double longitude) {
+    private void setLongitude(double longitude) {
         if (v.longitudeIsValid(longitude))
             mLongitude = longitude;
     }
@@ -44,7 +44,7 @@ public class Location {
      * Method to set altitude as the one inputted by the user if it complies with altitudeIsValid criteria
      * @param altitude user input
      */
-    public void setAltitude(double altitude) {
+    private void setAltitude(double altitude) {
         if (v.altitudeIsValid(altitude))
             mAltitude = altitude;
     }
