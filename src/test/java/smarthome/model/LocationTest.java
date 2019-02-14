@@ -33,6 +33,59 @@ class LocationTest {
     }
 
     @Test
+    @DisplayName("Check if all GPS coordinates are set invalid.")
+    public void checkIfGPSCoordinatesAreSetInvalid() {
+        Location l = new Location(90, 180, 8848);
+
+        boolean thrownLa = false;
+        try {
+            l.setLatitude (100);
+        } catch (IllegalArgumentException eLa) {
+            thrownLa = true;
+        }
+        assertTrue(thrownLa);
+
+        boolean thrownLo = false;
+        try {
+            l.setLongitude (200);
+        } catch (IllegalArgumentException eLo) {
+            thrownLo = true;
+        }
+        assertTrue(thrownLo);
+
+        boolean thrownAl = false;
+        try {
+            l.setAltitude (9000);
+        } catch (IllegalArgumentException eAl) {
+            thrownAl = true;
+        }
+        assertTrue(thrownAl);
+    }
+
+    @Test
+    @DisplayName("Check if all GPS coordinates are set valid.")
+    public void checkIfGPSCoordinatesAreSetValid() {
+        Location l = new Location(12, -4, 100);
+
+        l.setLatitude (14);
+        double expectedLat = 14;
+        double resultLat = l.getLatitude();
+        assertEquals(expectedLat, resultLat);
+
+        l.setLongitude (10);
+        double expectedLon = 10;
+        double resultLon = l.getLongitude();
+        assertEquals(expectedLon, resultLon);
+
+        l.setAltitude (110);
+        double expectedAlt = 110;
+        double resultAlt = l.getAltitude();
+        assertEquals(expectedAlt, resultAlt);
+    }
+
+
+
+    @Test
     @DisplayName("Check that all max limit GPS coordinates are valid while creating an instance of a location.")
     public void ensureAllMaxLimitGPSCoordinatesAreValid() {
         //Arrange
