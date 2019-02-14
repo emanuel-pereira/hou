@@ -15,11 +15,11 @@ public class HouseGridList {
      * Receives the String ID of the new grid and calls the HouseGrid class constructor that
      * creates the new house electric grid
      *
-     * @param ID String object designation of the grid
+     * @param id String object designation of the grid
      * @return new HouseGrid object
      */
-    public HouseGrid newHouseGrid(String ID) {
-        return new HouseGrid (ID);
+    public HouseGrid newHouseGrid(String id) {
+        return new HouseGrid (id);
     }
 
     /**
