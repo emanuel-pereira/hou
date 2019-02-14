@@ -104,7 +104,7 @@ class LocationTest {
 
     @Test
     @DisplayName("Check if Illegal Argument Exception is thrown with higher permitted latitude")
-    void latitudeReturnsIllegalArgumentException() {
+    void higherLatitudeReturnsIllegalArgumentException() {
         GPSValidations validations = new GPSValidations ();
         boolean thrown = false;
         try {
@@ -116,12 +116,38 @@ class LocationTest {
     }
 
     @Test
+    @DisplayName("Check if Illegal Argument Exception is thrown with lower permitted latitude")
+    void lowerLatitudeReturnsIllegalArgumentException() {
+        GPSValidations validations = new GPSValidations ();
+        boolean thrown = false;
+        try {
+            validations.latitudeIsValid (-100);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
     @DisplayName("Check if Illegal Argument Exception is thrown with higher permitted longitude")
-    void longitudeReturnsIllegalArgumentException() {
+    void higherLongitudeReturnsIllegalArgumentException() {
         GPSValidations validations = new GPSValidations ();
         boolean thrown = false;
         try {
             validations.longitudeIsValid (200);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    @DisplayName("Check if Illegal Argument Exception is thrown with lower permitted longitude")
+    void lowerLongitudeReturnsIllegalArgumentException() {
+        GPSValidations validations = new GPSValidations ();
+        boolean thrown = false;
+        try {
+            validations.longitudeIsValid (-200);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
