@@ -34,6 +34,14 @@ class DishwasherTest {
 
     }
 
+    @Test
+    void setFailAttributeValue() {
+        Dishwasher dw = new Dishwasher( 10);
+        dw.setAttributeValue("Wrong Capacity", "20");
+        assertEquals(10, dw.getCapacity());
+
+    }
+
 
     @Test
     void setAndGetTypeTest() {
