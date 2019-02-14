@@ -113,7 +113,6 @@ public final class UtilsUI {
         String userInput = input.trim();
         String[] splitInput;
         splitInput = userInput.split("-", 3);
-        System.out.println(Integer.parseInt(splitInput[field]));
 
         return Integer.parseInt(splitInput[field]);
     }
