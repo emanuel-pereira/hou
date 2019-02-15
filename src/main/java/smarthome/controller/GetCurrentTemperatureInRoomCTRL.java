@@ -23,7 +23,7 @@ public class GetCurrentTemperatureInRoomCTRL {
      * @return True if the type exist or false if not
      */
     public boolean checkIfRequiredSensorTypeExists(String sensorType) {
-        return mSensorTypeList.checkIfRequiredSensorTypeExists (sensorType);
+        return mSensorTypeList.checkIfSensorTypeExists(sensorType);
     }
 
     /**

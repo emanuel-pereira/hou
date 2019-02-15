@@ -81,14 +81,15 @@ public class House {
 
     /**
      * Method to get a list of rooms not included in the roomList of the houseGrid defined as parameter.
+     *
      * @param houseGrid houseGrid instance chosen as parameter
      * @return a list of all rooms that are not included in the houseGrid specified as parameter
      */
-    public RoomList getRoomsWithoutGrid(HouseGrid houseGrid){
-        RoomList roomListWithoutHouseGrid= new RoomList();
-        RoomList roomListInHouseGrid=houseGrid.getRoomListInAGrid();
-        for(Room room:mRoomList.getRoomList()){
-            if(!(roomListInHouseGrid.getRoomList().contains(room)))
+    public RoomList getRoomsWithoutGrid(HouseGrid houseGrid) {
+        RoomList roomListWithoutHouseGrid = new RoomList();
+        RoomList roomListInHouseGrid = houseGrid.getRoomListInAGrid();
+        for (Room room : mRoomList.getRoomList()) {
+            if (!(roomListInHouseGrid.getRoomList().contains(room)))
                 roomListWithoutHouseGrid.addRoom(room);
         }
         return roomListWithoutHouseGrid;
@@ -96,21 +97,22 @@ public class House {
 
     /**
      * Method to show in a String format a list of rooms not included in the roomList of the houseGrid defined as parameter.
+     *
      * @param houseGrid houseGrid instance chosen as parameter
      * @return a list of all rooms in String that are not included in the houseGrid specified as parameter
      */
     public String showRoomsWithoutHouseGrid(HouseGrid houseGrid) {
-        RoomList listOfRoomsWithHouseGrid = getRoomsWithoutGrid (houseGrid);
-        StringBuilder result = new StringBuilder ();
+        RoomList listOfRoomsWithHouseGrid = getRoomsWithoutGrid(houseGrid);
+        StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
-        for (Room r : listOfRoomsWithHouseGrid.getRoomList ()) {
-            result.append (number++);
-            result.append (element);
-            result.append (r.getName ());
-            result.append ("\n");
+        for (Room r : listOfRoomsWithHouseGrid.getRoomList()) {
+            result.append(number++);
+            result.append(element);
+            result.append(r.getName());
+            result.append("\n");
         }
-        return result.toString ();
+        return result.toString();
     }
 
     private double calculateDistance(Location aLocation) {
@@ -120,11 +122,12 @@ public class House {
     /**
      * This method checks for each sensor of the selected sensorType, its distance to the house.
      * Then it returns the sensors that have shortest distance to the house.
+     *
      * @param sensorType selected to get the list of the closest sensors.
      * @return a list of sensors of the selected sensorType with the shortest distance to the house.
      */
     private SensorList getClosestSensorsOfType(SensorType sensorType) {
-        SensorList gaSensorList= mGA.getSensorListInGA();
+        SensorList gaSensorList = mGA.getSensorListInGA();
 
         SensorList sensorListOfType = gaSensorList.getListOfSensorsByType(sensorType);
         double distance;
@@ -137,7 +140,7 @@ public class House {
                 closestSensors.addSensor(sensor);
             }
             if (distance < minDistance) {
-                minDistance=distance;
+                minDistance = distance;
                 closestSensors.getSensorList().clear();
                 closestSensors.addSensor(sensor);
             }
@@ -148,6 +151,7 @@ public class House {
     /**
      * Method that selects the sensor with the latest readings, when the closest sensors to the house of the selected
      * sensorType are at the same distance to the house.
+     *
      * @param sensorType type of Sensor selected
      * @return the sensor with the most recent reading of the closest sensors to the house.
      */
@@ -169,7 +173,8 @@ public class House {
 
     /**
      * Method that checks for the closest sensors to the house of the selected SensorType, which of them have readings in the inputDate.
-     * @param inputDate selected to check which closest sensors have readings in this date
+     *
+     * @param inputDate  selected to check which closest sensors have readings in this date
      * @param sensorType selected to check the closest sensors of that type
      * @return the closest sensors to the house of the selected SensorType that have readings in the specified date.
      */
@@ -177,7 +182,7 @@ public class House {
         SensorList closestSensorsByType = this.getClosestSensorsOfType(sensorType);
         SensorList sensorsWithReadingsInDate = new SensorList();
         for (Sensor sensor : closestSensorsByType.getSensorList()) {
-            ReadingList readingListInDay=sensor.getReadingList().getReadingsInSpecificDay(inputDate);
+            ReadingList readingListInDay = sensor.getReadingList().getReadingsInSpecificDay(inputDate);
             if (!(readingListInDay.getReadingList().isEmpty())) {
                 sensorsWithReadingsInDate.addSensor(sensor);
             }
@@ -187,22 +192,37 @@ public class House {
     }
 
     /**
+     * Boolean method to check if there is any closest sensors to the house of a specific type that has readings in the date inputted as parameter
+     * @param inputDate date in GregorianCalendar format for which this method checks if exists any closest sensors to the house with readings
+     * @param sensorType selected to check sensors of that type
+     * @return true if at least exists one of the possible closest sensors with readings in the inputDate, otherwise returns false
+     */
+    public boolean closestSensorsWithReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
+        SensorList closestSensorsByType = this.getClosestSensorsWithReadingsInDate(inputDate, sensorType);
+        if (closestSensorsByType.size() != 0)
+            return true;
+        return false;
+    }
+
+
+    /**
      * Method that checks for the closest sensors to the house of the selected SensorType that have readings in the specified date,
      * which one has the latest reading in the specified date
-     * @param inputDate selected to check which closestSensor has the lattest readings in that date
+     *
+     * @param inputDate  selected to check which closestSensor has the lattest readings in that date
      * @param sensorType selected to check the closest sensors of that type
      * @return the closest sensor with the latest readings in the specified date.
      */
     public Sensor getSensorOfTypeWithLatestReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
         SensorList closestSensors = this.getClosestSensorsWithReadingsInDate(inputDate, sensorType);
         Sensor closestSensorWithLatestReading = closestSensors.getSensorList().get(0);
-        ReadingList readingListInDay= closestSensorWithLatestReading.getReadingList().getReadingsInSpecificDay(inputDate);
+        ReadingList readingListInDay = closestSensorWithLatestReading.getReadingList().getReadingsInSpecificDay(inputDate);
         Reading lastReading = readingListInDay.getLastReading();
         Calendar lastDate = lastReading.getDateAndTime();
         for (Sensor sensor : closestSensors.getSensorList()) {
-            ReadingList sensorReadingListInDay= sensor.getReadingList().getReadingsInSpecificDay(inputDate);
+            ReadingList sensorReadingListInDay = sensor.getReadingList().getReadingsInSpecificDay(inputDate);
             Reading sensorLastReadingInDay = sensorReadingListInDay.getLastReading();
-            Calendar timeOfLastReading=sensorLastReadingInDay.getDateAndTime();
+            Calendar timeOfLastReading = sensorLastReadingInDay.getDateAndTime();
             if (timeOfLastReading.after(lastDate)) {
                 lastDate = sensor.getLastReadingPerSensor().getDateAndTime();
                 closestSensorWithLatestReading = sensor;
@@ -210,6 +230,7 @@ public class House {
         }
         return closestSensorWithLatestReading;
     }
+
 
     public List<String> getListOfDeviceTypesInString() {
 
