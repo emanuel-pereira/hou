@@ -52,30 +52,6 @@ public class House {
     }
 
 
-    public Location getHouseLocation() {
-        return mAddress.getGPSLocation();
-
-    }
-
-
-    public Sensor findClosestGASensorByType(String type) {
-        SensorList listSensorsOfType = mGA.getGASensorsByType(type);
-        Sensor nearestSensor = mGA.getGASensorsByType(type).getSensorList().get(0);
-
-        double minDistance = getHouseLocation().calcLinearDistanceBetweenTwoPoints(listSensorsOfType.getSensorList().get(0).getLocation(), mAddress.getGPSLocation());
-
-        for (Sensor sensor : listSensorsOfType.getSensorList()) {
-            if (minDistance > getHouseLocation().calcLinearDistanceBetweenTwoPoints(mAddress.getGPSLocation(), sensor.getLocation())) {
-                minDistance = getHouseLocation().calcLinearDistanceBetweenTwoPoints(mAddress.getGPSLocation(), sensor.getLocation());
-                nearestSensor = sensor;
-            }
-
-        }
-
-        return nearestSensor;
-
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -141,7 +117,13 @@ public class House {
         return mAddress.getGPSLocation().calcLinearDistanceBetweenTwoPoints(mAddress.getGPSLocation(), aLocation);
     }
 
-    public SensorList getClosestSensorsByType(SensorType sensorType) {
+    /**
+     * This method checks for each sensor of the selected sensorType, its distance to the house.
+     * Then it returns the sensors that have shortest distance to the house.
+     * @param sensorType selected to get the list of the closest sensors.
+     * @return a list of sensors of the selected sensorType with the shortest distance to the house.
+     */
+    private SensorList getClosestSensorsByType(SensorType sensorType) {
         SensorList gaSensorList= mGA.getSensorListInGA();
 
         SensorList sensorListOfType = gaSensorList.getListOfSensorsByType(sensorType);
@@ -155,6 +137,7 @@ public class House {
                 closestSensors.addSensor(sensor);
             }
             if (distance < minDistance) {
+                minDistance=distance;
                 closestSensors.getSensorList().clear();
                 closestSensors.addSensor(sensor);
             }
@@ -162,20 +145,13 @@ public class House {
         return closestSensors;
     }
 
-    public SensorList getSensorsWithReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
-        SensorList closestSensorsByType = this.getClosestSensorsByType(sensorType);
-        SensorList sensorsWithReadingsInDate = new SensorList();
-        for (Sensor sensor : closestSensorsByType.getSensorList()) {
-            ReadingList readingListInDay=sensor.getReadingList().getReadingsInSpecificDay(inputDate);
-            if (readingListInDay.getReadingList().isEmpty()) {
-                sensorsWithReadingsInDate.addSensor(sensor);
-            }
-        }
-
-        return sensorsWithReadingsInDate;
-    }
-
-    public Sensor getSensorWithLatestReadingsByType(SensorType sensorType) {
+    /**
+     * Method that selects the sensor with the latest readings, when the closest sensors to the house of the selected
+     * sensorType are at the same distance to the house.
+     * @param sensorType type of Sensor selected
+     * @return the sensor with the most recent reading of the closest sensors to the house.
+     */
+    public Sensor getClosestSensorWithLatestReading(SensorType sensorType) {
         SensorList closestSensors = this.getClosestSensorsByType(sensorType);
         Sensor closestSensorWithLatestReading = closestSensors.getSensorList().get(0);
         Reading lastReading = closestSensorWithLatestReading.getLastReadingPerSensor();
@@ -190,20 +166,51 @@ public class House {
         return closestSensorWithLatestReading;
     }
 
-    public Sensor getSensorOfTypeWithReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
-        SensorList closestSensors = this.getSensorsWithReadingsInDate(inputDate, sensorType);
+
+    /**
+     * Method that checks for the closest sensors to the house of the selected SensorType, which of them have readings in the inputDate.
+     * @param inputDate selected to check which closest sensors have readings in this date
+     * @param sensorType selected to check the closest sensors of that type
+     * @return the closest sensors to the house of the selected SensorType that have readings in the specified date.
+     */
+    private SensorList getClosestSensorsWithReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
+        SensorList closestSensorsByType = this.getClosestSensorsByType(sensorType);
+        SensorList sensorsWithReadingsInDate = new SensorList();
+        for (Sensor sensor : closestSensorsByType.getSensorList()) {
+            ReadingList readingListInDay=sensor.getReadingList().getReadingsInSpecificDay(inputDate);
+            if (!(readingListInDay.getReadingList().isEmpty())) {
+                sensorsWithReadingsInDate.addSensor(sensor);
+            }
+        }
+
+        return sensorsWithReadingsInDate;
+    }
+
+    /**
+     * Method that checks for the closest sensors to the house of the selected SensorType that have readings in the specified date,
+     * which one has the latest reading in the specified date
+     * @param inputDate selected to check which closestSensor has the lattest readings in that date
+     * @param sensorType selected to check the closest sensors of that type
+     * @return the closest sensor with the latest readings in the specified date.
+     */
+    public Sensor getSensorOfTypeWithLatestReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
+        SensorList closestSensors = this.getClosestSensorsWithReadingsInDate(inputDate, sensorType);
         Sensor closestSensorWithLatestReading = closestSensors.getSensorList().get(0);
-        Reading lastReading = closestSensorWithLatestReading.getLastReadingPerSensor();
+        ReadingList readingListInDay= closestSensorWithLatestReading.getReadingList().getReadingsInSpecificDay(inputDate);
+        Reading lastReading = readingListInDay.getLastReading();
         Calendar lastDate = lastReading.getDateAndTime();
         for (Sensor sensor : closestSensors.getSensorList()) {
-            Reading sensorLastReading = sensor.getLastReadingPerSensor();
-            if (sensorLastReading.getDateAndTime().after(lastDate)) {
+            ReadingList sensorReadingListInDay= sensor.getReadingList().getReadingsInSpecificDay(inputDate);
+            Reading sensorLastReadingInDay = sensorReadingListInDay.getLastReading();
+            Calendar timeOfLastReading=sensorLastReadingInDay.getDateAndTime();
+            if (timeOfLastReading.after(lastDate)) {
                 lastDate = sensor.getLastReadingPerSensor().getDateAndTime();
                 closestSensorWithLatestReading = sensor;
             }
         }
         return closestSensorWithLatestReading;
     }
+
     public List<String> getListOfDeviceTypesInString() {
 
         return Configuration.getDeviceTypes();

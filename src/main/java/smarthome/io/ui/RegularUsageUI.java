@@ -27,7 +27,7 @@ public final class RegularUsageUI {
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
                 case 1:
-                    GetCurrentTemperatureInHouseAreaUI us600 = new GetCurrentTemperatureInHouseAreaUI(house, sensorTypeList, gaList);
+                    GetCurrentTemperatureInHouseAreaUI us600 = new GetCurrentTemperatureInHouseAreaUI(house, sensorTypeList);
                     us600.run();
                     break;
                 case 2:

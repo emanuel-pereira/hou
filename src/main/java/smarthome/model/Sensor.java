@@ -43,6 +43,7 @@ public class Sensor {
             this.mStartDate = startDate;
             this.mLocation = new Location(latitude, longitude, altitude);
             this.mSensorType = new SensorType(sensorType);
+            this.mReadingList=new ReadingList();
         }
     }
 
@@ -52,6 +53,7 @@ public class Sensor {
             this.mStartDate = startDate;
             this.mLocation = new Location(latitude, longitude, altitude);
             this.mSensorType = sensorType;
+            this.mReadingList=new ReadingList();
         }
     }
 
@@ -111,7 +113,7 @@ public class Sensor {
         if (name.trim ().isEmpty ()) {
             return false;
         }
-        return name.matches ("[A-Za-z0-9]*");
+        return name.matches ("[A-Za-z0-9 ]*");
     }
 
     /**
