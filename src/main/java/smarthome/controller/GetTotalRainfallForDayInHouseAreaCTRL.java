@@ -23,8 +23,8 @@ public class GetTotalRainfallForDayInHouseAreaCTRL {
         return mSensorTypeList.checkIfRequiredSensorTypeExists(sensorType);
     }
 
-    public double requestReadingRainfall(GregorianCalendar inputDate, SensorType sensorType) {
-        Sensor sensor=mHouse.getSensorOfTypeWithReadingsInDate(inputDate,sensorType);
+    public double showTotalRainfallInDay(GregorianCalendar inputDate, SensorType sensorType) {
+        Sensor sensor=mHouse.getSensorOfTypeWithLatestReadingsInDate(inputDate,sensorType);
 
         return sensor.getReadingList().totalValueInGivenDay(inputDate);
     }

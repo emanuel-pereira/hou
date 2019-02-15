@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetTotalRainfallForDayInHouseAreaCTRL;
-import smarthome.model.GeographicalArea;
 import smarthome.model.House;
 import smarthome.model.SensorType;
 import smarthome.model.SensorTypeList;
@@ -13,10 +12,7 @@ import java.util.Scanner;
 
 public class GetTotalRainfallForDayInHouseAreaUI {
 
-    private GeographicalArea mGA;
-    private SensorTypeList mSensorTypeList;
     private GetTotalRainfallForDayInHouseAreaCTRL mCtrl;
-    private House mHouse;
     private DateValidations mValidations;
     Scanner read = new Scanner(System.in);
     private String sensorTypeRainfall = "rainfall";
@@ -25,12 +21,9 @@ public class GetTotalRainfallForDayInHouseAreaUI {
     private int mMonth;
     private int mDay;
 
-    public GetTotalRainfallForDayInHouseAreaUI(House house, SensorTypeList rainSensorList) {
+    public GetTotalRainfallForDayInHouseAreaUI(House house, SensorTypeList sensorType) {
 
-        mGA = house.getHouseGA();
-        mSensorTypeList = rainSensorList;
-        mHouse = house;
-        mCtrl = new GetTotalRainfallForDayInHouseAreaCTRL(house, rainSensorList);
+        mCtrl = new GetTotalRainfallForDayInHouseAreaCTRL(house, sensorType);
         mValidations = new DateValidations();
 
     }
@@ -39,7 +32,7 @@ public class GetTotalRainfallForDayInHouseAreaUI {
 
         if (mCtrl.checkIfRequiredSensorTypeExists(sensorTypeRainfall)) {
             this.checkRainfallSensorReadingList();
-        } else System.out.println("Please request to the Administrator to create a Rainfall Sensor Type in the System");
+        } else System.out.println("Please ask the Administrator to create the rainfall sensor type");
     }
 
     public void checkRainfallSensorReadingList() {
@@ -67,7 +60,7 @@ public class GetTotalRainfallForDayInHouseAreaUI {
         int day = mDate.get(Calendar.DAY_OF_MONTH);
 
         System.out.println("Input Date success! The total rainfall in: "
-                + year + "/" + month + "/" + day + " is " + mCtrl.requestReadingRainfall(mDate, new SensorType(sensorTypeRainfall)));
+                + year + "/" + month + "/" + day + " is " + mCtrl.showTotalRainfallInDay(mDate, new SensorType(sensorTypeRainfall)));
     }
 
     private int getYear() {

@@ -123,7 +123,7 @@ public class House {
      * @param sensorType selected to get the list of the closest sensors.
      * @return a list of sensors of the selected sensorType with the shortest distance to the house.
      */
-    private SensorList getClosestSensorsByType(SensorType sensorType) {
+    private SensorList getClosestSensorsOfType(SensorType sensorType) {
         SensorList gaSensorList= mGA.getSensorListInGA();
 
         SensorList sensorListOfType = gaSensorList.getListOfSensorsByType(sensorType);
@@ -152,7 +152,7 @@ public class House {
      * @return the sensor with the most recent reading of the closest sensors to the house.
      */
     public Sensor getClosestSensorWithLatestReading(SensorType sensorType) {
-        SensorList closestSensors = this.getClosestSensorsByType(sensorType);
+        SensorList closestSensors = this.getClosestSensorsOfType(sensorType);
         Sensor closestSensorWithLatestReading = closestSensors.getSensorList().get(0);
         Reading lastReading = closestSensorWithLatestReading.getLastReadingPerSensor();
         Calendar lastDate = lastReading.getDateAndTime();
@@ -174,7 +174,7 @@ public class House {
      * @return the closest sensors to the house of the selected SensorType that have readings in the specified date.
      */
     private SensorList getClosestSensorsWithReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
-        SensorList closestSensorsByType = this.getClosestSensorsByType(sensorType);
+        SensorList closestSensorsByType = this.getClosestSensorsOfType(sensorType);
         SensorList sensorsWithReadingsInDate = new SensorList();
         for (Sensor sensor : closestSensorsByType.getSensorList()) {
             ReadingList readingListInDay=sensor.getReadingList().getReadingsInSpecificDay(inputDate);

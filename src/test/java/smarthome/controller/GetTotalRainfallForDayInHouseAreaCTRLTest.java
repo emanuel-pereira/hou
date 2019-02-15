@@ -36,7 +36,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
     }
 
     @Test
-    @DisplayName("verify if rainfall sensor not exists.")
+    @DisplayName("verify if rainfall sensor does not exists.")
     public void checkIfRequiredSensorTypeNotExists() {
 
         House h1 = new House();
@@ -60,6 +60,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
 
 
     @Test
+    @DisplayName("Ensure that inputted date is valid")
     void dateIsValid() {
         House house = new House();
         SensorTypeList sensorTypeList = new SensorTypeList();
@@ -80,6 +81,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
     }
 
     @Test
+    @DisplayName("Ensure that inputted month and day are invalid")
     void monthAndDayAreInvalid() {
         House house = new House();
         SensorTypeList sensorTypeList = new SensorTypeList();
@@ -99,24 +101,24 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         assertFalse(result2);
     }
 
-    //TODO: correction of test
-   /* @Test
+
+    @Test
+    @DisplayName("Ensure that inputted month and day are invalid")
     void requestReadingRainfall() {
-        GeographicalArea ga = new GeographicalArea("PORTO", "Porto", "City", 1, 1, 1, 1, 1);
+        GeographicalArea ga = new GeographicalArea("POR", "Porto", "City", 1, 1, 1, 1, 1);
         House house = new House();
         house.setHouseGA(ga);
-        house.setHouseAddress("Street","15","4420",5,5,5);
+        house.setHouseAddress("Street", "15", "4420", 5, 5, 5);
         SensorList houseGASensorList = house.getHouseGA().getSensorListInGA();
 
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType wind = new SensorType("wind");
         SensorType temperature = new SensorType("temperature");
-
         sensorTypeList.addSensorType(wind);
         sensorTypeList.addSensorType(temperature);
 
-        GregorianCalendar startDate = new GregorianCalendar(2018, 12, 31, 11, 0);
+        GregorianCalendar startDate = new GregorianCalendar(2018, 15, 31, 11, 0);
         ReadingList readingList1 = new ReadingList();
         Reading r1 = readingList1.newReading(17, new GregorianCalendar(2018, 12, 31, 11, 0));
         Reading r2 = readingList1.newReading(15, new GregorianCalendar(2018, 12, 31, 12, 0));
@@ -149,12 +151,11 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         GregorianCalendar date = new GregorianCalendar(2019, 2, 3);
 
 
-        double result = ctr.requestReadingRainfall(date, wind);
+        double result = ctr.showTotalRainfallInDay(date, wind);
         double expected = 0;
 
         assertEquals(expected, result);
-    }*/
-
+    }
 
     @Test
     void getHouseGA() {
@@ -162,20 +163,14 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         GeographicalArea ga = new GeographicalArea("PORTO", "Porto", "City", 1, 1, 1, 1, 1);
         house.setHouseGA(ga);
         SensorTypeList sensorTypeList = new SensorTypeList();
-        GetTotalRainfallForDayInHouseAreaCTRL ctrl= new GetTotalRainfallForDayInHouseAreaCTRL(house,sensorTypeList);
+        GetTotalRainfallForDayInHouseAreaCTRL ctrl = new GetTotalRainfallForDayInHouseAreaCTRL(house, sensorTypeList);
 
-        String expected="Porto";
-        String result=ctrl.getHouseGA().getGeographicalAreaDesignation();
-        assertEquals(expected,result);
+        String expected = "Porto";
+        String result = ctrl.getHouseGA().getGeographicalAreaDesignation();
+        assertEquals(expected, result);
 
 
     }
 
 
 }
-
-
-
-
-
-
