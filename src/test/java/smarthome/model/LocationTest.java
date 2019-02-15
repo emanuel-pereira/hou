@@ -43,6 +43,16 @@ class LocationTest {
     }
 
     @Test
+    public void newCheckIfLatitudeIsInvalid() {
+
+        try {
+            new Location(100,180,8000);
+            fail("latitude must be between [-90,90]");
+        } catch (IllegalArgumentException ignored) {
+        }
+    }
+
+    @Test
     public void checkIfLongitudeIsInvalid() {
 
         boolean thrown = false;
