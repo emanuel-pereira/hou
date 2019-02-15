@@ -58,6 +58,7 @@ public class SetParentOfGACTRLTest {
 
         SetParentOfGACTRL ctrl7 = new SetParentOfGACTRL(gaList);
         ctrl7.setParentofGA(indexGA1,indexGA2);
+
         ctrl7.setParentofGA(indexGA1,indexGA3);
 
         String result = ga1.getGeographicalParentGA().getGeographicalAreaDesignation();
