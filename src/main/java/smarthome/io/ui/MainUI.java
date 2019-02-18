@@ -44,7 +44,7 @@ public class MainUI {
                     systemAdministration(sensorTypeList, gaList);
                     break;
                 case 2:
-                    houseAdministration(sensorTypeList, gaList, roomList, house, hgList, psList);
+                    houseAdministration(sensorTypeList, gaList, house, hgList);
                     break;
                 case 3:
                     regularUsage(house, sensorTypeList, gaList);

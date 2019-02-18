@@ -135,8 +135,8 @@ class HouseGridTest {
     }
 
     @Test
-    @DisplayName("Attach two different rooms to a grid and return that grid")
-    void getRoomListInAGrid() {
+    @DisplayName("Attach two different rooms to a grid and return that room list size")
+    void getRoomListInAGridSize() {
         HouseGrid houseGrid = new HouseGrid ("main");
         Room roomA = new Room ("bedroom", 1, 2, 2, 2);
         Room roomB = new Room ("garden", 0, 2, 2, 2);
@@ -144,7 +144,22 @@ class HouseGridTest {
         houseGrid.attachRoomToGrid (roomB);
 
         int expectedResult = 2;
-        int result = houseGrid.getRoomListInAGrid ().getRoomList ().size ();
+        int result = houseGrid.getRoomListInAGridSize();
+
+        assertEquals (expectedResult, result);
+    }
+
+    @Test
+    @DisplayName("Attach two different rooms to a grid and return that room list")
+    void getRoomListInAGrid() {
+        HouseGrid houseGrid = new HouseGrid ("main");
+        Room roomA = new Room ("bedroom", 1, 2, 2, 2);
+        Room roomB = new Room ("garden", 0, 2, 2, 2);
+        houseGrid.attachRoomToGrid (roomA);
+        houseGrid.attachRoomToGrid (roomB);
+
+        List<Room> expectedResult = Arrays.asList(roomA,roomB);
+        List<Room> result = houseGrid.getRoomListInAGrid().getRoomList();
 
         assertEquals (expectedResult, result);
     }
@@ -293,12 +308,180 @@ class HouseGridTest {
         double result=grid.getEnergyConsumptionInTimeInterval(startTime,endTime);
 
         assertEquals(expected,result);
-
-
-
-
-
-
     }
+
+    @Test
+    void deviceListInGridCtrlTestSize() {
+        House house = new House();
+        HouseGrid hg1 = new HouseGrid("grid1");
+        house.getHGListInHouse().addHouseGrid(hg1);
+
+        Room r1 = new Room("cozinha",1,2,2,2);
+        Room r3 = new Room("quarto",2,2,2,2);
+        house.getRoomList().addRoom(r1);
+        house.getRoomList().addRoom(r3);
+
+        Fridge fridge1 = new Fridge(DeviceType.FRIDGE,50,350,50);
+        Device d1 = new Device("frigo",fridge1,50);
+        Dishwasher dishwasher = new Dishwasher(DeviceType.DISHWASHER,20);
+        Device d2 = new Device("maq loica",dishwasher,50);
+        Lamp lamp2 = new Lamp(DeviceType.LAMP,10);
+        Device d5 = new Device("candeeiro2",lamp2,10);
+        house.getRoomList().get(0).getDeviceList().addDevice(d1);
+        house.getRoomList().get(0).getDeviceList().addDevice(d2);
+        house.getRoomList().get(1).getDeviceList().addDevice(d5);
+
+        hg1.getRoomListInAGrid().addRoom(r1);
+        hg1.getRoomListInAGrid().addRoom(r3);
+
+        int expectedResult = 3;
+        int result = hg1.getDeviceListInGrid().size();
+
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void deviceListInGridCtrlTest() {
+        House house = new House();
+        HouseGrid hg1 = new HouseGrid("grid1");
+        house.getHGListInHouse().addHouseGrid(hg1);
+
+        Room r1 = new Room("cozinha",1,2,2,2);
+        Room r3 = new Room("quarto",2,2,2,2);
+        house.getRoomList().addRoom(r1);
+        house.getRoomList().addRoom(r3);
+
+        Fridge fridge1 = new Fridge(DeviceType.FRIDGE,50,350,50);
+        Device d1 = new Device("frigo",fridge1,50);
+        Dishwasher dishwasher = new Dishwasher(DeviceType.DISHWASHER,20);
+        Device d2 = new Device("maq loica",dishwasher,50);
+        Lamp lamp2 = new Lamp(DeviceType.LAMP,10);
+        Device d5 = new Device("candeeiro2",lamp2,10);
+        house.getRoomList().get(0).getDeviceList().addDevice(d1);
+        house.getRoomList().get(0).getDeviceList().addDevice(d2);
+        house.getRoomList().get(1).getDeviceList().addDevice(d5);
+
+        hg1.getRoomListInAGrid().addRoom(r1);
+        hg1.getRoomListInAGrid().addRoom(r3);
+
+        List<Device> expectedResult = Arrays.asList(d1,d2,d5);
+        List<Device> result = hg1.getDeviceListInGrid().getDeviceList();
+
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void deviceListInGridCtrlTestFromType() {
+        House house = new House();
+        HouseGrid hg1 = new HouseGrid("grid1");
+        house.getHGListInHouse().addHouseGrid(hg1);
+
+        Room r1 = new Room("cozinha",1,2,2,2);
+        Room r3 = new Room("quarto",2,2,2,2);
+        house.getRoomList().addRoom(r1);
+        house.getRoomList().addRoom(r3);
+
+        Fridge fridge1 = new Fridge(DeviceType.FRIDGE,50,350,50);
+        Device d1 = new Device("frigo",fridge1,50);
+        Dishwasher dishwasher = new Dishwasher(DeviceType.DISHWASHER,20);
+        Device d2 = new Device("maq loica",dishwasher,50);
+        Lamp lamp2 = new Lamp(DeviceType.LAMP,10);
+        Device d5 = new Device("candeeiro2",lamp2,10);
+        house.getRoomList().get(0).getDeviceList().addDevice(d1);
+        house.getRoomList().get(0).getDeviceList().addDevice(d2);
+        house.getRoomList().get(1).getDeviceList().addDevice(d5);
+
+        hg1.getRoomListInAGrid().addRoom(r1);
+        hg1.getRoomListInAGrid().addRoom(r3);
+
+        List<Device> expectedResult = Arrays.asList(d2);
+        List<Device> result = hg1.getDeviceListFromType(3).getDeviceList();
+
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void deviceListInGridCtrlTestGroupByType() {
+        House house = new House();
+        HouseGrid hg1 = new HouseGrid("grid1");
+        house.getHGListInHouse().addHouseGrid(hg1);
+
+        Room r1 = new Room("cozinha",1,2,2,2);
+        Room r3 = new Room("quarto",2,2,2,2);
+        house.getRoomList().addRoom(r1);
+        house.getRoomList().addRoom(r3);
+
+        Fridge fridge1 = new Fridge(DeviceType.FRIDGE,50,350,50);
+        Device d1 = new Device("frigo",fridge1,50);
+        Dishwasher dishwasher = new Dishwasher(DeviceType.DISHWASHER,20);
+        Device d2 = new Device("maq loica",dishwasher,50);
+        Lamp lamp2 = new Lamp(DeviceType.LAMP,10);
+        Device d5 = new Device("candeeiro2",lamp2,10);
+        house.getRoomList().get(0).getDeviceList().addDevice(d1);
+        house.getRoomList().get(0).getDeviceList().addDevice(d2);
+        house.getRoomList().get(1).getDeviceList().addDevice(d5);
+
+        hg1.getRoomListInAGrid().addRoom(r1);
+        hg1.getRoomListInAGrid().addRoom(r3);
+
+        List<Device> expectedResult = Arrays.asList(d2,d1,d5);
+        List<Device> result = hg1.getDeviceListInGridGroupBy().getDeviceList();
+
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void deviceListInGridCtrlTestGroupByTypeInString() {
+        House house = new House();
+        HouseGrid hg1 = new HouseGrid("grid1");
+        house.getHGListInHouse().addHouseGrid(hg1);
+
+        Room r1 = new Room("cozinha",1,2,2,2);
+        Room r3 = new Room("quarto",2,2,2,2);
+        house.getRoomList().addRoom(r1);
+        house.getRoomList().addRoom(r3);
+
+        Fridge fridge1 = new Fridge(DeviceType.FRIDGE,50,350,50);
+        Device d1 = new Device("frigo",fridge1,50);
+        Dishwasher dishwasher = new Dishwasher(DeviceType.DISHWASHER,20);
+        Device d2 = new Device("maq loica",dishwasher,50);
+        Lamp lamp2 = new Lamp(DeviceType.LAMP,10);
+        Device d5 = new Device("candeeiro2",lamp2,10);
+        house.getRoomList().get(0).getDeviceList().addDevice(d1);
+        house.getRoomList().get(0).getDeviceList().addDevice(d2);
+        house.getRoomList().get(1).getDeviceList().addDevice(d5);
+
+        hg1.getRoomListInAGrid().addRoom(r1);
+        hg1.getRoomListInAGrid().addRoom(r3);
+
+        String expectedResult = "1 - Device: maq loica | Type: DISHWASHER | Location: cozinha | Active: true\n" +
+                                "2 - Device: frigo | Type: FRIDGE | Location: cozinha | Active: true\n" +
+                                "3 - Device: candeeiro2 | Type: LAMP | Location: quarto | Active: true\n";
+        String result = hg1.showGroupedDeviceListInGridString();
+
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    void showRoomListInGridInString() {
+        House house = new House();
+        HouseGrid hg1 = new HouseGrid("grid1");
+        house.getHGListInHouse().addHouseGrid(hg1);
+
+        Room r1 = new Room("cozinha",1,2,2,2);
+        Room r3 = new Room("quarto",2,2,2,2);
+        house.getRoomList().addRoom(r1);
+        house.getRoomList().addRoom(r3);
+
+        hg1.attachRoomToGrid(r1);
+        hg1.attachRoomToGrid(r3);
+
+        String expectedResult = "1 - cozinha\n" +
+                                "2 - quarto\n";
+        String result = hg1.showRoomsInHouseGrid();
+
+        assertEquals(expectedResult,result);
+    }
+
 }
 

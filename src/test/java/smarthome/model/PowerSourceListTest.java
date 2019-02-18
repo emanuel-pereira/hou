@@ -35,6 +35,32 @@ class PowerSourceListTest {
     }
 
     @Test
+    @DisplayName("Add a Power Source to the Power Source List")
+    void addPSTestSize() {
+        PowerSourceList pslist = new PowerSourceList();
+        PowerSource ps1 = pslist.newPowerSource("panel002","solar",250,14);
+        pslist.addPS(ps1);
+        PowerSource ps2 = pslist.newPowerSource("turbine003","eolic",300,20);
+        pslist.addPS(ps2);
+        int expectedResult = 2;
+        int result = pslist.getPSListSize();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    @DisplayName("Add a Power Source to the Power Source List")
+    void addPSTestSizeZero() {
+        PowerSourceList pslist = new PowerSourceList();
+        /*PowerSource ps1 = pslist.newPowerSource("panel002","solar",250,14);
+        pslist.addPS(ps1);
+        PowerSource ps2 = pslist.newPowerSource("turbine003","eolic",300,20);
+        pslist.addPS(ps2);*/
+        int expectedResult = 0;
+        int result = pslist.getPSListSize();
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     @DisplayName("Check that a repeated Power Source can not be added")
     void addPSTestNoAddSamePowerSource() {
         PowerSourceList pslist = new PowerSourceList();

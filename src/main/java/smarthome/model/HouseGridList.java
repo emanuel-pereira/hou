@@ -6,6 +6,7 @@ import java.util.List;
 public class HouseGridList {
 
     private List<HouseGrid> mHGList;
+    private RoomList mRoomList;
 
     public HouseGridList() {
         mHGList = new ArrayList<> ();
@@ -81,5 +82,11 @@ public class HouseGridList {
             result.append ("\n");
         }
         return result.toString ();
+    }
+
+    public RoomList getAvailableRoomsForGrid (){
+        RoomList availableRooms = new RoomList();
+        availableRooms.getRoomList().addAll(mRoomList.getRoomList());
+        return availableRooms;
     }
 }

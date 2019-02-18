@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.io.ui.RoomOwnerUI;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,6 +144,17 @@ public class RoomList {
             result.append ("\n");
         }
         return result.toString ();
+    }
+
+    public Room getDeviceLocation (Device inputDevice) {
+        Room location = new Room();
+        for(Room room:mRoomList){
+            List <Device> DeviceListInRoom = room.getDeviceList().getDeviceList();
+            if (DeviceListInRoom.contains(inputDevice)){
+                location = room;
+            }
+        }
+        return location;
     }
 
 }

@@ -28,10 +28,10 @@ public final class PowerUserUI {
 
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
-                /*case 1:
+                case 1:
                     US160GetDeviceListInGridByTypeUI ui160 = new US160GetDeviceListInGridByTypeUI(house);
-                    ui160.getDeviceListInGrid();
-                    break;*/
+                    ui160.checkIfHGListIsEmpty();
+                    break;
                 case 2:
                     TotalNominalPowerInGridUI uS172 = new TotalNominalPowerInGridUI(house);
                     uS172.run();

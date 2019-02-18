@@ -8,8 +8,8 @@ import java.util.Scanner;
 public final class HouseAdministrationUI {
     private HouseAdministrationUI(){}
 
-    public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList, List<Room> roomList,
-                                           House house, HouseGridList hgList, PowerSourceList pslist) {
+    public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList,
+                                           House house, HouseGridList hgList) {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("House administration UI");
@@ -48,8 +48,8 @@ public final class HouseAdministrationUI {
                     ui130.run();
                     break;
                 case 5:
-                    US135AddPowerSourceToGridUI ui135 = new US135AddPowerSourceToGridUI(house, hgList, pslist);
-                    ui135.addPowerSourceToHouseGrid();
+                    US135AddPowerSourceToGridUI ui135 = new US135AddPowerSourceToGridUI(house);
+                    ui135.checkIfHGListIsEmpty();
                     break;
                 case 6:
                     AttachDetachAndListRoomsInGridUI ui145 = new AttachDetachAndListRoomsInGridUI(house);
@@ -72,8 +72,8 @@ public final class HouseAdministrationUI {
                     ui210.selectOption();
                     break;
                 case 11:
-                    //US160GetDeviceListInGridByTypeUI ui160 = new US160GetDeviceListInGridByTypeUI (house);
-                    //ui160.getDeviceListInGrid ();
+                    US160GetDeviceListInGridByTypeUI ui160 = new US160GetDeviceListInGridByTypeUI (house);
+                    ui160.checkIfHGListIsEmpty ();
                     break;
                 case 12:
                     TotalNominalPowerInGridUI uS172 = new TotalNominalPowerInGridUI(house);

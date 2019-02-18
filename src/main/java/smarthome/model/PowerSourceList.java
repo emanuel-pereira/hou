@@ -27,4 +27,8 @@ public class PowerSourceList {
     public List<PowerSource> getPSList() {
         return mPSList;
     }
+
+    public int getPSListSize() {
+        return mPSList.size();
+    }
 }

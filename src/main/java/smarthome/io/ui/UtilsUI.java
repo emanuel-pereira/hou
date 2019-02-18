@@ -1,5 +1,7 @@
 package smarthome.io.ui;
 
+import java.util.Scanner;
+
 public final class  UtilsUI {
 
     /**
@@ -13,5 +15,12 @@ public final class  UtilsUI {
 
     public static void printLnInsertValidParameter(final String parameter) {
         System.out.println("Please insert a valid " + parameter + ".");
+    }
+
+    public static void backToMenu() {
+        Scanner read = new Scanner(System.in);
+        System.out.println("---\nPress Enter to return to the previous Menu");
+        read.nextLine();
+        return;
     }
 }
