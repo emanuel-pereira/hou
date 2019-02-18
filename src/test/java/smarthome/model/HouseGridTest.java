@@ -185,7 +185,7 @@ class HouseGridTest {
         houseGrid.attachRoomToGrid (roomA);
         houseGrid.attachRoomToGrid (roomB);
         DeviceList deviceList = roomA.getDeviceList ();
-        Fridge fridge = new Fridge ( 20, 100, 100);
+        Fridge fridge = new Fridge (20, 100, 100);
         Device fridgeA = deviceList.newDevice ("FridgeA", fridge, 150);
         Device fridgeB = deviceList.newDevice ("FridgeB", fridge, 150);
         deviceList.addDevice (fridgeA);
@@ -205,7 +205,7 @@ class HouseGridTest {
 
         result = grid.equals (person);
 
-        assertFalse(result);
+        assertFalse (result);
     }
 
     @Test
@@ -216,7 +216,7 @@ class HouseGridTest {
         boolean result = gridA.equals (gridB);
 
         assertEquals (gridA.hashCode (), gridB.hashCode ());
-        assertTrue(result);
+        assertTrue (result);
     }
 
     @Test
@@ -227,7 +227,7 @@ class HouseGridTest {
         boolean result = gridA.equals (gridB);
 
         assertNotEquals (gridA.hashCode (), gridB.hashCode ());
-        assertFalse(result);
+        assertFalse (result);
     }
 
     @Test
@@ -235,64 +235,82 @@ class HouseGridTest {
         HouseGrid grid = new HouseGrid ("Main");
         boolean result = grid.equals (grid);
 
-        assertTrue(result);
+        assertTrue (result);
     }
 
 
     @Test
     @DisplayName("Ensure that getEnergyConsumption returns 80 as devices fridge and ewh2 have both two readings each in  defined time interval")
     void getEnergyConsumptionInTimeInterval() {
-        HouseGrid grid= new HouseGrid("MainGrid");
-        RoomList roomList=grid.getRoomListInAGrid();
+        HouseGrid grid = new HouseGrid ("MainGrid");
+        RoomList roomList = grid.getRoomListInAGrid ();
 
-        Room kitchen= new Room("Kicthen",0,8,8,3);
-        Room garage= new Room("Living Room",0,5,4,3);
-        roomList.addRoom(kitchen);
-        roomList.addRoom(garage);
+        Room kitchen = new Room ("Kicthen", 0, 8, 8, 3);
+        Room garage = new Room ("Living Room", 0, 5, 4, 3);
+        roomList.addRoom (kitchen);
+        roomList.addRoom (garage);
 
-        DeviceList kitDeviceList= kitchen.getDeviceList();
-        DeviceList grDeviceList= garage.getDeviceList();
+        DeviceList kitDeviceList = kitchen.getDeviceList ();
+        DeviceList grDeviceList = garage.getDeviceList ();
 
-        DeviceSpecs fridgeSpecs= new Fridge();
-        Device fridge= new Device("LG Fridge",fridgeSpecs,2);
+        DeviceSpecs fridgeSpecs = new Fridge ();
+        Device fridge = new Device ("LG Fridge", fridgeSpecs, 2);
 
-        DeviceSpecs ewhSpecs= new ElectricWaterHeater();
-        Device ewh1= new Device("Daikin EWH1",ewhSpecs,2);
-        Device ewh2= new Device("Daikin EWH1",ewhSpecs,2);
+        DeviceSpecs ewhSpecs = new ElectricWaterHeater ();
+        Device ewh1 = new Device ("Daikin EWH1", ewhSpecs, 2);
+        Device ewh2 = new Device ("Daikin EWH1", ewhSpecs, 2);
 
-        kitDeviceList.addDevice(fridge);
-        kitDeviceList.addDevice(ewh1);
-        grDeviceList.addDevice(ewh2);
+        kitDeviceList.addDevice (fridge);
+        kitDeviceList.addDevice (ewh1);
+        grDeviceList.addDevice (ewh2);
 
-        ReadingList fridgeActivityLog= fridge.getActivityLog();
-        Reading r1= new Reading(20,new GregorianCalendar(2018,2,1,9,10));
-        Reading r2= new Reading(20,new GregorianCalendar(2018,2,1,12,10));
-        Reading r3= new Reading(20,new GregorianCalendar(2018,2,1,12,20));
-        Reading r4= new Reading(20,new GregorianCalendar(2018,2,1,12,30));
-        Reading r5= new Reading(20,new GregorianCalendar(2018,2,1,14,40));
-        Reading r6= new Reading(20,new GregorianCalendar(2018,2,1,17,50));
-        fridgeActivityLog.addReading(r1);
-        fridgeActivityLog.addReading(r2);
-        fridgeActivityLog.addReading(r3);
-        fridgeActivityLog.addReading(r4);
-        fridgeActivityLog.addReading(r5);
-        fridgeActivityLog.addReading(r6);
+        ReadingList fridgeActivityLog = fridge.getActivityLog ();
+        Reading r1 = new Reading (20, new GregorianCalendar (2018, 2, 1, 9, 10));
+        Reading r2 = new Reading (20, new GregorianCalendar (2018, 2, 1, 12, 10));
+        Reading r3 = new Reading (20, new GregorianCalendar (2018, 2, 1, 12, 20));
+        Reading r4 = new Reading (20, new GregorianCalendar (2018, 2, 1, 12, 30));
+        Reading r5 = new Reading (20, new GregorianCalendar (2018, 2, 1, 14, 40));
+        Reading r6 = new Reading (20, new GregorianCalendar (2018, 2, 1, 17, 50));
+        fridgeActivityLog.addReading (r1);
+        fridgeActivityLog.addReading (r2);
+        fridgeActivityLog.addReading (r3);
+        fridgeActivityLog.addReading (r4);
+        fridgeActivityLog.addReading (r5);
+        fridgeActivityLog.addReading (r6);
 
-        ReadingList ewh2ActivityLog= ewh2.getActivityLog();
-        ewh2ActivityLog.addReading(r1);
-        ewh2ActivityLog.addReading(r2);
-        ewh2ActivityLog.addReading(r3);
-        ewh2ActivityLog.addReading(r4);
-        ewh2ActivityLog.addReading(r5);
-        ewh2ActivityLog.addReading(r6);
+        ReadingList ewh2ActivityLog = ewh2.getActivityLog ();
+        ewh2ActivityLog.addReading (r1);
+        ewh2ActivityLog.addReading (r2);
+        ewh2ActivityLog.addReading (r3);
+        ewh2ActivityLog.addReading (r4);
+        ewh2ActivityLog.addReading (r5);
+        ewh2ActivityLog.addReading (r6);
 
-        Calendar startTime= new GregorianCalendar(2018,2,1,12,20);
-        Calendar endTime= new GregorianCalendar(2018,2,1,15,20);
+        Calendar startTime = new GregorianCalendar (2018, 2, 1, 12, 20);
+        Calendar endTime = new GregorianCalendar (2018, 2, 1, 15, 20);
 
-        double expected=80;
-        double result=grid.getEnergyConsumptionInTimeInterval(startTime,endTime);
+        double expected = 80;
+        double result = grid.getEnergyConsumptionInTimeInterval (startTime, endTime);
 
-        assertEquals(expected,result);
+        assertEquals (expected, result);
+    }
+
+
+    @Test
+    void showRoomsInHouseGrid() {
+        HouseGrid grid = new HouseGrid ("MainGrid");
+        RoomList roomList = grid.getRoomListInAGrid ();
+
+        Room kitchen = new Room ("Kicthen", 0, 8, 8, 3);
+        Room garage = new Room ("Living Room", 0, 5, 4, 3);
+        roomList.addRoom (kitchen);
+        roomList.addRoom (garage);
+
+        String expected = "1 - Kicthen\n" +
+                "2 - Living Room\n";
+        String result = grid.showRoomsInHouseGrid ();
+
+        assertEquals (expected, result);
     }
 }
 
