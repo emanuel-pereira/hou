@@ -199,9 +199,7 @@ public class House {
      */
     public boolean closestSensorsWithReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
         SensorList closestSensorsByType = this.getClosestSensorsWithReadingsInDate(inputDate, sensorType);
-        if (closestSensorsByType.size() != 0)
-            return true;
-        return false;
+        return closestSensorsByType.size() != 0;
     }
 
 
@@ -232,7 +230,7 @@ public class House {
     }
 
 
-    public List<String> getListOfDeviceTypesInString() {
+    private List<String> getListOfDeviceTypesInString() {
 
         return Configuration.getDeviceTypes();
 

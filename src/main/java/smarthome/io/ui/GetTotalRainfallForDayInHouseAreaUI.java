@@ -36,7 +36,7 @@ public class GetTotalRainfallForDayInHouseAreaUI {
     private void selectDate() {
         System.out.println("Insert the day for which you want to check the total rainfall in the house area.");
         mDate = UtilsUI.requestDate("Please insert a valid date in yyyy-MM-dd format.");
-        if (mCtrl.closestSensorsWithReadingsInDate(mDate, new SensorType(mRainfall))) {
+        if (mCtrl.closestSensorsHaveReadingsInDate(mDate, new SensorType(mRainfall))) {
             System.out.println("The total rainfall in "
                     + UtilsUI.dateInString(mDate) + " is " + mCtrl.showTotalValueInADay(mDate, new SensorType(mRainfall)) + " l/m3.");
         } else

@@ -327,13 +327,6 @@ class HouseTest {
         assertEquals(expected, result);
     }
 
-    @Test
-    void showDeviceTypesListTest() {
-        House h = new House();
-        List<String> result = h.getListOfDeviceTypesInString();
-        List<String> expected = Arrays.asList("ElectricWaterHeater", "WashingMachine", "Dishwasher", "Fridge", "Kettle", "Oven", "Stove", "MicrowaveOven", "WallElectricHeater", "PortableElectricOilHeater", "PortableElectricConvectionHeater", "WallTowelHeater", "Lamp", "Television");
-        assertEquals(expected, result);
-    }
 
     @Test
     void getListOfDeviceTypes() {
@@ -402,9 +395,8 @@ class HouseTest {
         s3.getReadingList().addReading(r2TempSensor3);
         s3.getReadingList().addReading(r3TempSensor3);
 
-        Sensor expectedResult=house.getSensorOfTypeWithLatestReadingsInDate(new GregorianCalendar(2018,11,26),temperature);
-        Sensor result = s3;
+        Sensor result = house.getSensorOfTypeWithLatestReadingsInDate(new GregorianCalendar(2018,11,26),temperature);
 
-        assertEquals(expectedResult,result);
+        assertEquals(s3,result);
     }
 }

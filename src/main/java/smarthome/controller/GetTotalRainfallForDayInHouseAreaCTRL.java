@@ -27,7 +27,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRL {
     }
 
 
-    public boolean closestSensorsWithReadingsInDate(GregorianCalendar inputDate, SensorType sensorType){
+    public boolean closestSensorsHaveReadingsInDate(GregorianCalendar inputDate, SensorType sensorType){
         return mHouse.closestSensorsWithReadingsInDate(inputDate,sensorType);
     }
     /**
@@ -48,8 +48,6 @@ public class GetTotalRainfallForDayInHouseAreaCTRL {
      * @return true if house geographical area is already configured, otherwise returns false
      */
     public boolean isHouseGAConfigured() {
-        if (mHouse.getHouseGA() == null)
-            return false;
-        return true;
+        return mHouse.getHouseGA() != null;
     }
 }

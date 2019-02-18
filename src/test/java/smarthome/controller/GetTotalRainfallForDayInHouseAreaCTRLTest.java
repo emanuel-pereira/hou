@@ -186,7 +186,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         GregorianCalendar date = new GregorianCalendar(2019, 2, 3);
 
 
-        boolean result = ctr.closestSensorsWithReadingsInDate(date, rainfall);
+        boolean result = ctr.closestSensorsHaveReadingsInDate(date, rainfall);
 
         assertTrue(result);
     }
@@ -242,7 +242,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         GregorianCalendar date = new GregorianCalendar(2019, 3, 15);
 
 
-        boolean result = ctr.closestSensorsWithReadingsInDate(date, rainfall);
+        boolean result = ctr.closestSensorsHaveReadingsInDate(date, rainfall);
 
         assertFalse(result);
     }
