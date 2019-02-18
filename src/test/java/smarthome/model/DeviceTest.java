@@ -205,7 +205,6 @@ class DeviceTest {
 
     @Test
     void newDeviceV2Test() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-        House house = new House();
         Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
         DeviceList kitchenDevList = kitchen.getDeviceList();
         DeviceType fridge = new DeviceType("Fridge");
@@ -214,9 +213,9 @@ class DeviceTest {
         String result = device.getDeviceSpecs().getDeviceType().getDeviceTypeName();
         assertEquals("Fridge", result);
     }
+
     @Test
     void newDeviceOtherDevicesTest() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-        House house = new House();
         Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
         DeviceList kitchenDevList = kitchen.getDeviceList();
         DeviceType deviceType = new DeviceType("Television");
@@ -225,19 +224,66 @@ class DeviceTest {
         String result = device.getDeviceSpecs().getDeviceType().getDeviceTypeName();
         assertEquals("Television", result);
     }
+
     @Test
-    void showDeviceListInStringTest() throws ClassNotFoundException, IllegalAccessException, InstantiationException  {
+    void showDeviceListInStringTest() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         DeviceType fridge = new DeviceType("Fridge");
         DeviceList dList = new DeviceList();
         Device d1 = dList.newDeviceV2(fridge);
         Device d2 = dList.newDeviceV2(fridge);
         dList.addDevice(d1);
-        d1.setAttributeValue("Device Name","Fridge A");
+        d1.setAttributeValue("Device Name", "Fridge A");
         dList.addDevice(d2);
         d2.setAttributeValue("Device Name", "Fridge B");
         String result = dList.showDeviceListInString();
         String expected = "1 - Device: Fridge A | Type: Fridge | Active: true\n" +
                 "2 - Device: Fridge B | Type: Fridge | Active: true\n";
-        assertEquals(expected,result);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void setNameTest() {
+        DeviceSpecs deviceSpecs = new Fridge();
+        Device device = new Device(deviceSpecs);
+        device.setName("Fridge LG");
+        device.setName("");
+        assertEquals("Fridge LG",device.getName());
+    }
+
+    @Test
+    void setNominalPowerTest() {
+        DeviceSpecs deviceSpecs = new Fridge();
+        Device device = new Device(deviceSpecs);
+        device.setNominalPower(4.1);
+        device.setNominalPower(-3.5);
+        assertEquals(4.1,device.getNominalPower());
+    }
+    @Test
+    void getEnergyConsInTimeIntervalFailTest(){
+        DeviceSpecs ewh = new ElectricWaterHeater(25, 50, 2);
+        Device dEWH = new Device("EWH DAIKIN", ewh, 15);
+        ReadingList activityLog = dEWH.getActivityLog();
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 10));
+        Reading r3 = new Reading(22, new GregorianCalendar(2018, 11, 5, 0, 20));
+        Reading r4 = new Reading(37, new GregorianCalendar(2018, 11, 5, 0, 30));
+        Reading r5 = new Reading(31, new GregorianCalendar(2018, 11, 5, 0, 40));
+        Reading r6 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 50));
+        Reading r7 = new Reading(22, new GregorianCalendar(2018, 11, 5, 1, 00));
+        Reading r8 = new Reading(37, new GregorianCalendar(2018, 11, 5, 1, 10));
+        activityLog.addReading(r2);
+        activityLog.addReading(r3);
+        activityLog.addReading(r4);
+        activityLog.addReading(r5);
+        activityLog.addReading(r6);
+        activityLog.addReading(r7);
+        activityLog.addReading(r8);
+        GregorianCalendar startDate = new GregorianCalendar(2018, 11, 5, 0, 30);
+        GregorianCalendar endDate = new GregorianCalendar(2018, 11, 5, 1, 00);
+        dEWH.setIsMetered(false);
+        double expected = 0;
+        double result = dEWH.getEnergyConsumptionInTimeInterval(startDate, endDate);
+
+        assertEquals(expected, result);
+
     }
 }
