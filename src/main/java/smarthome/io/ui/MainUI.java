@@ -21,7 +21,6 @@ public class MainUI {
         House house = new House();
         HouseGridList hgList = new HouseGridList();
         PowerSourceList psList = new PowerSourceList();
-        List<Room> roomList = new ArrayList<>();
 
         bootstrap(house, gaList, sensorTypeList);
 
@@ -44,7 +43,7 @@ public class MainUI {
                     systemAdministration(sensorTypeList, gaList);
                     break;
                 case 2:
-                    houseAdministration(sensorTypeList, gaList, roomList, house, hgList, psList);
+                    houseAdministration(sensorTypeList, gaList, house, hgList, psList);
                     break;
                 case 3:
                     regularUsage(house, sensorTypeList, gaList);
