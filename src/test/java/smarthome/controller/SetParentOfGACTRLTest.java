@@ -39,6 +39,34 @@ public class SetParentOfGACTRLTest {
     }
 
     @Test
+    @DisplayName("Ensure that two GAs with the same type are not set as parent")
+    public void invalidSetParentOfGA() {
+
+        GAList gaList = new GAList();
+
+        GeographicalArea ga1 = new GeographicalArea("Opo","Porto", "city", 2, 3, 4, 5, 6);
+        GeographicalArea ga2 = new GeographicalArea("Lis","Lisboa", "city", 4, 6, 8, 11, 7);
+        GeographicalArea ga3 = new GeographicalArea("Pt","Portugal", "country", 14, 16, 18, 111, 117);
+
+        int indexGA1 = 1;
+        int indexGA2 = 2;
+        int indexGA3 = 3;
+
+        gaList.addGA(ga1);
+        gaList.addGA(ga2);
+        gaList.addGA(ga3);
+
+        SetParentOfGACTRL ctrl7 = new SetParentOfGACTRL(gaList);
+        ctrl7.setParentofGA(indexGA1,indexGA2);
+
+        ctrl7.setParentofGA(indexGA1,indexGA3);
+
+        String result = ga1.getGeographicalParentGA().getGeographicalAreaDesignation();
+        String expectedResult = "Portugal";
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     @DisplayName("Ensure that Espanha has not been set as GA Porto parent")
     public void setNotParentOfGA() {
 
@@ -72,7 +100,7 @@ public class SetParentOfGACTRLTest {
 
         List<GeographicalArea> expectedResult = new ArrayList<>();
         List<GeographicalArea> result;
-        
+
         result = ctrl7.getGAList();
         assertEquals(expectedResult, result);
     }

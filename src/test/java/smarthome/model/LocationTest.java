@@ -43,16 +43,6 @@ class LocationTest {
     }
 
     @Test
-    public void newCheckIfLatitudeIsInvalid() {
-
-        try {
-            new Location(100,180,8000);
-            fail("latitude must be between [-90,90]");
-        } catch (IllegalArgumentException ignored) {
-        }
-    }
-
-    @Test
     public void checkIfLongitudeIsInvalid() {
 
         boolean thrown = false;
@@ -76,6 +66,41 @@ class LocationTest {
         assertTrue (thrown);
     }
 
+    @Test
+    public void checkIfLatitudeLongitudeAreInvalid() {
+
+        boolean thrown = false;
+        try {
+            new Location (100, 200, 8848);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue (thrown);
+    }
+
+    @Test
+    public void checkIfLongitudeAltitudeAreInvalid() {
+
+        boolean thrown = false;
+        try {
+            new Location (80, 200, 9000);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue (thrown);
+    }
+
+    @Test
+    public void checkIfLatitudeAltitudeAreInvalid() {
+
+        boolean thrown = false;
+        try {
+            new Location (-100, 100, 9000);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue (thrown);
+    }
 
     @Test
     @DisplayName("Check that all max limit GPS coordinates are valid while creating an instance of a location.")
