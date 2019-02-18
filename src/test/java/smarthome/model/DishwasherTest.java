@@ -39,7 +39,6 @@ class DishwasherTest {
         Dishwasher dw = new Dishwasher( 10);
         dw.setAttributeValue("Wrong Capacity", "20");
         assertEquals(10, dw.getCapacity());
-
     }
 
 
