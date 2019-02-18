@@ -31,6 +31,10 @@ public class Room implements Powered, Metered {
         mDeviceList = new DeviceList();
     }
 
+    public Room (){
+
+    }
+
     /**
      * Method to get the name of the room
      *

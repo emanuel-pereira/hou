@@ -1,4 +1,4 @@
-package smarthome.controller;
+/*package smarthome.controller;
 
 import smarthome.model.*;
 
@@ -54,4 +54,4 @@ public class GetDeviceListInGridByTypeCTRL {
     public String showGroupedDeviceListInGridString (int indexHG) {
         return this.getHouseGrid(indexHG).showGroupedDeviceListInGridString();
     }
-}
+}*/

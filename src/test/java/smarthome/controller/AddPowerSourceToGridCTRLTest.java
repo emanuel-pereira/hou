@@ -84,7 +84,7 @@ class AddPowerSourceToGridCTRLTest {
     @DisplayName("Return the name of a chosen house grid")
     void getHouseGridNameTest () {
         House house = new House();
-        US135AddPowerSourceToGridCTRL ctrl135 = new US135AddPowerSourceToGridCTRL(house);
+        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house);
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
         house.getHGListInHouse().addHouseGrid(hg1);

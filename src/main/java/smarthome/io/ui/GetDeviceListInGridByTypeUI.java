@@ -1,4 +1,4 @@
-package smarthome.io.ui;
+/*package smarthome.io.ui;
 
 import smarthome.controller.GetDeviceListInGridByTypeCTRL;
 import smarthome.model.*;
@@ -80,4 +80,4 @@ public class GetDeviceListInGridByTypeUI {
         }
         return false;
     }
-}
+}*/

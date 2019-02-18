@@ -1,4 +1,4 @@
-package smarthome.controller;
+/*package smarthome.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -338,4 +338,4 @@ class GetDeviceListInGridByTypeCTRLTest {
 
         assertEquals(expectedResult,result);
     }
-}
+}*/

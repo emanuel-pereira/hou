@@ -29,8 +29,8 @@ public final class PowerUserUI {
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
                 case 1:
-                    US160GetDeviceListInGridByTypeUI ui160 = new US160GetDeviceListInGridByTypeUI(house);
-                    ui160.checkIfHGListIsEmpty();
+                    /*GetDeviceListInGridByTypeUI ui160 = new GetDeviceListInGridByTypeUI(house);
+                    ui160.checkIfHGListIsEmpty();*/
                     break;
                 case 2:
                     GetGridTotalNominalPowerUI uS172 = new GetGridTotalNominalPowerUI(house);

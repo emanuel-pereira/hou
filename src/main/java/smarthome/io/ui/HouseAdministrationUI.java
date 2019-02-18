@@ -72,8 +72,8 @@ public final class HouseAdministrationUI {
                     ui210.selectOption();
                     break;
                 case 11:
-                    GetDeviceListInGridByTypeUI ui160 = new GetDeviceListInGridByTypeUI (house);
-                    ui160.checkIfHGListIsEmpty ();
+                    /*GetDeviceListInGridByTypeUI ui160 = new GetDeviceListInGridByTypeUI (house);
+                    ui160.checkIfHGListIsEmpty ();*/
                     break;
                 case 12:
                     GetGridTotalNominalPowerUI uS172 = new GetGridTotalNominalPowerUI(house);

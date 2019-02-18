@@ -104,7 +104,7 @@ public class HouseGrid implements Metered{
     }
 
 
-    public DeviceList getDeviceListFromType(int indexType){
+  /* public DeviceList getDeviceListFromType(int indexType){
         DeviceList deviceListFromType = new DeviceList();
         for(Device d : this.getDeviceListInGrid().getDeviceList()){
             if(DeviceType.values()[indexType-1].getTypeString().equals(d.getDeviceSpecs().getType().getTypeString())){
@@ -145,7 +145,7 @@ public class HouseGrid implements Metered{
             result.append("\n");
         }
         return result.toString();
-    }
+    }*/
 
     @Override
     public boolean equals(Object o) {

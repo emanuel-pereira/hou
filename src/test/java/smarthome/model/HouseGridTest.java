@@ -310,7 +310,7 @@ class HouseGridTest {
         assertEquals(expected,result);
     }
 
-    @Test
+    /*@Test
     void deviceListInGridCtrlTestSize() {
         House house = new House();
         HouseGrid hg1 = new HouseGrid("grid1");
@@ -460,7 +460,7 @@ class HouseGridTest {
         String result = hg1.showGroupedDeviceListInGridString();
 
         assertEquals(expectedResult,result);
-    }
+    }*/
 
     @Test
     void showRoomsInHouseGrid() {

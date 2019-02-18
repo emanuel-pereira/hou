@@ -197,7 +197,7 @@ public class RoomListTest {
         assertEquals(expected,result);
     }
 
-    @Test
+    /*@Test
     public void getDeviceLocationTest(){
         RoomList rList = new RoomList();
 
@@ -243,6 +243,6 @@ public class RoomListTest {
         Room expectedResult = r1;
         Room result = rList.getDeviceLocation(d5);
         assertNotEquals(expectedResult,result);
-    }
+    }*/
 
 }
