@@ -113,10 +113,26 @@ public final class UtilsUI {
         String userInput = input.trim();
         String[] splitInput;
         splitInput = userInput.split("-", 3);
-        System.out.println(Integer.parseInt(splitInput[field]));
+
 
         return Integer.parseInt(splitInput[field]);
     }
+
+    private static int getFieldValueFromTime(String input, int field) {
+        if (field < 0 || field > 1) {
+            return -2;
+        }
+        if (!isTime(input)) {
+            return -1;
+        }
+        String userInput = input.trim();
+        String[] splitInput;
+        splitInput = userInput.split(":", 2);
+
+
+        return Integer.parseInt(splitInput[field]);
+    }
+
 
     private static boolean isTime(String input) {
         String userInput = input.trim(); // remove any spaces from input as the user may be stupid.
@@ -143,19 +159,33 @@ public final class UtilsUI {
         return !(hour > 23 || hour < 0 || minute > 59 || minute < 0);
     }
 
+
+    public static String requestTime() {
+        String time;
+        do {
+            time = getUserInput();
+        }
+        while (!isTime(time));
+        return time;
+    }
+
     /**
      * @param input a string that represents a date and time in "YYYY-MM-DD hh:mm" format
      * @return true if the string is a valid date and time
      */
     private static boolean isDateTime(String input) {
         String[] dateAndTime = new String[2];
-        dateAndTime = input.split(" ", 2);
+        dateAndTime = input.split("[ ]", 2);
+        if (dateAndTime.length == 0) {
+            return false;
+        }
 
         String sDate = dateAndTime[0];
         String sTime = dateAndTime[1];
 
         return (isDate(sDate) && isTime(sTime));
     }
+
 
     public static String requestText(String errorMessage) {
         String input;
@@ -273,6 +303,44 @@ public final class UtilsUI {
         return new GregorianCalendar(year, month, day);
     }
 
+    public static GregorianCalendar requestDateTime(String errorMessage) {
+
+
+        String date;
+        int year;
+        int month;
+        int day;
+        String time;
+        int hour;
+        int minute;
+
+
+        String userInput;
+
+
+        while (true) {
+            userInput = getUserInput();
+            if (isDateTime(userInput)) {
+                break;
+            }
+            print(errorMessage);
+        }
+
+        String[] dateAndTime = new String[2];
+        dateAndTime = userInput.split(" ", 2);
+        date = dateAndTime[0];
+        time = dateAndTime[1];
+
+        year = getFieldValueFromDate(date, 0);
+        month = getFieldValueFromDate(date, 1) - 1; // correction for the way months are stored i.e., 0-11 and not 1-12
+        day = getFieldValueFromDate(date, 2);
+        hour = getFieldValueFromTime(time, 0);
+        minute = getFieldValueFromTime(time, 1);
+
+        return new GregorianCalendar(year, month, day, hour, minute);
+
+    }
+
 
     /**
      * Wrapper for TextStyle Enum class. Prints an ANSI escape code at the current cursor position.
@@ -300,11 +368,11 @@ public final class UtilsUI {
     }
 
     public static void showList(String title, List<String> listToShow, boolean numbered) {
-        showFormattedList(title, listToShow, numbered, 15);
+        showFormattedList(title, listToShow, numbered, 1);
     }
 
     public static void showList(String title, List<String> listToShow) {
-        showFormattedList(title, listToShow, false, 15);
+        showFormattedList(title, listToShow, false, 1);
     }
 
     /**
@@ -329,8 +397,12 @@ public final class UtilsUI {
         }
 
         if (title.length() > widestString) widestString = title.length();
+        int extraPadding = 0;
 
-        tableWidth = widestString + padding * 2;
+        if (numbered) {
+            extraPadding = 6;
+        }
+        tableWidth = widestString + padding * 2 + extraPadding;
         if (tableWidth % 2 == 1) {
             tableWidth++;
         }
@@ -351,8 +423,14 @@ public final class UtilsUI {
         // Display the items
         format("BG_WHITE", c);
         String paddedOutput;
+        int number;
         for (String item : listToShow
         ) {
+            if (numbered) {
+                number = listToShow.indexOf(item);
+                item = addNumberToItem(item, number);
+            }
+
             paddedOutput = padWithSpaces(item, tableWidth, padding);
 
             format("BG_WHITE", c);
@@ -360,6 +438,18 @@ public final class UtilsUI {
         }
 
     }
+
+    private static String addNumberToItem(String item, int number) {
+        String currentNumber = "[" + number + "]";
+
+        //Max number of items in list is 999 before formatting breaks.
+
+
+        currentNumber = padWithSpaces(currentNumber, 6, 0);
+
+        return currentNumber + item;
+    }
+
 
     private static String createWhiteSpace(int spaces) {
         if (spaces <= 0) return "";
