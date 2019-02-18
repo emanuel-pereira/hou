@@ -13,11 +13,9 @@ class AddPowerSourceToGridCTRLTest {
 
     @Test
     @DisplayName("Method to get a list of the previously inserted House Grids")
-    void getHouseGridListTest (){
+    void getHouseGridListTest(){
         House house = new House();
-        HouseGridList hgList = new HouseGridList();
-        PowerSourceList psList = new PowerSourceList();
-        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house,hgList,psList);
+        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house);
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
         house.getHGListInHouse().addHouseGrid(hg01);
@@ -31,12 +29,27 @@ class AddPowerSourceToGridCTRLTest {
     }
 
     @Test
+    @DisplayName("Method to get the size of the list of the previously inserted House Grids")
+    void getHouseGridListTestSize(){
+        House house = new House();
+        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house);
+        HouseGrid hg01 = new HouseGrid("energygrid01");
+        HouseGrid hg02 = new HouseGrid("energygrid02");
+        house.getHGListInHouse().addHouseGrid(hg01);
+        house.getHGListInHouse().addHouseGrid(hg02);
+
+
+        int expectedResult = 2;
+        int result = ctrl135.getHGListSizeCtrl();
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
     @DisplayName("Method to get a list of the previously inserted House Grids, testing it adds both with AssertNotEquals")
     void getHouseGridListTestNotEquals (){
         House house = new House();
-        HouseGridList hgList = new HouseGridList();
-        PowerSourceList psList = new PowerSourceList();
-        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house,hgList,psList);
+        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house);
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
         house.getHGListInHouse().addHouseGrid(hg01);
@@ -49,13 +62,45 @@ class AddPowerSourceToGridCTRLTest {
         assertNotEquals(expectedResult, result);
     }
 
+    @Test
+    @DisplayName("Show the List of House Grids in a string")
+    void getHouseGridListTestInString(){
+        House house = new House();
+        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house);
+        HouseGrid hg01 = new HouseGrid("energygrid01");
+        HouseGrid hg02 = new HouseGrid("energygrid02");
+        house.getHGListInHouse().addHouseGrid(hg01);
+        house.getHGListInHouse().addHouseGrid(hg02);
+
+
+        String expectedResult = "1 - energygrid01\n" +
+                                "2 - energygrid02\n";
+        String result = ctrl135.getHGListInStringCtrl();
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    @DisplayName("Return the name of a chosen house grid")
+    void getHouseGridNameTest () {
+        House house = new House();
+        US135AddPowerSourceToGridCTRL ctrl135 = new US135AddPowerSourceToGridCTRL(house);
+        HouseGrid hg1 = new HouseGrid("grid1");
+        HouseGrid hg2 = new HouseGrid("grid2");
+        house.getHGListInHouse().addHouseGrid(hg1);
+        house.getHGListInHouse().addHouseGrid(hg2);
+
+        String expectedResult = "grid1";
+        String result = ctrl135.getHouseGridName(1);
+
+        assertEquals(expectedResult,result);
+    }
+
        @Test
     @DisplayName("Add a Power Source to a House Grid from the List")
     void addPSTest() {
         House house = new House();
-        HouseGridList hgList = new HouseGridList();
-        PowerSourceList psList = new PowerSourceList();
-        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house,hgList,psList);
+           AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house);
            HouseGrid hg01 = new HouseGrid("energygrid01");
            HouseGrid hg02 = new HouseGrid("energygrid02");
         house.getHGListInHouse().addHouseGrid(hg01);
@@ -70,9 +115,7 @@ class AddPowerSourceToGridCTRLTest {
     @DisplayName("Add a Power Source to a House Grid from the List, asserting with notEquals")
     void addPSTestNotEquals() {
         House house = new House();
-        HouseGridList hgList = new HouseGridList();
-        PowerSourceList psList = new PowerSourceList();
-        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house,hgList, psList);
+        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house);
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
         house.getHGListInHouse().addHouseGrid(hg01);
@@ -90,9 +133,7 @@ class AddPowerSourceToGridCTRLTest {
     @DisplayName("Get Power Source List")
     void getPSListTest () {
         House house = new House();
-        HouseGridList hgList = new HouseGridList();
-        PowerSourceList psList = new PowerSourceList();
-        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house,hgList,psList);
+        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house);
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
         house.getHGListInHouse().addHouseGrid(hg01);
@@ -104,7 +145,7 @@ class AddPowerSourceToGridCTRLTest {
         hg01.getPSListInHG().addPS(ps2);
 
         List<PowerSource> expectedResult = Arrays.asList(ps1,ps2);
-        List<PowerSource> result = ctrl135.getPowerSourceListCtrl(hg01);
+        List<PowerSource> result = ctrl135.getPowerSourceListCtrl(1);
 
         assertEquals(expectedResult,result);
     }
@@ -113,9 +154,7 @@ class AddPowerSourceToGridCTRLTest {
     @DisplayName("Get Power Source List")
     void getPSListTestSize () {
         House house = new House();
-        HouseGridList hgList = new HouseGridList();
-        PowerSourceList psList = new PowerSourceList();
-        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house,hgList,psList);
+        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house);
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
         house.getHGListInHouse().addHouseGrid(hg01);
@@ -125,18 +164,35 @@ class AddPowerSourceToGridCTRLTest {
         ctrl135.addNewPSToGrid(1,"turbine003", "wind", 100,100);
 
         int expectedResult = 2;
-        int result = ctrl135.getPowerSourceListCtrl(hg01).size();
+        int result = ctrl135.getPSListSizeCtrl(1);
 
         assertEquals(expectedResult,result);
     }
 
     @Test
-    @DisplayName("Show Power Spurce List In String")
+    @DisplayName("Get Power Source List Size Zero")
+    void getPSListTestSizeZero () {
+        House house = new House();
+        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house);
+        HouseGrid hg01 = new HouseGrid("energygrid01");
+        HouseGrid hg02 = new HouseGrid("energygrid02");
+        house.getHGListInHouse().addHouseGrid(hg01);
+        house.getHGListInHouse().addHouseGrid(hg02);
+
+        ctrl135.addNewPSToGrid(1,"panel002","solar",100,100);
+        ctrl135.addNewPSToGrid(1,"turbine003", "wind", 100,100);
+
+        int expectedResult = 0;
+        int result = ctrl135.getPSListSizeCtrl(2);
+
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    @DisplayName("Show Power Source List In String")
     void showPSListInStringTest () {
         House house = new House();
-        HouseGridList hgList = new HouseGridList();
-        PowerSourceList psList = new PowerSourceList();
-        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house,hgList,psList);
+        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house);
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
         house.getHGListInHouse().addHouseGrid(hg01);
@@ -146,9 +202,29 @@ class AddPowerSourceToGridCTRLTest {
         ctrl135.addNewPSToGrid(1,"turbine003", "wind", 100,100);
 
         String expectedResult = "1 - panel002, solar type, Maximum Power 100.0 kw, Storage Capacity 100.0 kw.\n2 - turbine003, wind type, Maximum Power 100.0 kw, Storage Capacity 100.0 kw.\n";
-        String result = ctrl135.showPowerSourceListInString(hg01);
+        String result = ctrl135.showPowerSourceListInString(1);
 
         assertEquals(expectedResult,result);
-
     }
+
+    @Test
+    @DisplayName("Test if name/type validation string is true")
+    void alphanumericNameTrue () {
+        House house = new House();
+        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house);
+
+        boolean result = ctrl135.alphanumericName("painel01");
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Test if name/type validation string is false(does not accept points for example)")
+    void alphanumericNameFalse () {
+        House house = new House();
+        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house);
+
+        boolean result = ctrl135.alphanumericName("painel1.");
+        assertFalse(result);
+    }
+
 }

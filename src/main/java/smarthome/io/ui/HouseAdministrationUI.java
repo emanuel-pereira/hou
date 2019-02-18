@@ -9,7 +9,7 @@ public final class HouseAdministrationUI {
     private HouseAdministrationUI(){}
 
     public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList,
-                                           House house, HouseGridList hgList, PowerSourceList pslist) throws ClassNotFoundException,IllegalAccessException, InstantiationException {
+                                           House house, HouseGridList hgList) throws ClassNotFoundException,IllegalAccessException, InstantiationException {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("House administration UI");
@@ -48,8 +48,8 @@ public final class HouseAdministrationUI {
                     ui130.run();
                     break;
                 case 5:
-                    AddPowerSourceToGridUI ui135 = new AddPowerSourceToGridUI(house, hgList, pslist);
-                    ui135.addPowerSourceToHouseGrid();
+                    AddPowerSourceToGridUI ui135 = new AddPowerSourceToGridUI(house);
+                    ui135.checkIfHGListIsEmpty();
                     break;
                 case 6:
                     AttachDetachAndListRoomsInGridUI ui145 = new AttachDetachAndListRoomsInGridUI(house);
@@ -72,8 +72,8 @@ public final class HouseAdministrationUI {
                     ui210.selectOption();
                     break;
                 case 11:
-                    //US160GetDeviceListInGridByTypeUI ui160 = new US160GetDeviceListInGridByTypeUI (house);
-                    //ui160.getDeviceListInGrid ();
+                    GetDeviceListInGridByTypeUI ui160 = new GetDeviceListInGridByTypeUI (house);
+                    ui160.checkIfHGListIsEmpty ();
                     break;
                 case 12:
                     GetGridTotalNominalPowerUI uS172 = new GetGridTotalNominalPowerUI(house);

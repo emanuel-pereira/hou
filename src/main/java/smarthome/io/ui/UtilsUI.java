@@ -495,4 +495,11 @@ public final class UtilsUI {
         return output.toString ();
     }
 
+    public static void backToMenu() {
+        Scanner read = new Scanner(System.in);
+        System.out.println("---\nPress Enter to return to the previous Menu");
+        read.nextLine();
+        return;
+    }
+
 }
