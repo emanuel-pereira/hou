@@ -31,37 +31,6 @@ class LocationTest {
     }
 
     @Test
-    @DisplayName("Check if all GPS coordinates are set invalid.")
-    public void checkIfGPSCoordinatesAreInvalid() {
-        Location l = new Location (12, -4, 100);
-
-        boolean thrownLa = false;
-        try {
-            l.setLatitude (100);
-        } catch (IllegalArgumentException La) {
-            thrownLa = true;
-        }
-        assertTrue (thrownLa);
-
-        boolean thrownLo = false;
-        try {
-            l.setLongitude (200);
-        } catch (IllegalArgumentException Lo) {
-            thrownLo = true;
-        }
-        assertTrue (thrownLo);
-
-        boolean thrownAl = false;
-        try {
-            l.setAltitude (9000);
-        } catch (IllegalArgumentException Al) {
-            thrownAl = true;
-        }
-        assertTrue (thrownAl);
-    }
-
-
-    @Test
     public void checkIfLatitudeIsInvalid() {
 
         boolean thrown = false;
@@ -97,6 +66,41 @@ class LocationTest {
         assertTrue (thrown);
     }
 
+    @Test
+    public void checkIfLatitudeLongitudeAreInvalid() {
+
+        boolean thrown = false;
+        try {
+            new Location (100, 200, 8848);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue (thrown);
+    }
+
+    @Test
+    public void checkIfLongitudeAltitudeAreInvalid() {
+
+        boolean thrown = false;
+        try {
+            new Location (80, 200, 9000);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue (thrown);
+    }
+
+    @Test
+    public void checkIfLatitudeAltitudeAreInvalid() {
+
+        boolean thrown = false;
+        try {
+            new Location (-100, 100, 9000);
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue (thrown);
+    }
 
     @Test
     @DisplayName("Check that all max limit GPS coordinates are valid while creating an instance of a location.")

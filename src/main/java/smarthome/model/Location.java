@@ -26,7 +26,7 @@ public class Location {
      * Method to set latitude as the one inputted by the user if it complies with latitudeIsValid criteria
      * @param latitude user input
      */
-    public void setLatitude(double latitude) {
+    private void setLatitude(double latitude) {
         if (v.latitudeIsValid(latitude))
             mLatitude = latitude;
     }
