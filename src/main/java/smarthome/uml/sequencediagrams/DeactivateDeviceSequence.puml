@@ -40,7 +40,7 @@ activate "d:Device"
 deactivate "d:Device"
 ":EditDeviceUI" -> ":EditDeviceCTRL": dList = showDeviceListInString( )
 ":EditDeviceCTRL" -> "dL:DeviceList": dList = showDeviceListInString( )
-deactivate "dL:DeviceList"
+
 deactivate "dL:DeviceList"
 deactivate "r:Room"
 deactivate ":EditDeviceCTRL"

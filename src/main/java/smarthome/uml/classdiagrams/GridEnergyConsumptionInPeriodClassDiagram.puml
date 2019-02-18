@@ -91,6 +91,6 @@ HouseGridList *-- " 0..*"HouseGrid: contains
 HouseGrid -up- "1"RoomList: > contains
 Room *- " 0 *"Device: contains
 Device *-down- "1"ReadingList: has
-ReadingList *-- " 0..*"Reading: contains
+ReadingList *- " 0..*"Reading: contains
 
 @enduml

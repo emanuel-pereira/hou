@@ -70,7 +70,7 @@ public class GeographicalAreaTest {
     public void comparisonOfTwoDifferentGAObjects() {
         GeographicalArea ga1 = new GeographicalArea("POR", "Porto", "City", 12.3, 35.2, 120, 2, 5);
         GeographicalArea ga2 = new GeographicalArea("VNG", "Gaia", "City", 8, -125, 10, 2, 5);
-        assertFalse(ga1.equals(ga2));
+        assertNotEquals (ga1, ga2);
     }
 
     @DisplayName("Ensure equals method returns false when comparing different objects of different type")
@@ -78,14 +78,26 @@ public class GeographicalAreaTest {
     public void comparisonOfTwoDifferentObjects() {
         GeographicalArea ga1 = new GeographicalArea("POR", "Porto", "City", 12.3, 35.2, 120, 2, 5);
         GeographicalArea ga2 = new GeographicalArea("VNG", "Gaia", "City", 8, -125, 10, 2, 5);
-        assertFalse(ga1.equals(ga2));
+        assertNotEquals (ga1, ga2);
     }
 
     @DisplayName("Ensure equals method returns true when comparing object o with same object")
     @Test
     public void comparisonOfSameObject() {
         GeographicalArea ga1 = new GeographicalArea("POR", "Porto", "City", 12.3, 35.2, 120, 2, 5);
-        assertTrue(ga1.equals(ga1));
+        assertEquals (ga1, ga1);
+    }
+
+    @Test
+    public void ifGAEqualsGASameContent() {
+        boolean result;
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 4, 5, 5, 6);
+        GeographicalArea ga2 = new GeographicalArea("Pt", "Porto", "city", 2, 4, 5, 5, 6);
+
+        result = ga1.equals (ga2);
+
+        assertEquals (ga1.hashCode (), ga2.hashCode ());
+        assertTrue(result);
     }
 
     @Test
@@ -108,9 +120,6 @@ public class GeographicalAreaTest {
     public void getParentGA() {
 
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 4, 5, 5, 6);
-        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", 3, 4, 5, 6, 7);
-
-        ga1.getGeographicalParentGA();
 
         GeographicalArea expectedResult = null;
         GeographicalArea result = ga1.getGeographicalParentGA();
@@ -126,14 +135,14 @@ public class GeographicalAreaTest {
 
         SensorList list = ga1.getSensorListInGA();
 
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 00));
-        Reading r2 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 00));
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 0));
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0));
         ReadingList rl = new ReadingList();
         rl.addReading(r1);
         rl.addReading(r2);
 
-        Reading r3 = new Reading(80, new GregorianCalendar(2018, 12, 26, 12, 00));
-        Reading r4 = new Reading(81, new GregorianCalendar(2018, 12, 26, 13, 00));
+        Reading r3 = new Reading(80, new GregorianCalendar(2018, 12, 26, 12, 0));
+        Reading r4 = new Reading(81, new GregorianCalendar(2018, 12, 26, 13, 0));
         ReadingList rl2 = new ReadingList();
         rl2.addReading(r3);
         rl2.addReading(r4);
@@ -155,5 +164,19 @@ public class GeographicalAreaTest {
 
         assertEquals(expected,result);
     }
+
+    @Test
+    public void ifStringEqualsGA() {
+        String text = "Text";
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 4, 5, 5, 6);
+        boolean result;
+
+        result = ga1.equals (text);
+
+        assertFalse(result);
+    }
+
+
+
 
 }

@@ -80,94 +80,6 @@ class HouseTest {
         assertNotEquals(house1, t1);
     }
 
-    @Test
-    @DisplayName("Tests if returns house location")
-    void getHouseLocation() {
-
-        //Arrange
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Beja", l1);
-        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", 20, 20, 2, 2, 5);
-
-        House house1 = new House("Prédio", a1, g1);
-
-        Location result = house1.getHouseLocation();
-        Location expected = l1;
-        //Assert
-        assertEquals(expected, result);
-    }
-
-
-    @Test
-    @DisplayName("Tests if returns the nearest rainfall sensor with readings ")
-    void getClosestGASensorOfGivenType() {
-
-        //Arrange
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Beja", l1);
-        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", 41, 12.3, 110, 2, 5);
-
-        House house1 = new House("Prédio", a1, g1);
-
-        SensorType sT1 = new SensorType("temperature");
-        SensorType sR1 = new SensorType("rainfall");
-
-        ReadingList rL = new ReadingList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 1));
-        Reading r2 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0));
-        rL.addReading(r1);
-        rL.addReading(r2);
-
-        Sensor s1 = g1.getSensorListInGA().newSensor("TempSensor", new GregorianCalendar(2018, 12, 15), 42, 12.4, 112, sT1, "C", rL);
-        Sensor s2 = g1.getSensorListInGA().newSensor("RainSensor", new GregorianCalendar(2018, 12, 15), 40, 13, 190, sR1, "Percentage", rL);
-        Sensor s3 = g1.getSensorListInGA().newSensor("RainSensor2", new GregorianCalendar(2018, 12, 15), 50, 13, 190, sR1, "Percentage", rL);
-
-        g1.getSensorListInGA().addSensor(s1);
-        g1.getSensorListInGA().addSensor(s2);
-        g1.getSensorListInGA().addSensor(s3);
-
-        Sensor result = house1.findClosestGASensorByType("rainfall");
-
-        //Assert
-        assertEquals(s2, result);
-    }
-
-    @Test
-    @DisplayName("Tests if returns the second nearest GA sensor of a given type, because the first does not have readings")
-    void getSecondClosestGASensorOfGivenType() {
-
-        //Arrange
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Beja", l1);
-        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", 41, 12.3, 110, 2, 5);
-
-        House house1 = new House("Prédio", a1, g1);
-
-        ReadingList rL = new ReadingList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 1));
-        Reading r2 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0));
-        rL.addReading(r1);
-        rL.addReading(r2);
-
-        SensorType sT1 = new SensorType("temperature");
-        SensorType sR1 = new SensorType("rainfall");
-
-        ReadingList rL2 = new ReadingList();
-
-        Sensor s1 = g1.getSensorListInGA().newSensor("TempSensor", new GregorianCalendar(2018, 12, 15), 42, 12.4, 112, sT1, "C", rL);
-        Sensor s2 = g1.getSensorListInGA().newSensor("RainSensor", new GregorianCalendar(2018, 12, 15), 40, 13, 190, sR1, "Percentage", rL2);
-        Sensor s3 = g1.getSensorListInGA().newSensor("RainSensor2", new GregorianCalendar(2018, 12, 15), 50, 12.3, 110, sR1, "Percentage", rL);
-
-        g1.getSensorListInGA().addSensor(s1);
-        g1.getSensorListInGA().addSensor(s2);
-        g1.getSensorListInGA().addSensor(s3);
-
-        Sensor result = house1.findClosestGASensorByType("rainfall");
-
-        //Assert
-        assertEquals(s3, result);
-    }
-
 
     //RoomList
 
@@ -354,7 +266,7 @@ class HouseTest {
 
     @Test
     @DisplayName("Get House Grid List from the House")
-    void getHouseGridListFromHouseTest () {
+    void getHouseGridListFromHouseTest() {
         House house = new House();
         HouseGrid hg01 = new HouseGrid("grid01");
         HouseGrid hg02 = new HouseGrid("grid02");
@@ -362,22 +274,22 @@ class HouseTest {
         house.getHGListInHouse().addHouseGrid(hg01);
         house.getHGListInHouse().addHouseGrid(hg02);
 
-        List<HouseGrid> expectedResult = Arrays.asList(hg01,hg02);
+        List<HouseGrid> expectedResult = Arrays.asList(hg01, hg02);
         List<HouseGrid> result = house.getHGListInHouse().getHouseGridList();
 
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
 
     }
 
     @Test
-    void showRoomsWithoutGrid(){
+    void showRoomsWithoutGrid() {
         House house = new House();
         HouseGrid hg1 = new HouseGrid("grid01");
         HouseGrid hg2 = new HouseGrid("grid02");
-        HouseGridList hgLst= house.getHGListInHouse();
+        HouseGridList hgLst = house.getHGListInHouse();
         hgLst.addHouseGrid(hg1);
         hgLst.addHouseGrid(hg2);
-        RoomList roomLstOfHouse=house.getRoomList();
+        RoomList roomLstOfHouse = house.getRoomList();
         Room kitchen = new Room("kitchen", 1, 2, 2.5, 2);
         roomLstOfHouse.addRoom(kitchen);
         hg1.attachRoomToGrid(kitchen);
@@ -387,9 +299,9 @@ class HouseTest {
         roomLstOfHouse.addRoom(bedroom);
         hg1.attachRoomToGrid(kitchen);
         hg1.attachRoomToGrid(bathroom);
-        int expected= 1;
-        int result= house.getRoomsWithoutGrid(hg1).getRoomListSize();
-        assertEquals(expected,result);
+        int expected = 1;
+        int result = house.getRoomsWithoutGrid(hg1).getRoomListSize();
+        assertEquals(expected, result);
     }
 
     @Test
@@ -397,10 +309,10 @@ class HouseTest {
         House house = new House();
         HouseGrid hg1 = new HouseGrid("grid01");
         HouseGrid hg2 = new HouseGrid("grid02");
-        HouseGridList hgLst= house.getHGListInHouse();
+        HouseGridList hgLst = house.getHGListInHouse();
         hgLst.addHouseGrid(hg1);
         hgLst.addHouseGrid(hg2);
-        RoomList roomLstOfHouse=house.getRoomList();
+        RoomList roomLstOfHouse = house.getRoomList();
         Room kitchen = new Room("Kitchen", 1, 2, 2.5, 2);
         roomLstOfHouse.addRoom(kitchen);
         Room bathroom = new Room("bathroom", 1, 2, 2.5, 2);
@@ -409,9 +321,82 @@ class HouseTest {
         roomLstOfHouse.addRoom(bedroom);
 
         hg1.attachRoomToGrid(bathroom);
-        String expected= "1 - Kitchen\n" +
+        String expected = "1 - Kitchen\n" +
                 "2 - Bedroom\n";
-        String result= house.showRoomsWithoutHouseGrid(hg1);
+        String result = house.showRoomsWithoutHouseGrid(hg1);
+        assertEquals(expected, result);
+    }
+
+
+    @Test
+    void getListOfDeviceTypes() {
+        House h = new House();
+        List<DeviceType> result = h.getListOfDeviceTypes();
+        assertEquals(result.size(),14);
+    }
+
+    @Test
+    void showDeviceTypesList() {
+        House h = new House();
+        String expected="1 - ElectricWaterHeater\n" +
+                "2 - WashingMachine\n" +
+                "3 - Dishwasher\n" +
+                "4 - Fridge\n" +
+                "5 - Kettle\n" +
+                "6 - Oven\n" +
+                "7 - Stove\n" +
+                "8 - MicrowaveOven\n" +
+                "9 - WallElectricHeater\n" +
+                "10 - PortableElectricOilHeater\n" +
+                "11 - PortableElectricConvectionHeater\n" +
+                "12 - WallTowelHeater\n" +
+                "13 - Lamp\n" +
+                "14 - Television\n";
+        String result = h.showDeviceTypesList();
         assertEquals(expected,result);
+
+    }
+
+    @Test
+    @DisplayName("Ensure that sensor with the latest reading in the specified date is sensor s3.")
+    void getSensorOfTypeWithLatestReadingsInDate() {
+        House house = new House();
+        house.setHouseAddress("Avenida Central","11","4425-255",25,25,12);
+        GeographicalArea braga = new GeographicalArea("BR","Braga","City",25,25,25,2,5);
+        house.setHouseGA(braga);
+        SensorType temperature = new SensorType("temperature");
+        SensorList bragaSensorList= braga.getSensorListInGA();
+        Sensor s1= new Sensor("Temperature Sensor 3",new GregorianCalendar(2018,11,25),0,15,12,temperature);
+        Sensor s2= new Sensor("Temperature Sensor 1",new GregorianCalendar(2018,11,25),26,26,12,temperature);
+        Sensor s3= new Sensor("Temperature Sensor 2",new GregorianCalendar(2018,11,25),24,24,12,temperature);
+
+        bragaSensorList.addSensor(s1);
+        bragaSensorList.addSensor(s2);
+        bragaSensorList.addSensor(s3);
+
+        Reading r1TempSensor1 = new Reading(25,new GregorianCalendar(2018,11,26,9,15));
+        Reading r2TempSensor1 = new Reading(20,new GregorianCalendar(2018,11,26,9,30));
+        Reading r3TempSensor1 = new Reading(15,new GregorianCalendar(2018,11,27,9,15));
+        s1.getReadingList().addReading(r1TempSensor1);
+        s1.getReadingList().addReading(r2TempSensor1);
+        s1.getReadingList().addReading(r3TempSensor1);
+
+        Reading r1TempSensor2 = new Reading(15,new GregorianCalendar(2018,11,26,9,15));
+        Reading r2TempSensor2 = new Reading(10,new GregorianCalendar(2018,11,26,9,30));
+        Reading r3TempSensor2 = new Reading(5,new GregorianCalendar(2018,11,27,9,15));
+        s2.getReadingList().addReading(r1TempSensor2);
+        s2.getReadingList().addReading(r2TempSensor2);
+        s2.getReadingList().addReading(r3TempSensor2);
+
+        Reading r1TempSensor3 = new Reading(15,new GregorianCalendar(2018,11,26,9,15));
+        Reading r2TempSensor3 = new Reading(10,new GregorianCalendar(2018,11,26,9,45));
+        Reading r3TempSensor3 = new Reading(5,new GregorianCalendar(2018,11,27,9,15));
+        s3.getReadingList().addReading(r1TempSensor3);
+        s3.getReadingList().addReading(r2TempSensor3);
+        s3.getReadingList().addReading(r3TempSensor3);
+
+        Sensor result = house.getSensorOfTypeWithLatestReadingsInDate(new GregorianCalendar(2018,11,26),temperature);
+
+        assertEquals(s3,result);
     }
 }

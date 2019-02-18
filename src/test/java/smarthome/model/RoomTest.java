@@ -1,6 +1,5 @@
 package smarthome.model;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.GregorianCalendar;
@@ -167,7 +166,7 @@ public class RoomTest {
         RoomList roomList = house.getRoomList ();
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2,2,2);
         roomList.addRoom (bedroom);
-        DeviceSpecs ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        DeviceSpecs ewh = new ElectricWaterHeater();
         Device dEWH1= new Device("EWH DAIKIN1",ewh,15);
         Device dEWH2= new Device("EWH DAIKIN2",ewh,15);
         roomList.addDeviceToRoom (dEWH1,1);
@@ -190,7 +189,7 @@ public class RoomTest {
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2,2,2);
         roomList.addRoom (bedroom);
 
-        DeviceSpecs ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        DeviceSpecs ewh = new ElectricWaterHeater();
         Device dEWH= new Device("EWH DAIKIN",ewh,15);
 
         roomList.addDeviceToRoom (dEWH,1);
@@ -213,7 +212,7 @@ public class RoomTest {
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2,2,2);
         roomList.addRoom (bedroom);
 
-        DeviceSpecs ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        DeviceSpecs ewh = new ElectricWaterHeater();
         Device dEWH= new Device("EWH DAIKIN",ewh,15);
 
         roomList.addDeviceToRoom (dEWH,1);
@@ -252,11 +251,11 @@ public class RoomTest {
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2,2,2);
         roomList.addRoom (bedroom);
 
-        DeviceSpecs ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        DeviceSpecs ewh = new ElectricWaterHeater();
         Device dEWH= new Device("EWH DAIKIN",ewh,15);
-        DeviceSpecs tv = new OtherDevices (DeviceType.TV);
+        DeviceSpecs tv = new OtherDevices ();
         Device dTv= new Device("Samsung TV",tv,15);
-        DeviceSpecs frid = new Fridge (DeviceType.FRIDGE,20,10,300 );
+        DeviceSpecs frid = new Fridge ();
         Device dFrid = new Device ("Fridge1",frid,100);
         Device dOtherFrid = new Device ("Fridge2", frid, 80);
 
@@ -332,7 +331,7 @@ public class RoomTest {
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2,2,2);
         roomList.addRoom (bedroom);
         DeviceList dL = bedroom.getDeviceList ();
-        DeviceSpecs ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        DeviceSpecs ewh = new ElectricWaterHeater();
         Device dEWH1= new Device("EWH DAIKIN1",ewh,15);
         assertTrue (dL.addDevice (dEWH1));
         assertFalse (dL.addDevice (dEWH1));
@@ -345,7 +344,7 @@ public class RoomTest {
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2,2,2);
         roomList.addRoom (bedroom);
         DeviceList dL = bedroom.getDeviceList ();
-        DeviceSpecs ewh = new ElectricWaterHeater(DeviceType.ELECTRIC_WATER_HEATER, 25, 50, 2);
+        DeviceSpecs ewh = new ElectricWaterHeater();
         Device dEWH1= new Device("EWH DAIKIN1",ewh,15);
         Device dEWH2= new Device("EWH DAIKIN2",ewh,15);
         dL.addDevice (dEWH1);

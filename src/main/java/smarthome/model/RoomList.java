@@ -95,13 +95,13 @@ public class RoomList {
     }
 
 
-    public List<Device> getDevicesInAllRoomsByType(DeviceType deviceType) {
+    public List<Device> getDevicesInAllRoomsByType(String deviceType) {
         List<Device> deviceList;
         List<Device> deviceListByType = new ArrayList<>();
         for (Room room : mRoomList) {
             deviceList = room.getDeviceList().getDeviceList();
             for (Device device : deviceList)
-                if (device.getDeviceSpecs().getType().equals(deviceType)) {
+                if (device.getDeviceSpecs().getDeviceType().getDeviceTypeName().equals(deviceType)) {
                     deviceListByType.add(device);
                 }
         }
@@ -109,10 +109,10 @@ public class RoomList {
     }
 
 
-    public double getEnergyConsumptionByDeviceType(DeviceType deviceType) {
+    public double getEnergyConsumptionByDeviceType(String deviceType) {
         double totalEnergyConsumption = 0;
         for (Device device : getDevicesInAllRoomsByType(deviceType)) {
-            totalEnergyConsumption += device.getEnergyConsumption();
+            totalEnergyConsumption += device.getDeviceSpecs().getEnergyConsumption();
         }
         return Utils.round(totalEnergyConsumption,2);
     }

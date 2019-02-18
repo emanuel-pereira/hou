@@ -74,16 +74,4 @@ public class ReadingList {
         }
         return readingListInDate;
     }
-
-    public ReadingList getReadingsInTimeInterval(Calendar startDate, Calendar endDate) {
-        ReadingList readingList = new ReadingList();
-        for (Reading reading : mReadingList) {
-            Calendar readingTime = reading.getDateAndTime();
-
-            if (readingTime.after(startDate) && readingTime.before(endDate) || readingTime.equals(endDate)) {
-                readingList.addReading(reading);
-            }
-        }
-        return readingList;
-    }
 }

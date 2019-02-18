@@ -8,7 +8,6 @@ public class Reading {
     private double mValue;
     private Calendar mDateAndTime;
 
-
     /**
      * Reading class Constructor
      * It determines that a reading always has an associated value and a date and time

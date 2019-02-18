@@ -6,30 +6,35 @@ import java.util.List;
 public class OtherDevices implements DeviceSpecs {
     private DeviceType mDeviceType;
 
-    public OtherDevices(DeviceType inputDeviceType){
-        mDeviceType=inputDeviceType;
+
+    public OtherDevices() {
     }
 
-    @Override
-    public DeviceType getType() {
+    public DeviceType getDeviceType() {
         return mDeviceType;
     }
 
     @Override
-    public List<String> getDeviceAttributesInString() {
+    public void setType(DeviceType deviceType) {
+        mDeviceType = deviceType;
+    }
+
+    @Override
+    public List<String> getAttributesNames() {
         List<String> result = new ArrayList<>();
-        String deviceType = "Device Type : " + this.mDeviceType.getTypeString();
-        result.add(deviceType);
         return result;
     }
 
     @Override
     public void setAttributeValue(String attribute, String newValue) {
-        return;
     }
 
     @Override
     public double getEnergyConsumption() {
         return 0;
+    }
+
+    public String showDeviceAttributeNamesAndValues() {
+        return "";
     }
 }

@@ -36,6 +36,13 @@ public class Device implements Metered {
         mActivityLog = new ReadingList();
     }
 
+    public Device(DeviceSpecs deviceSpecs) {
+        mDeviceSpecs = deviceSpecs;
+        mActive = true;
+        mIsMetered = true;
+        mActivityLog = new ReadingList();
+    }
+
     /**
      * Method to set name as the one inputted by the user if it complies with alphanumericName method criteria
      *
@@ -80,32 +87,34 @@ public class Device implements Metered {
 
     public String showDeviceAttributesInString() {
         StringBuilder result = new StringBuilder();
-        for (String s : getDeviceAttributesInString()) {
-            result.append(s);
-            result.append("\n");
-        }
+        result.append(this.getDeviceSpecs().getDeviceType().getDeviceTypeName());
+        result.append("\n");
+        result.append("1 - Device Name : " + this.getName());
+        result.append("\n");
+        result.append("2 - Device Nominal Power : " + this.getNominalPower());
+        result.append("\n");
+        result.append(this.getDeviceSpecs().showDeviceAttributeNamesAndValues());
         return result.toString();
     }
 
-
     public List<String> getDeviceAttributesInString() {
         List<String> result = new ArrayList<>();
-        String deviceName = "1 - Device Name : " + this.getName();
-        String deviceNominalPower = "2 - Device Nominal Power : " + this.mNominalPower;
+        String deviceName = "Device Name";
+        String deviceNominalPower = "Device Nominal Power";
         result.add(deviceName);
         result.add(deviceNominalPower);
-        for (String deviceSpecs : this.getDeviceSpecs().getDeviceAttributesInString())
+        for (String deviceSpecs : this.getDeviceSpecs().getAttributesNames())
             result.add(deviceSpecs);
         return result;
     }
 
     public void setAttributeValue(String attribute, String newValue) {
-        String deviceName = "2 - Device Name : " + this.mName;
-        String deviceNominalPower = "3 - Device Nominal Power : " + this.mNominalPower;
-        if (attribute.equals(deviceName)) {
+        String deviceName = "Device Name";
+        String deviceNominalPower = "Device Nominal Power";
+        if (attribute.contains(deviceName)) {
             setName(newValue);
         }
-        if (attribute.equals(deviceNominalPower)) {
+        if (attribute.contains(deviceNominalPower)) {
             setNominalPower(parseDouble(newValue));
         }
         this.getDeviceSpecs().setAttributeValue(attribute, newValue);
@@ -137,18 +146,10 @@ public class Device implements Metered {
     @Override
     public double getEnergyConsumptionInTimeInterval(Calendar startDate, Calendar endDate) {
         double energyConsumption = 0;
-        if (ReadConfigFile.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
+        if (Configuration.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
             energyConsumption = mActivityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
         }
         return energyConsumption;
-    }
-
-    public ReadingList getDataSeriesInTimeInterval(Calendar startDate, Calendar endDate) {
-        ReadingList dataSeries = new ReadingList();
-        if (ReadConfigFile.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
-            dataSeries = mActivityLog.getReadingsInTimeInterval(startDate, endDate);
-        }
-        return dataSeries;
     }
 
     //put this method as private after reviewing create device US
@@ -184,5 +185,3 @@ public class Device implements Metered {
         return sum;
     }
 }
-
-

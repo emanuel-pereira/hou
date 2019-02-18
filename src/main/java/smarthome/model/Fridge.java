@@ -6,31 +6,37 @@ import java.util.List;
 import static java.lang.Integer.parseInt;
 
 public class Fridge implements DeviceSpecs {
-    private DeviceType mDeviceType;
     private int mFreezerCapacity;
     private int mRefrigeratorCapacity;
     private int mAnnualEnergyConsumption;
+    private DeviceType mDeviceType;
+
+    private String freezerCapacity = "Freezer Capacity";
+    private String refrigeratorCapacity = "Refrigerator Capacity";
 
 
-    public Fridge(DeviceType deviceType, int freezerCapacity, int refrigeratorCapacity, int annualEnergyConsumption) {
-        this.mDeviceType = deviceType;
+
+    public Fridge() {
+    }
+
+    public Fridge(int freezerCapacity, int refrigeratorCapacity, int annualEnergyConsumption) {
         this.mFreezerCapacity = freezerCapacity;
         this.mRefrigeratorCapacity = refrigeratorCapacity;
         this.mAnnualEnergyConsumption = annualEnergyConsumption;
     }
 
-
     @Override
-    public DeviceType getType() {
+    public DeviceType getDeviceType() {
         return mDeviceType;
     }
 
-    public List<String> getDeviceAttributesInString() {
+    @Override
+    public void setType(DeviceType deviceType) {
+        mDeviceType = deviceType;
+    }
+
+    public List<String> getAttributesNames() {
         List<String> result = new ArrayList<>();
-        String deviceType = "3 - Device Type : " + this.mDeviceType.getTypeString();
-        String freezerCapacity = "4 - Freezer Capacity : " + this.mFreezerCapacity;
-        String refrigeratorCapacity = "5 - Refrigerator Capacity : " + this.mRefrigeratorCapacity;
-        result.add(deviceType);
         result.add(freezerCapacity);
         result.add(refrigeratorCapacity);
         return result;
@@ -38,19 +44,32 @@ public class Fridge implements DeviceSpecs {
 
     @Override
     public void setAttributeValue(String attribute, String newValue) {
-        String freezerCapacity = "4 - Freezer Capacity : " + this.mFreezerCapacity;
-        String refrigeratorCapacity = "5 - Refrigerator Capacity : " + this.mRefrigeratorCapacity;
-        if (attribute.equals(freezerCapacity)) {
+        if (attribute.contains(freezerCapacity))
             setFreezerCapacity(parseInt(newValue));
-        }
-        if (attribute.equals(refrigeratorCapacity)) {
+        if (attribute.contains(refrigeratorCapacity))
             setRefrigeratorCapacity(parseInt(newValue));
+    }
+
+    public String showDeviceAttributeNamesAndValues() {
+        StringBuilder result = new StringBuilder();
+        int number = 3;
+        for (String s : getAttributesNames()) {
+            result.append(number);
+            result.append(" - ");
+            if (s.contains(freezerCapacity))
+                result.append(s.concat(" : " + this.getFreezerCapacity()));
+            if (s.contains(refrigeratorCapacity))
+                result.append(s.concat(" : " + this.getRefrigeratorCapacity()));
+            result.append("\n");
+            number++;
+
         }
+        return result.toString();
     }
 
     @Override
     public double getEnergyConsumption() {
-        return (double) mAnnualEnergyConsumption / 365;
+        return (double)mAnnualEnergyConsumption / 365.00;
     }
 
     public void setFreezerCapacity(int freezerCapacity) {
@@ -69,3 +88,4 @@ public class Fridge implements DeviceSpecs {
         return mRefrigeratorCapacity;
     }
 }
+

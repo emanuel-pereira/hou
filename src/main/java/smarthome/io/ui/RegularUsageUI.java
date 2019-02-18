@@ -11,7 +11,7 @@ public final class RegularUsageUI {
     private RegularUsageUI() {
     }
 
-    public static void regularUsage(House house, SensorTypeList sensorTypeList, GAList gaList) {
+    public static void regularUsage(House house, SensorTypeList sensorTypeList) {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("Regular Users UI");
@@ -27,19 +27,19 @@ public final class RegularUsageUI {
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
                 case 1:
-                    US600GetCurrentMeteoValueHouseAreaUI us600 = new US600GetCurrentMeteoValueHouseAreaUI(house, sensorTypeList, gaList);
+                    GetCurrentTemperatureInHouseAreaUI us600 = new GetCurrentTemperatureInHouseAreaUI(house, sensorTypeList);
                     us600.run();
                     break;
                 case 2:
-                    US605CurrentTempRoomUI uS605CurrentTempRoomUI = new US605CurrentTempRoomUI(house, sensorTypeList);
+                    GetCurrentTemperatureInRoomUI uS605CurrentTempRoomUI = new GetCurrentTemperatureInRoomUI(house, sensorTypeList);
                     uS605CurrentTempRoomUI.run();
                     break;
                 case 3:
                     System.out.println("US610");
                     break;
                 case 4:
-                    US620GetTotalRainfallOnaDayOfHouseUI us620GetTotalRainfallOnaDayOfHouseUI = new US620GetTotalRainfallOnaDayOfHouseUI(house, sensorTypeList);
-                    us620GetTotalRainfallOnaDayOfHouseUI.run();
+                    GetTotalRainfallForDayInHouseAreaUI getTotalRainfallForDayInHouseAreaUI = new GetTotalRainfallForDayInHouseAreaUI(house, sensorTypeList);
+                    getTotalRainfallForDayInHouseAreaUI.run();
                     break;
                 case 5:
                     System.out.println("US623");

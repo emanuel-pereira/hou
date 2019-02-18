@@ -2,7 +2,7 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.controller.US253AddSensorToRoomCTRL;
+import smarthome.controller.AddSensorToRoomCTRL;
 
 import java.util.Arrays;
 import java.util.List;
@@ -131,17 +131,17 @@ class SensorTypeListTest {
         assertTrue(type.addSensorType(rain));
         assertEquals (2, type.getSensorTypeList().size ());
 
-        boolean result = type.checkIfRequiredSensorTypeExists ("temperature");
+        boolean result = type.checkIfSensorTypeExists("temperature");
 
         //Assert
-        assertEquals (true, result);
+        assertTrue(result);
     }
 
     /**
      * Check if required SensorType exists in the SensorTypeList and return true
      */
     @Test
-    public void checkIfSensorTypeDontExist() {
+    void checkIfSensorTypeDontExist() {
 
         //Arrange
         SensorTypeList type = new SensorTypeList();
@@ -155,10 +155,10 @@ class SensorTypeListTest {
         assertTrue(type.addSensorType(rain));
         assertEquals (2, type.getSensorTypeList().size ());
 
-        boolean result = type.checkIfRequiredSensorTypeExists ("temperature");
+        boolean result = type.checkIfSensorTypeExists("temperature");
 
         //Assert
-        assertEquals (false, result);
+        assertFalse (result);
     }
 
     @DisplayName("Test if SensorType List is showed as a string to the user")
@@ -167,7 +167,7 @@ class SensorTypeListTest {
         SensorTypeList sensorTypeList = new SensorTypeList();
         House h1 = new House();
         RoomList roomList = h1.getRoomList();
-        US253AddSensorToRoomCTRL ctr1 = new US253AddSensorToRoomCTRL(h1,sensorTypeList);
+        AddSensorToRoomCTRL ctr1 = new AddSensorToRoomCTRL(h1,sensorTypeList);
         SensorType type1 = new SensorType("Temperature");
         SensorType type2 = new SensorType("Wind");
         sensorTypeList.addSensorType(type1);

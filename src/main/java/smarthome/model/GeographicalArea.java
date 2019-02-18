@@ -142,8 +142,6 @@ public class GeographicalArea {
 
         return currentGASensors.getSensorListOfRequiredSensorPerType(type);
     }
-
-
 }
 
 
