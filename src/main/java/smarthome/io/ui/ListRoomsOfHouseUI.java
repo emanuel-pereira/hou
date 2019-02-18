@@ -1,11 +1,7 @@
 package smarthome.io.ui;
 
 import smarthome.controller.ListRoomsOfHouseCTRL;
-import smarthome.model.Room;
 import smarthome.model.RoomList;
-
-import java.util.List;
-import java.util.Scanner;
 
 public class ListRoomsOfHouseUI {
 

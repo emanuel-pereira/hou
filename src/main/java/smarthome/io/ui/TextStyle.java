@@ -1,8 +1,5 @@
 package smarthome.io.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public enum TextStyle {
 
     RESET("\u001b[0m"),

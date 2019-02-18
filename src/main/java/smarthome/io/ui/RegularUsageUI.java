@@ -11,7 +11,7 @@ public final class RegularUsageUI {
     private RegularUsageUI() {
     }
 
-    public static void regularUsage(House house, SensorTypeList sensorTypeList, GAList gaList) {
+    public static void regularUsage(House house, SensorTypeList sensorTypeList) {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("Regular Users UI");
