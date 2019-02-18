@@ -114,12 +114,6 @@ public class GetEnergyConsumptionInPeriodCTRL {
         return selectedDevice.getEnergyConsumptionInTimeInterval(startDate, endDate);
     }
 
-    public double getEnergyConsumptionSeriesInPeriod(int indexOfDevice, Calendar startDate, Calendar endDate) {
-        List<Device> meteredDevices = mRoomList.getMeteredDevicesInHouse();
-        Device selectedDevice = meteredDevices.get(indexOfDevice - 1);
-        return selectedDevice.getEnergyConsumptionInTimeInterval(startDate, endDate);
-    }
-
     /**
      * Returns the energy consumption for the selected houseGrid in a specific time interval
      *

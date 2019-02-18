@@ -67,7 +67,7 @@ public class SensorTypeList {
      * @param sensorTypeDesignation - String that names the type of data
      * @return true if the designation is not null or empty after trimming the spaces
      */
-    public boolean sensorTypeDesignationIsValid(String sensorTypeDesignation) {
+    private boolean sensorTypeDesignationIsValid(String sensorTypeDesignation) {
          if(sensorTypeDesignation == null || sensorTypeDesignation.trim().isEmpty())
             return false;
         return sensorTypeDesignation.matches("[a-zA-Z]*");
@@ -78,7 +78,7 @@ public class SensorTypeList {
      * @param input sensor type designation
      * @return true if exists and false if not
      */
-    public boolean checkIfRequiredSensorTypeExists (String input) {
+    public boolean checkIfSensorTypeExists(String input) {
         for (SensorType type : mSensorTypeList) {
             if (type.getSensorTypeDesignation().equalsIgnoreCase(input)) {
                 return true;

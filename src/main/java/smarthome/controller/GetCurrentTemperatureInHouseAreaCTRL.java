@@ -34,8 +34,8 @@ public class GetCurrentTemperatureInHouseAreaCTRL {
 
     }
 
-    public Sensor getClosestSensorByType(SensorType sensorType) {
-        return mHouse.getSensorWithLatestReadingsByType(sensorType);
+    public Sensor getClosestSensorWithLatestReading(SensorType sensorType) {
+        return mHouse.getClosestSensorWithLatestReading(sensorType);
     }
     public double getLastReadingOfSensor(Sensor sensor){
         return sensor.getLastReadingValuePerSensor();

@@ -34,6 +34,13 @@ class DishwasherTest {
 
     }
 
+    @Test
+    void setFailAttributeValue() {
+        Dishwasher dw = new Dishwasher( 10);
+        dw.setAttributeValue("Wrong Capacity", "20");
+        assertEquals(10, dw.getCapacity());
+    }
+
 
     @Test
     void setAndGetTypeTest() {
@@ -50,7 +57,7 @@ class DishwasherTest {
         String expected ="3 - Dishwasher Capacity : 0\n";
         assertEquals(expected,result);
     }
-    @Test
+     @Test
     void getEnergyConsumptionTest(){
         Dishwasher dishwasher = new Dishwasher();
         double result = dishwasher.getEnergyConsumption();

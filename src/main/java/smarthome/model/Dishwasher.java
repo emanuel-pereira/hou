@@ -7,7 +7,6 @@ import static java.lang.Integer.parseInt;
 
 public class Dishwasher implements DeviceSpecs {
     private int mCapacity;
-    //private double mEnergyConsumption;
     private DeviceType mDeviceType;
 
     private String capacity = "Dishwasher Capacity";
@@ -54,12 +53,11 @@ public class Dishwasher implements DeviceSpecs {
         StringBuilder result = new StringBuilder();
         int number = 3;
         for (String s : getAttributesNames()) {
-            result.append(number);
+            result.append(number++);
             result.append(" - ");
             if (s.contains(capacity))
                 result.append(s.concat(" : " + this.getCapacity()));
             result.append("\n");
-            number++;
         }
         return result.toString();
     }

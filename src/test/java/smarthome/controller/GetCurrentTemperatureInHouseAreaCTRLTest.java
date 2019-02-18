@@ -42,9 +42,8 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
         GetCurrentTemperatureInHouseAreaCTRL ctr = new GetCurrentTemperatureInHouseAreaCTRL(h, sensorTypeList);
 
         SensorType result = ctr.getSensorTypeByIndex(1);
-        SensorType expected = sensorType1;
 
-        assertEquals(expected, result);
+        assertEquals(sensorType1, result);
     }
 
     @Test
@@ -122,7 +121,7 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
 
         GetCurrentTemperatureInHouseAreaCTRL ctr = new GetCurrentTemperatureInHouseAreaCTRL(house, sensorTypeList);
 
-        Sensor closestSensorToGA = ctr.getClosestSensorByType(wind);
+        Sensor closestSensorToGA = ctr.getClosestSensorWithLatestReading(wind);
 
         double result = ctr.getLastReadingOfSensor(closestSensorToGA);
         double expected = 42;

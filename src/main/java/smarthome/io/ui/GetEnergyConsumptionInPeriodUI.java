@@ -56,13 +56,14 @@ public class GetEnergyConsumptionInPeriodUI {
     }
 
     private void selectDevice() {
-        while (true) {
+        boolean condition=true;
+        while (condition) {
             System.out.println("Choose a device from the list below:");
             System.out.println(mCtrl.showMeteredDevicesInStr());
             mIndexOfDevice = mRead.nextInt();
             mRead.nextLine();
             if (mIndexOfDevice <= mCtrl.getMeteredDevicesInHouseSize()) {
-                break;
+                condition=false;
             }
             UtilsUI.printLnInsertValidOption();
         }

@@ -8,7 +8,7 @@ import java.util.Scanner;
 public final class HouseAdministrationUI {
     private HouseAdministrationUI(){}
 
-    public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList, List<Room> roomList,
+    public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList,
                                            House house, HouseGridList hgList, PowerSourceList pslist) throws ClassNotFoundException,IllegalAccessException, InstantiationException {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
@@ -40,7 +40,7 @@ public final class HouseAdministrationUI {
                     ui105.addRoomToHouse();
                     break;
                 case 3:
-                    ListRoomsOfHouseUI ui108 = new ListRoomsOfHouseUI(house.getRoomList().getRoomList());
+                    ListRoomsOfHouseUI ui108 = new ListRoomsOfHouseUI(house.getRoomList());
                     ui108.run();
                     break;
                 case 4:

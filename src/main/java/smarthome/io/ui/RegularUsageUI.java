@@ -11,7 +11,7 @@ public final class RegularUsageUI {
     private RegularUsageUI() {
     }
 
-    public static void regularUsage(House house, SensorTypeList sensorTypeList, GAList gaList) {
+    public static void regularUsage(House house, SensorTypeList sensorTypeList) {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("Regular Users UI");
@@ -27,7 +27,7 @@ public final class RegularUsageUI {
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
                 case 1:
-                    GetCurrentTemperatureInHouseAreaUI us600 = new GetCurrentTemperatureInHouseAreaUI(house, sensorTypeList, gaList);
+                    GetCurrentTemperatureInHouseAreaUI us600 = new GetCurrentTemperatureInHouseAreaUI(house, sensorTypeList);
                     us600.run();
                     break;
                 case 2:

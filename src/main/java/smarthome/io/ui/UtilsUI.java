@@ -1,5 +1,7 @@
 package smarthome.io.ui;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public final class UtilsUI {
@@ -133,7 +135,6 @@ public final class UtilsUI {
         return Integer.parseInt(splitInput[field]);
     }
 
-
     private static boolean isTime(String input) {
         String userInput = input.trim(); // remove any spaces from input as the user may be stupid.
         String[] splitInput;
@@ -185,7 +186,6 @@ public final class UtilsUI {
 
         return (isDate(sDate) && isTime(sTime));
     }
-
 
     public static String requestText(String errorMessage) {
         String input;
@@ -339,6 +339,16 @@ public final class UtilsUI {
 
         return new GregorianCalendar(year, month, day, hour, minute);
 
+    }
+
+    /**
+     * UI method that returns a GregorianCalendar date as string in yyyy-MM-dd format
+     * @param calendar a Gregorian Calendar parameter to be set in string format
+     * @return date as string in yyyy-MM-dd format
+     */
+    public static String dateInString(GregorianCalendar calendar) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(calendar.getTime());
     }
 
 
