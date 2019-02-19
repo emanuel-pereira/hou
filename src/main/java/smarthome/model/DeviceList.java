@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceList {
-    private List<Device> mDeviceList;
+    private List<Device> devicesList;
 
     /**
      * Constructor initializing an empty device list.
      */
     public DeviceList() {
-        mDeviceList = new ArrayList<>();
+        devicesList = new ArrayList<>();
     }
 
     /**
@@ -20,8 +20,8 @@ public class DeviceList {
      * @return boolean result of the device addition
      */
     public boolean addDevice(Device newDevice) {
-        if (!mDeviceList.contains(newDevice)) {
-            mDeviceList.add(newDevice);
+        if (!devicesList.contains(newDevice)) {
+            devicesList.add(newDevice);
             return true;
         } else return false;
     }
@@ -56,14 +56,14 @@ public class DeviceList {
      * @return the device in index position in the device list
      */
     public Device get(int index) {
-        return mDeviceList.get(index);
+        return devicesList.get(index);
     }
 
     /**
      * @return the device in the last index position of the device list
      */
     Device getLastElement() {
-        return mDeviceList.get(mDeviceList.size() - 1);
+        return devicesList.get(devicesList.size() - 1);
     }
 
     public String showDeviceListInString() {
@@ -87,11 +87,11 @@ public class DeviceList {
     }
 
     public List<Device> getDeviceList() {
-        return mDeviceList;
+        return devicesList;
     }
 
     public int size() {
-        return mDeviceList.size();
+        return devicesList.size();
     }
 
     /**
@@ -101,7 +101,7 @@ public class DeviceList {
      * @return boolean result of the device's removal
      */
     public boolean removeDevice(Device device) {
-        return this.mDeviceList.remove(device);
+        return this.devicesList.remove(device);
     }
 
     /**
@@ -120,7 +120,7 @@ public class DeviceList {
     List<Device> getMeteredDevices() {
         List<Device> meteredDeviceList = new ArrayList<>();
 
-        for (Device device : mDeviceList) {
+        for (Device device : devicesList) {
             if (device.isMetered()) {
                 meteredDeviceList.add(device);
             }
