@@ -175,8 +175,8 @@ public final class UtilsUI {
      */
     private static boolean isDateTime(String input) {
         String[] dateAndTime;
-        dateAndTime = input.split("[ ]", 2);
-        if (dateAndTime.length == 0) {
+        dateAndTime = input.split ("[ ]", 2);
+        if (dateAndTime.length != 2) {
             return false;
         }
 
