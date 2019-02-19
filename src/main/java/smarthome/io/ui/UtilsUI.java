@@ -44,8 +44,6 @@ public final class UtilsUI {
         }
     }
 
-    //private static int
-
     /**
      * @param input any String
      * @return true if it's a valid representation of a double
@@ -85,11 +83,11 @@ public final class UtilsUI {
             return false;
         }
 
-        int year = Integer.parseInt (sYear);
-        int month = Integer.parseInt (sMonth) - 1; // subtract 1 because of the way this field is used in GregorianCalendar
-        int day = Integer.parseInt (sDay);
+        int year = Integer.parseInt(sYear);
+        int month = Integer.parseInt(sMonth) - 1; //subtract 1 because of the way this field is used in GregorianCalendar
+        int day = Integer.parseInt(sDay);
 
-        if (month > 11 || day > 31) { // quick check but redundant, I guess.
+        if (month > 11 || day > 31) { //quick check but redundant, I guess.
             return false;
         }
 
@@ -176,7 +174,7 @@ public final class UtilsUI {
      * @return true if the string is a valid date and time
      */
     private static boolean isDateTime(String input) {
-        String[] dateAndTime = new String[2];
+        String[] dateAndTime;
         dateAndTime = input.split ("[ ]", 2);
         if (dateAndTime.length == 0) {
             return false;
@@ -188,13 +186,48 @@ public final class UtilsUI {
         return (isDate (sDate) && isTime (sTime));
     }
 
+    /**
+     * Method that calls the Console Text Input method (validateText) which then verifies
+     * if the user input matches a default regular expression, enabling the usage of this
+     * method in any situation where a user input is requested.
+     *
+     * @param errorMessage custom error message
+     * @return in case of success, the finish result is the print of the users text input
+     */
     public static String requestText(String errorMessage) {
-        String input;
+        String defaultRegEx = "[A-Za-z ]*";
+        return validateText(errorMessage, defaultRegEx);
+    }
 
-        while (true) {
+    /**
+     * Method that calls the Console Text Input method (validateText) which then verifies
+     * if the user input matches a custom regular expression, enabling the usage of this
+     * method in any situation where a user input is requested.
+     *
+     * @param errorMessage custom error message
+     * @param dynamicRegEx custom regular expression to match with the user input
+     * @return in case of success, the finish result is the print of the users text input
+     */
+    public static String requestText(String errorMessage, String dynamicRegEx) {
+        return validateText(errorMessage, dynamicRegEx);
+    }
+
+    /**
+     * Method that verifies if the user input matches a custom regular expression,
+     * enabling the usage of this method in any situation where a user input is requested.
+     *
+     * @param errorMessage custom error message
+     * @param regEx        custom regular expression to match with the user input
+     * @return in case of success, the finish result is the print of the users text input
+     */
+    private static String validateText(String errorMessage, String regEx) {
+        String input = "";
+        boolean loop = true;
+
+        while (loop) {
             input = getUserInput ();
             input = input.trim ();
-            if (input.trim ().matches ("[A-Za-z ]*") && !input.trim ().isEmpty ()) {
+            if (input.trim().matches(regEx)) {
                 break;
             }
             print (errorMessage);
@@ -305,8 +338,6 @@ public final class UtilsUI {
     }
 
     public static GregorianCalendar requestDateTime(String errorMessage) {
-
-
         String date;
         int year;
         int month;
@@ -315,9 +346,7 @@ public final class UtilsUI {
         int hour;
         int minute;
 
-
         String userInput;
-
 
         while (true) {
             userInput = getUserInput ();
@@ -327,7 +356,7 @@ public final class UtilsUI {
             print (errorMessage);
         }
 
-        String[] dateAndTime = new String[2];
+        String[] dateAndTime;
         dateAndTime = userInput.split (" ", 2);
         date = dateAndTime[0];
         time = dateAndTime[1];
@@ -346,10 +375,10 @@ public final class UtilsUI {
      * UI method that returns a GregorianCalendar date as string in yyyy-MM-dd format
      *
      * @param calendar a Gregorian Calendar parameter to be set in string format
-     * @return date as string in yyyy-MM-dd format
+     * @return date as string in YYYY-MM-DD format
      */
     public static String dateInString(GregorianCalendar calendar) {
-        DateFormat df = new SimpleDateFormat ("yyyy-MM-dd");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-DD");
         return df.format (calendar.getTime ());
     }
 
@@ -360,31 +389,31 @@ public final class UtilsUI {
      * @param format a string representing one of the values in the enum
      */
     public static void format(String format) {
-        System.out.print (TextStyle.valueOf (format).toString ());
+        System.out.print(TextStyle.valueOf(format).toString());
     }
 
     public static void format(String format1, String format2) {
-        System.out.print (TextStyle.valueOf (format1).toString ());
-        System.out.print (TextStyle.valueOf (format2).toString ());
+        System.out.print(TextStyle.valueOf(format1).toString());
+        System.out.print(TextStyle.valueOf(format2).toString());
     }
 
     public static void format(String format1, String format2, String format3) {
-        System.out.print (TextStyle.valueOf (format1).toString ());
-        System.out.print (TextStyle.valueOf (format2).toString ());
-        System.out.print (TextStyle.valueOf (format3).toString ());
+        System.out.print(TextStyle.valueOf(format1).toString());
+        System.out.print(TextStyle.valueOf(format2).toString());
+        System.out.print(TextStyle.valueOf(format3).toString());
     }
 
 
     public static void showList(String title, List<String> listToShow, boolean numbered, int padding) {
-        showFormattedList (title, listToShow, numbered, padding);
+        showFormattedList(title, listToShow, numbered, padding);
     }
 
     public static void showList(String title, List<String> listToShow, boolean numbered) {
-        showFormattedList (title, listToShow, numbered, 1);
+        showFormattedList(title, listToShow, numbered, 1);
     }
 
     public static void showList(String title, List<String> listToShow) {
-        showFormattedList (title, listToShow, false, 1);
+        showFormattedList(title, listToShow, false, 1);
     }
 
     /**
@@ -399,16 +428,16 @@ public final class UtilsUI {
     private static void showFormattedList(String title, List<String> listToShow, boolean numbered, int padding) {
 
         int tableWidth;
-        int widestString = listToShow.get (0).length ();
+        int widestString = listToShow.get(0).length();
 
         for (String item : listToShow
         ) {
-            if (item.length () > widestString) {
-                widestString = item.length ();
+            if (item.length() > widestString) {
+                widestString = item.length();
             }
         }
 
-        if (title.length () > widestString) widestString = title.length ();
+        if (title.length() > widestString) widestString = title.length();
         int extraPadding = 0;
 
         if (numbered) {
@@ -425,28 +454,28 @@ public final class UtilsUI {
         final String b = "BOLD";
         final String c = "BLACK";
 
-        format (a, b, c);
-        print (padWithSpaces ("", tableWidth, padding));
-        format (a, b, c);
-        print (padWithSpaces (title, tableWidth, padding));
-        format (a, b, c);
-        print (padWithSpaces ("", tableWidth, padding));
+        format(a, b, c);
+        print(padWithSpaces("", tableWidth, padding));
+        format(a, b, c);
+        print(padWithSpaces(title, tableWidth, padding));
+        format(a, b, c);
+        print(padWithSpaces("", tableWidth, padding));
 
         // Display the items
-        format ("BG_WHITE", c);
+        format("BG_WHITE", c);
         String paddedOutput;
         int number;
         for (String item : listToShow
         ) {
             if (numbered) {
-                number = listToShow.indexOf (item);
-                item = addNumberToItem (item, number);
+                number = listToShow.indexOf(item);
+                item = addNumberToItem(item, number);
             }
 
-            paddedOutput = padWithSpaces (item, tableWidth, padding);
+            paddedOutput = padWithSpaces(item, tableWidth, padding);
 
-            format ("BG_WHITE", c);
-            print (paddedOutput);
+            format("BG_WHITE", c);
+            print(paddedOutput);
         }
 
     }
@@ -457,7 +486,7 @@ public final class UtilsUI {
         //Max number of items in list is 999 before formatting breaks.
 
 
-        currentNumber = padWithSpaces (currentNumber, 6, 0);
+        currentNumber = padWithSpaces(currentNumber, 6, 0);
 
         return currentNumber + item;
     }
@@ -465,41 +494,40 @@ public final class UtilsUI {
 
     private static String createWhiteSpace(int spaces) {
         if (spaces <= 0) return "";
-        StringBuilder output = new StringBuilder ();
+        StringBuilder output = new StringBuilder();
 
         for (int i = 1; i < spaces; i++) {
-            output.append (" ");
+            output.append(" ");
         }
 
-        return output.toString ();
+        return output.toString();
 
     }
 
     private static void print(String string) {
-        System.out.print (string);
-        format ("RESET");
-        System.out.print ("\n");
+        System.out.print(string);
+        format("RESET");
+        System.out.print("\n");
     }
 
     private static String padWithSpaces(String string, int maxLength, int padding) {
-        StringBuilder output = new StringBuilder ();
+        StringBuilder output = new StringBuilder();
 
-        output.append (createWhiteSpace (padding));
-        output.append (string);
+        output.append(createWhiteSpace(padding));
+        output.append(string);
 
-        int spacesToAdd = maxLength - padding * 2 - string.length ();
+        int spacesToAdd = maxLength - padding * 2 - string.length();
 
-        output.append (createWhiteSpace (spacesToAdd));
-        output.append (createWhiteSpace (padding));
+        output.append(createWhiteSpace(spacesToAdd));
+        output.append(createWhiteSpace(padding));
 
-        return output.toString ();
+        return output.toString();
     }
 
     public static void backToMenu() {
         Scanner read = new Scanner(System.in);
         System.out.println("---\nPress Enter to return to the previous Menu");
         read.nextLine();
-        return;
     }
 
 }

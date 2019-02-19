@@ -41,8 +41,11 @@ public class DeviceList {
     public Device newDeviceV2(DeviceType deviceType) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         String path = "smarthome.model.";
         String deviceTypeName = deviceType.getDeviceTypeName();
-        if (!(deviceTypeName.contains("Fridge") || deviceTypeName.contains("WashingMachine") || deviceTypeName.contains("ElectricWaterHeater")
-                || deviceTypeName.contains("Dishwasher") || deviceTypeName.contains("Lamp")))
+        if (!(deviceTypeName.contains("Fridge") ||
+                deviceTypeName.contains("WashingMachine") ||
+                deviceTypeName.contains("ElectricWaterHeater") ||
+                deviceTypeName.contains("Dishwasher") ||
+                deviceTypeName.contains("Lamp")))
             deviceTypeName = "OtherDevices";
         String deviceTypeNameAndPath = path.concat(deviceTypeName);
         DeviceSpecs deviceSpecs = (DeviceSpecs) Class.forName(deviceTypeNameAndPath).newInstance();

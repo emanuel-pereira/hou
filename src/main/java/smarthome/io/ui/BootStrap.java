@@ -334,8 +334,11 @@ public class BootStrap {
      * @throws ClassNotFoundException exception
      */
     private static void createDevicesInRoomB106(List<DeviceType> deviceTypeList) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        Device eHWB106 = house.getRoomList().get(0).getDeviceList().newDeviceV2(deviceTypeList.get(0));
-        house.getRoomList().get(0).getDeviceList().addDevice(eHWB106);
+        Room b106 = house.getRoomList().get(0);
+        DeviceList deviceListB106 = b106.getDeviceList();
+
+        Device eHWB106 = deviceListB106.newDeviceV2(deviceTypeList.get(0));
+        deviceListB106.addDevice(eHWB106);
         eHWB106.setAttributeValue(deviceName, "EHW B106");
         eHWB106.setAttributeValue(nominalPower, "2.2");
         eHWB106.setAttributeValue(waterVolumeEWH, "150");
@@ -343,8 +346,8 @@ public class BootStrap {
         eHWB106.setAttributeValue(performanceRatioEWH, "0.92");
         eHWB106.setIsMetered(true);
 
-        Device dishwasherB106 = house.getRoomList().get(0).getDeviceList().newDeviceV2(deviceTypeList.get(1));
-        house.getRoomList().get(0).getDeviceList().addDevice(dishwasherB106);
+        Device dishwasherB106 = deviceListB106.newDeviceV2(deviceTypeList.get(1));
+        deviceListB106.addDevice(dishwasherB106);
         dishwasherB106.setAttributeValue(deviceName, "Dishwasher B106");
         dishwasherB106.setAttributeValue(nominalPower, "1.4");
         dishwasherB106.setAttributeValue(dishwasherCapacity, "100");
@@ -361,22 +364,25 @@ public class BootStrap {
      * @throws ClassNotFoundException exception
      */
     private static void createDevicesInRoomB107(List<DeviceType> deviceTypeList) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        Device eHWB107 = house.getRoomList().get(1).getDeviceList().newDeviceV2(deviceTypeList.get(0));
-        house.getRoomList().get(1).getDeviceList().addDevice(eHWB107);
+        Room b107 = house.getRoomList().get(1);
+        DeviceList deviceListB107 = b107.getDeviceList();
+
+        Device eHWB107 = deviceListB107.newDeviceV2(deviceTypeList.get(0));
+        deviceListB107.addDevice(eHWB107);
         eHWB107.setAttributeValue(deviceName, "EHW B107");
         eHWB107.setAttributeValue(nominalPower, "2.2");
         eHWB107.setAttributeValue(waterVolumeEWH, "150");
         eHWB107.setAttributeValue(hotWaterTemperatureEWH, "55");
         eHWB107.setAttributeValue(performanceRatioEWH, "0.92");
 
-        Device dishwasherB107 = house.getRoomList().get(1).getDeviceList().newDeviceV2(deviceTypeList.get(1));
-        house.getRoomList().get(1).getDeviceList().addDevice(dishwasherB107);
+        Device dishwasherB107 = deviceListB107.newDeviceV2(deviceTypeList.get(1));
+        deviceListB107.addDevice(dishwasherB107);
         dishwasherB107.setAttributeValue(deviceName, "Dishwasher B107");
         dishwasherB107.setAttributeValue(nominalPower, "1.5");
         dishwasherB107.setAttributeValue(dishwasherCapacity, "100");
 
-        Device washingMachineB107 = house.getRoomList().get(1).getDeviceList().newDeviceV2(deviceTypeList.get(2));
-        house.getRoomList().get(1).getDeviceList().addDevice(washingMachineB107);
+        Device washingMachineB107 = deviceListB107.newDeviceV2(deviceTypeList.get(2));
+        deviceListB107.addDevice(washingMachineB107);
         washingMachineB107.setAttributeValue(deviceName, "Washing Machine B107");
         washingMachineB107.setAttributeValue(nominalPower, "2.5");
         washingMachineB107.setAttributeValue(washingMachineCapacity, "100");
@@ -458,24 +464,27 @@ public class BootStrap {
      * @throws ClassNotFoundException exception
      */
     private static void createDevicesInRoomB109(List<DeviceType> deviceTypeList) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        Device eHWB109 = house.getRoomList().get(2).getDeviceList().newDeviceV2(deviceTypeList.get(0));
-        house.getRoomList().get(2).getDeviceList().addDevice(eHWB109);
+        Room b109 = house.getRoomList().get(2);
+        DeviceList deviceListB109 = b109.getDeviceList();
+
+        Device eHWB109 = deviceListB109.newDeviceV2(deviceTypeList.get(0));
+        deviceListB109.addDevice(eHWB109);
         eHWB109.setAttributeValue(deviceName, "EHW B109");
         eHWB109.setAttributeValue(nominalPower, "1.5");
         eHWB109.setAttributeValue(waterVolumeEWH, "100");
         eHWB109.setAttributeValue(hotWaterTemperatureEWH, "55");
         eHWB109.setAttributeValue(performanceRatioEWH, "0.91");
 
-        Device dishwasherB109 = house.getRoomList().get(2).getDeviceList().newDeviceV2(deviceTypeList.get(1));
-        house.getRoomList().get(2).getDeviceList().addDevice(dishwasherB109);
+        Device dishwasherB109 = deviceListB109.newDeviceV2(deviceTypeList.get(1));
+        deviceListB109.addDevice(dishwasherB109);
         dishwasherB109.setAttributeValue(deviceName, "Dishwasher B109");
         dishwasherB109.setAttributeValue(nominalPower, "1.5");
         dishwasherB109.setAttributeValue(dishwasherCapacity, "100");
         //No energy consumption values were measured
         dishwasherB109.setIsMetered(false);
 
-        Device washingMachineB109 = house.getRoomList().get(2).getDeviceList().newDeviceV2(deviceTypeList.get(2));
-        house.getRoomList().get(2).getDeviceList().addDevice(washingMachineB109);
+        Device washingMachineB109 = deviceListB109.newDeviceV2(deviceTypeList.get(2));
+        deviceListB109.addDevice(washingMachineB109);
         washingMachineB109.setAttributeValue(deviceName, "Washing Machine B109");
         washingMachineB109.setAttributeValue(nominalPower, "2.5");
         washingMachineB109.setAttributeValue(washingMachineCapacity, "100");
