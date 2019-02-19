@@ -16,11 +16,11 @@ public final class UtilsUI {
     }
 
     public static void printLnInsertValidOption() {
-        System.out.println ("Please insert a valid option.");
+        System.out.println("Please insert a valid option.");
     }
 
     public static void printLnInsertValidParameter(final String parameter) {
-        System.out.println ("Please insert a valid " + parameter + ".");
+        System.out.println("Please insert a valid " + parameter + ".");
     }
 
 
@@ -30,14 +30,14 @@ public final class UtilsUI {
      * @return the input
      */
     private static String getUserInput() {
-        Scanner read = new Scanner (System.in);
-        return read.nextLine ();
+        Scanner read = new Scanner(System.in);
+        return read.nextLine();
     }
 
 
     private static boolean isInteger(String input) {
         try {
-            Integer.parseInt (input);
+            Integer.parseInt(input);
             return true;
         } catch (Exception e) {
             return false;
@@ -51,7 +51,7 @@ public final class UtilsUI {
 
     private static boolean isDouble(String input) {
         try {
-            Double.parseDouble (input);
+            Double.parseDouble(input);
             return true;
         } catch (Exception e) {
             return false;
@@ -64,10 +64,10 @@ public final class UtilsUI {
      */
 
     private static boolean isDate(String input) {
-        String userInput = input.trim (); // remove any spaces from input as the user may be stupid.
+        String userInput = input.trim(); // remove any spaces from input as the user may be stupid.
         String[] splitInput;
 
-        splitInput = userInput.split ("-", 3);
+        splitInput = userInput.split("-", 3);
 
         //Are all 3 fields filled?
         if (splitInput.length < 3) {
@@ -79,7 +79,7 @@ public final class UtilsUI {
         String sDay = splitInput[2];
 
         //For a date to be valid, all 3 fields must be integers
-        if (!(isInteger (sYear) && isInteger (sMonth) && isInteger (sDay))) {
+        if (!(isInteger(sYear) && isInteger(sMonth) && isInteger(sDay))) {
             return false;
         }
 
@@ -91,10 +91,10 @@ public final class UtilsUI {
             return false;
         }
 
-        GregorianCalendar c = new GregorianCalendar (year, month, day);
-        int dayCheck = c.get (Calendar.DAY_OF_MONTH);
-        int monthCheck = c.get (Calendar.MONTH);
-        int yearCheck = c.get (Calendar.YEAR);
+        GregorianCalendar c = new GregorianCalendar(year, month, day);
+        int dayCheck = c.get(Calendar.DAY_OF_MONTH);
+        int monthCheck = c.get(Calendar.MONTH);
+        int yearCheck = c.get(Calendar.YEAR);
 
         return ((dayCheck == day) && (monthCheck == month) && (yearCheck == year));
     }
@@ -108,37 +108,37 @@ public final class UtilsUI {
         if (field < 0 || field > 2) {
             return -2;
         }
-        if (!isDate (input)) {
+        if (!isDate(input)) {
             return -1;
         }
-        String userInput = input.trim ();
+        String userInput = input.trim();
         String[] splitInput;
-        splitInput = userInput.split ("-", 3);
+        splitInput = userInput.split("-", 3);
 
 
-        return Integer.parseInt (splitInput[field]);
+        return Integer.parseInt(splitInput[field]);
     }
 
     private static int getFieldValueFromTime(String input, int field) {
         if (field < 0 || field > 1) {
             return -2;
         }
-        if (!isTime (input)) {
+        if (!isTime(input)) {
             return -1;
         }
-        String userInput = input.trim ();
+        String userInput = input.trim();
         String[] splitInput;
-        splitInput = userInput.split (":", 2);
+        splitInput = userInput.split(":", 2);
 
 
-        return Integer.parseInt (splitInput[field]);
+        return Integer.parseInt(splitInput[field]);
     }
 
     private static boolean isTime(String input) {
-        String userInput = input.trim (); // remove any spaces from input as the user may be stupid.
+        String userInput = input.trim(); // remove any spaces from input as the user may be stupid.
         String[] splitInput;
 
-        splitInput = userInput.split (":", 2);
+        splitInput = userInput.split(":", 2);
 
         //Are all fields filled?
         if (splitInput.length < 2) {
@@ -148,13 +148,13 @@ public final class UtilsUI {
         String sHour = splitInput[0];
         String sMinute = splitInput[1];
 
-        if (!(isInteger (sHour) && isInteger (sMinute))) {
+        if (!(isInteger(sHour) && isInteger(sMinute))) {
             return false;
         }
 
         //Check hour and minute boundaries
-        int hour = Integer.parseInt (sHour);
-        int minute = Integer.parseInt (sMinute);
+        int hour = Integer.parseInt(sHour);
+        int minute = Integer.parseInt(sMinute);
 
         return !(hour > 23 || hour < 0 || minute > 59 || minute < 0);
     }
@@ -163,9 +163,9 @@ public final class UtilsUI {
     public static String requestTime() {
         String time;
         do {
-            time = getUserInput ();
+            time = getUserInput();
         }
-        while (!isTime (time));
+        while (!isTime(time));
         return time;
     }
 
@@ -175,7 +175,7 @@ public final class UtilsUI {
      */
     private static boolean isDateTime(String input) {
         String[] dateAndTime;
-        dateAndTime = input.split ("[ ]", 2);
+        dateAndTime = input.split("[ ]", 2);
         if (dateAndTime.length == 0) {
             return false;
         }
@@ -183,7 +183,7 @@ public final class UtilsUI {
         String sDate = dateAndTime[0];
         String sTime = dateAndTime[1];
 
-        return (isDate (sDate) && isTime (sTime));
+        return (isDate(sDate) && isTime(sTime));
     }
 
     /**
@@ -225,12 +225,12 @@ public final class UtilsUI {
         boolean loop = true;
 
         while (loop) {
-            input = getUserInput ();
-            input = input.trim ();
-            if (input.trim().matches(regEx)) {
-                break;
-            }
-            print (errorMessage);
+            input = getUserInput();
+            input = input.trim();
+            if (!input.trim().matches(regEx))
+                print(errorMessage);
+            else
+                loop = false;
         }
         return input;
     }
@@ -249,16 +249,16 @@ public final class UtilsUI {
         String userInput = "-";
         int parsedUserInput = minimum - 1;
 
-        while (!isInteger (userInput)) {
-            userInput = getUserInput ();
+        while (!isInteger(userInput)) {
+            userInput = getUserInput();
 
-            if (isInteger (userInput)) {
-                parsedUserInput = Integer.parseInt (userInput);
+            if (isInteger(userInput)) {
+                parsedUserInput = Integer.parseInt(userInput);
             }
             if ((parsedUserInput >= minimum) && (parsedUserInput <= maximum)) {
                 break;
             }
-            System.out.println (errorMessage);
+            System.out.println(errorMessage);
             userInput = "-";
         }
 
@@ -268,20 +268,20 @@ public final class UtilsUI {
     /**
      * UI method that requests any double
      *
-     * @param errorMessage
-     * @return
+     * @param errorMessage custom error message to be displayed to the user
+     * @return parsed User Input to Double
      */
-    public static double requestDouble(String errorMessage) {
+    private static double requestDouble(String errorMessage) {
         String userInput;
         double parsedUserInput;
 
         while (true) {
-            userInput = getUserInput ();
-            if (isDouble (userInput)) {
-                parsedUserInput = Double.parseDouble (userInput);
+            userInput = getUserInput();
+            if (isDouble(userInput)) {
+                parsedUserInput = Double.parseDouble(userInput);
                 break;
             }
-            System.out.println (errorMessage);
+            System.out.println(errorMessage);
         }
         return parsedUserInput;
     }
@@ -293,18 +293,18 @@ public final class UtilsUI {
      * @param minimum      lower limit of the interval
      * @param maximum      higher limit of the interval
      * @param errorMessage custom error message
-     * @return
+     * @return parsed User Input to Double
      */
     public static double requestDoubleInInterval(double minimum, double maximum, String errorMessage) {
 
         double parsedUserInput;
 
         while (true) {
-            parsedUserInput = requestDouble (errorMessage);
+            parsedUserInput = requestDouble(errorMessage);
             if (parsedUserInput >= minimum && parsedUserInput <= maximum) {
                 break;
             }
-            System.out.println (errorMessage);
+            System.out.println(errorMessage);
 
         }
         return parsedUserInput;
@@ -323,18 +323,18 @@ public final class UtilsUI {
         int month;
         int day;
 
-        while (!isDate (userInput)) {
-            userInput = getUserInput ();
-            if (!isDate (userInput)) {
-                System.out.println (errorMessage);
+        while (!isDate(userInput)) {
+            userInput = getUserInput();
+            if (!isDate(userInput)) {
+                System.out.println(errorMessage);
             }
         }
 
-        year = getFieldValueFromDate (userInput, 0);
-        month = getFieldValueFromDate (userInput, 1) - 1; // correction for the way months are stored i.e., 0-11 and not 1-12
-        day = getFieldValueFromDate (userInput, 2);
+        year = getFieldValueFromDate(userInput, 0);
+        month = getFieldValueFromDate(userInput, 1) - 1; // correction for the way months are stored i.e., 0-11 and not 1-12
+        day = getFieldValueFromDate(userInput, 2);
 
-        return new GregorianCalendar (year, month, day);
+        return new GregorianCalendar(year, month, day);
     }
 
     public static GregorianCalendar requestDateTime(String errorMessage) {
@@ -349,25 +349,25 @@ public final class UtilsUI {
         String userInput;
 
         while (true) {
-            userInput = getUserInput ();
-            if (isDateTime (userInput)) {
+            userInput = getUserInput();
+            if (isDateTime(userInput)) {
                 break;
             }
-            print (errorMessage);
+            print(errorMessage);
         }
 
         String[] dateAndTime;
-        dateAndTime = userInput.split (" ", 2);
+        dateAndTime = userInput.split(" ", 2);
         date = dateAndTime[0];
         time = dateAndTime[1];
 
-        year = getFieldValueFromDate (date, 0);
-        month = getFieldValueFromDate (date, 1) - 1; // correction for the way months are stored i.e., 0-11 and not 1-12
-        day = getFieldValueFromDate (date, 2);
-        hour = getFieldValueFromTime (time, 0);
-        minute = getFieldValueFromTime (time, 1);
+        year = getFieldValueFromDate(date, 0);
+        month = getFieldValueFromDate(date, 1) - 1; // correction for the way months are stored i.e., 0-11 and not 1-12
+        day = getFieldValueFromDate(date, 2);
+        hour = getFieldValueFromTime(time, 0);
+        minute = getFieldValueFromTime(time, 1);
 
-        return new GregorianCalendar (year, month, day, hour, minute);
+        return new GregorianCalendar(year, month, day, hour, minute);
 
     }
 
@@ -379,7 +379,7 @@ public final class UtilsUI {
      */
     public static String dateInString(GregorianCalendar calendar) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-DD");
-        return df.format (calendar.getTime ());
+        return df.format(calendar.getTime());
     }
 
 
@@ -388,16 +388,16 @@ public final class UtilsUI {
      *
      * @param format a string representing one of the values in the enum
      */
-    public static void format(String format) {
+    private static void format(String format) {
         System.out.print(TextStyle.valueOf(format).toString());
     }
 
-    public static void format(String format1, String format2) {
+    private static void format(String format1, String format2) {
         System.out.print(TextStyle.valueOf(format1).toString());
         System.out.print(TextStyle.valueOf(format2).toString());
     }
 
-    public static void format(String format1, String format2, String format3) {
+    private static void format(String format1, String format2, String format3) {
         System.out.print(TextStyle.valueOf(format1).toString());
         System.out.print(TextStyle.valueOf(format2).toString());
         System.out.print(TextStyle.valueOf(format3).toString());
@@ -437,7 +437,9 @@ public final class UtilsUI {
             }
         }
 
-        if (title.length() > widestString) widestString = title.length();
+        if (title.length() > widestString)
+            widestString = title.length();
+
         int extraPadding = 0;
 
         if (numbered) {
@@ -493,7 +495,8 @@ public final class UtilsUI {
 
 
     private static String createWhiteSpace(int spaces) {
-        if (spaces <= 0) return "";
+        if (spaces <= 0)
+            return "";
         StringBuilder output = new StringBuilder();
 
         for (int i = 1; i < spaces; i++) {
