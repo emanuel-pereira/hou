@@ -15,12 +15,22 @@ public final class UtilsUI {
     private UtilsUI() {
     }
 
-    public static void printLnInsertValidOption() {
+    public static void printLninsertValidOptionMsg() {
         System.out.println("Please insert a valid option.");
     }
 
     public static void printLnInsertValidParameter(final String parameter) {
-        System.out.println("Please insert a valid " + parameter + ".");
+        System.out.println ("Please insert a valid " + parameter + ".");
+    }
+
+
+
+    public static String insertValidOptionMsg() {
+        return "Please insert a valid option.";
+    }
+
+    public static String insertValidParameter(final String parameter) {
+        return "Please insert a valid " + parameter + ".";
     }
 
 
@@ -271,7 +281,7 @@ public final class UtilsUI {
      * @param errorMessage custom error message to be displayed to the user
      * @return parsed User Input to Double
      */
-    private static double requestDouble(String errorMessage) {
+    public static double requestDouble(String errorMessage) {
         String userInput;
         double parsedUserInput;
 
@@ -377,7 +387,7 @@ public final class UtilsUI {
      * @param calendar a Gregorian Calendar parameter to be set in string format
      * @return date as string in YYYY-MM-DD format
      */
-    public static String dateInString(GregorianCalendar calendar) {
+    public static String dateToString(Calendar calendar) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-DD");
         return df.format(calendar.getTime());
     }
@@ -532,5 +542,7 @@ public final class UtilsUI {
         System.out.println("---\nPress Enter to return to the previous Menu");
         read.nextLine();
     }
+
+
 
 }

@@ -10,14 +10,12 @@ public class GetCurrentTemperatureInRoomUI {
 
     Scanner read = new Scanner (System.in);
 
-    private House mHouse;
     private GetCurrentTemperatureInRoomCTRL mCTRL605;
     private String mTemperature = "temperature";
     private int mRoomIndex;
 
 
     public GetCurrentTemperatureInRoomUI(House house, SensorTypeList sensorTypeList) {
-        mHouse = house;
         mCTRL605 = new GetCurrentTemperatureInRoomCTRL(house, sensorTypeList);
     }
 
@@ -43,7 +41,7 @@ public class GetCurrentTemperatureInRoomUI {
                 System.out.println (mCTRL605.showRoomListInString ());
                 mRoomIndex = read.nextInt ();
                 if (mRoomIndex > mCTRL605.getRoomList ().size ())
-                    UtilsUI.printLnInsertValidOption();
+                    System.out.println(UtilsUI.insertValidOptionMsg());
                 else break;
             }
             this.checkIfTempSensorExistInRooms ();

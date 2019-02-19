@@ -121,22 +121,29 @@ public class BootStrap {
 
         ReadingList rl = addReadingsRainfallGA1();
         GregorianCalendar rainfalISEPStartDate = new GregorianCalendar(2016, 10, 15);
-        Sensor rainfalISEP = new Sensor("Meteo station ISEP - rainfall 1", rainfalISEPStartDate, 41.179230, -8.606409, 125, sT1, "l/m2", rl);
+        Location locRainfallISEP = new Location(1.179230, -8.606409, 125);
+        Sensor rainfalISEP = new Sensor("Meteo station ISEP - rainfall 1", rainfalISEPStartDate, locRainfallISEP, sT1, "l/m2", rl);
         list.addSensor(rainfalISEP);
 
         ReadingList rl2 = addReadingsRainfallGA2();
         GregorianCalendar rainfalISEP2StartDate = new GregorianCalendar(2018, 1, 15);
-        Sensor rainfalISEP2 = new Sensor("Meteo station ISEP - rainfall 2", rainfalISEP2StartDate, 41.179230, -8.606409, 125, sT1, "l/m2", rl2);
+        Location locRainfallISEP2 = new Location(41.179230, -8.606409, 125);
+
+        Sensor rainfalISEP2 = new Sensor("Meteo station ISEP - rainfall 2", rainfalISEP2StartDate, locRainfallISEP2, sT1, "l/m2", rl2);
         list.addSensor(rainfalISEP2);
 
         ReadingList rl3 = addReadingsHumidityGA();
         GregorianCalendar humidityISEPStartDate = new GregorianCalendar(2018, 11, 15);
-        Sensor humidityISEP = new Sensor("Meteo station ISEP Air Humidity", humidityISEPStartDate, 25, 32, 25, sT2, "%", rl3);
+        Location locHumidityISEP = new Location(25, 32, 25);
+
+        Sensor humidityISEP = new Sensor("Meteo station ISEP Air Humidity", humidityISEPStartDate, locHumidityISEP, sT2, "%", rl3);
         list.addSensor(humidityISEP);
 
         ReadingList rl4 = addReadingsTemperatureGA();
         GregorianCalendar temperatureISEPStartDate = new GregorianCalendar(2016, 10, 15);
-        Sensor temperatureISEP = new Sensor("Meteo station ISEP - temperature", temperatureISEPStartDate, 41.179230, -8.606409, 125, sT3, "ºC", rl4);
+        Location locTemperatureISEP = new Location(41.179230, -8.606409, 125);
+
+        Sensor temperatureISEP = new Sensor("Meteo station ISEP - temperature", temperatureISEPStartDate, locTemperatureISEP, sT3, "ºC", rl4);
         list.addSensor(temperatureISEP);
     }
 

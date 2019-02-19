@@ -43,7 +43,7 @@ public class AddPowerSourceToGridUI {
                     this.selectHGListPS();
                     break;
                 default:
-                    UtilsUI.printLnInsertValidOption();
+                    System.out.println(UtilsUI.insertValidOptionMsg());
             }
         }
     }
@@ -81,7 +81,7 @@ public class AddPowerSourceToGridUI {
         }
     }
 
-    public void insertPSName(){
+    private void insertPSName(){
         while (true) {
             System.out.println("Insert the Power Source name:");
             mName = mRead.nextLine();
@@ -90,11 +90,11 @@ public class AddPowerSourceToGridUI {
                 break;
             }
             else
-                UtilsUI.printLnInsertValidParameter("name");
+                System.out.println(UtilsUI.insertValidParameter("name"));
         }
     }
 
-    public void insertPSType(){
+    private void insertPSType(){
         while (true) {
             System.out.println("Insert the Power Source type:");
             mType = mRead.nextLine();
@@ -102,11 +102,11 @@ public class AddPowerSourceToGridUI {
                 this.insertPSMaxPower();
                 break;
             } else
-                UtilsUI.printLnInsertValidParameter("type");
+                System.out.println(UtilsUI.insertValidParameter("type"));
         }
     }
 
-    public void insertPSMaxPower() {
+    private void insertPSMaxPower() {
         while (true) {
             System.out.println("Insert the Maximum Power (kW):");
             mMaxPower = mRead.nextDouble();
@@ -118,7 +118,7 @@ public class AddPowerSourceToGridUI {
         }
     }
 
-    public void insertPSStorageCapacity() {
+    private void insertPSStorageCapacity() {
         while (true) {
             System.out.println("Insert the Storage Capacity (kW):");
             mStorageCapacity = mRead.nextDouble();
@@ -130,7 +130,7 @@ public class AddPowerSourceToGridUI {
         }
     }
 
-    public void addPowerSource () {
+    private void addPowerSource () {
         mCtrl.addNewPSToGrid(mIndexOfHG,mName,mType,mMaxPower,mStorageCapacity);
         System.out.println("The following Power Source was successfully created:");
         System.out.println("[NAME]: " + mName);
@@ -140,16 +140,16 @@ public class AddPowerSourceToGridUI {
         UtilsUI.backToMenu();
     }
 
-    public void showAndSelectHG (){
+    private void showAndSelectHG (){
         System.out.println("Choose a house grid from the list below to add a Power Source to it:");
         System.out.println(mCtrl.getHGListInStringCtrl());
         mIndexOfHG = mRead.nextInt();
         mRead.nextLine();
     }
 
-    public boolean isValidIndexOfHG() {
+    private boolean isValidIndexOfHG() {
         while(mIndexOfHG > mCtrl.getHGListSizeCtrl() || mIndexOfHG <= 0) {
-            UtilsUI.printLnInsertValidOption();
+            System.out.println(UtilsUI.insertValidOptionMsg());
             System.out.println("--");
             this.showAndSelectHG();
         }

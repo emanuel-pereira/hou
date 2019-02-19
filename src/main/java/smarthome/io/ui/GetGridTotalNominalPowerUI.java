@@ -43,7 +43,7 @@ public class GetGridTotalNominalPowerUI {
             System.out.println(mUS172CTRL.showHouseGridListInString());
             mIndexGrid = read.nextInt ();
             if (mIndexGrid > mUS172CTRL.getHouseGridListSize())
-              UtilsUI.printLnInsertValidOption();
+              System.out.println(UtilsUI.insertValidOptionMsg());
             else break;
         }
         this.checkIfRoomsAttachToGrid ();

@@ -91,7 +91,6 @@ public class House {
             if(!this.getHGListInHouse().get(indexHG).getRoomListInAGrid().getRoomList().contains(r)){
                 roomsNotInAGrid.addRoom(r);
             }
-            //if(this.getHGListInHouse().get(indexHG))
         }
         return roomsNotInAGrid;
     }

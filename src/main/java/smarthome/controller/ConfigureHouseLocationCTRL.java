@@ -28,7 +28,7 @@ public class ConfigureHouseLocationCTRL {
         for (GeographicalArea ga : list) {
             result.append(number++);
             result.append(element);
-            result.append(ga.getGeographicalAreaDesignation());
+            result.append(ga.getGAName());
             result.append("\n");
         }
         return result.toString();

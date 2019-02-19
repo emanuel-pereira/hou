@@ -101,7 +101,7 @@ public class DateValidations {
     public boolean minuteIsValid(String minute) {
         checkIfInputIsEmpty(minute);
         if (!minute.matches("^([0-9]|[1-5][0-9])")) {
-            UtilsUI.printLnInsertValidOption();
+            System.out.println(UtilsUI.insertValidOptionMsg());
             UtilsUI.printLnInsertValidParameter("minute");
             return false;
         }

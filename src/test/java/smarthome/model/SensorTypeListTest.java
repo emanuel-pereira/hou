@@ -21,7 +21,7 @@ class SensorTypeListTest {
         SensorType temperature = type.newSensorType("Temperature");
 
         //Assert
-        assertEquals("temperature", temperature.getSensorTypeDesignation());
+        assertEquals("temperature", temperature.getType());
     }
 
 

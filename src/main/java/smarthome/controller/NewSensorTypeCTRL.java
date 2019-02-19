@@ -37,7 +37,7 @@ public class NewSensorTypeCTRL {
         StringBuilder result = new StringBuilder();
 
         for (SensorType sensorType: sensorTypeList){
-            result.append(sensorType.getSensorTypeDesignation());
+            result.append(sensorType.getType());
             result.append("\n");
         }
         return result.toString();

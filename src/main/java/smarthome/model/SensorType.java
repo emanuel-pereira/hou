@@ -24,7 +24,7 @@ public class SensorType {
      *
      * @return designation of a data type
      */
-    public String getSensorTypeDesignation() {
+    public String getType() {
         return this.mSensorType;
     }
 
@@ -34,7 +34,7 @@ public class SensorType {
         if (!(o instanceof SensorType))
             return false;
         SensorType sensorType = (SensorType) o;
-        return this.mSensorType.equals (sensorType.getSensorTypeDesignation ());
+        return this.mSensorType.equals (sensorType.getType());
     }
 
     /**

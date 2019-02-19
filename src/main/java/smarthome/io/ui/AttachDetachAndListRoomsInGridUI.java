@@ -3,23 +3,19 @@ package smarthome.io.ui;
 
 import smarthome.controller.AttachDetachAndListRoomsInGridCTRL;
 import smarthome.model.House;
-
-import java.util.Scanner;
-
 public class AttachDetachAndListRoomsInGridUI {
 
-    private AttachDetachAndListRoomsInGridCTRL mCtrl;
-    private Scanner mRead = new Scanner(System.in);
-    private int mIndexOfHG;
-    private int mIndexOfRoom;
+    private AttachDetachAndListRoomsInGridCTRL ctrl;
+    private int indexOfHG;
+    private int indexOfRoom;
 
     public AttachDetachAndListRoomsInGridUI(House house) {
-        mCtrl = new AttachDetachAndListRoomsInGridCTRL(house);
+        this.ctrl = new AttachDetachAndListRoomsInGridCTRL(house);
     }
 
     public void checkIfHGListIsEmpty() {
 
-        if (mCtrl.getHouseGridListSize() == 0) {
+        if (this.ctrl.getHouseGridListSize() == 0) {
             System.out.println("List of HouseGrids is empty. Please insert a HouseGrid in US130.");
             return;
         }
@@ -27,7 +23,7 @@ public class AttachDetachAndListRoomsInGridUI {
     }
 
     private void checkIfRoomListIsEmpty() {
-        if (mCtrl.getListOfRoomsSize() == 0) {
+        if (this.ctrl.getListOfRoomsSize() == 0) {
             System.out.println("List of rooms is empty. Please insert a room in US105.");
             return;
         }
@@ -42,9 +38,10 @@ public class AttachDetachAndListRoomsInGridUI {
             System.out.println("2 - List Rooms attached to a House Grid");
             System.out.println("3 - Detach a Room from a House Grid");
             System.out.println("0 - Exit");
-            option = mRead.nextInt();
-            mRead.nextLine();
+            option = UtilsUI.requestIntegerInInterval(0, 3, "Please choose a valid option between 1 and 3, or 0 to exit.");
             switch (option) {
+                case 0:
+                    break;
                 case 1:
                     this.selectHGToAttachRoom();
                     break;
@@ -55,7 +52,7 @@ public class AttachDetachAndListRoomsInGridUI {
                     this.selectHGToDetachRoom();
                     break;
                 default:
-                    UtilsUI.printLnInsertValidOption();
+                    UtilsUI.printLninsertValidOptionMsg();
             }
         }
     }
@@ -66,28 +63,24 @@ public class AttachDetachAndListRoomsInGridUI {
     }
 
     private void attachRoomToHouseGrid() {
-        while (true) {
-            if (mCtrl.getRoomsWithoutGridSize(mIndexOfHG) == 0) {
-                System.out.println("All rooms in the house are already attached to the selected HouseGrid: " + mCtrl.getHGName(mIndexOfHG) + ".");
-                break;
-            }
-            this.chooseRoomToAttach();
+        if (this.ctrl.getRoomsWithoutGridSize(this.indexOfHG) == 0) {
+            System.out.println("All rooms in the house are already attached to the selected HouseGrid: " + this.ctrl.getHGName(this.indexOfHG) + ".");
+            return;
         }
-        return;
+        this.chooseRoomToAttach();
     }
 
     private void chooseRoomToAttach() {
         isValidIndexOfRoom();
-        mCtrl.attachRoomToHouseGrid(mIndexOfHG, mIndexOfRoom);
-        System.out.println("Room " + mCtrl.getNameOfLastRoomInHG(mIndexOfHG) + " was successfully attached to HouseGrid: " + mCtrl.getHGName(mIndexOfHG) + ".\n");
+        this.ctrl.attachRoomToHouseGrid(this.indexOfHG, this.indexOfRoom);
+        System.out.println("Room " + this.ctrl.getNameOfLastRoomInHG(this.indexOfHG) + " was successfully attached to HouseGrid: " + this.ctrl.getHGName(this.indexOfHG) + ".\n");
         showRoomsInHG();
-        return;
     }
 
 
     private void showRoomsInHG() {
-        System.out.println("List of rooms attached to " + mCtrl.getHGName(mIndexOfHG) + ":");
-        System.out.println(mCtrl.showRoomsInHouseGrid(mIndexOfHG));
+        System.out.println("List of rooms attached to " + this.ctrl.getHGName(this.indexOfHG) + ":");
+        System.out.println(this.ctrl.showRoomsInHouseGrid(this.indexOfHG));
     }
 
 
@@ -99,12 +92,11 @@ public class AttachDetachAndListRoomsInGridUI {
     private void listRoomsOfHG() {
         if (hgRoomListIsEmpty())
             return;
-        showRoomsInHG();
-        return;
+        this.showRoomsInHG();
     }
 
     private boolean hgRoomListIsEmpty() {
-        if (mCtrl.getRoomListOfHGSize(mIndexOfHG) == 0) {
+        if (this.ctrl.getRoomListOfHGSize(this.indexOfHG) == 0) {
             System.out.println("List of rooms in HouseGrid is empty. Please attach one first.");
             return true;
         }
@@ -121,61 +113,39 @@ public class AttachDetachAndListRoomsInGridUI {
     private void checkIfRoomListInHGIsEmpty() {
         hgRoomListIsEmpty();
         this.selectRoomToDetach();
-        return;
     }
 
     private void selectRoomToDetach() {
         isValidIndexOfRoomInHG();
-        String roomName = mCtrl.getRoomOfHGName(mIndexOfHG, mIndexOfRoom);
-        mCtrl.detachRoomFromGrid(mIndexOfHG, mIndexOfRoom);
-        System.out.println("The room " + roomName + " was successfully detached from the houseGrid: " + mCtrl.getHGName(mIndexOfHG) + ".\n");
+        String roomName = this.ctrl.getRoomOfHGName(this.indexOfHG, this.indexOfRoom);
+        this.ctrl.detachRoomFromGrid(this.indexOfHG, this.indexOfRoom);
+        System.out.println("The room " + roomName + " was successfully detached from the houseGrid: " + this.ctrl.getHGName(this.indexOfHG) + ".\n");
         showRoomsInHG();
-        return;
     }
 
 
-
-    private boolean isValidIndexOfRoom() {
-        while (true) {
-            System.out.println("Choose a room to attach from the list below:");
-            System.out.println(mCtrl.showRoomsWithoutHouseGrid(mIndexOfHG));
-            mIndexOfRoom = mRead.nextInt();
-            mRead.nextLine();
-            if (mIndexOfRoom <= mCtrl.getRoomsWithoutGridSize(mIndexOfHG)) {
-                break;
-            }
-            UtilsUI.printLnInsertValidOption();
-
-        }
-        return true;
+    private void isValidIndexOfRoom() {
+        System.out.println("Choose a room to attach from the list below:");
+        System.out.println(this.ctrl.showRoomsWithoutHouseGrid(this.indexOfHG));
+        this.indexOfRoom = UtilsUI.requestIntegerInInterval(1, this.ctrl.getRoomsWithoutGridSize(this.indexOfHG),
+                "\"Please insert a valid option.\n" + this.ctrl.showRoomsWithoutHouseGrid(this.indexOfHG));
+        indexOfRoom--;
     }
 
-    private boolean isValidIndexOfRoomInHG() {
-        while (true) {
-            System.out.println("Choose a room to detach from the list below:");
-            System.out.println(mCtrl.showRoomsInHouseGrid(mIndexOfHG));
-            mIndexOfRoom = mRead.nextInt();
-            mRead.nextLine();
-
-            if (mIndexOfRoom <= mCtrl.getRoomListOfHGSize(mIndexOfHG)) {
-                break;
-            }
-            UtilsUI.printLnInsertValidOption();
-        }
-        return true;
+    private void isValidIndexOfRoomInHG() {
+        System.out.println("Choose a room to detach from the list below:");
+        System.out.println(this.ctrl.showRoomsInHouseGrid(this.indexOfHG));
+        this.indexOfRoom = UtilsUI.requestIntegerInInterval(1, this.ctrl.getRoomListOfHGSize(this.indexOfHG),
+                "\"Please insert a valid option.\n" + this.ctrl.showRoomsInHouseGrid(this.indexOfHG));
+        indexOfRoom--;
     }
 
-    private boolean isValidIndexOfHG(final String action) {
-        while (true) {
-            System.out.println("Choose a house grid from the list below to " + action + " to it:");
-            System.out.println(mCtrl.showHouseGridListInString());
-            mIndexOfHG = mRead.nextInt();
-            mRead.nextLine();
-            if (mIndexOfHG <= mCtrl.getHouseGridListSize()) {
-                break;
-            }
-            UtilsUI.printLnInsertValidOption();
-        }
-        return true;
+    private void isValidIndexOfHG(final String action) {
+
+        System.out.println("Choose a house grid from the list below to " + action + " to it:");
+        System.out.println(this.ctrl.showHouseGridListInString());
+        this.indexOfHG = UtilsUI.requestIntegerInInterval(1, ctrl.getHouseGridListSize(),
+                "Please insert a valid option.\n" + this.ctrl.showHouseGridListInString());
+        indexOfHG--;
     }
 }

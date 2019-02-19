@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.model.validations.Utils;
+
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -138,7 +140,7 @@ public class Room implements Powered, Metered {
         for (Device device : mDeviceList.getMeteredDevices()) {
             sum += device.getEnergyConsumptionInTimeInterval(startHour, endHour);
         }
-        return sum;
+        return Utils.round(sum,2);
     }
 
     /**
@@ -169,7 +171,7 @@ public class Room implements Powered, Metered {
     public boolean checkIfSensorTypeExistsInRoom(String input) {
         List<Sensor> list = this.getSensorListInRoom().getSensorList();
         for (Sensor s : list) {
-            if (s.getSensorType().getSensorTypeDesignation().equals(input)) {
+            if (s.getSensorType().getType().equals(input)) {
                 return true;
             }
         }

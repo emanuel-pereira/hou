@@ -21,7 +21,7 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
         grid1RoomList.addRoom(kitchen);
         String expected = "Kitchen";
-        String result = ctrl.getRoomOfHGName(1, 1);
+        String result = ctrl.getRoomOfHGName(0, 0);
         assertEquals(expected, result);
     }
 
@@ -39,7 +39,7 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
         grid1RoomList.addRoom(kitchen);
         String expected = "Grid 1";
-        String result = ctrl.getHGName(1);
+        String result = ctrl.getHGName(0);
         assertEquals(expected, result);
     }
 
@@ -74,7 +74,7 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         grid1RoomList.addRoom(kitchen);
         grid1RoomList.addRoom(bathroom);
         int expected = 2;
-        int result = ctrl.getRoomListOfHGSize(1);
+        int result = ctrl.getRoomListOfHGSize(0);
         assertEquals(expected, result);
     }
 
@@ -94,7 +94,7 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         grid1RoomList.addRoom(kitchen);
         grid1RoomList.addRoom(bathroom);
         String expected = "Bathroom";
-        String result = ctrl.getNameOfLastRoomInHG(1);
+        String result = ctrl.getNameOfLastRoomInHG(0);
         assertEquals(expected, result);
     }
 
@@ -154,7 +154,7 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
         grid1RoomList.addRoom(kitchen);
         int expected = 1;
-        int result = ctrl.getRoomsWithoutGridSize(1);
+        int result = ctrl.getRoomsWithoutGridSize(0);
         assertEquals(expected, result);
     }
 
@@ -175,7 +175,7 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
         grid1RoomList.addRoom(kitchen);
         String expected = "1 - Bathroom\n";
-        String result = ctrl.showRoomsWithoutHouseGrid(1);
+        String result = ctrl.showRoomsWithoutHouseGrid(0);
         assertEquals(expected, result);
     }
 
@@ -198,8 +198,8 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         grid1RoomList.addRoom(kitchen);
         boolean result = ctrl.attachRoomToHouseGrid(1,1);
         assertTrue(result);
-        int expected=2;
-        int result1 = ctrl.getRoomListOfHGSize(1);
+        int expected=1;
+        int result1 = ctrl.getRoomListOfHGSize(0);
         assertEquals(expected,result1);
     }
 
@@ -221,7 +221,7 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
         grid1RoomList.addRoom(bathroom);
         String expected= "1 - Bathroom\n";
-        String result = ctrl.showRoomsInHouseGrid(1);
+        String result = ctrl.showRoomsInHouseGrid(0);
         assertEquals(expected,result);
     }
 
@@ -243,10 +243,10 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
         grid1RoomList.addRoom(kitchen);
         grid1RoomList.addRoom(bathroom);
-        boolean result = ctrl.detachRoomFromGrid(1,1);
+        boolean result = ctrl.detachRoomFromGrid(0,0);
         assertTrue(result);
         int expected=1;
-        int result1 = ctrl.getRoomListOfHGSize(1);
+        int result1 = ctrl.getRoomListOfHGSize(0);
         assertEquals(expected,result1);
     }
 

@@ -120,7 +120,7 @@ public class NewGeographicalAreaCTRLTest {
         //check GA List size with the newly added GA
         assertEquals (1, GAList.getGAList ().size ());
         //check the new GA designation from the GA's list
-        assertEquals("Funchal",GAList.getGAList().get(0).getGeographicalAreaDesignation());
+        assertEquals("Funchal",GAList.getGAList().get(0).getGAName());
         //check the new GA type from the GA's list
         assertEquals("city",GAList.getGAList().get(0).getGeographicalAreaType());
     }

@@ -118,7 +118,7 @@ public class NewGeographicalAreaUI {
 
             //mCtrlUS3.newGA(name, typeIndex, width, height, latitude, longitude, altitude);
             mCtrlUS3.newGA2(id, name, typeIndex, width, height, latitude, longitude, altitude);
-            System.out.println("The geographical area " + mGAList.getGAList().get(mGAList.getGAList().size() - 1).getGeographicalAreaDesignation()
+            System.out.println("The geographical area " + mGAList.getGAList().get(mGAList.getGAList().size() - 1).getGAName()
                     + " of type " + mGAList.getGAList().get(mGAList.getGAList().size() - 1).getGeographicalAreaType() + " was created.\n");
         } else
             System.out.println("No Geographical Area type were found, please insert one first in US1 \n \n");

@@ -34,7 +34,7 @@ public class AddSensorToRoomUI {
                     if (name != null)
                         break;
                     else
-                        UtilsUI.printLnInsertValidParameter("name");
+                        System.out.println(UtilsUI.insertValidParameter("name"));
                 }
 
                 System.out.println("Please insert a start date of sensor");
@@ -46,7 +46,7 @@ public class AddSensorToRoomUI {
                     System.out.println(mSensorTypeList.showSensorTypeListInString());
                     dataTypeIndex = read.nextInt();
                     if (dataTypeIndex > mSensorTypeList.getSensorTypeList().size())
-                        UtilsUI.printLnInsertValidOption();
+                        System.out.println(UtilsUI.insertValidOptionMsg());
                     else break;
                 }
 
@@ -57,7 +57,7 @@ public class AddSensorToRoomUI {
                     if (unit != null)
                         break;
                     else
-                        UtilsUI.printLnInsertValidParameter("name");
+                        System.out.println(UtilsUI.insertValidParameter("name"));
                 }
 
                 String option;
@@ -90,7 +90,7 @@ public class AddSensorToRoomUI {
                     System.out.println(mRoomList.showRoomListInString());
                     indexRoom = read.nextInt();
                     if (indexRoom > mRoomList.getRoomList().size())
-                        UtilsUI.printLnInsertValidOption();
+                        System.out.println(UtilsUI.insertValidOptionMsg());
                     else break;
                 }
                 mCtrlUS253.addNewSensorToRoom(name, calendar, dataTypeIndex, indexRoom, unit, mReadingList);
@@ -134,7 +134,7 @@ public class AddSensorToRoomUI {
                     System.out.println(mRoomList.showRoomListInString());
                     indexRoom = read.nextInt();
                     if (indexRoom > mRoomList.getRoomList().size())
-                        UtilsUI.printLnInsertValidOption();
+                        System.out.println(UtilsUI.insertValidOptionMsg());
                     else break;
                 }
                 System.out.println("The sensors in the " + mRoomList.getRoomList().get(indexRoom - 1).getName() + " are: ");

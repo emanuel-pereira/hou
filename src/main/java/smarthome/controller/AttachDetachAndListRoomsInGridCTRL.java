@@ -4,12 +4,12 @@ package smarthome.controller;
 import smarthome.model.*;
 
 public class AttachDetachAndListRoomsInGridCTRL {
-    private House mHouse;
-    private HouseGridList mHouseGridList;
+    private House house;
+    private HouseGridList houseGridList;
 
     public AttachDetachAndListRoomsInGridCTRL(House house) {
-        mHouse = house;
-        mHouseGridList = house.getHGListInHouse();
+        this.house = house;
+        this.houseGridList = house.getHGListInHouse();
     }
 
     /**
@@ -20,8 +20,8 @@ public class AttachDetachAndListRoomsInGridCTRL {
      * @return the room name
      */
     public String getRoomOfHGName(int indexOfHG, int indexOfRoom) {
-        HouseGrid houseGrid = mHouseGridList.get(indexOfHG - 1);
-        Room room = houseGrid.getRoomListInAGrid().get(indexOfRoom - 1);
+        HouseGrid houseGrid = this.houseGridList.get(indexOfHG);
+        Room room = houseGrid.getRoomListInAGrid().get(indexOfRoom);
         return room.getName();
 
     }
@@ -33,7 +33,7 @@ public class AttachDetachAndListRoomsInGridCTRL {
      * @return the houseGrid name
      */
     public String getHGName(int indexOfHG) {
-        HouseGrid houseGrid = mHouseGridList.get(indexOfHG - 1);
+        HouseGrid houseGrid = this.houseGridList.get(indexOfHG);
         return houseGrid.getGridID();
     }
 
@@ -41,7 +41,7 @@ public class AttachDetachAndListRoomsInGridCTRL {
      * @return the size of the house's roomList
      */
     public int getListOfRoomsSize() {
-        return mHouse.getRoomList().getRoomListSize();
+        return this.house.getRoomList().getRoomListSize();
     }
 
 
@@ -52,7 +52,7 @@ public class AttachDetachAndListRoomsInGridCTRL {
      * @return the size of the roomList in the chosen houseGrid
      */
     public int getRoomListOfHGSize(int indexOfHouseGrid) {
-        HouseGrid houseGrid = mHouseGridList.get(indexOfHouseGrid - 1);
+        HouseGrid houseGrid = this.houseGridList.get(indexOfHouseGrid);
         return houseGrid.getRoomListInAGridSize();
     }
 
@@ -64,10 +64,10 @@ public class AttachDetachAndListRoomsInGridCTRL {
      * @return name of the room in the last position of the roomList belonging to a houseGrid
      */
     public String getNameOfLastRoomInHG(int indexOfHouseGrid) {
-        HouseGrid houseGrid = mHouseGridList.get(indexOfHouseGrid - 1);
+        HouseGrid houseGrid = this.houseGridList.get(indexOfHouseGrid);
         RoomList roomListInGH = houseGrid.getRoomListInAGrid();
         int sizeOfRoomList = getRoomListOfHGSize(indexOfHouseGrid);
-        Room lastRoom = roomListInGH.get(sizeOfRoomList - 1);
+        Room lastRoom = roomListInGH.get(sizeOfRoomList-1);
         return lastRoom.getName();
     }
 
@@ -76,14 +76,14 @@ public class AttachDetachAndListRoomsInGridCTRL {
      * @return the houseGridList in a string format to use in the UI
      */
     public String showHouseGridListInString() {
-        return mHouseGridList.showHouseGridListInString();
+        return this.houseGridList.showHouseGridListInString();
     }
 
     /**
      * @return the size of a houseGrid
      */
     public int getHouseGridListSize() {
-        return mHouseGridList.getSize();
+        return this.houseGridList.getSize();
     }
 
     /**
@@ -91,16 +91,16 @@ public class AttachDetachAndListRoomsInGridCTRL {
      * @return list of rooms not contained in the specified houseGrid
      */
     private RoomList getRoomsWithoutGrid(int indexOfHouseGrid) {
-        HouseGrid houseGrid = mHouseGridList.get(indexOfHouseGrid - 1);
-        return mHouse.getRoomsWithoutGrid(houseGrid);
+        HouseGrid houseGrid = this.houseGridList.get(indexOfHouseGrid);
+        return this.house.getRoomsWithoutGrid(houseGrid);
     }
 
     /**
      * @param indexOfHouseGrid index position of selected houseGrid in HouseGridList
      * @return the size of the list of rooms not contained in the specified houseGrid
      */
-    public int getRoomsWithoutGridSize(int indexOfHouseGrid){
-        RoomList roomList=getRoomsWithoutGrid(indexOfHouseGrid);
+    public int getRoomsWithoutGridSize(int indexOfHouseGrid) {
+        RoomList roomList = getRoomsWithoutGrid(indexOfHouseGrid);
         return roomList.getRoomListSize();
     }
 
@@ -109,30 +109,30 @@ public class AttachDetachAndListRoomsInGridCTRL {
      * @return a string containing all rooms not contained in the selected houseGrid
      */
     public String showRoomsWithoutHouseGrid(int indexOfHouseGrid) {
-        HouseGrid houseGrid = mHouseGridList.get(indexOfHouseGrid - 1);
-        return mHouse.showRoomsWithoutHouseGrid(houseGrid);
+        HouseGrid houseGrid = this.houseGridList.get(indexOfHouseGrid);
+        return this.house.showRoomsWithoutHouseGrid(houseGrid);
     }
 
     /**
      * Method to attach a room to a selected houseGrid, which will add that room to the RoomList of the chosen HouseGrid.
+     *
      * @param indexOfHouseGrid index position of selected houseGrid in HouseGridList
-     * @param indexOfRoom index position of selected room in the RoomList of the HouseGrid
+     * @param indexOfRoom      index position of selected room in the RoomList of the HouseGrid
      * @return true if room is attached to a houseGrid or false otherwise
      */
     public boolean attachRoomToHouseGrid(int indexOfHouseGrid, int indexOfRoom) {
-        HouseGrid selectedHG = mHouseGridList.get(indexOfHouseGrid - 1);
+        HouseGrid selectedHG = this.houseGridList.get(indexOfHouseGrid);
         RoomList roomListWithoutGrid = getRoomsWithoutGrid(indexOfHouseGrid);
-        Room selectedRoom = roomListWithoutGrid.get(indexOfRoom - 1);
+        Room selectedRoom = roomListWithoutGrid.get(indexOfRoom);
         return selectedHG.attachRoomToGrid(selectedRoom);
     }
 
     /**
-     *
      * @param indexOfHouseGrid index position of selected houseGrid in HouseGridList
      * @return a string containing all rooms attached to the selected houseGrid
      */
     public String showRoomsInHouseGrid(int indexOfHouseGrid) {
-        HouseGrid selectedHG = mHouseGridList.get(indexOfHouseGrid - 1);
+        HouseGrid selectedHG = this.houseGridList.get(indexOfHouseGrid);
         return selectedHG.showRoomsInHouseGrid();
     }
 
@@ -144,20 +144,21 @@ public class AttachDetachAndListRoomsInGridCTRL {
      * @return the list of rooms attached to the specified houseGrid.
      */
     private RoomList getListOfRoomsInGrid(int indexOfHouseGrid) {
-        HouseGrid houseGrid = mHouseGridList.get(indexOfHouseGrid - 1);
+        HouseGrid houseGrid = this.houseGridList.get(indexOfHouseGrid);
         return houseGrid.getRoomListInAGrid();
     }
 
     /**
      * Method to detach a room to from the selected houseGrid, which will remove that room from the RoomList of the chosen HouseGrid.
+     *
      * @param indexOfHouseGrid index position of selected houseGrid in HouseGridList
-     * @param indexOfRoom index position of selected room in the RoomList of the HouseGrid
+     * @param indexOfRoom      index position of selected room in the RoomList of the HouseGrid
      * @return true if room is dettached from a houseGrid or false otherwise
      */
     public boolean detachRoomFromGrid(int indexOfHouseGrid, int indexOfRoom) {
-        HouseGrid selectedHG = mHouseGridList.get(indexOfHouseGrid - 1);
+        HouseGrid selectedHG = this.houseGridList.get(indexOfHouseGrid);
         RoomList roomListWithoutGrid = getListOfRoomsInGrid(indexOfHouseGrid);
-        Room selectedRoom = roomListWithoutGrid.get(indexOfRoom - 1);
+        Room selectedRoom = roomListWithoutGrid.get(indexOfRoom);
         return selectedHG.detachRoomFromGrid(selectedRoom);
     }
 }
