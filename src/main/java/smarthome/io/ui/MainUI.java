@@ -18,7 +18,6 @@ public class MainUI {
         GAList gaList = new GAList();
         House house = new House();
         HouseGridList hgList = new HouseGridList();
-        PowerSourceList psList = new PowerSourceList();
 
         bootstrap(house, gaList, sensorTypeList);
 

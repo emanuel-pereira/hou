@@ -26,7 +26,6 @@ public class AddPowerSourceToGridUI {
         this.selectOption();
     }
 
-
     private void selectOption() {
         int option = -1;
         while (option != 0) {
@@ -52,7 +51,8 @@ public class AddPowerSourceToGridUI {
     private void selectHGListPS() {
         this.showAndSelectHG();
         if(!isNotValidIndexOfHG()){
-            this.listPSinHG();}
+            this.listPSinHG();
+        }
     }
 
     private void listPSinHG(){
@@ -77,7 +77,8 @@ public class AddPowerSourceToGridUI {
     private void selectHGAddPS() {
         this.showAndSelectHG();
         if(!isNotValidIndexOfHG()){
-            this.insertPSName();}
+            this.insertPSName();
+        }
     }
 
     public void insertPSName(){

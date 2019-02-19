@@ -77,7 +77,6 @@ public class GetGridTotalNominalPowerCTRL {
         return sum > 0;
     }
 
-
     public double getTotalNominalPowerInGrid(int indexGrid) {
         return mHouseGridList.get (indexGrid - 1).getNominalPower ();
     }
