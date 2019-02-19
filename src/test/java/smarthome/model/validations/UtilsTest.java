@@ -1,8 +1,7 @@
-package smarthome.model.Validations;
+package smarthome.model.validations;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.model.Validations.Utils;
 
 import static org.junit.jupiter.api.Assertions.*;
 

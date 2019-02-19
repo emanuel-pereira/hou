@@ -1,9 +1,9 @@
 package smarthome.controller;
 
 import smarthome.model.*;
-import smarthome.model.Validations.DateValidations;
-import smarthome.model.Validations.GPSValidations;
-import smarthome.model.Validations.NameValidations;
+import smarthome.model.validations.DateValidations;
+import smarthome.model.validations.GPSValidations;
+import smarthome.model.validations.NameValidations;
 
 import java.util.GregorianCalendar;
 import java.util.List;

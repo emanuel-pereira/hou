@@ -1,4 +1,4 @@
-package smarthome.model.Validations;
+package smarthome.model.validations;
 
 import smarthome.io.ui.UtilsUI;
 

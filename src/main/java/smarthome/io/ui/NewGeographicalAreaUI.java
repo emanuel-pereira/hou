@@ -2,7 +2,7 @@ package smarthome.io.ui;
 
 import smarthome.controller.NewGeographicalAreaCTRL;
 import smarthome.model.GAList;
-import smarthome.model.Validations.GPSValidations;
+import smarthome.model.validations.GPSValidations;
 import smarthome.model.TypeGAList;
 
 import java.util.InputMismatchException;

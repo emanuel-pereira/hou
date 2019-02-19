@@ -3,7 +3,7 @@ package smarthome.io.ui;
 
 import smarthome.controller.ConfigureHouseLocationCTRL;
 import smarthome.model.GAList;
-import smarthome.model.Validations.GPSValidations;
+import smarthome.model.validations.GPSValidations;
 import smarthome.model.House;
 
 import java.util.Scanner;

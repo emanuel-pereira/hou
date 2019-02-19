@@ -1,6 +1,6 @@
 package smarthome.model;
 
-import smarthome.model.Validations.Utils;
+import smarthome.model.validations.Utils;
 
 import java.util.Calendar;
 import java.util.Objects;

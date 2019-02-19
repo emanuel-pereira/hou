@@ -1,7 +1,7 @@
 package smarthome.model;
 
-import smarthome.model.Validations.NameValidations;
-import smarthome.model.Validations.Utils;
+import smarthome.model.validations.NameValidations;
+import smarthome.model.validations.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;

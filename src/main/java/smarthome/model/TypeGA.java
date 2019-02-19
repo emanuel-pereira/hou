@@ -6,11 +6,11 @@ import java.util.Objects;
 
 public class TypeGA {
 
-    private String typeGA;
+    private String typeGeographicalArea;
 
 
     public TypeGA(String inputTypeGA) {
-        this.typeGA = inputTypeGA;
+        this.typeGeographicalArea = inputTypeGA;
     }
 
 
@@ -35,7 +35,7 @@ public class TypeGA {
             return false;
         }
         TypeGA typeOfGA = (TypeGA) o; //
-        return this.typeGA.equals(typeOfGA.toString ());
+        return this.typeGeographicalArea.equals(typeOfGA.toString ());
     }
 
 
@@ -46,7 +46,7 @@ public class TypeGA {
      */
     @Override
     public int hashCode() {
-        return Objects.hash (typeGA);
+        return Objects.hash (typeGeographicalArea);
     }
 
 
@@ -58,7 +58,7 @@ public class TypeGA {
      */
     @Override
     public String toString() {
-        return this.typeGA;
+        return this.typeGeographicalArea;
     }
 }
 
