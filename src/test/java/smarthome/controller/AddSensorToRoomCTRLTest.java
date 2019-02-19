@@ -53,7 +53,7 @@ public class AddSensorToRoomCTRLTest {
         readingsLis.addReading (r1Lis);
         readingsLis.addReading (r2Lis);
 
-        ctr1.addNewSensorToRoom("S1",new GregorianCalendar(2018,3,3),1,1,"C", readingsLis);
+        ctr1.addNewSensorToRoom("S1", new GregorianCalendar(2018, 3, 3), 1, 1, "ºC", readingsLis);
 
         assertEquals(2, h1.getRoomList().getRoomList().size());
     }

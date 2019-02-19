@@ -141,7 +141,7 @@ public class GetEnergyConsumptionInPeriodUI {
         System.out.println("Total Energy Consumption of the device in the time period:");
         System.out.println("[Device]: " + deviceName);
         System.out.println(mTimePeriodStr + startDay + "/" + startMonth + "/" + startYear + " - " + endDay + "/" + endMonth + "/" + endYear + "]");
-        System.out.println(mEConsumptionStr+ mCtrl.getEnergyConsumptionInPeriod(mIndexOfDevice, mStartDate, mEndDate) + "\n");
+        System.out.println(mEConsumptionStr + mCtrl.getEnergyConsumptionInPeriod(mIndexOfDevice, mStartDate, mEndDate) + " kWh\n");
     }
 
     private void getHouseGridEnergyConsumption() {
@@ -157,7 +157,7 @@ public class GetEnergyConsumptionInPeriodUI {
         System.out.println(mTimePeriodStr + startDay + "/" + startMonth + "/" + startYear + " - " + endDay + "/" + endMonth + "/" + endYear + "]");
         DecimalFormat result = new DecimalFormat("##.00");
         String roundedConsumption = result.format(mCtrl.getHouseGridEnergyConsumptionInPeriod(mIndexOfHG, mStartDate, mEndDate));
-        System.out.println(mEConsumptionStr + roundedConsumption + "\n");
+        System.out.println(mEConsumptionStr + roundedConsumption + "  kWh\n");
     }
 
     private void getRoomEnergyConsumption() {
@@ -171,7 +171,7 @@ public class GetEnergyConsumptionInPeriodUI {
         System.out.println("Total Energy Consumption of the room in the time period:");
         System.out.println("[Room]: " + room);
         System.out.println(mTimePeriodStr  + startDay + "/" + startMonth + "/" + startYear + " - " + endDay + "/" + endMonth + "/" + endYear);
-        System.out.println(mEConsumptionStr + mCtrl.getRoomEnergyConsumptionInPeriod (mIndexOfRoom, mStartDate, mEndDate) + "\n");
+        System.out.println(mEConsumptionStr + mCtrl.getRoomEnergyConsumptionInPeriod(mIndexOfRoom, mStartDate, mEndDate) + " kWh\n");
     }
 
 

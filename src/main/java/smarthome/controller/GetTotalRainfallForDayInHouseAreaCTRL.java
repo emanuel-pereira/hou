@@ -1,6 +1,9 @@
 package smarthome.controller;
 
-import smarthome.model.*;
+import smarthome.model.House;
+import smarthome.model.Sensor;
+import smarthome.model.SensorType;
+import smarthome.model.SensorTypeList;
 
 import java.util.GregorianCalendar;
 
@@ -11,7 +14,6 @@ public class GetTotalRainfallForDayInHouseAreaCTRL {
     private House mHouse;
 
     public GetTotalRainfallForDayInHouseAreaCTRL(House house, SensorTypeList sensorTypeList) {
-
         mSensorTypeList = sensorTypeList;
         mHouse = house;
     }
@@ -27,9 +29,10 @@ public class GetTotalRainfallForDayInHouseAreaCTRL {
     }
 
 
-    public boolean closestSensorsHaveReadingsInDate(GregorianCalendar inputDate, SensorType sensorType){
-        return mHouse.closestSensorsWithReadingsInDate(inputDate,sensorType);
+    public boolean closestSensorsHaveReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
+        return mHouse.closestSensorsWithReadingsInDate(inputDate, sensorType);
     }
+
     /**
      * Method that sums up the values of readings in the date inputted as parameter for the selected sensorType
      *
@@ -45,6 +48,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRL {
 
     /**
      * Method that checks if the house geographical area is already configured
+     *
      * @return true if house geographical area is already configured, otherwise returns false
      */
     public boolean isHouseGAConfigured() {

@@ -1,7 +1,7 @@
 package smarthome.io.ui;
 
-import smarthome.model.SensorTypeList;
 import smarthome.model.GAList;
+import smarthome.model.SensorTypeList;
 import smarthome.model.TypeGAList;
 
 import java.util.Scanner;
@@ -19,14 +19,14 @@ public final class SystemAdministrationUI {
 
         while (option != 0) {
             System.out.println("As System Administrator I want to:");
-            System.out.println("Click 1. US01: Define a new type of geographical area to later classify the geographical areas");
-            System.out.println("Click 2. US02: Get the list of previously defined types of geographical areas");
-            System.out.println("Click 3. US03: Create a new geographical area");
-            System.out.println("Click 4. US04: See which geographical areas correspond to a specific type");
-            System.out.println("Click 5. US05: Specify a new meteorological characteristic that sensors can measure/register");
-            System.out.println("Click 6. US06: Create a new sensor and associate it to a Geographical Area");
-            System.out.println("Click 7. US07: Specify that a geographical area is added to another one");
-            System.out.println("Click 8. US08: Check if a a geographical area is direct/indirectly included to another one");
+            System.out.println("Click 1. Define a new type of geographical area to later classify the geographical areas");
+            System.out.println("Click 2. Get the list of previously defined types of geographical areas");
+            System.out.println("Click 3. Create a new geographical area");
+            System.out.println("Click 4. See which geographical areas correspond to a specific type");
+            System.out.println("Click 5. Specify a new meteorological characteristic that sensors can measure/register");
+            System.out.println("Click 6. Create a new sensor and associate it to a Geographical Area");
+            System.out.println("Click 7. Specify that a geographical area is added to another one");
+            System.out.println("Click 8. Check if a a geographical area is direct/indirectly included to another one");
             System.out.println("Click 0. Exit");
 
             option = Integer.parseInt(keyboard.nextLine());

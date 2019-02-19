@@ -113,7 +113,7 @@ public class Sensor {
         if (name.trim ().isEmpty ()) {
             return false;
         }
-        return name.matches ("[A-Za-z0-9 ]*");
+        return name.matches("[A-Za-z0-9 \\- ]*");
     }
 
     /**

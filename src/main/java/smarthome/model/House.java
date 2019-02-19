@@ -227,7 +227,6 @@ public class House {
         return closestSensorsByType.size() != 0;
     }
 
-
     /**
      * Method that checks for the closest sensors to the house of the selected SensorType that have readings in the specified date,
      * which one has the latest reading in the specified date

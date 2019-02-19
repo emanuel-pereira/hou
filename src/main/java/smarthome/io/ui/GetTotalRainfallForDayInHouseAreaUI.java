@@ -34,11 +34,12 @@ public class GetTotalRainfallForDayInHouseAreaUI {
     }
 
     private void selectDate() {
-        System.out.println("Insert the day for which you want to check the total rainfall in the house area.");
-        mDate = UtilsUI.requestDate("Please insert a valid date in yyyy-MM-dd format.");
+        System.out.println("Insert the day for which you want to check the total rainfall in the house area (YYYY-MM-DD).");
+        mDate = UtilsUI.requestDate("Please insert a valid date in YYYY-MM-DD format.");
         if (mCtrl.closestSensorsHaveReadingsInDate(mDate, new SensorType(mRainfall))) {
             System.out.println("The total rainfall in "
-                    + UtilsUI.dateInString(mDate) + " is " + mCtrl.showTotalValueInADay(mDate, new SensorType(mRainfall)) + " l/m3.");
+                    + UtilsUI.dateInString(mDate) + " is "
+                    + mCtrl.showTotalValueInADay(mDate, new SensorType(mRainfall)) + " l/m2.");
         } else
             System.out.println("The available " + mRainfall + " sensors in the house area don't have readings in the specified date.\nPlease select a date with registered readings.");
     }
