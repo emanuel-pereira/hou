@@ -23,10 +23,10 @@ public class AddPowerSourceToGridUI {
                     System.out.println("List of HouseGrids is empty. Please insert a HouseGrid first.");
                     return;
         }
-        this.selectOption();
+        this.selectSubMenu();
     }
 
-    private void selectOption() {
+    private void selectSubMenu() {
         int option = -1;
         while (option != 0) {
             System.out.println("Choose an option from the list below:");
@@ -50,7 +50,7 @@ public class AddPowerSourceToGridUI {
 
     private void selectHGListPS() {
         this.showAndSelectHG();
-        if(!isNotValidIndexOfHG()){
+        if(isValidIndexOfHG()){
             this.listPSinHG();
         }
     }
@@ -76,7 +76,7 @@ public class AddPowerSourceToGridUI {
 
     private void selectHGAddPS() {
         this.showAndSelectHG();
-        if(!isNotValidIndexOfHG()){
+        if(isValidIndexOfHG()){
             this.insertPSName();
         }
     }
@@ -147,12 +147,12 @@ public class AddPowerSourceToGridUI {
         mRead.nextLine();
     }
 
-    public boolean isNotValidIndexOfHG() {
+    public boolean isValidIndexOfHG() {
         while(mIndexOfHG > mCtrl.getHGListSizeCtrl() || mIndexOfHG <= 0) {
             UtilsUI.printLnInsertValidOption();
             System.out.println("--");
             this.showAndSelectHG();
         }
-        return false;
+        return true;
     }
 }
