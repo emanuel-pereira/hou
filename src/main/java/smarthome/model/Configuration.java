@@ -5,7 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class Configuration {
+public final class Configuration {
+
+    /**
+     * Private constructor of Configuration class, which is a collection of static members, hence is not meant to be instantiated.
+     */
+    private Configuration() {
+    }
 
     static String mConfigFilePath = "resources/config.properties";
 
@@ -102,7 +108,7 @@ public class Configuration {
             numberOfDevices = 0;
         }
 
-        if (numberOfDevices > 0 && numberOfDevices != 0) {
+        if (numberOfDevices > 0) {
             for (int i = 1; i <= numberOfDevices; i++) {
                 currentDevice = getConfigValue("devicetype" + i + "");
                 devices.add(i - 1, currentDevice);
@@ -115,26 +121,17 @@ public class Configuration {
     public static boolean isGridMeteringPeriodValid() {
         int gridMeteringPeriod = getGridMeteringPeriod();
 
-        if (gridMeteringPeriod <= 1440 && gridMeteringPeriod >= 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return gridMeteringPeriod <= 1440 && gridMeteringPeriod >= 0;
     }
 
     public static boolean isDeviceMeteringPeriodValid() {
         int deviceMeteringPeriod = getDevicesMeteringPeriod();
 
-        if (deviceMeteringPeriod <= 1440 && deviceMeteringPeriod >= 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return deviceMeteringPeriod <= 1440 && deviceMeteringPeriod >= 0;
     }
 
 
     public static boolean areMeteringPeriodsMultiple() {
-        //boolean isValid;
         int devicesMeteringPeriod = getDevicesMeteringPeriod();
         int gridMeteringPeriod = getGridMeteringPeriod();
 
@@ -142,21 +139,11 @@ public class Configuration {
             return false;
         }
 
-        if (1440 % devicesMeteringPeriod != 0 || 1440 % gridMeteringPeriod != 0) {
-            return false;
-        }
-
-        else {
-            return true;
-        }
+        return 1440 % devicesMeteringPeriod == 0 && 1440 % gridMeteringPeriod == 0;
     }
 
 
     public static boolean isMeteringPeriodValid() {
-        /*boolean isValid;
-        int gridMeteringPeriod = getGridMeteringPeriod();
-        int deviceMeteringPeriod = getDevicesMeteringPeriod();*/
-
             if (!isGridMeteringPeriodValid()) {
                 return false;
             }
@@ -165,20 +152,7 @@ public class Configuration {
                 return false;
             }
 
-            if (!areMeteringPeriodsMultiple()) {
-                return false;
-            }
-
-            else{
-                return true;
-            }
-
-        /*if ( (gridMeteringPeriod > 1440 || gridMeteringPeriod <= 0)||(deviceMeteringPeriod >1440 || deviceMeteringPeriod <=0) )
-            isValid = false ;
-        }*/
-        // Devices’ metering period must be a multiple of the grid metering period and the sum of all periods in the day must be 24:00.
-            /*isValid = ((deviceMeteringPeriod % gridMeteringPeriod) == 0) && ((1440 % deviceMeteringPeriod) == 0) && ((1440 % gridMeteringPeriod) == 0);
-            return isValid;*/
+        return areMeteringPeriodsMultiple();
     }
 
 }
