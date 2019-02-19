@@ -52,7 +52,7 @@ public class AttachDetachAndListRoomsInGridUI {
                     this.selectHGToDetachRoom();
                     break;
                 default:
-                    UtilsUI.printLninsertValidOptionMsg();
+                    UtilsUI.printLnInsertValidOptionMsg();
             }
         }
     }

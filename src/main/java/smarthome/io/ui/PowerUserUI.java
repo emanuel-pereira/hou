@@ -12,7 +12,6 @@ public final class PowerUserUI {
     public static void powerUser(House house) {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
-        //System.out.println("POWER USER");
 
         while (option != 0) {
             System.out.println("\n******* POWER USER MENU ********\n");

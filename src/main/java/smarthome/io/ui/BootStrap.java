@@ -9,7 +9,7 @@ import java.util.List;
  * This entire class is only used in application demonstration and test scenarios
  * As a final application this entire class and it's call in SmartHomeUI must be removed.
  */
-public class BootStrap {
+public final class BootStrap {
     private static int year = 2018;
     private static int month = 11;
     private static int day = 31;

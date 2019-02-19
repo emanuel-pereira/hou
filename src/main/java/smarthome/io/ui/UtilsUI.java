@@ -15,18 +15,12 @@ public final class UtilsUI {
     private UtilsUI() {
     }
 
-    public static void printLninsertValidOptionMsg() {
+    public static void printLnInsertValidOptionMsg() {
         System.out.println("Please insert a valid option.");
     }
 
     public static void printLnInsertValidParameter(final String parameter) {
         System.out.println ("Please insert a valid " + parameter + ".");
-    }
-
-
-
-    public static String insertValidOptionMsg() {
-        return "Please insert a valid option.";
     }
 
     public static String insertValidParameter(final String parameter) {

@@ -148,7 +148,7 @@ public class NewSensorUI {
     public void inputGAOfSensor() {
         System.out.println("Choose the Geographical Area for which you want add this sensor, from the list below:");
         System.out.println(this.ctrl.showGAListInString());
-        this.indexOfGA = UtilsUI.requestIntegerInInterval(1,this.ctrl.getGAListSize(),UtilsUI.insertValidOptionMsg());
+        this.indexOfGA = UtilsUI.requestIntegerInInterval(1,this.ctrl.getGAListSize(),"Please insert a valid option.\n"+this.ctrl.showGAListInString());
         indexOfGA--;
         this.addSensorToGA();
     }

@@ -2,6 +2,7 @@ package smarthome.io.ui;
 
 import smarthome.controller.GetEnergyConsumptionInPeriodCTRL;
 import smarthome.model.House;
+
 import java.util.GregorianCalendar;
 
 public class GetEnergyConsumptionInPeriodUI {
@@ -30,7 +31,7 @@ public class GetEnergyConsumptionInPeriodUI {
             System.out.println("2 - Room");
             System.out.println("3 - Grid");
             System.out.println("0 - Exit");
-            this.option = UtilsUI.requestIntegerInInterval(0,3,"Please choose a valid option between 1 and 3, or 0 to exit.");
+            this.option = UtilsUI.requestIntegerInInterval(0, 3, "Please choose a valid option between 1 and 3, or 0 to exit.");
             switch (this.option) {
                 case 1:
                     this.selectDevice();
@@ -42,7 +43,7 @@ public class GetEnergyConsumptionInPeriodUI {
                     this.selectHouseGrid();
                     break;
                 default:
-                    System.out.println(UtilsUI.insertValidOptionMsg());
+                    UtilsUI.printLnInsertValidOptionMsg();
             }
         }
     }
@@ -96,7 +97,7 @@ public class GetEnergyConsumptionInPeriodUI {
                 this.getHouseGridEnergyConsumption();
                 break;
             default:
-                System.out.println(UtilsUI.insertValidOptionMsg());
+                UtilsUI.printLnInsertValidOptionMsg();
         }
     }
 

@@ -40,7 +40,7 @@ public class ConfigureHouseLocationUI {
             Scanner read1 = new Scanner(System.in);
             indexGA = read1.nextInt();
             if (indexGA <= 0 || indexGA > mCtrlUS101.getGAList().size())
-                UtilsUI.printLninsertValidOptionMsg();
+                UtilsUI.printLnInsertValidOptionMsg();
             else
                 break;
         }

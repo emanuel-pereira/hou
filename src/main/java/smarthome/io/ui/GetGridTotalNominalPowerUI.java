@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class GetGridTotalNominalPowerUI {
 
-    Scanner read = new Scanner (System.in);
+    Scanner read = new Scanner(System.in);
 
     private GetGridTotalNominalPowerCTRL mUS172CTRL;
     private int mIndexGrid;
@@ -20,18 +20,18 @@ public class GetGridTotalNominalPowerUI {
      * Check if there is any house Grid before continuing
      */
     public void run() {
-        if (mUS172CTRL.getHouseGridListSize () != 0) {
+        if (mUS172CTRL.getHouseGridListSize() != 0) {
             this.checkIfRoomsExists();
-        } else System.out.println ("Please ask the Administrator to create a House Grid");
+        } else System.out.println("Please ask the Administrator to create a House Grid");
     }
 
     /**
      * Check if there are any rooms before continuing
      */
     public void checkIfRoomsExists() {
-        if (mUS172CTRL.getRoomListSize () != 0) {
-            this.showGridList ();
-        } else System.out.println ("Please ask the House Administrator to add Rooms");
+        if (mUS172CTRL.getRoomListSize() != 0) {
+            this.showGridList();
+        } else System.out.println("Please ask the House Administrator to add Rooms");
     }
 
     /**
@@ -39,21 +39,21 @@ public class GetGridTotalNominalPowerUI {
      */
     public void showGridList() {
         while (true) {
-            System.out.println ("Choose the Grid:");
+            System.out.println("Choose the Grid:");
             System.out.println(mUS172CTRL.showHouseGridListInString());
-            mIndexGrid = read.nextInt ();
+            mIndexGrid = read.nextInt();
             if (mIndexGrid > mUS172CTRL.getHouseGridListSize())
-              System.out.println(UtilsUI.insertValidOptionMsg());
+                UtilsUI.printLnInsertValidOptionMsg();
             else break;
         }
-        this.checkIfRoomsAttachToGrid ();
+        this.checkIfRoomsAttachToGrid();
     }
 
     /**
      * Before showing the total nominal power this method checks if there are any rooms attached to the grid
      */
     public void checkIfRoomsAttachToGrid() {
-        if (mUS172CTRL.getRoomListInAGridSize (mIndexGrid) != 0) {
+        if (mUS172CTRL.getRoomListInAGridSize(mIndexGrid) != 0) {
             this.checkIfDevicesExists();
         } else System.out.println("Please ask the House Administrator to attach Rooms to a Grid ");
     }
@@ -62,7 +62,7 @@ public class GetGridTotalNominalPowerUI {
      * Before showing the total nominal power this method checks if there are devices added to the rooms
      */
     public void checkIfDevicesExists() {
-        if (mUS172CTRL.deviceListSizeInGridIsNotEmpty (mIndexGrid)) {
+        if (mUS172CTRL.deviceListSizeInGridIsNotEmpty(mIndexGrid)) {
             this.getTotalNominalPowerInGrid();
         } else System.out.println("Please ask the House Administrator to add Devices to a Room");
     }

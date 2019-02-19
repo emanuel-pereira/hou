@@ -46,7 +46,7 @@ public class AddSensorToRoomUI {
                     System.out.println(mSensorTypeList.showSensorTypeListInString());
                     dataTypeIndex = read.nextInt();
                     if (dataTypeIndex > mSensorTypeList.getSensorTypeList().size())
-                        System.out.println(UtilsUI.insertValidOptionMsg());
+                        UtilsUI.printLnInsertValidOptionMsg();
                     else break;
                 }
 
@@ -90,7 +90,7 @@ public class AddSensorToRoomUI {
                     System.out.println(mRoomList.showRoomListInString());
                     indexRoom = read.nextInt();
                     if (indexRoom > mRoomList.getRoomList().size())
-                        System.out.println(UtilsUI.insertValidOptionMsg());
+                        UtilsUI.printLnInsertValidOptionMsg();
                     else break;
                 }
                 mCtrlUS253.addNewSensorToRoom(name, calendar, dataTypeIndex, indexRoom, unit, mReadingList);
@@ -134,7 +134,7 @@ public class AddSensorToRoomUI {
                     System.out.println(mRoomList.showRoomListInString());
                     indexRoom = read.nextInt();
                     if (indexRoom > mRoomList.getRoomList().size())
-                        System.out.println(UtilsUI.insertValidOptionMsg());
+                        UtilsUI.printLnInsertValidOptionMsg();
                     else break;
                 }
                 System.out.println("The sensors in the " + mRoomList.getRoomList().get(indexRoom - 1).getName() + " are: ");
