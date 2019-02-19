@@ -62,24 +62,9 @@ public class DeviceList {
     /**
      * @return the device in the last index position of the device list
      */
-    public Device getLastElement() {
+    Device getLastElement() {
         return mDeviceList.get(mDeviceList.size() - 1);
     }
-
-
-    /**
-     * Method to get the list of Powered devices of a room
-     *
-     * @return the device list
-     * public List<Powered> getPoweredDeviceList() {
-     List<Powered> poweredDeviceList;
-     for Device device: mDeviceList
-     {
-     poweredDeviceList.add(mDeviceList.get().)
-     }
-     return ;
-     }
-     */
 
     public String showDeviceListInString() {
         List<Device> list = getDeviceList();
@@ -132,8 +117,7 @@ public class DeviceList {
     /**
      * @return a list of all devices that have isMetered parameter set as true
      */
-
-    public List<Device> getMeteredDevices() {
+    List<Device> getMeteredDevices() {
         List<Device> meteredDeviceList = new ArrayList<>();
 
         for (Device device : mDeviceList) {
