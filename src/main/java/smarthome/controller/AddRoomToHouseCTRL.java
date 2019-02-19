@@ -4,13 +4,13 @@ import smarthome.model.*;
 
 public class AddRoomToHouseCTRL {
 
-    private House mHouse;
+    private House currentHouse;
     private RoomList mRoomList;
 
 
     public AddRoomToHouseCTRL(House house) {
-        mHouse = house;
-        mRoomList = mHouse.getRoomList();
+        currentHouse = house;
+        mRoomList = currentHouse.getRoomList();
 
     }
 
