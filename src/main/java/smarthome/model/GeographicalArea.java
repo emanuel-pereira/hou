@@ -3,7 +3,7 @@ package smarthome.model;
 import java.util.Objects;
 
 public class GeographicalArea {
-    private String ID;
+    private String identification;
     private String designation;
     private TypeGA typeOfGa;
     private Location location;
@@ -26,7 +26,7 @@ public class GeographicalArea {
      */
     public GeographicalArea(String id, String name, String typeGA, double latitude, double longitude, double altitude, double length, double width) {
 
-        ID = id;
+        identification = id;
         designation = name;
         typeOfGa = new TypeGAList().newTypeGA(typeGA)/*new TypeGA(typeGA)*/;
         location = new Location(latitude, longitude, altitude);
@@ -113,14 +113,14 @@ public class GeographicalArea {
             return false;
         }
         GeographicalArea that = (GeographicalArea) o;
-        return Objects.equals(ID, that.ID) &&
+        return Objects.equals(identification, that.identification) &&
                 Objects.equals(designation, that.designation) &&
                 Objects.equals(typeOfGa, that.typeOfGa);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, designation, typeOfGa);
+        return Objects.hash(identification, designation, typeOfGa);
     }
 
     /**
