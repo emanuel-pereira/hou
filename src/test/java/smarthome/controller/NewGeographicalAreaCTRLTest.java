@@ -90,10 +90,10 @@ public class NewGeographicalAreaCTRLTest {
         //pass the empty list as a parameter to US1 controller
         NewTypeGACTRL ctrl1 = new NewTypeGACTRL(TypeGAList);
         //creation of a new GA Type and it's addition to the initially empty list
-        assertTrue(ctrl1.newTypeGA ("village"));
+        assertTrue(ctrl1.createTypeGA ("village"));
         assertEquals (1, TypeGAList.getTypeGAList().size ());
         //creation of a new GA Type and it's addition to the previously list already with one element
-        assertTrue(ctrl1.newTypeGA ("city"));
+        assertTrue(ctrl1.createTypeGA ("city"));
         //check the size of the list, now with both elements successfully added
         assertEquals (2, TypeGAList.getTypeGAList().size ());
 

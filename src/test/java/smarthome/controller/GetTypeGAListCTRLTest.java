@@ -20,8 +20,8 @@ class GetTypeGAListCTRLTest {
     void getTypeGAListCorrectContent() {
         TypeGAList list = new TypeGAList ();
         NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
-        ctrl1.newTypeGA ("village");
-        ctrl1.newTypeGA ("city");
+        ctrl1.createTypeGA ("village");
+        ctrl1.createTypeGA ("city");
 
         TypeGA type1 = new TypeGA ("village");
         TypeGA type2 = new TypeGA ("city");
@@ -37,8 +37,8 @@ class GetTypeGAListCTRLTest {
     void getTypeGAListIncorrectContent() {
         TypeGAList list = new TypeGAList ();
         NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
-        ctrl1.newTypeGA ("village");
-        ctrl1.newTypeGA ("country");
+        ctrl1.createTypeGA ("village");
+        ctrl1.createTypeGA ("country");
 
         GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL(list);
         TypeGA type1 = new TypeGA ("village");
@@ -60,9 +60,9 @@ class GetTypeGAListCTRLTest {
         TypeGAList list = new TypeGAList ();
         NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
 
-        ctrl1.newTypeGA ("village");
+        ctrl1.createTypeGA ("village");
         assertEquals (1, list.getTypeGAList ().size ());
-        ctrl1.newTypeGA ("city");
+        ctrl1.createTypeGA ("city");
 
         GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL(list);
         List<TypeGA> list2 = ctrl2.getTypeGAList ();
@@ -74,9 +74,9 @@ class GetTypeGAListCTRLTest {
         TypeGAList list = new TypeGAList ();
         NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
 
-        assertTrue(ctrl1.newTypeGA ("village"));
+        assertTrue(ctrl1.createTypeGA ("village"));
         assertEquals (1, list.getTypeGAList ().size ());
-        assertTrue(ctrl1.newTypeGA ("city"));
+        assertTrue(ctrl1.createTypeGA ("city"));
         assertEquals (2, list.getTypeGAList ().size ());
 
         GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL(list);
@@ -89,8 +89,8 @@ class GetTypeGAListCTRLTest {
     void showListInString() {
         TypeGAList list = new TypeGAList ();
         NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
-        ctrl1.newTypeGA ("village");
-        ctrl1.newTypeGA ("city");
+        ctrl1.createTypeGA ("village");
+        ctrl1.createTypeGA ("city");
 
         String expected = "1 - village\n2 - city\n";
 

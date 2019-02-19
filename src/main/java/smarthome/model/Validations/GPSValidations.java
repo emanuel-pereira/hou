@@ -1,4 +1,4 @@
-package smarthome.model;
+package smarthome.model.Validations;
 
 public class GPSValidations {
 

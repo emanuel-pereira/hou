@@ -1,7 +1,9 @@
 package smarthome.model;
 
+import smarthome.model.Validations.GPSValidations;
+
 public class Location {
-    GPSValidations v = new GPSValidations();
+    GPSValidations v = new GPSValidations ();
 
 
     private double mLatitude;

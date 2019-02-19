@@ -2,7 +2,7 @@ package smarthome.io.ui;
 
 import smarthome.controller.NewGeographicalAreaCTRL;
 import smarthome.model.GAList;
-import smarthome.model.GPSValidations;
+import smarthome.model.Validations.GPSValidations;
 import smarthome.model.TypeGAList;
 
 import java.util.InputMismatchException;
@@ -14,7 +14,7 @@ public class NewGeographicalAreaUI {
     private TypeGAList mtypeGAList;
     private NewGeographicalAreaCTRL mCtrlUS3;
     private GetTypeGAListUI ui2; //in order to invoke methods form ui2 to print out the list of GA types for the user to select
-    GPSValidations validations = new GPSValidations();
+    GPSValidations validations = new GPSValidations ();
     private String mSuccessMsg="Success";
 
     /**

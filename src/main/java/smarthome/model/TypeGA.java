@@ -6,20 +6,13 @@ import java.util.Objects;
 
 public class TypeGA {
 
-    private String mTypeGA;
+    private String typeGA;
 
 
     public TypeGA(String inputTypeGA) {
-        this.mTypeGA = inputTypeGA;
+        this.typeGA = inputTypeGA;
     }
 
-
-    public String getTypeGA() {
-        return this.mTypeGA;
-    }
-
-
-    //Método Equals (para ser usado na TypeGAList)
 
     /**
      * When two objects (o1 and o2) with the same data are compare, the result is that they are different objects.
@@ -42,7 +35,7 @@ public class TypeGA {
             return false;
         }
         TypeGA typeOfGA = (TypeGA) o; //
-        return this.mTypeGA.equals(typeOfGA.getTypeGA());
+        return this.typeGA.equals(typeOfGA.toString ());
     }
 
 
@@ -53,7 +46,7 @@ public class TypeGA {
      */
     @Override
     public int hashCode() {
-        return Objects.hash (mTypeGA);
+        return Objects.hash (typeGA);
     }
 
 
@@ -65,7 +58,7 @@ public class TypeGA {
      */
     @Override
     public String toString() {
-        return mTypeGA;
+        return this.typeGA;
     }
 }
 
