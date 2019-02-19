@@ -48,6 +48,6 @@ public class OccupationArea {
      * @return - value of occupation area
      */
     public double getOccupationArea() {
-        return this.mOccupation;
+        return mOccupation;
     }
 }

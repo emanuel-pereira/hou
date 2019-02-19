@@ -157,15 +157,15 @@ public class Configuration {
         int gridMeteringPeriod = getGridMeteringPeriod();
         int deviceMeteringPeriod = getDevicesMeteringPeriod();*/
 
-            if (isGridMeteringPeriodValid() == false) {
+            if (!isGridMeteringPeriodValid()) {
                 return false;
             }
 
-            if (isDeviceMeteringPeriodValid() == false) {
+            if (!isDeviceMeteringPeriodValid()) {
                 return false;
             }
 
-            if (areMeteringPeriodsMultiple() == false) {
+            if (!areMeteringPeriodsMultiple()) {
                 return false;
             }
 

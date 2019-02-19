@@ -3,7 +3,7 @@ package smarthome.io.ui;
 
 import smarthome.controller.ConfigureHouseLocationCTRL;
 import smarthome.model.GAList;
-import smarthome.model.Validations.GPSValidations;
+import smarthome.model.validations.GPSValidations;
 import smarthome.model.House;
 
 import java.util.Scanner;
@@ -39,7 +39,7 @@ public class ConfigureHouseLocationUI {
         while (true) {
             Scanner read1 = new Scanner(System.in);
             indexGA = read1.nextInt();
-            if (indexGA > mCtrlUS101.getGAList().size())
+            if (indexGA <= 0 || indexGA > mCtrlUS101.getGAList().size())
                 UtilsUI.printLnInsertValidOption();
             else
                 break;

@@ -1,6 +1,6 @@
 package smarthome.model;
 
-import smarthome.model.Validations.NameValidations;
+import smarthome.model.validations.NameValidations;
 
 import java.util.ArrayList;
 import java.util.List;

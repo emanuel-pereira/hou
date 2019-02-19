@@ -18,7 +18,7 @@ public class SetParentOfGACTRL {
         GeographicalArea ga = mGAList.getGAList().get(indexGA1 - 1);
         GeographicalArea ga2 = mGAList.getGAList().get(indexGA2 - 1);
         if (!(ga.getGeographicalAreaType().equals(ga2.getGeographicalAreaType())))
-            ga.setmParentGA(ga2);
+            ga.setParentGA(ga2);
     }
 
 

@@ -1,7 +1,7 @@
 package smarthome.controller;
 
 import smarthome.model.*;
-import smarthome.model.Validations.DateValidations;
+import smarthome.model.validations.DateValidations;
 
 import java.util.Calendar;
 import java.util.List;

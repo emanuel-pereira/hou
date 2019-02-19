@@ -4,9 +4,7 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -70,7 +68,7 @@ public class GeographicalAreaTest {
     public void comparisonOfTwoDifferentGAObjects() {
         GeographicalArea ga1 = new GeographicalArea("POR", "Porto", "City", 12.3, 35.2, 120, 2, 5);
         GeographicalArea ga2 = new GeographicalArea("VNG", "Gaia", "City", 8, -125, 10, 2, 5);
-        assertNotEquals (ga1, ga2);
+        assertNotEquals(ga1, ga2);
     }
 
     @DisplayName("Ensure equals method returns false when comparing different objects of different type")
@@ -78,14 +76,14 @@ public class GeographicalAreaTest {
     public void comparisonOfTwoDifferentObjects() {
         GeographicalArea ga1 = new GeographicalArea("POR", "Porto", "City", 12.3, 35.2, 120, 2, 5);
         GeographicalArea ga2 = new GeographicalArea("VNG", "Gaia", "City", 8, -125, 10, 2, 5);
-        assertNotEquals (ga1, ga2);
+        assertNotEquals(ga1, ga2);
     }
 
     @DisplayName("Ensure equals method returns true when comparing object o with same object")
     @Test
     public void comparisonOfSameObject() {
         GeographicalArea ga1 = new GeographicalArea("POR", "Porto", "City", 12.3, 35.2, 120, 2, 5);
-        assertEquals (ga1, ga1);
+        assertEquals(ga1, ga1);
     }
 
     @Test
@@ -94,9 +92,9 @@ public class GeographicalAreaTest {
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 4, 5, 5, 6);
         GeographicalArea ga2 = new GeographicalArea("Pt", "Porto", "city", 2, 4, 5, 5, 6);
 
-        result = ga1.equals (ga2);
+        result = ga1.equals(ga2);
 
-        assertEquals (ga1.hashCode (), ga2.hashCode ());
+        assertEquals(ga1.hashCode(), ga2.hashCode());
         assertTrue(result);
     }
 
@@ -107,7 +105,7 @@ public class GeographicalAreaTest {
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 4, 5, 5, 6);
         GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", 3, 4, 5, 6, 7);
 
-        ga1.setmParentGA(ga2);
+        ga1.setParentGA(ga2);
 
         GeographicalArea expectedResult = ga2;
         GeographicalArea result = ga1.getGeographicalParentGA();
@@ -162,7 +160,7 @@ public class GeographicalAreaTest {
 
         int expected = 1;
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
@@ -171,12 +169,22 @@ public class GeographicalAreaTest {
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 4, 5, 5, 6);
         boolean result;
 
-        result = ga1.equals (text);
+        result = ga1.equals(text);
 
         assertFalse(result);
     }
 
 
+    @Test
+    @DisplayName("check if occupation area method (length * width) is correct.")
+    public void getOccupation() {
 
 
+        GeographicalArea ga = new GeographicalArea("001", "Porto", "city", 3, 4, 3, 30, 20);
+
+        double expectedResult = 600;
+        double result = ga.getOccupation().getOccupationArea();
+
+        assertEquals(expectedResult, result);
+    }
 }
