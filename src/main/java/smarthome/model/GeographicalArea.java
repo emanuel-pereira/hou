@@ -3,20 +3,20 @@ package smarthome.model;
 import java.util.Objects;
 
 public class GeographicalArea {
-    private String mID;
-    private String mDesignation;
-    private TypeGA mTypeOfGA;
-    private Location mLocation;
-    private SensorList mSensorListInGA;
-    private OccupationArea mOccupation;
-    private GeographicalArea mParentGA;
+    private String ID;
+    private String designation;
+    private TypeGA typeOfGa;
+    private Location location;
+    private SensorList sensorListInGa;
+    private OccupationArea occupation;
+    private GeographicalArea parentGa;
 
 
     /**
      * This constructor method defines a Geographical Area with a designation, type, location as well as length and width
      * to calculate its occupation area
      *
-     * @param designation GA name
+     * @param name GA name
      * @param typeGA      GA type
      * @param longitude   GA longitude
      * @param latitude    GA latitude
@@ -24,14 +24,14 @@ public class GeographicalArea {
      * @param length      GA length
      * @param width       GA width
      */
-    public GeographicalArea(String id, String designation, String typeGA, double latitude, double longitude, double altitude, double length, double width) {
+    public GeographicalArea(String id, String name, String typeGA, double latitude, double longitude, double altitude, double length, double width) {
 
-        mID = id;
-        mDesignation = designation;
-        mTypeOfGA = new TypeGAList().newTypeGA(typeGA)/*new TypeGA(typeGA)*/;
-        mLocation = new Location(latitude, longitude, altitude);
-        mOccupation = new OccupationArea(length, width);
-        mSensorListInGA = new SensorList();
+        ID = id;
+        designation = name;
+        typeOfGa = new TypeGAList().newTypeGA(typeGA)/*new TypeGA(typeGA)*/;
+        location = new Location(latitude, longitude, altitude);
+        occupation = new OccupationArea(length, width);
+        sensorListInGa = new SensorList();
     }
 
     /**
@@ -40,7 +40,7 @@ public class GeographicalArea {
      * @return return this geographical area designation
      */
     public String getGeographicalAreaDesignation() {
-        return this.mDesignation;
+        return this.designation;
     }
 
     /**
@@ -49,7 +49,7 @@ public class GeographicalArea {
      * @return return this geographical Area Type designation
      */
     public String getGeographicalAreaType() {
-        return this.mTypeOfGA.toString();
+        return this.typeOfGa.toString();
     }
 
     /**
@@ -58,7 +58,7 @@ public class GeographicalArea {
      * @return return this geographical Area Parent
      */
     public GeographicalArea getGeographicalParentGA() {
-        return mParentGA;
+        return parentGa;
     }
 
 
@@ -68,7 +68,7 @@ public class GeographicalArea {
      * @return the list of sensors in a Geographical Area
      */
     public SensorList getSensorListInGA() {
-        return mSensorListInGA;
+        return sensorListInGa;
     }
 
     /**
@@ -91,7 +91,7 @@ public class GeographicalArea {
      * @return return this geographical area location
      */
     public Location getLocation() {
-        return this.mLocation;
+        return this.location;
     }
 
     /**
@@ -101,7 +101,7 @@ public class GeographicalArea {
      * @return returns the linear distance already calculated
      */
     private double calculateDistance(Location aLocation) {
-        return mLocation.calcLinearDistanceBetweenTwoPoints(this.mLocation, aLocation);
+        return location.calcLinearDistanceBetweenTwoPoints(this.location, aLocation);
     }
 
     @Override
@@ -113,14 +113,14 @@ public class GeographicalArea {
             return false;
         }
         GeographicalArea that = (GeographicalArea) o;
-        return Objects.equals(mID, that.mID) &&
-                Objects.equals(mDesignation, that.mDesignation) &&
-                Objects.equals(mTypeOfGA, that.mTypeOfGA);
+        return Objects.equals(ID, that.ID) &&
+                Objects.equals(designation, that.designation) &&
+                Objects.equals(typeOfGa, that.typeOfGa);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mID, mDesignation, mTypeOfGA);
+        return Objects.hash(ID, designation, typeOfGa);
     }
 
     /**
@@ -131,16 +131,20 @@ public class GeographicalArea {
      */
 
 
-    public void setmParentGA(GeographicalArea ga1) {
+    public void setParentGA(GeographicalArea ga1) {
 
-        this.mParentGA = ga1;
+        this.parentGa = ga1;
 
     }
 
     public SensorList getGASensorsByType(String type) {
-        SensorList currentGASensors = this.mSensorListInGA;
+        SensorList currentGASensors = this.sensorListInGa;
 
         return currentGASensors.getSensorListOfRequiredSensorPerType(type);
+    }
+
+    public OccupationArea getOccupation() {
+        return occupation;
     }
 }
 

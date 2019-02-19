@@ -39,7 +39,7 @@ public class ConfigureHouseLocationUI {
         while (true) {
             Scanner read1 = new Scanner(System.in);
             indexGA = read1.nextInt();
-            if (indexGA > mCtrlUS101.getGAList().size())
+            if (indexGA <= 0 || indexGA > mCtrlUS101.getGAList().size())
                 UtilsUI.printLnInsertValidOption();
             else
                 break;
