@@ -2,6 +2,7 @@ package smarthome.controller;
 
 import smarthome.model.*;
 import smarthome.model.Validations.DateValidations;
+import smarthome.model.Validations.GPSValidations;
 import smarthome.model.Validations.NameValidations;
 
 import java.util.GregorianCalendar;
@@ -20,7 +21,7 @@ public class NewSensorCTRL {
         mSensorTypeList = sensorTypeList;
         mGAList = listOfGA;
         mGPSValidations = new GPSValidations();
-        mDateValidations= new DateValidations();
+        mDateValidations = new DateValidations();
         mNameValidations = new NameValidations();
     }
 

@@ -1,7 +1,8 @@
 package smarthome.model;
 
+import smarthome.model.Validations.Utils;
+
 import java.util.Calendar;
-import java.util.List;
 import java.util.Objects;
 
 public class HouseGrid implements Metered{

@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.model.Validations.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
 

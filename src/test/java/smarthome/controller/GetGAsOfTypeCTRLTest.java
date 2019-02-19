@@ -52,9 +52,9 @@ class GetGAsOfTypeCTRLTest {
         TypeGAList listType = new TypeGAList();
 
         NewTypeGACTRL ctrl1 = new NewTypeGACTRL(listType);
-        ctrl1.newTypeGA("street");
-        ctrl1.newTypeGA("city");
-        ctrl1.newTypeGA("country");
+        ctrl1.createTypeGA ("street");
+        ctrl1.createTypeGA ("city");
+        ctrl1.createTypeGA ("country");
 
         int typeIndex = 1;
 
@@ -107,9 +107,9 @@ class GetGAsOfTypeCTRLTest {
         TypeGAList listType = new TypeGAList();
 
         NewTypeGACTRL ctrl1 = new NewTypeGACTRL(listType);
-        ctrl1.newTypeGA("street");
-        ctrl1.newTypeGA("city");
-        ctrl1.newTypeGA("country");
+        ctrl1.createTypeGA ("street");
+        ctrl1.createTypeGA ("city");
+        ctrl1.createTypeGA ("country");
 
         int typeIndex = 2;
 
@@ -162,9 +162,9 @@ class GetGAsOfTypeCTRLTest {
         TypeGAList listType = new TypeGAList();
 
         NewTypeGACTRL ctrl1 = new NewTypeGACTRL(listType);
-        ctrl1.newTypeGA("street");
-        ctrl1.newTypeGA("city");
-        ctrl1.newTypeGA("country");
+        ctrl1.createTypeGA ("street");
+        ctrl1.createTypeGA ("city");
+        ctrl1.createTypeGA ("country");
 
         int typeIndex = 3;
 
@@ -184,8 +184,8 @@ class GetGAsOfTypeCTRLTest {
     void showListInString() {
         TypeGAList listType = new TypeGAList ();
         NewTypeGACTRL ctrl1 = new NewTypeGACTRL(listType);
-        ctrl1.newTypeGA ("village");
-        ctrl1.newTypeGA ("city");
+        ctrl1.createTypeGA ("village");
+        ctrl1.createTypeGA ("city");
 
         int typeIndex = 2;
 

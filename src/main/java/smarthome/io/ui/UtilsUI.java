@@ -194,7 +194,7 @@ public final class UtilsUI {
         while (true) {
             input = getUserInput ();
             input = input.trim ();
-            if (input.trim ().matches ("[A-Za-z ]*")) {
+            if (input.trim ().matches ("[A-Za-z ]*") && !input.trim ().isEmpty ()) {
                 break;
             }
             print (errorMessage);

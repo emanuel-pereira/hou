@@ -13,7 +13,6 @@ public final class SystemAdministrationUI {
 
     public static void systemAdministration(SensorTypeList sensorTypeList, GAList gaList) {
         TypeGAList typeGAList = new TypeGAList();
-        GAList inputGAList = gaList;
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
 
@@ -33,18 +32,18 @@ public final class SystemAdministrationUI {
             switch (option) {
                 case 1:
                     NewTypeGAUI ui1 = new NewTypeGAUI(typeGAList);
-                    ui1.createTypesGA();
+                    ui1.run ();
                     break;
                 case 2:
                     GetTypeGAListUI ui2 = new GetTypeGAListUI(typeGAList);
                     ui2.run();
                     break;
                 case 3:
-                    NewGeographicalAreaUI ui3 = new NewGeographicalAreaUI(inputGAList, typeGAList);
+                    NewGeographicalAreaUI ui3 = new NewGeographicalAreaUI(gaList, typeGAList);
                     ui3.run();
                     break;
                 case 4:
-                    GetGAsOfTypeUI ui4 = new GetGAsOfTypeUI(inputGAList, typeGAList);
+                    GetGAsOfTypeUI ui4 = new GetGAsOfTypeUI(gaList, typeGAList);
                     ui4.run();
                     break;
                 case 5:
@@ -52,15 +51,15 @@ public final class SystemAdministrationUI {
                     ui5.runUS5();
                     break;
                 case 6:
-                    NewSensorUI ui6 = new NewSensorUI(sensorTypeList, inputGAList);
+                    NewSensorUI ui6 = new NewSensorUI(sensorTypeList, gaList);
                     ui6.checkIfGAListIsEmtpy();
                     break;
                 case 7:
-                    SetParentOfGAUI ui7 = new SetParentOfGAUI(inputGAList);
+                    SetParentOfGAUI ui7 = new SetParentOfGAUI(gaList);
                     ui7.run();
                     break;
                 case 8:
-                    ListParentGAUI ui8 = new ListParentGAUI(inputGAList);
+                    ListParentGAUI ui8 = new ListParentGAUI(gaList);
                     ui8.run();
                     break;
                 default:
