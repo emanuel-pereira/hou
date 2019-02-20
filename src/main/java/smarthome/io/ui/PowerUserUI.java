@@ -46,8 +46,8 @@ public final class PowerUserUI {
                     break;
                 case 5:
                     System.out.println("US 705 DisplayCustomTotalNominalPower is under maintenance, it will be available shortly");
-                    DisplayVariableTotalNominalPowerUI nominalPowerUI = new DisplayVariableTotalNominalPowerUI(house);
-                    nominalPowerUI.run();
+                    //DisplayVariableTotalNominalPowerUI nominalPowerUI = new DisplayVariableTotalNominalPowerUI(house);
+                    //nominalPowerUI.run();
                     break;
                 case 6:
                     GetEnergyConsumptionInPeriodUI uiEC = new GetEnergyConsumptionInPeriodUI(house);
