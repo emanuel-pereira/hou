@@ -60,7 +60,6 @@ public class ListParentGACTRL {
     public String showListInString() {
         List<GeographicalArea> gaList = mGAList.getGAList();
         StringBuilder result = new StringBuilder();
-        //String element = " - ";
         int number = 1;
         for (GeographicalArea GA : gaList) {
             result.append(number++);
