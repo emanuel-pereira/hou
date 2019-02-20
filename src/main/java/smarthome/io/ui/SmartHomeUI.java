@@ -1,10 +1,7 @@
 
 package smarthome.io.ui;
 
-import smarthome.model.GAList;
-import smarthome.model.House;
-import smarthome.model.HouseGridList;
-import smarthome.model.SensorTypeList;
+import smarthome.model.*;
 
 import java.util.ArrayList;
 
@@ -23,6 +20,7 @@ public class SmartHomeUI {
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         init();
 
+        Configuration.init();
         BootStrap.run(house, gaList, sensorTypeList);
 
         menuOptions();

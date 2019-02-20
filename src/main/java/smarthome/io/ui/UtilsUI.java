@@ -36,12 +36,14 @@ public final class UtilsUI {
 
 
     private static boolean isInteger(String input) {
+        int i;
         try {
-            Integer.parseInt(input);
-            return true;
+            i=Integer.parseInt(input);
         } catch (Exception e) {
-            return false;
+            i = Integer.MIN_VALUE;
         }
+
+        return i!=Integer.MIN_VALUE;
     }
 
     /**
@@ -50,12 +52,13 @@ public final class UtilsUI {
      */
 
     private static boolean isDouble(String input) {
+        double d;
         try {
-            Double.parseDouble(input);
-            return true;
+            d=Double.parseDouble(input);
         } catch (Exception e) {
-            return false;
+            d=Double.MIN_VALUE;
         }
+        return d!=Double.MIN_VALUE;
     }
 
     /**
@@ -84,10 +87,10 @@ public final class UtilsUI {
         }
 
         int year = Integer.parseInt(sYear);
-        int month = Integer.parseInt(sMonth) - 1; //subtract 1 because of the way this field is used in GregorianCalendar
+        int month = Integer.parseInt(sMonth) - 1; // subtract 1 because of the way this field is used in GregorianCalendar
         int day = Integer.parseInt(sDay);
 
-        if (month > 11 || day > 31) { //quick check but redundant, I guess.
+        if (month > 11 || day > 31) { // quick check but redundant, I guess.
             return false;
         }
 
@@ -174,8 +177,8 @@ public final class UtilsUI {
      * @return true if the string is a valid date and time
      */
     private static boolean isDateTime(String input) {
-        String[] dateAndTime;
-        dateAndTime = input.split ("[ ]", 2);
+        String[] dateAndTime = input.split("[ ]", 2);
+
         if (dateAndTime.length != 2) {
             return false;
         }
@@ -246,6 +249,8 @@ public final class UtilsUI {
      */
     public static int requestIntegerInInterval(int minimum, int maximum, String errorMessage) {
 
+
+
         String userInput = "-";
         int parsedUserInput = minimum - 1;
 
@@ -264,6 +269,9 @@ public final class UtilsUI {
 
         return parsedUserInput;
     }
+
+
+
 
     /**
      * UI method that requests any double
@@ -338,6 +346,8 @@ public final class UtilsUI {
     }
 
     public static GregorianCalendar requestDateTime(String errorMessage) {
+
+
         String date;
         int year;
         int month;
@@ -345,6 +355,7 @@ public final class UtilsUI {
         String time;
         int hour;
         int minute;
+
 
         String userInput;
 
@@ -373,12 +384,11 @@ public final class UtilsUI {
 
     /**
      * UI method that returns a GregorianCalendar date as string in yyyy-MM-dd format
-     *
      * @param calendar a Gregorian Calendar parameter to be set in string format
-     * @return date as string in YYYY-MM-DD format
+     * @return date as string in yyyy-MM-dd format
      */
     public static String dateInString(GregorianCalendar calendar) {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-DD");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(calendar.getTime());
     }
 
@@ -388,16 +398,16 @@ public final class UtilsUI {
      *
      * @param format a string representing one of the values in the enum
      */
-    private static void format(String format) {
+    public static void format(String format) {
         System.out.print(TextStyle.valueOf(format).toString());
     }
 
-    private static void format(String format1, String format2) {
+    public static void format(String format1, String format2) {
         System.out.print(TextStyle.valueOf(format1).toString());
         System.out.print(TextStyle.valueOf(format2).toString());
     }
 
-    private static void format(String format1, String format2, String format3) {
+    public static void format(String format1, String format2, String format3) {
         System.out.print(TextStyle.valueOf(format1).toString());
         System.out.print(TextStyle.valueOf(format2).toString());
         System.out.print(TextStyle.valueOf(format3).toString());
@@ -495,8 +505,7 @@ public final class UtilsUI {
 
 
     private static String createWhiteSpace(int spaces) {
-        if (spaces <= 0)
-            return "";
+        if (spaces <= 0) return "";
         StringBuilder output = new StringBuilder();
 
         for (int i = 1; i < spaces; i++) {
