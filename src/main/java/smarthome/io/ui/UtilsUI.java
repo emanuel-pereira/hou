@@ -62,7 +62,9 @@ public final class UtilsUI {
         } catch (Exception e) {
             d=Double.MIN_VALUE;
         }
-        return d!=Double.MIN_VALUE;
+
+
+        return (d<=(Double.MIN_VALUE+1));
     }
 
     /**
