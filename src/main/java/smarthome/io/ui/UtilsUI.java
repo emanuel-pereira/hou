@@ -239,6 +239,26 @@ public final class UtilsUI {
         return input;
     }
 
+    /**
+     * UI for requesting an integer from the user. Displays a custom error message.
+     *
+     * @param errorMessage the error message to display if the input is not an integer
+     * @return the valid user input as an integer
+     */
+    public static int requestInteger(String errorMessage) {
+        String userInput;
+        int parsedUserInput;
+
+        while (true) {
+            userInput = getUserInput ();
+            if (isInteger (userInput)) {
+                parsedUserInput = Integer.parseInt (userInput);
+                break;
+            }
+            System.out.println (errorMessage);
+        }
+        return parsedUserInput;
+    }
 
     /**
      * UI for requesting an integer from the user in a given interval. Displays a custom error message.

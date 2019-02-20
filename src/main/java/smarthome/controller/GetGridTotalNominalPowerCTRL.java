@@ -8,11 +8,11 @@ import smarthome.model.Room;
 public class GetGridTotalNominalPowerCTRL {
 
     private House mHouse;
-    private HouseGridList mHouseGridList;
+    private HouseGridList houseGridList;
 
     public GetGridTotalNominalPowerCTRL(House house) {
         mHouse = house;
-        mHouseGridList = mHouse.getHGListInHouse ();
+        this.houseGridList = mHouse.getHGListInHouse ();
     }
 
 
@@ -42,7 +42,7 @@ public class GetGridTotalNominalPowerCTRL {
      * @return list in string
      */
     public String showHouseGridListInString() {
-        return mHouseGridList.showHouseGridListInString();
+        return this.houseGridList.showHouseGridListInString();
     }
 
 
@@ -54,8 +54,8 @@ public class GetGridTotalNominalPowerCTRL {
      */
     public int getRoomListInAGridSize(int indexGrid) {
         int size = 0;
-        for (HouseGrid houseGrid : mHouseGridList.getHouseGridList ()) {
-            if (mHouseGridList.get (indexGrid - 1).getRoomListInAGridSize () != 0) {
+        for (HouseGrid houseGrid : this.houseGridList.getHouseGridList ()) {
+            if (this.houseGridList.get (indexGrid - 1).getRoomListInAGridSize () != 0) {
                 size = houseGrid.getRoomListInAGridSize ();
             }
         }
@@ -71,14 +71,14 @@ public class GetGridTotalNominalPowerCTRL {
      */
     public boolean deviceListSizeInGridIsNotEmpty(int indexGrid) {
         int sum = 0;
-        for (Room r : mHouseGridList.get (indexGrid-1).getRoomListInAGrid ().getRoomList ()) {
+        for (Room r : this.houseGridList.get (indexGrid-1).getRoomListInAGrid ().getRoomList ()) {
             sum += r.getDeviceList ().size ();
         }
         return sum > 0;
     }
 
     public double getTotalNominalPowerInGrid(int indexGrid) {
-        return mHouseGridList.get (indexGrid - 1).getNominalPower ();
+        return this.houseGridList.get (indexGrid - 1).getNominalPower ();
     }
 
 }

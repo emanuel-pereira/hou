@@ -8,12 +8,12 @@ import java.util.Objects;
 
 public class Room implements Powered, Metered {
 
-    private String mName;
-    private Integer mFloor;
-    private OccupationArea mArea;
-    private double mHeight;
-    private SensorList mSensorListInRoom = new SensorList();
-    private DeviceList mDeviceList;
+    private String name;
+    private Integer floor;
+    private OccupationArea area;
+    private double height;
+    private SensorList sensorListInRoom = new SensorList();
+    private DeviceList deviceList;
 
 
     /**
@@ -26,11 +26,11 @@ public class Room implements Powered, Metered {
      * @param height The height of the room
      */
     public Room(String name, Integer floor, double length, double width, double height) {
-        mName = name;
-        mFloor = floor;
-        mArea = new OccupationArea(length, width);
-        mHeight = height;
-        mDeviceList = new DeviceList();
+        this.name = name;
+        this.floor = floor;
+        this.area = new OccupationArea(length, width);
+        this.height = height;
+        this.deviceList = new DeviceList();
     }
 
     public Room (){
@@ -43,16 +43,16 @@ public class Room implements Powered, Metered {
      * @return Name of the room
      */
     public String getName() {
-        return mName;
+        return this.name;
     }
 
     /**
      * Method to set the name of String mName.
      *
-     * @param setNameRoom name of the room of the house.
+     * @param nameRoom name of the room of the house.
      */
-    public void setName(String setNameRoom) {
-        this.mName = setNameRoom;
+    public void setName(String nameRoom) {
+        this.name = nameRoom;
     }
 
     /**
@@ -61,16 +61,16 @@ public class Room implements Powered, Metered {
      * @return Floor number
      */
     public int getFloor() {
-        return mFloor;
+        return this.floor;
     }
 
     /**
      * Method to set the floor of the room on the house.
      *
-     * @param mFloor set the floor room the house.
+     * @param floor set the floor room the house.
      */
-    public void setFloor(int mFloor) {
-        this.mFloor = mFloor;
+    public void setFloor(int floor) {
+        this.floor = floor;
     }
 
     /**
@@ -79,16 +79,16 @@ public class Room implements Powered, Metered {
      * @return Area of the room (height*width)
      */
     public OccupationArea getArea() {
-        return mArea;
+        return this.area;
     }
 
     /**
      * Method to set the dimensions of the room on the house.
      *
-     * @param mArea set the dimensions of the the room on the house.
+     * @param area set the dimensions of the the room on the house.
      */
-    public void setArea(OccupationArea mArea) {
-        this.mArea = mArea;
+    public void setArea(OccupationArea area) {
+        this.area = area;
     }
 
     /*public ReadingList getDataSeriesInTimeInterval(Calendar startDate, Calendar endDate) {
@@ -105,7 +105,7 @@ public class Room implements Powered, Metered {
      * @return Height of the room
      */
     public double getHeight() {
-        return mHeight;
+        return this.height;
     }
 
     /**
@@ -114,7 +114,7 @@ public class Room implements Powered, Metered {
      * @param height of the room
      */
     public void setHeight(double height) {
-        this.mHeight = height;
+        this.height = height;
     }
 
     /**
@@ -124,7 +124,7 @@ public class Room implements Powered, Metered {
      */
     public double getNominalPower() {
         double sum = 0;
-        for (Device device : mDeviceList.getDeviceList()) {
+        for (Device device : this.deviceList.getDeviceList()) {
             sum += device.getNominalPower();
         }
         return sum;
@@ -137,7 +137,7 @@ public class Room implements Powered, Metered {
      */
     public double getEnergyConsumptionInTimeInterval(Calendar startHour, Calendar endHour) {
         double sum = 0;
-        for (Device device : mDeviceList.getMeteredDevices()) {
+        for (Device device : this.deviceList.getMeteredDevices()) {
             sum += device.getEnergyConsumptionInTimeInterval(startHour, endHour);
         }
         return Utils.round(sum,2);
@@ -153,13 +153,13 @@ public class Room implements Powered, Metered {
         if (roomName.trim().isEmpty()) {
             return false;
         }
-        mName = roomName;
+        this.name = roomName;
         return true;
     }
 
 
     public SensorList getSensorListInRoom() {
-        return mSensorListInRoom;
+        return this.sensorListInRoom;
     }
 
     /**
@@ -179,7 +179,7 @@ public class Room implements Powered, Metered {
     }
 
     public DeviceList getDeviceList() {
-        return mDeviceList;
+        return this.deviceList;
     }
 
     /**
@@ -203,7 +203,7 @@ public class Room implements Powered, Metered {
             return false;
         }
         Room room = (Room) o;
-        return Objects.equals(mName, room.mName);
+        return Objects.equals(this.name, room.name);
     }
 
     /**
@@ -213,7 +213,7 @@ public class Room implements Powered, Metered {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(mName);
+        return Objects.hash(this.name);
     }
 
 }
