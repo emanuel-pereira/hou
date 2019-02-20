@@ -2,9 +2,7 @@ package smarthome.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.model.GAList;
-import smarthome.model.TypeGA;
-import smarthome.model.TypeGAList;
+import smarthome.model.*;
 
 import java.util.List;
 
@@ -14,114 +12,195 @@ public class NewGeographicalAreaCTRLTest {
 
     @Test
     void newGA() {
-        GAList list = new GAList ();
-        NewGeographicalAreaCTRL ctrl1 = new NewGeographicalAreaCTRL(list);
+        GAList list = new GAList();
+        TypeGAList typeGAList = new TypeGAList();
+        TypeGA district = new TypeGA("district");
+        typeGAList.addTypeGA(district);
+        NewGeographicalAreaCTRL ctrl1 = new NewGeographicalAreaCTRL(list, typeGAList);
 
-        assertEquals(0, list.getGAList ().size ());
-        assertTrue(ctrl1.newGA ("Pt","Porto", "district", 20, 20, 1, 3, -10));
+        assertEquals(0, list.getGAList().size());
+        OccupationArea occupationArea = new OccupationArea(20, 20);
+        Location location = new Location(1, 3, -10);
+        assertTrue(ctrl1.newGA("Pt", "Porto", 0, occupationArea, location));
 
-        assertEquals(1, list.getGAList ().size ());
+        assertEquals(1, list.getGAList().size());
     }
 
 
     @Test
     @DisplayName("Add a new geographical area on a list with other GA's")
-    void newGAonListwithOthersGAs() {
-        GAList list = new GAList ();
-        NewGeographicalAreaCTRL ctrl1 = new NewGeographicalAreaCTRL(list);
+    void newGAonListWithOthersGAs() {
+        GAList list = new GAList();
+        TypeGAList typeGAList = new TypeGAList();
+        TypeGA district = new TypeGA("district");
+        typeGAList.addTypeGA(district);
+        NewGeographicalAreaCTRL ctrl1 = new NewGeographicalAreaCTRL(list, typeGAList);
 
-        assertEquals (0, list.getGAList ().size ());
+        assertEquals(0, list.getGAList().size());
+        OccupationArea occupationArea = new OccupationArea(20, 20);
+        Location location = new Location(1, 3, -10);
 
-        assertTrue(ctrl1.newGA("Pt","Porto", "district", 20, 20, 1, 3, -10));
-        assertEquals (1, list.getGAList ().size ());
+        assertTrue(ctrl1.newGA("Pt", "Porto", 0, occupationArea, location));
+        assertEquals(1, list.getGAList().size());
 
-        assertTrue(ctrl1.newGA ("Pt","Lisboa", "district", 60, 20, 100, 200, -11));
-        assertEquals (2, list.getGAList ().size ());
+        OccupationArea occupationArea2 = new OccupationArea(60, 20);
+        Location location2 = new Location(10, 20, -11);
+        assertTrue(ctrl1.newGA("Pt", "Lisboa", 0, occupationArea2, location2));
+        assertEquals(2, list.getGAList().size());
     }
 
 
-     /*Add a new geographical area in a list with the same GA and get the size of the list that remains as 1.*/
+    /*Add a new geographical area in a list with the same GA and get the size of the list that remains as 1.*/
 
 
     @Test
     @DisplayName("Add a new geographical area in a list with the same GA")
     void checkifGAalreadyExistsAndisNotAdded() {
-        GAList list = new GAList ();
-        NewGeographicalAreaCTRL ctrl1 = new NewGeographicalAreaCTRL(list);
+        GAList list = new GAList();
+        TypeGAList typeGAList = new TypeGAList();
+        TypeGA district = new TypeGA("district");
+        typeGAList.addTypeGA(district);
+        NewGeographicalAreaCTRL ctrl1 = new NewGeographicalAreaCTRL(list, typeGAList);
 
-        assertEquals (0, list.getGAList ().size ());
+        assertEquals(0, list.getGAList().size());
+        OccupationArea occupationArea = new OccupationArea(60, 20);
+        Location location = new Location(10, 20, -11);
 
-        assertTrue(ctrl1.newGA ("Pt","Lisboa", "district", 60, 20, 100, 200, -11));
-        assertEquals (1, list.getGAList ().size ());
+        assertTrue(ctrl1.newGA("Pt", "Lisboa", 0, occupationArea, location));
+        assertEquals(1, list.getGAList().size());
 
-        assertFalse(ctrl1.newGA ("Pt","Lisboa", "district", 60, 20, 100, 200, -11));
-        assertEquals (1, list.getGAList ().size ());
+        assertFalse(ctrl1.newGA("Pt", "Lisboa", 0, occupationArea, location));
+        assertEquals(1, list.getGAList().size());
     }
 
     @Test
     @DisplayName("Add new geographical area in a list with the same and different GA's")
     void newGAIfRepeatAndDifferentGAs() {
-        GAList list = new GAList ();
-        NewGeographicalAreaCTRL ctrl1 = new NewGeographicalAreaCTRL(list);
+        GAList list = new GAList();
+        TypeGAList typeGAList = new TypeGAList();
+        TypeGA district = new TypeGA("district");
+        typeGAList.addTypeGA(district);
+        NewGeographicalAreaCTRL ctrl1 = new NewGeographicalAreaCTRL(list, typeGAList);
 
-        assertEquals (0, list.getGAList ().size ());
+        assertEquals(0, list.getGAList().size());
 
-        assertTrue(ctrl1.newGA ("Pt","Porto", "district", 20, 20, 1, 3, -10));
-        assertEquals (1, list.getGAList ().size ());
+        OccupationArea occupation = new OccupationArea(20, 20);
+        Location location = new Location(1, 3, -10);
+        assertTrue(ctrl1.newGA("Pt", "Porto", 0, occupation, location));
+        assertEquals(1, list.getGAList().size());
 
-        assertTrue(ctrl1.newGA ("Pt","Lisboa", "district", 60, 20, 100, 200, -11));
-        assertEquals (2, list.getGAList ().size ());
 
-        assertFalse(ctrl1.newGA ("Pt","Porto", "district", 20, 20, 1, 3, -10));
-        assertEquals (2, list.getGAList ().size ());
+        OccupationArea occupation2 = new OccupationArea(60, 20);
+        Location location2 = new Location(60, 20, -11);
+        assertTrue(ctrl1.newGA("Pt", "Lisboa", 0, occupation2, location2));
+        assertEquals(2, list.getGAList().size());
 
-        assertTrue(ctrl1.newGA ("Pt","Braga", "district", 10, 10, 50, 30, 1));
-        assertEquals (3, list.getGAList ().size ());
+        assertFalse(ctrl1.newGA("Pt", "Porto", 0, occupation, location));
+        assertEquals(2, list.getGAList().size());
 
-        assertFalse(ctrl1.newGA ("Pt","Braga", "district", 10, 10, 50, 30, 1));
-        assertEquals (3, list.getGAList ().size ());
+        OccupationArea occupation3 = new OccupationArea(10, 10);
+        Location location3 = new Location(50, 30, 1);
+        assertTrue(ctrl1.newGA("Pt", "Braga", 0, occupation3, location3));
+        assertEquals(3, list.getGAList().size());
+
+        assertFalse(ctrl1.newGA("Pt", "Braga", 0, occupation3, location3));
+        assertEquals(3, list.getGAList().size());
     }
 
     @DisplayName("Add GA with GA type from GA type's list with usage of US1 and US3 Controller methods")
     @Test
     void addGATypeFromList() {
-        //invoke new empty list
-        TypeGAList TypeGAList = new TypeGAList ();
-        //pass the empty list as a parameter to US1 controller
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(TypeGAList);
-        //creation of a new GA Type and it's addition to the initially empty list
-        assertTrue(ctrl1.createTypeGA ("village"));
-        assertEquals (1, TypeGAList.getTypeGAList().size ());
-        //creation of a new GA Type and it's addition to the previously list already with one element
-        assertTrue(ctrl1.createTypeGA ("city"));
-        //check the size of the list, now with both elements successfully added
-        assertEquals (2, TypeGAList.getTypeGAList().size ());
+        TypeGAList typeGAList = new TypeGAList();
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(typeGAList);
+        assertTrue(ctrl1.createTypeGA("village"));
 
-        //optional
-        //pass the list again as a parameter to US2 controller in order for it to spell out the list
-        GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL(TypeGAList);
-        //check size of the list in US2 controller
-        List<TypeGA> list2 = ctrl2.getTypeGAList ();
-        assertEquals (2, list2.size ());
+        assertEquals(1, typeGAList.getTypeGAList().size());
 
-        //creation of a new list of GA's, for now empty
-        GAList GAList = new GAList ();
-        //invocation of the controller for the US3, passing both list's: GA's and GATypes's as parameters
-        NewGeographicalAreaCTRL ctrl3 = new NewGeographicalAreaCTRL(GAList, TypeGAList);
-        //GA's list size is initially zero
-        assertEquals (0, GAList.getGAList ().size ());
-        //String for new city GA
+        assertTrue(ctrl1.createTypeGA("city"));
+
+        assertEquals(2, typeGAList.getTypeGAList().size());
+
+        GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL(typeGAList);
+        List<TypeGA> list2 = ctrl2.getTypeGAList();
+        assertEquals(2, list2.size());
+
+        GAList GAList = new GAList();
+        NewGeographicalAreaCTRL ctrl3 = new NewGeographicalAreaCTRL(GAList, typeGAList);
+        assertEquals(0, GAList.getGAList().size());
         String name = "Funchal";
-        //Int for new city GA types, from the list previously create of GA Types
-        int GATypeIndexFromList = 2;
-        String id= "Pt";
-        //method that invokes the GA creation by passing all the nre city GA parameters
-        assertTrue(ctrl3.newGA2(id, name, GATypeIndexFromList, 20, 20, 1, 3, -10));
+        int GATypeIndexFromList = 1;
+        String id = "Pt";
+        OccupationArea occupationArea = new OccupationArea(20, 20);
+        Location location = new Location(1, 3, -10);
+        assertTrue(ctrl3.newGA(id, name, GATypeIndexFromList, occupationArea, location));
         //check GA List size with the newly added GA
-        assertEquals (1, GAList.getGAList ().size ());
+        assertEquals(1, GAList.getGAList().size());
         //check the new GA designation from the GA's list
-        assertEquals("Funchal",GAList.getGAList().get(0).getGAName());
+        assertEquals("Funchal", GAList.getGAList().get(0).getGAName());
         //check the new GA type from the GA's list
-        assertEquals("city",GAList.getGAList().get(0).getGeographicalAreaType());
+        assertEquals("city", GAList.getGAList().get(0).getGeographicalAreaType());
+    }
+
+    @Test
+    void size() {
+        TypeGAList typeGAList = new TypeGAList();
+        TypeGA city = new TypeGA("city");
+        TypeGA country = new TypeGA("country");
+        typeGAList.addTypeGA(city);
+        typeGAList.addTypeGA(country);
+        GAList gaList = new GAList();
+        NewGeographicalAreaCTRL ctrl = new NewGeographicalAreaCTRL(gaList, typeGAList);
+        int expected = 2;
+        int result = ctrl.typeGAListSize();
+        assertEquals(expected, result);
+
+    }
+
+    @Test
+    void showTypeGAListInStr() {
+        TypeGAList typeGAList = new TypeGAList();
+        TypeGA city = new TypeGA("city");
+        TypeGA country = new TypeGA("country");
+        typeGAList.addTypeGA(city);
+        typeGAList.addTypeGA(country);
+        GAList gaList = new GAList();
+        NewGeographicalAreaCTRL ctrl = new NewGeographicalAreaCTRL(gaList, typeGAList);
+        String expected = "1 - city\n" +
+                "2 - country\n";
+        String result = ctrl.showTypeGAListInStr();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void getGAName() {
+        TypeGAList typeGAList = new TypeGAList();
+        TypeGA city = new TypeGA("city");
+        typeGAList.addTypeGA(city);
+        GAList gaList = new GAList();
+        OccupationArea occupationArea = new OccupationArea(15,22);
+        Location location= new Location(25,32,15);
+        GeographicalArea porto = new GeographicalArea("POR","Porto",typeGAList.toString(),occupationArea,location);
+        gaList.addGA(porto);
+        NewGeographicalAreaCTRL ctrl = new NewGeographicalAreaCTRL(gaList, typeGAList);
+        String expected="Porto";
+        String result= ctrl.getGAName();
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void getGAType() {
+        TypeGAList typeGAList = new TypeGAList();
+        TypeGA city = new TypeGA("city");
+        typeGAList.addTypeGA(city);
+        GAList gaList = new GAList();
+        OccupationArea occupationArea = new OccupationArea(15,22);
+        Location location= new Location(25,32,15);
+        GeographicalArea porto = new GeographicalArea("POR","Porto","city",occupationArea,location);
+        gaList.addGA(porto);
+        NewGeographicalAreaCTRL ctrl = new NewGeographicalAreaCTRL(gaList, typeGAList);
+        String expected="city";
+        String result= ctrl.getGAType();
+        assertEquals(expected,result);
+
     }
 }

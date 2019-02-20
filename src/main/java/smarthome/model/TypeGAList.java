@@ -7,13 +7,13 @@ import java.util.List;
 
 public class TypeGAList {
 
-    private List<TypeGA> typeGA;
+    private List<TypeGA> typeGAList;
 
     /**
      * Constructor for TypeGAList where the List of GA's is instantiated
      */
     public TypeGAList() {
-        this.typeGA = new ArrayList<>();
+        this.typeGAList = new ArrayList<>();
     }
 
     /**
@@ -38,8 +38,8 @@ public class TypeGAList {
      * already contained.
      */
     public boolean addTypeGA(TypeGA inputType) {
-        if (inputType != null && !this.typeGA.contains(inputType)) {
-            this.typeGA.add(inputType);
+        if (inputType != null && !this.typeGAList.contains(inputType)) {
+            this.typeGAList.add(inputType);
             return true;
         } else return false;
     }
@@ -49,7 +49,15 @@ public class TypeGAList {
      * @return the list of previously entered GA type's
      */
     public List<TypeGA> getTypeGAList() {
-        return this.typeGA;
+        return this.typeGAList;
+    }
+
+    public int size(){
+        return this.typeGAList.size();
+    }
+
+    public TypeGA get(int index){
+        return this.typeGAList.get(index);
     }
 
 }

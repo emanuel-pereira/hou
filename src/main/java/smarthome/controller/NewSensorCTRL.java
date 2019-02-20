@@ -97,7 +97,7 @@ public class NewSensorCTRL {
      */
 
     public boolean addNewSensorToGA(String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, Location location, int indexOfGA, ReadingList readings) {
-        GeographicalArea geographicalArea = this.gaList.get(indexOfGA - 1);
+        GeographicalArea geographicalArea = this.gaList.get(indexOfGA);
         SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);
         Sensor sensor = geographicalArea.getSensorListInGA().newSensor(inputName, startDate, location, sensorType, inputUnit, readings);
         return geographicalArea.getSensorListInGA().addSensor(sensor);
