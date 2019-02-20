@@ -31,7 +31,7 @@ public final class SystemAdministrationUI {
 
             UtilsUI.showList("System Administrator", options, false, 5);
 
-            option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 8, or 0 to exit the program");
+            option = UtilsUI.requestIntegerInInterval(0, 8, "Please choose an action between 1 and 8, or 0 to exit the program");
 
             switch (option) {
                 case 1:

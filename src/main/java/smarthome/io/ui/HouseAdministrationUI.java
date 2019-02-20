@@ -79,7 +79,7 @@ public final class HouseAdministrationUI {
                     ui210.selectOption();
                     break;
                 case 11:
-                    System.out.println("US 160 GetDeviceListInGridByTypeUI under maintenance, it will be available shortly");
+                    UtilsUI.underMaintenanceMsg("US160");
                     break;
                 case 12:
                     GetGridTotalNominalPowerUI uS172 = new GetGridTotalNominalPowerUI(house);

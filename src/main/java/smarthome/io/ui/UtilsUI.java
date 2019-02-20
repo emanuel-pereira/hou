@@ -560,4 +560,11 @@ public final class UtilsUI {
         read.nextLine();
     }
 
+    public static void underMaintenanceMsg(String inputUS){
+        System.out.println( inputUS+" is under maintenance, it will be available shortly");
+        backToMenu();
+    }
+
+
+
 }
