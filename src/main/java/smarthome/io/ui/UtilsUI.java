@@ -64,7 +64,7 @@ public final class UtilsUI {
         }
 
 
-        return (d<=(Double.MIN_VALUE+1));
+        return (d>=(Double.MIN_VALUE+1));
     }
 
     /**
