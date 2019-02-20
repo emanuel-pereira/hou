@@ -1,6 +1,5 @@
 package smarthome.io.ui;
 
-import smarthome.model.GAList;
 import smarthome.model.House;
 import smarthome.model.SensorTypeList;
 

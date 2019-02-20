@@ -36,39 +36,39 @@ public class SmartHomeUI {
     }
 
     private static void menuOptions() throws IllegalAccessException, InstantiationException, ClassNotFoundException {
-        int option;
+        int option = -1;
+        while (option != 0) {
 
-        ArrayList<String> options = new ArrayList<>();
-        options.add("[1] System Administration");
-        options.add("[2] House Administration");
-        options.add("[3] Regular User");
-        options.add("[4] Power User");
-        options.add("[5] Room Owner");
-        options.add("[0] Exit");
+            ArrayList<String> options = new ArrayList<>();
+            options.add("[1] System Administration");
+            options.add("[2] House Administration");
+            options.add("[3] Regular User");
+            options.add("[4] Power User");
+            options.add("[5] Room Owner");
+            options.add("[0] Exit");
 
-        UtilsUI.showList("Main Menu", options, false, 5);
+            UtilsUI.showList("Main Menu", options, false, 5);
 
-        option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");
-        switch (option) {
-            case 0:
-                break;
-            case 1:
-                systemAdministration(sensorTypeList, gaList);
-                break;
-            case 2:
-                houseAdministration(sensorTypeList, gaList, house, hgList);
-                break;
-            case 3:
-                regularUsage(house, sensorTypeList);
-                break;
-            case 4:
-                powerUser(house);
-                break;
-            case 5:
-                roomOwner(house);
-                break;
-            default:
-                //no action needed
+            option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");
+            switch (option) {
+                case 1:
+                    systemAdministration(sensorTypeList, gaList);
+                    break;
+                case 2:
+                    houseAdministration(sensorTypeList, gaList, house, hgList);
+                    break;
+                case 3:
+                    regularUsage(house, sensorTypeList);
+                    break;
+                case 4:
+                    powerUser(house);
+                    break;
+                case 5:
+                    roomOwner(house);
+                    break;
+                default:
+                    //no action needed
+            }
         }
     }
 }

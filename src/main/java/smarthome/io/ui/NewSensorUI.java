@@ -2,9 +2,13 @@ package smarthome.io.ui;
 
 
 import smarthome.controller.NewSensorCTRL;
-import smarthome.model.*;
+import smarthome.model.GAList;
+import smarthome.model.Reading;
+import smarthome.model.ReadingList;
+import smarthome.model.SensorTypeList;
 
-import java.util.*;
+import java.util.GregorianCalendar;
+import java.util.Scanner;
 
 public class NewSensorUI {
     private GAList mGAList;
@@ -108,7 +112,7 @@ public class NewSensorUI {
             System.out.println(mCtrl.showSensorTypeListInString());
             mIndexOfSensorType = read.nextInt();
             read.nextLine();
-            if (!(mIndexOfSensorType > mSensorTypeList.getSensorTypeList().size())) {
+            if (mIndexOfSensorType <= mSensorTypeList.getSensorTypeList().size()) {
                 System.out.println("Please fill in the following fields to add at least a reading to a sensor: \n");
                 this.inputReading();
                 break;
