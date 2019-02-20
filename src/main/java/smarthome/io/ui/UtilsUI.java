@@ -20,7 +20,7 @@ public final class UtilsUI {
     }
 
     public static void printLnInsertValidParameter(final String parameter) {
-        System.out.println ("Please insert a valid " + parameter + ".");
+        System.out.println("Please insert a valid " + parameter + ".");
     }
 
     public static String insertValidParameter(final String parameter) {
@@ -42,12 +42,12 @@ public final class UtilsUI {
     private static boolean isInteger(String input) {
         int i;
         try {
-            i=Integer.parseInt(input);
+            i = Integer.parseInt(input);
         } catch (Exception e) {
             i = Integer.MIN_VALUE;
         }
 
-        return i!=Integer.MIN_VALUE;
+        return i != Integer.MIN_VALUE;
     }
 
     /**
@@ -58,13 +58,13 @@ public final class UtilsUI {
     private static boolean isDouble(String input) {
         double d;
         try {
-            d=Double.parseDouble(input);
+            d = Double.parseDouble(input);
         } catch (Exception e) {
-            d=Double.MIN_VALUE;
+            d = Double.MIN_VALUE;
         }
 
 
-        return (d>=(Double.MIN_VALUE+1));
+        return (d >= (Double.MIN_VALUE + 1));
     }
 
     /**
@@ -255,12 +255,12 @@ public final class UtilsUI {
         int parsedUserInput;
 
         while (true) {
-            userInput = getUserInput ();
-            if (isInteger (userInput)) {
-                parsedUserInput = Integer.parseInt (userInput);
+            userInput = getUserInput();
+            if (isInteger(userInput)) {
+                parsedUserInput = Integer.parseInt(userInput);
                 break;
             }
-            System.out.println (errorMessage);
+            System.out.println(errorMessage);
         }
         return parsedUserInput;
     }
@@ -402,6 +402,7 @@ public final class UtilsUI {
 
     /**
      * UI method that returns a GregorianCalendar date as string in yyyy-MM-dd format
+     *
      * @param calendar a Gregorian Calendar parameter to be set in string format
      * @return date as string in yyyy-MM-dd format
      */
@@ -523,7 +524,7 @@ public final class UtilsUI {
 
 
     private static String createWhiteSpace(int spaces) {
-        if (spaces <= 0){
+        if (spaces <= 0) {
             return "";
         }
         StringBuilder output = new StringBuilder();
@@ -562,11 +563,10 @@ public final class UtilsUI {
         read.nextLine();
     }
 
-    public static void underMaintenanceMsg(String inputUS){
-        System.out.println( inputUS+" is under maintenance, it will be available shortly");
+    public static void underMaintenanceMsg(String inputUS) {
+        System.out.println(inputUS + " is under maintenance, it will be available shortly");
         backToMenu();
     }
-
 
 
 }

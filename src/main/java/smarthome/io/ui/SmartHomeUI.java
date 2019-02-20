@@ -54,7 +54,7 @@ public class SmartHomeUI {
                     systemAdministration(sensorTypeList,typeGAList, gaList);
                     break;
                 case 2:
-                    houseAdministration(sensorTypeList, gaList, house, hgList);
+                    houseAdministration(sensorTypeList, gaList, house);
                     break;
                 case 3:
                     regularUsage(house, sensorTypeList);
