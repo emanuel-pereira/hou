@@ -15,18 +15,6 @@ public final class UtilsUI {
     private UtilsUI() {
     }
 
-    public static void printLnInsertValidOptionMsg() {
-        System.out.println("Please insert a valid option.");
-    }
-
-    public static void printLnInsertValidParameter(final String parameter) {
-        System.out.println ("Please insert a valid " + parameter + ".");
-    }
-
-    public static String insertValidParameter(final String parameter) {
-        return "Please insert a valid " + parameter + ".";
-    }
-
 
     /**
      * Reads user input from the console and returns it as a string
@@ -42,12 +30,12 @@ public final class UtilsUI {
     private static boolean isInteger(String input) {
         int i;
         try {
-            i=Integer.parseInt(input);
+            i = Integer.parseInt(input);
         } catch (Exception e) {
             i = Integer.MIN_VALUE;
         }
 
-        return i!=Integer.MIN_VALUE;
+        return i != Integer.MIN_VALUE;
     }
 
     /**
@@ -58,13 +46,13 @@ public final class UtilsUI {
     private static boolean isDouble(String input) {
         double d;
         try {
-            d=Double.parseDouble(input);
+            d = Double.parseDouble(input);
         } catch (Exception e) {
-            d=Double.MIN_VALUE;
+            d = Double.MIN_VALUE;
         }
 
 
-        return (d>=(Double.MIN_VALUE+1));
+        return (d >= (Double.MIN_VALUE + 1));
     }
 
     /**
@@ -237,7 +225,7 @@ public final class UtilsUI {
             input = getUserInput();
             input = input.trim();
             if (!input.trim().matches(regEx))
-                print(errorMessage);
+                printAndReset(errorMessage);
             else
                 loop = false;
         }
@@ -255,12 +243,12 @@ public final class UtilsUI {
         int parsedUserInput;
 
         while (true) {
-            userInput = getUserInput ();
-            if (isInteger (userInput)) {
-                parsedUserInput = Integer.parseInt (userInput);
+            userInput = getUserInput();
+            if (isInteger(userInput)) {
+                parsedUserInput = Integer.parseInt(userInput);
                 break;
             }
-            System.out.println (errorMessage);
+            System.out.println(errorMessage);
         }
         return parsedUserInput;
     }
@@ -382,7 +370,7 @@ public final class UtilsUI {
             if (isDateTime(userInput)) {
                 break;
             }
-            print(errorMessage);
+            printAndReset(errorMessage);
         }
 
         String[] dateAndTime;
@@ -402,6 +390,7 @@ public final class UtilsUI {
 
     /**
      * UI method that returns a GregorianCalendar date as string in yyyy-MM-dd format
+     *
      * @param calendar a Gregorian Calendar parameter to be set in string format
      * @return date as string in yyyy-MM-dd format
      */
@@ -485,11 +474,11 @@ public final class UtilsUI {
         final String c = "BLACK";
 
         format(a, b, c);
-        print(padWithSpaces("", tableWidth, padding));
+        printAndReset(padWithSpaces("", tableWidth, padding));
         format(a, b, c);
-        print(padWithSpaces(title, tableWidth, padding));
+        printAndReset(padWithSpaces(title, tableWidth, padding));
         format(a, b, c);
-        print(padWithSpaces("", tableWidth, padding));
+        printAndReset(padWithSpaces("", tableWidth, padding));
 
         // Display the items
         format("BG_WHITE", c);
@@ -505,7 +494,7 @@ public final class UtilsUI {
             paddedOutput = padWithSpaces(item, tableWidth, padding);
 
             format("BG_WHITE", c);
-            print(paddedOutput);
+            printAndReset(paddedOutput);
         }
 
     }
@@ -523,7 +512,7 @@ public final class UtilsUI {
 
 
     private static String createWhiteSpace(int spaces) {
-        if (spaces <= 0){
+        if (spaces <= 0) {
             return "";
         }
         StringBuilder output = new StringBuilder();
@@ -536,10 +525,14 @@ public final class UtilsUI {
 
     }
 
-    private static void print(String string) {
+    private static void printAndReset(String string) {
         System.out.print(string);
         format("RESET");
         System.out.print("\n");
+    }
+
+    private static void print(String string) {
+        System.out.print(string);
     }
 
     private static String padWithSpaces(String string, int maxLength, int padding) {
@@ -558,15 +551,51 @@ public final class UtilsUI {
 
     public static void backToMenu() {
         Scanner read = new Scanner(System.in);
+        format("BG_BLUE","BOLD","BLACK");
         System.out.println("---\nPress Enter to return to the previous Menu");
         read.nextLine();
     }
 
-    public static void underMaintenanceMsg(String inputUS){
-        System.out.println( inputUS+" is under maintenance, it will be available shortly");
+    public static void underMaintenanceMsg(String inputUS) {
+
+        String customMsg = inputUS + " is under maintenance, it will be available shortly.";
+        showError("Under maintenance",customMsg);
+
         backToMenu();
     }
 
+    public static void printLnInsertValidOptionMsg() {
+        showError("Warning","Please insert a valid option.");
+    }
 
+    public static void printLnInsertValidParameter(final String parameter) {
+        showError("Warning","Please insert a valid " + parameter + ".");
+    }
+
+    public static String insertValidParameter(final String parameter) {
+        return "Please insert a valid " + parameter + ".";
+    }
+
+
+    public static void showError(String errorTitle, String errorMessage) {
+        int padding = 5;
+        String title = padWithSpaces(errorTitle, errorTitle.length(), padding);
+        String titlePretty = createWhiteSpace((errorTitle.length() - 1) + (padding * 2));
+        String error = padWithSpaces(errorMessage, 999, 5);
+
+        format("RESET");
+        print("\n");
+        format("BOLD", "BG_RED", "BLACK");
+        printAndReset(titlePretty);
+        format("BOLD", "BG_RED", "BLACK");
+        printAndReset(title);
+        format("BOLD", "BG_RED", "BLACK");
+        printAndReset(titlePretty);
+        format("RESET");
+        format("REVERSED");
+        print("\n");
+        print(error);
+        print("\n\n");
+    }
 
 }
