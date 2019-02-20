@@ -1,0 +1,19 @@
+@startuml
+
+autonumber
+hidefootbox
+
+actor "Regular User"
+
+'== INITIALIZATION ==
+
+
+"Regular User" -> "GetTotalRainfallOfDay:UI": Select option: get total rainfall in a given day
+
+"GetTotalRainfallOfDay:UI" -> "Controler:":checkIfRequiredSensorTypeExists.
+
+
+
+
+
+@enduml
