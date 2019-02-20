@@ -41,12 +41,12 @@ public class Sensor {
 
 
     /**
-     * Constructor used to create instances of internal sensors which, unlike external sensors, don't require location coordinates.
+     * Constructor used to create internal sensors, which unlike external sensors don't require location coordinates.
      * @param designation String parameter to specify sensor's designation
-     * @param startDate Calendar parameter to specify the sensor start date
+     * @param startDate specifies the sensor start date as a Calendar variable
      * @param sensorType specifies the sensor type
-     * @param unit String parameter to specify the sensor unit of measure
-     * @param readings list of readings parameter, including the sensor's readings
+     * @param unit
+     * @param readings
      */
     public Sensor(String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         if (nameIsValid(designation)) {
@@ -59,13 +59,13 @@ public class Sensor {
     }
 
     /**
-     * Constructor used to create instances of external sensors
-     * @param designation String parameter to set sensor's designation
-     * @param startDate Calendar parameter to set the sensor start date
-     * @param geoLocation Location parameter to set the sensor's gps coordinates
-     * @param sensorType specifies the sensor type
-     * @param unit String parameter to set the sensor unit of measure
-     * @param readings list of readings parameter, including the sensor's readings
+     * Sensor for GA
+     *
+     * @param designation
+     * @param startDate
+     * @param sensorType
+     * @param unit
+     * @param readings
      */
     public Sensor(String designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
         if (nameIsValid(designation)) {

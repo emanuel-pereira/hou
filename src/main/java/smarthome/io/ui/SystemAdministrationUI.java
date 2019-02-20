@@ -11,8 +11,7 @@ public final class SystemAdministrationUI {
     private SystemAdministrationUI() {
     }
 
-    public static void systemAdministration(SensorTypeList sensorTypeList, GAList gaList) {
-        TypeGAList typeGAList = new TypeGAList();
+    public static void systemAdministration(SensorTypeList sensorTypeList,TypeGAList typeGAList,  GAList gaList) {
 
         int option = -1;
         while (option != 0) {
@@ -44,7 +43,7 @@ public final class SystemAdministrationUI {
                     break;
                 case 3:
                     NewGeographicalAreaUI ui3 = new NewGeographicalAreaUI(gaList, typeGAList);
-                    ui3.run();
+                    ui3.checkIfTypeGAListIsEmpty();
                     break;
                 case 4:
                     GetGAsOfTypeUI ui4 = new GetGAsOfTypeUI(gaList, typeGAList);

@@ -15,19 +15,16 @@ public class GAList {
     }
 
     /**
-     * Method Constructor to set up new Geographical Areas
+     * Method Constructor to create new instances of Geographical Areas
      *
      * @param inputDesignation GA String designation
      * @param typeArea         GA Type String designation
-     * @param width            GA width
-     * @param height           GA height
-     * @param latitude         GA latitude coordinate
-     * @param longitude        GA longitude coordinate
-     * @param altitude         GA altitude coordinate
-     * @return the newly created Geographical Area
+     * @param occupationArea   GA occupation area
+     * @param location         GA central location represented by GPS coordinates
+     * @return a new instance of a Geographical Area
      */
-    public GeographicalArea newGA(String inputID, String inputDesignation, String typeArea, double latitude, double longitude, double altitude,double width, double height) {
-        return new GeographicalArea(inputID, inputDesignation, typeArea, latitude, longitude, altitude,width, height);
+    public GeographicalArea newGA(String inputID, String inputDesignation, String typeArea,OccupationArea occupationArea, Location location) {
+        return new GeographicalArea(inputID, inputDesignation, typeArea, occupationArea,location);
     }
 
     /**
@@ -105,6 +102,9 @@ public class GAList {
      */
     public int size(){
         return mGAList.size();
+    }
+    public GeographicalArea getLastGA() {
+        return mGAList.get(mGAList.size() - 1);
     }
 
 }
