@@ -97,7 +97,7 @@ public class HouseGrid implements Metered{
         return result.toString ();
     }
 
-    public DeviceList getDeviceListInGrid(){ DeviceList deviceListInGrid = new DeviceList();
+    /*public DeviceList getDeviceListInGrid(){ DeviceList deviceListInGrid = new DeviceList();
         for (int i = 0; i < this.getRoomListInAGrid().getRoomListSize(); i++) {
             deviceListInGrid.getDeviceList().addAll(getRoomListInAGrid().get(i).getDeviceList().getDeviceList());
         }
@@ -105,7 +105,7 @@ public class HouseGrid implements Metered{
     }
 
 
-  /* public DeviceList getDeviceListFromType(int indexType){
+   public DeviceList getDeviceListFromType(int indexType){
         DeviceList deviceListFromType = new DeviceList();
         for(Device d : this.getDeviceListInGrid().getDeviceList()){
             if(DeviceType.values()[indexType-1].getTypeString().equals(d.getDeviceSpecs().getType().getTypeString())){

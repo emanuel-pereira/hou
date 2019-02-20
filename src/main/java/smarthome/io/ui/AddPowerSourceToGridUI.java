@@ -59,10 +59,11 @@ public class AddPowerSourceToGridUI {
     private void listPSinHG() {
         if (hgPSListIsEmpty()) {
             UtilsUI.backToMenu();
-        } else {
-            System.out.println("List of Power Sources attached to " + mCtrl.getHouseGridName(mIndexOfHG) + ":");
-            System.out.println(mCtrl.showPowerSourceListInString(mIndexOfHG));
-            UtilsUI.backToMenu();
+        }
+        else{
+        System.out.println("List of Power Sources attached to " + mCtrl.getHouseGridName(mIndexOfHG) + ":");
+        System.out.println(mCtrl.showPowerSourceListInString(mIndexOfHG));
+        UtilsUI.backToMenu();
         }
     }
 
@@ -81,52 +82,28 @@ public class AddPowerSourceToGridUI {
         }
     }
 
-    private void insertPSName() {
-        while (true) {
-            System.out.println("Insert the Power Source name:");
-            mName = mRead.nextLine();
-            if (mCtrl.alphanumericName(mName)) {
-                this.insertPSType();
-                break;
-            } else
-                System.out.println(UtilsUI.insertValidParameter("name"));
-        }
+    private void insertPSName(){
+        System.out.println("Insert the Power Source name:");
+        mName = UtilsUI.requestText("Please insert a valid name");
+        this.insertPSType();
     }
 
-    private void insertPSType() {
-        while (true) {
-            System.out.println("Insert the Power Source type:");
-            mType = mRead.nextLine();
-            if (mCtrl.alphanumericName(mType)) {
-                this.insertPSMaxPower();
-                break;
-            } else
-                System.out.println(UtilsUI.insertValidParameter("type"));
-        }
+    private void insertPSType(){
+        System.out.println("Insert the Power Source type:");
+        mType = UtilsUI.requestText("Please insert a valid type");
+        this.insertPSMaxPower();
     }
 
     private void insertPSMaxPower() {
-        while (true) {
-            System.out.println("Insert the Maximum Power (kW):");
-            mMaxPower = mRead.nextDouble();
-            mRead.nextLine();
-            if (mMaxPower > 0) {
-                this.insertPSStorageCapacity();
-                break;
-            } else System.out.println("Please insert only positive values.");
-        }
+        System.out.println("Insert the Maximum Power (kW):");
+        mMaxPower = UtilsUI.requestDoubleInInterval(0,Double.MAX_VALUE,"Please insert a numeric positive value");
+        this.insertPSStorageCapacity();
     }
 
     private void insertPSStorageCapacity() {
-        while (true) {
-            System.out.println("Insert the Storage Capacity (kW):");
-            mStorageCapacity = mRead.nextDouble();
-            mRead.nextLine();
-            if (mStorageCapacity > 0) {
-                this.addPowerSource();
-                break;
-            } else System.out.println("Please insert only positive values.");
-        }
+        System.out.println("Insert the Storage Capacity (kW):");
+        mStorageCapacity = UtilsUI.requestDoubleInInterval(0,Double.MAX_VALUE,"Please insert a numeric positive value");
+        this.addPowerSource();
     }
 
     private void addPowerSource() {

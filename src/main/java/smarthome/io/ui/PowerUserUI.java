@@ -31,7 +31,7 @@ public final class PowerUserUI {
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
                 case 1:
-                    System.out.println("US 160 GetDeviceListInGridByTypeUI is under maintenance, it will be available shortly");
+                    UtilsUI.underMaintenanceMsg("US160");
                     break;
                 case 2:
                     GetGridTotalNominalPowerUI uS172 = new GetGridTotalNominalPowerUI(house);
