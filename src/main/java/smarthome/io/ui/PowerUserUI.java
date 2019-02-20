@@ -4,12 +4,12 @@ import smarthome.model.House;
 
 import java.util.ArrayList;
 
-public final class PowerUserUI {
+final class PowerUserUI {
 
     private PowerUserUI() {
     }
 
-    public static void powerUser(House house) {
+    static void powerUser(House house) {
         int option = -1;
 
         while (option != 0) {
@@ -46,8 +46,7 @@ public final class PowerUserUI {
                     break;
                 case 5:
                     System.out.println("US 705 DisplayCustomTotalNominalPower is under maintenance, it will be available shortly");
-                    //DisplayVariableTotalNominalPowerUI nominalPowerUI = new DisplayVariableTotalNominalPowerUI(house);
-                    //nominalPowerUI.run();
+
                     break;
                 case 6:
                     GetEnergyConsumptionInPeriodUI uiEC = new GetEnergyConsumptionInPeriodUI(house);

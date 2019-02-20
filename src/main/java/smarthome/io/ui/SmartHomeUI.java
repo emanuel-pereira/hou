@@ -1,7 +1,10 @@
 
 package smarthome.io.ui;
 
-import smarthome.model.*;
+import smarthome.model.GAList;
+import smarthome.model.House;
+import smarthome.model.SensorTypeList;
+import smarthome.model.TypeGAList;
 
 import java.util.ArrayList;
 
@@ -16,7 +19,6 @@ public class SmartHomeUI {
     private static GAList gaList;
     private static TypeGAList typeGAList;
     private static House house;
-    private static HouseGridList hgList;
 
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         init();
@@ -30,7 +32,6 @@ public class SmartHomeUI {
         sensorTypeList = new SensorTypeList();
         gaList = new GAList();
         house = new House();
-        hgList = new HouseGridList();
         typeGAList= new TypeGAList();
     }
 
