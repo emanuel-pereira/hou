@@ -3,7 +3,6 @@ package smarthome.io.ui;
 import smarthome.model.House;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public final class PowerUserUI {
 
@@ -11,7 +10,6 @@ public final class PowerUserUI {
     }
 
     public static void powerUser(House house) {
-        Scanner keyboard = new Scanner(System.in);
         int option = -1;
 
         while (option != 0) {
@@ -28,7 +26,8 @@ public final class PowerUserUI {
             options.add("[0] Exit");
 
             UtilsUI.showList("Power Usage", options, false, 5);
-            option = Integer.parseInt(keyboard.nextLine());
+            option = UtilsUI.requestIntegerInInterval(0, 8, "Please choose an action between 1 and 8, or 0 to exit the program");
+
             switch (option) {
                 case 1:
                     System.out.println("US 160 GetDeviceListInGridByTypeUI is under maintenance, it will be available shortly");
@@ -60,8 +59,7 @@ public final class PowerUserUI {
                     System.out.println(house.getRoomList().getRoomList().get(2).getDeviceList().get(1).getActivityLogSum());
                     break;
                 default:
-                    System.out.println("Input not accepted, please insert a number from 1 to 8\n");
-                    break;
+                    //no action needed
             }
         }
     }
