@@ -20,7 +20,6 @@ public class SmartHomeUI {
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         init();
 
-        Configuration.init();
         BootStrap.run(house, gaList, sensorTypeList);
 
         menuOptions();
