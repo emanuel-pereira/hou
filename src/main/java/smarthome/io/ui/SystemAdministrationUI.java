@@ -56,7 +56,7 @@ public final class SystemAdministrationUI {
                     break;
                 case 6:
                     NewSensorUI ui6 = new NewSensorUI(sensorTypeList, gaList);
-                    ui6.checkIfGAListIsEmtpy();
+                    ui6.checkIfGAListIsEmpty();
                     break;
                 case 7:
                     SetParentOfGAUI ui7 = new SetParentOfGAUI(gaList);

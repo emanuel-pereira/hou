@@ -1,16 +1,18 @@
 package smarthome.model;
 
+import smarthome.model.validations.Utils;
+
 import java.util.Calendar;
 import java.util.Objects;
 
 
 public class Sensor {
-    private String mDesignation;
-    private Location mLocation;
-    private SensorType mSensorType;
-    private Calendar mStartDate;
-    private String mUnit; //to analyse the creation of a class unit so we may have a list of units for a specific Datatype (eg. SensorType: temperature with list of units containing: celsius, kelvin and fahrenheit)
-    private ReadingList mReadingList;
+    private String designation;
+    private Location location;
+    private SensorType sensorType;
+    private Calendar startDate;
+    private String unit; //to analyse the creation of a class unit so we may have a list of units for a specific Datatype (eg. SensorType: temperature with list of units containing: celsius, kelvin and fahrenheit)
+    private ReadingList readingList;
 
 
     /**
@@ -20,83 +22,59 @@ public class Sensor {
      * @param designation refers to sensors name
      */
     public Sensor(String designation) {
-        if (nameIsValid (designation)) {
-            this.mDesignation = designation;
+        if (nameIsValid(designation)) {
+            this.designation = designation;
         }
 
     }
 
-    /**
-     * Constructor requiring to set a specific designation and a location for any object of
-     * type Sensor created.
-     *
-     * @param designation refers to sensor name
-     * @param startDate   refers to the sensor's working status start date
-     * @param latitude    refers to the sensor's latitude
-     * @param longitude   refers to the sensor's longitude
-     * @param altitude    refers to the sensor's altitude
-     * @param sensorType    refers to the sensor's chosen data type, humidity, precipitation
-     */
-    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, String sensorType) {
-        if (nameIsValid(designation)) {
-            this.mDesignation = designation;
-            this.mStartDate = startDate;
-            this.mLocation = new Location(latitude, longitude, altitude);
-            this.mSensorType = new SensorType(sensorType);
-            this.mReadingList=new ReadingList();
-        }
-    }
 
-    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, SensorType sensorType) {
+    public Sensor(String designation, Calendar startDate, Location location, SensorType sensorType) {
         if (nameIsValid(designation)) {
-            this.mDesignation = designation;
-            this.mStartDate = startDate;
-            this.mLocation = new Location(latitude, longitude, altitude);
-            this.mSensorType = sensorType;
-            this.mReadingList=new ReadingList();
+            this.designation = designation;
+            this.startDate = startDate;
+            this.location = location;
+            this.sensorType = sensorType;
+            this.readingList = new ReadingList();
         }
     }
 
 
     /**
-     * Sensor for Rooms
-     *
-     * @param designation
-     * @param startDate
-     * @param sensorType
-     * @param unit
-     * @param readings
+     * Constructor used to create instances of internal sensors which, unlike external sensors, don't require location coordinates.
+     * @param designation String parameter to specify sensor's designation
+     * @param startDate Calendar parameter to specify the sensor start date
+     * @param sensorType specifies the sensor type
+     * @param unit String parameter to specify the sensor unit of measure
+     * @param readings list of readings parameter, including the sensor's readings
      */
     public Sensor(String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         if (nameIsValid(designation)) {
-            mDesignation = designation;
-            mStartDate = startDate;
-            mSensorType = sensorType;
-            mUnit = unit;
-            mReadingList = readings;
+            this.designation = designation;
+            this.startDate = startDate;
+            this.sensorType = sensorType;
+            this.unit = unit;
+            this.readingList = readings;
         }
     }
 
     /**
-     * Sensor for GA
-     *
-     * @param designation
-     * @param startDate
-     * @param latitude
-     * @param longitude
-     * @param altitude
-     * @param sensorType
-     * @param unit
-     * @param readings
+     * Constructor used to create instances of external sensors
+     * @param designation String parameter to set sensor's designation
+     * @param startDate Calendar parameter to set the sensor start date
+     * @param geoLocation Location parameter to set the sensor's gps coordinates
+     * @param sensorType specifies the sensor type
+     * @param unit String parameter to set the sensor unit of measure
+     * @param readings list of readings parameter, including the sensor's readings
      */
-    public Sensor(String designation, Calendar startDate, double latitude, double longitude, double altitude, SensorType sensorType, String unit, ReadingList readings) {
+    public Sensor(String designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
         if (nameIsValid(designation)) {
-            mDesignation = designation;
-            mStartDate = startDate;
-            mLocation = new Location(latitude, longitude, altitude);
-            mSensorType = sensorType;
-            mUnit = unit;
-            mReadingList = readings;
+            this.designation = designation;
+            this.startDate = startDate;
+            this.location = geoLocation;
+            this.sensorType = sensorType;
+            this.unit = unit;
+            this.readingList = readings;
         }
     }
 
@@ -110,7 +88,7 @@ public class Sensor {
      * @return true if name sensorDesignation is valid, if it is not null or empty
      */
     public boolean nameIsValid(String name) {
-        if (name.trim ().isEmpty ()) {
+        if (name.trim().isEmpty()) {
             return false;
         }
         return name.matches("[A-Za-z0-9 \\- ]*");
@@ -122,8 +100,8 @@ public class Sensor {
      * @param sensorDesignation sensor's name String
      */
     public boolean setSensorDesignation(String sensorDesignation) {
-        if (nameIsValid (sensorDesignation)) {
-            this.mDesignation = sensorDesignation;
+        if (nameIsValid(sensorDesignation)) {
+            this.designation = sensorDesignation;
             return true;
         }
         return false;
@@ -135,7 +113,7 @@ public class Sensor {
      * @return is the sensor's name designation
      */
     public String getDesignation() {
-        return this.mDesignation;
+        return this.designation;
     }
 
     /**
@@ -144,7 +122,7 @@ public class Sensor {
      * @param location , of the object Location type, to update the location of the sensor
      */
     public void setSensorLocation(Location location) {
-        this.mLocation = location;
+        this.location = location;
     }
 
     /**
@@ -153,7 +131,7 @@ public class Sensor {
      * @return object Location
      */
     public Location getLocation() {
-        return this.mLocation;
+        return this.location;
     }
 
     /**
@@ -162,7 +140,7 @@ public class Sensor {
      * @param sensorType new object from the dataType class.
      */
     public void setSensorType(SensorType sensorType) {
-        this.mSensorType = sensorType;
+        this.sensorType = sensorType;
     }
 
     /**
@@ -171,11 +149,11 @@ public class Sensor {
      * @return object dataType
      */
     public SensorType getSensorType() {
-        return this.mSensorType;
+        return this.sensorType;
     }
 
     public ReadingList getReadingList() {
-        return mReadingList;
+        return this.readingList;
     }
 
     /**
@@ -186,9 +164,8 @@ public class Sensor {
      * @return calculated distance betwwen both objects
      */
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
-        return mLocation.calcLinearDistanceBetweenTwoPoints (sensor1.getLocation (), sensor2.getLocation ());
+        return Utils.round(this.location.calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation()),2);
     }
-
 
 
     /**
@@ -197,23 +174,15 @@ public class Sensor {
      * @return the last reading of a list of readings
      */
     public Reading getLastReadingPerSensor() {
-        return mReadingList.getLastReading();
+        return this.readingList.getLastReading();
     }
 
     public double getLastReadingValuePerSensor() {
         double lastValue;
-        lastValue = mReadingList.getReadingList ().get (mReadingList.getReadingList ().size () - 1).returnValueOfReading ();
+        lastValue = this.readingList.getReadingList().get(this.readingList.getReadingList().size() - 1).returnValueOfReading();
         return lastValue;
     }
 
-    /**
-     * This method returns the maximum value within a list of readings for a sensor.
-     *
-     * @return the highest reading of a list of readings
-     */
-    /*public double getMaxReadingSensor(){
-        return  mReadingList.getMaxReading();
-    }*/
 
     @Override
     public boolean equals(Object o) {
@@ -222,11 +191,19 @@ public class Sensor {
             return false;
         }
         Sensor sensor = (Sensor) o;
-        return Objects.equals (mDesignation, sensor.mDesignation);
+        return Objects.equals(this.designation, sensor.designation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mDesignation, mLocation, mSensorType);
+        return Objects.hash(this.designation, this.location, this.sensorType);
+    }
+
+    public Calendar getStartDate() {
+        return startDate;
+    }
+
+    public String getUnit() {
+        return unit;
     }
 }

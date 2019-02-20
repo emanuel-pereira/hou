@@ -30,7 +30,7 @@ public class ListParentGACTRL {
         GeographicalArea parentGA = mGAList.getGAList().get(inputIndex - 1).getGeographicalParentGA();
         StringBuilder parents = new StringBuilder();
         while (parentGA != null) { //while there is a parent GA
-            parents.append(parentGA.getGeographicalAreaDesignation()); //append parent GA to list
+            parents.append(parentGA.getGAName()); //append parent GA to list
             if (parentGA.getGeographicalParentGA() != null) {
                 parents.append(", "); //append parent GA to list
                 parentGA = parentGA.getGeographicalParentGA();
@@ -65,7 +65,7 @@ public class ListParentGACTRL {
         for (GeographicalArea GA : gaList) {
             result.append(number++);
             result.append(" - ");
-            result.append(GA.getGeographicalAreaDesignation());
+            result.append(GA.getGAName());
             result.append("\n");
         }
         return result.toString();

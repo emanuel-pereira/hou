@@ -15,12 +15,16 @@ public final class UtilsUI {
     private UtilsUI() {
     }
 
-    public static void printLnInsertValidOption() {
+    public static void printLnInsertValidOptionMsg() {
         System.out.println("Please insert a valid option.");
     }
 
     public static void printLnInsertValidParameter(final String parameter) {
-        System.out.println("Please insert a valid " + parameter + ".");
+        System.out.println ("Please insert a valid " + parameter + ".");
+    }
+
+    public static String insertValidParameter(final String parameter) {
+        return "Please insert a valid " + parameter + ".";
     }
 
 
@@ -175,8 +179,8 @@ public final class UtilsUI {
      */
     private static boolean isDateTime(String input) {
         String[] dateAndTime;
-        dateAndTime = input.split("[ ]", 2);
-        if (dateAndTime.length == 0) {
+        dateAndTime = input.split ("[ ]", 2);
+        if (dateAndTime.length != 2) {
             return false;
         }
 
@@ -235,6 +239,26 @@ public final class UtilsUI {
         return input;
     }
 
+    /**
+     * UI for requesting an integer from the user. Displays a custom error message.
+     *
+     * @param errorMessage the error message to display if the input is not an integer
+     * @return the valid user input as an integer
+     */
+    public static int requestInteger(String errorMessage) {
+        String userInput;
+        int parsedUserInput;
+
+        while (true) {
+            userInput = getUserInput ();
+            if (isInteger (userInput)) {
+                parsedUserInput = Integer.parseInt (userInput);
+                break;
+            }
+            System.out.println (errorMessage);
+        }
+        return parsedUserInput;
+    }
 
     /**
      * UI for requesting an integer from the user in a given interval. Displays a custom error message.
@@ -271,7 +295,7 @@ public final class UtilsUI {
      * @param errorMessage custom error message to be displayed to the user
      * @return parsed User Input to Double
      */
-    private static double requestDouble(String errorMessage) {
+    public static double requestDouble(String errorMessage) {
         String userInput;
         double parsedUserInput;
 
@@ -377,7 +401,7 @@ public final class UtilsUI {
      * @param calendar a Gregorian Calendar parameter to be set in string format
      * @return date as string in YYYY-MM-DD format
      */
-    public static String dateInString(GregorianCalendar calendar) {
+    public static String dateToString(Calendar calendar) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-DD");
         return df.format(calendar.getTime());
     }
@@ -532,5 +556,7 @@ public final class UtilsUI {
         System.out.println("---\nPress Enter to return to the previous Menu");
         read.nextLine();
     }
+
+
 
 }

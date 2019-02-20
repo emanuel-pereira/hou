@@ -171,6 +171,6 @@ public class HouseGrid implements Metered{
         for(Room room : mRoomList.getRoomList()){
             total+=room.getEnergyConsumptionInTimeInterval(startHour,endHour);
         }
-        return total;
+        return Utils.round(total,2);
     }
 }

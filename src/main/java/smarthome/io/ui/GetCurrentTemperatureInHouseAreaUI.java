@@ -7,21 +7,18 @@ import java.util.Scanner;
 
 public class GetCurrentTemperatureInHouseAreaUI {
 
-    private GetCurrentTemperatureInHouseAreaCTRL mCtrl;
+    private GetCurrentTemperatureInHouseAreaCTRL ctrl;
     Scanner read = new Scanner(System.in);
-    private int mIndexOfSensorType;
-    private SensorType mSensorType;
-    private Sensor mClosestSensor;
-    private double mCurrentReading;
+    private SensorType sensorType;
 
     public GetCurrentTemperatureInHouseAreaUI(House house, SensorTypeList sensorTypeList) {
-        mCtrl = new GetCurrentTemperatureInHouseAreaCTRL(house, sensorTypeList);
+        this.ctrl = new GetCurrentTemperatureInHouseAreaCTRL(house, sensorTypeList);
     }
 
 
     public void run() {
 
-        if (mCtrl.getSensorTypeListSize() == 0) {
+        if (this.ctrl.getSensorTypeListSize() == 0) {
             System.out.println("The list of sensor types is empty. Please insert one first in US005\n");
             return;
         }
@@ -29,7 +26,7 @@ public class GetCurrentTemperatureInHouseAreaUI {
     }
 
     private void checkHouseGA() {
-        if (mCtrl.getHouseGA() == null) {
+        if (this.ctrl.getHouseGA() == null) {
             System.out.println("The house configuration does not have a geographical area. Please configure the location of the house in US101.\n");
             return;
         }
@@ -38,21 +35,22 @@ public class GetCurrentTemperatureInHouseAreaUI {
 
     private void chooseSensorType() {
 
-        System.out.println("Choose the meteorologic condition in the house area for which you want to check its current value:");
-        System.out.println(mCtrl.showSensorTypeList());
-        mIndexOfSensorType = UtilsUI.requestIntegerInInterval(1, mCtrl.getSensorTypeListSize(), "Please insert a valid input from the list.\n" + mCtrl.showSensorTypeList());
-        mSensorType = mCtrl.getSensorTypeByIndex(mIndexOfSensorType);
+        System.out.println("Choose the meteorologic mCondition in the house area for which you want to check its current value:");
+        System.out.println(this.ctrl.showSensorTypeList());
+        int indexOfSensorType = UtilsUI.requestIntegerInInterval(1, this.ctrl.getSensorTypeListSize(), "Please insert a valid input from the list.\n" + this.ctrl.showSensorTypeList());
+        indexOfSensorType--;
+        this.sensorType = this.ctrl.getSensorTypeByIndex(indexOfSensorType);
         this.checkLstSizeOfSensorType();
     }
 
     private void checkLstSizeOfSensorType() {
-        if (mCtrl.getSensorListOfTypeSize(mSensorType) == 0) {
+        if (this.ctrl.getSensorListOfTypeSize(this.sensorType) == 0) {
             System.out.println("No sensors of that type in the house area");
             return;
         }
-        mClosestSensor = mCtrl.getClosestSensorWithLatestReading(mSensorType);
-        mCurrentReading = mCtrl.getLastReadingOfSensor(mClosestSensor);
-        System.out.println("The current " + mSensorType.getSensorTypeDesignation() + " in the House Area is " + mCurrentReading);
+        Sensor closestSensor = this.ctrl.getClosestSensorWithLatestReading(this.sensorType);
+        double currentReadingValue = this.ctrl.getLastReadingOfSensor(closestSensor);
+        System.out.println("The current " + this.sensorType.getType() + " in the House Area is " + currentReadingValue);
     }
 }
 

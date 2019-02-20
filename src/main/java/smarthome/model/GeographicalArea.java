@@ -39,7 +39,7 @@ public class GeographicalArea {
      *
      * @return return this geographical area designation
      */
-    public String getGeographicalAreaDesignation() {
+    public String getGAName() {
         return this.designation;
     }
 

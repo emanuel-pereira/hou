@@ -17,7 +17,7 @@ class GAListTest {
         GAList ga = new GAList();
         GeographicalArea area1 = ga.newGA("Pt","Porto", "district", 20, 20, 1, 3, -10);
         String expectedResult = "Porto";
-        String result = area1.getGeographicalAreaDesignation();
+        String result = area1.getGAName();
         assertEquals(expectedResult, result);
     }
 
@@ -143,4 +143,15 @@ class GAListTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    void size() {
+        GAList gaList = new GAList();
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 25, 15, 12, 32, 41);
+        GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", "city", 45, 25, 32, 42, 41);
+        gaList.addGA(ga1);
+        gaList.addGA(ga2);
+        int expected=2;
+        int result= gaList.size();
+        assertEquals(expected,result);
+    }
 }

@@ -74,7 +74,7 @@ public class GetDeviceListInGridByTypeUI {
     public boolean isNotValidIndexOfHG() {
         //boolean x=true;
         while(mIndexOfHG > mCtrl.getHGListSizeCtrl() || mIndexOfHG <= 0) {
-                UtilsUI.printLnInsertValidOption();
+                System.out.println(UtilsUI.insertValidOptionMsg());
                 System.out.println("--");
                 this.showAndSelectHG();
         }
