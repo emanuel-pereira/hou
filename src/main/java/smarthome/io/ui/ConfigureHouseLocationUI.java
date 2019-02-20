@@ -9,18 +9,12 @@ import java.util.Scanner;
 
 public class ConfigureHouseLocationUI {
 
-    //private GPSValidations validations = new GPSValidations();
-    //private String invalidCharacters = "^(?![\\s]).*";
-
     private ConfigureHouseLocationCTRL mCtrlUS101;
     Scanner read = new Scanner(System.in);
     private int indexGA;
     private String streetName;
     private String zipCode;
     private String town;
-    private double latitude;
-    private double longitude;
-    private double altitude;
 
 
     public ConfigureHouseLocationUI(GAList listOfGA, House house) {
@@ -52,15 +46,16 @@ public class ConfigureHouseLocationUI {
 
 
     private void coordinatesInput() {
-
-
         System.out.println("Insert the latitude of the new geographical area:");
+        double latitude;
         latitude = UtilsUI.requestDouble("Please, insert a valid value.");
 
         System.out.println("Insert the longitude of the new geographical area:");
+        double longitude;
         longitude = UtilsUI.requestDouble("Please, insert a valid value.");
 
         System.out.println("Insert the altitude of the new geographical area:");
+        double altitude;
         altitude = UtilsUI.requestDouble("Please, insert a valid value");
 
         mCtrlUS101.configureHouseLocation(indexGA, streetName, zipCode, town, latitude, longitude, altitude);
