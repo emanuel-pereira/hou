@@ -9,13 +9,16 @@ import java.util.Scanner;
 
 public final class UtilsUI {
 
+    static String insertValidOption="Please insert a valid option\n.";
+
+
     /**
      * Private constructor of UtilsUI class, which is a collection of static members, hence is not meant to be instantiated.
      */
     private UtilsUI() {
     }
 
-
+    
     /**
      * Reads user input from the console and returns it as a string
      *
@@ -582,6 +585,7 @@ public final class UtilsUI {
         String title = padWithSpaces(errorTitle, errorTitle.length(), padding);
         String titlePretty = createWhiteSpace((errorTitle.length() - 1) + (padding * 2));
         String error = padWithSpaces(errorMessage, 999, 5);
+
 
         format("RESET");
         print("\n");

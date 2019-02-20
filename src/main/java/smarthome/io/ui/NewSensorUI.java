@@ -16,18 +16,27 @@ public class NewSensorUI {
     private double altitude;
     private String unit;
     private int indexOfGA;
+    private int indexOfRoom;
     private ReadingList readingList = new ReadingList();
     private Scanner read = new Scanner(System.in);
-    private boolean condition;
+    private boolean isInternal;
 
 
-    public NewSensorUI(SensorTypeList sensorTypeList, GAList listOfGA) {
-        this.ctrl = new NewSensorCTRL(sensorTypeList, listOfGA);
-
+    public NewSensorUI(House house, SensorTypeList sensorTypeList, GAList listOfGA) {
+        this.ctrl = new NewSensorCTRL(house, sensorTypeList, listOfGA);
     }
 
-    public void checkIfGAListIsEmpty() {
+    void checkIfRoomListIsEmpty() {
+        isInternal = true;
+        if (this.ctrl.getRoomListSize() == 0) {
+            System.out.println("List of Geographical Areas is empty. Please insert at least one Geographical Area in US3.");
+            return;
+        }
+        this.checkIfSensorTypeListIsEmpty();
+    }
 
+    void checkIfGAListIsEmpty() {
+        isInternal = false;
         if (this.ctrl.getGAListSize() == 0) {
             System.out.println("List of Geographical Areas is empty. Please insert at least one Geographical Area in US3.");
             return;
@@ -35,7 +44,7 @@ public class NewSensorUI {
         this.checkIfSensorTypeListIsEmpty();
     }
 
-    public void checkIfSensorTypeListIsEmpty() {
+    private void checkIfSensorTypeListIsEmpty() {
         if (this.ctrl.getSensorTypeListSize() == 0) {
             System.out.println("List of sensor's reading data types is empty. Please insert at least one first in US5.");
             return;
@@ -43,41 +52,44 @@ public class NewSensorUI {
         this.inputName();
     }
 
-    public void inputName() {
+    private void inputName() {
         System.out.println("Insert a name for the sensor");
         this.name = UtilsUI.requestText("The name inputted isn't valid. Only alphanumeric characters, spaces and hyphens are accepted.");
         this.inputStartDate();
     }
 
-    public void inputStartDate() {
+    private void inputStartDate() {
         System.out.println("Insert the start date for the sensor in yyyy-MM-dd format.");
         this.startDate = UtilsUI.requestDate("The date inputted is invalid. Please insert a valid date in yyyy-MM-dd");
         this.selectSensorType();
     }
 
 
-    public void selectSensorType() {
+    private void selectSensorType() {
         System.out.println("Choose a type for the sensor from one of the sensor types below:");
         System.out.println(this.ctrl.showSensorTypeListInString());
-        this.indexOfSensorType = UtilsUI.requestIntegerInInterval(1, this.ctrl.getSensorTypeListSize(), "Please insert a valid input.\n"+this.ctrl.showSensorTypeListInString());
+        this.indexOfSensorType = UtilsUI.requestIntegerInInterval(1,
+                this.ctrl.getSensorTypeListSize(),
+                UtilsUI.insertValidOption
+                        + this.ctrl.showSensorTypeListInString());
         indexOfSensorType--;
         System.out.println("Please fill in the following fields to add at least a reading to a sensor.");
         this.inputReading();
     }
 
 
-    public void inputReading() {
+    private void inputReading() {
         System.out.println("Insert the date and time when the reading was made in yyyy-MM-dd hh:mm format:");
         GregorianCalendar date = UtilsUI.requestDateTime("Insert a valid date and time in yyyy-MM-dd hh:mm format");
         System.out.println("Insert the value of the reading:");
 
-        double readingValue =  UtilsUI.requestDouble(UtilsUI.insertValidParameter("decimal value"));
+        double readingValue = UtilsUI.requestDouble(UtilsUI.insertValidParameter("decimal value"));
         Reading r = this.readingList.newReading(readingValue, date);
         this.readingList.addReading(r);
         this.askToAddNewReadings();
     }
 
-    public void askToAddNewReadings() {
+    private void askToAddNewReadings() {
         String option;
         System.out.println("Do you want to insert new readings for the sensor(y/n)?");
         option = read.nextLine();
@@ -89,85 +101,97 @@ public class NewSensorUI {
         }
     }
 
-    public void inputSensorUnit() {
+    private void inputSensorUnit() {
         System.out.println("Insert the unit the sensor will read:");
         this.unit = read.nextLine();
-        this.inputGPSLocation();
-    }
-
-    public void inputGPSLocation() {
-        getLatitude();
-        getLongitude();
-        getAltitude();
-    }
-
-    private void getLatitude() {
-        this.condition=true;
-        while (this.condition) {
-            try {
-                System.out.println("Insert the latitude of the new sensor:");
-                this.latitude=UtilsUI.requestDouble("Input invalid. Please insert a valid latitude.");
-                if (this.ctrl.latitudeIsValid(this.latitude)) {
-                    this.condition=false;
-                }
-            } catch (IllegalArgumentException ex) {
-                System.out.println(ex.getMessage());
-            }
+        if (!this.isInternal) {
+            this.inputGPSLocation();
+        }
+        if (this.isInternal) {
+            this.selectRoom();
         }
     }
 
-    private void getLongitude() {
-        this.condition=true;
-        while (this.condition) {
-            try {
-                System.out.println("Insert the longitude of the new sensor:");
-                this.longitude=UtilsUI.requestDouble("Input invalid. Please insert a valid longitude.");
-                if (this.ctrl.longitudeIsValid(this.longitude))
-                    this.condition=false;
-            } catch (IllegalArgumentException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
+    private void selectRoom() {
+        System.out.println("Choose the Room for which you want add this sensor, from the list below:");
+        System.out.println(ctrl.showRoomListInStr());
+        this.indexOfRoom = UtilsUI.requestIntegerInInterval(1, this.ctrl.getRoomListSize(),
+                UtilsUI.insertValidOption + this.ctrl.showRoomListInStr());
+        indexOfRoom--;
+        this.addSensorToRoom();
     }
 
-    private void getAltitude() {
-        this.condition=true;
-        while (this.condition) {
-            try {
-                System.out.println("Insert the altitude of the new sensor:");
-                this.altitude = UtilsUI.requestDouble("Input invalid. Please insert a valid altitude.");
-                if (this.ctrl.altitudeIsValid(this.altitude))
-                    this.inputGAOfSensor();
-                this.condition=false;
-            } catch (IllegalArgumentException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
+
+    private void inputGPSLocation() {
+        System.out.println("Insert the latitude of the new sensor:");
+        latitude = UtilsUI.requestDoubleInInterval(-90, 90, "Latitude must be between [-90º,90º]");
+        System.out.println("Insert the longitude of the new sensor:");
+        longitude = UtilsUI.requestDoubleInInterval(-180, 180, "Latitude must be between [-180º,180º]");
+        System.out.println("Insert the altitude of the new sensor:");
+        altitude = UtilsUI.requestDoubleInInterval(-12500, 8848, "Altitude must be between [-12.500m, 8848m]");
+        this.inputGAOfSensor();
     }
 
-    public void inputGAOfSensor() {
+    private void inputGAOfSensor() {
         System.out.println("Choose the Geographical Area for which you want add this sensor, from the list below:");
         System.out.println(this.ctrl.showGAListInString());
-        this.indexOfGA = UtilsUI.requestIntegerInInterval(1,this.ctrl.getGAListSize(),"Please insert a valid option.\n"+this.ctrl.showGAListInString());
+        this.indexOfGA = UtilsUI.requestIntegerInInterval(1, this.ctrl.getGAListSize(),
+                UtilsUI.insertValidOption + this.ctrl.showGAListInString());
         indexOfGA--;
         this.addSensorToGA();
     }
 
-    public void addSensorToGA() {
-        Location geoLocation= new Location(this.latitude,this.longitude,this.altitude);
+    private void addSensorToGA() {
+        Location geoLocation = new Location(this.latitude, this.longitude, this.altitude);
         this.ctrl.addNewSensorToGA(this.name, this.startDate, this.indexOfSensorType, this.unit, geoLocation, this.indexOfGA, this.readingList);
-        System.out.println("The following sensor was successfully created: ");
-        System.out.println("NAME: " + this.ctrl.getSensorName(this.indexOfGA));
+        System.out.println("The following geographical area sensor was successfully created: ");
+        System.out.println("NAME: " + this.ctrl.getGASensorName(this.indexOfGA));
         System.out.println("GEOGRAPHICAL AREA: " + this.ctrl.getGAName(this.indexOfGA));
-        System.out.println("START DATE: "+UtilsUI.dateToString(this.ctrl.getStartDate(indexOfGA)));
-        System.out.println("TYPE: " + this.ctrl.getSensorType(this.indexOfGA));
-        System.out.println("UNITS: " + this.ctrl.getUnit(this.indexOfGA));
+        System.out.println("START DATE: " + UtilsUI.dateToString(this.ctrl.getGASensorSDate(indexOfGA)));
+        System.out.println("TYPE: " + this.ctrl.getGASensorType(this.indexOfGA));
+        System.out.println("UNITS: " + this.ctrl.getGASensorUnit(this.indexOfGA));
         System.out.println("LIST OF READINGS:");
         for (
                 Reading r : this.readingList.getReadingList()) {
             System.out.println("[timestamp: " + r.getDateAndTime().getTime() + " value: " + r.returnValueOfReading() + "]");
         }
         System.out.println("GPS LOCATION - [Latitude: " + this.latitude + " | Longitude: " + this.longitude + " | Altitude: " + this.altitude + "]");
+    }
+
+    private void addSensorToRoom() {
+        this.ctrl.addNewSensorToRoom(this.name, this.startDate, this.indexOfSensorType, indexOfRoom, unit, readingList);
+        System.out.println("The following internal sensor was successfully created: ");
+        System.out.println("NAME: " + this.ctrl.getInternalSensorName(this.indexOfRoom));
+        System.out.println("ROOM: " + this.ctrl.getRoomName(this.indexOfRoom));
+        System.out.println("START DATE: " + UtilsUI.dateToString(this.ctrl.getRoomSensorSDate(indexOfRoom)));
+        System.out.println("TYPE: " + this.ctrl.getRoomSensorType(this.indexOfRoom));
+        System.out.println("UNITS: " + this.ctrl.getRoomSensorUnit(this.indexOfRoom));
+        System.out.println("LIST OF READINGS:");
+        for (
+                Reading r : this.readingList.getReadingList()) {
+            System.out.println("[timestamp: " + r.getDateAndTime().getTime() + " value: " + r.returnValueOfReading() + "]");
+        }
+    }
+
+    void selectRoomAndList() {
+        System.out.println("Choose a room from the list below to list its sensors:");
+        System.out.println(ctrl.showRoomListInStr());
+        this.indexOfRoom = UtilsUI.requestIntegerInInterval(1, this.ctrl.getRoomListSize(),
+                UtilsUI.insertValidOption + this.ctrl.showRoomListInStr());
+        indexOfRoom--;
+        this.checkRoomSensorListSize();
+    }
+
+    private void checkRoomSensorListSize() {
+        if (this.ctrl.sensorListInRoomSize(indexOfRoom) == 0) {
+            System.out.println("List of sensors in room is empty.\n");
+            UtilsUI.backToMenu();
+            return;
+        }
+        System.out.println("The sensors available in room "
+                + this.ctrl.getInternalSensorName(indexOfRoom)
+                + "are the following: ");
+        System.out.println(this.ctrl.showSensorListInRoom(indexOfRoom));
     }
 }
 

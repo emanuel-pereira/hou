@@ -1,8 +1,8 @@
 package smarthome.model;
 
 public class Program {
-    private String mName;
-    private double mEnergyConsumption;
+    private String programName;
+    private double energyConsumption;
 
     /**
      * Constructor requiring to set a program name and respective energy consumption for any programmable device
@@ -12,8 +12,15 @@ public class Program {
      */
 
     public Program(String name, double energyConsumption) {
-        mName = name;
-        mEnergyConsumption = energyConsumption;
+        programName = name;
+        this.energyConsumption = energyConsumption;
     }
 
+    public String getProgramName() {
+        return programName;
+    }
+
+    public double getEnergyConsumption() {
+        return energyConsumption;
+    }
 }

@@ -5,7 +5,6 @@ import smarthome.model.*;
 
 public class NewGeographicalAreaUI {
 
-
     private NewGeographicalAreaCTRL ctrl;
     private String id;
     private String name;
@@ -27,12 +26,12 @@ public class NewGeographicalAreaUI {
      * @param typeGAList GA Types List input with reference to the overall
      *                   GA's types list
      */
-    public NewGeographicalAreaUI(GAList inputList, TypeGAList typeGAList) {
+    NewGeographicalAreaUI(GAList inputList, TypeGAList typeGAList) {
         this.ctrl = new NewGeographicalAreaCTRL(inputList, typeGAList);
     }
 
 
-    public void checkIfTypeGAListIsEmpty() {
+    void checkIfTypeGAListIsEmpty() {
 
         if (this.ctrl.typeGAListSize() == 0) {
             System.out.println("There are no types of Geographical Areas created. Please create one first.\n");
@@ -76,9 +75,9 @@ public class NewGeographicalAreaUI {
         System.out.println("Insert the central latitude of the new geographical area:");
         latitude = UtilsUI.requestDoubleInInterval(-90, 90, "Latitude must be between [-90º,90º]");
         System.out.println("Insert the central longitude of the new geographical area:");
-        longitude = UtilsUI.requestDoubleInInterval(-90, 90, "Latitude must be between [-180º,180º]");
+        longitude = UtilsUI.requestDoubleInInterval(-180, 180, "Latitude must be between [-180º,180º]");
         System.out.println("Insert the central altitude in meters of the new geographical area:");
-        altitude = UtilsUI.requestDoubleInInterval(-90, 90, "Altitude must be between [-12.500m, 8848m]");
+        altitude = UtilsUI.requestDoubleInInterval(-12500, 8848, "Altitude must be between [-12.500m, 8848m]");
         this.location = new Location(latitude, longitude, altitude);
         this.createGA();
     }

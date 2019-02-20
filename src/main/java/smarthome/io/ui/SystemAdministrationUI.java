@@ -1,6 +1,7 @@
 package smarthome.io.ui;
 
 import smarthome.model.GAList;
+import smarthome.model.House;
 import smarthome.model.SensorTypeList;
 import smarthome.model.TypeGAList;
 
@@ -11,7 +12,7 @@ public final class SystemAdministrationUI {
     private SystemAdministrationUI() {
     }
 
-    public static void systemAdministration(SensorTypeList sensorTypeList,TypeGAList typeGAList,  GAList gaList) {
+    public static void systemAdministration(House house, SensorTypeList sensorTypeList, TypeGAList typeGAList, GAList gaList) {
 
         int option = -1;
         while (option != 0) {
@@ -54,7 +55,7 @@ public final class SystemAdministrationUI {
                     ui5.runUS5();
                     break;
                 case 6:
-                    NewSensorUI ui6 = new NewSensorUI(sensorTypeList, gaList);
+                    NewSensorUI ui6 = new NewSensorUI(house, sensorTypeList, gaList);
                     ui6.checkIfGAListIsEmpty();
                     break;
                 case 7:

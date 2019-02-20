@@ -26,7 +26,7 @@ public final class HouseAdministrationUI {
             options.add("[6] List (Attach/detach) a room to/from a house grid");
             options.add("[7] Show the Total Nominal Power from a Room.");
             options.add("[8] Add a new sensor to a room");
-            options.add("[9] Show list all sensors in a room");
+            options.add("[9] List all sensors in a room");
             options.add("[10] List (edit/add/remove) devices in a room");
             options.add("[11] Show all the devices connected to a grid");
             options.add("[12] Show the total nominal power connected to a grid");
@@ -66,12 +66,12 @@ public final class HouseAdministrationUI {
                     ui230.showTotalNominalPowerRoom();
                     break;
                 case 8:
-                    AddSensorToRoomUI ui253 = new AddSensorToRoomUI(house, sensorTypeList);
-                    ui253.run();
+                    NewSensorUI newSensorUI = new NewSensorUI(house, sensorTypeList,gaList);
+                    newSensorUI.checkIfRoomListIsEmpty();
                     break;
                 case 9:
-                    AddSensorToRoomUI us250 = new AddSensorToRoomUI(house, sensorTypeList);
-                    us250.run2();
+                    NewSensorUI listSensorsUI = new NewSensorUI(house, sensorTypeList,gaList);
+                    listSensorsUI.selectRoomAndList();
                     break;
                 case 10:
                     EditDevicesUI ui210 = new EditDevicesUI(house);

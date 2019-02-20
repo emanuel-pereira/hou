@@ -7,14 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomList {
-    private List<Room> roomList;
+    private List<Room> roomLst;
 
 
     /**
      * Constructor method that creates a new list to save Room objects
      */
     public RoomList() {
-        this.roomList = new ArrayList<>();
+        this.roomLst = new ArrayList<>();
     }
 
     /**
@@ -41,8 +41,8 @@ public class RoomList {
      * @return true if the object is added to the list
      */
     public boolean addRoom(Room newRoom) {
-        if (newRoom != null && !this.roomList.contains(newRoom)) {
-            this.roomList.add(newRoom);
+        if (newRoom != null && !this.roomLst.contains(newRoom)) {
+            this.roomLst.add(newRoom);
             return true;
         } else return false;
     }
@@ -64,8 +64,8 @@ public class RoomList {
 
 
     public boolean removeRoom(Room newRoom) {
-        if (this.roomList.contains(newRoom)) {
-            this.roomList.remove(newRoom);
+        if (this.roomLst.contains(newRoom)) {
+            this.roomLst.remove(newRoom);
             return true;
         } else return false;
     }
@@ -77,7 +77,7 @@ public class RoomList {
      * @return the specific requested Room
      */
     public Room get(int i) {
-        return this.roomList.get(i);
+        return this.roomLst.get(i);
     }
 
     /**
@@ -85,11 +85,11 @@ public class RoomList {
      * @return The size of the list
      */
     public int getRoomListSize() {
-        return this.roomList.size();
+        return this.roomLst.size();
     }
 
     public List<Room> getRoomList() {
-        return this.roomList;
+        return this.roomLst;
     }
 
     /**
@@ -113,12 +113,12 @@ public class RoomList {
 
 
     public boolean removeDeviceFromRoom(Device device, int indexOfRoom) {
-        DeviceList roomDeviceList = this.roomList.get(indexOfRoom - 1).getDeviceList();
+        DeviceList roomDeviceList = this.roomLst.get(indexOfRoom - 1).getDeviceList();
         return roomDeviceList.getDeviceList().remove(device);
     }
 
     public boolean addDeviceToRoom(Device device, int indexOfRoom) {
-        DeviceList roomDeviceList = this.roomList.get(indexOfRoom - 1).getDeviceList();
+        DeviceList roomDeviceList = this.roomLst.get(indexOfRoom - 1).getDeviceList();
         return roomDeviceList.getDeviceList().add(device);
     }
 
@@ -126,7 +126,7 @@ public class RoomList {
     public List<Device> getDevicesInAllRoomsByType(String deviceType) {
         List<Device> deviceList;
         List<Device> deviceListByType = new ArrayList<>();
-        for (Room room : this.roomList) {
+        for (Room room : this.roomLst) {
             deviceList = room.getDeviceList().getDeviceList();
             for (Device device : deviceList)
                 if (device.getDeviceSpecs().getDeviceType().getDeviceTypeName().equals(deviceType)) {
@@ -148,7 +148,7 @@ public class RoomList {
 
     public List<Device>getMeteredDevicesInHouse(){
         List<Device> meteredDevListInHouse=new ArrayList<>();
-        for(Room room:this.roomList){
+        for(Room room:this.roomLst){
             List<Device> meteredDevicesInRoom=room.getDeviceList().getMeteredDevices();
             meteredDevListInHouse.addAll(meteredDevicesInRoom);
         }
