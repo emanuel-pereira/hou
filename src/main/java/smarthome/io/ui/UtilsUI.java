@@ -40,12 +40,14 @@ public final class UtilsUI {
 
 
     private static boolean isInteger(String input) {
+        int i;
         try {
-            Integer.parseInt(input);
-            return true;
+            i=Integer.parseInt(input);
         } catch (Exception e) {
-            return false;
+            i = Integer.MIN_VALUE;
         }
+
+        return i!=Integer.MIN_VALUE;
     }
 
     /**
@@ -54,12 +56,13 @@ public final class UtilsUI {
      */
 
     private static boolean isDouble(String input) {
+        double d;
         try {
-            Double.parseDouble(input);
-            return true;
+            d=Double.parseDouble(input);
         } catch (Exception e) {
-            return false;
+            d=Double.MIN_VALUE;
         }
+        return d!=Double.MIN_VALUE;
     }
 
     /**
@@ -88,10 +91,10 @@ public final class UtilsUI {
         }
 
         int year = Integer.parseInt(sYear);
-        int month = Integer.parseInt(sMonth) - 1; //subtract 1 because of the way this field is used in GregorianCalendar
+        int month = Integer.parseInt(sMonth) - 1; // subtract 1 because of the way this field is used in GregorianCalendar
         int day = Integer.parseInt(sDay);
 
-        if (month > 11 || day > 31) { //quick check but redundant, I guess.
+        if (month > 11 || day > 31) { // quick check but redundant, I guess.
             return false;
         }
 
@@ -178,8 +181,8 @@ public final class UtilsUI {
      * @return true if the string is a valid date and time
      */
     private static boolean isDateTime(String input) {
-        String[] dateAndTime;
-        dateAndTime = input.split ("[ ]", 2);
+        String[] dateAndTime = input.split("[ ]", 2);
+
         if (dateAndTime.length != 2) {
             return false;
         }
@@ -397,9 +400,8 @@ public final class UtilsUI {
 
     /**
      * UI method that returns a GregorianCalendar date as string in yyyy-MM-dd format
-     *
      * @param calendar a Gregorian Calendar parameter to be set in string format
-     * @return date as string in YYYY-MM-DD format
+     * @return date as string in yyyy-MM-dd format
      */
     public static String dateToString(Calendar calendar) {
         DateFormat df = new SimpleDateFormat("yyyy-MM-DD");
@@ -519,8 +521,9 @@ public final class UtilsUI {
 
 
     private static String createWhiteSpace(int spaces) {
-        if (spaces <= 0)
+        if (spaces <= 0){
             return "";
+        }
         StringBuilder output = new StringBuilder();
 
         for (int i = 1; i < spaces; i++) {

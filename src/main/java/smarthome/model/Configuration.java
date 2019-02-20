@@ -5,33 +5,83 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * Utility class for the retrieval of metering periods and device types at startup. Only run once; variables are loaded at that time only.
+ * Public methods do not provide any kind of change in the class behaviour under any condition. Only preset variables may be retrieved.
+ * Note: as the configuration file is not changed at run time, the choice was made to make the class static.
+ */
+
 public final class Configuration {
 
-    /**
-     * Private constructor of Configuration class, which is a collection of static members, hence is not meant to be instantiated.
-     */
     private Configuration() {
     }
 
-    static String mConfigFilePath = "resources/config.properties";
+    private static boolean isInitialized = false; // Thou shall run once, and only once... but you must lock the class.
 
-    public static void setConfigPath(String newConfigPath) {
-        mConfigFilePath = newConfigPath;
+    private static String configFilePath;
+    private static int deviceMeteringPeriod;
+    private static int gridMeteringPeriod;
+    private static List<String> deviceTypes = new ArrayList<>();
+
+    public static void init() {
+        run("resources/config.properties", true); //default, provided for simplicity.
     }
 
-    public static String getConfigValue(String key) {
-        String value;
+    public static void init(boolean lock) {
+        run("resources/config.properties", lock);
+    }
 
-        boolean error = false;
+    public static void init(String path) {
+        run(path, true); // The setting of a different source config file is important for testing purposes.
+    }
+
+    public static void init(String path, boolean lock) {
+        run(path, lock);
+    }
+
+
+    private static void run(String path, boolean lock) {
+        boolean setLock = lock;
+
+        if (isInitialized) {
+            return;
+        }
+
+        deviceMeteringPeriod = -1;
+        gridMeteringPeriod = -1;
+        deviceTypes.clear();
+
+        if (!path.isEmpty()) {
+            configFilePath = path;
+        }
+        deviceMeteringPeriod = getMeteringPeriod("devicesMeteringPeriod");
+        gridMeteringPeriod = getMeteringPeriod("gridMeteringPeriod");
+
+        //
+        if (!isMeteringPeriodValid()) { // checks for all multiple conditions that must be met for the metering period is to be considered valid
+            deviceMeteringPeriod = -1;
+            gridMeteringPeriod = -1;
+        }
+
+        deviceTypes = fetchDeviceTypes();
+
+        if (setLock) {
+            isInitialized = true;
+        }
+    }
+
+
+    private static String getConfigValue(String key) {
+        String value = "";
 
         Properties properties = new Properties();
         InputStream inputStream = null;
 
         //Make sure the config file is available and can be read
         try {
-            inputStream = new FileInputStream(mConfigFilePath);
+            inputStream = new FileInputStream(configFilePath);
         } catch (FileNotFoundException e) {
-            error = true;
+            value = "ERROR";
         }
 
         //Loading the inputStream may
@@ -39,21 +89,21 @@ public final class Configuration {
         try {
             properties.load(inputStream);
         } catch (Exception e) {
-            error = true;
+            value = "ERROR";
         }
 
-        //Return an error or the result
-        if (error) {
-            value = "ERROR";
-        } else {
-            value = properties.getProperty(key);
+        if (value.equals("ERROR")) {
+            return value;
         }
+
+        value = properties.getProperty(key);
+
         if (value == null) {
             value = "ERROR";
         }
+
         return value;
     }
-
 
     /**
      * Private method that returns a metering period in minutes
@@ -61,7 +111,7 @@ public final class Configuration {
      * @param key is the required metering period
      * @return the metering period in minutes in the interval [1,1440]. -1 denotes an error.
      */
-    public static int getMeteringPeriod(String key) {
+    private static int getMeteringPeriod(String key) {
         int output;
 
         String value = getConfigValue(key);
@@ -81,8 +131,9 @@ public final class Configuration {
      * @return the metering period in minutes in the interval [1,1440]. -1 denotes an error.
      */
     public static int getGridMeteringPeriod() {
-        return getMeteringPeriod("gridMeteringPeriod");
+        return gridMeteringPeriod;
     }
+
 
     /**
      * This method returns the metering period in minutes for the devices.
@@ -90,12 +141,18 @@ public final class Configuration {
      * @return the metering period in minutes in the interval [1,1440]. -1 denotes an error.
      */
     public static int getDevicesMeteringPeriod() {
-        return getMeteringPeriod("devicesMeteringPeriod");
+        return deviceMeteringPeriod;
     }
 
 
     public static List<String> getDeviceTypes() {
-        List<String> devices = new ArrayList<>();
+        return deviceTypes;
+    }
+
+    private static List<String> fetchDeviceTypes() {
+
+        deviceTypes.clear(); // ensures the list is emptied if the initialization is done more than once
+
 
         String value = getConfigValue("TotalDevices");
         String currentDevice;
@@ -111,48 +168,34 @@ public final class Configuration {
         if (numberOfDevices > 0) {
             for (int i = 1; i <= numberOfDevices; i++) {
                 currentDevice = getConfigValue("devicetype" + i + "");
-                devices.add(i - 1, currentDevice);
+                deviceTypes.add(i - 1, currentDevice);
             }
         }
 
-        return devices;
-    }
-
-    public static boolean isGridMeteringPeriodValid() {
-        int gridMeteringPeriod = getGridMeteringPeriod();
-
-        return gridMeteringPeriod <= 1440 && gridMeteringPeriod >= 0;
-    }
-
-    public static boolean isDeviceMeteringPeriodValid() {
-        int deviceMeteringPeriod = getDevicesMeteringPeriod();
-
-        return deviceMeteringPeriod <= 1440 && deviceMeteringPeriod >= 0;
+        return deviceTypes;
     }
 
 
-    public static boolean areMeteringPeriodsMultiple() {
-        int devicesMeteringPeriod = getDevicesMeteringPeriod();
-        int gridMeteringPeriod = getGridMeteringPeriod();
+    private static boolean isGridMeteringPeriodValid() {
 
-        if (devicesMeteringPeriod % gridMeteringPeriod != 0) {
-            return false;
-        }
-
-        return 1440 % devicesMeteringPeriod == 0 && 1440 % gridMeteringPeriod == 0;
+        return (gridMeteringPeriod <= 1440 && gridMeteringPeriod >= 0);
     }
 
 
-    public static boolean isMeteringPeriodValid() {
-            if (!isGridMeteringPeriodValid()) {
-                return false;
-            }
+    private static boolean isDeviceMeteringPeriodValid() {
 
-            if (!isDeviceMeteringPeriodValid()) {
-                return false;
-            }
+        return (deviceMeteringPeriod <= 1440 && deviceMeteringPeriod >= 0);
+    }
 
-        return areMeteringPeriodsMultiple();
+
+    private static boolean areMeteringPeriodsMultiple() {
+
+        return (deviceMeteringPeriod % gridMeteringPeriod == 0);
+    }
+
+    private static boolean isMeteringPeriodValid() {
+
+        return (isGridMeteringPeriodValid() && isDeviceMeteringPeriodValid() && areMeteringPeriodsMultiple());
     }
 
 }
