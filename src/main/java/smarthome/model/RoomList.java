@@ -174,15 +174,4 @@ public class RoomList {
         return result.toString ();
     }
 
-    /*public Room getDeviceLocation (Device inputDevice) {
-        Room location = new Room();
-        for(Room room:this.roomList){
-            List <Device> deviceListInRoom = room.getDeviceList().getDeviceList();
-            if (deviceListInRoom.contains(inputDevice)){
-                location = room;
-            }
-        }
-        return location;
-    }*/
-
 }
