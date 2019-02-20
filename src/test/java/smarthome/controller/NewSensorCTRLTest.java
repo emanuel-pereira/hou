@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -52,8 +53,8 @@ class NewSensorCTRLTest {
         SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
         NewSensorCTRL ctrl6 = new NewSensorCTRL(sensorTypeList, gaList);
-        GeographicalArea area1 = gaList.newGA("Pt","Porto", "district", 20, 20, 1, 3, -10);
-        GeographicalArea area2 = gaList.newGA("Pt","Braga", "district", 20, 20, 1, 3, -10);
+        GeographicalArea area1 = gaList.newGA("Pt", "Porto", "district", 20, 20, 1, 3, -10);
+        GeographicalArea area2 = gaList.newGA("Pt", "Braga", "district", 20, 20, 1, 3, -10);
         gaList.addGA(area1);
         gaList.addGA(area2);
 
@@ -91,12 +92,12 @@ class NewSensorCTRLTest {
         ReadingList readingsLis = new ReadingList();
         readingsLis.addReading(r1Lis);
         readingsLis.addReading(r2Lis);
-
-
-        boolean result = ctrl6.addNewSensorToGA("LisboaTempSensor", new GregorianCalendar(2018, 12, 26), 1, "C", 55, 40, 15, 1, readingsPt);
+        GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26);
+        Location loc = new Location(55, 40, 15);
+        boolean result = ctrl6.addNewSensorToGA("LisboaTempSensor", startDate, 0, "C", loc, 1, readingsPt);
         assertTrue(result);
 
-        boolean result1 = ctrl6.addNewSensorToGA("PortoWindSensor", new GregorianCalendar(2018, 12, 26), 2, "km/h", 55, 40, 15, 2, readingsLis);
+        boolean result1 = ctrl6.addNewSensorToGA("PortoWindSensor", startDate, 1, "km/h", loc, 2, readingsLis);
         assertTrue(result1);
     }
 
@@ -121,8 +122,9 @@ class NewSensorCTRLTest {
         boolean thrown = false;
 
         try {
-
-            ctrl6.addNewSensorToGA("LisboaTempSensor", new GregorianCalendar(2018, 12, 26), 1, "C", 900, 80, 15, 1, readingsPt);
+            GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26);
+            Location loc = new Location(900, 80, 15);
+            ctrl6.addNewSensorToGA("LisboaTempSensor", startDate, 1, "C", loc, 1, readingsPt);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -151,8 +153,9 @@ class NewSensorCTRLTest {
         boolean thrown = false;
 
         try {
-
-            ctrl6.addNewSensorToGA("LisboaTempSensor", new GregorianCalendar(2018, 12, 26), 1, "C", 90, 190, 1500, 1, readingsPt);
+            GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26);
+            Location loc = new Location(90, 190, 1500);
+            ctrl6.addNewSensorToGA("LisboaTempSensor",startDate , 1, "C",loc , 1, readingsPt);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -181,8 +184,9 @@ class NewSensorCTRLTest {
         boolean thrown = false;
 
         try {
-
-            ctrl6.addNewSensorToGA("LisboaTempSensor", new GregorianCalendar(2018, 12, 26), 1, "C", 90, 190, 9000, 1, readingsPt);
+            GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26);
+            Location loc = new Location(90, 190, 9000);
+            ctrl6.addNewSensorToGA("LisboaTempSensor",startDate, 1, "C", loc, 1, readingsPt);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -198,80 +202,182 @@ class NewSensorCTRLTest {
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
         GAList gaList = new GAList();
-        GeographicalArea porto = gaList.newGA("PT","Porto","City",25,12,23,12,11);
+        GeographicalArea porto = gaList.newGA("PT", "Porto", "City", 25, 12, 23, 12, 11);
         gaList.addGA(porto);
-        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList,gaList);
-        Sensor sensor = new Sensor("Name",new GregorianCalendar(2020,11,1),25,28,11,temperature,"Celsius",new ReadingList());
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
+        GregorianCalendar startDate=new GregorianCalendar(2020, 11, 1);
+        Location loc= new Location(25, 28, 11);
+        Sensor sensor = new Sensor("Name", startDate,loc, temperature, "Celsius", new ReadingList());
 
-        boolean expected= true;
-        boolean result=ctrl.latitudeIsValid(sensor.getLocation().getLatitude());
-        assertEquals(expected,result);
+        boolean expected = true;
+        boolean result = ctrl.latitudeIsValid(sensor.getLocation().getLatitude());
+        assertEquals(expected, result);
 
-        boolean expected1= true;
-        boolean result1=ctrl.longitudeIsValid(sensor.getLocation().getLongitude());
-        assertEquals(expected1,result1);
+        boolean expected1 = true;
+        boolean result1 = ctrl.longitudeIsValid(sensor.getLocation().getLongitude());
+        assertEquals(expected1, result1);
 
-        boolean expected2= true;
-        boolean result2=ctrl.altitudeIsValid(sensor.getLocation().getAltitude());
-        assertEquals(expected2,result2);
+        boolean expected2 = true;
+        boolean result2 = ctrl.altitudeIsValid(sensor.getLocation().getAltitude());
+        assertEquals(expected2, result2);
 
     }
 
     @Test
-    @DisplayName("Test if all date inputs are valid")
-    void inputDateIsValid() {
-        SensorTypeList sensorTypeList = new SensorTypeList();
-        SensorType temperature = sensorTypeList.newSensorType("temperature");
-        sensorTypeList.addSensorType(temperature);
-        GAList gaList = new GAList();
-        GeographicalArea porto = gaList.newGA("PT","Porto","City",25,12,23,12,11);
-        gaList.addGA(porto);
-        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList,gaList);
-        String year="2018";
-        boolean result= ctrl.yearIsValid(year);
-        assertTrue(result);
-
-        String month="11";
-        boolean result1= ctrl.monthIsValid(month);
-        assertTrue(result1);
-
-        int yearAsInteger=Integer.parseInt(year);
-        int monthAsInteger=Integer.parseInt(month);
-        String day="30";
-        boolean result2= ctrl.dayIsValid(day,monthAsInteger,yearAsInteger);
-        assertTrue(result2);
-    }
-
-    @Test
-    void hourIsValid() {
-        SensorTypeList sensorTypeList = new SensorTypeList();
-        SensorType temperature = sensorTypeList.newSensorType("temperature");
-        sensorTypeList.addSensorType(temperature);
-        GAList gaList = new GAList();
-        GeographicalArea porto = gaList.newGA("PT","Porto","City",25,12,23,12,11);
-        gaList.addGA(porto);
-        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList,gaList);
-        String hour="22";
-
-        boolean result=ctrl.hourIsValid(hour);
-
-        assertTrue(result);
-    }
-
-    @Test
+    @DisplayName("Ensure that nameIsValid returns true to valid string")
     void nameIsValid() {
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
         GAList gaList = new GAList();
-        GeographicalArea porto = gaList.newGA("PT","Porto","City",25,12,23,12,11);
+        GeographicalArea porto = gaList.newGA("PT", "Porto", "City", 25, 12, 23, 12, 11);
         gaList.addGA(porto);
-        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList,gaList);
-        String inputName="Sensor - ISEP";
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
+        String inputName = "Sensor - ISEP";
 
-        boolean result=ctrl.nameIsValid(inputName);
+        boolean result = ctrl.nameIsValid(inputName);
 
         assertTrue(result);
 
+    }
+
+    @Test
+    @DisplayName("Ensure that the size of the geographical area list is 2")
+    void getGAListSize() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        GAList gaList = new GAList();
+        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", 25, 12, 23, 12, 11);
+        gaList.addGA(porto);
+        GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", "City", 45, -15, 23, 12, 11);
+        gaList.addGA(lisboa);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
+        int expected = 2;
+        int result = ctrl.getGAListSize();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Ensure that the size of the sensor type list is 2")
+    void getSensorTypeListSize() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        SensorType temperature = sensorTypeList.newSensorType("temperature");
+        sensorTypeList.addSensorType(temperature);
+        SensorType precipitation = sensorTypeList.newSensorType("precipitation");
+        sensorTypeList.addSensorType(precipitation);
+        GAList gaList = new GAList();
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
+        int expected = 2;
+        int result = ctrl.getSensorTypeListSize();
+        assertEquals(expected, result);
+
+    }
+
+    @Test
+    @DisplayName("Ensure getSensorType method returns temperature as it is the sensor type of the sensor in the last index position of the sensorList of geographical area Lisboa")
+    void getSensorType() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        SensorType temperature = sensorTypeList.newSensorType("temperature");
+        sensorTypeList.addSensorType(temperature);
+        GAList gaList = new GAList();
+        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", 25, 12, 23, 12, 11);
+        gaList.addGA(porto);
+        GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", "City", 45, -15, 23, 12, 11);
+        gaList.addGA(lisboa);
+        ReadingList readingList = new ReadingList();
+        GregorianCalendar startDate= new GregorianCalendar(2019, 2, 15);
+        Location loc1= new Location(25, -15, 5);
+        Sensor s1 = new Sensor("LisboaTempSensor1", startDate,loc1 , temperature, "Cº", readingList);
+        Location loc2= new Location(27, -14, 6);
+        Sensor s2 = new Sensor("LisboaTempSensor2", startDate,loc2 , temperature, "Cº", readingList);
+        lisboa.getSensorListInGA().addSensor(s1);
+        lisboa.getSensorListInGA().addSensor(s2);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
+
+        String expected = "temperature";
+        String result = ctrl.getSensorType(1);
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Ensure getGAName() returns name Aveiro as it is the name of the geographical area in the selected index position of the geographical area list.")
+    void getGAName() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        SensorType temperature = sensorTypeList.newSensorType("temperature");
+        sensorTypeList.addSensorType(temperature);
+        GAList gaList = new GAList();
+        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", 25, 12, 23, 12, 11);
+        gaList.addGA(porto);
+        GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", "City", 45, -15, 23, 12, 11);
+        gaList.addGA(lisboa);
+        GeographicalArea aveiro = gaList.newGA("AVR", "Aveiro", "City", 29, 7, 2, 12, 11);
+        gaList.addGA(aveiro);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
+
+        String expected = "Aveiro";
+        String result = ctrl.getGAName(2);
+
+        assertEquals(expected, result);
+    }
+    @Test
+    void getSensorName() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        SensorType temperature = sensorTypeList.newSensorType("temperature");
+        sensorTypeList.addSensorType(temperature);
+        GAList gaList = new GAList();
+        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", 25, 12, 23, 12, 11);
+        gaList.addGA(porto);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
+        SensorList sensorList = new SensorList();
+        GregorianCalendar startDate= new GregorianCalendar(2019,2,15);
+        Location location= new Location(23,-15,12);
+        ReadingList readingList= new ReadingList();
+        Sensor s1=sensorList.newSensor("Temperature sensor 1",startDate,location,temperature,"Celsius",readingList);
+        SensorList portoSensorList= porto.getSensorListInGA();
+        portoSensorList.addSensor(s1);
+        String expected= "Temperature sensor 1";
+        String result= ctrl.getSensorName(0);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void getStartDate() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        SensorType temperature = sensorTypeList.newSensorType("temperature");
+        sensorTypeList.addSensorType(temperature);
+        GAList gaList = new GAList();
+        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", 25, 12, 23, 12, 11);
+        gaList.addGA(porto);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
+        SensorList sensorList = new SensorList();
+        GregorianCalendar startDate= new GregorianCalendar(2019,2,15);
+        Location location= new Location(23,-15,12);
+        ReadingList readingList= new ReadingList();
+        Sensor s1=sensorList.newSensor("Temperature sensor 1",startDate,location,temperature,"Celsius",readingList);
+        SensorList portoSensorList= porto.getSensorListInGA();
+        portoSensorList.addSensor(s1);
+        Calendar result= ctrl.getStartDate(0);
+        assertEquals(startDate,result);
+    }
+
+    @Test
+    void getUnit() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        SensorType temperature = sensorTypeList.newSensorType("temperature");
+        sensorTypeList.addSensorType(temperature);
+        GAList gaList = new GAList();
+        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", 25, 12, 23, 12, 11);
+        gaList.addGA(porto);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
+        SensorList sensorList = new SensorList();
+        GregorianCalendar startDate= new GregorianCalendar(2019,2,15);
+        Location location= new Location(23,-15,12);
+        ReadingList readingList= new ReadingList();
+        Sensor s1=sensorList.newSensor("Temperature sensor 1",startDate,location,temperature,"Celsius",readingList);
+        SensorList portoSensorList= porto.getSensorListInGA();
+        portoSensorList.addSensor(s1);
+        String expected= "Celsius";
+        String result= ctrl.getUnit(0);
+        assertEquals(expected,result);
     }
 }

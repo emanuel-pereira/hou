@@ -107,9 +107,8 @@ public class GeographicalAreaTest {
 
         ga1.setParentGA(ga2);
 
-        GeographicalArea expectedResult = ga2;
         GeographicalArea result = ga1.getGeographicalParentGA();
-        assertEquals(expectedResult, result);
+        assertEquals(ga2, result);
 
     }
 
@@ -146,11 +145,15 @@ public class GeographicalAreaTest {
         rl2.addReading(r4);
 
         SensorType sT1 = new SensorType("rainfall");
-        Sensor sensor1 = list.newSensor("RainSensor", new GregorianCalendar(2018, 12, 15), 24, 34, 25, sT1, "C", rl);
+        GregorianCalendar startDate1= new GregorianCalendar(2018, 12, 15);
+        Location sensor1Loc= new Location(24, 34, 25);
+        Sensor sensor1 = list.newSensor("RainSensor",startDate1, sensor1Loc, sT1, "C", rl);
 
 
         SensorType sH1 = new SensorType("humidity");
-        Sensor sensor2 = list.newSensor("HumiditySensor", new GregorianCalendar(2018, 12, 15), 25, 32, 25, sH1, "Percentage", rl2);
+        GregorianCalendar startDate2= new GregorianCalendar(2018, 12, 18);
+        Location sensorLoc2= new Location(25, 32, 25);
+        Sensor sensor2 = list.newSensor("HumiditySensor", startDate2, sensorLoc2, sH1, "Percentage", rl2);
 
 
         list.addSensor(sensor1);

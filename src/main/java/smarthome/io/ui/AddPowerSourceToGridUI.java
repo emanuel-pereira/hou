@@ -2,6 +2,7 @@ package smarthome.io.ui;
 
 import smarthome.controller.AddPowerSourceToGridCTRL;
 import smarthome.model.*;
+
 import java.util.Scanner;
 
 public class AddPowerSourceToGridUI {
@@ -19,9 +20,9 @@ public class AddPowerSourceToGridUI {
     }
 
     public void checkIfHGListIsEmpty() {
-                if (mCtrl.getHGListSizeCtrl() == 0) {
-                    System.out.println("List of HouseGrids is empty. Please insert a HouseGrid first.");
-                    return;
+        if (mCtrl.getHGListSizeCtrl() == 0) {
+            System.out.println("List of HouseGrids is empty. Please insert a HouseGrid first.");
+            return;
         }
         this.selectSubMenu();
     }
@@ -43,32 +44,31 @@ public class AddPowerSourceToGridUI {
                     this.selectHGListPS();
                     break;
                 default:
-                    UtilsUI.printLnInsertValidOption();
+                    UtilsUI.printLnInsertValidOptionMsg();
             }
         }
     }
 
     private void selectHGListPS() {
         this.showAndSelectHG();
-        if(isValidIndexOfHG()){
+        if (isValidIndexOfHG()) {
             this.listPSinHG();
         }
     }
 
-    private void listPSinHG(){
-        if(hgPSListIsEmpty()){
+    private void listPSinHG() {
+        if (hgPSListIsEmpty()) {
             UtilsUI.backToMenu();
-        }
-        else{
-        System.out.println("List of Power Sources attached to " + mCtrl.getHouseGridName(mIndexOfHG) + ":");
-        System.out.println(mCtrl.showPowerSourceListInString(mIndexOfHG));
-        UtilsUI.backToMenu();
+        } else {
+            System.out.println("List of Power Sources attached to " + mCtrl.getHouseGridName(mIndexOfHG) + ":");
+            System.out.println(mCtrl.showPowerSourceListInString(mIndexOfHG));
+            UtilsUI.backToMenu();
         }
     }
 
     private boolean hgPSListIsEmpty() {
         if (mCtrl.getPSListSizeCtrl(mIndexOfHG) == 0) {
-            System.out.println("List of Power Sources in " +mCtrl.getHouseGridName(mIndexOfHG)+ " is empty. Please add one first.");
+            System.out.println("List of Power Sources in " + mCtrl.getHouseGridName(mIndexOfHG) + " is empty. Please add one first.");
             return true;
         }
         return false;
@@ -76,25 +76,24 @@ public class AddPowerSourceToGridUI {
 
     private void selectHGAddPS() {
         this.showAndSelectHG();
-        if(isValidIndexOfHG()){
+        if (isValidIndexOfHG()) {
             this.insertPSName();
         }
     }
 
-    public void insertPSName(){
+    private void insertPSName() {
         while (true) {
             System.out.println("Insert the Power Source name:");
             mName = mRead.nextLine();
             if (mCtrl.alphanumericName(mName)) {
                 this.insertPSType();
                 break;
-            }
-            else
-                UtilsUI.printLnInsertValidParameter("name");
+            } else
+                System.out.println(UtilsUI.insertValidParameter("name"));
         }
     }
 
-    public void insertPSType(){
+    private void insertPSType() {
         while (true) {
             System.out.println("Insert the Power Source type:");
             mType = mRead.nextLine();
@@ -102,11 +101,11 @@ public class AddPowerSourceToGridUI {
                 this.insertPSMaxPower();
                 break;
             } else
-                UtilsUI.printLnInsertValidParameter("type");
+                System.out.println(UtilsUI.insertValidParameter("type"));
         }
     }
 
-    public void insertPSMaxPower() {
+    private void insertPSMaxPower() {
         while (true) {
             System.out.println("Insert the Maximum Power (kW):");
             mMaxPower = mRead.nextDouble();
@@ -118,7 +117,7 @@ public class AddPowerSourceToGridUI {
         }
     }
 
-    public void insertPSStorageCapacity() {
+    private void insertPSStorageCapacity() {
         while (true) {
             System.out.println("Insert the Storage Capacity (kW):");
             mStorageCapacity = mRead.nextDouble();
@@ -130,8 +129,8 @@ public class AddPowerSourceToGridUI {
         }
     }
 
-    public void addPowerSource () {
-        mCtrl.addNewPSToGrid(mIndexOfHG,mName,mType,mMaxPower,mStorageCapacity);
+    private void addPowerSource() {
+        mCtrl.addNewPSToGrid(mIndexOfHG, mName, mType, mMaxPower, mStorageCapacity);
         System.out.println("The following Power Source was successfully created:");
         System.out.println("[NAME]: " + mName);
         System.out.println("[TYPE]: " + mType);
@@ -140,16 +139,16 @@ public class AddPowerSourceToGridUI {
         UtilsUI.backToMenu();
     }
 
-    public void showAndSelectHG (){
+    private void showAndSelectHG() {
         System.out.println("Choose a house grid from the list below to add a Power Source to it:");
         System.out.println(mCtrl.getHGListInStringCtrl());
         mIndexOfHG = mRead.nextInt();
         mRead.nextLine();
     }
 
-    public boolean isValidIndexOfHG() {
-        while(mIndexOfHG > mCtrl.getHGListSizeCtrl() || mIndexOfHG <= 0) {
-            UtilsUI.printLnInsertValidOption();
+    private boolean isValidIndexOfHG() {
+        while (mIndexOfHG > mCtrl.getHGListSizeCtrl() || mIndexOfHG <= 0) {
+            UtilsUI.printLnInsertValidOptionMsg();
             System.out.println("--");
             this.showAndSelectHG();
         }

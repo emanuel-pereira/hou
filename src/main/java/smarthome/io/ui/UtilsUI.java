@@ -15,12 +15,16 @@ public final class UtilsUI {
     private UtilsUI() {
     }
 
-    public static void printLnInsertValidOption() {
+    public static void printLnInsertValidOptionMsg() {
         System.out.println("Please insert a valid option.");
     }
 
     public static void printLnInsertValidParameter(final String parameter) {
-        System.out.println("Please insert a valid " + parameter + ".");
+        System.out.println ("Please insert a valid " + parameter + ".");
+    }
+
+    public static String insertValidParameter(final String parameter) {
+        return "Please insert a valid " + parameter + ".";
     }
 
 
@@ -238,6 +242,26 @@ public final class UtilsUI {
         return input;
     }
 
+    /**
+     * UI for requesting an integer from the user. Displays a custom error message.
+     *
+     * @param errorMessage the error message to display if the input is not an integer
+     * @return the valid user input as an integer
+     */
+    public static int requestInteger(String errorMessage) {
+        String userInput;
+        int parsedUserInput;
+
+        while (true) {
+            userInput = getUserInput ();
+            if (isInteger (userInput)) {
+                parsedUserInput = Integer.parseInt (userInput);
+                break;
+            }
+            System.out.println (errorMessage);
+        }
+        return parsedUserInput;
+    }
 
     /**
      * UI for requesting an integer from the user in a given interval. Displays a custom error message.
@@ -248,8 +272,6 @@ public final class UtilsUI {
      * @return the valid user input as an integer
      */
     public static int requestIntegerInInterval(int minimum, int maximum, String errorMessage) {
-
-
 
         String userInput = "-";
         int parsedUserInput = minimum - 1;
@@ -270,16 +292,13 @@ public final class UtilsUI {
         return parsedUserInput;
     }
 
-
-
-
     /**
      * UI method that requests any double
      *
      * @param errorMessage custom error message to be displayed to the user
      * @return parsed User Input to Double
      */
-    private static double requestDouble(String errorMessage) {
+    public static double requestDouble(String errorMessage) {
         String userInput;
         double parsedUserInput;
 
@@ -346,8 +365,6 @@ public final class UtilsUI {
     }
 
     public static GregorianCalendar requestDateTime(String errorMessage) {
-
-
         String date;
         int year;
         int month;
@@ -355,7 +372,6 @@ public final class UtilsUI {
         String time;
         int hour;
         int minute;
-
 
         String userInput;
 
@@ -387,8 +403,8 @@ public final class UtilsUI {
      * @param calendar a Gregorian Calendar parameter to be set in string format
      * @return date as string in yyyy-MM-dd format
      */
-    public static String dateInString(GregorianCalendar calendar) {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    public static String dateToString(Calendar calendar) {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-DD");
         return df.format(calendar.getTime());
     }
 
@@ -398,16 +414,16 @@ public final class UtilsUI {
      *
      * @param format a string representing one of the values in the enum
      */
-    public static void format(String format) {
+    private static void format(String format) {
         System.out.print(TextStyle.valueOf(format).toString());
     }
 
-    public static void format(String format1, String format2) {
+    private static void format(String format1, String format2) {
         System.out.print(TextStyle.valueOf(format1).toString());
         System.out.print(TextStyle.valueOf(format2).toString());
     }
 
-    public static void format(String format1, String format2, String format3) {
+    private static void format(String format1, String format2, String format3) {
         System.out.print(TextStyle.valueOf(format1).toString());
         System.out.print(TextStyle.valueOf(format2).toString());
         System.out.print(TextStyle.valueOf(format3).toString());
@@ -505,7 +521,9 @@ public final class UtilsUI {
 
 
     private static String createWhiteSpace(int spaces) {
-        if (spaces <= 0) return "";
+        if (spaces <= 0){
+            return "";
+        }
         StringBuilder output = new StringBuilder();
 
         for (int i = 1; i < spaces; i++) {

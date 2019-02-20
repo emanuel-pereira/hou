@@ -12,8 +12,8 @@ public class ConfigureHouseLocationUI {
 
     private ConfigureHouseLocationCTRL mCtrlUS101;
     Scanner read = new Scanner(System.in);
-    GPSValidations validations = new GPSValidations();
-    String invalidCharacters = "^(?![\\s]).*";
+    private GPSValidations validations = new GPSValidations();
+    private String invalidCharacters = "^(?![\\s]).*";
 
     /*
         US101: As Administrator, I want to configure the location of the house
@@ -40,7 +40,7 @@ public class ConfigureHouseLocationUI {
             Scanner read1 = new Scanner(System.in);
             indexGA = read1.nextInt();
             if (indexGA <= 0 || indexGA > mCtrlUS101.getGAList().size())
-                UtilsUI.printLnInsertValidOption();
+                UtilsUI.printLnInsertValidOptionMsg();
             else
                 break;
         }

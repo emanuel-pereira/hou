@@ -366,9 +366,14 @@ class HouseTest {
         house.setHouseGA(braga);
         SensorType temperature = new SensorType("temperature");
         SensorList bragaSensorList= braga.getSensorListInGA();
-        Sensor s1= new Sensor("Temperature Sensor 3",new GregorianCalendar(2018,11,25),0,15,12,temperature);
-        Sensor s2= new Sensor("Temperature Sensor 1",new GregorianCalendar(2018,11,25),26,26,12,temperature);
-        Sensor s3= new Sensor("Temperature Sensor 2",new GregorianCalendar(2018,11,25),24,24,12,temperature);
+        GregorianCalendar startDate= new GregorianCalendar(2018,11,25);
+        Location loc1= new Location(0,15,12);
+        Location loc2= new Location(26,26,12);
+        Location loc3= new Location(24,24,12);
+
+        Sensor s1= new Sensor("Temperature Sensor 3",startDate,loc1,temperature);
+        Sensor s2= new Sensor("Temperature Sensor 1",startDate,loc2,temperature);
+        Sensor s3= new Sensor("Temperature Sensor 2",startDate,loc3,temperature);
 
         bragaSensorList.addSensor(s1);
         bragaSensorList.addSensor(s2);

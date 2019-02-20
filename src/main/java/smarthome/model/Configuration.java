@@ -10,7 +10,11 @@ import java.util.Properties;
  * Public methods do not provide any kind of change in the class behaviour under any condition. Only preset variables may be retrieved.
  * Note: as the configuration file is not changed at run time, the choice was made to make the class static.
  */
-public class Configuration {
+
+public final class Configuration {
+
+    private Configuration() {
+    }
 
     private static boolean isInitialized = false; // Thou shall run once, and only once... but you must lock the class.
 

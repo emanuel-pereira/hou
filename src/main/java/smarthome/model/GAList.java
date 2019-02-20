@@ -94,10 +94,17 @@ public class GAList {
         for (GeographicalArea ga : list) {
             result.append(number++);
             result.append(element);
-            result.append(ga.getGeographicalAreaDesignation());
+            result.append(ga.getGAName());
             result.append("\n");
         }
         return result.toString();
+    }
+
+    /**
+     * @return the number of elements in the geographical areas list as an integer value
+     */
+    public int size(){
+        return mGAList.size();
     }
 
 }

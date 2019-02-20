@@ -1,35 +1,42 @@
 package smarthome.io.ui;
 
-import smarthome.model.*;
+import smarthome.model.GAList;
+import smarthome.model.House;
+import smarthome.model.HouseGridList;
+import smarthome.model.SensorTypeList;
 
-import java.util.List;
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public final class HouseAdministrationUI {
-    private HouseAdministrationUI(){}
+
+    private HouseAdministrationUI() {
+    }
 
     public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList,
-                                           House house, HouseGridList hgList) throws ClassNotFoundException,IllegalAccessException, InstantiationException {
-        Scanner keyboard = new Scanner(System.in);
-        int option = -1;
-        System.out.println("House administration UI");
-        
-        while (option != 0) {
-            System.out.println("Click 1. Configure the location of the house");
-            System.out.println("Click 2. Add a new room to the house");
-            System.out.println("Click 3. Show the list of existing rooms");
-            System.out.println("Click 4. Create a house grid");
-            System.out.println("Click 5. Add a new power source to a house grid");
-            System.out.println("Click 6. List (Attach/detach) a room to/from a house grid");
-            System.out.println("Click 7. Show the Total Nominal Power from a Room.");
-            System.out.println("Click 8. Add a new sensor to a room");
-            System.out.println("Click 9. Show list all sensors in a room");
-            System.out.println("Click 10. List (edit/add/remove) devices in a room");
-            System.out.println("Click 11. Show all the devices connected to a grid");
-            System.out.println("Click 12. Show the total nominal power connected to a grid");
-            System.out.println("Click 0. Exit");
+                                           House house, HouseGridList hgList) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
 
-            option = Integer.parseInt(keyboard.nextLine());
+        int option = -1;
+        while (option != 0) {
+            ArrayList<String> options = new ArrayList<>();
+
+            options.add("[1] Configure the location of the house");
+            options.add("[2] Add a new room to the house");
+            options.add("[3] Show the list of existing rooms");
+            options.add("[4] Create a house grid");
+            options.add("[5] Add a new power source to a house grid");
+            options.add("[6] List (Attach/detach) a room to/from a house grid");
+            options.add("[7] Show the Total Nominal Power from a Room.");
+            options.add("[8] Add a new sensor to a room");
+            options.add("[9] Show list all sensors in a room");
+            options.add("[10] List (edit/add/remove) devices in a room");
+            options.add("[11] Show all the devices connected to a grid");
+            options.add("[12] Show the total nominal power connected to a grid");
+            options.add("[0] Exit");
+
+            UtilsUI.showList("House administration", options, false, 5);
+
+            option = UtilsUI.requestIntegerInInterval(0, 12, "Please choose an action between 1 and 12, or 0 to exit the program");
+
             switch (option) {
                 case 1:
                     ConfigureHouseLocationUI ui101 = new ConfigureHouseLocationUI(gaList, house);
@@ -68,21 +75,18 @@ public final class HouseAdministrationUI {
                     us250.run2();
                     break;
                 case 10:
-                    EditDevicesUI ui210  = new EditDevicesUI(house);
+                    EditDevicesUI ui210 = new EditDevicesUI(house);
                     ui210.selectOption();
                     break;
                 case 11:
-                    /*GetDeviceListInGridByTypeUI ui160 = new GetDeviceListInGridByTypeUI (house);
-                    ui160.checkIfHGListIsEmpty ();*/
+                    System.out.println("US 160 GetDeviceListInGridByTypeUI under maintenance, it will be available shortly");
                     break;
                 case 12:
                     GetGridTotalNominalPowerUI uS172 = new GetGridTotalNominalPowerUI(house);
                     uS172.run();
                     break;
-
                 default:
-                    System.out.println("Please choose a valid option.");
-
+                    //no action needed
             }
         }
     }

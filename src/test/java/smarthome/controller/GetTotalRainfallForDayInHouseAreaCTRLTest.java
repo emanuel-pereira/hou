@@ -90,11 +90,13 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         readingList2.addReading(r4);
         readingList2.addReading(r5);
         readingList2.addReading(r6);
-
-        Sensor s0 = new Sensor("WindSensor2", startDate, 85, 65, 10, wind, "c", readingList2);
-        Sensor s1 = new Sensor("WindSensor1", startDate, 80, 50, 10, wind, "c", readingList1);
-        Sensor s2 = new Sensor("WindSensor3", startDate, 80, 50, 10, wind, "c", readingList2);
-        Sensor s3 = new Sensor("TemperatureSensor", startDate, 1.5, 1.5, 1.5, temperature, "c", readingList2);
+        Location l1= new Location(85, 65, 10);
+        Sensor s0 = new Sensor("WindSensor2", startDate, l1, wind, "c", readingList2);
+        Location l2= new Location(80, 50, 10);
+        Sensor s1 = new Sensor("WindSensor1", startDate,l2 , wind, "c", readingList1);
+        Sensor s2 = new Sensor("WindSensor3", startDate, l2, wind, "c", readingList2);
+        Location l3= new Location(1.5, 1.5, 1.5);
+        Sensor s3 = new Sensor("TemperatureSensor", startDate, l3, temperature, "c", readingList2);
 
         houseGASensorList.addSensor(s0);
         houseGASensorList.addSensor(s1);
@@ -170,10 +172,14 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         readingList2.addReading(r5);
         readingList2.addReading(r6);
 
-        Sensor s0 = new Sensor("RainfallSensor2", startDate, 85, 65, 10, rainfall, "c", readingList2);
-        Sensor s1 = new Sensor("RainfallSensor1", startDate, 80, 50, 10, rainfall, "c", readingList1);
-        Sensor s2 = new Sensor("WindSensor3", startDate, 80, 50, 10, rainfall, "c", readingList2);
-        Sensor s3 = new Sensor("TemperatureSensor", startDate, 1.5, 1.5, 1.5, temperature, "c", readingList2);
+        Location l1= new Location(85, 65, 10);
+        Location l2= new Location(80, 50, 10);
+        Location l3= new Location(1.5, 1.5, 1.5);
+
+        Sensor s0 = new Sensor("RainfallSensor2", startDate,l1, rainfall, "c", readingList2);
+        Sensor s1 = new Sensor("RainfallSensor1", startDate, l2, rainfall, "c", readingList1);
+        Sensor s2 = new Sensor("WindSensor3", startDate,l2, rainfall, "c", readingList2);
+        Sensor s3 = new Sensor("TemperatureSensor", startDate, l3, temperature, "c", readingList2);
 
         houseGASensorList.addSensor(s0);
         houseGASensorList.addSensor(s1);
@@ -186,7 +192,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         GregorianCalendar date = new GregorianCalendar(2019, 2, 3);
 
 
-        boolean result = ctr.closestSensorsHaveReadingsInDate(date, rainfall);
+        boolean result = ctr.closestSensorsWithLatestReadingsInDate(date, rainfall);
 
         assertTrue(result);
     }
@@ -226,10 +232,14 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         readingList2.addReading(r5);
         readingList2.addReading(r6);
 
-        Sensor s0 = new Sensor("RainfallSensor2", startDate, 85, 65, 10, rainfall, "c", readingList2);
-        Sensor s1 = new Sensor("RainfallSensor1", startDate, 80, 50, 10, rainfall, "c", readingList1);
-        Sensor s2 = new Sensor("WindSensor3", startDate, 80, 50, 10, rainfall, "c", readingList2);
-        Sensor s3 = new Sensor("TemperatureSensor", startDate, 1.5, 1.5, 1.5, temperature, "c", readingList2);
+        Location l1= new Location(85, 65, 10);
+        Location l2= new Location(80, 50, 10);
+        Location l3= new Location(1.5, 1.5, 1.5);
+
+        Sensor s0 = new Sensor("RainfallSensor2", startDate, l1, rainfall, "c", readingList2);
+        Sensor s1 = new Sensor("RainfallSensor1", startDate, l2, rainfall, "c", readingList1);
+        Sensor s2 = new Sensor("WindSensor3", startDate, l2, rainfall, "c", readingList2);
+        Sensor s3 = new Sensor("TemperatureSensor", startDate, l3, temperature, "c", readingList2);
 
         houseGASensorList.addSensor(s0);
         houseGASensorList.addSensor(s1);
@@ -242,7 +252,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         GregorianCalendar date = new GregorianCalendar(2019, 3, 15);
 
 
-        boolean result = ctr.closestSensorsHaveReadingsInDate(date, rainfall);
+        boolean result = ctr.closestSensorsWithLatestReadingsInDate(date, rainfall);
 
         assertFalse(result);
     }

@@ -29,7 +29,7 @@ public class SetParentOfGAUI {
             System.out.println("Success");
             int gaIndex2;
             while (true) {
-                System.out.println("Choose a Geographical Area from the list below to set as parent of " + mGAList.getGAList().get(gaIndex1 - 1).getGeographicalAreaDesignation());
+                System.out.println("Choose a Geographical Area from the list below to set as parent of " + mGAList.getGAList().get(gaIndex1 - 1).getGAName());
                 System.out.println(mCtrlUS7.showListInString());
                 gaIndex2 = read.nextInt();
                 if (gaIndex1 == gaIndex2) {
@@ -37,7 +37,7 @@ public class SetParentOfGAUI {
                 } else break;
             }
             mCtrlUS7.setParentofGA(gaIndex1, gaIndex2);
-            System.out.println("Success, the area " + mCtrlUS7.getGAList().get(gaIndex1 - 1).getGeographicalAreaDesignation() + " was added to " + mCtrlUS7.getGAList().get(gaIndex2 - 1).getGeographicalAreaDesignation());
+            System.out.println("Success, the area " + mCtrlUS7.getGAList().get(gaIndex1 - 1).getGAName() + " was added to " + mCtrlUS7.getGAList().get(gaIndex2 - 1).getGAName());
             break;
         }
     }

@@ -1,20 +1,17 @@
 package smarthome.controller;
 
 import smarthome.model.*;
-import smarthome.model.validations.DateValidations;
 
 import java.util.Calendar;
 import java.util.List;
 
 public class GetEnergyConsumptionInPeriodCTRL {
-    private RoomList mRoomList;
-    private HouseGridList mHouseGridList;
-    private DateValidations mDateValidations;
+    private RoomList roomList;
+    private HouseGridList houseGridList;
 
     public GetEnergyConsumptionInPeriodCTRL(House house) {
-        mRoomList = house.getRoomList();
-        mHouseGridList = house.getHGListInHouse();
-        mDateValidations = new DateValidations();
+        this.roomList = house.getRoomList();
+        this.houseGridList = house.getHGListInHouse();
     }
 
 
@@ -22,14 +19,14 @@ public class GetEnergyConsumptionInPeriodCTRL {
      * @return the houseGridList in a string format to use in the UI
      */
     public String showHouseGridListInString() {
-        return mHouseGridList.showHouseGridListInString();
+        return this.houseGridList.showHouseGridListInString();
     }
 
     /**
      * @return the size of a houseGrid
      */
     public int getHouseGridListSize() {
-        return mHouseGridList.getSize();
+        return this.houseGridList.getSize();
     }
 
     /**
@@ -39,7 +36,7 @@ public class GetEnergyConsumptionInPeriodCTRL {
      * @return the houseGrid name
      */
     public String getHGName(int indexOfHG) {
-        HouseGrid houseGrid = mHouseGridList.get(indexOfHG - 1);
+        HouseGrid houseGrid = this.houseGridList.get(indexOfHG);
         return houseGrid.getGridID();
     }
 
@@ -49,14 +46,14 @@ public class GetEnergyConsumptionInPeriodCTRL {
      * @return list of all metered devices in string format
      */
     public String showMeteredDevicesInStr() {
-        return mRoomList.showMeteredDevicesInStr();
+        return this.roomList.showMeteredDevicesInStr();
     }
 
     /**
      * @return size, as an integer value, of the list of devices that are metered
      */
     public int getMeteredDevicesInHouseSize() {
-        return mRoomList.getMeteredDevicesInHouseSize();
+        return this.roomList.getMeteredDevicesInHouseSize();
     }
 
     /**
@@ -66,8 +63,8 @@ public class GetEnergyConsumptionInPeriodCTRL {
      * @return the device in the index position of the device list of metered devices
      */
     public String getDeviceName(int indexOfDevice) {
-        List<Device> meteredDeviceList = mRoomList.getMeteredDevicesInHouse();
-        Device device = meteredDeviceList.get(indexOfDevice - 1);
+        List<Device> meteredDeviceList = this.roomList.getMeteredDevicesInHouse();
+        Device device = meteredDeviceList.get(indexOfDevice);
         return device.getName();
     }
 
@@ -77,7 +74,7 @@ public class GetEnergyConsumptionInPeriodCTRL {
      * @return list of rooms in a string
      */
     public String showRoomListInStr() {
-        return mRoomList.showRoomListInString();
+        return this.roomList.showRoomListInString();
     }
 
     /**
@@ -86,7 +83,7 @@ public class GetEnergyConsumptionInPeriodCTRL {
      * @return size of the list of rooms
      */
     public int getRoomListSize() {
-        return mRoomList.getRoomListSize();
+        return this.roomList.getRoomListSize();
     }
 
     /**
@@ -96,7 +93,7 @@ public class GetEnergyConsumptionInPeriodCTRL {
      * @return the room name (string)
      */
     public String getRoomName(int indexOfRoom) {
-        Room room = mRoomList.get(indexOfRoom - 1);
+        Room room = this.roomList.get(indexOfRoom);
         return room.getName();
     }
 
@@ -109,8 +106,8 @@ public class GetEnergyConsumptionInPeriodCTRL {
      * @return the energy consumed in the specified time interval
      */
     public double getEnergyConsumptionInPeriod(int indexOfDevice, Calendar startDate, Calendar endDate) {
-        List<Device> meteredDevices = mRoomList.getMeteredDevicesInHouse();
-        Device selectedDevice = meteredDevices.get(indexOfDevice - 1);
+        List<Device> meteredDevices = this.roomList.getMeteredDevicesInHouse();
+        Device selectedDevice = meteredDevices.get(indexOfDevice);
         return selectedDevice.getEnergyConsumptionInTimeInterval(startDate, endDate);
     }
 
@@ -123,7 +120,7 @@ public class GetEnergyConsumptionInPeriodCTRL {
      * @return the energy consumed in the specified time interval
      */
     public double getHouseGridEnergyConsumptionInPeriod(int indexOfHouseGrid, Calendar startDate, Calendar endDate) {
-        HouseGrid selectedHouseGrid = mHouseGridList.get(indexOfHouseGrid - 1);
+        HouseGrid selectedHouseGrid = this.houseGridList.get(indexOfHouseGrid);
         return selectedHouseGrid.getEnergyConsumptionInTimeInterval(startDate, endDate);
     }
 
@@ -137,64 +134,8 @@ public class GetEnergyConsumptionInPeriodCTRL {
      * @return the energy consumed in the specified time interval
      */
     public double getRoomEnergyConsumptionInPeriod(int indexOfRoom, Calendar startHour, Calendar endHour) {
-        List<Room> roomL = mRoomList.getRoomList();
-        Room room = roomL.get(indexOfRoom - 1);
+        Room room = this.roomList.get(indexOfRoom);
         return room.getEnergyConsumptionInTimeInterval(startHour, endHour);
     }
-
-    /**
-     * Method to check if year inputted by the user is considered a valid year
-     *
-     * @param year inputted by the user
-     * @return year if it is within [2010,2099] range, otherwise returns  to ask again for valid input
-     */
-    public boolean yearIsValid(String year) {
-        return mDateValidations.yearIsValid(year);
-    }
-
-    /**
-     * Method to check if month inputted by the user is considered a valid month
-     *
-     * @param month inputted by the user
-     * @return month if it is a valid month, otherwise returns  to ask again for valid input
-     */
-    public boolean monthIsValid(String month) {
-        return mDateValidations.monthIsValid(month);
-    }
-
-    /**
-     * Method that checks if day inputted by the user is a valid day considering previously inputted month and year
-     * considering leap years.
-     *
-     * @param day        inputted by the user
-     * @param inputMonth previously inputted by the user parsed from string to integer
-     * @param inputYear  previously inputted by the user parsed from string to integer
-     * @return day if input meets regex criteria, otherwise returns
-     */
-    public boolean dayIsValid(String day, int inputMonth, int inputYear) {
-        return mDateValidations.dayIsValid(day, inputMonth, inputYear);
-    }
-
-    /**
-     * Method that checks if hour inputted by the user is a valid
-     *
-     * @param hour input hour
-     * @return hour if input meets regex criteria, otherwise returns
-     */
-    public boolean hourIsValid(String hour) {
-        return mDateValidations.hourIsValid(hour);
-    }
-
-
-    /**
-     * Method that checks if minute inputted by the user is valid
-     *
-     * @param minute input hour
-     * @return hour if input meets regex criteria, otherwise returns false
-     */
-    public boolean minuteIsValid(String minute) {
-        return mDateValidations.minuteIsValid(minute);
-    }
-
 
 }

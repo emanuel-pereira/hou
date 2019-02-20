@@ -28,8 +28,8 @@ public class GetRoomTotalNominalPowerUI {
             indexRoom = read1.nextInt();
 
             // Verify if indexRoom is valid and ask for a valid input if not
-            while (indexRoom  > mCtrlUS230.getRoomListSize() || indexRoom <= 0) {
-                UtilsUI.printLnInsertValidOption();
+            while (indexRoom > mCtrlUS230.getRoomListSize() || indexRoom <= 0) {
+                UtilsUI.printLnInsertValidOptionMsg();
                 indexRoom = read1.nextInt();
             }
 

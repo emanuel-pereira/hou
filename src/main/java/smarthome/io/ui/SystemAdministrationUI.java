@@ -4,7 +4,7 @@ import smarthome.model.GAList;
 import smarthome.model.SensorTypeList;
 import smarthome.model.TypeGAList;
 
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public final class SystemAdministrationUI {
 
@@ -13,26 +13,30 @@ public final class SystemAdministrationUI {
 
     public static void systemAdministration(SensorTypeList sensorTypeList, GAList gaList) {
         TypeGAList typeGAList = new TypeGAList();
-        Scanner keyboard = new Scanner(System.in);
+
         int option = -1;
-
         while (option != 0) {
-            System.out.println("As System Administrator I want to:");
-            System.out.println("Click 1. Define a new type of geographical area to later classify the geographical areas");
-            System.out.println("Click 2. Get the list of previously defined types of geographical areas");
-            System.out.println("Click 3. Create a new geographical area");
-            System.out.println("Click 4. See which geographical areas correspond to a specific type");
-            System.out.println("Click 5. Specify a new meteorological characteristic that sensors can measure/register");
-            System.out.println("Click 6. Create a new sensor and associate it to a Geographical Area");
-            System.out.println("Click 7. Specify that a geographical area is added to another one");
-            System.out.println("Click 8. Check if a a geographical area is direct/indirectly included to another one");
-            System.out.println("Click 0. Exit");
 
-            option = Integer.parseInt(keyboard.nextLine());
+            ArrayList<String> options = new ArrayList<>();
+
+            options.add("[1] Define a new type of geographical area to later classify the geographical areas");
+            options.add("[2] Get the list of previously defined types of geographical areas");
+            options.add("[3] Create a new geographical area");
+            options.add("[4] See which geographical areas correspond to a specific type");
+            options.add("[5] Specify a new meteorological characteristic that sensors can measure/register");
+            options.add("[6] Create a new sensor and associate it to a Geographical Area");
+            options.add("[7] Specify that a geographical area is added to another one");
+            options.add("[8] Check if a a geographical area is direct/indirectly included to another one");
+            options.add("[0] Exit");
+
+            UtilsUI.showList("System Administrator", options, false, 5);
+
+            option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 8, or 0 to exit the program");
+
             switch (option) {
                 case 1:
                     NewTypeGAUI ui1 = new NewTypeGAUI(typeGAList);
-                    ui1.run ();
+                    ui1.run();
                     break;
                 case 2:
                     GetTypeGAListUI ui2 = new GetTypeGAListUI(typeGAList);
@@ -52,7 +56,7 @@ public final class SystemAdministrationUI {
                     break;
                 case 6:
                     NewSensorUI ui6 = new NewSensorUI(sensorTypeList, gaList);
-                    ui6.checkIfGAListIsEmtpy();
+                    ui6.checkIfGAListIsEmpty();
                     break;
                 case 7:
                     SetParentOfGAUI ui7 = new SetParentOfGAUI(gaList);
@@ -63,7 +67,7 @@ public final class SystemAdministrationUI {
                     ui8.run();
                     break;
                 default:
-                    System.out.println("Please choose a valid option.");
+                    //no action needed
             }
         }
     }

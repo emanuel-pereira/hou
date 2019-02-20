@@ -151,64 +151,13 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         GregorianCalendar endDate = new GregorianCalendar(2018, 11, 5, 1, 00);
 
         double expected = 130;
-        double result = ctrl.getEnergyConsumptionInPeriod(2,startDate, endDate);
+        double result = ctrl.getEnergyConsumptionInPeriod(1,startDate, endDate);
 
         assertEquals(expected,result);
 
         String expected1="LG Fridge1";
-        String result1=ctrl.getDeviceName(2);
+        String result1=ctrl.getDeviceName(1);
         assertEquals(expected1,result1);
-    }
-
-    @Test
-    void dateIsValid() {
-        House house= new House();
-        GetEnergyConsumptionInPeriodCTRL ctrl= new GetEnergyConsumptionInPeriodCTRL(house);
-        String year="2018";
-        boolean result= ctrl.yearIsValid(year);
-        assertTrue(result);
-
-        String month="11";
-        boolean result1= ctrl.monthIsValid(month);
-        assertTrue(result1);
-
-        int yearAsInteger=Integer.parseInt(year);
-        int monthAsInteger=Integer.parseInt(month);
-        String day="30";
-        boolean result2= ctrl.dayIsValid(day,monthAsInteger,yearAsInteger);
-        assertTrue(result2);
-    }
-
-    @Test
-    void monthAndDayAreInvalid() {
-        House house= new House();
-        GetEnergyConsumptionInPeriodCTRL ctrl= new GetEnergyConsumptionInPeriodCTRL(house);
-        String year="2018";
-        boolean result= ctrl.yearIsValid(year);
-        assertTrue(result);
-
-        String month="15";
-        boolean result1= ctrl.monthIsValid(month);
-        assertFalse(result1);
-
-        int yearAsInteger=Integer.parseInt(year);
-        int monthAsInteger=Integer.parseInt(month);
-        String day="35";
-        boolean result2= ctrl.dayIsValid(day,monthAsInteger,yearAsInteger);
-        assertFalse(result2);
-    }
-
-    @Test
-    void hourIsValid() {
-        House house= new House();
-        GetEnergyConsumptionInPeriodCTRL ctrl= new GetEnergyConsumptionInPeriodCTRL(house);
-        String hour="15";
-        boolean result= ctrl.hourIsValid(hour);
-        assertTrue(result);
-
-        String minute="15";
-        boolean result1= ctrl.minuteIsValid(minute);
-        assertTrue(result1);
     }
 
     @Test
@@ -225,7 +174,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
         grid1RoomList.addRoom(kitchen);
         String expected = "Grid 1";
-        String result = ctrl.getHGName(1);
+        String result = ctrl.getHGName(0);
         assertEquals(expected, result);
     }
 
@@ -304,7 +253,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         Calendar endTime= new GregorianCalendar(2018,2,1,15,20);
 
         double expected=80;
-        double result=ctrl.getHouseGridEnergyConsumptionInPeriod(1,startTime,endTime);
+        double result=ctrl.getHouseGridEnergyConsumptionInPeriod(0,startTime,endTime);
         assertEquals(expected,result);
     }
 
@@ -431,7 +380,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         fridge2.setIsMetered (false);
 
         double expected = 260;
-        double result = ctrl.getRoomEnergyConsumptionInPeriod (1, startDate, endDate);
+        double result = ctrl.getRoomEnergyConsumptionInPeriod (0, startDate, endDate);
 
         assertEquals (expected, result);
     }
@@ -493,7 +442,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         fridge.setIsMetered (true);
 
         double expected = 0;
-        double result = ctrl.getRoomEnergyConsumptionInPeriod (2, startDate, endDate);
+        double result = ctrl.getRoomEnergyConsumptionInPeriod (1, startDate, endDate);
 
         assertEquals (expected, result);
     }
@@ -509,7 +458,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         rList.addRoom (bedroom);
         rList.addRoom (office);
         String expected = "Bedroom";
-        String result = ctrl.getRoomName (1);
+        String result = ctrl.getRoomName (0);
         assertEquals(expected, result);
     }
 

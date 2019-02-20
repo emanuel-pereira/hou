@@ -1,10 +1,9 @@
 package smarthome.io.ui;
 
-import smarthome.model.GAList;
 import smarthome.model.House;
 import smarthome.model.SensorTypeList;
 
-import java.util.Scanner;
+import java.util.ArrayList;
 
 public final class RegularUsageUI {
 
@@ -12,19 +11,21 @@ public final class RegularUsageUI {
     }
 
     public static void regularUsage(House house, SensorTypeList sensorTypeList) {
-        Scanner keyboard = new Scanner(System.in);
         int option = -1;
-        System.out.println("Regular Users UI");
 
         while (option != 0) {
-            System.out.println("Click 1. Get the latest reading of a type in the house area.");
-            System.out.println("Click 2. Show current temperature in a room");
-            System.out.println("Click 3. Get the maximum temperature in a room.");
-            System.out.println("Click 4. Get the total rainfall in a given day.");
-            System.out.println("Click 5. Get the average daily rainfall in the house area for a given period (days).");
-            System.out.println("Click 0. Exit");
 
-            option = Integer.parseInt(keyboard.nextLine());
+            ArrayList<String> options = new ArrayList<>();
+            options.add("[1] Get the latest reading of a type in the house area.");
+            options.add("[2] Show current temperature in a room");
+            options.add("[3] Get the maximum temperature in a room.");
+            options.add("[4] Get the total rainfall in a given day.");
+            options.add("[5] Get the average daily rainfall in the house area for a given period (days).");
+            options.add("[0] Exit");
+
+            UtilsUI.showList("Regular Usage", options, false, 5);
+            option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");
+
             switch (option) {
                 case 1:
                     GetCurrentTemperatureInHouseAreaUI us600 = new GetCurrentTemperatureInHouseAreaUI(house, sensorTypeList);
@@ -45,7 +46,7 @@ public final class RegularUsageUI {
                     System.out.println("US623");
                     break;
                 default:
-                    System.out.println("Please choose a valid option.");
+                    //no action needed
             }
 
         }
