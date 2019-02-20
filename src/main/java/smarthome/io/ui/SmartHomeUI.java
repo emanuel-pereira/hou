@@ -1,7 +1,10 @@
 
 package smarthome.io.ui;
 
-import smarthome.model.*;
+import smarthome.model.GAList;
+import smarthome.model.House;
+import smarthome.model.SensorTypeList;
+import smarthome.model.TypeGAList;
 
 import java.util.ArrayList;
 
@@ -14,13 +17,13 @@ import static smarthome.io.ui.SystemAdministrationUI.systemAdministration;
 public class SmartHomeUI {
     private static SensorTypeList sensorTypeList;
     private static GAList gaList;
+    private static TypeGAList typeGAList;
     private static House house;
-    private static HouseGridList hgList;
 
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         init();
 
-        BootStrap.run(house, gaList, sensorTypeList);
+        BootStrap.run(house, typeGAList, gaList, sensorTypeList);
 
         menuOptions();
     }
@@ -29,7 +32,7 @@ public class SmartHomeUI {
         sensorTypeList = new SensorTypeList();
         gaList = new GAList();
         house = new House();
-        hgList = new HouseGridList();
+        typeGAList= new TypeGAList();
     }
 
     private static void menuOptions() throws IllegalAccessException, InstantiationException, ClassNotFoundException {
@@ -49,10 +52,10 @@ public class SmartHomeUI {
             option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");
             switch (option) {
                 case 1:
-                    systemAdministration(sensorTypeList, gaList);
+                    systemAdministration(sensorTypeList,typeGAList, gaList);
                     break;
                 case 2:
-                    houseAdministration(sensorTypeList, gaList, house, hgList);
+                    houseAdministration(sensorTypeList, gaList, house);
                     break;
                 case 3:
                     regularUsage(house, sensorTypeList);

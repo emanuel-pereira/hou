@@ -41,9 +41,9 @@ public final class BootStrap {
      * @throws InstantiationException exception
      * @throws ClassNotFoundException exception
      */
-    public static void run(House house, GAList gaList, SensorTypeList sensorTypeList) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
+    public static void run(House house, TypeGAList typeGAList, GAList gaList, SensorTypeList sensorTypeList) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
         BootStrap.house = house;
-        createGeographicalAreas(gaList);
+        createGeographicalAreas(gaList,typeGAList);
         createSensorsUnitTypes(sensorTypeList);
         createSensorsInGA(gaList.get(0), sensorTypeList);
 
@@ -65,9 +65,13 @@ public final class BootStrap {
      *
      * @param gaList bootstrap List of Geographical Areas object
      */
-    private static void createGeographicalAreas(GAList gaList) {
+    private static void createGeographicalAreas(GAList gaList, TypeGAList typeGAList) {
+        TypeGA urbanArea= new TypeGA("urban area");
+        typeGAList.addTypeGA(urbanArea);
         GeographicalArea isep = new GeographicalArea("ISEP", "Campus do ISEP", "urban area", 41.178553, -8.608035, 111, 0.261, 0.249);
         gaList.addGA(isep);
+        TypeGA city= new TypeGA("city");
+        typeGAList.addTypeGA(city);
         GeographicalArea porto = new GeographicalArea("Porto", "City of Porto", "city", 41.164077, -8.620802, 118, 3.30, 10.09);
         gaList.addGA(porto);
 

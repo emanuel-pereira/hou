@@ -2,7 +2,6 @@ package smarthome.io.ui;
 
 import smarthome.model.GAList;
 import smarthome.model.House;
-import smarthome.model.HouseGridList;
 import smarthome.model.SensorTypeList;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public final class HouseAdministrationUI {
     }
 
     public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList,
-                                           House house, HouseGridList hgList) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+                                           House house) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
 
         int option = -1;
         while (option != 0) {
@@ -51,7 +50,7 @@ public final class HouseAdministrationUI {
                     ui108.run();
                     break;
                 case 4:
-                    NewHouseGridUI ui130 = new NewHouseGridUI(house, hgList);
+                    NewHouseGridUI ui130 = new NewHouseGridUI(house);
                     ui130.run();
                     break;
                 case 5:

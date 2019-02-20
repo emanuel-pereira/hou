@@ -53,8 +53,10 @@ class NewSensorCTRLTest {
         SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
         NewSensorCTRL ctrl6 = new NewSensorCTRL(sensorTypeList, gaList);
-        GeographicalArea area1 = gaList.newGA("Pt", "Porto", "district", 20, 20, 1, 3, -10);
-        GeographicalArea area2 = gaList.newGA("Pt", "Braga", "district", 20, 20, 1, 3, -10);
+        OccupationArea occupationArea = new OccupationArea(20, 20);
+        Location location = new Location(1, 3, -10);
+        GeographicalArea area1 = gaList.newGA("Pt", "Porto", "district", occupationArea, location);
+        GeographicalArea area2 = gaList.newGA("Pt", "Braga","district", occupationArea, location);
         gaList.addGA(area1);
         gaList.addGA(area2);
 
@@ -94,10 +96,10 @@ class NewSensorCTRLTest {
         readingsLis.addReading(r2Lis);
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26);
         Location loc = new Location(55, 40, 15);
-        boolean result = ctrl6.addNewSensorToGA("LisboaTempSensor", startDate, 0, "C", loc, 1, readingsPt);
+        boolean result = ctrl6.addNewSensorToGA("LisboaTempSensor", startDate, 0, "C", loc, 0, readingsPt);
         assertTrue(result);
 
-        boolean result1 = ctrl6.addNewSensorToGA("PortoWindSensor", startDate, 1, "km/h", loc, 2, readingsLis);
+        boolean result1 = ctrl6.addNewSensorToGA("PortoWindSensor", startDate, 1, "km/h", loc, 1, readingsLis);
         assertTrue(result1);
     }
 
@@ -155,7 +157,7 @@ class NewSensorCTRLTest {
         try {
             GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26);
             Location loc = new Location(90, 190, 1500);
-            ctrl6.addNewSensorToGA("LisboaTempSensor",startDate , 1, "C",loc , 1, readingsPt);
+            ctrl6.addNewSensorToGA("LisboaTempSensor", startDate, 1, "C", loc, 1, readingsPt);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -186,7 +188,7 @@ class NewSensorCTRLTest {
         try {
             GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26);
             Location loc = new Location(90, 190, 9000);
-            ctrl6.addNewSensorToGA("LisboaTempSensor",startDate, 1, "C", loc, 1, readingsPt);
+            ctrl6.addNewSensorToGA("LisboaTempSensor", startDate, 1, "C", loc, 1, readingsPt);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -202,12 +204,14 @@ class NewSensorCTRLTest {
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
         GAList gaList = new GAList();
-        GeographicalArea porto = gaList.newGA("PT", "Porto", "City", 25, 12, 23, 12, 11);
+        OccupationArea occupationArea = new OccupationArea(25, 12);
+        Location location = new Location(23, 12, 11);
+        GeographicalArea porto = gaList.newGA("PT", "Porto", "City", occupationArea, location);
         gaList.addGA(porto);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
-        GregorianCalendar startDate=new GregorianCalendar(2020, 11, 1);
-        Location loc= new Location(25, 28, 11);
-        Sensor sensor = new Sensor("Name", startDate,loc, temperature, "Celsius", new ReadingList());
+        GregorianCalendar startDate = new GregorianCalendar(2020, 11, 1);
+        Location loc = new Location(25, 28, 11);
+        Sensor sensor = new Sensor("Name", startDate, loc, temperature, "Celsius", new ReadingList());
 
         boolean expected = true;
         boolean result = ctrl.latitudeIsValid(sensor.getLocation().getLatitude());
@@ -230,7 +234,9 @@ class NewSensorCTRLTest {
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
         GAList gaList = new GAList();
-        GeographicalArea porto = gaList.newGA("PT", "Porto", "City", 25, 12, 23, 12, 11);
+        OccupationArea occupationArea = new OccupationArea(25, 12);
+        Location location = new Location(23, 12, 11);
+        GeographicalArea porto = gaList.newGA("PT", "Porto", "City", occupationArea, location);
         gaList.addGA(porto);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         String inputName = "Sensor - ISEP";
@@ -246,9 +252,13 @@ class NewSensorCTRLTest {
     void getGAListSize() {
         SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
-        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", 25, 12, 23, 12, 11);
+        OccupationArea occupationArea = new OccupationArea(25, 12);
+        Location location = new Location(23, 12, 11);
+        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", occupationArea, location);
         gaList.addGA(porto);
-        GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", "City", 45, -15, 23, 12, 11);
+        OccupationArea occupationArea2 = new OccupationArea(12, 11);
+        Location location2 = new Location(45, -15, 23);
+        GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa","City", occupationArea2, location2);
         gaList.addGA(lisboa);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         int expected = 2;
@@ -279,16 +289,18 @@ class NewSensorCTRLTest {
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
         GAList gaList = new GAList();
-        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", 25, 12, 23, 12, 11);
+        OccupationArea occupationArea = new OccupationArea(12, 11);
+        Location location = new Location(25, 12, 23);
+        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", occupationArea,location);
         gaList.addGA(porto);
-        GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", "City", 45, -15, 23, 12, 11);
+        GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", "City", occupationArea,location);
         gaList.addGA(lisboa);
         ReadingList readingList = new ReadingList();
-        GregorianCalendar startDate= new GregorianCalendar(2019, 2, 15);
-        Location loc1= new Location(25, -15, 5);
-        Sensor s1 = new Sensor("LisboaTempSensor1", startDate,loc1 , temperature, "Cº", readingList);
-        Location loc2= new Location(27, -14, 6);
-        Sensor s2 = new Sensor("LisboaTempSensor2", startDate,loc2 , temperature, "Cº", readingList);
+        GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
+        Location loc1 = new Location(25, -15, 5);
+        Sensor s1 = new Sensor("LisboaTempSensor1", startDate, loc1, temperature, "Cº", readingList);
+        Location loc2 = new Location(27, -14, 6);
+        Sensor s2 = new Sensor("LisboaTempSensor2", startDate, loc2, temperature, "Cº", readingList);
         lisboa.getSensorListInGA().addSensor(s1);
         lisboa.getSensorListInGA().addSensor(s2);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
@@ -306,11 +318,15 @@ class NewSensorCTRLTest {
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
         GAList gaList = new GAList();
-        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", 25, 12, 23, 12, 11);
+        OccupationArea occupationArea = new OccupationArea(12, 11);
+        Location location = new Location(25, 12, 23);
+        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", occupationArea,location);
         gaList.addGA(porto);
-        GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", "City", 45, -15, 23, 12, 11);
+        Location location2 = new Location(45, -15, 23);
+        GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", "City", occupationArea,location2);
         gaList.addGA(lisboa);
-        GeographicalArea aveiro = gaList.newGA("AVR", "Aveiro", "City", 29, 7, 2, 12, 11);
+        Location location3= new Location(29, 7, 2);
+        GeographicalArea aveiro = gaList.newGA("AVR", "Aveiro", "City", occupationArea, location3);
         gaList.addGA(aveiro);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
 
@@ -319,25 +335,28 @@ class NewSensorCTRLTest {
 
         assertEquals(expected, result);
     }
+
     @Test
     void getSensorName() {
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
         GAList gaList = new GAList();
-        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", 25, 12, 23, 12, 11);
+        OccupationArea occupationArea = new OccupationArea(12, 11);
+        Location location = new Location(25, 12, 23);
+        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", occupationArea, location);
         gaList.addGA(porto);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         SensorList sensorList = new SensorList();
-        GregorianCalendar startDate= new GregorianCalendar(2019,2,15);
-        Location location= new Location(23,-15,12);
-        ReadingList readingList= new ReadingList();
-        Sensor s1=sensorList.newSensor("Temperature sensor 1",startDate,location,temperature,"Celsius",readingList);
-        SensorList portoSensorList= porto.getSensorListInGA();
+        GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
+        Location location2 = new Location(23, -15, 12);
+        ReadingList readingList = new ReadingList();
+        Sensor s1 = sensorList.newSensor("Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
+        SensorList portoSensorList = porto.getSensorListInGA();
         portoSensorList.addSensor(s1);
-        String expected= "Temperature sensor 1";
-        String result= ctrl.getSensorName(0);
-        assertEquals(expected,result);
+        String expected = "Temperature sensor 1";
+        String result = ctrl.getSensorName(0);
+        assertEquals(expected, result);
     }
 
     @Test
@@ -346,18 +365,20 @@ class NewSensorCTRLTest {
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
         GAList gaList = new GAList();
-        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", 25, 12, 23, 12, 11);
+        OccupationArea occupationArea = new OccupationArea(12, 11);
+        Location location = new Location(25, 12, 23);
+        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", occupationArea, location);
         gaList.addGA(porto);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         SensorList sensorList = new SensorList();
-        GregorianCalendar startDate= new GregorianCalendar(2019,2,15);
-        Location location= new Location(23,-15,12);
-        ReadingList readingList= new ReadingList();
-        Sensor s1=sensorList.newSensor("Temperature sensor 1",startDate,location,temperature,"Celsius",readingList);
-        SensorList portoSensorList= porto.getSensorListInGA();
+        GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
+        Location location2 = new Location(23, -15, 12);
+        ReadingList readingList = new ReadingList();
+        Sensor s1 = sensorList.newSensor("Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
+        SensorList portoSensorList = porto.getSensorListInGA();
         portoSensorList.addSensor(s1);
-        Calendar result= ctrl.getStartDate(0);
-        assertEquals(startDate,result);
+        Calendar result = ctrl.getStartDate(0);
+        assertEquals(startDate, result);
     }
 
     @Test
@@ -366,18 +387,20 @@ class NewSensorCTRLTest {
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
         GAList gaList = new GAList();
-        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", 25, 12, 23, 12, 11);
+        OccupationArea occupationArea = new OccupationArea(12, 11);
+        Location location = new Location(25, 12, 23);
+        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", occupationArea, location);
         gaList.addGA(porto);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         SensorList sensorList = new SensorList();
-        GregorianCalendar startDate= new GregorianCalendar(2019,2,15);
-        Location location= new Location(23,-15,12);
-        ReadingList readingList= new ReadingList();
-        Sensor s1=sensorList.newSensor("Temperature sensor 1",startDate,location,temperature,"Celsius",readingList);
-        SensorList portoSensorList= porto.getSensorListInGA();
+        GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
+        Location location2 = new Location(23, -15, 12);
+        ReadingList readingList = new ReadingList();
+        Sensor s1 = sensorList.newSensor("Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
+        SensorList portoSensorList = porto.getSensorListInGA();
         portoSensorList.addSensor(s1);
-        String expected= "Celsius";
-        String result= ctrl.getUnit(0);
-        assertEquals(expected,result);
+        String expected = "Celsius";
+        String result = ctrl.getUnit(0);
+        assertEquals(expected, result);
     }
 }

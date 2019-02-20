@@ -2,20 +2,15 @@ package smarthome.io.ui;
 
 import smarthome.controller.NewHouseGridCTRL;
 import smarthome.model.House;
-import smarthome.model.HouseGridList;
 
 import java.util.Scanner;
 
 public class NewHouseGridUI {
 
     private Scanner keyboard = new Scanner (System.in);
-    private House mHouse;
-    private HouseGridList mHGList;
     private NewHouseGridCTRL mCtrlUS130;
 
-    public NewHouseGridUI(House house, HouseGridList hglist) {
-        this.mHouse = house;
-        this.mHGList = hglist;
+    public NewHouseGridUI(House house) {
         mCtrlUS130 = new NewHouseGridCTRL (house);
     }
 
