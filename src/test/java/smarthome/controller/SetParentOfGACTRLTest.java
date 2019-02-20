@@ -14,15 +14,14 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class SetParentOfGACTRLTest {
 
 
-
     @Test
     @DisplayName("Ensure that GA2 Portugal has been set as GA Porto parent")
     public void setParentOfGA() {
 
         GAList gaList = new GAList();
 
-        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 2, 3, 4, 5, 6);
-        GeographicalArea ga2 = new GeographicalArea("Pt","Portugal", "Country", 2, 3, 4, 5, 6);
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 3, 4, 5, 6);
+        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", 2, 3, 4, 5, 6);
 
         int indexGA1 = 1;
         int indexGA2 = 2;
@@ -31,7 +30,7 @@ public class SetParentOfGACTRLTest {
         gaList.addGA(ga2);
 
         SetParentOfGACTRL ctrl7 = new SetParentOfGACTRL(gaList);
-        ctrl7.setParentofGA(indexGA1,indexGA2);
+        ctrl7.setParentofGA(indexGA1, indexGA2);
 
         String result = ga1.getGeographicalParentGA().getGAName();
         String expectedResult = "Portugal";
@@ -44,9 +43,9 @@ public class SetParentOfGACTRLTest {
 
         GAList gaList = new GAList();
 
-        GeographicalArea ga1 = new GeographicalArea("Opo","Porto", "city", 2, 3, 4, 5, 6);
-        GeographicalArea ga2 = new GeographicalArea("Lis","Lisboa", "city", 4, 6, 8, 11, 7);
-        GeographicalArea ga3 = new GeographicalArea("Pt","Portugal", "country", 14, 16, 18, 111, 117);
+        GeographicalArea ga1 = new GeographicalArea("Opo", "Porto", "city", 2, 3, 4, 5, 6);
+        GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", "city", 4, 6, 8, 11, 7);
+        GeographicalArea ga3 = new GeographicalArea("Pt", "Portugal", "country", 14, 16, 18, 111, 117);
 
         int indexGA1 = 1;
         int indexGA2 = 2;
@@ -57,9 +56,9 @@ public class SetParentOfGACTRLTest {
         gaList.addGA(ga3);
 
         SetParentOfGACTRL ctrl7 = new SetParentOfGACTRL(gaList);
-        ctrl7.setParentofGA(indexGA1,indexGA2);
+        ctrl7.setParentofGA(indexGA1, indexGA2);
 
-        ctrl7.setParentofGA(indexGA1,indexGA3);
+        ctrl7.setParentofGA(indexGA1, indexGA3);
 
         String result = ga1.getGeographicalParentGA().getGAName();
         String expectedResult = "Portugal";
@@ -72,8 +71,8 @@ public class SetParentOfGACTRLTest {
 
         GAList gaList = new GAList();
 
-        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 2, 3, 4, 5, 6);
-        GeographicalArea ga2 = new GeographicalArea("Pt","Portugal", "Country", 2, 3, 4, 5, 6);
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 3, 4, 5, 6);
+        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", 2, 3, 4, 5, 6);
 
         int indexGA1 = 1;
         int indexGA2 = 2;
@@ -82,13 +81,12 @@ public class SetParentOfGACTRLTest {
         gaList.addGA(ga2);
 
         SetParentOfGACTRL ctrl7 = new SetParentOfGACTRL(gaList);
-        ctrl7.setParentofGA(indexGA1,indexGA2);
+        ctrl7.setParentofGA(indexGA1, indexGA2);
 
         String result = ga1.getGeographicalParentGA().getGAName();
         String expectedResult = "Espanha";
         assertNotEquals(expectedResult, result);
     }
-
 
 
     @Test
@@ -109,13 +107,13 @@ public class SetParentOfGACTRLTest {
     @DisplayName("Check if console shows the parent Ga of Porto, in this case, is Portugal")
     public void showListInString() {
 
-        GAList gaList = new GAList ();
+        GAList gaList = new GAList();
 
 
         SetParentOfGACTRL ctrl7 = new SetParentOfGACTRL(gaList);
 
-        GeographicalArea ga1 = new GeographicalArea ("Pt","Porto","city",3,4,5,6,7);
-        GeographicalArea ga2 = new GeographicalArea("Pt","Portugal","Country",5,3,6,7,3);
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 3, 4, 5, 6, 7);
+        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", 5, 3, 6, 7, 3);
 
         gaList.addGA(ga1);
         gaList.addGA(ga2);
@@ -127,4 +125,46 @@ public class SetParentOfGACTRLTest {
     }
 
 
+    @Test
+    public void getGAListSize() {
+
+        GAList gaList = new GAList();
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 3, 4, 5, 6);
+        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", 5, 3, 6, 7, 3);
+
+        gaList.addGA(ga1);
+        gaList.addGA(ga2);
+
+        SetParentOfGACTRL ctrl7 = new SetParentOfGACTRL(gaList);
+
+        int result = ctrl7.getGAListSize();
+        int expectedResult = 2;
+
+        assertEquals(expectedResult, result);
+
+
+    }
+
+    @Test
+    public void getGaName() {
+
+        GAList gaList = new GAList();
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 3, 4, 5, 6);
+        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", 2, 3, 4, 5, 6);
+
+
+        gaList.addGA(ga1);
+        gaList.addGA(ga2);
+
+        SetParentOfGACTRL ctrl7 = new SetParentOfGACTRL(gaList);
+
+
+        String result = ctrl7.getGaName(1);
+
+        String expectedResult = "Porto";
+
+        assertEquals(expectedResult, result);
+    }
 }
