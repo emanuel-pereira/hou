@@ -3,7 +3,7 @@ package smarthome.controller;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
-import smarthome.model.Validations.NameValidations;
+import smarthome.model.validations.NameValidations;
 
 import java.util.Arrays;
 import java.util.List;

@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceList {
-    private List<Device> mDeviceList;
+    private List<Device> devicesList;
 
     /**
      * Constructor initializing an empty device list.
      */
     public DeviceList() {
-        mDeviceList = new ArrayList<>();
+        devicesList = new ArrayList<>();
     }
 
     /**
@@ -20,8 +20,8 @@ public class DeviceList {
      * @return boolean result of the device addition
      */
     public boolean addDevice(Device newDevice) {
-        if (!mDeviceList.contains(newDevice)) {
-            mDeviceList.add(newDevice);
+        if (!devicesList.contains(newDevice)) {
+            devicesList.add(newDevice);
             return true;
         } else return false;
     }
@@ -41,8 +41,11 @@ public class DeviceList {
     public Device newDeviceV2(DeviceType deviceType) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         String path = "smarthome.model.";
         String deviceTypeName = deviceType.getDeviceTypeName();
-        if (!(deviceTypeName.contains("Fridge") || deviceTypeName.contains("WashingMachine") || deviceTypeName.contains("ElectricWaterHeater")
-                || deviceTypeName.contains("Dishwasher") || deviceTypeName.contains("Lamp")))
+        if (!(deviceTypeName.contains("Fridge") ||
+                deviceTypeName.contains("WashingMachine") ||
+                deviceTypeName.contains("ElectricWaterHeater") ||
+                deviceTypeName.contains("Dishwasher") ||
+                deviceTypeName.contains("Lamp")))
             deviceTypeName = "OtherDevices";
         String deviceTypeNameAndPath = path.concat(deviceTypeName);
         DeviceSpecs deviceSpecs = (DeviceSpecs) Class.forName(deviceTypeNameAndPath).newInstance();
@@ -56,30 +59,15 @@ public class DeviceList {
      * @return the device in index position in the device list
      */
     public Device get(int index) {
-        return mDeviceList.get(index);
+        return devicesList.get(index);
     }
 
     /**
      * @return the device in the last index position of the device list
      */
-    public Device getLastElement() {
-        return mDeviceList.get(mDeviceList.size() - 1);
+    Device getLastElement() {
+        return devicesList.get(devicesList.size() - 1);
     }
-
-
-    /**
-     * Method to get the list of Powered devices of a room
-     *
-     * @return the device list
-     * public List<Powered> getPoweredDeviceList() {
-     List<Powered> poweredDeviceList;
-     for Device device: mDeviceList
-     {
-     poweredDeviceList.add(mDeviceList.get().)
-     }
-     return ;
-     }
-     */
 
     public String showDeviceListInString() {
         List<Device> list = getDeviceList();
@@ -102,11 +90,11 @@ public class DeviceList {
     }
 
     public List<Device> getDeviceList() {
-        return mDeviceList;
+        return devicesList;
     }
 
     public int size() {
-        return mDeviceList.size();
+        return this.devicesList.size();
     }
 
     /**
@@ -116,7 +104,7 @@ public class DeviceList {
      * @return boolean result of the device's removal
      */
     public boolean removeDevice(Device device) {
-        return this.mDeviceList.remove(device);
+        return this.devicesList.remove(device);
     }
 
     /**
@@ -132,11 +120,10 @@ public class DeviceList {
     /**
      * @return a list of all devices that have isMetered parameter set as true
      */
-
-    public List<Device> getMeteredDevices() {
+    List<Device> getMeteredDevices() {
         List<Device> meteredDeviceList = new ArrayList<>();
 
-        for (Device device : mDeviceList) {
+        for (Device device : devicesList) {
             if (device.isMetered()) {
                 meteredDeviceList.add(device);
             }

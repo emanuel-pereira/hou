@@ -39,24 +39,14 @@ public class SensorList {
     }
 
     /**
-     * Method to return the size of the list of sensors
-     *
-     * @return size of the list of sensors
-     */
-    public int size() {
-        return mSensorList.size();
-    }
-
-    /**
      * @param inputName name of Sensor
      * @param startDate startDate of Sensor
-     * @param latitude  latitude in which the user wants to place the sensor
-     * @param longitude longitude in which the user wants to place the sensor
-     * @param altitude  altitude in which the user wants to place the sensor
+     * @param geoLocation  gps coordinates in which the user wants to place the sensor
+
      * @return
      */
-    public Sensor newSensor(String inputName, GregorianCalendar startDate, double latitude, double longitude, double altitude, SensorType sensorType, String inputUnit, ReadingList readings) {
-        return new Sensor(inputName, startDate, latitude, longitude, altitude, sensorType, inputUnit, readings);
+    public Sensor newSensor(String inputName, GregorianCalendar startDate,Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
+        return new Sensor(inputName, startDate, geoLocation, sensorType, inputUnit, readings);
     }
 
     /**
@@ -78,7 +68,7 @@ public class SensorList {
      */
     public boolean checkIfRequiredSensorTypeExists(String sensorType) {
         for (Sensor s : mSensorList) {
-            if (s.getSensorType().getSensorTypeDesignation().equals(sensorType)) {
+            if (s.getSensorType().getType().equals(sensorType)) {
                 return true;
             }
         }
@@ -93,11 +83,9 @@ public class SensorList {
      */
     public Sensor getRequiredSensorPerType(String type) {
         Sensor requiredSensor = null;
-        for (Sensor sensor : mSensorList) {
-            if (sensor.getSensorType().getSensorTypeDesignation().equals(type)) {
+        for (Sensor sensor : mSensorList)
+            if (sensor.getSensorType().getType().equals(type))
                 requiredSensor = sensor;
-            }
-        }
         return requiredSensor;
     }
 
@@ -120,7 +108,6 @@ public class SensorList {
         return result.toString();
     }
 
-
     public SensorList getListOfSensorsByType(SensorType sensorType) {
         SensorList listOfSensorsByType = new SensorList();
         for (Sensor sensor : mSensorList) {
@@ -130,5 +117,24 @@ public class SensorList {
         return listOfSensorsByType;
     }
 
+    public int size() {
+        return mSensorList.size();
+    }
+
+
+    public SensorList getSensorListOfRequiredSensorPerType(String type) {
+        SensorList typeSensorList = new SensorList();
+        for (Sensor sensor : mSensorList) {
+            if (sensor.getSensorType().getType().equals(type)) {
+                typeSensorList.addSensor(sensor);
+            }
+        }
+        return typeSensorList;
+    }
+
+
+    public Sensor getLastSensor() {
+        return mSensorList.get(mSensorList.size() - 1);
+    }
 
 }

@@ -3,6 +3,7 @@ package smarthome.io.ui;
 import smarthome.controller.EditDevicesCTRL;
 import smarthome.model.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EditDevicesUI {
@@ -30,15 +31,20 @@ public class EditDevicesUI {
     public void selectOption() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         int option = -1;
         while (option != 0) {
-            System.out.println("Choose an option from the list below:");
-            System.out.println("1 - Add a device to a Room from the list of the available device types.");
-            System.out.println("2 - Get a list of all Devices in a Room");
-            System.out.println("3 - Edit the configuration of an existing device");
-            System.out.println("4 - Remove a device");
-            System.out.println("5 - Deactivate a device");
-            System.out.println("0 - Exit");
-            option = read.nextInt();
-            read.nextLine();
+
+            ArrayList<String> options = new ArrayList<>();
+
+            options.add("[1] Add a device to a Room from the list of the available device types.");
+            options.add("[2] Get a list of all Devices in a Room");
+            options.add("[3] Edit the configuration of an existing device");
+            options.add("[4] Remove a device");
+            options.add("[5] Deactivate a device");
+            options.add("[0] Exit");
+
+            UtilsUI.showList("Device Edition", options, false, 5);
+
+            option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 8, or 0 to exit the program");
+
             switch (option) {
                 case 1:
                     this.roomSelectionToAddDevice();
@@ -56,7 +62,7 @@ public class EditDevicesUI {
                     this.deactivateDevice();
                     break;
                 default:
-                    System.out.println("Please choose a valid option.");
+                    //no action needed
             }
         }
     }

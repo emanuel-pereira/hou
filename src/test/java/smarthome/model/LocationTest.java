@@ -2,7 +2,7 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.model.Validations.GPSValidations;
+import smarthome.model.validations.GPSValidations;
 
 import static org.junit.jupiter.api.Assertions.*;
 

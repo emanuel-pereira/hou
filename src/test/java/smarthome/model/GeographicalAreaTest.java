@@ -4,9 +4,6 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -107,11 +104,10 @@ public class GeographicalAreaTest {
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 4, 5, 5, 6);
         GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", 3, 4, 5, 6, 7);
 
-        ga1.setmParentGA(ga2);
+        ga1.setParentGA(ga2);
 
-        GeographicalArea expectedResult = ga2;
         GeographicalArea result = ga1.getGeographicalParentGA();
-        assertEquals(expectedResult, result);
+        assertEquals(ga2, result);
 
     }
 
@@ -141,4 +137,16 @@ public class GeographicalAreaTest {
     }
 
 
+    @Test
+    @DisplayName("check if occupation area method (length * width) is correct.")
+    public void getOccupation() {
+
+
+        GeographicalArea ga = new GeographicalArea("001", "Porto", "city", 3, 4, 3, 30, 20);
+
+        double expectedResult = 600;
+        double result = ga.getOccupation().getOccupationArea();
+
+        assertEquals(expectedResult, result);
+    }
 }

@@ -1,19 +1,19 @@
 package smarthome.model;
 
-import smarthome.model.Validations.NameValidations;
+import smarthome.model.validations.NameValidations;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TypeGAList {
 
-    private List<TypeGA> typeGA;
+    private List<TypeGA> typeOfGAList;
 
     /**
      * Constructor for TypeGAList where the List of GA's is instantiated
      */
     public TypeGAList() {
-        this.typeGA = new ArrayList<>();
+        this.typeOfGAList = new ArrayList<>();
     }
 
     /**
@@ -38,8 +38,8 @@ public class TypeGAList {
      * already contained.
      */
     public boolean addTypeGA(TypeGA inputType) {
-        if (inputType != null && !this.typeGA.contains(inputType)) {
-            this.typeGA.add(inputType);
+        if (inputType != null && !this.typeOfGAList.contains(inputType)) {
+            this.typeOfGAList.add(inputType);
             return true;
         } else return false;
     }
@@ -49,7 +49,15 @@ public class TypeGAList {
      * @return the list of previously entered GA type's
      */
     public List<TypeGA> getTypeGAList() {
-        return this.typeGA;
+        return this.typeOfGAList;
+    }
+
+    public int size(){
+        return this.typeOfGAList.size();
+    }
+
+    public TypeGA get(int index){
+        return this.typeOfGAList.get(index);
     }
 
 }

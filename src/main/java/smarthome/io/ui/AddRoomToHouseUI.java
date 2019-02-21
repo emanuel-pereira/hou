@@ -3,159 +3,128 @@ package smarthome.io.ui;
 import smarthome.controller.AddRoomToHouseCTRL;
 import smarthome.model.House;
 
-import java.util.Scanner;
-
 public class AddRoomToHouseUI {
 
-    Scanner read = new Scanner (System.in);
-
-    private AddRoomToHouseCTRL mUS105CTRL;
+    private AddRoomToHouseCTRL controller;
 
     private String name;
-    private String tempFloor;
-    private String tempLength;
-    private String tempWidth;
-    private String tempHeight;
+    private Integer floor;
+    private double length;
+    private double width;
+    private double height;
 
-
+    /**
+     * User interface constructor
+     *
+     * @param house the current and only house
+     */
     public AddRoomToHouseUI(House house) {
-        mUS105CTRL = new AddRoomToHouseCTRL (house);
+        this.controller = new AddRoomToHouseCTRL (house);
     }
 
     /**
-     * First: checks if the size of the room list in the house is 0, if so it doesn't exist and it needs to be create in the previous US.
-     * Second: several cycles check if a validation method is not null. If true, the parameter is added to the Room.
-     * If false (not validate) the cycle warns for the need for a new input until correct validation.
-     * Third: All validations are for strings, so at this point they are "converted" to the correspondent type.
-     * Fourth: The inputs are used to create a new Room and a success message is shown.
+     * The first requested input is the name of the room. When the name is entered there is a confirmation to determine
+     * if a room with the same name has already been created.
+     * The method validates the user input according to the text validation rules. If not the cycle warns for the need
+     * for a new input until correct validation.
+     * The name is used to create a new Room.
      */
-    public void addRoomToHouse() {
-
-        while (true) {
+    void addRoomToHouse() {
+        boolean condition = true;
+        while (condition) {
             System.out.println ("Insert the name of the room:");
-            name = nameIsValid ();
-            if (name != null)
-                break;
-            else
-                tryAgainMessage ();
+            this.name = UtilsUI.requestText ("Please insert alphanumeric characters!\nInsert the name of the room:", "^[A-Za-z0-9 -]+$");
+            if (!this.controller.checkIfRoomNameExists (this.name)) {
+                condition = false;
+                this.insertFloor ();
+            } else
+                System.out.println ("There's a room with that name");
         }
-        this.insertFloor ();
     }
 
-
+    /**
+     * The second requested input is the floor of the room.
+     * The method validates the user input according to the integer validation rules. If not the cycle warns for the need
+     * for a new input until correct validation.
+     * The floor is used to create a new Room.
+     */
     private void insertFloor() {
-        while (true) {
-            System.out.println ("Insert the floor where the room is:");
-            tempFloor = floorIsValid ();
-            if (tempFloor != null)
-                break;
-            else
-                tryAgainMessage ();
-        }
+        System.out.println ("Insert the floor where the room is:");
+        this.floor = UtilsUI.requestInteger ("Please insert a number\nInsert the floor where the room is:");
         this.insertLength ();
     }
 
+    /**
+     * The third requested input is the length of the room.
+     * The method validates the user input according to the double validation rules. If not the cycle warns for the need
+     * for a new input until correct validation.
+     * The length is used to create a new Room
+     */
     private void insertLength() {
-
-        while (true) {
-            System.out.println ("Insert the length of the room (in meters):");
-            tempLength = lengthWidthOrHeightAreValid ();
-            if (tempLength != null)
-                break;
-            else
-                tryAgainMessage ();
-        }
+        System.out.println ("Insert the length of the room (in meters):");
+        this.length = UtilsUI.requestDoubleInInterval (1, 1000, "Please insert a number (higher than zero)\nInsert the length of the room (in meters):");
         this.insertWidth ();
     }
 
-
+    /**
+     * The fourth requested input is the width of the room.
+     * The method validates the user input according to the double validation rules. If not the cycle warns for the need
+     * for a new input until correct validation.
+     * The width is used to create a new Room.
+     */
     private void insertWidth() {
-
-        while (true) {
-            System.out.println ("Insert the width of the room (in meters):");
-            tempWidth = lengthWidthOrHeightAreValid ();
-            if (tempWidth != null)
-                break;
-            else
-                tryAgainMessage ();
-        }
-        this.insertHeight ();
+        System.out.println ("Insert the width of the room (in meters):");
+        this.width = UtilsUI.requestDoubleInInterval (1, 1000, "Please insert a number (higher than zero)\nInsert the width of the room (in meters):");
+        this.typeOfRoom ();
     }
 
-    private void insertHeight() {
-        while (true) {
-            System.out.println ("Insert the height of the room (in meters):");
-            tempHeight = lengthWidthOrHeightAreValid ();
-            if (tempHeight != null)
+    private void typeOfRoom() {
+        int option;
+        System.out.println ("Choose the type of room:");
+        System.out.println ("Click 1. Interior space");
+        System.out.println ("Click 2. Exterior space (outdoor)");
+        option = UtilsUI.requestIntegerInInterval (1, 2, "Please choose an option between 1 and 2");
+        switch (option) {
+            case 1:
+                this.insertHeight ();
                 break;
-            else
-                tryAgainMessage ();
+            case 2:
+                this.height = 0;
+                this.addNewRoom ();
+                break;
+            default:
         }
+    }
+
+    /**
+     * The fourth requested input is the height of the room.
+     * The method validates the user input according to the double validation rules. If not the cycle warns for the need
+     * for a new input until correct validation.
+     * The height is used to create a new Room.
+     */
+    private void insertHeight() {
+        System.out.println ("Insert the height of the room (in meters):");
+        this.height = UtilsUI.requestDoubleInInterval (0, 1000, "Please insert a number (higher than zero)\nInsert the height of the room (in meters):");
         this.addNewRoom ();
     }
 
-
+    /**
+     * The final method uses the previous inputs has parameters to create a new Room.
+     * A success message is shown with all the details of the room.
+     */
     private void addNewRoom() {
-        Integer floor;
-        double length;
-        double width;
-        double height;
-        floor = Integer.parseInt (tempFloor);
-        length = Double.parseDouble (tempLength);
-        width = Double.parseDouble (tempWidth);
-        height = Double.parseDouble (tempHeight);
-        if (mUS105CTRL.newRoom (name, floor, length, width, height)) {
-            System.out.println ("Success. The " + name + " on the " + floor + " floor with " + height + "m of height and " + length * width + "m² was created.");
+        if (this.controller.newAddRoom (this.name, this.floor, this.length, this.width, this.height)) {
+            System.out.println ("Success. The " + this.name + " on the " + this.floor + " floor " + this.showHeight () + this.length * this.width + "m² was created.\n");
         } else {
             System.out.println ("Fail! Please try again.");
         }
-
     }
 
-    private static void tryAgainMessage() {
-        System.out.print ("Try again. ");
-    }
-
-
-    public String nameIsValid() {
-        name = read.nextLine ();
-        if (name == null || name.trim ().isEmpty ()) {//verification of empty and null parameters
-            System.out.println ("Empty spaces are not accepted");
-            return null;
+    private String showHeight() {
+        if (this.height > 0) {
+            return ("with " + height + "m of height and ");
         }
-        if (!name.matches ("^(?![\\s]).*")) {
-            System.out.println ("Please start with words.");
-            return null;
-        }
-        return name;
-    }
-
-
-    private String floorIsValid() {
-        String floor = read.nextLine ();
-        if (floor == null || floor.trim ().isEmpty ()) {//verification of empty and null parameters
-            System.out.println ("Empty spaces are not accepted.");
-            return null;
-        }
-        if (!floor.matches ("^(?![\\s])\\d*")) {
-            System.out.println ("Please use only numbers.");
-            return null;
-        }
-        return floor;
-    }
-
-
-    private String lengthWidthOrHeightAreValid() {
-        String number = read.nextLine ();
-        if (number == null || number.trim ().isEmpty ()) {//verification of empty and null parameters
-            System.out.println ("Empty spaces aren't accepted.");
-            return null;
-        }
-        if (!number.matches ("[0-9]+([,.][0-9]{1,2})?")) {
-            System.out.println ("Please use only numbers and dots if necessary.");
-            return null;
-        }
-        return number;
+        return ("with ");
     }
 
 }

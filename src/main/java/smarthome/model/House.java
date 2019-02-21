@@ -3,7 +3,6 @@ package smarthome.model;
 import java.math.BigDecimal;
 import java.util.*;
 
-
 public class House {
 
     private Address mAddress;
@@ -92,7 +91,6 @@ public class House {
             if(!this.getHGListInHouse().get(indexHG).getRoomListInAGrid().getRoomList().contains(r)){
                 roomsNotInAGrid.addRoom(r);
             }
-            //if(this.getHGListInHouse().get(indexHG))
         }
         return roomsNotInAGrid;
     }
@@ -144,7 +142,6 @@ public class House {
     private double calculateDistance(Location aLocation) {
         return mAddress.getGPSLocation().calcLinearDistanceBetweenTwoPoints(mAddress.getGPSLocation(), aLocation);
     }
-
 
     /**
      * This method checks for each sensor of the selected sensorType, its distance to the house.
@@ -291,8 +288,6 @@ public class House {
 
         return sensorsWithReadingsInDate;
     }
-
-
 
     /**
      * Boolean method to check if there is any closest sensors to the house of a specific type that has readings in the date inputted as parameter

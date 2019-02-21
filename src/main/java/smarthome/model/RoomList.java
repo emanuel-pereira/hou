@@ -1,47 +1,71 @@
 package smarthome.model;
 
-import smarthome.model.Validations.Utils;
+import smarthome.model.validations.NameValidations;
+import smarthome.model.validations.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoomList {
-    private List<Room> mRoomList;
+    private List<Room> roomLst;
+
 
     /**
      * Constructor method that creates a new list to save Room objects
      */
     public RoomList() {
-        mRoomList = new ArrayList<>();
+        this.roomLst = new ArrayList<>();
     }
 
+    /**
+     * Method to create a new Room object
+     * @param name   Name of the room (string)
+     * @param floor  Number of the floor (integer)
+     * @param length Length of the room (double) to calculate the area
+     * @param width  Width of the room (double) to calculate the area
+     * @param height Height of the room (double)
+     * @return Room with the previous parameters
+     */
     public Room createNewRoom(String name, int floor, double length, double width, double height) {
-        if (this.roomNameValid(name)) {
+        NameValidations validation = new NameValidations ();
+        if (validation.alphanumericName (name)) {
             return new Room(name, floor, length, width, height);
         }
         return null;
     }
 
-    public boolean roomNameValid(String name) {
-        return name != null && !name.trim().isEmpty();
-    }
-
     /**
-     * Method to add a room object to Room list, if it is not on the list yet
+     * Method to add a room object to the Room list, if it is not on the list yet
      *
-     * @param newRoom - new Room object that will or not be added to the list
+     * @param newRoom New Room object that will or not be added to the list
      * @return true if the object is added to the list
      */
     public boolean addRoom(Room newRoom) {
-        if (newRoom != null && !mRoomList.contains(newRoom)) {
-            mRoomList.add(newRoom);
+        if (newRoom != null && !this.roomLst.contains(newRoom)) {
+            this.roomLst.add(newRoom);
             return true;
         } else return false;
     }
 
+
+    /**
+     * Checks if the room name exists in the room list, so the name is not repeated
+     * @param name Room name
+     * @return True if the room name exists
+     */
+    public boolean checkIfRoomNameExists(String name) {
+        for (Room r : this.getRoomList ()) {
+            if (r.getName ().equals (name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public boolean removeRoom(Room newRoom) {
-        if (mRoomList.contains(newRoom)) {
-            mRoomList.remove(newRoom);
+        if (this.roomLst.contains(newRoom)) {
+            this.roomLst.remove(newRoom);
             return true;
         } else return false;
     }
@@ -53,15 +77,19 @@ public class RoomList {
      * @return the specific requested Room
      */
     public Room get(int i) {
-        return this.mRoomList.get(i);
+        return this.roomLst.get(i);
     }
 
+    /**
+     * Method to check the list size, normally to confirm if the list size is zero, witch means the list is empty
+     * @return The size of the list
+     */
     public int getRoomListSize() {
-        return this.mRoomList.size();
+        return this.roomLst.size();
     }
 
     public List<Room> getRoomList() {
-        return mRoomList;
+        return this.roomLst;
     }
 
     /**
@@ -85,12 +113,12 @@ public class RoomList {
 
 
     public boolean removeDeviceFromRoom(Device device, int indexOfRoom) {
-        DeviceList roomDeviceList = mRoomList.get(indexOfRoom - 1).getDeviceList();
+        DeviceList roomDeviceList = this.roomLst.get(indexOfRoom - 1).getDeviceList();
         return roomDeviceList.getDeviceList().remove(device);
     }
 
     public boolean addDeviceToRoom(Device device, int indexOfRoom) {
-        DeviceList roomDeviceList = mRoomList.get(indexOfRoom - 1).getDeviceList();
+        DeviceList roomDeviceList = this.roomLst.get(indexOfRoom - 1).getDeviceList();
         return roomDeviceList.getDeviceList().add(device);
     }
 
@@ -98,7 +126,7 @@ public class RoomList {
     public List<Device> getDevicesInAllRoomsByType(String deviceType) {
         List<Device> deviceList;
         List<Device> deviceListByType = new ArrayList<>();
-        for (Room room : mRoomList) {
+        for (Room room : this.roomLst) {
             deviceList = room.getDeviceList().getDeviceList();
             for (Device device : deviceList)
                 if (device.getDeviceSpecs().getDeviceType().getDeviceTypeName().equals(deviceType)) {
@@ -120,7 +148,7 @@ public class RoomList {
 
     public List<Device>getMeteredDevicesInHouse(){
         List<Device> meteredDevListInHouse=new ArrayList<>();
-        for(Room room:mRoomList){
+        for(Room room:this.roomLst){
             List<Device> meteredDevicesInRoom=room.getDeviceList().getMeteredDevices();
             meteredDevListInHouse.addAll(meteredDevicesInRoom);
         }
@@ -144,17 +172,6 @@ public class RoomList {
             result.append ("\n");
         }
         return result.toString ();
-    }
-
-    public Room getDeviceLocation (Device inputDevice) {
-        Room location = new Room();
-        for(Room room:mRoomList){
-            List <Device> deviceListInRoom = room.getDeviceList().getDeviceList();
-            if (deviceListInRoom.contains(inputDevice)){
-                location = room;
-            }
-        }
-        return location;
     }
 
 }

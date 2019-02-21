@@ -1,7 +1,7 @@
 package smarthome.model;
 
-import smarthome.model.Validations.NameValidations;
-import smarthome.model.Validations.Utils;
+import smarthome.model.validations.NameValidations;
+import smarthome.model.validations.Utils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -11,7 +11,7 @@ import static java.lang.Double.parseDouble;
 
 public class Device implements Metered {
 
-    NameValidations nameValidation = new NameValidations();
+    private NameValidations nameValidation = new NameValidations();
 
     private String mName;
     private DeviceSpecs mDeviceSpecs;
@@ -150,7 +150,7 @@ public class Device implements Metered {
         if (Configuration.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
             energyConsumption = mActivityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
         }
-        return energyConsumption;
+        return Utils.round(energyConsumption,2);
     }
 
     //put this method as private after reviewing create device US

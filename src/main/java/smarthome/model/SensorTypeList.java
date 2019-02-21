@@ -44,6 +44,10 @@ public class SensorTypeList {
         return this.sensorTypeList.add(newSensorType);
     }
 
+    /**
+     * Returns the number of elements in this list.
+     * @return the number of elements in this list
+     */
     public int size(){
         return this.sensorTypeList.size();
 
@@ -79,7 +83,7 @@ public class SensorTypeList {
      */
     public boolean checkIfSensorTypeExists(String input) {
         for (SensorType type : this.sensorTypeList) {
-            if (type.getSensorTypeDesignation().equalsIgnoreCase(input)) {
+            if (type.getType().equalsIgnoreCase(input)) {
                 return true;
             }
         }
@@ -93,11 +97,12 @@ public class SensorTypeList {
         for (SensorType sensorType : this.sensorTypeList) {
             result.append(number++);
             result.append(element);
-            result.append(sensorType.getSensorTypeDesignation());
+            result.append(sensorType.getType());
             result.append("\n");
         }
         return result.toString();
     }
+
 
 
 

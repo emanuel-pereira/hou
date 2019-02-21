@@ -17,14 +17,14 @@ public class ReadingTest {
     public void getReadingDateAndValue() {
 
         //Arrange
-        GregorianCalendar calendar1 = new GregorianCalendar(2018,11,27,21,30);
+        GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 27, 21, 30);
 
         //Act
-        Reading reading1 = new Reading(13,calendar1);
+        Reading reading1 = new Reading(13, calendar1);
         double value = reading1.returnValueOfReading();
 
         //Assert
-        assertEquals(13,value,0.1);
+        assertEquals(13, value, 0.1);
     }
 
 

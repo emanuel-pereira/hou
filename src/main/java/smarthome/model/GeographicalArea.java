@@ -1,51 +1,66 @@
 package smarthome.model;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.Calendar;
-import java.util.List;
 import java.util.Objects;
 
 public class GeographicalArea {
-    private String mID;
-    private String mDesignation;
-    private TypeGA mTypeOfGA;
-    private Location mLocation;
-    private SensorList mSensorListInGA;
-    private OccupationArea mOccupation;
-    private GeographicalArea mParentGA;
+    private String identification;
+    private String designation;
+    private TypeGA typeOfGa;
+    private Location location;
+    private SensorList sensorListInGa;
+    private OccupationArea occupation;
+    private GeographicalArea parentGa;
 
 
     /**
      * This constructor method defines a Geographical Area with a designation, type, location as well as length and width
      * to calculate its occupation area
      *
-     * @param designation GA name
-     * @param typeGA      GA type
-     * @param longitude   GA longitude
-     * @param latitude    GA latitude
-     * @param altitude    GA altitude
-     * @param length      GA length
-     * @param width       GA width
+     * @param name      GA name
+     * @param typeGA    GA type
+     * @param longitude GA longitude
+     * @param latitude  GA latitude
+     * @param altitude  GA altitude
+     * @param length    GA length
+     * @param width     GA width
      */
-    public GeographicalArea(String id, String designation, String typeGA, double latitude, double longitude, double altitude, double length, double width) {
+    public GeographicalArea(String id, String name, String typeGA, double latitude, double longitude, double altitude, double length, double width) {
 
-        mID = id;
-        mDesignation = designation;
-        mTypeOfGA = new TypeGAList().newTypeGA(typeGA)/*new TypeGA(typeGA)*/;
-        mLocation = new Location(latitude, longitude, altitude);
-        mOccupation = new OccupationArea(length, width);
-        mSensorListInGA = new SensorList();
+        this.identification = id;
+        this.designation = name;
+        this.typeOfGa = new TypeGA(typeGA);
+        this.location = new Location(latitude, longitude, altitude);
+        this.occupation = new OccupationArea(length, width);
+        this.sensorListInGa = new SensorList();
     }
+
+    /**
+     * Constructor required to create a new Geographical Area
+     *
+     * @param id             String parameter representing the id of the Geographical Area
+     * @param name           String parameter representing the name of the Geographical Area
+     * @param typeGA         String parameter representing the type of geographical area
+     * @param location       central location of the Geographical Area represented by GPS coordinates
+     * @param occupationArea Oc
+     */
+    public GeographicalArea(String id, String name, String typeGA, OccupationArea occupationArea, Location location) {
+        this.identification = id;
+        this.designation = name;
+        this.typeOfGa = new TypeGAList().newTypeGA(typeGA);
+        this.occupation = occupationArea;
+        this.location = location;
+        this.sensorListInGa = new SensorList();
+
+    }
+
 
     /**
      * method to get this Geographical Area designation
      *
      * @return return this geographical area designation
      */
-    public String getGeographicalAreaDesignation() {
-        return this.mDesignation;
+    public String getGAName() {
+        return this.designation;
     }
 
     /**
@@ -54,7 +69,7 @@ public class GeographicalArea {
      * @return return this geographical Area Type designation
      */
     public String getGeographicalAreaType() {
-        return this.mTypeOfGA.toString();
+        return this.typeOfGa.toString();
     }
 
     /**
@@ -63,7 +78,7 @@ public class GeographicalArea {
      * @return return this geographical Area Parent
      */
     public GeographicalArea getGeographicalParentGA() {
-        return mParentGA;
+        return parentGa;
     }
 
 
@@ -73,7 +88,7 @@ public class GeographicalArea {
      * @return the list of sensors in a Geographical Area
      */
     public SensorList getSensorListInGA() {
-        return mSensorListInGA;
+        return sensorListInGa;
     }
 
     /**
@@ -96,7 +111,7 @@ public class GeographicalArea {
      * @return return this geographical area location
      */
     public Location getLocation() {
-        return this.mLocation;
+        return this.location;
     }
 
     /**
@@ -106,7 +121,7 @@ public class GeographicalArea {
      * @return returns the linear distance already calculated
      */
     private double calculateDistance(Location aLocation) {
-        return mLocation.calcLinearDistanceBetweenTwoPoints(this.mLocation, aLocation);
+        return location.calcLinearDistanceBetweenTwoPoints(this.location, aLocation);
     }
 
     @Override
@@ -118,14 +133,14 @@ public class GeographicalArea {
             return false;
         }
         GeographicalArea that = (GeographicalArea) o;
-        return Objects.equals(mID, that.mID) &&
-                Objects.equals(mDesignation, that.mDesignation) &&
-                Objects.equals(mTypeOfGA, that.mTypeOfGA);
+        return Objects.equals(identification, that.identification) &&
+                Objects.equals(designation, that.designation) &&
+                Objects.equals(typeOfGa, that.typeOfGa);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mID, mDesignation, mTypeOfGA);
+        return Objects.hash(identification, designation, typeOfGa);
     }
 
     /**
@@ -136,13 +151,15 @@ public class GeographicalArea {
      */
 
 
-    public void setmParentGA(GeographicalArea ga1) {
+    public void setParentGA(GeographicalArea ga1) {
 
-        this.mParentGA = ga1;
+        this.parentGa = ga1;
 
     }
 
-
+    public OccupationArea getOccupation() {
+        return occupation;
+    }
 }
 
 

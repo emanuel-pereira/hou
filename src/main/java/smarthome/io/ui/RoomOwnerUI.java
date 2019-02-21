@@ -21,9 +21,8 @@ public final class RoomOwnerUI {
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
                 case 1:
-                    System.out.println("US230");
-                    GetRoomTotalNominalPowerUI ui230 = new GetRoomTotalNominalPowerUI(house);
-                    ui230.showTotalNominalPowerRoom();
+                    GetTotalNominalPowerUI ui230 = new GetTotalNominalPowerUI(house);
+                    ui230.getRoomTotalNominalPowerUI ();
                     break;
                 case 2:
                     System.out.println("new functions are coming soon");

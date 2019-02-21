@@ -22,7 +22,9 @@ class SensorListTest {
         //Act
 
         SensorType sT1 = new SensorType("Temperature");
-        Sensor sensor1 = list1.newSensor("Sensor1", new GregorianCalendar(2018, 12, 15), 25, 32, 2, sT1, "Celsius", rL);
+        GregorianCalendar startDate= new GregorianCalendar(2018, 12, 15);
+        Location location= new Location(25, 32, 2);
+        Sensor sensor1 = list1.newSensor("Sensor1", startDate, location, sT1, "Celsius", rL);
 
         //Assert
         assertEquals("Sensor1", sensor1.getDesignation());
@@ -39,7 +41,9 @@ class SensorListTest {
         rL.addReading(r1);
         rL.addReading(r2);
         SensorType sT1 = new SensorType("Temperature");
-        Sensor sensor1 = list.newSensor("Sensor1", new GregorianCalendar(2018, 12, 15), 25, 32, 25, sT1, "C", rL);
+        GregorianCalendar startDate1 = new GregorianCalendar(2018, 12, 15);
+        Location sensor1Loc = new Location(25, 32, 25);
+        Sensor sensor1 = list.newSensor("Sensor1", startDate1, sensor1Loc, sT1, "C", rL);
 
         //Act
         assertTrue(list.addSensor(sensor1));
@@ -61,41 +65,15 @@ class SensorListTest {
         rL.addReading(r1);
         rL.addReading(r2);
         SensorType sT1 = new SensorType("Temperature");
-
-        Sensor sensor1 = list.newSensor("Sensor1", new GregorianCalendar(2018, 12, 15), 25, 25, 32, sT1, "C", rL);
+        GregorianCalendar startDate= new GregorianCalendar(2018, 12, 15);
+        Location sensor1Loc = new Location(25, 25, 3);
+        Sensor sensor1 = list.newSensor("Sensor1", startDate, sensor1Loc, sT1, "C", rL);
 
         list.addSensor(sensor1);
         list.addSensor(sensor1);
         int expectedResult = 1;
         int result = list.getSensorList().size();
         assertEquals(expectedResult, result);
-    }
-
-    @Test
-    @DisplayName("Tests if this method returns the size of a list of sensors")
-    public void getSensorListSize() {
-
-        SensorList list = new SensorList();
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 0));
-        Reading r2 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0));
-        ReadingList rL = new ReadingList();
-        rL.addReading(r1);
-        rL.addReading(r2);
-        SensorType sT1 = new SensorType("Temperature");
-        SensorType sT2 = new SensorType("Rainfall");
-
-        Sensor sensor1 = list.newSensor("Sensor1", new GregorianCalendar(2018, 12, 15), 25, 25, 32, sT1, "C", rL);
-        Sensor sensor2 = list.newSensor("Sensor2", new GregorianCalendar(2017, 11, 16), 27, -25, 32, sT2, "C", rL);
-
-        list.addSensor(sensor1);
-        list.addSensor(sensor2);
-
-        int expectedResult = 2;
-        int result = list.size();
-
-
-        assertEquals(expectedResult, result);
-
     }
 
     @DisplayName("Tests if a Sensor is not added to the list if the list already contains that sensor")
@@ -109,12 +87,13 @@ class SensorListTest {
         rL.addReading(r1);
         rL.addReading(r2);
         SensorType sT1 = new SensorType("Temperature");
-        Sensor sensor1 = list.newSensor("Sensor1", new GregorianCalendar(2018, 12, 15), 25, 25, 32, sT1, "C", rL);
+        GregorianCalendar startDate= new GregorianCalendar(2018, 12, 15);
+        Location sensor1Loc= new Location(25, 25, 32);
+        Sensor sensor1 = list.newSensor("Sensor1",startDate , sensor1Loc, sT1, "C", rL);
 
         list.addSensor(sensor1);
-        boolean expected = false;
         boolean result = list.addSensor(sensor1);
-        assertEquals(expected, result);
+        assertFalse(result);
     }
 
     @DisplayName("Tests if a Sensor is not added to the list if the list already contains a sensor with the same name")
@@ -127,8 +106,10 @@ class SensorListTest {
         rL.addReading(r1);
         rL.addReading(r2);
         SensorType sT1 = new SensorType("Temperature");
-        Sensor sensor1 = list.newSensor("Sensor1", new GregorianCalendar(2018, 12, 15), 25, 25, 32, sT1, "C", rL);
-        Sensor sensor2 = list.newSensor("Sensor1", new GregorianCalendar(2018, 12, 15), 25, 25, 32, sT1, "C", rL);
+        GregorianCalendar startDate=  new GregorianCalendar(2018, 12, 15);
+        Location location = new Location(25, 25, 32);
+        Sensor sensor1 = list.newSensor("Sensor1",startDate, location, sT1, "C", rL);
+        Sensor sensor2 = list.newSensor("Sensor1", startDate, location, sT1, "C", rL);
 
         list.addSensor(sensor1);
         boolean result = list.addSensor(sensor2);
@@ -146,7 +127,9 @@ class SensorListTest {
         rL.addReading(r1);
         rL.addReading(r2);
         SensorType sT1 = new SensorType("Temperature");
-        Sensor sensor1 = list.newSensor("Sensor1", new GregorianCalendar(2018, 12, 15), 25, 25, 32, sT1, "C", rL);
+        GregorianCalendar startDate = new GregorianCalendar(2018, 12, 15);
+        Location loc= new Location(25, 25, 32);
+        Sensor sensor1 = list.newSensor("Sensor1", startDate, loc, sT1, "C", rL);
 
         boolean expected = true;
         boolean result = list.addSensor(sensor1);
@@ -182,14 +165,17 @@ class SensorListTest {
         rL.addReading(r1);
         rL.addReading(r2);
         SensorType sT1 = new SensorType("Temperature");
-        Sensor sensor1 = list.newSensor("SensorTemperature", new GregorianCalendar(2018, 12, 15), 24, 34, 25, sT1, "C", rL);
+        GregorianCalendar startDate= new GregorianCalendar(2018, 12, 15);
+        Location sensor1Loc= new Location(24, 34, 25);
+        Sensor sensor1 = list.newSensor("SensorTemperature",startDate , sensor1Loc, sT1, "C", rL);
         Reading r3 = new Reading(80, new GregorianCalendar(2018, 12, 26, 12, 0));
         Reading r4 = new Reading(81, new GregorianCalendar(2018, 12, 26, 13, 0));
         ReadingList rL2 = new ReadingList();
         rL2.addReading(r3);
         rL2.addReading(r4);
         SensorType sH1 = new SensorType("Humidity");
-        Sensor sensor2 = list.newSensor("SensorHum", new GregorianCalendar(2018, 12, 15), 25, 32, 25, sH1, "Percentage", rL2);
+        Location sensor2Loc= new Location(25, 32, 25);
+        Sensor sensor2 = list.newSensor("SensorHum", startDate, sensor2Loc, sH1, "Percentage", rL2);
         list.addSensor(sensor1);
         list.addSensor(sensor2);
 
@@ -211,14 +197,17 @@ class SensorListTest {
         rL.addReading(r1);
         rL.addReading(r2);
         SensorType sT1 = new SensorType("temperature");
-        Sensor sensor1 = list.newSensor("SensorTemp", new GregorianCalendar(2018, 12, 15), 24, 34, 25, sT1, "C", rL);
+        GregorianCalendar startDate=new GregorianCalendar(2018, 12, 15);
+        Location sensor1Loc= new Location(24, 34, 25);
+        Sensor sensor1 = list.newSensor("SensorTemp",startDate ,sensor1Loc , sT1, "C", rL);
         Reading r3 = new Reading(80, new GregorianCalendar(2018, 12, 26, 12, 0));
         Reading r4 = new Reading(81, new GregorianCalendar(2018, 12, 26, 13, 0));
         ReadingList rL2 = new ReadingList();
         rL2.addReading(r3);
         rL2.addReading(r4);
         SensorType sH1 = new SensorType("light");
-        Sensor sensor2 = list.newSensor("SensorHum", new GregorianCalendar(2018, 12, 15), 25, 32, 25, sH1, "Percentage", rL2);
+        Location sensor2Loc= new Location(25, 32, 25);
+        Sensor sensor2 = list.newSensor("SensorHum", startDate, sensor2Loc, sH1, "Percentage", rL2);
         list.addSensor(sensor1);
         list.addSensor(sensor2);
 
@@ -318,4 +307,21 @@ class SensorListTest {
     }
 
 
+    @Test
+    void getLastSensor() {
+        SensorType temp = new SensorType("temperature");
+        SensorType wind = new SensorType("wind");
+        GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26, 12, 0);
+        ReadingList readings = new ReadingList();
+        Sensor s1 = new Sensor("sensor1", startDate, temp, "c", readings);
+        Sensor s2 = new Sensor("sensor2", startDate, temp, "c", readings);
+        Sensor s3 = new Sensor("sensor3", startDate, wind, "c", readings);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        sensorList.addSensor(s3);
+        Sensor expected = s3;
+        Sensor result = sensorList.getLastSensor();
+        assertEquals(expected, result);
+    }
 }

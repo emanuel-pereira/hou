@@ -41,7 +41,7 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
         House h = new House();
         GetCurrentTemperatureInHouseAreaCTRL ctr = new GetCurrentTemperatureInHouseAreaCTRL(h, sensorTypeList);
 
-        SensorType result = ctr.getSensorTypeByIndex(1);
+        SensorType result = ctr.getSensorTypeByIndex(0);
 
         assertEquals(sensorType1, result);
     }
@@ -108,10 +108,13 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
         readingList2.addReading(r5);
         readingList2.addReading(r6);
 
-        Sensor s0 = new Sensor("WindSensor2", startDate, 85, 65, 10, wind, "c", readingList2);
-        Sensor s1 = new Sensor("WindSensor1", startDate, 80, 50, 10, wind, "c", readingList1);
-        Sensor s2 = new Sensor("WindSensor3", startDate, 80, 50, 10, wind, "c", readingList2);
-        Sensor s3 = new Sensor("TemperatureSensor", startDate, 1.5, 1.5, 1.5, temperature, "c", readingList2);
+        Location l1= new Location(85, 65, 10);
+        Sensor s0 = new Sensor("WindSensor2", startDate,l1 , wind, "c", readingList2);
+        Location l2= new Location(80, 50, 10);
+        Sensor s1 = new Sensor("WindSensor1", startDate, l2, wind, "c", readingList1);
+        Sensor s2 = new Sensor("WindSensor3", startDate, l2, wind, "c", readingList2);
+        Location l3= new Location(1.5, 1.5, 1.5);
+        Sensor s3 = new Sensor("TemperatureSensor", startDate, l3, temperature, "c", readingList2);
 
         houseGASensorList.addSensor(s0);
         houseGASensorList.addSensor(s1);
@@ -159,7 +162,7 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
         GetCurrentTemperatureInHouseAreaCTRL ctrl = new GetCurrentTemperatureInHouseAreaCTRL(house, sensorTypeList);
 
         String expected="Porto";
-        String  result= ctrl.getHouseGA().getGeographicalAreaDesignation();
+        String  result= ctrl.getHouseGA().getGAName();
 
         assertEquals(expected,result);
     }

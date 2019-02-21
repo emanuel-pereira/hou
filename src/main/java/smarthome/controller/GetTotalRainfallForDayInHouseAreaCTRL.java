@@ -18,7 +18,6 @@ public class GetTotalRainfallForDayInHouseAreaCTRL {
 
     /**
      * Method to check if sensorType set as parameter exists
-     *
      * @param sensorType String parameter that checks if SensorType with the same String name exists
      * @return true if sensorType exists, otherwise returns false
      */
@@ -26,8 +25,13 @@ public class GetTotalRainfallForDayInHouseAreaCTRL {
         return mSensorTypeList.checkIfSensorTypeExists(sensorType);
     }
 
-
-    public boolean closestSensorsHaveReadingsInDate(GregorianCalendar inputDate, SensorType sensorType){
+    /**
+     * Boolean method to check if there is any closest sensors to the house of a specific type that has readings in the date inputted as parameter
+     * @param inputDate in GregorianCalendar format for which this method checks if exists any closest sensors to the house with readings in the specified date
+     * @param sensorType selected to check sensors of that type
+     * @return true if at least exists one of the possible closest sensors with readings in the inputDate, otherwise returns false
+     */
+    public boolean closestSensorsWithLatestReadingsInDate(GregorianCalendar inputDate, SensorType sensorType){
         return mHouse.closestSensorsWithReadingsInDate(inputDate,sensorType);
     }
     /**

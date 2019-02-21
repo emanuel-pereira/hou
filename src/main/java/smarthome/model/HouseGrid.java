@@ -1,6 +1,6 @@
 package smarthome.model;
 
-import smarthome.model.Validations.Utils;
+import smarthome.model.validations.Utils;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -97,57 +97,6 @@ public class HouseGrid implements Metered{
         return result.toString ();
     }
 
-    public DeviceList getDeviceListInGrid(){ DeviceList deviceListInGrid = new DeviceList();
-        for (int i = 0; i < this.getRoomListInAGrid().getRoomListSize(); i++) {
-            deviceListInGrid.getDeviceList().addAll(getRoomListInAGrid().get(i).getDeviceList().getDeviceList());
-        }
-        return deviceListInGrid;
-    }
-
-
-  /* public DeviceList getDeviceListFromType(int indexType){
-        DeviceList deviceListFromType = new DeviceList();
-        for(Device d : this.getDeviceListInGrid().getDeviceList()){
-            if(DeviceType.values()[indexType-1].getTypeString().equals(d.getDeviceSpecs().getType().getTypeString())){
-                deviceListFromType.addDevice(d);
-            }
-        }
-        return deviceListFromType;
-    }
-
-    public DeviceList getDeviceListInGridGroupBy(){
-        DeviceList deviceListGroupByType = new DeviceList();
-        int indexType;
-        for(indexType = 1; indexType <= 13; indexType++){
-            deviceListGroupByType.getDeviceList().addAll(getDeviceListFromType(indexType).getDeviceList());
-        }
-        return deviceListGroupByType;
-    }
-
-    public String showGroupedDeviceListInGridString(){
-        List<Device> list = getDeviceListInGridGroupBy().getDeviceList();
-        StringBuilder result = new StringBuilder();
-        String element = " - Device: ";
-        String typeStr = " | Type: ";
-        String locationStr = " | Location: ";
-        String statusStr = " | Active: ";
-        int number = 1;
-        for (Device device : list) {
-            String deviceLocation = mRoomList.getDeviceLocation(device).getName();
-            result.append(number++);
-            result.append(element);
-            result.append(device.getName());
-            result.append(typeStr);
-            result.append(device.getDeviceSpecs().getType());
-            result.append(locationStr);
-            result.append(deviceLocation);
-            result.append(statusStr);
-            result.append(device.status());
-            result.append("\n");
-        }
-        return result.toString();
-    }*/
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -171,6 +120,6 @@ public class HouseGrid implements Metered{
         for(Room room : mRoomList.getRoomList()){
             total+=room.getEnergyConsumptionInTimeInterval(startHour,endHour);
         }
-        return total;
+        return Utils.round(total,2);
     }
 }

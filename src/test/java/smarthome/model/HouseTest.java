@@ -332,13 +332,13 @@ class HouseTest {
     void getListOfDeviceTypes() {
         House h = new House();
         List<DeviceType> result = h.getListOfDeviceTypes();
-        assertEquals(result.size(), 14);
+        assertEquals(result.size(),14);
     }
 
     @Test
     void showDeviceTypesList() {
         House h = new House();
-        String expected = "1 - ElectricWaterHeater\n" +
+        String expected="1 - ElectricWaterHeater\n" +
                 "2 - WashingMachine\n" +
                 "3 - Dishwasher\n" +
                 "4 - Fridge\n" +
@@ -353,7 +353,7 @@ class HouseTest {
                 "13 - Lamp\n" +
                 "14 - Television\n";
         String result = h.showDeviceTypesList();
-        assertEquals(expected, result);
+        assertEquals(expected,result);
 
     }
 
@@ -361,36 +361,41 @@ class HouseTest {
     @DisplayName("Ensure that sensor with the latest reading in the specified date is sensor s3.")
     void getSensorOfTypeWithLatestReadingsInDate() {
         House house = new House();
-        house.setHouseAddress("Avenida Central", "11", "4425-255", 25, 25, 12);
-        GeographicalArea braga = new GeographicalArea("BR", "Braga", "City", 25, 25, 25, 2, 5);
+        house.setHouseAddress("Avenida Central","11","4425-255",25,25,12);
+        GeographicalArea braga = new GeographicalArea("BR","Braga","City",25,25,25,2,5);
         house.setHouseGA(braga);
         SensorType temperature = new SensorType("temperature");
-        SensorList bragaSensorList = braga.getSensorListInGA();
-        Sensor s1 = new Sensor("Temperature Sensor 3", new GregorianCalendar(2018, 11, 25), 0, 15, 12, temperature);
-        Sensor s2 = new Sensor("Temperature Sensor 1", new GregorianCalendar(2018, 11, 25), 26, 26, 12, temperature);
-        Sensor s3 = new Sensor("Temperature Sensor 2", new GregorianCalendar(2018, 11, 25), 24, 24, 12, temperature);
+        SensorList bragaSensorList= braga.getSensorListInGA();
+        GregorianCalendar startDate= new GregorianCalendar(2018,11,25);
+        Location loc1= new Location(0,15,12);
+        Location loc2= new Location(26,26,12);
+        Location loc3= new Location(24,24,12);
+
+        Sensor s1= new Sensor("Temperature Sensor 3",startDate,loc1,temperature);
+        Sensor s2= new Sensor("Temperature Sensor 1",startDate,loc2,temperature);
+        Sensor s3= new Sensor("Temperature Sensor 2",startDate,loc3,temperature);
 
         bragaSensorList.addSensor(s1);
         bragaSensorList.addSensor(s2);
         bragaSensorList.addSensor(s3);
 
-        Reading r1TempSensor1 = new Reading(25, new GregorianCalendar(2018, 11, 26, 9, 15));
-        Reading r2TempSensor1 = new Reading(20, new GregorianCalendar(2018, 11, 26, 9, 30));
-        Reading r3TempSensor1 = new Reading(15, new GregorianCalendar(2018, 11, 27, 9, 15));
+        Reading r1TempSensor1 = new Reading(25,new GregorianCalendar(2018,11,26,9,15));
+        Reading r2TempSensor1 = new Reading(20,new GregorianCalendar(2018,11,26,9,30));
+        Reading r3TempSensor1 = new Reading(15,new GregorianCalendar(2018,11,27,9,15));
         s1.getReadingList().addReading(r1TempSensor1);
         s1.getReadingList().addReading(r2TempSensor1);
         s1.getReadingList().addReading(r3TempSensor1);
 
-        Reading r1TempSensor2 = new Reading(15, new GregorianCalendar(2018, 11, 26, 9, 15));
-        Reading r2TempSensor2 = new Reading(10, new GregorianCalendar(2018, 11, 26, 9, 30));
-        Reading r3TempSensor2 = new Reading(5, new GregorianCalendar(2018, 11, 27, 9, 15));
+        Reading r1TempSensor2 = new Reading(15,new GregorianCalendar(2018,11,26,9,15));
+        Reading r2TempSensor2 = new Reading(10,new GregorianCalendar(2018,11,26,9,30));
+        Reading r3TempSensor2 = new Reading(5,new GregorianCalendar(2018,11,27,9,15));
         s2.getReadingList().addReading(r1TempSensor2);
         s2.getReadingList().addReading(r2TempSensor2);
         s2.getReadingList().addReading(r3TempSensor2);
 
-        Reading r1TempSensor3 = new Reading(15, new GregorianCalendar(2018, 11, 26, 9, 15));
-        Reading r2TempSensor3 = new Reading(10, new GregorianCalendar(2018, 11, 26, 9, 45));
-        Reading r3TempSensor3 = new Reading(5, new GregorianCalendar(2018, 11, 27, 9, 15));
+        Reading r1TempSensor3 = new Reading(15,new GregorianCalendar(2018,11,26,9,15));
+        Reading r2TempSensor3 = new Reading(10,new GregorianCalendar(2018,11,26,9,45));
+        Reading r3TempSensor3 = new Reading(5,new GregorianCalendar(2018,11,27,9,15));
         s3.getReadingList().addReading(r1TempSensor3);
         s3.getReadingList().addReading(r2TempSensor3);
         s3.getReadingList().addReading(r3TempSensor3);

@@ -1,0 +1,29 @@
+@startuml
+Activate Administrator
+Administrator <-- ":MainUI" : Show menu
+Activate ":MainUI"
+Administrator -> ":MainUI": Choose House Administration option
+Deactivate ":MainUI"
+create ":House AdministrationUI"
+":MainUI" ->":House AdministrationUI": create
+Administrator <-- ":House AdministrationUI": Show menu
+Activate ":House AdministrationUI"
+Administrator->":House AdministrationUI": choose Add new Power Source to HouseGrid option
+Deactivate ":HouseAdministrationUI"
+create ":AddPowerSourceToGridUI"
+":House AdministrationUI" -> ":AddPowerSourceToGridUI": create
+create ":AddPowerSourceToGridCTRL"
+":AddPowerSourceToGridUI" -> ":AddPowerSourceToGridCTRL": create
+Administrator <-- ":AddPowerSourceToGridUI": list options to add or list Power Sources in a Grid
+Activate ":AddPowerSourceToGridUI"
+Administrator -> ":AddPowerSourceToGridUI": chooses add Power Source to a Grid option
+":AddPowerSourceToGridUI" -> ":AddPowerSourceToGridCTRL": getHouseGridList
+Activate "HouseGridList"
+":AddPowerSourceToGridCTRL"<--":HouseGridList": showHouseGridList()
+Deactivate ":HouseGridList"
+":AddPowerSourceToGridUI"<--":AddPowerSourceToGridCTRL": showHouseGridList()
+Deactivate ":AddPowerSourceToGridCTRL"
+Administrator<--":AddPowerSourceToGridUI": showHouseGridList()
+Administrator->":AddPowerSourceToGridUI": selects houseGrid
+":AddPowerSourceToGridUI"->":AddPowerSourceToGridCTRL": get
+@enduml

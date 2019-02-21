@@ -8,25 +8,35 @@ import java.util.List;
 
 public class SetParentOfGACTRL {
 
-    private GAList mGAList;
+    private GAList gaList;
+
 
     public SetParentOfGACTRL(GAList inputList) {
-        mGAList = inputList;
+        gaList = inputList;
     }
 
     public void setParentofGA(int indexGA1, int indexGA2) {
-        GeographicalArea ga = mGAList.getGAList().get(indexGA1 - 1);
-        GeographicalArea ga2 = mGAList.getGAList().get(indexGA2 - 1);
+        GeographicalArea ga = gaList.getGAList().get(indexGA1 - 1);
+        GeographicalArea ga2 = gaList.getGAList().get(indexGA2 - 1);
         if (!(ga.getGeographicalAreaType().equals(ga2.getGeographicalAreaType())))
-            ga.setmParentGA(ga2);
+            ga.setParentGA(ga2);
     }
 
 
     public List<GeographicalArea> getGAList() {
-        return mGAList.getGAList ();
+        return gaList.getGAList();
+    }
+
+    public int getGAListSize() {
+        return gaList.size();
+    }
+
+    public String getGaName(int indexGa) {
+
+        return gaList.get(indexGa -1).getGAName();
     }
 
     public String showListInString() {
-        return mGAList.showGAListInString ();
+        return gaList.showGAListInString();
     }
 }

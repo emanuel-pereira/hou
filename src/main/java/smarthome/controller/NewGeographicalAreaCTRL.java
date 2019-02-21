@@ -1,22 +1,14 @@
 package smarthome.controller;
 
-import smarthome.model.GAList;
-import smarthome.model.GeographicalArea;
-import smarthome.model.TypeGAList;
+import smarthome.model.*;
+
+import java.util.List;
 
 public class NewGeographicalAreaCTRL {
 
-    private GAList mGAList;
-    private TypeGAList mTypeGAList;
+    private GAList gaList;
+    private TypeGAList typeGAList;
 
-    /**
-     * US3 controller constructor
-     * @param gaInputList GA's List where the list methods will be invoked from, the List allows to create GA's and addi to a list of GA's
-     * #deprecated a second solution using a GA type from a previously created list was created
-     */
-    public NewGeographicalAreaCTRL(GAList gaInputList) {
-        mGAList = gaInputList;
-    }
 
     /**
      * US3 controller constructor which is invoked when by US3UI on start to this is controller two parameters need to be passed:
@@ -24,44 +16,66 @@ public class NewGeographicalAreaCTRL {
      * @param gaTypeInputList GA Types List is a List of types (eg. city, country, stree) previously created by the user in US1
      */
     public NewGeographicalAreaCTRL(GAList gaInputList, TypeGAList gaTypeInputList) {
-        mGAList = gaInputList;
-        mTypeGAList = gaTypeInputList;
+        this.gaList = gaInputList;
+        this.typeGAList = gaTypeInputList;
     }
 
     /**
      * This newGA method exists to get the data from the users input in the UI in order to create a new GA
      * @param inputDesignation String GA designation
-     * @param typeArea String GA type (eg. city, street)
-     * @param width double width of the GA being created
-     * @param length double length of the GA being created
-     * @param latitude double latitude of the GA being created
-     * @param longitude double longitude of the GA being created
-     * @param altitude double altitude of the GA being created
+     * @param typeGAIndex integer value representing the type of GA in the index position of the type of GA List.
+     * @param occupationArea occupation area of the geographical area as a result of multiplying the length and the width inputs
+     * @param location central location of the Geographical Area represented by GPS coordinates
      * @return the prior information is used to invoke the newGA method from the GA's List class making a request to create a new GA with the users input
-     * #deprecated a second solution using a GA type from a previously created list was created, where instead of receiving the GAType input from a String it is received as an index from the US2 List
+     *
      */
-    public boolean newGA(String id, String inputDesignation, String typeArea, double width, double length, double latitude, double longitude, double altitude) {
-        GeographicalArea ga = mGAList.newGA(id, inputDesignation, typeArea, width, length, latitude, longitude, altitude);
-        return mGAList.addGA(ga);
+    public boolean newGA(String id, String inputDesignation, int typeGAIndex, OccupationArea occupationArea, Location location) {
+        TypeGA typeGA= this.typeGAList.get(typeGAIndex);
+        String typeGAName= typeGA.toString();
+        GeographicalArea ga = this.gaList.newGA(id, inputDesignation, typeGAName, occupationArea,location);
+        return this.gaList.addGA(ga);
+    }
+
+
+    /**
+     * @return an integer value correspondent to the number of elements in the type of geographical area list.
+     */
+    public int typeGAListSize(){
+        return this.typeGAList.size();
+    }
+
+
+   /**
+    * Method that shows the list of types of geographical areas in a string format */
+    public String showTypeGAListInStr() {
+        List<TypeGA> list = this.typeGAList.getTypeGAList ();
+        StringBuilder result = new StringBuilder ();
+        String element = " - ";
+        int number = 1;
+        for (TypeGA position : list) {
+            result.append (number++);
+            result.append (element);
+            result.append (position);
+            result.append ("\n");
+        }
+        return result.toString ();
     }
 
     /**
-     * This newGA2 method exists to get the data from the users input in the UI in order to create a new GA.
-     * Here, instead of receiving the GAType input from a String it is received as an index from the US2 List
-     * @param inputDesignation String GA designation
-     * @param typeAreaIndex int GA type as an index from a list (eg. 1 - city, 2 - street)
-     * @param width double width of the GA being created
-     * @param length double length of the GA being created
-     * @param latitude double latitude of the GA being created
-     * @param longitude double longitude of the GA being created
-     * @param altitude double altitude of the GA being created
-     * @return the prior information is used to invoke the newGA method from the GA's List class making a request to create a new GA with the users input
+     *
+     * @return the created geographical area name
      */
-    public boolean newGA2(String id, String inputDesignation, int typeAreaIndex, double width, double length,
-                          double latitude, double longitude, double altitude) {
-        String areaType = mTypeGAList.getTypeGAList().get(typeAreaIndex-1).toString();
-        GeographicalArea ga = mGAList.newGA(id, inputDesignation, areaType, width, length, latitude, longitude, altitude);
-        return mGAList.addGA(ga);
+    public String getGAName() {
+        GeographicalArea createdGA = this.gaList.getLastGA();
+        return createdGA.getGAName();
+    }
+
+    /**
+     * @return the type of GA as string of the created Geographical Area
+     */
+    public String getGAType() {
+        GeographicalArea createdGA = this.gaList.getLastGA();
+        return createdGA.getGeographicalAreaType();
     }
 
 }
