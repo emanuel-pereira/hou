@@ -182,6 +182,10 @@ public class Room implements Powered, Metered {
         return this.deviceList;
     }
 
+    public int getSizeDeviceListInRoom(){
+        return this.deviceList.size ();
+    }
+
     /**
      * When two objects (o1 and o2) with the same data are compare, the result is that they are different objects.
      * If there's the need to check for equality of values inside the objects the inherit equals method need to be override.

@@ -37,12 +37,12 @@ final class PowerUserUI {
                     devicesUI.deactivateDevice();
                     break;
                 case 3:
-                    GetRoomTotalNominalPowerUI ui230 = new GetRoomTotalNominalPowerUI(house);
-                    ui230.showTotalNominalPowerRoom();
+                    GetTotalNominalPowerUI ui230 = new GetTotalNominalPowerUI(house);
+                    ui230.getRoomTotalNominalPowerUI ();
                     break;
                 case 4:
-                    GetGridTotalNominalPowerUI uS172 = new GetGridTotalNominalPowerUI(house);
-                    uS172.run();
+                    GetTotalNominalPowerUI uS172 = new GetTotalNominalPowerUI(house);
+                    uS172.getGridTotalNominalPowerUI ();
                     break;
                 case 5:
                     System.out.println("US 705 DisplayCustomTotalNominalPower is under maintenance, it will be available shortly");

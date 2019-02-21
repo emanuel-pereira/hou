@@ -69,7 +69,7 @@ public class GetEnergyConsumptionInPeriodUI {
     private void selectHouseGrid() {
         System.out.println("Choose a grid from the list below:");
         System.out.println(mCtrl.showHouseGridListInString());
-        this.indexOfHG = UtilsUI.requestIntegerInInterval(1, mCtrl.getRoomListSize(),
+        this.indexOfHG = UtilsUI.requestIntegerInInterval(1, mCtrl.getHouseGridListSize (),
                 "Not a valid option. Please select a grid from the list below:\n" + mCtrl.showRoomListInStr());
         this.indexOfHG--;
         this.getStartDate();

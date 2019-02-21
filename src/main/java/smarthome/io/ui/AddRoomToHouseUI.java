@@ -3,13 +3,9 @@ package smarthome.io.ui;
 import smarthome.controller.AddRoomToHouseCTRL;
 import smarthome.model.House;
 
-import java.util.Scanner;
-
 public class AddRoomToHouseUI {
 
-    Scanner read = new Scanner (System.in);
-
-    private AddRoomToHouseCTRL uS105CTRL;
+    private AddRoomToHouseCTRL controller;
 
     private String name;
     private Integer floor;
@@ -17,9 +13,13 @@ public class AddRoomToHouseUI {
     private double width;
     private double height;
 
-
+    /**
+     * User interface constructor
+     *
+     * @param house the current and only house
+     */
     public AddRoomToHouseUI(House house) {
-        uS105CTRL = new AddRoomToHouseCTRL (house);
+        this.controller = new AddRoomToHouseCTRL (house);
     }
 
     /**
@@ -33,8 +33,8 @@ public class AddRoomToHouseUI {
         boolean condition = true;
         while (condition) {
             System.out.println ("Insert the name of the room:");
-            name = UtilsUI.requestText ("Please insert alphanumeric characters!\nInsert the name of the room:", "^[A-Za-z0-9 -]+$");
-            if (!uS105CTRL.checkIfRoomNameExists (name)) {
+            this.name = UtilsUI.requestText ("Please insert alphanumeric characters!\nInsert the name of the room:", "^[A-Za-z0-9 -]+$");
+            if (!this.controller.checkIfRoomNameExists (this.name)) {
                 condition = false;
                 this.insertFloor ();
             } else
@@ -50,7 +50,7 @@ public class AddRoomToHouseUI {
      */
     private void insertFloor() {
         System.out.println ("Insert the floor where the room is:");
-        floor = UtilsUI.requestInteger ("Please insert a number\nInsert the floor where the room is:");
+        this.floor = UtilsUI.requestInteger ("Please insert a number\nInsert the floor where the room is:");
         this.insertLength ();
     }
 
@@ -62,7 +62,7 @@ public class AddRoomToHouseUI {
      */
     private void insertLength() {
         System.out.println ("Insert the length of the room (in meters):");
-        length = UtilsUI.requestDoubleInInterval (1, 1000, "Please insert a number (higher than zero)\nInsert the length of the room (in meters):");
+        this.length = UtilsUI.requestDoubleInInterval (1, 1000, "Please insert a number (higher than zero)\nInsert the length of the room (in meters):");
         this.insertWidth ();
     }
 
@@ -74,8 +74,26 @@ public class AddRoomToHouseUI {
      */
     private void insertWidth() {
         System.out.println ("Insert the width of the room (in meters):");
-        width = UtilsUI.requestDoubleInInterval (1, 1000, "Please insert a number (higher than zero)\nInsert the width of the room (in meters):");
-        this.insertHeight ();
+        this.width = UtilsUI.requestDoubleInInterval (1, 1000, "Please insert a number (higher than zero)\nInsert the width of the room (in meters):");
+        this.typeOfRoom ();
+    }
+
+    private void typeOfRoom() {
+        int option;
+        System.out.println ("Choose the type of room:");
+        System.out.println ("Click 1. Interior space");
+        System.out.println ("Click 2. Exterior space (outdoor)");
+        option = UtilsUI.requestIntegerInInterval (1, 2, "Please choose an option between 1 and 2");
+        switch (option) {
+            case 1:
+                this.insertHeight ();
+                break;
+            case 2:
+                this.height = 0;
+                this.addNewRoom ();
+                break;
+            default:
+        }
     }
 
     /**
@@ -85,8 +103,8 @@ public class AddRoomToHouseUI {
      * The height is used to create a new Room.
      */
     private void insertHeight() {
-        System.out.println ("Insert the height of the room (in meters). If exterior insert 0:");
-        height = UtilsUI.requestDoubleInInterval (0, 1000, "Please insert a number (higher than zero)\nInsert the height of the room (in meters):");
+        System.out.println ("Insert the height of the room (in meters):");
+        this.height = UtilsUI.requestDoubleInInterval (0, 1000, "Please insert a number (higher than zero)\nInsert the height of the room (in meters):");
         this.addNewRoom ();
     }
 
@@ -95,11 +113,18 @@ public class AddRoomToHouseUI {
      * A success message is shown with all the details of the room.
      */
     private void addNewRoom() {
-        if (uS105CTRL.newAddRoom (name, floor, length, width, height)) {
-            System.out.println ("Success. The " + name + " on the " + floor + " floor with " + height + "m of height and " + length * width + "m² was created.\n");
+        if (this.controller.newAddRoom (this.name, this.floor, this.length, this.width, this.height)) {
+            System.out.println ("Success. The " + this.name + " on the " + this.floor + " floor " + this.showHeight () + this.length * this.width + "m² was created.\n");
         } else {
             System.out.println ("Fail! Please try again.");
         }
+    }
+
+    private String showHeight() {
+        if (this.height != 0) {
+            return ("with " + height + "m of height and ");
+        }
+        return ("with ");
     }
 
 }

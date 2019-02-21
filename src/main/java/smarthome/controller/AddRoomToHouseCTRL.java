@@ -8,7 +8,11 @@ public class AddRoomToHouseCTRL {
 
     private RoomList roomList;
 
-
+    /**
+     * Controller constructor
+     *
+     * @param house the current and only house
+     */
     public AddRoomToHouseCTRL(House house) {
         this.roomList = house.getRoomList ();
 
@@ -31,6 +35,7 @@ public class AddRoomToHouseCTRL {
 
     /**
      * Checks if a room with the same name was already created
+     *
      * @param name Designation of the room
      * @return True if the room name exist sand false if not
      */

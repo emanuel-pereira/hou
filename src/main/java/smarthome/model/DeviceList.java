@@ -94,7 +94,7 @@ public class DeviceList {
     }
 
     public int size() {
-        return devicesList.size();
+        return this.devicesList.size();
     }
 
     /**

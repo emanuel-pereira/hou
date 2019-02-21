@@ -9,6 +9,7 @@ public class NewTypeGACTRL {
 
     /**
      * Controller constructor
+     *
      * @param inputList the list object on which the user will be able to create new type of GA's
      */
     public NewTypeGACTRL(TypeGAList inputList) {

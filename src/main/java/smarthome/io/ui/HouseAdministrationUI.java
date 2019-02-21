@@ -62,8 +62,8 @@ public final class HouseAdministrationUI {
                     ui145.checkIfHGListIsEmpty();
                     break;
                 case 7:
-                    GetRoomTotalNominalPowerUI ui230 = new GetRoomTotalNominalPowerUI(house);
-                    ui230.showTotalNominalPowerRoom();
+                    GetTotalNominalPowerUI ui230 = new GetTotalNominalPowerUI(house);
+                    ui230.getRoomTotalNominalPowerUI ();
                     break;
                 case 8:
                     NewSensorUI newSensorUI = new NewSensorUI(house, sensorTypeList,gaList);
@@ -81,8 +81,8 @@ public final class HouseAdministrationUI {
                     UtilsUI.underMaintenanceMsg("US160");
                     break;
                 case 12:
-                    GetGridTotalNominalPowerUI uS172 = new GetGridTotalNominalPowerUI(house);
-                    uS172.run();
+                    GetTotalNominalPowerUI uS172 = new GetTotalNominalPowerUI(house);
+                    uS172.getGridTotalNominalPowerUI ();
                     break;
                 default:
                     //no action needed

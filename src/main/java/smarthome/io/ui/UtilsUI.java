@@ -227,7 +227,7 @@ public final class UtilsUI {
         while (loop) {
             input = getUserInput();
             input = input.trim();
-            if (!input.trim().matches(regEx))
+            if (!input.trim().matches(regEx) || input.trim().isEmpty () )
                 printAndReset(errorMessage);
             else
                 loop = false;
@@ -283,7 +283,7 @@ public final class UtilsUI {
         }
 
         return parsedUserInput;
-    }
+    } //TODO reuse requestInteger in requestIntegerInInterval
 
     /**
      * UI method that requests any double
