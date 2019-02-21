@@ -3,10 +3,7 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -49,6 +46,28 @@ class ReadingListTest {
         assertEquals(expected3, result3);
     }
 
+    @Test
+    @DisplayName("Tests if the size of the list of readings is returned")
+    void getReadingListSize() {
+
+        ReadingList readingList = new ReadingList();
+        Reading r1 = readingList.newReading(15, new GregorianCalendar(2019, 2, 2));
+        Reading r2 = readingList.newReading(16, new GregorianCalendar(2019, 2, 2));
+        Reading r3 = readingList.newReading(18, new GregorianCalendar(2019, 2, 2));
+        Reading r4 = readingList.newReading(20, new GregorianCalendar(2018, 3, 3));
+
+
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+
+        int result = readingList.size();
+
+        assertEquals(4, result);
+
+    }
+
 
     @Test
     @DisplayName("Ensure that returns the total values of reading list in a specific day")
@@ -77,7 +96,27 @@ class ReadingListTest {
     }
 
     @Test
-    void getTotalfReadingsInTimeInterval() {
+    void getReadingsInSpecificDay() {
+        Calendar date = new GregorianCalendar(2018, 1, 1);
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(25, new GregorianCalendar(2018, 1, 1, 15, 30));
+        Reading r2 = new Reading(25, new GregorianCalendar(2018, 1, 1, 17, 30));
+        Reading r3 = new Reading(25, new GregorianCalendar(2018, 1, 1, 15, 30));
+        Reading r4 = new Reading(25, new GregorianCalendar(2018, 1, 1, 15, 30));
+        Reading r5 = new Reading(25, new GregorianCalendar(2018, 1, 1, 15, 30));
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+        readingList.addReading(r5);
+        int result = readingList.getReadingsInSpecificDay(date).getReadingList().size();
+        int expected = 5;
+        assertEquals(expected, result);
+
+    }
+
+    @Test
+    void getTotalOfReadingsInTimeInterval() {
         ReadingList readingList = new ReadingList();
 
         Reading r2 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 15));
@@ -95,22 +134,32 @@ class ReadingListTest {
     }
 
     @Test
-    void getReadingsInSpecificDay() {
-        Calendar date = new GregorianCalendar(2018,1,1);
-        ReadingList readingList = new ReadingList();
-        Reading r1 = new Reading(25, new GregorianCalendar(2018, 1, 1, 15, 30));
-        Reading r2 = new Reading(25, new GregorianCalendar(2018, 1, 1, 17, 30));
-        Reading r3 = new Reading(25, new GregorianCalendar(2018, 1, 1, 15, 30));
-        Reading r4 = new Reading(25, new GregorianCalendar(2018, 1, 1, 15, 30));
-        Reading r5 = new Reading(25, new GregorianCalendar(2018, 1, 1, 15, 30));
-        readingList.addReading(r1);
-        readingList.addReading(r2);
-        readingList.addReading(r3);
-        readingList.addReading(r4);
-        readingList.addReading(r5);
-        int result=readingList.getReadingsInSpecificDay(date).getReadingList().size();
-        int expected=5;
-        assertEquals(expected,result);
+    @DisplayName("Tests if the readings in a readingList are in the given time period")
+    void getReadingsInTimePeriod() {
 
+        GregorianCalendar startDate = new GregorianCalendar(2017, 6, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2017, 6, 4);
+
+        GregorianCalendar date1 = new GregorianCalendar(2017, 6, 1);
+        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 3);
+        GregorianCalendar date3 = new GregorianCalendar(2017, 6, 5);
+
+        Reading r1 = new Reading(12.3, date1);
+        Reading r2 = new Reading(34.2, date2);
+        Reading r3 = new Reading(20.0, date2);
+        Reading r4 = new Reading(22.0, date3);
+
+        ReadingList rL1 = new ReadingList();
+        rL1.addReading(r1);
+        rL1.addReading(r2);
+        rL1.addReading(r3);
+        rL1.addReading(r4);
+
+        List<Reading> expectedResult = Arrays.asList(r1, r2, r3);
+
+        List<Reading> result = rL1.getReadingsInPeriod(startDate, endDate).getReadingList();
+
+        assertEquals(expectedResult, result);
     }
+
 }

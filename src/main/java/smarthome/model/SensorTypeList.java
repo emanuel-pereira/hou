@@ -5,13 +5,13 @@ import java.util.List;
 
 public class SensorTypeList {
 
-    private List<SensorType> mSensorTypeList;
+    private List<SensorType> sensorTypeList;
 
     /**
      * Constructor method that creates a new list to save data type objects
      */
     public SensorTypeList() {
-        mSensorTypeList = new ArrayList<>();
+        this.sensorTypeList = new ArrayList<>();
     }
 
 
@@ -39,16 +39,15 @@ public class SensorTypeList {
      * @return true if the object is added to the list
      */
     public boolean addSensorType(SensorType newSensorType) {
-        if (mSensorTypeList.contains(newSensorType) || (newSensorType == null))
+        if (this.sensorTypeList.contains(newSensorType) || (newSensorType == null))
             return false;
-        return mSensorTypeList.add(newSensorType);
+        return this.sensorTypeList.add(newSensorType);
     }
 
     public int size(){
-        return mSensorTypeList.size();
+        return this.sensorTypeList.size();
 
     }
-
 
 
     /**
@@ -57,7 +56,7 @@ public class SensorTypeList {
      * @return list of data types created
      */
     public List<SensorType> getSensorTypeList() {
-        return mSensorTypeList;
+        return this.sensorTypeList;
     }
 
 
@@ -79,7 +78,7 @@ public class SensorTypeList {
      * @return true if exists and false if not
      */
     public boolean checkIfSensorTypeExists(String input) {
-        for (SensorType type : mSensorTypeList) {
+        for (SensorType type : this.sensorTypeList) {
             if (type.getSensorTypeDesignation().equalsIgnoreCase(input)) {
                 return true;
             }
@@ -91,7 +90,7 @@ public class SensorTypeList {
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
-        for (SensorType sensorType : mSensorTypeList) {
+        for (SensorType sensorType : this.sensorTypeList) {
             result.append(number++);
             result.append(element);
             result.append(sensorType.getSensorTypeDesignation());

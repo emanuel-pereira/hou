@@ -3,6 +3,7 @@ package smarthome.model;
 import java.math.BigDecimal;
 import java.util.*;
 
+
 public class House {
 
     private Address mAddress;
@@ -144,6 +145,7 @@ public class House {
         return mAddress.getGPSLocation().calcLinearDistanceBetweenTwoPoints(mAddress.getGPSLocation(), aLocation);
     }
 
+
     /**
      * This method checks for each sensor of the selected sensorType, its distance to the house.
      * Then it returns the sensors that have shortest distance to the house.
@@ -172,6 +174,80 @@ public class House {
         }
         return closestSensors;
     }
+
+    public SensorList getClosestSensorsOfTypeWithReadingsInPeriod(SensorType type, Calendar startDate, Calendar endDate) {
+        SensorList closestSensorsOfType = this.getClosestSensorsOfType(type);
+        SensorList closestSensorWithReadingsInPeriod = new SensorList();
+
+
+        for (Sensor sensor : closestSensorsOfType.getSensorList()) {
+
+            ReadingList readingListInPeriod = sensor.getReadingList().getReadingsInPeriod(startDate, endDate);
+
+            if (!readingListInPeriod.getReadingList().isEmpty()) {
+                closestSensorWithReadingsInPeriod.addSensor(sensor);
+            }
+        }
+        return closestSensorWithReadingsInPeriod;
+
+    }
+
+    /**
+     * Method to obtain the closest sensor to the house with the most recent reading in a given time period
+     *
+     * @param type type of sensor
+     * @param startDate first date of the interval
+     * @param endDate last date of the interval
+     * @return the closest sensor to the house
+     */
+
+    public Sensor getClosestSensorWithLatestReadingsInPeriod(SensorType type, Calendar startDate, Calendar endDate) {
+        SensorList closestSensorsWithReadingsInPeriod = this.getClosestSensorsOfTypeWithReadingsInPeriod(type, startDate, endDate);
+        Sensor closestSensorWithLatestReadingsInPeriod = closestSensorsWithReadingsInPeriod.getSensorList().get(0);
+        ReadingList readingsInPeriod = closestSensorWithLatestReadingsInPeriod.getReadingList().getReadingsInPeriod(startDate, endDate);
+        Reading latestReadingInPeriod = readingsInPeriod.getLastReading();
+
+        for (Sensor sensor : closestSensorsWithReadingsInPeriod.getSensorList()) {
+            ReadingList sensorReadingsInPeriod = sensor.getReadingList().getReadingsInPeriod(startDate, endDate);
+            Reading sensorLatestReadingInPeriod = sensorReadingsInPeriod.getLastReading();
+
+            if (sensorLatestReadingInPeriod.getDateAndTime().after(latestReadingInPeriod.getDateAndTime())) {
+                latestReadingInPeriod = sensorLatestReadingInPeriod;
+                closestSensorWithLatestReadingsInPeriod = sensor;
+            }
+
+        }
+        return closestSensorWithLatestReadingsInPeriod;
+
+    }
+
+    /**
+     * Method to calculate the daily average of the sensor that is closer to the house and has the most recent readings
+     *
+     * @param type type of sensor
+     * @param startDate first date of the interval
+     * @param endDate last date of the interval
+     * @return the value of the daily average of the readings in the given time period
+     */
+
+    public double averageOfReadingsInPeriod(SensorType type, Calendar startDate, Calendar endDate) {
+        Sensor closestSensorWithLatestReadingsInPeriod = getClosestSensorWithLatestReadingsInPeriod(type, startDate, endDate);
+        ReadingList readingsInPeriod = closestSensorWithLatestReadingsInPeriod.getReadingList().getReadingsInPeriod(startDate, endDate);
+
+        double sum = 0;
+        int counter = 0;
+
+        for (Calendar date = startDate; date.before(endDate)|| date.equals(endDate); date.add(Calendar.DAY_OF_MONTH, 1)) {
+
+            if (readingsInPeriod.dailyAvgOfReadings(date.get(Calendar.DAY_OF_MONTH)) != -1000) {
+                sum += readingsInPeriod.dailyAvgOfReadings(date.get(Calendar.DAY_OF_MONTH));
+                counter++;
+            }
+        }
+        return sum / counter;
+
+    }
+
 
     /**
      * Method that selects the sensor with the latest readings, when the closest sensors to the house of the selected
@@ -216,6 +292,8 @@ public class House {
         return sensorsWithReadingsInDate;
     }
 
+
+
     /**
      * Boolean method to check if there is any closest sensors to the house of a specific type that has readings in the date inputted as parameter
      * @param inputDate date in GregorianCalendar format for which this method checks if exists any closest sensors to the house with readings
@@ -226,6 +304,13 @@ public class House {
         SensorList closestSensorsByType = this.getClosestSensorsWithReadingsInDate(inputDate, sensorType);
         return closestSensorsByType.size() != 0;
     }
+
+
+    public boolean checkIfClosestSensorsHaveReadingsInTimePeriod(SensorType sensorType, Calendar startDate, Calendar endDate) {
+        SensorList closestSensorsByType = this.getClosestSensorsOfTypeWithReadingsInPeriod(sensorType,startDate,endDate);
+        return closestSensorsByType.size() != 0;
+    }
+
 
 
     /**

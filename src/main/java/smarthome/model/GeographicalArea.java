@@ -1,5 +1,10 @@
 package smarthome.model;
 
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 public class GeographicalArea {
@@ -137,11 +142,7 @@ public class GeographicalArea {
 
     }
 
-    public SensorList getGASensorsByType(String type) {
-        SensorList currentGASensors = this.mSensorListInGA;
 
-        return currentGASensors.getSensorListOfRequiredSensorPerType(type);
-    }
 }
 
 

@@ -42,7 +42,8 @@ public final class RegularUsageUI {
                     getTotalRainfallForDayInHouseAreaUI.run();
                     break;
                 case 5:
-                    System.out.println("US623");
+                    GetAverageDailyRainfallForTimeIntervalInHouseAreaUI avgRainfallUi = new GetAverageDailyRainfallForTimeIntervalInHouseAreaUI(house);
+                    avgRainfallUi.getAverageDailyRainfallForInterval();
                     break;
                 default:
                     System.out.println("Please choose a valid option.");

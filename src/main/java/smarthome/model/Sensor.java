@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Sensor {
     private String mDesignation;
     private Location mLocation;
-    private SensorType mSensorType;
+    private SensorType sensorType;
     private Calendar mStartDate;
     private String mUnit; //to analyse the creation of a class unit so we may have a list of units for a specific Datatype (eg. SensorType: temperature with list of units containing: celsius, kelvin and fahrenheit)
     private ReadingList mReadingList;
@@ -42,7 +42,7 @@ public class Sensor {
             this.mDesignation = designation;
             this.mStartDate = startDate;
             this.mLocation = new Location(latitude, longitude, altitude);
-            this.mSensorType = new SensorType(sensorType);
+            this.sensorType = new SensorType(sensorType);
             this.mReadingList=new ReadingList();
         }
     }
@@ -52,7 +52,7 @@ public class Sensor {
             this.mDesignation = designation;
             this.mStartDate = startDate;
             this.mLocation = new Location(latitude, longitude, altitude);
-            this.mSensorType = sensorType;
+            this.sensorType = sensorType;
             this.mReadingList=new ReadingList();
         }
     }
@@ -71,7 +71,7 @@ public class Sensor {
         if (nameIsValid(designation)) {
             mDesignation = designation;
             mStartDate = startDate;
-            mSensorType = sensorType;
+            this.sensorType = sensorType;
             mUnit = unit;
             mReadingList = readings;
         }
@@ -94,7 +94,7 @@ public class Sensor {
             mDesignation = designation;
             mStartDate = startDate;
             mLocation = new Location(latitude, longitude, altitude);
-            mSensorType = sensorType;
+            this.sensorType = sensorType;
             mUnit = unit;
             mReadingList = readings;
         }
@@ -162,7 +162,7 @@ public class Sensor {
      * @param sensorType new object from the dataType class.
      */
     public void setSensorType(SensorType sensorType) {
-        this.mSensorType = sensorType;
+        this.sensorType = sensorType;
     }
 
     /**
@@ -171,7 +171,7 @@ public class Sensor {
      * @return object dataType
      */
     public SensorType getSensorType() {
-        return this.mSensorType;
+        return this.sensorType;
     }
 
     public ReadingList getReadingList() {
@@ -227,6 +227,6 @@ public class Sensor {
 
     @Override
     public int hashCode() {
-        return Objects.hash(mDesignation, mLocation, mSensorType);
+        return Objects.hash(mDesignation, mLocation, this.sensorType);
     }
 }
