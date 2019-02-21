@@ -283,7 +283,7 @@ public final class UtilsUI {
         }
 
         return parsedUserInput;
-    } //TODO reuse requestInteger in requestIntegerInInterval
+    }
 
     /**
      * UI method that requests any double

@@ -121,7 +121,7 @@ public class AddRoomToHouseUI {
     }
 
     private String showHeight() {
-        if (this.height != 0) {
+        if (this.height > 0) {
             return ("with " + height + "m of height and ");
         }
         return ("with ");
