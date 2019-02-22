@@ -95,7 +95,8 @@ public class ElectricWaterHeater implements DeviceSpecs {
 
     public List<String> getAttributesNames() {
         String classNameString = this.getClass().getSimpleName();
-        return Configuration.getDeviceSpecsAttributes(classNameString);
+        Configuration c = new Configuration();
+        return c.getDeviceSpecsAttributes(classNameString);
     }
 
     public double getAttributesValues(String attribute) {

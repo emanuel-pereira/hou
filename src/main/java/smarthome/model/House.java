@@ -336,13 +336,14 @@ public class House {
 
 
     private List<String> getListOfDeviceTypesInString() {
-
-        return Configuration.getDeviceTypes();
+        Configuration c = new Configuration();
+        return c.getDeviceTypes();
 
     }
 
     public List<DeviceType> getListOfDeviceTypes() {
-        List<String> listOfDeviceTypes = Configuration.getDeviceTypes();
+        Configuration c = new Configuration();
+        List<String> listOfDeviceTypes = c.getDeviceTypes();
         List<DeviceType> deviceTypeList = new ArrayList<>();
         for (String type : listOfDeviceTypes)
             deviceTypeList.add(new DeviceType(type));

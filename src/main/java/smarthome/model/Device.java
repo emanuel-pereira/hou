@@ -146,8 +146,10 @@ public class Device implements Metered {
 
     @Override
     public double getEnergyConsumptionInTimeInterval(Calendar startDate, Calendar endDate) {
+        Configuration c = new Configuration();
+
         double energyConsumption = 0;
-        if (Configuration.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
+        if (c.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
             energyConsumption = mActivityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
         }
         return Utils.round(energyConsumption,2);

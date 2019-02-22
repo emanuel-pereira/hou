@@ -25,7 +25,8 @@ public class Lamp implements DeviceSpecs {
     }
 
     public List<String> getAttributesNames() {
-        return Configuration.getDeviceSpecsAttributes("Lamp");
+        Configuration c = new Configuration();
+        return c.getDeviceSpecsAttributes("Lamp");
     }
 
     public void setAttributeValue(String attribute, String newValue) {

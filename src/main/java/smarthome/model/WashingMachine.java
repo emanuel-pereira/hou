@@ -25,7 +25,8 @@ public class WashingMachine implements DeviceSpecs {
 
     public List<String> getAttributesNames() {
         String classNameString = this.getClass().getSimpleName();
-        return Configuration.getDeviceSpecsAttributes(classNameString);
+        Configuration c = new Configuration();
+        return c.getDeviceSpecsAttributes(classNameString);
     }
 
     public int getAttributesValues(String attribute) {
