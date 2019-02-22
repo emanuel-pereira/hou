@@ -9,8 +9,8 @@ import java.util.List;
 import static java.lang.Integer.parseInt;
 
 public class Fridge implements DeviceSpecs {
-    public int mFreezerCapacity;
-    public int mRefrigeratorCapacity;
+    private int mFreezerCapacity;
+    private int mRefrigeratorCapacity;
     private int mAnnualEnergyConsumption;
     private DeviceType mDeviceType;
 
@@ -35,20 +35,29 @@ public class Fridge implements DeviceSpecs {
 
     public List<String> getAttributesNames() {
         List<String> attributes = new ArrayList<>();
-        for (Field field : getAttributesFields()){
-            String attributeName = field.getName();
-            attributes.add(attributeName);}
+        for (Field field : getAttributesFields()) {
+            if (field.isAccessible()) {
+                String attributeName = field.getName();
+                attributes.add(attributeName);
+            }
+        }
         return attributes;
     }
 
     public Field[] getAttributesFields() {
-        Field[] fields = this.getClass().getFields();
+        Field[] fields = this.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            if (field.getName().equals("mFreezerCapacity"))
+                field.setAccessible(true);
+            if (field.getName().equals("mRefrigeratorCapacity"))
+                field.setAccessible(true);
+        }
         return fields;
     }
 
     public int getAttributesValues(String attribute) throws IllegalAccessException {
-        int i=0;
-        int value=0;
+        int i = 0;
+        int value = 0;
         for (String attributeName : getAttributesNames()) {
             if (attribute.matches(attributeName))
                 value = getAttributesFields()[i].getInt(this);
@@ -58,8 +67,8 @@ public class Fridge implements DeviceSpecs {
     }
 
     @Override
-    public void setAttributeValue(String attribute, String newValue) throws IllegalAccessException{
-        int i=0;
+    public void setAttributeValue(String attribute, String newValue) throws IllegalAccessException {
+        int i = 0;
         for (String attributeName : getAttributesNames()) {
             if (attribute.matches(attributeName))
                 getAttributesFields()[i].set(this, parseInt(newValue));
