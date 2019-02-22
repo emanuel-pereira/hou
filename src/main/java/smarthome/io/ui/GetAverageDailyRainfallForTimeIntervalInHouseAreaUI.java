@@ -79,10 +79,7 @@ public class GetAverageDailyRainfallForTimeIntervalInHouseAreaUI {
 
         if (this.ctrl623.checkIfClosestRainfallSensorsHaveReadingsInPeriod(this.sensorType, this.startDate, this.endDate)) {
 
-            //DecimalFormat df = new DecimalFormat("####0.00");
-            //double result =
-
-            System.out.println("The average daily rainfall between " + UtilsUI.dateInString(this.startDate) + " and " + UtilsUI.dateInString(this.endDate) +
+            System.out.println("The average daily rainfall between " + UtilsUI.dateToString(this.startDate) + " and " + UtilsUI.dateToString(this.endDate) +
                     " is " + ctrl623.calculateAverageOfRainfallReadings(this.sensorType, this.startDate, this.endDate));
         } else
             System.out.println("The available " + this.rainfall + " sensors in the house area don't have readings in the specified date.\nPlease select a date with registered readings.");
