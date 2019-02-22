@@ -17,6 +17,16 @@ PowerUser -> ":TotalNominalPowerUI": Choose Grid
 ":TotalNominalPowerCTRL" -> ":Room": dL = getDeviceList()
 ":TotalNominalPowerUI" -> ":TotalNominalPowerCTRL": tNp = getTotalNominalPowerInGrid()
 ":TotalNominalPowerCTRL" -> ":RoomList": tNp:getTotalNominalPowerInGrid
+	    	    ":RoomList" -> ":RoomList"
+
+loop room sum
+   	   	    ":RoomList" -> ":RoomList": getNominalPower
+   end
+
+ loop device sum
+   	   	    ":Room" -> ":Room": getNominalPower
+   end
+
 ":TotalNominalPowerUI" -->PowerUser: tNp: Show Total Nominal\nPower of a Grid
 
 

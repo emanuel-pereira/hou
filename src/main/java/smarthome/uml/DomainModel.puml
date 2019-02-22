@@ -81,31 +81,31 @@ mEnergyConsumption
 
 House -- "1" GeographicalArea: > belongs to
 House -- "1" Address: has >
-House *-- "1..*" HouseGrid: contains
+House -- "1..*" HouseGrid: contains
 HouseGrid --  "1..*" Room: has attached
-House *--"*" Room: contains
+House --"*" Room: contains
 
 Address "1" -- "1   " Location: has
 
 GeographicalArea ->  GeographicalArea: is in 0..1
 GeographicalArea "1..*"-- "1" TypeGA: has
-GeographicalArea"   1" o-- "1..* " Sensor
+GeographicalArea"   1" -- "1..* " Sensor
 GeographicalArea "   1"-- "    1" OccupationArea: has
 GeographicalArea "1..*  "-- "1" Location: has
 
-Room "1 " o-- "*" Sensor: contains
-Room "1"*-- "1..*  "Device: contains
+Room "1 " -- "*" Sensor: contains
+Room "1" -- "1..*  "Device: contains
 Room "1"-- "1" OccupationArea: has
 
 
-Sensor *-- "1..*  "Reading: contains
+Sensor -- "1..*  "Reading: contains
 Sensor "*" -- "1" SensorType: has
 Sensor "1" -- "1" Location: > is in
 
-HouseGrid "1" o--  "*" PowerSource: has
+HouseGrid "1" --  "*" PowerSource: has
 
 Device "1..*" -- "1" DeviceType: has
-Device *-- "0..*  "Reading: > contains
+Device -- "0..*  "Reading: > contains
 Device "1" -- "0..*" Program: has
 
 

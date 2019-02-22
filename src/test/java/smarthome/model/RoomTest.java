@@ -159,9 +159,10 @@ public class RoomTest {
 
     /**
      * Check if sum of nominal power of devices in room is correct and return correct number
+     * The sum of the nominal power of two devices
      */
     @Test
-    public void getCorrectNominalPower() {
+    public void getCorrectNominalPowerIfTwoDevices() {
         House house = new House ();
         RoomList roomList = house.getRoomList ();
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
@@ -173,6 +174,65 @@ public class RoomTest {
         roomList.addDeviceToRoom (dEWH2, 1);
 
         double expectedResult = 30;
+        double result = bedroom.getNominalPower ();
+
+        assertEquals (expectedResult, result);
+    }
+
+    /**
+     * Check if sum of nominal power of devices in room is correct and return correct number
+     * The sum of the nominal power of one device
+     */
+    @Test
+    public void getCorrectNominalPowerIfOneDevice() {
+        House house = new House ();
+        RoomList roomList = house.getRoomList ();
+        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
+        roomList.addRoom (bedroom);
+        DeviceSpecs ewh = new ElectricWaterHeater ();
+        Device dEWH1 = new Device ("EWH DAIKIN1", ewh, 15);
+        roomList.addDeviceToRoom (dEWH1, 1);
+
+        double expectedResult = 15;
+        double result = bedroom.getNominalPower ();
+
+        assertEquals (expectedResult, result);
+    }
+
+    /**
+     * Check if sum of nominal power of devices in room is correct and return correct number
+     * The sum of the nominal power of two devices with zero nominal power
+     */
+    @Test
+    public void getCorrectNominalPowerIfZero() {
+        House house = new House ();
+        RoomList roomList = house.getRoomList ();
+        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
+        roomList.addRoom (bedroom);
+        DeviceSpecs fri = new Fridge ();
+        Device dEWH1 = new Device ("Fridge DAIKIN1", fri, 0);
+        Device dEWH2 = new Device ("Fridge DAIKIN2", fri, 0);
+        roomList.addDeviceToRoom (dEWH1, 1);
+        roomList.addDeviceToRoom (dEWH2, 1);
+
+        double expectedResult = 0;
+        double result = bedroom.getNominalPower ();
+
+        assertEquals (expectedResult, result);
+    }
+
+    /**
+     * Check if sum of nominal power of devices in room is correct and return correct number
+     * The sum of the nominal power of a room with no devices
+     */
+    @Test
+    public void getCorrectNominalPowerIf() {
+        House house = new House ();
+        RoomList roomList = house.getRoomList ();
+        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
+        roomList.addRoom (bedroom);
+
+        double expectedResult = 0;
         double result = bedroom.getNominalPower ();
 
         assertEquals (expectedResult, result);
