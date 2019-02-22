@@ -26,11 +26,19 @@ public class GetTotalNominalPowerUI {
      * and devices in the chosen grid.
      */
     public void getGridTotalNominalPowerUI() {
-        if (this.checkIfGridListEmpty ()) return;
-        if (this.checkIfRoomListEmpty ()) return;
+        if (this.checkIfGridListEmpty ()) {
+            return;
+        }
+        if (this.checkIfRoomListEmpty ()) {
+            return;
+        }
         this.selectGrid ();
-        if (this.checkIfRoomsExistsInGrid ()) return;
-        if (this.checkIfDevicesExistsInGrid ()) return;
+        if (this.checkIfRoomsExistsInGrid ()) {
+            return;
+        }
+        if (this.checkIfDevicesExistsInGrid ()) {
+            return;
+        }
         System.out.println ("The total Nominal Power of this Grid is: " + this.controller.getGridTotalNominalPower (indexGrid) + "kW\n");
     }
 
@@ -42,9 +50,13 @@ public class GetTotalNominalPowerUI {
      * in the chosen room.
      */
     public void getRoomTotalNominalPowerUI() {
-        if (this.checkIfRoomListEmpty ()) return;
+        if (this.checkIfRoomListEmpty ()) {
+            return;
+        }
         this.selectRoom ();
-        if (this.checkIfDevicesExistsInRoom ()) return;
+        if (this.checkIfDevicesExistsInRoom ()) {
+            return;
+        }
         System.out.println ("The total Nominal Power of this Room is: " + this.controller.getRoomTotalNominalPower (indexRoom) + "kW\n");
     }
 
