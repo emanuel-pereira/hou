@@ -1,6 +1,5 @@
 package smarthome.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -8,7 +7,6 @@ import static java.lang.Integer.parseInt;
 public class Lamp implements DeviceSpecs {
     private int mLuminousFlux;
     private DeviceType mDeviceType;
-
     private String luminousFlux = "Luminous Flux";
 
     public Lamp() {
@@ -27,9 +25,7 @@ public class Lamp implements DeviceSpecs {
     }
 
     public List<String> getAttributesNames() {
-        List<String> result = new ArrayList<>();
-        result.add(luminousFlux);
-        return result;
+        return Configuration.getDeviceSpecsAttributes("Lamp");
     }
 
     public void setAttributeValue(String attribute, String newValue) {

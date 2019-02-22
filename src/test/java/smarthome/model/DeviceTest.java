@@ -61,7 +61,7 @@ class DeviceTest {
     }*/
 
     @Test
-    void setAttributeValue() {
+    void setAttributeValue() throws IllegalAccessException {
         Lamp lamp = new Lamp(6);
         Device d1 = new Device("Lamp1", lamp, 40);
         String name = "2 - Device Name : " + d1.getName();
@@ -74,7 +74,7 @@ class DeviceTest {
 
     @Test
     @DisplayName("Ensure that getEnergyConsumption returns energy consumed by a Electric Water Heater in a given day.")
-    void getConsumption() {
+    void getConsumption() throws IllegalAccessException {
         ElectricWaterHeater ewh = new ElectricWaterHeater();
         Device dEWH = new Device(ewh);
         String volumeOfWater = "Volume of water capacity";

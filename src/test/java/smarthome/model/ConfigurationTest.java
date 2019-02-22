@@ -2,11 +2,10 @@ package smarthome.model;
 
 import org.junit.jupiter.api.Test;
 
-import javax.crypto.Cipher;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ConfigurationTest {
 
@@ -39,10 +38,15 @@ class ConfigurationTest {
         List<String> result = Configuration.getDeviceTypes();
 
         assertEquals(expectedResult, result);
-
     }
 
+    @Test
+    void getDeviceSpecsAttributesTest() {
 
+        List<String> expectedResult = Arrays.asList("Freezer Capacity", "Refrigerator Capacity");
+        List<String> result = Configuration.getDeviceSpecsAttributes("Fridge");
 
+        assertEquals(expectedResult, result);
+    }
 }
 

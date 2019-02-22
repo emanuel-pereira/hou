@@ -17,7 +17,7 @@ class WashingMachineTest {
     @Test
     void setAttributeValueTest() {
         WashingMachine wm = new WashingMachine(4);
-        String Capacity = "4 - Washing Machine Capacity : " + wm.getCapacity();
+        String Capacity = "Washing Machine Capacity";
         wm.setAttributeValue(Capacity,"20");
         assertEquals(20,wm.getCapacity());
     }

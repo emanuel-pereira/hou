@@ -17,7 +17,7 @@ public class GetEnergyConsumptionOfWaterHeatingCTRL {
         return mRoomList.getDevicesInAllRoomsByType(deviceType);
     }
 
-    public String showDeviceAttributesInString(Device device) {
+    public String showDeviceAttributesInString(Device device) throws IllegalAccessException {
         return device.showDeviceAttributesInString();
     }
 
@@ -25,7 +25,7 @@ public class GetEnergyConsumptionOfWaterHeatingCTRL {
         return mRoomList.getEnergyConsumptionByDeviceType(deviceType);
     }
 
-    public void setAttribute(Device device, String attribute, String newValue) {
+    public void setAttribute(Device device, String attribute, String newValue) throws IllegalAccessException {
         device.setAttributeValue(attribute, newValue);
     }
 }

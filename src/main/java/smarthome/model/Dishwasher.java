@@ -1,6 +1,5 @@
 package smarthome.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -8,10 +7,6 @@ import static java.lang.Integer.parseInt;
 public class Dishwasher implements DeviceSpecs {
     private int mCapacity;
     private DeviceType mDeviceType;
-
-    private String capacity = "Dishwasher Capacity";
-
-
 
     public Dishwasher() {
     }
@@ -26,43 +21,53 @@ public class Dishwasher implements DeviceSpecs {
     }
 
     public int getCapacity() {
-
         return mCapacity;
     }
 
     public DeviceType getDeviceType() {
         return mDeviceType;
     }
+
     @Override
     public void setType(DeviceType deviceType) {
         mDeviceType = deviceType;
     }
 
     public List<String> getAttributesNames() {
-        List<String> result = new ArrayList<>();
-        result.add(capacity);
-        return result;
+        String classNameString = this.getClass().getSimpleName();
+        return Configuration.getDeviceSpecsAttributes(classNameString);
     }
 
-    public void setAttributeValue(String attribute, String newValue) {
-        if (attribute.equals(capacity))
-            setCapacity(parseInt(newValue));
-    }
-
-    public String showDeviceAttributeNamesAndValues() {
-        StringBuilder result = new StringBuilder();
-        int number = 3;
-        for (String s : getAttributesNames()) {
-            result.append(number++);
-            result.append(" - ");
-            if (s.contains(capacity))
-                result.append(s.concat(" : " + this.getCapacity()));
-            result.append("\n");
+    public int getAttributesValues(String attribute) {
+        int value = 0;
+        switch (attribute) {
+            case "Dishwasher Capacity":
+                value = getCapacity();
+                break;
         }
-        return result.toString();
+        return value;}
+
+        public void setAttributeValue (String attribute, String newValue){
+            switch (attribute) {
+                case "Dishwasher Capacity":
+                    setCapacity(parseInt(newValue));
+                    break;
+            }
+        }
+
+        public String showDeviceAttributeNamesAndValues () {
+            StringBuilder result = new StringBuilder();
+            int number = 3;
+            for (String s : getAttributesNames()) {
+                result.append(number++);
+                result.append(" - ");
+                result.append(s.concat(" : " + getAttributesValues(s)));
+                result.append("\n");
+            }
+            return result.toString();
+        }
+        @Override
+        public double getEnergyConsumption () {
+            return 0;
+        }
     }
-    @Override
-    public double getEnergyConsumption() {
-        return 0;
-    }
-}

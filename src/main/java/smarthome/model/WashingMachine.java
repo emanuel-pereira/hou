@@ -1,6 +1,5 @@
 package smarthome.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -8,9 +7,6 @@ import static java.lang.Integer.parseInt;
 public class WashingMachine implements DeviceSpecs {
     private int mCapacity;
     private DeviceType mDeviceType;
-
-    private String capacity = "Washing Machine Capacity";
-
 
     public WashingMachine() {
     }
@@ -28,15 +24,25 @@ public class WashingMachine implements DeviceSpecs {
     }
 
     public List<String> getAttributesNames() {
-        List<String> result = new ArrayList<>();
-        result.add(capacity);
-        return result;
+        String classNameString = this.getClass().getSimpleName();
+        return Configuration.getDeviceSpecsAttributes(classNameString);
     }
 
-    public void setAttributeValue(String attribute, String newValue) {
-        if (attribute.contains(capacity))
-            setCapacity(parseInt(newValue));
+    public int getAttributesValues(String attribute) {
+        int value = 0;
+        switch (attribute) {
+            case "Washing Machine Capacity":
+                value = getCapacity();
+                break;
+        }
+        return value;}
 
+    public void setAttributeValue (String attribute, String newValue){
+        switch (attribute) {
+            case "Washing Machine Capacity":
+                setCapacity(parseInt(newValue));
+                break;
+        }
     }
 
     public String showDeviceAttributeNamesAndValues() {
@@ -45,8 +51,7 @@ public class WashingMachine implements DeviceSpecs {
         for (String s : getAttributesNames()) {
             result.append(number);
             result.append(" - ");
-            if (s.contains(capacity))
-                result.append(s.concat(" : " + this.getCapacity()));
+            result.append(s.concat(" : " + getAttributesValues(s)));
             result.append("\n");
             number++;
         }

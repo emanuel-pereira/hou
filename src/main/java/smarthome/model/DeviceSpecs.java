@@ -11,9 +11,9 @@ public interface DeviceSpecs {
 
     List <String> getAttributesNames();
 
-    void setAttributeValue(String attribute, String newValue);
+    void setAttributeValue(String attribute, String newValue) throws IllegalAccessException;
 
-    String showDeviceAttributeNamesAndValues();
+    String showDeviceAttributeNamesAndValues() throws IllegalAccessException;
 
     double getEnergyConsumption();
 }

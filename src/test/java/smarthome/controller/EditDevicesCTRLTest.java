@@ -151,7 +151,7 @@ class EditDevicesCTRLTest {
     }
 
     @Test
-    void setAttributeTest() {
+    void setAttributeTest()throws IllegalAccessException {
         House h = new House();
         EditDevicesCTRL ctr = new EditDevicesCTRL(h);
         WashingMachine wm = new WashingMachine( 20);

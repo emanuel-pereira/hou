@@ -2,23 +2,17 @@ package smarthome.model;
 
 import smarthome.model.validations.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.Double.parseDouble;
 
-public class ElectricWaterHeater implements DeviceSpecs{
+public class ElectricWaterHeater implements DeviceSpecs {
     private double mVolumeOfWater;
     private double mHotWaterTemperature;
     private double mColdWaterTemperature;
     private double mVolumeOfWaterToHeat;
     private double mPerformanceRatio;
     private DeviceType mDeviceType;
-    private String volumeOfWater = "Volume of water capacity";
-    private String hotWaterTemperature = "Hot water temperature";
-    private String coldWaterTemperature = "Cold water temperature";
-    private String performanceRatio = "Performance Ratio";
-    private String volumeOfWaterToHeat = "Volume of water to heat";
 
     public ElectricWaterHeater() {
     }
@@ -70,7 +64,7 @@ public class ElectricWaterHeater implements DeviceSpecs{
         return mPerformanceRatio;
     }
 
-    public String showDeviceSpecsListAttributesInString() {
+   /** public String showDeviceSpecsListAttributesInString() {
         StringBuilder result = new StringBuilder();
         result.append("3 - DeviceType : " + this.getDeviceType().getDeviceTypeName());
         result.append("\n");
@@ -88,54 +82,71 @@ public class ElectricWaterHeater implements DeviceSpecs{
         result.append("\n");
         return result.toString();
     }
+    */
 
     public DeviceType getDeviceType() {
         return mDeviceType;
     }
+
     @Override
     public void setType(DeviceType deviceType) {
         mDeviceType = deviceType;
     }
 
     public List<String> getAttributesNames() {
-        List<String> result = new ArrayList<>();
-        result.add(volumeOfWater);
-        result.add(hotWaterTemperature);
-        result.add(coldWaterTemperature);
-        result.add(performanceRatio);
-        result.add(volumeOfWaterToHeat);
-        return result;
+        String classNameString = this.getClass().getSimpleName();
+        return Configuration.getDeviceSpecsAttributes(classNameString);
+    }
+
+    public double getAttributesValues(String attribute) {
+        double value=0;
+        switch (attribute) {
+            case "Volume of water capacity":
+                value = getVolumeOfWater();
+                break;
+            case "Hot water temperature":
+                value = getHotWaterTemperature();
+                break;
+            case "Cold water temperature":
+                value = getColdWaterTemperature();
+                break;
+            case "Performance Ratio":
+                value = getPerformanceRatio();
+                break;
+            case "Volume of water to heat":
+                value = getVolumeOfWaterToHeat();
+                break;
+        }
+        return value;
     }
 
     public void setAttributeValue(String attribute, String newValue) {
-        if (attribute.contains(volumeOfWater))
-            setVolumeOfWater(parseDouble(newValue));
-        if (attribute.contains(hotWaterTemperature))
-            setHotWaterTemperature(parseDouble(newValue));
-        if (attribute.contains(coldWaterTemperature))
-            setColdWaterTemperature(parseDouble(newValue));
-        if (attribute.contains(performanceRatio))
-            setPerformanceRatio(parseDouble(newValue));
-        if (attribute.contains(volumeOfWaterToHeat))
-            setVolumeOfWaterToHeat(parseDouble(newValue));
+        switch (attribute) {
+            case "Volume of water capacity":
+                setVolumeOfWater(parseDouble(newValue));
+                break;
+            case "Hot water temperature":
+                setHotWaterTemperature(parseDouble(newValue));
+                break;
+            case "Cold water temperature":
+                setColdWaterTemperature(parseDouble(newValue));
+                break;
+            case "Performance Ratio":
+                setPerformanceRatio(parseDouble(newValue));
+                break;
+            case "Volume of water to heat":
+                setVolumeOfWaterToHeat(parseDouble(newValue));
+                break;
+        }
     }
 
     public String showDeviceAttributeNamesAndValues() {
         StringBuilder result = new StringBuilder();
-        int number=3;
+        int number = 3;
         for (String s : getAttributesNames()) {
             result.append(number);
             result.append(" - ");
-            if (s.contains(volumeOfWater))
-                result.append(s.concat(" : " + this.getVolumeOfWater()));
-            if (s.contains(hotWaterTemperature))
-                result.append(s.concat(" : " + this.getHotWaterTemperature()));
-            if (s.contains(coldWaterTemperature))
-                result.append(s.concat(" : " + this.getColdWaterTemperature()));
-            if (s.contains(performanceRatio))
-                result.append(s.concat(" : " + this.getPerformanceRatio()));
-            if (s.contains(volumeOfWaterToHeat))
-                result.append(s.concat(" : " + this.getVolumeOfWaterToHeat()));
+            result.append(s.concat(" : " + getAttributesValues(s)));
             result.append("\n");
             number++;
         }

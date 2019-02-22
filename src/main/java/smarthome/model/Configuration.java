@@ -114,6 +114,29 @@ public final class Configuration {
         return deviceTypes;
     }
 
+    public static List<String> getDeviceSpecsAttributes(String deviceSpec) {
+        List<String> devicesAttributes = new ArrayList<>();
+        String key = deviceSpec.concat("TotalAttributes");
+        String value = getConfigValue(key);
+        String deviceAttributes;
+
+        int numberOfAttributes;
+        try {
+            numberOfAttributes = Integer.parseInt(value);
+        } catch (Exception e) {
+            numberOfAttributes = 0;
+        }
+        if (numberOfAttributes > 0) {
+            for (int i = 1; i <= numberOfAttributes; i++) {
+                String key2 = deviceSpec.concat("Attribute");
+                deviceAttributes = getConfigValue(key2 + i + "");
+                devicesAttributes.add(deviceAttributes);
+            }
+        }
+        return devicesAttributes;
+    }
+
+
     private static boolean isMeteringPeriodValid() {
         boolean isGridMeteringPeriodValid = (getGridMeteringPeriod() <= 1440 && getGridMeteringPeriod() >= 0);
         boolean isDeviceMeteringPeriodValid =  (getDevicesMeteringPeriod() <= 1440 && getDevicesMeteringPeriod() >= 0);

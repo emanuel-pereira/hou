@@ -86,7 +86,7 @@ public class Device implements Metered {
     }
 
 
-    public String showDeviceAttributesInString() {
+    public String showDeviceAttributesInString() throws IllegalAccessException {
         StringBuilder result = new StringBuilder();
         result.append(this.getDeviceSpecs().getDeviceType().getDeviceTypeName());
         result.append("\n");
@@ -109,7 +109,7 @@ public class Device implements Metered {
         return result;
     }
 
-    public void setAttributeValue(String attribute, String newValue) {
+    public void setAttributeValue(String attribute, String newValue) throws IllegalAccessException {
         String deviceName = "Device Name";
         String deviceNominalPower = "Device Nominal Power";
         if (attribute.contains(deviceName)) {
@@ -118,7 +118,7 @@ public class Device implements Metered {
         if (attribute.contains(deviceNominalPower)) {
             setNominalPower(parseDouble(newValue));
         }
-        this.getDeviceSpecs().setAttributeValue(attribute, newValue);
+       this.getDeviceSpecs().setAttributeValue(attribute, newValue);
     }
 
     public double getEnergyConsumption() {

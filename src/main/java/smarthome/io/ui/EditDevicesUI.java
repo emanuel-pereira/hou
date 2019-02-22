@@ -70,23 +70,18 @@ public class EditDevicesUI {
     private void roomSelection() {
         System.out.println("Select a room from the list below where you want to add the device:");
         System.out.println(ctrl.showRoomListInString());
-        selectedRoomIndex = read.nextInt();
-        if (selectedRoomIndex <= mRoomList.getRoomList().size() && selectedRoomIndex > 0)
-            selectedRoom = ctrl.getRoomFromListIndex(selectedRoomIndex);
-        else {
-            System.out.println("Error, room not found! Please, select a valid room.");
-            roomSelection(); //
-        }
+        selectedRoomIndex = UtilsUI.requestIntegerInInterval(1, ctrl.getRoomListSize(), "Error, room not found! Please, select a valid room.");
+        selectedRoom = ctrl.getRoomFromListIndex(selectedRoomIndex);
     }
 
     private void deviceTypeSelection() {
         System.out.println("Select a device type:");
         System.out.println(ctrl.showDeviceTypesListInString());
-        deviceTypeIndex = read.nextInt();
+        deviceTypeIndex = UtilsUI.requestIntegerInInterval(1,14,"Error, device type not found! Please, select a device type");
         deviceType = ctrl.getDeviceTypeFromIndex(deviceTypeIndex);
     }
 
-    private void deviceSpecsConfiguration() {
+    private void deviceSpecsConfiguration() throws IllegalAccessException {
         System.out.println("[------- Configuration of a new " + deviceType.getDeviceTypeName() + " -------]");
         System.out.println("[-------- Please configure the device --------]");
         System.out.println();
@@ -96,7 +91,6 @@ public class EditDevicesUI {
             String newValue = read.next();
             ctrl.setAttribute(newDevice, attribute, newValue);
         }
-
     }
 
     public void roomSelectionToAddDevice() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
@@ -117,7 +111,7 @@ public class EditDevicesUI {
         selectedRoom = ctrl.getRoomFromListIndex(selectedRoomIndex);
     }
 
-    public void editDeviceAttributes() {
+    public void editDeviceAttributes()throws IllegalAccessException {
         roomSelectionToListDevice();
         selectedRoom = ctrl.getRoomFromListIndex(selectedRoomIndex);
         System.out.println("Select a device");
