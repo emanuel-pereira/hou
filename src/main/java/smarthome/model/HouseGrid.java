@@ -69,7 +69,6 @@ public class HouseGrid implements Metered{
         return mRoomList.getRoomListSize ();
     }
 
-
     /**
      * Nominal power of a grid is the sum of nominal power of all the rooms in tat grid
      *

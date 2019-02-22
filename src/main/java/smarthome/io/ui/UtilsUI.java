@@ -1,5 +1,7 @@
 package smarthome.io.ui;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -51,8 +53,7 @@ public final class UtilsUI {
             d = Double.MIN_VALUE;
         }
 
-
-        return (d >= (Double.MIN_VALUE + 1));
+        return (d >= (Double.MIN_VALUE + 0.000000000000000001));
     }
 
     /**
@@ -303,6 +304,11 @@ public final class UtilsUI {
         return parsedUserInput;
     }
 
+    public static String formatDecimal (double inputDouble, int decimals){
+        BigDecimal bd = new BigDecimal(inputDouble);
+        bd = bd.setScale(decimals, RoundingMode.HALF_UP);
+        return Double.toString(bd.doubleValue());
+    }
 
     /**
      * UI method that requests a double in a preset interval
@@ -326,6 +332,7 @@ public final class UtilsUI {
         }
         return parsedUserInput;
     }
+
 
     /**
      * UI method that requests a date input from the user and validates it.
@@ -610,4 +617,15 @@ public final class UtilsUI {
         result.deleteCharAt(0);
         return result.toString();
     }
+
+    public static boolean confirmOption(String continueQuestion, String errorMessage,String dynamicRegEx) {
+        print(continueQuestion);
+        String yesOrNo = requestText(errorMessage,dynamicRegEx);
+        if (yesOrNo.contains("n") || yesOrNo.contains("N")) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

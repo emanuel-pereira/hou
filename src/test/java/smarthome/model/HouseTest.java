@@ -332,7 +332,7 @@ class HouseTest {
     void getListOfDeviceTypes() {
         House h = new House();
         List<DeviceType> result = h.getListOfDeviceTypes();
-        assertEquals(result.size(), 14);
+        assertEquals(14,result.size());
     }
 
     @Test

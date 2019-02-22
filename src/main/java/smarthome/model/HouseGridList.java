@@ -83,14 +83,4 @@ public class HouseGridList {
         }
         return result.toString ();
     }
-
-
-
-    public RoomList getAvailableRoomsForGrid (){
-        RoomList availableRooms = new RoomList();
-        availableRooms.getRoomList().addAll(mRoomList.getRoomList());
-        return availableRooms;
-    }
-
-
 }
