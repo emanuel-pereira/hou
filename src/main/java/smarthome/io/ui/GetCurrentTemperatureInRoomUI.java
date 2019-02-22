@@ -10,13 +10,13 @@ public class GetCurrentTemperatureInRoomUI {
 
     Scanner read = new Scanner(System.in);
 
-    private GetCurrentTemperatureInRoomCTRL mCTRL605;
-    private String mTemperature = "temperature";
-    private int mRoomIndex;
+    private GetCurrentTemperatureInRoomCTRL controller;
+    private String temperature = "temperature";
+    private int roomIndex;
 
 
     public GetCurrentTemperatureInRoomUI(House house, SensorTypeList sensorTypeList) {
-        mCTRL605 = new GetCurrentTemperatureInRoomCTRL(house, sensorTypeList);
+        this.controller = new GetCurrentTemperatureInRoomCTRL(house, sensorTypeList);
     }
 
 
@@ -24,7 +24,7 @@ public class GetCurrentTemperatureInRoomUI {
      * Checks if the required sensor type Temperature was created by the Administrator
      */
     public void run() {
-        if (mCTRL605.checkIfRequiredSensorTypeExists(mTemperature)) {
+        if (this.controller.checkIfRequiredSensorTypeExists(this.temperature)) {
             this.checkIfRoomExists();
         } else System.out.println("Please ask the Administrator to create a Temperature Sensor Type in the System");
     }
@@ -34,12 +34,12 @@ public class GetCurrentTemperatureInRoomUI {
      */
     public void checkIfRoomExists() {
 
-        if (!mCTRL605.getRoomList().isEmpty()) {
+        if (!this.controller.getRoomList().isEmpty()) {
             while (true) {
                 System.out.println("Choose the Room for which you want add this sensor, from the list below:");
-                System.out.println(mCTRL605.showRoomListInString());
-                mRoomIndex = read.nextInt();
-                if (mRoomIndex > mCTRL605.getRoomList().size())
+                System.out.println(this.controller.showRoomListInString());
+                roomIndex = read.nextInt();
+                if (roomIndex > this.controller.getRoomList().size())
                     UtilsUI.printLnInsertValidOptionMsg();
                 else break;
             }
@@ -51,8 +51,8 @@ public class GetCurrentTemperatureInRoomUI {
      * Checks if the sensor type Temperature exist in the chosen room. If so, shows the current temperature of that room
      */
     private void checkIfTempSensorExistInRooms() {
-        if (mCTRL605.checkIfSensorTypeExistsInRoom(mRoomIndex, mTemperature)) {
-            System.out.println("Current temperature in the room: " + mCTRL605.getCurrentTemp(mRoomIndex));
+        if (this.controller.checkIfSensorTypeExistsInRoom(roomIndex, this.temperature)) {
+            System.out.println("Current temperature in the room: " + this.controller.getCurrentTemp(roomIndex));
         } else System.out.println("Please ask the House Administrator to add a Temperature Sensor to this Room");
     }
 

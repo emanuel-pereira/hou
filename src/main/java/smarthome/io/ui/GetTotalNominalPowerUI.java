@@ -26,19 +26,11 @@ public class GetTotalNominalPowerUI {
      * and devices in the chosen grid.
      */
     public void getGridTotalNominalPowerUI() {
-        if (this.checkIfGridListEmpty ()) {
-            return;
-        }
-        if (this.checkIfRoomListEmpty ()) {
-            return;
-        }
+        if (this.checkIfGridListEmpty ()) return;
+        if (this.checkIfRoomListEmpty ()) return;
         this.selectGrid ();
-        if (this.checkIfNoRoomsExistsInGrid ()) {
-            return;
-        }
-        if (this.checkIfNoDevicesExistsInGrid ()) {
-            return;
-        }
+        if (this.checkIfRoomsExistsInGrid ()) return;
+        if (this.checkIfDevicesExistsInGrid ()) return;
         System.out.println ("The total Nominal Power of this Grid is: " + this.controller.getGridTotalNominalPower (indexGrid) + "kW\n");
     }
 
@@ -50,13 +42,9 @@ public class GetTotalNominalPowerUI {
      * in the chosen room.
      */
     public void getRoomTotalNominalPowerUI() {
-        if (this.checkIfRoomListEmpty ()) {
-            return;
-        }
+        if (this.checkIfRoomListEmpty ()) return;
         this.selectRoom ();
-        if (this.checkIfNoDevicesExistsInRoom ()) {
-            return;
-        }
+        if (this.checkIfDevicesExistsInRoom ()) return;
         System.out.println ("The total Nominal Power of this Room is: " + this.controller.getRoomTotalNominalPower (indexRoom) + "kW\n");
     }
 
@@ -64,29 +52,22 @@ public class GetTotalNominalPowerUI {
      * Checks if the grid list is empty by confirming if the size list is zero
      */
     private boolean checkIfGridListEmpty() {
-        boolean condition;
-        condition = true;
-        while (condition)
-            if (this.controller.getGridListSize () == 0) {
-                System.out.println ("Please ask the Administrator to create a House Grid\n");
-                condition = false;
-            }
-        return true;
+        if (this.controller.getGridListSize () == 0) {
+            System.out.println ("Please ask the Administrator to create a House Grid\n");
+            return true;
+        }
+        return false;
     }
-
 
     /**
      * Checks if the room list is empty by confirming if the size list is zero
      */
     private boolean checkIfRoomListEmpty() {
-        boolean condition;
-        condition = true;
-        while (condition)
-            if (this.controller.getRoomListSize () == 0) {
-                System.out.println ("Please ask the House Administrator to add Rooms\n");
-                condition = false;
-            }
-        return true;
+        if (this.controller.getRoomListSize () == 0) {
+            System.out.println ("Please ask the House Administrator to add Rooms\n");
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -116,43 +97,34 @@ public class GetTotalNominalPowerUI {
     /**
      * Before showing the total nominal power this method checks if there are any rooms attached to the grid
      */
-    private boolean checkIfNoRoomsExistsInGrid() {
-        boolean condition;
-        condition = true;
-        while (condition)
-            if (this.controller.getSizeRoomListInGrid (this.indexGrid) == 0) {
-                System.out.println ("Please ask the House Administrator to attach Rooms to a Grid\n");
-                condition = false;
-            }
-        return true;
+    private boolean checkIfRoomsExistsInGrid() {
+        if (this.controller.getSizeRoomListInGrid (this.indexGrid) == 0) {
+            System.out.println ("Please ask the House Administrator to attach Rooms to a Grid\n");
+            return true;
+        }
+        return false;
     }
 
     /**
      * Before showing the total nominal power this method checks if there are devices added to the rooms in that grid
      */
-    private boolean checkIfNoDevicesExistsInGrid() {
-        boolean condition;
-        condition = true;
-        while (condition)
-            if (this.controller.getSizeDeviceListInGrid (this.indexGrid) == 0) {
-                System.out.println ("Please ask the House Administrator to add Devices to a Room\n");
-                condition = false;
-            }
-        return true;
+    private boolean checkIfDevicesExistsInGrid() {
+        if (this.controller.getSizeDeviceListInGrid (this.indexGrid) == 0) {
+            System.out.println ("Please ask the House Administrator to add Devices to a Room\n");
+            return true;
+        }
+        return false;
     }
 
     /**
      * Before showing the total nominal power this method checks if there are devices added to the rooms
      */
-    private boolean checkIfNoDevicesExistsInRoom() {
-        boolean condition;
-        condition = true;
-        while (condition)
-            if (this.controller.getSizeDeviceListInRoom (this.indexRoom) == 0) {
-                System.out.println ("Please ask the House Administrator to add Devices to the Room\n");
-                condition = false;
-            }
-        return true;
+    private boolean checkIfDevicesExistsInRoom() {
+        if (this.controller.getSizeDeviceListInRoom (this.indexRoom) == 0) {
+            System.out.println ("Please ask the House Administrator to add Devices to the Room\n");
+            return true;
+        }
+        return false;
     }
 
 }
