@@ -41,7 +41,7 @@ class GetEnergyConsumptionOfWaterHeatingCTRLTest {
     }
 
     @Test
-    void showDeviceAttributesInString() {
+    void showDeviceAttributesInString() throws IllegalAccessException {
         House house = new House();
         GetEnergyConsumptionOfWaterHeatingCTRL ctrl = new GetEnergyConsumptionOfWaterHeatingCTRL(house);
         ElectricWaterHeater ewh1 = new ElectricWaterHeater(75, 65, 1);

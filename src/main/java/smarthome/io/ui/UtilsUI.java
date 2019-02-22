@@ -2,10 +2,7 @@ package smarthome.io.ui;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public final class UtilsUI {
 
@@ -601,5 +598,16 @@ public final class UtilsUI {
         print(error);
         print("\n\n");
     }
+    //accept a string, like aCamelString
+//return a list containing strings, in this case, [a, Camel, String]
+    public static String splitCamelCaseString(String s){
+        StringBuilder result = new StringBuilder();
+        for (String w : s.split("(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])")) {
+            result.append(w);
+            result.append(" ");
 
+        }
+        result.deleteCharAt(0);
+        return result.toString();
+    }
 }
