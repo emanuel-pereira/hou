@@ -1,19 +1,19 @@
 package smarthome.controller;
 
+import smarthome.io.ui.UtilsUI;
 import smarthome.model.*;
 import smarthome.model.validations.NameValidations;
+import smarthome.model.validations.Utils;
 
 import java.util.List;
 
 public class AddPowerSourceToGridCTRL {
 
     private House mHouse;
-    private NameValidations mNameValidations;
 
 
     public AddPowerSourceToGridCTRL(House house) {
         mHouse = house;
-        mNameValidations = new NameValidations();
     }
 
     public List<HouseGrid> getHouseGridList() {
@@ -28,7 +28,7 @@ public class AddPowerSourceToGridCTRL {
         return mHouse.getHGListInHouse().showHouseGridListInString();
     }
 
-    public HouseGrid getHouseGrid(int indexHG){
+    private HouseGrid getHouseGrid(int indexHG){
         return this.getHouseGridList().get(indexHG-1);
     }
 
@@ -52,17 +52,12 @@ public class AddPowerSourceToGridCTRL {
             result.append(", ");
             result.append(ps.getTypePS());
             result.append(" type, Maximum Power ");
-            result.append(ps.getMaxPower());
+            result.append(UtilsUI.formatDecimal(ps.getMaxPower(),2));
             result.append(" kw, Storage Capacity ");
-            result.append(ps.getStorageCapacity());
+            result.append(UtilsUI.formatDecimal(ps.getStorageCapacity(),2));
             result.append(" kw.\n");
         }
         return result.toString();
-    }
-
-    public boolean alphanumericName(String inputName) {
-
-        return mNameValidations.alphanumericName(inputName);
     }
 
     public int getPSListSizeCtrl (int indexOfHG) {
