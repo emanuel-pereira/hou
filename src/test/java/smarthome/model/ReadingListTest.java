@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class ReadingListTest {
 
@@ -23,8 +24,6 @@ class ReadingListTest {
         int expected2 = 1;
         int result2 = readingList.getReadingList().size();
         assertEquals(expected2, result2);
-
-
     }
 
     @Test
@@ -39,6 +38,26 @@ class ReadingListTest {
 
         boolean result2 = readingList.addReading(r1);
         assertEquals(false, result2);
+
+
+        List<Reading> result3 = readingList.getReadingList();
+        List<Reading> expected3 = Arrays.asList(r1);
+        assertEquals(expected3, result3);
+    }
+
+    @Test
+    @DisplayName("Ensure newReading method creates local instance of reading and that addReading null is not add to readingList")
+    void cantAddSameReadingNull() {
+        ReadingList readingList = new ReadingList();
+        Reading r1 = readingList.newReading(15, new GregorianCalendar(2019, 2, 2));
+        readingList.addReading(r1);
+        Reading expected1 = r1;
+        Reading result1 = readingList.getReadingList().get(0);
+        assertEquals(expected1, result1);
+
+        Reading r2 = null;
+        boolean result2 = readingList.addReading(r2);
+        assertFalse (result2);
 
 
         List<Reading> result3 = readingList.getReadingList();
