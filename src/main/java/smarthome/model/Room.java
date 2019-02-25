@@ -33,10 +33,6 @@ public class Room implements Powered, Metered {
         this.deviceList = new DeviceList();
     }
 
-    public Room (){
-
-    }
-
     /**
      * Method to get the name of the room
      *
@@ -90,14 +86,6 @@ public class Room implements Powered, Metered {
     public void setArea(OccupationArea area) {
         this.area = area;
     }
-
-    /*public ReadingList getDataSeriesInTimeInterval(Calendar startDate, Calendar endDate) {
-        ReadingList roomDataSeries= new ReadingList();
-        for (Device device : mDeviceList.getDeviceList()) {
-            roomDataSeries = device.getDataSeriesInTimeInterval(startDate,endDate);
-            //if(roomDataSeries.
-        }
-    }*/
 
     /**
      * Method to get the height
