@@ -241,16 +241,18 @@ public class House {
 
         double sum = 0;
         int counter = 0;
+        double average = 0;
 
         for (Calendar date = startDate; date.before(endDate) || date.equals(endDate); date.add(Calendar.DAY_OF_MONTH, 1)) {
-            if(readingsFromSensorInPeriod.getReadingsInSpecificDay(date).size() != 0){
+            if (readingsFromSensorInPeriod.getReadingsInSpecificDay(date).size() != 0) {
                 sum = sum + readingsInPeriod.dailyAverageOfReadings(date);
                 counter++;
+                average = sum / counter;
             }
         }
 
 
-        return sum / counter;
+        return average;
 
     }
 
