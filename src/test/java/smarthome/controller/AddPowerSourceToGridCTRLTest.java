@@ -198,33 +198,13 @@ class AddPowerSourceToGridCTRLTest {
         house.getHGListInHouse().addHouseGrid(hg01);
         house.getHGListInHouse().addHouseGrid(hg02);
 
-        ctrl135.addNewPSToGrid(1,"panel002","solar",100,100);
-        ctrl135.addNewPSToGrid(1,"turbine003", "wind", 100,100);
+        ctrl135.addNewPSToGrid(1,"panel002","solar",100.456,100.123);
+        ctrl135.addNewPSToGrid(1,"turbine003", "wind", 100.096,100.864);
 
-        String expectedResult = "1 - panel002, solar type, Maximum Power 100.0 kw, Storage Capacity 100.0 kw.\n2 - turbine003, wind type, Maximum Power 100.0 kw, Storage Capacity 100.0 kw.\n";
+        String expectedResult = "1 - panel002, solar type, Maximum Power 100.46 kw, Storage Capacity 100.12 kw.\n" +
+                                "2 - turbine003, wind type, Maximum Power 100.1 kw, Storage Capacity 100.86 kw.\n";
         String result = ctrl135.showPowerSourceListInString(1);
 
         assertEquals(expectedResult,result);
     }
-
-    @Test
-    @DisplayName("Test if name/type validation string is true")
-    void alphanumericNameTrue () {
-        House house = new House();
-        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house);
-
-        boolean result = ctrl135.alphanumericName("painel01");
-        assertTrue(result);
-    }
-
-    @Test
-    @DisplayName("Test if name/type validation string is false(does not accept points for example)")
-    void alphanumericNameFalse () {
-        House house = new House();
-        AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL(house);
-
-        boolean result = ctrl135.alphanumericName("painel1.");
-        assertFalse(result);
-    }
-
 }

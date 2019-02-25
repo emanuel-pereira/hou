@@ -305,7 +305,7 @@ public final class UtilsUI {
     }
 
     public static String formatDecimal (double inputDouble, int decimals){
-        BigDecimal bd = new BigDecimal(inputDouble);
+        BigDecimal bd = BigDecimal.valueOf(inputDouble);
         bd = bd.setScale(decimals, RoundingMode.HALF_UP);
         return Double.toString(bd.doubleValue());
     }
@@ -621,11 +621,7 @@ public final class UtilsUI {
     public static boolean confirmOption(String continueQuestion, String errorMessage,String dynamicRegEx) {
         print(continueQuestion);
         String yesOrNo = requestText(errorMessage,dynamicRegEx);
-        if (yesOrNo.contains("n") || yesOrNo.contains("N")) {
-            return false;
-        } else {
-            return true;
-        }
+        return yesOrNo.contains("y") || yesOrNo.contains("Y");
     }
 
 }
