@@ -63,7 +63,7 @@ public final class HouseAdministrationUI {
                     break;
                 case 7:
                     GetTotalNominalPowerUI ui230 = new GetTotalNominalPowerUI(house);
-                    ui230.getRoomTotalNominalPowerUI ();
+                    ui230.getRoomTotalNominalPower ();
                     break;
                 case 8:
                     NewSensorUI newSensorUI = new NewSensorUI(house, sensorTypeList,gaList);
@@ -82,7 +82,7 @@ public final class HouseAdministrationUI {
                     break;
                 case 12:
                     GetTotalNominalPowerUI uS172 = new GetTotalNominalPowerUI(house);
-                    uS172.getGridTotalNominalPowerUI ();
+                    uS172.getGridTotalNominalPower ();
                     break;
                 default:
                     //no action needed
