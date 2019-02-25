@@ -43,18 +43,18 @@ public class SensorList {
      * @param startDate startDate of Sensor
      * @param geoLocation  gps coordinates in which the user wants to place the sensor
 
-     * @return
+     * @return List of sensors
      */
     public Sensor newSensor(String inputName, GregorianCalendar startDate,Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
         return new Sensor(inputName, startDate, geoLocation, sensorType, inputUnit, readings);
     }
 
     /**
-     * @param name
-     * @param startDate
-     * @param sensorType
-     * @param unit
-     * @return
+     * @param name Name of the sensor
+     * @param startDate The first day the sensor starts to work
+     * @param sensorType The sensor type
+     * @param unit The measurement unit
+     * @return A new internal sensor
      */
     public Sensor createNewInternalSensor(String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         return new Sensor(name, startDate, sensorType, unit, readings);
@@ -120,18 +120,6 @@ public class SensorList {
     public int size() {
         return mSensorList.size();
     }
-
-
-    public SensorList getSensorListOfRequiredSensorPerType(String type) {
-        SensorList typeSensorList = new SensorList();
-        for (Sensor sensor : mSensorList) {
-            if (sensor.getSensorType().getType().equals(type)) {
-                typeSensorList.addSensor(sensor);
-            }
-        }
-        return typeSensorList;
-    }
-
 
     public Sensor getLastSensor() {
         return mSensorList.get(mSensorList.size() - 1);
