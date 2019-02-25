@@ -47,9 +47,9 @@ public class Fridge implements DeviceSpecs {
     public Field[] getAttributesFields() {
         Field[] fields = this.getClass().getDeclaredFields();
         for (Field field : fields) {
-            if (field.getName().equals("mFreezerCapacity"))
+            if ("mFreezerCapacity".equals (field.getName ()))
                 field.setAccessible(true);
-            if (field.getName().equals("mRefrigeratorCapacity"))
+            if ("mRefrigeratorCapacity".equals (field.getName ()))
                 field.setAccessible(true);
         }
         return fields;
