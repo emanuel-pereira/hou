@@ -4,18 +4,15 @@ import smarthome.controller.AddPowerSourceToGridCTRL;
 import smarthome.model.*;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class AddPowerSourceToGridUI {
 
     private AddPowerSourceToGridCTRL mCtrl;
-    private Scanner mRead = new Scanner(System.in);
     private int mIndexOfHG;
     private String mName;
     private String mType;
     private double mMaxPower;
     private double mStorageCapacity;
-    private String mYesOrNo;
 
     public AddPowerSourceToGridUI(House house) {
         mCtrl = new AddPowerSourceToGridCTRL(house);
@@ -50,7 +47,7 @@ public class AddPowerSourceToGridUI {
                     this.selectHGListPS();
                     break;
                 default:
-                //UtilsUI.printLnInsertValidOptionMsg();
+                //no action needed
             }
         }
     }
@@ -110,17 +107,19 @@ public class AddPowerSourceToGridUI {
     }
 
     private void addPowerSource() {
-        if(UtilsUI.confirmOption("Continue?(y/n)\n", "Please type y for Yes or n for No.", "[2yYnN]")){
+        if(UtilsUI.confirmOption("Continue?(y/n)\n", "Please type y for Yes or n for No.", "[yYnN]")){
         mCtrl.addNewPSToGrid(mIndexOfHG, mName, mType, mMaxPower, mStorageCapacity);
         System.out.println("The following Power Source was successfully created:" +
                 "\n[NAME]: " + mName +
                 "\n[TYPE]: " + mType +
                 "\n[MAX POWER]: " + UtilsUI.formatDecimal(mMaxPower,2) +
                 "\n[STORAGE CAPACITY]: " + UtilsUI.formatDecimal(mStorageCapacity,2));
-        UtilsUI.backToMenu();}
+        UtilsUI.backToMenu();
+        }
         else{
             System.out.println("Operation was canceled!");
-            UtilsUI.backToMenu();}
+            UtilsUI.backToMenu();
+        }
 
     }
 
