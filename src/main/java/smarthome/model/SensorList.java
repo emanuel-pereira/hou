@@ -54,7 +54,7 @@ public class SensorList {
      * @param startDate The first day the sensor starts to work
      * @param sensorType The sensor type
      * @param unit The measurement unit
-     * @return A new internal sensor
+     * @return A new interior sensor
      */
     public Sensor createNewInternalSensor(String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         return new Sensor(name, startDate, sensorType, unit, readings);
