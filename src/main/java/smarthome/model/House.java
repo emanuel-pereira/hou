@@ -79,25 +79,25 @@ public class House {
         return mHGListInHouse;
     }
 
-    public RoomList getAvailableRoomsForGrid (){
+    public RoomList getAvailableRoomsForGrid() {
         RoomList availableRooms = new RoomList();
         availableRooms.getRoomList().addAll(this.getRoomList().getRoomList());
         return availableRooms;
     }
 
-    public RoomList getRoomListNotInAGrid(int indexHG){
+    public RoomList getRoomListNotInAGrid(int indexHG) {
         RoomList roomsNotInAGrid = new RoomList();
-        for(Room r : this.getRoomList().getRoomList()){
-            if(!this.getHGListInHouse().get(indexHG).getRoomListInAGrid().getRoomList().contains(r)){
+        for (Room r : this.getRoomList().getRoomList()) {
+            if (!this.getHGListInHouse().get(indexHG).getRoomListInAGrid().getRoomList().contains(r)) {
                 roomsNotInAGrid.addRoom(r);
             }
         }
         return roomsNotInAGrid;
     }
 
-    public RoomList getRoomsWithoutAnyGrid(){
+    public RoomList getRoomsWithoutAnyGrid() {
         RoomList roomsNotInAnyGrid = new RoomList();
-        for (int indexHG = 0; indexHG<getHGListInHouse().getSize();indexHG++){
+        for (int indexHG = 0; indexHG < getHGListInHouse().getSize(); indexHG++) {
             roomsNotInAnyGrid.getRoomList().addAll(this.getRoomListNotInAGrid(indexHG).getRoomList());
         }
         return roomsNotInAnyGrid;
@@ -139,12 +139,19 @@ public class House {
         return result.toString();
     }
 
+    /**
+     * Method to calculate the distance between the location of a house and other location
+     *
+     * @param aLocation location that is compared to the house location
+     * @return distance value between the location of the house and other location
+     */
+
     private double calculateDistance(Location aLocation) {
         return mAddress.getGPSLocation().calcLinearDistanceBetweenTwoPoints(mAddress.getGPSLocation(), aLocation);
     }
 
     /**
-     * This method checks for each sensor of the selected sensorType, its distance to the house.
+     * This method checks, for each sensor of the selected sensorType, its distance to the house.
      * Then it returns the sensors that have shortest distance to the house.
      *
      * @param sensorType selected to get the list of the closest sensors.
@@ -192,9 +199,9 @@ public class House {
     /**
      * Method to obtain the closest sensor to the house with the most recent reading in a given time period
      *
-     * @param type type of sensor
+     * @param type      type of sensor
      * @param startDate first date of the interval
-     * @param endDate last date of the interval
+     * @param endDate   last date of the interval
      * @return the closest sensor to the house
      */
 
@@ -221,26 +228,28 @@ public class House {
     /**
      * Method to calculate the daily average of the sensor that is closer to the house and has the most recent readings
      *
-     * @param type type of sensor
+     * @param type      type of sensor
      * @param startDate first date of the interval
-     * @param endDate last date of the interval
+     * @param endDate   last date of the interval
      * @return the value of the daily average of the readings in the given time period
      */
 
     public double averageOfReadingsInPeriod(SensorType type, Calendar startDate, Calendar endDate) {
         Sensor closestSensorWithLatestReadingsInPeriod = getClosestSensorWithLatestReadingsInPeriod(type, startDate, endDate);
-        ReadingList readingsInPeriod = closestSensorWithLatestReadingsInPeriod.getReadingList().getReadingsInPeriod(startDate, endDate);
+        ReadingList readingsFromSensorInPeriod = closestSensorWithLatestReadingsInPeriod.getReadingList();
+        ReadingList readingsInPeriod = readingsFromSensorInPeriod.getReadingsInPeriod(startDate, endDate);
 
         double sum = 0;
         int counter = 0;
 
-        for (Calendar date = startDate; date.before(endDate)|| date.equals(endDate); date.add(Calendar.DAY_OF_MONTH, 1)) {
-
-            if (readingsInPeriod.dailyAvgOfReadings(date.get(Calendar.DAY_OF_MONTH)) != -1000) {
-                sum += readingsInPeriod.dailyAvgOfReadings(date.get(Calendar.DAY_OF_MONTH));
+        for (Calendar date = startDate; date.before(endDate) || date.equals(endDate); date.add(Calendar.DAY_OF_MONTH, 1)) {
+            if(readingsFromSensorInPeriod.getReadingsInSpecificDay(date).size() != 0){
+                sum = sum + readingsInPeriod.dailyAverageOfReadings(date);
                 counter++;
             }
         }
+
+
         return sum / counter;
 
     }
@@ -291,7 +300,8 @@ public class House {
 
     /**
      * Boolean method to check if there is any closest sensors to the house of a specific type that has readings in the date inputted as parameter
-     * @param inputDate date in GregorianCalendar format for which this method checks if exists any closest sensors to the house with readings
+     *
+     * @param inputDate  date in GregorianCalendar format for which this method checks if exists any closest sensors to the house with readings
      * @param sensorType selected to check sensors of that type
      * @return true if at least exists one of the possible closest sensors with readings in the inputDate, otherwise returns false
      */
@@ -302,10 +312,9 @@ public class House {
 
 
     public boolean checkIfClosestSensorsHaveReadingsInTimePeriod(SensorType sensorType, Calendar startDate, Calendar endDate) {
-        SensorList closestSensorsByType = this.getClosestSensorsOfTypeWithReadingsInPeriod(sensorType,startDate,endDate);
+        SensorList closestSensorsByType = this.getClosestSensorsOfTypeWithReadingsInPeriod(sensorType, startDate, endDate);
         return closestSensorsByType.size() != 0;
     }
-
 
 
     /**

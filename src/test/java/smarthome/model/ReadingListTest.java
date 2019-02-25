@@ -114,6 +114,8 @@ class ReadingListTest {
 
     }
 
+
+
     @Test
     void getReadingsInSpecificDay() {
         Calendar date = new GregorianCalendar(2018, 1, 1);
@@ -133,6 +135,57 @@ class ReadingListTest {
         assertEquals(expected, result);
 
     }
+
+
+    //TODO: criar testes adicionais
+    @Test
+    void dailyAverageOfReadings(){
+
+        ReadingList readingList = new ReadingList();
+
+        GregorianCalendar date = new GregorianCalendar(2018,11,5);
+        GregorianCalendar date2 = new GregorianCalendar(2019,12,3);
+
+        Reading r2 = new Reading(18, date);
+        Reading r3 = new Reading(22, date);
+        Reading r4 = new Reading(27, date);
+        Reading r5 = new Reading(31, date2);
+
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+        readingList.addReading(r5);
+
+
+        double result = readingList.dailyAverageOfReadings(date);
+        assertEquals(22.3, result, 0.1);
+
+    }
+
+    @Test
+    void dailyAverageOfReadingsNaN(){
+
+        ReadingList readingList = new ReadingList();
+
+        GregorianCalendar date = new GregorianCalendar(2018,11,5);
+        GregorianCalendar date2 = new GregorianCalendar(2019,12,3);
+
+        Reading r2 = new Reading(18, date);
+        Reading r3 = new Reading(22, date);
+        Reading r4 = new Reading(27, date);
+        Reading r5 = new Reading(31, date2);
+
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+        readingList.addReading(r5);
+
+
+        double result = readingList.dailyAverageOfReadings(new GregorianCalendar(2018,12,12));
+        assertEquals(Double.NaN, result, 0.1);
+
+    }
+
 
     @Test
     void getTotalOfReadingsInTimeInterval() {
@@ -160,7 +213,7 @@ class ReadingListTest {
         GregorianCalendar endDate = new GregorianCalendar(2017, 6, 4);
 
         GregorianCalendar date1 = new GregorianCalendar(2017, 6, 1);
-        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 3);
+        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 4);
         GregorianCalendar date3 = new GregorianCalendar(2017, 6, 5);
 
         Reading r1 = new Reading(12.3, date1);

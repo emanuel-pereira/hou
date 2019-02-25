@@ -530,9 +530,9 @@ class HouseTest {
         GregorianCalendar sDate1 = new GregorianCalendar(2017, 5, 28);
         GregorianCalendar sDate2 = new GregorianCalendar(2017, 4, 28);
 
-        GregorianCalendar date1 = new GregorianCalendar(2017, 6, 1);
-        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 2);
-        GregorianCalendar date3 = new GregorianCalendar(2017, 6, 5);
+        GregorianCalendar date1 = new GregorianCalendar(2017, 6, 2);
+        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 3);
+        GregorianCalendar date3 = new GregorianCalendar(2017, 6, 4);
 
         Reading r1 = new Reading(12.3, date1);
         Reading r2 = new Reading(34.2, date2);
@@ -545,8 +545,8 @@ class HouseTest {
         rL1.addReading(r3);
         rL1.addReading(r4);
 
-        GregorianCalendar date4 = new GregorianCalendar(2017, 6, 3);
-        GregorianCalendar date5 = new GregorianCalendar(2017, 6, 1);
+        GregorianCalendar date4 = new GregorianCalendar(2017, 6, 2);
+        GregorianCalendar date5 = new GregorianCalendar(2017, 6, 5);
 
         Reading r5 = new Reading(14.5, date4);
         Reading r6 = new Reading(70.6, date4);
@@ -568,7 +568,7 @@ class HouseTest {
 
         double result = house.averageOfReadingsInPeriod(sT, startDate, endDate);
 
-        assertEquals(20.46, result, 0.1);
+        assertEquals(48.425, result, 0.1);
 
 
     }
@@ -603,7 +603,7 @@ class HouseTest {
         rL1.addReading(r4);
 
         GregorianCalendar date4 = new GregorianCalendar(2017, 6, 3);
-        GregorianCalendar date5 = new GregorianCalendar(2017, 6, 1);
+        GregorianCalendar date5 = new GregorianCalendar(2017, 6, 2);
 
         Reading r5 = new Reading(14.5, date4);
         Reading r6 = new Reading(70.6, date4);
@@ -628,6 +628,7 @@ class HouseTest {
         assertEquals(27.6, result);
 
     }
+
 
 
 }

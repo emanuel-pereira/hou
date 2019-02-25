@@ -53,21 +53,27 @@ public class ReadingList {
         return totalRainfallValue;
     }
 
+    public boolean checkNumberOfReadingsIsZero(ReadingList readingList) {
 
-    public double dailyAvgOfReadings(int day) {
+        return readingList.size() == 0;
+
+    }
+
+
+    public double dailyAverageOfReadings(Calendar day) {
         double sum = 0;
-        int numberOfReadings = 0;
+        ReadingList dailyReadings = getReadingsInSpecificDay(day);
 
-        for (Reading reading : mReadingList) {
-            if (reading.getDateAndTime().get(Calendar.DAY_OF_MONTH) == day) {
-                sum += reading.returnValueOfReading();
-                numberOfReadings++;
+
+        if (!checkNumberOfReadingsIsZero(dailyReadings)) {
+            for (Reading reading : getReadingsInSpecificDay(day).getReadingList()){
+                if (reading.compareYearMonthDay(day)) {
+                    sum = sum + reading.returnValueOfReading();
+                }
             }
         }
-        if (numberOfReadings == 0) {
-            return -1000;
-        }
-        return sum / numberOfReadings;
+
+        return sum / dailyReadings.size();
 
     }
 
@@ -89,11 +95,7 @@ public class ReadingList {
         ReadingList readingListInDate = new ReadingList();
 
         for (Reading reading : mReadingList) {
-            int rYear = reading.getDateAndTime().get(Calendar.YEAR);
-            int rMonth = reading.getDateAndTime().get(Calendar.MONTH);
-            int rDay = reading.getDateAndTime().get(Calendar.DAY_OF_MONTH);
-            Calendar date1 = new GregorianCalendar(rYear, rMonth, rDay);
-            if (date.equals(date1))
+            if (reading.compareYearMonthDay(date))
                 readingListInDate.addReading(reading);
         }
         return readingListInDate;
@@ -101,6 +103,7 @@ public class ReadingList {
 
     /**
      * Method to get a list of readings that have a date that is in a given time period
+     *
      * @param startDate
      * @param endDate
      * @return list of the readings with dates in a time interval
@@ -114,7 +117,7 @@ public class ReadingList {
 
             if (readingDate.after(startDate) && readingDate.before(endDate)
                     || readingDate.equals(endDate)
-                    || readingDate.equals((startDate))) {
+                    || readingDate.equals(startDate)) {
                 readingListInPeriod.addReading(reading);
             }
         }
