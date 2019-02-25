@@ -83,30 +83,4 @@ public class HouseGridList {
         return result.toString ();
     }
 
-    //new
-
-    public List<String> showHouseGridListHasString() {
-        List<HouseGrid> oldList = this.getHouseGridList ();
-        List<String> newList = new ArrayList<> ();
-        for (HouseGrid grid : oldList) {
-            newList.add (grid.getGridID ());
-        }
-       return newList;
-    }
-
-
-    public String editList() {
-        List<String> list = this.showHouseGridListHasString ();
-        StringBuilder result = new StringBuilder ();
-        String element = " - ";
-        int number = 1;
-        for (String grid : list) {
-            result.append (number++);
-            result.append (element);
-            result.append (grid);
-            result.append ("\n");
-        }
-        return result.toString ();
-    }
-
 }
