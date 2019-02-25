@@ -25,7 +25,7 @@ public class GetTotalNominalPowerUI {
      * Before the total nominal power of the grid is shown, two more validation are made: check if there are rooms
      * and devices in the chosen grid.
      */
-    public void getGridTotalNominalPowerUI() {
+    public void getGridTotalNominalPower() {
         if (this.checkIfGridListEmpty ()) {
             return;
         }
@@ -49,7 +49,7 @@ public class GetTotalNominalPowerUI {
      * Before the total nominal power of the grid is shown, one more validation is made: check if there are devices
      * in the chosen room.
      */
-    public void getRoomTotalNominalPowerUI() {
+    public void getRoomTotalNominalPower() {
         if (this.checkIfRoomListEmpty ()) {
             return;
         }

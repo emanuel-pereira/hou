@@ -6,7 +6,8 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TypeGAListTest {
 
@@ -14,15 +15,15 @@ class TypeGAListTest {
     void newTypeGA() {
         TypeGAList tga = new TypeGAList ();
 
-        TypeGA village= tga.newTypeGA ("village");
+        TypeGA village = tga.newTypeGA ("village");
 
-        assertEquals("village",village.toString ());
+        assertEquals ("village", village.toString ());
     }
 
     @Test
     void addTypeGA() {
         TypeGAList tga = new TypeGAList ();
-        TypeGA city= tga.newTypeGA ("city");
+        TypeGA city = tga.newTypeGA ("city");
 
         tga.addTypeGA (city);
         List<TypeGA> expectedResult = Arrays.asList (city);
@@ -35,7 +36,7 @@ class TypeGAListTest {
     @Test
     public void defineTypesOfGeographicalAreaVillage() {
         TypeGAList tga = new TypeGAList ();
-        TypeGA village= tga.newTypeGA ("village");
+        TypeGA village = tga.newTypeGA ("village");
 
         assertEquals (0, tga.getTypeGAList ().size ());
         tga.addTypeGA (village);
@@ -51,8 +52,8 @@ class TypeGAListTest {
     @Test
     public void defineAlreadyContainedTypeOfGeograficalAreaVillage() {
         TypeGAList tga = new TypeGAList ();
-        TypeGA village1= tga.newTypeGA ("village");
-        TypeGA village2= tga.newTypeGA ("village");
+        TypeGA village1 = tga.newTypeGA ("village");
+        TypeGA village2 = tga.newTypeGA ("village");
 
         assertEquals (0, tga.getTypeGAList ().size ());
         tga.addTypeGA (village1);
@@ -70,7 +71,7 @@ class TypeGAListTest {
     @Test
     public void nameEmpty() {
         TypeGAList tga = new TypeGAList ();
-        TypeGA village1= tga.newTypeGA (" ");
+        TypeGA village1 = tga.newTypeGA (" ");
 
         assertEquals (0, tga.getTypeGAList ().size ());
         tga.addTypeGA (village1);
@@ -80,6 +81,21 @@ class TypeGAListTest {
         List<TypeGA> result = tga.getTypeGAList ();
 
         assertEquals (expectedResult, result);
+    }
+
+    @DisplayName("Null type of GA")
+    @Test
+    public void nullTypeGA() {
+        TypeGAList tga = new TypeGAList ();
+
+        boolean thrown = false;
+        try {
+            tga.newTypeGA (null);
+        } catch (NullPointerException e) {
+            thrown = true;
+        }
+        assertTrue (thrown);
+
     }
 
 }

@@ -1,33 +1,38 @@
 @startuml
 title Total Nominal Power In a Grid
-actor PowerUser
+hidefootbox
+actor User
 
-PowerUser -> ":TotalNominalPowerUI": Show Total Nominal\nPower of a Grid
-":TotalNominalPowerUI" -> ":TotalNominalPowerCTRL": run()
-":TotalNominalPowerCTRL" -> ":HouseGridList": getHouseGridList()
-":TotalNominalPowerUI" -> ":TotalNominalPowerCTRL": checkIfRoomsExists()
-":TotalNominalPowerCTRL" -> ":RoomList": getRoomList()
-":TotalNominalPowerUI" -> ":TotalNominalPowerCTRL": gLs = showGridList()
-":TotalNominalPowerCTRL" -> ":HouseGridList": gLs = showHouseGridListInString()
-":TotalNominalPowerUI" --> PowerUser: gLs = showGridList
-PowerUser -> ":TotalNominalPowerUI": Choose Grid
-":TotalNominalPowerUI" -> ":TotalNominalPowerCTRL": lR = checkIfRoomsAttachToGrid()
-":TotalNominalPowerCTRL" -> ":RoomList": lR= getListOfRoomsWithThisGrid()
-":TotalNominalPowerUI" -> ":TotalNominalPowerCTRL": dL = checkIfDevicesExists()
-":TotalNominalPowerCTRL" -> ":Room": dL = getDeviceList()
-":TotalNominalPowerUI" -> ":TotalNominalPowerCTRL": tNp = getTotalNominalPowerInGrid()
-":TotalNominalPowerCTRL" -> ":RoomList": tNp:getTotalNominalPowerInGrid
-	    	    ":RoomList" -> ":RoomList"
+User -> ":GetTotalNominalPowerUI": Show Total Nominal\nPower of a Grid
+create ":GetTotalNominalPowerCTRL"
+":GetTotalNominalPowerUI" -> ":GetTotalNominalPowerCTRL": getGridTotalNominalPower()
 
+":GetTotalNominalPowerUI" -> ":GetTotalNominalPowerCTRL": gE=checkIfGridListEmpty()
+":GetTotalNominalPowerCTRL" -> ":HouseGridList": gE=getGridListSize()
+
+":GetTotalNominalPowerUI" -> ":GetTotalNominalPowerCTRL": rE=checkIfRoomListEmpty()
+":GetTotalNominalPowerCTRL" -> ":RoomList": rE=getRoomListSize()
+
+":GetTotalNominalPowerUI" -> ":GetTotalNominalPowerCTRL": gLs=selectGrid()
+":GetTotalNominalPowerCTRL" -> ":HouseGridList": gLs=showGridListInString()
+":GetTotalNominalPowerUI" --> User: gLs=showGridList
+User -> ":GetTotalNominalPowerUI": Choose Grid
+
+":GetTotalNominalPowerUI" -> ":GetTotalNominalPowerCTRL": rG=checkIfRoomsExistsInGrid()
+":GetTotalNominalPowerCTRL" -> ":HouseGrid": rG=getSizeRoomListInGrid(indexGrid)
+
+":GetTotalNominalPowerUI" -> ":GetTotalNominalPowerCTRL": dL=checkIfDevicesExistsInGrid()
+":GetTotalNominalPowerCTRL" -> ":HouseGrid": dL=getSizeDeviceListInGrid(indexGrid)
+
+":GetTotalNominalPowerCTRL" -> ":HouseGrid": nP=getGridTotalNominalPower(indexGrid)
 loop room sum
-   	   	    ":RoomList" -> ":RoomList": getNominalPower
+    ":HouseGrid" -> ":Room": nP=getNominalPower
    end
 
  loop device sum
-   	   	    ":Room" -> ":Room": getNominalPower
+    ":Room" -> ":Device": nP=getNominalPower
    end
-
-":TotalNominalPowerUI" -->PowerUser: tNp: Show Total Nominal\nPower of a Grid
+":GetTotalNominalPowerUI" -->User: nP: Show Total Nominal\nPower of a Grid
 
 
 

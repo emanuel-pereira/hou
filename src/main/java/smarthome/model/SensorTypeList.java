@@ -5,13 +5,13 @@ import java.util.List;
 
 public class SensorTypeList {
 
-    private List<SensorType> sensorTypeList;
+    private List<SensorType> sTypeList;
 
     /**
      * Constructor method that creates a new list to save data type objects
      */
     public SensorTypeList() {
-        this.sensorTypeList = new ArrayList<>();
+        this.sTypeList = new ArrayList<>();
     }
 
 
@@ -39,9 +39,9 @@ public class SensorTypeList {
      * @return true if the object is added to the list
      */
     public boolean addSensorType(SensorType newSensorType) {
-        if (this.sensorTypeList.contains(newSensorType) || (newSensorType == null))
+        if (this.sTypeList.contains(newSensorType) || (newSensorType == null))
             return false;
-        return this.sensorTypeList.add(newSensorType);
+        return this.sTypeList.add(newSensorType);
     }
 
     /**
@@ -49,7 +49,7 @@ public class SensorTypeList {
      * @return the number of elements in this list
      */
     public int size(){
-        return this.sensorTypeList.size();
+        return this.sTypeList.size();
 
     }
 
@@ -60,7 +60,7 @@ public class SensorTypeList {
      * @return list of data types created
      */
     public List<SensorType> getSensorTypeList() {
-        return this.sensorTypeList;
+        return this.sTypeList;
     }
 
 
@@ -82,7 +82,7 @@ public class SensorTypeList {
      * @return true if exists and false if not
      */
     public boolean checkIfSensorTypeExists(String input) {
-        for (SensorType type : this.sensorTypeList) {
+        for (SensorType type : this.sTypeList) {
             if (type.getType().equalsIgnoreCase(input)) {
                 return true;
             }
@@ -94,7 +94,7 @@ public class SensorTypeList {
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
-        for (SensorType sensorType : this.sensorTypeList) {
+        for (SensorType sensorType : this.sTypeList) {
             result.append(number++);
             result.append(element);
             result.append(sensorType.getType());

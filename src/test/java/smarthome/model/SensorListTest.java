@@ -306,6 +306,45 @@ class SensorListTest {
 
     }
 
+    @Test
+    void getRequiredSensorPerType(){
+        SensorType temp = new SensorType("temperature");
+        SensorType wind = new SensorType("wind");
+        GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26, 12, 0);
+        ReadingList readings = new ReadingList();
+        Sensor s1 = new Sensor("sensor1", startDate, temp, "c", readings);
+        Sensor s2 = new Sensor("sensor2", startDate, wind, "c", readings);
+        Sensor s3 = new Sensor("sensor3", startDate, wind, "c", readings);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        sensorList.addSensor(s3);
+
+        Sensor expected = s1;
+        Sensor result = sensorList.getRequiredSensorPerType ("temperature");
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void getRequiredSensorPerTypeDontExists(){
+        SensorType temp = new SensorType("temperature");
+        SensorType wind = new SensorType("wind");
+        GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26, 12, 0);
+        ReadingList readings = new ReadingList();
+        Sensor s1 = new Sensor("sensor1", startDate, temp, "c", readings);
+        Sensor s2 = new Sensor("sensor2", startDate, wind, "c", readings);
+        Sensor s3 = new Sensor("sensor3", startDate, wind, "c", readings);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        sensorList.addSensor(s3);
+
+        Sensor result = sensorList.getRequiredSensorPerType ("rain");
+
+        assertEquals(null, result);
+    }
+
 
     @Test
     void getLastSensor() {
