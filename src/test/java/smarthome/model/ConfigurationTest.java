@@ -12,41 +12,93 @@ class ConfigurationTest {
 
     @Test
     void getGridMeteringPeriodTest() {
-        Configuration.getGridMeteringPeriod();
+        Configuration c = new Configuration();
+        c.getGridMeteringPeriod();
 
         int expectedResult = 10;
-        int result = Configuration.getGridMeteringPeriod();
+        int result = c.getGridMeteringPeriod();
 
         assertEquals(expectedResult, result);
     }
 
     @Test
     void getDevicesMeteringPeriod() {
-        Configuration.getDevicesMeteringPeriod();
+
+        Configuration c = new Configuration();
+        c.getDevicesMeteringPeriod();
 
         int expectedResult = 10;
-        int result = Configuration.getDevicesMeteringPeriod();
+        int result = c.getDevicesMeteringPeriod();
 
         assertEquals(expectedResult, result);
     }
 
     @Test
     void getDeviceTypes() {
-        Configuration.getDeviceTypes();
+        Configuration c = new Configuration();
+        c.getDeviceTypes();
 
         List<String> expectedResult = Arrays.asList("ElectricWaterHeater", "WashingMachine", "Dishwasher", "Fridge", "Kettle", "Oven", "Stove", "MicrowaveOven", "WallElectricHeater", "PortableElectricOilHeater", "PortableElectricConvectionHeater", "WallTowelHeater", "Lamp", "Television");
-        List<String> result = Configuration.getDeviceTypes();
+        List<String> result = c.getDeviceTypes();
 
         assertEquals(expectedResult, result);
     }
 
     @Test
     void getDeviceSpecsAttributesTest() {
-
+        Configuration c = new Configuration();
         List<String> expectedResult = Arrays.asList("Freezer Capacity", "Refrigerator Capacity");
-        List<String> result = Configuration.getDeviceSpecsAttributes("Fridge");
+        List<String> result = c.getDeviceSpecsAttributes("Fridge");
 
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void getGridMeteringPeriodTestFAIL() {
+        Configuration c = new Configuration("smarthome/configFalseNotAnInt.properties");
+        c.getGridMeteringPeriod();
+
+        int expectedResult = -1;
+        int result = c.getGridMeteringPeriod();
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getDevicesMeteringPeriodFAIL() {
+
+        Configuration c = new Configuration("smarthome/configFalseNotAnInt.properties");
+        c.getDevicesMeteringPeriod();
+
+        int expectedResult = -1;
+        int result = c.getDevicesMeteringPeriod();
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getDeviceTypesFAIL() {
+
+        Configuration c = new Configuration("smarthome/configFalseNotAnInt.properties");
+        c.getDeviceTypes();
+
+        List<String> expectedResult = Arrays.asList("ERROR");
+        List<String> result = c.getDeviceTypes();
+
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void fileNotFound(){
+
+        Configuration c = new Configuration("smarthome/nofile.properties");
+        c.getDevicesMeteringPeriod();
+
+        int expectedResult = -1;
+        int result = c.getDevicesMeteringPeriod();
+
+        assertEquals(expectedResult, result);
+    }
+
 }
 

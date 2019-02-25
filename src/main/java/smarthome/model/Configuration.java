@@ -6,27 +6,36 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * Utility class for the retrieval of metering periods and device types at startup. Only run once; variables are loaded at that time only.
- * Public methods do not provide any kind of change in the class behaviour under any condition. Only preset variables may be retrieved.
- * Note: as the configuration file is not changed at run time, the choice was made to make the class static.
+ * Class for the retrieval of metering periods and device types at startup. Should only be run once.
+ * Public methods do not provide any kind of change in the class behaviour under any condition.
+ * Instances may point to a different configuration file.
+ * Only preset variables may be retrieved.
  */
 
-public final class Configuration {
+public class Configuration {
+    private final String currentFile;
 
-    private Configuration() {
+    public Configuration(String file) {
+        currentFile = file;
     }
 
-    private static String getConfigValue(String key) {
-        String value = "";
+    public Configuration() {
+        currentFile = "resources/config.properties"; //hard coded as it is the expected default behaviour.
+    }
+
+    private String getConfigValue(String key) {
+        String value;
+        String errorMessage = "ERROR";
 
         Properties properties = new Properties();
-        InputStream inputStream = null;
+        InputStream inputStream;
 
         //Make sure the config file is available and can be read
         try {
-            inputStream = new FileInputStream("resources/config.properties");
+            inputStream = new FileInputStream(this.currentFile);
         } catch (FileNotFoundException e) {
-            value = "ERROR";
+            value = errorMessage;
+            return value;
         }
 
         //Loading the inputStream may
@@ -34,17 +43,14 @@ public final class Configuration {
         try {
             properties.load(inputStream);
         } catch (Exception e) {
-            value = "ERROR";
-        }
-
-        if (value.equals("ERROR")) {
+            value = errorMessage;
             return value;
         }
 
         value = properties.getProperty(key);
 
         if (value == null) {
-            value = "ERROR";
+            value = errorMessage;
         }
 
         return value;
@@ -56,8 +62,9 @@ public final class Configuration {
      * @param key is the required metering period
      * @return the metering period in minutes in the interval [1,1440]. -1 denotes an error.
      */
-    private static int getMeteringPeriod(String key) {
+    private int getMeteringPeriod(String key) {
         int output;
+
 
         String value = getConfigValue(key);
 
@@ -75,28 +82,37 @@ public final class Configuration {
      *
      * @return the metering period in minutes in the interval [1,1440]. -1 denotes an error.
      */
-    public static int getGridMeteringPeriod() {
+    public int getGridMeteringPeriod() {
+        if (!isMeteringPeriodValid()) {
+            return -1;
+        }
         return getMeteringPeriod("gridMeteringPeriod");
     }
-
 
     /**
      * This method returns the metering period in minutes for the devices.
      *
      * @return the metering period in minutes in the interval [1,1440]. -1 denotes an error.
      */
-    public static int getDevicesMeteringPeriod() {
-
+    public int getDevicesMeteringPeriod() {
+        if (!isMeteringPeriodValid()) {
+            return -1;
+        }
         return getMeteringPeriod("devicesMeteringPeriod");
     }
 
 
-    public static List<String> getDeviceTypes() {
+    public List<String> getDeviceTypes() {
 
         List<String> deviceTypes = new ArrayList<>();
         String currentDevice;
         String value = getConfigValue("TotalDevices");
+
         int numberOfDevices;
+        if (value.equals("ERROR")) {
+            deviceTypes.add(0, value);
+            return deviceTypes;
+        }
 
         try {
             numberOfDevices = Integer.parseInt(value);
@@ -114,7 +130,7 @@ public final class Configuration {
         return deviceTypes;
     }
 
-    public static List<String> getDeviceSpecsAttributes(String deviceSpec) {
+    public List<String> getDeviceSpecsAttributes(String deviceSpec) {
         List<String> devicesAttributes = new ArrayList<>();
         String key = deviceSpec.concat("TotalAttributes");
         String value = getConfigValue(key);
@@ -137,10 +153,10 @@ public final class Configuration {
     }
 
 
-    private static boolean isMeteringPeriodValid() {
-        boolean isGridMeteringPeriodValid = (getGridMeteringPeriod() <= 1440 && getGridMeteringPeriod() >= 0);
-        boolean isDeviceMeteringPeriodValid =  (getDevicesMeteringPeriod() <= 1440 && getDevicesMeteringPeriod() >= 0);
-        boolean areMeteringPeriodsMultiple = (getDevicesMeteringPeriod() % getGridMeteringPeriod() == 0);
+    private boolean isMeteringPeriodValid() {
+        boolean isGridMeteringPeriodValid = (getMeteringPeriod("gridMeteringPeriod") <= 1440 && getMeteringPeriod("gridMeteringPeriod") >= 0);
+        boolean isDeviceMeteringPeriodValid = (getMeteringPeriod("devicesMeteringPeriod") <= 1440 && getMeteringPeriod("devicesMeteringPeriod") >= 0);
+        boolean areMeteringPeriodsMultiple = (getMeteringPeriod("devicesMeteringPeriod") % getMeteringPeriod("gridMeteringPeriod") == 0);
 
         return (isGridMeteringPeriodValid && isDeviceMeteringPeriodValid && areMeteringPeriodsMultiple);
     }
