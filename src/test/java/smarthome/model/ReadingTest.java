@@ -86,10 +86,10 @@ public class ReadingTest {
 
     @Test
     void getDateOfReadingAsString() {
-        GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 27, 21, 30);
+        GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 31, 21, 30);
         Reading reading1 = new Reading(13, calendar1);
 
-        String expected = "2018-11-27";
+        String expected = "2018-12-31";
         String result = reading1.getDateOfReadingAsString ();
         assertEquals(expected, result);
     }
