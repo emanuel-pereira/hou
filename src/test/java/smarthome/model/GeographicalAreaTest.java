@@ -153,12 +153,12 @@ public class GeographicalAreaTest {
         OccupationArea oc1 = new OccupationArea(5, 6);
         Location loc1 = new Location(2, 4, 5);
 
-        OccupationArea oc2 = new OccupationArea(5, 6);
-        Location loc2 = new Location(2, 4, 5);
+        OccupationArea oc2 = new OccupationArea(6, 7);
+        Location loc2 = new Location(3, 4, 5);
 
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 4, 5, 5, 6);
-        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", 3, 4, 5, 6, 7);
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1,loc1);
+        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc2,loc2);
 
         ga1.setParentGA(ga2);
 

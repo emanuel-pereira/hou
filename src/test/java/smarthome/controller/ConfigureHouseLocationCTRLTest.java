@@ -18,8 +18,13 @@ class ConfigureHouseLocationCTRLTest {
         GAList gl1 = new GAList();
         ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 25, 15, 12, 32, 41);
-        GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", 45, 25, 32, 42, 41);
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
 
         gl1.addGA(ga1);
         gl1.addGA(ga2);
@@ -36,8 +41,13 @@ class ConfigureHouseLocationCTRLTest {
         GAList gl1 = new GAList();
         ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 25, 15, 12, 32, 41);
-        GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", 45, 25, 32, 42, 41);
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
 
         gl1.addGA(ga1);
         gl1.addGA(ga2);
@@ -48,7 +58,6 @@ class ConfigureHouseLocationCTRLTest {
     }
 
 
-
     @DisplayName("Tests if the house location is configured correctly")
     @Test
     void configureHouseLocation() {
@@ -56,19 +65,24 @@ class ConfigureHouseLocationCTRLTest {
         House h1 = new House();
         ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 25, 15, 12, 32, 41);
-        GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", 45, 25, 32, 42, 41);
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
 
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
 
-        boolean result = ctrl101.configureHouseLocation(1,"Rua Júlio Dinis", "345", "3380-45", 41, 12.3, 110);
+        boolean result = ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", 41, 12.3, 110);
         GeographicalArea result2 = h1.getHouseGA();
 
 
         assertTrue(result);
-        assertEquals (ga1,result2);
+        assertEquals(ga1, result2);
 
 
     }
@@ -80,20 +94,25 @@ class ConfigureHouseLocationCTRLTest {
         GAList gl1 = new GAList();
         House h1 = new House();
 
-        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 25, 15, 12, 32, 41);
-        GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", 45, 25, 32, 42, 41);
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
 
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
 
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1,h1);
+        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
 
         boolean thrown = false;
 
         try {
 
-            ctrl101.configureHouseLocation(1,"Rua Júlio Dinis", "345", "3380-45", 400, 12.3, 110);
+            ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", 400, 12.3, 110);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -108,19 +127,26 @@ class ConfigureHouseLocationCTRLTest {
         GAList gl1 = new GAList();
         House h1 = new House();
 
-        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 25, 15, 12, 32, 41);
-        GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", 45, 25, 32, 42, 41);
+
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
+
 
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1,h1);
+        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
 
         boolean thrown = false;
 
         try {
 
-            ctrl101.configureHouseLocation(1,"Rua Júlio Dinis", "345", "3380-45", 80, 181, 110);
+            ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", 80, 181, 110);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -135,19 +161,24 @@ class ConfigureHouseLocationCTRLTest {
         GAList gl1 = new GAList();
         House h1 = new House();
 
-        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 25, 15, 12, 32, 41);
-        GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", 45, 25, 32, 42, 41);
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", oc1,loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", oc2,loc2);
 
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1,h1);
+        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
 
         boolean thrown = false;
 
         try {
 
-            ctrl101.configureHouseLocation(1,"Rua Júlio Dinis", "345", "3380-45", 80, -170, -13000);
+            ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", 80, -170, -13000);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
