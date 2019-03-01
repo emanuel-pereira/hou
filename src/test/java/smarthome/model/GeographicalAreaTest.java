@@ -13,8 +13,11 @@ public class GeographicalAreaTest {
     @Test
     public void defineTypesOfGeograficalAreaCityLocation() {
 
-        GeographicalArea ga = new GeographicalArea("AVR", "Aveiro", "City", 25, 35, 15, 40, 45);
 
+        Location loc = new Location(25, 35, 15);
+
+        OccupationArea oc = new OccupationArea(40, 45);
+        GeographicalArea ga = new GeographicalArea("AVR", "Aveiro", "City", oc, loc);
         double resultLat = ga.getLocation().getLatitude();
         assertEquals(25, resultLat);
 
@@ -30,7 +33,10 @@ public class GeographicalAreaTest {
     @DisplayName("Ensure that method getListOfSensors in Aveiro is empty")
     @Test
     public void getEmptyListOfSensors() {
-        GeographicalArea ga = new GeographicalArea("AVR", "Aveiro", "City", 25, 35, 15, 40, 45);
+        OccupationArea oc = new OccupationArea(40, 45);
+        Location loc = new Location(25, 35, 15);
+
+        GeographicalArea ga = new GeographicalArea("AVR", "Aveiro", "City", oc, loc);
 
         boolean result = ga.getSensorListInGA().getSensorList().isEmpty();
 
@@ -41,10 +47,17 @@ public class GeographicalAreaTest {
     @DisplayName("Calculate distance between to geographical areas")
     @Test
     void calculateDistanceFromPortoToGaia() {
-        GeographicalArea PortoGA = new GeographicalArea("POR", "Porto", "City", 12.3, 35.2, 120, 2, 5);
-        GeographicalArea GaiaGA = new GeographicalArea("VNG", "Gaia", "City", 5.3, 33.2, 10, 2, 5);
 
-        double expectedDistance = 110.24;
+        OccupationArea oc1 = new OccupationArea(40, 45);
+        Location loc1 = new Location(25, 35, 15);
+
+        OccupationArea oc2 = new OccupationArea(25.3, 22.4);
+        Location loc2 = new Location(33.5, 39.7, 14);
+
+        GeographicalArea PortoGA = new GeographicalArea("POR", "Porto", "City", oc1, loc1);
+        GeographicalArea GaiaGA = new GeographicalArea("VNG", "Gaia", "City", oc2, loc2);
+
+        double expectedDistance = 9.76;
         double result = PortoGA.calculateDistanceTo(GaiaGA);
 
         assertEquals(expectedDistance, result, 0.5);
@@ -53,8 +66,15 @@ public class GeographicalAreaTest {
     @DisplayName("Calculate distance between two geographical areas")
     @Test
     void calculateDistanceFromPortoToFunchal() {
-        GeographicalArea porto = new GeographicalArea("POR", "Porto", "City", 12.3, 35.2, 120, 2, 5);
-        GeographicalArea gaia = new GeographicalArea("VNG", "Gaia", "City", 8, -125, 10, 2, 5);
+
+        OccupationArea oc1 = new OccupationArea(2, 5);
+        Location loc1 = new Location(12.3, 35.2, 120);
+
+        OccupationArea oc2 = new OccupationArea(2, 5);
+        Location loc2 = new Location(8, -125, 10);
+
+        GeographicalArea porto = new GeographicalArea("POR", "Porto", "City", oc1, loc1);
+        GeographicalArea gaia = new GeographicalArea("VNG", "Gaia", "City", oc2, loc2);
 
         double expectedDistance = 194.37;
         double result = porto.calculateDistanceTo(gaia);
@@ -65,31 +85,59 @@ public class GeographicalAreaTest {
     @DisplayName("Ensure equals method returns false when comparing different objects of same type")
     @Test
     public void comparisonOfTwoDifferentGAObjects() {
-        GeographicalArea ga1 = new GeographicalArea("POR", "Porto", "City", 12.3, 35.2, 120, 2, 5);
-        GeographicalArea ga2 = new GeographicalArea("VNG", "Gaia", "City", 8, -125, 10, 2, 5);
+
+        OccupationArea oc1 = new OccupationArea(2, 5);
+        Location loc1 = new Location(12.3, 35.2, 120);
+
+        OccupationArea oc2 = new OccupationArea(2, 5);
+        Location loc2 = new Location(8, -125, 10);
+
+        GeographicalArea ga1 = new GeographicalArea("POR", "Porto", "City", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("VNG", "Gaia", "City", oc2, loc2);
         assertNotEquals(ga1, ga2);
     }
 
     @DisplayName("Ensure equals method returns false when comparing different objects of different type")
     @Test
     public void comparisonOfTwoDifferentObjects() {
-        GeographicalArea ga1 = new GeographicalArea("POR", "Porto", "City", 12.3, 35.2, 120, 2, 5);
-        GeographicalArea ga2 = new GeographicalArea("VNG", "Gaia", "City", 8, -125, 10, 2, 5);
+
+        OccupationArea oc1 = new OccupationArea(2, 5);
+        Location loc1 = new Location(12.3, 35.2, 120);
+
+        OccupationArea oc2 = new OccupationArea(2, 5);
+        Location loc2 = new Location(8, -125, 10);
+
+
+        GeographicalArea ga1 = new GeographicalArea("POR", "Porto", "City", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("VNG", "Gaia", "City", oc2, loc2);
         assertNotEquals(ga1, ga2);
     }
 
     @DisplayName("Ensure equals method returns true when comparing object o with same object")
     @Test
     public void comparisonOfSameObject() {
-        GeographicalArea ga1 = new GeographicalArea("POR", "Porto", "City", 12.3, 35.2, 120, 2, 5);
+
+        OccupationArea oc1 = new OccupationArea(2, 5);
+        Location loc1 = new Location(12.3, 35.2, 120);
+
+
+        GeographicalArea ga1 = new GeographicalArea("POR", "Porto", "City", oc1, loc1);
         assertEquals(ga1, ga1);
     }
 
     @Test
     public void ifGAEqualsGASameContent() {
         boolean result;
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 4, 5, 5, 6);
-        GeographicalArea ga2 = new GeographicalArea("Pt", "Porto", "city", 2, 4, 5, 5, 6);
+
+        OccupationArea oc1 = new OccupationArea(5, 6);
+        Location loc1 = new Location(2, 4, 5);
+
+        OccupationArea oc2 = new OccupationArea(5, 6);
+        Location loc2 = new Location(2, 4, 5);
+
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Pt", "Porto", "city", oc2, loc2);
 
         result = ga1.equals(ga2);
 
@@ -100,6 +148,14 @@ public class GeographicalAreaTest {
     @Test
     @DisplayName("Define the parent Geographical Area of another Geographical Area")
     public void setParentGA() {
+
+
+        OccupationArea oc1 = new OccupationArea(5, 6);
+        Location loc1 = new Location(2, 4, 5);
+
+        OccupationArea oc2 = new OccupationArea(5, 6);
+        Location loc2 = new Location(2, 4, 5);
+
 
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 4, 5, 5, 6);
         GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", 3, 4, 5, 6, 7);
@@ -115,7 +171,11 @@ public class GeographicalAreaTest {
     @DisplayName("Return the parent of a Geographical Area of another Geographical Area")
     public void getParentGA() {
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 4, 5, 5, 6);
+        OccupationArea oc1 = new OccupationArea(5, 6);
+        Location loc1 = new Location(2, 4, 5);
+
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
 
         GeographicalArea expectedResult = null;
         GeographicalArea result = ga1.getGeographicalParentGA();
@@ -128,7 +188,12 @@ public class GeographicalAreaTest {
     @Test
     public void ifStringEqualsGA() {
         String text = "Text";
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 2, 4, 5, 5, 6);
+
+        OccupationArea oc1 = new OccupationArea(5, 6);
+        Location loc1 = new Location(2, 4, 5);
+
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         boolean result;
 
         result = ga1.equals(text);
@@ -142,7 +207,11 @@ public class GeographicalAreaTest {
     public void getOccupation() {
 
 
-        GeographicalArea ga = new GeographicalArea("001", "Porto", "city", 3, 4, 3, 30, 20);
+        OccupationArea oc1 = new OccupationArea(30, 20);
+        Location loc1 = new Location(3, 4, 3);
+
+
+        GeographicalArea ga = new GeographicalArea("001", "Porto", "city", oc1, loc1);
 
         double expectedResult = 600;
         double result = ga.getOccupation().getOccupationArea();
