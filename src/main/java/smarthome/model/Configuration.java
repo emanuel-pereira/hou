@@ -30,17 +30,10 @@ public class Configuration {
         Properties properties = new Properties();
         InputStream inputStream;
 
-        //Make sure the config file is available and can be read
+        //Make sure the config file is available and can be read. Loading the inputStream may also cause an IOException.
+        //This is also handled from this block.
         try {
             inputStream = new FileInputStream(this.currentFile);
-        } catch (FileNotFoundException e) {
-            value = errorMessage;
-            return value;
-        }
-
-        //Loading the inputStream may
-        // cause an IOException. Let's handle that!
-        try {
             properties.load(inputStream);
         } catch (Exception e) {
             value = errorMessage;
@@ -154,8 +147,8 @@ public class Configuration {
 
 
     private boolean isMeteringPeriodValid() {
-        boolean isGridMeteringPeriodValid = (getMeteringPeriod("gridMeteringPeriod") <= 1440 && getMeteringPeriod("gridMeteringPeriod") >= 0);
-        boolean isDeviceMeteringPeriodValid = (getMeteringPeriod("devicesMeteringPeriod") <= 1440 && getMeteringPeriod("devicesMeteringPeriod") >= 0);
+        boolean isGridMeteringPeriodValid = (getMeteringPeriod("gridMeteringPeriod") <= 1440 && getMeteringPeriod("gridMeteringPeriod") >= 1);
+        boolean isDeviceMeteringPeriodValid = (getMeteringPeriod("devicesMeteringPeriod") <= 1440 && getMeteringPeriod("devicesMeteringPeriod") >= 1);
         boolean areMeteringPeriodsMultiple = (getMeteringPeriod("devicesMeteringPeriod") % getMeteringPeriod("gridMeteringPeriod") == 0);
 
         return (isGridMeteringPeriodValid && isDeviceMeteringPeriodValid && areMeteringPeriodsMultiple);

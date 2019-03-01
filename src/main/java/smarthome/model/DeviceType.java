@@ -1,19 +1,10 @@
 package smarthome.model;
 
-public class DeviceType {
+public interface DeviceType {
 
-    private String mDeviceTypeV2;
+    /* ---- Getters ---- */
+    String getDeviceType();
 
-
-    public DeviceType(String deviceTypeName) {
-        this.mDeviceTypeV2 = deviceTypeName;
-    }
-
-    public String getDeviceTypeName() {
-        return this.mDeviceTypeV2;
-    }
-
+    /* ---- Creator ---- */
+    Device createDevice();
 }
-
-
-
