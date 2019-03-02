@@ -26,9 +26,16 @@ class GetGAsOfTypeCTRLTest {
         listType.addTypeGA(inputType2);
         listType.addTypeGA(inputType3);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 10, 10, 10, 10, 10);
-        GeographicalArea ga2 = new GeographicalArea("Pt","Gaia", "city", 10, 10, 10, 10, 10);
-        GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita", "street", 10, 10, 10, 10, 10);
+        OccupationArea oc1 = new OccupationArea(10, 10);
+        Location loc1 = new Location(10,10,10);
+        OccupationArea oc2 = new OccupationArea(10,10);
+        Location loc2 = new Location(10,10,10);
+        OccupationArea oc3 = new OccupationArea(10, 10);
+        Location loc3 = new Location(10,10,10);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", oc1,loc1);
+        GeographicalArea ga2 = new GeographicalArea("Pt","Gaia", "city", oc2,loc2);
+        GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita", "street", oc3,loc3);
 
         listGa.addGA(ga1);
         listGa.addGA(ga2);
@@ -84,9 +91,16 @@ class GetGAsOfTypeCTRLTest {
         listType.addTypeGA(inputType2);
         listType.addTypeGA(inputType3);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", 10, 10, 10, 10, 10);
-        GeographicalArea ga2 = new GeographicalArea("Pt","Gaia", "city", 10, 10, 10, 10, 10);
-        GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita", "street", 10, 10, 10, 10, 10);
+        OccupationArea oc1 = new OccupationArea(10, 10);
+        Location loc1 = new Location(10,10,10);
+        OccupationArea oc2 = new OccupationArea(10,10);
+        Location loc2 = new Location(10,10,10);
+        OccupationArea oc3 = new OccupationArea(10, 10);
+        Location loc3 = new Location(10,10,10);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", oc1,loc1);
+        GeographicalArea ga2 = new GeographicalArea("Pt","Gaia", "city", oc2,loc2);
+        GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita", "street", oc3,loc3);
 
         listGa.addGA(ga1);
         listGa.addGA(ga2);
