@@ -140,8 +140,7 @@ public class EditDevicesCTRL {
     }
 
     public Device getDeviceFromIndex(int indexOfRoom, int indexOfDevice) {
-        return getRoomFromListIndex(indexOfRoom).getDeviceList().get(indexOfDevice - 1);
-
+       return getRoomFromListIndex(indexOfRoom).getDeviceList().get(indexOfDevice - 1);
     }
 
     public List<String> getDeviceAttributesListInString(Device device) {
@@ -155,8 +154,6 @@ public class EditDevicesCTRL {
     public Device createDevice(Room selectedRoom, String deviceType) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         DeviceList deviceList = selectedRoom.getDeviceList();
 
-        Device d = deviceList.newDevice("", deviceType, 0);
-
-        return d;
+        return deviceList.newDevice("", deviceType, 0);
     }
 }

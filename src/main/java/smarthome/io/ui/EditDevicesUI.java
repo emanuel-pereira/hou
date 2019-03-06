@@ -76,11 +76,11 @@ public class EditDevicesUI {
         selectedRoom = ctrl.getRoomFromListIndex(selectedRoomIndex);
     }
 
-    private void deviceTypeSelection() {
+    private String deviceTypeSelection() {
         System.out.println("Select a device type:");
         System.out.println(ctrl.showDeviceTypesListInString());
         deviceTypeIndex = UtilsUI.requestIntegerInInterval(1,14,"Error, device type not found! Please, select a device type");
-        String devType = ctrl.getDeviceTypeFromIndex(deviceTypeIndex);
+        return ctrl.getDeviceTypeFromIndex(deviceTypeIndex);
     }
 
     private void deviceSpecsConfiguration() throws IllegalAccessException {
@@ -97,7 +97,7 @@ public class EditDevicesUI {
 
     public void roomSelectionToAddDevice() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         roomSelection();
-        deviceTypeSelection();
+        String deviceType = deviceTypeSelection();
         device = ctrl.createDevice(selectedRoom, deviceType);
         deviceSpecsConfiguration();
         System.out.println("Success! NEW DEVICE CREATED ");

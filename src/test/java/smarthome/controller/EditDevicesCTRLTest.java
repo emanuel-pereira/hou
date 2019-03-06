@@ -349,10 +349,5 @@ class EditDevicesCTRLTest {
         Device device = ctr.getDeviceFromIndex(1,1);
         assertEquals(device,d);
     }
-    @Test
-    void showDeviceListInStringTest() {
-
-    }
-
 }
 */
