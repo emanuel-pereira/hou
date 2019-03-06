@@ -27,9 +27,8 @@ public class DeviceList {
     }
 
     /**
-     *
-     * @param deviceName name given to the device by the user, e.g. "Cool Plasma TV 9000"
-     * @param deviceType a string containing the designation of a given device type e.g. "Fridge". The device list is
+     * @param deviceName   name given to the device by the user, e.g. "Cool Plasma TV 9000"
+     * @param deviceType   a string containing the designation of a given device type e.g. "Fridge". The device list is
      * @param nominalPower the nominal power of the device (in kW).
      * @return
      * @throws ClassNotFoundException
@@ -40,6 +39,8 @@ public class DeviceList {
         String path = "smarthome.model."; // TODO: this should be removed from here. The path should be returned from the Configuration class and "injected" here.
 
         String deviceTypeNameAndPath = path.concat(deviceType).concat("Type"); // by internal convention every device type is named as [Name]Type.
+        System.out.println(deviceTypeNameAndPath);
+
 
         // Return a new instance of the class implementing the DeviceType interface using reflection
         DeviceType dt = (DeviceType) Class.forName(deviceTypeNameAndPath).newInstance(); // e.g. FridgeType

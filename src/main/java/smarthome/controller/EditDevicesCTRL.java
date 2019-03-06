@@ -34,7 +34,6 @@ public class EditDevicesCTRL {
      *
      * @param indexOfRoom  index-1 position of room where the new device will be added
      * @param inputName    String variable to name the device
-     * @param deviceSpecs  includes the device specifications which, at least, must have a type
      * @param nominalPower double variable where the nominal power of the device is inputted
      * @return true if a new instance of a device is created, and then, added to the device list of the room in the index position
      */

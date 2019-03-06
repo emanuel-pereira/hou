@@ -1,7 +1,6 @@
 package smarthome.model;
 
 import java.util.*;
-import java.util.spi.CalendarDataProvider;
 
 import static java.lang.Double.NaN;
 
@@ -26,8 +25,8 @@ public class FridgeSpecs implements DeviceSpecs {
     private String[] attributeNames = {"Freezer Capacity", "Refrigerator Capacity", "Annual Energy Consumption"};
     private String[] attributeUnits = {"liters", "liters", "kWh"};
 
-    private HashMap<String, Double> attributeValuesMap;
-    private HashMap<String, String> attributeUnitsMap;
+    private HashMap<String, Double> attributeValuesMap = new HashMap<>();
+    private HashMap<String, String> attributeUnitsMap = new HashMap<>();
 
     private List<String> attributeNamesList = new ArrayList<>();
 
@@ -67,8 +66,21 @@ public class FridgeSpecs implements DeviceSpecs {
 
         for (int i = 0; i < items; i++) {
 
-            this.attributeUnitsMap.put(this.attributeNames[i], this.attributeUnits[i]);
-            this.attributeValuesMap.put(this.attributeNames[i], NaN); // values are not part of the constructor
+            System.out.println(this.attributeNames[i]);
+            System.out.println(this.attributeUnits[i]);
+
+        }
+
+
+        attributeValuesMap.clear();
+        attributeUnitsMap.clear();
+
+
+        for (int j = 0; j < items; j++) {
+
+
+            attributeUnitsMap.put(this.attributeNames[j], this.attributeUnits[j]);
+            attributeValuesMap.put(this.attributeNames[j], NaN); // values are not part of the constructor
         }
 
         this.isInitialized = true;

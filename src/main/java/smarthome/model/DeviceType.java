@@ -6,5 +6,5 @@ public interface DeviceType {
     String getDeviceType();
 
     /* ---- Creator ---- */
-    Device createDevice(String deviceName, double nominalPower);
+    Device createDevice(String deviceName, double nominalPower) throws ClassNotFoundException, IllegalAccessException, InstantiationException;
 }

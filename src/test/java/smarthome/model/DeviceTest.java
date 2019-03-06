@@ -22,7 +22,7 @@ class DeviceTest {
 
     @Test
     @DisplayName("Ensure getDeviceSpecs() returns fridge as Device Specs")
-    void getDeviceSpecs() {
+    void getDeviceSpecs() throws IllegalAccessException, InstantiationException, ClassNotFoundException {
         DeviceType fridge = new FridgeType();
         Device dFridge = fridge.createDevice("foo", 100);
 
