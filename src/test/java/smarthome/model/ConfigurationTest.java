@@ -54,7 +54,7 @@ class ConfigurationTest {
     }
 
     @Test
-    void getGridMeteringPeriodTestFAIL() {
+    void getGridMeteringPeriodTestFailNotAnInt() {
         Configuration c = new Configuration("smarthome/configFalseNotAnInt.properties");
         c.getGridMeteringPeriod();
 
@@ -65,9 +65,9 @@ class ConfigurationTest {
     }
 
     @Test
-    void getDevicesMeteringPeriodFAIL() {
+    void getDevicesMeteringPeriodFailNNotMultipleOf1440() {
 
-        Configuration c = new Configuration("smarthome/configFalseNotAnInt.properties");
+        Configuration c = new Configuration("smarthome/configFalseNotMultipleOf1440.properties");
         c.getDevicesMeteringPeriod();
 
         int expectedResult = -1;
@@ -75,6 +75,18 @@ class ConfigurationTest {
 
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void getGridMeteringPeriodTestFailNotMultipleOf1440() {
+        Configuration c = new Configuration("smarthome/configFalseNotMultipleOf1440.properties");
+        c.getGridMeteringPeriod();
+
+        int expectedResult = -1;
+        int result = c.getGridMeteringPeriod();
+
+        assertEquals(expectedResult, result);
+    }
+
 
     @Test
     void getDeviceTypesFAIL() {
@@ -98,6 +110,8 @@ class ConfigurationTest {
         int result = c.getDevicesMeteringPeriod();
 
         assertEquals(expectedResult, result);
+
+
     }
 
 }

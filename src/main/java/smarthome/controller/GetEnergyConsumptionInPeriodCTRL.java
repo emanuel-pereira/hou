@@ -65,7 +65,7 @@ public class GetEnergyConsumptionInPeriodCTRL {
     public String getDeviceName(int indexOfDevice) {
         List<Device> meteredDeviceList = this.roomList.getMeteredDevicesInHouse();
         Device device = meteredDeviceList.get(indexOfDevice);
-        return device.getName();
+        return device.getDeviceName();
     }
 
     /**
@@ -108,7 +108,7 @@ public class GetEnergyConsumptionInPeriodCTRL {
     public double getEnergyConsumptionInPeriod(int indexOfDevice, Calendar startDate, Calendar endDate) {
         List<Device> meteredDevices = this.roomList.getMeteredDevicesInHouse();
         Device selectedDevice = meteredDevices.get(indexOfDevice);
-        return selectedDevice.getEnergyConsumptionInTimeInterval(startDate, endDate);
+        return selectedDevice.getDeviceSpecs().getEnergyConsumptionInTimeInterval(startDate, endDate);
     }
 
     /**

@@ -14,6 +14,7 @@ import java.util.Properties;
 
 public class Configuration {
     private final String currentFile;
+    private final String errorMessage = "ERROR";
 
     public Configuration(String file) {
         currentFile = file;
@@ -25,7 +26,6 @@ public class Configuration {
 
     private String getConfigValue(String key) {
         String value;
-        String errorMessage = "ERROR";
 
         Properties properties = new Properties();
         InputStream inputStream;
@@ -102,7 +102,7 @@ public class Configuration {
         String value = getConfigValue("TotalDevices");
 
         int numberOfDevices;
-        if (value.equals("ERROR")) {
+        if (value.equals(errorMessage)) {
             deviceTypes.add(0, value);
             return deviceTypes;
         }

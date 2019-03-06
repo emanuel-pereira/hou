@@ -4,6 +4,8 @@ import smarthome.model.*;
 
 import java.util.List;
 
+import static java.lang.Double.parseDouble;
+
 public class GetEnergyConsumptionOfWaterHeatingCTRL {
 
     private RoomList mRoomList;
@@ -17,7 +19,7 @@ public class GetEnergyConsumptionOfWaterHeatingCTRL {
         return mRoomList.getDevicesInAllRoomsByType(deviceType);
     }
 
-    public String showDeviceAttributesInString(Device device) throws IllegalAccessException {
+    public String showDeviceAttributesInString(Device device) {
         return device.showDeviceAttributesInString();
     }
 
@@ -25,7 +27,7 @@ public class GetEnergyConsumptionOfWaterHeatingCTRL {
         return mRoomList.getEnergyConsumptionByDeviceType(deviceType);
     }
 
-    public void setAttribute(Device device, String attribute, String newValue) throws IllegalAccessException {
-        device.setAttributeValue(attribute, newValue);
+    public void setAttribute(Device device, String attribute, String newValue){
+        device.getDeviceSpecs().setAttributeValue(attribute,parseDouble(newValue));
     }
 }

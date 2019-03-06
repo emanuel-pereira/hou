@@ -43,7 +43,7 @@ public final class BootStrap {
      */
     public static void run(House house, TypeGAList typeGAList, GAList gaList, SensorTypeList sensorTypeList) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
         BootStrap.house = house;
-        createGeographicalAreas(gaList,typeGAList);
+        createGeographicalAreas(gaList, typeGAList);
         createSensorsUnitTypes(sensorTypeList);
         createSensorsInGA(gaList.get(0), sensorTypeList);
 
@@ -53,7 +53,7 @@ public final class BootStrap {
 
         createRoom(sensorTypeList);
 
-        createDeviceTypes();
+        // createDeviceTypes(); // TODO
     }
 
     /**
@@ -66,11 +66,11 @@ public final class BootStrap {
      * @param gaList bootstrap List of Geographical Areas object
      */
     private static void createGeographicalAreas(GAList gaList, TypeGAList typeGAList) {
-        TypeGA urbanArea= new TypeGA("urban area");
+        TypeGA urbanArea = new TypeGA("urban area");
         typeGAList.addTypeGA(urbanArea);
         GeographicalArea isep = new GeographicalArea("ISEP", "Campus do ISEP", "urban area", 41.178553, -8.608035, 111, 0.261, 0.249);
         gaList.addGA(isep);
-        TypeGA city= new TypeGA("city");
+        TypeGA city = new TypeGA("city");
         typeGAList.addTypeGA(city);
         GeographicalArea porto = new GeographicalArea("Porto", "City of Porto", "city", 41.164077, -8.620802, 118, 3.30, 10.09);
         gaList.addGA(porto);
@@ -298,30 +298,32 @@ public final class BootStrap {
      */
     private static void createRoom(SensorTypeList sensorTypeList) throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         HouseGrid mainGrid = house.getHGListInHouse().get(0);
-        List<DeviceType> deviceTypeList = house.getListOfDeviceTypes();
+        List<String> deviceTypeList = house.getListOfDeviceTypes();
 
         Room b106 = house.getRoomList().createNewRoom("B106", 1, 7, 11, 3.5);
         house.getRoomList().addRoom(b106);
         mainGrid.attachRoomToGrid(b106);
-        createDevicesInRoomB106(deviceTypeList);
+        // createDevicesInRoomB106(deviceTypeList);
 
         Room b107 = house.getRoomList().createNewRoom("B107", 1, 7, 11, 3.5);
         house.getRoomList().addRoom(b107);
         mainGrid.attachRoomToGrid(b107);
-        createDevicesInRoomB107(deviceTypeList);
+        // createDevicesInRoomB107(deviceTypeList);
 
         Room b109 = house.getRoomList().createNewRoom("B109", 1, 7, 11, 3.5);
         house.getRoomList().addRoom(b109);
         mainGrid.attachRoomToGrid(b109);
-        createDevicesInRoomB109(deviceTypeList);
+        // createDevicesInRoomB109(deviceTypeList);
         addReadingsRoomB109SensorTemp(sensorTypeList);
         addReadingsRoomB109SensorHum(sensorTypeList);
     }
 
-    /**
-     * This method is responsible for the cration of Device Types
-     * This is a temporary method as in future these types will come from a dynamic configuration file.
-     */
+
+    // ---------------------------------------------------------------------------------------------------------------------------------------
+    /*
+
+
+
     private static void createDeviceTypes() {
         String ehw = "ElectricWaterHeater";
         String dishwasher = "Dishwasher";
@@ -335,20 +337,13 @@ public final class BootStrap {
         }
     }
 
-    /**
-     * This method is responsible for the device creation and consequent addition to a Room
-     * All measured values of energy consumption, in case of existing, are also inserted here.
-     *
-     * @param deviceTypeList List object containing all device types
-     * @throws InstantiationException exception
-     * @throws IllegalAccessException exception
-     * @throws ClassNotFoundException exception
-     */
+
+
     private static void createDevicesInRoomB106(List<DeviceType> deviceTypeList) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         Room b106 = house.getRoomList().get(0);
         DeviceList deviceListB106 = b106.getDeviceList();
 
-        Device eHWB106 = deviceListB106.newDeviceV2(deviceTypeList.get(0));
+        Device eHWB106 = deviceListB106.newDevice(deviceTypeList.get(0));
         deviceListB106.addDevice(eHWB106);
         eHWB106.setAttributeValue(deviceName, "EHW B106");
         eHWB106.setAttributeValue(nominalPower, "2.2");
@@ -365,15 +360,7 @@ public final class BootStrap {
         dishwasherB106.setIsMetered(true);
     }
 
-    /**
-     * This method is responsible for the device creation and consequent addition to a Room
-     * All measured values of energy consumption, in case of existing, are also inserted here.
-     *
-     * @param deviceTypeList List object containing all device types
-     * @throws InstantiationException exception
-     * @throws IllegalAccessException exception
-     * @throws ClassNotFoundException exception
-     */
+
     private static void createDevicesInRoomB107(List<DeviceType> deviceTypeList) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         Room b107 = house.getRoomList().get(1);
         DeviceList deviceListB107 = b107.getDeviceList();
@@ -397,6 +384,7 @@ public final class BootStrap {
         washingMachineB107.setAttributeValue(deviceName, "Washing Machine B107");
         washingMachineB107.setAttributeValue(nominalPower, "2.5");
         washingMachineB107.setAttributeValue(washingMachineCapacity, "100");
+
 
         //define EHW B107 metered consumption
         double[] valuesEHWB107 = new double[]{0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.200, 0.375, 0.375, 0.375, 0.375, 0.250, 0.000, 0.000, 0.000, 0.000, 0.200, 0.200, 0.000, 0.000, 0.000, 0.000, 0.200, 0.375, 0.375, 0.375, 0.375, 0.200, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.100, 0.375, 0.375, 0.375, 0.150, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,};
@@ -465,15 +453,7 @@ public final class BootStrap {
         minutes = 0;
     }
 
-    /**
-     * This method is responsible for the device creation and consequent addition to a Room
-     * All measured values of energy consumption, in case of existing, are also inserted here.
-     *
-     * @param deviceTypeList List object containing all device types
-     * @throws InstantiationException exception
-     * @throws IllegalAccessException exception
-     * @throws ClassNotFoundException exception
-     */
+
     private static void createDevicesInRoomB109(List<DeviceType> deviceTypeList) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         Room b109 = house.getRoomList().get(2);
         DeviceList deviceListB109 = b109.getDeviceList();
@@ -538,6 +518,8 @@ public final class BootStrap {
         }
         washingMachineB109.setIsMetered(true);
     }
+    // ---------------------------------------------------------------------------------------------------------------------------------------
+    */
 
     /**
      * This method is responsible for the indoors Temperature Sensor creation and consequent addition

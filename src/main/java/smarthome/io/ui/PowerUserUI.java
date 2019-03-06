@@ -45,7 +45,7 @@ final class PowerUserUI {
                     uS172.getGridTotalNominalPowerUI ();
                     break;
                 case 5:
-                    System.out.println("US 705 DisplayCustomTotalNominalPower is under maintenance, it will be available shortly");
+                    UtilsUI.underMaintenanceMsg("US705");
 
                     break;
                 case 6:
@@ -53,11 +53,11 @@ final class PowerUserUI {
                     uiEC.selectOption();
                     break;
                 case 7:
-                    System.out.println("US730 EnergyConsumptionDataSeries is under maintenance, it will be available shortly");
-                    System.out.println(house.getRoomList().getRoomList().get(2).getDeviceList().get(1).getActivityLogSum());
+                    UtilsUI.underMaintenanceMsg("US730");
+
                     break;
                 case 8:
-                    System.out.println("US 752 GetEnergyConsumptionOfWaterHeatingUI is under maintenance, it will be available shortly");
+                    UtilsUI.underMaintenanceMsg("US752");
                     break;
                 default:
                     //no action needed

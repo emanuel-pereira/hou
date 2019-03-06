@@ -6,16 +6,18 @@ import smarthome.model.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static java.lang.Double.parseDouble;
+
 public class EditDevicesUI {
     private House mHouse;
     private RoomList mRoomList;
     private Scanner read = new Scanner(System.in);
     private int selectedRoomIndex;
     private int deviceTypeIndex;
-    private DeviceType deviceType;
+    private String deviceType;
     private EditDevicesCTRL ctrl;
     private Room selectedRoom;
-    private Device newDevice;
+    private Device device;
     private Device selectedDeviceToEdit;
     private int deviceIndex;
     private int attributeIndex;
@@ -78,28 +80,28 @@ public class EditDevicesUI {
         System.out.println("Select a device type:");
         System.out.println(ctrl.showDeviceTypesListInString());
         deviceTypeIndex = UtilsUI.requestIntegerInInterval(1,14,"Error, device type not found! Please, select a device type");
-        deviceType = ctrl.getDeviceTypeFromIndex(deviceTypeIndex);
+        String devType = ctrl.getDeviceTypeFromIndex(deviceTypeIndex);
     }
 
     private void deviceSpecsConfiguration() throws IllegalAccessException {
-        System.out.println("[------- Configuration of a new " + deviceType.getDeviceTypeName() + " -------]");
+        System.out.println("[------- Configuration of a new " + device.getDeviceType() + " -------]");
         System.out.println("[-------- Please configure the device --------]");
         System.out.println();
 
-        for (String attribute : ctrl.getDeviceAttributesListInString(newDevice)) {
+        for (String attribute : ctrl.getDeviceAttributesListInString(device)) {
             System.out.println(attribute);
-            String newValue = read.next();
-            ctrl.setAttribute(newDevice, attribute, newValue);
+            Double newValue = parseDouble(read.next());
+            ctrl.setAttribute(device, attribute, newValue);
         }
     }
 
     public void roomSelectionToAddDevice() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         roomSelection();
         deviceTypeSelection();
-        newDevice = ctrl.createDevice(selectedRoom, deviceType);
+        device = ctrl.createDevice(selectedRoom, deviceType);
         deviceSpecsConfiguration();
         System.out.println("Success! NEW DEVICE CREATED ");
-        System.out.println(ctrl.showDeviceAttributesInString(newDevice));
+        System.out.println(ctrl.showDeviceAttributesInString(device));
 
     }
 
@@ -122,7 +124,7 @@ public class EditDevicesUI {
         attributeIndex = read.nextInt();
         String deviceAttribute = ctrl.getDeviceAttribute(selectedDeviceToEdit, attributeIndex - 1);
         System.out.println("Set the new value of " + deviceAttribute);
-        String newValue = read.next();
+        Double newValue = parseDouble(read.next());
         ctrl.setAttribute(selectedDeviceToEdit, deviceAttribute, newValue);
         System.out.println("Success!");
     }

@@ -129,7 +129,7 @@ public class RoomList {
         for (Room room : this.roomLst) {
             deviceList = room.getDeviceList().getDeviceList();
             for (Device device : deviceList)
-                if (device.getDeviceSpecs().getDeviceType().getDeviceTypeName().equals(deviceType)) {
+                if (device.getDeviceSpecs().getDeviceType().equals(deviceType)) {
                     deviceListByType.add(device);
                 }
         }
@@ -168,7 +168,7 @@ public class RoomList {
         for (Device device : meteredDeviceList) {
             result.append (number++);
             result.append (element);
-            result.append (device.getName());
+            result.append (device.getDeviceName());
             result.append ("\n");
         }
         return result.toString ();

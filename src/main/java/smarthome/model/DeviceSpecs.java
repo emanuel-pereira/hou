@@ -1,6 +1,7 @@
 package smarthome.model;
 
 
+import java.util.Calendar;
 import java.util.List;
 
 public interface DeviceSpecs {
@@ -8,7 +9,7 @@ public interface DeviceSpecs {
     // Suggested constructor includes device type, attribute name list and attribute units.
 
     /* ---- Getters ---- */
-    String getDeviceType(); // TODO remove this from here after checking what it breaks
+    String getDeviceType();
 
     List<String> getAttributesNames();
 
@@ -22,21 +23,18 @@ public interface DeviceSpecs {
 
     double getEnergyConsumption();
 
+    double getEnergyConsumptionInTimeInterval(Calendar beginTime, Calendar endTime);
 
     /* ---- Setters ---- */
-
-    void setType(String newDeviceType);
-
     void setAttributeValue(String attribute, double newValue);
-
-    void setAttributeNames(String[] attributeNames);
 
     void setAttributeUnit(String attribute, String unit);
 
 
     /* ---- Stuff that shouldn't be here and will be deprecated ---- */
 
-    String showDeviceAttributeNamesAndValues() throws IllegalAccessException; // TODO remove this from here after checking what it breaks
+    String showDeviceAttributeNamesAndValues(); // TODO remove this from here after checking what it breaks
 
+    String showDeviceAttributesInString();
 
 }

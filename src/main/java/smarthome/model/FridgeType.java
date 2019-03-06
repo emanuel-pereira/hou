@@ -2,21 +2,17 @@ package smarthome.model;
 
 public class FridgeType implements DeviceType {
 
-    private String deviceType = "Fridge";
-    private String path = "smarthome.model."; // TODO: this should be removed from here. The path should be returned from the Configuration class
+    private String deviceType = "Fridge"; // The device type can be anything -- fridge, water heater, etc. Use as identifier.
+    private DeviceSpecs deviceSpecs = new FridgeSpecs(deviceType);
 
+    private String path = "smarthome.model."; // TODO: this should be removed from here. The path should be returned from the Configuration class
 
     public String getDeviceType() {
         return this.deviceType;
     }
 
+    public Device createDevice(String deviceName, double nominalPower) {
 
-    public Device createDevice() {
-
-        DeviceSpecs aFridgeSpecs = (DeviceSpecs) new FridgeSpecs(deviceType);
-
-         Device aFridge = (Device) new Fridge(aFridgeSpecs);
-
-        return
+        return new Fridge(deviceName, deviceSpecs, nominalPower);
     }
 }

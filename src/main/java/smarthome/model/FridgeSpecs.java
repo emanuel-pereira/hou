@@ -1,6 +1,7 @@
 package smarthome.model;
 
 import java.util.*;
+import java.util.spi.CalendarDataProvider;
 
 import static java.lang.Double.NaN;
 
@@ -18,7 +19,9 @@ public class FridgeSpecs implements DeviceSpecs {
 
     private String deviceType;
 
-    public boolean isInitialized; // Maybe?...
+
+    // Changing the following string arrays allows one to quickly develop device specs just by using different parameters.
+    // Improvement (?) Create a distinct class for this bit.
 
     private String[] attributeNames = {"Freezer Capacity", "Refrigerator Capacity", "Annual Energy Consumption"};
     private String[] attributeUnits = {"liters", "liters", "kWh"};
@@ -32,12 +35,12 @@ public class FridgeSpecs implements DeviceSpecs {
 
     /* ------- Public fields ------- */
 
-    // No public fields.
+    public boolean isInitialized; // This is a safeguard against using uninitialized objects.
 
     /* ------ Constructors ------- */
 
     public FridgeSpecs(String deviceType) {
-       this.deviceType = deviceType;
+        this.deviceType = deviceType;
         initializeClass();
     }
 
@@ -75,22 +78,6 @@ public class FridgeSpecs implements DeviceSpecs {
 
     public String getDeviceType() {
         return this.deviceType;
-    }
-
-    public void setAttributeNames(String[] attributeNames) {
-
-        attributeValuesMap.clear();
-        attributeUnitsMap.clear();
-
-        for (int i = 0; i < attributeNames.length; i++) {
-            attributeNamesList.add(attributeNames[i]);
-            attributeValuesMap.put(attributeNames[i], NaN);
-            attributeUnitsMap.put(attributeNames[i], null);
-        }
-    }
-
-    public void setType(String deviceType) {
-        this.deviceType = deviceType;
     }
 
     public List<String> getAttributesNames() {
@@ -138,18 +125,29 @@ public class FridgeSpecs implements DeviceSpecs {
         return unitsList;
     }
 
-    public String showDeviceAttributeNamesAndValues() {
-        return "";
-    }
 
 
+
+    @Override
     public double getEnergyConsumption() {
-
 
         return this.energyConsumption;
     }
 
-    /* ------ Other methods ------- */
+    public double getEnergyConsumptionInTimeInterval(Calendar beginTime, Calendar endTime) {
 
+        return 0;
+    }
+
+    /* ------ Other methods ------- */
+    // Deprecated. These methods WILL be removed from the interface. DO NOT USE.
+
+    public String showDeviceAttributeNamesAndValues() {
+        return "";
+    }
+
+    public String showDeviceAttributesInString(){
+        return "";
+    }
 }
 

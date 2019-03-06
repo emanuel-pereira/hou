@@ -3,6 +3,7 @@ package smarthome.controller;
 import smarthome.model.*;
 import smarthome.model.validations.NameValidations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EditDevicesCTRL {
@@ -37,9 +38,18 @@ public class EditDevicesCTRL {
      * @param nominalPower double variable where the nominal power of the device is inputted
      * @return true if a new instance of a device is created, and then, added to the device list of the room in the index position
      */
-    public boolean addDevice(int indexOfRoom, String inputName, DeviceSpecs deviceSpecs, double nominalPower) {
+    public boolean addDevice(int indexOfRoom, String inputName, String deviceType, double nominalPower) {
         Room room = mRoomList.get(indexOfRoom - 1);
-        Device device = room.getDeviceList().newDevice(inputName, deviceSpecs, nominalPower);
+        Device device = null;
+        try {
+            device = room.getDeviceList().newDevice(inputName, deviceType, nominalPower);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
         return room.getDeviceList().addDevice(device);
     }
 
@@ -89,11 +99,15 @@ public class EditDevicesCTRL {
     }
 
     public String getDeviceAttribute(Device device, int indexAttribute) {
-        return device.getDeviceAttributesInString().get(indexAttribute);
+        DeviceSpecs ds = device.getDeviceSpecs();
+        List<String> attributes = ds.getAttributesNames();
+        return attributes.get(indexAttribute);
+
     }
 
-    public void setAttribute(Device device, String attribute, String newValue) throws IllegalAccessException {
-        device.setAttributeValue(attribute, newValue);
+    public void setAttribute(Device device, String attribute, Double newValue) throws IllegalAccessException {
+        DeviceSpecs ds = device.getDeviceSpecs();
+        ds.setAttributeValue(attribute, newValue);
     }
 
     public boolean removeDeviceFromRoom(Device device, int indexOfRoom) {
@@ -112,14 +126,14 @@ public class EditDevicesCTRL {
         return mHouse.showDeviceTypesList();
     }
 
-    public DeviceType getDeviceTypeFromIndex(int deviceTypeIndex) {
+    public String getDeviceTypeFromIndex(int deviceTypeIndex) {
         return mHouse.getListOfDeviceTypes().get(deviceTypeIndex - 1);
     }
 
-    public Device createDevice(Room room, DeviceType deviceType) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-        Device newDevice = room.getDeviceList().newDeviceV2(deviceType);
-        room.getDeviceList().addDevice(newDevice);
-        return newDevice;
+    public Device createDevice(Room room, String deviceName, String deviceType, double nominalPower) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        Device device = room.getDeviceList().newDevice(deviceName, deviceType, nominalPower);
+        room.getDeviceList().addDevice(device);
+        return device;
     }
 
     public String showDeviceAttributesInString(Device device) throws IllegalAccessException {
@@ -127,15 +141,23 @@ public class EditDevicesCTRL {
     }
 
     public Device getDeviceFromIndex(int indexOfRoom, int indexOfDevice) {
-       return getRoomFromListIndex(indexOfRoom).getDeviceList().get(indexOfDevice - 1);
+        return getRoomFromListIndex(indexOfRoom).getDeviceList().get(indexOfDevice - 1);
 
     }
 
     public List<String> getDeviceAttributesListInString(Device device) {
-        return device.getDeviceAttributesInString();
+        return device.getDeviceSpecs().getAttributesNames();
     }
 
     public int getRoomListSize() {
         return mRoomList.getRoomListSize();
+    }
+
+    public Device createDevice(Room selectedRoom, String deviceType) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        DeviceList deviceList = selectedRoom.getDeviceList();
+
+        Device d = deviceList.newDevice("", deviceType, 0);
+
+        return d;
     }
 }

@@ -13,33 +13,30 @@ public class Fridge implements Device, Metered {
 
     private NameValidations nameValidation = new NameValidations();
 
-    private String mName;
+    private String name;
     private DeviceSpecs deviceSpecs;
-    private double mNominalPower;
+    private String deviceType = "Fridge";
+    private double nominalPower;
     private boolean active;
     private boolean isMetered;
     private ReadingList activityLog;
 
 
     /**
-     * Constructs a Device with a name, device specifications(which include, at least, a device type) and a nominal power
+     * Constructs a Device with a name.
      *
-     * @param name         device name
-     * @param deviceSpecs  device specific features, including, for example, device type
-     * @param nominalPower double parameter to set the nominal power of the device
+     * @param deviceName name given by the user to the device (requested during runtime).
      */
-    public Fridge(String name, double nominalPower, DeviceSpecs deviceSpecs) {
-        setName(name);
-        setNominalPower(nominalPower);
-        this.active = true;
-        this.isMetered = true;
-        this.activityLog = new ReadingList();
-    }
 
-    public Fridge(String name) {
+    public Fridge(String deviceName, DeviceSpecs deviceSpecs, double nominalPower) { // deviceName is the name given by the user
+        this.name = deviceName;
+        this.deviceSpecs = deviceSpecs;
+        this.nominalPower = nominalPower;
+
         active = true;
         isMetered = true;
         activityLog = new ReadingList();
+
     }
 
     /**
@@ -47,11 +44,10 @@ public class Fridge implements Device, Metered {
      *
      * @param name String inputted by the user to name the device
      */
-    public void setName(String name) {
+    public void setDeviceName(String name) {
         if (nameValidation.alphanumericName(name))
-            this.mName = name;
+            this.name = name;
     }
-
 
     /**
      * Method to set nominal power as the one inputted by the user if it is a positive value method criteria
@@ -60,7 +56,7 @@ public class Fridge implements Device, Metered {
      */
     public void setNominalPower(double nominalPower) {
         if (Utils.valueIsPositive(nominalPower))
-            this.mNominalPower = nominalPower;
+            this.nominalPower = nominalPower;
     }
 
 
@@ -69,13 +65,9 @@ public class Fridge implements Device, Metered {
     /**
      * @return the device name
      */
-    public String getName() {
-        return mName;
-    }
-
     @Override
     public String getDeviceName() {
-        return null;
+        return this.name;
     }
 
     /**
@@ -85,11 +77,16 @@ public class Fridge implements Device, Metered {
         return this.deviceSpecs;
     }
 
+    public String getDeviceType() {
+        return this.deviceType;
+    }
+
+
     /**
      * @return the device nominal Power
      */
     public double getNominalPower() {
-        return mNominalPower;
+        return nominalPower;
     }
 
     @Override
@@ -98,11 +95,11 @@ public class Fridge implements Device, Metered {
     }
 
 
-    public String showDeviceAttributesInString() throws IllegalAccessException {
+    public String showDeviceAttributesInString() { // DEPRECATED. I will hunt you down and smack you if you use this.
         StringBuilder result = new StringBuilder();
-        result.append(this.getDeviceSpecs().getNewDeviceType().getDeviceTypeName());
+        result.append(this.getDeviceSpecs().getDeviceType());
         result.append("\n");
-        result.append("1 - Device Name : " + this.getName());
+        result.append("1 - Device Name : " + this.getDeviceName());
         result.append("\n");
         result.append("2 - Device Nominal Power : " + this.getNominalPower());
         result.append("\n");
@@ -118,23 +115,16 @@ public class Fridge implements Device, Metered {
         result.add(deviceNominalPower);
         for (String deviceSpecs : this.getDeviceSpecs().getAttributesNames())
             result.add(deviceSpecs);
+
         return result;
     }
 
-    public void setAttributeValue(String attribute, String newValue) throws IllegalAccessException {
-        String deviceName = "Device Name";
-        String deviceNominalPower = "Device Nominal Power";
-        if (attribute.contains(deviceName)) {
-            setName(newValue);
-        }
-        if (attribute.contains(deviceNominalPower)) {
-            setNominalPower(parseDouble(newValue));
-        }
+    public void setAttributeValue(String attribute, Double newValue) throws IllegalAccessException {
         this.getDeviceSpecs().setAttributeValue(attribute, newValue);
     }
 
     public double getEnergyConsumption() {
-        return mDeviceSpecs.getEnergyConsumption();
+        return this.deviceSpecs.getEnergyConsumption();
     }
 
     /**
@@ -185,11 +175,6 @@ public class Fridge implements Device, Metered {
      */
     public ReadingList getActivityLog() {
         return activityLog;
-    }
-
-    @Override
-    public void setDeviceName(String name) {
-
     }
 
     /**

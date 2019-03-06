@@ -6,5 +6,5 @@ public interface DeviceType {
     String getDeviceType();
 
     /* ---- Creator ---- */
-    Device createDevice();
+    Device createDevice(String deviceName, double nominalPower);
 }

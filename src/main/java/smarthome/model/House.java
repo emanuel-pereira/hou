@@ -317,11 +317,16 @@ public class House {
      * @return the closest sensor with the latest readings in the specified date.
      */
     public Sensor getSensorOfTypeWithLatestReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
+
         SensorList closestSensors = this.getClosestSensorsWithReadingsInDate(inputDate, sensorType);
+
         Sensor closestSensorWithLatestReading = closestSensors.getSensorList().get(0);
+
         ReadingList readingListInDay = closestSensorWithLatestReading.getReadingList().getReadingsInSpecificDay(inputDate);
         Reading lastReading = readingListInDay.getLastReading();
+
         Calendar lastDate = lastReading.getDateAndTime();
+
         for (Sensor sensor : closestSensors.getSensorList()) {
             ReadingList sensorReadingListInDay = sensor.getReadingList().getReadingsInSpecificDay(inputDate);
             Reading sensorLastReadingInDay = sensorReadingListInDay.getLastReading();
@@ -335,25 +340,18 @@ public class House {
     }
 
 
-    private List<String> getListOfDeviceTypesInString() {
+    public List<String> getListOfDeviceTypes() {
         Configuration c = new Configuration();
         return c.getDeviceTypes();
 
     }
 
-    public List<DeviceType> getListOfDeviceTypes() {
-        Configuration c = new Configuration();
-        List<String> listOfDeviceTypes = c.getDeviceTypes();
-        List<DeviceType> deviceTypeList = new ArrayList<>();
-        for (String type : listOfDeviceTypes)
-            deviceTypeList.add(new DeviceType(type));
-        return deviceTypeList;
-    }
 
+    //DEPRECATED. Do not use.
     public String showDeviceTypesList() {
         StringBuilder result = new StringBuilder();
         int number = 1;
-        for (String deviceType : getListOfDeviceTypesInString()) {
+        for (String deviceType : getListOfDeviceTypes()) {
             result.append(number);
             result.append(" - ");
             result.append(deviceType);

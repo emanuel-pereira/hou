@@ -59,8 +59,8 @@ class Room{
 class DeviceList{
 - mDeviceList: List<Device>
 + addDevice()
-+ newDevice()
-+ newDevice()
++ device()
++ device()
 + get()
 + getLastElement()
 + getDeviceList()
