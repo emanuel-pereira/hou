@@ -65,10 +65,7 @@ public class FridgeSpecs implements DeviceSpecs {
 
 
         for (int i = 0; i < items; i++) {
-
-            System.out.println(this.attributeNames[i]);
-            System.out.println(this.attributeUnits[i]);
-
+            attributeNamesList.add(this.attributeNames[i]);
         }
 
 
@@ -115,9 +112,9 @@ public class FridgeSpecs implements DeviceSpecs {
     public List<Double> getAttributeValues() {
         List<Double> attributeValues = new ArrayList<>();
 
-        for (String s : attributeNamesList
+        for (String key : attributeUnitsMap.keySet()
         ) {
-            attributeValues.add(attributeValuesMap.get(s));
+            attributeValues.add(attributeValuesMap.get(key));
         }
         return attributeValues;
     }
@@ -129,38 +126,37 @@ public class FridgeSpecs implements DeviceSpecs {
     public List<String> getAttributeUnits() {
 
         List<String> unitsList = new ArrayList<>();
+        
 
-        for (String key : attributeUnitsMap.keySet()
-        ) {
-            unitsList.add(attributeUnitsMap.get(key));
+            for (String key : attributeUnitsMap.keySet()
+            ) {
+                unitsList.add(attributeUnitsMap.get(key));
+            }
+            return unitsList;
         }
-        return unitsList;
+
+
+        @Override
+        public double getEnergyConsumption () {
+            this.energyConsumption = this.getAttributeValue("Annual Energy Consumption") / 365;
+            return this.energyConsumption;
+
+        }
+
+        public double getEnergyConsumptionInTimeInterval (Calendar beginTime, Calendar endTime){
+
+            return 0;
+        }
+
+        /* ------ Other methods ------- */
+        // Deprecated. These methods WILL be removed from the interface. DO NOT USE.
+
+        public String showDeviceAttributeNamesAndValues () {
+            return "";
+        }
+
+        public String showDeviceAttributesInString () {
+            return "";
+        }
     }
-
-
-
-
-    @Override
-    public double getEnergyConsumption() {
-        this.energyConsumption = this.getAttributeValue ("Annual Energy Consumption")/365;
-        return this.energyConsumption;
-
-    }
-
-    public double getEnergyConsumptionInTimeInterval(Calendar beginTime, Calendar endTime) {
-
-        return 0;
-    }
-
-    /* ------ Other methods ------- */
-    // Deprecated. These methods WILL be removed from the interface. DO NOT USE.
-
-    public String showDeviceAttributeNamesAndValues() {
-        return "";
-    }
-
-    public String showDeviceAttributesInString(){
-        return "";
-    }
-}
 
