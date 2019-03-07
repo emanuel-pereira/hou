@@ -30,7 +30,6 @@ public class FridgeSpecs implements DeviceSpecs {
 
     private List<String> attributeNamesList = new ArrayList<>();
 
-    private double energyConsumption;
 
     /* ------- Public fields ------- */
 
@@ -63,11 +62,9 @@ public class FridgeSpecs implements DeviceSpecs {
             items = this.attributeUnits.length;
         }
 
-
-        for (int i = 0; i < items; i++) {
+        for (int i = 0; i < this.attributeNames.length; i++) {
             attributeNamesList.add(this.attributeNames[i]);
         }
-
 
         attributeValuesMap.clear();
         attributeUnitsMap.clear();
@@ -112,7 +109,7 @@ public class FridgeSpecs implements DeviceSpecs {
     public List<Double> getAttributeValues() {
         List<Double> attributeValues = new ArrayList<>();
 
-        for (String key : attributeUnitsMap.keySet()
+        for (String key : attributeNamesList
         ) {
             attributeValues.add(attributeValuesMap.get(key));
         }
@@ -126,37 +123,24 @@ public class FridgeSpecs implements DeviceSpecs {
     public List<String> getAttributeUnits() {
 
         List<String> unitsList = new ArrayList<>();
-        
 
-            for (String key : attributeUnitsMap.keySet()
-            ) {
-                unitsList.add(attributeUnitsMap.get(key));
-            }
-            return unitsList;
+        for (String key : attributeNamesList
+        ) {
+            unitsList.add(attributeUnitsMap.get(key));
         }
-
-
-        @Override
-        public double getEnergyConsumption () {
-            this.energyConsumption = this.getAttributeValue("Annual Energy Consumption") / 365;
-            return this.energyConsumption;
-
-        }
-
-        public double getEnergyConsumptionInTimeInterval (Calendar beginTime, Calendar endTime){
-
-            return 0;
-        }
-
-        /* ------ Other methods ------- */
-        // Deprecated. These methods WILL be removed from the interface. DO NOT USE.
-
-        public String showDeviceAttributeNamesAndValues () {
-            return "";
-        }
-
-        public String showDeviceAttributesInString () {
-            return "";
-        }
+        return unitsList;
     }
+
+
+    /* ------ Other methods ------- */
+    // Deprecated. These methods WILL be removed from the interface. DO NOT USE.
+
+    public String showDeviceAttributeNamesAndValues() {
+        return "";
+    }
+
+    public String showDeviceAttributesInString() {
+        return "";
+    }
+}
 

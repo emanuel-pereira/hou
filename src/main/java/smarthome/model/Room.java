@@ -135,10 +135,10 @@ public class Room implements Powered, Metered {
      *
      * @return energy consumption sum
      */
-    public double getEnergyConsumptionInTimeInterval(Calendar startHour, Calendar endHour) {
+    public double getEnergyConsumption(Calendar startHour, Calendar endHour) {
         double sum = 0;
         for (Device device : this.deviceList.getMeteredDevices()) {
-            sum += device.getDeviceSpecs().getEnergyConsumptionInTimeInterval(startHour,endHour);
+            sum += device.getEnergyConsumption(startHour,endHour);
 
         }
         return Utils.round(sum,2);

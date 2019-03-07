@@ -97,16 +97,45 @@ class FridgeSpecsTest {
     }
 
     @Test
-    @DisplayName("Get correct Energy Consumption")
-    void getEnergyConsumption() {
+    @DisplayName("Set new values to all attributes and get all attributes names")
+    void getAttributeNamesList() {
         FridgeSpecs f = new FridgeSpecs("Fridge");
 
-        f.setAttributeValue("Annual Energy Consumption", 1575);
+        f.setAttributeValue("Freezer Capacity", 20.5);
+        f.setAttributeValue("Refrigerator Capacity", 12.0);
+        f.setAttributeValue("Annual Energy Consumption", 1575.8);
 
-        double expected = 4.31;
-        double result = f.getEnergyConsumption();
-
-        assertEquals(expected, result, 0.1);
+        List<String> freezerSpecs = f.getAttributesNames();
+        List<String> expectedFreezerSpecs = Arrays.asList ("Freezer Capacity","Refrigerator Capacity","Annual Energy Consumption");
+        assertEquals(expectedFreezerSpecs, freezerSpecs);
     }
 
+    @Test
+    @DisplayName("Set new values to all attributes and get all values")
+    void getAttributeValuesList() {
+        FridgeSpecs f = new FridgeSpecs("Fridge");
+
+        f.setAttributeValue("Freezer Capacity", 20.5);
+        f.setAttributeValue("Refrigerator Capacity", 12.0);
+        f.setAttributeValue("Annual Energy Consumption", 1575.8);
+
+
+        List<Double> freezerSpecsValues = f.getAttributeValues();
+        List<Double> expectedFreezerSpecsValues = Arrays.asList (20.5,12.0,1575.8);
+        assertEquals(expectedFreezerSpecsValues, freezerSpecsValues);
+    }
+
+    @Test
+    @DisplayName("Set new values to all attributes and get all Units")
+    void getAttributeUnitssList() {
+        FridgeSpecs f = new FridgeSpecs("Fridge");
+
+        f.setAttributeValue("Freezer Capacity", 20.5);
+        f.setAttributeValue("Refrigerator Capacity", 12.0);
+        f.setAttributeValue("Annual Energy Consumption", 1575.8);
+
+        List<String> freezerSpecsUnits = f.getAttributeUnits();
+        List<String> expectedFreezerSpecsUnits = Arrays.asList ("liters","liters","kWh");
+        assertEquals(expectedFreezerSpecsUnits, freezerSpecsUnits);
+    }
 }

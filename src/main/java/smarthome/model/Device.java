@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import java.util.Calendar;
+
 public interface Device {
 
 
@@ -12,7 +14,7 @@ public interface Device {
 
     double getNominalPower();
 
-    double getEnergyConsumption();
+    double getEnergyConsumption(Calendar startDate, Calendar endDate);
 
     boolean isActive();
 

@@ -312,7 +312,7 @@ public class RoomTest {
         GregorianCalendar endDate = new GregorianCalendar (2018, 11, 5, 1, 00);
         dEWH.setIsMetered (true);
         double expected = 71;
-        double result = bedroom.getEnergyConsumptionInTimeInterval (startDate, endDate);
+        double result = bedroom.getDailyEnergyConsumption (startDate, endDate);
 
         assertEquals (expected, result);
     }
@@ -399,7 +399,7 @@ public class RoomTest {
         dOtherFrid.setIsMetered (true);
 
         double expected = 101;
-        double result = bedroom.getEnergyConsumptionInTimeInterval (startDate, endDate);
+        double result = bedroom.getDailyEnergyConsumption (startDate, endDate);
 
         assertEquals (expected, result);
     }

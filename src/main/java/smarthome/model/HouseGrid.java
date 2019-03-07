@@ -114,10 +114,10 @@ public class HouseGrid implements Metered{
     }
 
     @Override
-    public double getEnergyConsumptionInTimeInterval(Calendar startHour, Calendar endHour) {
+    public double getEnergyConsumption(Calendar startHour, Calendar endHour) {
         double total=0;
         for(Room room : mRoomList.getRoomList()){
-            total+=room.getEnergyConsumptionInTimeInterval(startHour,endHour);
+            total+=room.getEnergyConsumption(startHour,endHour);
         }
         return Utils.round(total,2);
     }

@@ -4,6 +4,7 @@ import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class RoomList {
@@ -138,9 +139,16 @@ public class RoomList {
 
 
     public double getEnergyConsumptionByDeviceType(String deviceType) {
+        DeviceSpecs deviceSpecs;
         double totalEnergyConsumption = 0;
+        double deviceAnnualConsumption;
+        double deviceDailyConsumption;
+
         for (Device device : getDevicesInAllRoomsByType(deviceType)) {
-            totalEnergyConsumption += device.getDeviceSpecs().getEnergyConsumption();
+            deviceSpecs = device.getDeviceSpecs();
+            deviceAnnualConsumption = deviceSpecs.getAttributeValue("Annual Energy Consumption");
+            deviceDailyConsumption = deviceAnnualConsumption / 365;
+            totalEnergyConsumption += deviceDailyConsumption;
         }
         return Utils.round(totalEnergyConsumption,2);
     }

@@ -257,8 +257,8 @@ class HouseGridTest {
 
 /*
     @Test
-    @DisplayName("Ensure that getEnergyConsumption returns 80 as devices fridge and ewh2 have both two readings each in  defined time interval")
-    void getEnergyConsumptionInTimeInterval() {
+    @DisplayName("Ensure that getDailyEnergyConsumption returns 80 as devices fridge and ewh2 have both two readings each in  defined time interval")
+    void getDailyEnergyConsumption() {
         HouseGrid grid = new HouseGrid ("MainGrid");
         RoomList roomList = grid.getRoomListInAGrid ();
 
@@ -307,7 +307,7 @@ class HouseGridTest {
         Calendar endTime = new GregorianCalendar (2018, 2, 1, 15, 20);
 
         double expected = 80;
-        double result = grid.getEnergyConsumptionInTimeInterval (startTime, endTime);
+        double result = grid.getDailyEnergyConsumption (startTime, endTime);
 
         assertEquals(expected,result);
     }

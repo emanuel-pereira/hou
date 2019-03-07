@@ -13,17 +13,15 @@ public interface DeviceSpecs {
 
     List<String> getAttributesNames();
 
-    List<String> getAttributeUnits();
+    /*List<String> getAttributeUnits();
 
-    List<Double> getAttributeValues();
+    List<Double> getAttributeValues();*/
 
     Double getAttributeValue(String attribute);
 
     String getAttributeUnit(String attribute);
 
-    double getEnergyConsumption();
-
-    double getEnergyConsumptionInTimeInterval(Calendar beginTime, Calendar endTime);
+    //double getDailyEnergyConsumption();
 
     /* ---- Setters ---- */
     void setAttributeValue(String attribute, double newValue);

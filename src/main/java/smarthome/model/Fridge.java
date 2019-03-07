@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static java.lang.Double.parseDouble;
-
 public class Fridge implements Device, Metered {
 
     private NameValidations nameValidation = new NameValidations();
@@ -123,8 +121,15 @@ public class Fridge implements Device, Metered {
         this.getDeviceSpecs().setAttributeValue(attribute, newValue);
     }
 
-    public double getEnergyConsumption() {
-        return this.deviceSpecs.getEnergyConsumption();
+    @Override
+    public double getEnergyConsumption(Calendar startDate, Calendar endDate) {
+        Configuration c = new Configuration();
+
+        double energyConsumption = 0;
+        if (c.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
+            energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
+        }
+        return Utils.round(energyConsumption, 2);
     }
 
     /**
@@ -144,17 +149,6 @@ public class Fridge implements Device, Metered {
      */
     public boolean status() {
         return active;
-    }
-
-    @Override
-    public double getEnergyConsumptionInTimeInterval(Calendar startDate, Calendar endDate) {
-        Configuration c = new Configuration();
-
-        double energyConsumption = 0;
-        if (c.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
-        }
-        return Utils.round(energyConsumption, 2);
     }
 
     //put this method as private after reviewing create device US

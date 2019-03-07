@@ -107,7 +107,26 @@ public class LampSpecs implements DeviceSpecs {
         return this.attributeValuesMap.get(attribute);
     }
 
-    
+    public List<Double> getAttributeValues() {
+        List<Double> attributeValues = new ArrayList<>();
+
+        for (String s : attributeNamesList
+        ) {
+            attributeValues.add(attributeValuesMap.get(s));
+        }
+        return attributeValues;
+    }
+
+    public List<String> getAttributeUnits() {
+
+        List<String> unitsList = new ArrayList<>();
+
+        for (String key : attributeUnitsMap.keySet()
+        ) {
+            unitsList.add(attributeUnitsMap.get(key));
+        }
+        return unitsList;
+    }
 
     public String getAttributeUnit(String attribute) {
         return this.attributeUnitsMap.get(attribute);
