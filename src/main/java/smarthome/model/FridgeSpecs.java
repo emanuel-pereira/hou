@@ -142,8 +142,9 @@ public class FridgeSpecs implements DeviceSpecs {
 
     @Override
     public double getEnergyConsumption() {
-
+        this.energyConsumption = this.getAttributeValue ("Annual Energy Consumption")/365;
         return this.energyConsumption;
+
     }
 
     public double getEnergyConsumptionInTimeInterval(Calendar beginTime, Calendar endTime) {
