@@ -2,6 +2,7 @@ package smarthome.controller;
 
 import smarthome.model.*;
 
+import java.util.Calendar;
 import java.util.List;
 
 import static java.lang.Double.parseDouble;
@@ -17,10 +18,6 @@ public class GetEnergyConsumptionOfWaterHeatingCTRL {
 
     public List<Device> getDevicesInAllRoomsByType(String deviceType) {
         return mRoomList.getDevicesInAllRoomsByType(deviceType);
-    }
-
-    public String showDeviceAttributesInString(Device device) {
-        return device.showDeviceAttributesInString();
     }
 
     public double getEnergyConsumptionByDeviceType(String deviceType) {

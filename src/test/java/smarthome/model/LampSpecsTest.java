@@ -23,7 +23,7 @@ class LampSpecsTest {
 
     @Test
     @DisplayName("Set new values to all attributes and get all correct")
-    void getAttributeValues() {
+    void getAttributeValue() {
         LampSpecs lamp = new LampSpecs("Lamp");
 
         lamp.setAttributeValue("Illuminance", 470);
@@ -34,7 +34,7 @@ class LampSpecsTest {
 
     @Test
     @DisplayName("Set new units to the two first attributes and get all correct")
-    void getAttributeUnits() {
+    void getAttributeUnit() {
         LampSpecs lamp = new LampSpecs("Lamp");
 
         lamp.setAttributeValue("Illuminance", 470);
@@ -53,4 +53,33 @@ class LampSpecsTest {
         assertEquals(expected, attributesNames);
     }
 
+    @Test
+    void getAttributeValuesList() {
+        LampSpecs lamp = new LampSpecs("Lamp");
+        lamp.setAttributeValue("Illuminance", 470);
+
+        List<Double> freezerSpecsValues = lamp.getAttributeValues();
+        List<Double> expectedFreezerSpecsValues = Arrays.asList (470.0);
+        assertEquals(expectedFreezerSpecsValues, freezerSpecsValues);
+    }
+
+    @Test
+    void getAttributeUnitsList() {
+        LampSpecs lamp = new LampSpecs("Lamp");
+        lamp.setAttributeValue("Illuminance", 470);
+
+        List<String> freezerSpecsUnits = lamp.getAttributeUnits();
+        List<String> expectedFreezerSpecsUnits = Arrays.asList ("Lumens");
+        assertEquals(expectedFreezerSpecsUnits, freezerSpecsUnits);
+    }
+
+    @Test
+    void setAttributeUnit() {
+        LampSpecs lamp = new LampSpecs("Lamp");
+
+        lamp.setAttributeUnit("Illuminance", "Lux");
+
+        String illuminance = lamp.getAttributeUnit("Illuminance");
+        assertEquals("Lux", illuminance);
+    }
 }

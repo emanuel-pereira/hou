@@ -89,73 +89,7 @@ public class Fridge implements Device, Metered {
 
     @Override
     public boolean isActive() {
-        return false;
-    }
-
-
-    public String showDeviceAttributesInString() { // DEPRECATED. I will hunt you down and smack you if you use this.
-        StringBuilder result = new StringBuilder();
-        result.append(this.getDeviceSpecs().getDeviceType());
-        result.append("\n");
-        result.append("1 - Device Name : " + this.getDeviceName());
-        result.append("\n");
-        result.append("2 - Device Nominal Power : " + this.getNominalPower());
-        result.append("\n");
-        result.append(this.getDeviceSpecs().showDeviceAttributeNamesAndValues());
-        return result.toString();
-    }
-
-    public List<String> getDeviceAttributesInString() {
-        List<String> result = new ArrayList<>();
-        String deviceName = "Device Name";
-        String deviceNominalPower = "Device Nominal Power";
-        result.add(deviceName);
-        result.add(deviceNominalPower);
-        for (String deviceSpecs : this.getDeviceSpecs().getAttributesNames())
-            result.add(deviceSpecs);
-
-        return result;
-    }
-
-    public void setAttributeValue(String attribute, Double newValue) throws IllegalAccessException {
-        this.getDeviceSpecs().setAttributeValue(attribute, newValue);
-    }
-
-    @Override
-    public double getEnergyConsumption(Calendar startDate, Calendar endDate) {
-        Configuration c = new Configuration();
-
-        double energyConsumption = 0;
-        if (c.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
-        }
-        return Utils.round(energyConsumption, 2);
-    }
-
-    /**
-     * set Device status to false
-     *
-     * @return true result
-     */
-    public boolean deactivateDevice() {
-        this.active = false;
-        return true;
-    }
-
-    /**
-     * return device status flag
-     *
-     * @return device status flag
-     */
-    public boolean status() {
         return active;
-    }
-
-    //put this method as private after reviewing create device US
-    public void setIsMetered(boolean isMetered) {
-        if (!isMetered)
-            activityLog = null;
-        this.isMetered = isMetered;
     }
 
     public boolean isMetered() {
@@ -171,16 +105,39 @@ public class Fridge implements Device, Metered {
         return activityLog;
     }
 
-    /**
-     * return device activity log values sum for test
-     *
-     * @return int values representative of the activity log values sum
-     */
-    public double getActivityLogSum() {
-        double sum = 0;
-        for (Reading reading : activityLog.getReadingList()) {
-            sum += reading.returnValueOfReading();
+    @Override
+    public double getEnergyConsumption(Calendar startDate, Calendar endDate) {
+        Configuration c = new Configuration();
+
+        double energyConsumption = 0;
+        if (c.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
+            energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
         }
-        return sum;
+        return Utils.round(energyConsumption, 2);
     }
+
+    public void setAttributeValue(String attribute, Double newValue) {
+        this.getDeviceSpecs().setAttributeValue(attribute, newValue);
+    }
+
+
+    /* ----- Setters ----- */
+
+    /**
+     * set Device status to false
+     *
+     * @return true result
+     */
+    public boolean deactivateDevice() {
+        this.active = false;
+        return true;
+    }
+    //put this method as private after reviewing create device US
+
+    public void setIsMetered(boolean isMetered) {
+        if (!isMetered)
+            activityLog = null;
+        this.isMetered = isMetered;
+    }
+
 }

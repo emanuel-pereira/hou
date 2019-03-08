@@ -52,4 +52,24 @@ class KettleSpecsTest {
 
         assertEquals(expected, attributesNames);
     }
+
+    @Test
+    void getAttributeValuesList() {
+        KettleSpecs kettle = new KettleSpecs("Kettle");
+        kettle.setAttributeValue("Capacity", 4.5);
+
+        List<Double> freezerSpecsValues = kettle.getAttributeValues();
+        List<Double> expectedFreezerSpecsValues = Arrays.asList (4.5);
+        assertEquals(expectedFreezerSpecsValues, freezerSpecsValues);
+    }
+
+    @Test
+    void getAttributeUnitsList() {
+        KettleSpecs kettle = new KettleSpecs("Kettle");
+        kettle.setAttributeValue("Capacity", 4.5);
+
+        List<String> freezerSpecsUnits = kettle.getAttributeUnits();
+        List<String> expectedFreezerSpecsUnits = Arrays.asList ("L");
+        assertEquals(expectedFreezerSpecsUnits, freezerSpecsUnits);
+    }
 }

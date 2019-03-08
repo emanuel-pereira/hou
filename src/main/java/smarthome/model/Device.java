@@ -31,7 +31,4 @@ public interface Device {
 
     boolean deactivateDevice();
 
-
-    /* ---- DEPRECATED ---- */
-    String showDeviceAttributesInString();
 }

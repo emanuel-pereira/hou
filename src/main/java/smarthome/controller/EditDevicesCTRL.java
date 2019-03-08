@@ -135,10 +135,6 @@ public class EditDevicesCTRL {
         return device;
     }
 
-    public String showDeviceAttributesInString(Device device) throws IllegalAccessException {
-        return device.showDeviceAttributesInString();
-    }
-
     public Device getDeviceFromIndex(int indexOfRoom, int indexOfDevice) {
        return getRoomFromListIndex(indexOfRoom).getDeviceList().get(indexOfDevice - 1);
     }
@@ -153,7 +149,8 @@ public class EditDevicesCTRL {
 
     public Device createDevice(Room selectedRoom, String deviceType) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         DeviceList deviceList = selectedRoom.getDeviceList();
-
-        return deviceList.newDevice("", deviceType, 0);
+        Device device = deviceList.newDevice("", deviceType, 0);
+        deviceList.addDevice(device);
+        return device;
     }
 }

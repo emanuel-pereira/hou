@@ -101,7 +101,7 @@ public class EditDevicesUI {
         device = ctrl.createDevice(selectedRoom, deviceType);
         deviceSpecsConfiguration();
         System.out.println("Success! NEW DEVICE CREATED ");
-        System.out.println(ctrl.showDeviceAttributesInString(device));
+        //TODO System.out.println(ctrl.showDeviceAttributesInString(device));
 
     }
 
@@ -120,7 +120,7 @@ public class EditDevicesUI {
         deviceIndex = read.nextInt();
         selectedDeviceToEdit = ctrl.getDeviceFromIndex(selectedRoomIndex, deviceIndex);
         System.out.println("Select a attribute to reconfigure");
-        System.out.println(ctrl.showDeviceAttributesInString(selectedDeviceToEdit));
+        //TODO System.out.println(ctrl.showDeviceAttributesInString(selectedDeviceToEdit));
         attributeIndex = read.nextInt();
         String deviceAttribute = ctrl.getDeviceAttribute(selectedDeviceToEdit, attributeIndex - 1);
         System.out.println("Set the new value of " + deviceAttribute);

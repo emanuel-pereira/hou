@@ -34,7 +34,6 @@ public class Lamp implements Device, Metered {
         active = true;
         isMetered = true;
         activityLog = new ReadingList();
-
     }
 
     /**
@@ -93,54 +92,6 @@ public class Lamp implements Device, Metered {
     }
 
 
-    public String showDeviceAttributesInString() { // DEPRECATED. I will hunt you down and smack you if you use this.
-        StringBuilder result = new StringBuilder();
-        result.append(this.getDeviceSpecs().getDeviceType());
-        result.append("\n");
-        result.append("1 - Device Name : " + this.getDeviceName());
-        result.append("\n");
-        result.append("2 - Device Nominal Power : " + this.getNominalPower());
-        result.append("\n");
-        result.append(this.getDeviceSpecs().showDeviceAttributeNamesAndValues());
-        return result.toString();
-    }
-
-    public List<String> getDeviceAttributesInString() {
-        List<String> result = new ArrayList<>();
-        String deviceName = "Device Name";
-        String deviceNominalPower = "Device Nominal Power";
-        result.add(deviceName);
-        result.add(deviceNominalPower);
-        for (String deviceSpec : this.getDeviceSpecs().getAttributesNames())
-            result.add(deviceSpec);
-
-        return result;
-    }
-
-    public void setAttributeValue(String attribute, Double newValue) {
-        this.getDeviceSpecs().setAttributeValue(attribute, newValue);
-    }
-
-
-    /**
-     * set Device status to false
-     *
-     * @return true result
-     */
-    public boolean deactivateDevice() {
-        this.active = false;
-        return true;
-    }
-
-    /**
-     * return device status flag
-     *
-     * @return device status flag
-     */
-    public boolean status() {
-        return active;
-    }
-
     @Override
     public double getEnergyConsumption(Calendar startDate, Calendar endDate) {
         Configuration c = new Configuration();
@@ -152,17 +103,6 @@ public class Lamp implements Device, Metered {
         return Utils.round(energyConsumption, 2);
     }
 
-    //put this method as private after reviewing create device US
-    public void setIsMetered(boolean isMetered) {
-        if (!isMetered)
-            activityLog = null;
-        this.isMetered = isMetered;
-    }
-
-    public boolean isMetered() {
-        return isMetered;
-    }
-
     /**
      * return device activity log
      *
@@ -172,16 +112,32 @@ public class Lamp implements Device, Metered {
         return activityLog;
     }
 
+    public boolean isMetered() {
+        return isMetered;
+    }
+
+
+
+    /* ----- Setters ----- */
+
+    public void setAttributeValue(String attribute, Double newValue) {
+        this.getDeviceSpecs().setAttributeValue(attribute, newValue);
+    }
     /**
-     * return device activity log values sum for test
+     * set Device status to false
      *
-     * @return int values representative of the activity log values sum
+     * @return true result
      */
-    public double getActivityLogSum() {
-        double sum = 0;
-        for (Reading reading : activityLog.getReadingList()) {
-            sum += reading.returnValueOfReading();
-        }
-        return sum;
+    public boolean deactivateDevice() {
+        this.active = false;
+        return true;
+    }
+
+    //put this method as private after reviewing create device US
+
+    public void setIsMetered(boolean isMetered) {
+        if (!isMetered)
+            activityLog = null;
+        this.isMetered = isMetered;
     }
 }

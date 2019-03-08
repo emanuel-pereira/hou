@@ -12,7 +12,7 @@ public class KettleType implements DeviceType {
 
         String devType=getDeviceType();
 
-        DeviceSpecs devSpecs = new LampSpecs(devType);
+        DeviceSpecs devSpecs = new KettleSpecs(devType);
 
         return new Lamp(deviceName, devSpecs, nominalPower);
     }

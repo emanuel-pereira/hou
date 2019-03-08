@@ -1,7 +1,5 @@
 package smarthome.model;
 
-
-import java.util.Calendar;
 import java.util.List;
 
 public interface DeviceSpecs {
@@ -13,26 +11,16 @@ public interface DeviceSpecs {
 
     List<String> getAttributesNames();
 
-    /*List<String> getAttributeUnits();
+    List<Double> getAttributeValues();
 
-    List<Double> getAttributeValues();*/
+    List<String> getAttributeUnits();
 
     Double getAttributeValue(String attribute);
 
     String getAttributeUnit(String attribute);
 
-    //double getDailyEnergyConsumption();
-
     /* ---- Setters ---- */
     void setAttributeValue(String attribute, double newValue);
 
     void setAttributeUnit(String attribute, String unit);
-
-
-    /* ---- Stuff that shouldn't be here and will be deprecated ---- */
-
-    String showDeviceAttributeNamesAndValues(); // TODO remove this from here after checking what it breaks
-
-    String showDeviceAttributesInString();
-
 }

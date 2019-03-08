@@ -33,7 +33,6 @@ public class FridgeSpecs implements DeviceSpecs {
 
     /* ------- Public fields ------- */
 
-    public boolean isInitialized; // This is a safeguard against using uninitialized objects.
 
     /* ------ Constructors ------- */
 
@@ -51,24 +50,14 @@ public class FridgeSpecs implements DeviceSpecs {
      */
     private void initializeClass() {
 
-        if (this.attributeNames.length == 0
-                || this.attributeUnits.length == 0) {
-            this.isInitialized = false;
-            return;
-        }
-
         int items = this.attributeNames.length;
-        if (this.attributeUnits.length < items) {
-            items = this.attributeUnits.length;
-        }
 
-        for (int i = 0; i < this.attributeNames.length; i++) {
+        for (int i = 0; i < items; i++) {
             attributeNamesList.add(this.attributeNames[i]);
         }
 
         attributeValuesMap.clear();
         attributeUnitsMap.clear();
-
 
         for (int j = 0; j < items; j++) {
 
@@ -76,8 +65,6 @@ public class FridgeSpecs implements DeviceSpecs {
             attributeUnitsMap.put(this.attributeNames[j], this.attributeUnits[j]);
             attributeValuesMap.put(this.attributeNames[j], NaN); // values are not part of the constructor
         }
-
-        this.isInitialized = true;
     }
 
     /* ------ Interface methods ------- */
@@ -86,24 +73,16 @@ public class FridgeSpecs implements DeviceSpecs {
         return this.deviceType;
     }
 
-    public List<String> getAttributesNames() {
-        return this.attributeNamesList;
-    }
-
-    public void setAttributeUnit(String attribute, String unit) {
-        if (attributeValuesMap.containsKey(attribute)) {
-            attributeUnitsMap.put(attribute, unit);
-        }
-    }
-
-    public void setAttributeValue(String attribute, double newValue) {
-        if (attributeValuesMap.containsKey(attribute)) {
-            attributeValuesMap.replace(attribute, newValue);
-        }
-    }
-
     public Double getAttributeValue(String attribute) {
         return this.attributeValuesMap.get(attribute);
+    }
+
+    public String getAttributeUnit(String attribute) {
+        return this.attributeUnitsMap.get(attribute);
+    }
+
+    public List<String> getAttributesNames() {
+        return this.attributeNamesList;
     }
 
     public List<Double> getAttributeValues() {
@@ -114,10 +93,6 @@ public class FridgeSpecs implements DeviceSpecs {
             attributeValues.add(attributeValuesMap.get(key));
         }
         return attributeValues;
-    }
-
-    public String getAttributeUnit(String attribute) {
-        return this.attributeUnitsMap.get(attribute);
     }
 
     public List<String> getAttributeUnits() {
@@ -131,16 +106,15 @@ public class FridgeSpecs implements DeviceSpecs {
         return unitsList;
     }
 
-
-    /* ------ Other methods ------- */
-    // Deprecated. These methods WILL be removed from the interface. DO NOT USE.
-
-    public String showDeviceAttributeNamesAndValues() {
-        return "";
+    public void setAttributeUnit(String attribute, String unit) {
+        if (attributeValuesMap.containsKey(attribute)) {
+            attributeUnitsMap.put(attribute, unit);
+        }
     }
 
-    public String showDeviceAttributesInString() {
-        return "";
+    public void setAttributeValue(String attribute, double newValue) {
+        if (attributeValuesMap.containsKey(attribute)) {
+            attributeValuesMap.replace(attribute, newValue);
+        }
     }
 }
-
