@@ -19,7 +19,9 @@ class HouseTest {
 
         //Arrange
         Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Porto", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("VNG", "Gaia", "City", 20, 20, 2, 2, 5);
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("VNG", "Gaia", "City", oc, loc);
 
         House house1 = new House("Prédio1", a1, g1);
 
@@ -36,7 +38,10 @@ class HouseTest {
 
         //Arrange
         Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Porto", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", 20, 20, 2, 2, 5);
+
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", oc, loc);
 
         House house1 = new House("Prédio1", a1, g1);
 
@@ -52,7 +57,9 @@ class HouseTest {
 
         //Arrange
         Address a1 = new Address("Rua Júlio Dinis, 34", "3380-45", "Porto", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", 20, 20, 2, 2, 5);
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", oc, loc);
 
 
         Address a2 = new Address("Rua Júlio Dinis, 32", "3380-45", "Porto", 41, 12.3, 110);
@@ -72,7 +79,9 @@ class HouseTest {
         //Arrange
         Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Beja", 41, 12.3, 110);
         TypeGA t1 = new TypeGA("cidade");
-        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", 20, 20, 2, 2, 5);
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", oc, loc);
 
         House house1 = new House("Prédio", a1, g1);
 
@@ -90,7 +99,9 @@ class HouseTest {
     @Test
     void newRoom() {
         Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
 
 
         House h = new House("Prédio", a1, g1);
@@ -109,7 +120,9 @@ class HouseTest {
     @Test
     void addOneRoom() {
         Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
 
         House h1 = new House("Prédio", a1, g1);
         Room room = h1.getRoomList().createNewRoom("bedroom", 1, 2, 2.5, 2);
@@ -128,7 +141,9 @@ class HouseTest {
     @Test
     void addTwoRooms() {
         Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
 
         House h = new House("Prédio", a1, g1);
         Room room = h.getRoomList().createNewRoom("bedroom", 1, 2, 2.5, 2);
@@ -153,7 +168,9 @@ class HouseTest {
     @Test
     void addOneRoomEmptyName() {
         Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
 
         House h = new House("Casa", a1, g1);
         Room room = h.getRoomList().createNewRoom("bedroom", 1, 2, 2.5, 2);
@@ -180,7 +197,9 @@ class HouseTest {
     @Test
     void nameNotValid() {
         Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
 
         House h = new House("Casa", a1, g1);
         Room room = h.getRoomList().createNewRoom("bedroom", 1, 2, 2.5, 2);
@@ -208,7 +227,10 @@ class HouseTest {
     @Test
     void addOneGetTrueAddAnotherGetFalse() {
         Address a1 = new Address("Rua Júlio Dinis", "3380-45", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
+
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
 
         House h = new House("Casa", a1, g1);
         Room room = h.getRoomList().createNewRoom("bedroom", 1, 2, 2.5, 1.7);
@@ -234,7 +256,9 @@ class HouseTest {
     @DisplayName("Ensure a room is removed from the list of rooms of a house ")
     void removeRoom() {
         Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
 
         House house = new House("Casa", a1, g1);
         Room room1 = house.getRoomList().createNewRoom("bedroom", 1, 2, 2.5, 2);
@@ -253,7 +277,9 @@ class HouseTest {
     void removeRoomReturnsFalse() {
 
         Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", 41, 12.3, 110);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", 20, 20, 2, 2, 5);
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
 
 
         House house = new House("Casa", a1, g1);
@@ -332,7 +358,7 @@ class HouseTest {
     void getListOfDeviceTypes() {
         House h = new House();
         List<DeviceType> result = h.getListOfDeviceTypes();
-        assertEquals(14,result.size());
+        assertEquals(14, result.size());
     }
 
     @Test
@@ -362,7 +388,9 @@ class HouseTest {
     void getSensorOfTypeWithLatestReadingsInDate() {
         House house = new House();
         house.setHouseAddress("Avenida Central", "11", "4425-255", 25, 25, 12);
-        GeographicalArea braga = new GeographicalArea("BR", "Braga", "City", 25, 25, 25, 2, 5);
+        Location loc = new Location(25, 25, 25);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea braga = new GeographicalArea("BR", "Braga", "City", oc, loc);
         house.setHouseGA(braga);
         SensorType temperature = new SensorType("temperature");
         SensorList bragaSensorList = braga.getSensorListInGA();
@@ -409,7 +437,9 @@ class HouseTest {
     @DisplayName("Tests if the second sensor has the most recent readings")
     void getSecondSensorWithLatestReadingsNotInPeriod() {
         Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", 40, -12, 200, 23, 45);
+        Location loc = new Location(40, -12, 200);
+        OccupationArea oc = new OccupationArea(23, 45);
+        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc, loc);
         House house = new House(a1, ga);
         SensorType sT = new SensorType("rainfall");
 
@@ -464,7 +494,9 @@ class HouseTest {
     @DisplayName("Tests if a sensor with no readings in period is not selected  ")
     void getClosestSensorWithLatestReadingsNotInPeriod() {
         Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", 40, -12, 200, 23, 45);
+        Location loc = new Location(40, -12, 200);
+        OccupationArea oc = new OccupationArea(23, 45);
+        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc, loc);
         House house = new House(a1, ga);
         SensorType sT = new SensorType("rainfall");
 
@@ -520,7 +552,10 @@ class HouseTest {
     @DisplayName("Tests if readings with a date equal to start date are included in the average")
     void averageOfReadingsWithStartDate() {
         Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", 40, -12, 200, 23, 45);
+
+        Location loc = new Location(40, -12, 200);
+        OccupationArea oc = new OccupationArea(23, 45);
+        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc, loc);
         House house = new House(a1, ga);
         SensorType sT = new SensorType("rainfall");
 
@@ -577,7 +612,10 @@ class HouseTest {
     @DisplayName("Tests if readings with a date equal to end date are included in the average")
     void averageOfReadingsWithEndDate() {
         Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", 40, -12, 200, 23, 45);
+
+        Location loc = new Location(40, -12, 200);
+        OccupationArea oc = new OccupationArea(23, 45);
+        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc, loc);
         House house = new House(a1, ga);
         SensorType sT = new SensorType("rainfall");
 
@@ -628,7 +666,6 @@ class HouseTest {
         assertEquals(27.6, result);
 
     }
-
 
 
 }

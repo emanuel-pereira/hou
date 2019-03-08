@@ -42,8 +42,15 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         House house = new House();
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 25, 15, 12, 32, 41);
-        GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", "city", 45, 25, 32, 42, 41);
+
+        OccupationArea oc1 = new OccupationArea(32, 41);
+        Location loc1 = new Location(25,15,12);
+        OccupationArea oc2 = new OccupationArea(42,41);
+        Location loc2 = new Location(45,25,32);
+
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1,loc1);
+        GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", "city", oc2,loc2);
         gaList.addGA(ga1);
         gaList.addGA(ga2);
         String expected = "1 - Porto\n2 - Lisboa\n";
@@ -57,10 +64,13 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         House house = new House();
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
-        OccupationArea occupationArea = new OccupationArea(20, 20);
-        Location location = new Location(1, 3, -10);
-        GeographicalArea area1 = gaList.newGA("Pt", "Porto", "district", occupationArea, location);
-        GeographicalArea area2 = gaList.newGA("Pt", "Braga", "district", occupationArea, location);
+
+        OccupationArea oc1 = new OccupationArea(32, 41);
+        Location loc1 = new Location(25,15,12);
+        OccupationArea oc2 = new OccupationArea(42,41);
+        Location loc2 = new Location(45,25,32);
+        GeographicalArea area1 = gaList.newGA("Pt", "Porto", "district", oc1,loc1);
+        GeographicalArea area2 = gaList.newGA("Pt", "Braga", "district", oc2,loc2);
         gaList.addGA(area1);
         gaList.addGA(area2);
 
@@ -77,8 +87,12 @@ class NewSensorCTRLTest {
         House house = new House();
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 25, 15, 12, 32, 41);
-        GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", "city", 45, 25, 32, 42, 41);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+        Location loc1 = new Location(25,15,12);
+        OccupationArea oc2 = new OccupationArea(42,41);
+        Location loc2 = new Location(45,25,32);
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1,loc1);
+        GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", "city", oc2,loc2);
 
         gaList.addGA(ga1);
         gaList.addGA(ga2);
@@ -115,7 +129,9 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         ReadingList readingsPt = new ReadingList();
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 25, 15, 12, 32, 41);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+        Location loc1 = new Location(25,15,12);
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1,loc1);
         gaList.addGA(ga1);
 
         SensorType type1 = new SensorType("Temperature");
@@ -146,7 +162,10 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         ReadingList readingsPt = new ReadingList();
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 25, 15, 12, 32, 41);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+        Location loc1 = new Location(25,15,12);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1,loc1);
         gaList.addGA(ga1);
 
         SensorType type1 = new SensorType("Temperature");
@@ -178,7 +197,10 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         ReadingList readingsPt = new ReadingList();
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", 25, 15, 12, 32, 41);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+        Location loc1 = new Location(25,15,12);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1,loc1);
         gaList.addGA(ga1);
 
         SensorType type1 = new SensorType("Temperature");

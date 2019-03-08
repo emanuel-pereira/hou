@@ -26,6 +26,7 @@ class ReadingListTest {
         assertEquals(expected2, result2);
     }
 
+
     @Test
     @DisplayName("Ensure newReading method creates local instance of reading and that addReading method is not add to readingList")
     void cantAddSameReadingTwice() {
@@ -90,7 +91,7 @@ class ReadingListTest {
 
     @Test
     @DisplayName("Ensure that returns the total values of reading list in a specific day")
-    public void totalValueInGivenDay() {
+    void totalValueInGivenDay() {
 
 
         ReadingList readingList = new ReadingList();

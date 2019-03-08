@@ -17,7 +17,10 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @DisplayName("Tests if the list of rainfall sensors in the geographical area of the house is returned")
     void getGARainfallSensors() {
         Address a1 = new Address("Rua Fernandes Tomás,345", "4200-734", "Porto", 85, 120, -2300);
-        GeographicalArea ga = new GeographicalArea("PT", "Porto", "city", 86, 120, -2300, 234, 345);
+        OccupationArea oc1 = new OccupationArea(234, 345);
+        Location loc1 = new Location(86, 120, -2300);
+
+        GeographicalArea ga = new GeographicalArea("PT", "Porto", "city", oc1, loc1);
         House h1 = new House(a1, ga);
 
 
@@ -56,7 +59,10 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     void getClosestRainfallSensorsWithReadingsInTimePeriod() {
 
         Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", 40, -12, 200, 23, 45);
+        OccupationArea oc1 = new OccupationArea(23, 45);
+        Location loc1 = new Location(40, -12, 200);
+
+        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         House house = new House(a1, ga);
 
         SensorType sT = new SensorType("rainfall");
@@ -140,7 +146,10 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @DisplayName("Tests if returns false when the closest rainfall sensors do not have readings in period")
     void checkThatClosestRainfallSensorsDoNotHaveReadingsInPeriod() {
         Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", 40, -12, 200, 23, 45);
+
+        OccupationArea oc1 = new OccupationArea(23, 45);
+        Location loc1 = new Location(40, -12, 200);
+        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         House house = new House(a1, ga);
 
         SensorType sT = new SensorType("rainfall");
@@ -220,7 +229,10 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @DisplayName("Tests if returns true when the closest rainfall sensors do not have readings in period")
     void checkThatClosestRainfallSensorsHaveReadingsInPeriod() {
         Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", 40, -12, 200, 23, 45);
+
+        OccupationArea oc1 = new OccupationArea(23, 45);
+        Location loc1 = new Location(40, -12, 200);
+        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         House house = new House(a1, ga);
 
         SensorType sT = new SensorType("rainfall");
@@ -300,7 +312,10 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @DisplayName("Tests if calculates daily average rainfall when there is only one closest sensor")
     void calculateAverageOfRainfallReadingsForOneSensor() {
         Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", 40, -12, 200, 23, 45);
+
+        OccupationArea oc1 = new OccupationArea(23, 45);
+        Location loc1 = new Location(40, -12, 200);
+        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         House house = new House(a1, ga);
 
         SensorType sT = new SensorType("rainfall");
@@ -380,7 +395,10 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @DisplayName("Tests if calculates daily average rainfall when there is more than one sensor at same distance")
     void calculateAverageOfRainfallForTwoEquidistantSensors() {
         Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", 40, -12, 200, 23, 45);
+
+        OccupationArea oc1 = new OccupationArea(23, 45);
+        Location loc1 = new Location(40, -12, 200);
+        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         House house = new House(a1, ga);
 
         SensorType sT = new SensorType("rainfall");
@@ -460,7 +478,9 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @DisplayName("Tests if calculates daily average rainfall when equidistant sensor have readings with the same date")
     void calculateAverageOfRainfallReadingsWithSameDate() {
         Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", 40, -12, 200, 23, 45);
+        OccupationArea oc1 = new OccupationArea(23, 45);
+        Location loc1 = new Location(40, -12, 200);
+        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         House house = new House(a1, ga);
 
         SensorType sT = new SensorType("rainfall");

@@ -6,8 +6,12 @@ import java.util.GregorianCalendar;
 
 public class Reading {
 
-    private double mValue;
-    private Calendar mDateAndTime;
+    private double value;
+    private Calendar dateAndTime;
+
+    public Reading() {
+
+    }
 
     /**
      * Reading class Constructor
@@ -18,8 +22,8 @@ public class Reading {
      */
     public Reading(double readValue, Calendar timeOfReading) {
 
-        mValue = readValue;
-        mDateAndTime = timeOfReading;
+        this.value = readValue;
+        this.dateAndTime = timeOfReading;
 
     }
 
@@ -27,23 +31,23 @@ public class Reading {
      * @return the registered value of a reading
      */
     public double returnValueOfReading() {
-        return mValue;
+        return this.value;
     }
 
     public int getMonthOfReading() {
-        return mDateAndTime.get(Calendar.MONTH);
+        return this.dateAndTime.get(Calendar.MONTH);
     }
 
     public Calendar getDateAndTime() {
-        return mDateAndTime;
+        return this.dateAndTime;
     }
 
 
-    public boolean compareYearMonthDay(Calendar date){
+    public boolean compareYearMonthDay(Calendar date) {
 
-        int rYear = this.getDateAndTime().get(Calendar.YEAR);
-        int rMonth = this.getDateAndTime().get(Calendar.MONTH);
-        int rDay = this.getDateAndTime().get(Calendar.DAY_OF_MONTH);
+        int rYear = getDateAndTime().get(Calendar.YEAR);
+        int rMonth = getDateAndTime().get(Calendar.MONTH);
+        int rDay = getDateAndTime().get(Calendar.DAY_OF_MONTH);
         Calendar date1 = new GregorianCalendar(rYear, rMonth, rDay);
         return date.equals(date1);
     }
@@ -54,9 +58,9 @@ public class Reading {
      * @return the date of a reading as a string in YYYY-MM-DD format
      */
     public String getDateOfReadingAsString() {
-        int year = mDateAndTime.get(Calendar.YEAR);
-        int month = mDateAndTime.get(Calendar.MONTH);
-        int day = mDateAndTime.get(Calendar.DAY_OF_MONTH);
+        int year = dateAndTime.get(Calendar.YEAR);
+        int month = dateAndTime.get(Calendar.MONTH)+1;
+        int day = dateAndTime.get(Calendar.DAY_OF_MONTH);
 
         StringBuilder output = new StringBuilder();
         output.append(year);
