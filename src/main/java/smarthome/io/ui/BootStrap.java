@@ -16,13 +16,7 @@ public final class BootStrap {
     private static int hour = 0;
     private static int minutes = 0;
     private static int meteringPeriod = 15;
-    private static String deviceName = "Device Name";
-    private static String nominalPower = "Device Nominal Power";
-    private static String waterVolumeEWH = "Volume of water capacity";
-    private static String hotWaterTemperatureEWH = "Hot water temperature";
-    private static String performanceRatioEWH = "Performance Ratio";
-    private static String dishwasherCapacity = "Dishwasher Capacity";
-    private static String washingMachineCapacity = "Washing Machine Capacity";
+
     private static House house;
 
     private BootStrap() {

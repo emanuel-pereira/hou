@@ -36,16 +36,16 @@ public class EditDevicesUI {
 
             ArrayList<String> options = new ArrayList<>();
 
-            options.add("[1] Add a device to a Room from the list of the available device types.");
-            options.add("[2] Get a list of all Devices in a Room");
-            options.add("[3] Edit the configuration of an existing device");
-            options.add("[4] Remove a device");
+            options.add("[1] Add a device to a room");
+            options.add("[2] List all Devices in a room");
+            options.add("[3] Edit the configuration of a device");
+            options.add("[4] Remove a device from a room");
             options.add("[5] Deactivate a device");
-            options.add("[0] Exit");
+            options.add("[0] Return to previous menu");
 
-            UtilsUI.showList("Device Edition", options, false, 5);
+            UtilsUI.showList("Edit Device", options, false, 5);
 
-            option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 8, or 0 to exit the program");
+            option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 8, or 0 to go back.");
 
             switch (option) {
                 case 1:
@@ -70,7 +70,7 @@ public class EditDevicesUI {
     }
 
     private void roomSelection() {
-        System.out.println("Select a room from the list below where you want to add the device:");
+        System.out.println("Select the room where you want to add the device:");
         System.out.println(ctrl.showRoomListInString());
         selectedRoomIndex = UtilsUI.requestIntegerInInterval(1, ctrl.getRoomListSize(), "Error, room not found! Please, select a valid room.");
         selectedRoom = ctrl.getRoomFromListIndex(selectedRoomIndex);
