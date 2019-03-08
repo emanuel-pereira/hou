@@ -44,14 +44,6 @@ class ConfigurationTest {
         assertEquals(expectedResult, result);
     }
 
-    @Test
-    void getDeviceSpecsAttributesTest() {
-        Configuration c = new Configuration();
-        List<String> expectedResult = Arrays.asList("Freezer Capacity", "Refrigerator Capacity");
-        List<String> result = c.getDeviceSpecsAttributes("Fridge");
-
-        assertEquals(expectedResult, result);
-    }
 
     @Test
     void getGridMeteringPeriodTestFailNotAnInt() {

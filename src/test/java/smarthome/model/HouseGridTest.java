@@ -15,244 +15,251 @@ class HouseGridTest {
     @Test
     @DisplayName("Set new House Grid with correct Power Value")
     void setAndGetContractedMaximumPower() {
-        HouseGrid hg = new HouseGrid ("main");
-        hg.setContractedMaximumPower (2350);
-        double result = hg.getContractedMaximumPower ();
-        assertEquals (2350, result, 0.1);
+        HouseGrid hg = new HouseGrid("main");
+        hg.setContractedMaximumPower(2350);
+        double result = hg.getContractedMaximumPower();
+        assertEquals(2350, result, 0.1);
     }
 
     @Test
     @DisplayName("Set new House Grid with incorrect Power Value")
     void setUpdateAndGetContractedMaximumPower() {
-        HouseGrid hg = new HouseGrid ("grid01");
-        hg.setContractedMaximumPower (2351.3);
-        double result = hg.getContractedMaximumPower ();
-        assertEquals (2351.3, result, 0.1);
+        HouseGrid hg = new HouseGrid("grid01");
+        hg.setContractedMaximumPower(2351.3);
+        double result = hg.getContractedMaximumPower();
+        assertEquals(2351.3, result, 0.1);
     }
 
     @Test
     @DisplayName("Set new House Grid with zero Power Value")
     void setZeroContractedMaximumPower() {
-        HouseGrid hg = new HouseGrid ("grid01");
-        hg.setContractedMaximumPower (0.0);
-        double result = hg.getContractedMaximumPower ();
-        assertEquals (Double.NaN, result, 0.1);
+        HouseGrid hg = new HouseGrid("grid01");
+        hg.setContractedMaximumPower(0.0);
+        double result = hg.getContractedMaximumPower();
+        assertEquals(Double.NaN, result, 0.1);
     }
 
     @Test
     @DisplayName("Set new House Grid with incorrect Power Value")
     void setNegativeAndGetContractedMaximumPower() {
-        HouseGrid hg = new HouseGrid ("main");
+        HouseGrid hg = new HouseGrid("main");
 
-        hg.setContractedMaximumPower (-35.0);
+        hg.setContractedMaximumPower(-35.0);
 
-        double result = hg.getContractedMaximumPower ();
-        assertEquals (Double.NaN, result, 0.1);
+        double result = hg.getContractedMaximumPower();
+        assertEquals(Double.NaN, result, 0.1);
     }
 
 
     @Test
     @DisplayName("Set new House Grid with name ID")
     void setContractedMaximumPowerAndGridID() {
-        HouseGrid hg = new HouseGrid ("main grid");
-        assertEquals ("main grid", hg.getGridID ());
+        HouseGrid hg = new HouseGrid("main grid");
+        assertEquals("main grid", hg.getGridID());
     }
 
     @Test
     @DisplayName("Get the ID of a House Grid")
     void getGridIDTest() {
-        HouseGrid hg = new HouseGrid ("grid002");
+        HouseGrid hg = new HouseGrid("grid002");
 
         String expectedResult = "grid002";
-        String result = hg.getGridID ();
-        assertEquals (expectedResult, result);
+        String result = hg.getGridID();
+        assertEquals(expectedResult, result);
     }
 
     @Test
     @DisplayName("Get the list of Previously added Power Sources")
     void getPSListTest() {
-        HouseGrid houseGrid = new HouseGrid ("main");
-        PowerSource ps1 = new PowerSource ("panel002", "solar", 250, 14);
-        PowerSource ps2 = new PowerSource ("panel003", "solar", 250, 14);
-        houseGrid.getPSListInHG ().addPS (ps1);
-        houseGrid.getPSListInHG ().addPS (ps2);
+        HouseGrid houseGrid = new HouseGrid("main");
+        PowerSource ps1 = new PowerSource("panel002", "solar", 250, 14);
+        PowerSource ps2 = new PowerSource("panel003", "solar", 250, 14);
+        houseGrid.getPSListInHG().addPS(ps1);
+        houseGrid.getPSListInHG().addPS(ps2);
 
-        List<PowerSource> expectedResult = Arrays.asList (ps1, ps2);
-        List<PowerSource> result = houseGrid.getPSListInHG ().getPSList ();
+        List<PowerSource> expectedResult = Arrays.asList(ps1, ps2);
+        List<PowerSource> result = houseGrid.getPSListInHG().getPSList();
 
-        assertEquals (expectedResult, result);
+        assertEquals(expectedResult, result);
 
     }
 
     @Test
     @DisplayName("Attach one room to a grid and return true")
     void attachRoomToGrid() {
-        HouseGrid houseGrid = new HouseGrid ("main");
-        Room roomA = new Room ("bedroom", 1, 2, 2, 2);
+        HouseGrid houseGrid = new HouseGrid("main");
+        Room roomA = new Room("bedroom", 1, 2, 2, 2);
 
-        boolean result = houseGrid.attachRoomToGrid (roomA);
+        boolean result = houseGrid.attachRoomToGrid(roomA);
 
-        assertTrue (result);
+        assertTrue(result);
 
     }
 
     @Test
     @DisplayName("Attach two different rooms to a grid and return true")
     void attachTwoNewRoomsToGrid() {
-        HouseGrid houseGrid = new HouseGrid ("main");
-        Room roomA = new Room ("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room ("garden", 0, 2, 2, 2);
-        houseGrid.attachRoomToGrid (roomA);
+        HouseGrid houseGrid = new HouseGrid("main");
+        Room roomA = new Room("bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("garden", 0, 2, 2, 2);
+        houseGrid.attachRoomToGrid(roomA);
 
-        boolean result = houseGrid.attachRoomToGrid (roomB);
+        boolean result = houseGrid.attachRoomToGrid(roomB);
 
-        assertTrue (result);
+        assertTrue(result);
     }
 
     @Test
     @DisplayName("Attach the same room twice to a grid and return false")
     void attachSameRoomTwiceToGrid() {
-        HouseGrid houseGrid = new HouseGrid ("main");
-        Room roomA = new Room ("bedroom", 1, 2, 2, 2);
-        houseGrid.attachRoomToGrid (roomA);
+        HouseGrid houseGrid = new HouseGrid("main");
+        Room roomA = new Room("bedroom", 1, 2, 2, 2);
+        houseGrid.attachRoomToGrid(roomA);
 
-        boolean result = houseGrid.attachRoomToGrid (roomA);
+        boolean result = houseGrid.attachRoomToGrid(roomA);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
     @Test
     @DisplayName("Attach two equal rooms to a grid and return false")
     void attachTwoEqualRoomsToGrid() {
-        HouseGrid houseGrid = new HouseGrid ("main");
-        Room roomA = new Room ("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room ("bedroom", 1, 2, 2, 2);
-        houseGrid.attachRoomToGrid (roomA);
+        HouseGrid houseGrid = new HouseGrid("main");
+        Room roomA = new Room("bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("bedroom", 1, 2, 2, 2);
+        houseGrid.attachRoomToGrid(roomA);
 
-        boolean result = houseGrid.attachRoomToGrid (roomB);
+        boolean result = houseGrid.attachRoomToGrid(roomB);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
     @Test
     @DisplayName("Attach two different rooms to a grid and return that room list size")
     void getRoomListInAGridSize() {
-        HouseGrid houseGrid = new HouseGrid ("main");
-        Room roomA = new Room ("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room ("garden", 0, 2, 2, 2);
-        houseGrid.attachRoomToGrid (roomA);
-        houseGrid.attachRoomToGrid (roomB);
+        HouseGrid houseGrid = new HouseGrid("main");
+        Room roomA = new Room("bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("garden", 0, 2, 2, 2);
+        houseGrid.attachRoomToGrid(roomA);
+        houseGrid.attachRoomToGrid(roomB);
 
         int expectedResult = 2;
         int result = houseGrid.getRoomListInAGridSize();
 
-        assertEquals (expectedResult, result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
     @DisplayName("Attach two different rooms to a grid and return that room list")
     void getRoomListInAGrid() {
-        HouseGrid houseGrid = new HouseGrid ("main");
-        Room roomA = new Room ("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room ("garden", 0, 2, 2, 2);
-        houseGrid.attachRoomToGrid (roomA);
-        houseGrid.attachRoomToGrid (roomB);
+        HouseGrid houseGrid = new HouseGrid("main");
+        Room roomA = new Room("bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("garden", 0, 2, 2, 2);
+        houseGrid.attachRoomToGrid(roomA);
+        houseGrid.attachRoomToGrid(roomB);
 
-        List<Room> expectedResult = Arrays.asList(roomA,roomB);
+        List<Room> expectedResult = Arrays.asList(roomA, roomB);
         List<Room> result = houseGrid.getRoomListInAGrid().getRoomList();
 
-        assertEquals (expectedResult, result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
     @DisplayName("Detach one room from a grid and return true")
     void detachRoomFromGrid() {
-        HouseGrid houseGrid = new HouseGrid ("main");
-        Room roomA = new Room ("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room ("garden", 0, 2, 2, 2);
-        houseGrid.attachRoomToGrid (roomA);
-        houseGrid.attachRoomToGrid (roomB);
+        HouseGrid houseGrid = new HouseGrid("main");
+        Room roomA = new Room("bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("garden", 0, 2, 2, 2);
+        houseGrid.attachRoomToGrid(roomA);
+        houseGrid.attachRoomToGrid(roomB);
 
-        boolean result = houseGrid.detachRoomFromGrid (roomB);
+        boolean result = houseGrid.detachRoomFromGrid(roomB);
 
-        assertTrue (result);
+        assertTrue(result);
     }
 
     @Test
     @DisplayName("Try to detach a room that doesn't exist in a grid and return false")
     void detachRoom() {
-        HouseGrid houseGrid = new HouseGrid ("main");
-        Room roomA = new Room ("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room ("garden", 0, 2, 2, 2);
-        houseGrid.attachRoomToGrid (roomA);
+        HouseGrid houseGrid = new HouseGrid("main");
+        Room roomA = new Room("bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("garden", 0, 2, 2, 2);
+        houseGrid.attachRoomToGrid(roomA);
 
-        boolean result = houseGrid.detachRoomFromGrid (roomB);
+        boolean result = houseGrid.detachRoomFromGrid(roomB);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
-    /*
+
     @Test
     @DisplayName("Get the nominal power of a grid")
     void getNominalPower() {
-        HouseGrid houseGrid = new HouseGrid ("main");
-        Room roomA = new Room ("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room ("garden", 0, 2, 2, 2);
-        houseGrid.attachRoomToGrid (roomA);
-        houseGrid.attachRoomToGrid (roomB);
-        DeviceList deviceList = roomA.getDeviceList ();
-        Fridge fridge = new Fridge(20, 100, 100);
-        Device fridgeA = deviceList.newDevice ("FridgeA", fridge, 150);
-        Device fridgeB = deviceList.newDevice ("FridgeB", fridge, 150);
-        deviceList.addDevice (fridgeA);
-        deviceList.addDevice (fridgeB);
+        HouseGrid houseGrid = new HouseGrid("main");
+        Room roomA = new Room("bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("garden", 0, 2, 2, 2);
+        houseGrid.attachRoomToGrid(roomA);
+        houseGrid.attachRoomToGrid(roomB);
+        DeviceList deviceList = roomA.getDeviceList();
+
+        try{
+            Device fridgeA = deviceList.newDevice("FridgeA", "Fridge", 150);
+            Device fridgeB = deviceList.newDevice("FridgeB", "Fridge", 150);
+            deviceList.addDevice(fridgeA);
+            deviceList.addDevice(fridgeB);
+        }
+        catch(Exception e){
+            //Do nothing.
+        }
+
+
 
         double expectedResult = 300;
-        double result = houseGrid.getNominalPower ();
+        double result = houseGrid.getNominalPower();
 
-        assertEquals (expectedResult, result);
+        assertEquals(expectedResult, result);
     }
-*/
+
 
     @Test
     public void equalsIfPersonEqualsHouseGrid() {
         String person = "Ricardo";
-        HouseGrid grid = new HouseGrid ("grid");
+        HouseGrid grid = new HouseGrid("grid");
         boolean result;
 
-        result = grid.equals (person);
+        result = grid.equals(person);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
     @Test
     public void equalsIfGridEqualsGrid() {
-        HouseGrid gridA = new HouseGrid ("InteriorGrid");
-        HouseGrid gridB = new HouseGrid ("InteriorGrid");
+        HouseGrid gridA = new HouseGrid("InteriorGrid");
+        HouseGrid gridB = new HouseGrid("InteriorGrid");
 
-        boolean result = gridA.equals (gridB);
+        boolean result = gridA.equals(gridB);
 
-        assertEquals (gridA.hashCode (), gridB.hashCode ());
-        assertTrue (result);
+        assertEquals(gridA.hashCode(), gridB.hashCode());
+        assertTrue(result);
     }
 
     @Test
     public void equalsIfGridEqualsDifferentGrid() {
-        HouseGrid gridA = new HouseGrid ("InteriorGrid");
-        HouseGrid gridB = new HouseGrid ("ExteriorGRid");
+        HouseGrid gridA = new HouseGrid("InteriorGrid");
+        HouseGrid gridB = new HouseGrid("ExteriorGRid");
 
-        boolean result = gridA.equals (gridB);
+        boolean result = gridA.equals(gridB);
 
-        assertNotEquals (gridA.hashCode (), gridB.hashCode ());
-        assertFalse (result);
+        assertNotEquals(gridA.hashCode(), gridB.hashCode());
+        assertFalse(result);
     }
 
     @Test
     public void equalsIfGridEqualsSameGrid() {
-        HouseGrid grid = new HouseGrid ("Main");
-        boolean result = grid.equals (grid);
+        HouseGrid grid = new HouseGrid("Main");
+        boolean result = grid.equals(grid);
 
-        assertTrue (result);
+        assertTrue(result);
     }
 
 /*
@@ -316,19 +323,19 @@ class HouseGridTest {
 
     @Test
     void showRoomsInHouseGrid() {
-        HouseGrid grid = new HouseGrid ("MainGrid");
-        RoomList roomList = grid.getRoomListInAGrid ();
+        HouseGrid grid = new HouseGrid("MainGrid");
+        RoomList roomList = grid.getRoomListInAGrid();
 
-        Room kitchen = new Room ("Kicthen", 0, 8, 8, 3);
-        Room garage = new Room ("Living Room", 0, 5, 4, 3);
-        roomList.addRoom (kitchen);
-        roomList.addRoom (garage);
+        Room kitchen = new Room("Kicthen", 0, 8, 8, 3);
+        Room garage = new Room("Living Room", 0, 5, 4, 3);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(garage);
 
         String expected = "1 - Kicthen\n" +
                 "2 - Living Room\n";
-        String result = grid.showRoomsInHouseGrid ();
+        String result = grid.showRoomsInHouseGrid();
 
-        assertEquals (expected, result);
+        assertEquals(expected, result);
     }
 
     @Test
@@ -337,8 +344,8 @@ class HouseGridTest {
         HouseGrid hg1 = new HouseGrid("grid1");
         house.getHGListInHouse().addHouseGrid(hg1);
 
-        Room r1 = new Room("cozinha",1,2,2,2);
-        Room r3 = new Room("quarto",2,2,2,2);
+        Room r1 = new Room("cozinha", 1, 2, 2, 2);
+        Room r3 = new Room("quarto", 2, 2, 2, 2);
         house.getRoomList().addRoom(r1);
         house.getRoomList().addRoom(r3);
 
@@ -346,10 +353,10 @@ class HouseGridTest {
         hg1.attachRoomToGrid(r3);
 
         String expectedResult = "1 - cozinha\n" +
-                                "2 - quarto\n";
+                "2 - quarto\n";
         String result = hg1.showRoomsInHouseGrid();
 
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
 }
