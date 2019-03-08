@@ -10,11 +10,9 @@ import static java.lang.Double.parseDouble;
 
 public class EditDevicesUI {
     private House mHouse;
-    private RoomList mRoomList;
     private Scanner read = new Scanner(System.in);
     private int selectedRoomIndex;
     private int deviceTypeIndex;
-    private String deviceType;
     private EditDevicesCTRL ctrl;
     private Room selectedRoom;
     private Device device;
@@ -25,7 +23,6 @@ public class EditDevicesUI {
 
     public EditDevicesUI(House house) {
         mHouse = house;
-        mRoomList = house.getRoomList();
         ctrl = new EditDevicesCTRL(mHouse);
 
     }
@@ -83,7 +80,7 @@ public class EditDevicesUI {
         return ctrl.getDeviceTypeFromIndex(deviceTypeIndex);
     }
 
-    private void deviceSpecsConfiguration() throws IllegalAccessException {
+    private void deviceSpecsConfiguration(){
         System.out.println("[------- Configuration of a new " + device.getDeviceType() + " -------]");
         System.out.println("[-------- Please configure the device --------]");
         System.out.println();
@@ -98,7 +95,11 @@ public class EditDevicesUI {
     public void roomSelectionToAddDevice() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         roomSelection();
         String deviceType = deviceTypeSelection();
-        device = ctrl.createDevice(selectedRoom, deviceType);
+        System.out.println("What is the device name?");
+        String name = UtilsUI.requestText("Input not valid, please try again.");
+        System.out.println("What is the device's nominal power (W)?");
+        Double nominalPower = UtilsUI.requestDouble("Input not valid, please try again.");
+        device = ctrl.createDevice(selectedRoom, deviceType, name, nominalPower);
         deviceSpecsConfiguration();
         System.out.println("Success! NEW DEVICE CREATED ");
         //TODO System.out.println(ctrl.showDeviceAttributesInString(device));

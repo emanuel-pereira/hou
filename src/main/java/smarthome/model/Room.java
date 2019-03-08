@@ -33,7 +33,7 @@ public class Room implements Powered, Metered {
         this.deviceList = new DeviceList();
     }
 
-    public Room (){
+    public Room() {
 
     }
 
@@ -125,7 +125,8 @@ public class Room implements Powered, Metered {
     public double getNominalPower() {
         double sum = 0;
         for (Device device : this.deviceList.getDeviceList()) {
-            sum += device.getNominalPower();
+            Powered poweredDevice = (Powered) device;
+            sum += poweredDevice.getNominalPower();
         }
         return sum;
     }
@@ -138,10 +139,10 @@ public class Room implements Powered, Metered {
     public double getEnergyConsumption(Calendar startHour, Calendar endHour) {
         double sum = 0;
         for (Device device : this.deviceList.getMeteredDevices()) {
-            sum += device.getEnergyConsumption(startHour,endHour);
-
+            Metered meteredDevice = (Metered) device;
+            sum += meteredDevice.getEnergyConsumption(startHour, endHour);
         }
-        return Utils.round(sum,2);
+        return Utils.round(sum, 2);
     }
 
     /**
@@ -183,8 +184,8 @@ public class Room implements Powered, Metered {
         return this.deviceList;
     }
 
-    public int getSizeDeviceListInRoom(){
-        return this.deviceList.size ();
+    public int getSizeDeviceListInRoom() {
+        return this.deviceList.size();
     }
 
     /**

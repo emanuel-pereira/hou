@@ -12,12 +12,6 @@ public interface Device {
 
     String getDeviceType();
 
-    double getNominalPower();
-/*
-
-    double getEnergyConsumption(Calendar startDate, Calendar endDate);
-*/
-
     boolean isActive();
 
     boolean isMetered();
