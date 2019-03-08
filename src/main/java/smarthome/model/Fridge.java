@@ -3,9 +3,7 @@ package smarthome.model;
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class Fridge implements Device, Metered {
 
@@ -31,9 +29,9 @@ public class Fridge implements Device, Metered {
         this.deviceSpecs = deviceSpecs;
         this.nominalPower = nominalPower;
 
-        active = true;
-        isMetered = true;
-        activityLog = new ReadingList();
+        this.active = true;
+        this.isMetered = true;
+        this.activityLog = new ReadingList();
 
     }
 
@@ -89,7 +87,7 @@ public class Fridge implements Device, Metered {
 
     @Override
     public boolean isActive() {
-        return active;
+        return this.active;
     }
 
     public boolean isMetered() {

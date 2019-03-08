@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.model.validations.NameValidations;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +46,8 @@ public class DeviceList {
 
         // Return a new instance of the class implementing the DeviceType interface using reflection
         DeviceType dt = (DeviceType) Class.forName(deviceTypeNameAndPath).newInstance(); // e.g. FridgeType
+
+        //TODO NameValidations
 
         return dt.createDevice(deviceName, nominalPower); // The createDevice method returns a new Device based on the user given name. Done!
     }
@@ -118,7 +122,7 @@ public class DeviceList {
         List<Device> meteredDeviceList = new ArrayList<>();
 
         for (Device device : devicesList) {
-            if (device.isMetered()) {
+            if ( device instanceof Metered) {
                 meteredDeviceList.add(device);
             }
         }

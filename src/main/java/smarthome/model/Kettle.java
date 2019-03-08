@@ -3,9 +3,7 @@ package smarthome.model;
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class Kettle implements Device, Metered {
 

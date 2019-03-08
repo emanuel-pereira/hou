@@ -3,7 +3,6 @@ package smarthome.controller;
 import smarthome.model.*;
 import smarthome.model.validations.NameValidations;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EditDevicesCTRL {
@@ -104,7 +103,7 @@ public class EditDevicesCTRL {
 
     }
 
-    public void setAttribute(Device device, String attribute, Double newValue) throws IllegalAccessException {
+    public void setAttribute(Device device, String attribute, Double newValue) {
         DeviceSpecs ds = device.getDeviceSpecs();
         ds.setAttributeValue(attribute, newValue);
     }
@@ -129,9 +128,17 @@ public class EditDevicesCTRL {
         return mHouse.getListOfDeviceTypes().get(deviceTypeIndex - 1);
     }
 
-    public Device createDevice(Room room, String deviceName, String deviceType, double nominalPower) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-        Device device = room.getDeviceList().newDevice(deviceName, deviceType, nominalPower);
-        room.getDeviceList().addDevice(device);
+    public Device createDevice(Room room, String deviceType, String deviceName, double nominalPower) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        DeviceList deviceList = room.getDeviceList();
+        Device device = deviceList.newDevice(deviceName, deviceType, nominalPower);
+        deviceList.addDevice(device);
+        return device;
+    }
+
+    public Device createDevice(Room selectedRoom, String deviceType) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        DeviceList deviceList = selectedRoom.getDeviceList();
+        Device device = deviceList.newDevice("", deviceType, 0);
+        deviceList.addDevice(device);
         return device;
     }
 
@@ -145,12 +152,5 @@ public class EditDevicesCTRL {
 
     public int getRoomListSize() {
         return mRoomList.getRoomListSize();
-    }
-
-    public Device createDevice(Room selectedRoom, String deviceType) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        DeviceList deviceList = selectedRoom.getDeviceList();
-        Device device = deviceList.newDevice("", deviceType, 0);
-        deviceList.addDevice(device);
-        return device;
     }
 }
