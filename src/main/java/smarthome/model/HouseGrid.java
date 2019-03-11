@@ -5,7 +5,7 @@ import smarthome.model.validations.Utils;
 import java.util.Calendar;
 import java.util.Objects;
 
-public class HouseGrid implements Metered, Powered{
+public class HouseGrid implements Metered{
     private double mContractedMaximumPower = Double.NaN;
     private String mDesignation;
     private PowerSourceList mPSListInHG;
@@ -77,11 +77,11 @@ public class HouseGrid implements Metered, Powered{
     public double getNominalPower() {
         double sum = 0;
         for (Room room : getRoomListInAGrid ().getRoomList ()) {
-            Powered poweredRoom = (Powered) room;
-            sum += poweredRoom.getNominalPower ();
+            sum += room.getNominalPower ();
         }
         return sum;
     }
+
 
     public String showRoomsInHouseGrid() {
         RoomList listOfRoomsInHG = getRoomListInAGrid();

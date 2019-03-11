@@ -5,7 +5,7 @@ import smarthome.model.validations.Utils;
 
 import java.util.Calendar;
 
-public class Kettle implements Device, Metered, Powered {
+public class Kettle implements Device, Metered {
 
     private NameValidations nameValidation = new NameValidations();
 
