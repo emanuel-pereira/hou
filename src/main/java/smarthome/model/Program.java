@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import java.util.Objects;
+
 public class Program {
     private String programName;
     private String attributeName;
@@ -40,5 +42,18 @@ public class Program {
 
     public void setAttributeValue(double attributeValue) {
         this.attributeValue = attributeValue;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Program)) return false;
+        Program program = (Program) o;
+        return getProgramName ().equals (program.getProgramName ());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash (getProgramName ());
     }
 }

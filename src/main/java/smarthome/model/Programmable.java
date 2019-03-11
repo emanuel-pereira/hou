@@ -8,7 +8,7 @@ public interface Programmable {
      * Every programmable device needs to create a program
      * @param name Name of the program
      * @param value Value that represents the nominal power or energy consumption of the program
-     * @return
+     * @return The created program
      */
     Program createProgram (String name, double value);
 
