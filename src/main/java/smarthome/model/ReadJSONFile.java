@@ -12,7 +12,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 public class ReadJSONFile {
     //Created an instance of JSONParser to read through JSON file
@@ -20,7 +19,7 @@ public class ReadJSONFile {
     private double latitude = Double.NaN;
     private double longitude = Double.NaN;
     private double altitude = Double.NaN;
-    private GAList gaList = new GAList();
+    private GAList gaList;
     private String filePath;
 
     /**
@@ -28,13 +27,10 @@ public class ReadJSONFile {
      *
      * @param filePath directory where JSON file is located
      */
-    public ReadJSONFile(String filePath) {
+    public ReadJSONFile(String filePath, GAList gaList) {
 
         this.filePath = filePath;
-    }
-
-    public GAList getGaList() {
-        return gaList;
+        this.gaList= gaList;
     }
 
     private JSONObject readFile() throws IOException, ParseException {

@@ -2,6 +2,8 @@ package smarthome.io.ui;
 
 import smarthome.model.*;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -24,7 +26,6 @@ public final class BootStrap {
     private static String dishwasherCapacity = "Dishwasher Capacity";
     private static String washingMachineCapacity = "Washing Machine Capacity";
     private static House house;
-
     private BootStrap() {
     }
 
@@ -41,11 +42,11 @@ public final class BootStrap {
      * @throws InstantiationException exception
      * @throws ClassNotFoundException exception
      */
-    public static void run(House house, TypeGAList typeGAList, GAList gaList, SensorTypeList sensorTypeList) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
+    public static void run(House house, TypeGAList typeGAList, GAList gaList, SensorTypeList sensorTypeList) throws IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
         BootStrap.house = house;
-        createGeographicalAreas(gaList, typeGAList);
         createSensorsUnitTypes(sensorTypeList);
-        GeographicalArea isep = gaList.get(1);
+        createGeographicalAreas(gaList, typeGAList);
+        GeographicalArea isep = gaList.get(0);
         createHouse(isep);
 
         createHouseGrid();
@@ -64,23 +65,13 @@ public final class BootStrap {
      *
      * @param gaList bootstrap List of Geographical Areas object
      */
-    private static void createGeographicalAreas(GAList gaList, TypeGAList typeGAList) {
+    private static void createGeographicalAreas(GAList gaList, TypeGAList typeGAList) throws ParseException, org.json.simple.parser.ParseException, IOException {
         TypeGA urbanArea = new TypeGA("urban area");
         typeGAList.addTypeGA(urbanArea);
-
-        OccupationArea oc = new OccupationArea(0.261, 0.249);
-        Location loc = new Location(41.178553, -8.608035, 111);
-        GeographicalArea isep = new GeographicalArea("ISEP", "Campus do ISEP", "urban area", oc, loc);
-        gaList.addGA(isep);
         TypeGA city = new TypeGA("city");
         typeGAList.addTypeGA(city);
-        OccupationArea oc1 = new OccupationArea(3.30, 10.09);
-        Location loc1 = new Location(41.164077, -8.620802, 118);
-        GeographicalArea porto = new GeographicalArea("Porto", "City of Porto", "city", oc1, loc1);
-        gaList.addGA(porto);
-
-        //the house creation is called here
-        createHouse(isep);
+        JSONImportUI ui = new JSONImportUI(gaList);
+        ui.loadJSON();
     }
 
     /**
@@ -110,150 +101,6 @@ public final class BootStrap {
         sensorTypeList.addSensorType(sT2);
         SensorType sT3 = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(sT3);
-    }
-
-    /**
-     * This method is responsible for the creation of the Sensors in a specific Geographical
-     * Area passed through reference.
-     *
-     * @param sensorArea Geographical Area where the Sensor will be placed
-     *                   containing all Sensor Unit Types
-     */
-   /* private static void createSensorsInGA(GeographicalArea sensorArea) {
-        //get Geographical area sensor list
-        ReadJSONFile jsonFile = new ReadJSONFile();
-        jsonFile.readSensors();
-        SensorList list = sensorArea.getSensorListInGA().;
-
-        sensorArea.getSensorListInGA()=jsonFile.getAreaSensors();
-
-    }*/
-
-    /**
-     * This method is responsible readings creation for a specific Geographical Area Sensor
-     *
-     * @return The Reading List containg all Reagind entries, paring a value with it's
-     * timestamp (in for of a Gregorian Calendar object)
-     */
-    private static ReadingList addReadingsRainfallGA1() {
-        //set sensor readings for Meteo station ISEP - rainfall1
-        Reading r1 = new Reading(0.5, new GregorianCalendar(2018, 11, 29, 12, 0));
-        Reading r2 = new Reading(1.2, new GregorianCalendar(2018, 11, 30, 12, 0));
-        Reading r3 = new Reading(1.5, new GregorianCalendar(2018, 11, 31, 12, 0));
-        Reading r4 = new Reading(0.3, new GregorianCalendar(2019, 0, 1, 12, 0));
-        Reading r5 = new Reading(0, new GregorianCalendar(2019, 0, 2, 12, 0));
-        Reading r6 = new Reading(0, new GregorianCalendar(2019, 0, 2, 12, 0));
-        Reading r7 = new Reading(0, new GregorianCalendar(2019, 0, 3, 12, 0));
-
-        ReadingList rl = new ReadingList();
-
-        rl.addReading(r1);
-        rl.addReading(r2);
-        rl.addReading(r3);
-        rl.addReading(r4);
-        rl.addReading(r5);
-        rl.addReading(r6);
-        rl.addReading(r7);
-
-        return rl;
-    }
-
-    /**
-     * This method is responsible readings creation for a specific Geographical Area Sensor
-     *
-     * @return The Reading List containg all Reagind entries, paring a value with it's
-     * timestamp (in for of a Gregorian Calendar object)
-     */
-    private static ReadingList addReadingsRainfallGA2() {
-        //set sensor readings for Meteo station ISEP - rainfall2
-        Reading r1 = new Reading(0.5, new GregorianCalendar(2018, 11, 29, 12, 0));
-        Reading r2 = new Reading(1.2, new GregorianCalendar(2018, 11, 30, 12, 0));
-        Reading r3 = new Reading(1.5, new GregorianCalendar(2018, 11, 31, 12, 0));
-        Reading r4 = new Reading(0.3, new GregorianCalendar(2019, 0, 1, 12, 0));
-        Reading r5 = new Reading(0, new GregorianCalendar(2019, 0, 2, 12, 0));
-        Reading r6 = new Reading(0, new GregorianCalendar(2019, 0, 2, 12, 0));
-        Reading r7 = new Reading(0, new GregorianCalendar(2019, 0, 3, 12, 0));
-        Reading r8 = new Reading(2, new GregorianCalendar(2019, 0, 3, 16, 0));
-
-        //set sensor readings for Meteo station ISEP - rainfall 2 (the one with the most recent measure)
-        ReadingList rl2 = new ReadingList();
-
-        rl2.addReading(r1);
-        rl2.addReading(r2);
-        rl2.addReading(r3);
-        rl2.addReading(r4);
-        rl2.addReading(r5);
-        rl2.addReading(r6);
-        rl2.addReading(r7);
-        rl2.addReading(r8);
-
-        return rl2;
-    }
-
-    /**
-     * This method is responsible readings creation for a specific Geographical Area Sensor
-     *
-     * @return The Reading List containg all Reagind entries, paring a value with it's
-     * timestamp (in for of a Gregorian Calendar object)
-     */
-    private static ReadingList addReadingsHumidityGA() {
-        //set sensor readings for Meteo station ISEP - Air Humidity
-        ReadingList rl3 = new ReadingList();
-
-        Reading rHum1 = new Reading(80, new GregorianCalendar(2018, 11, 26, 12, 0));
-        Reading rHum2 = new Reading(81, new GregorianCalendar(2018, 11, 26, 13, 0));
-
-        rl3.addReading(rHum1);
-        rl3.addReading(rHum2);
-
-        return rl3;
-    }
-
-    /**
-     * This method is responsible readings creation for a specific Geographical Area Sensor
-     *
-     * @return The Reading List containg all Reagind entries, paring a value with it's
-     * timestamp (in for of a Gregorian Calendar object)
-     */
-    private static ReadingList addReadingsTemperatureGA() {
-        //set sensor readings for Meteo station ISEP - temperature
-        Reading r1temp = new Reading(8.0, new GregorianCalendar(2018, 11, 30, 2, 0));
-        Reading r2temp = new Reading(6.9, new GregorianCalendar(2018, 11, 30, 8, 0));
-        Reading r3temp = new Reading(16.5, new GregorianCalendar(2018, 11, 30, 14, 0));
-        Reading r4temp = new Reading(11.2, new GregorianCalendar(2018, 11, 30, 20, 0));
-        Reading r5temp = new Reading(7.2, new GregorianCalendar(2018, 11, 31, 2, 0));
-        Reading r6temp = new Reading(5.3, new GregorianCalendar(2018, 11, 31, 8, 0));
-        Reading r7temp = new Reading(15.1, new GregorianCalendar(2018, 11, 31, 14, 0));
-        Reading r8temp = new Reading(9.2, new GregorianCalendar(2018, 11, 31, 20, 0));
-        Reading r9temp = new Reading(6.5, new GregorianCalendar(2019, 1, 1, 2, 0));
-        Reading r10temp = new Reading(4.3, new GregorianCalendar(2019, 1, 1, 8, 0));
-        Reading r11temp = new Reading(14.8, new GregorianCalendar(2019, 1, 1, 14, 0));
-        Reading r12temp = new Reading(8.9, new GregorianCalendar(2019, 1, 1, 20, 0));
-        Reading r13temp = new Reading(6.1, new GregorianCalendar(2019, 1, 2, 2, 0));
-        Reading r14temp = new Reading(3.2, new GregorianCalendar(2019, 1, 2, 8, 0));
-        Reading r15temp = new Reading(14.1, new GregorianCalendar(2019, 1, 2, 14, 0));
-        Reading r16temp = new Reading(8.3, new GregorianCalendar(2019, 1, 2, 20, 0));
-
-        ReadingList rltemp = new ReadingList();
-
-        rltemp.addReading(r1temp);
-        rltemp.addReading(r2temp);
-        rltemp.addReading(r3temp);
-        rltemp.addReading(r4temp);
-        rltemp.addReading(r5temp);
-        rltemp.addReading(r6temp);
-        rltemp.addReading(r7temp);
-        rltemp.addReading(r8temp);
-        rltemp.addReading(r9temp);
-        rltemp.addReading(r10temp);
-        rltemp.addReading(r11temp);
-        rltemp.addReading(r12temp);
-        rltemp.addReading(r13temp);
-        rltemp.addReading(r14temp);
-        rltemp.addReading(r15temp);
-        rltemp.addReading(r16temp);
-
-        return rltemp;
     }
 
     /**
