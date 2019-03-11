@@ -205,17 +205,19 @@ class HouseGridTest {
         try{
             Device fridgeA = deviceList.newDevice("FridgeA", "Fridge", 150);
             Device fridgeB = deviceList.newDevice("FridgeB", "Fridge", 150);
+            Device kettle = deviceList.newDevice("KettleA", "Kettle", 1500);
+            Device lamp = deviceList.newDevice("LampA", "Lamp", 15);
             deviceList.addDevice(fridgeA);
             deviceList.addDevice(fridgeB);
+            deviceList.addDevice(kettle);
+            deviceList.addDevice(lamp);
         }
         catch(Exception e){
             //Do nothing.
         }
-
-
-
-        double expectedResult = 300;
-        double result = houseGrid.getNominalPower();
+        double expectedResult = 1815;
+        Powered poweredHouseGrid = (Powered) houseGrid;
+        double result = poweredHouseGrid.getNominalPower();
 
         assertEquals(expectedResult, result);
     }
@@ -257,6 +259,7 @@ class HouseGridTest {
     @Test
     public void equalsIfGridEqualsSameGrid() {
         HouseGrid grid = new HouseGrid("Main");
+        //TODO this test does not make sense
         boolean result = grid.equals(grid);
 
         assertTrue(result);
