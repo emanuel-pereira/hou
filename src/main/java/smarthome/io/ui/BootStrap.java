@@ -3,7 +3,6 @@ package smarthome.io.ui;
 import smarthome.model.*;
 
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * This entire class is only used in application demonstration and test scenarios
@@ -316,7 +315,7 @@ public final class BootStrap {
         Room b106 = house.getRoomList().get(0);
         DeviceList deviceListB106 = b106.getDeviceList();
 
-        Device lamp = deviceListB106.newDevice("Lamp B107","Lamp",5);
+        Device lamp = deviceListB106.newDevice("Lamp B106","Lamp",5);
         DeviceSpecs specs = lamp.getDeviceSpecs();
         specs.setAttributeValue("Illuminance", 500);
         deviceListB106.addDevice(lamp);
@@ -327,7 +326,7 @@ public final class BootStrap {
         Room b107 = house.getRoomList().get(1);
         DeviceList deviceListB107 = b107.getDeviceList();
 
-        Device lamp = deviceListB107.newDevice("Lamp B106","Lamp",5);
+        Device lamp = deviceListB107.newDevice("Lamp B107","Lamp",5);
         DeviceSpecs specs = lamp.getDeviceSpecs();
         specs.setAttributeValue("Illuminance", 500);
         deviceListB107.addDevice(lamp);
@@ -343,6 +342,7 @@ public final class BootStrap {
             }
             if (hour == 24) {
                 hour = 0;
+
                 day++;
             }
             lamp.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
