@@ -2,25 +2,43 @@ package smarthome.model;
 
 public class Program {
     private String programName;
-    private double energyConsumption;
+    private String attributeName;
+    private double attributeValue;
 
     /**
-     * Constructor requiring to set a program name and respective energy consumption for any programmable device
+     * Program has a name and the respective energy consumption or nominal power name and value
      *
-     * @param name              program name
-     * @param energyConsumption the amount of energy consumed by the program
+     * @param programName    Program name
+     * @param attributeName  Program attribute that can be energy consumption or nominal power
+     * @param attributeValue The correspondent energy consumed or nominal power value
      */
-
-    public Program(String name, double energyConsumption) {
-        programName = name;
-        this.energyConsumption = energyConsumption;
+    public Program(String programName, String attributeName, double attributeValue) {
+        this.programName = programName;
+        this.attributeName = attributeName;
+        this.attributeValue = attributeValue;
     }
 
     public String getProgramName() {
         return programName;
     }
 
-    public double getEnergyConsumption() {
-        return energyConsumption;
+    public void setProgramName(String programName) {
+        this.programName = programName;
+    }
+
+    public String getAttributeName() {
+        return attributeName;
+    }
+
+    public void setAttributeName(String attributeName) {
+        this.attributeName = attributeName;
+    }
+
+    public double getAttributeValue() {
+        return attributeValue;
+    }
+
+    public void setAttributeValue(double attributeValue) {
+        this.attributeValue = attributeValue;
     }
 }
