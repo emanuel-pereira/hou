@@ -373,6 +373,31 @@ public class House {
         }
         return result.toString();
     }
+
+    public List<Metered> getMetered() {
+        List<Metered> meteredList = new ArrayList<>();
+        for (HouseGrid houseGrid : this.mHGListInHouse.getHouseGridList()) {
+            List<Room> roomList= houseGrid.getRoomListInAGrid().getRoomList();
+            List<Device> deviceList= houseGrid.getRoomListInAGrid().getMeteredDevicesLst();
+            meteredList.add(houseGrid);
+            meteredList.addAll(roomList);
+            meteredList.addAll(deviceList);
+        }
+        return  meteredList;
+    }
+
+    public String showMetered() {
+        StringBuilder meteredList = new StringBuilder();
+        int nr= 1;
+        for(Metered metered:this.getMetered()){
+            meteredList.append(nr);
+            meteredList.append(" - ");
+            meteredList.append(metered.getName());
+            meteredList.append("\n");
+            nr++;
+        }
+        return meteredList.toString();
+    }
 }
 
 

@@ -1,20 +1,7 @@
 {
   "geographical_area_list": {
     "geographical_area": [
-      {
-        "id": "Porto",
-        "description": "City of Porto",
-        "type": "city",
-        "width": 10.09,
-        "length": 3.30,
-        "location": {
-          "latitude": 41.164077,
-          "longitude": -8.620802,
-          "altitude": 118
-        }
-      },
-      {
-        "id": "ISEP",
+      { "id": "ISEP",
         "description": "Campus do ISEP",
         "type": "urban area",
         "width": 0.261,
@@ -23,55 +10,75 @@
           "latitude": 41.178553,
           "longitude": -8.608035,
           "altitude": 111
-        }
+        },
+        "area_sensor": [
+          { "sensor": {
+            "id": "RF12345",
+            "name": "Meteo station ISEP - rainfall",
+            "start_date": "2016-11-15",
+            "type": "rainfall",
+            "units": "l/m2"
+          },
+            "location": {
+              "latitude": 41.179230,
+              "longitude": -8.606409,
+              "altitude": 125
+            }
+          },
+          { "sensor": {
+            "id": "TT12346",
+            "name": "Meteo station ISEP - temperature",
+            "start_date": "2016-11-15",
+            "type": "temperature",
+            "units": "C"
+          },
+            "location": {
+              "latitude": 41.179230,
+              "longitude": -8.606409,
+              "altitude": 125
+            }
+          }
+        ]
+      },
+      { "id": "Porto",
+        "description": "City of Porto",
+        "type": "city",
+        "width": 10.09,
+        "length": 3.30,
+        "location": {
+          "latitude": 41.149935,
+          "longitude": -8.610857,
+          "altitude": 118
+        },
+        "area_sensor": [
+          { "sensor": {
+            "id": "RF12334",
+            "name": "Meteo station CMP - rainfall",
+            "start_date": "2017-11-15",
+            "type": "rainfall",
+            "units": "l/m2"
+          },
+            "location": {
+              "latitude": 41.179230,
+              "longitude": -8.606409,
+              "altitude": 139
+            }
+          },
+          { "sensor": {
+            "id": "TT1236A",
+            "name": "Meteo station CMP - temperature",
+            "start_date": "2017-11-16",
+            "type": "temperature",
+            "units": "C"
+          },
+            "location": {
+              "latitude": 41.179230,
+              "longitude": -8.606409,
+              "altitude": 139
+            }
+          }
+        ]
       }
     ]
-  },"sensor": [
-            {
-              "name": "Temperature B109",
-              "start_date": "2018-10-15",
-              "type": "temperature",
-              "readings": [
-              ]
-            },
-            {
-              "name": "Humidity B109",
-              "start_date": "2018-11-22",
-              "type": "humidity",
-              "readings": [
-              ]
-            }
-          ],
-  "area_sensor": [
-    {
-      "sensor": {
-        "name": "Meteo station ISEP - rainfall",
-        "start_date": "2016-11-15",
-        "type": "rainfall",
-        "units": "l/m2",
-        "readings": [
-        ]
-      },
-      "location": {
-        "latitude": 41.179230,
-        "longitude": -8.606409,
-        "altitude": 125
-      }
-    },
-    {
-      "sensor": {
-        "name": "Meteo station ISEP - temperature",
-        "start_date": "2016-11-15",
-        "type": "temperature",
-        "units": "C",
-        "readings": [
-        ]
-      },
-      "location": {
-        "latitude": 41.179230,
-        "longitude": -8.606409,
-        "altitude": 125
-      }
-    }
-  ]
+  }
 }

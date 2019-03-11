@@ -115,10 +115,10 @@ class NewSensorCTRLTest {
         readingsLis.addReading(r2Lis);
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26);
         Location loc = new Location(55, 40, 15);
-        boolean result = ctrl.addNewSensorToGA("LisboaTempSensor", startDate, 0, "C", loc, 0, readingsPt);
+        boolean result = ctrl.addNewSensorToGA("T0001","LisboaTempSensor", startDate, 0, "C", loc, 0, readingsPt);
         assertTrue(result);
 
-        boolean result1 = ctrl.addNewSensorToGA("PortoWindSensor", startDate, 1, "km/h", loc, 1, readingsLis);
+        boolean result1 = ctrl.addNewSensorToGA("W0001","PortoWindSensor", startDate, 1, "km/h", loc, 1, readingsLis);
         assertTrue(result1);
     }
 
@@ -147,7 +147,7 @@ class NewSensorCTRLTest {
         try {
             GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26);
             Location loc = new Location(900, 80, 15);
-            ctrl.addNewSensorToGA("LisboaTempSensor", startDate, 1, "C", loc, 1, readingsPt);
+            ctrl.addNewSensorToGA("T0001","LisboaTempSensor", startDate, 1, "C", loc, 1, readingsPt);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -182,7 +182,7 @@ class NewSensorCTRLTest {
         try {
             GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26);
             Location loc = new Location(90, 190, 1500);
-            ctrl.addNewSensorToGA("LisboaTempSensor", startDate, 1, "C", loc, 1, readingsPt);
+            ctrl.addNewSensorToGA("T0001","LisboaTempSensor", startDate, 1, "C", loc, 1, readingsPt);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -217,7 +217,7 @@ class NewSensorCTRLTest {
         try {
             GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26);
             Location loc = new Location(90, 190, 9000);
-            ctrl.addNewSensorToGA("LisboaTempSensor", startDate, 1, "C", loc, 1, readingsPt);
+            ctrl.addNewSensorToGA("T0001","LisboaTempSensor", startDate, 1, "C", loc, 1, readingsPt);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -241,7 +241,7 @@ class NewSensorCTRLTest {
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
         GregorianCalendar startDate = new GregorianCalendar(2020, 11, 1);
         Location loc = new Location(25, 28, 11);
-        Sensor sensor = new Sensor("Name", startDate, loc, temperature, "Celsius", new ReadingList());
+        Sensor sensor = new Sensor("T0001","Name", startDate, loc, temperature, "Celsius", new ReadingList());
 
         boolean expected = true;
         boolean result = ctrl.latitudeIsValid(sensor.getLocation().getLatitude());
@@ -368,9 +368,9 @@ class NewSensorCTRLTest {
         ReadingList readingList = new ReadingList();
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
         Location loc1 = new Location(25, -15, 5);
-        Sensor s1 = new Sensor("LisboaTempSensor1", startDate, loc1, temperature, "Cº", readingList);
+        Sensor s1 = new Sensor("T0001","LisboaTempSensor1", startDate, loc1, temperature, "Cº", readingList);
         Location loc2 = new Location(27, -14, 6);
-        Sensor s2 = new Sensor("LisboaTempSensor2", startDate, loc2, temperature, "Cº", readingList);
+        Sensor s2 = new Sensor("T0002","LisboaTempSensor2", startDate, loc2, temperature, "Cº", readingList);
         lisboa.getSensorListInGA().addSensor(s1);
         lisboa.getSensorListInGA().addSensor(s2);
         House house = new House();
@@ -409,6 +409,31 @@ class NewSensorCTRLTest {
     }
 
     @Test
+    @DisplayName("Ensure getGASensorName() returns the the sensor's id")
+    void getGASensorId() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        SensorType temperature = sensorTypeList.newSensorType("temperature");
+        sensorTypeList.addSensorType(temperature);
+        GAList gaList = new GAList();
+        OccupationArea occupationArea = new OccupationArea(12, 11);
+        Location location = new Location(25, 12, 23);
+        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", occupationArea, location);
+        gaList.addGA(porto);
+        House house = new House();
+        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        SensorList sensorList = new SensorList();
+        GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
+        Location location2 = new Location(23, -15, 12);
+        ReadingList readingList = new ReadingList();
+        Sensor s1 = sensorList.newSensor("T0001","Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
+        SensorList portoSensorList = porto.getSensorListInGA();
+        portoSensorList.addSensor(s1);
+        String expected = "T0001";
+        String result = ctrl.getGASensorId(0);
+        assertEquals(expected, result);
+    }
+
+    @Test
     @DisplayName("Ensure getGASensorName() returns the the sensor's name")
     void getSensorName() {
         SensorTypeList sensorTypeList = new SensorTypeList();
@@ -425,7 +450,7 @@ class NewSensorCTRLTest {
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
         Location location2 = new Location(23, -15, 12);
         ReadingList readingList = new ReadingList();
-        Sensor s1 = sensorList.newSensor("Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
+        Sensor s1 = sensorList.newSensor("T0001","Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
         SensorList portoSensorList = porto.getSensorListInGA();
         portoSensorList.addSensor(s1);
         String expected = "Temperature sensor 1";
@@ -450,7 +475,7 @@ class NewSensorCTRLTest {
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
         Location location2 = new Location(23, -15, 12);
         ReadingList readingList = new ReadingList();
-        Sensor s1 = sensorList.newSensor("Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
+        Sensor s1 = sensorList.newSensor("T0001","Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
         SensorList portoSensorList = porto.getSensorListInGA();
         portoSensorList.addSensor(s1);
         Calendar result = ctrl.getGASensorSDate(0);
@@ -474,7 +499,7 @@ class NewSensorCTRLTest {
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
         Location location2 = new Location(23, -15, 12);
         ReadingList readingList = new ReadingList();
-        Sensor s1 = sensorList.newSensor("Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
+        Sensor s1 = sensorList.newSensor("T0001","Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
         sensorList.addSensor(s1);
         Calendar result=ctrl.getRoomSensorSDate(0);
         assertEquals(startDate,result);
@@ -497,7 +522,7 @@ class NewSensorCTRLTest {
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
         Location location2 = new Location(23, -15, 12);
         ReadingList readingList = new ReadingList();
-        Sensor s1 = sensorList.newSensor("Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
+        Sensor s1 = sensorList.newSensor("T0001","Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
         SensorList portoSensorList = porto.getSensorListInGA();
         portoSensorList.addSensor(s1);
         String expected = "Celsius";
@@ -523,7 +548,7 @@ class NewSensorCTRLTest {
         Calendar startDate= new GregorianCalendar(2018,11,15);
         Location loc= new Location(12,-15,2);
         ReadingList rL= new ReadingList();
-        Sensor sensor= new Sensor("Temperature Sensor",startDate,loc,temperature,"celsius",rL);
+        Sensor sensor= new Sensor("T0001","Temperature Sensor",startDate,loc,temperature,"celsius",rL);
         SensorList kitSensorLst=kitchen.getSensorListInRoom();
         kitSensorLst.addSensor(sensor);
         String expected="temperature";
@@ -549,7 +574,7 @@ class NewSensorCTRLTest {
         Calendar startDate= new GregorianCalendar(2018,11,15);
         Location loc= new Location(12,-15,2);
         ReadingList rL= new ReadingList();
-        Sensor sensor= new Sensor("Temperature Sensor",startDate,loc,temperature,"celsius",rL);
+        Sensor sensor= new Sensor("T0001","Temperature Sensor",startDate,loc,temperature,"celsius",rL);
         SensorList kitSensorLst=kitchen.getSensorListInRoom();
         kitSensorLst.addSensor(sensor);
         String expected="Kitchen";
@@ -574,7 +599,7 @@ class NewSensorCTRLTest {
         Calendar startDate= new GregorianCalendar(2018,11,15);
         Location loc= new Location(12,-15,2);
         ReadingList rL= new ReadingList();
-        Sensor sensor= new Sensor("Temperature Sensor",startDate,loc,temperature,"celsius",rL);
+        Sensor sensor= new Sensor("T0001","Temperature Sensor",startDate,loc,temperature,"celsius",rL);
         SensorList kitSensorLst=kitchen.getSensorListInRoom();
         kitSensorLst.addSensor(sensor);
         String expected="Temperature Sensor";
@@ -599,7 +624,7 @@ class NewSensorCTRLTest {
         Calendar startDate= new GregorianCalendar(2018,11,15);
         Location loc= new Location(12,-15,2);
         ReadingList rL= new ReadingList();
-        Sensor sensor= new Sensor("Temperature Sensor",startDate,loc,temperature,"celsius",rL);
+        Sensor sensor= new Sensor("T0001","Temperature Sensor",startDate,loc,temperature,"celsius",rL);
         SensorList kitSensorLst=kitchen.getSensorListInRoom();
         kitSensorLst.addSensor(sensor);
         String expected="celsius";
@@ -651,8 +676,8 @@ class NewSensorCTRLTest {
         Calendar startDate= new GregorianCalendar(2018,11,15);
         Location loc= new Location(12,-15,2);
         ReadingList rL= new ReadingList();
-        Sensor tempSensor= new Sensor("Temperature Sensor",startDate,loc,temperature,"celsius",rL);
-        Sensor humiditySensor= new Sensor("Humidity Sensor",startDate,loc,temperature,"%",rL);
+        Sensor tempSensor= new Sensor("T0001","Temperature Sensor",startDate,loc,temperature,"celsius",rL);
+        Sensor humiditySensor= new Sensor("H0001","Humidity Sensor",startDate,loc,temperature,"%",rL);
 
         SensorList lrSensorList=livingRoom.getSensorListInRoom();
         lrSensorList.addSensor(tempSensor);
@@ -682,8 +707,8 @@ class NewSensorCTRLTest {
         Calendar startDate= new GregorianCalendar(2018,11,15);
         Location loc= new Location(12,-15,2);
         ReadingList rL= new ReadingList();
-        Sensor tempSensor= new Sensor("Temperature Sensor",startDate,loc,temperature,"celsius",rL);
-        Sensor humiditySensor= new Sensor("Humidity Sensor",startDate,loc,temperature,"%",rL);
+        Sensor tempSensor= new Sensor("T0001","Temperature Sensor",startDate,loc,temperature,"celsius",rL);
+        Sensor humiditySensor= new Sensor("H0001","Humidity Sensor",startDate,loc,temperature,"%",rL);
 
         SensorList lrSensorList=livingRoom.getSensorListInRoom();
         lrSensorList.addSensor(tempSensor);

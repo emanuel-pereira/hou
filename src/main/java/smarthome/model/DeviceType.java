@@ -13,6 +13,7 @@ public class DeviceType {
         return this.mDeviceTypeV2;
     }
 
+
 }
 
 

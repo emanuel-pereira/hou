@@ -198,7 +198,7 @@ public class RoomListTest {
         roomList.addRoom(r1);
         roomList.addRoom(r2);
         int expected = 2;
-        int result = roomList.getMeteredDevicesInHouse().size();
+        int result = roomList.getMeteredDevicesLst().size();
         assertEquals(expected, result);
 
 

@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GetEnergyConsumptionInPeriodCTRLTest {
 
     @Test
-
+    @DisplayName("Ensure that only metered devices names are shown in a string format")
     void showMeteredDevicesInStr() {
         House house= new House();
         GetEnergyConsumptionInPeriodCTRL ctrl= new GetEnergyConsumptionInPeriodCTRL(house);
@@ -55,48 +55,8 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         assertEquals(expected,result);
     }
 
-    @Test
-    void getMeteredDevicesInHouseSize() {
-        House house= new House();
-        GetEnergyConsumptionInPeriodCTRL ctrl= new GetEnergyConsumptionInPeriodCTRL(house);
-
-        RoomList roomList= house.getRoomList();
-        Room r1= new Room("Kitchen1",0,5,5,3);
-        Room r2= new Room("Kitchen2",0,6,4,3);
-
-        DeviceList r1DevLst= r1.getDeviceList();
-        DeviceList r2DevLst= r2.getDeviceList();
-
-        DeviceSpecs fridge= new Fridge(25,50,25);
-        Device dFridge= new Device("LG Fridge1",fridge,15);
-
-        DeviceSpecs stove= new OtherDevices();
-        Device dStove= new Device("XStove",stove,15);
-
-        DeviceSpecs fridge2= new Fridge(25,50,25);
-        Device dFridge2= new Device("LG Fridge2",fridge2,15);
-
-        DeviceSpecs stove2= new OtherDevices();
-        Device dStove2= new Device("XStove",stove2,15);
-
-        dStove.setIsMetered(false);
-        dStove2.setIsMetered(false);
-
-        r1DevLst.addDevice(dFridge);
-        r1DevLst.addDevice(dStove);
-        r2DevLst.addDevice(dFridge2);
-        r2DevLst.addDevice(dStove2);
-        roomList.addRoom(r1);
-        roomList.addRoom(r2);
-
-        int expected=2;
-        int result= ctrl.getMeteredDevicesInHouseSize();
-
-        assertEquals(expected,result);
-
-    }
-
-    @Test
+  /*  @Test
+    @DisplayName("Ensure that the energy consumption in the selected period returns 130")
     void getEnergyConsumptionInPeriod() {
         House house= new House();
         GetEnergyConsumptionInPeriodCTRL ctrl= new GetEnergyConsumptionInPeriodCTRL(house);
@@ -151,17 +111,17 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         GregorianCalendar endDate = new GregorianCalendar(2018, 11, 5, 1, 00);
 
         double expected = 130;
-        double result = ctrl.getEnergyConsumptionInPeriod(1,startDate, endDate);
+        double result = ctrl.getEnergyConsumptionInPeriod(0,startDate, endDate);
 
         assertEquals(expected,result);
 
         String expected1="LG Fridge1";
         String result1=ctrl.getDeviceName(1);
         assertEquals(expected1,result1);
-    }
+    }*/
 
     @Test
-    @DisplayName("Ensure that the houseGridName ")
+    @DisplayName("Ensure that getHGName() returns the name of the housegrid as a string")
     void getHGName() {
         House house = new House();
         GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
@@ -179,6 +139,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
     }
 
     @Test
+    @DisplayName("Ensure that method shows a list of grids in a single string")
     void showHouseGridListInString() {
         House house = new House();
         GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
@@ -199,6 +160,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
     }
 
     @Test
+    @DisplayName("Ensure method returns ")
     void getHouseGridEnergyConsumptionInPeriod() {
         House house = new House();
         GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
@@ -221,7 +183,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
 
         DeviceSpecs ewhSpecs= new ElectricWaterHeater();
         Device ewh1= new Device("Daikin EWH1",ewhSpecs,2);
-        Device ewh2= new Device("Daikin EWH1",ewhSpecs,2);
+        Device ewh2= new Device("Daikin EWH2",ewhSpecs,2);
 
         kitDeviceList.addDevice(fridge);
         kitDeviceList.addDevice(ewh1);
@@ -253,8 +215,14 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         Calendar endTime= new GregorianCalendar(2018,2,1,15,20);
 
         double expected=80;
-        double result=ctrl.getHouseGridEnergyConsumptionInPeriod(0,startTime,endTime);
+        double result=ctrl.getEnergyConsumptionInPeriod(0,startTime,endTime);
         assertEquals(expected,result);
+
+        int expectedMeteredsSize=6;
+        int resultOfMeteredListSize=ctrl.meteredListSize();
+        assertEquals(expectedMeteredsSize,resultOfMeteredListSize);
+
+
     }
 
     @Test
@@ -276,7 +244,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         assertEquals(expected, result);
     }
 
-    @Test
+   /* @Test
     void showListRoomInString() {
         House house = new House ();
         GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
@@ -289,7 +257,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         String result = ctrl.showRoomListInStr ();
 
         assertEquals (expectedResult, result);
-    }
+    }*/
 
     @Test
     void getRoomListSize() {
@@ -306,10 +274,10 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         assertEquals (expectedResult, result);
     }
 
-    /**
+   /* *//**
      * Get the total energy consumption of a room with three devices, two of them area metered from a a list off
      * two rooms and return the correct sum
-     */
+     *//*
     @Test
     void getRoomEnergyConsumptionInPeriod() {
         House house = new House ();
@@ -383,12 +351,12 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         double result = ctrl.getRoomEnergyConsumptionInPeriod (0, startDate, endDate);
 
         assertEquals (expected, result);
-    }
+    }*/
 
 
-    /**
+   /* *//**
      * Get the total energy consumption of a room with a non metered device from a list of two rooms and return zero
-     */
+     *//*
     @Test
     void getRoomEnergyConsumptionInPeriodIfZero() {
         House house = new House ();
@@ -445,7 +413,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         double result = ctrl.getRoomEnergyConsumptionInPeriod (1, startDate, endDate);
 
         assertEquals (expected, result);
-    }
+    }*/
 
     @Test
     @DisplayName("Ensure that the room name is shown")
@@ -462,4 +430,76 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    void getMeteredName() { House house = new House();
+        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
+        HouseGridList houseGridList=house.getHGListInHouse();
+        HouseGrid grid= new HouseGrid("MainGrid");
+        houseGridList.addHouseGrid(grid);
+
+
+        RoomList roomList=grid.getRoomListInAGrid();
+        Room kitchen= new Room("Kitchen",0,8,8,3);
+        Room garage= new Room("Living Room",0,5,4,3);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(garage);
+
+        DeviceList kitDeviceList= kitchen.getDeviceList();
+        DeviceList grDeviceList= garage.getDeviceList();
+
+        DeviceSpecs fridgeSpecs= new Fridge();
+        Device fridge= new Device("LG Fridge",fridgeSpecs,2);
+
+        DeviceSpecs ewhSpecs= new ElectricWaterHeater();
+        Device ewh1= new Device("Daikin EWH1",ewhSpecs,2);
+        Device ewh2= new Device("Daikin EWH2",ewhSpecs,2);
+
+        kitDeviceList.addDevice(fridge);
+        kitDeviceList.addDevice(ewh1);
+        grDeviceList.addDevice(ewh2);
+
+        String expected="Living Room";
+        String result=ctrl.getMeteredName(2);
+        assertEquals(expected,result);}
+
+
+
+    @Test
+    void showMetered() {
+        House house = new House();
+        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
+        HouseGridList houseGridList=house.getHGListInHouse();
+        HouseGrid grid= new HouseGrid("MainGrid");
+        houseGridList.addHouseGrid(grid);
+
+
+        RoomList roomList=grid.getRoomListInAGrid();
+        Room kitchen= new Room("Kitchen",0,8,8,3);
+        Room garage= new Room("Living Room",0,5,4,3);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(garage);
+
+        DeviceList kitDeviceList= kitchen.getDeviceList();
+        DeviceList grDeviceList= garage.getDeviceList();
+
+        DeviceSpecs fridgeSpecs= new Fridge();
+        Device fridge= new Device("LG Fridge",fridgeSpecs,2);
+
+        DeviceSpecs ewhSpecs= new ElectricWaterHeater();
+        Device ewh1= new Device("Daikin EWH1",ewhSpecs,2);
+        Device ewh2= new Device("Daikin EWH2",ewhSpecs,2);
+
+        kitDeviceList.addDevice(fridge);
+        kitDeviceList.addDevice(ewh1);
+        grDeviceList.addDevice(ewh2);
+
+        String expected="1 - MainGrid\n" +
+                "2 - Kitchen\n" +
+                "3 - Living Room\n" +
+                "4 - LG Fridge\n" +
+                "5 - Daikin EWH1\n" +
+                "6 - Daikin EWH2\n";
+        String result=ctrl.showMetered();
+        assertEquals(expected,result);
+    }
 }

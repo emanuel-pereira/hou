@@ -4,6 +4,8 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class HouseGridListTest {
@@ -46,5 +48,6 @@ class HouseGridListTest {
         HouseGrid result = hgList.get(1);
         assertEquals(expectedResult,result);
     }
+
 
 }

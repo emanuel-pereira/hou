@@ -46,7 +46,7 @@ public class GeographicalArea {
      *
      * @return return this geographical Area Type designation
      */
-    public String getGeographicalAreaType() {
+    public String getType() {
         return this.typeOfGa.toString();
     }
 

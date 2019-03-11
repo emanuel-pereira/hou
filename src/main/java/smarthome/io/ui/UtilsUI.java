@@ -623,5 +623,4 @@ public final class UtilsUI {
         String yesOrNo = requestText(errorMessage,dynamicRegEx);
         return yesOrNo.contains("y") || yesOrNo.contains("Y");
     }
-
 }

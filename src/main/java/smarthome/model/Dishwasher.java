@@ -48,27 +48,27 @@ public class Dishwasher implements DeviceSpecs {
         }
         return value;}
 
-        public void setAttributeValue (String attribute, String newValue){
-            switch (attribute) {
-                case "Dishwasher Capacity":
-                    setCapacity(parseInt(newValue));
-                    break;
-            }
-        }
-
-        public String showDeviceAttributeNamesAndValues () {
-            StringBuilder result = new StringBuilder();
-            int number = 3;
-            for (String s : getAttributesNames()) {
-                result.append(number++);
-                result.append(" - ");
-                result.append(s.concat(" : " + getAttributesValues(s)));
-                result.append("\n");
-            }
-            return result.toString();
-        }
-        @Override
-        public double getEnergyConsumption () {
-            return 0;
+    public void setAttributeValue (String attribute, String newValue){
+        switch (attribute) {
+            case "Dishwasher Capacity":
+                setCapacity(parseInt(newValue));
+                break;
         }
     }
+
+    public String showDeviceAttributeNamesAndValues () {
+        StringBuilder result = new StringBuilder();
+        int number = 3;
+        for (String s : getAttributesNames()) {
+            result.append(number++);
+            result.append(" - ");
+            result.append(s.concat(" : " + getAttributesValues(s)));
+            result.append("\n");
+        }
+        return result.toString();
+    }
+    @Override
+    public double getEnergyConsumption () {
+        return 0;
+    }
+}

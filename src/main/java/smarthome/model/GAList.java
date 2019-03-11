@@ -73,7 +73,7 @@ public class GAList {
     public List<GeographicalArea> gAFromThisType(String inputTypeGA) {
         List<GeographicalArea> gAFromTypeList = new ArrayList<>();
         for (GeographicalArea ga : mGAList) {
-            if (ga.getGeographicalAreaType().equals(inputTypeGA)) {
+            if (ga.getType().equals(inputTypeGA)) {
                 gAFromTypeList.add(ga);
             }
         }

@@ -9,9 +9,6 @@ public class Reading {
     private double value;
     private Calendar dateAndTime;
 
-    public Reading() {
-
-    }
 
     /**
      * Reading class Constructor

@@ -50,7 +50,7 @@ final class PowerUserUI {
                     break;
                 case 6:
                     GetEnergyConsumptionInPeriodUI uiEC = new GetEnergyConsumptionInPeriodUI(house);
-                    uiEC.selectOption();
+                    uiEC.selectMetered();
                     break;
                 case 7:
                     System.out.println("US730 EnergyConsumptionDataSeries is under maintenance, it will be available shortly");

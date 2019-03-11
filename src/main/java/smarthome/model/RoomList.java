@@ -146,7 +146,7 @@ public class RoomList {
     }
 
 
-    public List<Device>getMeteredDevicesInHouse(){
+    public List<Device> getMeteredDevicesLst(){
         List<Device> meteredDevListInHouse=new ArrayList<>();
         for(Room room:this.roomLst){
             List<Device> meteredDevicesInRoom=room.getDeviceList().getMeteredDevices();
@@ -155,13 +155,8 @@ public class RoomList {
         return meteredDevListInHouse;
     }
 
-    public int getMeteredDevicesInHouseSize(){
-        List<Device> meteredDeviceList = getMeteredDevicesInHouse();
-        return meteredDeviceList.size();
-    }
-
     public String showMeteredDevicesInStr() {
-        List<Device> meteredDeviceList = getMeteredDevicesInHouse();
+        List<Device> meteredDeviceList = getMeteredDevicesLst();
         StringBuilder result = new StringBuilder ();
         String element = " - ";
         int number = 1;
