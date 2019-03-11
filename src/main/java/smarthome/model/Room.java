@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-public class Room implements Powered, Metered {
+public class Room implements Metered {
 
     private String name;
     private Integer floor;
@@ -117,8 +117,7 @@ public class Room implements Powered, Metered {
     public double getNominalPower() {
         double sum = 0;
         for (Device device : this.deviceList.getDeviceList()) {
-            Powered poweredDevice = (Powered) device;
-            sum += poweredDevice.getNominalPower();
+            sum += device.getNominalPower();
         }
         return sum;
     }
