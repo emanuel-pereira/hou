@@ -1,20 +1,17 @@
 package smarthome.model;
 
-import java.util.Calendar;
-
 public interface Device {
 
 
     /* ---- Getters ---- */
     String getDeviceName();
 
+    //TODO Does it make sense to ask for the entire DeviceSpecs from a Device point of view?
     DeviceSpecs getDeviceSpecs();
 
     String getDeviceType();
 
     boolean isActive();
-
-    boolean isMetered();
 
     ReadingList getActivityLog();
 
@@ -22,8 +19,6 @@ public interface Device {
     void setDeviceName(String name);
 
     void setNominalPower(double nominalPower);
-
-    void setIsMetered(boolean isMetered);
 
     boolean deactivateDevice();
 

@@ -91,14 +91,6 @@ public class Room implements Powered, Metered {
         this.area = area;
     }
 
-    /*public ReadingList getDataSeriesInTimeInterval(Calendar startDate, Calendar endDate) {
-        ReadingList roomDataSeries= new ReadingList();
-        for (Device device : mDeviceList.getDeviceList()) {
-            roomDataSeries = device.getDataSeriesInTimeInterval(startDate,endDate);
-            //if(roomDataSeries.
-        }
-    }*/
-
     /**
      * Method to get the height
      *

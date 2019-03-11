@@ -3,7 +3,6 @@ package smarthome.io.ui;
 import smarthome.controller.GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL;
 import smarthome.model.*;
 
-import java.text.DecimalFormat;
 import java.util.GregorianCalendar;
 import java.util.List;
 

@@ -6,7 +6,6 @@ import java.util.List;
 public class HouseGridList {
 
     private List<HouseGrid> mHGList;
-    private RoomList mRoomList;
 
     public HouseGridList() {
         mHGList = new ArrayList<> ();

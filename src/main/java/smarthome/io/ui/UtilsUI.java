@@ -611,6 +611,7 @@ public final class UtilsUI {
         print(continueQuestion);
 
         String yesOrNo = requestText(errorMessage,dynamicRegEx);
+        //TODO if statment can be simplified
         if (yesOrNo.contains("n") || yesOrNo.contains("N")) {
             return false;
         } else {

@@ -15,7 +15,7 @@ public class GetEnergyConsumptionOfWaterHeatingUI {
         mCtrl = new GetEnergyConsumptionOfWaterHeatingCTRL(house);
     }
 
-    public void run() throws IllegalAccessException{
+    public void run() {
 
         for (Device device : mCtrl.getDevicesInAllRoomsByType("ElectricWaterHeater")) {
             String coldWaterTemperature = "coldWaterTemperature";

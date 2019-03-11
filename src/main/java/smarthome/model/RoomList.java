@@ -129,7 +129,7 @@ public class RoomList {
         for (Room room : this.roomLst) {
             deviceList = room.getDeviceList().getDeviceList();
             for (Device device : deviceList)
-                if (device.getDeviceSpecs().getDeviceType().equals(deviceType)) {
+                if (device.getDeviceType().equals(deviceType)) {
                     deviceListByType.add(device);
                 }
         }

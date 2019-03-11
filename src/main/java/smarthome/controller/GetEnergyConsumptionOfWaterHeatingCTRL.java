@@ -2,7 +2,6 @@ package smarthome.controller;
 
 import smarthome.model.*;
 
-import java.util.Calendar;
 import java.util.List;
 
 import static java.lang.Double.parseDouble;
