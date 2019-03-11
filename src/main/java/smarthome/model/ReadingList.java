@@ -77,7 +77,9 @@ public class ReadingList {
         for (Reading reading : mReadingList) {
             Calendar readingDate = reading.getDateAndTime();
 
-            if (readingDate.after(startDate) && readingDate.before(endDate) || readingDate.equals(endDate)) {
+            if (readingDate.after(startDate) && readingDate.before(endDate)
+                    || readingDate.equals(startDate)
+                    || readingDate.equals(endDate)) {
                 totalValue += reading.returnValueOfReading();
             }
         }
@@ -101,6 +103,7 @@ public class ReadingList {
 
     /**
      * Method to get a list of readings that have a date that is in a given time period
+     *
      * @param startDate
      * @param endDate
      * @return list of the readings with dates in a time interval
