@@ -216,8 +216,7 @@ class HouseGridTest {
             //Do nothing.
         }
         double expectedResult = 1815;
-        Powered poweredHouseGrid = (Powered) houseGrid;
-        double result = poweredHouseGrid.getNominalPower();
+        double result = houseGrid.getNominalPower();
 
         assertEquals(expectedResult, result);
     }
