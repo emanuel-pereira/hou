@@ -58,12 +58,6 @@ public class DeviceList {
         return devicesList.get(index);
     }
 
-    /**
-     * @return the device in the last index position of the device list
-     */
-    Device getLastElement() {
-        return devicesList.get(devicesList.size() - 1);
-    }
 
     public String showDeviceListInString() {
         List<Device> list = getDeviceList();
