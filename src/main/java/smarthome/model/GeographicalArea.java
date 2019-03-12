@@ -1,5 +1,10 @@
 package smarthome.model;
 
+import smarthome.dto.GeographicalAreaDTO;
+import smarthome.dto.SensorDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class GeographicalArea {
@@ -137,6 +142,15 @@ public class GeographicalArea {
 
     public OccupationArea getOccupation() {
         return occupation;
+    }
+
+    public GeographicalAreaDTO toDTO() {
+        List<SensorDTO> sensorListDTO= new ArrayList<>();
+        for(Sensor sensor:this.sensorListInGa.getSensorList()){
+            SensorDTO sensorDTO=sensor.toDTO();
+            sensorListDTO.add(sensorDTO);
+        }
+        return new GeographicalAreaDTO(this.identification, this.designation, sensorListDTO);
     }
 }
 

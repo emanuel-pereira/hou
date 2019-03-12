@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import smarthome.dto.SensorDTO;
 import smarthome.model.validations.Utils;
 
 import java.util.Calendar;
@@ -180,5 +181,9 @@ public class Sensor {
 
     public String getUnit() {
         return unit;
+    }
+
+    public SensorDTO toDTO() {
+        return new SensorDTO(this.id, this.designation);
     }
 }

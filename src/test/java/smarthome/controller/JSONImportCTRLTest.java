@@ -2,11 +2,13 @@ package smarthome.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.dto.GeographicalAreaDTO;
 import smarthome.model.GAList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,5 +48,21 @@ class JSONImportCTRLTest {
         int expected = 0;
         int result = gaList.size();
         assertEquals(expected, result);
+    }
+
+    @Test
+    void getGAListDTO() throws ParseException, org.json.simple.parser.ParseException, IOException {
+        GAList gaList = new GAList();
+        JSONImportCTRL ctrl = new JSONImportCTRL(gaList);
+        String filepath = "resources/JsonFile.json";
+        try {
+            ctrl.loadJSON(filepath);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found in the specified file path: " + filepath);
+        }
+        ctrl.getGAListDTO();
+        int expected=2;
+        int result=ctrl.getGAListDTO().size();
+        assertEquals(expected,result);
     }
 }
