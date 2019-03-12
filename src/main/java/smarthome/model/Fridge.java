@@ -3,9 +3,7 @@ package smarthome.model;
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class Fridge implements Device, Metered {
 
@@ -16,7 +14,6 @@ public class Fridge implements Device, Metered {
     private String deviceType = "Fridge";
     private double nominalPower;
     private boolean active;
-    private boolean isMetered;
     private ReadingList activityLog;
 
 
@@ -31,35 +28,12 @@ public class Fridge implements Device, Metered {
         this.deviceSpecs = deviceSpecs;
         this.nominalPower = nominalPower;
 
-        active = true;
-        isMetered = true;
-        activityLog = new ReadingList();
+        this.active = true;
+        this.activityLog = new ReadingList();
 
     }
-
-    /**
-     * Method to set name as the one inputted by the user if it complies with alphanumericName method criteria
-     *
-     * @param name String inputted by the user to name the device
-     */
-    public void setDeviceName(String name) {
-        if (nameValidation.alphanumericName(name))
-            this.name = name;
-    }
-
-    /**
-     * Method to set nominal power as the one inputted by the user if it is a positive value method criteria
-     *
-     * @param nominalPower double inputted as nominal power
-     */
-    public void setNominalPower(double nominalPower) {
-        if (Utils.valueIsPositive(nominalPower))
-            this.nominalPower = nominalPower;
-    }
-
 
     /* ----- Getters ----- */
-
     /**
      * @return the device name
      */
@@ -67,7 +41,6 @@ public class Fridge implements Device, Metered {
     public String getDeviceName() {
         return this.name;
     }
-
     /**
      * @return the device specifications
      */
@@ -89,11 +62,7 @@ public class Fridge implements Device, Metered {
 
     @Override
     public boolean isActive() {
-        return active;
-    }
-
-    public boolean isMetered() {
-        return isMetered;
+        return this.active;
     }
 
     /**
@@ -110,18 +79,40 @@ public class Fridge implements Device, Metered {
         Configuration c = new Configuration();
 
         double energyConsumption = 0;
-        if (c.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
+        if (c.getDevicesMeteringPeriod() != -1 && this instanceof Metered) {
             energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
         }
         return Utils.round(energyConsumption, 2);
     }
 
-    public void setAttributeValue(String attribute, Double newValue) {
-        this.getDeviceSpecs().setAttributeValue(attribute, newValue);
-    }
+
 
 
     /* ----- Setters ----- */
+
+    /**
+     * Method to set name as the one inputted by the user if it complies with alphanumericName method criteria
+     *
+     * @param name String inputted by the user to name the device
+     */
+    public void setDeviceName(String name) {
+        if (nameValidation.alphanumericName(name))
+            this.name = name;
+    }
+
+    /**
+     * Method to set nominal power as the one inputted by the user if it is a positive value method criteria
+     *
+     * @param nominalPower double inputted as nominal power
+     */
+    public void setNominalPower(double nominalPower) {
+        if (Utils.valueIsPositive(nominalPower))
+            this.nominalPower = nominalPower;
+    }
+
+    public void setAttributeValue(String attribute, Double newValue) {
+        this.getDeviceSpecs().setAttributeValue(attribute, newValue);
+    }
 
     /**
      * set Device status to false
@@ -132,12 +123,4 @@ public class Fridge implements Device, Metered {
         this.active = false;
         return true;
     }
-    //put this method as private after reviewing create device US
-
-    public void setIsMetered(boolean isMetered) {
-        if (!isMetered)
-            activityLog = null;
-        this.isMetered = isMetered;
-    }
-
 }

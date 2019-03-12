@@ -54,9 +54,6 @@ public class LampSpecs implements DeviceSpecs {
             attributeNamesList.add(this.attributeNames[i]);
         }
 
-        attributeValuesMap.clear();
-        attributeUnitsMap.clear();
-
         for (int j = 0; j < items; j++) {
 
 
@@ -71,24 +68,16 @@ public class LampSpecs implements DeviceSpecs {
         return this.deviceType;
     }
 
-    public List<String> getAttributesNames() {
-        return this.attributeNamesList;
-    }
-
-    public void setAttributeUnit(String attribute, String unit) {
-        if (attributeValuesMap.containsKey(attribute)) {
-            attributeUnitsMap.put(attribute, unit);
-        }
-    }
-
-    public void setAttributeValue(String attribute, double newValue) {
-        if (attributeValuesMap.containsKey(attribute)) {
-            attributeValuesMap.replace(attribute, newValue);
-        }
-    }
-
     public Double getAttributeValue(String attribute) {
         return this.attributeValuesMap.get(attribute);
+    }
+
+    public String getAttributeUnit(String attribute) {
+        return this.attributeUnitsMap.get(attribute);
+    }
+
+    public List<String> getAttributesNames() {
+        return this.attributeNamesList;
     }
 
     @Override
@@ -114,7 +103,15 @@ public class LampSpecs implements DeviceSpecs {
         return unitsList;
     }
 
-    public String getAttributeUnit(String attribute) {
-        return this.attributeUnitsMap.get(attribute);
+    public void setAttributeUnit(String attribute, String unit) {
+        if (attributeValuesMap.containsKey(attribute)) {
+            attributeUnitsMap.put(attribute, unit);
+        }
+    }
+
+    public void setAttributeValue(String attribute, double newValue) {
+        if (attributeValuesMap.containsKey(attribute)) {
+            attributeValuesMap.replace(attribute, newValue);
+        }
     }
 }

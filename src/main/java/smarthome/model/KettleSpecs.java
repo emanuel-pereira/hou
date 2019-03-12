@@ -35,37 +35,38 @@ public class KettleSpecs implements DeviceSpecs {
     /* ------- Public fields ------- */
 
     /* ------ Constructors ------- */
-
+    
     public KettleSpecs(String deviceType) {
         this.deviceType = deviceType;
         initializeClass();
     }
 
     /**
-     * Private initialization method of the constructor(s). Copies the string arrays containing the attributes names and units
-     * to the internal Map representation of them. This is a design choice, as Maps are more easily managed than
-     * arrays of strings and because this allows one to create an instance of the class using the device type only and
-     * deferring the setting of the attributes to later. The isInitialized field is used to quickly assert if the
-     * instance is valid or not.
-     */
-    private void initializeClass() {
+ * Private initialization method of the constructor(s). Copies the string arrays containing the attributes names and units
+ * to the internal Map representation of them. This is a design choice, as Maps are more easily managed than
+ * arrays of strings and because this allows one to create an instance of the class using the device type only and
+ * deferring the setting of the attributes to later. The isInitialized field is used to quickly assert if the
+ * instance is valid or not.
+ */
+private void initializeClass() {
 
-        int items = this.attributeNames.length;
+    int items = this.attributeNames.length;
 
-        for (int i = 0; i < items; i++) {
-            attributeNamesList.add(this.attributeNames[i]);
-        }
-
-        attributeValuesMap.clear();
-        attributeUnitsMap.clear();
-
-        for (int j = 0; j < items; j++) {
-
-
-            attributeUnitsMap.put(this.attributeNames[j], this.attributeUnits[j]);
-            attributeValuesMap.put(this.attributeNames[j], NaN); // values are not part of the constructor
-        }
+    for (int i = 0; i < items; i++) {
+        attributeNamesList.add(this.attributeNames[i]);
     }
+
+    //TODO is this hashmap clearance necessary? If so how can we test it?
+        /*attributeValuesMap.clear();
+        attributeUnitsMap.clear();*/
+
+    for (int j = 0; j < items; j++) {
+
+
+        attributeUnitsMap.put(this.attributeNames[j], this.attributeUnits[j]);
+        attributeValuesMap.put(this.attributeNames[j], NaN); // values are not part of the constructor
+    }
+}
 
     /* ------ Interface methods ------- */
 

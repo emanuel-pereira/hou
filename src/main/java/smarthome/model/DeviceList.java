@@ -43,6 +43,8 @@ public class DeviceList {
         // Return a new instance of the class implementing the DeviceType interface using reflection
         DeviceType dt = (DeviceType) Class.forName(deviceTypeNameAndPath).newInstance(); // e.g. FridgeType
 
+        //TODO verify and add NameValidations
+
         return dt.createDevice(deviceName, nominalPower); // The createDevice method returns a new Device based on the user given name. Done!
     }
 
@@ -54,12 +56,6 @@ public class DeviceList {
         return devicesList.get(index);
     }
 
-    /**
-     * @return the device in the last index position of the device list
-     */
-    Device getLastElement() {
-        return devicesList.get(devicesList.size() - 1);
-    }
 
     public String showDeviceListInString() {
         List<Device> list = getDeviceList();
@@ -116,7 +112,7 @@ public class DeviceList {
         List<Device> meteredDeviceList = new ArrayList<>();
 
         for (Device device : devicesList) {
-            if (device.isMetered()) {
+            if ( device instanceof Metered) {
                 meteredDeviceList.add(device);
             }
         }

@@ -3,9 +3,7 @@ package smarthome.model;
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class Lamp implements Device, Metered {
 
@@ -16,7 +14,6 @@ public class Lamp implements Device, Metered {
     private String deviceType = "Lamp";
     private double nominalPower;
     private boolean active;
-    private boolean isMetered;
     private ReadingList activityLog;
 
 
@@ -32,9 +29,67 @@ public class Lamp implements Device, Metered {
         this.nominalPower = nominalPower;
 
         active = true;
-        isMetered = true;
         activityLog = new ReadingList();
     }
+
+
+    /* ----- Getters ----- */
+
+    /**
+     * @return the device name
+     */
+    @Override
+    public String getDeviceName() {
+        return this.name;
+    }
+
+    /**
+     * @return the device nominal Power
+     */
+    public double getNominalPower() {
+        return nominalPower;
+    }
+
+    public String getDeviceType() {
+        return this.deviceType;
+    }
+
+    /**
+     * @return the device specifications
+     */
+    public DeviceSpecs getDeviceSpecs() {
+        return this.deviceSpecs;
+    }
+
+    @Override
+    public boolean isActive() {
+        return this.active;
+    }
+
+    /**
+     * return device activity log
+     *
+     * @return device activity log registry
+     */
+    public ReadingList getActivityLog() {
+        return activityLog;
+    }
+
+
+    @Override
+    public double getEnergyConsumption(Calendar startDate, Calendar endDate) {
+        Configuration c = new Configuration();
+
+        double energyConsumption = 0;
+        if (c.getDevicesMeteringPeriod() != -1 && this instanceof Metered) {
+            energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
+        }
+        return Utils.round(energyConsumption, 2);
+    }
+
+
+
+    /* ----- Setters ----- */
 
     /**
      * Method to set name as the one inputted by the user if it complies with alphanumericName method criteria
@@ -56,88 +111,15 @@ public class Lamp implements Device, Metered {
             this.nominalPower = nominalPower;
     }
 
-
-    /* ----- Getters ----- */
-
-    /**
-     * @return the device name
-     */
-    @Override
-    public String getDeviceName() {
-        return this.name;
-    }
-
-    /**
-     * @return the device specifications
-     */
-    public DeviceSpecs getDeviceSpecs() {
-        return this.deviceSpecs;
-    }
-
-    public String getDeviceType() {
-        return this.deviceType;
-    }
-
-
-    /**
-     * @return the device nominal Power
-     */
-    public double getNominalPower() {
-        return nominalPower;
-    }
-
-    @Override
-    public boolean isActive() {
-        return false;
-    }
-
-
-    @Override
-    public double getEnergyConsumption(Calendar startDate, Calendar endDate) {
-        Configuration c = new Configuration();
-
-        double energyConsumption = 0;
-        if (c.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
-        }
-        return Utils.round(energyConsumption, 2);
-    }
-
-    /**
-     * return device activity log
-     *
-     * @return device activity log registry
-     */
-    public ReadingList getActivityLog() {
-        return activityLog;
-    }
-
-    public boolean isMetered() {
-        return isMetered;
-    }
-
-
-
-    /* ----- Setters ----- */
-
-    public void setAttributeValue(String attribute, Double newValue) {
-        this.getDeviceSpecs().setAttributeValue(attribute, newValue);
-    }
     /**
      * set Device status to false
      *
      * @return true result
      */
     public boolean deactivateDevice() {
+        if (!this.active)
+            return false;
         this.active = false;
         return true;
-    }
-
-    //put this method as private after reviewing create device US
-
-    public void setIsMetered(boolean isMetered) {
-        if (!isMetered)
-            activityLog = null;
-        this.isMetered = isMetered;
     }
 }

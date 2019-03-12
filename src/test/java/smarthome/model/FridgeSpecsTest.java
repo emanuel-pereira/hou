@@ -127,7 +127,7 @@ class FridgeSpecsTest {
 
     @Test
     @DisplayName("Set new values to all attributes and get all Units")
-    void getAttributeUnitssList() {
+    void getAttributeUnitsList() {
         FridgeSpecs f = new FridgeSpecs("Fridge");
 
         f.setAttributeValue("Freezer Capacity", 20.5);

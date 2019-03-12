@@ -3,7 +3,6 @@ package smarthome.io.ui;
 import smarthome.model.*;
 
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * This entire class is only used in application demonstration and test scenarios
@@ -46,8 +45,6 @@ public final class BootStrap {
         createHouseGrid();
 
         createRoom(sensorTypeList);
-
-        // createDeviceTypes(); // TODO
     }
 
     /**
@@ -292,98 +289,52 @@ public final class BootStrap {
      */
     private static void createRoom(SensorTypeList sensorTypeList) throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         HouseGrid mainGrid = house.getHGListInHouse().get(0);
-        List<String> deviceTypeList = house.getListOfDeviceTypes();
 
         Room b106 = house.getRoomList().createNewRoom("B106", 1, 7, 11, 3.5);
         house.getRoomList().addRoom(b106);
         mainGrid.attachRoomToGrid(b106);
-        // createDevicesInRoomB106(deviceTypeList);
+        createDevicesInRoomB106();
 
         Room b107 = house.getRoomList().createNewRoom("B107", 1, 7, 11, 3.5);
         house.getRoomList().addRoom(b107);
         mainGrid.attachRoomToGrid(b107);
-        // createDevicesInRoomB107(deviceTypeList);
+        createDevicesInRoomB107();
 
         Room b109 = house.getRoomList().createNewRoom("B109", 1, 7, 11, 3.5);
         house.getRoomList().addRoom(b109);
         mainGrid.attachRoomToGrid(b109);
-        // createDevicesInRoomB109(deviceTypeList);
+        //TODO createDevicesInRoomB109
         addReadingsRoomB109SensorTemp(sensorTypeList);
         addReadingsRoomB109SensorHum(sensorTypeList);
     }
 
 
     // ---------------------------------------------------------------------------------------------------------------------------------------
-    /*
 
-
-
-    private static void createDeviceTypes() {
-        String ehw = "ElectricWaterHeater";
-        String dishwasher = "Dishwasher";
-        String washingMachine = "WashingMachine";
-        String[] deviceTypesList = new String[]{ehw, dishwasher, washingMachine};
-
-        for (String newTypeString : deviceTypesList
-        ) {
-            DeviceType newType = new DeviceType(newTypeString);
-            house.getListOfDeviceTypes().add(newType);
-        }
-    }
-
-
-
-    private static void createDevicesInRoomB106(List<DeviceType> deviceTypeList) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+    private static void createDevicesInRoomB106() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         Room b106 = house.getRoomList().get(0);
         DeviceList deviceListB106 = b106.getDeviceList();
 
-        Device eHWB106 = deviceListB106.newDevice(deviceTypeList.get(0));
-        deviceListB106.addDevice(eHWB106);
-        eHWB106.setAttributeValue(deviceName, "EHW B106");
-        eHWB106.setAttributeValue(nominalPower, "2.2");
-        eHWB106.setAttributeValue(waterVolumeEWH, "150");
-        eHWB106.setAttributeValue(hotWaterTemperatureEWH, "55");
-        eHWB106.setAttributeValue(performanceRatioEWH, "0.92");
-        eHWB106.setIsMetered(true);
-
-        Device dishwasherB106 = deviceListB106.newDeviceV2(deviceTypeList.get(1));
-        deviceListB106.addDevice(dishwasherB106);
-        dishwasherB106.setAttributeValue(deviceName, "Dishwasher B106");
-        dishwasherB106.setAttributeValue(nominalPower, "1.4");
-        dishwasherB106.setAttributeValue(dishwasherCapacity, "100");
-        dishwasherB106.setIsMetered(true);
+        Device lamp = deviceListB106.newDevice("Lamp B106","Lamp",5);
+        DeviceSpecs specs = lamp.getDeviceSpecs();
+        specs.setAttributeValue("Illuminance", 500);
+        deviceListB106.addDevice(lamp);
     }
 
 
-    private static void createDevicesInRoomB107(List<DeviceType> deviceTypeList) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+    private static void createDevicesInRoomB107() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         Room b107 = house.getRoomList().get(1);
         DeviceList deviceListB107 = b107.getDeviceList();
 
-        Device eHWB107 = deviceListB107.newDeviceV2(deviceTypeList.get(0));
-        deviceListB107.addDevice(eHWB107);
-        eHWB107.setAttributeValue(deviceName, "EHW B107");
-        eHWB107.setAttributeValue(nominalPower, "2.2");
-        eHWB107.setAttributeValue(waterVolumeEWH, "150");
-        eHWB107.setAttributeValue(hotWaterTemperatureEWH, "55");
-        eHWB107.setAttributeValue(performanceRatioEWH, "0.92");
-
-        Device dishwasherB107 = deviceListB107.newDeviceV2(deviceTypeList.get(1));
-        deviceListB107.addDevice(dishwasherB107);
-        dishwasherB107.setAttributeValue(deviceName, "Dishwasher B107");
-        dishwasherB107.setAttributeValue(nominalPower, "1.5");
-        dishwasherB107.setAttributeValue(dishwasherCapacity, "100");
-
-        Device washingMachineB107 = deviceListB107.newDeviceV2(deviceTypeList.get(2));
-        deviceListB107.addDevice(washingMachineB107);
-        washingMachineB107.setAttributeValue(deviceName, "Washing Machine B107");
-        washingMachineB107.setAttributeValue(nominalPower, "2.5");
-        washingMachineB107.setAttributeValue(washingMachineCapacity, "100");
-
+        Device lamp = deviceListB107.newDevice("Lamp B107","Lamp",5);
+        DeviceSpecs specs = lamp.getDeviceSpecs();
+        specs.setAttributeValue("Illuminance", 500);
+        deviceListB107.addDevice(lamp);
 
         //define EHW B107 metered consumption
-        double[] valuesEHWB107 = new double[]{0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.200, 0.375, 0.375, 0.375, 0.375, 0.250, 0.000, 0.000, 0.000, 0.000, 0.200, 0.200, 0.000, 0.000, 0.000, 0.000, 0.200, 0.375, 0.375, 0.375, 0.375, 0.200, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.100, 0.375, 0.375, 0.375, 0.150, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,};
+        double[] valueslamp = new double[]{0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.200, 0.375, 0.375, 0.375, 0.375, 0.250, 0.000, 0.000, 0.000, 0.000, 0.200, 0.200, 0.000, 0.000, 0.000, 0.000, 0.200, 0.375, 0.375, 0.375, 0.375, 0.200, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.100, 0.375, 0.375, 0.375, 0.150, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,};
         for (
-                double i : valuesEHWB107) {
+                double i : valueslamp) {
             minutes += meteringPeriod;
             if (minutes == 60) {
                 minutes = 0;
@@ -391,129 +342,17 @@ public final class BootStrap {
             }
             if (hour == 24) {
                 hour = 0;
-                day++;
-            }
-            eHWB107.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
-        }
-        eHWB107.setIsMetered(true);
-        year = 2018;
-        month = 11;
-        day = 31;
-        hour = 0;
-        minutes = 0;
 
-        //define dishwasher B107 metered consumption
-        double[] valuesDishwasherB107 = new double[]{0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.200, 0.500, 0.500, 0.500, 0.200, 0.300, 0.200, 0.200, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.200, 0.000, 0.000, 0.000, 0.100, 0.100, 0.375, 0.375, 0.200, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,};
-        for (
-                double i : valuesDishwasherB107) {
-            minutes += meteringPeriod;
-            if (minutes == 60) {
-                minutes = 0;
-                hour++;
-            }
-            if (hour == 24) {
-                hour = 0;
                 day++;
             }
-            dishwasherB107.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
+            lamp.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
-        dishwasherB107.setIsMetered(true);
-        year = 2018;
-        month = 11;
-        day = 31;
-        hour = 0;
-        minutes = 0;
-
-        //define ashingMachine B107 metered consumption
-        double[] valuesWashingMachineB107 = new double[]{0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.40, 0.20, 0.25, 0.25, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,};
-        for (
-                double i : valuesWashingMachineB107) {
-            minutes += meteringPeriod;
-            if (minutes == 60) {
-                minutes = 0;
-                hour++;
-            }
-            if (hour == 24) {
-                hour = 0;
-                day++;
-            }
-            washingMachineB107.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
-        }
-        washingMachineB107.setIsMetered(true);
         year = 2018;
         month = 11;
         day = 31;
         hour = 0;
         minutes = 0;
     }
-
-
-    private static void createDevicesInRoomB109(List<DeviceType> deviceTypeList) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        Room b109 = house.getRoomList().get(2);
-        DeviceList deviceListB109 = b109.getDeviceList();
-
-        Device eHWB109 = deviceListB109.newDeviceV2(deviceTypeList.get(0));
-        deviceListB109.addDevice(eHWB109);
-        eHWB109.setAttributeValue(deviceName, "EHW B109");
-        eHWB109.setAttributeValue(nominalPower, "1.5");
-        eHWB109.setAttributeValue(waterVolumeEWH, "100");
-        eHWB109.setAttributeValue(hotWaterTemperatureEWH, "55");
-        eHWB109.setAttributeValue(performanceRatioEWH, "0.91");
-
-        Device dishwasherB109 = deviceListB109.newDeviceV2(deviceTypeList.get(1));
-        deviceListB109.addDevice(dishwasherB109);
-        dishwasherB109.setAttributeValue(deviceName, "Dishwasher B109");
-        dishwasherB109.setAttributeValue(nominalPower, "1.5");
-        dishwasherB109.setAttributeValue(dishwasherCapacity, "100");
-        //No energy consumption values were measured
-        dishwasherB109.setIsMetered(false);
-
-        Device washingMachineB109 = deviceListB109.newDeviceV2(deviceTypeList.get(2));
-        deviceListB109.addDevice(washingMachineB109);
-        washingMachineB109.setAttributeValue(deviceName, "Washing Machine B109");
-        washingMachineB109.setAttributeValue(nominalPower, "2.5");
-        washingMachineB109.setAttributeValue(washingMachineCapacity, "100");
-
-
-        double[] valuesEHWB109 = new double[]{0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.20, 0.50, 0.50, 0.50, 0.50, 0.25, 0.00, 0.00, 0.00, 0.00, 0.20, 0.20, 0.00, 0.00, 0.00, 0.00, 0.20, 0.50, 0.50, 0.50, 0.50, 0.20, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.10, 0.50, 0.50, 0.50, 0.15, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00};
-        for (
-                double i : valuesEHWB109) {
-            minutes += meteringPeriod;
-            if (minutes == 60) {
-                minutes = 0;
-                hour++;
-            }
-            if (hour == 24) {
-                hour = 0;
-                day++;
-            }
-            eHWB109.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
-        }
-        year = 2018;
-        month = 11;
-        day = 31;
-        hour = 0;
-        minutes = 0;
-        eHWB109.setIsMetered(true);
-
-        double[] valueswashingMachineB109 = new double[]{0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.40, 0.20, 0.20, 0.25, 0.25, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00,};
-        for (
-                double i : valueswashingMachineB109) {
-            minutes += meteringPeriod;
-            if (minutes == 60) {
-                minutes = 0;
-                hour++;
-            }
-            if (hour == 24) {
-                hour = 0;
-                day++;
-            }
-            washingMachineB109.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
-        }
-        washingMachineB109.setIsMetered(true);
-    }
-    // ---------------------------------------------------------------------------------------------------------------------------------------
-    */
 
     /**
      * This method is responsible for the indoors Temperature Sensor creation and consequent addition

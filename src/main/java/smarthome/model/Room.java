@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-public class Room implements Powered, Metered {
+public class Room implements Metered {
 
     private String name;
     private Integer floor;
@@ -33,7 +33,7 @@ public class Room implements Powered, Metered {
         this.deviceList = new DeviceList();
     }
 
-    public Room (){
+    public Room() {
 
     }
 
@@ -91,14 +91,6 @@ public class Room implements Powered, Metered {
         this.area = area;
     }
 
-    /*public ReadingList getDataSeriesInTimeInterval(Calendar startDate, Calendar endDate) {
-        ReadingList roomDataSeries= new ReadingList();
-        for (Device device : mDeviceList.getDeviceList()) {
-            roomDataSeries = device.getDataSeriesInTimeInterval(startDate,endDate);
-            //if(roomDataSeries.
-        }
-    }*/
-
     /**
      * Method to get the height
      *
@@ -138,10 +130,10 @@ public class Room implements Powered, Metered {
     public double getEnergyConsumption(Calendar startHour, Calendar endHour) {
         double sum = 0;
         for (Device device : this.deviceList.getMeteredDevices()) {
-            sum += device.getEnergyConsumption(startHour,endHour);
-
+            Metered meteredDevice = (Metered) device;
+            sum += meteredDevice.getEnergyConsumption(startHour, endHour);
         }
-        return Utils.round(sum,2);
+        return Utils.round(sum, 2);
     }
 
     /**
@@ -183,8 +175,8 @@ public class Room implements Powered, Metered {
         return this.deviceList;
     }
 
-    public int getSizeDeviceListInRoom(){
-        return this.deviceList.size ();
+    public int getSizeDeviceListInRoom() {
+        return this.deviceList.size();
     }
 
     /**

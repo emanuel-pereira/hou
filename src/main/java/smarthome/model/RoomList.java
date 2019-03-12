@@ -4,7 +4,6 @@ import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class RoomList {
@@ -130,7 +129,7 @@ public class RoomList {
         for (Room room : this.roomLst) {
             deviceList = room.getDeviceList().getDeviceList();
             for (Device device : deviceList)
-                if (device.getDeviceSpecs().getDeviceType().equals(deviceType)) {
+                if (device.getDeviceType().equals(deviceType)) {
                     deviceListByType.add(device);
                 }
         }
@@ -152,7 +151,6 @@ public class RoomList {
         }
         return Utils.round(totalEnergyConsumption,2);
     }
-
 
     public List<Device>getMeteredDevicesInHouse(){
         List<Device> meteredDevListInHouse=new ArrayList<>();

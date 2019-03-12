@@ -607,15 +607,16 @@ public final class UtilsUI {
     }
 
 
-    public static boolean confirmOption(String continueQuestion, String errorMessage) {
+    public static boolean confirmOption(String continueQuestion, String errorMessage,String dynamicRegEx) {
         print(continueQuestion);
-        String yesOrNo = requestText(errorMessage,"[yYnN]");
+
+        String yesOrNo = requestText(errorMessage,dynamicRegEx);
+        //TODO if statment can be simplified
         if (yesOrNo.contains("n") || yesOrNo.contains("N")) {
             return false;
         } else {
             return true;
         }
     }
-
 
 }

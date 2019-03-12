@@ -9,8 +9,7 @@ public class LampType implements DeviceType {
     }
 
     public Device createDevice(String deviceName, double nominalPower) {
-
-        String devType=getDeviceType();
+        String devType = getDeviceType();
 
         DeviceSpecs devSpecs = new LampSpecs(devType);
 

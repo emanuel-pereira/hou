@@ -107,7 +107,7 @@ public class GetEnergyConsumptionInPeriodCTRL {
      */
     public double getEnergyConsumptionInPeriod(int indexOfDevice, Calendar startDate, Calendar endDate) {
         List<Device> meteredDevices = this.roomList.getMeteredDevicesInHouse();
-        Device selectedDevice = meteredDevices.get(indexOfDevice);
+        Metered selectedDevice = (Metered) meteredDevices.get(indexOfDevice);
         return selectedDevice.getEnergyConsumption(startDate, endDate);
     }
 
@@ -133,7 +133,7 @@ public class GetEnergyConsumptionInPeriodCTRL {
      * @param endHour     ending period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
      * @return the energy consumed in the specified time interval
      */
-    public double getRoomEnergyConsumptionInPeriod(int indexOfRoom, Calendar startHour, Calendar endHour) {
+    public double getRoomEnergyConsumption(int indexOfRoom, Calendar startHour, Calendar endHour) {
         Room room = this.roomList.get(indexOfRoom);
         return room.getEnergyConsumption(startHour, endHour);
     }

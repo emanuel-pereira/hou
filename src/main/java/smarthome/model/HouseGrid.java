@@ -82,6 +82,7 @@ public class HouseGrid implements Metered{
         return sum;
     }
 
+
     public String showRoomsInHouseGrid() {
         RoomList listOfRoomsInHG = getRoomListInAGrid();
         StringBuilder result = new StringBuilder ();
