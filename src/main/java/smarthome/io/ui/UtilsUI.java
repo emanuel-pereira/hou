@@ -557,10 +557,14 @@ public final class UtilsUI {
     }
 
     public static void backToMenu() {
-        Scanner read = new Scanner(System.in);
+
+        printAndReset("\n");
         format("BG_BLUE","BOLD","BLACK");
-        System.out.println("---\nPress Enter to return to the previous Menu");
-        read.nextLine();
+        print("\n");
+        print("[ENTER] to return to the previous menu");
+        print("\n");
+        requestText("");
+        printAndReset("\n");
     }
 
     public static void underMaintenanceMsg(String inputUS) {
@@ -573,10 +577,6 @@ public final class UtilsUI {
 
     public static void printLnInsertValidOptionMsg() {
         showError("Warning","Please insert a valid option.");
-    }
-
-    public static void printLnInsertValidParameter(final String parameter) {
-        showError("Warning","Please insert a valid " + parameter + ".");
     }
 
     public static String insertValidParameter(final String parameter) {
@@ -607,15 +607,15 @@ public final class UtilsUI {
     }
 
 
-    public static boolean confirmOption(String continueQuestion, String errorMessage,String dynamicRegEx) {
+    public static boolean confirmOption(String continueQuestion, String errorMessage) {
         print(continueQuestion);
-
-        String yesOrNo = requestText(errorMessage,dynamicRegEx);
+        String yesOrNo = requestText(errorMessage,"[yYnN]");
         if (yesOrNo.contains("n") || yesOrNo.contains("N")) {
             return false;
         } else {
             return true;
         }
     }
+
 
 }
