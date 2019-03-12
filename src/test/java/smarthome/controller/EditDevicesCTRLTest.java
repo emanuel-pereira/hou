@@ -59,7 +59,7 @@ class EditDevicesCTRLTest {
         String result = kitchenDL.get(0).getDeviceName();
         assertEquals(expected, result);
     }
-
+/* TODO: Rewrite this test
     @Test
     void showDeviceListInString() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         House house = new House();
@@ -79,7 +79,7 @@ class EditDevicesCTRLTest {
         String result = ctrl.showDeviceListInString(1);
         assertEquals(expected, result);
     }
-
+*/
     @Test
     @DisplayName("Ensure that an alphanumeric name with spaces and hyphens is valid")
     void alphanumericName() {
