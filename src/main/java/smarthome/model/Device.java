@@ -15,6 +15,8 @@ public interface Device {
 
     ReadingList getActivityLog();
 
+    double getNominalPower();
+
     /* ---- Setters ---- */
     void setDeviceName(String name);
 

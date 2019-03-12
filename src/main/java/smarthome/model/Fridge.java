@@ -5,7 +5,7 @@ import smarthome.model.validations.Utils;
 
 import java.util.Calendar;
 
-public class Fridge implements Device, Metered, Powered {
+public class Fridge implements Device, Metered {
 
     private NameValidations nameValidation = new NameValidations();
 
