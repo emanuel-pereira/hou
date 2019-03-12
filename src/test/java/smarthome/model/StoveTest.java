@@ -1,17 +1,14 @@
 package smarthome.model;
 
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StoveTest {
 
@@ -208,7 +205,7 @@ public class StoveTest {
         stove.addProgramToList(eco);
         Program full = stove.createProgram("Full", 3000);
 
-        Assertions.assertTrue(stove.addProgramToList(full));
+        assertTrue(stove.addProgramToList(full));
     }
 
     @Test
