@@ -116,6 +116,8 @@ public class Kettle implements Device, Metered, Powered {
      * @return true result
      */
     public boolean deactivateDevice() {
+        if (!this.active)
+            return false;
         this.active = false;
         return true;
     }
