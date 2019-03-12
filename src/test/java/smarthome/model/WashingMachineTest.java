@@ -99,9 +99,9 @@ class WashingMachineTest {
     void deactivateDevice() {
         WashingMachineSpecs specs = new WashingMachineSpecs ("Washing Machine");
         WashingMachine washingMachine = new WashingMachine ("Whirlpool", specs, 2500);
-        washingMachine.deactivateDevice ();
-
         assertTrue (washingMachine.deactivateDevice ());
+
+        assertFalse(washingMachine.deactivateDevice());
 
         assertFalse(washingMachine.isActive ());
     }

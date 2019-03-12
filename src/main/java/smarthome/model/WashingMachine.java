@@ -72,6 +72,8 @@ public class WashingMachine implements Device, Metered, Programmable {
 
     @Override
     public boolean deactivateDevice() {
+        if (!this.active)
+            return false;
         this.active = false;
         return true;
     }
@@ -104,8 +106,5 @@ public class WashingMachine implements Device, Metered, Programmable {
     public List<Program> getProgramList() {
         return this.programList;
     }
-
-
-
 
 }
