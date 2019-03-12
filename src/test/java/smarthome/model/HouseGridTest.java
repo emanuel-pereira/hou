@@ -266,7 +266,7 @@ class HouseGridTest {
 
     @Test
     @DisplayName("Ensure that getEnergyConsumption returns 80 as devices fridge and ewh2 have both two readings each in  defined time interval")
-    void getDailyEnergyConsumption() {
+    void getEnergyConsumption() {
         HouseGrid grid = new HouseGrid("MainGrid");
         RoomList roomList = grid.getRoomListInAGrid();
 
