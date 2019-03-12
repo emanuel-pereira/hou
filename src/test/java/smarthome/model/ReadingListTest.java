@@ -3,7 +3,10 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -58,7 +61,7 @@ class ReadingListTest {
 
         Reading r2 = null;
         boolean result2 = readingList.addReading(r2);
-        assertFalse (result2);
+        assertFalse(result2);
 
 
         List<Reading> result3 = readingList.getReadingList();
@@ -235,4 +238,153 @@ class ReadingListTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    void maxValueInInterval() {
+        GregorianCalendar date1 = new GregorianCalendar(2017, 6, 1);
+        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 4);
+        GregorianCalendar date3 = new GregorianCalendar(2017, 6, 5);
+        GregorianCalendar date4 = new GregorianCalendar(2017, 6, 6);
+
+        Reading r1 = new Reading(12.3, date1);
+        Reading r2 = new Reading(34.2, date2);
+        Reading r3 = new Reading(20.0, date3);
+        Reading r4 = new Reading(22.0, date4);
+
+        ReadingList rL1 = new ReadingList();
+        rL1.addReading(r1);
+        rL1.addReading(r2);
+        rL1.addReading(r3);
+        rL1.addReading(r4);
+
+        //Reading List Crop
+        GregorianCalendar startDate = new GregorianCalendar(2017, 6, 4);
+        GregorianCalendar endDate = new GregorianCalendar(2017, 6, 5);
+        ReadingList croppedList = rL1.getReadingsInPeriod(startDate, endDate);
+
+        //Get the max value of the Reading List
+        Reading maxReading = croppedList.maxValueInInterval();
+        assertEquals(34.2, maxReading.returnValueOfReading());
+    }
+
+    @Test
+    void minValueInInterval() {
+        GregorianCalendar date1 = new GregorianCalendar(2017, 6, 1);
+        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 4);
+        GregorianCalendar date3 = new GregorianCalendar(2017, 6, 5);
+        GregorianCalendar date4 = new GregorianCalendar(2017, 6, 6);
+
+        Reading r1 = new Reading(12.3, date1);
+        Reading r2 = new Reading(34.2, date2);
+        Reading r3 = new Reading(20.0, date3);
+        Reading r4 = new Reading(22.0, date4);
+
+        ReadingList rL1 = new ReadingList();
+        rL1.addReading(r1);
+        rL1.addReading(r2);
+        rL1.addReading(r3);
+        rL1.addReading(r4);
+
+        //Reading List Crop
+        GregorianCalendar startDate = new GregorianCalendar(2017, 6, 4);
+        GregorianCalendar endDate = new GregorianCalendar(2017, 6, 5);
+        ReadingList croppedList = rL1.getReadingsInPeriod(startDate, endDate);
+
+        //Get the max value of the Reading List
+        Reading minReading = croppedList.minValueInInterval();
+        assertEquals(20.0, minReading.returnValueOfReading());
+    }
+
+    @Test
+    void maxValueInInterval2() {
+        GregorianCalendar date0 = new GregorianCalendar(2017, 5, 31);
+        GregorianCalendar date1 = new GregorianCalendar(2017, 6, 1, 8, 0);
+        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 1, 16, 0);
+        GregorianCalendar date3 = new GregorianCalendar(2017, 6, 1, 24, 0);
+        GregorianCalendar date4 = new GregorianCalendar(2017, 6, 2, 8, 0);
+        GregorianCalendar date5 = new GregorianCalendar(2017, 6, 2, 16, 0);
+        GregorianCalendar date6 = new GregorianCalendar(2017, 6, 2, 24, 0);
+        GregorianCalendar date7 = new GregorianCalendar(2017, 6, 3);
+
+        Reading r1 = new Reading(10, date1);
+        Reading r2 = new Reading(20, date2);
+        Reading r3 = new Reading(5, date3);
+        Reading r4 = new Reading(11, date4);
+        Reading r5 = new Reading(21, date5);
+        Reading r6 = new Reading(6, date6);
+
+        ReadingList rL1 = new ReadingList();
+        rL1.addReading(r1);
+        rL1.addReading(r2);
+        rL1.addReading(r3);
+        rL1.addReading(r4);
+        rL1.addReading(r5);
+        rL1.addReading(r6);
+
+        //Reading List Crop
+        GregorianCalendar startDate = new GregorianCalendar(2017, 6, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2017, 6, 3);
+        ReadingList croppedList = rL1.getReadingsInPeriod(startDate, endDate);
+
+        //Get the max value of the Reading List
+        Reading maxReading = croppedList.maxValueInInterval();
+        assertEquals(21, maxReading.returnValueOfReading());
+    }
+
+    @Test
+    void dailyMaximumReadings() {
+        GregorianCalendar date0 = new GregorianCalendar(2017, 5, 31);
+        GregorianCalendar date1 = new GregorianCalendar(2017, 6, 1, 8, 0);
+        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 1, 16, 0);
+        GregorianCalendar date3 = new GregorianCalendar(2017, 6, 1, 24, 0);
+        GregorianCalendar date4 = new GregorianCalendar(2017, 6, 2, 8, 0);
+        GregorianCalendar date5 = new GregorianCalendar(2017, 6, 2, 16, 0);
+        GregorianCalendar date6 = new GregorianCalendar(2017, 6, 2, 24, 0);
+        GregorianCalendar date7 = new GregorianCalendar(2017, 6, 3, 8, 0);
+        GregorianCalendar date8 = new GregorianCalendar(2017, 6, 3, 16, 0);
+        GregorianCalendar date9 = new GregorianCalendar(2017, 6, 3, 24, 0);
+        GregorianCalendar date10 = new GregorianCalendar(2017, 6, 4, 8, 0);
+        GregorianCalendar date11 = new GregorianCalendar(2017, 6, 4, 16, 0);
+        GregorianCalendar date12 = new GregorianCalendar(2017, 6, 4, 24, 0);
+        GregorianCalendar date13 = new GregorianCalendar(2017, 6, 5);
+
+        Reading r0 = new Reading(1, date0);
+        Reading r1 = new Reading(2, date1);
+        Reading r2 = new Reading(3, date2);
+        Reading r3 = new Reading(4, date3);
+        Reading r4 = new Reading(5, date4);
+        Reading r5 = new Reading(6, date5);
+        Reading r6 = new Reading(7, date6);
+        Reading r7 = new Reading(8, date7);
+        Reading r8 = new Reading(5, date8);
+        Reading r9 = new Reading(6, date9);
+        Reading r10 = new Reading(7, date10);
+        Reading r11 = new Reading(8, date11);
+        Reading r12 = new Reading(5, date12);
+        Reading r13 = new Reading(5, date13);
+
+        ReadingList rL1 = new ReadingList();
+        rL1.addReading(r0);
+        rL1.addReading(r1);
+        rL1.addReading(r2);
+        rL1.addReading(r3);
+        rL1.addReading(r4);
+        rL1.addReading(r5);
+        rL1.addReading(r6);
+        rL1.addReading(r7);
+        rL1.addReading(r8);
+        rL1.addReading(r9);
+        rL1.addReading(r10);
+        rL1.addReading(r11);
+        rL1.addReading(r12);
+        rL1.addReading(r13);
+
+        //Reading List Crop
+        GregorianCalendar startDate = new GregorianCalendar(2017, 6, 2);
+        GregorianCalendar endDate = new GregorianCalendar(2017, 6, 3);
+        ReadingList croppedList = rL1.getReadingsInPeriod(startDate, endDate);
+
+        //Get the max value of the Reading List
+        ReadingList maxReading = croppedList.dailyMaximumReadings();
+        assertEquals(21, maxReading);
+    }
 }

@@ -2,14 +2,15 @@ package smarthome.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class ReadingList {
 
-    private List<Reading> mReadingList;
+    private List<Reading> readingList;
 
     public ReadingList() {
-        mReadingList = new ArrayList<>();
+        readingList = new ArrayList<>();
     }
 
     public Reading newReading(double readValue, Calendar timeOfReading) {
@@ -17,21 +18,21 @@ public class ReadingList {
     }
 
     public boolean addReading(Reading newReading) {
-        if (mReadingList.contains(newReading) || (newReading == null))
+        if (readingList.contains(newReading) || (newReading == null))
             return false;
-        return mReadingList.add(newReading);
+        return readingList.add(newReading);
     }
 
     public List<Reading> getReadingList() {
-        return mReadingList;
+        return readingList;
     }
 
     public Reading getLastReading() {
-        return mReadingList.get(mReadingList.size() - 1);
+        return readingList.get(readingList.size() - 1);
     }
 
     public int size() {
-        return mReadingList.size();
+        return readingList.size();
     }
 
 
@@ -44,7 +45,7 @@ public class ReadingList {
     public double totalValueInGivenDay(Calendar inputDate) {
         double totalRainfallValue = 0;
 
-        for (Reading reading : mReadingList) {
+        for (Reading reading : readingList) {
             if (reading.getDateAndTime().get(Calendar.DATE) == inputDate.get(Calendar.DATE)) {
                 totalRainfallValue = reading.returnValueOfReading() + totalRainfallValue;
             }
@@ -53,33 +54,27 @@ public class ReadingList {
     }
 
     public boolean checkNumberOfReadingsIsZero(ReadingList readingList) {
-
         return readingList.size() == 0;
-
     }
-
 
     public double dailyAverageOfReadings(Calendar day) {
         double sum = 0;
         ReadingList dailyReadings = getReadingsInSpecificDay(day);
 
-
         if (!checkNumberOfReadingsIsZero(dailyReadings)) {
-            for (Reading reading : getReadingsInSpecificDay(day).getReadingList()){
+            for (Reading reading : getReadingsInSpecificDay(day).getReadingList()) {
                 if (reading.compareYearMonthDay(day)) {
                     sum = sum + reading.returnValueOfReading();
                 }
             }
         }
-
         return sum / dailyReadings.size();
-
     }
 
 
     public double getValueOfReadingsInTimeInterval(Calendar startDate, Calendar endDate) {
         double totalValue = 0;
-        for (Reading reading : mReadingList) {
+        for (Reading reading : readingList) {
             Calendar readingDate = reading.getDateAndTime();
 
             if (readingDate.after(startDate) && readingDate.before(endDate) || readingDate.equals(endDate)) {
@@ -93,7 +88,7 @@ public class ReadingList {
     public ReadingList getReadingsInSpecificDay(Calendar date) {
         ReadingList readingListInDate = new ReadingList();
 
-        for (Reading reading : mReadingList) {
+        for (Reading reading : readingList) {
             if (reading.compareYearMonthDay(date))
                 readingListInDate.addReading(reading);
         }
@@ -111,11 +106,11 @@ public class ReadingList {
     public ReadingList getReadingsInPeriod(Calendar startDate, Calendar endDate) {
         ReadingList readingListInPeriod = new ReadingList();
 
-        for (Reading reading : mReadingList) {
+        for (Reading reading : readingList) {
             Calendar readingDate = reading.getDateAndTime();
 
             if (readingDate.after(startDate) && readingDate.before(endDate)
-                    || readingDate.equals(endDate)
+                    /*|| readingDate.equals(endDate)*/
                     || readingDate.equals(startDate)) {
                 readingListInPeriod.addReading(reading);
             }
@@ -123,5 +118,56 @@ public class ReadingList {
         return readingListInPeriod;
     }
 
+    public Reading maxValueInInterval() {
+        Reading max = newReading(Double.MIN_VALUE, new GregorianCalendar());
+        double value;
+
+        for (Reading reading : this.readingList) {
+            value = reading.returnValueOfReading();
+            if (value > max.returnValueOfReading())
+                max = reading;
+        }
+        return max;
+    }
+
+    public Reading minValueInInterval() {
+        Reading min = newReading(Double.MAX_VALUE, new GregorianCalendar());
+        double value;
+
+        for (Reading reading : this.readingList) {
+            value = reading.returnValueOfReading();
+            if (value < min.returnValueOfReading())
+                min = reading;
+        }
+        return min;
+    }
+
+    /*public Reading latestMaximumInInterval() {
+        Reading max = this.maxValueInInterval();
+        Calendar day = Calendar.;
+        for (Reading reading : this.readingList) {
+            (reading.getDateAndTime().DAY_OF_MONTH)
+            max.getDateAndTime().DAY_OF_MONTH
+            getReadingsInPeriod(max.getDateAndTime(), max.getDateAndTime());
+        }
+        return max;
+        getDateofReading
+    }*/
+
+    public ReadingList dailyMaximumReadings() {
+        //extract the first day of the list
+        Calendar dayOfTheList = this.readingList.get(0).extractYearMonthDay();
+        ReadingList dailyMaxReadings = new ReadingList();
+        Reading dayMax = new Reading();
+        for (Reading reading : this.readingList) {
+            if (reading.compareYearMonthDay(dayOfTheList) && reading.returnValueOfReading() > dayMax.returnValueOfReading()) {
+                dayMax = reading;
+            } else { //if day does not match meaning next day, increment
+                dailyMaxReadings.addReading(dayMax);
+                dayOfTheList.add(Calendar.DATE, 1);
+            }
+        }
+        return dailyMaxReadings;
+    }
 
 }
