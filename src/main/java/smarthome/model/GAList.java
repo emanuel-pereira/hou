@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,5 +107,11 @@ public class GAList {
     public GeographicalArea getLastGA() {
         return mGAList.get(mGAList.size() - 1);
     }
+
+    public void importDataFromCSVFileForEachGA(String filePathAndName) throws IOException {
+        for(GeographicalArea geographicalArea: mGAList)
+            geographicalArea.importReadingsToSensorsFromCSVFile(filePathAndName);
+    }
+
 
 }

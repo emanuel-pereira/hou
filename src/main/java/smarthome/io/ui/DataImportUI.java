@@ -9,9 +9,11 @@ import smarthome.model.GAList;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.Scanner;
 
 public class DataImportUI {
     private DataImportCTRL ctrl;
+    private Scanner scanner;
 
 
     public DataImportUI(GAList gaList) {
@@ -34,17 +36,26 @@ public class DataImportUI {
         }
     }
 
-    public void showGAs(){
+    public void importDataFromCSVFile() throws IOException {
+
+        System.out.println("Please insert the directory and the name of the file:");
+        String filepath = UtilsUI.requestText("Invalid filepath.", "[A-Za-z0-9/.]*");
+        ctrl.importReadingsFromCSVFile(filepath);
+
+        System.out.println("Success!");
+    }
+
+    public void showGAs() {
         System.out.println("The following geographical areas and respective sensors were imported from the selected JsonFile:");
-        for(GeographicalAreaDTO geographicalAreaDTO:ctrl.getGAListDTO()){
+        for (GeographicalAreaDTO geographicalAreaDTO : ctrl.getGAListDTO()) {
             System.out.println("GEOGRAPHICAL AREA");
-            System.out.println(" Id: "+geographicalAreaDTO.getIdentification());
-            System.out.println (" Name: "+geographicalAreaDTO.getDesignation());
+            System.out.println(" Id: " + geographicalAreaDTO.getIdentification());
+            System.out.println(" Name: " + geographicalAreaDTO.getDesignation());
             System.out.println(" SensorList: ");
-            for(SensorDTO sensorDTO:geographicalAreaDTO.getSensorListDTO()){
-                int counter =1;
-                System.out.print("  "+ counter++ +" - Sensor Id: "+sensorDTO.getId());
-                System.out.println(" | Name "+sensorDTO.getDesignation());
+            for (SensorDTO sensorDTO : geographicalAreaDTO.getSensorListDTO()) {
+                int counter = 1;
+                System.out.print("  " + counter++ + " - Sensor Id: " + sensorDTO.getId());
+                System.out.println(" | Name " + sensorDTO.getDesignation());
             }
         }
     }

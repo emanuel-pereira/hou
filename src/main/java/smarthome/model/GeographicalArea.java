@@ -3,9 +3,11 @@ package smarthome.model;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
+import java.time.ZonedDateTime;
+import java.util.*;
+
+import static java.lang.Double.parseDouble;
 
 public class GeographicalArea {
     private String identification;
@@ -143,6 +145,47 @@ public class GeographicalArea {
     public OccupationArea getOccupation() {
         return occupation;
     }
+
+    public void importReadingsToSensorsFromCSVFile(String filePathAndName) throws IOException {
+        ReadCSVFile readCSVFile = new ReadCSVFile();
+        readCSVFile.readCsvFile(filePathAndName);
+        readCSVFile.writeCSVFile("OutdatedReadings");
+        List<String[]> tokens = readCSVFile.getValuesFromCSVFile();
+        for (String[] token : tokens) {
+            String sensorID = token[0];
+            for (Sensor sensor : sensorListInGa.getSensorList())
+                if (sensorID.equals(sensor.getId())) {
+                    String dateAndTimeString = token[1];
+                    double readingValue = parseDouble(token[2]);
+                    if(!dateAndTimeString.contains("T"))
+                        dateAndTimeString = dateAndTimeString.concat("T00:00:00+00:00");
+
+                    ZonedDateTime dateTime = ZonedDateTime.parse(dateAndTimeString);
+                    int year = dateTime.getYear();
+                    int month = dateTime.getMonthValue();
+                    int day = dateTime.getDayOfMonth();
+                    int hour = dateTime.getHour();
+                    int minutes = dateTime.getMinute();
+                    Calendar readingDate = new GregorianCalendar(year, month - 1, day, hour, minutes);
+
+                    Reading reading = new Reading(readingValue, readingDate);
+
+                    if (readingDate.after(sensor.getStartDate()))
+                        sensor.getReadingList().addReading(reading);
+                    else {
+                        StringBuilder readingNotImported = new StringBuilder();
+                        readingNotImported.append(sensorID);
+                        readingNotImported.append(',');
+                        readingNotImported.append(dateAndTimeString);
+                        readingNotImported.append(',');
+                        readingNotImported.append(readingValue);
+                        readCSVFile.writeStringOnCSVFile(readingNotImported.toString());
+                    }
+                }
+        }
+    }
+
+
 
     public GeographicalAreaDTO toDTO() {
         List<SensorDTO> sensorListDTO= new ArrayList<>();
