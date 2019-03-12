@@ -34,6 +34,7 @@ public class Lamp implements Device, Metered {
 
 
     /* ----- Getters ----- */
+
     /**
      * @return the device name
      */
@@ -116,6 +117,8 @@ public class Lamp implements Device, Metered {
      * @return true result
      */
     public boolean deactivateDevice() {
+        if (!this.active)
+            return false;
         this.active = false;
         return true;
     }

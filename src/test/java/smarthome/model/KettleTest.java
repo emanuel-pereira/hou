@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;
@@ -102,6 +103,7 @@ class KettleTest {
     }
 
     @Test
+    @DisplayName("getEnergyConsumption Test with no Readings and no null time interval")
     void getEnergyConsumption() {
         KettleSpecs specs = new KettleSpecs("Kettle");
 
@@ -115,6 +117,7 @@ class KettleTest {
     }
 
     @Test
+    @DisplayName("getEnergyConsumption Test with Readings and a time interval")
     void getEnergyConsumption2() {
         KettleSpecs specs = new KettleSpecs("Kettle");
 
@@ -142,7 +145,7 @@ class KettleTest {
                 hour = 0;
                 day++;
             }
-            kettle.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
+            kettleActivityLog.addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
         }
 
         Calendar startDate = new GregorianCalendar(2018,11,31);
