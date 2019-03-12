@@ -309,7 +309,7 @@ class EditDevicesCTRLTest {
                 "11 - PortableElectricConvectionHeater\n" +
                 "12 - WallTowelHeater\n" +
                 "13 - Lamp\n" +
-                "14 - Television\n";
+                "14 - Tv\n";
         String result = ctr.showDeviceTypesListInString();
         assertEquals(expected, result);
     }

@@ -29,6 +29,38 @@ class WashingMachineTest {
     }
 
     @Test
+    @DisplayName("Set empty device name and get first name")
+    void setEmptyDeviceName() {
+        WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs ("Washing Machine");
+        WashingMachine washingMachine = new WashingMachine ("Whirlpool", washingMachineSpecs, 100);
+
+        assertEquals ("Whirlpool", washingMachine.getDeviceName ());
+
+        washingMachine.setDeviceName (" ");
+
+        String expected = "Whirlpool";
+        String result = washingMachine.getDeviceName ();
+
+        assertEquals (expected, result);
+    }
+
+    @Test
+    @DisplayName("Set and get incorrect device name")
+    void getIncorrectDeviceName() {
+        WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs ("Washing Machine");
+        WashingMachine washingMachine = new WashingMachine ("Washing Machine 1", washingMachineSpecs, 100);
+
+        assertEquals ("Washing Machine 1", washingMachine.getDeviceName ());
+
+        washingMachine.setDeviceName ("Whirlpool");
+
+        String expected = "Whirlpol";
+        String result = washingMachine.getDeviceName ();
+
+        assertNotEquals (expected, result);
+    }
+
+    @Test
     @DisplayName("Get correct device specs")
     void getDeviceSpecs() {
         WashingMachineSpecs specs = new WashingMachineSpecs ("Washing Machine");
@@ -43,6 +75,18 @@ class WashingMachineTest {
     @DisplayName("Get correct device type")
     void getDeviceType() {
         WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs ("Washing Machine");
+        WashingMachine washingMachine = new WashingMachine ("Washing Machine", washingMachineSpecs, 100);
+
+        String expected = "Washing Machine";
+        String result = washingMachine.getDeviceType ();
+
+        assertEquals (expected, result);
+    }
+
+    @Test
+    @DisplayName("Change the device type but return correct device type")
+    void changeDeviceType() {
+        WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs ("Lamp");
         WashingMachine washingMachine = new WashingMachine ("Washing Machine", washingMachineSpecs, 100);
 
         String expected = "Washing Machine";
@@ -68,6 +112,22 @@ class WashingMachineTest {
     }
 
     @Test
+    @DisplayName("Set negative nominal power and get first nominal power")
+    void getInvalidNominalPower() {
+        WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs ("Washing Machine");
+        WashingMachine washingMachine = new WashingMachine ("Washing Machine", washingMachineSpecs, 200);
+
+        assertEquals (200, washingMachine.getNominalPower ());
+
+        washingMachine.setNominalPower (-210);
+
+        double expected = 200;
+        double result = washingMachine.getNominalPower ();
+
+        assertEquals (expected, result);
+    }
+
+    @Test
     @DisplayName("Confirm if a device is correctly active")
     void isActive() {
         WashingMachineSpecs specs = new WashingMachineSpecs ("Washing Machine");
@@ -75,6 +135,18 @@ class WashingMachineTest {
         WashingMachine washingMachine = new WashingMachine ("Whirlpool", specs, 2500);
 
         assertTrue (washingMachine.isActive ());
+    }
+
+    @Test
+    @DisplayName("Confirm if a device is incorrectly active")
+    void isIncorrectlyActive() {
+        WashingMachineSpecs specs = new WashingMachineSpecs ("Washing Machine");
+
+        WashingMachine washingMachine = new WashingMachine ("Whirlpool", specs, 2500);
+
+        boolean result = washingMachine.isActive ();
+
+        assertNotEquals (false, result);
     }
 
     @Test
@@ -99,11 +171,21 @@ class WashingMachineTest {
     void deactivateDevice() {
         WashingMachineSpecs specs = new WashingMachineSpecs ("Washing Machine");
         WashingMachine washingMachine = new WashingMachine ("Whirlpool", specs, 2500);
+
         assertTrue (washingMachine.deactivateDevice ());
 
-        assertFalse(washingMachine.deactivateDevice());
-
         assertFalse(washingMachine.isActive ());
+    }
+
+    @Test
+    @DisplayName("Confirm if a device is not deactivate twice")
+    void deactivateDeviceTwice() {
+        WashingMachineSpecs specs = new WashingMachineSpecs ("Washing Machine");
+        WashingMachine washingMachine = new WashingMachine ("Whirlpool", specs, 2500);
+
+        assertTrue (washingMachine.deactivateDevice ());
+
+        assertFalse (washingMachine.deactivateDevice ());
     }
 
     @Test

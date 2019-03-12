@@ -7,25 +7,25 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class WashingMachine implements Device, Metered, Programmable {
+public class Fan implements Device, Metered, Programmable {
 
     private NameValidations nameValidation = new NameValidations();
 
     private String name;
     private DeviceSpecs deviceSpecs;
-    private String deviceType = "Washing Machine";
+    private String deviceType = "Fan";
     private double nominalPower;
     private boolean active;
     private ReadingList activityLog;
     private List<Program> programList;
 
     /**
-     * Washing Machine constructor
-     * @param name Washing Machine name
-     * @param deviceSpecs Washing Machine specs
-     * @param nominalPower Washing Machine nominal power
+     * WFanconstructor
+     * @param name Fan name
+     * @param deviceSpecs Fan specs
+     * @param nominalPower Fan nominal power
      */
-    public WashingMachine(String name, DeviceSpecs deviceSpecs, double nominalPower) {
+    public Fan(String name, DeviceSpecs deviceSpecs, double nominalPower) {
         this.name = name;
         this.deviceSpecs = deviceSpecs;
         this.nominalPower = nominalPower;
@@ -35,8 +35,8 @@ public class WashingMachine implements Device, Metered, Programmable {
     }
 
     /**
-     * Get the Washing Machine name
-     * @return Device name
+     * Get the Fan name
+     * @return Fan name
      */
     @Override
     public String getDeviceName() {
@@ -44,7 +44,7 @@ public class WashingMachine implements Device, Metered, Programmable {
     }
 
     /**
-     * Get the Washing Machine specs
+     * Get the Fan specs
      * @return Device specs
      */
     @Override
@@ -53,7 +53,7 @@ public class WashingMachine implements Device, Metered, Programmable {
     }
 
     /**
-     * Get the Washing Machine type
+     * Get the Fan type
      * @return Device type
      */
     @Override
@@ -62,7 +62,7 @@ public class WashingMachine implements Device, Metered, Programmable {
     }
 
     /**
-     * Get the Washing Machine nominal power
+     * Get the Fan nominal power
      * @return Device nominal power
      */
     @Override
@@ -80,7 +80,7 @@ public class WashingMachine implements Device, Metered, Programmable {
     }
 
     /**
-     * Get the Washing Machine activity log
+     * Get the Fan activity log
      * @return Device reading list
      */
     @Override
@@ -89,7 +89,7 @@ public class WashingMachine implements Device, Metered, Programmable {
     }
 
     /**
-     * Set the Washing Machine name
+     * Set the Fan name
      * @param name Name of the device
      */
     @Override
@@ -99,7 +99,7 @@ public class WashingMachine implements Device, Metered, Programmable {
     }
 
     /**
-     * Set the Washing Machine nominal power
+     * Set the Fan nominal power
      * @param nominalPower Nominal power of the device
      */
     @Override
@@ -109,7 +109,7 @@ public class WashingMachine implements Device, Metered, Programmable {
     }
 
     /**
-     * Deactivate Washing Machine
+     * Deactivate Fan
      * @return True if deactivated
      */
     @Override
@@ -121,7 +121,7 @@ public class WashingMachine implements Device, Metered, Programmable {
     }
 
     /**
-     * Get energy consumption of the Washing Machine in time interval
+     * Get energy consumption of the Fan in time interval
      * @param startHour Beginning of the interval
      * @param endHour End of the interval
      * @return Energy consumption of the device
@@ -137,18 +137,18 @@ public class WashingMachine implements Device, Metered, Programmable {
     }
 
     /**
-     * Create a Washing Machine program
+     * Create a Fan program
      * @param name Name of the program
      * @param value Value that represents the nominal power or energy consumption of the program
      * @return The created program
      */
     @Override
     public Program createProgram(String name, double value) {
-        return new Program(name, "Energy Consumption", value);
+        return new Program(name, "Nominal Power", value);
     }
 
     /**
-     * Add program to the program list of the Washing Machine
+     * Add program to the program list of the Fan
      * @param newProgram Previous created program
      * @return True if added with success
      */
@@ -161,7 +161,7 @@ public class WashingMachine implements Device, Metered, Programmable {
     }
 
     /**
-     * Get program list of the Washing Machine
+     * Get program list of the Fan
      * @return Program list of the device
      */
     @Override

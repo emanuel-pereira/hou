@@ -19,11 +19,19 @@ public class WashingMachineSpecs implements DeviceSpecs {
 
     private List<String> attributeNamesList = new ArrayList<> ();
 
+    /**
+     * Washing Machine constructor
+     * @param deviceType Device type
+     */
     public WashingMachineSpecs(String deviceType) {
         this.deviceType = deviceType;
         initializeClass ();
     }
 
+    /**
+     * Private initialization method of the constructor(s). Copies the string arrays containing the attributes names and units
+     * to the internal Map representation of them.
+     */
     private void initializeClass() {
         int items = this.attributeNames.length;
         attributeNamesList.addAll (Arrays.asList (this.attributeNames));
@@ -33,16 +41,28 @@ public class WashingMachineSpecs implements DeviceSpecs {
         }
     }
 
+    /**
+     * Get device type
+     * @return Device type
+     */
     @Override
     public String getDeviceType() {
         return this.deviceType;
     }
 
+    /**
+     * Get all the attribute names
+     * @return List of attribute names
+     */
     @Override
     public List<String> getAttributesNames() {
         return this.attributeNamesList;
     }
 
+    /**
+     * Get all the attribute values
+     * @return List of attribute values
+     */
     @Override
     public List<Double> getAttributeValues() {
         List<Double> attributeValues = new ArrayList<> ();
@@ -53,6 +73,10 @@ public class WashingMachineSpecs implements DeviceSpecs {
         return attributeValues;
     }
 
+    /**
+     * Get all the attribute units
+     * @return List of attribute units
+     */
     @Override
     public List<String> getAttributeUnits() {
         List<String> unitsList = new ArrayList<> ();
@@ -63,16 +87,31 @@ public class WashingMachineSpecs implements DeviceSpecs {
         return unitsList;
     }
 
+    /**
+     * Get a specific attribute value
+     * @param attribute Attribute name associated to the value
+     * @return Attribute value
+     */
     @Override
     public Double getAttributeValue(String attribute) {
         return this.attributeValuesMap.get (attribute);
     }
 
+    /**
+     * Get a specific attribute unit
+     * @param attribute Attribute name associated to the unit
+     * @return Attribute unit
+     */
     @Override
     public String getAttributeUnit(String attribute) {
         return this.attributeUnitsMap.get (attribute);
     }
 
+    /**
+     * Set a specific attribute value
+     * @param attribute Attribute name associated to the value
+     * @param newValue New attribute value
+     */
     @Override
     public void setAttributeValue(String attribute, double newValue) {
         if (attributeValuesMap.containsKey (attribute)) {
@@ -80,10 +119,16 @@ public class WashingMachineSpecs implements DeviceSpecs {
         }
     }
 
+    /**
+     * Set a specific attribute unit
+     * @param attribute Attribute name associated to the unit
+     * @param unit New attribute unit
+     */
     @Override
     public void setAttributeUnit(String attribute, String unit) {
         if (attributeValuesMap.containsKey (attribute)) {
             attributeUnitsMap.put (attribute, unit);
         }
     }
+
 }
