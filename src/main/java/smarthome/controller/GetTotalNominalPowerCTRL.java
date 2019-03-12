@@ -13,8 +13,8 @@ public class GetTotalNominalPowerCTRL {
      * @param house the current and only house
      */
     public GetTotalNominalPowerCTRL(House house) {
-        this.houseGridList = house.getHGListInHouse ();
-        this.roomList = house.getRoomList ();
+        this.houseGridList = house.getHGListInHouse();
+        this.roomList = house.getRoomList();
     }
 
     /**
@@ -23,7 +23,7 @@ public class GetTotalNominalPowerCTRL {
      * @return the size of the houseGrid list
      */
     public int getGridListSize() {
-        return this.houseGridList.getSize ();
+        return this.houseGridList.getSize();
     }
 
     /**
@@ -32,7 +32,7 @@ public class GetTotalNominalPowerCTRL {
      * @return size of the list of rooms
      */
     public int getRoomListSize() {
-        return this.roomList.getRoomListSize ();
+        return this.roomList.getRoomListSize();
     }
 
     /**
@@ -41,7 +41,7 @@ public class GetTotalNominalPowerCTRL {
      * @return list of grids in a string
      */
     public String showGridListInString() {
-        return this.houseGridList.showHouseGridListInString ();
+        return this.houseGridList.showHouseGridListInString();
     }
 
     /**
@@ -50,7 +50,7 @@ public class GetTotalNominalPowerCTRL {
      * @return list of rooms in a string
      */
     public String showRoomListInString() {
-        return this.roomList.showRoomListInString ();
+        return this.roomList.showRoomListInString();
     }
 
     /**
@@ -60,7 +60,7 @@ public class GetTotalNominalPowerCTRL {
      * @return total nominal power of the grid
      */
     public double getGridTotalNominalPower(int indexGrid) {
-        return this.houseGridList.get (indexGrid).getNominalPower ();
+        return this.houseGridList.get(indexGrid).getNominalPower();
     }
 
     /**
@@ -70,7 +70,7 @@ public class GetTotalNominalPowerCTRL {
      * @return total nominal power of the room
      */
     public double getRoomTotalNominalPower(int indexRoom) {
-        return this.roomList.get (indexRoom).getNominalPower ();
+        return this.roomList.get(indexRoom).getNominalPower();
     }
 
     /**
@@ -80,14 +80,12 @@ public class GetTotalNominalPowerCTRL {
      * @return size of the list of rooms in a grid
      */
     public int getSizeRoomListInGrid(int indexGrid) {
-        int size = 0;
-        for (HouseGrid houseGrid : this.houseGridList.getHouseGridList ()) {
-
-            if (this.houseGridList.get (indexGrid).getRoomListInAGridSize () != 0) {
-                size = houseGrid.getRoomListInAGridSize ();
+        HouseGrid hg = this.houseGridList.get(indexGrid);
+        int hgSize = hg.getRoomListInAGridSize();
+        if (hgSize != 0) {
+            return hgSize;
             }
-        }
-        return size;
+        return 0;
     }
 
     /**
@@ -98,8 +96,8 @@ public class GetTotalNominalPowerCTRL {
      */
     public int getSizeDeviceListInGrid(int indexGrid) {
         int sum = 0;
-        for (Room r : this.houseGridList.get (indexGrid).getRoomListInAGrid ().getRoomList ()) {
-            sum += r.getSizeDeviceListInRoom ();
+        for (Room r : this.houseGridList.get(indexGrid).getRoomListInAGrid().getRoomList()) {
+            sum += r.getSizeDeviceListInRoom();
         }
         return sum;
     }
@@ -111,7 +109,7 @@ public class GetTotalNominalPowerCTRL {
      * @return size of the list of devices in a room
      */
     public int getSizeDeviceListInRoom(int indexRoom) {
-        return this.roomList.get (indexRoom).getDeviceList ().size ();
+        return this.roomList.get(indexRoom).getDeviceList().size();
     }
 
 }
