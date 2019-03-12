@@ -43,7 +43,7 @@ public class WashingMachineSpecs implements DeviceSpecs {
 
     /**
      * Get device type
-     * @return Devcie type
+     * @return Device type
      */
     @Override
     public String getDeviceType() {
