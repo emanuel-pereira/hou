@@ -2,23 +2,21 @@ package smarthome.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.dto.GeographicalAreaDTO;
 import smarthome.model.GAList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class JSONImportCTRLTest {
+class DataImportCTRLTest {
 
     @Test
     @DisplayName("Ensure that GAList has 2 GAs after executing loadJSON method")
     void loadJSON() throws ParseException, org.json.simple.parser.ParseException, IOException {
         GAList gaList = new GAList();
-        JSONImportCTRL ctrl = new JSONImportCTRL(gaList);
+        DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources/JsonFile.json";
         try {
             ctrl.loadJSON(filepath);
@@ -34,7 +32,7 @@ class JSONImportCTRLTest {
     @DisplayName("Ensure that GAList has 0 GAs after executing loadJSON method when json file is not found in specified path")
     void loadJSON1() throws ParseException, org.json.simple.parser.ParseException, IOException {
         GAList gaList = new GAList();
-        JSONImportCTRL ctrl = new JSONImportCTRL(gaList);
+        DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources/JsonFile1.json";
         String resultMsg="";
         try {
@@ -53,7 +51,7 @@ class JSONImportCTRLTest {
     @Test
     void getGAListDTO() throws ParseException, org.json.simple.parser.ParseException, IOException {
         GAList gaList = new GAList();
-        JSONImportCTRL ctrl = new JSONImportCTRL(gaList);
+        DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources/JsonFile.json";
         try {
             ctrl.loadJSON(filepath);

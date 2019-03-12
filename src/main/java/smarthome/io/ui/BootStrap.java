@@ -70,7 +70,7 @@ public final class BootStrap {
         typeGAList.addTypeGA(urbanArea);
         TypeGA city = new TypeGA("city");
         typeGAList.addTypeGA(city);
-        JSONImportUI ui = new JSONImportUI(gaList);
+        DataImportUI ui = new DataImportUI(gaList);
         ui.loadJSON();
     }
 

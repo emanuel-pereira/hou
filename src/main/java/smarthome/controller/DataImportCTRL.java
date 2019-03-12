@@ -10,11 +10,11 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JSONImportCTRL {
+public class DataImportCTRL {
 
     private GAList gaList;
 
-    public JSONImportCTRL(GAList gaList) {
+    public DataImportCTRL(GAList gaList) {
         this.gaList = gaList;
     }
 

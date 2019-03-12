@@ -70,7 +70,7 @@ public final class SystemAdministrationUI {
                     ui8.run();
                     break;
                 case 9:
-                    JSONImportUI ui9= new JSONImportUI(gaList);
+                    DataImportUI ui9= new DataImportUI(gaList);
                     ui9.loadJSON();
                     break;
                 default:

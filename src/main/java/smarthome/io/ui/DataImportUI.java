@@ -2,7 +2,7 @@ package smarthome.io.ui;
 
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
-import smarthome.controller.JSONImportCTRL;
+import smarthome.controller.DataImportCTRL;
 import smarthome.model.GAList;
 
 
@@ -10,12 +10,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 
-public class JSONImportUI {
-    private JSONImportCTRL ctrl;
+public class DataImportUI {
+    private DataImportCTRL ctrl;
 
 
-    public JSONImportUI(GAList gaList) {
-        this.ctrl = new JSONImportCTRL(gaList);
+    public DataImportUI(GAList gaList) {
+        this.ctrl = new DataImportCTRL(gaList);
     }
 
 
