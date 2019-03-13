@@ -8,20 +8,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReadCSVFileTest {
-
-    @Test()
-    void checkIfReadCSVFileFailTest() {
-        String expect="ReadingsRegistry (O sistema não conseguiu localizar o ficheiro especificado)";
-        String result=null;
-        try {
-            ReadCSVFile csv = new ReadCSVFile();
-            csv.readCsvFile("ReadingsRegistry");
-        } catch (FileNotFoundException fe) {
-            result = fe.getMessage();
-        }
-        assertEquals(expect,result);
-    }
-
+    
     @Test
     void getReadingsTest() throws FileNotFoundException {
         ReadCSVFile csv = new ReadCSVFile();

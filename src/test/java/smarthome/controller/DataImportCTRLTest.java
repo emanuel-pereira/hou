@@ -34,15 +34,13 @@ class DataImportCTRLTest {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources/JsonFile1.json";
-        String resultMsg="";
         try {
             ctrl.loadJSON(filepath);
         } catch (FileNotFoundException e) {
             System.out.println("File not found in the specified file path: " + filepath);
-            resultMsg = e.getMessage();
+            e.getMessage();
         }
-        String expected1="resources\\JsonFile1.json (O sistema não conseguiu localizar o ficheiro especificado)";
-        assertEquals(expected1,resultMsg);
+
         int expected = 0;
         int result = gaList.size();
         assertEquals(expected, result);
