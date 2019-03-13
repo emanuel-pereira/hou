@@ -61,7 +61,11 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
     @Test
     @DisplayName("Ensure that inputted month and day are invalid")
     void requestReadingRainfall() {
-        GeographicalArea ga = new GeographicalArea("POR", "Porto", "City", 1, 1, 1, 1, 1);
+
+        OccupationArea oc1 = new OccupationArea(1, 1);
+        Location loc1 = new Location(1,1,1);
+
+        GeographicalArea ga = new GeographicalArea("POR", "Porto", "City", oc1,loc1);
         House house = new House();
         house.setHouseGA(ga);
         house.setHouseAddress("Street", "15", "4420", 5, 5, 5);
@@ -119,7 +123,11 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
     @DisplayName("Test that house has already a geographical area configured")
     void isHouseGAConfigured() {
         House house = new House();
-        GeographicalArea ga = new GeographicalArea("PORTO", "Porto", "City", 1, 1, 1, 1, 1);
+
+        OccupationArea oc1 = new OccupationArea(1, 1);
+        Location loc1 = new Location(1,1,1);
+
+        GeographicalArea ga = new GeographicalArea("PORTO", "Porto", "City", oc1,loc1);
         house.setHouseGA(ga);
         SensorTypeList sensorTypeList = new SensorTypeList();
         GetTotalRainfallForDayInHouseAreaCTRL ctrl = new GetTotalRainfallForDayInHouseAreaCTRL(house, sensorTypeList);
@@ -142,7 +150,9 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
     @DisplayName("Ensure that closest rainfall sensor has readings in 2019-02-03")
 
     void closestSensorsWithReadingsInDate() {
-        GeographicalArea ga = new GeographicalArea("POR", "Porto", "City", 1, 1, 1, 1, 1);
+        OccupationArea oc1 = new OccupationArea(1, 1);
+        Location loc1 = new Location(1,1,1);
+        GeographicalArea ga = new GeographicalArea("POR", "Porto", "City", oc1,loc1);
         House house = new House();
         house.setHouseGA(ga);
         house.setHouseAddress("Street", "15", "4420", 5, 5, 5);
@@ -202,7 +212,10 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
     @DisplayName("Ensure that closest rainfall sensor doesn't have readings in 2019-03-15")
 
     void closestSensorsWithoutReadingsInDate() {
-        GeographicalArea ga = new GeographicalArea("POR", "Porto", "City", 1, 1, 1, 1, 1);
+
+        OccupationArea oc1 = new OccupationArea(1, 1);
+        Location loc1 = new Location(1,1,1);
+        GeographicalArea ga = new GeographicalArea("POR", "Porto", "City", oc1,loc1);
         House house = new House();
         house.setHouseGA(ga);
         house.setHouseAddress("Street", "15", "4420", 5, 5, 5);

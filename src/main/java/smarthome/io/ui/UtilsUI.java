@@ -5,7 +5,6 @@ import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Pattern;
 
 public final class UtilsUI {
 
@@ -18,7 +17,7 @@ public final class UtilsUI {
     private UtilsUI() {
     }
 
-
+    
     /**
      * Reads user input from the console and returns it as a string
      *
@@ -305,8 +304,8 @@ public final class UtilsUI {
         return parsedUserInput;
     }
 
-    public static String formatDecimal(double inputDouble, int decimals) {
-        BigDecimal bd = new BigDecimal(inputDouble);
+    public static String formatDecimal (double inputDouble, int decimals){
+        BigDecimal bd = BigDecimal.valueOf(inputDouble);
         bd = bd.setScale(decimals, RoundingMode.HALF_UP);
         return Double.toString(bd.doubleValue());
     }
@@ -618,16 +617,10 @@ public final class UtilsUI {
     }
 
 
-    public static boolean confirmOption(String continueQuestion, String errorMessage, String dynamicRegEx) {
+    public static boolean confirmOption(String continueQuestion, String errorMessage,String dynamicRegEx) {
         print(continueQuestion);
-
-        String yesOrNo = requestText(errorMessage, dynamicRegEx);
-        //TODO if statment can be simplified
-        if (yesOrNo.contains("n") || yesOrNo.contains("N")) {
-            return false;
-        } else {
-            return true;
-        }
+        String yesOrNo = requestText(errorMessage,dynamicRegEx);
+        return yesOrNo.contains("y") || yesOrNo.contains("Y");
     }
 
 }

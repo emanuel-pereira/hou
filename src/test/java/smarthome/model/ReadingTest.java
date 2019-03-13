@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class ReadingTest {
@@ -53,14 +55,45 @@ public class ReadingTest {
 
     }
 
+    //TODO: display name
     @Test
-    void getDateOfReadingAsString() {
-        GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 27, 21, 30);
+    void compareYearMonthDay(){
+        GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 27);
+        GregorianCalendar calendar2 = new GregorianCalendar(2018,11,27);
+
         Reading reading1 = new Reading(13, calendar1);
 
-        String expected = "2018-11-27";
+        boolean result = reading1.compareYearMonthDay(calendar2);
+
+        assertTrue(result);
+
+    }
+
+    //TODO: display name
+    @Test
+    void compareDifferentYearMonthDay(){
+        GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 27);
+        GregorianCalendar calendar2 = new GregorianCalendar(2018,11,28);
+
+        Reading reading1 = new Reading(13, calendar1);
+
+        boolean result = reading1.compareYearMonthDay(calendar2);
+
+        assertFalse(result);
+    }
+
+
+
+    @Test
+    void getDateOfReadingAsString() {
+        GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 31, 21, 30);
+        Reading reading1 = new Reading(13, calendar1);
+
+        String expected = "2018-12-31";
         String result = reading1.getDateOfReadingAsString ();
         assertEquals(expected, result);
     }
+
+
 
 }

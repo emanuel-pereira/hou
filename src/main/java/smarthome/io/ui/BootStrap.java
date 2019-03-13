@@ -59,11 +59,16 @@ public final class BootStrap {
     private static void createGeographicalAreas(GAList gaList, TypeGAList typeGAList) {
         TypeGA urbanArea = new TypeGA("urban area");
         typeGAList.addTypeGA(urbanArea);
-        GeographicalArea isep = new GeographicalArea("ISEP", "Campus do ISEP", "urban area", 41.178553, -8.608035, 111, 0.261, 0.249);
+
+        OccupationArea oc = new OccupationArea(0.261, 0.249);
+        Location loc = new Location(41.178553, -8.608035, 111);
+        GeographicalArea isep = new GeographicalArea("ISEP", "Campus do ISEP", "urban area", oc, loc);
         gaList.addGA(isep);
         TypeGA city = new TypeGA("city");
         typeGAList.addTypeGA(city);
-        GeographicalArea porto = new GeographicalArea("Porto", "City of Porto", "city", 41.164077, -8.620802, 118, 3.30, 10.09);
+        OccupationArea oc1 = new OccupationArea(3.30, 10.09);
+        Location loc1 = new Location(41.164077, -8.620802, 118);
+        GeographicalArea porto = new GeographicalArea("Porto", "City of Porto", "city", oc1, loc1);
         gaList.addGA(porto);
 
         //the house creation is called here

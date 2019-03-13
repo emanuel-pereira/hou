@@ -13,28 +13,6 @@ public class GeographicalArea {
 
 
     /**
-     * This constructor method defines a Geographical Area with a designation, type, location as well as length and width
-     * to calculate its occupation area
-     *
-     * @param name      GA name
-     * @param typeGA    GA type
-     * @param longitude GA longitude
-     * @param latitude  GA latitude
-     * @param altitude  GA altitude
-     * @param length    GA length
-     * @param width     GA width
-     */
-    public GeographicalArea(String id, String name, String typeGA, double latitude, double longitude, double altitude, double length, double width) {
-
-        this.identification = id;
-        this.designation = name;
-        this.typeOfGa = new TypeGA(typeGA);
-        this.location = new Location(latitude, longitude, altitude);
-        this.occupation = new OccupationArea(length, width);
-        this.sensorListInGa = new SensorList();
-    }
-
-    /**
      * Constructor required to create a new Geographical Area
      *
      * @param id             String parameter representing the id of the Geographical Area

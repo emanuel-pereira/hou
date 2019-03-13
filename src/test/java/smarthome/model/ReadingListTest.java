@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class ReadingListTest {
 
@@ -23,9 +24,8 @@ class ReadingListTest {
         int expected2 = 1;
         int result2 = readingList.getReadingList().size();
         assertEquals(expected2, result2);
-
-
     }
+
 
     @Test
     @DisplayName("Ensure newReading method creates local instance of reading and that addReading method is not add to readingList")
@@ -39,6 +39,26 @@ class ReadingListTest {
 
         boolean result2 = readingList.addReading(r1);
         assertEquals(false, result2);
+
+
+        List<Reading> result3 = readingList.getReadingList();
+        List<Reading> expected3 = Arrays.asList(r1);
+        assertEquals(expected3, result3);
+    }
+
+    @Test
+    @DisplayName("Ensure newReading method creates local instance of reading and that addReading null is not add to readingList")
+    void cantAddSameReadingNull() {
+        ReadingList readingList = new ReadingList();
+        Reading r1 = readingList.newReading(15, new GregorianCalendar(2019, 2, 2));
+        readingList.addReading(r1);
+        Reading expected1 = r1;
+        Reading result1 = readingList.getReadingList().get(0);
+        assertEquals(expected1, result1);
+
+        Reading r2 = null;
+        boolean result2 = readingList.addReading(r2);
+        assertFalse (result2);
 
 
         List<Reading> result3 = readingList.getReadingList();
@@ -71,7 +91,7 @@ class ReadingListTest {
 
     @Test
     @DisplayName("Ensure that returns the total values of reading list in a specific day")
-    public void totalValueInGivenDay() {
+    void totalValueInGivenDay() {
 
 
         ReadingList readingList = new ReadingList();
@@ -95,6 +115,8 @@ class ReadingListTest {
 
     }
 
+
+
     @Test
     void getReadingsInSpecificDay() {
         Calendar date = new GregorianCalendar(2018, 1, 1);
@@ -114,6 +136,57 @@ class ReadingListTest {
         assertEquals(expected, result);
 
     }
+
+
+    //TODO: criar testes adicionais
+    @Test
+    void dailyAverageOfReadings(){
+
+        ReadingList readingList = new ReadingList();
+
+        GregorianCalendar date = new GregorianCalendar(2018,11,5);
+        GregorianCalendar date2 = new GregorianCalendar(2019,12,3);
+
+        Reading r2 = new Reading(18, date);
+        Reading r3 = new Reading(22, date);
+        Reading r4 = new Reading(27, date);
+        Reading r5 = new Reading(31, date2);
+
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+        readingList.addReading(r5);
+
+
+        double result = readingList.dailyAverageOfReadings(date);
+        assertEquals(22.3, result, 0.1);
+
+    }
+
+    @Test
+    void dailyAverageOfReadingsNaN(){
+
+        ReadingList readingList = new ReadingList();
+
+        GregorianCalendar date = new GregorianCalendar(2018,11,5);
+        GregorianCalendar date2 = new GregorianCalendar(2019,12,3);
+
+        Reading r2 = new Reading(18, date);
+        Reading r3 = new Reading(22, date);
+        Reading r4 = new Reading(27, date);
+        Reading r5 = new Reading(31, date2);
+
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+        readingList.addReading(r5);
+
+
+        double result = readingList.dailyAverageOfReadings(new GregorianCalendar(2018,12,12));
+        assertEquals(Double.NaN, result, 0.1);
+
+    }
+
 
     @Test
     void getTotalOfReadingsInTimeInterval() {
@@ -162,7 +235,7 @@ class ReadingListTest {
         GregorianCalendar endDate = new GregorianCalendar(2017, 6, 4);
 
         GregorianCalendar date1 = new GregorianCalendar(2017, 6, 1);
-        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 3);
+        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 4);
         GregorianCalendar date3 = new GregorianCalendar(2017, 6, 5);
 
         Reading r1 = new Reading(12.3, date1);

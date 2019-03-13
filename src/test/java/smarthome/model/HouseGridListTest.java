@@ -14,7 +14,10 @@ class HouseGridListTest {
     void newHouseGrid() {
         Location l1 = new Location(41, 12.3, 110);
         Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", l1);
-        GeographicalArea g1 = new GeographicalArea("LX","Lisboa", "cidade",10,10,10,10,10);
+
+        OccupationArea oc = new OccupationArea(10,10);
+        Location loc = new Location(10,10,10);
+        GeographicalArea g1 = new GeographicalArea("LX","Lisboa", "cidade",oc,loc);
 
         House house = new House("Casa", a1, g1);
         HouseGridList hglist = house.getHGListInHouse ();

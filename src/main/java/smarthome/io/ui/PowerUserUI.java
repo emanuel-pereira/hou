@@ -38,11 +38,11 @@ final class PowerUserUI {
                     break;
                 case 3:
                     GetTotalNominalPowerUI ui230 = new GetTotalNominalPowerUI(house);
-                    ui230.getRoomTotalNominalPowerUI ();
+                    ui230.getRoomTotalNominalPower ();
                     break;
                 case 4:
                     GetTotalNominalPowerUI uS172 = new GetTotalNominalPowerUI(house);
-                    uS172.getGridTotalNominalPowerUI ();
+                    uS172.getGridTotalNominalPower ();
                     break;
                 case 5:
                     UtilsUI.underMaintenanceMsg("US705");

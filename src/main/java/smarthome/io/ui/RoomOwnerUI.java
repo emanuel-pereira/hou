@@ -22,7 +22,7 @@ public final class RoomOwnerUI {
             switch (option) {
                 case 1:
                     GetTotalNominalPowerUI ui230 = new GetTotalNominalPowerUI(house);
-                    ui230.getRoomTotalNominalPowerUI ();
+                    ui230.getRoomTotalNominalPower ();
                     break;
                 case 2:
                     System.out.println("new functions are coming soon");

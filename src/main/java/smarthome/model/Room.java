@@ -33,10 +33,6 @@ public class Room implements Metered {
         this.deviceList = new DeviceList();
     }
 
-    public Room() {
-
-    }
-
     /**
      * Method to get the name of the room
      *
