@@ -156,18 +156,30 @@ public class ReadingList {
 
     public ReadingList dailyMaximumReadings() {
         //extract the first day of the list
-        Calendar dayOfTheList = this.readingList.get(0).extractYearMonthDay();
-        ReadingList dailyMaxReadings = new ReadingList();
-        Reading dayMax = new Reading();
+
+        List<Calendar> dates = new ArrayList<>(); //this list saves all unique dates in the reading list
+
+        ReadingList dailyMax = new ReadingList(); //this is a list containing the maximum reading of a single day
+        ReadingList temp = new ReadingList();
+
+        //get all dates in the reading list and fill in the dates list. Move this to another method?
+
         for (Reading reading : this.readingList) {
-            if (reading.compareYearMonthDay(dayOfTheList) && reading.returnValueOfReading() > dayMax.returnValueOfReading()) {
-                dayMax = reading;
-            } else { //if day does not match meaning next day, increment
-                dailyMaxReadings.addReading(dayMax);
-                dayOfTheList.add(Calendar.DATE, 1);
+            if (!dates.contains(reading.extractYearMonthDay())) {
+                dates.add(reading.extractYearMonthDay());
             }
         }
-        return dailyMaxReadings;
+
+
+        // Iterate over the dates list, get the readings in those dates and add the maximum to the dailyMax list.
+        for (Calendar date : dates) {
+            temp = getReadingsInSpecificDay(date);
+            double max = temp.maxValueInInterval().returnValueOfReading();
+            Reading r = newReading(max, date);
+            dailyMax.addReading(r);
+        }
+
+        return dailyMax;
     }
 
 }
