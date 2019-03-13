@@ -19,11 +19,14 @@ public class DataImportCTRL {
     }
 
 
-    public void loadJSON(String filePath) throws ParseException, org.json.simple.parser.ParseException, IOException {
+    public void loadJSON(String filePath) throws ParseException,org.json.simple.parser.ParseException, IOException {
         ReadJSONFile jsonFile = new ReadJSONFile(filePath, gaList);
         jsonFile.readGAs();
     }
 
+    public void importReadingsFromCSVFile(String filePath) throws IOException {
+        gaList.importDataFromCSVFileForEachGA(filePath);
+    }
 
     public List<GeographicalAreaDTO> getGAListDTO() {
         List<GeographicalAreaDTO> gaListDTO=new ArrayList<>();
