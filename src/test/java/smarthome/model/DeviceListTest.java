@@ -110,8 +110,8 @@ class DeviceListTest {
         deviceList.addDevice (lamp);
         deviceList.addDevice (kettle);
 
-        List<Device> expected = Arrays.asList (lamp, kettle);
-        List<Device> result = deviceList.getMeteredDevices ();
+        List<Metered> expected = Arrays.asList ((Metered) lamp, (Metered) kettle);
+        List<Metered> result = deviceList.getMeteredDevices ();
 
         assertEquals (expected, result);
     }

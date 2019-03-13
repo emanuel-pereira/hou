@@ -152,28 +152,14 @@ public class RoomList {
         return Utils.round(totalEnergyConsumption,2);
     }
 
-    public List<Device> getMeteredDevicesLst(){
-    public List<Device>getMeteredDevicesInHouse(){
-        List<Device> meteredDevListInHouse=new ArrayList<>();
+    public List<Metered> getMeteredDevicesLst(){
+        List<Metered> meteredDevListInHouse=new ArrayList<>();
         for(Room room:this.roomLst){
-            List<Device> meteredDevicesInRoom=room.getDeviceList().getMeteredDevices();
+            List<Metered> meteredDevicesInRoom=room.getDeviceList().getMeteredDevices();
             meteredDevListInHouse.addAll(meteredDevicesInRoom);
         }
         return meteredDevListInHouse;
     }
 
-    public String showMeteredDevicesInStr() {
-        List<Device> meteredDeviceList = getMeteredDevicesLst();
-        StringBuilder result = new StringBuilder ();
-        String element = " - ";
-        int number = 1;
-        for (Device device : meteredDeviceList) {
-            result.append (number++);
-            result.append (element);
-            result.append (device.getName());
-            result.append ("\n");
-        }
-        return result.toString ();
-    }
 
 }

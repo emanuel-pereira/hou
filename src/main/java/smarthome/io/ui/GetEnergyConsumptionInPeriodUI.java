@@ -24,7 +24,7 @@ public class GetEnergyConsumptionInPeriodUI {
         System.out.println("Choose the metered object from the list below to get its total energy consumption in a time interval:");
         System.out.println(mCtrl.showMetered());
         this.indexOfMetered = UtilsUI.requestIntegerInInterval(1, mCtrl.meteredListSize(),
-                "Not a valid option. Please select a device from the list below:\n" + mCtrl.showMeteredDevicesInStr());
+                "Not a valid option. Please select a device from the list below:\n" + mCtrl.showMetered());
         this.indexOfMetered--;
         this.getStartDate();
     }

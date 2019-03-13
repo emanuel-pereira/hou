@@ -85,6 +85,11 @@ public class Fridge implements Device, Metered {
         return Utils.round(energyConsumption, 2);
     }
 
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
 
 
 

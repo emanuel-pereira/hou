@@ -60,7 +60,6 @@ public class DeviceList {
     public List<String> showDeviceListInString() {
         List<Device> list = getDeviceList();
         List<String> result = new ArrayList<>();
-        String devType;
         String active = "[Active]";
         String notActive = "[Not active]";
         StringBuilder sb = new StringBuilder();
@@ -109,13 +108,12 @@ public class DeviceList {
     /**
      * @return a list of all devices that have isMetered parameter set as true
      */
-    List<Device> getMeteredDevices() {
-        List<Device> meteredDeviceList = new ArrayList<>();
+    List<Metered> getMeteredDevices() {
+        List<Metered> meteredDeviceList = new ArrayList<>();
 
         for (Device device : devicesList) {
-            if (device instanceof Metered) {
-                meteredDeviceList.add(device);
-            }
+            Metered meteredDevice = (Metered) device;
+            meteredDeviceList.add(meteredDevice);
         }
         return meteredDeviceList;
     }
