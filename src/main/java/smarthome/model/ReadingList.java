@@ -23,13 +23,14 @@ public class ReadingList {
         return readingList.add(newReading);
     }
 
+    public Reading getLastReading() {
+        return readingList.get(readingList.size() - 1);
+    }
+
     public List<Reading> getReadingList() {
         return readingList;
     }
 
-    public Reading getLastReading() {
-        return readingList.get(readingList.size() - 1);
-    }
 
     public int size() {
         return readingList.size();
@@ -185,32 +186,63 @@ public class ReadingList {
 
     public ReadingList dailyMinimumReadings() {
         //extract the first day of the list
-        Calendar dayOfTheList = this.readingList.get(0).extractYearMonthDay();
-        ReadingList dailyMinReadings = new ReadingList();
-        Reading dayMin = new Reading();
-        System.out.println("Daily Maximus List");
+
+        List<Calendar> dates = new ArrayList<>(); //this list saves all unique dates in the reading list
+
+        ReadingList dailyMin = new ReadingList(); //this is a list containing the maximum reading of a single day
+        ReadingList temp;
+
+        //get all dates in the reading list and fill in the dates list. Move this to another method?
+
         for (Reading reading : this.readingList) {
-            if (reading.isSameDay(dayOfTheList) && reading.returnValueOfReading() < dayMin.returnValueOfReading()) {
-                dayMin = reading;
-            } else { //if day does not match meaning next day, increment
-                dailyMinReadings.addReading(dayMin);
-                System.out.println(dayMin.getDateOfReadingAsString() + " - " + dayMin.getDateAndTime().get(Calendar.HOUR_OF_DAY) + "H" + dayMin.getDateAndTime().get(Calendar.MINUTE) + "M" + "->" + dayMin.returnValueOfReading());
-                dayOfTheList.add(Calendar.DATE, 1);
+            if (!dates.contains(reading.extractYearMonthDay())) {
+                dates.add(reading.extractYearMonthDay());
             }
         }
-        return dailyMinReadings;
+
+        // Iterate over the dates list, get the readings in those dates and add the maximum to the dailyMax list.
+        for (Calendar date : dates) {
+            temp = getReadingsInSpecificDay(date);
+            double min = temp.minValueInInterval().returnValueOfReading();
+            Reading day = newReading(min, date);
+            dailyMin.addReading(day);
+        }
+
+        return dailyMin;
     }
 
-    /*public ReadingList dailyAmplitude(ReadingList dailyMinReadings, ReadingList dailyMaxReadings){
+    /*public ReadingList dailyAmplitude(ReadingList dailyMinReadings, ReadingList dailyMaxReadings) {
         //extract the first day of the list
         Calendar listDay = this.readingList.get(0).extractYearMonthDay();
         ReadingList dailyAmplitude = new ReadingList();
         Reading dayAmp = new Reading();
         List<Reading>
         System.out.println("Daily Amplitude List");
-        for (Reading reading : dailyMinReadings.getReadingList()){
+        for (Reading reading : dailyMinReadings.getReadingList()) {
             dayAmp = (dailyMaxReadings.getReadingList().)
         }
     }*/
+
+    public List<Reading> dailyAmplitude() {
+        List<Reading> dailyMaximumReadings = dailyMaximumReadings().getReadingList();
+        List<Reading> dailyMinimumReadings = dailyMinimumReadings().getReadingList();
+        //extract the first day of the list
+
+        List<Reading> dailyAmp = new ArrayList<>(); //this is a list containing the amplitudes differences of a single day
+        ReadingList temp;
+        double tempReadingValue;
+        Reading dayMaxReading;
+        Reading dayMinReading;
+
+        int size = dailyMaximumReadings.size();
+
+        for (int i = 0; i < size; i++) {
+            dayMaxReading = dailyMaximumReadings.get(i);
+            dayMinReading = dailyMinimumReadings.get(i);
+            tempReadingValue = dayMaxReading.returnValueOfReading() - dayMinReading.returnValueOfReading();
+            dailyAmp.add(new Reading(tempReadingValue, dayMaxReading.getDateAndTime()));
+        }
+        return dailyAmp;
+    }
 
 }
