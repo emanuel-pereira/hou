@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public final class UtilsUI {
 
@@ -563,8 +564,8 @@ public final class UtilsUI {
         print("\n");
         print("[ENTER] to return to the previous menu");
         print("\n");
-        requestText("");
-        printAndReset("\n");
+        Scanner s = new Scanner(System.in);
+        s.nextLine();
     }
 
     public static void underMaintenanceMsg(String inputUS) {
