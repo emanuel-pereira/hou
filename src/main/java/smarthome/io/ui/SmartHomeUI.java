@@ -21,14 +21,7 @@ public class SmartHomeUI {
 
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, ParseException, IOException, org.json.simple.parser.ParseException {
         init();
-        /*ReadJSONFile jsonFile= new ReadJSONFile();*/
-/*
-        jsonFile.readGAs();
-
-        gaList=jsonFile.getGaList();*/
-        BootStrap.run(house, typeGAList, gaList, sensorTypeList);
-
-
+        BootStrap.run(house, typeGAList, sensorTypeList);
         menuOptions();
     }
 

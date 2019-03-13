@@ -1,9 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.model.*;
-
-import java.io.IOException;
-import java.text.ParseException;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -26,6 +23,7 @@ public final class BootStrap {
     private static String dishwasherCapacity = "Dishwasher Capacity";
     private static String washingMachineCapacity = "Washing Machine Capacity";
     private static House house;
+
     private BootStrap() {
     }
 
@@ -36,54 +34,29 @@ public final class BootStrap {
      * private methods which can be extended or duplicated.
      *
      * @param house          bootstrap house object
-     * @param gaList         bootstrap List of Geographical Areas object
      * @param sensorTypeList bootstrap List of sensor Unit Types object
      * @throws IllegalAccessException exception
      * @throws InstantiationException exception
      * @throws ClassNotFoundException exception
      */
-    public static void run(House house, TypeGAList typeGAList, GAList gaList, SensorTypeList sensorTypeList) throws IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
+    public static void run(House house, TypeGAList typeGAList, SensorTypeList sensorTypeList) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
         BootStrap.house = house;
         createSensorsUnitTypes(sensorTypeList);
-        createGeographicalAreas(gaList, typeGAList);
-        GeographicalArea isep = gaList.get(0);
-        createHouse(isep);
-
+        createTypeOfGAs(typeGAList);
         createHouseGrid();
-
         createRoom(sensorTypeList);
-
         createDeviceTypes();
     }
 
     /**
-     * This method is responsible for all geographical areas creation.
-     * In order to add a new Geographical area one simply needs to create a new Geographical
-     * object and add it to the Geographical Areas list.
-     * <p>
+     * This method is responsible for all geographical areas types creation.
      * The house creation method is called here, after all GA's are build.
-     *
-     * @param gaList bootstrap List of Geographical Areas object
-     */
-    private static void createGeographicalAreas(GAList gaList, TypeGAList typeGAList) throws ParseException, org.json.simple.parser.ParseException, IOException {
+     **/
+    private static void createTypeOfGAs(TypeGAList typeGAList) {
         TypeGA urbanArea = new TypeGA("urban area");
         typeGAList.addTypeGA(urbanArea);
         TypeGA city = new TypeGA("city");
         typeGAList.addTypeGA(city);
-        DataImportUI ui = new DataImportUI(gaList);
-        ui.loadJSON();
-    }
-
-    /**
-     * This method is responsible for the creation of the house. This means it's address
-     * and location are defined here.
-     *
-     * @param houseArea Geographical Area where the house is placed
-     */
-    private static void createHouse(GeographicalArea houseArea) {
-        //set house address and it's parent GA as ISEP
-        house.setHouseGA(houseArea);
-        house.setHouseAddress("Rua Dr António Bernardino de Almeida", "431", "4200-072", 41.177748, -8.607745, 112);
     }
 
     /**
