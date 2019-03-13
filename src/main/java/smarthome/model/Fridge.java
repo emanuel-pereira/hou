@@ -1,114 +1,126 @@
 package smarthome.model;
 
-import smarthome.io.ui.UtilsUI;
+import smarthome.model.validations.NameValidations;
+import smarthome.model.validations.Utils;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
-import static java.lang.Integer.parseInt;
+public class Fridge implements Device, Metered {
 
-public class Fridge implements DeviceSpecs {
-    private int mFreezerCapacity;
-    private int mRefrigeratorCapacity;
-    private int mAnnualEnergyConsumption;
-    private DeviceType mDeviceType;
+    private NameValidations nameValidation = new NameValidations();
 
-    public Fridge() {
+    private String name;
+    private DeviceSpecs deviceSpecs;
+    private String deviceType = "Fridge";
+    private double nominalPower;
+    private boolean active;
+    private ReadingList activityLog;
+
+
+    /**
+     * Constructs a Device with a name.
+     *
+     * @param deviceName name given by the user to the device (requested during runtime).
+     */
+
+    public Fridge(String deviceName, DeviceSpecs deviceSpecs, double nominalPower) { // deviceName is the name given by the user
+        this.name = deviceName;
+        this.deviceSpecs = deviceSpecs;
+        this.nominalPower = nominalPower;
+
+        this.active = true;
+        this.activityLog = new ReadingList();
+
     }
 
-    public Fridge(int freezerCapacity, int refrigeratorCapacity, int annualEnergyConsumption) {
-        this.mFreezerCapacity = freezerCapacity;
-        this.mRefrigeratorCapacity = refrigeratorCapacity;
-        this.mAnnualEnergyConsumption = annualEnergyConsumption;
+    /* ----- Getters ----- */
+    /**
+     * @return the device name
+     */
+    @Override
+    public String getDeviceName() {
+        return this.name;
+    }
+    /**
+     * @return the device specifications
+     */
+    public DeviceSpecs getDeviceSpecs() {
+        return this.deviceSpecs;
+    }
+
+    public String getDeviceType() {
+        return this.deviceType;
+    }
+
+
+    /**
+     * @return the device nominal Power
+     */
+    public double getNominalPower() {
+        return nominalPower;
     }
 
     @Override
-    public DeviceType getDeviceType() {
-        return mDeviceType;
+    public boolean isActive() {
+        return this.active;
+    }
+
+    /**
+     * return device activity log
+     *
+     * @return device activity log registry
+     */
+    public ReadingList getActivityLog() {
+        return activityLog;
     }
 
     @Override
-    public void setType(DeviceType deviceType) {
-        mDeviceType = deviceType;
-    }
+    public double getEnergyConsumption(Calendar startDate, Calendar endDate) {
+        Configuration c = new Configuration();
 
-    public List<String> getAttributesNames() {
-        List<String> attributes = new ArrayList<>();
-        for (Field field : getAttributesFields()) {
-            if (field.isAccessible()) {
-                String attributeName = field.getName();
-                attributes.add(attributeName);
-            }
+        double energyConsumption = 0;
+        if (c.getDevicesMeteringPeriod() != -1 && this instanceof Metered) {
+            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startDate, endDate);
         }
-        return attributes;
+        return Utils.round(energyConsumption, 2);
     }
 
-    public Field[] getAttributesFields() {
-        Field[] fields = this.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            if ("mFreezerCapacity".equals (field.getName ()))
-                field.setAccessible(true);
-            if ("mRefrigeratorCapacity".equals (field.getName ()))
-                field.setAccessible(true);
-        }
-        return fields;
+
+
+
+    /* ----- Setters ----- */
+
+    /**
+     * Method to set name as the one inputted by the user if it complies with alphanumericName method criteria
+     *
+     * @param name String inputted by the user to name the device
+     */
+    public void setDeviceName(String name) {
+        if (nameValidation.alphanumericName(name))
+            this.name = name;
     }
 
-    public int getAttributesValues(String attribute) throws IllegalAccessException {
-        int i = 0;
-        int value = 0;
-        for (String attributeName : getAttributesNames()) {
-            if (attribute.matches(attributeName))
-                value = getAttributesFields()[i].getInt(this);
-            i++;
-        }
-        return value;
+    /**
+     * Method to set nominal power as the one inputted by the user if it is a positive value method criteria
+     *
+     * @param nominalPower double inputted as nominal power
+     */
+    public void setNominalPower(double nominalPower) {
+        if (Utils.valueIsPositive(nominalPower))
+            this.nominalPower = nominalPower;
     }
 
-    @Override
-    public void setAttributeValue(String attribute, String newValue) throws IllegalAccessException {
-        int i = 0;
-        for (String attributeName : getAttributesNames()) {
-            if (attribute.matches(attributeName))
-                getAttributesFields()[i].set(this, parseInt(newValue));
-            i++;
-        }
+    public void setAttributeValue(String attribute, Double newValue) {
+        this.getDeviceSpecs().setAttributeValue(attribute, newValue);
     }
 
-    public String showDeviceAttributeNamesAndValues() throws IllegalAccessException {
-        StringBuilder result = new StringBuilder();
-        int number = 3;
-        for (String attribute : getAttributesNames()) {
-            String s = UtilsUI.splitCamelCaseString(attribute);
-            result.append(number);
-            result.append(" -");
-            result.append(s.concat(": " + getAttributesValues(attribute)));
-            result.append("\n");
-            number++;
-        }
-        return result.toString();
-    }
-
-    @Override
-    public double getEnergyConsumption() {
-        return (double) mAnnualEnergyConsumption / 365.00;
-    }
-
-    public void setFreezerCapacity(int freezerCapacity) {
-        mFreezerCapacity = freezerCapacity;
-    }
-
-    public int getFreezerCapacity() {
-        return mFreezerCapacity;
-    }
-
-    public void setRefrigeratorCapacity(int refrigeratorCapacity) {
-        mRefrigeratorCapacity = refrigeratorCapacity;
-    }
-
-    public int getRefrigeratorCapacity() {
-        return mRefrigeratorCapacity;
+    /**
+     * set Device status to false
+     *
+     * @return true result
+     */
+    public boolean deactivateDevice() {
+        this.active = false;
+        return true;
     }
 }
-

@@ -1,73 +1,172 @@
 package smarthome.model;
 
+import smarthome.model.validations.NameValidations;
+import smarthome.model.validations.Utils;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-import static java.lang.Integer.parseInt;
+public class WashingMachine implements Device, Metered, Programmable {
 
-public class WashingMachine implements DeviceSpecs {
-    private int mCapacity;
-    private DeviceType mDeviceType;
+    private NameValidations nameValidation = new NameValidations();
 
-    public WashingMachine() {
+    private String name;
+    private DeviceSpecs deviceSpecs;
+    private String deviceType = "Washing Machine";
+    private double nominalPower;
+    private boolean active;
+    private ReadingList activityLog;
+    private List<Program> programList;
+
+    /**
+     * Washing Machine constructor
+     * @param name Washing Machine name
+     * @param deviceSpecs Washing Machine specs
+     * @param nominalPower Washing Machine nominal power
+     */
+    public WashingMachine(String name, DeviceSpecs deviceSpecs, double nominalPower) {
+        this.name = name;
+        this.deviceSpecs = deviceSpecs;
+        this.nominalPower = nominalPower;
+        this.active = true;
+        this.activityLog = new ReadingList();
+        this.programList = new ArrayList<> ();
     }
 
-    public WashingMachine(int capacity) {
-        this.mCapacity = capacity;
+    /**
+     * Get the Washing Machine name
+     * @return Device name
+     */
+    @Override
+    public String getDeviceName() {
+        return this.name;
     }
 
-    public void setCapacity(int newCapacity) {
-        mCapacity = newCapacity;
+    /**
+     * Get the Washing Machine specs
+     * @return Device specs
+     */
+    @Override
+    public DeviceSpecs getDeviceSpecs() {
+        return this.deviceSpecs;
     }
 
-    public int getCapacity() {
-        return mCapacity;
+    /**
+     * Get the Washing Machine type
+     * @return Device type
+     */
+    @Override
+    public String getDeviceType() {
+        return this.deviceType;
     }
 
-    public List<String> getAttributesNames() {
-        String classNameString = this.getClass().getSimpleName();
+    /**
+     * Get the Washing Machine nominal power
+     * @return Device nominal power
+     */
+    @Override
+    public double getNominalPower(){
+        return this.nominalPower;
+    }
+
+    /**
+     * Check if the device is active
+     * @return True if active
+     */
+    @Override
+    public boolean isActive() {
+        return this.active;
+    }
+
+    /**
+     * Get the Washing Machine activity log
+     * @return Device reading list
+     */
+    @Override
+    public ReadingList getActivityLog() {
+        return this.activityLog;
+    }
+
+    /**
+     * Set the Washing Machine name
+     * @param name Name of the device
+     */
+    @Override
+    public void setDeviceName(String name) {
+        if (nameValidation.alphanumericName(name))
+            this.name = name;
+    }
+
+    /**
+     * Set the Washing Machine nominal power
+     * @param nominalPower Nominal power of the device
+     */
+    @Override
+    public void setNominalPower(double nominalPower) {
+        if (Utils.valueIsPositive(nominalPower))
+            this.nominalPower = nominalPower;
+    }
+
+    /**
+     * Deactivate Washing Machine
+     * @return True if deactivated
+     */
+    @Override
+    public boolean deactivateDevice() {
+        if (!this.active)
+            return false;
+        this.active = false;
+        return true;
+    }
+
+    /**
+     * Get energy consumption of the Washing Machine in time interval
+     * @param startHour Beginning of the interval
+     * @param endHour End of the interval
+     * @return Energy consumption of the device
+     */
+    @Override
+    public double getEnergyConsumption(Calendar startHour, Calendar endHour) {
         Configuration c = new Configuration();
-        return c.getDeviceSpecsAttributes(classNameString);
+        double energyConsumption = 0;
+        if (c.getDevicesMeteringPeriod() != -1) {
+            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startHour, endHour);
+        }
+        return Utils.round(energyConsumption, 2);
     }
 
-    public int getAttributesValues(String attribute) {
-        int value = 0;
-        switch (attribute) {
-            case "Washing Machine Capacity":
-                value = getCapacity();
-                break;
-        }
-        return value;}
-
-    public void setAttributeValue (String attribute, String newValue){
-        switch (attribute) {
-            case "Washing Machine Capacity":
-                setCapacity(parseInt(newValue));
-                break;
-        }
-    }
-
-    public String showDeviceAttributeNamesAndValues() {
-        StringBuilder result = new StringBuilder();
-        int number = 3;
-        for (String s : getAttributesNames()) {
-            result.append(number);
-            result.append(" - ");
-            result.append(s.concat(" : " + getAttributesValues(s)));
-            result.append("\n");
-            number++;
-        }
-        return result.toString();
-    }
+    /**
+     * Create a Washing Machine program
+     * @param name Name of the program
+     * @param value Value that represents the nominal power or energy consumption of the program
+     * @return The created program
+     */
     @Override
-    public double getEnergyConsumption() {
-        return 0;
+    public Program createProgram(String name, double value) {
+        return new Program(name, "Energy Consumption", value);
     }
 
-    public DeviceType getDeviceType() {
-        return mDeviceType;
-    }
+    /**
+     * Add program to the program list of the Washing Machine
+     * @param newProgram Previous created program
+     * @return True if added with success
+     */
     @Override
-    public void setType(DeviceType deviceType) {
-        mDeviceType = deviceType;
+    public boolean addProgramToList(Program newProgram) {
+        if (!this.programList.contains(newProgram)) {
+            this.programList.add(newProgram);
+            return true;
+        } else return false;
     }
+
+    /**
+     * Get program list of the Washing Machine
+     * @return Program list of the device
+     */
+    @Override
+    public List<Program> getProgramList() {
+        return this.programList;
+    }
+
 }

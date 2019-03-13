@@ -16,42 +16,36 @@ public class DeviceList {
     /**
      * Method to add a new device instance to a DeviceList
      *
-     * @param newDevice instance to be added to the device list
+     * @param device instance to be added to the device list
      * @return boolean result of the device addition
      */
-    public boolean addDevice(Device newDevice) {
-        if (!devicesList.contains(newDevice)) {
-            devicesList.add(newDevice);
+    public boolean addDevice(Device device) {
+        if (!devicesList.contains(device)) {
+            devicesList.add(device);
             return true;
         } else return false;
     }
 
     /**
-     * Method that creates a local instance of a device a device whose type has its own specific characteristics
-     *
-     * @param name         of the device
-     * @param deviceSpecs  specific characteristics of the device, including, for example, device type
-     * @param nominalPower of the device
-     * @return a new Device instance
+     * @param deviceName   name given to the device by the user, e.g. "Cool Plasma TV 9000"
+     * @param deviceType   a string containing the designation of a given device type e.g. "Fridge". The device list is
+     * @param nominalPower the nominal power of the device (in kW).
+     * @return
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
      */
-    public Device newDevice(String name, DeviceSpecs deviceSpecs, double nominalPower) {
-        return new Device(name, deviceSpecs, nominalPower);
-    }
+    public Device newDevice(String deviceName, String deviceType, double nominalPower) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        String path = "smarthome.model."; // Maybe this should be removed. The path should be returned from the Configuration class and "injected" here.
 
-    public Device newDeviceV2(DeviceType deviceType) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        String path = "smarthome.model.";
-        String deviceTypeName = deviceType.getDeviceTypeName();
-        if (!(deviceTypeName.contains("Fridge") ||
-                deviceTypeName.contains("WashingMachine") ||
-                deviceTypeName.contains("ElectricWaterHeater") ||
-                deviceTypeName.contains("Dishwasher") ||
-                deviceTypeName.contains("Lamp")))
-            deviceTypeName = "OtherDevices";
-        String deviceTypeNameAndPath = path.concat(deviceTypeName);
-        DeviceSpecs deviceSpecs = (DeviceSpecs) Class.forName(deviceTypeNameAndPath).newInstance();
-        Device device = new Device(deviceSpecs);
-        device.getDeviceSpecs().setType(deviceType);
-        return device;
+        String deviceTypeNameAndPath = path.concat(deviceType).concat("Type"); // by internal convention every device type is named as [Name]Type.
+
+        // Return a new instance of the class implementing the DeviceType interface using reflection
+        DeviceType dt = (DeviceType) Class.forName(deviceTypeNameAndPath).newInstance(); // e.g. FridgeType
+
+        //TODO verify and add NameValidations
+
+        return dt.createDevice(deviceName, nominalPower); // The createDevice method returns a new Device based on the user given name. Done!
     }
 
     /**
@@ -62,31 +56,26 @@ public class DeviceList {
         return devicesList.get(index);
     }
 
-    /**
-     * @return the device in the last index position of the device list
-     */
-    Device getLastElement() {
-        return devicesList.get(devicesList.size() - 1);
-    }
 
-    public String showDeviceListInString() {
+    public List<String> showDeviceListInString() {
         List<Device> list = getDeviceList();
-        StringBuilder result = new StringBuilder();
-        String element = " - Device: ";
-        String typeStr = " | Type: ";
-        String statusStr = " | Active: ";
-        int number = 1;
+        List<String> result = new ArrayList<>();
+        String devType;
+        String active = "[Active]";
+        String notActive = "[Not active]";
+        StringBuilder sb = new StringBuilder();
+
         for (Device device : list) {
-            result.append(number++);
-            result.append(element);
-            result.append(device.getName());
-            result.append(typeStr);
-            result.append(device.getDeviceSpecs().getDeviceType().getDeviceTypeName());
-            result.append(statusStr);
-            result.append(device.status());
-            result.append("\n");
+            sb.append(device.getDeviceSpecs().getDeviceType());
+            sb.append(" (");
+            sb.append(device.getDeviceName());
+            sb.append(") ");
+            String fragment = device.isActive() ? active : notActive;
+            sb.append(fragment);
+            result.add(sb.toString());
+            sb.delete(0, sb.length());
         }
-        return result.toString();
+        return result;
     }
 
     public List<Device> getDeviceList() {
@@ -124,7 +113,7 @@ public class DeviceList {
         List<Device> meteredDeviceList = new ArrayList<>();
 
         for (Device device : devicesList) {
-            if (device.isMetered()) {
+            if (device instanceof Metered) {
                 meteredDeviceList.add(device);
             }
         }

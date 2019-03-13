@@ -42,9 +42,8 @@ class HouseGridListTest {
         hgList.addHouseGrid(hg1);
         hgList.addHouseGrid(hg2);
 
-        HouseGrid expectedResult = hg2;
         HouseGrid result = hgList.get(1);
-        assertEquals(expectedResult,result);
+        assertEquals(hg2,result);
     }
 
 }

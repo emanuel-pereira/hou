@@ -23,7 +23,7 @@ Administrator -> ":EditDeviceUI": Choose room
 
 ":EditDeviceCTRL" -> ":House": dTl=getDeviceTypesList()
 
-":House" -> ":ReadConfigFile": dTl=getListOfDeviceTypes()
+":House" -> ":Configuration": dTl=getListOfDeviceTypes()
 
 ":EditDeviceUI" --> "Administrator": Show device types
 

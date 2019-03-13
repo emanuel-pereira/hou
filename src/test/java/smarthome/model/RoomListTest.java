@@ -24,30 +24,6 @@ public class RoomListTest {
         assertEquals("BedRoom", roomList.getRoomList().get(0).getName());
     }
 
-    /*
-    @Test
-    @DisplayName("Tests if null name room is not accepted")
-    void  roomNameValidIfNull() {
-
-        RoomList roomList = new RoomList();
-
-        boolean result = roomList.roomNameValid (null);
-
-        assertFalse(result);
-    }
-
-    @Test
-    @DisplayName("Tests if empty name room is not accepted")
-    void  roomNameValidIfEmpty() {
-
-        RoomList roomList = new RoomList();
-
-        boolean result = roomList.roomNameValid ("    ");
-
-        assertFalse(result);
-    }
-*/
-
     @Test
     @DisplayName("Tests if a new room is added to the Room list")
     void addRoomToList() {
@@ -171,67 +147,68 @@ public class RoomListTest {
         assertEquals(expected, result);
 
     }
-
+/*
     @Test
     void getMeteredDevicesInHouse() {
-        RoomList roomList = new RoomList();
-        Room r1 = new Room("Kitchen1", 0, 5, 5, 3);
-        DeviceList r1DevLst = r1.getDeviceList();
+        RoomList roomList = new RoomList ();
+        Room r1 = new Room ("Kitchen1", 0, 5, 5, 3);
+        DeviceList r1DevLst = r1.getDeviceList ();
         DeviceSpecs fridge = new Fridge(25, 50, 25);
         Device dFridge = new Device("LG Fridge", fridge, 15);
-        dFridge.setIsMetered(true);
-        DeviceSpecs stove = new OtherDevices();
+        dFridge.setIsMetered (true);
+        DeviceSpecs stove = new OtherDevices ();
         Device dStove = new Device("XStove", stove, 15);
-        r1DevLst.addDevice(dFridge);
-        r1DevLst.addDevice(dStove);
-        Room r2 = new Room("Kitchen2", 0, 6, 4, 3);
-        DeviceList r2DevLst = r2.getDeviceList();
+        r1DevLst.addDevice (dFridge);
+        r1DevLst.addDevice (dStove);
+        Room r2 = new Room ("Kitchen2", 0, 6, 4, 3);
+        DeviceList r2DevLst = r2.getDeviceList ();
         DeviceSpecs fridge2 = new Fridge(25, 50, 25);
         Device dFridge2 = new Device("LG Fridge", fridge2, 15);
-        dFridge2.setIsMetered(true);
-        DeviceSpecs stove2 = new OtherDevices();
+        dFridge2.setIsMetered (true);
+        DeviceSpecs stove2 = new OtherDevices ();
         Device dStove2 = new Device("XStove", stove2, 15);
-        dStove.setIsMetered(false);
-        dStove2.setIsMetered(false);
-        r2DevLst.addDevice(dFridge2);
-        r2DevLst.addDevice(dStove2);
-        roomList.addRoom(r1);
-        roomList.addRoom(r2);
+        dStove.setIsMetered (false);
+        dStove2.setIsMetered (false);
+        r2DevLst.addDevice (dFridge2);
+        r2DevLst.addDevice (dStove2);
+        roomList.addRoom (r1);
+        roomList.addRoom (r2);
         int expected = 2;
-        int result = roomList.getMeteredDevicesInHouse().size();
-        assertEquals(expected, result);
-
-
+        int result = roomList.getMeteredDevicesInHouse ().size ();
+        assertEquals (expected, result);
     }
 
+
+/*
     @Test
     void showMeteredDevicesInStr() {
-        RoomList roomList = new RoomList();
-        Room r1 = new Room("Kitchen1", 0, 5, 5, 3);
-        DeviceList r1DevLst = r1.getDeviceList();
+        RoomList roomList = new RoomList ();
+        Room r1 = new Room ("Kitchen1", 0, 5, 5, 3);
+        DeviceList r1DevLst = r1.getDeviceList ();
         DeviceSpecs fridge = new Fridge(25, 50, 25);
         Device dFridge = new Device("LG Fridge1", fridge, 15);
-        dFridge.setIsMetered(true);
-        DeviceSpecs stove = new OtherDevices();
+        dFridge.setIsMetered (true);
+        DeviceSpecs stove = new OtherDevices ();
         Device dStove = new Device("XStove", stove, 15);
-        r1DevLst.addDevice(dFridge);
-        r1DevLst.addDevice(dStove);
-        Room r2 = new Room("Kitchen2", 0, 6, 4, 3);
-        DeviceList r2DevLst = r2.getDeviceList();
+        r1DevLst.addDevice (dFridge);
+        r1DevLst.addDevice (dStove);
+        Room r2 = new Room ("Kitchen2", 0, 6, 4, 3);
+        DeviceList r2DevLst = r2.getDeviceList ();
         DeviceSpecs fridge2 = new Fridge(25, 50, 25);
         Device dFridge2 = new Device("LG Fridge2", fridge2, 15);
-        dFridge2.setIsMetered(true);
-        DeviceSpecs stove2 = new OtherDevices();
+        dFridge2.setIsMetered (true);
+        DeviceSpecs stove2 = new OtherDevices ();
         Device dStove2 = new Device("XStove", stove2, 15);
-        dStove.setIsMetered(false);
-        dStove2.setIsMetered(false);
-        r2DevLst.addDevice(dFridge2);
-        r2DevLst.addDevice(dStove2);
-        roomList.addRoom(r1);
-        roomList.addRoom(r2);
+        dStove.setIsMetered (false);
+        dStove2.setIsMetered (false);
+        r2DevLst.addDevice (dFridge2);
+        r2DevLst.addDevice (dStove2);
+        roomList.addRoom (r1);
+        roomList.addRoom (r2);
         String expected = "1 - LG Fridge1\n" +
                 "2 - LG Fridge2\n";
-        String result = roomList.showMeteredDevicesInStr();
-        assertEquals(expected, result);
+        String result = roomList.showMeteredDevicesInStr ();
+        assertEquals (expected, result);
     }
+    */
 }

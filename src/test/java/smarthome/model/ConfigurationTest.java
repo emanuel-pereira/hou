@@ -38,23 +38,15 @@ class ConfigurationTest {
         Configuration c = new Configuration();
         c.getDeviceTypes();
 
-        List<String> expectedResult = Arrays.asList("ElectricWaterHeater", "WashingMachine", "Dishwasher", "Fridge", "Kettle", "Oven", "Stove", "MicrowaveOven", "WallElectricHeater", "PortableElectricOilHeater", "PortableElectricConvectionHeater", "WallTowelHeater", "Lamp", "Television");
+        List<String> expectedResult = Arrays.asList("ElectricWaterHeater", "WashingMachine", "Dishwasher", "Fridge", "Kettle", "Oven", "Stove", "MicrowaveOven", "WallElectricHeater", "PortableElectricOilHeater", "PortableElectricConvectionHeater", "WallTowelHeater", "Lamp", "Tv");
         List<String> result = c.getDeviceTypes();
 
         assertEquals(expectedResult, result);
     }
 
-    @Test
-    void getDeviceSpecsAttributesTest() {
-        Configuration c = new Configuration();
-        List<String> expectedResult = Arrays.asList("Freezer Capacity", "Refrigerator Capacity");
-        List<String> result = c.getDeviceSpecsAttributes("Fridge");
-
-        assertEquals(expectedResult, result);
-    }
 
     @Test
-    void getGridMeteringPeriodTestFAIL() {
+    void getGridMeteringPeriodTestFailNotAnInt() {
         Configuration c = new Configuration("smarthome/configFalseNotAnInt.properties");
         c.getGridMeteringPeriod();
 
@@ -65,9 +57,9 @@ class ConfigurationTest {
     }
 
     @Test
-    void getDevicesMeteringPeriodFAIL() {
+    void getDevicesMeteringPeriodFailNNotMultipleOf1440() {
 
-        Configuration c = new Configuration("smarthome/configFalseNotAnInt.properties");
+        Configuration c = new Configuration("smarthome/configFalseNotMultipleOf1440.properties");
         c.getDevicesMeteringPeriod();
 
         int expectedResult = -1;
@@ -77,12 +69,25 @@ class ConfigurationTest {
     }
 
     @Test
+    void getGridMeteringPeriodTestFailNotMultipleOf1440() {
+        Configuration c = new Configuration("smarthome/configFalseNotMultipleOf1440.properties");
+        c.getGridMeteringPeriod();
+
+        int expectedResult = -1;
+        int result = c.getGridMeteringPeriod();
+
+        assertEquals(expectedResult, result);
+    }
+
+
+    @Test
     void getDeviceTypesFAIL() {
 
         Configuration c = new Configuration("smarthome/configFalseNotAnInt.properties");
-        c.getDeviceTypes();
 
-        List<String> expectedResult = Arrays.asList("ERROR");
+        //TODO arrays returns empty as the currentDevice is the one that equals(ERROR) given so the array returns empty
+        //List<String> expectedResult = Arrays.asList("ERROR");
+        List<String> expectedResult = Arrays.asList();
         List<String> result = c.getDeviceTypes();
 
         assertEquals(expectedResult, result);
@@ -98,6 +103,8 @@ class ConfigurationTest {
         int result = c.getDevicesMeteringPeriod();
 
         assertEquals(expectedResult, result);
+
+
     }
 
 }

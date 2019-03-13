@@ -2,81 +2,84 @@
 skinparam linetype polyline
 
 object House{
-mID
+iD
 }
 
 object Address {
-mStreet
-mZipCode
-mTown
+street
+zipCode
+town
 }
 
 object GeographicalArea{
-mID
-mDesignation
+iD
+designation
 }
 
 object Location{
-mLatitude
-mLongitude
-mAltitude
+latitude
+longitude
+altitude
 }
 
 object TypeGA
 
 
 object OccupationArea{
-mLength
-mWidth
+length
+width
 }
 
 
 object Room{
-mName
-mFloor
-mArea
-mHeight
+name
+floor
+area
+height
 }
 
 
 object Sensor{
-mDesignation
-mStartDate
-mUnit
+iD
+designation
+startDate
+unit
 }
 
 object SensorType
 
 object HouseGrid {
-mDesignation
-mContractedMaximumPower
+designation
+contractedMaximumPower
 }
 
 object Reading{
-mValue
-mDateAndTime
+value
+dateAndTime
 }
 
 object Device {
-mName
-mDeviceSpecs
-mNominalPower
-mActive
-mIsMetered
+name
+nominalPower
+active
 }
 
 object DeviceType
 
+object DeviceSpecs{
+attributes
+}
+
 object PowerSource{
-mName
-mTypePS
-mMaxPower
-mStorageCapacity
+name
+typePS
+maxPower
+storageCapacity
 }
 
 object Program{
-mName
-mEnergyConsumption
+name
+value
 }
 
 House -- "1" GeographicalArea: > belongs to
@@ -105,6 +108,7 @@ Sensor "1" -- "1" Location: > is in
 HouseGrid "1" --  "*" PowerSource: has
 
 Device "1..*" -- "1" DeviceType: has
+Device "1..*" -- "1" DeviceSpecs: has
 Device -- "0..*  "Reading: > contains
 Device "1" -- "0..*" Program: has
 

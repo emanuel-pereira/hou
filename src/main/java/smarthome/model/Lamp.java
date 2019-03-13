@@ -1,65 +1,125 @@
 package smarthome.model;
 
-import java.util.List;
+import smarthome.model.validations.NameValidations;
+import smarthome.model.validations.Utils;
 
-import static java.lang.Integer.parseInt;
+import java.util.Calendar;
 
-public class Lamp implements DeviceSpecs {
-    private int mLuminousFlux;
-    private DeviceType mDeviceType;
-    private String luminousFlux = "Luminous Flux";
+public class Lamp implements Device, Metered {
 
-    public Lamp() {
+    private NameValidations nameValidation = new NameValidations();
+
+    private String name;
+    private DeviceSpecs deviceSpecs;
+    private String deviceType = "Lamp";
+    private double nominalPower;
+    private boolean active;
+    private ReadingList activityLog;
+
+
+    /**
+     * Constructs a Device with a name.
+     *
+     * @param deviceName name given by the user to the device (requested during runtime).
+     */
+
+    public Lamp(String deviceName, DeviceSpecs deviceSpecs, double nominalPower) { // deviceName is the name given by the user
+        this.name = deviceName;
+        this.deviceSpecs = deviceSpecs;
+        this.nominalPower = nominalPower;
+
+        active = true;
+        activityLog = new ReadingList();
     }
 
-    public Lamp(int luminousFlux) {
-        this.mLuminousFlux = luminousFlux;
+
+    /* ----- Getters ----- */
+
+    /**
+     * @return the device name
+     */
+    @Override
+    public String getDeviceName() {
+        return this.name;
     }
 
-    public void setLuminousFlux(int newLuminousFlux) {
-        mLuminousFlux = newLuminousFlux;
+    /**
+     * @return the device nominal Power
+     */
+    public double getNominalPower() {
+        return nominalPower;
     }
 
-    public int getLuminousFlux() {
-        return mLuminousFlux;
+    public String getDeviceType() {
+        return this.deviceType;
     }
 
-    public List<String> getAttributesNames() {
+    /**
+     * @return the device specifications
+     */
+    public DeviceSpecs getDeviceSpecs() {
+        return this.deviceSpecs;
+    }
+
+    @Override
+    public boolean isActive() {
+        return this.active;
+    }
+
+    /**
+     * return device activity log
+     *
+     * @return device activity log registry
+     */
+    public ReadingList getActivityLog() {
+        return activityLog;
+    }
+
+
+    @Override
+    public double getEnergyConsumption(Calendar startDate, Calendar endDate) {
         Configuration c = new Configuration();
-        return c.getDeviceSpecsAttributes("Lamp");
-    }
 
-    public void setAttributeValue(String attribute, String newValue) {
-        if (attribute.equals(luminousFlux))
-            setLuminousFlux(parseInt(newValue));
-    }
-
-    public String showDeviceAttributeNamesAndValues() {
-        StringBuilder result = new StringBuilder();
-        int number = 3;
-        for (String s : getAttributesNames()) {
-            result.append(number);
-            result.append(" - ");
-            if (s.contains(luminousFlux))
-                result.append(s.concat(" : " + this.getLuminousFlux()));
-            result.append("\n");
-            number++;
+        double energyConsumption = 0;
+        if (c.getDevicesMeteringPeriod() != -1 && this instanceof Metered) {
+            energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
         }
-        return result.toString();
+        return Utils.round(energyConsumption, 2);
     }
 
 
-    @Override
-    public double getEnergyConsumption() {
-        return 0;
+
+    /* ----- Setters ----- */
+
+    /**
+     * Method to set name as the one inputted by the user if it complies with alphanumericName method criteria
+     *
+     * @param name String inputted by the user to name the device
+     */
+    public void setDeviceName(String name) {
+        if (nameValidation.alphanumericName(name))
+            this.name = name;
     }
 
-    public DeviceType getDeviceType() {
-        return mDeviceType;
+    /**
+     * Method to set nominal power as the one inputted by the user if it is a positive value method criteria
+     *
+     * @param nominalPower double inputted as nominal power
+     */
+    public void setNominalPower(double nominalPower) {
+        if (Utils.valueIsPositive(nominalPower))
+            this.nominalPower = nominalPower;
     }
 
-    @Override
-    public void setType(DeviceType deviceType) {
-        mDeviceType = deviceType;
+    /**
+     * set Device status to false
+     *
+     * @return true result
+     */
+    public boolean deactivateDevice() {
+        if (!this.active)
+            return false;
+        this.active = false;
+        return true;
     }
 }

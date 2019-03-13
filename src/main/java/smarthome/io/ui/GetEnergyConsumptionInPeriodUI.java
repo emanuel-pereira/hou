@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 
 public class GetEnergyConsumptionInPeriodUI {
 
-    private GetEnergyConsumptionInPeriodCTRL mCtrl;
+    private GetEnergyConsumptionInPeriodCTRL ctrl;
     private int indexOfDevice;
     private int indexOfHG;
     private int indexOfRoom;
@@ -19,7 +19,7 @@ public class GetEnergyConsumptionInPeriodUI {
 
 
     public GetEnergyConsumptionInPeriodUI(House house) {
-        mCtrl = new GetEnergyConsumptionInPeriodCTRL(house);
+        ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
     }
 
 
@@ -50,27 +50,27 @@ public class GetEnergyConsumptionInPeriodUI {
 
     private void selectDevice() {
         System.out.println("Choose a device from the list below:");
-        System.out.println(mCtrl.showMeteredDevicesInStr());
-        this.indexOfDevice = UtilsUI.requestIntegerInInterval(1, mCtrl.getMeteredDevicesInHouseSize(),
-                "Not a valid option. Please select a device from the list below:\n" + mCtrl.showMeteredDevicesInStr());
+        System.out.println(ctrl.showMeteredDevicesInStr());
+        this.indexOfDevice = UtilsUI.requestIntegerInInterval(1, ctrl.getMeteredDevicesInHouseSize(),
+                "Not a valid option. Please select a device from the list below:\n" + ctrl.showMeteredDevicesInStr());
         this.indexOfDevice--;
         this.getStartDate();
     }
 
     private void selectRoom() {
         System.out.println("Choose a room from the list below:");
-        System.out.println(mCtrl.showRoomListInStr());
-        this.indexOfRoom = UtilsUI.requestIntegerInInterval(1, mCtrl.getRoomListSize(),
-                "Not a valid option. Please select a room from the list below:\n" + mCtrl.showRoomListInStr());
+        System.out.println(ctrl.showRoomListInStr());
+        this.indexOfRoom = UtilsUI.requestIntegerInInterval(1, ctrl.getRoomListSize(),
+                "Not a valid option. Please select a room from the list below:\n" + ctrl.showRoomListInStr());
         this.indexOfRoom--;
         this.getStartDate();
     }
 
     private void selectHouseGrid() {
         System.out.println("Choose a grid from the list below:");
-        System.out.println(mCtrl.showHouseGridListInString());
-        this.indexOfHG = UtilsUI.requestIntegerInInterval(1, mCtrl.getHouseGridListSize (),
-                "Not a valid option. Please select a grid from the list below:\n" + mCtrl.showRoomListInStr());
+        System.out.println(ctrl.showHouseGridListInString());
+        this.indexOfHG = UtilsUI.requestIntegerInInterval(1, ctrl.getHouseGridListSize(),
+                "Not a valid option. Please select a grid from the list below:\n" + ctrl.showRoomListInStr());
         this.indexOfHG--;
         this.getStartDate();
     }
@@ -102,26 +102,26 @@ public class GetEnergyConsumptionInPeriodUI {
     }
 
     private void getDeviceEnergyConsumption() {
-        String deviceName = mCtrl.getDeviceName(this.indexOfDevice);
+        String deviceName = ctrl.getDeviceName(this.indexOfDevice);
         System.out.println("Total Energy Consumption of the device in the time period:");
         System.out.println("[Device]: " + deviceName);
         System.out.println(this.timePeriodStr + "[" + UtilsUI.dateToString(this.startDate) + " - " + UtilsUI.dateToString(this.endDate) + "]");
-        System.out.println(this.ecString + mCtrl.getEnergyConsumptionInPeriod(this.indexOfDevice, this.startDate, this.endDate) + "\n");
+        System.out.println(this.ecString + ctrl.getEnergyConsumptionInPeriod(this.indexOfDevice, this.startDate, this.endDate) + "\n");
     }
 
     private void getHouseGridEnergyConsumption() {
-        String houseGrid = mCtrl.getHGName(this.indexOfHG);
+        String houseGrid = ctrl.getHGName(this.indexOfHG);
         System.out.println("Total Energy Consumption of the grid in the time period:");
         System.out.println("[Grid]: " + houseGrid);
         System.out.println(this.timePeriodStr + "[" + UtilsUI.dateToString(this.startDate) + " - " + UtilsUI.dateToString(this.endDate) + "]");
-        System.out.println(this.ecString + mCtrl.getHouseGridEnergyConsumptionInPeriod(this.indexOfHG, this.startDate, this.endDate) + "\n");
+        System.out.println(this.ecString + ctrl.getHouseGridEnergyConsumptionInPeriod(this.indexOfHG, this.startDate, this.endDate) + "\n");
     }
 
     private void getRoomEnergyConsumption() {
-        String room = mCtrl.getRoomName(this.indexOfRoom);
+        String room = ctrl.getRoomName(this.indexOfRoom);
         System.out.println("Total Energy Consumption of the room in the time period:");
         System.out.println("[Room]: " + room);
         System.out.println(this.timePeriodStr + "[" + UtilsUI.dateToString(this.startDate) + " - " + UtilsUI.dateToString(this.endDate) + "]");
-        System.out.println(this.ecString + mCtrl.getRoomEnergyConsumptionInPeriod(this.indexOfRoom, this.startDate, this.endDate) + "\n");
+        System.out.println(this.ecString + ctrl.getRoomEnergyConsumption(this.indexOfRoom, this.startDate, this.endDate) + "\n");
     }
 }

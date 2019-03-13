@@ -1,19 +1,26 @@
 package smarthome.model;
 
-
 import java.util.List;
 
 public interface DeviceSpecs {
 
-    DeviceType getDeviceType();
+    // Suggested constructor includes device type, attribute name list and attribute units.
 
-    void setType(DeviceType deviceType);
+    /* ---- Getters ---- */
+    String getDeviceType();
 
-    List <String> getAttributesNames();
+    List<String> getAttributesNames();
 
-    void setAttributeValue(String attribute, String newValue) throws IllegalAccessException;
+    List<Double> getAttributeValues();
 
-    String showDeviceAttributeNamesAndValues() throws IllegalAccessException;
+    List<String> getAttributeUnits();
 
-    double getEnergyConsumption();
+    Double getAttributeValue(String attribute);
+
+    String getAttributeUnit(String attribute);
+
+    /* ---- Setters ---- */
+    void setAttributeValue(String attribute, double newValue);
+
+    void setAttributeUnit(String attribute, String unit);
 }

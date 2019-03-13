@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-public class Room implements Powered, Metered {
+public class Room implements Metered {
 
     private String name;
     private Integer floor;
@@ -123,12 +123,13 @@ public class Room implements Powered, Metered {
      *
      * @return energy consumption sum
      */
-    public double getEnergyConsumptionInTimeInterval(Calendar startHour, Calendar endHour) {
+    public double getEnergyConsumption(Calendar startHour, Calendar endHour) {
         double sum = 0;
         for (Device device : this.deviceList.getMeteredDevices()) {
-            sum += device.getEnergyConsumptionInTimeInterval(startHour, endHour);
+            Metered meteredDevice = (Metered) device;
+            sum += meteredDevice.getEnergyConsumption(startHour, endHour);
         }
-        return Utils.round(sum,2);
+        return Utils.round(sum, 2);
     }
 
     /**
@@ -170,8 +171,8 @@ public class Room implements Powered, Metered {
         return this.deviceList;
     }
 
-    public int getSizeDeviceListInRoom(){
-        return this.deviceList.size ();
+    public int getSizeDeviceListInRoom() {
+        return this.deviceList.size();
     }
 
     /**

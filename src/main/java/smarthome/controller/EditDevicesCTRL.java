@@ -1,30 +1,89 @@
 package smarthome.controller;
 
 import smarthome.model.*;
+import smarthome.model.Device;
+import smarthome.model.DeviceSpecs;
 import smarthome.model.validations.NameValidations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EditDevicesCTRL {
 
-    private House mHouse;
-    private RoomList mRoomList;
-    private NameValidations mNameValidations;
-
+    private House house;
+    private RoomList roomList;
+    private NameValidations nameValidations;
 
     public EditDevicesCTRL(House house) {
-        mHouse = house;
-        mRoomList = mHouse.getRoomList();
-        mNameValidations = new NameValidations();
+        this.house = house;
+        this.roomList = this.house.getRoomList();
+        this.nameValidations = new NameValidations();
     }
 
-    public String showRoomListInString() {
-        return mRoomList.showRoomListInString();
+
+    /**
+     * Getters
+     **/
+
+    public RoomList getRoomList() {
+        return roomList;
     }
 
-    public String showDeviceListInString(int indexOfRoom) {
-        Room room = mRoomList.get(indexOfRoom - 1);
-        return room.getDeviceList().showDeviceListInString();
+    public DeviceList getDeviceList(Room room) {
+        return room.getDeviceList();
+    }
+
+    public String getDeviceAttribute(Device device, int indexAttribute) {
+        DeviceSpecs ds = device.getDeviceSpecs();
+        List<String> attributes = ds.getAttributesNames();
+        return attributes.get(indexAttribute);
+    }
+
+    public Room getRoomFromListIndex(int roomIndex) {
+        return house.getRoomList().getRoomList().get(roomIndex - 1);
+    }
+
+    public Device getDeviceFromIndex(int indexOfRoom, int indexOfDevice) {
+        return getRoomFromListIndex(indexOfRoom).getDeviceList().get(indexOfDevice - 1);
+    }
+
+    //TODO update to include device name and nominal power
+    public List<String> getDeviceAttributesListInString(Device device) {
+        DeviceSpecs ds = device.getDeviceSpecs();
+        List<String> names = ds.getAttributesNames();
+        List<String> units = ds.getAttributeUnits();
+        List<Double> values = ds.getAttributeValues();
+
+        List<String> output = new ArrayList<>();
+
+        for (int i = 0; i < names.size(); i++) {
+            output.add(names.get(i) + " [" + units.get(i) + "]: " + values.get(i));
+        }
+        return output;
+    }
+
+    public int getRoomListSize() {
+        return roomList.getRoomListSize();
+    }
+
+    public String getDeviceTypeFromIndex(int deviceTypeIndex) {
+        return house.getListOfDeviceTypes().get(deviceTypeIndex - 1);
+    }
+
+    /**
+     * Setters
+     **/
+    public void setAttribute(Device device, String attribute, Double newValue) {
+        DeviceSpecs ds = device.getDeviceSpecs();
+        ds.setAttributeValue(attribute, newValue);
+    }
+
+
+    public Device createDevice(Room room, String deviceType, String deviceName, double nominalPower) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        DeviceList deviceList = room.getDeviceList();
+        Device device = deviceList.newDevice(deviceName, deviceType, nominalPower);
+        deviceList.addDevice(device);
+        return device;
     }
 
     /**
@@ -33,13 +92,14 @@ public class EditDevicesCTRL {
      *
      * @param indexOfRoom  index-1 position of room where the new device will be added
      * @param inputName    String variable to name the device
-     * @param deviceSpecs  includes the device specifications which, at least, must have a type
      * @param nominalPower double variable where the nominal power of the device is inputted
      * @return true if a new instance of a device is created, and then, added to the device list of the room in the index position
      */
-    public boolean addDevice(int indexOfRoom, String inputName, DeviceSpecs deviceSpecs, double nominalPower) {
-        Room room = mRoomList.get(indexOfRoom - 1);
-        Device device = room.getDeviceList().newDevice(inputName, deviceSpecs, nominalPower);
+    public boolean addDevice(int indexOfRoom, String inputName, String deviceType, double nominalPower) throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        Room room = this.roomList.get(indexOfRoom - 1);
+        Device device;
+        device = room.getDeviceList().newDevice(inputName, deviceType, nominalPower);
+
         return room.getDeviceList().addDevice(device);
     }
 
@@ -51,9 +111,17 @@ public class EditDevicesCTRL {
      * @return boolean result true if device successfully removed from the list
      */
     public boolean removeDevice(int indexOfRoom, int deviceIndex) {
-        Room room = mRoomList.get(indexOfRoom - 1);
+        Room room = roomList.get(indexOfRoom - 1);
         Device device = room.getDeviceList().get(deviceIndex);
         return room.getDeviceList().removeDevice(device);
+    }
+
+    public boolean removeDeviceFromRoom(Device device, int indexOfRoom) {
+        return roomList.removeDeviceFromRoom(device, indexOfRoom);
+    }
+
+    public boolean addDeviceToRoom(Device device, int indexOfRoom) {
+        return roomList.addDeviceToRoom(device, indexOfRoom);
     }
 
     /**
@@ -64,7 +132,7 @@ public class EditDevicesCTRL {
      * @return boolean result true if device status successfully set to false, deactivated
      */
     public boolean deactivateDevice(int indexOfRoom, int deviceIndex) {
-        Room room = mRoomList.get(indexOfRoom - 1);
+        Room room = roomList.get(indexOfRoom - 1);
         Device device = room.getDeviceList().get(deviceIndex);
         return room.getDeviceList().deactivateDevice(device);
     }
@@ -77,65 +145,24 @@ public class EditDevicesCTRL {
      */
     public boolean alphanumericName(String inputName) {
 
-        return mNameValidations.alphanumericName(inputName);
-    }
-
-    public RoomList getRoomList() {
-        return mRoomList;
-    }
-
-    public DeviceList getDeviceList(Room room) {
-        return room.getDeviceList();
-    }
-
-    public String getDeviceAttribute(Device device, int indexAttribute) {
-        return device.getDeviceAttributesInString().get(indexAttribute);
-    }
-
-    public void setAttribute(Device device, String attribute, String newValue) throws IllegalAccessException {
-        device.setAttributeValue(attribute, newValue);
-    }
-
-    public boolean removeDeviceFromRoom(Device device, int indexOfRoom) {
-        return mRoomList.removeDeviceFromRoom(device, indexOfRoom);
-    }
-
-    public boolean addDeviceToRoom(Device device, int indexOfRoom) {
-        return mRoomList.addDeviceToRoom(device, indexOfRoom);
-    }
-
-    public Room getRoomFromListIndex(int roomIndex) {
-        return mHouse.getRoomList().getRoomList().get(roomIndex - 1);
+        return nameValidations.alphanumericName(inputName);
     }
 
     public String showDeviceTypesListInString() {
-        return mHouse.showDeviceTypesList();
+        return house.showDeviceTypesList();
     }
 
-    public DeviceType getDeviceTypeFromIndex(int deviceTypeIndex) {
-        return mHouse.getListOfDeviceTypes().get(deviceTypeIndex - 1);
+    public String showRoomListInString() {
+        return this.roomList.showRoomListInString();
     }
 
-    public Device createDevice(Room room, DeviceType deviceType) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-        Device newDevice = room.getDeviceList().newDeviceV2(deviceType);
-        room.getDeviceList().addDevice(newDevice);
-        return newDevice;
+    public List<String> showDeviceListInString(int indexOfRoom) {
+        Room room = this.roomList.get(indexOfRoom - 1);
+        return room.getDeviceList().showDeviceListInString();
     }
 
-    public String showDeviceAttributesInString(Device device) throws IllegalAccessException {
-        return device.showDeviceAttributesInString();
-    }
-
-    public Device getDeviceFromIndex(int indexOfRoom, int indexOfDevice) {
-       return getRoomFromListIndex(indexOfRoom).getDeviceList().get(indexOfDevice - 1);
-
-    }
-
-    public List<String> getDeviceAttributesListInString(Device device) {
-        return device.getDeviceAttributesInString();
-    }
-
-    public int getRoomListSize() {
-        return mRoomList.getRoomListSize();
+    public List<String> showDeviceAttributesInString(Device device) {
+        return device.getDeviceSpecs().getAttributesNames();
     }
 }
+

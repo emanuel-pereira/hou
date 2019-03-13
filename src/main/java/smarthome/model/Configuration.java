@@ -14,6 +14,10 @@ import java.util.Properties;
 
 public class Configuration {
     private final String currentFile;
+    private static final String ERROR = "ERROR";
+    private static final String GRIDMP = "gridMeteringPeriod";
+    private static final String DEVICESMP = "devicesMeteringPeriod";
+
 
     public Configuration(String file) {
         currentFile = file;
@@ -25,32 +29,24 @@ public class Configuration {
 
     private String getConfigValue(String key) {
         String value;
-        String errorMessage = "ERROR";
 
         Properties properties = new Properties();
         InputStream inputStream;
 
-        //Make sure the config file is available and can be read
+        //Make sure the config file is available and can be read. Loading the inputStream may also cause an IOException.
+        //This is also handled from this block.
         try {
             inputStream = new FileInputStream(this.currentFile);
-        } catch (FileNotFoundException e) {
-            value = errorMessage;
-            return value;
-        }
-
-        //Loading the inputStream may
-        // cause an IOException. Let's handle that!
-        try {
             properties.load(inputStream);
         } catch (Exception e) {
-            value = errorMessage;
+            value = ERROR;
             return value;
         }
 
         value = properties.getProperty(key);
 
         if (value == null) {
-            value = errorMessage;
+            value = ERROR;
         }
 
         return value;
@@ -64,7 +60,6 @@ public class Configuration {
      */
     private int getMeteringPeriod(String key) {
         int output;
-
 
         String value = getConfigValue(key);
 
@@ -86,7 +81,7 @@ public class Configuration {
         if (!isMeteringPeriodValid()) {
             return -1;
         }
-        return getMeteringPeriod("gridMeteringPeriod");
+        return getMeteringPeriod(GRIDMP);
     }
 
     /**
@@ -98,7 +93,7 @@ public class Configuration {
         if (!isMeteringPeriodValid()) {
             return -1;
         }
-        return getMeteringPeriod("devicesMeteringPeriod");
+        return getMeteringPeriod(DEVICESMP);
     }
 
 
@@ -106,57 +101,28 @@ public class Configuration {
 
         List<String> deviceTypes = new ArrayList<>();
         String currentDevice;
-        String value = getConfigValue("TotalDevices");
 
-        int numberOfDevices;
-        if (value.equals("ERROR")) {
-            deviceTypes.add(0, value);
-            return deviceTypes;
-        }
+        int i = 1;
 
-        try {
-            numberOfDevices = Integer.parseInt(value);
-        } catch (Exception e) {
-            numberOfDevices = 0;
-        }
+        while (true) {
 
-        if (numberOfDevices > 0) {
-            for (int i = 1; i <= numberOfDevices; i++) {
-                currentDevice = getConfigValue("devicetype" + i + "");
-                deviceTypes.add(i - 1, currentDevice);
+            currentDevice = getConfigValue("devicetype" + i);
+            if (currentDevice.equals(ERROR)) {
+                break;
             }
+            deviceTypes.add(currentDevice);
+            i++;
+
         }
 
         return deviceTypes;
     }
 
-    public List<String> getDeviceSpecsAttributes(String deviceSpec) {
-        List<String> devicesAttributes = new ArrayList<>();
-        String key = deviceSpec.concat("TotalAttributes");
-        String value = getConfigValue(key);
-        String deviceAttributes;
-
-        int numberOfAttributes;
-        try {
-            numberOfAttributes = Integer.parseInt(value);
-        } catch (Exception e) {
-            numberOfAttributes = 0;
-        }
-        if (numberOfAttributes > 0) {
-            for (int i = 1; i <= numberOfAttributes; i++) {
-                String key2 = deviceSpec.concat("Attribute");
-                deviceAttributes = getConfigValue(key2 + i + "");
-                devicesAttributes.add(deviceAttributes);
-            }
-        }
-        return devicesAttributes;
-    }
-
 
     private boolean isMeteringPeriodValid() {
-        boolean isGridMeteringPeriodValid = (getMeteringPeriod("gridMeteringPeriod") <= 1440 && getMeteringPeriod("gridMeteringPeriod") >= 0);
-        boolean isDeviceMeteringPeriodValid = (getMeteringPeriod("devicesMeteringPeriod") <= 1440 && getMeteringPeriod("devicesMeteringPeriod") >= 0);
-        boolean areMeteringPeriodsMultiple = (getMeteringPeriod("devicesMeteringPeriod") % getMeteringPeriod("gridMeteringPeriod") == 0);
+        boolean isGridMeteringPeriodValid = (getMeteringPeriod(GRIDMP) <= 1440 && getMeteringPeriod(GRIDMP) >= 1);
+        boolean isDeviceMeteringPeriodValid = (getMeteringPeriod(DEVICESMP) <= 1440 && getMeteringPeriod(DEVICESMP) >= 1);
+        boolean areMeteringPeriodsMultiple = (getMeteringPeriod(DEVICESMP) % getMeteringPeriod(GRIDMP) == 0);
 
         return (isGridMeteringPeriodValid && isDeviceMeteringPeriodValid && areMeteringPeriodsMultiple);
     }

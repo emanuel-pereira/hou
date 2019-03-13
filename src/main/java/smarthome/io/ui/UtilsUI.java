@@ -8,7 +8,7 @@ import java.util.*;
 
 public final class UtilsUI {
 
-    static String insertValidOption="Please insert a valid option\n.";
+    static String insertValidOption = "Please insert a valid option\n.";
 
 
     /**
@@ -225,8 +225,8 @@ public final class UtilsUI {
         while (loop) {
             input = getUserInput();
             input = input.trim();
-            if (!input.trim().matches(regEx) || input.trim().isEmpty () )
-                printAndReset(errorMessage);
+            if (!input.trim().matches(regEx) || input.trim().isEmpty())
+                showError("Input error", errorMessage);
             else
                 loop = false;
         }
@@ -249,7 +249,7 @@ public final class UtilsUI {
                 parsedUserInput = Integer.parseInt(userInput);
                 break;
             }
-            System.out.println(errorMessage);
+            showError("Input error", errorMessage);
         }
         return parsedUserInput;
     }
@@ -276,7 +276,7 @@ public final class UtilsUI {
             if ((parsedUserInput >= minimum) && (parsedUserInput <= maximum)) {
                 break;
             }
-            System.out.println(errorMessage);
+            showError("Input error", errorMessage);;
             userInput = "-";
         }
 
@@ -299,7 +299,7 @@ public final class UtilsUI {
                 parsedUserInput = Double.parseDouble(userInput);
                 break;
             }
-            System.out.println(errorMessage);
+            showError("Input error", errorMessage);
         }
         return parsedUserInput;
     }
@@ -327,7 +327,7 @@ public final class UtilsUI {
             if (parsedUserInput >= minimum && parsedUserInput <= maximum) {
                 break;
             }
-            System.out.println(errorMessage);
+            showError("Input error", errorMessage);
 
         }
         return parsedUserInput;
@@ -350,7 +350,7 @@ public final class UtilsUI {
         while (!isDate(userInput)) {
             userInput = getUserInput();
             if (!isDate(userInput)) {
-                System.out.println(errorMessage);
+                showError("Input error", errorMessage);
             }
         }
 
@@ -377,7 +377,7 @@ public final class UtilsUI {
             if (isDateTime(userInput)) {
                 break;
             }
-            printAndReset(errorMessage);
+            showError("Input error", errorMessage);
         }
 
         String[] dateAndTime;
@@ -494,7 +494,7 @@ public final class UtilsUI {
         for (String item : listToShow
         ) {
             if (numbered) {
-                number = listToShow.indexOf(item);
+                number = listToShow.indexOf(item) + 1;
                 item = addNumberToItem(item, number);
             }
 
@@ -503,7 +503,7 @@ public final class UtilsUI {
             format("BG_WHITE", c);
             printAndReset(paddedOutput);
         }
-
+        print("\n");
     }
 
     private static String addNumberToItem(String item, int number) {
@@ -557,26 +557,26 @@ public final class UtilsUI {
     }
 
     public static void backToMenu() {
-        Scanner read = new Scanner(System.in);
-        format("BG_BLUE","BOLD","BLACK");
-        System.out.println("---\nPress Enter to return to the previous Menu");
-        read.nextLine();
+
+        printAndReset("\n");
+        format("BG_BLUE", "BOLD", "BLACK");
+        print("\n");
+        print("[ENTER] to return to the previous menu");
+        print("\n");
+        Scanner s = new Scanner(System.in);
+        s.nextLine();
     }
 
     public static void underMaintenanceMsg(String inputUS) {
 
         String customMsg = inputUS + " is under maintenance, it will be available shortly.";
-        showError("Under maintenance",customMsg);
+        showError("Under maintenance", customMsg);
 
         backToMenu();
     }
 
     public static void printLnInsertValidOptionMsg() {
-        showError("Warning","Please insert a valid option.");
-    }
-
-    public static void printLnInsertValidParameter(final String parameter) {
-        showError("Warning","Please insert a valid " + parameter + ".");
+        showError("Warning", "Please insert a valid option.");
     }
 
     public static String insertValidParameter(final String parameter) {
@@ -585,38 +585,37 @@ public final class UtilsUI {
 
 
     public static void showError(String errorTitle, String errorMessage) {
+        showMessageBox(errorTitle, "BG_RED", errorMessage);
+    }
+
+    public static void showInfo(String infoTitle, String infoMessage){
+        showMessageBox(infoTitle,"BG_GREEN",infoMessage);
+    }
+
+    private static void showMessageBox(String title, String titleColor, String message) {
         int padding = 5;
-        String title = padWithSpaces(errorTitle, errorTitle.length(), padding);
-        String titlePretty = createWhiteSpace((errorTitle.length() - 1) + (padding * 2));
-        String error = padWithSpaces(errorMessage, 999, 5);
+        String aTitle = padWithSpaces(title, title.length(), padding);
+        String titlePretty = createWhiteSpace((title.length() - 1) + (padding * 2));
+        String error = padWithSpaces(message, 999, 5);
 
 
         format("RESET");
         print("\n");
-        format("BOLD", "BG_RED", "BLACK");
+        format("BOLD", titleColor, "BLACK");
         printAndReset(titlePretty);
-        format("BOLD", "BG_RED", "BLACK");
-        printAndReset(title);
-        format("BOLD", "BG_RED", "BLACK");
+        format("BOLD", titleColor, "BLACK");
+        printAndReset(aTitle);
+        format("BOLD", titleColor, "BLACK");
         printAndReset(titlePretty);
         format("RESET");
         format("REVERSED");
         print("\n");
         print(error);
         print("\n\n");
+        format("RESET");
+        print("\n");
     }
-    //accept a string, like aCamelString
-//return a list containing strings, in this case, [a, Camel, String]
-    public static String splitCamelCaseString(String s){
-        StringBuilder result = new StringBuilder();
-        for (String w : s.split("(?<!(^|[A-Z]))(?=[A-Z])|(?<!^)(?=[A-Z][a-z])")) {
-            result.append(w);
-            result.append(" ");
 
-        }
-        result.deleteCharAt(0);
-        return result.toString();
-    }
 
     public static boolean confirmOption(String continueQuestion, String errorMessage,String dynamicRegEx) {
         print(continueQuestion);

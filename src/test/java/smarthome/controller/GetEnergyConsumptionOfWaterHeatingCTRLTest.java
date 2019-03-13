@@ -1,61 +1,42 @@
-
 package smarthome.controller;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GetEnergyConsumptionOfWaterHeatingCTRLTest {
 
     @Test
-    @DisplayName("Ensure that ")
     void getDevicesInAllRoomsByType() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         House house = new House();
         RoomList roomList = house.getRoomList();
         GetEnergyConsumptionOfWaterHeatingCTRL ctrl = new GetEnergyConsumptionOfWaterHeatingCTRL(house);
 
-        DeviceType ewh = new DeviceType("ElectricWaterHeater");
-        DeviceType microwave = new DeviceType("Microwave");
-
-        Room kitchen = new Room("Kitchen", 0, 6, 3.5, 3);
-        Room garage = new Room("Garage", 0, 6, 4, 3);
-
+        Room kitchen = new Room("Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
 
-        Device ewh1 = kitchen.getDeviceList().newDeviceV2(ewh);
-        Device ewh2 = garage.getDeviceList().newDeviceV2(ewh);
-        Device micro = kitchen.getDeviceList().newDeviceV2(microwave);
+        DeviceList kitDeviceList = kitchen.getDeviceList();
+        DeviceList grDeviceList = garage.getDeviceList();
 
-        kitchen.getDeviceList().addDevice(micro);
-        kitchen.getDeviceList().addDevice(ewh1);
-        garage.getDeviceList().addDevice(ewh2);
+        Device fridgeA = kitDeviceList.newDevice("LG Fridge", "Fridge", 150);
+        Device kettleA = kitDeviceList.newDevice("Daijutsu", "Kettle", 250);
+        Device lampA = kitDeviceList.newDevice("Philips Smart Bulb", "Lamp", 15);
+        Device fridgeB = kitDeviceList.newDevice("Samsung Fridge", "Fridge", 250);
 
+        kitDeviceList.addDevice(fridgeA);
+        kitDeviceList.addDevice(kettleA);
+        kitDeviceList.addDevice(lampA);
+        grDeviceList.addDevice(lampA);
+        grDeviceList.addDevice(fridgeB);
 
         int expected = 2;
-        int result = ctrl.getDevicesInAllRoomsByType("ElectricWaterHeater").size();
+        int result = ctrl.getDevicesInAllRoomsByType("Fridge").size();
 
         assertEquals(expected, result);
     }
-
-    @Test
-    void showDeviceAttributesInString() throws IllegalAccessException {
-        House house = new House();
-        GetEnergyConsumptionOfWaterHeatingCTRL ctrl = new GetEnergyConsumptionOfWaterHeatingCTRL(house);
-        ElectricWaterHeater ewh1 = new ElectricWaterHeater(75, 65, 1);
-        Device dEWH1 = new Device("EWH", ewh1, 150);
-        dEWH1.getDeviceSpecs().setAttributeValue("Device Name", "EWH");
-        dEWH1.getDeviceSpecs().setAttributeValue("Device Nominal Power", "150");
-        DeviceType deviceType = new DeviceType("ElectricWaterHeater");
-        dEWH1.getDeviceSpecs().setType(deviceType);
-        String expected = "" + ewh1.getDeviceType().getDeviceTypeName() +
-                "\n1 - Device Name : EWH\n2 - Device Nominal Power : 150.0\n3 - Volume of water capacity : 75.0\n4 - Hot water temperature : 65.0\n5 - Cold water temperature : 0.0\n6 - Performance Ratio : 1.0\n7 - Volume of water to heat : 0.0\n";
-        String result = ctrl.showDeviceAttributesInString(dEWH1);
-        assertEquals(expected, result);
-    }
-
 
     @Test
     void getEnergyConsumptionByDeviceType() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
@@ -67,32 +48,60 @@ class GetEnergyConsumptionOfWaterHeatingCTRLTest {
         Room garage = new Room("Garage", 0, 6, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
-        DeviceType ewh = new DeviceType("ElectricWaterHeater");
-        DeviceType microwave = new DeviceType("Microwave");
+
         DeviceList kitchenDeviceList = kitchen.getDeviceList();
         DeviceList garageDeviceList = garage.getDeviceList();
 
-        Device ewh1 = kitchen.getDeviceList().newDeviceV2(ewh);
-        Device ewh2 = garage.getDeviceList().newDeviceV2(ewh);
-        Device micro = kitchen.getDeviceList().newDeviceV2(microwave);
+        //TODO upon EWH device class creation, this Fridge test object should be replaced by the equivalent EWH
+        Device ewhA = kitchenDeviceList.newDevice("LG EWH K", "Fridge", 150);
+        Device ewhB = garageDeviceList.newDevice("LG EWH G", "Fridge", 150);
 
-        kitchenDeviceList.addDevice(micro);
-        kitchenDeviceList.addDevice(ewh1);
-        garageDeviceList.addDevice(ewh2);
+        kitchenDeviceList.addDevice(ewhA);
+        garageDeviceList.addDevice(ewhB);
 
-        String volumeOfWater = "Volume of water capacity";
+        double expected = 0;
+        //TODO replace Fridge for EWH
+        double result = ctrl.getEnergyConsumptionByDeviceType("Fridge");
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void setAttribute() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        House house = new House();
+        GetEnergyConsumptionOfWaterHeatingCTRL ctrl = new GetEnergyConsumptionOfWaterHeatingCTRL(house);
+
+        RoomList roomList = house.getRoomList();
+        Room kitchen = new Room("Kitchen", 0, 6, 3.5, 3);
+        Room garage = new Room("Garage", 0, 6, 4, 3);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(garage);
+
+        DeviceList kitchenDeviceList = kitchen.getDeviceList();
+        DeviceList garageDeviceList = garage.getDeviceList();
+
+        //TODO upon EWH device class creation, this Fridge test object should be replaced by the equivalent EWH
+        Device ewhA = kitchenDeviceList.newDevice("LG EWH K", "Fridge", 150);
+        Device ewhB = garageDeviceList.newDevice("LG EWH G", "Fridge", 150);
+
+        kitchenDeviceList.addDevice(ewhA);
+        garageDeviceList.addDevice(ewhB);
+
+        /*String volumeOfWater = "Volume of water capacity";
         String hotWaterTemperature = "Hot water temperature";
         String coldWaterTemperature = "Cold water temperature";
         String performanceRatio = "Performance Ratio";
         String volumeOfWaterToHeat = "Volume of water to heat";
-        ctrl.setAttribute(ewh1, volumeOfWaterToHeat, "55");
-        ctrl.setAttribute(ewh1, coldWaterTemperature, "15");
-        ctrl.setAttribute(ewh2, volumeOfWaterToHeat, "45");
-        ctrl.setAttribute(ewh2, coldWaterTemperature, "12");
+        ctrl.setAttribute(ewhA, volumeOfWaterToHeat, "55");
+        ctrl.setAttribute(ewhA, coldWaterTemperature, "15");
+        ctrl.setAttribute(ewhB, volumeOfWaterToHeat, "45");
+        ctrl.setAttribute(ewhB, coldWaterTemperature, "12");*/
 
-        double expected = 0;
-        double result = ctrl.getEnergyConsumptionByDeviceType("ElectricWaterHeater");
+        String annualEnergyConsumption = "Annual Energy Consumption";
+        ctrl.setAttribute(ewhA, annualEnergyConsumption, "55");
+
+        double expected = 55;
+        double result = ewhA.getDeviceSpecs().getAttributeValue("Annual Energy Consumption");
         assertEquals(expected, result);
     }
-
 }
+

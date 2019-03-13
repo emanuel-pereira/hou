@@ -357,7 +357,7 @@ class HouseTest {
     @Test
     void getListOfDeviceTypes() {
         House h = new House();
-        List<DeviceType> result = h.getListOfDeviceTypes();
+        List<String> result = h.getListOfDeviceTypes();
         assertEquals(14, result.size());
     }
 
@@ -377,7 +377,7 @@ class HouseTest {
                 "11 - PortableElectricConvectionHeater\n" +
                 "12 - WallTowelHeater\n" +
                 "13 - Lamp\n" +
-                "14 - Television\n";
+                "14 - Tv\n";
         String result = h.showDeviceTypesList();
         assertEquals(expected, result);
 
