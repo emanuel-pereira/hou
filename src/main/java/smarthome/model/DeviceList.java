@@ -57,24 +57,25 @@ public class DeviceList {
     }
 
 
-    public String showDeviceListInString() {
+    public List<String> showDeviceListInString() {
         List<Device> list = getDeviceList();
-        StringBuilder result = new StringBuilder();
-        String element = " - Device: ";
-        String typeStr = " | Type: ";
-        String statusStr = " | Active: ";
-        int number = 1;
+        List<String> result = new ArrayList<>();
+        String devType;
+        String active = "[Active]";
+        String notActive = "[Not active]";
+        StringBuilder sb = new StringBuilder();
+
         for (Device device : list) {
-            result.append(number++);
-            result.append(element);
-            result.append(device.getDeviceName());
-            result.append(typeStr);
-            result.append(device.getDeviceSpecs().getDeviceType());
-            result.append(statusStr);
-            result.append(device.isActive());
-            result.append("\n");
+            sb.append(device.getDeviceSpecs().getDeviceType());
+            sb.append(" (");
+            sb.append(device.getDeviceName());
+            sb.append(") ");
+            String fragment = device.isActive() ? active : notActive;
+            sb.append(fragment);
+            result.add(sb.toString());
+            sb.delete(0, sb.length());
         }
-        return result.toString();
+        return result;
     }
 
     public List<Device> getDeviceList() {
@@ -112,7 +113,7 @@ public class DeviceList {
         List<Device> meteredDeviceList = new ArrayList<>();
 
         for (Device device : devicesList) {
-            if ( device instanceof Metered) {
+            if (device instanceof Metered) {
                 meteredDeviceList.add(device);
             }
         }

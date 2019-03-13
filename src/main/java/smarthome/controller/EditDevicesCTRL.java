@@ -1,8 +1,11 @@
 package smarthome.controller;
 
 import smarthome.model.*;
+import smarthome.model.Device;
+import smarthome.model.DeviceSpecs;
 import smarthome.model.validations.NameValidations;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class EditDevicesCTRL {
@@ -46,7 +49,17 @@ public class EditDevicesCTRL {
 
     //TODO update to include device name and nominal power
     public List<String> getDeviceAttributesListInString(Device device) {
-        return device.getDeviceSpecs().getAttributesNames();
+        DeviceSpecs ds = device.getDeviceSpecs();
+        List<String> names = ds.getAttributesNames();
+        List<String> units = ds.getAttributeUnits();
+        List<Double> values = ds.getAttributeValues();
+
+        List<String> output = new ArrayList<>();
+
+        for (int i = 0; i < names.size(); i++) {
+            output.add(names.get(i) + " [" + units.get(i) + "]: " + values.get(i));
+        }
+        return output;
     }
 
     public int getRoomListSize() {
@@ -143,9 +156,13 @@ public class EditDevicesCTRL {
         return this.roomList.showRoomListInString();
     }
 
-    public String showDeviceListInString(int indexOfRoom) {
+    public List<String> showDeviceListInString(int indexOfRoom) {
         Room room = this.roomList.get(indexOfRoom - 1);
         return room.getDeviceList().showDeviceListInString();
     }
 
+    public List<String> showDeviceAttributesInString(Device device) {
+        return device.getDeviceSpecs().getAttributesNames();
+    }
 }
+

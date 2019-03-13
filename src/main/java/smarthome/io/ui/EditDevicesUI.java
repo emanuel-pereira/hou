@@ -4,6 +4,7 @@ import smarthome.controller.EditDevicesCTRL;
 import smarthome.model.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.Double.parseDouble;
@@ -76,18 +77,17 @@ public class EditDevicesUI {
     private String deviceTypeSelection() {
         System.out.println("Select a device type:");
         System.out.println(ctrl.showDeviceTypesListInString());
-        deviceTypeIndex = UtilsUI.requestIntegerInInterval(1,14,"Error, device type not found! Please, select a device type");
+        deviceTypeIndex = UtilsUI.requestIntegerInInterval(1, 14, "Error, device type not found! Please, select a device type");
         return ctrl.getDeviceTypeFromIndex(deviceTypeIndex);
     }
 
-    private void deviceSpecsConfiguration(){
-        System.out.println("[------- Configuration of a new " + device.getDeviceType() + " -------]");
-        System.out.println("[-------- Please configure the device --------]");
-        System.out.println();
+    private void deviceSpecsConfiguration() {
+
+        UtilsUI.showInfo("Device configuration", "Please enter the parameters needed to configure this "+device.getDeviceType()+".");
 
         for (String attribute : ctrl.getDeviceAttributesListInString(device)) {
             System.out.println(attribute);
-            Double newValue = parseDouble(read.next());
+            Double newValue = UtilsUI.requestDouble("Please enter a numeric value.");
             ctrl.setAttribute(device, attribute, newValue);
         }
     }
@@ -95,39 +95,51 @@ public class EditDevicesUI {
     public void roomSelectionToAddDevice() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         roomSelection();
         String deviceType = deviceTypeSelection();
-        System.out.println("What is the device name?");
+        System.out.println("Please enter the device name");
         String name = UtilsUI.requestText("Input not valid, please try again.");
         System.out.println("What is the device's nominal power (W)?");
         Double nominalPower = UtilsUI.requestDouble("Input not valid, please try again.");
         device = ctrl.createDevice(selectedRoom, deviceType, name, nominalPower);
         deviceSpecsConfiguration();
-        System.out.println("Success! NEW DEVICE CREATED ");
-        //TODO System.out.println(ctrl.showDeviceAttributesInString(device));
+        UtilsUI.showList("Device created!", ctrl.showDeviceAttributesInString(device));
+
 
     }
 
     public void roomSelectionToListDevice() {
         System.out.println("Select a room from the list below to get the list of all devices in that room:");
         System.out.println(ctrl.showRoomListInString());
+
+
         selectedRoomIndex = read.nextInt();
-        System.out.println(ctrl.showDeviceListInString(selectedRoomIndex));
         selectedRoom = ctrl.getRoomFromListIndex(selectedRoomIndex);
+
+        List<String> ls = ctrl.showDeviceListInString(selectedRoomIndex);
+        UtilsUI.showList("Devices available in room", ls, true, 10);
+
+
     }
 
-    public void editDeviceAttributes()throws IllegalAccessException {
+
+    //TODO: This is FUBAR.
+    public void editDeviceAttributes() {
         roomSelectionToListDevice();
         selectedRoom = ctrl.getRoomFromListIndex(selectedRoomIndex);
         System.out.println("Select a device");
-        deviceIndex = read.nextInt();
+        deviceIndex = UtilsUI.requestInteger("Invalid selection. Please try again.");
+
         selectedDeviceToEdit = ctrl.getDeviceFromIndex(selectedRoomIndex, deviceIndex);
-        System.out.println("Select a attribute to reconfigure");
-        //TODO System.out.println(ctrl.showDeviceAttributesInString(selectedDeviceToEdit));
-        attributeIndex = read.nextInt();
-        String deviceAttribute = ctrl.getDeviceAttribute(selectedDeviceToEdit, attributeIndex - 1);
+
+
+        List <String> ls = ctrl.showDeviceAttributesInString(selectedDeviceToEdit);
+        UtilsUI.showList("Select a attribute to reconfigure",ls,true,5);
+        UtilsUI.requestIntegerInInterval(1,ls.size(),"Please enter a value between 1 and "+ls.size());
+        String deviceAttribute = ctrl.getDeviceAttribute(selectedDeviceToEdit, attributeIndex);
         System.out.println("Set the new value of " + deviceAttribute);
-        Double newValue = parseDouble(read.next());
+        double newValue = UtilsUI.requestDouble("Please enter a numeric value");
         ctrl.setAttribute(selectedDeviceToEdit, deviceAttribute, newValue);
-        System.out.println("Success!");
+        UtilsUI.showInfo("Success","The device's specifications were successfully updated.");
+
     }
 
     /**
