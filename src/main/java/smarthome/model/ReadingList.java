@@ -71,13 +71,28 @@ public class ReadingList {
 
     }
 
+    /**Used for Sensor Readings - instant readings - includes both start and end dates*/
     public double getValueOfReadingsInTimeInterval(Calendar startDate, Calendar endDate) {
         double totalValue = 0;
         for (Reading reading : mReadingList) {
             Calendar readingDate = reading.getDateAndTime();
 
             if (readingDate.after(startDate) && readingDate.before(endDate)
-                    || readingDate.equals(startDate)) { //it is not needed to included the endDate, as each reading
+                    || readingDate.equals(startDate) || readingDate.equals(endDate)) {
+                totalValue += reading.returnValueOfReading();
+            }
+        }
+        return totalValue;
+    }
+
+    /**Used for Device Readings - periodic readings - includes only end date*/
+    public double getValueOfReadingsInTimeIntervalDevices(Calendar startDate, Calendar endDate) {
+        double totalValue = 0;
+        for (Reading reading : mReadingList) {
+            Calendar readingDate = reading.getDateAndTime();
+
+            if (readingDate.after(startDate) && readingDate.before(endDate)
+                    || readingDate.equals(endDate)) { //it is not needed to included the endDate, as each reading
                 //stores a value its timeStamp till the next reading timestamp
                 totalValue += reading.returnValueOfReading();
             }

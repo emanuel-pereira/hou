@@ -109,7 +109,6 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         fridgeALog.addReading(r6);
         fridgeALog.addReading(r7);
         fridgeALog.addReading(r8);
-
         fridgeBLog.addReading(r2);
         fridgeBLog.addReading(r3);
         fridgeBLog.addReading(r4);
@@ -121,7 +120,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         GregorianCalendar startDate = new GregorianCalendar(2018, 11, 5, 0, 10);
         GregorianCalendar endDate = new GregorianCalendar(2018, 11, 5, 1, 0);
 
-        double expected = 108;
+        double expected = 130.0;
         double result = ctrl.getEnergyConsumptionInPeriod(0, startDate, endDate);
 
         assertEquals(expected, result);
@@ -213,7 +212,6 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         fridgeALog.addReading(r6);
         fridgeALog.addReading(r7);
         fridgeALog.addReading(r8);
-
         fridgeBLog.addReading(r2);
         fridgeBLog.addReading(r3);
         fridgeBLog.addReading(r4);
@@ -221,11 +219,10 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         fridgeBLog.addReading(r6);
         fridgeBLog.addReading(r7);
         fridgeBLog.addReading(r8);
-
         Calendar startTime = new GregorianCalendar(2018, 11, 5, 0, 40);
         Calendar endTime = new GregorianCalendar(2018, 11, 5, 1, 0);
 
-        double expected = 98;
+        double expected = 80;
         double result=ctrl.getHouseGridEnergyConsumptionInPeriod(0,startTime,endTime);
         assertEquals(expected,result);
     }
@@ -390,7 +387,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         Calendar startTime = new GregorianCalendar(2018, 11, 5, 0, 10);
         Calendar endTime = new GregorianCalendar(2018, 11, 5, 1, 0);
 
-        double expected = 108;
+        double expected = 130.0;
         double result = ctrl.getRoomEnergyConsumption(0, startTime, endTime);
         assertEquals(expected, result);
     }

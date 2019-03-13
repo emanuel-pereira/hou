@@ -134,6 +134,27 @@ class ReadingListTest {
     }
 
     @Test
+    void getTotalOfReadingsInTimeIntervalDevices() {
+        ReadingList readingList = new ReadingList();
+
+        GregorianCalendar startDate = new GregorianCalendar(2018, 11, 5, 0, 15);
+        GregorianCalendar endDate = new GregorianCalendar(2018, 11, 5, 1, 0);
+
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 15));
+        Reading r3 = new Reading(22, new GregorianCalendar(2018, 11, 5, 0, 30));
+        Reading r4 = new Reading(27, new GregorianCalendar(2018, 11, 5, 0, 45));
+        Reading r5 = new Reading(31, new GregorianCalendar(2018, 11, 6, 1, 00));
+
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+        readingList.addReading(r5);
+        double expected = 49;
+        double result = readingList.getValueOfReadingsInTimeIntervalDevices(startDate,endDate);
+        assertEquals(expected, result);
+    }
+
+    @Test
     @DisplayName("Tests if the readings in a readingList are in the given time period")
     void getReadingsInTimePeriod() {
 

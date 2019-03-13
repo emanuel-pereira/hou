@@ -320,7 +320,7 @@ class HouseGridTest {
         Calendar startTime = new GregorianCalendar(2018, 2, 1, 12, 20);
         Calendar endTime = new GregorianCalendar(2018, 2, 1, 15, 20);
 
-        double expected = 120;
+        double expected = 80;
         double result = grid.getEnergyConsumption(startTime, endTime);
 
         assertEquals(expected, result);

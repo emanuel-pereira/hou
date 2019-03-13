@@ -83,7 +83,7 @@ public class WashingMachine implements Device, Metered, Programmable {
         Configuration c = new Configuration();
         double energyConsumption = 0;
         if (c.getDevicesMeteringPeriod() != -1) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startHour, endHour);
+            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startHour, endHour);
         }
         return Utils.round(energyConsumption, 2);
     }

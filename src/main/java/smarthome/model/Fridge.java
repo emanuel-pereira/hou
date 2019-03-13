@@ -80,7 +80,7 @@ public class Fridge implements Device, Metered {
 
         double energyConsumption = 0;
         if (c.getDevicesMeteringPeriod() != -1 && this instanceof Metered) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
+            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startDate, endDate);
         }
         return Utils.round(energyConsumption, 2);
     }
