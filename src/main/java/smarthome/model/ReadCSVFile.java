@@ -9,24 +9,23 @@ import java.util.*;
 public class ReadCSVFile {
 
     Scanner scanner;
-    String COMMA_DELIMITER = ",";
+    String commaDelimiter = ",";
     FileWriter fileWriter;
 
 
     public void readCsvFile(String fileName) throws FileNotFoundException {
         scanner = null;
         scanner = new Scanner(new File(fileName));
-        scanner.useDelimiter(COMMA_DELIMITER);
+        scanner.useDelimiter(commaDelimiter);
     }
 
     public List<String[]> getValuesFromCSVFile() {
         List<String[]> csvValues = new ArrayList<>();
         while (scanner.hasNext()) {
             String line = scanner.nextLine();
-            String[] tokens = line.split(COMMA_DELIMITER);
+            String[] tokens = line.split(commaDelimiter);
             csvValues.add(tokens);
         }
-        //csvValues.remove(0);
         return csvValues;
     }
 
