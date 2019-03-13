@@ -186,7 +186,7 @@ public class House {
 
         for (Sensor sensor : closestSensorsOfType.getSensorList()) {
 
-            ReadingList readingListInPeriod = sensor.getReadingList().getReadingsInPeriod(startDate, endDate);
+            ReadingList readingListInPeriod = sensor.getReadingList().filterByDate(startDate, endDate);
 
             if (!readingListInPeriod.getReadingList().isEmpty()) {
                 closestSensorWithReadingsInPeriod.addSensor(sensor);
@@ -208,11 +208,11 @@ public class House {
     public Sensor getClosestSensorWithLatestReadingsInPeriod(SensorType type, Calendar startDate, Calendar endDate) {
         SensorList closestSensorsWithReadingsInPeriod = this.getClosestSensorsOfTypeWithReadingsInPeriod(type, startDate, endDate);
         Sensor closestSensorWithLatestReadingsInPeriod = closestSensorsWithReadingsInPeriod.getSensorList().get(0);
-        ReadingList readingsInPeriod = closestSensorWithLatestReadingsInPeriod.getReadingList().getReadingsInPeriod(startDate, endDate);
+        ReadingList readingsInPeriod = closestSensorWithLatestReadingsInPeriod.getReadingList().filterByDate(startDate, endDate);
         Reading latestReadingInPeriod = readingsInPeriod.getLastReading();
 
         for (Sensor sensor : closestSensorsWithReadingsInPeriod.getSensorList()) {
-            ReadingList sensorReadingsInPeriod = sensor.getReadingList().getReadingsInPeriod(startDate, endDate);
+            ReadingList sensorReadingsInPeriod = sensor.getReadingList().filterByDate(startDate, endDate);
             Reading sensorLatestReadingInPeriod = sensorReadingsInPeriod.getLastReading();
 
             if (sensorLatestReadingInPeriod.getDateAndTime().after(latestReadingInPeriod.getDateAndTime())) {
@@ -237,7 +237,7 @@ public class House {
     public double averageOfReadingsInPeriod(SensorType type, Calendar startDate, Calendar endDate) {
         Sensor closestSensorWithLatestReadingsInPeriod = getClosestSensorWithLatestReadingsInPeriod(type, startDate, endDate);
         ReadingList readingsFromSensorInPeriod = closestSensorWithLatestReadingsInPeriod.getReadingList();
-        ReadingList readingsInPeriod = readingsFromSensorInPeriod.getReadingsInPeriod(startDate, endDate);
+        ReadingList readingsInPeriod = readingsFromSensorInPeriod.filterByDate(startDate, endDate);
 
         double sum = 0;
         int counter = 0;

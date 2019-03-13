@@ -43,7 +43,7 @@ public class Reading {
     }
 
 
-    public boolean compareYearMonthDay(Calendar date) {
+    public boolean isSameDay(Calendar date) {
         int rYear = getDateAndTime().get(Calendar.YEAR);
         int rMonth = getDateAndTime().get(Calendar.MONTH);
         int rDay = getDateAndTime().get(Calendar.DAY_OF_MONTH);

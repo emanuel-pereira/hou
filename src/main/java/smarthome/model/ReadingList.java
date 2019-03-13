@@ -63,7 +63,7 @@ public class ReadingList {
 
         if (!checkNumberOfReadingsIsZero(dailyReadings)) {
             for (Reading reading : getReadingsInSpecificDay(day).getReadingList()) {
-                if (reading.compareYearMonthDay(day)) {
+                if (reading.isSameDay(day)) {
                     sum = sum + reading.returnValueOfReading();
                 }
             }
@@ -89,7 +89,7 @@ public class ReadingList {
         ReadingList readingListInDate = new ReadingList();
 
         for (Reading reading : readingList) {
-            if (reading.compareYearMonthDay(date))
+            if (reading.isSameDay(date))
                 readingListInDate.addReading(reading);
         }
         return readingListInDate;
@@ -103,16 +103,17 @@ public class ReadingList {
      * @return list of the readings with dates in a time interval
      */
 
-    public ReadingList getReadingsInPeriod(Calendar startDate, Calendar endDate) {
+    public ReadingList filterByDate(Calendar startDate, Calendar endDate) {
         ReadingList readingListInPeriod = new ReadingList();
-
-        for (Reading reading : readingList) {
+        System.out.println("Readins in the cropped list");
+        for (Reading reading : this.readingList) {
             Calendar readingDate = reading.getDateAndTime();
 
             if (readingDate.after(startDate) && readingDate.before(endDate)
-                    /*|| readingDate.equals(endDate)*/
+                    || readingDate.equals(endDate)
                     || readingDate.equals(startDate)) {
                 readingListInPeriod.addReading(reading);
+                System.out.println(reading.getDateOfReadingAsString() + " - " + reading.getDateAndTime().get(Calendar.HOUR_OF_DAY) + "H" + reading.getDateAndTime().get(Calendar.MINUTE) + "M");
             }
         }
         return readingListInPeriod;
@@ -148,7 +149,7 @@ public class ReadingList {
         for (Reading reading : this.readingList) {
             (reading.getDateAndTime().DAY_OF_MONTH)
             max.getDateAndTime().DAY_OF_MONTH
-            getReadingsInPeriod(max.getDateAndTime(), max.getDateAndTime());
+            filterByDate(max.getDateAndTime(), max.getDateAndTime());
         }
         return max;
         getDateofReading
@@ -181,5 +182,35 @@ public class ReadingList {
 
         return dailyMax;
     }
+
+    public ReadingList dailyMinimumReadings() {
+        //extract the first day of the list
+        Calendar dayOfTheList = this.readingList.get(0).extractYearMonthDay();
+        ReadingList dailyMinReadings = new ReadingList();
+        Reading dayMin = new Reading();
+        System.out.println("Daily Maximus List");
+        for (Reading reading : this.readingList) {
+            if (reading.isSameDay(dayOfTheList) && reading.returnValueOfReading() < dayMin.returnValueOfReading()) {
+                dayMin = reading;
+            } else { //if day does not match meaning next day, increment
+                dailyMinReadings.addReading(dayMin);
+                System.out.println(dayMin.getDateOfReadingAsString() + " - " + dayMin.getDateAndTime().get(Calendar.HOUR_OF_DAY) + "H" + dayMin.getDateAndTime().get(Calendar.MINUTE) + "M" + "->" + dayMin.returnValueOfReading());
+                dayOfTheList.add(Calendar.DATE, 1);
+            }
+        }
+        return dailyMinReadings;
+    }
+
+    /*public ReadingList dailyAmplitude(ReadingList dailyMinReadings, ReadingList dailyMaxReadings){
+        //extract the first day of the list
+        Calendar listDay = this.readingList.get(0).extractYearMonthDay();
+        ReadingList dailyAmplitude = new ReadingList();
+        Reading dayAmp = new Reading();
+        List<Reading>
+        System.out.println("Daily Amplitude List");
+        for (Reading reading : dailyMinReadings.getReadingList()){
+            dayAmp = (dailyMaxReadings.getReadingList().)
+        }
+    }*/
 
 }
