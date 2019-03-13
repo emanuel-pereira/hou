@@ -112,6 +112,4 @@ public class GAList {
         for(GeographicalArea geographicalArea: mGAList)
             geographicalArea.importReadingsToSensorsFromCSVFile(filePathAndName);
     }
-
-
 }

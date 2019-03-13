@@ -18,7 +18,6 @@ public class DataImportCTRL {
         this.gaList = gaList;
     }
 
-
     public void loadJSON(String filePath) throws ParseException,org.json.simple.parser.ParseException, IOException {
         ReadJSONFile jsonFile = new ReadJSONFile(filePath, gaList);
         jsonFile.readGAs();

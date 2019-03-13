@@ -1,9 +1,12 @@
 package smarthome.model;
 
+import smarthome.dto.ReadingDTO;
 import smarthome.dto.SensorDTO;
 import smarthome.model.validations.Utils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -182,8 +185,13 @@ public class Sensor {
     public String getUnit() {
         return unit;
     }
-
+    
     public SensorDTO toDTO() {
-        return new SensorDTO(this.id, this.designation);
+        List<ReadingDTO> readingListDTO= new ArrayList<>();
+        for(Reading reading:this.readingList.getReadingList()){
+            ReadingDTO readingDTO=reading.toDTO();
+            readingListDTO.add(readingDTO);
+        }
+        return new SensorDTO(this.id, this.designation, readingListDTO);
     }
 }

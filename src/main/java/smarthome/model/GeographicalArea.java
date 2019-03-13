@@ -185,8 +185,6 @@ public class GeographicalArea {
         }
     }
 
-
-
     public GeographicalAreaDTO toDTO() {
         List<SensorDTO> sensorListDTO= new ArrayList<>();
         for(Sensor sensor:this.sensorListInGa.getSensorList()){

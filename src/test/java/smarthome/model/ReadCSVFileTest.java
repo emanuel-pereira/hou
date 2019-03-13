@@ -25,7 +25,7 @@ public class ReadCSVFileTest {
     @Test
     void getReadingsTest() throws FileNotFoundException {
         ReadCSVFile csv = new ReadCSVFile();
-        csv.readCsvFile("resources/ReadingsRegistry");
+        csv.readCsvFile("resources/DataSet_sp04_SensorData.csv");
         int result = csv.getValuesFromCSVFile().size();
         int expected = 62;
         assertEquals(expected, result);

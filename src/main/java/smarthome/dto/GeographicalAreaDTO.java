@@ -26,7 +26,4 @@ public class GeographicalAreaDTO {
     public List<SensorDTO> getSensorListDTO() {
         return sensorList;
     }
-
-
-
 }
