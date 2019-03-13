@@ -1,4 +1,3 @@
-
 package smarthome.controller;
 
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class GetEnergyConsumptionInPeriodCTRLTest {
 
     @Test
+@DisplayName("Ensure that only metered devices names are shown in a string format")
     void showMeteredDevicesInStr() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         House house = new House();
         GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
@@ -127,7 +127,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
     }
 
     @Test
-    @DisplayName("Ensure that the houseGridName ")
+    @DisplayName("Ensure that getHGName() returns the name of the housegrid as a string")
     void getHGName() {
         House house = new House();
         GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
@@ -145,6 +145,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
     }
 
     @Test
+    @DisplayName("Ensure that method shows a list of grids in a single string")
     void showHouseGridListInString() {
         House house = new House();
         GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
@@ -225,6 +226,12 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         double expected = 80;
         double result=ctrl.getHouseGridEnergyConsumptionInPeriod(0,startTime,endTime);
         assertEquals(expected,result);
+
+        int expectedMeteredsSize=6;
+        int resultOfMeteredListSize=ctrl.meteredListSize();
+        assertEquals(expectedMeteredsSize,resultOfMeteredListSize);
+
+
     }
 
     @Test
@@ -276,21 +283,10 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         assertEquals (expectedResult, result);
     }
 
-    @Test
-    @DisplayName("Ensure that the room name is shown")
-    void getRoomName() {
-        House house = new House();
-        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
-        Room bedroom = new Room("Bedroom", 1, 2, 2, 2);
-        Room office = new Room("Office", 0, 2, 1, 1);
-        RoomList rList = house.getRoomList();
-        rList.addRoom(bedroom);
-        rList.addRoom(office);
-        String expected = "Bedroom";
-        String result = ctrl.getRoomName(0);
-        assertEquals(expected, result);
-    }
-
+    /**
+     * Get the total energy consumption of a room with three devices, two of them area metered from a a list off
+     * two rooms and return the correct sum
+     */
     @Test
     void getDeviceName() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         House house = new House();
@@ -391,5 +387,92 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         double result = ctrl.getRoomEnergyConsumption(0, startTime, endTime);
         assertEquals(expected, result);
     }
-}
 
+    @Test
+    @DisplayName("Ensure that the room name is shown")
+    void getRoomName() {
+        House house = new House();
+        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
+        Room bedroom = new Room("Bedroom",1,2,2,2);
+        Room office = new Room("Office",0,2,1,1);
+        RoomList rList = house.getRoomList ();
+        rList.addRoom (bedroom);
+        rList.addRoom (office);
+        String expected = "Bedroom";
+        String result = ctrl.getRoomName (0);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void getMeteredName() { House house = new House();
+        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
+        HouseGridList houseGridList=house.getHGListInHouse();
+        HouseGrid grid= new HouseGrid("MainGrid");
+        houseGridList.addHouseGrid(grid);
+
+
+        RoomList roomList=grid.getRoomListInAGrid();
+        Room kitchen= new Room("Kitchen",0,8,8,3);
+        Room garage= new Room("Living Room",0,5,4,3);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(garage);
+
+        DeviceList kitDeviceList= kitchen.getDeviceList();
+        DeviceList grDeviceList= garage.getDeviceList();
+
+        DeviceSpecs fridgeSpecs= new Fridge();
+        Device fridge= new Device("LG Fridge",fridgeSpecs,2);
+
+        DeviceSpecs ewhSpecs= new ElectricWaterHeater();
+        Device ewh1= new Device("Daikin EWH1",ewhSpecs,2);
+        Device ewh2= new Device("Daikin EWH2",ewhSpecs,2);
+
+        kitDeviceList.addDevice(fridge);
+        kitDeviceList.addDevice(ewh1);
+        grDeviceList.addDevice(ewh2);
+
+        String expected="Living Room";
+        String result=ctrl.getMeteredName(2);
+        assertEquals(expected,result);}
+
+
+
+    @Test
+    void showMetered() {
+        House house = new House();
+        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
+        HouseGridList houseGridList=house.getHGListInHouse();
+        HouseGrid grid= new HouseGrid("MainGrid");
+        houseGridList.addHouseGrid(grid);
+
+
+        RoomList roomList=grid.getRoomListInAGrid();
+        Room kitchen= new Room("Kitchen",0,8,8,3);
+        Room garage= new Room("Living Room",0,5,4,3);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(garage);
+
+        DeviceList kitDeviceList= kitchen.getDeviceList();
+        DeviceList grDeviceList= garage.getDeviceList();
+
+        DeviceSpecs fridgeSpecs= new Fridge();
+        Device fridge= new Device("LG Fridge",fridgeSpecs,2);
+
+        DeviceSpecs ewhSpecs= new ElectricWaterHeater();
+        Device ewh1= new Device("Daikin EWH1",ewhSpecs,2);
+        Device ewh2= new Device("Daikin EWH2",ewhSpecs,2);
+
+        kitDeviceList.addDevice(fridge);
+        kitDeviceList.addDevice(ewh1);
+        grDeviceList.addDevice(ewh2);
+
+        String expected="1 - MainGrid\n" +
+                "2 - Kitchen\n" +
+                "3 - Living Room\n" +
+                "4 - LG Fridge\n" +
+                "5 - Daikin EWH1\n" +
+                "6 - Daikin EWH2\n";
+        String result=ctrl.showMetered();
+        assertEquals(expected,result);
+    }
+}

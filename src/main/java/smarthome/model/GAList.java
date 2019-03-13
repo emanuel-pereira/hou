@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -73,7 +74,7 @@ public class GAList {
     public List<GeographicalArea> gAFromThisType(String inputTypeGA) {
         List<GeographicalArea> gAFromTypeList = new ArrayList<>();
         for (GeographicalArea ga : mGAList) {
-            if (ga.getGeographicalAreaType().equals(inputTypeGA)) {
+            if (ga.getType().equals(inputTypeGA)) {
                 gAFromTypeList.add(ga);
             }
         }
@@ -107,4 +108,8 @@ public class GAList {
         return mGAList.get(mGAList.size() - 1);
     }
 
+    public void importDataFromCSVFileForEachGA(String filePathAndName) throws IOException {
+        for(GeographicalArea geographicalArea: mGAList)
+            geographicalArea.importReadingsToSensorsFromCSVFile(filePathAndName);
+    }
 }

@@ -8,6 +8,7 @@ import java.util.*;
 
 public class NewSensorUI {
     private NewSensorCTRL ctrl;
+    private String id;
     private String name;
     private int indexOfSensorType;
     private GregorianCalendar startDate;
@@ -53,6 +54,8 @@ public class NewSensorUI {
     }
 
     private void inputName() {
+        System.out.println("Insert the sensor id");
+        this.id = UtilsUI.requestText("The id inputted isn't valid. Only alphanumeric characters are accepted.","[A-Za-z0-9]*");
         System.out.println("Insert a name for the sensor");
         this.name = UtilsUI.requestText("The name inputted isn't valid. Only alphanumeric characters, spaces and hyphens are accepted.");
         this.inputStartDate();
@@ -143,8 +146,9 @@ public class NewSensorUI {
 
     private void addSensorToGA() {
         Location geoLocation = new Location(this.latitude, this.longitude, this.altitude);
-        this.ctrl.addNewSensorToGA(this.name, this.startDate, this.indexOfSensorType, this.unit, geoLocation, this.indexOfGA, this.readingList);
+        this.ctrl.addNewSensorToGA(this.id,this.name, this.startDate, this.indexOfSensorType, this.unit, geoLocation, this.indexOfGA, this.readingList);
         System.out.println("The following geographical area sensor was successfully created: ");
+        System.out.println("ID: " + this.id);
         System.out.println("NAME: " + this.ctrl.getGASensorName(this.indexOfGA));
         System.out.println("GEOGRAPHICAL AREA: " + this.ctrl.getGAName(this.indexOfGA));
         System.out.println("START DATE: " + UtilsUI.dateToString(this.ctrl.getGASensorSDate(indexOfGA)));

@@ -152,6 +152,7 @@ public class RoomList {
         return Utils.round(totalEnergyConsumption,2);
     }
 
+    public List<Device> getMeteredDevicesLst(){
     public List<Device>getMeteredDevicesInHouse(){
         List<Device> meteredDevListInHouse=new ArrayList<>();
         for(Room room:this.roomLst){
@@ -161,20 +162,15 @@ public class RoomList {
         return meteredDevListInHouse;
     }
 
-    public int getMeteredDevicesInHouseSize(){
-        List<Device> meteredDeviceList = getMeteredDevicesInHouse();
-        return meteredDeviceList.size();
-    }
-
     public String showMeteredDevicesInStr() {
-        List<Device> meteredDeviceList = getMeteredDevicesInHouse();
+        List<Device> meteredDeviceList = getMeteredDevicesLst();
         StringBuilder result = new StringBuilder ();
         String element = " - ";
         int number = 1;
         for (Device device : meteredDeviceList) {
             result.append (number++);
             result.append (element);
-            result.append (device.getDeviceName());
+            result.append (device.getName());
             result.append ("\n");
         }
         return result.toString ();

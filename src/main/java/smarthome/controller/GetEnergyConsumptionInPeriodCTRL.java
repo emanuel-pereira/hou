@@ -6,14 +6,15 @@ import java.util.Calendar;
 import java.util.List;
 
 public class GetEnergyConsumptionInPeriodCTRL {
+    private House house;
     private RoomList roomList;
     private HouseGridList houseGridList;
 
     public GetEnergyConsumptionInPeriodCTRL(House house) {
+        this.house=house;
         this.roomList = house.getRoomList();
         this.houseGridList = house.getHGListInHouse();
     }
-
 
     /**
      * @return the houseGridList in a string format to use in the UI
@@ -23,7 +24,7 @@ public class GetEnergyConsumptionInPeriodCTRL {
     }
 
     /**
-     * @return the size of a houseGrid
+     * @return the number of elements in the list of houseGrids as an integer value
      */
     public int getHouseGridListSize() {
         return this.houseGridList.getSize();
@@ -57,30 +58,24 @@ public class GetEnergyConsumptionInPeriodCTRL {
     }
 
     /**
-     * Method that gets the selected device name in String format
+     * Method that gets the selected metered object name in String format
      *
-     * @param indexOfDevice device in the index position of the device list of metered devices
+     * @param indexOfMetered device in the index position of the device list of metered devices
      * @return the device in the index position of the device list of metered devices
      */
-    public String getDeviceName(int indexOfDevice) {
-        List<Device> meteredDeviceList = this.roomList.getMeteredDevicesInHouse();
-        Device device = meteredDeviceList.get(indexOfDevice);
-        return device.getDeviceName();
+    public String getMeteredName(int indexOfMetered) {
+        List<Metered> meteredDeviceList = this.house.getMetered();
+        Metered metered = meteredDeviceList.get(indexOfMetered);
+        return metered.getName();
     }
 
     /**
-     * Display a list of all rooms in string format
-     *
-     * @return list of rooms in a string
+     * @return lists all metered elements in a string format
      */
-    public String showRoomListInStr() {
-        return this.roomList.showRoomListInString();
-    }
+    public String showMetered() {return this.house.showMetered();}
 
     /**
-     * The size of the room list to check if there are rooms in that list
-     *
-     * @return size of the list of rooms
+     * @return an integer value representing the number of elements in the list of rooms
      */
     public int getRoomListSize() {
         return this.roomList.getRoomListSize();
@@ -98,44 +93,25 @@ public class GetEnergyConsumptionInPeriodCTRL {
     }
 
     /**
-     * Returns the energy consumption for the selected metered device in a specific time interval
+     * Returns the energy consumption for the selected metered object in a specific time interval
      *
-     * @param indexOfDevice index position of the selected device
+     * @param indexOfMetered index position of the selected metered object
      * @param startDate     starting period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
      * @param endDate       ending period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
-     * @return the energy consumed in the specified time interval
+     * @return the energy consumed in the specified time interval for the selected metered object
      */
-    public double getEnergyConsumptionInPeriod(int indexOfDevice, Calendar startDate, Calendar endDate) {
-        List<Device> meteredDevices = this.roomList.getMeteredDevicesInHouse();
-        Metered selectedDevice = (Metered) meteredDevices.get(indexOfDevice);
-        return selectedDevice.getEnergyConsumption(startDate, endDate);
+    public double getEnergyConsumptionInPeriod(int indexOfMetered, Calendar startDate, Calendar endDate) {
+        List<Metered> meteredList = this.house.getMetered();
+        Metered selectedMetered = meteredList.get(indexOfMetered);
+        return selectedMetered.getEnergyConsumptionInTimeInterval(startDate, endDate);
     }
 
     /**
-     * Returns the energy consumption for the selected houseGrid in a specific time interval
      *
-     * @param indexOfHouseGrid index position of the selected houseGrid in the houseGridList
-     * @param startDate        starting period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
-     * @param endDate          ending period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
-     * @return the energy consumed in the specified time interval
+     * @return an integer value representing the number of elements in the list of metered objects
      */
-    public double getHouseGridEnergyConsumptionInPeriod(int indexOfHouseGrid, Calendar startDate, Calendar endDate) {
-        HouseGrid selectedHouseGrid = this.houseGridList.get(indexOfHouseGrid);
-        return selectedHouseGrid.getEnergyConsumption(startDate, endDate);
-    }
-
-
-    /**
-     * Returns the energy consumption for the selected room in a specific time interval
-     *
-     * @param indexOfRoom index position of the selected room in the RoomList
-     * @param startHour   starting period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
-     * @param endHour     ending period in calendar format(yyyy-MM-dd HH:mm) to consider the energy consumption calculation
-     * @return the energy consumed in the specified time interval
-     */
-    public double getRoomEnergyConsumption(int indexOfRoom, Calendar startHour, Calendar endHour) {
-        Room room = this.roomList.get(indexOfRoom);
-        return room.getEnergyConsumption(startHour, endHour);
+    public int meteredListSize(){
+        return this.house.getMetered().size();
     }
 
 }

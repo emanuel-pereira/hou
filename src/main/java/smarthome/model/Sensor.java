@@ -1,52 +1,31 @@
 package smarthome.model;
 
+import smarthome.dto.ReadingDTO;
+import smarthome.dto.SensorDTO;
 import smarthome.model.validations.Utils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 
 public class Sensor {
+    private String id;
     private String designation;
     private Location location;
     private SensorType sensorType;
     private Calendar startDate;
-    private String unit; //to analyse the creation of a class unit so we may have a list of units for a specific Datatype (eg. SensorType: temperature with list of units containing: celsius, kelvin and fahrenheit)
+    private String unit;
     private ReadingList readingList;
 
-
     /**
-     * Constructor requiring to set only a specific designation for any object of type Sensor created
-     * accordingly with the criteria defined in the "nameIsValid" method.
-     *
-     * @param designation refers to sensors name
-     */
-    public Sensor(String designation) {
-        if (nameIsValid(designation)) {
-            this.designation = designation;
-        }
-
-    }
-
-
-    public Sensor(String designation, Calendar startDate, Location location, SensorType sensorType) {
-        if (nameIsValid(designation)) {
-            this.designation = designation;
-            this.startDate = startDate;
-            this.location = location;
-            this.sensorType = sensorType;
-            this.readingList = new ReadingList();
-        }
-    }
-
-
-    /**
-     * Constructor used to create internal sensors, which unlike external sensors don't require location coordinates.
+     * Constructor used to create internal sensors which, unlike external sensors, don't require location coordinates.
      * @param designation String parameter to specify sensor's designation
-     * @param startDate specifies the sensor start date as a Calendar variable
-     * @param sensorType specifies the sensor type
-     * @param unit
-     * @param readings
+     * @param startDate specifies the sensor start date as a Calendar dataType
+     * @param sensorType specifies the sensor type as a SensorType instance
+     * @param unit String parameter to specify sensor's unit of measure
+     * @param readings specifies the sensor's readingList
      */
     public Sensor(String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         if (nameIsValid(designation)) {
@@ -59,16 +38,18 @@ public class Sensor {
     }
 
     /**
-     * Sensor for GA
-     *
-     * @param designation
-     * @param startDate
-     * @param sensorType
-     * @param unit
-     * @param readings
+     * Constructor used to create external sensors which require location coordinates.
+     * @param id String parameter to specify sensor's id
+     * @param designation String parameter to specify sensor's designation
+     * @param startDate  specifies the sensor start date as a Calendar dataType
+     * @param geoLocation specifies the sensor GPS coordinates
+     * @param sensorType specifies the sensor start date as a Calendar variable
+     * @param unit String parameter to specify sensor's unit of measure
+     * @param readings specifies the sensor's readingList
      */
-    public Sensor(String designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
+    public Sensor(String id, String designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
         if (nameIsValid(designation)) {
+            this.id=id;
             this.designation = designation;
             this.startDate = startDate;
             this.location = geoLocation;
@@ -135,12 +116,10 @@ public class Sensor {
     }
 
     /**
-     * Changes the dataType of the sensor to the dataType inputted.
-     *
-     * @param sensorType new object from the dataType class.
+     * @return the sensor's id
      */
-    public void setSensorType(SensorType sensorType) {
-        this.sensorType = sensorType;
+    public String getId() {
+        return this.id;
     }
 
     /**
@@ -207,5 +186,14 @@ public class Sensor {
 
     public String getUnit() {
         return unit;
+    }
+    
+    public SensorDTO toDTO() {
+        List<ReadingDTO> readingListDTO= new ArrayList<>();
+        for(Reading reading:this.readingList.getReadingList()){
+            ReadingDTO readingDTO=reading.toDTO();
+            readingListDTO.add(readingDTO);
+        }
+        return new SensorDTO(this.id, this.designation, readingListDTO);
     }
 }

@@ -3,8 +3,10 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -220,4 +222,37 @@ class GAListTest {
         int result = gaList.size();
         assertEquals(expected, result);
     }
+
+    @Test
+    void importDataFromCSVFileForEachGATest() throws IOException {
+        GAList gaList = new GAList();
+        GeographicalArea porto = new GeographicalArea("001", "Porto", "city", new OccupationArea(3,2),new Location(3, 30, 20));
+        GeographicalArea lisboa = new GeographicalArea("002", "Lisboa", "city", new OccupationArea(3,2),new Location(3, 30, 20));
+        gaList.addGA(porto);
+        gaList.addGA(lisboa);
+        GregorianCalendar startDate = new GregorianCalendar(2018,2,3);
+        GregorianCalendar startDate2 = new GregorianCalendar(2018,1,1);
+        Location location = new Location(3,2,1);
+        SensorType temp = new SensorType("Temperature");
+
+        Sensor sensorISEP = new Sensor("TT12346","SensorISEP",startDate,location,temp,"C",new ReadingList());
+        Sensor sensorPorto = new Sensor("TT1236A","SensorPorto",startDate,location,temp,"C",new ReadingList());
+
+        porto.getSensorListInGA().addSensor(sensorPorto);
+        porto.getSensorListInGA().addSensor(sensorISEP);
+        //lisboa.getSensorListInGA().addSensor(sensorLisboa);
+
+        gaList.importDataFromCSVFileForEachGA("resources/ReadingsRegistry");
+        int result = gaList.getGAList().get(0).getSensorListInGA().getSensorList().get(0).getReadingList().getReadingList().size();
+        assertEquals(24,result);
+        int result2 = gaList.getGAList().get(0).getSensorListInGA().getSensorList().get(1).getReadingList().getReadingList().size();
+        assertEquals(20,result2);
+
+
+        //int result3 = gaList.getGAList().get(1).getSensorListInGA().getSensorList().get(0).getReadingList().getReadingList().size();
+        //assertEquals(24,result3);
+
+
+    }
+
 }

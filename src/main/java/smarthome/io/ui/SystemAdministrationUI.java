@@ -5,6 +5,8 @@ import smarthome.model.House;
 import smarthome.model.SensorTypeList;
 import smarthome.model.TypeGAList;
 
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public final class SystemAdministrationUI {
@@ -12,7 +14,7 @@ public final class SystemAdministrationUI {
     private SystemAdministrationUI() {
     }
 
-    public static void systemAdministration(House house, SensorTypeList sensorTypeList, TypeGAList typeGAList, GAList gaList) {
+    public static void systemAdministration(House house, SensorTypeList sensorTypeList, TypeGAList typeGAList, GAList gaList) throws ParseException, org.json.simple.parser.ParseException, IOException {
 
         int option = -1;
         while (option != 0) {
@@ -27,11 +29,14 @@ public final class SystemAdministrationUI {
             options.add("[6] Create a new sensor and associate it to a Geographical Area");
             options.add("[7] Specify that a geographical area is added to another one");
             options.add("[8] Check if a a geographical area is direct/indirectly included to another one");
+            options.add("[9] Import geographical areas and sensors from a JSONFile");
+            options.add("[10] Import readings from a CSVFile");
+
             options.add("[0] Exit");
 
             UtilsUI.showList("System Administrator", options, false, 5);
 
-            option = UtilsUI.requestIntegerInInterval(0, 8, "Please choose an action between 1 and 8, or 0 to exit the program");
+            option = UtilsUI.requestIntegerInInterval(0, 10, "Please choose an action between 1 and 8, or 0 to exit the program");
 
             switch (option) {
                 case 1:
@@ -65,6 +70,14 @@ public final class SystemAdministrationUI {
                 case 8:
                     ListParentGAUI ui8 = new ListParentGAUI(gaList);
                     ui8.run();
+                    break;
+                case 9:
+                    DataImportUI ui9= new DataImportUI(gaList);
+                    ui9.loadJSON();
+                    break;
+                case 10:
+                    DataImportUI ui10= new DataImportUI(gaList);
+                    ui10.importDataFromCSVFile();
                     break;
                 default:
                     //no action needed

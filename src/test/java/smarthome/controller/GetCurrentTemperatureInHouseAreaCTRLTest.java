@@ -54,12 +54,12 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
         sensorTypeList.addSensorType(sensorType1);
         sensorTypeList.addSensorType(sensorType2);
 
-        GregorianCalendar startdate = new GregorianCalendar(1, 1, 1, 1, 1);
+        GregorianCalendar startDate = new GregorianCalendar(1, 1, 1, 1, 1);
         ReadingList rList = new ReadingList();
 
-        Sensor s1 = new Sensor("sensorA", startdate, sensorType1, "c", rList);
-        Sensor s2 = new Sensor("sensorB", startdate, sensorType1, "c", rList);
-        Sensor s3 = new Sensor("sensorC", startdate, sensorType2, "c", rList);
+        Sensor s1 = new Sensor("sensorA", startDate, sensorType1, "c", rList);
+        Sensor s2 = new Sensor("sensorB", startDate, sensorType1, "c", rList);
+        Sensor s3 = new Sensor("sensorC", startDate, sensorType2, "c", rList);
 
         OccupationArea oc = new OccupationArea(1, 1);
         Location loc = new Location(1, 1, 1);
@@ -116,12 +116,12 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
         readingList2.addReading(r6);
 
         Location l1 = new Location(85, 65, 10);
-        Sensor s0 = new Sensor("WindSensor2", startDate, l1, wind, "c", readingList2);
+        Sensor s0 = new Sensor("W0002","WindSensor2", startDate, l1, wind, "c", readingList2);
         Location l2 = new Location(80, 50, 10);
-        Sensor s1 = new Sensor("WindSensor1", startDate, l2, wind, "c", readingList1);
-        Sensor s2 = new Sensor("WindSensor3", startDate, l2, wind, "c", readingList2);
+        Sensor s1 = new Sensor("W0001","WindSensor1", startDate, l2, wind, "c", readingList1);
+        Sensor s2 = new Sensor("W0003","WindSensor3", startDate, l2, wind, "c", readingList2);
         Location l3 = new Location(1.5, 1.5, 1.5);
-        Sensor s3 = new Sensor("TemperatureSensor", startDate, l3, temperature, "c", readingList2);
+        Sensor s3 = new Sensor("T0001","TemperatureSensor", startDate, l3, temperature, "c", readingList2);
 
         houseGASensorList.addSensor(s0);
         houseGASensorList.addSensor(s1);
