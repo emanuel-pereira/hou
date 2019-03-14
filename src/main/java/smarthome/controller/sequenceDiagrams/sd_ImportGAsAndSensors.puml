@@ -11,7 +11,7 @@ SysAdmin -> ":DataImportUI": Enters JSON file path
 ":DataImportUI" -> ":DataImportCTRL": loadJSON(filepath)
 create ":ReadJSONFile"
 ":DataImportCTRL"->":ReadJSONFile": create(filePath,gL)
-":DataImportCTRL" -> ":ReadJSONFile": readGAs()
+":DataImportCTRL" -> ":ReadJSONFile": importGAs()
 loop for each jsonGA parse to Geographical Area
 create ":GeographicalArea"
 

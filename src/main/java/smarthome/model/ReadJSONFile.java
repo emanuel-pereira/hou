@@ -40,7 +40,7 @@ public class ReadJSONFile {
 
 
 
-    public void readGAs() throws java.text.ParseException, ParseException, IOException {
+    public void importGAs() throws java.text.ParseException, ParseException, IOException {
 
         //Start reading JSON objects based on their type(JSONArray, JSONObject)
         JSONObject jsonGAs = (JSONObject) this.readFile().get("geographical_area_list");
