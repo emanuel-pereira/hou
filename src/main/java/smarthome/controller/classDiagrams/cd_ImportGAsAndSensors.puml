@@ -30,7 +30,7 @@ class ReadJSONFile {
 + ReadJSONFile()
 + readFile()
 + readGAs()
-+ getGeographicalArea()
++ createGeographicalArea()
 + addGASensors()
 + getCoordinates()
 + getStartDate()
