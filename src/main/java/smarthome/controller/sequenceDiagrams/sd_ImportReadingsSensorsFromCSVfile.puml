@@ -1,67 +1,53 @@
 @startuml
-
-
 autonumber
- hidefootbox
-
- actor Administrator
- activate Administrator
-
- Administrator -> ":DataImportUI": start: importData
-
-activate ":DataImportUI"
- ":DataImportUI" -> ":DataImportCTRL": lR = loadReadingsCSVFile(fileName)
-
-activate ":DataImportCTRL"
- ":DataImportCTRL" -> ":GaList": lR = loadReadingsCSVFile(fileName)
-
- activate ":GaList"
+hidefootbox
+actor Administrator
 
 
- loop for each Geographical Area of GaList.
-    ":GaList" -> ":GeographicalArea": lR = loadReadingsCSV(fileName)
-        activate ":GeographicalArea"
-
- end
-
-create ":SensorDTO"
+Administrator -> ":DataImportUI": Ask import
+create ":DataImportCTRL"
 
 
-deactivate ":GaList"
-":GeographicalArea" -> ":SensorDTO": lR = loadReadingsCSV(fileName)
-deactivate ":GeographicalArea"
+":DataImportUI" -> ":DataImportCTRL": create
+":DataImportUI" -> "Administrator": ask for file name and path
+":DataImportUI" <- "Administrator": type  file name and path
 
 
+":DataImportUI" -> ":DataImportCTRL": importDataFromCSVFile(filePath)
+":DataImportCTRL" -> ":GAList": importDataFromCSVFileForEachGA(filePath)
+
+loop for each Geographical Area
+":GAList" -> ":GeographicalArea": importReadingsToSensorsFromCSVFile(filePath)
+end
+
+create ":ReadCSVFile"
+":GeographicalArea" -> ":ReadCSVFile": create
+":GeographicalArea" -> ":ReadCSVFile": readCSVFile(filePath)
+":ReadCSVFile" -> ":GeographicalArea": getDataFromCSVFile()
+
+":GeographicalArea" -> ":SensorList": getSensorListinGA()
+
+loop for each sensor in SensorList
+":SensorList" -> ":Sensor": get()
+
+":Sensor" -> ":ReadingList": getReadingList()
+create ":Reading"
+
+":ReadingList" -> ":Reading": newReading(date,value)
+":ReadingList" <- ":Reading": addReading(reading)
+end
+
+":DataImportCTRL"<-":DataImportUI":gaListDTO=showNumberOfReadingsDTO()
+":DataImportCTRL"->":GAList": gaListDTO=getGAListDTO()
+loop convert GA to GADTO
+":DataImportCTRL"->":GeographicalArea": toDTO()
 create ":GeographicalAreaDTO"
+":GeographicalArea"->":GeographicalAreaDTO": toDTO()
+create ":SensorDTO"
+":Sensor"->":SensorDTO": toDTO()
+create ":ReadingDTO"
+":Reading"->":ReadingDTO": toDTO()
 
-activate ":SensorDTO"
-
-
-loop for each sensorDTO of GeographicalAreaDTO
-
-":SensorDTO" -> ":GeographicalAreaDTO": sL = getSensorListDTO()
-
- deactivate ":SensorDTO"
-activate ":GeographicalAreaDTO"
-
-
-
- ":DataImportCTRL" <<- ":GeographicalAreaDTO": sR = showReadingsOfFile()
-
- deactivate ":GeographicalAreaDTO"
- end
-
-":DataImportCTRL" ->> ":DataImportUI": sR = showReadingsOfFile()
-
-deactivate ":DataImportCTRL"
-Administrator <- ":DataImportUI": success message
-
-deactivate ":DataImportUI"
-
-
-
-
-
-
-
+end
+Administrator<--":DataImportUI": Shows the number of readings of each sensor
 @enduml
