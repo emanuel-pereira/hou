@@ -47,7 +47,7 @@ public class EditDevicesCTRL {
         return getRoomFromListIndex(indexOfRoom).getDeviceList().get(indexOfDevice - 1);
     }
 
-    //TODO update to include device name and nominal power
+
     public List<String> getDeviceAttributesListInString(Device device) {
         DeviceSpecs ds = device.getDeviceSpecs();
         List<String> names = ds.getAttributesNames();

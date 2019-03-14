@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 import smarthome.model.validations.NameValidations;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class EditDevicesCTRLTest {
@@ -59,7 +63,7 @@ class EditDevicesCTRLTest {
         String result = kitchenDL.get(0).getDeviceName();
         assertEquals(expected, result);
     }
-/* TODO: Rewrite this test
+
     @Test
     void showDeviceListInString() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         House house = new House();
@@ -75,11 +79,14 @@ class EditDevicesCTRLTest {
         kitchenDL.addDevice(lamp);
 
 
-        String expected = "1 - Device: LG Fridge | Type: Fridge | Active: true\n2 - Device: Philips | Type: Lamp | Active: true\n";
-        String result = ctrl.showDeviceListInString(1);
+        List<String> expected = new ArrayList<>();
+        expected.add("Fridge (LG Fridge) [Active]");
+        expected.add("Lamp (Philips) [Active]");
+
+        List<String> result = ctrl.showDeviceListInString(1);
         assertEquals(expected, result);
     }
-*/
+
     @Test
     @DisplayName("Ensure that an alphanumeric name with spaces and hyphens is valid")
     void alphanumericName() {
@@ -153,22 +160,35 @@ class EditDevicesCTRLTest {
         assertEquals(900.0, lamp.getDeviceSpecs().getAttributeValue("Illuminance"), 0.01);
     }
 
-    /*
-        @Test
-        void getDeviceAttributesListInStringTest2() {
-            House h = new House();
-            EditDevicesCTRL ctr = new EditDevicesCTRL(h);
-            WashingMachine wm = new WashingMachine( 20);
-            Device d1 = new Device("A", wm, 150.1);
-            String deviceName = "Device Name";
-            String deviceNominalPower = "Device Nominal Power";
-            String capacity = "Washing Machine Capacity";
-            ctr.getDeviceAttributesListInString(d1);
-            List<String> result = d1.getDeviceAttributesInString();
-            List<String> expected = Arrays.asList(deviceName, deviceNominalPower, capacity);
-            assertEquals(expected, result);
-        }
-    */
+    @Test
+    void getDeviceAttributeTest() {
+        House h = new House();
+        EditDevicesCTRL ctr = new EditDevicesCTRL(h);
+        DeviceType dt = new FridgeType();
+        Device d = dt.createDevice("Zanussi", 100);
+
+        String result = ctr.getDeviceAttribute(d, 0);
+        String expected = "Freezer Capacity";
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void getDeviceAttributesListTest() {
+        House h = new House();
+        EditDevicesCTRL ctr = new EditDevicesCTRL(h);
+        DeviceType dt = new FridgeType();
+        Device d = dt.createDevice("Zanussi", 100);
+
+        List<String> result = ctr.getDeviceAttributesListInString(d);
+        List<String> expected = new ArrayList<>();
+        expected.add("Freezer Capacity [liters]: NaN");
+        expected.add("Refrigerator Capacity [liters]: NaN");
+        expected.add("Annual Energy Consumption [kWh]: NaN");
+        assertEquals(expected, result);
+    }
+
+
     @Test
     @DisplayName("Ensure that device microwave is removed from room kitchen")
     void removeDeviceFromRoom() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
@@ -348,5 +368,22 @@ class EditDevicesCTRLTest {
 
         DeviceList livingRoomDeviceList = ctrl.getDeviceList(livingRoom);
         assertEquals(2, livingRoomDeviceList.size());
+    }
+
+    @Test
+    void showDeviceAttributesInStringTest(){
+        House house = new House();
+        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
+        DeviceType dt = new FridgeType();
+        Device d = dt.createDevice("Zanussi", 100);
+
+        List<String> result = ctrl.showDeviceAttributesInString(d);
+
+        List<String> expected = new ArrayList<>();
+        expected.add("Freezer Capacity");
+        expected.add("Refrigerator Capacity");
+        expected.add("Annual Energy Consumption");
+        assertEquals(expected,result);
+
     }
 }

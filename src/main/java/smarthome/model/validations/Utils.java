@@ -1,7 +1,6 @@
 package smarthome.model.validations;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 public final class Utils {
 
@@ -38,12 +37,4 @@ public final class Utils {
         return value > 0;
     }
 
-    public static List<String>showList(List<Object> objectList){
-        List<String> objList= new ArrayList<>();
-        for(Object object:objectList){
-            String x = object.getClass().getName();
-            objList.add(x);
-        }
-        return objList;
-    }
 }
