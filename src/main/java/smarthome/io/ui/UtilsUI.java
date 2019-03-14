@@ -9,9 +9,9 @@ import java.util.*;
 public final class UtilsUI {
 
     static final String INSERTVALIDOPTION = "Insert valid option.";
-    static final String BLACK = "BLACK";
-    static final String RESET = "RESET";
-    static final String INPUTERROR = "Input error";
+    private static final String BLACK = "BLACK";
+    private static final String RESET = "RESET";
+    private static final String INPUTERROR = "Input error";
 
     /**
      * Private constructor of UtilsUI class, which is a collection of static members, hence is not meant to be instantiated.
@@ -55,7 +55,7 @@ public final class UtilsUI {
             d = Double.MIN_VALUE;
         }
 
-        return (d >= (Double.MIN_VALUE + 0.000000000000000001));
+        return (d > Double.MIN_VALUE);
     }
 
     /**
