@@ -72,9 +72,6 @@ public class Reading {
         output.append(day);
         return output.toString();
     }
-    public ReadingDTO toDTO() {
-        return new ReadingDTO(this.value, this.dateAndTime);
-    }
 
     public ReadingDTO toDTO() {
         return new ReadingDTO(this.value, this.dateAndTime);

@@ -1,60 +1,55 @@
 package smarthome.model;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class House {
 
-    private Address mAddress;
-    private String mID;
-    private GeographicalArea mGA;
-    private RoomList mRoomList;
-    private HouseGridList mHGListInHouse;
+    private Address address;
+    private String iD;
+    private GeographicalArea gA;
+    private RoomList roomList;
+    private HouseGridList houseGridList;
     public Configuration configuration;
 
     public House() {
-        mRoomList = new RoomList();
-        mHGListInHouse = new HouseGridList();
+        this.roomList = new RoomList();
+        this.houseGridList = new HouseGridList();
         this.configuration = new Configuration();
     }
 
     public House(Address houseAddress, GeographicalArea ga) {
-        mAddress = houseAddress;
-        mGA = ga;
-        mRoomList = new RoomList();
-        mHGListInHouse = new HouseGridList();
+        this.address = houseAddress;
+        this.gA = ga;
+        this.roomList = new RoomList();
+        this.houseGridList = new HouseGridList();
         this.configuration = new Configuration();
     }
 
     public House(String id, Address houseAddress, GeographicalArea ga) {
-        mID = id;
-        mAddress = houseAddress;
-        mGA = ga;
-        mRoomList = new RoomList();
-        mHGListInHouse = new HouseGridList();
+        iD = id;
+        address = houseAddress;
+        gA = ga;
+        roomList = new RoomList();
+        houseGridList = new HouseGridList();
         this.configuration = new Configuration();
     }
 
+    public GeographicalArea getHouseGA() {
+        return gA;
+    }
 
     public void setHouseGA(GeographicalArea houseGA) {
-        mGA = houseGA;
+        gA = houseGA;
     }
-
-    public GeographicalArea getHouseGA() {
-        return mGA;
-    }
-
 
     public void setHouseAddress(String streetName, String houseNumber, String zipCode, double latitude, double longitude, double altitude) {
-        mAddress = new Address(streetName, houseNumber, zipCode, latitude, longitude, altitude);
+        address = new Address(streetName, houseNumber, zipCode, latitude, longitude, altitude);
     }
 
     public Address getAddress() {
 
-        return mAddress;
+        return address;
     }
 
 
@@ -67,22 +62,22 @@ public class House {
             return false;
         }
         House house = (House) o;
-        return Objects.equals(mAddress, house.mAddress) &&
-                Objects.equals(mID, house.mID) &&
-                Objects.equals(mGA, house.mGA);
+        return Objects.equals(address, house.address) &&
+                Objects.equals(iD, house.iD) &&
+                Objects.equals(gA, house.gA);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mAddress, mID, mGA);
+        return Objects.hash(address, iD, gA);
     }
 
     public RoomList getRoomList() {
-        return mRoomList;
+        return roomList;
     }
 
     public HouseGridList getHGListInHouse() {
-        return mHGListInHouse;
+        return houseGridList;
     }
 
     public RoomList getAvailableRoomsForGrid() {
@@ -118,7 +113,7 @@ public class House {
     public RoomList getRoomsWithoutGrid(HouseGrid houseGrid) {
         RoomList roomListWithoutHouseGrid = new RoomList();
         RoomList roomListInHouseGrid = houseGrid.getRoomListInAGrid();
-        for (Room room : mRoomList.getRoomList()) {
+        for (Room room : roomList.getRoomList()) {
             if (!(roomListInHouseGrid.getRoomList().contains(room)))
                 roomListWithoutHouseGrid.addRoom(room);
         }
@@ -153,7 +148,7 @@ public class House {
      */
 
     private double calculateDistance(Location aLocation) {
-        return mAddress.getGPSLocation().calcLinearDistanceBetweenTwoPoints(mAddress.getGPSLocation(), aLocation);
+        return address.getGPSLocation().calcLinearDistanceBetweenTwoPoints(address.getGPSLocation(), aLocation);
     }
 
     /**
@@ -164,7 +159,7 @@ public class House {
      * @return a list of sensors of the selected sensorType with the shortest distance to the house.
      */
     private SensorList filterListByTypeAndProximity(SensorType sensorType) {
-        SensorList gaSensorList = mGA.getSensorListInGA();
+        SensorList gaSensorList = gA.getSensorListInGA();
 
         SensorList sensorListOfType = gaSensorList.getListOfSensorsByType(sensorType);
         double distance;
@@ -377,7 +372,7 @@ public class House {
 
     public List<Metered> getMetered() {
         List<Metered> meteredList = new ArrayList<>();
-        for (HouseGrid houseGrid : this.mHGListInHouse.getHouseGridList()) {
+        for (HouseGrid houseGrid : this.houseGridList.getHouseGridList()) {
             List<Room> roomList= houseGrid.getRoomListInAGrid().getRoomList();
             List<Metered> deviceList= houseGrid.getRoomListInAGrid().getMeteredDevicesLst();
             meteredList.add(houseGrid);

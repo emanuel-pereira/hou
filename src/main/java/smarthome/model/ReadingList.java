@@ -73,8 +73,6 @@ public class ReadingList {
     }
 
     /**
-     *
-     *
      * @param startDateTime calendar parameter representing startDateTime
      * @param endDateTime   calendar parameter representing endDateTime
      * @return sums up the value of readings in the ]startDateTime - endDateTime] interval.
@@ -171,12 +169,11 @@ public class ReadingList {
 
         for (Reading reading : this.readingList) {
             value = reading.returnValueOfReading();
-            if (value < min.returnValueOfReading())
+            if (value <= min.returnValueOfReading())
                 min = reading;
         }
         return min;
     }
-
 
     public ReadingList dailyMaximumReadings() {
         //extract the first day of the list

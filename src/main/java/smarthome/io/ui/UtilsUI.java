@@ -4,7 +4,10 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Scanner;
 
 public final class UtilsUI {
 
@@ -405,7 +408,7 @@ public final class UtilsUI {
      * @return date as string in yyyy-MM-dd format
      */
     public static String dateToString(Calendar calendar) {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-DD");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(calendar.getTime());
     }
 

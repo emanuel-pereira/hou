@@ -390,13 +390,13 @@ class ReadingListTest {
         //Reading List Crop
         GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.JUNE, 2);
         GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JUNE, 4);
-        //ReadingList croppedList = rL1.filterByDate(startDate, endDate);
+        ReadingList croppedList = rL1.filterByDate(startDate, endDate);
 
         //Get the max value of the Reading List
-        ReadingList maxReadingList = rL1.dailyMaximumReadings();
+        ReadingList maxReadingList = croppedList.dailyMaximumReadings();
         //assertEquals(21, maxReading);
         Reading max = maxReadingList.maxValueInInterval();
-        Reading expected = new Reading(6, new GregorianCalendar(2017, Calendar.JUNE, 1));
+        Reading expected = new Reading(8, new GregorianCalendar(2017, Calendar.JUNE, 1));
         assertEquals(6, max.returnValueOfReading());
         assertTrue(expected.isSameDay(max.getDateAndTime()));
     }
@@ -447,7 +447,7 @@ class ReadingListTest {
         ReadingList minReadingList = rL1.dailyMinimumReadings();
 
         Reading min = minReadingList.minValueInInterval();
-        Reading expected = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1));
+        Reading expected = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 4));
         assertEquals(4, min.returnValueOfReading());
         assertTrue(expected.isSameDay(min.getDateAndTime()));
     }
@@ -495,11 +495,10 @@ class ReadingListTest {
         //ReadingList croppedList = rL1.filterByDate(startDate, endDate);
 
         //Get the max value of the Reading List
-        ReadingList maxReadingList = rL1.dailyMaximumReadings();
         ReadingList minReadingList = rL1.dailyMinimumReadings();
 
         Reading min = minReadingList.minValueInInterval();
-        Reading expected = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1));
+        Reading expected = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 4));
         assertEquals(4, min.returnValueOfReading());
         assertTrue(expected.isSameDay(min.getDateAndTime()));
     }
