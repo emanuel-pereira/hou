@@ -1,23 +1,6 @@
 @startuml
 skinparam linetype ortho
 
-class DataImportUI{
-- ctrl: DataImportCTRL
-
-+ loadJSON()
-+ showGAs()
-+ importDataFromCSVFile()
-+ showReadings()
-}
-
-class DataImportCTRL{
-- gaList: GAList
-
-+ DataImportCTRL()
-+ loadJSON()
-+ importReadingsFromCSVFile()
-+ getGAListDTO()
-}
 
 class ReadJSONFile {
 - parser: JSONParser
@@ -94,10 +77,7 @@ class SensorDTO{
 + addGA()
   }
 
-DataImportUI ..> DataImportCTRL
-DataImportCTRL .> ReadJSONFile
-DataImportCTRL ..> GAList
-DataImportCTRL ..> GeographicalArea
+
 
 ReadJSONFile ..> GeographicalArea
 ReadJSONFile ..> Sensor
@@ -107,7 +87,7 @@ Sensor ..> SensorDTO
 
 
 
-Sensor"*" - SensorList
+Sensor"*" -- SensorList
 GAList - "*"GeographicalArea
 
 
