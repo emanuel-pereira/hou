@@ -15,7 +15,7 @@ class ReadJSONFileTest {
     void readGAs() throws ParseException, IOException, org.json.simple.parser.ParseException {
         GAList gaList = new GAList();
         ReadJSONFile js = new ReadJSONFile("resources/JsonFile.json",gaList);
-        js.readGAs();
+        js.importGAs();
         int expected = 2;
         int result = gaList.size();
         assertEquals(expected, result);
@@ -27,7 +27,7 @@ class ReadJSONFileTest {
     void readGAsDoesNotHaveSizeZero() throws ParseException, IOException, org.json.simple.parser.ParseException {
         GAList gaList = new GAList();
         ReadJSONFile js = new ReadJSONFile("resources/JsonFile.json",gaList);
-        js.readGAs();
+        js.importGAs();
         int expected = 0;
         int result = gaList.size();
         assertNotEquals(expected, result);
@@ -38,7 +38,7 @@ class ReadJSONFileTest {
     void ensurePortoIsOfCityType() throws ParseException, IOException, org.json.simple.parser.ParseException {
         GAList gaList = new GAList();
         ReadJSONFile js = new ReadJSONFile("resources/JsonFile.json",gaList);
-        js.readGAs();
+        js.importGAs();
         GeographicalArea porto = gaList.getLastGA();
         String expected = "city";
         String result = porto.getType();
@@ -50,7 +50,7 @@ class ReadJSONFileTest {
     void ensureISEPHasTwoSensors() throws ParseException, IOException, org.json.simple.parser.ParseException {
         GAList gaList = new GAList();
         ReadJSONFile js = new ReadJSONFile("resources/JsonFile.json",gaList);
-        js.readGAs();
+        js.importGAs();
         GeographicalArea porto = gaList.get(0);
         SensorList sensorList = porto.getSensorListInGA();
         String expected = "1 - Meteo station ISEP - rainfall\n" +
