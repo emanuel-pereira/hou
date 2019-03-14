@@ -38,7 +38,7 @@ create ":Reading"
 end
 
 ":DataImportCTRL"<-":DataImportUI":gaListDTO=showNumber\nOfReadingsDTO()
-":DataImportCTRL"->":GAList": gaListDTO=getGAListDTO()
+":DataImportCTRL"->":GAList": gaListDTO=\ngetGAListDTO()
 loop convert GA to GADTO
 ":DataImportCTRL"->":GeographicalArea": toDTO()
 create ":GeographicalAreaDTO"
