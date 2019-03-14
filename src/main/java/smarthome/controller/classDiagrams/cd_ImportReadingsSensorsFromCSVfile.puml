@@ -1,0 +1,98 @@
+@startuml
+skinparam linetype ortho
+
+class GAList {
+ - gaList: List<GeographicalArea>
+
+ + importDataFromCSVFileForEachGA()
+  }
+
+class GeographicalArea {
+ - identification : String
+ - designation : String
+ - typeOfGa: TypeGA
+ - location: Location
+ - sensorListInGa: SensorList
+ - occupation: OccupationArea
+ - parentGa: GeographicalArea
+
+ + importReadingsToSensorsFromCSVFile()
+ + toDTO()
+ + getSensorListInGA()
+ }
+
+class GeographicalAreaDTO {
+ - identification: String
+ - designation: String
+ - sensorList: List<SensorDTO>
+
+ + GeographicalAreaDTO()
+ + getIdentification()
+ + getDesignation()
+ + getSensorListDTO()
+}
+
+class ReadCSVFile {
+ - scanner : Scanner
+ - commaDelimiter : String
+ - fileWriter: FileWriter
+
+ + readCsvFile()
+ + getValuesFromCSVFile()
+}
+
+class SensorList {
+ - sensorList : List<Sensor>
+
+ + get()
+}
+
+class Sensor {
+ - id : String
+ - designation : String
+ - location : Location
+ - sensorType : SensorType
+ - startDate : Calendar
+ - unit : String
+ - readingList : ReadingList
+
+ + getReadingList()
+ + toDTO()
+}
+
+class SensorDTO{
+- id: String
+- designation: String
+- readingListDTO: List<ReadingDTO>
+
++ getId()
++ getDesignation()
++ getReadingListDTO()
+}
+
+class ReadingList{
+ - readingList : List<Reading>
+
+ + newReading()
+ + addReading()
+}
+
+class Reading {
+ - value : double
+ - dateAndTime Calendar
+
+}
+
+
+
+GeographicalArea ..> GeographicalAreaDTO
+Sensor ..> SensorDTO
+GeographicalArea ..> ReadCSVFile
+
+Sensor"*" -- "1" SensorList
+GAList "1"- "*"GeographicalArea
+GeographicalArea "1" - "0..*" Sensor
+Sensor "1" - "1" ReadingList
+ReadingList "1"-- "*" Reading
+
+@enduml
