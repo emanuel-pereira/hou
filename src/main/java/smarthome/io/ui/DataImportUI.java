@@ -25,14 +25,14 @@ public class DataImportUI {
             try {
                 ctrl.loadJSON(filepath);
                 loop = false;
+                this.showGAsDTOs();
             } catch (FileNotFoundException e) {
                 System.out.println("Json file not found in the specified file path: " + filepath);
             }
-            this.showGAs();
         }
     }
 
-    public void showGAs() {
+    public void showGAsDTOs() {
         System.out.println("The following geographical areas and respective sensors were imported from the selected JsonFile:");
         for (GeographicalAreaDTO geographicalAreaDTO : ctrl.getGAListDTO()) {
             int counter = 1;
@@ -42,7 +42,7 @@ public class DataImportUI {
             System.out.println(" SensorList: ");
             for (SensorDTO sensorDTO : geographicalAreaDTO.getSensorListDTO()) {
                 System.out.print("  " + counter++ + " - Sensor Id: " + sensorDTO.getId());
-                System.out.println(" | Name " + sensorDTO.getDesignation());
+                System.out.println(" | Name: " + sensorDTO.getDesignation());
             }
         }
     }

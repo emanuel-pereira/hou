@@ -47,7 +47,7 @@ public class ReadJSONFile {
         JSONArray jsonGAList = (JSONArray) jsonGAs.get("geographical_area");
         for (Object ga : jsonGAList) {
             JSONObject jsonGA = (JSONObject) ga;
-            GeographicalArea geographicalArea = getGeographicalArea(jsonGA);
+            GeographicalArea geographicalArea = createGeographicalArea(jsonGA);
             SensorList gaSensorList = geographicalArea.getSensorListInGA();
             addGASensors(jsonGA, gaSensorList);
             this.gaList.addGA(geographicalArea);
@@ -59,7 +59,7 @@ public class ReadJSONFile {
     /**
      * Method that returns a Geographical Area object after parsing all its attributes from a JSON file
      */
-    private GeographicalArea getGeographicalArea(JSONObject jsonGA) {
+    private GeographicalArea createGeographicalArea(JSONObject jsonGA) {
         String id = (String) jsonGA.get("id");
         String description = (String) jsonGA.get("description");
         String type = (String) jsonGA.get("type");
@@ -84,19 +84,23 @@ public class ReadJSONFile {
         JSONArray jsonAreaSensorList = (JSONArray) jsonGA.get("area_sensor");
         for (Object areaSensor : jsonAreaSensorList) {
             JSONObject jsonSensor = (JSONObject) areaSensor;
-            JSONObject sensor = (JSONObject) jsonSensor.get("sensor");
-            String id = (String) sensor.get("id");
-            String name = (String) sensor.get("name");
-            GregorianCalendar cal = getStartDate(sensor);
-            String sType = (String) sensor.get("type");
-            SensorType sensorType = new SensorType(sType);
-            String unit = (String) sensor.get("units");
-            JSONObject location = (JSONObject) jsonSensor.get("location");
-            getCoordinates(location);
-            Location loc = new Location(latitude, longitude, altitude);
-            Sensor s = new Sensor(id,name, cal, loc, sensorType, unit, new ReadingList());
+            Sensor s = createSensor(jsonSensor);
             sensorListInGA.addSensor(s);
         }
+    }
+
+    private Sensor createSensor(JSONObject jsonSensor) throws java.text.ParseException {
+        JSONObject sensor = (JSONObject) jsonSensor.get("sensor");
+        String id = (String) sensor.get("id");
+        String name = (String) sensor.get("name");
+        GregorianCalendar cal = getStartDate(sensor);
+        String sType = (String) sensor.get("type");
+        SensorType sensorType = new SensorType(sType);
+        String unit = (String) sensor.get("units");
+        JSONObject location = (JSONObject) jsonSensor.get("location");
+        getCoordinates(location);
+        Location loc = new Location(latitude, longitude, altitude);
+        return new Sensor(id,name, cal, loc, sensorType, unit, new ReadingList());
     }
 
     /**
