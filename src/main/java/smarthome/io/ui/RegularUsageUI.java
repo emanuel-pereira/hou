@@ -21,10 +21,13 @@ public final class RegularUsageUI {
             options.add("[3] Get the maximum temperature in a room.");
             options.add("[4] Get the total rainfall in a given day.");
             options.add("[5] Get the average daily rainfall in the house area for a given period (days).");
+            options.add("[6] Display the last coldest day in the house area.");
+            options.add("[7] Display the first hottest day in the house area.");
+            options.add("[8] Display the day with the highest temperature amplitude in the house area.");
             options.add("[0] Exit");
 
             UtilsUI.showList("Regular Usage", options, false, 5);
-            option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");
+            option = UtilsUI.requestIntegerInInterval(0, 7, "Please choose an action between 1 and 5, or 0 to exit the program");
 
             switch (option) {
                 case 1:
@@ -45,6 +48,15 @@ public final class RegularUsageUI {
                 case 5:
                     GetAverageDailyRainfallForTimeIntervalInHouseAreaUI avgRainfallUi = new GetAverageDailyRainfallForTimeIntervalInHouseAreaUI(house);
                     avgRainfallUi.getAverageDailyRainfallForInterval();
+                    break;
+                case 6:
+
+                    break;
+                case 7:
+                    GetDailySensorDataUI getDailySensorDataUI = new GetDailySensorDataUI(house);
+                    getDailySensorDataUI.displayFirstMaximum();
+                    break;
+                case 8:
                     break;
                 default:
                     //no action needed
