@@ -6,7 +6,6 @@ public interface Device {
     /* ---- Getters ---- */
     String getDeviceName();
 
-    //TODO Does it make sense to ask for the entire DeviceSpecs from a Device point of view?
     DeviceSpecs getDeviceSpecs();
 
     String getDeviceType();

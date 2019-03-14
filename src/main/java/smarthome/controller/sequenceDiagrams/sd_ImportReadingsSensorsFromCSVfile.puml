@@ -1,0 +1,53 @@
+@startuml
+autonumber
+hidefootbox
+actor Administrator
+
+
+Administrator -> ":DataImportUI": Ask import
+create ":DataImportCTRL"
+
+
+":DataImportUI" -> ":DataImportCTRL": create
+":DataImportUI" -> "Administrator": ask for file name and path
+":DataImportUI" <- "Administrator": type  file name and path
+
+
+":DataImportUI" -> ":DataImportCTRL": importData\nFromCSVFile(filePath)
+":DataImportCTRL" -> ":GAList": importDataFromCSV\nFileForEachGA(filePath)
+
+loop for each Geographical Area
+":GAList" -> ":GeographicalArea": importReadingsToSensors\nFromCSVFile(filePath)
+end
+
+create ":ReadCSVFile"
+":GeographicalArea" -> ":ReadCSVFile": create
+":GeographicalArea" -> ":ReadCSVFile": readCSVFile(filePath)
+":ReadCSVFile" -> ":GeographicalArea": getDataFromCSVFile()
+
+":GeographicalArea" -> ":SensorList": getSensorListinGA()
+
+loop for each sensor in SensorList
+":SensorList" -> ":Sensor": get()
+
+":Sensor" -> ":ReadingList": getReadingList()
+create ":Reading"
+
+":ReadingList" -> ":Reading": newReading(date,value)
+":ReadingList" <- ":Reading": addReading(reading)
+end
+
+":DataImportCTRL"<-":DataImportUI":gaListDTO=showNumber\nOfReadingsDTO()
+":DataImportCTRL"->":GAList": gaListDTO=\ngetGAListDTO()
+loop convert GA to GADTO
+":DataImportCTRL"->":GeographicalArea": toDTO()
+create ":GeographicalAreaDTO"
+":GeographicalArea"->":GeographicalAreaDTO": toDTO()
+create ":SensorDTO"
+":Sensor"->":SensorDTO": toDTO()
+create ":ReadingDTO"
+":Reading"->":ReadingDTO": toDTO()
+
+end
+Administrator<--":DataImportUI": Shows the number \nof readings of each sensor
+@enduml

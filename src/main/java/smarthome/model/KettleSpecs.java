@@ -56,9 +56,6 @@ private void initializeClass() {
         attributeNamesList.add(this.attributeNames[i]);
     }
 
-    //TODO is this hashmap clearance necessary? If so how can we test it?
-        /*attributeValuesMap.clear();
-        attributeUnitsMap.clear();*/
 
     for (int j = 0; j < items; j++) {
 

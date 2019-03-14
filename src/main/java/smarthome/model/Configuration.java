@@ -13,7 +13,7 @@ import java.util.Properties;
  */
 
 public class Configuration {
-    private final String currentFile;
+    private String currentFile;
     private static final String ERROR = "ERROR";
     private static final String GRIDMP = "gridMeteringPeriod";
     private static final String DEVICESMP = "devicesMeteringPeriod";
@@ -118,13 +118,16 @@ public class Configuration {
         return deviceTypes;
     }
 
-
     private boolean isMeteringPeriodValid() {
-        boolean isGridMeteringPeriodValid = (getMeteringPeriod(GRIDMP) <= 1440 && getMeteringPeriod(GRIDMP) >= 1);
-        boolean isDeviceMeteringPeriodValid = (getMeteringPeriod(DEVICESMP) <= 1440 && getMeteringPeriod(DEVICESMP) >= 1);
-        boolean areMeteringPeriodsMultiple = (getMeteringPeriod(DEVICESMP) % getMeteringPeriod(GRIDMP) == 0);
+        int GMP = getMeteringPeriod(GRIDMP);
+        int DMP = getMeteringPeriod(DEVICESMP);
 
-        return (isGridMeteringPeriodValid && isDeviceMeteringPeriodValid && areMeteringPeriodsMultiple);
+        boolean validGMP = (GMP <= 1440) && (GMP >= 1);
+        boolean validDMP = (DMP <= 1440) && (DMP >= 1);
+
+        boolean areMeteringPeriodsMultiple = (DMP % GMP == 0);
+        boolean areMeteringPeriodsMultipleOf1440 = ((1440 % DMP == 0) && (1440 % GMP == 0));
+        return (validGMP && validDMP && areMeteringPeriodsMultiple&&areMeteringPeriodsMultipleOf1440);
     }
 
 }

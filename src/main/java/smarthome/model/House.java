@@ -80,29 +80,6 @@ public class House {
         return houseGridList;
     }
 
-    public RoomList getAvailableRoomsForGrid() {
-        RoomList availableRooms = new RoomList();
-        availableRooms.getRoomList().addAll(this.getRoomList().getRoomList());
-        return availableRooms;
-    }
-
-    public RoomList getRoomListNotInAGrid(int indexHG) {
-        RoomList roomsNotInAGrid = new RoomList();
-        for (Room r : this.getRoomList().getRoomList()) {
-            if (!this.getHGListInHouse().get(indexHG).getRoomListInAGrid().getRoomList().contains(r)) {
-                roomsNotInAGrid.addRoom(r);
-            }
-        }
-        return roomsNotInAGrid;
-    }
-
-    public RoomList getRoomsWithoutAnyGrid() {
-        RoomList roomsNotInAnyGrid = new RoomList();
-        for (int indexHG = 0; indexHG < getHGListInHouse().getSize(); indexHG++) {
-            roomsNotInAnyGrid.getRoomList().addAll(this.getRoomListNotInAGrid(indexHG).getRoomList());
-        }
-        return roomsNotInAnyGrid;
-    }
 
     /**
      * Method to get a list of rooms not included in the roomList of the houseGrid defined as parameter.
@@ -235,7 +212,7 @@ public class House {
      * @param endDate   last date of the interval
      * @return the value of the daily average of the readings in the given time period
      */
-    //TODO simplify instances names
+
     public double averageOfReadingsInPeriod(SensorType type, Calendar startDate, Calendar endDate) {
         Sensor closestSensorWithLatestReadingsInPeriod = filterByTypeByIntervalAndDistance(type, startDate, endDate);
         ReadingList readingsFromSensorInPeriod = closestSensorWithLatestReadingsInPeriod.getReadingList();
