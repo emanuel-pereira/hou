@@ -1,0 +1,114 @@
+@startuml
+skinparam linetype ortho
+
+class DataImportUI{
+- ctrl: DataImportCTRL
+
++ loadJSON()
++ showGAs()
++ importDataFromCSVFile()
++ showReadings()
+}
+
+class DataImportCTRL{
+- gaList: GAList
+
++ DataImportCTRL()
++ loadJSON()
++ importReadingsFromCSVFile()
++ getGAListDTO()
+}
+
+class ReadJSONFile {
+- parser: JSONParser
+- latitude: double
+- longitude: double
+- altitude: double
+- gaList: GAList
+- filePath: String
+
++ ReadJSONFile()
++ readFile()
++ readGAs()
++ getGeographicalArea()
++ addGASensors()
++ getCoordinates()
++ getStartDate()
+}
+
+class GeographicalArea {
+- identification : String
+- designation : String
+- typeOfGa: TypeGA
+- location: Location
+- sensorListInGa: SensorList
+- occupation: OccupationArea
+- parentGa: GeographicalArea
+
++ GeographicalArea()
++ toDTO()
+ }
+
+ class GeographicalAreaDTO{
+ - identification: String
+ - designation: String
+ - sensorList: List<SensorDTO>
+
+ + GeographicalAreaDTO()
+ + getIdentification()
+ + getDesignation()
+ + getSensorListDTO()
+ }
+
+ class Sensor {
+ - id: String
+ - designation: String
+ - location: Location
+ - sensorType: SensorType
+ - startDate: Calendar
+ - unit: String
+ - readingList: ReadingList
+ + Sensor()
+ }
+
+class SensorList{
+- sensorList: List<Sensor>
+
++ addSensor()
+}
+
+class SensorDTO{
+- id: String
+- designation: String
+- readingListDTO: List<ReadingDTO>
+
++ getId()
++ getDesignation()
++ getReadingListDTO()
+}
+
+ class GAList {
+- gaList: List<GeographicalArea>
+
++ addGA()
+  }
+
+DataImportUI ..> DataImportCTRL
+DataImportCTRL .> ReadJSONFile
+DataImportCTRL ..> GAList
+DataImportCTRL ..> GeographicalArea
+
+ReadJSONFile ..> GeographicalArea
+ReadJSONFile ..> Sensor
+
+GeographicalArea ..> GeographicalAreaDTO
+Sensor ..> SensorDTO
+
+
+
+Sensor"*" - SensorList
+GAList - "*"GeographicalArea
+
+
+
+@enduml
