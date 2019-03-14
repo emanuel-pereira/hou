@@ -103,7 +103,7 @@ public class TvSpecs implements DeviceSpecs {
 
     public void setAttributeUnit(String attribute, String unit) {
         if (attributeValuesMap.containsKey(attribute)) {
-            attributeUnitsMap.put(attribute, unit);
+            attributeUnitsMap.replace(attribute, unit);
         }
     }
 

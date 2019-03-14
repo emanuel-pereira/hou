@@ -83,19 +83,6 @@ class TvSpecsTest {
 
     }
 
-    @Test
-    @DisplayName("Obtain the list of all Tv's attributes' units")
-    void notSetAttributeUnits() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
 
-        tvSpecs.setAttributeUnit("Power", "kW");
-
-        String result = tvSpecs.getAttributeUnit("Standby Power");
-        String expected = null;
-
-
-        assertNotEquals(expected, result);
-
-    }
 
 }
