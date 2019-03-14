@@ -20,7 +20,7 @@ public class DataImportCTRL {
 
     public void loadJSON(String filePath) throws ParseException,org.json.simple.parser.ParseException, IOException {
         ReadJSONFile jsonFile = new ReadJSONFile(filePath, gaList);
-        jsonFile.readGAs();
+        jsonFile.importGAs();
     }
 
     public void importReadingsFromCSVFile(String filePath) throws IOException {
