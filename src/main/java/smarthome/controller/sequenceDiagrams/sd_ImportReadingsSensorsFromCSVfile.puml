@@ -13,11 +13,11 @@ create ":DataImportCTRL"
 ":DataImportUI" <- "Administrator": type  file name and path
 
 
-":DataImportUI" -> ":DataImportCTRL": importDataFromCSVFile(filePath)
-":DataImportCTRL" -> ":GAList": importDataFromCSVFileForEachGA(filePath)
+":DataImportUI" -> ":DataImportCTRL": importData\nFromCSVFile(filePath)
+":DataImportCTRL" -> ":GAList": importDataFromCSV\nFileForEachGA(filePath)
 
 loop for each Geographical Area
-":GAList" -> ":GeographicalArea": importReadingsToSensorsFromCSVFile(filePath)
+":GAList" -> ":GeographicalArea": importReadingsToSensors\nFromCSVFile(filePath)
 end
 
 create ":ReadCSVFile"
@@ -37,7 +37,7 @@ create ":Reading"
 ":ReadingList" <- ":Reading": addReading(reading)
 end
 
-":DataImportCTRL"<-":DataImportUI":gaListDTO=showNumberOfReadingsDTO()
+":DataImportCTRL"<-":DataImportUI":gaListDTO=showNumber\nOfReadingsDTO()
 ":DataImportCTRL"->":GAList": gaListDTO=getGAListDTO()
 loop convert GA to GADTO
 ":DataImportCTRL"->":GeographicalArea": toDTO()
@@ -49,5 +49,5 @@ create ":ReadingDTO"
 ":Reading"->":ReadingDTO": toDTO()
 
 end
-Administrator<--":DataImportUI": Shows the number of readings of each sensor
+Administrator<--":DataImportUI": Shows the number \nof readings of each sensor
 @enduml
