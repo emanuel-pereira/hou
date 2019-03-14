@@ -485,7 +485,7 @@ class HouseTest {
         ga.getSensorListInGA().addSensor(s1);
         ga.getSensorListInGA().addSensor(s2);
 
-        Sensor result = house.getClosestSensorWithLatestReadingsInPeriod(sT, startDate, endDate);
+        Sensor result = house.filterByTypeByIntervalAndDistance(sT, startDate, endDate);
 
         assertEquals(s2, result);
     }
@@ -542,7 +542,7 @@ class HouseTest {
         ga.getSensorListInGA().addSensor(s1);
         ga.getSensorListInGA().addSensor(s2);
 
-        Sensor result = house.getClosestSensorWithLatestReadingsInPeriod(sT, startDate, endDate);
+        Sensor result = house.filterByTypeByIntervalAndDistance(sT, startDate, endDate);
 
         assertNotEquals(s1, result);
     }

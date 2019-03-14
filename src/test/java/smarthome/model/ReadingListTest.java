@@ -547,9 +547,11 @@ class ReadingListTest {
         //ReadingList croppedList = rL1.filterByDate(startDate, endDate);
 
         //Get the amplitude values of the Reading List
-        List<Reading> ampReadingList = rL1.dailyAmplitude();
+        ReadingList ampReadingList = rL1.dailyAmplitude();
 
         assertEquals(4, ampReadingList.size());
+
+        assertEquals(2, ampReadingList.maxValueInInterval().returnValueOfReading());
     }
 
     @Test

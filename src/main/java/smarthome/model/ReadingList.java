@@ -89,7 +89,7 @@ public class ReadingList {
     /**Used for Device Readings - periodic readings - includes only end date*/
     public double getValueOfReadingsInTimeIntervalDevices(Calendar startDate, Calendar endDate) {
         double totalValue = 0;
-        for (Reading reading : readingList) {
+        for (Reading reading : this.readingList) {
             Calendar readingDate = reading.getDateAndTime();
 
             if (readingDate.after(startDate) && readingDate.before(endDate)
@@ -122,7 +122,6 @@ public class ReadingList {
 
     public ReadingList filterByDate(Calendar startDate, Calendar endDate) {
         ReadingList readingListInPeriod = new ReadingList();
-        System.out.println("Readins in the cropped list");
         for (Reading reading : this.readingList) {
             Calendar readingDate = reading.getDateAndTime();
 
@@ -130,7 +129,6 @@ public class ReadingList {
                     || readingDate.equals(endDate)
                     || readingDate.equals(startDate)) {
                 readingListInPeriod.addReading(reading);
-                System.out.println(reading.getDateOfReadingAsString() + " - " + reading.getDateAndTime().get(Calendar.HOUR_OF_DAY) + "H" + reading.getDateAndTime().get(Calendar.MINUTE) + "M");
             }
         }
         return readingListInPeriod;
@@ -160,17 +158,6 @@ public class ReadingList {
         return min;
     }
 
-    /*public Reading latestMaximumInInterval() {
-        Reading max = this.maxValueInInterval();
-        Calendar day = Calendar.;
-        for (Reading reading : this.readingList) {
-            (reading.getDateAndTime().DAY_OF_MONTH)
-            max.getDateAndTime().DAY_OF_MONTH
-            filterByDate(max.getDateAndTime(), max.getDateAndTime());
-        }
-        return max;
-        getDateofReading
-    }*/
 
     public ReadingList dailyMaximumReadings() {
         //extract the first day of the list
@@ -178,7 +165,7 @@ public class ReadingList {
         List<Calendar> dates = new ArrayList<>(); //this list saves all unique dates in the reading list
 
         ReadingList dailyMax = new ReadingList(); //this is a list containing the maximum reading of a single day
-        ReadingList temp = new ReadingList();
+        ReadingList temp;
 
         //get all dates in the reading list and fill in the dates list. Move this to another method?
 
@@ -227,24 +214,13 @@ public class ReadingList {
         return dailyMin;
     }
 
-    /*public ReadingList dailyAmplitude(ReadingList dailyMinReadings, ReadingList dailyMaxReadings) {
-        //extract the first day of the list
-        Calendar listDay = this.readingList.get(0).extractYearMonthDay();
-        ReadingList dailyAmplitude = new ReadingList();
-        Reading dayAmp = new Reading();
-        List<Reading>
-        System.out.println("Daily Amplitude List");
-        for (Reading reading : dailyMinReadings.getReadingList()) {
-            dayAmp = (dailyMaxReadings.getReadingList().)
-        }
-    }*/
 
-    public List<Reading> dailyAmplitude() {
+    public ReadingList dailyAmplitude() {
         List<Reading> dailyMaximumReadings = dailyMaximumReadings().getReadingList();
         List<Reading> dailyMinimumReadings = dailyMinimumReadings().getReadingList();
         //extract the first day of the list
 
-        List<Reading> dailyAmp = new ArrayList<>(); //this is a list containing the amplitudes differences of a single day
+        ReadingList dailyAmp = new ReadingList(); //this is a list containing the amplitudes differences of a single day
         ReadingList temp;
         double tempReadingValue;
         Reading dayMaxReading;
@@ -256,7 +232,7 @@ public class ReadingList {
             dayMaxReading = dailyMaximumReadings.get(i);
             dayMinReading = dailyMinimumReadings.get(i);
             tempReadingValue = dayMaxReading.returnValueOfReading() - dayMinReading.returnValueOfReading();
-            dailyAmp.add(new Reading(tempReadingValue, dayMaxReading.getDateAndTime()));
+            dailyAmp.addReading(new Reading(tempReadingValue, dayMaxReading.getDateAndTime()));
         }
         return dailyAmp;
     }

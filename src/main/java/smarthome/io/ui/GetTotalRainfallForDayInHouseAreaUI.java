@@ -35,8 +35,8 @@ public class GetTotalRainfallForDayInHouseAreaUI {
     }
 
     private void selectDate() {
-        System.out.println("Insert the date (yyyy-MM-dd) on which you want to check the total rainfall in the house area.");
-        GregorianCalendar date = UtilsUI.requestDate("Please insert a valid date in yyyy-MM-dd format.");
+        System.out.println("Insert the date (YYYY-MM-DD) on which you want to check the total rainfall in the house area.");
+        GregorianCalendar date = UtilsUI.requestDate("Please insert a valid date in YYYY-MM-DD format.");
         if (this.ctrl.closestSensorsWithLatestReadingsInDate(date, this.sensorType)) {
             System.out.print("The total rainfall in " + UtilsUI.dateToString(date));
             System.out.print(" is " + this.ctrl.showTotalValueInADay(date, this.sensorType) + " l/m3.\n");

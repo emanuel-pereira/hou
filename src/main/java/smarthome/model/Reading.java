@@ -9,9 +9,6 @@ public class Reading {
     private double value;
     private Calendar dateAndTime;
 
-    public Reading() {
-
-    }
 
     /**
      * Reading class Constructor
@@ -72,6 +69,10 @@ public class Reading {
         output.append("-");
         output.append(day);
         return output.toString();
+    }
+
+    public ReadingDTO toDTO() {
+        return new ReadingDTO(this.value, this.dateAndTime);
     }
 
 }
