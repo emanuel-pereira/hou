@@ -10,12 +10,10 @@ public class House {
     private GeographicalArea gA;
     private RoomList roomList;
     private HouseGridList houseGridList;
-    public Configuration configuration;
 
     public House() {
         this.roomList = new RoomList();
         this.houseGridList = new HouseGridList();
-        this.configuration = new Configuration();
     }
 
     public House(Address houseAddress, GeographicalArea ga) {
@@ -23,24 +21,22 @@ public class House {
         this.gA = ga;
         this.roomList = new RoomList();
         this.houseGridList = new HouseGridList();
-        this.configuration = new Configuration();
     }
 
     public House(String id, Address houseAddress, GeographicalArea ga) {
-        iD = id;
-        address = houseAddress;
-        gA = ga;
-        roomList = new RoomList();
-        houseGridList = new HouseGridList();
-        this.configuration = new Configuration();
+        this.iD = id;
+        this.address = houseAddress;
+        this.gA = ga;
+        this.roomList = new RoomList();
+        this.houseGridList = new HouseGridList();
     }
 
     public GeographicalArea getHouseGA() {
-        return gA;
+        return this.gA;
     }
 
     public void setHouseGA(GeographicalArea houseGA) {
-        gA = houseGA;
+        this.gA = houseGA;
     }
 
     public void setHouseAddress(String streetName, String houseNumber, String zipCode, double latitude, double longitude, double altitude) {
@@ -48,8 +44,7 @@ public class House {
     }
 
     public Address getAddress() {
-
-        return address;
+        return this.address;
     }
 
 
@@ -62,18 +57,18 @@ public class House {
             return false;
         }
         House house = (House) o;
-        return Objects.equals(address, house.address) &&
-                Objects.equals(iD, house.iD) &&
-                Objects.equals(gA, house.gA);
+        return Objects.equals(this.address, house.address) &&
+                Objects.equals(this.iD, house.iD) &&
+                Objects.equals(this.gA, house.gA);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(address, iD, gA);
+        return Objects.hash(this.address, this.iD, this.gA);
     }
 
     public RoomList getRoomList() {
-        return roomList;
+        return this.roomList;
     }
 
     public HouseGridList getHGListInHouse() {
@@ -90,7 +85,7 @@ public class House {
     public RoomList getRoomsWithoutGrid(HouseGrid houseGrid) {
         RoomList roomListWithoutHouseGrid = new RoomList();
         RoomList roomListInHouseGrid = houseGrid.getRoomListInAGrid();
-        for (Room room : roomList.getRoomList()) {
+        for (Room room : this.roomList.getRoomList()) {
             if (!(roomListInHouseGrid.getRoomList().contains(room)))
                 roomListWithoutHouseGrid.addRoom(room);
         }
@@ -138,18 +133,22 @@ public class House {
     private SensorList filterListByTypeAndProximity(SensorType sensorType) {
         SensorList gaSensorList;
         try {
-            gaSensorList = gA.getSensorListInGA();
+            gaSensorList = this.gA.getSensorListInGA();
         } catch (NullPointerException exception) {
             return new SensorList();
         }
 
         SensorList sensorListOfType = gaSensorList.getListOfSensorsByType(sensorType);
         double distance;
-        double minDistance = this.calculateDistance(sensorListOfType.getSensorList().get(0).getLocation());
+        List<Sensor> sensorList = sensorListOfType.getSensorList();
+        Sensor firstSensor = sensorList.get(0);
+        Location sensorLocation = firstSensor.getLocation();
+        double minDistance = this.calculateDistance(sensorLocation);
         SensorList closestSensors = new SensorList();
 
-        for (Sensor sensor : sensorListOfType.getSensorList()) {
-            distance = calculateDistance(sensor.getLocation());
+        for (Sensor sensor : sensorList) {
+            Location location = sensor.getLocation();
+            distance = calculateDistance(location);
             if (BigDecimal.valueOf(distance).equals(BigDecimal.valueOf(minDistance))) {
                 closestSensors.addSensor(sensor);
             }
@@ -222,9 +221,9 @@ public class House {
         int counter = 0;
         double average = 0;
 
-        for (Calendar date = startDate; date.before(endDate) || date.equals(endDate); date.add(Calendar.DAY_OF_MONTH, 1)) {
-            if (readingsFromSensorInPeriod.getReadingsInSpecificDay(date).size() != 0) {
-                sum = sum + readingsInPeriod.dailyAverageOfReadings(date);
+        for (; startDate.before(endDate) || startDate.equals(endDate); startDate.add(Calendar.DAY_OF_MONTH, 1)) {
+            if (readingsFromSensorInPeriod.getReadingsInSpecificDay(startDate).size() != 0) {
+                sum = sum + readingsInPeriod.dailyAverageOfReadings(startDate);
                 counter++;
                 average = sum / counter;
             }
@@ -301,7 +300,7 @@ public class House {
      * Method that checks for the closest sensors to the house of the selected SensorType that have readings in the specified date,
      * which one has the latest reading in the specified date
      *
-     * @param inputDate  selected to check which closestSensor has the lattest readings in that date
+     * @param inputDate  selected to check which closestSensor has the latest readings in that date
      * @param sensorType selected to check the closest sensors of that type
      * @return the closest sensor with the latest readings in the specified date.
      */
@@ -353,10 +352,10 @@ public class House {
     public List<Metered> getMetered() {
         List<Metered> meteredList = new ArrayList<>();
         for (HouseGrid houseGrid : this.houseGridList.getHouseGridList()) {
-            List<Room> roomList = houseGrid.getRoomListInAGrid().getRoomList();
+            List<Room> tempRoomList = houseGrid.getRoomListInAGrid().getRoomList();
             List<Metered> deviceList = houseGrid.getRoomListInAGrid().getMeteredDevicesLst();
             meteredList.add(houseGrid);
-            meteredList.addAll(roomList);
+            meteredList.addAll(tempRoomList);
             meteredList.addAll(deviceList);
         }
         return meteredList;

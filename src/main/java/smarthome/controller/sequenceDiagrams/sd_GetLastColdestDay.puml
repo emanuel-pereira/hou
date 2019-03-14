@@ -1,50 +1,27 @@
 @startuml
-skinparam linetype ortho
+autonumber
+hidefootbox
 
-class House {
-- Address : address
-- String : id
-- GeographicalArea : ga
-- RoomList : roomList
-- HouseGridList : houseGridList
-+ Configuration : configuration
-+ filterByTypeByIntervalAndDistance()
- }
+actor "RegUser"
+"RegUser" -> ":UI" : lastColdestDay()
+":UI" -> ":CTRL" : (ReadingDTO) maxDTO = \ndisplayMaximum (\nSensorType sensorType, \nCalendar startDate, \nCalendar endDate)
+":CTRL" -> ":Sensor" : (ReadingList) dailyMax = \ndailyMaximumReadings ()
 
- class Sensor {
- - id: String
- - designation: String
- - location: Location
- - sensorType: SensorType
- - startDate: Calendar
- - unit: String
- - readingList: ReadingList
- + getReadingList()
- }
+":Sensor"-> "rL:ReadingList": (ReadingList) dailyMax = \ndailyMaximumReadings ()
+loop for each Reading in rL ReadingList
+ "rL:ReadingList" -> "r:Reading": (ReadingList) dailyMax = \ndailyMaximumReadings ()
+end
 
-class ReadingList {
- - List<Reading> : readingList
- + dailyMaximumReadings()
- }
 
-class Reading{
-- double value
-- Calendar dateAndTime
-+ minValueInInterval()
-+ toDTO()
-}
+":CTRL" -> "dailyMax:ReadingList": (Reading) dayMax = \nreading.dailyMax.minValueInInterval ()
+loop for each Reading do \nif same or less value
+"dailyMax:ReadingList" -> "dayMax:Reading": (Reading) dayMax = \nminValueInInterval()
+end
 
-class ReadingDTO{
-- double value
-- Calendar dateAndTime
-+ ReadingDTO()
-+ getReadingValue()
-+ getReadingDateAndTime()
-}
+":CTRL" -> ":readingDTO" : (ReadingDTO) maxDTO = dayMax.toDTO ()
 
-House "1" -* "*" Sensor
-Sensor "1" -* "1" ReadingList
-ReadingList "1" --* "*" Reading
-ReadingDTO <. Reading
+
+":UI" -> "RegUser" : displayResult
+
 
 @enduml

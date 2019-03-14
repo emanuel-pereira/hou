@@ -24,19 +24,19 @@ class House {
 
 class ReadingList {
  - List<Reading> : readingList
- + dailyMaximumReadings();
+ + dailyMaximumReadings()
  }
 
 class Reading{
-- double value;
-- Calendar dateAndTime;
-+ maxValueInInterval()
+- double value
+- Calendar dateAndTime
++ minValueInInterval()
 + toDTO()
 }
 
 class ReadingDTO{
-- double value;
-- Calendar dateAndTime;
+- double value
+- Calendar dateAndTime
 + ReadingDTO()
 + getReadingValue()
 + getReadingDateAndTime()
