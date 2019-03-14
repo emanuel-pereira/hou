@@ -8,6 +8,7 @@ import java.util.*;
 
 public final class UtilsUI {
 
+    static final String INSERTVALIDOPTION = "Insert valid option.";
     static final String BLACK = "BLACK";
     static final String RESET = "RESET";
     static final String INPUTERROR = "Input error";
