@@ -18,7 +18,7 @@ public final class RegularUsageUI {
             ArrayList<String> options = new ArrayList<>();
             options.add("[1] Get the latest reading of a type in the house area.");
             options.add("[2] Show current temperature in a room");
-            options.add("[3] Get the maximum temperature in a room.");
+            options.add("[3] Get the maximum temperature in a room in a given day.");
             options.add("[4] Get the total rainfall in a given day.");
             options.add("[5] Get the average daily rainfall in the house area for a given period (days).");
             options.add("[6] Display the last coldest day in the house area.");
@@ -39,7 +39,7 @@ public final class RegularUsageUI {
                     uS605CurrentTempRoomUI.run();
                     break;
                 case 3:
-                    System.out.println("US610");
+                    UtilsUI.underMaintenanceMsg("610");
                     break;
                 case 4:
                     GetTotalRainfallForDayInHouseAreaUI getTotalRainfallForDayInHouseAreaUI = new GetTotalRainfallForDayInHouseAreaUI(house, sensorTypeList);
