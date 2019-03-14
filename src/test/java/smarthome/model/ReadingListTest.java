@@ -396,7 +396,7 @@ class ReadingListTest {
         ReadingList maxReadingList = croppedList.dailyMaximumReadings();
         //assertEquals(21, maxReading);
         Reading max = maxReadingList.maxValueInInterval();
-        Reading expected = new Reading(8, new GregorianCalendar(2017, Calendar.JUNE, 1));
+        Reading expected = new Reading(8, new GregorianCalendar(2017, Calendar.JUNE, 2));
         assertEquals(6, max.returnValueOfReading());
         assertTrue(expected.isSameDay(max.getDateAndTime()));
     }

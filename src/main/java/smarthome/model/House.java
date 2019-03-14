@@ -159,7 +159,12 @@ public class House {
      * @return a list of sensors of the selected sensorType with the shortest distance to the house.
      */
     private SensorList filterListByTypeAndProximity(SensorType sensorType) {
-        SensorList gaSensorList = gA.getSensorListInGA();
+        SensorList gaSensorList;
+        try {
+            gaSensorList = gA.getSensorListInGA();
+        } catch (NullPointerException exception) {
+            return new SensorList();
+        }
 
         SensorList sensorListOfType = gaSensorList.getListOfSensorsByType(sensorType);
         double distance;
@@ -182,19 +187,17 @@ public class House {
 
     public SensorList filterListByTypeByIntervalAndDistance(SensorType type, Calendar startDate, Calendar endDate) {
         SensorList closestSensorsOfType = this.filterListByTypeAndProximity(type);
-        SensorList closestSensorWithReadingsInPeriod = new SensorList();
-
-
-        for (Sensor sensor : closestSensorsOfType.getSensorList()) {
-
-            ReadingList readingListInPeriod = sensor.getReadingList().filterByDate(startDate, endDate);
-
-            if (!readingListInPeriod.getReadingList().isEmpty()) {
-                closestSensorWithReadingsInPeriod.addSensor(sensor);
+        if (closestSensorsOfType.size() == 0)
+            return new SensorList();
+        else {
+            SensorList closestSensorWithReadingsInPeriod = new SensorList();
+            for (Sensor sensor : closestSensorsOfType.getSensorList()) {
+                ReadingList readingListInPeriod = sensor.getReadingList().filterByDate(startDate, endDate);
+                if (!readingListInPeriod.getReadingList().isEmpty())
+                    closestSensorWithReadingsInPeriod.addSensor(sensor);
             }
+            return closestSensorWithReadingsInPeriod;
         }
-        return closestSensorWithReadingsInPeriod;
-
     }
 
     /**
@@ -373,19 +376,19 @@ public class House {
     public List<Metered> getMetered() {
         List<Metered> meteredList = new ArrayList<>();
         for (HouseGrid houseGrid : this.houseGridList.getHouseGridList()) {
-            List<Room> roomList= houseGrid.getRoomListInAGrid().getRoomList();
-            List<Metered> deviceList= houseGrid.getRoomListInAGrid().getMeteredDevicesLst();
+            List<Room> roomList = houseGrid.getRoomListInAGrid().getRoomList();
+            List<Metered> deviceList = houseGrid.getRoomListInAGrid().getMeteredDevicesLst();
             meteredList.add(houseGrid);
             meteredList.addAll(roomList);
             meteredList.addAll(deviceList);
         }
-        return  meteredList;
+        return meteredList;
     }
 
     public String showMetered() {
         StringBuilder meteredList = new StringBuilder();
-        int nr= 1;
-        for(Metered metered:this.getMetered()){
+        int nr = 1;
+        for (Metered metered : this.getMetered()) {
             meteredList.append(nr);
             meteredList.append(" - ");
             meteredList.append(metered.getName());
