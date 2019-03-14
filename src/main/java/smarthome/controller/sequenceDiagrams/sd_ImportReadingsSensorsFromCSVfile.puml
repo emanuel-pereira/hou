@@ -1,0 +1,67 @@
+@startuml
+
+
+autonumber
+ hidefootbox
+
+ actor Administrator
+ activate Administrator
+
+ Administrator -> ":DataImportUI": start: importData
+
+activate ":DataImportUI"
+ ":DataImportUI" -> ":DataImportCTRL": lR = loadReadingsCSVFile(fileName)
+
+activate ":DataImportCTRL"
+ ":DataImportCTRL" -> ":GaList": lR = loadReadingsCSVFile(fileName)
+
+ activate ":GaList"
+
+
+ loop for each Geographical Area of GaList.
+    ":GaList" -> ":GeographicalArea": lR = loadReadingsCSV(fileName)
+        activate ":GeographicalArea"
+
+ end
+
+create ":SensorDTO"
+
+
+deactivate ":GaList"
+":GeographicalArea" -> ":SensorDTO": lR = loadReadingsCSV(fileName)
+deactivate ":GeographicalArea"
+
+
+create ":GeographicalAreaDTO"
+
+activate ":SensorDTO"
+
+
+loop for each sensorDTO of GeographicalAreaDTO
+
+":SensorDTO" -> ":GeographicalAreaDTO": sL = getSensorListDTO()
+
+ deactivate ":SensorDTO"
+activate ":GeographicalAreaDTO"
+
+
+
+ ":DataImportCTRL" <<- ":GeographicalAreaDTO": sR = showReadingsOfFile()
+
+ deactivate ":GeographicalAreaDTO"
+ end
+
+":DataImportCTRL" ->> ":DataImportUI": sR = showReadingsOfFile()
+
+deactivate ":DataImportCTRL"
+Administrator <- ":DataImportUI": success message
+
+deactivate ":DataImportUI"
+
+
+
+
+
+
+
+@enduml
