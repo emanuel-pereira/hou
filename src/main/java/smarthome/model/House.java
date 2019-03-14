@@ -10,12 +10,12 @@ public class House {
     private GeographicalArea mGA;
     private RoomList mRoomList;
     private HouseGridList mHGListInHouse;
-    public Configuration configuration;
+
 
     public House() {
         mRoomList = new RoomList();
         mHGListInHouse = new HouseGridList();
-        this.configuration = new Configuration();
+
     }
 
     public House(Address houseAddress, GeographicalArea ga) {
@@ -23,7 +23,7 @@ public class House {
         mGA = ga;
         mRoomList = new RoomList();
         mHGListInHouse = new HouseGridList();
-        this.configuration = new Configuration();
+
     }
 
     public House(String id, Address houseAddress, GeographicalArea ga) {
@@ -32,7 +32,7 @@ public class House {
         mGA = ga;
         mRoomList = new RoomList();
         mHGListInHouse = new HouseGridList();
-        this.configuration = new Configuration();
+
     }
 
 
@@ -82,29 +82,6 @@ public class House {
         return mHGListInHouse;
     }
 
-    public RoomList getAvailableRoomsForGrid() {
-        RoomList availableRooms = new RoomList();
-        availableRooms.getRoomList().addAll(this.getRoomList().getRoomList());
-        return availableRooms;
-    }
-
-    public RoomList getRoomListNotInAGrid(int indexHG) {
-        RoomList roomsNotInAGrid = new RoomList();
-        for (Room r : this.getRoomList().getRoomList()) {
-            if (!this.getHGListInHouse().get(indexHG).getRoomListInAGrid().getRoomList().contains(r)) {
-                roomsNotInAGrid.addRoom(r);
-            }
-        }
-        return roomsNotInAGrid;
-    }
-
-    public RoomList getRoomsWithoutAnyGrid() {
-        RoomList roomsNotInAnyGrid = new RoomList();
-        for (int indexHG = 0; indexHG < getHGListInHouse().getSize(); indexHG++) {
-            roomsNotInAnyGrid.getRoomList().addAll(this.getRoomListNotInAGrid(indexHG).getRoomList());
-        }
-        return roomsNotInAnyGrid;
-    }
 
     /**
      * Method to get a list of rooms not included in the roomList of the houseGrid defined as parameter.
@@ -236,7 +213,7 @@ public class House {
      * @param endDate   last date of the interval
      * @return the value of the daily average of the readings in the given time period
      */
-    //TODO simplify instances names
+
     public double averageOfReadingsInPeriod(SensorType type, Calendar startDate, Calendar endDate) {
         Sensor closestSensorWithLatestReadingsInPeriod = getClosestSensorWithLatestReadingsInPeriod(type, startDate, endDate);
         ReadingList readingsFromSensorInPeriod = closestSensorWithLatestReadingsInPeriod.getReadingList();

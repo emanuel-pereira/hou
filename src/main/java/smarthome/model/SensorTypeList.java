@@ -28,7 +28,6 @@ public class SensorTypeList {
         if (this.sensorTypeDesignationIsValid(sensorTypeDesignationLowerCase))
             return new SensorType(sensorTypeDesignationLowerCase);
         return null;
-        //TODO both if statement's can be combined
     }
 
 
