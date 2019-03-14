@@ -551,4 +551,97 @@ class ReadingListTest {
 
         assertEquals(4, ampReadingList.size());
     }
+
+    @Test
+    void startDate(){
+        Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0));
+        Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0));
+        Reading r2 = new Reading(6, new GregorianCalendar(2017, Calendar.JUNE, 1, 12, 0));
+        Reading r3 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 18, 0));
+        Reading r4 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 2, 0, 0));
+        Reading r5 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 2, 6, 0));
+        Reading r6 = new Reading(6, new GregorianCalendar(2017, Calendar.JUNE, 2, 12, 0));
+        Reading r7 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 2, 18, 0));
+        Reading r8 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 3, 0, 0));
+        Reading r9 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 3, 6, 0));
+        Reading r10 = new Reading(6, new GregorianCalendar(2017, Calendar.JUNE, 3, 12, 0));
+        Reading r11 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 3, 18, 0));
+        Reading r12 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 4, 0, 0));
+        Reading r13 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 4, 6, 0));
+        Reading r14 = new Reading(6, new GregorianCalendar(2017, Calendar.JUNE, 4, 12, 0));
+        Reading r15 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 4, 18, 0));
+
+        ReadingList rL1 = new ReadingList();
+        rL1.addReading(r15);
+        rL1.addReading(r1);
+        rL1.addReading(r2);
+        rL1.addReading(r3);
+        rL1.addReading(r4);
+        rL1.addReading(r5);
+        rL1.addReading(r6);
+        rL1.addReading(r7);
+        rL1.addReading(r8);
+        rL1.addReading(r9);
+        rL1.addReading(r10);
+        rL1.addReading(r11);
+        rL1.addReading(r12);
+        rL1.addReading(r13);
+        rL1.addReading(r14);
+        rL1.addReading(r0);
+
+        GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.JUNE, 1);
+
+        Calendar result = rL1.getStartDateOfReadings();
+        Calendar expected = startDate;
+
+        assertEquals(expected,result);
+
+    }
+
+    @Test
+    void endDate(){
+        Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0));
+        Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0));
+        Reading r2 = new Reading(6, new GregorianCalendar(2017, Calendar.JUNE, 1, 12, 0));
+        Reading r3 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 18, 0));
+        Reading r4 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 2, 0, 0));
+        Reading r5 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 2, 6, 0));
+        Reading r6 = new Reading(6, new GregorianCalendar(2017, Calendar.JUNE, 2, 12, 0));
+        Reading r7 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 2, 18, 0));
+        Reading r8 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 3, 0, 0));
+        Reading r9 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 3, 6, 0));
+        Reading r10 = new Reading(6, new GregorianCalendar(2017, Calendar.JUNE, 3, 12, 0));
+        Reading r11 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 3, 18, 0));
+        Reading r12 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 4, 0, 0));
+        Reading r13 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 4, 6, 0));
+        Reading r14 = new Reading(6, new GregorianCalendar(2017, Calendar.JUNE, 4, 12, 0));
+        Reading r15 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 4, 18, 0));
+
+        ReadingList rL1 = new ReadingList();
+        rL1.addReading(r0);
+        rL1.addReading(r1);
+        rL1.addReading(r2);
+        rL1.addReading(r3);
+        rL1.addReading(r4);
+        rL1.addReading(r5);
+        rL1.addReading(r6);
+        rL1.addReading(r7);
+        rL1.addReading(r8);
+        rL1.addReading(r9);
+        rL1.addReading(r10);
+        rL1.addReading(r11);
+        rL1.addReading(r12);
+        rL1.addReading(r13);
+        rL1.addReading(r14);
+        rL1.addReading(r15);
+
+
+        GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JUNE, 4,18,0);
+
+        Calendar result = rL1.getEndDateOfReadings();
+        Calendar expected = endDate;
+
+        assertEquals(expected,result);
+
+    }
 }

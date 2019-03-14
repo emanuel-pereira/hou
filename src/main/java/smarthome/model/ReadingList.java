@@ -89,7 +89,7 @@ public class ReadingList {
     /**Used for Device Readings - periodic readings - includes only end date*/
     public double getValueOfReadingsInTimeIntervalDevices(Calendar startDate, Calendar endDate) {
         double totalValue = 0;
-        for (Reading reading : mReadingList) {
+        for (Reading reading : readingList) {
             Calendar readingDate = reading.getDateAndTime();
 
             if (readingDate.after(startDate) && readingDate.before(endDate)
@@ -260,5 +260,30 @@ public class ReadingList {
         }
         return dailyAmp;
     }
+
+    public Calendar getStartDateOfReadings(){
+        Calendar startDate = this.readingList.get(0).getDateAndTime();
+
+        for (int i=0;i<this.readingList.size();i++) {
+            Reading r = this.readingList.get(i);
+            if (r.getDateAndTime().before(startDate)){
+                startDate = r.getDateAndTime();
+            }
+        }
+    return startDate;
+    }
+
+    public Calendar getEndDateOfReadings(){
+        Calendar endDate = this.readingList.get(0).getDateAndTime();
+
+        for (int i=0;i<this.readingList.size();i++) {
+            Reading r = this.readingList.get(i);
+            if (r.getDateAndTime().after(endDate)){
+                endDate = r.getDateAndTime();
+            }
+        }
+        return endDate;
+    }
+
 
 }

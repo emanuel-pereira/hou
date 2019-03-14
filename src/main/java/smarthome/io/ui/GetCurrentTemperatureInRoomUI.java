@@ -8,7 +8,6 @@ import java.util.Scanner;
 
 public class GetCurrentTemperatureInRoomUI {
 
-    Scanner read = new Scanner(System.in);
 
     private GetCurrentTemperatureInRoomCTRL controller;
     private String temperature = "temperature";
@@ -26,7 +25,8 @@ public class GetCurrentTemperatureInRoomUI {
     public void run() {
         if (this.controller.checkIfRequiredSensorTypeExists(this.temperature)) {
             this.checkIfRoomExists();
-        } else System.out.println("Please ask the Administrator to create a Temperature Sensor Type in the System");
+        } else
+            UtilsUI.showError("Oops!", "Please ask the Administrator to create a Temperature Sensor Type in the System");
     }
 
     /**
@@ -35,16 +35,13 @@ public class GetCurrentTemperatureInRoomUI {
     public void checkIfRoomExists() {
 
         if (!this.controller.getRoomList().isEmpty()) {
-            while (true) {
-                System.out.println("Choose the Room for which you want add this sensor, from the list below:");
-                System.out.println(this.controller.showRoomListInString());
-                roomIndex = read.nextInt();
-                if (roomIndex > this.controller.getRoomList().size())
-                    UtilsUI.printLnInsertValidOptionMsg();
-                else break;
-            }
+
+            System.out.println("Choose the Room for which you want add this sensor from the list below:");
+            System.out.println(this.controller.showRoomListInString());
+            roomIndex = UtilsUI.requestIntegerInInterval(1, this.controller.getRoomList().size(), "Invalid option selected, please try again.");
+
             this.checkIfTempSensorExistInRooms();
-        } else System.out.println("Please ask the House Administrator to create a Room");
+        } else UtilsUI.showError("Oops!", "No rooms found. Please ask the House Administrator to create a room.");
     }
 
     /**
@@ -53,7 +50,7 @@ public class GetCurrentTemperatureInRoomUI {
     private void checkIfTempSensorExistInRooms() {
         if (this.controller.checkIfSensorTypeExistsInRoom(roomIndex, this.temperature)) {
             System.out.println("Current temperature in the room: " + this.controller.getCurrentTemp(roomIndex));
-        } else System.out.println("Please ask the House Administrator to add a Temperature Sensor to this Room");
+        } else UtilsUI.showError("Oops!","Please ask the House Administrator to add a Temperature Sensor to this Room");
     }
 
 
