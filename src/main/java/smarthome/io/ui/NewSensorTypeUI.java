@@ -29,7 +29,7 @@ public class NewSensorTypeUI {
 
     /**
      * Method to runUS5 the US5's UI
-     * With the while loop it is possible to add one or several data types
+     * With the it is possible to add one or several data types
      * By writing "r", the user is redirected to the SystemAdministrationUI and leaves the US5UI
      * First, a new data type with designation is created
      * the method that receives and validates the designation is called

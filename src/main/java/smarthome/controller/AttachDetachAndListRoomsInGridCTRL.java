@@ -34,7 +34,7 @@ public class AttachDetachAndListRoomsInGridCTRL {
      */
     public String getHGName(int indexOfHG) {
         HouseGrid houseGrid = this.houseGridList.get(indexOfHG);
-        return houseGrid.getGridID();
+        return houseGrid.getName();
     }
 
     /**

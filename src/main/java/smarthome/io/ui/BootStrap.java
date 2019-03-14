@@ -1,8 +1,8 @@
 package smarthome.io.ui;
 
 import smarthome.model.*;
-
 import java.util.GregorianCalendar;
+import java.util.List;
 
 /**
  * This entire class is only used in application demonstration and test scenarios
@@ -28,63 +28,28 @@ public final class BootStrap {
      * private methods which can be extended or duplicated.
      *
      * @param house          bootstrap house object
-     * @param gaList         bootstrap List of Geographical Areas object
      * @param sensorTypeList bootstrap List of sensor Unit Types object
      * @throws IllegalAccessException exception
      * @throws InstantiationException exception
      * @throws ClassNotFoundException exception
      */
-    public static void run(House house, TypeGAList typeGAList, GAList gaList, SensorTypeList sensorTypeList) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
+    public static void run(House house, TypeGAList typeGAList, SensorTypeList sensorTypeList) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
         BootStrap.house = house;
-        createGeographicalAreas(gaList, typeGAList);
         createSensorsUnitTypes(sensorTypeList);
-        createSensorsInGA(gaList.get(0), sensorTypeList);
-
-        GeographicalArea geographicalArea = gaList.get(0);
-        createHouse(geographicalArea);
+        createTypeOfGAs(typeGAList);
         createHouseGrid();
-
         createRoom(sensorTypeList);
     }
 
     /**
-     * This method is responsible for all geographical areas creation.
-     * In order to add a new Geographical area one simply needs to create a new Geographical
-     * object and add it to the Geographical Areas list.
-     * <p>
+     * This method is responsible for all geographical areas types creation.
      * The house creation method is called here, after all GA's are build.
-     *
-     * @param gaList bootstrap List of Geographical Areas object
-     */
-    private static void createGeographicalAreas(GAList gaList, TypeGAList typeGAList) {
+     **/
+    private static void createTypeOfGAs(TypeGAList typeGAList) {
         TypeGA urbanArea = new TypeGA("urban area");
         typeGAList.addTypeGA(urbanArea);
-
-        OccupationArea oc = new OccupationArea(0.261, 0.249);
-        Location loc = new Location(41.178553, -8.608035, 111);
-        GeographicalArea isep = new GeographicalArea("ISEP", "Campus do ISEP", "urban area", oc, loc);
-        gaList.addGA(isep);
         TypeGA city = new TypeGA("city");
         typeGAList.addTypeGA(city);
-        OccupationArea oc1 = new OccupationArea(3.30, 10.09);
-        Location loc1 = new Location(41.164077, -8.620802, 118);
-        GeographicalArea porto = new GeographicalArea("Porto", "City of Porto", "city", oc1, loc1);
-        gaList.addGA(porto);
-
-        //the house creation is called here
-        createHouse(isep);
-    }
-
-    /**
-     * This method is responsible for the creation of the house. This means it's address
-     * and location are defined here.
-     *
-     * @param houseArea Geographical Area where the house is placed
-     */
-    private static void createHouse(GeographicalArea houseArea) {
-        //set house address and it's parent GA as ISEP
-        house.setHouseGA(houseArea);
-        house.setHouseAddress("Rua Dr António Bernardino de Almeida", "431", "4200-072", 41.177748, -8.607745, 112);
     }
 
     /**
@@ -102,176 +67,6 @@ public final class BootStrap {
         sensorTypeList.addSensorType(sT2);
         SensorType sT3 = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(sT3);
-    }
-
-    /**
-     * This method is responsible for the creation of the Sensors in a specific Geographical
-     * Area passed through reference.
-     *
-     * @param sensorArea     Geographical Area where the Sensor will be placed
-     * @param sensorTypeList SensorTypeList global object which represents the ArrayList
-     *                       containing all Sensor Unit Types
-     */
-    private static void createSensorsInGA(GeographicalArea sensorArea, SensorTypeList sensorTypeList) {
-        //get Geographical area sensor list
-        SensorList list = sensorArea.getSensorListInGA();
-        SensorType sT1 = sensorTypeList.getSensorTypeList().get(0);
-        SensorType sT2 = sensorTypeList.getSensorTypeList().get(1);
-        SensorType sT3 = sensorTypeList.getSensorTypeList().get(2);
-
-        ReadingList rl = addReadingsRainfallGA1();
-        GregorianCalendar rainfalISEPStartDate = new GregorianCalendar(2016, 10, 15);
-        Location locRainfallISEP = new Location(1.179230, -8.606409, 125);
-        Sensor rainfalISEP = new Sensor("Meteo station ISEP - rainfall 1", rainfalISEPStartDate, locRainfallISEP, sT1, "l/m2", rl);
-        list.addSensor(rainfalISEP);
-
-        ReadingList rl2 = addReadingsRainfallGA2();
-        GregorianCalendar rainfalISEP2StartDate = new GregorianCalendar(2018, 1, 15);
-        Location locRainfallISEP2 = new Location(41.179230, -8.606409, 125);
-
-        Sensor rainfalISEP2 = new Sensor("Meteo station ISEP - rainfall 2", rainfalISEP2StartDate, locRainfallISEP2, sT1, "l/m2", rl2);
-        list.addSensor(rainfalISEP2);
-
-        ReadingList rl3 = addReadingsHumidityGA();
-        GregorianCalendar humidityISEPStartDate = new GregorianCalendar(2018, 11, 15);
-        Location locHumidityISEP = new Location(25, 32, 25);
-
-        Sensor humidityISEP = new Sensor("Meteo station ISEP Air Humidity", humidityISEPStartDate, locHumidityISEP, sT2, "%", rl3);
-        list.addSensor(humidityISEP);
-
-        ReadingList rl4 = addReadingsTemperatureGA();
-        GregorianCalendar temperatureISEPStartDate = new GregorianCalendar(2016, 10, 15);
-        Location locTemperatureISEP = new Location(41.179230, -8.606409, 125);
-
-        Sensor temperatureISEP = new Sensor("Meteo station ISEP - temperature", temperatureISEPStartDate, locTemperatureISEP, sT3, "ºC", rl4);
-        list.addSensor(temperatureISEP);
-    }
-
-    /**
-     * This method is responsible readings creation for a specific Geographical Area Sensor
-     *
-     * @return The Reading List containg all Reagind entries, paring a value with it's
-     * timestamp (in for of a Gregorian Calendar object)
-     */
-    private static ReadingList addReadingsRainfallGA1() {
-        //set sensor readings for Meteo station ISEP - rainfall1
-        Reading r1 = new Reading(0.5, new GregorianCalendar(2018, 11, 29, 12, 0));
-        Reading r2 = new Reading(1.2, new GregorianCalendar(2018, 11, 30, 12, 0));
-        Reading r3 = new Reading(1.5, new GregorianCalendar(2018, 11, 31, 12, 0));
-        Reading r4 = new Reading(0.3, new GregorianCalendar(2019, 0, 1, 12, 0));
-        Reading r5 = new Reading(0, new GregorianCalendar(2019, 0, 2, 12, 0));
-        Reading r6 = new Reading(0, new GregorianCalendar(2019, 0, 2, 12, 0));
-        Reading r7 = new Reading(0, new GregorianCalendar(2019, 0, 3, 12, 0));
-
-        ReadingList rl = new ReadingList();
-
-        rl.addReading(r1);
-        rl.addReading(r2);
-        rl.addReading(r3);
-        rl.addReading(r4);
-        rl.addReading(r5);
-        rl.addReading(r6);
-        rl.addReading(r7);
-
-        return rl;
-    }
-
-    /**
-     * This method is responsible readings creation for a specific Geographical Area Sensor
-     *
-     * @return The Reading List containg all Reagind entries, paring a value with it's
-     * timestamp (in for of a Gregorian Calendar object)
-     */
-    private static ReadingList addReadingsRainfallGA2() {
-        //set sensor readings for Meteo station ISEP - rainfall2
-        Reading r1 = new Reading(0.5, new GregorianCalendar(2018, 11, 29, 12, 0));
-        Reading r2 = new Reading(1.2, new GregorianCalendar(2018, 11, 30, 12, 0));
-        Reading r3 = new Reading(1.5, new GregorianCalendar(2018, 11, 31, 12, 0));
-        Reading r4 = new Reading(0.3, new GregorianCalendar(2019, 0, 1, 12, 0));
-        Reading r5 = new Reading(0, new GregorianCalendar(2019, 0, 2, 12, 0));
-        Reading r6 = new Reading(0, new GregorianCalendar(2019, 0, 2, 12, 0));
-        Reading r7 = new Reading(0, new GregorianCalendar(2019, 0, 3, 12, 0));
-        Reading r8 = new Reading(2, new GregorianCalendar(2019, 0, 3, 16, 0));
-
-        //set sensor readings for Meteo station ISEP - rainfall 2 (the one with the most recent measure)
-        ReadingList rl2 = new ReadingList();
-
-        rl2.addReading(r1);
-        rl2.addReading(r2);
-        rl2.addReading(r3);
-        rl2.addReading(r4);
-        rl2.addReading(r5);
-        rl2.addReading(r6);
-        rl2.addReading(r7);
-        rl2.addReading(r8);
-
-        return rl2;
-    }
-
-    /**
-     * This method is responsible readings creation for a specific Geographical Area Sensor
-     *
-     * @return The Reading List containg all Reagind entries, paring a value with it's
-     * timestamp (in for of a Gregorian Calendar object)
-     */
-    private static ReadingList addReadingsHumidityGA() {
-        //set sensor readings for Meteo station ISEP - Air Humidity
-        ReadingList rl3 = new ReadingList();
-
-        Reading rHum1 = new Reading(80, new GregorianCalendar(2018, 11, 26, 12, 0));
-        Reading rHum2 = new Reading(81, new GregorianCalendar(2018, 11, 26, 13, 0));
-
-        rl3.addReading(rHum1);
-        rl3.addReading(rHum2);
-
-        return rl3;
-    }
-
-    /**
-     * This method is responsible readings creation for a specific Geographical Area Sensor
-     *
-     * @return The Reading List containg all Reagind entries, paring a value with it's
-     * timestamp (in for of a Gregorian Calendar object)
-     */
-    private static ReadingList addReadingsTemperatureGA() {
-        //set sensor readings for Meteo station ISEP - temperature
-        Reading r1temp = new Reading(8.0, new GregorianCalendar(2018, 11, 30, 2, 0));
-        Reading r2temp = new Reading(6.9, new GregorianCalendar(2018, 11, 30, 8, 0));
-        Reading r3temp = new Reading(16.5, new GregorianCalendar(2018, 11, 30, 14, 0));
-        Reading r4temp = new Reading(11.2, new GregorianCalendar(2018, 11, 30, 20, 0));
-        Reading r5temp = new Reading(7.2, new GregorianCalendar(2018, 11, 31, 2, 0));
-        Reading r6temp = new Reading(5.3, new GregorianCalendar(2018, 11, 31, 8, 0));
-        Reading r7temp = new Reading(15.1, new GregorianCalendar(2018, 11, 31, 14, 0));
-        Reading r8temp = new Reading(9.2, new GregorianCalendar(2018, 11, 31, 20, 0));
-        Reading r9temp = new Reading(6.5, new GregorianCalendar(2019, 1, 1, 2, 0));
-        Reading r10temp = new Reading(4.3, new GregorianCalendar(2019, 1, 1, 8, 0));
-        Reading r11temp = new Reading(14.8, new GregorianCalendar(2019, 1, 1, 14, 0));
-        Reading r12temp = new Reading(8.9, new GregorianCalendar(2019, 1, 1, 20, 0));
-        Reading r13temp = new Reading(6.1, new GregorianCalendar(2019, 1, 2, 2, 0));
-        Reading r14temp = new Reading(3.2, new GregorianCalendar(2019, 1, 2, 8, 0));
-        Reading r15temp = new Reading(14.1, new GregorianCalendar(2019, 1, 2, 14, 0));
-        Reading r16temp = new Reading(8.3, new GregorianCalendar(2019, 1, 2, 20, 0));
-
-        ReadingList rltemp = new ReadingList();
-
-        rltemp.addReading(r1temp);
-        rltemp.addReading(r2temp);
-        rltemp.addReading(r3temp);
-        rltemp.addReading(r4temp);
-        rltemp.addReading(r5temp);
-        rltemp.addReading(r6temp);
-        rltemp.addReading(r7temp);
-        rltemp.addReading(r8temp);
-        rltemp.addReading(r9temp);
-        rltemp.addReading(r10temp);
-        rltemp.addReading(r11temp);
-        rltemp.addReading(r12temp);
-        rltemp.addReading(r13temp);
-        rltemp.addReading(r14temp);
-        rltemp.addReading(r15temp);
-        rltemp.addReading(r16temp);
-
-        return rltemp;
     }
 
     /**
@@ -316,6 +111,11 @@ public final class BootStrap {
 
     // ---------------------------------------------------------------------------------------------------------------------------------------
 
+    /**
+     * This method is responsible for the device creation and consequent addition to a Room
+     * All measured values of energy consumption, in case of existing, are also inserted here.
+     *
+     */
     private static void createDevicesInRoomB106() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         Room b106 = house.getRoomList().get(0);
         DeviceList deviceListB106 = b106.getDeviceList();
@@ -326,7 +126,12 @@ public final class BootStrap {
         deviceListB106.addDevice(lamp);
     }
 
+    /**
+     * This method is responsible for the device creation and consequent addition to a Room
+     * All measured values of energy consumption, in case of existing, are also inserted here.
+     *
 
+     */
     private static void createDevicesInRoomB107() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         Room b107 = house.getRoomList().get(1);
         DeviceList deviceListB107 = b107.getDeviceList();
@@ -358,7 +163,6 @@ public final class BootStrap {
         hour = 0;
         minutes = 0;
     }
-
     /**
      * This method is responsible for the indoors Temperature Sensor creation and consequent addition
      * to a Room X.

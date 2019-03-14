@@ -5,10 +5,10 @@ import java.util.List;
 
 public class HouseGridList {
 
-    private List<HouseGrid> mHGList;
+    private List<HouseGrid> hglist;
 
     public HouseGridList() {
-        mHGList = new ArrayList<> ();
+        hglist = new ArrayList<>();
     }
 
     /**
@@ -19,7 +19,7 @@ public class HouseGridList {
      * @return new HouseGrid object
      */
     public HouseGrid newHouseGrid(String id) {
-        return new HouseGrid (id);
+        return new HouseGrid(id);
     }
 
     /**
@@ -30,8 +30,8 @@ public class HouseGridList {
      * @return true if houseGrid is added to list or false otherwise.
      */
     public boolean addHouseGrid(HouseGrid inputHouseGrid) {
-        if (!mHGList.contains (inputHouseGrid)) {
-            mHGList.add (inputHouseGrid);
+        if (!hglist.contains(inputHouseGrid)) {
+            hglist.add(inputHouseGrid);
             return true;
         } else return false;
     }
@@ -43,9 +43,9 @@ public class HouseGridList {
      * @return the list of house grids in the house as ArrayList
      */
     public List<HouseGrid> getHouseGridList() {
-        List<HouseGrid> gridList = new ArrayList<> ();
-        for (HouseGrid grid : mHGList) {
-            gridList.add (grid);
+        List<HouseGrid> gridList = new ArrayList<>();
+        for (HouseGrid grid : hglist) {
+            gridList.add(grid);
         }
         return gridList;
     }
@@ -56,11 +56,11 @@ public class HouseGridList {
      * @return int form value that represents the electric grid list size
      */
     public int getSize() {
-        return mHGList.size ();
+        return hglist.size();
     }
 
     public HouseGrid get(int i) {
-        return this.mHGList.get (i);
+        return this.hglist.get(i);
     }
 
 
@@ -70,17 +70,17 @@ public class HouseGridList {
      * @return List of grids in string format
      */
     public String showHouseGridListInString() {
-        List<HouseGrid> list = getHouseGridList ();
-        StringBuilder result = new StringBuilder ();
+        List<HouseGrid> list = getHouseGridList();
+        StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
         for (HouseGrid grid : list) {
-            result.append (number++);
-            result.append (element);
-            result.append (grid.getGridID ());
-            result.append ("\n");
+            result.append(number++);
+            result.append(element);
+            result.append(grid.getName());
+            result.append("\n");
         }
-        return result.toString ();
+        return result.toString();
     }
 
 }

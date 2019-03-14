@@ -45,8 +45,8 @@ public class SensorList {
 
      * @return List of sensors
      */
-    public Sensor newSensor(String inputName, GregorianCalendar startDate,Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
-        return new Sensor(inputName, startDate, geoLocation, sensorType, inputUnit, readings);
+    public Sensor newSensor(String id, String inputName, GregorianCalendar startDate,Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
+        return new Sensor(id, inputName, startDate, geoLocation, sensorType, inputUnit, readings);
     }
 
     /**

@@ -398,10 +398,10 @@ class HouseTest {
         Location loc1 = new Location(0, 15, 12);
         Location loc2 = new Location(26, 26, 12);
         Location loc3 = new Location(24, 24, 12);
-
-        Sensor s1 = new Sensor("Temperature Sensor 3", startDate, loc1, temperature);
-        Sensor s2 = new Sensor("Temperature Sensor 1", startDate, loc2, temperature);
-        Sensor s3 = new Sensor("Temperature Sensor 2", startDate, loc3, temperature);
+        ReadingList readings = new ReadingList();
+        Sensor s1 = new Sensor("T001", "Temperature Sensor 1", startDate, loc1, temperature, "C", readings);
+        Sensor s2 = new Sensor("T001", "Temperature Sensor 1", startDate, loc2, temperature, "C", readings);
+        Sensor s3 = new Sensor("T001", "Temperature Sensor 1", startDate, loc3, temperature, "C", readings);
 
         bragaSensorList.addSensor(s1);
         bragaSensorList.addSensor(s2);
@@ -479,8 +479,8 @@ class HouseTest {
 
         Location l1 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l1, sT, "l/m2", rL2);
 
         ga.getSensorListInGA().addSensor(s1);
         ga.getSensorListInGA().addSensor(s2);
@@ -536,8 +536,8 @@ class HouseTest {
 
         Location l1 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l1, sT, "l/m2", rL2);
 
         ga.getSensorListInGA().addSensor(s1);
         ga.getSensorListInGA().addSensor(s2);
@@ -595,8 +595,8 @@ class HouseTest {
 
         Location l1 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l1, sT, "l/m2", rL2);
 
         ga.getSensorListInGA().addSensor(s1);
         ga.getSensorListInGA().addSensor(s2);
@@ -655,8 +655,8 @@ class HouseTest {
 
         Location l1 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l1, sT, "l/m2", rL2);
 
         ga.getSensorListInGA().addSensor(s1);
         ga.getSensorListInGA().addSensor(s2);

@@ -50,7 +50,7 @@ final class PowerUserUI {
                     break;
                 case 6:
                     GetEnergyConsumptionInPeriodUI uiEC = new GetEnergyConsumptionInPeriodUI(house);
-                    uiEC.selectOption();
+                    uiEC.selectMetered();
                     break;
                 case 7:
                     UtilsUI.underMaintenanceMsg("US730");

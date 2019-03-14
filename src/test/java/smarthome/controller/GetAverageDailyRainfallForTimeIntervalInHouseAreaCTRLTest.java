@@ -118,11 +118,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l2 = new Location(47, -12, 200);
 
 
-        Sensor s1 = new Sensor("RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("RainSensor2", sDate2, l1, sT, "l/m2", rL2);
-        Sensor s3 = new Sensor("WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s4 = new Sensor("TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s5 = new Sensor("RainSensor3", sDate1, l2, sT, "l/m2", rL3);
+        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+        Sensor s3 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s4 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s5 = new Sensor("R0003","RainSensor3", sDate1, l2, sT, "l/m2", rL3);
 
 
         ga.getSensorListInGA().addSensor(s1);
@@ -204,11 +204,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s3 = new Sensor("WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s4 = new Sensor("TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s5 = new Sensor("RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensor s3 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s4 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s5 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
         ga.getSensorListInGA().addSensor(s1);
@@ -287,11 +287,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s3 = new Sensor("WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s4 = new Sensor("TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s5 = new Sensor("RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensor s3 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s4 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s5 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
         ga.getSensorListInGA().addSensor(s1);
@@ -370,11 +370,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("RainSensor", sDate1, l2, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s3 = new Sensor("WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s4 = new Sensor("TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s5 = new Sensor("RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l2, sT, "l/m2", rL1);
+        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensor s3 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s4 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s5 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
         ga.getSensorListInGA().addSensor(s1);
@@ -453,11 +453,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s3 = new Sensor("WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s4 = new Sensor("TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s5 = new Sensor("RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensor s3 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s4 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s5 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
         ga.getSensorListInGA().addSensor(s1);
@@ -533,11 +533,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s3 = new Sensor("WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s4 = new Sensor("TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s5 = new Sensor("RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensor s3 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s4 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s5 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
         ga.getSensorListInGA().addSensor(s1);

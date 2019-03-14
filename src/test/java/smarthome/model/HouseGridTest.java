@@ -55,7 +55,7 @@ class HouseGridTest {
     @DisplayName("Set new House Grid with name ID")
     void setContractedMaximumPowerAndGridID() {
         HouseGrid hg = new HouseGrid("main grid");
-        assertEquals("main grid", hg.getGridID());
+        assertEquals("main grid", hg.getName());
     }
 
     @Test
@@ -64,7 +64,7 @@ class HouseGridTest {
         HouseGrid hg = new HouseGrid("grid002");
 
         String expectedResult = "grid002";
-        String result = hg.getGridID();
+        String result = hg.getName();
         assertEquals(expectedResult, result);
     }
 

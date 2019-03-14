@@ -100,10 +100,10 @@ public class NewSensorCTRL {
      * @return adds the sensor created to the selected Geographical Area
      */
 
-    public boolean addNewSensorToGA(String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, Location location, int indexOfGA, ReadingList readings) {
+    public boolean addNewSensorToGA(String id, String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, Location location, int indexOfGA, ReadingList readings) {
         GeographicalArea geographicalArea = this.gaList.get(indexOfGA);
         SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);
-        Sensor sensor = geographicalArea.getSensorListInGA().newSensor(inputName, startDate, location, sensorType, inputUnit, readings);
+        Sensor sensor = geographicalArea.getSensorListInGA().newSensor(id,inputName, startDate, location, sensorType, inputUnit, readings);
         return geographicalArea.getSensorListInGA().addSensor(sensor);
     }
 
@@ -207,6 +207,17 @@ public class NewSensorCTRL {
         Sensor createdSensor = ga.getSensorListInGA().getLastSensor();
         return createdSensor.getDesignation();
     }
+    /**
+     * Method to get the id of the sensor created
+     *
+     * @param indexOfGA correspondent to the geographical area in the index position of the list of geographical areas
+     * @return the id of the sensor created in the selected geographical area
+     */
+    public String getGASensorId(int indexOfGA) {
+        GeographicalArea ga = this.gaList.get(indexOfGA);
+        Sensor createdSensor = ga.getSensorListInGA().getLastSensor();
+        return createdSensor.getId();
+    }
 
     /**
      * Method to get the name of the internal sensor created
@@ -285,5 +296,7 @@ public class NewSensorCTRL {
         SensorList sensorList= room.getSensorListInRoom();
         return sensorList.size();
     }
+
+
 
 }

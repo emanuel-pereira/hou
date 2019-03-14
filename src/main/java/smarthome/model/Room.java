@@ -125,9 +125,8 @@ public class Room implements Metered {
      */
     public double getEnergyConsumption(Calendar startHour, Calendar endHour) {
         double sum = 0;
-        for (Device device : this.deviceList.getMeteredDevices()) {
-            Metered meteredDevice = (Metered) device;
-            sum += meteredDevice.getEnergyConsumption(startHour, endHour);
+        for (Metered device : this.deviceList.getMeteredDevices()) {
+            sum += device.getEnergyConsumption(startHour, endHour);
         }
         return Utils.round(sum, 2);
     }

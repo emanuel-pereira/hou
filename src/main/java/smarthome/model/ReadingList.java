@@ -72,29 +72,48 @@ public class ReadingList {
         return sum / dailyReadings.size();
     }
 
-    /**Used for Sensor Readings - instant readings - includes both start and end dates*/
-    public double getValueOfReadingsInTimeInterval(Calendar startDate, Calendar endDate) {
+    /**
+     *
+     *
+     * @param startDateTime calendar parameter representing startDateTime
+     * @param endDateTime   calendar parameter representing endDateTime
+     * @return sums up the value of readings in the ]startDateTime - endDateTime] interval.
+     */
+    public double getValueOfReadingsInTimeInterval(Calendar startDateTime, Calendar endDateTime) {
         double totalValue = 0;
         for (Reading reading : readingList) {
             Calendar readingDate = reading.getDateAndTime();
 
-            if (readingDate.after(startDate) && readingDate.before(endDate)
-                    || readingDate.equals(startDate) || readingDate.equals(endDate)) {
+            if (readingDate.after(startDateTime) && readingDate.before(endDateTime)
+                    || readingDate.equals(startDateTime) || readingDate.equals(endDateTime)) {
                 totalValue += reading.returnValueOfReading();
             }
         }
         return totalValue;
     }
 
-    /**Used for Device Readings - periodic readings - includes only end date*/
+    /**Used for Device Readings - periodic readings - includes only end date
+     * */
+
+
+    /**
+     * Method that sums up the value of readings after the startDateTime parameter and until the endDateTime parameter.
+     * The time interval considered is the following ]startDateTime - endDateTime].
+     * For example, if a device has a metering period of 10 minutes, then
+     * a reading registered at dateAndTime of 09:00:00 AM, considers the metering period from 08:50:00 AM until 08:59:59 AM,
+     * so the reading registered at dateAndTime of 09:10:00 AM, considers the metering period from 09:00:00 AM until 09:09:59 AM.
+     *
+     * @param startDate
+     * @param endDate
+     * @return sums up the value of readings in the ]startDateTime - endDateTime] interval.
+     */
     public double getValueOfReadingsInTimeIntervalDevices(Calendar startDate, Calendar endDate) {
         double totalValue = 0;
         for (Reading reading : this.readingList) {
             Calendar readingDate = reading.getDateAndTime();
 
             if (readingDate.after(startDate) && readingDate.before(endDate)
-                    || readingDate.equals(endDate)) { //it is not needed to included the endDate, as each reading
-                //stores a value its timeStamp till the next reading timestamp
+                    || readingDate.equals(endDate)) {
                 totalValue += reading.returnValueOfReading();
             }
         }

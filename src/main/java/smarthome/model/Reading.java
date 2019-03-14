@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.dto.ReadingDTO;
+
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -69,6 +71,9 @@ public class Reading {
         output.append("-");
         output.append(day);
         return output.toString();
+    }
+    public ReadingDTO toDTO() {
+        return new ReadingDTO(this.value, this.dateAndTime);
     }
 
     public ReadingDTO toDTO() {

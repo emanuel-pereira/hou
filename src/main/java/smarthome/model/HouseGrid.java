@@ -3,6 +3,7 @@ package smarthome.model;
 import smarthome.model.validations.Utils;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 public class HouseGrid implements Metered{
@@ -28,7 +29,7 @@ public class HouseGrid implements Metered{
             this.mContractedMaximumPower = contractedMaximumPower;
     }
 
-    public String getGridID() {
+    public String getName() {
         return mDesignation;
     }
 
@@ -96,6 +97,8 @@ public class HouseGrid implements Metered{
         }
         return result.toString ();
     }
+
+
 
     @Override
     public boolean equals(Object o) {
