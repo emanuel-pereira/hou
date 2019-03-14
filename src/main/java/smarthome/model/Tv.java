@@ -88,16 +88,15 @@ public class Tv implements Device, Metered{
 
         double energyConsumption = 0;
         if (c.getDevicesMeteringPeriod() != -1) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
+            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startDate, endDate);
         }
         return smarthome.model.validations.Utils.round(energyConsumption, 2);
     }
 
     @Override
     public String getName() {
-        return  this.name;
+        return this.name;
     }
-
 
     /* ----- Setters ----- */
 
