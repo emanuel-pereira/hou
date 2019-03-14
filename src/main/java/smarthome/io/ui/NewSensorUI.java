@@ -73,7 +73,7 @@ public class NewSensorUI {
         System.out.println(this.ctrl.showSensorTypeListInString());
         this.indexOfSensorType = UtilsUI.requestIntegerInInterval(1,
                 this.ctrl.getSensorTypeListSize(),
-                UtilsUI.insertValidOption
+                UtilsUI.INSERTVALIDOPTION
                         + this.ctrl.showSensorTypeListInString());
         indexOfSensorType--;
         System.out.println("Please fill in the following fields to add at least a reading to a sensor.");
@@ -119,7 +119,7 @@ public class NewSensorUI {
         System.out.println("Choose the Room for which you want add this sensor, from the list below:");
         System.out.println(ctrl.showRoomListInStr());
         this.indexOfRoom = UtilsUI.requestIntegerInInterval(1, this.ctrl.getRoomListSize(),
-                UtilsUI.insertValidOption + this.ctrl.showRoomListInStr());
+                UtilsUI.INSERTVALIDOPTION + this.ctrl.showRoomListInStr());
         indexOfRoom--;
         this.addSensorToRoom();
     }
@@ -139,7 +139,7 @@ public class NewSensorUI {
         System.out.println("Choose the Geographical Area for which you want add this sensor, from the list below:");
         System.out.println(this.ctrl.showGAListInString());
         this.indexOfGA = UtilsUI.requestIntegerInInterval(1, this.ctrl.getGAListSize(),
-                UtilsUI.insertValidOption + this.ctrl.showGAListInString());
+                UtilsUI.INSERTVALIDOPTION + this.ctrl.showGAListInString());
         indexOfGA--;
         this.addSensorToGA();
     }
@@ -181,7 +181,7 @@ public class NewSensorUI {
         System.out.println("Choose a room from the list below to list its sensors:");
         System.out.println(ctrl.showRoomListInStr());
         this.indexOfRoom = UtilsUI.requestIntegerInInterval(1, this.ctrl.getRoomListSize(),
-                UtilsUI.insertValidOption + this.ctrl.showRoomListInStr());
+                UtilsUI.INSERTVALIDOPTION + this.ctrl.showRoomListInStr());
         indexOfRoom--;
         this.checkRoomSensorListSize();
     }

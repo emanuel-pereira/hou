@@ -4,15 +4,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public final class UtilsUI {
 
-    static String insertValidOption = "Please insert a valid option\n.";
-
+    static final String INSERTVALIDOPTION = "Insert valid option.";
+    static final String BLACK = "BLACK";
+    static final String RESET = "RESET";
+    static final String INPUTERROR = "Input error";
 
     /**
      * Private constructor of UtilsUI class, which is a collection of static members, hence is not meant to be instantiated.
@@ -20,7 +19,7 @@ public final class UtilsUI {
     private UtilsUI() {
     }
 
-    
+
     /**
      * Reads user input from the console and returns it as a string
      *
@@ -229,7 +228,7 @@ public final class UtilsUI {
             input = getUserInput();
             input = input.trim();
             if (!input.trim().matches(regEx) || input.trim().isEmpty())
-                showError("Input error", errorMessage);
+                showError(INPUTERROR, errorMessage);
             else
                 loop = false;
         }
@@ -252,7 +251,7 @@ public final class UtilsUI {
                 parsedUserInput = Integer.parseInt(userInput);
                 break;
             }
-            showError("Input error", errorMessage);
+            showError(INPUTERROR, errorMessage);
         }
         return parsedUserInput;
     }
@@ -279,7 +278,8 @@ public final class UtilsUI {
             if ((parsedUserInput >= minimum) && (parsedUserInput <= maximum)) {
                 break;
             }
-            showError("Input error", errorMessage);
+            showError(INPUTERROR, errorMessage);
+
             userInput = "-";
         }
 
@@ -302,12 +302,12 @@ public final class UtilsUI {
                 parsedUserInput = Double.parseDouble(userInput);
                 break;
             }
-            showError("Input error", errorMessage);
+            showError(INPUTERROR, errorMessage);
         }
         return parsedUserInput;
     }
 
-    public static String formatDecimal (double inputDouble, int decimals){
+    public static String formatDecimal(double inputDouble, int decimals) {
         BigDecimal bd = BigDecimal.valueOf(inputDouble);
         bd = bd.setScale(decimals, RoundingMode.HALF_UP);
         return Double.toString(bd.doubleValue());
@@ -330,7 +330,7 @@ public final class UtilsUI {
             if (parsedUserInput >= minimum && parsedUserInput <= maximum) {
                 break;
             }
-            showError("Input error", errorMessage);
+            showError(INPUTERROR, errorMessage);
 
         }
         return parsedUserInput;
@@ -353,7 +353,7 @@ public final class UtilsUI {
         while (!isDate(userInput)) {
             userInput = getUserInput();
             if (!isDate(userInput)) {
-                showError("Input error", errorMessage);
+                showError(INPUTERROR, errorMessage);
             }
         }
 
@@ -380,7 +380,7 @@ public final class UtilsUI {
             if (isDateTime(userInput)) {
                 break;
             }
-            showError("Input error", errorMessage);
+            showError(INPUTERROR, errorMessage);
         }
 
         String[] dateAndTime;
@@ -405,7 +405,7 @@ public final class UtilsUI {
      * @return date as string in yyyy-MM-dd format
      */
     public static String dateToString(Calendar calendar) {
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-DD");
         return df.format(calendar.getTime());
     }
 
@@ -481,7 +481,7 @@ public final class UtilsUI {
         //Display a title
         final String a = "BG_BLUE";
         final String b = "BOLD";
-        final String c = "BLACK";
+        final String c = BLACK;
 
         format(a, b, c);
         printAndReset(padWithSpaces("", tableWidth, padding));
@@ -537,7 +537,7 @@ public final class UtilsUI {
 
     private static void printAndReset(String string) {
         System.out.print(string);
-        format("RESET");
+        format(RESET);
         System.out.print("\n");
     }
 
@@ -562,7 +562,7 @@ public final class UtilsUI {
     public static void backToMenu() {
 
         printAndReset("\n");
-        format("BG_BLUE", "BOLD", "BLACK");
+        format("BG_BLUE", "BOLD", BLACK);
         print("\n");
         print("[ENTER] to return to the previous menu");
         print("\n");
@@ -591,8 +591,8 @@ public final class UtilsUI {
         showMessageBox(errorTitle, "BG_RED", errorMessage);
     }
 
-    public static void showInfo(String infoTitle, String infoMessage){
-        showMessageBox(infoTitle,"BG_GREEN",infoMessage);
+    public static void showInfo(String infoTitle, String infoMessage) {
+        showMessageBox(infoTitle, "BG_GREEN", infoMessage);
     }
 
     private static void showMessageBox(String title, String titleColor, String message) {
@@ -602,27 +602,27 @@ public final class UtilsUI {
         String error = padWithSpaces(message, 999, 5);
 
 
-        format("RESET");
+        format(RESET);
         print("\n");
-        format("BOLD", titleColor, "BLACK");
+        format("BOLD", titleColor, BLACK);
         printAndReset(titlePretty);
-        format("BOLD", titleColor, "BLACK");
+        format("BOLD", titleColor, BLACK);
         printAndReset(aTitle);
-        format("BOLD", titleColor, "BLACK");
+        format("BOLD", titleColor, BLACK);
         printAndReset(titlePretty);
-        format("RESET");
+        format(RESET);
         format("REVERSED");
         print("\n");
         print(error);
         print("\n\n");
-        format("RESET");
+        format(RESET);
         print("\n");
     }
 
 
-    public static boolean confirmOption(String continueQuestion, String errorMessage,String dynamicRegEx) {
+    public static boolean confirmOption(String continueQuestion, String errorMessage, String dynamicRegEx) {
         print(continueQuestion);
-        String yesOrNo = requestText(errorMessage,dynamicRegEx);
+        String yesOrNo = requestText(errorMessage, dynamicRegEx);
         return yesOrNo.contains("y") || yesOrNo.contains("Y");
     }
 }

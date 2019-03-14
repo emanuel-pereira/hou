@@ -3,6 +3,7 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -40,22 +41,25 @@ class DeviceListTest {
         assertEquals (expected, result);
     }
 
-/* TODO: Rewrite this test
+
     @Test
     @DisplayName("Create and add new devices and get a string with the information of the device list")
     void showDeviceListInString() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         DeviceList deviceList = new DeviceList ();
-        Device lamp = deviceList.newDevice ("Lamp", "Lamp", 20);
-        Device kettle = deviceList.newDevice ("Kettle", "Kettle", 120);
+        Device lamp = deviceList.newDevice ("Lamp XBZT1000", "Lamp", 20);
+        Device kettle = deviceList.newDevice ("Pretty White Kettle", "Kettle", 120);
         deviceList.addDevice (lamp);
         deviceList.addDevice (kettle);
 
-        String expected = "1 - Device: Lamp | Type: Lamp | Active: true\n2 - Device: Kettle | Type: Kettle | Active: true\n";
-        String result = deviceList.showDeviceListInString ();
+        List<String> expected = new ArrayList<>();
+        expected.add("Lamp (Lamp XBZT1000) [Active]");
+        expected.add("Kettle (Pretty White Kettle) [Active]");
+
+        List<String> result = deviceList.showDeviceListInString ();
 
         assertEquals (expected, result);
     }
-*/
+
 
     @Test
     @DisplayName("Create and add new devices and remove one correctly")
