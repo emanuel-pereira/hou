@@ -1,0 +1,26 @@
+@startuml
+autonumber
+hidefootbox
+
+actor "RegUser"
+"RegUser" -> ":UI" : highestAmplitude ()
+":UI" -> ":CTRL" : (ReadingDTO) maxDTO = \ndisplayMaximum (\nSensorType sensorType, \nCalendar startDate, \nCalendar endDate)
+":CTRL" -> ":Sensor" : (ReadingList) dailyAmp = \ndailyAmplitude()
+
+":Sensor"-> "rL:ReadingList": (ReadingList) dailyAmp = \ndailyAmplitudes ()
+loop for each Reading in rL ReadingList
+ "rL:ReadingList" -> "r:Reading": (ReadingList) dailyAmp = \ndailyAmplitudes ()
+end
+
+
+":CTRL" -> "dailyAmp:ReadingList": (Reading) dayAmp = \nmaxValueInInterval ()
+loop for each Reading do \nonly if higher value
+"dailyAmp:ReadingList" -> "dayAmp:Reading": (Reading) dayAmp = \nmaxValueInInterval()
+end
+
+":CTRL" -> ":readingDTO" : (ReadingDTO) ampDTO = dayAmp.toDTO ()
+
+":UI" -> "RegUser" : displayResult
+
+
+@enduml
