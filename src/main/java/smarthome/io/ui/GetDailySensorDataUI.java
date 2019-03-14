@@ -1,13 +1,11 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetDailySensorDataCTRL;
+import smarthome.dto.ReadingDTO;
 import smarthome.model.House;
-import smarthome.model.Sensor;
-import smarthome.model.SensorList;
 import smarthome.model.SensorType;
 
 import java.util.GregorianCalendar;
-import java.util.List;
 
 public class GetDailySensorDataUI {
 
@@ -16,36 +14,13 @@ public class GetDailySensorDataUI {
     private String temperature = "temperature";
     private SensorType rainfallSensorType = new SensorType(this.rainfall);
     private SensorType temperatureSensorType = new SensorType(this.temperature);
+    private SensorType sensorType;
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;
 
 
     public GetDailySensorDataUI(House house) {
         this.superCTRL = new GetDailySensorDataCTRL(house);
-    }
-
-
-    public void getAverageDailyRainfallForInterval() {
-
-        SensorList gaRainfallSensors = this.superCTRL.getGARainfallSensors(this.temperatureSensorType);
-        List<Sensor> gaRainfallSensorList = gaRainfallSensors.getSensorList();
-
-        SensorList gaRainfallSensorsWithReadingsInPeriod = this.superCTRL.filterByTypeAndInterval(this.temperatureSensorType, startDate, endDate);
-        List<Sensor> gaRainfallSensorListWithReadingsInPeriod = gaRainfallSensorsWithReadingsInPeriod.getSensorList();
-
-
-        if (!gaRainfallSensorList.isEmpty()) {
-
-            requestTimePeriod();
-
-            if (!gaRainfallSensorListWithReadingsInPeriod.isEmpty()) {
-
-                requestTimePeriod();
-
-            } else System.out.println("There are no readings for the given time period");
-
-
-        } else System.out.println("There are no rainfall sensors in the house area");
     }
 
 
@@ -57,37 +32,85 @@ public class GetDailySensorDataUI {
         System.out.println("Insert the end date (YYYY-MM-DD)");
         this.endDate = UtilsUI.requestDate("Please insert a valid date in YYYY-MM-DD format.");
 
-        calculations(this.startDate, this.endDate);
     }
 
-    private void calculations(GregorianCalendar startDate, GregorianCalendar endDate) {
-        if (this.superCTRL.checkIfClosestSensorsHasReadingsInTimePeriod(this.temperatureSensorType, startDate, endDate)) {
-
-            System.out.println("The average daily rainfall between " + UtilsUI.dateToString(startDate) + " and " + UtilsUI.dateToString(endDate) +
-                    " is " + superCTRL.calculateAverageOfRainfallReadings(this.temperatureSensorType, startDate, endDate));
-        } else
-            System.out.println("The available " + this.rainfall + " sensors in the house area don't have readings in the specified date.\nPlease select a date with registered readings.");
-
+    private void calculations(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate, int mode) {
+        ReadingDTO readingDTO;
+        String msg;
+        switch (mode) {
+            case 1:
+                readingDTO = superCTRL.displayMaximum(sensorType, startDate, endDate);
+                msg = ("The first hottest day between " + UtilsUI.dateToString(startDate) +
+                        " and " + UtilsUI.dateToString(endDate) +
+                        " was at " + UtilsUI.dateToString(readingDTO.getReadingDateAndTime()) +
+                        " with a value of " + readingDTO.getReadingValue() + "°C");
+                UtilsUI.showInfo("Result", msg);
+                break;
+            case 2:
+                readingDTO = superCTRL.displayMinimum(sensorType, startDate, endDate);
+                msg = ("The last coldest day between " + UtilsUI.dateToString(startDate) +
+                        " and " + UtilsUI.dateToString(endDate) +
+                        " was at " + UtilsUI.dateToString(readingDTO.getReadingDateAndTime()) +
+                        " with a value of " + readingDTO.getReadingValue() + "°C");
+                UtilsUI.showInfo("Result", msg);
+                break;
+            case 3:
+                readingDTO = superCTRL.displayAmplitude(sensorType, startDate, endDate);
+                msg = ("The  day with the highest temperature amplitude between " + UtilsUI.dateToString(startDate) +
+                        " and " + UtilsUI.dateToString(endDate) +
+                        " was at " + UtilsUI.dateToString(readingDTO.getReadingDateAndTime()) +
+                        " with a value of " + UtilsUI.formatDecimal(readingDTO.getReadingValue(), 2) + "°C");
+                UtilsUI.showInfo("Result", msg);
+                break;
+        }
     }
 
     public void displayFirstMaximum() {
+        int mode = 1;
 
-        SensorList filteredSensorsByTypeInGA = this.superCTRL.getGARainfallSensors(this.temperatureSensorType);
-        SensorList filterByInterval = this.superCTRL.filterByTypeAndInterval(this.temperatureSensorType, startDate, endDate);
+        //request start date and end date user inputs
+        requestTimePeriod();
 
-        if (filteredSensorsByTypeInGA.size() != 0) {
+        //set specific sensor data type for this US
+        this.sensorType = new SensorType("temperature");
+        if (this.superCTRL.checkIfClosestSensorsHasReadingsInTimePeriod(sensorType, startDate, endDate))
+            calculations(this.sensorType, this.startDate, this.endDate, mode);
+        else
+            System.out.println("The available " + this.sensorType.getType() + " sensors in the house area don't have " +
+                    "readings in the specified date.\nPlease select a date with registered readings.");
+    }
 
-            requestTimePeriod();
+    public void displayLastMaximum() {
+        int mode = 2;
 
-            if (filterByInterval.size() != 0) {
+        //request start date and end date user inputs
+        requestTimePeriod();
 
-                requestTimePeriod();
+        //set specific sensor data type for this US
+        this.sensorType = new SensorType("temperature");
+        if (this.superCTRL.checkIfClosestSensorsHasReadingsInTimePeriod(sensorType, startDate, endDate))
+            calculations(this.sensorType, this.startDate, this.endDate, mode);
+        else
+            System.out.println("The available " + this.sensorType.getType() + " sensors in the house area don't have " +
+                    "readings in the specified date.\nPlease select a date with registered readings.");
+    }
 
-            } else System.out.println("There are no readings for the given time period");
+    public void displayMaxAmplitude() {
+        int mode = 3;
 
+        //request start date and end date user inputs
+        requestTimePeriod();
 
-        } else System.out.println("There are no rainfall sensors in the house area");
+        //set specific sensor data type for this US
+        this.sensorType = new SensorType("temperature");
+        if (this.superCTRL.checkIfClosestSensorsHasReadingsInTimePeriod(sensorType, startDate, endDate))
+            calculations(this.sensorType, this.startDate, this.endDate, mode);
+        else
+            System.out.println("The available " + this.sensorType.getType() + " sensors in the house area don't have " +
+                    "readings in the specified date.\nPlease select a date with registered readings.");
     }
 }
+
+
 
 

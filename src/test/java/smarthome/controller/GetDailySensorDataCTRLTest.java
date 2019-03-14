@@ -2,6 +2,7 @@ package smarthome.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.dto.ReadingDTO;
 import smarthome.model.*;
 
 import java.util.Calendar;
@@ -55,21 +56,21 @@ class GetDailySensorDataCTRLTest {
         sensorRL.addReading(r14);
         sensorRL.addReading(r15);
 
-        GregorianCalendar sensorStartDate = new GregorianCalendar(2017, 4, 28);
+        GregorianCalendar sensorStartDate = new GregorianCalendar(2017, Calendar.APRIL, 28);
         Location sensorLocation = new Location(47, -12, 200);
         SensorType sensorType = new SensorType("temperature");
 
-        Sensor sensor = new Sensor("TempSensor", sensorStartDate, sensorLocation, sensorType, "C", sensorRL);
+        Sensor sensor = new Sensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
         ga.getSensorListInGA().addSensor(sensor);
 
         GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(house);
 
-        GregorianCalendar startDate = new GregorianCalendar(2017, 5, 1);
-        GregorianCalendar endDate = new GregorianCalendar(2017, 6, 30);
+        GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.MAY, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JUNE, 30);
         ReadingDTO readingDTO = ctrl.displayMaximum(sensorType, startDate, endDate);
 
-        assertEquals(6, readingDTO.getValue(), 0.1);
-        assertEquals(152, readingDTO.getDateAndTime().get(Calendar.DAY_OF_YEAR));
+        assertEquals(6, readingDTO.getReadingValue(), 0.1);
+        assertEquals(152, readingDTO.getReadingDateAndTime().get(Calendar.DAY_OF_YEAR));
     }
 }

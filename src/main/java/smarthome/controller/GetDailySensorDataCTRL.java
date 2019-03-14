@@ -1,8 +1,10 @@
 package smarthome.controller;
 
+import smarthome.dto.ReadingDTO;
 import smarthome.model.*;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 public class GetDailySensorDataCTRL {
@@ -53,4 +55,17 @@ public class GetDailySensorDataCTRL {
     }
 
 
+    public ReadingDTO displayMinimum(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate) {
+        Sensor sensor = this.house.filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
+        ReadingList sensorReadings = sensor.getReadingList().dailyMaximumReadings();
+        Reading reading = sensorReadings.minValueInInterval();
+        return reading.toDTO();
+    }
+
+    public ReadingDTO displayAmplitude(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate) {
+        Sensor sensor = this.house.filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
+        ReadingList sensorReadings = sensor.getReadingList().dailyAmplitude();
+        Reading reading = sensorReadings.maxValueInInterval();
+        return reading.toDTO();
+    }
 }

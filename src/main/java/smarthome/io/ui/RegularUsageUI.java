@@ -27,7 +27,7 @@ public final class RegularUsageUI {
             options.add("[0] Exit");
 
             UtilsUI.showList("Regular Usage", options, false, 5);
-            option = UtilsUI.requestIntegerInInterval(0, 7, "Please choose an action between 1 and 5, or 0 to exit the program");
+            option = UtilsUI.requestIntegerInInterval(0, 8, "Please choose an action between 1 and 8, or 0 to exit the program");
 
             switch (option) {
                 case 1:
@@ -50,13 +50,16 @@ public final class RegularUsageUI {
                     avgRainfallUi.getAverageDailyRainfallForInterval();
                     break;
                 case 6:
-
+                    GetDailySensorDataUI getDailySensorDataUI = new GetDailySensorDataUI(house);
+                    getDailySensorDataUI.displayLastMaximum();
                     break;
                 case 7:
-                    GetDailySensorDataUI getDailySensorDataUI = new GetDailySensorDataUI(house);
+                    getDailySensorDataUI = new GetDailySensorDataUI(house);
                     getDailySensorDataUI.displayFirstMaximum();
                     break;
                 case 8:
+                    getDailySensorDataUI = new GetDailySensorDataUI(house);
+                    getDailySensorDataUI.displayMaxAmplitude();
                     break;
                 default:
                     //no action needed
