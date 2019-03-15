@@ -18,6 +18,13 @@ public class DataImportCTRL {
         this.gaList = gaList;
     }
 
+    /**
+     * Method that reads a JSON file in the specified file path and imports all geographical areas and respective sensors, updating the gaList
+     * @param filePath specified by the user
+     * @throws ParseException
+     * @throws org.json.simple.parser.ParseException
+     * @throws IOException
+     */
     public void loadJSON(String filePath) throws ParseException,org.json.simple.parser.ParseException, IOException {
         ReadJSONFile jsonFile = new ReadJSONFile(filePath, gaList);
         jsonFile.importGAs();
@@ -27,6 +34,10 @@ public class DataImportCTRL {
         gaList.importDataFromCSVFileForEachGA(filePath);
     }
 
+    /**
+     *Method that iterates the geographical area list and converts each geographical area to a Data Transfer Object
+     * @return a list of geographical area DTOs
+     */
     public List<GeographicalAreaDTO> getGAListDTO() {
         List<GeographicalAreaDTO> gaListDTO=new ArrayList<>();
         for (GeographicalArea ga : gaList.getGAList()) {
