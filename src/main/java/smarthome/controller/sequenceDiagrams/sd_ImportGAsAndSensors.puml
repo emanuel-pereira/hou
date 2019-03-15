@@ -27,14 +27,12 @@ end
 ":ReadJSONFile"->"gL:GAList": add(GA)
 end
 ":DataImportCTRL"<-":DataImportUI":gaListDTO=showGAsDTOs
-loop for each GA in gL convert to DTO
+loop for each geographical area in gL convert to DTO
 ":DataImportCTRL"->"ga:GeographicalArea": toDTO()
 create "gaDTO:GeographicalAreaDTO"
 "ga:GeographicalArea"->"gaDTO:GeographicalAreaDTO": gaDTO=create()
 ":DataImportCTRL"->"gaDTO:GeographicalAreaDTO": add(gaDTO)
 end
 ":DataImportCTRL"->":DataImportCTRL": gaListDTO=getGAListDTO()
-
-
 SysAdmin<--":DataImportUI": Shows geographical areas \nand respective sensors
 @enduml
