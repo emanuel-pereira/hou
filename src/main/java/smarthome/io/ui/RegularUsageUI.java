@@ -50,15 +50,15 @@ public final class RegularUsageUI {
                     avgRainfallUi.getAverageDailyRainfallForInterval();
                     break;
                 case 6:
-                    GetDailySensorDataUI getDailySensorDataUI = new GetDailySensorDataUI(house);
+                    GetDailySensorDataUI getDailySensorDataUI = new GetDailySensorDataUI(house, sensorTypeList);
                     getDailySensorDataUI.displayLastMaximum();
                     break;
                 case 7:
-                    getDailySensorDataUI = new GetDailySensorDataUI(house);
+                    getDailySensorDataUI = new GetDailySensorDataUI(house, sensorTypeList);
                     getDailySensorDataUI.displayFirstMaximum();
                     break;
                 case 8:
-                    getDailySensorDataUI = new GetDailySensorDataUI(house);
+                    getDailySensorDataUI = new GetDailySensorDataUI(house, sensorTypeList);
                     getDailySensorDataUI.displayMaxAmplitude();
                     break;
                 default:

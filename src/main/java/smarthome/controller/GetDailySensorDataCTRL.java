@@ -9,10 +9,26 @@ import java.util.GregorianCalendar;
 
 public class GetDailySensorDataCTRL {
     private House house;
+    private SensorTypeList sensorTypeList;
 
-    public GetDailySensorDataCTRL(House house) {
+    public GetDailySensorDataCTRL(House house, SensorTypeList sensorTypeList) {
         this.house = house;
+        this.sensorTypeList = sensorTypeList;
+    }
 
+    public boolean checkIfSensorTypeExists(String sensorType) {
+        return this.sensorTypeList.checkIfSensorTypeExists(sensorType);
+    }
+
+    public boolean isHouseGAConfigured() {
+        return this.house.getHouseGA() != null;
+    }
+
+    public int filterByType(SensorType sensorType) {
+        GeographicalArea houseGA = this.house.getHouseGA();
+        SensorList gaSensorList = houseGA.getSensorListInGA();
+        SensorList listOfType = gaSensorList.getListOfSensorsByType(sensorType);
+        return listOfType.size();
     }
 
     public SensorList filterByTypeAndInterval(SensorType sensorType, Calendar startDate, Calendar endDate) {
