@@ -22,7 +22,7 @@ create "sL:SensorList"
 loop import sensors from JSON
 create "s:Sensor"
 ":ReadJSONFile"->"s:Sensor":s=createSensor()
-":ReadJSONFile"->"sL:SensorList": addSensor(s)
+":ReadJSONFile"->"sL:SensorList": addGASensor(s)
 end
 ":ReadJSONFile"->"gL:GAList": add(GA)
 end
