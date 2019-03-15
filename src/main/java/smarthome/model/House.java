@@ -169,7 +169,7 @@ public class House {
             SensorList closestSensorWithReadingsInPeriod = new SensorList();
             for (Sensor sensor : closestSensorsOfType.getSensorList()) {
                 ReadingList readingListInPeriod = sensor.getReadingList().filterByDate(startDate, endDate);
-                if (!readingListInPeriod.getReadingList().isEmpty())
+                if (!readingListInPeriod.getReadingsList().isEmpty())
                     closestSensorWithReadingsInPeriod.addSensor(sensor);
             }
             return closestSensorWithReadingsInPeriod;
@@ -269,7 +269,7 @@ public class House {
         SensorList sensorsWithReadingsInDate = new SensorList();
         for (Sensor sensor : closestSensorsByType.getSensorList()) {
             ReadingList readingListInDay = sensor.getReadingList().getReadingsInSpecificDay(inputDate);
-            if (!(readingListInDay.getReadingList().isEmpty())) {
+            if (!(readingListInDay.getReadingsList().isEmpty())) {
                 sensorsWithReadingsInDate.addSensor(sensor);
             }
         }

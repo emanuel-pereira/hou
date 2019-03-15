@@ -19,12 +19,12 @@ class ReadingListTest {
         Reading r1 = readingList.newReading(15, new GregorianCalendar(2019, 2, 2));
         readingList.addReading(r1);
         Reading expected1 = r1;
-        Reading result1 = readingList.getReadingList().get(0);
+        Reading result1 = readingList.getReadingsList().get(0);
         assertEquals(expected1, result1);
 
         readingList.addReading(r1);
         int expected2 = 1;
-        int result2 = readingList.getReadingList().size();
+        int result2 = readingList.getReadingsList().size();
         assertEquals(expected2, result2);
     }
 
@@ -36,14 +36,14 @@ class ReadingListTest {
         Reading r1 = readingList.newReading(15, new GregorianCalendar(2019, 2, 2));
         readingList.addReading(r1);
         Reading expected1 = r1;
-        Reading result1 = readingList.getReadingList().get(0);
+        Reading result1 = readingList.getReadingsList().get(0);
         assertEquals(expected1, result1);
 
         boolean result2 = readingList.addReading(r1);
         assertEquals(false, result2);
 
 
-        List<Reading> result3 = readingList.getReadingList();
+        List<Reading> result3 = readingList.getReadingsList();
         List<Reading> expected3 = Arrays.asList(r1);
         assertEquals(expected3, result3);
     }
@@ -55,7 +55,7 @@ class ReadingListTest {
         Reading r1 = readingList.newReading(15, new GregorianCalendar(2019, 2, 2));
         readingList.addReading(r1);
         Reading expected1 = r1;
-        Reading result1 = readingList.getReadingList().get(0);
+        Reading result1 = readingList.getReadingsList().get(0);
         assertEquals(expected1, result1);
 
         Reading r2 = null;
@@ -63,7 +63,7 @@ class ReadingListTest {
         assertFalse(result2);
 
 
-        List<Reading> result3 = readingList.getReadingList();
+        List<Reading> result3 = readingList.getReadingsList();
         List<Reading> expected3 = Arrays.asList(r1);
         assertEquals(expected3, result3);
     }
@@ -133,7 +133,7 @@ class ReadingListTest {
         readingList.addReading(r3);
         readingList.addReading(r4);
         readingList.addReading(r5);
-        int result = readingList.getReadingsInSpecificDay(date).getReadingList().size();
+        int result = readingList.getReadingsInSpecificDay(date).getReadingsList().size();
         int expected = 5;
         assertEquals(expected, result);
 
@@ -253,7 +253,7 @@ class ReadingListTest {
 
         List<Reading> expectedResult = Arrays.asList(r1, r2, r3);
 
-        List<Reading> result = rL1.filterByDate(startDate, endDate).getReadingList();
+        List<Reading> result = rL1.filterByDate(startDate, endDate).getReadingsList();
 
         assertEquals(expectedResult, result);
     }
@@ -645,4 +645,12 @@ class ReadingListTest {
         assertEquals(expected,result);
 
     }
+
+    @Test
+    void addReading() {
+        ReadingList readingList = new ReadingList();
+        Reading r1 = readingList.newReading(15, new GregorianCalendar(2019, 2, 2));
+        assertTrue(readingList.addReading(r1));
+    }
+
 }

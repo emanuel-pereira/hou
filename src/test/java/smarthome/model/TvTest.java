@@ -107,7 +107,7 @@ class TvTest {
         tvActivityLog.addReading(r2);
 
         List<Reading> expected = Arrays.asList(r1, r2);
-        List<Reading> result = tv.getActivityLog().getReadingList();
+        List<Reading> result = tv.getActivityLog().getReadingsList();
 
         assertEquals(expected, result);
     }

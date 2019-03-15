@@ -7,10 +7,10 @@ import java.util.List;
 
 public class ReadingList {
 
-    private List<Reading> readingList;
+    private List<Reading> readingsList;
 
     public ReadingList() {
-        readingList = new ArrayList<>();
+        this.readingsList = new ArrayList<>();
     }
 
     public Reading newReading(double readValue, Calendar timeOfReading) {
@@ -18,22 +18,24 @@ public class ReadingList {
     }
 
     public boolean addReading(Reading newReading) {
-        if (readingList.contains(newReading) || (newReading == null))
+        if (this.readingsList.contains(newReading))
             return false;
-        return readingList.add(newReading);
+        if (newReading == null)
+            return false;
+        return this.readingsList.add(newReading);
     }
 
     public Reading getLastReading() {
-        return readingList.get(readingList.size() - 1);
+        int size = this.readingsList.size();
+        return this.readingsList.get(size - 1);
     }
 
-    public List<Reading> getReadingList() {
-        return readingList;
+    public List<Reading> getReadingsList() {
+        return this.readingsList;
     }
-
 
     public int size() {
-        return readingList.size();
+        return this.readingsList.size();
     }
 
 
@@ -46,7 +48,7 @@ public class ReadingList {
     public double totalValueInGivenDay(Calendar inputDate) {
         double totalRainfallValue = 0;
 
-        for (Reading reading : readingList) {
+        for (Reading reading : this.readingsList) {
             if (reading.getDateAndTime().get(Calendar.DATE) == inputDate.get(Calendar.DATE)) {
                 totalRainfallValue = reading.returnValueOfReading() + totalRainfallValue;
             }
@@ -63,7 +65,7 @@ public class ReadingList {
         ReadingList dailyReadings = getReadingsInSpecificDay(day);
 
         if (!checkNumberOfReadingsIsZero(dailyReadings)) {
-            for (Reading reading : getReadingsInSpecificDay(day).getReadingList()) {
+            for (Reading reading : getReadingsInSpecificDay(day).getReadingsList()) {
                 if (reading.isSameDay(day)) {
                     sum = sum + reading.returnValueOfReading();
                 }
@@ -79,7 +81,7 @@ public class ReadingList {
      */
     public double getValueOfReadingsInTimeInterval(Calendar startDateTime, Calendar endDateTime) {
         double totalValue = 0;
-        for (Reading reading : readingList) {
+        for (Reading reading : this.readingsList) {
             Calendar readingDate = reading.getDateAndTime();
 
             if (readingDate.after(startDateTime) && readingDate.before(endDateTime)
@@ -107,7 +109,7 @@ public class ReadingList {
      */
     public double getValueOfReadingsInTimeIntervalDevices(Calendar startDate, Calendar endDate) {
         double totalValue = 0;
-        for (Reading reading : this.readingList) {
+        for (Reading reading : this.readingsList) {
             Calendar readingDate = reading.getDateAndTime();
 
             if (readingDate.after(startDate) && readingDate.before(endDate)
@@ -122,7 +124,7 @@ public class ReadingList {
     public ReadingList getReadingsInSpecificDay(Calendar date) {
         ReadingList readingListInDate = new ReadingList();
 
-        for (Reading reading : readingList) {
+        for (Reading reading : this.readingsList) {
             if (reading.isSameDay(date))
                 readingListInDate.addReading(reading);
         }
@@ -139,7 +141,7 @@ public class ReadingList {
 
     public ReadingList filterByDate(Calendar startDate, Calendar endDate) {
         ReadingList readingListInPeriod = new ReadingList();
-        for (Reading reading : this.readingList) {
+        for (Reading reading : this.readingsList) {
             Calendar readingDate = reading.getDateAndTime();
 
             if (readingDate.after(startDate) && readingDate.before(endDate)
@@ -155,7 +157,7 @@ public class ReadingList {
         Reading max = newReading(Double.MIN_VALUE, new GregorianCalendar());
         double value;
 
-        for (Reading reading : this.readingList) {
+        for (Reading reading : this.readingsList) {
             value = reading.returnValueOfReading();
             if (value > max.returnValueOfReading())
                 max = reading;
@@ -167,7 +169,7 @@ public class ReadingList {
         Reading min = newReading(Double.MAX_VALUE, new GregorianCalendar());
         double value;
 
-        for (Reading reading : this.readingList) {
+        for (Reading reading : this.readingsList) {
             value = reading.returnValueOfReading();
             if (value <= min.returnValueOfReading())
                 min = reading;
@@ -185,7 +187,7 @@ public class ReadingList {
 
         //get all dates in the reading list and fill in the dates list. Move this to another method?
 
-        for (Reading reading : this.readingList) {
+        for (Reading reading : this.readingsList) {
             if (!dates.contains(reading.extractYearMonthDay())) {
                 dates.add(reading.extractYearMonthDay());
             }
@@ -213,7 +215,7 @@ public class ReadingList {
 
         //get all dates in the reading list and fill in the dates list. Move this to another method?
 
-        for (Reading reading : this.readingList) {
+        for (Reading reading : this.readingsList) {
             if (!dates.contains(reading.extractYearMonthDay())) {
                 dates.add(reading.extractYearMonthDay());
             }
@@ -232,12 +234,11 @@ public class ReadingList {
 
 
     public ReadingList dailyAmplitude() {
-        List<Reading> dailyMaximumReadings = dailyMaximumReadings().getReadingList();
-        List<Reading> dailyMinimumReadings = dailyMinimumReadings().getReadingList();
+        List<Reading> dailyMaximumReadings = dailyMaximumReadings().getReadingsList();
+        List<Reading> dailyMinimumReadings = dailyMinimumReadings().getReadingsList();
         //extract the first day of the list
 
         ReadingList dailyAmp = new ReadingList(); //this is a list containing the amplitudes differences of a single day
-        ReadingList temp;
         double tempReadingValue;
         Reading dayMaxReading;
         Reading dayMinReading;
@@ -254,10 +255,10 @@ public class ReadingList {
     }
 
     public Calendar getStartDateOfReadings(){
-        Calendar startDate = this.readingList.get(0).getDateAndTime();
+        Calendar startDate = this.readingsList.get(0).getDateAndTime();
 
-        for (int i=0;i<this.readingList.size();i++) {
-            Reading r = this.readingList.get(i);
+        for (int i = 0; i < this.readingsList.size(); i++) {
+            Reading r = this.readingsList.get(i);
             if (r.getDateAndTime().before(startDate)){
                 startDate = r.getDateAndTime();
             }
@@ -266,10 +267,10 @@ public class ReadingList {
     }
 
     public Calendar getEndDateOfReadings(){
-        Calendar endDate = this.readingList.get(0).getDateAndTime();
+        Calendar endDate = this.readingsList.get(0).getDateAndTime();
 
-        for (int i=0;i<this.readingList.size();i++) {
-            Reading r = this.readingList.get(i);
+        for (int i = 0; i < this.readingsList.size(); i++) {
+            Reading r = this.readingsList.get(i);
             if (r.getDateAndTime().after(endDate)){
                 endDate = r.getDateAndTime();
             }

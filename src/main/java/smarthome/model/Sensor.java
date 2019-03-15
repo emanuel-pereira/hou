@@ -158,7 +158,7 @@ public class Sensor {
 
     public double getLastReadingValuePerSensor() {
         double lastValue;
-        lastValue = this.readingList.getReadingList().get(this.readingList.getReadingList().size() - 1).returnValueOfReading();
+        lastValue = this.readingList.getReadingsList().get(this.readingList.getReadingsList().size() - 1).returnValueOfReading();
         return lastValue;
     }
 
@@ -190,7 +190,7 @@ public class Sensor {
     
     public SensorDTO toDTO() {
         List<ReadingDTO> readingListDTO= new ArrayList<>();
-        for(Reading reading:this.readingList.getReadingList()){
+        for (Reading reading : this.readingList.getReadingsList()) {
             ReadingDTO readingDTO=reading.toDTO();
             readingListDTO.add(readingDTO);
         }

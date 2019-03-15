@@ -88,7 +88,7 @@ class OvenTest {
 
 
         List<Reading> expected = Arrays.asList(r1,r2,r3,r4);
-        List<Reading> result = log.getReadingList();
+        List<Reading> result = log.getReadingsList();
 
         assertEquals(expected,result);
     }
