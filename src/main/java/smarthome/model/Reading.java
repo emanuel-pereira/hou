@@ -42,13 +42,16 @@ public class Reading {
     }
 
 
-    public boolean compareYearMonthDay(Calendar date) {
-
+    public boolean isSameDay(Calendar date) {
         int rYear = getDateAndTime().get(Calendar.YEAR);
         int rMonth = getDateAndTime().get(Calendar.MONTH);
         int rDay = getDateAndTime().get(Calendar.DAY_OF_MONTH);
         Calendar date1 = new GregorianCalendar(rYear, rMonth, rDay);
         return date.equals(date1);
+    }
+
+    public GregorianCalendar extractYearMonthDay() {
+        return new GregorianCalendar(this.getDateAndTime().get(Calendar.YEAR), this.getDateAndTime().get(Calendar.MONTH), this.getDateAndTime().get(Calendar.DAY_OF_MONTH));
     }
 
 
@@ -69,6 +72,7 @@ public class Reading {
         output.append(day);
         return output.toString();
     }
+
     public ReadingDTO toDTO() {
         return new ReadingDTO(this.value, this.dateAndTime);
     }

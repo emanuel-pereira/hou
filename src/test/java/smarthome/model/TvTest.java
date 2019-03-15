@@ -21,7 +21,7 @@ class TvTest {
 
         tv.setDeviceName("PremiumTV");
 
-        String result = tv.getDeviceName();
+        String result = tv.getName();
 
 
         assertEquals("PremiumTV", result);
@@ -95,21 +95,21 @@ class TvTest {
     @DisplayName("Obtain the activity log of a Tv")
     void getTvActivityLog() {
 
-            TvSpecs tvSpecs = new TvSpecs("Tv");
-            Tv tv = new Tv("SmartTV", tvSpecs, 123);
+        TvSpecs tvSpecs = new TvSpecs("Tv");
+        Tv tv = new Tv("SmartTV", tvSpecs, 123);
 
-            Reading r1 = new Reading(234, new GregorianCalendar(2018, 0, 1, 12, 0));
-            Reading r2 = new Reading(670, new GregorianCalendar(2018, 0, 31, 13, 0));
+        Reading r1 = new Reading(234, new GregorianCalendar(2018, Calendar.JANUARY, 1, 12, 0));
+        Reading r2 = new Reading(670, new GregorianCalendar(2018, Calendar.JANUARY, 31, 13, 0));
 
-            ReadingList tvActivityLog = tv.getActivityLog();
+        ReadingList tvActivityLog = tv.getActivityLog();
 
-            tvActivityLog.addReading(r1);
-            tvActivityLog.addReading(r2);
+        tvActivityLog.addReading(r1);
+        tvActivityLog.addReading(r2);
 
-            List<Reading> expected = Arrays.asList(r1, r2);
-            List<Reading> result = tv.getActivityLog().getReadingList();
+        List<Reading> expected = Arrays.asList(r1, r2);
+        List<Reading> result = tv.getActivityLog().getReadingsList();
 
-            assertEquals(expected, result);
+        assertEquals(expected, result);
     }
 
     @Test
@@ -122,7 +122,7 @@ class TvTest {
         Calendar startDate = new GregorianCalendar(2018, Calendar.JANUARY, 1, 12, 0);
         Calendar endDate = new GregorianCalendar(2018, Calendar.FEBRUARY, 20, 13, 0);
 
-        Reading r1 = new Reading(234, new GregorianCalendar(2018, Calendar.JANUARY, 1, 12, 0));
+        Reading r1 = new Reading(234, new GregorianCalendar(2018, Calendar.JANUARY, 2, 12, 0));
         Reading r2 = new Reading(670, new GregorianCalendar(2018, Calendar.FEBRUARY, 28, 13, 0));
 
         ReadingList tvActivityLog = tv.getActivityLog();

@@ -1,0 +1,27 @@
+@startuml
+autonumber
+hidefootbox
+
+actor "RegUser"
+"RegUser" -> ":UI" : lastColdestDay()
+":UI" -> ":CTRL" : (ReadingDTO) maxDTO = \ndisplayMaximum (\nSensorType sensorType, \nCalendar startDate, \nCalendar endDate)
+":CTRL" -> ":Sensor" : (ReadingList) dailyMax = \ndailyMaximumReadings ()
+
+":Sensor"-> "rL:ReadingList": (ReadingList) dailyMax = \ndailyMaximumReadings ()
+loop for each Reading in rL ReadingList
+ "rL:ReadingList" -> "r:Reading": (ReadingList) dailyMax = \ndailyMaximumReadings ()
+end
+
+
+":CTRL" -> "dailyMax:ReadingList": (Reading) dayMax = \nreading.dailyMax.minValueInInterval ()
+loop for each Reading do \nif same or less value
+"dailyMax:ReadingList" -> "dayMax:Reading": (Reading) dayMax = \nminValueInInterval()
+end
+
+":CTRL" -> ":readingDTO" : (ReadingDTO) maxDTO = dayMax.toDTO ()
+
+
+":UI" -> "RegUser" : displayResult
+
+
+@enduml

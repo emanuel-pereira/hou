@@ -34,13 +34,15 @@ public class Fridge implements Device, Metered {
     }
 
     /* ----- Getters ----- */
+
     /**
      * @return the device name
      */
     @Override
-    public String getDeviceName() {
+    public String getName() {
         return this.name;
     }
+
     /**
      * @return the device specifications
      */
@@ -84,13 +86,6 @@ public class Fridge implements Device, Metered {
         }
         return Utils.round(energyConsumption, 2);
     }
-
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
-
 
 
     /* ----- Setters ----- */

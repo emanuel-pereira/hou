@@ -65,7 +65,7 @@ public class Stove implements Device, Metered, Programmable {
     }
 
     @Override
-    public String getDeviceName() {
+    public String getName() {
         return this.name;
     }
 
@@ -113,10 +113,6 @@ public class Stove implements Device, Metered, Programmable {
         return Utils.round(energyConsumption, 2);
     }
 
-    @Override
-    public String getName() {
-        return this.name;
-    }
 
     public void setAttributeValue(String attribute, Double newValue) {
         this.getDeviceSpecs().setAttributeValue(attribute, newValue);

@@ -38,7 +38,7 @@ public class Tv implements Device, Metered{
      * @return the device name
      */
     @Override
-    public String getDeviceName() {
+    public String getName() {
         return this.name;
     }
 
@@ -88,15 +88,11 @@ public class Tv implements Device, Metered{
 
         double energyConsumption = 0;
         if (c.getDevicesMeteringPeriod() != -1) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
+            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startDate, endDate);
         }
         return smarthome.model.validations.Utils.round(energyConsumption, 2);
     }
 
-    @Override
-    public String getName() {
-        return  this.name;
-    }
 
 
     /* ----- Setters ----- */

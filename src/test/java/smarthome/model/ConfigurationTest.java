@@ -2,6 +2,7 @@ package smarthome.model;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -47,7 +48,7 @@ class ConfigurationTest {
 
     @Test
     void getGridMeteringPeriodTestFailNotAnInt() {
-        Configuration c = new Configuration("smarthome/configFalseNotAnInt.properties");
+        Configuration c = new Configuration("resources/configFilesForTests/configFalseNotAnInt.properties");
         c.getGridMeteringPeriod();
 
         int expectedResult = -1;
@@ -59,7 +60,7 @@ class ConfigurationTest {
     @Test
     void getDevicesMeteringPeriodFailNNotMultipleOf1440() {
 
-        Configuration c = new Configuration("smarthome/configFalseNotMultipleOf1440.properties");
+        Configuration c = new Configuration("resources/configFilesForTests/configFalseNotMultipleOf1440.properties");
         c.getDevicesMeteringPeriod();
 
         int expectedResult = -1;
@@ -70,7 +71,7 @@ class ConfigurationTest {
 
     @Test
     void getGridMeteringPeriodTestFailNotMultipleOf1440() {
-        Configuration c = new Configuration("smarthome/configFalseNotMultipleOf1440.properties");
+        Configuration c = new Configuration("resources/configFilesForTests/configFalseNotMultipleOf1440.properties");
         c.getGridMeteringPeriod();
 
         int expectedResult = -1;
@@ -83,20 +84,19 @@ class ConfigurationTest {
     @Test
     void getDeviceTypesFAIL() {
 
-        Configuration c = new Configuration("smarthome/configFalseNotAnInt.properties");
+        Configuration c = new Configuration("resources/configFilesForTests/configFalseNotAnInt.properties");
 
-        //TODO arrays returns empty as the currentDevice is the one that equals(ERROR) given so the array returns empty
-        //List<String> expectedResult = Arrays.asList("ERROR");
-        List<String> expectedResult = Arrays.asList();
+        List<String> expectedResult = new ArrayList<>();
+
         List<String> result = c.getDeviceTypes();
 
         assertEquals(expectedResult, result);
     }
 
     @Test
-    void fileNotFound(){
+    void fileNotFound() {
 
-        Configuration c = new Configuration("smarthome/nofile.properties");
+        Configuration c = new Configuration("resources/nofile.properties");
         c.getDevicesMeteringPeriod();
 
         int expectedResult = -1;
@@ -106,6 +106,51 @@ class ConfigurationTest {
 
 
     }
+
+    @Test
+    void checkBoundaries_A() {
+
+        Configuration c = new Configuration("resources/configFilesForTests/configLimits.properties");
+
+        int expected = -1;
+        int result = c.getDevicesMeteringPeriod();
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void checkBoundaries_B() {
+
+        Configuration c = new Configuration("resources/configFilesForTests/configLimits.properties");
+
+        int expected = -1;
+        int result = c.getGridMeteringPeriod();
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void checkBoundaries_C() {
+
+        Configuration c = new Configuration("resources/configFilesForTests/configFalseTooLowTotal.properties");
+
+        int expected = 1440;
+        int result = c.getDevicesMeteringPeriod();
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void checkBoundaries_D() {
+
+        Configuration c = new Configuration("resources/configFilesForTests/configFalseTooLowTotal.properties");
+
+        int expected = 1;
+        int result = c.getGridMeteringPeriod();
+
+        assertEquals(expected, result);
+    }
+
 
 }
 

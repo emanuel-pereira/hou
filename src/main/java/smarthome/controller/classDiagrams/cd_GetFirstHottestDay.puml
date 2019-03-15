@@ -1,0 +1,50 @@
+@startuml
+skinparam linetype ortho
+
+class House {
+- Address : address
+- String : id
+- GeographicalArea : ga
+- RoomList : roomList
+- HouseGridList : houseGridList
++ Configuration : configuration
++ filterByTypeByIntervalAndDistance()
+ }
+
+ class Sensor {
+ - id: String
+ - designation: String
+ - location: Location
+ - sensorType: SensorType
+ - startDate: Calendar
+ - unit: String
+ - readingList: ReadingList
+ + getReadingList()
+ }
+
+class ReadingList {
+ - List<Reading> : readingList
+ + dailyMaximumReadings()
+ }
+
+class Reading{
+- double value
+- Calendar dateAndTime
++ maxValueInInterval()
++ toDTO()
+}
+
+class ReadingDTO{
+- double value;
+- Calendar dateAndTime;
++ ReadingDTO()
++ getReadingValue()
++ getReadingDateAndTime()
+}
+
+House "1" -* "*" Sensor
+Sensor "1" -* "1" ReadingList
+ReadingList "1" --* "*" Reading
+ReadingDTO <. Reading
+
+@enduml

@@ -65,7 +65,7 @@ public class DeviceList {
         for (Device device : list) {
             sb.append(device.getDeviceSpecs().getDeviceType());
             sb.append(" (");
-            sb.append(device.getDeviceName());
+            sb.append(device.getName());
             sb.append(") ");
             String fragment = device.isActive() ? active : notActive;
             sb.append(fragment);
