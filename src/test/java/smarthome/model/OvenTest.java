@@ -160,11 +160,11 @@ class OvenTest {
         Oven device = new Oven("baker", specs, 420);
 
         ReadingList log = device.getActivityLog();
-        Reading r0 = new Reading(100, new GregorianCalendar(2019, Calendar.FEBRUARY, 1, 1, 8, 0));
-        Reading r1 = new Reading(100, new GregorianCalendar(2019, Calendar.FEBRUARY, 1, 1, 10, 0));
-        Reading r2 = new Reading(100, new GregorianCalendar(2019, Calendar.FEBRUARY, 1, 1, 12, 0));
-        Reading r3 = new Reading(100, new GregorianCalendar(2019, Calendar.FEBRUARY, 1, 1, 19, 58));
-        Reading r4 = new Reading(100, new GregorianCalendar(2019, Calendar.FEBRUARY, 1, 1, 19, 59));
+        Reading r0 = new Reading(100, new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 8, 0));
+        Reading r1 = new Reading(100, new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 10, 0));
+        Reading r2 = new Reading(100, new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 12, 0));
+        Reading r3 = new Reading(100, new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 19, 58));
+        Reading r4 = new Reading(100, new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 19, 59));
 
         log.addReading(r0);
         log.addReading(r1);
