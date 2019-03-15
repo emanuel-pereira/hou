@@ -18,12 +18,12 @@ class FanTest {
         FanSpecs fanSpecs = new FanSpecs ("Fan");
         Fan fan = new Fan ("Fan 1", fanSpecs, 10);
 
-        assertEquals ("Fan 1", fan.getDeviceName ());
+        assertEquals ("Fan 1", fan.getName ());
 
         fan.setDeviceName ("Whirlpool");
 
         String expected = "Whirlpool";
-        String result = fan.getDeviceName ();
+        String result = fan.getName ();
 
         assertEquals (expected, result);
     }
@@ -34,12 +34,12 @@ class FanTest {
         FanSpecs fanSpecs = new FanSpecs ("Fan");
         Fan fan = new Fan ("Whirlpool", fanSpecs, 10);
 
-        assertEquals ("Whirlpool", fan.getDeviceName ());
+        assertEquals ("Whirlpool", fan.getName ());
 
         fan.setDeviceName (" ");
 
         String expected = "Whirlpool";
-        String result = fan.getDeviceName ();
+        String result = fan.getName ();
 
         assertEquals (expected, result);
     }
@@ -50,12 +50,12 @@ class FanTest {
         FanSpecs fanSpecs = new FanSpecs ("Fan");
         Fan fan = new Fan ("Fan 1", fanSpecs, 20);
 
-        assertEquals ("Fan 1", fan.getDeviceName ());
+        assertEquals ("Fan 1", fan.getName ());
 
         fan.setDeviceName ("Whirlpool");
 
         String expected = "Whirlpol";
-        String result = fan.getDeviceName ();
+        String result = fan.getName ();
 
         assertNotEquals (expected, result);
     }

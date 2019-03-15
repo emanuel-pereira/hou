@@ -4,7 +4,7 @@ public interface Device {
 
 
     /* ---- Getters ---- */
-    String getDeviceName();
+    String getName();
 
     DeviceSpecs getDeviceSpecs();
 

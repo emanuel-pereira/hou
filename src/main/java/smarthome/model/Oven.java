@@ -29,7 +29,7 @@ public class Oven implements Device, Metered, Programmable{
     }
 
     @Override
-    public String getDeviceName() {
+    public String getName() {
         return this.name;
     }
 
@@ -93,10 +93,6 @@ public class Oven implements Device, Metered, Programmable{
         return energyConsumption;
     }
 
-    @Override
-    public String getName() {
-        return this.name;
-    }
 
     @Override
     public Program createProgram(String name, double value) {

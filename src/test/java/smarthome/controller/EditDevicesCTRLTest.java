@@ -60,7 +60,7 @@ class EditDevicesCTRLTest {
         ctrl.addDevice(1, "LG Fridge", "Fridge", 2);
 
         String expected = "LG Fridge";
-        String result = kitchenDL.get(0).getDeviceName();
+        String result = kitchenDL.get(0).getName();
         assertEquals(expected, result);
     }
 

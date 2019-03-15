@@ -25,7 +25,7 @@ public class WallTowelHeater implements Device, Metered {
     }
 
     @Override
-    public String getDeviceName() {
+    public String getName() {
         return this.name;
     }
 
@@ -82,14 +82,10 @@ public class WallTowelHeater implements Device, Metered {
         Configuration c = new Configuration();
 
         double energyConsumption = 0;
-        if (c.getDevicesMeteringPeriod() != -1 && this instanceof Metered) {
+        if (c.getDevicesMeteringPeriod() != -1) {
             energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startTimeStamp, endTimeStamp);
         }
         return energyConsumption;
     }
 
-    @Override
-    public String getName() {
-        return this.name;
-    }
 }

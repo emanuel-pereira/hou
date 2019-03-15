@@ -18,22 +18,11 @@ class OvenTest {
         Oven device = new Oven("baker", specs, 420);
 
         String expected = "baker";
-        String result = device.getDeviceName();
-
-        assertEquals(expected,result);
-    }
-
-    @Test
-    void getDeviceNameMetered() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
-
-        String expected = "baker";
         String result = device.getName();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
+
 
     @Test
     void getDeviceSpecs() {
@@ -41,10 +30,9 @@ class OvenTest {
         OvenSpecs specs = new OvenSpecs(type.getDeviceType());
         Oven device = new Oven("baker", specs, 420);
 
-        DeviceSpecs expected = specs;
         DeviceSpecs result = device.getDeviceSpecs();
 
-        assertEquals(expected,result);
+        assertEquals(specs, result);
     }
 
     @Test
@@ -56,7 +44,7 @@ class OvenTest {
         String expected = "Oven";
         String result = device.getDeviceType();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
@@ -76,10 +64,10 @@ class OvenTest {
 
         ReadingList log = device.getActivityLog();
 
-        Reading r1 = new Reading(100,new GregorianCalendar(2019,2,1,1,1));
-        Reading r2 = new Reading(200,new GregorianCalendar(2019,2,1,2,0));
-        Reading r3 = new Reading(150,new GregorianCalendar(2019,2,15,5,8));
-        Reading r4 = new Reading(250,new GregorianCalendar(2019,2,28,5,8));
+        Reading r1 = new Reading(100, new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 1));
+        Reading r2 = new Reading(200, new GregorianCalendar(2019, Calendar.MARCH, 1, 2, 0));
+        Reading r3 = new Reading(150, new GregorianCalendar(2019, Calendar.MARCH, 15, 5, 8));
+        Reading r4 = new Reading(250, new GregorianCalendar(2019, Calendar.MARCH, 28, 5, 8));
 
         log.addReading(r1);
         log.addReading(r2);
@@ -87,10 +75,10 @@ class OvenTest {
         log.addReading(r4);
 
 
-        List<Reading> expected = Arrays.asList(r1,r2,r3,r4);
-        List<Reading> result = log.getReadingsList();
+        List<Reading> expected = Arrays.asList(r1, r2, r3, r4);
+        List<Reading> result = log.getReadingList();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
@@ -102,7 +90,7 @@ class OvenTest {
         double expected = 420;
         double result = device.getNominalPower();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
@@ -114,7 +102,7 @@ class OvenTest {
         device.setDeviceName("baker");
 
         String expected = "baker";
-        String result = device.getDeviceName();
+        String result = device.getName();
 
         assertEquals(expected, result);
     }
@@ -162,7 +150,7 @@ class OvenTest {
         Calendar endDate = new GregorianCalendar();
         double energyConsumption = device.getEnergyConsumption(startDate, endDate);
 
-        assertEquals(0.0 ,energyConsumption, 0.001);
+        assertEquals(0.0, energyConsumption, 0.001);
     }
 
     @Test
@@ -172,11 +160,11 @@ class OvenTest {
         Oven device = new Oven("baker", specs, 420);
 
         ReadingList log = device.getActivityLog();
-        Reading r0 = new Reading(100,new GregorianCalendar(2019,2,1,1,8,00));
-        Reading r1 = new Reading(100,new GregorianCalendar(2019,2,1,1,10,00));
-        Reading r2 = new Reading(100,new GregorianCalendar(2019,2,1,1,12,00));
-        Reading r3 = new Reading(100,new GregorianCalendar(2019,2,1,1,19,58));
-        Reading r4 = new Reading(100,new GregorianCalendar(2019,2,1,1,19,59));
+        Reading r0 = new Reading(100, new GregorianCalendar(2019, 2, 1, 1, 8, 00));
+        Reading r1 = new Reading(100, new GregorianCalendar(2019, 2, 1, 1, 10, 00));
+        Reading r2 = new Reading(100, new GregorianCalendar(2019, 2, 1, 1, 12, 00));
+        Reading r3 = new Reading(100, new GregorianCalendar(2019, 2, 1, 1, 19, 58));
+        Reading r4 = new Reading(100, new GregorianCalendar(2019, 2, 1, 1, 19, 59));
 
         log.addReading(r0);
         log.addReading(r1);
@@ -184,11 +172,11 @@ class OvenTest {
         log.addReading(r3);
         log.addReading(r4);
 
-        Calendar startDate = new GregorianCalendar(2019,2,1,1,10);
-        Calendar endDate = new GregorianCalendar(2019,2,1,1,20);
+        Calendar startDate = new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 10);
+        Calendar endDate = new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 20);
         double energyConsumption = device.getEnergyConsumption(startDate, endDate);
 
-        assertEquals(300.0 ,energyConsumption, 0.001);
+        assertEquals(300.0, energyConsumption, 0.001);
     }
 
     @Test
@@ -202,7 +190,7 @@ class OvenTest {
         String expected = "Grill";
         String result = grill.getProgramName();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
@@ -242,17 +230,17 @@ class OvenTest {
         Oven device = new Oven("baker", specs, 420);
 
         Program p1 = device.createProgram("Grill", 300);
-        Program p2 = device.createProgram("Fan",250);
+        Program p2 = device.createProgram("Fan", 250);
         Program p3 = device.createProgram("Light On", 20);
 
         device.addProgramToList(p1);
         device.addProgramToList(p2);
         device.addProgramToList(p3);
 
-        List<Program> expected = Arrays.asList(p1,p2,p3);
+        List<Program> expected = Arrays.asList(p1, p2, p3);
         List<Program> result = device.getProgramList();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
 
     }
 }
