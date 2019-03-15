@@ -76,7 +76,7 @@ class OvenTest {
 
 
         List<Reading> expected = Arrays.asList(r1, r2, r3, r4);
-        List<Reading> result = log.getReadingList();
+        List<Reading> result = log.getReadingsList();
 
         assertEquals(expected, result);
     }
@@ -160,11 +160,11 @@ class OvenTest {
         Oven device = new Oven("baker", specs, 420);
 
         ReadingList log = device.getActivityLog();
-        Reading r0 = new Reading(100, new GregorianCalendar(2019, 2, 1, 1, 8, 00));
-        Reading r1 = new Reading(100, new GregorianCalendar(2019, 2, 1, 1, 10, 00));
-        Reading r2 = new Reading(100, new GregorianCalendar(2019, 2, 1, 1, 12, 00));
-        Reading r3 = new Reading(100, new GregorianCalendar(2019, 2, 1, 1, 19, 58));
-        Reading r4 = new Reading(100, new GregorianCalendar(2019, 2, 1, 1, 19, 59));
+        Reading r0 = new Reading(100, new GregorianCalendar(2019, Calendar.FEBRUARY, 1, 1, 8, 0));
+        Reading r1 = new Reading(100, new GregorianCalendar(2019, Calendar.FEBRUARY, 1, 1, 10, 0));
+        Reading r2 = new Reading(100, new GregorianCalendar(2019, Calendar.FEBRUARY, 1, 1, 12, 0));
+        Reading r3 = new Reading(100, new GregorianCalendar(2019, Calendar.FEBRUARY, 1, 1, 19, 58));
+        Reading r4 = new Reading(100, new GregorianCalendar(2019, Calendar.FEBRUARY, 1, 1, 19, 59));
 
         log.addReading(r0);
         log.addReading(r1);
