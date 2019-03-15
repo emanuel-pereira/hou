@@ -1,10 +1,11 @@
 @startuml
+title Calculate amplitude value Reading title
 autonumber
 hidefootbox
 
 ":Sensor"-> "rL:ReadingList": dailyMax = \ndailyMaximumReadings ()
 ":Sensor"-> "rL:ReadingList": dailyMin = \ndailyMinimumReadings ()
-loop for each Reading
+loop for each Reading do only if higher value
 "rL:ReadingList" -> "rLDailyAmp:ReadingList": "tempReadingValue = \ndayMaxReading.returnValue() - dayMinReading.returnValue()"
 "rL:ReadingList" -> "dayAmp:Reading": "rDayAmp = \n new Reading(tempReadingValue, dayMaxReading.getDateAndTime())"
  "rL:ReadingList" -> "rLDailyAmp:ReadingList": rLDailyAmp = \ndailyAmp.addReading(rDayAmp)

@@ -14,9 +14,9 @@ end
 
 
 ":CTRL" -> "dailyAmp:ReadingList": (Reading) dayAmp = \nmaxValueInInterval ()
-loop for each Reading do \nonly if higher value
-"dailyAmp:ReadingList" -> "dayAmp:Reading": (Reading) dayAmp = \nmaxValueInInterval()
-end
+ref over "dailyAmp:ReadingList", "dayAmp:Reading"
+Calculate amplitude value Reading
+end ref
 
 ":CTRL" -> ":readingDTO" : (ReadingDTO) ampDTO = dayAmp.toDTO ()
 
