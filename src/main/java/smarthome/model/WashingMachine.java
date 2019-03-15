@@ -39,7 +39,7 @@ public class WashingMachine implements Device, Metered, Programmable {
      * @return Device name
      */
     @Override
-    public String getDeviceName() {
+    public String getName() {
         return this.name;
     }
 
@@ -136,10 +136,6 @@ public class WashingMachine implements Device, Metered, Programmable {
         return Utils.round(energyConsumption, 2);
     }
 
-    @Override
-    public String getName() {
-        return this.name;
-    }
 
     /**
      * Create a Washing Machine program

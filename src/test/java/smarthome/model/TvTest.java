@@ -21,7 +21,7 @@ class TvTest {
 
         tv.setDeviceName("PremiumTV");
 
-        String result = tv.getDeviceName();
+        String result = tv.getName();
 
 
         assertEquals("PremiumTV", result);
@@ -98,8 +98,8 @@ class TvTest {
         TvSpecs tvSpecs = new TvSpecs("Tv");
         Tv tv = new Tv("SmartTV", tvSpecs, 123);
 
-        Reading r1 = new Reading(234, new GregorianCalendar(2018, 0, 1, 12, 0));
-        Reading r2 = new Reading(670, new GregorianCalendar(2018, 0, 31, 13, 0));
+        Reading r1 = new Reading(234, new GregorianCalendar(2018, Calendar.JANUARY, 1, 12, 0));
+        Reading r2 = new Reading(670, new GregorianCalendar(2018, Calendar.JANUARY, 31, 13, 0));
 
         ReadingList tvActivityLog = tv.getActivityLog();
 
@@ -133,19 +133,6 @@ class TvTest {
         double energyConsumption = tv.getEnergyConsumption(startDate, endDate);
 
         assertEquals(234.0, energyConsumption, 0.001);
-    }
-
-    @Test
-    @DisplayName("Get the name for the Tv device that implements metered")
-    void getNameMetered() {
-        TvType type = new TvType();
-        TvSpecs specs = new TvSpecs(type.getDeviceType());
-        Tv tv = new Tv("SmartTV", specs, 230);
-
-        String expected = "SmartTV";
-        String result = tv.getName();
-
-        assertEquals(expected,result);
     }
 
 

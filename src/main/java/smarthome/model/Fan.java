@@ -39,7 +39,7 @@ public class Fan implements Device, Metered, Programmable {
      * @return Fan name
      */
     @Override
-    public String getDeviceName() {
+    public String getName() {
         return this.name;
     }
 
@@ -134,11 +134,6 @@ public class Fan implements Device, Metered, Programmable {
             energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startHour, endHour);
         }
         return Utils.round(energyConsumption, 2);
-    }
-
-    @Override
-    public String getName() {
-        return this.name;
     }
 
     /**
