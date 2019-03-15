@@ -25,5 +25,6 @@ public class WashingMachineType implements DeviceType {
 
         DeviceSpecs devSpecs = new WashingMachineSpecs(devType);
 
-        return new WashingMachine(deviceName, devSpecs, nominalPower);    }
+        return new WashingMachine(deviceName, devSpecs, nominalPower);
+    }
 }

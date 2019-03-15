@@ -46,8 +46,10 @@ public class Program {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Program)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof Program))
+            return false;
         Program program = (Program) o;
         return getProgramName ().equals (program.getProgramName ());
     }

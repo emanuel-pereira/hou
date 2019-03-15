@@ -7,10 +7,10 @@ import java.util.List;
 
 public class ReadingList {
 
-    private List<Reading> readingsList;
+    private List<Reading> listOfReadings;
 
     public ReadingList() {
-        this.readingsList = new ArrayList<>();
+        this.listOfReadings = new ArrayList<>();
     }
 
     public Reading newReading(double readValue, Calendar timeOfReading) {
@@ -18,24 +18,24 @@ public class ReadingList {
     }
 
     public boolean addReading(Reading newReading) {
-        if (this.readingsList.contains(newReading))
+        if (this.listOfReadings.contains(newReading))
             return false;
         if (newReading == null)
             return false;
-        return this.readingsList.add(newReading);
+        return this.listOfReadings.add(newReading);
     }
 
     public Reading getLastReading() {
-        int size = this.readingsList.size();
-        return this.readingsList.get(size - 1);
+        int size = this.listOfReadings.size();
+        return this.listOfReadings.get(size - 1);
     }
 
     public List<Reading> getReadingsList() {
-        return this.readingsList;
+        return this.listOfReadings;
     }
 
     public int size() {
-        return this.readingsList.size();
+        return this.listOfReadings.size();
     }
 
 
@@ -48,7 +48,7 @@ public class ReadingList {
     public double totalValueInGivenDay(Calendar inputDate) {
         double totalRainfallValue = 0;
 
-        for (Reading reading : this.readingsList) {
+        for (Reading reading : this.listOfReadings) {
             if (reading.getDateAndTime().get(Calendar.DATE) == inputDate.get(Calendar.DATE)) {
                 totalRainfallValue = reading.returnValueOfReading() + totalRainfallValue;
             }
@@ -81,7 +81,7 @@ public class ReadingList {
      */
     public double getValueOfReadingsInTimeInterval(Calendar startDateTime, Calendar endDateTime) {
         double totalValue = 0;
-        for (Reading reading : this.readingsList) {
+        for (Reading reading : this.listOfReadings) {
             Calendar readingDate = reading.getDateAndTime();
 
             if (readingDate.after(startDateTime) && readingDate.before(endDateTime)
@@ -91,10 +91,6 @@ public class ReadingList {
         }
         return totalValue;
     }
-
-    /**Used for Device Readings - periodic readings - includes only end date
-     * */
-
 
     /**
      * Method that sums up the value of readings after the startDateTime parameter and until the endDateTime parameter.
@@ -109,7 +105,7 @@ public class ReadingList {
      */
     public double getValueOfReadingsInTimeIntervalDevices(Calendar startDate, Calendar endDate) {
         double totalValue = 0;
-        for (Reading reading : this.readingsList) {
+        for (Reading reading : this.listOfReadings) {
             Calendar readingDate = reading.getDateAndTime();
 
             if (readingDate.after(startDate) && readingDate.before(endDate)
@@ -124,7 +120,7 @@ public class ReadingList {
     public ReadingList getReadingsInSpecificDay(Calendar date) {
         ReadingList readingListInDate = new ReadingList();
 
-        for (Reading reading : this.readingsList) {
+        for (Reading reading : this.listOfReadings) {
             if (reading.isSameDay(date))
                 readingListInDate.addReading(reading);
         }
@@ -141,7 +137,7 @@ public class ReadingList {
 
     public ReadingList filterByDate(Calendar startDate, Calendar endDate) {
         ReadingList readingListInPeriod = new ReadingList();
-        for (Reading reading : this.readingsList) {
+        for (Reading reading : this.listOfReadings) {
             Calendar readingDate = reading.getDateAndTime();
 
             if (readingDate.after(startDate) && readingDate.before(endDate)
@@ -157,7 +153,7 @@ public class ReadingList {
         Reading max = newReading(Double.MIN_VALUE, new GregorianCalendar());
         double value;
 
-        for (Reading reading : this.readingsList) {
+        for (Reading reading : this.listOfReadings) {
             value = reading.returnValueOfReading();
             if (value > max.returnValueOfReading())
                 max = reading;
@@ -169,7 +165,7 @@ public class ReadingList {
         Reading min = newReading(Double.MAX_VALUE, new GregorianCalendar());
         double value;
 
-        for (Reading reading : this.readingsList) {
+        for (Reading reading : this.listOfReadings) {
             value = reading.returnValueOfReading();
             if (value <= min.returnValueOfReading())
                 min = reading;
@@ -187,7 +183,7 @@ public class ReadingList {
 
         //get all dates in the reading list and fill in the dates list. Move this to another method?
 
-        for (Reading reading : this.readingsList) {
+        for (Reading reading : this.listOfReadings) {
             if (!dates.contains(reading.extractYearMonthDay())) {
                 dates.add(reading.extractYearMonthDay());
             }
@@ -215,7 +211,7 @@ public class ReadingList {
 
         //get all dates in the reading list and fill in the dates list. Move this to another method?
 
-        for (Reading reading : this.readingsList) {
+        for (Reading reading : this.listOfReadings) {
             if (!dates.contains(reading.extractYearMonthDay())) {
                 dates.add(reading.extractYearMonthDay());
             }
@@ -255,10 +251,10 @@ public class ReadingList {
     }
 
     public Calendar getStartDateOfReadings(){
-        Calendar startDate = this.readingsList.get(0).getDateAndTime();
+        Calendar startDate = this.listOfReadings.get(0).getDateAndTime();
 
-        for (int i = 0; i < this.readingsList.size(); i++) {
-            Reading r = this.readingsList.get(i);
+        for (int i = 0; i < this.listOfReadings.size(); i++) {
+            Reading r = this.listOfReadings.get(i);
             if (r.getDateAndTime().before(startDate)){
                 startDate = r.getDateAndTime();
             }
@@ -267,10 +263,10 @@ public class ReadingList {
     }
 
     public Calendar getEndDateOfReadings(){
-        Calendar endDate = this.readingsList.get(0).getDateAndTime();
+        Calendar endDate = this.listOfReadings.get(0).getDateAndTime();
 
-        for (int i = 0; i < this.readingsList.size(); i++) {
-            Reading r = this.readingsList.get(i);
+        for (int i = 0; i < this.listOfReadings.size(); i++) {
+            Reading r = this.listOfReadings.get(i);
             if (r.getDateAndTime().after(endDate)){
                 endDate = r.getDateAndTime();
             }
