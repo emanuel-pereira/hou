@@ -4,6 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,10 +13,23 @@ import static org.junit.jupiter.api.Assertions.*;
 class ReadJSONFileTest {
 
     @Test
-    @DisplayName("Ensure the size of the GAList is 2 after reading the JSON file")
-    void readGAs() throws ParseException, IOException, org.json.simple.parser.ParseException {
+    @DisplayName("Ensure the size of the GAList is 2 after reading the JSON file from relative path")
+    void readGAsFromRelativePath() throws ParseException, IOException, org.json.simple.parser.ParseException {
         GAList gaList = new GAList();
-        ReadJSONFile js = new ReadJSONFile("resources/JsonFile.json",gaList);
+        Path path = Paths.get("resources/JsonFile.json");
+        ReadJSONFile js = new ReadJSONFile(path, gaList);
+        js.importGAs();
+        int expected = 2;
+        int result = gaList.size();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Ensure the size of the GAList is 2 after reading the JSON file from absolute path")
+    void readGAsFromAbsolutePath() throws ParseException, IOException, org.json.simple.parser.ParseException {
+        GAList gaList = new GAList();
+        Path path = Paths.get("C:/Users/José Ferreira/IdeaProjects/project_g6/resources/JsonFile.json");
+        ReadJSONFile js = new ReadJSONFile(path, gaList);
         js.importGAs();
         int expected = 2;
         int result = gaList.size();
@@ -26,7 +41,8 @@ class ReadJSONFileTest {
     @DisplayName("Ensure the size of the GAList isn't zero after reading the JSON file")
     void readGAsDoesNotHaveSizeZero() throws ParseException, IOException, org.json.simple.parser.ParseException {
         GAList gaList = new GAList();
-        ReadJSONFile js = new ReadJSONFile("resources/JsonFile.json",gaList);
+        Path path = Paths.get("resources/JsonFile.json");
+        ReadJSONFile js = new ReadJSONFile(path, gaList);
         js.importGAs();
         int expected = 0;
         int result = gaList.size();
@@ -37,7 +53,8 @@ class ReadJSONFileTest {
     @DisplayName("Ensure that Porto is of city type")
     void ensurePortoIsOfCityType() throws ParseException, IOException, org.json.simple.parser.ParseException {
         GAList gaList = new GAList();
-        ReadJSONFile js = new ReadJSONFile("resources/JsonFile.json",gaList);
+        Path path = Paths.get("resources/JsonFile.json");
+        ReadJSONFile js = new ReadJSONFile(path, gaList);
         js.importGAs();
         GeographicalArea porto = gaList.getLastGA();
         String expected = "city";
@@ -49,7 +66,8 @@ class ReadJSONFileTest {
     @DisplayName("Ensure that ISEP contains two sensors")
     void ensureISEPHasTwoSensors() throws ParseException, IOException, org.json.simple.parser.ParseException {
         GAList gaList = new GAList();
-        ReadJSONFile js = new ReadJSONFile("resources/JsonFile.json",gaList);
+        Path path = Paths.get("resources/JsonFile.json");
+        ReadJSONFile js = new ReadJSONFile(path, gaList);
         js.importGAs();
         GeographicalArea porto = gaList.get(0);
         SensorList sensorList = porto.getSensorListInGA();
@@ -59,4 +77,19 @@ class ReadJSONFileTest {
         assertEquals(expected, result);
     }
 
+
+    @Test
+    @DisplayName("Ensure that ISEP contains two sensors")
+    void ensureISEPHasTwoSen12sors() throws ParseException, IOException, org.json.simple.parser.ParseException {
+        GAList gaList = new GAList();
+        Path path = Paths.get("resources/test.json");
+        ReadJSONFile js = new ReadJSONFile(path, gaList);
+        boolean thrown = false;
+        try {
+            js.importGAs();
+        } catch (IllegalArgumentException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
 }

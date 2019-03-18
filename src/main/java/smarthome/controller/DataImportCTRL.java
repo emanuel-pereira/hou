@@ -6,6 +6,7 @@ import smarthome.model.GeographicalArea;
 import smarthome.model.ReadJSONFile;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ public class DataImportCTRL {
      * @throws org.json.simple.parser.ParseException
      * @throws IOException
      */
-    public void loadJSON(String filePath) throws ParseException,org.json.simple.parser.ParseException, IOException {
+    public void loadJSON(Path filePath) throws ParseException,org.json.simple.parser.ParseException, IOException {
         ReadJSONFile jsonFile = new ReadJSONFile(filePath, gaList);
         jsonFile.importGAs();
     }

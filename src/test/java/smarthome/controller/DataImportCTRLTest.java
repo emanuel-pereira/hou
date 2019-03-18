@@ -6,6 +6,8 @@ import smarthome.model.GAList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,9 +19,10 @@ class DataImportCTRLTest {
     void loadJSON() throws ParseException, org.json.simple.parser.ParseException, IOException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        String filepath = "resources/JsonFile.json";
+        String filepath = "C:\\Docs\\JSONFile.json";
         try {
-            ctrl.loadJSON(filepath);
+            Path path = Paths.get(filepath);
+            ctrl.loadJSON(path);
         } catch (FileNotFoundException e) {
             System.out.println("File not found in the specified file path: " + filepath);
         }
@@ -35,7 +38,8 @@ class DataImportCTRLTest {
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources/JsonFile1.json";
         try {
-            ctrl.loadJSON(filepath);
+            Path path = Paths.get(filepath);
+            ctrl.loadJSON(path);
         } catch (FileNotFoundException e) {
             System.out.println("File not found in the specified file path: " + filepath);
             e.getMessage();
@@ -52,22 +56,23 @@ class DataImportCTRLTest {
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources/JsonFile.json";
         try {
-            ctrl.loadJSON(filepath);
+            Path path = Paths.get(filepath);
+
+            ctrl.loadJSON(path);
         } catch (FileNotFoundException e) {
             System.out.println("File not found in the specified file path: " + filepath);
         }
         ctrl.getGAListDTO();
-        int expected=2;
-        int result=ctrl.getGAListDTO().size();
-        assertEquals(expected,result);
+        int expected = 2;
+        int result = ctrl.getGAListDTO().size();
+        assertEquals(expected, result);
     }
 
-@Test
+    @Test
     void importReadingsFromCSVFileTest() throws IOException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         ctrl.importReadingsFromCSVFile("resources/ReadingsRegistry");
-
-
     }
+
 }
