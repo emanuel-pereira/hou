@@ -19,6 +19,7 @@
     </properties>
 
     <dependencies>
+        <!-- FIXME Added dependency for JPA Java Persistence API -->
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
