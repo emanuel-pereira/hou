@@ -56,7 +56,7 @@ public class WallTowelHeater implements Device, Metered {
 
     @Override
     public void setDeviceName(String name) {
-        if (nameValidation.alphanumericName(name)){
+        if (this.nameValidation.alphanumericName(name)){
             this.name = name;
         }
     }
@@ -83,7 +83,7 @@ public class WallTowelHeater implements Device, Metered {
 
         double energyConsumption = 0;
         if (c.getDevicesMeteringPeriod() != -1) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startTimeStamp, endTimeStamp);
+            energyConsumption = this.activityLog.getValueOfReadingsInTimeIntervalDevices(startTimeStamp, endTimeStamp);
         }
         return energyConsumption;
     }
