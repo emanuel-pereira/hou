@@ -228,9 +228,7 @@ public class House {
                 average = sum / counter;
             }
         }
-
         return average;
-
     }
 
 
