@@ -5,14 +5,14 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class SensorList {
-    private List<Sensor> sensorList;
+    private List<Sensor> listOfSensors;
 
 
     /**
      * Constructor method that creates a new list to save sensor objects
      */
     public SensorList() {
-        this.sensorList = new ArrayList<>();
+        this.listOfSensors = new ArrayList<>();
     }
 
     /**
@@ -22,8 +22,8 @@ public class SensorList {
      * @return true if the object is added to the list
      */
     public boolean addSensor(Sensor newSensor) {
-        if (!this.sensorList.contains(newSensor)) {
-            this.sensorList.add(newSensor);
+        if (!this.listOfSensors.contains(newSensor)) {
+            this.listOfSensors.add(newSensor);
             return true;
         } else return false;
     }
@@ -35,7 +35,7 @@ public class SensorList {
      * @return list of sensors created
      */
     public List<Sensor> getSensorList() {
-        return this.sensorList;
+        return this.listOfSensors;
     }
 
     /**
@@ -67,7 +67,7 @@ public class SensorList {
      * @return Sensor type designation
      */
     public boolean checkIfRequiredSensorTypeExists(String sensorType) {
-        for (Sensor s : this.sensorList) {
+        for (Sensor s : this.listOfSensors) {
             if (s.getSensorType().getType().equals(sensorType)) {
                 return true;
             }
@@ -83,7 +83,7 @@ public class SensorList {
      */
     public Sensor getRequiredSensorPerType(String type) {
         Sensor requiredSensor = null;
-        for (Sensor sensor : this.sensorList)
+        for (Sensor sensor : this.listOfSensors)
             if (sensor.getSensorType().getType().equals(type))
                 requiredSensor = sensor;
         return requiredSensor;
@@ -99,7 +99,7 @@ public class SensorList {
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
-        for (Sensor sensor : this.sensorList) {
+        for (Sensor sensor : this.listOfSensors) {
             result.append(number++);
             result.append(element);
             result.append(sensor.getDesignation());
@@ -110,7 +110,7 @@ public class SensorList {
 
     public SensorList getListOfSensorsByType(SensorType sensorType) {
         SensorList listOfSensorsByType = new SensorList();
-        for (Sensor sensor : this.sensorList) {
+        for (Sensor sensor : this.listOfSensors) {
             if (sensor.getSensorType().equals(sensorType))
                 listOfSensorsByType.addSensor(sensor);
         }
@@ -118,11 +118,11 @@ public class SensorList {
     }
 
     public int size() {
-        return this.sensorList.size();
+        return this.listOfSensors.size();
     }
 
     public Sensor getLastSensor() {
-        return this.sensorList.get(this.sensorList.size() - 1);
+        return this.listOfSensors.get(this.listOfSensors.size() - 1);
     }
 
 }
