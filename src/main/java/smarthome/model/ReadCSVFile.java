@@ -14,28 +14,28 @@ public class ReadCSVFile {
 
 
     public void readCsvFile(String fileName) throws FileNotFoundException {
-        scanner = null;
-        scanner = new Scanner(new File(fileName));
-        scanner.useDelimiter(commaDelimiter);
+        this.scanner = null;
+        this.scanner = new Scanner(new File(fileName));
+        this.scanner.useDelimiter(this.commaDelimiter);
     }
 
     public List<String[]> getValuesFromCSVFile() {
         List<String[]> csvValues = new ArrayList<>();
-        while (scanner.hasNext()) {
-            String line = scanner.nextLine();
-            String[] tokens = line.split(commaDelimiter);
+        while (this.scanner.hasNext()) {
+            String line = this.scanner.nextLine();
+            String[] tokens = line.split(this.commaDelimiter);
             csvValues.add(tokens);
         }
         return csvValues;
     }
 
     public void writeCSVFile(String fileName) throws IOException {
-        fileWriter = new FileWriter("resources/" + fileName);
+        this.fileWriter = new FileWriter("resources/" + fileName);
     }
 
     public void writeStringOnCSVFile(String toWriteOnFile) throws IOException {
-        fileWriter.write(toWriteOnFile);
-        fileWriter.write(System.lineSeparator());
-        fileWriter.flush();
+        this.fileWriter.write(toWriteOnFile);
+        this.fileWriter.write(System.lineSeparator());
+        this.fileWriter.flush();
     }
 }
