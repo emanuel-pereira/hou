@@ -27,9 +27,8 @@ public class Lamp implements Device, Metered {
         this.name = deviceName;
         this.deviceSpecs = deviceSpecs;
         this.nominalPower = nominalPower;
-
-        active = true;
-        activityLog = new ReadingList();
+        this.active = true;
+        this.activityLog = new ReadingList();
     }
 
 
@@ -47,7 +46,7 @@ public class Lamp implements Device, Metered {
      * @return the device nominal Power
      */
     public double getNominalPower() {
-        return nominalPower;
+        return this.nominalPower;
     }
 
     public String getDeviceType() {
@@ -72,7 +71,7 @@ public class Lamp implements Device, Metered {
      * @return device activity log registry
      */
     public ReadingList getActivityLog() {
-        return activityLog;
+        return this.activityLog;
     }
 
 
@@ -81,8 +80,8 @@ public class Lamp implements Device, Metered {
         Configuration c = new Configuration();
 
         double energyConsumption = 0;
-        if (c.getDevicesMeteringPeriod() != -1 && this instanceof Metered) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
+        if (c.getDevicesMeteringPeriod() != -1) {
+            energyConsumption = this.activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
         }
         return Utils.round(energyConsumption, 2);
     }
@@ -97,7 +96,7 @@ public class Lamp implements Device, Metered {
      * @param name String inputted by the user to name the device
      */
     public void setDeviceName(String name) {
-        if (nameValidation.alphanumericName(name))
+        if (this.nameValidation.alphanumericName(name))
             this.name = name;
     }
 
