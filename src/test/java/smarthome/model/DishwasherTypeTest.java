@@ -1,5 +1,7 @@
+/*
 package smarthome.model;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.devices.DishwasherType;
 
@@ -8,29 +10,40 @@ import static org.junit.jupiter.api.Assertions.*;
 class DishwasherTypeTest {
 
     @Test
-    void getDeviceType() {
-        DishwasherType dishwasher = new DishwasherType();
-        String result = dishwasher.getDeviceType();
+    @DisplayName("Get correct device type")
+    void getCorrectDeviceType() {
+        DishwasherType type = new DishwasherType ();
+        type.createDevice ("Ariston", 200);
 
-        assertEquals("Dishwasher", result);
+        String expected = "Dishwasher";
+        String result = type.getDeviceType ();
+
+        assertEquals(expected, result);
     }
 
     @Test
-    void createDevice() {
-        DishwasherType dishwasher = new DishwasherType();
-        dishwasher.createDevice("LG Washer", 2300);
-        String result = dishwasher.getDeviceType();
+    @DisplayName("Get incorrect device type")
+    void getIncorrectDeviceType() {
+        DishwasherType type = new DishwasherType ();
+        type.createDevice ("Ariston", 200);
 
-        assertEquals("Dishwasher", result);
+        String expected = "Dishwasher";
+        String result = type.getDeviceType ();
+
+        assertNotEquals(expected, result);
     }
 
     @Test
-    void createDeviceInvalid() {
-        DishwasherType dishwasher = new DishwasherType();
-        dishwasher.createDevice("1231231231", 12);
-        String result = dishwasher.getDeviceType();
-        //the test passes accepting input name alphanumerical as the the validations are not in the constructor but in
-        // the device list prior to the constructor method call
-        assertEquals("Dishwasher", result);
+    @DisplayName("Create device with success")
+    void createCorrectDevice() {
+        DishwasherType type = new DishwasherType ();
+        Device dW = type.createDevice ("Ariston", 200);
+
+        String expected = "Singer";
+        String result = dW.getName ();
+
+        assertEquals(expected, result);
     }
+
 }
+*/

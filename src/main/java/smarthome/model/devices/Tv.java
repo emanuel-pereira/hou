@@ -30,7 +30,6 @@ public class Tv implements Device, Metered {
         this.name = deviceName;
         this.deviceSpecs = deviceSpecs;
         this.nominalPower = nominalPower;
-
         this.active = true;
         this.activityLog = new ReadingList();
 
@@ -67,7 +66,7 @@ public class Tv implements Device, Metered {
 
     @Override
     public double getNominalPower() {
-        return nominalPower;
+        return this.nominalPower;
     }
 
     @Override
@@ -84,7 +83,7 @@ public class Tv implements Device, Metered {
 
     @Override
     public ReadingList getActivityLog() {
-        return activityLog;
+        return this.activityLog;
     }
 
 
@@ -94,7 +93,7 @@ public class Tv implements Device, Metered {
 
         double energyConsumption = 0;
         if (c.getDevicesMeteringPeriod() != -1) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startDate, endDate);
+            energyConsumption = this.activityLog.getValueOfReadingsInTimeIntervalDevices(startDate, endDate);
         }
         return smarthome.model.validations.Utils.round(energyConsumption, 2);
     }
@@ -118,7 +117,7 @@ public class Tv implements Device, Metered {
      * @param name String inputted by the user to name the device
      */
     public void setDeviceName(String name) {
-        if (nameValidation.alphanumericName(name))
+        if (this.nameValidation.alphanumericName(name))
             this.name = name;
     }
 
