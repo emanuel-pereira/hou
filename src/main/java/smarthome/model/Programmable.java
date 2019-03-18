@@ -24,4 +24,9 @@ public interface Programmable {
      * @return List of programmes of the device
      */
     List<Program> getProgramList();
+
+    void setMeteredProgram(String programName);
+
+    Program getMeteredProgram();
+
 }

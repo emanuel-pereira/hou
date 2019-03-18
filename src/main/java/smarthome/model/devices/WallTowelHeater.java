@@ -1,10 +1,6 @@
 package smarthome.model.devices;
 
-import smarthome.model.Configuration;
-import smarthome.model.Device;
-import smarthome.model.DeviceSpecs;
-import smarthome.model.Metered;
-import smarthome.model.ReadingList;
+import smarthome.model.*;
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
 
@@ -18,14 +14,15 @@ public class WallTowelHeater implements Device, Metered {
     private double nominalPower;
     private boolean activityStatus;
     private ReadingList activityLog;
-    private NameValidations nameValidation = new NameValidations();
+    private double time;
+    private NameValidations nameValidation = new NameValidations ();
 
-    public WallTowelHeater (String deviceName, DeviceSpecs deviceSpecs, double deviceNominalPower){
+    public WallTowelHeater(String deviceName, DeviceSpecs deviceSpecs, double deviceNominalPower) {
         this.name = deviceName;
         this.deviceSpecs = deviceSpecs;
         this.nominalPower = deviceNominalPower;
         this.activityStatus = true;
-        this.activityLog = new ReadingList();
+        this.activityLog = new ReadingList ();
 
     }
 
@@ -61,21 +58,21 @@ public class WallTowelHeater implements Device, Metered {
 
     @Override
     public void setDeviceName(String name) {
-        if (this.nameValidation.alphanumericName(name)){
+        if (this.nameValidation.alphanumericName (name)) {
             this.name = name;
         }
     }
 
     @Override
     public void setNominalPower(double nominalPower) {
-        if (Utils.valueIsPositive(nominalPower)){
+        if (Utils.valueIsPositive (nominalPower)) {
             this.nominalPower = nominalPower;
         }
     }
 
     @Override
     public boolean deactivateDevice() {
-        if(!this.activityStatus){
+        if (!this.activityStatus) {
             return false;
         }
         this.activityStatus = false;
@@ -84,13 +81,25 @@ public class WallTowelHeater implements Device, Metered {
 
     @Override
     public double getEnergyConsumption(Calendar startTimeStamp, Calendar endTimeStamp) {
-        Configuration c = new Configuration();
+        Configuration c = new Configuration ();
 
         double energyConsumption = 0;
-        if (c.getDevicesMeteringPeriod() != -1) {
-            energyConsumption = this.activityLog.getValueOfReadingsInTimeIntervalDevices(startTimeStamp, endTimeStamp);
+        if (c.getDevicesMeteringPeriod () != -1) {
+            energyConsumption = this.activityLog.getValueOfReadingsInTimeIntervalDevices (startTimeStamp, endTimeStamp);
         }
         return energyConsumption;
     }
+
+    public void setTime(double time) {
+        this.time = time;
+    }
+
+    @Override
+    public double getEstimatedEnergyConsumption() {
+        double energy;
+        energy = this.nominalPower*time;
+        return energy;
+    }
+
 
 }

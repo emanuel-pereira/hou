@@ -92,6 +92,11 @@ public class Kettle implements Device, Metered {
         return Utils.round(energyConsumption, 2);
     }
 
+    @Override
+    public double getEstimatedEnergyConsumption() {
+        return 0;
+    }
+
 
 
     /* ----- Setters ----- */

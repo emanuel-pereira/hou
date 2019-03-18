@@ -17,6 +17,7 @@ public class Tv implements Device, Metered {
     private double nominalPower;
     private boolean active;
     private ReadingList activityLog;
+    private double time;
 
 
     /**
@@ -98,7 +99,16 @@ public class Tv implements Device, Metered {
         return smarthome.model.validations.Utils.round(energyConsumption, 2);
     }
 
+    public void setTime(double time) {
+        this.time = time;
+    }
 
+    @Override
+    public double getEstimatedEnergyConsumption() {
+        double energy;
+        energy = this.nominalPower*this.time;
+        return energy;
+    }
 
     /* ----- Setters ----- */
 

@@ -1,14 +1,9 @@
 package smarthome.model.devices;
 
-import smarthome.model.Configuration;
-import smarthome.model.Device;
-import smarthome.model.DeviceSpecs;
-import smarthome.model.Metered;
-import smarthome.model.Programmable;
-import smarthome.model.Program;
-import smarthome.model.ReadingList;
+import smarthome.model.*;
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -24,6 +19,7 @@ public class WashingMachine implements Device, Metered, Programmable {
     private boolean active;
     private ReadingList activityLog;
     private List<Program> programList;
+    private ProgramWithTimer meteredProgram;
 
     /**
      * Washing Machine constructor
@@ -38,6 +34,7 @@ public class WashingMachine implements Device, Metered, Programmable {
         this.active = true;
         this.activityLog = new ReadingList();
         this.programList = new ArrayList<> ();
+
     }
 
     /**
@@ -100,7 +97,7 @@ public class WashingMachine implements Device, Metered, Programmable {
      */
     @Override
     public void setDeviceName(String name) {
-        if (this.nameValidation.alphanumericName(name))
+        if (nameValidation.alphanumericName(name))
             this.name = name;
     }
 
@@ -137,10 +134,20 @@ public class WashingMachine implements Device, Metered, Programmable {
         Configuration c = new Configuration();
         double energyConsumption = 0;
         if (c.getDevicesMeteringPeriod() != -1) {
-            energyConsumption = this.activityLog.getValueOfReadingsInTimeIntervalDevices(startHour, endHour);
+            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startHour, endHour);
         }
         return Utils.round(energyConsumption, 2);
     }
+
+    @Override
+    public double getEstimatedEnergyConsumption() {
+        if (this.meteredProgram != null) {
+            double energy;
+            energy = this.meteredProgram.getProgramEstimatedEC ();
+            return energy;
+        } else {
+            return 0;
+        }    }
 
 
     /**
@@ -150,8 +157,8 @@ public class WashingMachine implements Device, Metered, Programmable {
      * @return The created program
      */
     @Override
-    public Program createProgram(String name, double value) {
-        return new Program(name, "Energy Consumption", value);
+    public ProgramWithTimer createProgram(String name, double value) {
+        return new ProgramWithTimer (name, value);
     }
 
     /**
@@ -174,6 +181,20 @@ public class WashingMachine implements Device, Metered, Programmable {
     @Override
     public List<Program> getProgramList() {
         return this.programList;
+    }
+
+    @Override
+    public void setMeteredProgram(String programName) {
+        for (Program program : this.programList) {
+            if (program.getProgramName ().equals (programName)) {
+                this.meteredProgram = (ProgramWithTimer) program;
+            }
+        }
+    }
+
+    @Override
+    public Program getMeteredProgram() {
+        return this.meteredProgram;
     }
 
 }

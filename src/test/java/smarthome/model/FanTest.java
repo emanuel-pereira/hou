@@ -265,4 +265,69 @@ class FanTest {
 
         assertFalse (fan.addProgramToList (fast));
     }
+
+    @Test
+    @DisplayName("Get null if no program is set as metered")
+    void getMeteredNullProgram() {
+        FanSpecs fanSpecs = new FanSpecs ("Fan");
+        Fan fan = new Fan ("Samsung Fan", fanSpecs, 200);
+        ProgramMode eco = fan.createProgram ("Eco",  50);
+        fan.addProgramToList (eco);
+
+        assertNull (fan.getMeteredProgram ());
+    }
+
+    @Test
+    @DisplayName("Correctly set metered program")
+    void setMeteredProgram() {
+        FanSpecs fanSpecs = new FanSpecs ("Fan");
+        Fan fan = new Fan ("Samsung Fan", fanSpecs, 200);
+        Program eco = fan.createProgram ("Eco",  50);
+        fan.addProgramToList (eco);
+        Program fast = fan.createProgram ("Fast",  200);
+        fan.addProgramToList (fast);
+        fan.setMeteredProgram ("Eco");
+
+        Program result = fan.getMeteredProgram ();
+
+        assertEquals (eco, result);
+
+        fan.setMeteredProgram ("Fast");
+
+        assertEquals (fast, fan.getMeteredProgram ());
+    }
+
+    @Test
+    @DisplayName("Get correct estimated energy consumption")
+    void getEstimatedEnergyConsumption() {
+        FanSpecs fanSpecs = new FanSpecs ("Fan");
+        Fan fan = new Fan ("Fan", fanSpecs, 200);
+        ProgramMode slow = fan.createProgram ("Slow",  50);
+        fan.addProgramToList (slow);
+        Program fast = fan.createProgram ("Fast",  200);
+        fan.addProgramToList (fast);
+        slow.setTime (2);
+        fan.setMeteredProgram ("Slow");
+
+        double expected = 100;
+        double result = fan.getEstimatedEnergyConsumption ();
+
+        assertEquals (expected, result);
+    }
+
+    @Test
+    @DisplayName("Get zero estimated energy consumption if there isn't no program")
+    void getEstimatedEnergyConsumptionNoProgram() {
+        FanSpecs fanSpecs = new FanSpecs ("Fan");
+        Fan fan = new Fan ("Fan", fanSpecs, 200);
+        ProgramMode slow = fan.createProgram ("Slow",  50);
+        fan.addProgramToList (slow);
+        Program fast = fan.createProgram ("Fast",  200);
+        fan.addProgramToList (fast);
+
+        double expected = 0;
+        double result = fan.getEstimatedEnergyConsumption ();
+
+        assertEquals (expected, result);
+    }
 }

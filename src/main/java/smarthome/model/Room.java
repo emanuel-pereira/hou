@@ -131,6 +131,15 @@ public class Room implements Metered {
         return Utils.round(sum, 2);
     }
 
+    @Override
+    public double getEstimatedEnergyConsumption() {
+        double sum = 0;
+        for (Metered device : this.deviceList.getMeteredDevices ()) {
+            sum += device.getEstimatedEnergyConsumption ();
+        }
+        return Utils.round (sum, 2);
+    }
+
     /**
      * Method that checks if a text is only spaces
      *
