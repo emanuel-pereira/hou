@@ -6,13 +6,13 @@ import java.util.List;
 
 public class GAList {
 
-    private List<GeographicalArea> mGAList;
+    private List<GeographicalArea> gaList;
 
     /**
      * Constructor method to set the attribute of the GA's List as an ArrayList
      */
     public GAList() {
-        mGAList = new ArrayList<>();
+        this.gaList = new ArrayList<>();
     }
 
     /**
@@ -37,9 +37,9 @@ public class GAList {
      * @return boolean value, true if correctly added, false if not added
      */
     public boolean addGA(GeographicalArea inputGA) {
-        if (mGAList.contains(inputGA))
+        if (this.gaList.contains(inputGA))
             return false;
-        return mGAList.add(inputGA);
+        return this.gaList.add(inputGA);
     }
 
     /**
@@ -49,7 +49,7 @@ public class GAList {
      * @return List of Geographical Areas
      */
     public List<GeographicalArea> getGAList() {
-        return mGAList;
+        return this.gaList;
     }
 
     /**
@@ -59,7 +59,7 @@ public class GAList {
      * @return the specific requested Geographical Area
      */
     public GeographicalArea get(int i) {
-        return this.mGAList.get(i);
+        return this.gaList.get(i);
     }
 
 
@@ -73,7 +73,7 @@ public class GAList {
      */
     public List<GeographicalArea> gAFromThisType(String inputTypeGA) {
         List<GeographicalArea> gAFromTypeList = new ArrayList<>();
-        for (GeographicalArea ga : mGAList) {
+        for (GeographicalArea ga : this.gaList) {
             if (ga.getType().equals(inputTypeGA)) {
                 gAFromTypeList.add(ga);
             }
@@ -102,14 +102,14 @@ public class GAList {
      * @return the number of elements in the geographical areas list as an integer value
      */
     public int size(){
-        return mGAList.size();
+        return this.gaList.size();
     }
     public GeographicalArea getLastGA() {
-        return mGAList.get(mGAList.size() - 1);
+        return this.gaList.get(this.gaList.size() - 1);
     }
 
     public void importDataFromCSVFileForEachGA(String filePathAndName) throws IOException {
-        for(GeographicalArea geographicalArea: mGAList)
+        for(GeographicalArea geographicalArea: this.gaList)
             geographicalArea.importReadingsToSensorsFromCSVFile(filePathAndName);
     }
 }
