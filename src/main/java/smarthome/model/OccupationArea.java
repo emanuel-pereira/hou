@@ -2,9 +2,9 @@ package smarthome.model;
 
 public class OccupationArea {
 
-    private double mOccupation = Double.NaN;
-    private double mLength;
-    private double mWidth;
+    private double occupation = Double.NaN;
+    private double length;
+    private double width;
 
 
     /**
@@ -15,10 +15,10 @@ public class OccupationArea {
      * @param inputWidth  - width of the occupation area
      */
     public OccupationArea(double inputLength, double inputWidth) {
-        this.mLength = inputLength;
-        this.mWidth = inputWidth;
+        this.length = inputLength;
+        this.width = inputWidth;
         if (inputWidth > 0 && inputLength > 0) {
-            this.mOccupation = inputLength * inputWidth;
+            this.occupation = inputLength * inputWidth;
         }
     }
 
@@ -30,8 +30,8 @@ public class OccupationArea {
      *
      * @return GA Width
      */
-    public double getmWidth() {
-        return mWidth;
+    public double getWidth() {
+        return this.width;
     }
 
     /**
@@ -39,8 +39,8 @@ public class OccupationArea {
      *
      * @return GA Length
      */
-    public double getmLength() {
-        return mLength;
+    public double getLength() {
+        return this.length;
     }
 
     /**
@@ -48,6 +48,6 @@ public class OccupationArea {
      * @return - value of occupation area
      */
     public double getOccupationArea() {
-        return mOccupation;
+        return this.occupation;
     }
 }
