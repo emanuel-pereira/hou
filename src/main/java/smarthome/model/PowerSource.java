@@ -2,33 +2,33 @@ package smarthome.model;
 
 public class PowerSource {
 
-    private String mName;
-    private String mTypePS;
-    private double mMaxPower; //watts per hour
-    private double mStorageCapacity;//in kWh
+    private String name;
+    private String typePS;
+    private double maxPower; //watts per hour
+    private double storageCapacity;//in kWh
 
 
     public PowerSource (String inputName,String inputType, double inputMaxPower, double inputStorageCapacity){
-        mName = inputName;
-        mTypePS = inputType;
-        mMaxPower = inputMaxPower;
-        mStorageCapacity = inputStorageCapacity;
+        this.name = inputName;
+        this.typePS = inputType;
+        this.maxPower = inputMaxPower;
+        this.storageCapacity = inputStorageCapacity;
     }
 
     public String getName(){
-        return mName;
+        return this.name;
     }
 
     public String getTypePS(){
-        return mTypePS;
+        return this.typePS;
     }
 
     public double getMaxPower(){
-        return mMaxPower;
+        return this.maxPower;
     }
 
     public double getStorageCapacity(){
-        return mStorageCapacity;
+        return this.storageCapacity;
     }
 
     public boolean nameIsValid(String name) {
