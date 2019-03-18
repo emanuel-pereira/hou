@@ -1,14 +1,7 @@
 package smarthome.model.validations;
 
 
-
 public final class Utils {
-
-    /**
-     * Private constructor of Utils class, which is a collection of static members, hence is not meant to be instantiated.
-     */
-    private Utils() {
-    }
 
     /**
      * Method that rounds a double to specified number of decimal places.

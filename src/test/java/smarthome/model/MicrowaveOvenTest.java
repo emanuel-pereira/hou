@@ -1,6 +1,9 @@
 package smarthome.model;
 
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.MicrowaveOven;
+import smarthome.model.devices.MicrowaveOvenSpecs;
+import smarthome.model.devices.MicrowaveOvenType;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -14,7 +17,7 @@ class MicrowaveOvenTest {
     @Test
     void getDeviceName() {
         MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
+        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs("MicrowaveOven");
         MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
 
         String expected = "Whirlpool Oven";

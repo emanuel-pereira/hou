@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GetDailySensorDataCTRLTest {
 
     @Test
-    @DisplayName("Tests if ")
+    @DisplayName("Tests if filter by type and interval is working")
     void filterByTypeAndInterval() {
         Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
         OccupationArea oc1 = new OccupationArea(23, 45);

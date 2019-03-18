@@ -181,11 +181,11 @@ public class Sensor {
     }
 
     public Calendar getStartDate() {
-        return startDate;
+        return this.startDate;
     }
 
     public String getUnit() {
-        return unit;
+        return this.unit;
     }
     
     public SensorDTO toDTO() {

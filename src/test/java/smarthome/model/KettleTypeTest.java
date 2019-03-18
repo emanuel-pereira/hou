@@ -1,6 +1,7 @@
 package smarthome.model;
 
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.KettleType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
