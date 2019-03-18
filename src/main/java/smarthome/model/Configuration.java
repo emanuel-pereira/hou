@@ -119,14 +119,14 @@ public class Configuration {
     }
 
     private boolean isMeteringPeriodValid() {
-        int GMP = getMeteringPeriod(GRIDMP);
-        int DMP = getMeteringPeriod(DEVICESMP);
+        int gmp = getMeteringPeriod(GRIDMP);
+        int dmp = getMeteringPeriod(DEVICESMP);
 
-        boolean validGMP = (GMP <= 1440) && (GMP >= 1);
-        boolean validDMP = (DMP <= 1440) && (DMP >= 1);
+        boolean validGMP = (gmp <= 1440) && (gmp >= 1);
+        boolean validDMP = (dmp <= 1440) && (dmp >= 1);
 
-        boolean areMeteringPeriodsMultiple = (DMP % GMP == 0);
-        boolean areMeteringPeriodsMultipleOf1440 = ((1440 % DMP == 0) && (1440 % GMP == 0));
+        boolean areMeteringPeriodsMultiple = (dmp % gmp == 0);
+        boolean areMeteringPeriodsMultipleOf1440 = ((1440 % dmp == 0) && (1440 % gmp == 0));
         return (validGMP && validDMP && areMeteringPeriodsMultiple&&areMeteringPeriodsMultipleOf1440);
     }
 

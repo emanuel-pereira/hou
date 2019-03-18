@@ -2,6 +2,9 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.Stove;
+import smarthome.model.devices.StoveSpecs;
+import smarthome.model.devices.StoveType;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -13,15 +16,16 @@ import static org.junit.jupiter.api.Assertions.*;
 class StoveTest {
 
     @Test
-    void setDeviceName() {
+    void setDeviceName() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-        StoveSpecs specs = new StoveSpecs("Stove");
 
-        Stove stove = new Stove("", specs, 2500);
-        stove.setDeviceName("kitchen Stove");
+        DeviceType dt= new StoveType();
+        Device d = dt.createDevice("Stove xpto",1000);
+
+        d.setDeviceName("kitchen Stove");
 
         String expected = "kitchen Stove";
-        String result = stove.getName();
+        String result = d.getName();
 
         assertEquals(expected, result);
     }
@@ -30,9 +34,10 @@ class StoveTest {
     @Test
     void setNominalPower() {
 
-        StoveSpecs specs = new StoveSpecs("Stove");
+        DeviceType dt = new StoveType();
+        Device stove = dt.createDevice("kitchen stove",0);
 
-        Stove stove = new Stove("kitchen stove", specs, 0);
+
         stove.setNominalPower(2500);
         double expected = 2500.0;
         double result = stove.getNominalPower();
@@ -40,12 +45,12 @@ class StoveTest {
         assertEquals(expected, result);
     }
 
-
+/*
     @Test
     void getDeviceSpecs() {
 
-        StoveSpecs specs = new StoveSpecs("Stove");
-        Stove stove = new Stove("kitchen stove", specs, 2500);
+        DeviceType dt = new StoveType();
+        Device stove = dt.createDevice("kitchen stove",0);
         DeviceSpecs stoveSpecs = stove.getDeviceSpecs();
 
         assertEquals(specs, stoveSpecs);
@@ -231,5 +236,5 @@ class StoveTest {
 
         assertFalse(stove.addProgramToList(full));
     }
-
+*/
 }

@@ -2,6 +2,7 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.WashingMachineType;
 
 import static org.junit.jupiter.api.Assertions.*;
 

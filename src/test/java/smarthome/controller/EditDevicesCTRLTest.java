@@ -3,10 +3,12 @@ package smarthome.controller;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
+import smarthome.model.devices.Fridge;
+import smarthome.model.devices.FridgeType;
+import smarthome.model.devices.Lamp;
 import smarthome.model.validations.NameValidations;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

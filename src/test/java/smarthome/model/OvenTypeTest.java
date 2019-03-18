@@ -1,6 +1,7 @@
 package smarthome.model;
 
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.OvenType;
 
 import static org.junit.jupiter.api.Assertions.*;
 

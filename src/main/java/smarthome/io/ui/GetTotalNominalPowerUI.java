@@ -122,7 +122,7 @@ public class GetTotalNominalPowerUI {
      */
     private boolean checkIfDevicesExistsInGrid() {
         if (this.controller.getSizeDeviceListInGrid (this.indexGrid) == 0) {
-            System.out.println ("Please ask the House Administrator to add Devices to a Room\n");
+            System.out.println ("Please ask the House Administrator to add devices to a Room\n");
             return true;
         }
         return false;
@@ -133,7 +133,7 @@ public class GetTotalNominalPowerUI {
      */
     private boolean checkIfDevicesExistsInRoom() {
         if (this.controller.getSizeDeviceListInRoom (this.indexRoom) == 0) {
-            System.out.println ("Please ask the House Administrator to add Devices to the Room\n");
+            System.out.println ("Please ask the House Administrator to add devices to the Room\n");
             return true;
         }
         return false;
