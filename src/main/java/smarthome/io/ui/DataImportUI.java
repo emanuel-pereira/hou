@@ -7,6 +7,8 @@ import smarthome.model.GAList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 
 public class DataImportUI {
@@ -21,9 +23,10 @@ public class DataImportUI {
         boolean loop = true;
         while (loop) {
             System.out.println("Please enter the json file path to import geographical areas and sensors (eg: resources/JsonFile.json):");
-            String filepath = UtilsUI.requestText("Invalid filepath.", "[A-Za-z0-9/.]*");
+            String filepath = UtilsUI.requestText("Invalid filepath.","^[A-Z]:(\\\\[^\\\\/:*?\"<>|]+)+.\\w+$");
             try {
-                ctrl.loadJSON(filepath);
+                Path path = Paths.get(filepath);
+                ctrl.loadJSON(path);
                 loop = false;
                 this.showGAsDTOs();
             } catch (FileNotFoundException e) {
