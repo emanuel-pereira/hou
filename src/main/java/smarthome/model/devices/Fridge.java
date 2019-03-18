@@ -64,7 +64,7 @@ public class Fridge implements Device, Metered {
      * @return the device nominal Power
      */
     public double getNominalPower() {
-        return nominalPower;
+        return this.nominalPower;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class Fridge implements Device, Metered {
      * @return device activity log registry
      */
     public ReadingList getActivityLog() {
-        return activityLog;
+        return this.activityLog;
     }
 
     @Override
@@ -101,7 +101,7 @@ public class Fridge implements Device, Metered {
      * @param name String inputted by the user to name the device
      */
     public void setDeviceName(String name) {
-        if (nameValidation.alphanumericName(name))
+        if (this.nameValidation.alphanumericName(name))
             this.name = name;
     }
 
@@ -113,6 +113,10 @@ public class Fridge implements Device, Metered {
     public void setNominalPower(double nominalPower) {
         if (Utils.valueIsPositive(nominalPower))
             this.nominalPower = nominalPower;
+    }
+
+    public void setAttributeValue(String attribute, Double newValue) {
+        this.getDeviceSpecs().setAttributeValue(attribute, newValue);
     }
 
     /**

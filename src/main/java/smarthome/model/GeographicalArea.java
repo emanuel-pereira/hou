@@ -63,7 +63,7 @@ public class GeographicalArea {
      * @return return this geographical Area Parent
      */
     public GeographicalArea getGeographicalParentGA() {
-        return parentGa;
+        return this.parentGa;
     }
 
 
@@ -73,7 +73,7 @@ public class GeographicalArea {
      * @return the list of sensors in a Geographical Area
      */
     public SensorList getSensorListInGA() {
-        return sensorListInGa;
+        return this.sensorListInGa;
     }
 
     /**
@@ -106,7 +106,7 @@ public class GeographicalArea {
      * @return returns the linear distance already calculated
      */
     private double calculateDistance(Location aLocation) {
-        return location.calcLinearDistanceBetweenTwoPoints(this.location, aLocation);
+        return this.location.calcLinearDistanceBetweenTwoPoints(this.location, aLocation);
     }
 
     @Override
@@ -118,14 +118,14 @@ public class GeographicalArea {
             return false;
         }
         GeographicalArea that = (GeographicalArea) o;
-        return Objects.equals(identification, that.identification) &&
-                Objects.equals(designation, that.designation) &&
-                Objects.equals(typeOfGa, that.typeOfGa);
+        return Objects.equals(this.identification, that.identification) &&
+                Objects.equals(this.designation, that.designation) &&
+                Objects.equals(this.typeOfGa, that.typeOfGa);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(identification, designation, typeOfGa);
+        return Objects.hash(this.identification, this.designation, this.typeOfGa);
     }
 
     /**
@@ -143,7 +143,7 @@ public class GeographicalArea {
     }
 
     public OccupationArea getOccupation() {
-        return occupation;
+        return this.occupation;
     }
 
     public void importReadingsToSensorsFromCSVFile(String filePathAndName) throws IOException {
@@ -153,7 +153,7 @@ public class GeographicalArea {
         List<String[]> tokens = readCSVFile.getValuesFromCSVFile();
         for (String[] token : tokens) {
             String sensorID = token[0];
-            for (Sensor sensor : sensorListInGa.getSensorList())
+            for (Sensor sensor : this.sensorListInGa.getSensorList())
                 if (sensorID.equals(sensor.getId())) {
                     String dateAndTimeString = token[1];
                     double readingValue = parseDouble(token[2]);

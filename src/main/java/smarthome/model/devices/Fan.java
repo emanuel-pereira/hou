@@ -100,7 +100,7 @@ public class Fan implements Device, Metered, Programmable {
      */
     @Override
     public void setDeviceName(String name) {
-        if (nameValidation.alphanumericName(name))
+        if (this.nameValidation.alphanumericName(name))
             this.name = name;
     }
 
@@ -137,7 +137,7 @@ public class Fan implements Device, Metered, Programmable {
         Configuration c = new Configuration();
         double energyConsumption = 0;
         if (c.getDevicesMeteringPeriod() != -1) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startHour, endHour);
+            energyConsumption = this.activityLog.getValueOfReadingsInTimeIntervalDevices(startHour, endHour);
         }
         return Utils.round(energyConsumption, 2);
     }

@@ -3,12 +3,12 @@ package smarthome.model;
 import smarthome.model.validations.GPSValidations;
 
 public class Location {
-    GPSValidations v = new GPSValidations ();
+    private GPSValidations v = new GPSValidations ();
 
 
-    private double mLatitude;
-    private double mLongitude;
-    private double mAltitude;
+    private double latitude;
+    private double longitude;
+    private double altitude;
 
     /**
      * Constructor requiring latitude, longitude and altitude parameters to create a location. Latitude, longitude and altitude
@@ -29,8 +29,8 @@ public class Location {
      * @param latitude user input
      */
     private void setLatitude(double latitude) {
-        if (v.latitudeIsValid(latitude))
-            mLatitude = latitude;
+        if (this.v.latitudeIsValid(latitude))
+            this.latitude = latitude;
     }
 
     /**
@@ -38,8 +38,8 @@ public class Location {
      *@param longitude user input
      */
     public void setLongitude(double longitude) {
-        if (v.longitudeIsValid(longitude))
-            mLongitude = longitude;
+        if (this.v.longitudeIsValid(longitude))
+            this.longitude = longitude;
     }
 
     /**
@@ -47,8 +47,8 @@ public class Location {
      * @param altitude user input
      */
     public void setAltitude(double altitude) {
-        if (v.altitudeIsValid(altitude))
-            mAltitude = altitude;
+        if (this.v.altitudeIsValid(altitude))
+            this.altitude = altitude;
     }
 
 
@@ -62,9 +62,9 @@ public class Location {
      * @return distance between location in meters
      */
     public double calcLinearDistanceBetweenTwoPoints(Location location1, Location location2) {
-        return Math.sqrt(Math.pow(location2.mLatitude - location1.mLatitude, 2)
-                + Math.pow(location2.mLongitude - location1.mLongitude, 2)
-                + Math.pow(location2.mAltitude - location1.mAltitude, 2));
+        return Math.sqrt(Math.pow(location2.latitude - location1.latitude, 2)
+                + Math.pow(location2.longitude - location1.longitude, 2)
+                + Math.pow(location2.altitude - location1.altitude, 2));
     }
 
 
@@ -74,7 +74,7 @@ public class Location {
      * @return the latitude of a specific location
      */
     public double getLatitude() {
-        return this.mLatitude;
+        return this.latitude;
     }
 
     /**
@@ -83,7 +83,7 @@ public class Location {
      * @return the longitude of a specific location
      */
     public double getLongitude() {
-        return this.mLongitude;
+        return this.longitude;
     }
 
     /**
@@ -92,7 +92,7 @@ public class Location {
      * @return the altitude of a specific location
      */
     public double getAltitude() {
-        return this.mAltitude;
+        return this.altitude;
     }
 
 

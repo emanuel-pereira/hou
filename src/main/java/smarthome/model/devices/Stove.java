@@ -38,7 +38,6 @@ public class Stove implements Device, Metered, Programmable {
         this.name = deviceName;
         this.deviceSpecs = deviceSpecs;
         this.nominalPower = nominalPower;
-
         this.active = true;
         this.isMetered = true;
         this.activityLog = new ReadingList();
@@ -54,7 +53,7 @@ public class Stove implements Device, Metered, Programmable {
      */
     public void setDeviceName(String name) {
 
-        if (nameValidation.alphanumericName(name))
+        if (this.nameValidation.alphanumericName(name))
             this.name = name;
     }
 
@@ -88,7 +87,7 @@ public class Stove implements Device, Metered, Programmable {
 
     public double getNominalPower() {
 
-        return nominalPower;
+        return this.nominalPower;
     }
 
     public boolean isActive() {
@@ -97,13 +96,13 @@ public class Stove implements Device, Metered, Programmable {
 
     public boolean isMetered() {
 
-        return isMetered;
+        return this.isMetered;
     }
 
     @Override
     public ReadingList getActivityLog() {
 
-        return activityLog;
+        return this.activityLog;
     }
 
     @Override
@@ -114,7 +113,7 @@ public class Stove implements Device, Metered, Programmable {
 
         if (c.getDevicesMeteringPeriod() != -1 && this.isMetered()) {
 
-            energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startHour, endHour);
+            energyConsumption = this.activityLog.getValueOfReadingsInTimeInterval(startHour, endHour);
         }
         return Utils.round(energyConsumption, 2);
     }

@@ -60,9 +60,9 @@ public class Reading {
      * @return the date of a reading as a string in YYYY-MM-DD format
      */
     public String getDateOfReadingAsString() {
-        int year = dateAndTime.get(Calendar.YEAR);
-        int month = dateAndTime.get(Calendar.MONTH)+1;
-        int day = dateAndTime.get(Calendar.DAY_OF_MONTH);
+        int year = this.dateAndTime.get(Calendar.YEAR);
+        int month = this.dateAndTime.get(Calendar.MONTH)+1;
+        int day = this.dateAndTime.get(Calendar.DAY_OF_MONTH);
 
         StringBuilder output = new StringBuilder();
         output.append(year);

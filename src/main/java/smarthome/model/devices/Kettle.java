@@ -52,7 +52,7 @@ public class Kettle implements Device, Metered {
      * @return the device nominal Power
      */
     public double getNominalPower() {
-        return nominalPower;
+        return this.nominalPower;
     }
 
     public String getDeviceType() {
@@ -77,7 +77,7 @@ public class Kettle implements Device, Metered {
      * @return device activity log registry
      */
     public ReadingList getActivityLog() {
-        return activityLog;
+        return this.activityLog;
     }
 
 
@@ -86,8 +86,8 @@ public class Kettle implements Device, Metered {
         Configuration c = new Configuration();
 
         double energyConsumption = 0;
-        if (c.getDevicesMeteringPeriod() != -1 && this instanceof Metered) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
+        if (c.getDevicesMeteringPeriod() != -1) {
+            energyConsumption = this.activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
         }
         return Utils.round(energyConsumption, 2);
     }

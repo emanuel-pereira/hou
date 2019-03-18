@@ -40,7 +40,7 @@ public class House {
     }
 
     public void setHouseAddress(String streetName, String houseNumber, String zipCode, double latitude, double longitude, double altitude) {
-        address = new Address(streetName, houseNumber, zipCode, latitude, longitude, altitude);
+        this.address = new Address(streetName, houseNumber, zipCode, latitude, longitude, altitude);
     }
 
     public Address getAddress() {
@@ -72,7 +72,7 @@ public class House {
     }
 
     public HouseGridList getHGListInHouse() {
-        return houseGridList;
+        return this.houseGridList;
     }
 
 
@@ -120,7 +120,7 @@ public class House {
      */
 
     private double calculateDistance(Location aLocation) {
-        return address.getGPSLocation().calcLinearDistanceBetweenTwoPoints(address.getGPSLocation(), aLocation);
+        return this.address.getGPSLocation().calcLinearDistanceBetweenTwoPoints(this.address.getGPSLocation(), aLocation);
     }
 
     /**
@@ -228,9 +228,7 @@ public class House {
                 average = sum / counter;
             }
         }
-
         return average;
-
     }
 
 

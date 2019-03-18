@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PowerSourceList {
-    private List<PowerSource> mPSList;
+    private List<PowerSource> psList;
 
     public PowerSourceList () {
-        mPSList = new ArrayList<>();
+        this.psList = new ArrayList<>();
     }
 
 
@@ -18,20 +18,20 @@ public class PowerSourceList {
     }
 
     public boolean addPS(PowerSource inputPS) {
-        if (mPSList.contains(inputPS))
+        if (this.psList.contains(inputPS))
             return false;
         else {
-            mPSList.add(inputPS);
+            this.psList.add(inputPS);
             return true;
         }
     }
 
     public List<PowerSource> getPSList() {
-        return mPSList;
+        return this.psList;
     }
 
     public int getPSListSize() {
-        return mPSList.size();
+        return this.psList.size();
     }
 
     public String showPowerSourceListInString() {

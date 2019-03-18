@@ -21,7 +21,7 @@ public class Program {
     }
 
     public String getProgramName() {
-        return programName;
+        return this.programName;
     }
 
     public void setProgramName(String programName) {
@@ -29,7 +29,7 @@ public class Program {
     }
 
     public String getAttributeName() {
-        return attributeName;
+        return this.attributeName;
     }
 
     public void setAttributeName(String attributeName) {
@@ -37,7 +37,7 @@ public class Program {
     }
 
     public double getAttributeValue() {
-        return attributeValue;
+        return this.attributeValue;
     }
 
     public void setAttributeValue(double attributeValue) {

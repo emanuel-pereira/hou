@@ -36,10 +36,10 @@ public class WashingMachineSpecs implements DeviceSpecs {
      */
     private void initializeClass() {
         int items = this.attributeNames.length;
-        attributeNamesList.addAll (Arrays.asList (this.attributeNames));
+        this.attributeNamesList.addAll (Arrays.asList (this.attributeNames));
         for (int j = 0; j < items; j++) {
-            attributeUnitsMap.put (this.attributeNames[j], this.attributeUnits[j]);
-            attributeValuesMap.put (this.attributeNames[j], NaN);
+            this.attributeUnitsMap.put (this.attributeNames[j], this.attributeUnits[j]);
+            this.attributeValuesMap.put (this.attributeNames[j], NaN);
         }
     }
 
@@ -68,9 +68,9 @@ public class WashingMachineSpecs implements DeviceSpecs {
     @Override
     public List<Double> getAttributeValues() {
         List<Double> attributeValues = new ArrayList<> ();
-        for (String key : attributeNamesList
+        for (String key : this.attributeNamesList
         ) {
-            attributeValues.add (attributeValuesMap.get (key));
+            attributeValues.add (this.attributeValuesMap.get (key));
         }
         return attributeValues;
     }
@@ -82,9 +82,9 @@ public class WashingMachineSpecs implements DeviceSpecs {
     @Override
     public List<String> getAttributeUnits() {
         List<String> unitsList = new ArrayList<> ();
-        for (String key : attributeNamesList
+        for (String key : this.attributeNamesList
         ) {
-            unitsList.add (attributeUnitsMap.get (key));
+            unitsList.add (this.attributeUnitsMap.get (key));
         }
         return unitsList;
     }
@@ -116,8 +116,8 @@ public class WashingMachineSpecs implements DeviceSpecs {
      */
     @Override
     public void setAttributeValue(String attribute, double newValue) {
-        if (attributeValuesMap.containsKey (attribute)) {
-            attributeValuesMap.replace (attribute, newValue);
+        if (this.attributeValuesMap.containsKey (attribute)) {
+            this.attributeValuesMap.replace (attribute, newValue);
         }
     }
 
@@ -128,8 +128,8 @@ public class WashingMachineSpecs implements DeviceSpecs {
      */
     @Override
     public void setAttributeUnit(String attribute, String unit) {
-        if (attributeValuesMap.containsKey (attribute)) {
-            attributeUnitsMap.put (attribute, unit);
+        if (this.attributeValuesMap.containsKey (attribute)) {
+            this.attributeUnitsMap.put (attribute, unit);
         }
     }
 

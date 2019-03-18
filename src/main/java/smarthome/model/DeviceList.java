@@ -10,7 +10,7 @@ public class DeviceList {
      * Constructor initializing an empty device list.
      */
     public DeviceList() {
-        devicesList = new ArrayList<>();
+        this.devicesList = new ArrayList<>();
     }
 
     /**
@@ -20,8 +20,8 @@ public class DeviceList {
      * @return boolean result of the device addition
      */
     public boolean addDevice(Device device) {
-        if (!devicesList.contains(device)) {
-            devicesList.add(device);
+        if (!this.devicesList.contains(device)) {
+            this.devicesList.add(device);
             return true;
         } else return false;
     }
@@ -51,7 +51,7 @@ public class DeviceList {
      * @return the device in index position in the device list
      */
     public Device get(int index) {
-        return devicesList.get(index);
+        return this.devicesList.get(index);
     }
 
 
@@ -76,7 +76,7 @@ public class DeviceList {
     }
 
     public List<Device> getDeviceList() {
-        return devicesList;
+        return this.devicesList;
     }
 
     public int size() {
@@ -109,15 +109,12 @@ public class DeviceList {
     List<Metered> getMeteredDevices() {
         List<Metered> meteredDeviceList = new ArrayList<>();
 
-        for (Device device : devicesList) {
+        for (Device device : this.devicesList) {
             Metered meteredDevice = (Metered) device;
             meteredDeviceList.add(meteredDevice);
         }
         return meteredDeviceList;
     }
-
-
-
 
 }
 

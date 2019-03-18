@@ -55,15 +55,15 @@ private void initializeClass() {
     int items = this.attributeNames.length;
 
     for (int i = 0; i < items; i++) {
-        attributeNamesList.add(this.attributeNames[i]);
+        this.attributeNamesList.add(this.attributeNames[i]);
     }
 
 
     for (int j = 0; j < items; j++) {
 
 
-        attributeUnitsMap.put(this.attributeNames[j], this.attributeUnits[j]);
-        attributeValuesMap.put(this.attributeNames[j], NaN); // values are not part of the constructor
+        this.attributeUnitsMap.put(this.attributeNames[j], this.attributeUnits[j]);
+        this.attributeValuesMap.put(this.attributeNames[j], NaN); // values are not part of the constructor
     }
 }
 
@@ -89,9 +89,9 @@ private void initializeClass() {
     public List<Double> getAttributeValues() {
         List<Double> attributeValues = new ArrayList<>();
 
-        for (String key : attributeNamesList
+        for (String key : this.attributeNamesList
         ) {
-            attributeValues.add(attributeValuesMap.get(key));
+            attributeValues.add(this.attributeValuesMap.get(key));
         }
         return attributeValues;
     }
@@ -101,22 +101,22 @@ private void initializeClass() {
 
         List<String> unitsList = new ArrayList<>();
 
-        for (String key : attributeNamesList
+        for (String key : this.attributeNamesList
         ) {
-            unitsList.add(attributeUnitsMap.get(key));
+            unitsList.add(this.attributeUnitsMap.get(key));
         }
         return unitsList;
     }
 
     public void setAttributeUnit(String attribute, String unit) {
-        if (attributeValuesMap.containsKey(attribute)) {
-            attributeUnitsMap.put(attribute, unit);
+        if (this.attributeValuesMap.containsKey(attribute)) {
+            this.attributeUnitsMap.put(attribute, unit);
         }
     }
 
     public void setAttributeValue(String attribute, double newValue) {
-        if (attributeValuesMap.containsKey(attribute)) {
-            attributeValuesMap.replace(attribute, newValue);
+        if (this.attributeValuesMap.containsKey(attribute)) {
+            this.attributeValuesMap.replace(attribute, newValue);
         }
     }
 }
