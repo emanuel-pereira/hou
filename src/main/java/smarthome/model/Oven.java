@@ -60,7 +60,7 @@ public class Oven implements Device, Metered, Programmable{
 
     @Override
     public void setDeviceName(String name) {
-        if (nameValidation.alphanumericName(name)){
+        if (this.nameValidation.alphanumericName(name)){
             this.name = name;
         }
     }
@@ -87,8 +87,8 @@ public class Oven implements Device, Metered, Programmable{
         Configuration c = new Configuration();
 
         double energyConsumption = 0;
-        if (c.getDevicesMeteringPeriod() != -1 && this instanceof Metered) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startTimeStamp, endTimeStamp);
+        if (c.getDevicesMeteringPeriod() != -1) {
+            energyConsumption = this.activityLog.getValueOfReadingsInTimeIntervalDevices(startTimeStamp, endTimeStamp);
         }
         return energyConsumption;
     }
