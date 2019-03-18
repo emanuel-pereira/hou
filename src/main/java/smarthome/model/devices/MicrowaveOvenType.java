@@ -16,7 +16,7 @@ public class MicrowaveOvenType implements DeviceType {
     @Override
     public Device createDevice(String devName, double nominalPower) {
         String devType = getDeviceType();
-        DeviceSpecs devSpecs = (DeviceSpecs)new OvenSpecs(devType);
+        DeviceSpecs devSpecs = new OvenSpecs(devType);
         return new MicrowaveOven(devName,devSpecs,nominalPower);
     }
 
