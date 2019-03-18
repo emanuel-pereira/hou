@@ -75,7 +75,7 @@ public class OccupationAreaTest {
     void getmLength() {
         OccupationArea o = new OccupationArea(4, 3);
         double expectedResult= 4;
-        double result= o.getmLength();
+        double result= o.getLength();
         assertEquals(expectedResult, result);
     }
 
@@ -83,7 +83,7 @@ public class OccupationAreaTest {
     void getmWidth() {
         OccupationArea o = new OccupationArea(4, 3);
         double expectedResult= 3;
-        double result= o.getmWidth();
+        double result= o.getWidth();
         assertEquals(expectedResult, result);
     }
 }

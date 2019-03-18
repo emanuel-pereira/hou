@@ -21,9 +21,9 @@ public class MicrowaveOven implements Device, Metered, Programmable {
     /**
      * Microwave Oven constructor
      *
-     * @param deviceName
-     * @param deviceSpecs
-     * @param deviceNominalPower
+     * @param deviceName name of the device
+     * @param deviceSpecs specs of the device
+     * @param deviceNominalPower value of nominal power of the device
      */
 
     public MicrowaveOven(String deviceName, DeviceSpecs deviceSpecs, double deviceNominalPower) {
@@ -103,7 +103,7 @@ public class MicrowaveOven implements Device, Metered, Programmable {
      */
     @Override
     public void setDeviceName(String name) {
-        if (nameValidation.alphanumericName(name)) {
+        if (this.nameValidation.alphanumericName(name)) {
             this.name = name;
         }
     }
@@ -146,7 +146,7 @@ public class MicrowaveOven implements Device, Metered, Programmable {
 
         double energyConsumption = 0;
         if (c.getDevicesMeteringPeriod() != -1) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startTimeStamp, endTimeStamp);
+            energyConsumption = this.activityLog.getValueOfReadingsInTimeIntervalDevices(startTimeStamp, endTimeStamp);
         }
         return energyConsumption;
     }
