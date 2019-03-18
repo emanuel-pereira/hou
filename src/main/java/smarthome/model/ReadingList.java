@@ -197,7 +197,6 @@ public class ReadingList {
             Reading r = newReading(max, date);
             dailyMax.addReading(r);
         }
-
         return dailyMax;
     }
 

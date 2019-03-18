@@ -6,7 +6,6 @@ import smarthome.model.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-
 public class GetDailySensorDataCTRL {
     private House house;
     private SensorTypeList sensorTypeList;
@@ -41,22 +40,31 @@ public class GetDailySensorDataCTRL {
 
     public ReadingDTO displayMaximum(SensorType sensorType, Calendar startDate, Calendar endDate) {
         Sensor sensor = this.house.filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
-        ReadingList sensorReadings = sensor.getReadingList().dailyMaximumReadings();
+        endDate.add(Calendar.DATE, 1);
+        ReadingList sensorReadings = sensor.getReadingList().filterByDate(startDate, endDate);
+        endDate.add(Calendar.DATE, -1);
+        sensorReadings = sensorReadings.dailyMaximumReadings();
         Reading reading = sensorReadings.maxValueInInterval();
         return reading.toDTO();
     }
 
     public ReadingDTO displayMinimum(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate) {
         Sensor sensor = this.house.filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
-        ReadingList sensorReadings = sensor.getReadingList().dailyMaximumReadings();
+        endDate.add(Calendar.DATE, 1);
+        ReadingList sensorReadings = sensor.getReadingList().filterByDate(startDate, endDate);
+        endDate.add(Calendar.DATE, -1);
+        sensorReadings = sensorReadings.dailyMaximumReadings();
         Reading reading = sensorReadings.minValueInInterval();
         return reading.toDTO();
     }
 
     public ReadingDTO displayAmplitude(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate) {
         Sensor sensor = this.house.filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
-        ReadingList sensorReadings = sensor.getReadingList().dailyAmplitude();
-        Reading reading = sensorReadings.maxValueInInterval();
+        endDate.add(Calendar.DATE, 1);
+        ReadingList sensorReadings = sensor.getReadingList().filterByDate(startDate, endDate);
+        endDate.add(Calendar.DATE, -1);
+        ReadingList sensorXPTO = sensorReadings.dailyAmplitude();
+        Reading reading = sensorXPTO.maxValueInInterval();
         return reading.toDTO();
     }
 }

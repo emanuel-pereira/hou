@@ -100,7 +100,7 @@ public class GetDailySensorDataUI {
         if (!isValid())
             return;
         requestTimePeriod();
-        if (this.superCTRL.filterByTypeAndInterval(sensorType, startDate, endDate).size() == 0) {
+        if (this.superCTRL.filterByType(sensorType) == 0) {
             UtilsUI.showError(this.msgTitle, this.msgNoSensor);
             return;
         }
@@ -121,12 +121,10 @@ public class GetDailySensorDataUI {
             return;
         //request start date and end date user inputs
         requestTimePeriod();
-        if (this.superCTRL.filterByTypeAndInterval(sensorType, startDate, endDate).size() == 0) {
+        if (this.superCTRL.filterByType(sensorType) == 0) {
             UtilsUI.showError(this.msgTitle, this.msgNoSensor);
             return;
         }
-
-        //set specific sensor data type for this US
         if (this.superCTRL.checkIfClosestSensorsHasReadingsInTimePeriod(sensorType, startDate, endDate))
             calculations(this.sensorType, this.startDate, this.endDate, mode);
         else
