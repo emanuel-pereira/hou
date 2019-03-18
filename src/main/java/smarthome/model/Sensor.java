@@ -4,13 +4,19 @@ import smarthome.dto.ReadingDTO;
 import smarthome.dto.SensorDTO;
 import smarthome.model.validations.Utils;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 
+@Table(name = "sensors")
 public class Sensor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
     private String designation;
     private Location location;
@@ -21,11 +27,12 @@ public class Sensor {
 
     /**
      * Constructor used to create internal sensors which, unlike external sensors, don't require location coordinates.
+     *
      * @param designation String parameter to specify sensor's designation
-     * @param startDate specifies the sensor start date as a Calendar dataType
-     * @param sensorType specifies the sensor type as a SensorType instance
-     * @param unit String parameter to specify sensor's unit of measure
-     * @param readings specifies the sensor's readingList
+     * @param startDate   specifies the sensor start date as a Calendar dataType
+     * @param sensorType  specifies the sensor type as a SensorType instance
+     * @param unit        String parameter to specify sensor's unit of measure
+     * @param readings    specifies the sensor's readingList
      */
     public Sensor(String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         if (nameIsValid(designation)) {
@@ -39,17 +46,18 @@ public class Sensor {
 
     /**
      * Constructor used to create external sensors which require location coordinates.
-     * @param id String parameter to specify sensor's id
+     *
+     * @param id          String parameter to specify sensor's id
      * @param designation String parameter to specify sensor's designation
-     * @param startDate  specifies the sensor start date as a Calendar dataType
+     * @param startDate   specifies the sensor start date as a Calendar dataType
      * @param geoLocation specifies the sensor GPS coordinates
-     * @param sensorType specifies the sensor start date as a Calendar variable
-     * @param unit String parameter to specify sensor's unit of measure
-     * @param readings specifies the sensor's readingList
+     * @param sensorType  specifies the sensor start date as a Calendar variable
+     * @param unit        String parameter to specify sensor's unit of measure
+     * @param readings    specifies the sensor's readingList
      */
     public Sensor(String id, String designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
         if (nameIsValid(designation)) {
-            this.id=id;
+            this.id = id;
             this.designation = designation;
             this.startDate = startDate;
             this.location = geoLocation;
@@ -143,7 +151,7 @@ public class Sensor {
      * @return calculated distance betwwen both objects
      */
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
-        return Utils.round(this.location.calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation()),2);
+        return Utils.round(this.location.calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation()), 2);
     }
 
 
@@ -187,11 +195,11 @@ public class Sensor {
     public String getUnit() {
         return unit;
     }
-    
+
     public SensorDTO toDTO() {
-        List<ReadingDTO> readingListDTO= new ArrayList<>();
+        List<ReadingDTO> readingListDTO = new ArrayList<>();
         for (Reading reading : this.readingList.getReadingsList()) {
-            ReadingDTO readingDTO=reading.toDTO();
+            ReadingDTO readingDTO = reading.toDTO();
             readingListDTO.add(readingDTO);
         }
         return new SensorDTO(this.id, this.designation, readingListDTO);
