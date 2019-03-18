@@ -191,6 +191,121 @@ class HouseGridTest {
         assertFalse(result);
     }
 
+    @Test
+    @DisplayName("Get the Device List in a Grid")
+    void getDeviceList(){
+        House house = new House();
+        HouseGrid hg1 = new HouseGrid("grid1");
+        house.getHGListInHouse().addHouseGrid(hg1);
+
+        Room r1 = new Room("cozinha",1,2,2,2);
+        Room r3 = new Room("quarto",2,2,2,2);
+        house.getRoomList().addRoom(r1);
+        house.getRoomList().addRoom(r3);
+
+        OvenType typeOven = new OvenType();
+        WallTowelHeaterType typeWth = new WallTowelHeaterType();
+        TvType typeTv = new TvType();
+        FanType typeFan = new FanType();
+
+        Device d1 = typeOven.createDevice("baker",420);
+        Device d2 = typeTv.createDevice("Silver",200);
+        Device d3 = typeWth.createDevice("Textile Dryer",300);
+        Device d4 = typeFan.createDevice("Micro Fan",250);
+        Device d5 = typeTv.createDevice("Smart Tv",200);
+
+        house.getRoomList().get(0).getDeviceList().addDevice(d1);
+        house.getRoomList().get(0).getDeviceList().addDevice(d2);
+        house.getRoomList().get(0).getDeviceList().addDevice(d3);
+        house.getRoomList().get(1).getDeviceList().addDevice(d4);
+        house.getRoomList().get(1).getDeviceList().addDevice(d5);
+
+        hg1.getRoomListInAGrid().addRoom(r1);
+        hg1.getRoomListInAGrid().addRoom(r3);
+
+        List<Device> expectedResult = Arrays.asList(d1,d2,d3,d4,d5);
+        List<Device> result = hg1.getDeviceListInGrid().getDeviceList();
+
+        assertEquals(expectedResult,result);
+    }
+
+    @Test
+    @DisplayName("Get the Device List in a Grid from a specific Type")
+    void getDeviceListFromType(){
+            House house = new House();
+            HouseGrid hg1 = new HouseGrid("grid1");
+            house.getHGListInHouse().addHouseGrid(hg1);
+
+            Room r1 = new Room("cozinha",1,2,2,2);
+            Room r3 = new Room("quarto",2,2,2,2);
+            house.getRoomList().addRoom(r1);
+            house.getRoomList().addRoom(r3);
+
+            OvenType typeOven = new OvenType();
+            WallTowelHeaterType typeWth = new WallTowelHeaterType();
+            TvType typeTv = new TvType();
+            FanType typeFan = new FanType();
+
+            Device d1 = typeOven.createDevice("baker",420);
+            Device d2 = typeTv.createDevice("Silver",200);
+            Device d3 = typeWth.createDevice("Textile Dryer",300);
+            Device d4 = typeFan.createDevice("Micro Fan",250);
+            Device d5 = typeTv.createDevice("Smart Tv",200);
+
+            house.getRoomList().get(0).getDeviceList().addDevice(d1);
+            house.getRoomList().get(0).getDeviceList().addDevice(d2);
+            house.getRoomList().get(0).getDeviceList().addDevice(d3);
+            house.getRoomList().get(1).getDeviceList().addDevice(d4);
+            house.getRoomList().get(1).getDeviceList().addDevice(d5);
+
+            hg1.getRoomListInAGrid().addRoom(r1);
+            hg1.getRoomListInAGrid().addRoom(r3);
+
+            List<Device> expectedResult = Arrays.asList(d2,d5);
+            List<Device> result = hg1.getDeviceListFromType(16).getDeviceList();
+
+            assertEquals(expectedResult,result);
+    }
+
+    @Test
+    @DisplayName("Get the Device List in a Grid ordered Type")
+    void getDeviceListGroupedByType(){
+        House house = new House();
+        HouseGrid hg1 = new HouseGrid("grid1");
+        house.getHGListInHouse().addHouseGrid(hg1);
+
+        Room r1 = new Room("cozinha",1,2,2,2);
+        Room r3 = new Room("quarto",2,2,2,2);
+        house.getRoomList().addRoom(r1);
+        house.getRoomList().addRoom(r3);
+
+        OvenType typeOven = new OvenType();
+        WallTowelHeaterType typeWth = new WallTowelHeaterType();
+        TvType typeTv = new TvType();
+        FanType typeFan = new FanType();
+
+        Device d1 = typeOven.createDevice("baker",420);
+        Device d2 = typeTv.createDevice("Silver",200);
+        Device d3 = typeWth.createDevice("Textile Dryer",300);
+        Device d4 = typeFan.createDevice("Micro Fan",250);
+        Device d5 = typeTv.createDevice("Smart Tv",200);
+
+        house.getRoomList().get(0).getDeviceList().addDevice(d1);
+        house.getRoomList().get(0).getDeviceList().addDevice(d2);
+        house.getRoomList().get(0).getDeviceList().addDevice(d3);
+        house.getRoomList().get(1).getDeviceList().addDevice(d4);
+        house.getRoomList().get(1).getDeviceList().addDevice(d5);
+
+        hg1.getRoomListInAGrid().addRoom(r1);
+        hg1.getRoomListInAGrid().addRoom(r3);
+
+        List<Device> expectedResult = Arrays.asList(d1,d3,d4,d2,d5);
+        List<Device> result = hg1.getDeviceListInGridGroupBy().getDeviceList();
+
+        assertEquals(expectedResult,result);
+    }
+
+
 
     @Test
     @DisplayName("Get the nominal power of a grid")

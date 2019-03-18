@@ -1,6 +1,7 @@
 package smarthome.model;
 
 import smarthome.model.validations.Utils;
+import smarthome.model.House;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -68,6 +69,35 @@ public class HouseGrid implements Metered{
     public int getRoomListInAGridSize() {
         return this.roomList.getRoomListSize ();
     }
+
+    public DeviceList getDeviceListInGrid(){
+        DeviceList deviceListInGrid = new DeviceList();
+        for (Room r : this.roomList.getRoomList()) {
+            deviceListInGrid.getDeviceList().addAll(r.getDeviceList().getDeviceList());
+        }
+        return deviceListInGrid;
+    }
+
+    public DeviceList getDeviceListFromType(int indexType){
+        Configuration c = new Configuration();
+        DeviceList deviceListFromType = new DeviceList();
+        for(Device d : this.getDeviceListInGrid().getDeviceList()){
+            if(c.getDeviceTypes().get(indexType).equals(d.getDeviceType())){
+                deviceListFromType.addDevice(d);
+            }
+        }
+        return deviceListFromType;
+    }
+
+    public DeviceList getDeviceListInGridGroupBy(){
+        DeviceList deviceListGroupByType = new DeviceList();
+        int indexType;
+        for(indexType = 0; indexType <= 16; indexType++){
+            deviceListGroupByType.getDeviceList().addAll(getDeviceListFromType(indexType).getDeviceList());
+        }
+        return deviceListGroupByType;
+    }
+
 
     /**
      * Nominal power of a grid is the sum of nominal power of all the rooms in tat grid
