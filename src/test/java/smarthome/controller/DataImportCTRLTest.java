@@ -19,7 +19,7 @@ class DataImportCTRLTest {
     void loadJSON() throws ParseException, org.json.simple.parser.ParseException, IOException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        String filepath = "C:\\Docs\\JSONFile.json";
+        String filepath = "resources/JsonFile1.json";
         try {
             Path path = Paths.get(filepath);
             ctrl.loadJSON(path);

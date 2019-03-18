@@ -25,19 +25,6 @@ class ReadJSONFileTest {
     }
 
     @Test
-    @DisplayName("Ensure the size of the GAList is 2 after reading the JSON file from absolute path")
-    void readGAsFromAbsolutePath() throws ParseException, IOException, org.json.simple.parser.ParseException {
-        GAList gaList = new GAList();
-        Path path = Paths.get("C:/Users/José Ferreira/IdeaProjects/project_g6/resources/JsonFile.json");
-        ReadJSONFile js = new ReadJSONFile(path, gaList);
-        js.importGAs();
-        int expected = 2;
-        int result = gaList.size();
-        assertEquals(expected, result);
-    }
-
-
-    @Test
     @DisplayName("Ensure the size of the GAList isn't zero after reading the JSON file")
     void readGAsDoesNotHaveSizeZero() throws ParseException, IOException, org.json.simple.parser.ParseException {
         GAList gaList = new GAList();
