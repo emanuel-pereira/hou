@@ -62,21 +62,5 @@ class ReadJSONFileTest {
                 "2 - Meteo station ISEP - temperature\n";
         String result = sensorList.showSensorListInString();
         assertEquals(expected, result);
-    }
-
-
-    @Test
-    @DisplayName("Ensure that ISEP contains two sensors")
-    void ensureISEPHasTwoSen12sors() throws ParseException, IOException, org.json.simple.parser.ParseException {
-        GAList gaList = new GAList();
-        Path path = Paths.get("resources/test.json");
-        ReadJSONFile js = new ReadJSONFile(path, gaList);
-        boolean thrown = false;
-        try {
-            js.importGAs();
-        } catch (IllegalArgumentException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
-    }
+    } 
 }
