@@ -2,10 +2,10 @@ package smarthome.model;
 
 public class Address {
 
-    private String mStreet;
-    private String mZipCode;
-    private String mTown;
-    private Location mGPSLocation;
+    private String street;
+    private String zipCode;
+    private String town;
+    private Location gpsLocation;
 
     /**
      * This constructor sets up the Address that will be used in the House
@@ -16,35 +16,35 @@ public class Address {
      * @param gpsLocation Required GPS location
      */
     public Address(String streetName, String zipCode, String town, Location gpsLocation) {
-        mStreet = streetName;
-        mZipCode = zipCode;
-        mTown = town;
-        mGPSLocation = gpsLocation;
+        this.street = streetName;
+        this.zipCode = zipCode;
+        this.town = town;
+        this.gpsLocation = gpsLocation;
     }
 
     public Address(String streetName, String zipCode, String town, double latitude, double longitude, double altitude) {
-        mStreet = streetName;
-        mZipCode = zipCode;
-        mTown = town;
-        mGPSLocation = new Location (latitude, longitude, altitude);
+        this.street = streetName;
+        this.zipCode = zipCode;
+        this.town = town;
+        this.gpsLocation = new Location (latitude, longitude, altitude);
     }
 
     public void setStreet(String streetName) {
         if (this.validateName (streetName)) {
-            mStreet = streetName;
+            this.street = streetName;
         }
     }
 
 
     public void setZipCode(String zipCode) {
         if (this.validateZipCode (zipCode)) {
-            mZipCode = zipCode;
+            this.zipCode = zipCode;
         }
     }
 
     public void setTown(String town) {
         if (this.validateTown (town)) {
-            mTown = town;
+            this.town = town;
         }
     }
 
@@ -67,7 +67,7 @@ public class Address {
      * @return Name of the street
      */
     public String getName() {
-        return mStreet;
+        return this.street;
     }
 
     /**
@@ -89,7 +89,7 @@ public class Address {
      * @return Number of the house
      */
     public String getTown() {
-        return mTown;
+        return this.town;
     }
 
     /**
@@ -116,7 +116,7 @@ public class Address {
      * @return The zip code of the house
      */
     public String getZipCode() {
-        return mZipCode;
+        return this.zipCode;
     }
 
     /**
@@ -125,7 +125,7 @@ public class Address {
      * @return The GPS location of the house
      */
     public Location getGPSLocation() {
-        return mGPSLocation;
+        return this.gpsLocation;
     }
 
 
