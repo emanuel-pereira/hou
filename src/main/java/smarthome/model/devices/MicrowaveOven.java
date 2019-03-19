@@ -1,12 +1,6 @@
 package smarthome.model.devices;
 
-import smarthome.model.Configuration;
-import smarthome.model.Device;
-import smarthome.model.DeviceSpecs;
-import smarthome.model.Metered;
-import smarthome.model.Programmable;
-import smarthome.model.Program;
-import smarthome.model.ReadingList;
+import smarthome.model.*;
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
 import java.util.ArrayList;
@@ -22,6 +16,7 @@ public class MicrowaveOven implements Device, Metered, Programmable {
     private boolean activityStatus;
     private ReadingList activityLog;
     private List<Program> programList;
+    private ProgramMode meteredProgram;
     private NameValidations nameValidation = new NameValidations();
 
     /**
@@ -157,6 +152,17 @@ public class MicrowaveOven implements Device, Metered, Programmable {
         return energyConsumption;
     }
 
+    @Override
+    public double getEstimatedEnergyConsumption() {
+        if (this.meteredProgram != null) {
+            double energy;
+            energy = this.meteredProgram.getProgramEstimatedEC ();
+            return energy;
+        } else {
+            return 0;
+        }
+    }
+
     /**
      * Create a Microwave Oven program
      * @param name Name of the program
@@ -164,8 +170,8 @@ public class MicrowaveOven implements Device, Metered, Programmable {
      * @return The created program
      */
     @Override
-    public Program createProgram(String name, double value) {
-        return new Program(name, "Nominal Power", value);
+    public ProgramMode createProgram(String name, double value) {
+        return new ProgramMode (name, value);
     }
 
     /**
@@ -188,5 +194,19 @@ public class MicrowaveOven implements Device, Metered, Programmable {
     @Override
     public List<Program> getProgramList() {
         return this.programList;
+    }
+
+    @Override
+    public void setMeteredProgram(String programName) {
+        for (Program program : this.programList) {
+            if (program.getProgramName ().equals (programName)) {
+                this.meteredProgram = (ProgramMode) program;
+            }
+        }
+    }
+
+    @Override
+    public Program getMeteredProgram() {
+        return this.meteredProgram;
     }
 }

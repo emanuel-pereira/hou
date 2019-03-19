@@ -153,4 +153,13 @@ public class HouseGrid implements Metered{
         }
         return Utils.round(total,2);
     }
+
+    @Override
+    public double getEstimatedEnergyConsumption() {
+        double sum = 0;
+        for (Metered room : this.roomList.getRoomList ()) {
+            sum += room.getEstimatedEnergyConsumption ();
+        }
+        return Utils.round (sum, 2);
+    }
 }

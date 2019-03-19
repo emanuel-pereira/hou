@@ -1,14 +1,9 @@
 package smarthome.model.devices;
 
-import smarthome.model.Configuration;
-import smarthome.model.Device;
-import smarthome.model.DeviceSpecs;
-import smarthome.model.Metered;
-import smarthome.model.Programmable;
-import smarthome.model.Program;
-import smarthome.model.ReadingList;
+import smarthome.model.*;
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -24,9 +19,11 @@ public class Fan implements Device, Metered, Programmable {
     private boolean active;
     private ReadingList activityLog;
     private List<Program> programList;
+    private ProgramMode meteredProgram;
+
 
     /**
-     * WFanconstructor
+     * Fan constructor
      * @param name Fan name
      * @param deviceSpecs Fan specs
      * @param nominalPower Fan nominal power
@@ -142,6 +139,17 @@ public class Fan implements Device, Metered, Programmable {
         return Utils.round(energyConsumption, 2);
     }
 
+    @Override
+    public double getEstimatedEnergyConsumption() {
+        if (this.meteredProgram != null) {
+            double energy;
+            energy = this.meteredProgram.getProgramEstimatedEC ();
+            return energy;
+        } else {
+            return 0;
+        }
+    }
+
     /**
      * Create a Fan program
      * @param name Name of the program
@@ -149,8 +157,8 @@ public class Fan implements Device, Metered, Programmable {
      * @return The created program
      */
     @Override
-    public Program createProgram(String name, double value) {
-        return new Program(name, "Nominal Power", value);
+    public ProgramMode createProgram(String name, double value) {
+        return new ProgramMode(name, value);
     }
 
     /**
@@ -173,6 +181,20 @@ public class Fan implements Device, Metered, Programmable {
     @Override
     public List<Program> getProgramList() {
         return this.programList;
+    }
+
+    @Override
+    public void setMeteredProgram(String programName) {
+        for (Program program : this.programList) {
+            if (program.getProgramName ().equals (programName)) {
+                this.meteredProgram = (ProgramMode) program;
+            }
+        }
+    }
+
+    @Override
+    public Program getMeteredProgram() {
+        return this.meteredProgram;
     }
 
 }

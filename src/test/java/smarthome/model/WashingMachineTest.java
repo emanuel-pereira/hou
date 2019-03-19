@@ -266,4 +266,68 @@ class WashingMachineTest {
 
         assertFalse(washingMachine.addProgramToList(full));
     }
+
+    @Test
+    @DisplayName("Get null if no metered program is set")
+    void getMeteredNullProgram() {
+        WashingMachineSpecs specs = new WashingMachineSpecs ("Washing Machine");
+        WashingMachine wm = new WashingMachine ("Samsung WM", specs, 200);
+        ProgramWithTimer eco = wm.createProgram ("Eco",  50);
+        wm.addProgramToList (eco);
+
+        assertNull (wm.getMeteredProgram ());
+    }
+
+    @Test
+    @DisplayName("Correctly set a metered program")
+    void setMeteredProgram() {
+        WashingMachineSpecs specs = new WashingMachineSpecs ("Washing Machine");
+        WashingMachine wm = new WashingMachine ("Samsung WM", specs, 200);
+        ProgramWithTimer eco = wm.createProgram ("Eco",  50);
+        wm.addProgramToList (eco);
+        ProgramWithTimer fast = wm.createProgram ("Fast",  200);
+        wm.addProgramToList (fast);
+        wm.setMeteredProgram ("Eco");
+
+        Program result = wm.getMeteredProgram ();
+
+        assertEquals (eco, result);
+
+        wm.setMeteredProgram ("Fast");
+
+        assertEquals (fast, wm.getMeteredProgram ());
+    }
+
+    @Test
+    @DisplayName("Correctly get the estimated energy consumption")
+    void getEstimatedEnergyConsumption() {
+        WashingMachineSpecs specs = new WashingMachineSpecs ("Washing Machine");
+        WashingMachine wm = new WashingMachine ("Washing Machine", specs, 200);
+        ProgramWithTimer slow = wm.createProgram ("Slow",  50);
+        wm.addProgramToList (slow);
+        ProgramWithTimer fast = wm.createProgram ("Fast",  200);
+        wm.addProgramToList (fast);
+        slow.setDuration (2);
+        wm.setMeteredProgram ("Slow");
+
+        double expected = 50;
+        double result = wm.getEstimatedEnergyConsumption ();
+
+        assertEquals (expected, result);
+    }
+
+    @Test
+    void getEstimatedEnergyConsumptionNoProgram() {
+        WashingMachineSpecs specs = new WashingMachineSpecs ("Washing Machine");
+        WashingMachine wm = new WashingMachine ("Washing Machine", specs, 200);
+        ProgramWithTimer slow = wm.createProgram ("Slow",  50);
+        wm.addProgramToList (slow);
+        Program fast = wm.createProgram ("Fast",  200);
+        wm.addProgramToList (fast);
+
+        double expected = 0;
+        double result = wm.getEstimatedEnergyConsumption ();
+
+        assertEquals (expected, result);
+    }
 }
