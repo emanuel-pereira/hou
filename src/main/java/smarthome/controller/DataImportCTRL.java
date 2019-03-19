@@ -26,9 +26,11 @@ public class DataImportCTRL {
      * @throws org.json.simple.parser.ParseException
      * @throws IOException
      */
-    public void loadJSON(Path filePath) throws ParseException,org.json.simple.parser.ParseException, IOException {
+    public List<GeographicalAreaDTO> loadJSON(Path filePath) throws ParseException,org.json.simple.parser.ParseException, IOException {
         ReadJSONFile jsonFile = new ReadJSONFile(filePath, gaList);
-        jsonFile.importGAs();
+
+        return jsonFile.importGAs();
+
     }
 
     public void importReadingsFromCSVFile(String filePath) throws IOException {
