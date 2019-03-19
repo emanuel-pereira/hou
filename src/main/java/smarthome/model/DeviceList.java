@@ -36,7 +36,7 @@ public class DeviceList {
      * @throws IllegalAccessException
      */
     public Device newDevice(String deviceName, String deviceType, double nominalPower) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        String path = "smarthome.model."; // Maybe this should be removed. The path should be returned from the Configuration class and "injected" here.
+        String path = "smarthome.model.devices."; // Maybe this should be removed and the path returned from the Configuration class and "injected" here.
 
         String deviceTypeNameAndPath = path.concat(deviceType).concat("Type"); // by internal convention every device type is named as [Name]Type.
 

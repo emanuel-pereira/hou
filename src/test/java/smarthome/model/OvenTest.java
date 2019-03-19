@@ -1,6 +1,9 @@
 package smarthome.model;
 
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.Oven;
+import smarthome.model.devices.OvenSpecs;
+import smarthome.model.devices.OvenType;
 
 import java.util.Arrays;
 import java.util.Calendar;

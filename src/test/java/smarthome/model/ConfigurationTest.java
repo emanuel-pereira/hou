@@ -39,7 +39,7 @@ class ConfigurationTest {
         Configuration c = new Configuration();
         c.getDeviceTypes();
 
-        List<String> expectedResult = Arrays.asList("ElectricWaterHeater", "WashingMachine", "Dishwasher", "Fridge", "Kettle", "Oven", "Stove", "MicrowaveOven", "WallElectricHeater", "PortableElectricOilHeater", "PortableElectricConvectionHeater", "WallTowelHeater", "Lamp", "Tv");
+        List<String> expectedResult = Arrays.asList("ElectricWaterHeater", "WashingMachine", "Dishwasher", "Fridge", "Freezer", "WineCooler", "Kettle", "Oven", "Stove", "MicrowaveOven", "WallElectricHeater", "PortableElectricOilHeater", "PortableElectricConvectionHeater", "WallTowelHeater", "Lamp", "Fan", "Tv");
         List<String> result = c.getDeviceTypes();
 
         assertEquals(expectedResult, result);
@@ -132,7 +132,7 @@ class ConfigurationTest {
     @Test
     void checkBoundaries_C() {
 
-        Configuration c = new Configuration("resources/configFilesForTests/configFalseTooLowTotal.properties");
+        Configuration c = new Configuration("resources/configFilesForTests/config_DMP1440_GMP1.properties");
 
         int expected = 1440;
         int result = c.getDevicesMeteringPeriod();
@@ -143,7 +143,7 @@ class ConfigurationTest {
     @Test
     void checkBoundaries_D() {
 
-        Configuration c = new Configuration("resources/configFilesForTests/configFalseTooLowTotal.properties");
+        Configuration c = new Configuration("resources/configFilesForTests/config_DMP1440_GMP1.properties");
 
         int expected = 1;
         int result = c.getGridMeteringPeriod();

@@ -2,6 +2,8 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.Lamp;
+import smarthome.model.devices.LampSpecs;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

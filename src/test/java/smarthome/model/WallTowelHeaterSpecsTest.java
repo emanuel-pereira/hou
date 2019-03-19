@@ -1,8 +1,9 @@
 package smarthome.model;
 
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.WallTowelHeaterSpecs;
+import smarthome.model.devices.WallTowelHeaterType;
 
-import java.awt.geom.Arc2D;
 import java.util.ArrayList;
 import java.util.List;
 

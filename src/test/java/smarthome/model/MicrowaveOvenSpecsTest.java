@@ -1,6 +1,8 @@
 package smarthome.model;
 
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.MicrowaveOvenSpecs;
+import smarthome.model.devices.MicrowaveOvenType;
 
 import java.util.ArrayList;
 import java.util.List;

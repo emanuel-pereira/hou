@@ -2,6 +2,8 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.Fan;
+import smarthome.model.devices.FanSpecs;
 
 import java.util.Arrays;
 import java.util.Calendar;
