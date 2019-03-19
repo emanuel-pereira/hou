@@ -122,7 +122,6 @@ public class RoomList {
         return roomDeviceList.getDeviceList().add(device);
     }
 
-
     public List<Device> getDevicesInAllRoomsByType(String deviceType) {
         List<Device> deviceList;
         List<Device> deviceListByType = new ArrayList<>();
@@ -134,6 +133,17 @@ public class RoomList {
                 }
         }
         return deviceListByType;
+    }
+
+    public Room getDeviceLocation (Device inputDevice) {
+        Room location  = this.listOfRooms.get(0);
+        for(Room room: this.listOfRooms){
+            List<Device> deviceListInRoom = room.getDeviceList().getDeviceList();
+            if (deviceListInRoom.contains(inputDevice)){
+                location = room;
+            }
+        }
+        return location;
     }
 
 
@@ -152,7 +162,7 @@ public class RoomList {
         return Utils.round(totalEnergyConsumption,2);
     }
 
-    public List<Metered> getMeteredDevicesLst(){
+    public List<Metered> getMeteredDevicesList(){
         List<Metered> meteredDevListInHouse=new ArrayList<>();
         for(Room room:this.listOfRooms){
             List<Metered> meteredDevicesInRoom=room.getDeviceList().getMeteredDevices();
@@ -160,6 +170,8 @@ public class RoomList {
         }
         return meteredDevListInHouse;
     }
+
+
 
 
 }

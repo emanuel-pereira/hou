@@ -27,6 +27,15 @@ class DeviceListTest {
     }
 
     @Test
+    @DisplayName("Create and fail to add the same device")
+    void newDeviceFalse() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        DeviceList deviceList = new DeviceList ();
+        Device kettle1 = deviceList.newDevice ("Kettle1", "Kettle", 200);
+        deviceList.addDevice (kettle1);
+        assertFalse(deviceList.addDevice (kettle1));
+    }
+
+    @Test
     @DisplayName("Create and add new devices and get one correctly")
     void get() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         DeviceList deviceList = new DeviceList ();
