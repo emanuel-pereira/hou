@@ -351,7 +351,7 @@ public class House {
         List<Metered> meteredList = new ArrayList<>();
         for (HouseGrid houseGrid : this.houseGridList.getHouseGridList()) {
             List<Room> tempRoomList = houseGrid.getRoomListInAGrid().getRoomList();
-            List<Metered> deviceList = houseGrid.getRoomListInAGrid().getMeteredDevicesLst();
+            List<Metered> deviceList = houseGrid.getRoomListInAGrid().getMeteredDevicesList();
             meteredList.add(houseGrid);
             meteredList.addAll(tempRoomList);
             meteredList.addAll(deviceList);

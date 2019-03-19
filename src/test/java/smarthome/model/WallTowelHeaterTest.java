@@ -3,6 +3,7 @@ package smarthome.model;
 import org.junit.jupiter.api.Test;
 import smarthome.model.devices.WallTowelHeater;
 import smarthome.model.devices.WallTowelHeaterSpecs;
+import smarthome.model.devices.WallTowelHeaterType;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -169,5 +170,19 @@ class WallTowelHeaterTest {
         double energyConsumption = device.getEnergyConsumption(startDate, endDate);
 
         assertEquals(300.0 ,energyConsumption, 0.001);
+    }
+
+    @Test
+    void getEstimatedEnergyConsumption(){
+        WallTowelHeaterType type = new WallTowelHeaterType();
+        WallTowelHeaterSpecs specs = new WallTowelHeaterSpecs (type.getDeviceType());
+        WallTowelHeater device = new WallTowelHeater ("baker", specs, 420);
+
+        device.setTime(3);
+
+        double expected = 1260;
+        double result = device.getEstimatedEnergyConsumption();
+
+        assertEquals(expected,result);
     }
 }
