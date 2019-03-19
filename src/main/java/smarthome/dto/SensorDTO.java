@@ -25,6 +25,7 @@ public class SensorDTO {
     public String getDesignation() {
         return designation;
     }
+
     public List<ReadingDTO> getReadingListDTO(){
         return readingListDTO;
 
