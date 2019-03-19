@@ -2,6 +2,7 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.WashingMachineType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -38,7 +39,7 @@ class WashingMachineTypeTest {
         Device wM = type.createDevice ("Singer", 200);
 
         String expected = "Singer";
-        String result = wM.getDeviceName ();
+        String result = wM.getName ();
 
         assertEquals(expected, result);
     }

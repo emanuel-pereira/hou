@@ -358,7 +358,7 @@ class HouseTest {
     void getListOfDeviceTypes() {
         House h = new House();
         List<String> result = h.getListOfDeviceTypes();
-        assertEquals(14, result.size());
+        assertEquals(17, result.size());
     }
 
     @Test
@@ -368,16 +368,19 @@ class HouseTest {
                 "2 - WashingMachine\n" +
                 "3 - Dishwasher\n" +
                 "4 - Fridge\n" +
-                "5 - Kettle\n" +
-                "6 - Oven\n" +
-                "7 - Stove\n" +
-                "8 - MicrowaveOven\n" +
-                "9 - WallElectricHeater\n" +
-                "10 - PortableElectricOilHeater\n" +
-                "11 - PortableElectricConvectionHeater\n" +
-                "12 - WallTowelHeater\n" +
-                "13 - Lamp\n" +
-                "14 - Tv\n";
+                "5 - Freezer\n" +
+                "6 - WineCooler\n" +
+                "7 - Kettle\n" +
+                "8 - Oven\n" +
+                "9 - Stove\n" +
+                "10 - MicrowaveOven\n" +
+                "11 - WallElectricHeater\n" +
+                "12 - PortableElectricOilHeater\n" +
+                "13 - PortableElectricConvectionHeater\n" +
+                "14 - WallTowelHeater\n" +
+                "15 - Lamp\n" +
+                "16 - Fan\n" +
+                "17 - Tv\n";
         String result = h.showDeviceTypesList();
         assertEquals(expected, result);
 
@@ -485,7 +488,7 @@ class HouseTest {
         ga.getSensorListInGA().addSensor(s1);
         ga.getSensorListInGA().addSensor(s2);
 
-        Sensor result = house.getClosestSensorWithLatestReadingsInPeriod(sT, startDate, endDate);
+        Sensor result = house.filterByTypeByIntervalAndDistance(sT, startDate, endDate);
 
         assertEquals(s2, result);
     }
@@ -542,7 +545,7 @@ class HouseTest {
         ga.getSensorListInGA().addSensor(s1);
         ga.getSensorListInGA().addSensor(s2);
 
-        Sensor result = house.getClosestSensorWithLatestReadingsInPeriod(sT, startDate, endDate);
+        Sensor result = house.filterByTypeByIntervalAndDistance(sT, startDate, endDate);
 
         assertNotEquals(s1, result);
     }

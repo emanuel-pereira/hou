@@ -4,7 +4,8 @@ package smarthome.io.ui;
 import smarthome.controller.NewSensorCTRL;
 import smarthome.model.*;
 
-import java.util.*;
+import java.util.GregorianCalendar;
+import java.util.Scanner;
 
 public class NewSensorUI {
     private NewSensorCTRL ctrl;
@@ -156,7 +157,7 @@ public class NewSensorUI {
         System.out.println("UNITS: " + this.ctrl.getGASensorUnit(this.indexOfGA));
         System.out.println("LIST OF READINGS:");
         for (
-                Reading r : this.readingList.getReadingList()) {
+                Reading r : this.readingList.getReadingsList()) {
             System.out.println("[timestamp: " + r.getDateAndTime().getTime() + " value: " + r.returnValueOfReading() + "]");
         }
         System.out.println("GPS LOCATION - [Latitude: " + this.latitude + " | Longitude: " + this.longitude + " | Altitude: " + this.altitude + "]");
@@ -172,7 +173,7 @@ public class NewSensorUI {
         System.out.println("UNITS: " + this.ctrl.getRoomSensorUnit(this.indexOfRoom));
         System.out.println("LIST OF READINGS:");
         for (
-                Reading r : this.readingList.getReadingList()) {
+                Reading r : this.readingList.getReadingsList()) {
             System.out.println("[timestamp: " + r.getDateAndTime().getTime() + " value: " + r.returnValueOfReading() + "]");
         }
     }

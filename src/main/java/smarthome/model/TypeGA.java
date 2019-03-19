@@ -46,7 +46,7 @@ public class TypeGA {
      */
     @Override
     public int hashCode() {
-        return Objects.hash (typeGeographicalArea);
+        return Objects.hash (this.typeGeographicalArea);
     }
 
 

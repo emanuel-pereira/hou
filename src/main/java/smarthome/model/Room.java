@@ -131,6 +131,15 @@ public class Room implements Metered {
         return Utils.round(sum, 2);
     }
 
+    @Override
+    public double getEstimatedEnergyConsumption() {
+        double sum = 0;
+        for (Metered device : this.deviceList.getMeteredDevices ()) {
+            sum += device.getEstimatedEnergyConsumption ();
+        }
+        return Utils.round (sum, 2);
+    }
+
     /**
      * Method that checks if a text is only spaces
      *
@@ -156,6 +165,7 @@ public class Room implements Metered {
      * @param input Sensor type designation
      * @return True if the sensor type exist in the room or false if not
      */
+    //TODO - no tests created for this method
     public boolean checkIfSensorTypeExistsInRoom(String input) {
         List<Sensor> list = this.getSensorListInRoom().getSensorList();
         for (Sensor s : list) {

@@ -8,7 +8,7 @@ public class HouseGridList {
     private List<HouseGrid> hglist;
 
     public HouseGridList() {
-        hglist = new ArrayList<>();
+        this.hglist = new ArrayList<>();
     }
 
     /**
@@ -30,8 +30,8 @@ public class HouseGridList {
      * @return true if houseGrid is added to list or false otherwise.
      */
     public boolean addHouseGrid(HouseGrid inputHouseGrid) {
-        if (!hglist.contains(inputHouseGrid)) {
-            hglist.add(inputHouseGrid);
+        if (!this.hglist.contains(inputHouseGrid)) {
+            this.hglist.add(inputHouseGrid);
             return true;
         } else return false;
     }
@@ -44,7 +44,7 @@ public class HouseGridList {
      */
     public List<HouseGrid> getHouseGridList() {
         List<HouseGrid> gridList = new ArrayList<>();
-        for (HouseGrid grid : hglist) {
+        for (HouseGrid grid : this.hglist) {
             gridList.add(grid);
         }
         return gridList;
@@ -56,7 +56,7 @@ public class HouseGridList {
      * @return int form value that represents the electric grid list size
      */
     public int getSize() {
-        return hglist.size();
+        return this.hglist.size();
     }
 
     public HouseGrid get(int i) {

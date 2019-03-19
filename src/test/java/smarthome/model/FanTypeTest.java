@@ -2,6 +2,7 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.FanType;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -39,7 +40,7 @@ class FanTypeTest {
         Device wM = type.createDevice ("Singer", 200);
 
         String expected = "Singer";
-        String result = wM.getDeviceName ();
+        String result = wM.getName ();
 
         assertEquals(expected, result);
     }

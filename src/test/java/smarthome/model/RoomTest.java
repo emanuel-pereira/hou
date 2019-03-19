@@ -1,6 +1,11 @@
 package smarthome.model;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.Fan;
+import smarthome.model.devices.FanSpecs;
+import smarthome.model.devices.WashingMachine;
+import smarthome.model.devices.WashingMachineSpecs;
 
 import java.util.GregorianCalendar;
 
@@ -155,6 +160,78 @@ public class RoomTest {
         double result = bedroom.getHeight ();
 
         assertEquals (expectedResult, result);
+    }
+
+    @Test
+    @DisplayName("Correctly get the estimated energy consumption of a room")
+    void getCorrectRoomEstimatedEnergyConsumption() {
+        House house = new House ();
+        RoomList roomList = house.getRoomList ();
+        Room kitchen = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
+        roomList.addRoom (kitchen);
+
+        FanSpecs fanSpecs = new FanSpecs ("Fan");
+        Fan fan = new Fan ("Fan 1", fanSpecs, 2);
+
+        WashingMachineSpecs wmSpecs = new WashingMachineSpecs ("Washing Machine");
+        WashingMachine washingMachine = new WashingMachine ("Washing Machine1", wmSpecs, 100);
+
+        DeviceList deviceList = kitchen.getDeviceList ();
+        deviceList.addDevice (fan);
+        deviceList.addDevice (washingMachine);
+
+        ProgramMode fast = fan.createProgram ("Fast", 2);
+        ProgramMode ultraFast = fan.createProgram ("Ultra Fast", 4);
+        fan.addProgramToList (fast);
+        fan.addProgramToList (ultraFast);
+        ultraFast.setTime (10);
+        fan.setMeteredProgram ("Ultra Fast");
+
+        ProgramWithTimer eco = washingMachine.createProgram ("Eco", 20);
+        washingMachine.addProgramToList (eco);
+        eco.setDuration (30);
+        washingMachine.setMeteredProgram ("Eco");
+
+        double expected = 60;
+        double result = kitchen.getEstimatedEnergyConsumption ();
+
+        assertEquals (expected, result);
+    }
+
+    @Test
+    @DisplayName("Correctly get the estimated energy consumption of a room")
+    void getRoomEstimatedEnergyConsumption() {
+        House house = new House ();
+        RoomList roomList = house.getRoomList ();
+        Room kitchen = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
+        roomList.addRoom (kitchen);
+
+        FanSpecs fanSpecs = new FanSpecs ("Fan");
+        Fan fan = new Fan ("Fan 1", fanSpecs, 2);
+
+        WashingMachineSpecs wmSpecs = new WashingMachineSpecs ("Washing Machine");
+        WashingMachine washingMachine = new WashingMachine ("Washing Machine1", wmSpecs, 100);
+
+        DeviceList deviceList = kitchen.getDeviceList ();
+        deviceList.addDevice (fan);
+        deviceList.addDevice (washingMachine);
+
+        ProgramMode fast = fan.createProgram ("Fast", 2);
+        ProgramMode ultraFast = fan.createProgram ("Ultra Fast", 4);
+        fan.addProgramToList (fast);
+        fan.addProgramToList (ultraFast);
+        ultraFast.setTime (10);
+        fan.setMeteredProgram ("Ultra Fast");
+
+        ProgramWithTimer eco = washingMachine.createProgram ("Eco", 20);
+        washingMachine.addProgramToList (eco);
+        eco.setDuration (30);
+        washingMachine.setMeteredProgram ("Eco");
+
+        double expected = 60;
+        double result = kitchen.getEstimatedEnergyConsumption ();
+
+        assertEquals (expected, result);
     }
 
     /**

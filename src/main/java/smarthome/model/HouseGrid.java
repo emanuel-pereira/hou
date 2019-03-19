@@ -6,34 +6,34 @@ import java.util.Calendar;
 import java.util.Objects;
 
 public class HouseGrid implements Metered{
-    private double mContractedMaximumPower = Double.NaN;
-    private String mDesignation;
-    private PowerSourceList mPSListInHG;
-    private RoomList mRoomList;
+    private double contractedMaximumPower = Double.NaN;
+    private String designation;
+    private PowerSourceList psListInHG;
+    private RoomList roomList;
 
 
     public HouseGrid(String designation) {
-        mDesignation = designation;
-        mPSListInHG = new PowerSourceList ();
-        mRoomList = new RoomList ();
+        this.designation = designation;
+        this.psListInHG = new PowerSourceList ();
+        this.roomList = new RoomList ();
     }
 
 
     public double getContractedMaximumPower() {
-        return mContractedMaximumPower;
+        return this.contractedMaximumPower;
     }
 
     public void setContractedMaximumPower(double contractedMaximumPower) {
         if (Utils.valueIsPositive (contractedMaximumPower))
-            this.mContractedMaximumPower = contractedMaximumPower;
+            this.contractedMaximumPower = contractedMaximumPower;
     }
 
     public String getName() {
-        return mDesignation;
+        return this.designation;
     }
 
     public PowerSourceList getPSListInHG() {
-        return mPSListInHG;
+        return this.psListInHG;
     }
 
     /**
@@ -43,15 +43,15 @@ public class HouseGrid implements Metered{
      * @return true if the room is added
      */
     public boolean attachRoomToGrid(Room inputRoom) {
-        if (mRoomList.getRoomList ().contains (inputRoom)) {
+        if (this.roomList.getRoomList ().contains (inputRoom)) {
             return false;
-        } else mRoomList.addRoom (inputRoom);
+        } else this.roomList.addRoom (inputRoom);
         return true;
     }
 
     public boolean detachRoomFromGrid(Room inputRoom) {
-        if (mRoomList.getRoomList ().contains (inputRoom)) {
-            mRoomList.getRoomList ().remove (inputRoom);
+        if (this.roomList.getRoomList ().contains (inputRoom)) {
+            this.roomList.getRoomList ().remove (inputRoom);
             return true;
         } else return false;
     }
@@ -62,12 +62,41 @@ public class HouseGrid implements Metered{
      * @return list of rooms in a grid
      */
     public RoomList getRoomListInAGrid() {
-       return mRoomList;
+       return this.roomList;
     }
 
     public int getRoomListInAGridSize() {
-        return mRoomList.getRoomListSize ();
+        return this.roomList.getRoomListSize ();
     }
+
+    public DeviceList getDeviceListInGrid(){
+        DeviceList deviceListInGrid = new DeviceList();
+        for (Room r : this.roomList.getRoomList()) {
+            deviceListInGrid.getDeviceList().addAll(r.getDeviceList().getDeviceList());
+        }
+        return deviceListInGrid;
+    }
+
+    public DeviceList getDeviceListFromType(int indexType){
+        Configuration c = new Configuration();
+        DeviceList deviceListFromType = new DeviceList();
+        for(Device d : this.getDeviceListInGrid().getDeviceList()){
+            if(c.getDeviceTypes().get(indexType).equals(d.getDeviceType())){
+                deviceListFromType.addDevice(d);
+            }
+        }
+        return deviceListFromType;
+    }
+
+    public DeviceList getDeviceListInGridGroupBy(){
+        DeviceList deviceListGroupByType = new DeviceList();
+        int indexType;
+        for(indexType = 0; indexType <= 16; indexType++){
+            deviceListGroupByType.getDeviceList().addAll(getDeviceListFromType(indexType).getDeviceList());
+        }
+        return deviceListGroupByType;
+    }
+
 
     /**
      * Nominal power of a grid is the sum of nominal power of all the rooms in tat grid
@@ -108,20 +137,29 @@ public class HouseGrid implements Metered{
             return false;
         }
         HouseGrid houseGrid = (HouseGrid) o;
-        return Objects.equals (mDesignation, houseGrid.mDesignation);
+        return Objects.equals (this.designation, houseGrid.designation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash (mDesignation);
+        return Objects.hash (this.designation);
     }
 
     @Override
     public double getEnergyConsumption(Calendar startHour, Calendar endHour) {
         double total=0;
-        for(Room room : mRoomList.getRoomList()){
+        for(Room room : this.roomList.getRoomList()){
             total+=room.getEnergyConsumption(startHour,endHour);
         }
         return Utils.round(total,2);
+    }
+
+    @Override
+    public double getEstimatedEnergyConsumption() {
+        double sum = 0;
+        for (Metered room : this.roomList.getRoomList ()) {
+            sum += room.getEstimatedEnergyConsumption ();
+        }
+        return Utils.round (sum, 2);
     }
 }

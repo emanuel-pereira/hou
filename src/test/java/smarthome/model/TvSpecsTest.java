@@ -2,6 +2,7 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.TvSpecs;
 
 import java.util.Arrays;
 import java.util.List;
@@ -83,19 +84,6 @@ class TvSpecsTest {
 
     }
 
-    @Test
-    @DisplayName("Obtain the list of all Tv's attributes' units")
-    void notSetAttributeUnits() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
 
-        tvSpecs.setAttributeUnit("Power", "kW");
-
-        String result = tvSpecs.getAttributeUnit("Standby Power");
-        String expected = null;
-
-
-        assertNotEquals(expected, result);
-
-    }
 
 }

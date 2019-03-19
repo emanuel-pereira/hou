@@ -10,7 +10,7 @@ public class DeviceList {
      * Constructor initializing an empty device list.
      */
     public DeviceList() {
-        devicesList = new ArrayList<>();
+        this.devicesList = new ArrayList<>();
     }
 
     /**
@@ -20,8 +20,8 @@ public class DeviceList {
      * @return boolean result of the device addition
      */
     public boolean addDevice(Device device) {
-        if (!devicesList.contains(device)) {
-            devicesList.add(device);
+        if (!this.devicesList.contains(device)) {
+            this.devicesList.add(device);
             return true;
         } else return false;
     }
@@ -36,7 +36,7 @@ public class DeviceList {
      * @throws IllegalAccessException
      */
     public Device newDevice(String deviceName, String deviceType, double nominalPower) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        String path = "smarthome.model."; // Maybe this should be removed. The path should be returned from the Configuration class and "injected" here.
+        String path = "smarthome.model.devices."; // Maybe this should be removed and the path returned from the Configuration class and "injected" here.
 
         String deviceTypeNameAndPath = path.concat(deviceType).concat("Type"); // by internal convention every device type is named as [Name]Type.
 
@@ -51,7 +51,7 @@ public class DeviceList {
      * @return the device in index position in the device list
      */
     public Device get(int index) {
-        return devicesList.get(index);
+        return this.devicesList.get(index);
     }
 
 
@@ -65,7 +65,7 @@ public class DeviceList {
         for (Device device : list) {
             sb.append(device.getDeviceSpecs().getDeviceType());
             sb.append(" (");
-            sb.append(device.getDeviceName());
+            sb.append(device.getName());
             sb.append(") ");
             String fragment = device.isActive() ? active : notActive;
             sb.append(fragment);
@@ -76,7 +76,7 @@ public class DeviceList {
     }
 
     public List<Device> getDeviceList() {
-        return devicesList;
+        return this.devicesList;
     }
 
     public int size() {
@@ -109,15 +109,12 @@ public class DeviceList {
     List<Metered> getMeteredDevices() {
         List<Metered> meteredDeviceList = new ArrayList<>();
 
-        for (Device device : devicesList) {
+        for (Device device : this.devicesList) {
             Metered meteredDevice = (Metered) device;
             meteredDeviceList.add(meteredDevice);
         }
         return meteredDeviceList;
     }
-
-
-
 
 }
 

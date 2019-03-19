@@ -6,7 +6,7 @@ import java.util.Objects;
 public class SensorType {
 
 
-    private String mSensorType;
+    private String typeOfSensor;
 
 
     /**
@@ -15,7 +15,7 @@ public class SensorType {
      * @param sensorTypeDesignation - String that names the type of data
      */
     public SensorType(String sensorTypeDesignation) {
-        this.mSensorType = sensorTypeDesignation;
+        this.typeOfSensor = sensorTypeDesignation;
     }
 
 
@@ -25,7 +25,7 @@ public class SensorType {
      * @return designation of a data type
      */
     public String getType() {
-        return this.mSensorType;
+        return this.typeOfSensor;
     }
 
     public boolean equals(Object o) {
@@ -34,7 +34,7 @@ public class SensorType {
         if (!(o instanceof SensorType))
             return false;
         SensorType sensorType = (SensorType) o;
-        return this.mSensorType.equals (sensorType.getType());
+        return this.typeOfSensor.equals (sensorType.getType());
     }
 
     /**
@@ -48,7 +48,7 @@ public class SensorType {
      */
     @Override
     public int hashCode() {
-        return Objects.hash (mSensorType);
+        return Objects.hash (this.typeOfSensor);
     }
 
 

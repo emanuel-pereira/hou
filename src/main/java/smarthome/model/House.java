@@ -5,53 +5,46 @@ import java.util.*;
 
 public class House {
 
-    private Address mAddress;
-    private String mID;
-    private GeographicalArea mGA;
-    private RoomList mRoomList;
-    private HouseGridList mHGListInHouse;
-
+    private Address address;
+    private String iD;
+    private GeographicalArea gA;
+    private RoomList roomList;
+    private HouseGridList houseGridList;
 
     public House() {
-        mRoomList = new RoomList();
-        mHGListInHouse = new HouseGridList();
-
+        this.roomList = new RoomList();
+        this.houseGridList = new HouseGridList();
     }
 
     public House(Address houseAddress, GeographicalArea ga) {
-        mAddress = houseAddress;
-        mGA = ga;
-        mRoomList = new RoomList();
-        mHGListInHouse = new HouseGridList();
-
+        this.address = houseAddress;
+        this.gA = ga;
+        this.roomList = new RoomList();
+        this.houseGridList = new HouseGridList();
     }
 
     public House(String id, Address houseAddress, GeographicalArea ga) {
-        mID = id;
-        mAddress = houseAddress;
-        mGA = ga;
-        mRoomList = new RoomList();
-        mHGListInHouse = new HouseGridList();
-
-    }
-
-
-    public void setHouseGA(GeographicalArea houseGA) {
-        mGA = houseGA;
+        this.iD = id;
+        this.address = houseAddress;
+        this.gA = ga;
+        this.roomList = new RoomList();
+        this.houseGridList = new HouseGridList();
     }
 
     public GeographicalArea getHouseGA() {
-        return mGA;
+        return this.gA;
     }
 
+    public void setHouseGA(GeographicalArea houseGA) {
+        this.gA = houseGA;
+    }
 
     public void setHouseAddress(String streetName, String houseNumber, String zipCode, double latitude, double longitude, double altitude) {
-        mAddress = new Address(streetName, houseNumber, zipCode, latitude, longitude, altitude);
+        this.address = new Address(streetName, houseNumber, zipCode, latitude, longitude, altitude);
     }
 
     public Address getAddress() {
-
-        return mAddress;
+        return this.address;
     }
 
 
@@ -64,22 +57,22 @@ public class House {
             return false;
         }
         House house = (House) o;
-        return Objects.equals(mAddress, house.mAddress) &&
-                Objects.equals(mID, house.mID) &&
-                Objects.equals(mGA, house.mGA);
+        return Objects.equals(this.address, house.address) &&
+                Objects.equals(this.iD, house.iD) &&
+                Objects.equals(this.gA, house.gA);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(mAddress, mID, mGA);
+        return Objects.hash(this.address, this.iD, this.gA);
     }
 
     public RoomList getRoomList() {
-        return mRoomList;
+        return this.roomList;
     }
 
     public HouseGridList getHGListInHouse() {
-        return mHGListInHouse;
+        return this.houseGridList;
     }
 
 
@@ -92,7 +85,7 @@ public class House {
     public RoomList getRoomsWithoutGrid(HouseGrid houseGrid) {
         RoomList roomListWithoutHouseGrid = new RoomList();
         RoomList roomListInHouseGrid = houseGrid.getRoomListInAGrid();
-        for (Room room : mRoomList.getRoomList()) {
+        for (Room room : this.roomList.getRoomList()) {
             if (!(roomListInHouseGrid.getRoomList().contains(room)))
                 roomListWithoutHouseGrid.addRoom(room);
         }
@@ -127,7 +120,7 @@ public class House {
      */
 
     private double calculateDistance(Location aLocation) {
-        return mAddress.getGPSLocation().calcLinearDistanceBetweenTwoPoints(mAddress.getGPSLocation(), aLocation);
+        return this.address.getGPSLocation().calcLinearDistanceBetweenTwoPoints(this.address.getGPSLocation(), aLocation);
     }
 
     /**
@@ -137,16 +130,25 @@ public class House {
      * @param sensorType selected to get the list of the closest sensors.
      * @return a list of sensors of the selected sensorType with the shortest distance to the house.
      */
-    private SensorList getClosestSensorsOfType(SensorType sensorType) {
-        SensorList gaSensorList = mGA.getSensorListInGA();
+    private SensorList filterListByTypeAndProximity(SensorType sensorType) {
+        SensorList gaSensorList;
+        try {
+            gaSensorList = this.gA.getSensorListInGA();
+        } catch (NullPointerException exception) {
+            return new SensorList();
+        }
 
         SensorList sensorListOfType = gaSensorList.getListOfSensorsByType(sensorType);
         double distance;
-        double minDistance = this.calculateDistance(sensorListOfType.getSensorList().get(0).getLocation());
+        List<Sensor> sensorList = sensorListOfType.getSensorList();
+        Sensor firstSensor = sensorList.get(0);
+        Location sensorLocation = firstSensor.getLocation();
+        double minDistance = this.calculateDistance(sensorLocation);
         SensorList closestSensors = new SensorList();
 
-        for (Sensor sensor : sensorListOfType.getSensorList()) {
-            distance = calculateDistance(sensor.getLocation());
+        for (Sensor sensor : sensorList) {
+            Location location = sensor.getLocation();
+            distance = calculateDistance(location);
             if (BigDecimal.valueOf(distance).equals(BigDecimal.valueOf(minDistance))) {
                 closestSensors.addSensor(sensor);
             }
@@ -159,21 +161,19 @@ public class House {
         return closestSensors;
     }
 
-    public SensorList getClosestSensorsOfTypeWithReadingsInPeriod(SensorType type, Calendar startDate, Calendar endDate) {
-        SensorList closestSensorsOfType = this.getClosestSensorsOfType(type);
-        SensorList closestSensorWithReadingsInPeriod = new SensorList();
-
-
-        for (Sensor sensor : closestSensorsOfType.getSensorList()) {
-
-            ReadingList readingListInPeriod = sensor.getReadingList().getReadingsInPeriod(startDate, endDate);
-
-            if (!readingListInPeriod.getReadingList().isEmpty()) {
-                closestSensorWithReadingsInPeriod.addSensor(sensor);
+    public SensorList filterListByTypeByIntervalAndDistance(SensorType type, Calendar startDate, Calendar endDate) {
+        SensorList closestSensorsOfType = this.filterListByTypeAndProximity(type);
+        if (closestSensorsOfType.size() == 0)
+            return new SensorList();
+        else {
+            SensorList closestSensorWithReadingsInPeriod = new SensorList();
+            for (Sensor sensor : closestSensorsOfType.getSensorList()) {
+                ReadingList readingListInPeriod = sensor.getReadingList().filterByDate(startDate, endDate);
+                if (!readingListInPeriod.getReadingsList().isEmpty())
+                    closestSensorWithReadingsInPeriod.addSensor(sensor);
             }
+            return closestSensorWithReadingsInPeriod;
         }
-        return closestSensorWithReadingsInPeriod;
-
     }
 
     /**
@@ -185,24 +185,22 @@ public class House {
      * @return the closest sensor to the house
      */
 
-    public Sensor getClosestSensorWithLatestReadingsInPeriod(SensorType type, Calendar startDate, Calendar endDate) {
-        SensorList closestSensorsWithReadingsInPeriod = this.getClosestSensorsOfTypeWithReadingsInPeriod(type, startDate, endDate);
-        Sensor closestSensorWithLatestReadingsInPeriod = closestSensorsWithReadingsInPeriod.getSensorList().get(0);
-        ReadingList readingsInPeriod = closestSensorWithLatestReadingsInPeriod.getReadingList().getReadingsInPeriod(startDate, endDate);
+    public Sensor filterByTypeByIntervalAndDistance(SensorType type, Calendar startDate, Calendar endDate) {
+        SensorList closestSensorList = this.filterListByTypeByIntervalAndDistance(type, startDate, endDate);
+        Sensor closestSensor = closestSensorList.getSensorList().get(0);
+        ReadingList readingsInPeriod = closestSensor.getReadingList().filterByDate(startDate, endDate);
         Reading latestReadingInPeriod = readingsInPeriod.getLastReading();
 
-        for (Sensor sensor : closestSensorsWithReadingsInPeriod.getSensorList()) {
-            ReadingList sensorReadingsInPeriod = sensor.getReadingList().getReadingsInPeriod(startDate, endDate);
+        for (Sensor sensor : closestSensorList.getSensorList()) {
+            ReadingList sensorReadingsInPeriod = sensor.getReadingList().filterByDate(startDate, endDate);
             Reading sensorLatestReadingInPeriod = sensorReadingsInPeriod.getLastReading();
 
             if (sensorLatestReadingInPeriod.getDateAndTime().after(latestReadingInPeriod.getDateAndTime())) {
                 latestReadingInPeriod = sensorLatestReadingInPeriod;
-                closestSensorWithLatestReadingsInPeriod = sensor;
+                closestSensor = sensor;
             }
-
         }
-        return closestSensorWithLatestReadingsInPeriod;
-
+        return closestSensor;
     }
 
     /**
@@ -215,25 +213,22 @@ public class House {
      */
 
     public double averageOfReadingsInPeriod(SensorType type, Calendar startDate, Calendar endDate) {
-        Sensor closestSensorWithLatestReadingsInPeriod = getClosestSensorWithLatestReadingsInPeriod(type, startDate, endDate);
+        Sensor closestSensorWithLatestReadingsInPeriod = filterByTypeByIntervalAndDistance(type, startDate, endDate);
         ReadingList readingsFromSensorInPeriod = closestSensorWithLatestReadingsInPeriod.getReadingList();
-        ReadingList readingsInPeriod = readingsFromSensorInPeriod.getReadingsInPeriod(startDate, endDate);
+        ReadingList readingsInPeriod = readingsFromSensorInPeriod.filterByDate(startDate, endDate);
 
         double sum = 0;
         int counter = 0;
         double average = 0;
 
-        for (Calendar date = startDate; date.before(endDate) || date.equals(endDate); date.add(Calendar.DAY_OF_MONTH, 1)) {
-            if (readingsFromSensorInPeriod.getReadingsInSpecificDay(date).size() != 0) {
-                sum = sum + readingsInPeriod.dailyAverageOfReadings(date);
+        for (; startDate.before(endDate) || startDate.equals(endDate); startDate.add(Calendar.DAY_OF_MONTH, 1)) {
+            if (readingsFromSensorInPeriod.getReadingsInSpecificDay(startDate).size() != 0) {
+                sum = sum + readingsInPeriod.dailyAverageOfReadings(startDate);
                 counter++;
                 average = sum / counter;
             }
         }
-
-
         return average;
-
     }
 
 
@@ -245,7 +240,7 @@ public class House {
      * @return the sensor with the most recent reading of the closest sensors to the house.
      */
     public Sensor getClosestSensorWithLatestReading(SensorType sensorType) {
-        SensorList closestSensors = this.getClosestSensorsOfType(sensorType);
+        SensorList closestSensors = this.filterListByTypeAndProximity(sensorType);
         Sensor closestSensorWithLatestReading = closestSensors.getSensorList().get(0);
         Reading lastReading = closestSensorWithLatestReading.getLastReadingPerSensor();
         Calendar lastDate = lastReading.getDateAndTime();
@@ -268,11 +263,11 @@ public class House {
      * @return the closest sensors to the house of the selected SensorType that have readings in the specified date.
      */
     private SensorList getClosestSensorsWithReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
-        SensorList closestSensorsByType = this.getClosestSensorsOfType(sensorType);
+        SensorList closestSensorsByType = this.filterListByTypeAndProximity(sensorType);
         SensorList sensorsWithReadingsInDate = new SensorList();
         for (Sensor sensor : closestSensorsByType.getSensorList()) {
             ReadingList readingListInDay = sensor.getReadingList().getReadingsInSpecificDay(inputDate);
-            if (!(readingListInDay.getReadingList().isEmpty())) {
+            if (!(readingListInDay.getReadingsList().isEmpty())) {
                 sensorsWithReadingsInDate.addSensor(sensor);
             }
         }
@@ -293,8 +288,8 @@ public class House {
     }
 
 
-    public boolean checkIfClosestSensorsHaveReadingsInTimePeriod(SensorType sensorType, Calendar startDate, Calendar endDate) {
-        SensorList closestSensorsByType = this.getClosestSensorsOfTypeWithReadingsInPeriod(sensorType, startDate, endDate);
+    public boolean checkIfClosestSensorsHasReadingsInTimePeriod(SensorType sensorType, Calendar startDate, Calendar endDate) {
+        SensorList closestSensorsByType = this.filterListByTypeByIntervalAndDistance(sensorType, startDate, endDate);
         return closestSensorsByType.size() != 0;
     }
 
@@ -303,7 +298,7 @@ public class House {
      * Method that checks for the closest sensors to the house of the selected SensorType that have readings in the specified date,
      * which one has the latest reading in the specified date
      *
-     * @param inputDate  selected to check which closestSensor has the lattest readings in that date
+     * @param inputDate  selected to check which closestSensor has the latest readings in that date
      * @param sensorType selected to check the closest sensors of that type
      * @return the closest sensor with the latest readings in the specified date.
      */
@@ -354,20 +349,20 @@ public class House {
 
     public List<Metered> getMetered() {
         List<Metered> meteredList = new ArrayList<>();
-        for (HouseGrid houseGrid : this.mHGListInHouse.getHouseGridList()) {
-            List<Room> roomList= houseGrid.getRoomListInAGrid().getRoomList();
-            List<Metered> deviceList= houseGrid.getRoomListInAGrid().getMeteredDevicesLst();
+        for (HouseGrid houseGrid : this.houseGridList.getHouseGridList()) {
+            List<Room> tempRoomList = houseGrid.getRoomListInAGrid().getRoomList();
+            List<Metered> deviceList = houseGrid.getRoomListInAGrid().getMeteredDevicesLst();
             meteredList.add(houseGrid);
-            meteredList.addAll(roomList);
+            meteredList.addAll(tempRoomList);
             meteredList.addAll(deviceList);
         }
-        return  meteredList;
+        return meteredList;
     }
 
     public String showMetered() {
         StringBuilder meteredList = new StringBuilder();
-        int nr= 1;
-        for(Metered metered:this.getMetered()){
+        int nr = 1;
+        for (Metered metered : this.getMetered()) {
             meteredList.append(nr);
             meteredList.append(" - ");
             meteredList.append(metered.getName());

@@ -1,7 +1,10 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetCurrentTemperatureInHouseAreaCTRL;
-import smarthome.model.*;
+import smarthome.model.House;
+import smarthome.model.Sensor;
+import smarthome.model.SensorType;
+import smarthome.model.SensorTypeList;
 
 import java.util.Scanner;
 
@@ -19,7 +22,7 @@ public class GetCurrentTemperatureInHouseAreaUI {
     public void run() {
 
         if (this.ctrl.getSensorTypeListSize() == 0) {
-            System.out.println("The list of sensor types is empty. Please insert one first in US005\n");
+            System.out.println("The list of sensor types is empty. Please ask the System Administrator to add these.\n");
             return;
         }
         this.checkHouseGA();
@@ -27,7 +30,7 @@ public class GetCurrentTemperatureInHouseAreaUI {
 
     private void checkHouseGA() {
         if (this.ctrl.getHouseGA() == null) {
-            System.out.println("The house configuration does not have a geographical area. Please configure the location of the house in US101.\n");
+            System.out.println("The house configuration does not have a geographical area. Please ask the System Administrator to configure this.\n");
             return;
         }
         this.chooseSensorType();
@@ -35,7 +38,7 @@ public class GetCurrentTemperatureInHouseAreaUI {
 
     private void chooseSensorType() {
 
-        System.out.println("Choose the meteorologic mCondition in the house area for which you want to check its current value:");
+        System.out.println("Choose the meteorologic condition in the house area for which you want to check its current value:");
         System.out.println(this.ctrl.showSensorTypeList());
         int indexOfSensorType = UtilsUI.requestIntegerInInterval(1, this.ctrl.getSensorTypeListSize(), "Please insert a valid input from the list.\n" + this.ctrl.showSensorTypeList());
         indexOfSensorType--;

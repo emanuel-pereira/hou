@@ -2,6 +2,8 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.Kettle;
+import smarthome.model.devices.KettleSpecs;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -18,7 +20,7 @@ class KettleTest {
         kettle.setDeviceName("super kettle");
 
         String expected = "super kettle";
-        String result = kettle.getDeviceName();
+        String result = kettle.getName();
 
         assertEquals(expected, result);
     }
@@ -27,7 +29,6 @@ class KettleTest {
     void setAttributeValue() {
         KettleSpecs specs = new KettleSpecs("Kettle");
 
-        Kettle kettle = new Kettle("super kettle", specs, 1500);
         specs.setAttributeValue("Capacity", 12.0);
 
         Double expected = 12.0;

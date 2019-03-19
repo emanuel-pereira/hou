@@ -12,28 +12,27 @@ SysAdmin -> ":DataImportUI": Enters JSON file path
 create ":ReadJSONFile"
 ":DataImportCTRL"->":ReadJSONFile": create(filePath,gL)
 ":DataImportCTRL" -> ":ReadJSONFile": importGAs()
-loop for each jsonGA parse to Geographical Area
-create ":GeographicalArea"
+loop import geographical areas from JSON
+create "ga:GeographicalArea"
 
-":ReadJSONFile" -> ":GeographicalArea": createGeographicalArea()
-create ":SensorList"
-":GeographicalArea" -> ":SensorList": create()
+":ReadJSONFile" -> "ga:GeographicalArea": ga=createGeographicalArea()
+create "sL:SensorList"
+"ga:GeographicalArea" -> "sL:SensorList": create()
+":ReadJSONFile"->"sL:SensorList": sL=getSensorList()
+loop import sensors from JSON
 create "s:Sensor"
-	     ":ReadJSONFile" ->"s:Sensor": createSensor()
-	    "s:Sensor"->":SensorList": addSensor(s)
-	    ":SensorList"->":GeographicalArea":addGASensors()
-	    ":GeographicalArea"->"gL:GAList": add(GA)
+":ReadJSONFile"->"s:Sensor":s=createSensor()
+":ReadJSONFile"->"sL:SensorList": addGASensor(s)
+end
+":ReadJSONFile"->"gL:GAList": add(GA)
 end
 ":DataImportCTRL"<-":DataImportUI":gaListDTO=showGAsDTOs
-":DataImportCTRL"->"gL:GAList": gaListDTO=getGAListDTO()
-loop convert GA to GADTO
-":DataImportCTRL"->":GeographicalArea": toDTO()
-create ":GeographicalAreaDTO"
-":GeographicalArea"->":GeographicalAreaDTO": toDTO()
-create ":SensorDTO"
-"s:Sensor"->":SensorDTO": toDTO()
-
+loop for each geographical area in gL convert to DTO
+":DataImportCTRL"->"ga:GeographicalArea": toDTO()
+create "gaDTO:GeographicalAreaDTO"
+"ga:GeographicalArea"->"gaDTO:GeographicalAreaDTO": gaDTO=create()
+":DataImportCTRL"->"gaDTO:GeographicalAreaDTO": add(gaDTO)
 end
-
+":DataImportCTRL"->":DataImportCTRL": gaListDTO=getGAListDTO()
 SysAdmin<--":DataImportUI": Shows geographical areas \nand respective sensors
 @enduml

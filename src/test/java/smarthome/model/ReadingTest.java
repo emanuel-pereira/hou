@@ -6,9 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class ReadingTest {
@@ -39,8 +37,8 @@ public class ReadingTest {
         //Act
         Reading reading1 = new Reading(13, calendar1);
         Calendar dateAndTime = reading1.getDateAndTime();
-
         //Assert
+
         assertEquals(calendar1, dateAndTime);
     }
 
@@ -63,7 +61,7 @@ public class ReadingTest {
 
         Reading reading1 = new Reading(13, calendar1);
 
-        boolean result = reading1.compareYearMonthDay(calendar2);
+        boolean result = reading1.isSameDay(calendar2);
 
         assertTrue(result);
 
@@ -77,7 +75,7 @@ public class ReadingTest {
 
         Reading reading1 = new Reading(13, calendar1);
 
-        boolean result = reading1.compareYearMonthDay(calendar2);
+        boolean result = reading1.isSameDay(calendar2);
 
         assertFalse(result);
     }

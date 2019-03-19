@@ -234,7 +234,7 @@ public class GeographicalAreaTest {
         ga.getSensorListInGA().addSensor(sensorPorto);
 
         ga.importReadingsToSensorsFromCSVFile("resources/ReadingsRegistry");
-        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingList();
+        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
         double r = rList.get(3).returnValueOfReading();
         assertEquals(15.1, r);
     }

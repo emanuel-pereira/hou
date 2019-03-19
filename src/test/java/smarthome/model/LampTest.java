@@ -2,6 +2,8 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.Lamp;
+import smarthome.model.devices.LampSpecs;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -18,7 +20,7 @@ class LampTest {
         lamp.setDeviceName("super Lamp");
 
         String expected = "super Lamp";
-        String result = lamp.getDeviceName();
+        String result = lamp.getName();
 
         assertEquals(expected, result);
     }
@@ -27,7 +29,6 @@ class LampTest {
     void setAttributeValue() {
         LampSpecs specs = new LampSpecs("Lamp");
 
-        Lamp lamp = new Lamp("super Lamp", specs, 15);
         specs.setAttributeValue("Illuminance", 1200);
 
         Double expected = 1200.0;

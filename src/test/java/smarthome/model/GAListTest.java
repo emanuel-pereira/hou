@@ -243,13 +243,13 @@ class GAListTest {
         //lisboa.getSensorListInGA().addSensor(sensorLisboa);
 
         gaList.importDataFromCSVFileForEachGA("resources/ReadingsRegistry");
-        int result = gaList.getGAList().get(0).getSensorListInGA().getSensorList().get(0).getReadingList().getReadingList().size();
+        int result = gaList.getGAList().get(0).getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList().size();
         assertEquals(24,result);
-        int result2 = gaList.getGAList().get(0).getSensorListInGA().getSensorList().get(1).getReadingList().getReadingList().size();
+        int result2 = gaList.getGAList().get(0).getSensorListInGA().getSensorList().get(1).getReadingList().getReadingsList().size();
         assertEquals(20,result2);
 
 
-        //int result3 = gaList.getGAList().get(1).getSensorListInGA().getSensorList().get(0).getReadingList().getReadingList().size();
+        //int result3 = gaList.getGAList().get(1).getSensorListInGA().getSensorList().get(0).getReadingsList().getReadingsList().size();
         //assertEquals(24,result3);
 
 

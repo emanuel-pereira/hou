@@ -35,7 +35,7 @@ public class EditDevicesUI {
             ArrayList<String> options = new ArrayList<>();
 
             options.add("[1] Add a device to a room");
-            options.add("[2] List all Devices in a room");
+            options.add("[2] List all devices in a room");
             options.add("[3] Edit the configuration of a device");
             options.add("[4] Remove a device from a room");
             options.add("[5] Deactivate a device");
@@ -115,7 +115,7 @@ public class EditDevicesUI {
         selectedRoom = ctrl.getRoomFromListIndex(selectedRoomIndex);
 
         List<String> ls = ctrl.showDeviceListInString(selectedRoomIndex);
-        UtilsUI.showList("Devices available in room", ls, true, 10);
+        UtilsUI.showList("devices available in room", ls, true, 10);
 
 
     }
