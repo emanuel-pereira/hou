@@ -157,7 +157,7 @@ public class Fan implements Device, Metered, Programmable {
      * @return The created program
      */
     @Override
-    public ProgramMode createProgram(String name, double value) {
+    public Program createProgram(String name, double value) {
         return new ProgramMode(name, value);
     }
 
