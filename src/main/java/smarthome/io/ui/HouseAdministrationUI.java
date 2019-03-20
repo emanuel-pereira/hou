@@ -78,7 +78,8 @@ public final class HouseAdministrationUI {
                     ui210.selectOption();
                     break;
                 case 11:
-                    UtilsUI.underMaintenanceMsg("US160");
+                    GetDeviceListInGridByTypeUI ui160 = new GetDeviceListInGridByTypeUI(house);
+                    ui160.checkIfHGListIsEmpty();
                     break;
                 case 12:
                     GetTotalNominalPowerUI uS172 = new GetTotalNominalPowerUI(house);
