@@ -1,9 +1,9 @@
 package smarthome.model;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.devices.MicrowaveOven;
 import smarthome.model.devices.MicrowaveOvenSpecs;
-import smarthome.model.devices.MicrowaveOvenType;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -15,235 +15,319 @@ import static org.junit.jupiter.api.Assertions.*;
 class MicrowaveOvenTest {
 
     @Test
-    void getDeviceName() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs("MicrowaveOven");
-        MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
+    @DisplayName("Set and get correct device name")
+    void setDeviceName() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("Samsung", microwaveSpecs, 10);
 
-        String expected = "Whirlpool Oven";
-        String result = device.getName();
+        assertEquals("Samsung", microwave.getName());
+
+        microwave.setDeviceName("Samsung Microwave");
+
+        String expected = "Samsung Microwave";
+        String result = microwave.getName();
 
         assertEquals(expected, result);
     }
 
-
     @Test
-    void getDeviceSpecs() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
-        MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
+    @DisplayName("Set empty device name and get first name")
+    void setEmptyDeviceName() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("Samsung Microwave", microwaveSpecs, 10);
 
-        DeviceSpecs result = device.getDeviceSpecs();
+        assertEquals("Samsung Microwave", microwave.getName());
 
-        assertEquals(specs, result);
+        microwave.setDeviceName(" ");
+
+        String expected = "Samsung Microwave";
+        String result = microwave.getName();
+
+        assertEquals(expected, result);
     }
 
     @Test
+    @DisplayName("Set and get incorrect device name")
+    void getIncorrectDeviceName() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("Samsung", microwaveSpecs, 20);
+
+        assertEquals("Samsung", microwave.getName());
+
+        microwave.setDeviceName("Samsung Microwave");
+
+        String expected = "Samsng microwace";
+        String result = microwave.getName();
+
+        assertNotEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Get correct device specs")
+    void getDeviceSpecs() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("Samsung Microwave", microwaveSpecs, 1.5);
+
+        DeviceSpecs result = microwave.getDeviceSpecs();
+
+        assertEquals(microwaveSpecs, result);
+    }
+
+    @Test
+    @DisplayName("Get correct device type")
     void getDeviceType() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
-        MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("Samsung Microwave", microwaveSpecs, 100);
 
         String expected = "MicrowaveOven";
-        String result = device.getDeviceType();
+        String result = microwave.getDeviceType();
 
         assertEquals(expected, result);
     }
 
     @Test
-    void isActive() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
-        MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
+    @DisplayName("Change the device type but return correct device type")
+    void changeDeviceType() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("Lamp");
+        MicrowaveOven microwave = new MicrowaveOven("Washing Machine", microwaveSpecs, 100);
 
-        assertTrue(device.isActive());
-    }
-
-    @Test
-    void getActivityLog() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
-        MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
-
-        ReadingList log = device.getActivityLog();
-
-        Reading r1 = new Reading(100, new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 1));
-        Reading r2 = new Reading(200, new GregorianCalendar(2019, Calendar.MARCH, 1, 2, 0));
-        Reading r3 = new Reading(150, new GregorianCalendar(2019, Calendar.MARCH, 15, 5, 8));
-        Reading r4 = new Reading(250, new GregorianCalendar(2019, Calendar.MARCH, 28, 5, 8));
-
-        log.addReading(r1);
-        log.addReading(r2);
-        log.addReading(r3);
-        log.addReading(r4);
-
-
-        List<Reading> expected = Arrays.asList(r1, r2, r3, r4);
-        List<Reading> result = log.getReadingsList();
+        String expected = "MicrowaveOven";
+        String result = microwave.getDeviceType();
 
         assertEquals(expected, result);
     }
 
     @Test
+    @DisplayName("Set and get correct nominal power")
     void getNominalPower() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
-        MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("MicrowaveOven", microwaveSpecs, 300);
 
-        double expected = 420;
-        double result = device.getNominalPower();
+        assertEquals(300, microwave.getNominalPower());
 
-        assertEquals(expected, result);
-    }
+        microwave.setNominalPower(250);
 
-    @Test
-    void setDeviceName() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
-        MicrowaveOven device = new MicrowaveOven("blah", specs, 420);
-
-        device.setDeviceName("Whirlpool Oven");
-
-        String expected = "Whirlpool Oven";
-        String result = device.getName();
+        double expected = 250;
+        double result = microwave.getNominalPower();
 
         assertEquals(expected, result);
     }
 
     @Test
-    void setNominalPower() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
-        MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
+    @DisplayName("Set negative nominal power and get first nominal power")
+    void getInvalidNominalPower() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("MicrowavOven", microwaveSpecs, 200);
 
-        device.setNominalPower(3000);
-        double expected = 3000;
-        double result = device.getNominalPower();
+        assertEquals(200, microwave.getNominalPower());
+
+        microwave.setNominalPower(-20);
+
+        double expected = 200;
+        double result = microwave.getNominalPower();
 
         assertEquals(expected, result);
     }
 
     @Test
-    void deactivateActivatedDevice() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
-        MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
+    @DisplayName("Confirm if a device is correctly active")
+    void isActive() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
 
-        assertTrue(device.deactivateDevice());
+        MicrowaveOven microwave = new MicrowaveOven("Samsung Microwave", microwaveSpecs, 0.78);
+
+        assertTrue(microwave.isActive());
     }
 
     @Test
-    void deactivateDeactivatedDevice() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
-        MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
+    @DisplayName("Confirm if a device is incorrectly active")
+    void isIncorrectlyActive() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
 
-        device.deactivateDevice();
-        assertFalse(device.deactivateDevice());
+        MicrowaveOven microwave = new MicrowaveOven("Whirlpool", microwaveSpecs, 76);
+
+        boolean result = microwave.isActive();
+
+        assertNotEquals(false, result);
     }
 
     @Test
-    void getEnergyConsumptionZero() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
-        MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
+    @DisplayName("Confirm correct activity log size")
+    void getActivityLog() {
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 0));
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, Calendar.AUGUST, 26, 13, 0));
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("Samsung Microwave", microwaveSpecs, 2500);
+        ReadingList activityLog = microwave.getActivityLog();
+        activityLog.addReading(r1);
+        activityLog.addReading(r2);
 
+        int expected = 2;
+        int result = activityLog.size();
 
-        Calendar startDate = new GregorianCalendar();
-        Calendar endDate = new GregorianCalendar();
-        double energyConsumption = device.getEnergyConsumption(startDate, endDate);
-
-        assertEquals(0.0, energyConsumption, 0.001);
+        assertEquals(expected, result);
     }
 
     @Test
+    @DisplayName("Confirm if a device is deactivate and if is not active")
+    void deactivateDevice() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("Samsung Microwave", microwaveSpecs, 2500);
+
+        assertTrue(microwave.deactivateDevice());
+
+        assertFalse(microwave.isActive());
+    }
+
+    @Test
+    @DisplayName("Confirm if a device is not deactivate twice")
+    void deactivateDeviceTwice() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("Samsung Microwave", microwaveSpecs, 50);
+
+        assertTrue(microwave.deactivateDevice());
+
+        assertFalse(microwave.deactivateDevice());
+    }
+
+    @Test
+    @DisplayName("Get correct energy consumption")
     void getEnergyConsumption() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
-        MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
+        Reading r1 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 0));
+        Reading r2 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 15));
+        Reading r3 = new Reading(0.000, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 30));
+        Reading r4 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 30));
+        Reading r5 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 45));
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("Samsung Microwave", microwaveSpecs, 20);
+        ReadingList activityLog = microwave.getActivityLog();
+        activityLog.addReading(r1);
+        activityLog.addReading(r2);
+        activityLog.addReading(r3);
+        activityLog.addReading(r4);
+        activityLog.addReading(r5);
+        Calendar startDate = new GregorianCalendar(2018, 7, 26, 12, 15);
+        Calendar endDate = new GregorianCalendar(2018, 7, 26, 12, 45);
 
-        ReadingList log = device.getActivityLog();
-        Reading r0 = new Reading(100, new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 8, 0));
-        Reading r1 = new Reading(100, new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 10, 0));
-        Reading r2 = new Reading(100, new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 12, 0));
-        Reading r3 = new Reading(100, new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 19, 58));
-        Reading r4 = new Reading(100, new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 19, 59));
+        double expected = 0.400;
+        double result = microwave.getEnergyConsumption(startDate, endDate);
 
-        log.addReading(r0);
-        log.addReading(r1);
-        log.addReading(r2);
-        log.addReading(r3);
-        log.addReading(r4);
-
-        Calendar startDate = new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 10);
-        Calendar endDate = new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 20);
-        double energyConsumption = device.getEnergyConsumption(startDate, endDate);
-
-        assertEquals(300.0, energyConsumption, 0.001);
+        assertEquals(expected, result, 0.001);
     }
 
     @Test
+    @DisplayName("Create, add and get correct program list")
     void createProgram() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
-        MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("MicrowaveOven", microwaveSpecs, 200);
+        Program slow = microwave.createProgram("Slow", 50);
+        microwave.addProgramToList(slow);
+        Program fast = microwave.createProgram("Fast", 200);
+        microwave.addProgramToList(fast);
 
-        Program grill = device.createProgram("Grill", 300);
+        List<Program> expected = Arrays.asList(slow, fast);
+        List<Program> result = microwave.getProgramList();
 
-        String expected = "Grill";
-        String result = grill.getProgramName();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Add program to list with success")
+    void addNewProgram() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("Samsung MicrowaveOven", microwaveSpecs, 100);
+        Program eco = microwave.createProgram("Eco", 50);
+        microwave.addProgramToList(eco);
+        Program summer = microwave.createProgram("Summer", 200);
+
+        assertTrue(microwave.addProgramToList(summer));
+    }
+
+    @Test
+    @DisplayName("Add same program to list")
+    void addSameProgram() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("Samsung MicrowaveOven", microwaveSpecs, 200);
+        Program eco = microwave.createProgram("Eco", 50);
+        microwave.addProgramToList(eco);
+
+        assertFalse(microwave.addProgramToList(eco));
+    }
+
+    @Test
+    @DisplayName("Add program with the same name to the list")
+    void addProgram() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("Samsung Microwave", microwaveSpecs, 200);
+        Program eco = microwave.createProgram("Eco", 50);
+        microwave.addProgramToList(eco);
+        Program fast = microwave.createProgram("Eco", 200);
+
+        assertFalse(microwave.addProgramToList(fast));
+    }
+
+    @Test
+    @DisplayName("Get null if no program is set as metered")
+    void getMeteredNullProgram() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("Samsung Microwave", microwaveSpecs, 200);
+        ProgramMode eco = microwave.createProgram("Eco", 50);
+        microwave.addProgramToList(eco);
+
+        assertNull(microwave.getMeteredProgram());
+    }
+
+    @Test
+    @DisplayName("Correctly set metered program")
+    void setMeteredProgram() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("Samsung Microwave", microwaveSpecs, 200);
+        Program eco = microwave.createProgram("Eco", 50);
+        microwave.addProgramToList(eco);
+        Program fast = microwave.createProgram("Fast", 200);
+        microwave.addProgramToList(fast);
+        microwave.setMeteredProgram("Eco");
+
+        Program result = microwave.getMeteredProgram();
+
+        assertEquals(eco, result);
+
+        microwave.setMeteredProgram("Fast");
+
+        assertEquals(fast, microwave.getMeteredProgram());
+    }
+
+    @Test
+    @DisplayName("Get correct estimated energy consumption")
+    void getEstimatedEnergyConsumption() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("MicrowaveOven", microwaveSpecs, 200);
+        ProgramMode slow = microwave.createProgram("Slow", 50);
+        microwave.addProgramToList(slow);
+        Program fast = microwave.createProgram("Fast", 200);
+        microwave.addProgramToList(fast);
+        slow.setTime(2);
+        microwave.setMeteredProgram("Slow");
+
+        double expected = 100;
+        double result = microwave.getEstimatedEnergyConsumption();
 
         assertEquals(expected, result);
     }
 
     @Test
-    void addProgramToList() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
-        MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
+    @DisplayName("Get zero estimated energy consumption if there isn't no program")
+    void getEstimatedEnergyConsumptionNoProgram() {
+        MicrowaveOvenSpecs microwaveSpecs = new MicrowaveOvenSpecs("MicrowaveOven");
+        MicrowaveOven microwave = new MicrowaveOven("MicrowaveOven", microwaveSpecs, 200);
+        ProgramMode slow = microwave.createProgram("Slow", 50);
+        microwave.addProgramToList(slow);
+        Program fast = microwave.createProgram("Fast", 200);
+        microwave.addProgramToList(fast);
 
-        Program p1 = device.createProgram("Grill", 300);
-
-        boolean result = device.addProgramToList(p1);
-
-        assertTrue(result);
-    }
-
-    @Test
-    void addSameProgramToList() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
-        MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
-
-        Program p1 = device.createProgram("Grill", 300);
-        Program p3 = device.createProgram("Light On", 20);
-
-        device.addProgramToList(p1);
-        device.addProgramToList(p3);
-
-        boolean result = device.addProgramToList(p1);
-
-        assertFalse(result);
-    }
-
-    @Test
-    void getProgramList() {
-        MicrowaveOvenType type = new MicrowaveOvenType();
-        MicrowaveOvenSpecs specs = new MicrowaveOvenSpecs(type.getDeviceType());
-        MicrowaveOven device = new MicrowaveOven("Whirlpool Oven", specs, 420);
-
-        Program p1 = device.createProgram("Grill", 300);
-        Program p2 = device.createProgram("Fan", 250);
-        Program p3 = device.createProgram("Light On", 20);
-
-        device.addProgramToList(p1);
-        device.addProgramToList(p2);
-        device.addProgramToList(p3);
-
-        List<Program> expected = Arrays.asList(p1, p2, p3);
-        List<Program> result = device.getProgramList();
+        double expected = 0;
+        double result = microwave.getEstimatedEnergyConsumption();
 
         assertEquals(expected, result);
-
     }
 }
