@@ -10,9 +10,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataImportUI {
     private DataImportCTRL ctrl;
+    private List<GeographicalAreaDTO> gaListDTO = new ArrayList<>();
 
     public DataImportUI(GAList gaList) {
         this.ctrl = new DataImportCTRL(gaList);
@@ -23,31 +26,28 @@ public class DataImportUI {
         boolean loop = true;
         while (loop) {
             System.out.println("Please enter the json file path to import geographical areas and sensors (eg: resources/JsonFile.json):");
-            String filepath = UtilsUI.requestText("Invalid filepath.","^[A-Z]:(\\\\[^\\\\/:*?\"<>|]+)+.\\w+$");
+            String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
+
             try {
                 Path path = Paths.get(filepath);
-                ctrl.loadJSON(path);
+                gaListDTO = ctrl.loadJSON(path);
                 loop = false;
                 this.showGAsDTOs();
             } catch (FileNotFoundException e) {
-                System.out.println("Json file not found in the specified file path: " + filepath);
+                UtilsUI.showError("File not found.", "Json file not found in the specified file path: " + filepath);
             }
         }
     }
 
     public void showGAsDTOs() {
-        System.out.println("The following geographical areas and respective sensors were imported from the selected JsonFile:");
-        for (GeographicalAreaDTO geographicalAreaDTO : ctrl.getGAListDTO()) {
-            int counter = 1;
-            System.out.println("GEOGRAPHICAL AREA");
-            System.out.println(" Id: " + geographicalAreaDTO.getIdentification());
-            System.out.println(" Name: " + geographicalAreaDTO.getDesignation());
-            System.out.println(" SensorList: ");
-            for (SensorDTO sensorDTO : geographicalAreaDTO.getSensorListDTO()) {
-                System.out.print("  " + counter++ + " - Sensor Id: " + sensorDTO.getId());
-                System.out.println(" | Name: " + sensorDTO.getDesignation());
-            }
+        System.out.println("The number of geographical areas and sensors imported from JSON file is:");
+        System.out.println(" - " + gaListDTO.size() + " geographical areas.");
+        int nrOfSensors = 0;
+        for (GeographicalAreaDTO geographicalAreaDTO : gaListDTO) {
+            nrOfSensors += geographicalAreaDTO.getSensorListDTO().size();
         }
+        System.out.println(" - " + nrOfSensors + " sensors.");
+
     }
 
     public void importDataFromCSVFile() throws IOException {

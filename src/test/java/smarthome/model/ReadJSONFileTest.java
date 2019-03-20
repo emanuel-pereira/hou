@@ -62,5 +62,5 @@ class ReadJSONFileTest {
                 "2 - Meteo station ISEP - temperature\n";
         String result = sensorList.showSensorListInString();
         assertEquals(expected, result);
-    } 
+    }
 }

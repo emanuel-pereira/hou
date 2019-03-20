@@ -39,7 +39,7 @@ public final class HouseAdministrationUI {
             switch (option) {
                 case 1:
                     ConfigureHouseLocationUI ui101 = new ConfigureHouseLocationUI(gaList, house);
-                    ui101.configureHouseLocationUS101();
+                    ui101.checkIfGAListIsEmpty();
                     break;
                 case 2:
                     AddRoomToHouseUI ui105 = new AddRoomToHouseUI(house);
@@ -78,7 +78,8 @@ public final class HouseAdministrationUI {
                     ui210.selectOption();
                     break;
                 case 11:
-                    UtilsUI.underMaintenanceMsg("US160");
+                    GetDeviceListInGridByTypeUI ui160 = new GetDeviceListInGridByTypeUI(house);
+                    ui160.checkIfHGListIsEmpty();
                     break;
                 case 12:
                     GetTotalNominalPowerUI uS172 = new GetTotalNominalPowerUI(house);

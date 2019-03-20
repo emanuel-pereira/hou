@@ -1,14 +1,9 @@
 package smarthome.model.devices;
 
-import smarthome.model.Configuration;
-import smarthome.model.Device;
-import smarthome.model.DeviceSpecs;
-import smarthome.model.Metered;
-import smarthome.model.Programmable;
-import smarthome.model.Program;
-import smarthome.model.ReadingList;
+import smarthome.model.*;
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -24,21 +19,146 @@ public class Dishwasher implements Device, Metered, Programmable {
     private boolean active;
     private ReadingList activityLog;
     private List<Program> programList;
-
+    private ProgramWithTimer meteredProgram;
 
     /**
-     * Constructs a Device with a name.
+     * Dishwasher constructor
      *
-     * @param deviceName name given by the user to the device (requested during runtime).
+     * @param name         Dishwasher name
+     * @param deviceSpecs  Dishwasher specs
+     * @param nominalPower Dishwasher nominal power
      */
-
-    public Dishwasher(String deviceName, DeviceSpecs deviceSpecs, double nominalPower) {
-        this.name = deviceName;
+    public Dishwasher(String name, DeviceSpecs deviceSpecs, double nominalPower) {
+        this.name = name;
         this.deviceSpecs = deviceSpecs;
         this.nominalPower = nominalPower;
         this.active = true;
         this.activityLog = new ReadingList();
         this.programList = new ArrayList<>();
+
+    }
+
+    /**
+     * Get the Dishwasher name
+     *
+     * @return Device name
+     */
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Get the Dishwasher specs
+     *
+     * @return Device specs
+     */
+    @Override
+    public DeviceSpecs getDeviceSpecs() {
+        return this.deviceSpecs;
+    }
+
+    /**
+     * Get the Dishwasher type
+     *
+     * @return Device type
+     */
+    @Override
+    public String getDeviceType() {
+        return this.deviceType;
+    }
+
+    /**
+     * Get the Dishwasher nominal power
+     *
+     * @return Device nominal power
+     */
+    @Override
+    public double getNominalPower() {
+        return this.nominalPower;
+    }
+
+    /**
+     * Check if the device is active
+     *
+     * @return True if active
+     */
+    @Override
+    public boolean isActive() {
+        return this.active;
+    }
+
+    /**
+     * Get the Dishwasher activity log
+     *
+     * @return Device reading list
+     */
+    @Override
+    public ReadingList getActivityLog() {
+        return this.activityLog;
+    }
+
+    /**
+     * Set the Dishwasher name
+     *
+     * @param name Name of the device
+     */
+    @Override
+    public void setDeviceName(String name) {
+        if (nameValidation.alphanumericName(name))
+            this.name = name;
+    }
+
+    /**
+     * Set the Dishwasher nominal power
+     *
+     * @param nominalPower Nominal power of the device
+     */
+    @Override
+    public void setNominalPower(double nominalPower) {
+        if (Utils.valueIsPositive(nominalPower))
+            this.nominalPower = nominalPower;
+    }
+
+    /**
+     * Deactivate Dishwasher
+     *
+     * @return True if deactivated
+     */
+    @Override
+    public boolean deactivateDevice() {
+        if (!this.active)
+            return false;
+        this.active = false;
+        return true;
+    }
+
+    /**
+     * Get energy consumption of the Dishwasher in time interval
+     *
+     * @param startHour Beginning of the interval
+     * @param endHour   End of the interval
+     * @return Energy consumption of the device
+     */
+    @Override
+    public double getEnergyConsumption(Calendar startHour, Calendar endHour) {
+        Configuration c = new Configuration();
+        double energyConsumption = 0;
+        if (c.getDevicesMeteringPeriod() != -1) {
+            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startHour, endHour);
+        }
+        return Utils.round(energyConsumption, 2);
+    }
+
+    @Override
+    public double getEstimatedEnergyConsumption() {
+        if (this.meteredProgram != null) {
+            double energy;
+            energy = this.meteredProgram.getProgramEstimatedEC();
+            return energy;
+        } else {
+            return 0;
+        }
     }
 
 
@@ -47,18 +167,18 @@ public class Dishwasher implements Device, Metered, Programmable {
      *
      * @param name  Name of the program
      * @param value Value that represents the nominal power or energy consumption of the program
-     * @return the created program
+     * @return The created program
      */
     @Override
-    public Program createProgram(String name, double value) {
-        return new Program(name, "Energy Consumption", value);
+    public ProgramWithTimer createProgram(String name, double value) {
+        return new ProgramWithTimer(name, value);
     }
 
     /**
      * Add program to the program list of the Dishwasher
      *
      * @param newProgram Previous created program
-     * @return true if added with success
+     * @return True if added with success
      */
     @Override
     public boolean addProgramToList(Program newProgram) {
@@ -67,96 +187,6 @@ public class Dishwasher implements Device, Metered, Programmable {
             return true;
         } else return false;
     }
-
-    /* ----- Setters ----- */
-
-    /**
-     * Method to set name as the one inputted by the user if it complies with alphanumericName method criteria
-     *
-     * @param name String inputted by the user to name the device
-     */
-    public void setDeviceName(String name) {
-        if (nameValidation.alphanumericName(name))
-            this.name = name;
-    }
-
-    /**
-     * Method to set nominal power as the one inputted by the user if it is a positive value method criteria
-     *
-     * @param nominalPower double inputted as nominal power
-     */
-    public void setNominalPower(double nominalPower) {
-        if (Utils.valueIsPositive(nominalPower))
-            this.nominalPower = nominalPower;
-    }
-
-    /**
-     * set Device status to false
-     *
-     * @return true result
-     */
-    public boolean deactivateDevice() {
-        if (!this.active)
-            return false;
-        this.active = false;
-        return true;
-    }
-
-
-    /* ----- Getters ----- */
-
-    /**
-     * @return the device name
-     */
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
-    /**
-     * @return the device nominal Power
-     */
-    public double getNominalPower() {
-        return nominalPower;
-    }
-
-    public String getDeviceType() {
-        return this.deviceType;
-    }
-
-    /**
-     * @return the device specifications
-     */
-    public DeviceSpecs getDeviceSpecs() {
-        return this.deviceSpecs;
-    }
-
-    @Override
-    public boolean isActive() {
-        return this.active;
-    }
-
-    /**
-     * return device activity log
-     *
-     * @return device activity log registry
-     */
-    public ReadingList getActivityLog() {
-        return activityLog;
-    }
-
-
-    @Override
-    public double getEnergyConsumption(Calendar startDate, Calendar endDate) {
-        Configuration c = new Configuration();
-
-        double energyConsumption = 0;
-        if (c.getDevicesMeteringPeriod() != -1) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
-        }
-        return Utils.round(energyConsumption, 2);
-    }
-
 
     /**
      * Get program list of the Dishwasher
@@ -168,5 +198,18 @@ public class Dishwasher implements Device, Metered, Programmable {
         return this.programList;
     }
 
+    @Override
+    public void setMeteredProgram(String programName) {
+        for (Program program : this.programList) {
+            if (program.getProgramName().equals(programName)) {
+                this.meteredProgram = (ProgramWithTimer) program;
+            }
+        }
+    }
+
+    @Override
+    public Program getMeteredProgram() {
+        return this.meteredProgram;
+    }
 
 }

@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProgramTest {
+class ProgramWithTimerTest {
 
     @Test
     @DisplayName("Set and get program name")
     void setProgramName() {
-        Program program = new Program ("Eco", "Energy consumption", 100);
+        Program program = new ProgramWithTimer ("Eco", 100);
         program.setProgramName ("Eco Friendly");
 
         String expected = "Eco Friendly";
@@ -19,22 +19,11 @@ class ProgramTest {
         assertEquals (expected, result);
     }
 
-    @Test
-    @DisplayName("Set and get attribute name")
-    void setAttributeName() {
-        Program program = new Program ("Eco", "Nominal", 0.78);
-        program.setAttributeName ("Nominal Power");
-
-        String expected = "Nominal Power";
-        String result = program.getAttributeName ();
-
-        assertEquals (expected, result);
-    }
 
     @Test
     @DisplayName("Set and get attribute value")
     void setAttributeValue() {
-        Program program = new Program ("Eco", "Nominal Power", 0.78);
+        ProgramWithTimer program = new ProgramWithTimer ("Eco", 0.78);
         program.setAttributeValue (0.80);
 
         double expected = 0.80;
@@ -46,7 +35,7 @@ class ProgramTest {
     @Test
     @DisplayName("Correctly compare two different type of objects")
     void ifProgramEqualsTypeGA() {
-        Program program = new Program ("Eco", "Nominal Power", 0.78);
+        ProgramWithTimer program = new ProgramWithTimer ("Eco", 0.78);
         TypeGA typeGA = new TypeGA ("Cidade");
 
         boolean result =typeGA.equals (program);
@@ -57,8 +46,8 @@ class ProgramTest {
     @Test
     @DisplayName("Correctly compare two different programs with the same content")
     void ifProgramEqualsProgram() {
-        Program program1 = new Program ("Eco", "Nominal Power", 0.78);
-        Program program2 = new Program ("Eco", "Nominal Power", 0.78);
+        ProgramWithTimer program1 = new ProgramWithTimer ("Eco", 0.78);
+        ProgramWithTimer program2 = new ProgramWithTimer ("Eco", 0.78);
 
         boolean result = program1.equals (program2);
 
@@ -70,8 +59,8 @@ class ProgramTest {
     @Test
     @DisplayName("Correctly compare two different programs with different content")
     void ifProgramEqualsDifferentProgram() {
-        Program program1 = new Program ("Eco", "Nominal Power", 0.78);
-        Program program2 = new Program ("Full", "Nominal Power", 0.78);
+        ProgramWithTimer program1 = new ProgramWithTimer ("Eco", 0.78);
+        ProgramWithTimer program2 = new ProgramWithTimer ("Full", 0.78);
 
         boolean result = program1.equals (program2);
 
@@ -83,9 +72,33 @@ class ProgramTest {
     @Test
     @DisplayName("Correctly compare a program with itself")
     void ifProgramEqualsSameProgram() {
-        Program program = new Program ("Eco", "Nominal Power", 0.78);
+        ProgramMode program = new ProgramMode ("Eco", 0.78);
         boolean result = program.equals (program);
 
         assertTrue (result);
     }
+
+    @Test
+    @DisplayName("Correctly get the attribute name")
+    void getAttributeName() {
+        Program program = new ProgramWithTimer ("Eco", 0.78);
+
+        String expected = "Energy Consumption";
+        String result = program.getAttributeName ();
+
+        assertEquals (expected, result);
+    }
+
+    @Test
+    @DisplayName("Correctly set and get the duration")
+    void getDuration() {
+        ProgramWithTimer program = new ProgramWithTimer ("Eco", 0.78);
+        program.setDuration (10);
+
+        double expected = 10;
+        double result = program.getDuration ();
+
+        assertEquals (expected, result);
+    }
+
 }

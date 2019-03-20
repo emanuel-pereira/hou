@@ -13,9 +13,9 @@ public class ReadingDTO {
     public double getReadingValue(){
         return readingValue;
     }
+
     public Calendar getReadingDateAndTime(){
         return readingDateAndTime;
     }
-
 
 }

@@ -8,15 +8,27 @@ public class DishwasherType implements DeviceType {
 
     private String deviceType = "Dishwasher";
 
+    /**
+     * Get device type
+     * @return Dishwasher Type
+     */
+    @Override
     public String getDeviceType() {
         return this.deviceType;
     }
 
+    /**
+     * Create a Device
+     * @param deviceName Dishwasher name
+     * @param nominalPower Dishwasher nominal power
+     * @return A new Dishwasher
+     */
+    @Override
     public Device createDevice(String deviceName, double nominalPower) {
         String devType = getDeviceType();
 
-        DeviceSpecs devSpecs = new DishwasherSpecs(devType);
+        DeviceSpecs devSpecs = new WashingMachineSpecs(devType);
 
-        return new Dishwasher(deviceName, devSpecs, nominalPower);
+        return new WashingMachine(deviceName, devSpecs, nominalPower);
     }
 }

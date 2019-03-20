@@ -306,6 +306,47 @@ class HouseGridTest {
         assertEquals(expectedResult,result);
     }
 
+    @Test
+    @DisplayName("Print the device list in Grid ordered by type")
+    void deviceListInGridCtrlTestGroupByTypeInString() {
+        House house = new House();
+        HouseGrid hg1 = new HouseGrid("grid1");
+        house.getHGListInHouse().addHouseGrid(hg1);
+
+        Room r1 = new Room("cozinha",1,2,2,2);
+        Room r3 = new Room("quarto",2,2,2,2);
+        house.getRoomList().addRoom(r1);
+        house.getRoomList().addRoom(r3);
+
+        OvenType typeOven = new OvenType();
+        WallTowelHeaterType typeWth = new WallTowelHeaterType();
+        TvType typeTv = new TvType();
+        FanType typeFan = new FanType();
+
+        Device d1 = typeOven.createDevice("baker",420);
+        Device d2 = typeTv.createDevice("Silver",200);
+        Device d3 = typeWth.createDevice("Textile Dryer",300);
+        Device d4 = typeFan.createDevice("Micro Fan",250);
+        Device d5 = typeTv.createDevice("Smart Tv",200);
+
+        house.getRoomList().get(0).getDeviceList().addDevice(d1);
+        house.getRoomList().get(0).getDeviceList().addDevice(d2);
+        house.getRoomList().get(0).getDeviceList().addDevice(d3);
+        house.getRoomList().get(1).getDeviceList().addDevice(d4);
+        house.getRoomList().get(1).getDeviceList().addDevice(d5);
+
+        hg1.getRoomListInAGrid().addRoom(r1);
+        hg1.getRoomListInAGrid().addRoom(r3);
+
+        String expectedResult = "1 - Device: baker | Type: Oven | Location: cozinha | Active: true\n" +
+                "2 - Device: Textile Dryer | Type: WallTowelHeater | Location: cozinha | Active: true\n" +
+                "3 - Device: Micro Fan | Type: Fan | Location: quarto | Active: true\n" +
+                "4 - Device: Silver | Type: Tv | Location: cozinha | Active: true\n" +
+                "5 - Device: Smart Tv | Type: Tv | Location: quarto | Active: true\n";
+        String result = hg1.showGroupedDeviceListInGridString();
+
+        assertEquals(expectedResult,result);
+    }
 
 
     @Test

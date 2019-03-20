@@ -3,6 +3,7 @@ package smarthome.model;
 import smarthome.model.validations.Utils;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Objects;
 
 public class HouseGrid implements Metered{
@@ -77,11 +78,11 @@ public class HouseGrid implements Metered{
         return deviceListInGrid;
     }
 
-    public DeviceList getDeviceListFromType(int indexType){
+    public DeviceList getDeviceListFromType(int type){
         Configuration c = new Configuration();
         DeviceList deviceListFromType = new DeviceList();
         for(Device d : this.getDeviceListInGrid().getDeviceList()){
-            if(c.getDeviceTypes().get(indexType).equals(d.getDeviceType())){
+            if(c.getDeviceTypes().get(type).equals(d.getDeviceType())){
                 deviceListFromType.addDevice(d);
             }
         }
@@ -97,12 +98,36 @@ public class HouseGrid implements Metered{
         return deviceListGroupByType;
     }
 
+    public String showGroupedDeviceListInGridString() {
+        List<Device> list = getDeviceListInGridGroupBy().getDeviceList();
+        StringBuilder result = new StringBuilder();
+        String element = " - Device: ";
+        String typeStr = " | Type: ";
+        String locationStr = " | Location: ";
+        String statusStr = " | Active: ";
+        int number = 1;
+        for (Device device : list) {
+            String deviceLocation = this.roomList.getDeviceLocation(device).getName();
+            result.append(number++);
+            result.append(element);
+            result.append(device.getName());
+            result.append(typeStr);
+            result.append(device.getDeviceType());
+            result.append(locationStr);
+            result.append(deviceLocation);
+            result.append(statusStr);
+            result.append(device.isActive());
+            result.append("\n");
+        }
+        return result.toString();
+    }
 
-    /**
-     * Nominal power of a grid is the sum of nominal power of all the rooms in tat grid
-     *
-     * @return nominal power of a grid
-     */
+
+        /**
+         * Nominal power of a grid is the sum of nominal power of all the rooms in tat grid
+         *
+         * @return nominal power of a grid
+         */
     public double getNominalPower() {
         double sum = 0;
         for (Room room : getRoomListInAGrid ().getRoomList ()) {
@@ -152,5 +177,14 @@ public class HouseGrid implements Metered{
             total+=room.getEnergyConsumption(startHour,endHour);
         }
         return Utils.round(total,2);
+    }
+
+    @Override
+    public double getEstimatedEnergyConsumption() {
+        double sum = 0;
+        for (Metered room : this.roomList.getRoomList ()) {
+            sum += room.getEstimatedEnergyConsumption ();
+        }
+        return Utils.round (sum, 2);
     }
 }

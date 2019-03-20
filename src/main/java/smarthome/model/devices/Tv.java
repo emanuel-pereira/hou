@@ -5,11 +5,15 @@ import smarthome.model.Device;
 import smarthome.model.DeviceSpecs;
 import smarthome.model.Metered;
 import smarthome.model.ReadingList;
+import smarthome.model.validations.NameValidations;
+import smarthome.model.validations.Utils;
+
 import java.util.Calendar;
+
 
 public class Tv implements Device, Metered {
 
-    private smarthome.model.validations.NameValidations nameValidation = new smarthome.model.validations.NameValidations();
+    private NameValidations nameValidation = new NameValidations();
 
     private String name;
     private DeviceSpecs deviceSpecs;
@@ -17,6 +21,7 @@ public class Tv implements Device, Metered {
     private double nominalPower;
     private boolean active;
     private ReadingList activityLog;
+    private double time;
 
 
     /**
@@ -25,16 +30,13 @@ public class Tv implements Device, Metered {
      * @param deviceName name given by the user to the device (requested during runtime).
      */
 
-    public Tv(String deviceName, DeviceSpecs deviceSpecs, double nominalPower) { // deviceName is the name given by the user
+    public Tv(String deviceName, DeviceSpecs deviceSpecs, double nominalPower) {
         this.name = deviceName;
         this.deviceSpecs = deviceSpecs;
         this.nominalPower = nominalPower;
-
         this.active = true;
         this.activityLog = new ReadingList();
-
     }
-
 
 
     /* ----- Getters ----- */
@@ -48,25 +50,21 @@ public class Tv implements Device, Metered {
     }
 
     /**
-     * @return the device specifications
+     * @return the device nominal Power
      */
-    @Override
-    public DeviceSpecs getDeviceSpecs() {
-        return this.deviceSpecs;
+    public double getNominalPower() {
+        return this.nominalPower;
     }
 
     public String getDeviceType() {
         return this.deviceType;
     }
 
-
     /**
-     * @return the device nominal Power
+     * @return the device specifications
      */
-
-    @Override
-    public double getNominalPower() {
-        return nominalPower;
+    public DeviceSpecs getDeviceSpecs() {
+        return this.deviceSpecs;
     }
 
     @Override
@@ -74,16 +72,13 @@ public class Tv implements Device, Metered {
         return this.active;
     }
 
-
     /**
      * return device activity log
      *
      * @return device activity log registry
      */
-
-    @Override
     public ReadingList getActivityLog() {
-        return activityLog;
+        return this.activityLog;
     }
 
 
@@ -93,12 +88,21 @@ public class Tv implements Device, Metered {
 
         double energyConsumption = 0;
         if (c.getDevicesMeteringPeriod() != -1) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startDate, endDate);
+            energyConsumption = this.activityLog.getValueOfReadingsInTimeInterval(startDate, endDate);
         }
-        return smarthome.model.validations.Utils.round(energyConsumption, 2);
+        return Utils.round(energyConsumption, 2);
     }
 
+    public void setTime(double time) {
+        this.time = time;
+    }
 
+    @Override
+    public double getEstimatedEnergyConsumption() {
+        double energy;
+        energy = this.nominalPower * this.time;
+        return energy;
+    }
 
     /* ----- Setters ----- */
 
@@ -108,7 +112,7 @@ public class Tv implements Device, Metered {
      * @param name String inputted by the user to name the device
      */
     public void setDeviceName(String name) {
-        if (nameValidation.alphanumericName(name))
+        if (this.nameValidation.alphanumericName(name))
             this.name = name;
     }
 
@@ -117,23 +121,20 @@ public class Tv implements Device, Metered {
      *
      * @param nominalPower double inputted as nominal power
      */
-    @Override
     public void setNominalPower(double nominalPower) {
-        if (smarthome.model.validations.Utils.valueIsPositive(nominalPower))
+        if (Utils.valueIsPositive(nominalPower))
             this.nominalPower = nominalPower;
     }
-
 
     /**
      * set Device status to false
      *
      * @return true result
      */
-    @Override
     public boolean deactivateDevice() {
+        if (!this.active)
+            return false;
         this.active = false;
         return true;
     }
-
-
 }

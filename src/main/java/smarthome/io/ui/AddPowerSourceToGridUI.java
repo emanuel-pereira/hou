@@ -7,19 +7,19 @@ import java.util.ArrayList;
 
 public class AddPowerSourceToGridUI {
 
-    private AddPowerSourceToGridCTRL mCtrl;
-    private int mIndexOfHG;
-    private String mName;
-    private String mType;
-    private double mMaxPower;
-    private double mStorageCapacity;
+    private AddPowerSourceToGridCTRL ctrl;
+    private int indexOfHG;
+    private String name;
+    private String type;
+    private double maxPower;
+    private double storageCapacity;
 
     public AddPowerSourceToGridUI(House house) {
-        mCtrl = new AddPowerSourceToGridCTRL(house);
+        this.ctrl = new AddPowerSourceToGridCTRL(house);
     }
 
     public void checkIfHGListIsEmpty() {
-        if (mCtrl.getHGListSizeCtrl() == 0) {
+        if (this.ctrl.getHGListSizeCtrl() == 0) {
             System.out.println("List of HouseGrids is empty. Please insert a HouseGrid first.");
             return;
         }
@@ -63,15 +63,15 @@ public class AddPowerSourceToGridUI {
             UtilsUI.backToMenu();
         }
         else{
-        System.out.println("List of Power Sources attached to " + mCtrl.getHouseGridName(mIndexOfHG) + ":");
-        System.out.println(mCtrl.showPowerSourceListInString(mIndexOfHG));
+        System.out.println("List of Power Sources attached to " + this.ctrl.getHouseGridName(this.indexOfHG) + ":");
+        System.out.println(this.ctrl.showPowerSourceListInString(this.indexOfHG));
         UtilsUI.backToMenu();
         }
     }
 
     private boolean hgPSListIsEmpty() {
-        if (mCtrl.getPSListSizeCtrl(mIndexOfHG) == 0) {
-            System.out.println("List of Power Sources in " + mCtrl.getHouseGridName(mIndexOfHG) + " is empty. Please add one first.");
+        if (ctrl.getPSListSizeCtrl(this.indexOfHG) == 0) {
+            System.out.println("List of Power Sources in " + this.ctrl.getHouseGridName(this.indexOfHG) + " is empty. Please add one first.");
             return true;
         }
         return false;
@@ -84,36 +84,36 @@ public class AddPowerSourceToGridUI {
 
     private void insertPSName(){
         System.out.println("Insert the Power Source name:");
-        mName = UtilsUI.requestText("Please insert a valid name");
+        this.name = UtilsUI.requestText("Please insert a valid name");
         this.insertPSType();
     }
 
     private void insertPSType(){
         System.out.println("Insert the Power Source type:");
-        mType = UtilsUI.requestText("Please insert a valid type");
+        this.type = UtilsUI.requestText("Please insert a valid type");
         this.insertPSMaxPower();
     }
 
     private void insertPSMaxPower() {
         System.out.println("Insert the Maximum Power (kW):");
-        mMaxPower = UtilsUI.requestDoubleInInterval(-1,Double.MAX_VALUE,"Please insert a numeric positive value");
+        this.maxPower = UtilsUI.requestDoubleInInterval(-1,Double.MAX_VALUE,"Please insert a numeric positive value");
         this.insertPSStorageCapacity();
     }
 
     private void insertPSStorageCapacity() {
         System.out.println("Insert the Storage Capacity (kW):");
-        mStorageCapacity = UtilsUI.requestDoubleInInterval(0,Double.MAX_VALUE-100,"Please insert a numeric positive value");
+        this.storageCapacity = UtilsUI.requestDoubleInInterval(0,Double.MAX_VALUE-100,"Please insert a numeric positive value");
         this.addPowerSource();
     }
 
     private void addPowerSource() {
         if(UtilsUI.confirmOption("Continue?(y/n)\n", "Please type y for Yes or n for No.", "[yYnN]")){
-        mCtrl.addNewPSToGrid(mIndexOfHG, mName, mType, mMaxPower, mStorageCapacity);
+            this.ctrl.addNewPSToGrid(this.indexOfHG, this.name, this.type, this.maxPower, this.storageCapacity);
         System.out.println("The following Power Source was successfully created:" +
-                "\n[NAME]: " + mName +
-                "\n[TYPE]: " + mType +
-                "\n[MAX POWER]: " + UtilsUI.formatDecimal(mMaxPower,2) +
-                "\n[STORAGE CAPACITY]: " + UtilsUI.formatDecimal(mStorageCapacity,2));
+                "\n[NAME]: " + this.name +
+                "\n[TYPE]: " + this.type +
+                "\n[MAX POWER]: " + UtilsUI.formatDecimal(this.maxPower,2) +
+                "\n[STORAGE CAPACITY]: " + UtilsUI.formatDecimal(this.storageCapacity,2));
         UtilsUI.backToMenu();
         }
         else{
@@ -125,7 +125,7 @@ public class AddPowerSourceToGridUI {
 
     private void showAndSelectHG() {
         System.out.println("Choose a house grid from the list below to add a Power Source to it:");
-        System.out.println(mCtrl.getHGListInStringCtrl());
-        mIndexOfHG = UtilsUI.requestIntegerInInterval(1,mCtrl.getHGListSizeCtrl(),"Please insert a valid house grid index");
+        System.out.println(this.ctrl.getHGListInStringCtrl());
+        this.indexOfHG = UtilsUI.requestIntegerInInterval(1, this.ctrl.getHGListSizeCtrl(),"Please insert a valid house grid index");
     }
 }
