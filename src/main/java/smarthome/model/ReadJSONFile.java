@@ -3,14 +3,16 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
+import smarthome.dto.GeographicalAreaDTO;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class ReadJSONFile {
     //Created an instance of JSONParser to read through JSON file
@@ -45,8 +47,8 @@ public class ReadJSONFile {
      * @throws ParseException
      * @throws IOException
      */
-    public void importGAs() throws java.text.ParseException, ParseException, IOException {
-
+    public List<GeographicalAreaDTO> importGAs() throws java.text.ParseException, ParseException, IOException {
+        List<GeographicalAreaDTO> gaListDTO=new ArrayList<>();
         //Start reading JSON objects based on their type(JSONArray, JSONObject)
         JSONObject jsonGAs = (JSONObject) this.readFile().get("geographical_area_list");
         JSONArray jsonGAList = (JSONArray) jsonGAs.get("geographical_area");
@@ -56,7 +58,10 @@ public class ReadJSONFile {
             SensorList gaSensorList = geographicalArea.getSensorListInGA();
             addGASensors(jsonGA, gaSensorList);
             this.gaList.addGA(geographicalArea);
+            GeographicalAreaDTO gaDTO=geographicalArea.toDTO();
+            gaListDTO.add(gaDTO);
         }
+        return gaListDTO;
     }
 
     /**

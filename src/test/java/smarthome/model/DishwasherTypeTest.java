@@ -1,4 +1,3 @@
-/*
 package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
@@ -13,7 +12,7 @@ class DishwasherTypeTest {
     @DisplayName("Get correct device type")
     void getCorrectDeviceType() {
         DishwasherType type = new DishwasherType ();
-        type.createDevice ("Ariston", 200);
+        type.createDevice ("Ariston", 20);
 
         String expected = "Dishwasher";
         String result = type.getDeviceType ();
@@ -25,9 +24,9 @@ class DishwasherTypeTest {
     @DisplayName("Get incorrect device type")
     void getIncorrectDeviceType() {
         DishwasherType type = new DishwasherType ();
-        type.createDevice ("Ariston", 200);
+        type.createDevice ("Ariston", 20);
 
-        String expected = "Dishwasher";
+        String expected = "Dishwashr";
         String result = type.getDeviceType ();
 
         assertNotEquals(expected, result);
@@ -37,13 +36,12 @@ class DishwasherTypeTest {
     @DisplayName("Create device with success")
     void createCorrectDevice() {
         DishwasherType type = new DishwasherType ();
-        Device dW = type.createDevice ("Ariston", 200);
+        Device dishwasher = type.createDevice ("Ariston", 20);
 
-        String expected = "Singer";
-        String result = dW.getName ();
+        String expected = "Ariston";
+        String result = dishwasher.getName ();
 
         assertEquals(expected, result);
     }
 
 }
-*/

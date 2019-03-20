@@ -30,7 +30,8 @@ final class PowerUserUI {
 
             switch (option) {
                 case 1:
-                    UtilsUI.underMaintenanceMsg("US160");
+                    GetDeviceListInGridByTypeUI ui160 = new GetDeviceListInGridByTypeUI(house);
+                    ui160.checkIfHGListIsEmpty();
                     break;
                 case 2:
                     EditDevicesUI devicesUI = new EditDevicesUI(house);

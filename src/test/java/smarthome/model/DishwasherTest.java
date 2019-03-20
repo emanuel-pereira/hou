@@ -1,4 +1,3 @@
-/*
 package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
@@ -20,13 +19,13 @@ class DishwasherTest {
     @DisplayName("Set and get correct device name")
     void setDeviceName() {
         DishwasherSpecs dishwasherSpecs = new DishwasherSpecs("Dishwasher");
-        Dishwasher dishwasher = new Dishwasher("LG Washer", dishwasherSpecs, 100);
+        Dishwasher dishwasher = new Dishwasher("Whirlpool Washer", dishwasherSpecs, 100);
 
-        assertEquals("LG Washer", dishwasher.getName());
+        assertEquals("Whirlpool Washer", dishwasher.getName());
 
-        dishwasher.setDeviceName("Whirlpool Washer");
+        dishwasher.setDeviceName("Whirlpool");
 
-        String expected = "Whirlpool Washer";
+        String expected = "Whirlpool";
         String result = dishwasher.getName();
 
         assertEquals(expected, result);
@@ -56,7 +55,7 @@ class DishwasherTest {
 
         assertEquals("Whirlpool Washer", dishwasher.getName());
 
-        dishwasher.setDeviceName("Whirlpool Washer");
+        dishwasher.setDeviceName("Whirlpool");
 
         String expected = "Whirlpol";
         String result = dishwasher.getName();
@@ -69,7 +68,7 @@ class DishwasherTest {
     void getDeviceSpecs() {
         DishwasherSpecs specs = new DishwasherSpecs("Dishwasher");
 
-        Dishwasher dishwasher = new Dishwasher("Whirlpool Washer", specs, 1500);
+        Dishwasher dishwasher = new Dishwasher("Whirlpool Dishwasher", specs, 1500);
         DeviceSpecs dishwasherSpecs = dishwasher.getDeviceSpecs();
 
         assertEquals(specs, dishwasherSpecs);
@@ -79,7 +78,7 @@ class DishwasherTest {
     @DisplayName("Get correct device type")
     void getDeviceType() {
         DishwasherSpecs dishwasherSpecs = new DishwasherSpecs("Dishwasher");
-        Dishwasher dishwasher = new Dishwasher("Dishwasher", dishwasherSpecs, 100);
+        Dishwasher dishwasher = new Dishwasher("Whirlpool Dishwasher", dishwasherSpecs, 100);
 
         String expected = "Dishwasher";
         String result = dishwasher.getDeviceType();
@@ -91,7 +90,7 @@ class DishwasherTest {
     @DisplayName("Change the device type but return correct device type")
     void changeDeviceType() {
         DishwasherSpecs dishwasherSpecs = new DishwasherSpecs("Lamp");
-        Dishwasher dishwasher = new Dishwasher("Dishwasher", dishwasherSpecs, 100);
+        Dishwasher dishwasher = new Dishwasher("Whirlpool Dishwasher", dishwasherSpecs, 100);
 
         String expected = "Dishwasher";
         String result = dishwasher.getDeviceType();
@@ -103,7 +102,7 @@ class DishwasherTest {
     @DisplayName("Set and get correct nominal power")
     void getNominalPower() {
         DishwasherSpecs dishwasherSpecs = new DishwasherSpecs("Dishwasher");
-        Dishwasher dishwasher = new Dishwasher("Dishwasher", dishwasherSpecs, 200);
+        Dishwasher dishwasher = new Dishwasher("Whirlpool Dishwasher", dishwasherSpecs, 200);
 
         assertEquals(200, dishwasher.getNominalPower());
 
@@ -136,7 +135,7 @@ class DishwasherTest {
     void isActive() {
         DishwasherSpecs specs = new DishwasherSpecs("Dishwasher");
 
-        Dishwasher dishwasher = new Dishwasher("Whirlpool Washer", specs, 2500);
+        Dishwasher dishwasher = new Dishwasher("Whirlpool", specs, 2500);
 
         assertTrue(dishwasher.isActive());
     }
@@ -146,7 +145,7 @@ class DishwasherTest {
     void isIncorrectlyActive() {
         DishwasherSpecs specs = new DishwasherSpecs("Dishwasher");
 
-        Dishwasher dishwasher = new Dishwasher("Whirlpool Washer", specs, 2500);
+        Dishwasher dishwasher = new Dishwasher("Whirlpool Dishwasher", specs, 2500);
 
         boolean result = dishwasher.isActive();
 
@@ -159,7 +158,7 @@ class DishwasherTest {
         Reading r1 = new Reading(15, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 0));
         Reading r2 = new Reading(18, new GregorianCalendar(2018, Calendar.AUGUST, 26, 13, 0));
         DishwasherSpecs specs = new DishwasherSpecs("Dishwasher");
-        Dishwasher dishwasher = new Dishwasher("Whirlpool Washer", specs, 2500);
+        Dishwasher dishwasher = new Dishwasher("Whirlpool Diswasher", specs, 2500);
         ReadingList activityLog = dishwasher.getActivityLog();
         activityLog.addReading(r1);
         activityLog.addReading(r2);
@@ -174,7 +173,7 @@ class DishwasherTest {
     @DisplayName("Confirm if a device is deactivate and if is not active")
     void deactivateDevice() {
         DishwasherSpecs specs = new DishwasherSpecs("Dishwasher");
-        Dishwasher dishwasher = new Dishwasher("Whirlpool Washer", specs, 2500);
+        Dishwasher dishwasher = new Dishwasher("Whirlpool Dishwasher", specs, 2500);
 
         assertTrue(dishwasher.deactivateDevice());
 
@@ -185,11 +184,11 @@ class DishwasherTest {
     @DisplayName("Confirm if a device is not deactivate twice")
     void deactivateDeviceTwice() {
         DishwasherSpecs specs = new DishwasherSpecs("Dishwasher");
-        Dishwasher dishwasher = new Dishwasher("Whirlpool", specs, 2500);
+        Dishwasher washingMachine = new Dishwasher("Whirlpool Diswasher", specs, 2500);
 
-        assertTrue(dishwasher.deactivateDevice());
+        assertTrue(washingMachine.deactivateDevice());
 
-        assertFalse(dishwasher.deactivateDevice());
+        assertFalse(washingMachine.deactivateDevice());
     }
 
     @Test
@@ -201,7 +200,7 @@ class DishwasherTest {
         Reading r4 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 30));
         Reading r5 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 45));
         DishwasherSpecs specs = new DishwasherSpecs("Dishwasher");
-        Dishwasher dishwasher = new Dishwasher("Whirlpool Washer", specs, 200);
+        Dishwasher dishwasher = new Dishwasher("Whirlpool Dishwasher", specs, 200);
         ReadingList activityLog = dishwasher.getActivityLog();
         activityLog.addReading(r1);
         activityLog.addReading(r2);
@@ -221,7 +220,7 @@ class DishwasherTest {
     @DisplayName("Create, add and get correct program list")
     void createProgram() {
         DishwasherSpecs dishwasherSpecs = new DishwasherSpecs("Dishwasher");
-        Dishwasher dishwasher = new Dishwasher("Whirlpool Washer", dishwasherSpecs, 200);
+        Dishwasher dishwasher = new Dishwasher("Whirlpool Dishwasher", dishwasherSpecs, 200);
         Program eco = dishwasher.createProgram("Eco", 50);
         dishwasher.addProgramToList(eco);
         Program full = dishwasher.createProgram("Full", 200);
@@ -236,20 +235,20 @@ class DishwasherTest {
     @Test
     @DisplayName("Add program to list with success")
     void addNewProgram() {
-        DishwasherSpecs dishwasherSpecs = new DishwasherSpecs("Dishwasher");
-        Dishwasher dishwasher = new Dishwasher("Whirlpool Washer", dishwasherSpecs, 200);
-        Program eco = dishwasher.createProgram("Eco", 50);
-        dishwasher.addProgramToList(eco);
-        Program full = dishwasher.createProgram("Full", 200);
+        DishwasherSpecs washingMachineSpecs = new DishwasherSpecs("Dishwasher");
+        Dishwasher washingMachine = new Dishwasher ("", washingMachineSpecs, 200);
+        Program eco = washingMachine.createProgram("Eco", 50);
+        washingMachine.addProgramToList(eco);
+        Program full = washingMachine.createProgram("Full", 200);
 
-        assertTrue(dishwasher.addProgramToList(full));
+        assertTrue(washingMachine.addProgramToList(full));
     }
 
     @Test
     @DisplayName("Add same program to list")
     void addSameProgram() {
         DishwasherSpecs dishwasherSpecs = new DishwasherSpecs("Dishwasher");
-        Dishwasher dishwasher = new Dishwasher("Whirlpool Washer", dishwasherSpecs, 200);
+        Dishwasher dishwasher = new Dishwasher("Whirlpool Dishwasher", dishwasherSpecs, 200);
         Program eco = dishwasher.createProgram("Eco", 50);
         dishwasher.addProgramToList(eco);
 
@@ -260,12 +259,76 @@ class DishwasherTest {
     @DisplayName("Add program with the same name to the list")
     void addProgram() {
         DishwasherSpecs dishwasherSpecs = new DishwasherSpecs("Dishwasher");
-        Dishwasher dishwasher = new Dishwasher("Samsung WM", dishwasherSpecs, 200);
+        Dishwasher dishwasher = new Dishwasher("Whirlpool Dishwasher", dishwasherSpecs, 200);
         Program eco = dishwasher.createProgram("Eco", 50);
         dishwasher.addProgramToList(eco);
         Program full = dishwasher.createProgram("Eco", 200);
 
         assertFalse(dishwasher.addProgramToList(full));
     }
+
+    @Test
+    @DisplayName("Get null if no metered program is set")
+    void getMeteredNullProgram() {
+        DishwasherSpecs specs = new DishwasherSpecs ("Dishwasher");
+        Dishwasher dishwasher = new Dishwasher ("Whirlpool Dishwasher", specs, 200);
+        ProgramWithTimer eco = dishwasher.createProgram ("Eco",  50);
+        dishwasher.addProgramToList (eco);
+
+        assertNull (dishwasher.getMeteredProgram ());
+    }
+
+    @Test
+    @DisplayName("Correctly set a metered program")
+    void setMeteredProgram() {
+        DishwasherSpecs specs = new DishwasherSpecs ("Dishwasher");
+        Dishwasher dishwasher = new Dishwasher ("Whirlpool Dishwasher", specs, 200);
+        ProgramWithTimer eco = dishwasher.createProgram ("Eco",  50);
+        dishwasher.addProgramToList (eco);
+        ProgramWithTimer fast = dishwasher.createProgram ("Fast",  200);
+        dishwasher.addProgramToList (fast);
+        dishwasher.setMeteredProgram ("Eco");
+
+        Program result = dishwasher.getMeteredProgram ();
+
+        assertEquals (eco, result);
+
+        dishwasher.setMeteredProgram ("Fast");
+
+        assertEquals (fast, dishwasher.getMeteredProgram ());
+    }
+
+    @Test
+    @DisplayName("Correctly get the estimated energy consumption")
+    void getEstimatedEnergyConsumption() {
+        DishwasherSpecs specs = new DishwasherSpecs ("Dishwasher");
+        Dishwasher dishwasher = new Dishwasher ("Dishwasher", specs, 200);
+        ProgramWithTimer slow = dishwasher.createProgram ("Slow",  50);
+        dishwasher.addProgramToList (slow);
+        ProgramWithTimer fast = dishwasher.createProgram ("Fast",  200);
+        dishwasher.addProgramToList (fast);
+        slow.setDuration (2);
+        dishwasher.setMeteredProgram ("Slow");
+
+        double expected = 50;
+        double result = dishwasher.getEstimatedEnergyConsumption ();
+
+        assertEquals (expected, result);
+    }
+
+    @Test
+    void getEstimatedEnergyConsumptionNoProgram() {
+        DishwasherSpecs specs = new DishwasherSpecs ("Dishwasher");
+        Dishwasher dishwasher = new Dishwasher ("Dishwasher", specs, 200);
+        ProgramWithTimer slow = dishwasher.createProgram ("Slow",  50);
+        dishwasher.addProgramToList (slow);
+        Program fast = dishwasher.createProgram ("Fast",  200);
+
+        dishwasher.addProgramToList (fast);
+
+        double expected = 0;
+        double result = dishwasher.getEstimatedEnergyConsumption ();
+
+        assertEquals (expected, result);
+    }
 }
-*/

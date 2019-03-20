@@ -4,73 +4,86 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.devices.DishwasherSpecs;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DishwasherSpecsTest {
 
     @Test
     @DisplayName("Get correct device type")
     void getDeviceType() {
-        DishwasherSpecs dishwasher = new DishwasherSpecs("Dishwasher");
+        DishwasherSpecs dishwasherSpecs = new DishwasherSpecs ("Dishwasher");
 
         String expected = "Dishwasher";
-        String result = dishwasher.getDeviceType();
+        String result = dishwasherSpecs.getDeviceType ();
+
+        assertEquals (expected, result);
+    }
+
+    @Test
+    @DisplayName("Get all the correct attribute names")
+    void getAttributesNames() {
+        DishwasherSpecs dishwasherSpecs = new DishwasherSpecs("Dishwasher");
+
+        List<String> expected = Collections.singletonList ("Capacity");
+        List<String> result = dishwasherSpecs.getAttributesNames ();
+
+        assertEquals (expected, result);
+    }
+
+    @Test
+    @DisplayName("Set and get all the correct attribute values")
+    void getAttributeValues() {
+        DishwasherSpecs dishwasherSpecs = new DishwasherSpecs ("Dishwasher");
+
+        dishwasherSpecs.setAttributeValue ("Capacity", 20);
+
+        List<Double> expected = Collections.singletonList (20.0);
+        List<Double> result = dishwasherSpecs.getAttributeValues ();
 
         assertEquals(expected, result);
     }
 
     @Test
-    @DisplayName("Set new values to all attributes and get all correct")
-    void getAttributeValues() {
-        DishwasherSpecs dishwasher = new DishwasherSpecs("Dishwasher");
-
-        dishwasher.setAttributeValue("Capacity", 47);
-
-        double capacity = dishwasher.getAttributeValue("Capacity");
-        assertEquals(47, capacity);
-    }
-
-    @Test
-    @DisplayName("Set new units to the two first attributes and get all correct")
+    @DisplayName("Set and get all the correct attribute units")
     void getAttributeUnits() {
-        DishwasherSpecs dishwasher = new DishwasherSpecs("Dishwasher");
+        DishwasherSpecs dishwasherSpecs = new DishwasherSpecs ("Dishwasher");
 
-        dishwasher.setAttributeUnit("Capacity", "Dish Sets");
+        dishwasherSpecs.setAttributeUnit ("Capacity", "ml");
 
-        String capacity = dishwasher.getAttributeUnit("Capacity");
-        assertEquals("Dish Sets", capacity);
+        List<String> expected = Collections.singletonList ("ml");
+        List<String> result = dishwasherSpecs.getAttributeUnits ();
+
+        assertEquals(expected, result);
     }
 
     @Test
-    void getAttributesNames() {
-        DishwasherSpecs dishwasher = new DishwasherSpecs("Dishwasher");
+    @DisplayName("Set and get one correct attribute value")
+    void getAttributeValue() {
+        DishwasherSpecs dishwasherSpecs = new DishwasherSpecs ("Dishwasher");
 
-        List<String> attributesNames = dishwasher.getAttributesNames();
-        List<String> expected = Arrays.asList ("Capacity");
+        dishwasherSpecs.setAttributeValue ("Capacity", 20);
 
-        assertEquals(expected, attributesNames);
+        double expected = 20.0;
+        double result = dishwasherSpecs.getAttributeValue ("Capacity");
+
+        assertEquals(expected, result);
     }
 
     @Test
-    void getAttributeValuesList() {
-        DishwasherSpecs dishwasher = new DishwasherSpecs("Dishwasher");
-        dishwasher.setAttributeValue("Capacity", 40);
+    @DisplayName("Set and get one correct attribute unit")
+    void getAttributeUnit() {
+        DishwasherSpecs dishwasherSpecs = new DishwasherSpecs ("Dishwasher");
 
-        List<Double> dishwasherSpecsValues = dishwasher.getAttributeValues();
-        List<Double> expectedDishwasherSpecsValues = Arrays.asList (40.0);
-        assertEquals(expectedDishwasherSpecsValues, dishwasherSpecsValues);
+        dishwasherSpecs.setAttributeUnit ("Capacity", "Dish Sets");
+
+        String expected = "Dish Sets";
+        String result = dishwasherSpecs.getAttributeUnit ("Capacity");
+
+        assertEquals(expected, result);
     }
 
-    @Test
-    void getAttributeUnitsList() {
-        DishwasherSpecs dishwasher = new DishwasherSpecs("Dishwasher");
-        dishwasher.setAttributeValue("Capacity", 40);
 
-        List<String> dishwasherSpecsUnits = dishwasher.getAttributeUnits();
-        List<String> expectedDishwasherSpecsUnits = Arrays.asList ("Dish Sets");
-        assertEquals(expectedDishwasherSpecsUnits, dishwasherSpecsUnits);
-    }
 }

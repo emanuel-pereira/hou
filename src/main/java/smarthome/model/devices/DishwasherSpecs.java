@@ -3,117 +3,134 @@ package smarthome.model.devices;
 import smarthome.model.DeviceSpecs;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 import static java.lang.Double.NaN;
 
-
 public class DishwasherSpecs implements DeviceSpecs {
 
-
-    /* ------- Private fields ------- */
-
     private String deviceType;
-
-
-    // Changing the following string arrays allows one to quickly develop device specs just by using different parameters.
-    // Improvement (?) Create a distinct class for this bit.
 
     private String[] attributeNames = {"Capacity"};
     private String[] attributeUnits = {"Dish Sets"};
 
-    private HashMap<String, Double> attributeValuesMap = new HashMap<>();
-    private HashMap<String, String> attributeUnitsMap = new HashMap<>();
+    private HashMap<String, Double> attributeValuesMap = new HashMap<> ();
+    private HashMap<String, String> attributeUnitsMap = new HashMap<> ();
 
-    private List<String> attributeNamesList = new ArrayList<>();
+    private List<String> attributeNamesList = new ArrayList<> ();
 
-    /* ------- Public fields ------- */
-
-    /* ------ Constructors ------- */
-
+    /**
+     * Dishwasher constructor
+     * @param deviceType Device type
+     */
     public DishwasherSpecs(String deviceType) {
         this.deviceType = deviceType;
-        initializeClass();
+        initializeClass ();
     }
 
     /**
      * Private initialization method of the constructor(s). Copies the string arrays containing the attributes names and units
-     * to the internal Map representation of them. This is a design choice, as Maps are more easily managed than
-     * arrays of strings and because this allows one to create an instance of the class using the device type only and
-     * deferring the setting of the attributes to later. The isInitialized field is used to quickly assert if the
-     * instance is valid or not.
+     * to the internal Map representation of them.
      */
     private void initializeClass() {
-
         int items = this.attributeNames.length;
-
-        for (int i = 0; i < items; i++) {
-            this.attributeNamesList.add(this.attributeNames[i]);
-        }
-
-        //TODO is this hashmap clearance necessary? If so how can we test it?
-        /*attributeValuesMap.clear();
-        attributeUnitsMap.clear();*/
-
+        this.attributeNamesList.addAll (Arrays.asList (this.attributeNames));
         for (int j = 0; j < items; j++) {
-
-
-            this.attributeUnitsMap.put(this.attributeNames[j], this.attributeUnits[j]);
-            this.attributeValuesMap.put(this.attributeNames[j], NaN); // values are not part of the constructor
+            this.attributeUnitsMap.put (this.attributeNames[j], this.attributeUnits[j]);
+            this.attributeValuesMap.put (this.attributeNames[j], NaN);
         }
     }
 
-    /* ------ Interface methods ------- */
-
+    /**
+     * Get device type
+     * @return Device type
+     */
+    @Override
     public String getDeviceType() {
         return this.deviceType;
     }
 
-    public Double getAttributeValue(String attribute) {
-        return this.attributeValuesMap.get(attribute);
-    }
-
-    public String getAttributeUnit(String attribute) {
-        return this.attributeUnitsMap.get(attribute);
-    }
-
+    /**
+     * Get all the attribute names
+     * @return List of attribute names
+     */
+    @Override
     public List<String> getAttributesNames() {
         return this.attributeNamesList;
     }
 
+    /**
+     * Get all the attribute values
+     * @return List of attribute values
+     */
     @Override
     public List<Double> getAttributeValues() {
-        List<Double> attributeValues = new ArrayList<>();
-
+        List<Double> attributeValues = new ArrayList<> ();
         for (String key : this.attributeNamesList
         ) {
-            attributeValues.add(this.attributeValuesMap.get(key));
+            attributeValues.add (this.attributeValuesMap.get (key));
         }
         return attributeValues;
     }
 
+    /**
+     * Get all the attribute units
+     * @return List of attribute units
+     */
     @Override
     public List<String> getAttributeUnits() {
-
-        List<String> unitsList = new ArrayList<>();
-
+        List<String> unitsList = new ArrayList<> ();
         for (String key : this.attributeNamesList
         ) {
-            unitsList.add(this.attributeUnitsMap.get(key));
+            unitsList.add (this.attributeUnitsMap.get (key));
         }
         return unitsList;
     }
 
-    public void setAttributeUnit(String attribute, String unit) {
-        if (this.attributeUnitsMap.containsKey(attribute)) {
-            this.attributeUnitsMap.replace(attribute, unit);
+    /**
+     * Get a specific attribute value
+     * @param attribute Attribute name associated to the value
+     * @return Attribute value
+     */
+    @Override
+    public Double getAttributeValue(String attribute) {
+        return this.attributeValuesMap.get (attribute);
+    }
+
+    /**
+     * Get a specific attribute unit
+     * @param attribute Attribute name associated to the unit
+     * @return Attribute unit
+     */
+    @Override
+    public String getAttributeUnit(String attribute) {
+        return this.attributeUnitsMap.get (attribute);
+    }
+
+    /**
+     * Set a specific attribute value
+     * @param attribute Attribute name associated to the value
+     * @param newValue New attribute value
+     */
+    @Override
+    public void setAttributeValue(String attribute, double newValue) {
+        if (this.attributeValuesMap.containsKey (attribute)) {
+            this.attributeValuesMap.replace (attribute, newValue);
         }
     }
 
-    public void setAttributeValue(String attribute, double newValue) {
-        if (this.attributeValuesMap.containsKey(attribute)) {
-            this.attributeValuesMap.replace(attribute, newValue);
+    /**
+     * Set a specific attribute unit
+     * @param attribute Attribute name associated to the unit
+     * @param unit New attribute unit
+     */
+    @Override
+    public void setAttributeUnit(String attribute, String unit) {
+        if (this.attributeValuesMap.containsKey (attribute)) {
+            this.attributeUnitsMap.put (attribute, unit);
         }
     }
+
 }
