@@ -10,7 +10,7 @@ class ProgramWithTimerTest {
     @Test
     @DisplayName("Set and get program name")
     void setProgramName() {
-        ProgramWithTimer program = new ProgramWithTimer ("Eco", 100);
+        Program program = new ProgramWithTimer ("Eco", 100);
         program.setProgramName ("Eco Friendly");
 
         String expected = "Eco Friendly";
@@ -81,7 +81,7 @@ class ProgramWithTimerTest {
     @Test
     @DisplayName("Correctly get the attribute name")
     void getAttributeName() {
-        ProgramWithTimer program = new ProgramWithTimer ("Eco", 0.78);
+        Program program = new ProgramWithTimer ("Eco", 0.78);
 
         String expected = "Energy Consumption";
         String result = program.getAttributeName ();

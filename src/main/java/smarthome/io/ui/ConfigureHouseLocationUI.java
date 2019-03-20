@@ -5,12 +5,9 @@ import smarthome.controller.ConfigureHouseLocationCTRL;
 import smarthome.model.GAList;
 import smarthome.model.House;
 
-import java.util.Scanner;
-
 public class ConfigureHouseLocationUI {
 
-    private ConfigureHouseLocationCTRL mCtrlUS101;
-    Scanner read = new Scanner(System.in);
+    private ConfigureHouseLocationCTRL ctrl;
     private int indexGA;
     private String streetName;
     private String zipCode;
@@ -18,48 +15,51 @@ public class ConfigureHouseLocationUI {
 
 
     public ConfigureHouseLocationUI(GAList listOfGA, House house) {
-        mCtrlUS101 = new ConfigureHouseLocationCTRL(listOfGA, house);
+        ctrl = new ConfigureHouseLocationCTRL(listOfGA, house);
     }
 
+    public void checkIfGAListIsEmpty() {
+        if (this.ctrl.getGAListSize() == 0) {
+            System.out.println("List of Geographical Areas is empty. Please insert at least one first.");
+            return;
+        }
+        this.selectGA();
+    }
 
-    public void configureHouseLocationUS101() {
+    private void selectGA() {
 
         System.out.println("Select the Geographical Area where the house is located:");
-        System.out.println(mCtrlUS101.showGAListInString());
-        indexGA = UtilsUI.requestIntegerInInterval(1, mCtrlUS101.getGAList().size(), "Please, select a valid Geographical Area.");
+        System.out.println(ctrl.showGAList());
+        indexGA = UtilsUI.requestIntegerInInterval(1, ctrl.getGAList().size(), "Please, select a valid Geographical Area.");
         this.addressInput();
     }
+
+
 
     private void addressInput() {
 
 
         System.out.println("Insert a street name for the house:");
-        streetName = UtilsUI.requestText("Please, insert a valid name. Only alphabetic characters are allowed");
+        streetName = UtilsUI.requestText("Only alphanumeric characters are accepted.", "^[A-Za-z0-9 -,.]+$");
 
         System.out.println("Insert the zip-code of House:");
-        zipCode = UtilsUI.requestText("Please, insert a valid code-zip.", "^(?![\\s]).*");
+        zipCode = UtilsUI.requestText("Please, insert a valid zip-code.", "[0-9]{4}-[0-9]{3}");
 
         System.out.println("Insert the village:");
-        town = UtilsUI.requestText("Please, insert a valid village. Only alphabetic characters are allowed");
+        town = UtilsUI.requestText("Only alphabetic characters are allowed","^[A-Za-z .]+$");
         this.coordinatesInput();
     }
 
 
     private void coordinatesInput() {
-        System.out.println("Insert the latitude of the new geographical area:");
-        double latitude;
-        latitude = UtilsUI.requestDouble("Please, insert a valid value.");
-
-        System.out.println("Insert the longitude of the new geographical area:");
-        double longitude;
-        longitude = UtilsUI.requestDouble("Please, insert a valid value.");
-
-        System.out.println("Insert the altitude of the new geographical area:");
-        double altitude;
-        altitude = UtilsUI.requestDouble("Please, insert a valid value");
-
-        mCtrlUS101.configureHouseLocation(indexGA, streetName, zipCode, town, latitude, longitude, altitude);
-        System.out.println("Success!The house location has been configured.");
+        System.out.println("Insert the latitude of the house [-90º, 90º]:");
+        double latitude = UtilsUI.requestDoubleInInterval(-90, 90, "Latitude must be between [-90º,90º]");
+        System.out.println("Insert the longitude of the house [-180º, 180º]:");
+        double longitude = UtilsUI.requestDoubleInInterval(-180, 180, "Latitude must be between [-180º,180º]");
+        System.out.println("Insert the altitude of the house (in meters):");
+        double altitude = UtilsUI.requestDoubleInInterval(-12500, 8848, "Altitude must be between [-12.500m, 8848m]");
+        ctrl.configureHouseLocation(indexGA, streetName, zipCode, town, latitude, longitude, altitude);
+        System.out.println("Success! The house location has been configured.");
     }
 
 

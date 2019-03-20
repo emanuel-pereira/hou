@@ -12,78 +12,75 @@ import static org.junit.jupiter.api.Assertions.*;
 class TvSpecsTest {
 
     @Test
-    @DisplayName("Obtain the correct DeviceType for the Tv")
+    @DisplayName("Get correct device type")
     void getDeviceType() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
+        TvSpecs tv = new TvSpecs("Tv");
 
         String expected = "Tv";
-        String result = tvSpecs.getDeviceType();
+        String result = tv.getDeviceType();
 
         assertEquals(expected, result);
     }
 
     @Test
-    @DisplayName("Set new value for one attribute of TV and obtain them correctly")
+    @DisplayName("Set new values to all attributes and get all correct")
     void getAttributeValue() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
+        TvSpecs tv = new TvSpecs("Tv");
 
-        tvSpecs.setAttributeValue("Standby Power", 120.1);
+        tv.setAttributeValue("Capacity", 15);
 
-        double result = tvSpecs.getAttributeValue("Standby Power");
-
-        assertEquals(120.1, result);
+        double result = tv.getAttributeValue("Capacity");
+        assertEquals(15, result);
     }
 
     @Test
-    @DisplayName("Set new unit for one attribute of TV and obtain it correctly")
+    @DisplayName("Set new units to the two first attributes and get all correct")
     void getAttributeUnit() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
+        TvSpecs tv = new TvSpecs("Tv");
 
-        tvSpecs.setAttributeUnit("Standby Power", "W");
+        tv.setAttributeValue("Capacity", 15);
 
-        String result = tvSpecs.getAttributeUnit("Standby Power");
-
-        assertEquals("W", result);
+        String result = tv.getAttributeUnit("Capacity");
+        assertEquals("Dish Sets", result);
     }
 
     @Test
-    @DisplayName("Obtain the list of all Tv's attributes' names")
     void getAttributesNames() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
+        TvSpecs tv = new TvSpecs("Tv");
 
-        List<String> result = tvSpecs.getAttributesNames();
-        List<String> expected = Arrays.asList("Standby Power");
+        List<String> attributesNames = tv.getAttributesNames();
+        List<String> expected = Arrays.asList("Capacity");
 
-        assertEquals(expected, result);
+        assertEquals(expected, attributesNames);
     }
 
     @Test
-    @DisplayName("Obtain the list of all Tv's attributes' values")
-    void getAllAttributeValues() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
+    void getAttributeValuesList() {
+        TvSpecs tv = new TvSpecs("Tv");
+        tv.setAttributeValue("Capacity", 20);
 
-        tvSpecs.setAttributeValue("Standby Power", 120.1);
-
-        List<Double> result = tvSpecs.getAttributeValues();
-        List<Double> expected = Arrays.asList(120.1);
-
-        assertEquals(expected, result);
+        List<Double> resultSpecsValues = tv.getAttributeValues();
+        List<Double> expectedSpecsValues = Arrays.asList(20.0);
+        assertEquals(expectedSpecsValues, resultSpecsValues);
     }
 
     @Test
-    @DisplayName("Obtain the list of all Tv's attributes' units")
-    void getAllAttributeUnits() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
+    void getAttributeUnitsList() {
+        TvSpecs tv = new TvSpecs("Tv");
+        tv.setAttributeValue("Capacity", 25);
 
-        tvSpecs.setAttributeUnit("Standby Power", "W");
-
-        List<String> result = tvSpecs.getAttributeUnits();
-        List<String> expected = Arrays.asList("W");
-
-        assertEquals(expected, result);
-
+        List<String> resultSpecsUnits = tv.getAttributeUnits();
+        List<String> expectedSpecsUnits = Arrays.asList("Dish Sets");
+        assertEquals(expectedSpecsUnits, resultSpecsUnits);
     }
 
+    @Test
+    void setAttributeUnit() {
+        TvSpecs tv = new TvSpecs("Tv");
 
+        tv.setAttributeUnit("Capacity", "Dish");
 
+        String result = tv.getAttributeUnit("Capacity");
+        assertEquals("Dish", result);
+    }
 }
