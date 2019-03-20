@@ -30,7 +30,7 @@ class ConfigureHouseLocationCTRLTest {
         gl1.addGA(ga2);
 
         String expected = "1 - Porto\n2 - Lisboa\n";
-        String result = ctrl101.showGAListInString();
+        String result = ctrl101.showGAList();
         assertEquals(expected, result);
     }
 
@@ -184,5 +184,29 @@ class ConfigureHouseLocationCTRLTest {
         }
 
         assertTrue(thrown);
+    }
+
+    @Test
+    void getGAListSize() {
+        GAList gl1 = new GAList();
+        House h1 = new House();
+        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
+
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
+
+        gl1.addGA(ga1);
+        gl1.addGA(ga2);
+
+
+        int expected=2;
+        int result = ctrl101.getGAListSize();
+
+        assertEquals(expected,result);
     }
 }
