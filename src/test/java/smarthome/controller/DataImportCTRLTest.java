@@ -2,8 +2,7 @@ package smarthome.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.model.GAList;
-
+import smarthome.model.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
