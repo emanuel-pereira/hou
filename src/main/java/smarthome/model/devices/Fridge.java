@@ -117,12 +117,9 @@ public class Fridge implements Device, Metered {
      * @param nominalPower double inputted as nominal power
      */
     public void setNominalPower(double nominalPower) {
-        if (Utils.valueIsPositive(nominalPower))
+        if (nominalPower >= 0) {
             this.nominalPower = nominalPower;
-    }
-
-    public void setAttributeValue(String attribute, Double newValue) {
-        this.getDeviceSpecs().setAttributeValue(attribute, newValue);
+        }
     }
 
     /**
