@@ -2,6 +2,10 @@ package smarthome.dto;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.Reading;
+import smarthome.model.ReadingList;
+import smarthome.model.Sensor;
+import smarthome.model.SensorType;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,21 +55,44 @@ class SensorDTOTest {
     @Test
     @DisplayName("Ensure getReadingListDTO returns a list of ReadingDTOs")
     void getReadingListDTOTest() {
+
+        ReadingList readingList = new ReadingList();
+        Calendar c1 = new GregorianCalendar(2019, 1, 1);
+        Calendar c2 = new GregorianCalendar(2019, 1, 2);
+
+        Reading r1 = new Reading(2, c1);
+        Reading r2 = new Reading(9001, c2);
+        assertTrue(readingList.addReading(r1));
+        assertTrue(readingList.addReading(r2));
+
+        SensorType st = new SensorType("temperature");
+        Sensor s = new Sensor("Sensor A", c1, st, "ºC", readingList);
+
+
         List<ReadingDTO> foo = new ArrayList<>();
 
-        Calendar c = new GregorianCalendar(2019, 1, 1);
-        ReadingDTO r1 = new ReadingDTO(3.1415926, c);
-        ReadingDTO r2 = new ReadingDTO(1.00001, c);
+        ReadingDTO readingDTO1 = r1.toDTO();
+        ReadingDTO readingDTO2 = r2.toDTO();
 
-        foo.add(r1);
-        foo.add(r2);
+        foo.add(readingDTO1);
+        foo.add(readingDTO2);
 
-        SensorDTO sdto = new SensorDTO("meh", "blah", foo);
+        SensorDTO sdto = s.toDTO();
 
-        List<ReadingDTO> result = new ArrayList<>();
-        result = sdto.getReadingListDTO();
+        List<ReadingDTO> result = sdto.getReadingListDTO();
+        ReadingDTO result1 = result.get(0);
+        ReadingDTO result2 = result.get(1);
 
-        boolean expected = result.contains(r1) && result.contains(r2);
-        assertTrue(expected);
+        double result1a = result1.getReadingValue();
+        double result2a = result2.getReadingValue();
+        Calendar c1a = result1.getReadingDateAndTime();
+        Calendar c2a = result2.getReadingDateAndTime();
+
+
+        assertTrue (result1a==2);
+        assertTrue (result2a==9001);
+        assertTrue (c1a==c1);
+        assertTrue (c2a==c2);
+
     }
 }
