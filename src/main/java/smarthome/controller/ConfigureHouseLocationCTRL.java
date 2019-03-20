@@ -7,21 +7,21 @@ import java.util.List;
 
 public class ConfigureHouseLocationCTRL {
 
-    private GAList mGAList;
-    private House mHouse;
+    private GAList gaList;
+    private House house;
 
 
     public ConfigureHouseLocationCTRL(GAList listOfGA, House house) {
-        mGAList = listOfGA;
-        mHouse = house;
+        gaList = listOfGA;
+        this.house = house;
     }
 
     public List<GeographicalArea> getGAList() {
-        return mGAList.getGAList();
+        return gaList.getGAList();
     }
 
-    public String showGAListInString() {
-        List<GeographicalArea> list = mGAList.getGAList();
+    public String showGAList() {
+        List<GeographicalArea> list = gaList.getGAList();
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
@@ -34,12 +34,19 @@ public class ConfigureHouseLocationCTRL {
         return result.toString();
     }
 
+    /**
+     * @return the number of elements in the geographical areas list as an integer value
+     */
+    public int getGAListSize() {
+        return this.gaList.size();
+    }
+
 
     public boolean configureHouseLocation(int indexOfGA, String streetName, String zipCode, String town,  double latitude, double longitude, double altitude) {
-        GeographicalArea ga = mGAList.getGAList().get(indexOfGA-1);
-        mHouse.setHouseGA(ga);
-        mHouse.setHouseAddress(streetName, zipCode, town, latitude, longitude, altitude);
-        return mHouse.getAddress() != null;
+        GeographicalArea ga = gaList.getGAList().get(indexOfGA-1);
+        house.setHouseGA(ga);
+        house.setHouseAddress(streetName, zipCode, town, latitude, longitude, altitude);
+        return house.getAddress() != null;
 
     }
 }
