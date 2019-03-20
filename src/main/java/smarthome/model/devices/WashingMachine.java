@@ -170,7 +170,7 @@ public class WashingMachine implements Device, Metered, Programmable {
      * @return The created program
      */
     @Override
-    public Program createProgram(String name, double value) {
+    public ProgramWithTimer createProgram(String name, double value) {
         return new ProgramWithTimer (name, value);
     }
 
