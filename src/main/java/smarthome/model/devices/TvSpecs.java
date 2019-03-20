@@ -1,19 +1,10 @@
 package smarthome.model.devices;
 
+import java.util.*;
 import smarthome.model.DeviceSpecs;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 
 import static java.lang.Double.NaN;
 
-/**
- * This is a "template" class for classes that implement DeviceSpecs and should be appropriate for generic devices, i.e.,
- * those that don't require a very specific interface implementation. Most devices should fall in this category, with
- * specific energy consumption calculations the only thing setting them apart.
- */
 
 public class TvSpecs implements DeviceSpecs {
 
@@ -26,8 +17,8 @@ public class TvSpecs implements DeviceSpecs {
     // Changing the following string arrays allows one to quickly develop device specs just by using different parameters.
     // Improvement (?) Create a distinct class for this bit.
 
-    private String[] attributeNames = {"Standby Power"};
-    private String[] attributeUnits = {"W"};
+    private String[] attributeNames = {"Capacity"};
+    private String[] attributeUnits = {"Dish Sets"};
 
     private HashMap<String, Double> attributeValuesMap = new HashMap<>();
     private HashMap<String, String> attributeUnitsMap = new HashMap<>();
@@ -54,9 +45,13 @@ public class TvSpecs implements DeviceSpecs {
 
         int items = this.attributeNames.length;
 
-        this.attributeNamesList.addAll(Arrays.asList(this.attributeNames).subList(0, items));
+        for (int i = 0; i < items; i++) {
+            this.attributeNamesList.add(this.attributeNames[i]);
+        }
 
         for (int j = 0; j < items; j++) {
+
+
             this.attributeUnitsMap.put(this.attributeNames[j], this.attributeUnits[j]);
             this.attributeValuesMap.put(this.attributeNames[j], NaN); // values are not part of the constructor
         }
@@ -104,8 +99,8 @@ public class TvSpecs implements DeviceSpecs {
     }
 
     public void setAttributeUnit(String attribute, String unit) {
-        if (this.attributeValuesMap.containsKey(attribute)) {
-            this.attributeUnitsMap.replace(attribute, unit);
+        if (this.attributeUnitsMap.containsKey(attribute)) {
+            this.attributeUnitsMap.put(attribute, unit);
         }
     }
 
