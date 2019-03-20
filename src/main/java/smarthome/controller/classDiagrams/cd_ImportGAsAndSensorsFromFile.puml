@@ -1,0 +1,100 @@
+@startuml
+skinparam linetype ortho
+hide empty members
+
+class DataImportUI{
+
+}
+
+class DataImportCTRL{
+}
+
+
+interface Readable {
++ read()
+}
+
+class JSONReader{
++ read()
+}
+
+class XMLReader{
++ read()
+}
+
+ class GAList {
+- gaList: List<GeographicalArea>
++ addGA()
+  }
+
+
+class GeographicalArea {
+- identification : String
+- designation : String
+- typeOfGa: TypeGA
+- location: Location
+- sensorListInGa: SensorList
+- occupation: OccupationArea
++ newGeoAreFromFile()
++ toDTO()
+ }
+
+ class GeographicalAreaDTO{
+ - identification: String
+ - designation: String
+ - sensorList: List<SensorDTO>
+ + GeographicalAreaDTO()
+ + getIdentification()
+ + getDesignation()
+ + getSensorListDTO()
+ }
+
+ class SensorList{
+ - sensorList: List<Sensor>
+ + addSensor()
+ }
+
+ class Sensor {
+ - id: String
+ - designation: String
+ - location: Location
+ - sensorType: SensorType
+ - startDate: Calendar
+ - unit: String
+ - readingList: ReadingList
+ + newSensorFromFile()
+ }
+
+ class SensorDTO{
+ - id: String
+ - designation: String
+ - readingListDTO: List<ReadingDTO>
+ + getId()
+ + getDesignation()
+ + getReadingListDTO()
+ }
+
+DataImportUI ..> DataImportCTRL
+
+DataImportCTRL ..> JSONReader
+DataImportCTRL ..> XMLReader
+
+Readable <. JSONReader
+XMLReader .> Readable
+
+
+JSONReader ..> GeographicalArea
+XMLReader ..> GeographicalArea
+
+XMLReader ..> Sensor
+JSONReader ..> Sensor
+
+
+GeographicalArea ..> GeographicalAreaDTO
+GeographicalArea"*" - GAList
+
+Sensor ..> SensorDTO
+SensorList - "*"Sensor
+
+
+@enduml
