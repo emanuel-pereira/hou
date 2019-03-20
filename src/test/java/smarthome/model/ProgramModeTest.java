@@ -10,7 +10,7 @@ class ProgramModeTest {
     @Test
     @DisplayName("Set and get program name")
     void setProgramName() {
-        ProgramMode program = new ProgramMode ("Eco", 100);
+        Program program = new ProgramMode ("Eco", 100);
         program.setProgramName ("Eco Friendly");
 
         String expected = "Eco Friendly";

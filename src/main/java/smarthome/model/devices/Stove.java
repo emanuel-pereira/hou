@@ -28,7 +28,7 @@ public class Stove implements Device, Metered, Programmable{
      * @param deviceName name given by the user to the device (requested during runtime).
      */
 
-    Stove(String deviceName, DeviceSpecs deviceSpecs, double nominalPower) {
+    public Stove(String deviceName, DeviceSpecs deviceSpecs, double nominalPower) {
 
         this.name = deviceName;
         this.deviceSpecs = deviceSpecs;

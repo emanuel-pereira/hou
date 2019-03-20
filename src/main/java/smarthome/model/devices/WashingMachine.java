@@ -10,7 +10,7 @@ import java.util.List;
 
 public class WashingMachine implements Device, Metered, Programmable {
 
-    private NameValidations nameValidation = new NameValidations();
+    private NameValidations nameValidation = new NameValidations ();
 
     private String name;
     private DeviceSpecs deviceSpecs;
@@ -23,8 +23,9 @@ public class WashingMachine implements Device, Metered, Programmable {
 
     /**
      * Washing Machine constructor
-     * @param name Washing Machine name
-     * @param deviceSpecs Washing Machine specs
+     *
+     * @param name         Washing Machine name
+     * @param deviceSpecs  Washing Machine specs
      * @param nominalPower Washing Machine nominal power
      */
     public WashingMachine(String name, DeviceSpecs deviceSpecs, double nominalPower) {
@@ -32,13 +33,14 @@ public class WashingMachine implements Device, Metered, Programmable {
         this.deviceSpecs = deviceSpecs;
         this.nominalPower = nominalPower;
         this.active = true;
-        this.activityLog = new ReadingList();
+        this.activityLog = new ReadingList ();
         this.programList = new ArrayList<> ();
 
     }
 
     /**
      * Get the Washing Machine name
+     *
      * @return Device name
      */
     @Override
@@ -48,6 +50,7 @@ public class WashingMachine implements Device, Metered, Programmable {
 
     /**
      * Get the Washing Machine specs
+     *
      * @return Device specs
      */
     @Override
@@ -57,6 +60,7 @@ public class WashingMachine implements Device, Metered, Programmable {
 
     /**
      * Get the Washing Machine type
+     *
      * @return Device type
      */
     @Override
@@ -66,15 +70,17 @@ public class WashingMachine implements Device, Metered, Programmable {
 
     /**
      * Get the Washing Machine nominal power
+     *
      * @return Device nominal power
      */
     @Override
-    public double getNominalPower(){
+    public double getNominalPower() {
         return this.nominalPower;
     }
 
     /**
      * Check if the device is active
+     *
      * @return True if active
      */
     @Override
@@ -84,6 +90,7 @@ public class WashingMachine implements Device, Metered, Programmable {
 
     /**
      * Get the Washing Machine activity log
+     *
      * @return Device reading list
      */
     @Override
@@ -93,26 +100,29 @@ public class WashingMachine implements Device, Metered, Programmable {
 
     /**
      * Set the Washing Machine name
+     *
      * @param name Name of the device
      */
     @Override
     public void setDeviceName(String name) {
-        if (nameValidation.alphanumericName(name))
+        if (nameValidation.alphanumericName (name))
             this.name = name;
     }
 
     /**
      * Set the Washing Machine nominal power
+     *
      * @param nominalPower Nominal power of the device
      */
     @Override
     public void setNominalPower(double nominalPower) {
-        if (Utils.valueIsPositive(nominalPower))
+        if (Utils.valueIsPositive (nominalPower))
             this.nominalPower = nominalPower;
     }
 
     /**
      * Deactivate Washing Machine
+     *
      * @return True if deactivated
      */
     @Override
@@ -125,18 +135,19 @@ public class WashingMachine implements Device, Metered, Programmable {
 
     /**
      * Get energy consumption of the Washing Machine in time interval
+     *
      * @param startHour Beginning of the interval
-     * @param endHour End of the interval
+     * @param endHour   End of the interval
      * @return Energy consumption of the device
      */
     @Override
     public double getEnergyConsumption(Calendar startHour, Calendar endHour) {
-        Configuration c = new Configuration();
+        Configuration c = new Configuration ();
         double energyConsumption = 0;
-        if (c.getDevicesMeteringPeriod() != -1) {
-            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices(startHour, endHour);
+        if (c.getDevicesMeteringPeriod () != -1) {
+            energyConsumption = activityLog.getValueOfReadingsInTimeIntervalDevices (startHour, endHour);
         }
-        return Utils.round(energyConsumption, 2);
+        return Utils.round (energyConsumption, 2);
     }
 
     @Override
@@ -147,12 +158,14 @@ public class WashingMachine implements Device, Metered, Programmable {
             return energy;
         } else {
             return 0;
-        }    }
+        }
+    }
 
 
     /**
      * Create a Washing Machine program
-     * @param name Name of the program
+     *
+     * @param name  Name of the program
      * @param value Value that represents the nominal power or energy consumption of the program
      * @return The created program
      */
@@ -163,19 +176,21 @@ public class WashingMachine implements Device, Metered, Programmable {
 
     /**
      * Add program to the program list of the Washing Machine
+     *
      * @param newProgram Previous created program
      * @return True if added with success
      */
     @Override
     public boolean addProgramToList(Program newProgram) {
-        if (!this.programList.contains(newProgram)) {
-            this.programList.add(newProgram);
+        if (!this.programList.contains (newProgram)) {
+            this.programList.add (newProgram);
             return true;
         } else return false;
     }
 
     /**
      * Get program list of the Washing Machine
+     *
      * @return Program list of the device
      */
     @Override

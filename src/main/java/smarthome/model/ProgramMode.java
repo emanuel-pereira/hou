@@ -66,8 +66,12 @@ public class ProgramMode implements Program {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ProgramMode)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ProgramMode)) {
+            return false;
+        }
         ProgramMode that = (ProgramMode) o;
         return getProgramName ().equals (that.getProgramName ());
     }
