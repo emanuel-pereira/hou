@@ -13,6 +13,7 @@ import static smarthome.io.ui.RegularUsageUI.regularUsage;
 import static smarthome.io.ui.RoomOwnerUI.roomOwner;
 import static smarthome.io.ui.SystemAdministrationUI.systemAdministration;
 
+//@SpringBootApplication
 public class SmartHomeUI {
     private static SensorTypeList sensorTypeList;
     private static GAList gaList;
@@ -20,6 +21,7 @@ public class SmartHomeUI {
     private static House house;
 
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, ParseException, IOException, org.json.simple.parser.ParseException {
+        //SpringApplication.run(SmartHomeUI.class, args);
         init();
         BootStrap.run(house, typeGAList, sensorTypeList);
         menuOptions();
