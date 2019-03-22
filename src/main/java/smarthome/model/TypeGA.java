@@ -2,10 +2,16 @@ package smarthome.model;
 
 import org.jetbrains.annotations.Contract;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
+@Entity
 public class TypeGA {
 
+    @Id
+    @GeneratedValue()
     private String typeGeographicalArea;
 
 

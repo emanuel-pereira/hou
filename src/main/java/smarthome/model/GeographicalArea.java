@@ -3,21 +3,42 @@ package smarthome.model;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
 
+import javax.persistence.*;
 import java.io.IOException;
 import java.time.ZonedDateTime;
 import java.util.*;
 
 import static java.lang.Double.parseDouble;
 
+@Entity
+@Table(name = "Geo_Area")
 public class GeographicalArea {
+
+    @Id
     private String identification;
+
     private String designation;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Type")
     private TypeGA typeOfGa;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location")
     private Location location;
+
+    @Transient
     private SensorList sensorListInGa;
+
+    @Transient
     private OccupationArea occupation;
+
+    @Transient
     private GeographicalArea parentGa;
 
+
+    protected GeographicalArea() {
+    }
 
     /**
      * Constructor required to create a new Geographical Area
@@ -157,7 +178,7 @@ public class GeographicalArea {
                 if (sensorID.equals(sensor.getId())) {
                     String dateAndTimeString = token[1];
                     double readingValue = parseDouble(token[2]);
-                    if(!dateAndTimeString.contains("T"))
+                    if (!dateAndTimeString.contains("T"))
                         dateAndTimeString = dateAndTimeString.concat("T00:00:00+00:00");
 
                     ZonedDateTime dateTime = ZonedDateTime.parse(dateAndTimeString);
@@ -186,9 +207,9 @@ public class GeographicalArea {
     }
 
     public GeographicalAreaDTO toDTO() {
-        List<SensorDTO> sensorListDTO= new ArrayList<>();
-        for(Sensor sensor:this.sensorListInGa.getSensorList()){
-            SensorDTO sensorDTO=sensor.toDTO();
+        List<SensorDTO> sensorListDTO = new ArrayList<>();
+        for (Sensor sensor : this.sensorListInGa.getSensorList()) {
+            SensorDTO sensorDTO = sensor.toDTO();
             sensorListDTO.add(sensorDTO);
         }
         return new GeographicalAreaDTO(this.identification, this.designation, sensorListDTO);

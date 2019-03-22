@@ -1,7 +1,15 @@
 package smarthome.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class OccupationArea {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private double occupation = Double.NaN;
     private double length;
     private double width;
