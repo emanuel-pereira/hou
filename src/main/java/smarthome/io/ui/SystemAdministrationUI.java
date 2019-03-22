@@ -1,9 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.model.GAList;
-import smarthome.model.House;
-import smarthome.model.SensorTypeList;
-import smarthome.model.TypeGAList;
+import smarthome.model.*;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -14,7 +11,7 @@ public final class SystemAdministrationUI {
     private SystemAdministrationUI() {
     }
 
-    public static void systemAdministration(House house, SensorTypeList sensorTypeList, TypeGAList typeGAList, GAList gaList) throws ParseException, org.json.simple.parser.ParseException, IOException {
+    public static void systemAdministration(House house, SensorTypeList sensorTypeList, TypeGAList typeGAList, GAList gaList, GeoRepository GeoRep, LocationRepository LocRep, TypeGARepository typeRep) throws ParseException, org.json.simple.parser.ParseException, IOException {
 
         int option = -1;
         while (option != 0) {
@@ -36,11 +33,11 @@ public final class SystemAdministrationUI {
 
             UtilsUI.showList("System Administrator", options, false, 5);
 
-            option = UtilsUI.requestIntegerInInterval(0, 10, "Please choose an action between 1 and 8, or 0 to exit the program");
+            option = UtilsUI.requestIntegerInInterval(0, 10, "Please choose an action between 1 and 10, or 0 to exit the program");
 
             switch (option) {
                 case 1:
-                    NewTypeGAUI ui1 = new NewTypeGAUI(typeGAList);
+                    NewTypeGAUI ui1 = new NewTypeGAUI(typeGAList, typeRep);
                     ui1.run();
                     break;
                 case 2:
@@ -72,11 +69,11 @@ public final class SystemAdministrationUI {
                     ui8.run();
                     break;
                 case 9:
-                    DataImportUI ui9= new DataImportUI(gaList);
+                    DataImportUI ui9 = new DataImportUI(gaList, GeoRep);
                     ui9.loadJSON();
                     break;
                 case 10:
-                    DataImportUI ui10= new DataImportUI(gaList);
+                    DataImportUI ui10 = new DataImportUI(gaList, GeoRep);
                     ui10.importDataFromCSVFile();
                     break;
                 default:

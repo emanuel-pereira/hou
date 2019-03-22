@@ -1,25 +1,24 @@
 
 package smarthome.io.ui;
 
-import smarthome.model.*;
+import org.springframework.stereotype.Component;
+import smarthome.model.GAList;
+import smarthome.model.House;
+import smarthome.model.SensorTypeList;
+import smarthome.model.TypeGAList;
 
-import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
-
-import static smarthome.io.ui.HouseAdministrationUI.houseAdministration;
-import static smarthome.io.ui.PowerUserUI.powerUser;
-import static smarthome.io.ui.RegularUsageUI.regularUsage;
-import static smarthome.io.ui.RoomOwnerUI.roomOwner;
-import static smarthome.io.ui.SystemAdministrationUI.systemAdministration;
-
+//@SpringBootApplication
+@Component
 public class SmartHomeUI {
     private static SensorTypeList sensorTypeList;
     private static GAList gaList;
     private static TypeGAList typeGAList;
     private static House house;
 
-    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, ParseException, IOException, org.json.simple.parser.ParseException {
+
+
+    /*public static void main() throws ClassNotFoundException, IllegalAccessException, InstantiationException, ParseException, IOException, org.json.simple.parser.ParseException {
+        //SpringApplication.run(SmartHomeUI.class, args);
         init();
         BootStrap.run(house, typeGAList, sensorTypeList);
         menuOptions();
@@ -30,11 +29,13 @@ public class SmartHomeUI {
         gaList = new GAList();
         house = new House();
         typeGAList= new TypeGAList();
-    }
+    }*/
 
-    private static void menuOptions() throws IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
+    /*@Bean
+    public static CommandLineRunner menuOptions(GeoRepository geoRep, LocationRepository locRep, TypeGARepository typeRep) throws IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
         int option = -1;
         while (option != 0) {
+
 
             ArrayList<String> options = new ArrayList<>();
             options.add("[1] System Administration");
@@ -49,7 +50,7 @@ public class SmartHomeUI {
             option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");
             switch (option) {
                 case 1:
-                    systemAdministration(house,sensorTypeList,typeGAList, gaList);
+                    systemAdministration(house, sensorTypeList, typeGAList, gaList, geoRep, locRep, typeRep);
                     break;
                 case 2:
                     houseAdministration(sensorTypeList, gaList, house);
@@ -67,5 +68,6 @@ public class SmartHomeUI {
                     //no action needed
             }
         }
-    }
+    return args -> {};
+    }*/
 }

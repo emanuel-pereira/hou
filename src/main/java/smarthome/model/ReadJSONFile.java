@@ -1,9 +1,11 @@
 package smarthome.model;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import smarthome.dto.GeographicalAreaDTO;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -22,6 +24,7 @@ public class ReadJSONFile {
 
     /**
      * public constructor of ReadJSONFile class requiring to input the JSON file path
+     *
      * @param filePath directory where JSON file is located
      */
     public ReadJSONFile(Path filePath, GAList gaList) {
@@ -32,6 +35,7 @@ public class ReadJSONFile {
 
     /**
      * FileReader to read JSON file and pass it to parser.
+     *
      * @return JSONObject
      * @throws IOException
      * @throws ParseException
@@ -43,12 +47,13 @@ public class ReadJSONFile {
 
     /**
      * Start reading the JSON objects one by one, based on their type i.e. JSONArray and JSONObject
+     *
      * @throws java.text.ParseException
      * @throws ParseException
      * @throws IOException
      */
-    public List<GeographicalAreaDTO> importGAs() throws java.text.ParseException, ParseException, IOException {
-        List<GeographicalAreaDTO> gaListDTO=new ArrayList<>();
+    public List<GeographicalAreaDTO> importGAs(GeoRepository repository) throws java.text.ParseException, ParseException, IOException {
+        List<GeographicalAreaDTO> gaListDTO = new ArrayList<>();
         //Start reading JSON objects based on their type(JSONArray, JSONObject)
         JSONObject jsonGAs = (JSONObject) this.readFile().get("geographical_area_list");
         JSONArray jsonGAList = (JSONArray) jsonGAs.get("geographical_area");
@@ -58,7 +63,8 @@ public class ReadJSONFile {
             SensorList gaSensorList = geographicalArea.getSensorListInGA();
             addGASensors(jsonGA, gaSensorList);
             this.gaList.addGA(geographicalArea);
-            GeographicalAreaDTO gaDTO=geographicalArea.toDTO();
+            repository.save(geographicalArea);
+            GeographicalAreaDTO gaDTO = geographicalArea.toDTO();
             gaListDTO.add(gaDTO);
         }
         return gaListDTO;
@@ -66,6 +72,7 @@ public class ReadJSONFile {
 
     /**
      * Method that returns a Geographical Area object after parsing all its attributes from a JSON file
+     *
      * @param jsonGA JSONObject with key "geographical_area"
      * @return an instance of a Geographical Area
      */
@@ -99,6 +106,7 @@ public class ReadJSONFile {
 
     /**
      * Method that reads a JSONObject with key "sensor" and parses it to a Sensor object
+     *
      * @param jsonSensor JSONObject parameter with key "sensor"
      * @return a Sensor object
      * @throws java.text.ParseException
@@ -129,7 +137,7 @@ public class ReadJSONFile {
         double latitude = (double) jsonLocation.get("latitude");
         double longitude = (double) jsonLocation.get("longitude");
         double altitude = (long) jsonLocation.get("altitude");
-        return new Location(latitude,longitude,altitude);
+        return new Location(latitude, longitude, altitude);
     }
 }
 

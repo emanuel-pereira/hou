@@ -1,8 +1,8 @@
 package smarthome.io.ui;
 
 import smarthome.model.*;
+
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * This entire class is only used in application demonstration and test scenarios
