@@ -39,7 +39,7 @@ public final class HouseAdministrationUI {
             switch (option) {
                 case 1:
                     ConfigureHouseLocationUI ui101 = new ConfigureHouseLocationUI(gaList, house);
-                    ui101.configureHouseLocationUS101();
+                    ui101.checkIfGAListIsEmpty();
                     break;
                 case 2:
                     AddRoomToHouseUI ui105 = new AddRoomToHouseUI(house);

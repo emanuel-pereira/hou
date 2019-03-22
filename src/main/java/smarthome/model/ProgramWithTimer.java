@@ -70,8 +70,12 @@ public class ProgramWithTimer implements Program {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ProgramWithTimer)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ProgramWithTimer)) {
+            return false;
+        }
         ProgramWithTimer that = (ProgramWithTimer) o;
         return getProgramName ().equals (that.getProgramName ());
     }

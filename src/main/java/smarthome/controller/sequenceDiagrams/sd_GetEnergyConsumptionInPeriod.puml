@@ -6,21 +6,21 @@ actor PowerUser
 activate PowerUser
 PowerUser -> ":EnergyConsumptionInPeriodUI": Get Total Metered\nEnergy Consumption
 activate  ":EnergyConsumptionInPeriodUI"
-PowerUser <-- ":EnergyConsumptionInPeriodUI": Show Options: Device,Room,Grid
-PowerUser -> ":EnergyConsumptionInPeriodUI": Choose Grid option
-":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": gLs=showHouseGridListInString()
-activate ":EnergyConsumptionInPeriodCTRL"
-":EnergyConsumptionInPeriodCTRL" -> ":HouseGridList": gLs=showHouseGridListInString()
-activate ":HouseGridList"
-deactivate ":HouseGridList"
-PowerUser <-- ":EnergyConsumptionInPeriodUI": Show Grid list
-PowerUser -> ":EnergyConsumptionInPeriodUI": Choose a Grid
+PowerUser <-- ":EnergyConsumptionInPeriodUI": Shows List Of Metered
+PowerUser -> ":EnergyConsumptionInPeriodUI": Chooses a metered (device, room or grid)
 PowerUser <-- ":EnergyConsumptionInPeriodUI": Ask for the time interval
 PowerUser -> ":EnergyConsumptionInPeriodUI": Input the time interval
 ":EnergyConsumptionInPeriodUI" -> ":EnergyConsumptionInPeriodCTRL": tMe=getEnergyConsumption\nInPeriod(index, start, end)
-":EnergyConsumptionInPeriodCTRL" -> ":Grid": tMe=getEnergyConsumption\nInPeriod(index, start, end)
-activate ":Grid"
-":Grid" -> ":Device": tMe = getEnergyConsumption\nInPeriod(start, end)
+":EnergyConsumptionInPeriodCTRL" -> ":{class}Metered": create(): tMe=getEnergyConsumption\nInPeriod(index, start, end)
+note right
+	{class} can be:
+	 HouseGrid - loops all rooms
+	 and then all metered devices
+	 Room - loops all devices
+	 Device
+end note
+activate ":{class}Metered"
+ ":{class}Metered" -> ":Device": tMe = getEnergyConsumption\nInPeriod(start, end)
 activate ":Device"
 ":Device" -> ":ReadConfigFile": i:getDevicesMeteringPeriod()
 activate ":ReadConfigFile"
@@ -32,8 +32,8 @@ activate ":Reading"
 deactivate ":Reading"
 deactivate ":ReadingList"
 deactivate ":Device"
-PowerUser <-- ":EnergyConsumptionInPeriodUI": Show Total Metered Energy\nConsumption in the Grid
-deactivate ":Grid"
+deactivate ":{class}Metered"
+PowerUser <-- ":EnergyConsumptionInPeriodUI": Shows Total Metered Energy\nConsumption
 deactivate ":EnergyConsumptionInPeriodCTRL"
 deactivate ":EnergyConsumptionInPeriodUI"
 

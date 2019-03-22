@@ -10,7 +10,7 @@ class ProgramModeTest {
     @Test
     @DisplayName("Set and get program name")
     void setProgramName() {
-        ProgramMode program = new ProgramMode ("Eco", 100);
+        Program program = new ProgramMode ("Eco", 100);
         program.setProgramName ("Eco Friendly");
 
         String expected = "Eco Friendly";
@@ -76,6 +76,16 @@ class ProgramModeTest {
         boolean result = program.equals (program);
 
         assertTrue (result);
+    }
+
+    @Test
+    @DisplayName("Correctly compare a program with a different object")
+    void ifNotAProgram() {
+        ProgramMode program = new ProgramMode("Eco", 0.78);
+        Configuration c = new Configuration();
+        boolean result = program.equals(c);
+
+        assertFalse(result);
     }
 
     @Test
