@@ -79,6 +79,16 @@ class ProgramModeTest {
     }
 
     @Test
+    @DisplayName("Correctly compare a program with a different object")
+    void ifNotAProgram() {
+        ProgramMode program = new ProgramMode("Eco", 0.78);
+        Configuration c = new Configuration();
+        boolean result = program.equals(c);
+
+        assertFalse(result);
+    }
+
+    @Test
     @DisplayName("Correctly get the attribute name")
     void getAttributeName() {
         ProgramMode program = new ProgramMode ("Eco", 0.78);

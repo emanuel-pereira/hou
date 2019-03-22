@@ -20,6 +20,46 @@ class FridgeTest {
     }
 
     @Test
+    @DisplayName("Create a device and get DeviceSpecs")
+    void getDeviceSpecsTest() {
+        DeviceType dt = new FridgeType();
+        Device d = dt.createDevice("foo", 100);
+        DeviceSpecs ds = d.getDeviceSpecs();
+        boolean result = ds instanceof DeviceSpecs ? true : false;
+        assertTrue(result);
+    }
+
+    @Test
+    @DisplayName("Create a device and get the Device Type name")
+    void getDeviceTypeTest() {
+        DeviceType dt = new FridgeType();
+        Device d = dt.createDevice("foo", 100);
+        String result = d.getDeviceType();
+        String expected = "Fridge";
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Check if device is active")
+    void checkDeviceIsActiveTest() {
+        DeviceType dt = new FridgeType();
+        Device d = dt.createDevice("foo", 100);
+        boolean result = d.isActive();
+
+        assertEquals(true, result);
+    }
+
+    @Test
+    @DisplayName("Deactivate device and check if it is inactive")
+    void checkDeactivateDevice() {
+        DeviceType dt = new FridgeType();
+        Device d = dt.createDevice("foo", 100);
+        boolean deactivate = d.deactivateDevice();
+        boolean result = d.isActive();
+        assertEquals(false, result);
+    }
+
+    @Test
     @DisplayName("Create device with a nominal power and set it to another")
     void setDeviceNominalPowerTest() {
         DeviceType dt = new FridgeType();
@@ -28,9 +68,8 @@ class FridgeTest {
         d.setNominalPower(200);
         double result = d.getNominalPower();
         double expected = 200;
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
-
 
 
 }
