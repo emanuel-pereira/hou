@@ -56,7 +56,11 @@ public class GeographicalArea {
         this.occupation = occupationArea;
         this.location = location;
         this.sensorListInGa = new SensorList();
+    }
 
+    public GeographicalArea(String id, String name) {
+        this.identification = id;
+        this.designation = name;
     }
 
 
