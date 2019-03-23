@@ -10,20 +10,27 @@ class DataImportCTRL{
 }
 
 
-interface Readable {
-+ read()
+interface Reader {
++ importGAs()
++ importSensors()
++ importReadings()
 }
 
 class JSONReader{
-+ read()
++ importGAs()
++ importSensors()
++ importReadings()
 }
 
 class XMLReader{
-+ read()
++ importGAs()
++ importSensors()
++ importReadings()
 }
 
  class GAList {
 - gaList: List<GeographicalArea>
++ newGAFromFile()
 + addGA()
   }
 
@@ -35,7 +42,6 @@ class GeographicalArea {
 - location: Location
 - sensorListInGa: SensorList
 - occupation: OccupationArea
-+ newGeoAreFromFile()
 + toDTO()
  }
 
@@ -51,6 +57,7 @@ class GeographicalArea {
 
  class SensorList{
  - sensorList: List<Sensor>
+ + newSensorFromFile()
  + addSensor()
  }
 
@@ -79,8 +86,8 @@ DataImportUI ..> DataImportCTRL
 DataImportCTRL ..> JSONReader
 DataImportCTRL ..> XMLReader
 
-Readable <. JSONReader
-XMLReader .> Readable
+Reader <. JSONReader
+XMLReader .> Reader
 
 
 JSONReader ..> GeographicalArea
@@ -91,10 +98,10 @@ JSONReader ..> Sensor
 
 
 GeographicalArea ..> GeographicalAreaDTO
-GeographicalArea"*" - GAList
+GeographicalArea"*" - "1"GAList
 
 Sensor ..> SensorDTO
-SensorList - "*"Sensor
+SensorList"1" - "*"Sensor
 
 
 @enduml
