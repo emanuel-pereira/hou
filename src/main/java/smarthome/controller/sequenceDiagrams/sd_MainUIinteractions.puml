@@ -3,14 +3,14 @@
  hidefootbox
  actor User
 
-User -> MainUI: main()
-MainUI ->MainUI: setUp()
-MainUI <- MainUI: showUserRoles()
-User <-- MainUI: Show Users Role
-User -> MainUI: Choose User Role
+User -> SmartHomeUI: main()
+SmartHomeUI ->SmartHomeUI: setUp()
+SmartHomeUI <- SmartHomeUI: showUserRoles()
+User <-- SmartHomeUI: Show Users Role
+User -> SmartHomeUI: Choose User Role
 
 create ":{userRole}UI"
-MainUI -> ":{userRole}UI": create()
+SmartHomeUI -> ":{userRole}UI": create()
 note right
 	{userRole} can be:
 	 System Administration
@@ -20,14 +20,14 @@ note right
 	 Room Owner
 end note
 
-MainUI -> ":{userRole}UI": run()
+SmartHomeUI -> ":{userRole}UI": run()
 ":{userRole}UI" -> ":{userRole}UI": showOptions()
 User <-- ":{userRole}UI": Show Options
 User -> ":{userRole}UI": Select Option
 create ":{option}UI"
-":{userRole}UI" -> ":{option}UI": create()
+":{userRole}UI" -> ":{option}UI": create(...)
 note right
-	{option} is dependent of the Use Story
+	{option} dependents on the User Story
 end note
 ":{userRole}UI" -> ":{option}UI": run()
 create ":{option}CTRL"
