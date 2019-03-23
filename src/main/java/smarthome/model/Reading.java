@@ -10,6 +10,7 @@ public class Reading {
 
     private double value;
     private Calendar dateAndTime;
+    private String unit;
 
 
     /**
@@ -75,6 +76,14 @@ public class Reading {
 
     public ReadingDTO toDTO() {
         return new ReadingDTO(this.value, this.dateAndTime);
+    }
+
+    public Reading(double readValue, Calendar timeOfReading, String unitValue) {
+
+        this.value = readValue;
+        this.dateAndTime = timeOfReading;
+        this.unit = unitValue;
+
     }
 
 }
