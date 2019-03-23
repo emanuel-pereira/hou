@@ -1,16 +1,9 @@
 package smarthome.controller;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import smarthome.model.TypeGAList;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 class NewTypeGACTRLTest {
 
     /**
      * Add a new type of geographical area in an empty list and get the size of the list that is 1.
-     */
     @Test
     @DisplayName("Add a new type of geographical area in an empty list")
     void newTypeGAIfSuccessVillage() {
@@ -23,9 +16,9 @@ class NewTypeGACTRLTest {
         assertEquals (1, list.getTypeGAList ().size ());
     }
 
-    /**
+     *//**
      * Add a new type of geographical area in a list with other different types and get the size of the list that is 2.
-     */
+     *//*
     @Test
     @DisplayName("Add a new type of geographical area in a list with other types")
     void newTypeGAIfSuccessCityAfterVillage() {
@@ -42,9 +35,9 @@ class NewTypeGACTRLTest {
     }
 
 
-    /**
+    *//**
      * Add a new type of geographical area in a list with the same type and get the size of the list that remains as 1.
-     */
+     *//*
     @Test
     @DisplayName("Add a new type of geographical area in a list with same type")
     void newTypeGAIfCityAfterCity() {
@@ -60,10 +53,10 @@ class NewTypeGACTRLTest {
         assertEquals (1, list.getTypeGAList ().size ());
     }
 
-    /**
+    *//**
      * Add new types of geographical area in a list with same and different types and get the size of the list.
      * The repetitions are not considered.
-     */
+     *//*
     @Test
     @DisplayName("Add  new types of geographical area in a list with same and different types")
     void newTypeGAIfRepeatAndDifferentTypes() {
@@ -88,10 +81,10 @@ class NewTypeGACTRLTest {
         assertEquals (3, list.getTypeGAList ().size ());
     }
 
-    /**
+    *//**
      * Add spaces has type of geographical area in an empty list and confirm that is not possible to add that spaces
      * into the list
-     */
+     *//*
     @Test
     @DisplayName("Add a wrong type of geographical area in an empty list")
     void newTypeGAIfSpaceNotAddedEmptyList() {
@@ -104,10 +97,10 @@ class NewTypeGACTRLTest {
         assertEquals (0, list.getTypeGAList ().size ());
     }
 
-    /**
+    *//**
      * Add spaces has type of geographical area in an list with one TypeGA and confirm that is not possible to add that
      * space into the list but is possible to add a correct one after
-     */
+     *//*
     @Test
     @DisplayName("Add a wrong type of geographical area in a list")
     void newTypeGAIfSpaceNotAdded() {
@@ -182,13 +175,13 @@ class NewTypeGACTRLTest {
 
         assertEquals (0, list.getTypeGAList ().size ());
 
-        /*ctrl1.run (null);
-        assertEquals (0, list.getTypeGAList ().size ());*/
+        *//*ctrl1.run (null);
+        assertEquals (0, list.getTypeGAList ().size ());*//*
 
         assertFalse(ctrl1.createTypeGA ("            "));
         assertEquals (0, list.getTypeGAList ().size ());
 
 
 
-    }
+    }*/
 }

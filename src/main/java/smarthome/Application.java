@@ -82,7 +82,6 @@ public class Application {
                     //no action needed
             }
         }
-
     }
 
     @Bean

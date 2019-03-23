@@ -1,21 +1,12 @@
 package smarthome.controller;
 
-import org.junit.jupiter.api.Test;
-import smarthome.model.TypeGA;
-import smarthome.model.TypeGAList;
-
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 class GetTypeGAListCTRLTest {
 
-
-    /**
+    /*
+     *//**
      * Add new types of geographical area in a list and then confirm that the content is the same when using
      * the getTypeGAList method.
-     */
+     *//*
     @Test
     void getTypeGAListCorrectContent() {
         TypeGAList list = new TypeGAList ();
@@ -51,10 +42,10 @@ class GetTypeGAListCTRLTest {
     }
 
 
-    /**
+    *//**
      * Add new types of geographical area in a list and then create a new list and test if it has de same size.
      * Using the Debug is possible to see that the content of the list is the same.
-     */
+     *//*
     @Test
     void getTypeGAListCorrectSize() {
         TypeGAList list = new TypeGAList ();
@@ -98,5 +89,5 @@ class GetTypeGAListCTRLTest {
         String result = ctrl2.showListInString ();
 
         assertEquals (expected, result);
-    }
+    }*/
 }

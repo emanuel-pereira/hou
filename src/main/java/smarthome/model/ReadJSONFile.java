@@ -52,7 +52,7 @@ public class ReadJSONFile {
      * @throws ParseException
      * @throws IOException
      */
-    public List<GeographicalAreaDTO> importGAs(GeoRepository repository) throws java.text.ParseException, ParseException, IOException {
+    public List<GeographicalAreaDTO> importGAs() throws java.text.ParseException, ParseException, IOException {
         List<GeographicalAreaDTO> gaListDTO = new ArrayList<>();
         //Start reading JSON objects based on their type(JSONArray, JSONObject)
         JSONObject jsonGAs = (JSONObject) this.readFile().get("geographical_area_list");
@@ -63,7 +63,7 @@ public class ReadJSONFile {
             SensorList gaSensorList = geographicalArea.getSensorListInGA();
             addGASensors(jsonGA, gaSensorList);
             this.gaList.addGA(geographicalArea);
-            repository.save(geographicalArea);
+            //todo repository.save(geographicalArea);
             GeographicalAreaDTO gaDTO = geographicalArea.toDTO();
             gaListDTO.add(gaDTO);
         }

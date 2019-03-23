@@ -33,7 +33,7 @@ public class DataImportUI {
 
             try {
                 Path path = Paths.get(filepath);
-                gaListDTO = ctrl.loadJSON(path, rep);
+                gaListDTO = ctrl.loadJSON(path);
                 loop = false;
                 this.showGAsDTOs();
             } catch (FileNotFoundException e) {

@@ -1,16 +1,8 @@
 package smarthome.controller;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import smarthome.model.*;
-
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 public class NewGeographicalAreaCTRLTest {
 
-    @Test
+   /* @Test
     void newGA() {
         GAList list = new GAList();
         TypeGAList typeGAList = new TypeGAList();
@@ -50,7 +42,7 @@ public class NewGeographicalAreaCTRLTest {
     }
 
 
-    /*Add a new geographical area in a list with the same GA and get the size of the list that remains as 1.*/
+    *//*Add a new geographical area in a list with the same GA and get the size of the list that remains as 1.*//*
 
 
     @Test
@@ -202,5 +194,5 @@ public class NewGeographicalAreaCTRLTest {
         String result= ctrl.getGAType();
         assertEquals(expected,result);
 
-    }
+    }*/
 }

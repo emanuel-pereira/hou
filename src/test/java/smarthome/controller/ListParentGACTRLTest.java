@@ -1,19 +1,10 @@
 package smarthome.controller;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import smarthome.model.GAList;
-import smarthome.model.Location;
-import smarthome.model.OccupationArea;
-import smarthome.model.TypeGAList;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 public class ListParentGACTRLTest {
     //return GA's List
     //user selects one from the List
 
-    //return the parent GA if there's only one
+ /*   //return the parent GA if there's only one
     @DisplayName("Add two GA  with success and look for one's Parent GA, however none was found")
     @Test
     void addGACheckParent() {
@@ -134,5 +125,5 @@ public class ListParentGACTRLTest {
         assertEquals(3,ctrl8.getGAListSize());
         assertEquals("Funchal, Madeira", ctrl8.isParentOf(2));
     }
-
+*/
 }
