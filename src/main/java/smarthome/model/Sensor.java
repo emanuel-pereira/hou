@@ -16,6 +16,7 @@ public class Sensor {
     private Location location;
     private SensorType sensorType;
     private Calendar startDate;
+    private Calendar pauseDate;
     private String unit;
     private boolean active;
     private ReadingList readingList;
@@ -35,8 +36,8 @@ public class Sensor {
             this.startDate = startDate;
             this.sensorType = sensorType;
             this.unit = unit;
-            this.active = true;
             this.readingList = readings;
+            this.active = true;
         }
     }
 
@@ -59,8 +60,8 @@ public class Sensor {
             this.location = geoLocation;
             this.sensorType = sensorType;
             this.unit = unit;
-            this.active = true;
             this.readingList = readings;
+            this.active = true;
         }
     }
 
@@ -189,6 +190,10 @@ public class Sensor {
         return this.startDate;
     }
 
+    public Calendar getPauseDate() {
+        return this.pauseDate;
+    }
+
     public String getUnit() {
         return this.unit;
     }
@@ -204,32 +209,39 @@ public class Sensor {
 
     /**
      * Deactivate sensor if active
+     *
      * @return True if deactivated
      */
-    public boolean deactivate() {
-        if (!this.active)
+    public boolean deactivate(Calendar pauseDate) {
+        if ( this.active && pauseDate.after (this.startDate)) {
+            this.active = false;
+            this.pauseDate = pauseDate;
+            return true;
+        } else {
             return false;
-        this.active = false;
-        return true;
+        }
     }
 
-    /**
-     * Reactivate sensor if not active
-     * @return True if reactivated
-     */
-    public boolean reactivate(){
-        if (this.active)
-            return false;
-        this.active = true;
-        return true;
-    }
 
-    /**
-     * Check if sensor is active
-     * @return True if active. False if not active
-     */
-    public boolean isActive() {
-        return this.active;
-    }
+        /**
+         * Reactivate sensor if not active
+         *
+         * @return True if reactivated
+         */
+        public boolean reactivate () {
+            if (this.active)
+                return false;
+            this.active = true;
+            return true;
+        }
 
-}
+        /**
+         * Check if sensor is active
+         *
+         * @return True if active. False if not active
+         */
+        public boolean isActive () {
+            return this.active;
+        }
+
+    }

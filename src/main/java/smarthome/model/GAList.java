@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.dto.GeographicalAreaDTO;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -111,5 +113,14 @@ public class GAList {
     public void importDataFromCSVFileForEachGA(String filePathAndName) throws IOException {
         for(GeographicalArea geographicalArea: this.listOfGa)
             geographicalArea.importReadingsToSensorsFromCSVFile(filePathAndName);
+    }
+
+    public List<GeographicalAreaDTO> getGAListDTO() {
+        List<GeographicalAreaDTO> gaListDTO=new ArrayList<>();
+        for (GeographicalArea ga : listOfGa) {
+            GeographicalAreaDTO gaDTO=ga.toDTO();
+            gaListDTO.add(gaDTO);
+        }
+        return gaListDTO;
     }
 }
