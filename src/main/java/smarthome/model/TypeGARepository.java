@@ -6,4 +6,6 @@ import org.springframework.stereotype.Component;
 @Component
 public interface TypeGARepository extends CrudRepository<TypeGA, String> {
 
+    TypeGA findByTypeGeographicalArea(String type);
+
 }

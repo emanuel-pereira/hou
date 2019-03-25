@@ -11,7 +11,10 @@ public final class SystemAdministrationUI {
     private SystemAdministrationUI() {
     }
 
-    public static void systemAdministration(House house, SensorTypeList sensorTypeList, TypeGAList typeGAList, GAList gaList, GeoRepository GeoRep, LocationRepository LocRep, TypeGARepository typeRep) throws ParseException, org.json.simple.parser.ParseException, IOException {
+    public static void systemAdministration(House house, TypeGAList typeGAList, GAList gaList,
+                                            SensorTypeList sensorTypeList, TypeGARepository typeRep,
+                                            SensorTypeRepository unitRep) throws ParseException,
+            org.json.simple.parser.ParseException, IOException {
 
         int option = -1;
         while (option != 0) {
@@ -33,7 +36,8 @@ public final class SystemAdministrationUI {
 
             UtilsUI.showList("System Administrator", options, false, 5);
 
-            option = UtilsUI.requestIntegerInInterval(0, 10, "Please choose an action between 1 and 10, or 0 to exit the program");
+            option = UtilsUI.requestIntegerInInterval(0, 10, "Please choose an action " +
+                    "between 1 and 10, or 0 to exit the program");
 
             switch (option) {
                 case 1:
@@ -53,11 +57,11 @@ public final class SystemAdministrationUI {
                     ui4.run();
                     break;
                 case 5:
-                    NewSensorTypeUI ui5 = new NewSensorTypeUI(sensorTypeList);
+                    NewSensorTypeUI ui5 = new NewSensorTypeUI(sensorTypeList, unitRep);
                     ui5.runUS5();
                     break;
                 case 6:
-                    NewSensorUI ui6 = new NewSensorUI(house, sensorTypeList, gaList);
+                    NewSensorUI ui6 = new NewSensorUI(house, sensorTypeList, gaList, unitRep);
                     ui6.checkIfGAListIsEmpty();
                     break;
                 case 7:
@@ -69,11 +73,11 @@ public final class SystemAdministrationUI {
                     ui8.run();
                     break;
                 case 9:
-                    DataImportUI ui9 = new DataImportUI(gaList, GeoRep);
+                    DataImportUI ui9 = new DataImportUI(gaList);
                     ui9.loadJSON();
                     break;
                 case 10:
-                    DataImportUI ui10 = new DataImportUI(gaList, GeoRep);
+                    DataImportUI ui10 = new DataImportUI(gaList);
                     ui10.importDataFromCSVFile();
                     break;
                 default:

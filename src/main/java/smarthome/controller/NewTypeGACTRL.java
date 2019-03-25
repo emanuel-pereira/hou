@@ -28,7 +28,7 @@ public class NewTypeGACTRL {
         TypeGA typeGA = this.typeGAList.newTypeGA(inputType);
         if (typeGA == null)
             return false;
-        rep.save(typeGA);
-        return this.typeGAList.addTypeGA(typeGA);
+        //rep.save(typeGA);
+        return this.typeGAList.addTypeGA(typeGA, rep);
     }
 }
