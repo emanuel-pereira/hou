@@ -14,6 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/*
 class SensorDTOTest {
 
     @Test
@@ -52,7 +53,8 @@ class SensorDTOTest {
         assertNotEquals(expected, result);
     }
 
-    /*@Test
+    */
+/*@Test
     @DisplayName("Ensure getReadingListDTO returns a list of ReadingDTOs")
     void getReadingListDTOTest() {
 
@@ -94,5 +96,6 @@ class SensorDTOTest {
         assertTrue (c1a.equals(c1));
         assertTrue (c2a.equals(c2));
 
-    }*/
-}
+    }*//*
+
+}*/

@@ -121,6 +121,11 @@ public class SensorList {
         return this.listOfSensors.size();
     }
 
+    public void removeSensor(Sensor sensor){
+        this.listOfSensors.remove(sensor);
+
+    }
+
     public Sensor getLastSensor() {
         return this.listOfSensors.get(this.listOfSensors.size() - 1);
     }

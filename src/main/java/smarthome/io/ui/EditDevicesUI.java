@@ -102,8 +102,6 @@ public class EditDevicesUI {
         device = ctrl.createDevice(selectedRoom, deviceType, name, nominalPower);
         deviceSpecsConfiguration();
         UtilsUI.showList("Device created!", ctrl.showDeviceAttributesInString(device));
-
-
     }
 
     public void roomSelectionToListDevice() {

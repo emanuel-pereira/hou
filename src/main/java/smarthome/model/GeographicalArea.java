@@ -38,6 +38,8 @@ public class GeographicalArea {
 
     }
 
+    public GeographicalArea() {
+    }
 
     /**
      * method to get this Geographical Area designation
@@ -183,6 +185,22 @@ public class GeographicalArea {
                     }
                 }
         }
+    }
+
+    public String getIdentification() {
+        return identification;
+    }
+
+    public void setIdentification(String identification) {
+        this.identification = identification;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
     public GeographicalAreaDTO toDTO() {

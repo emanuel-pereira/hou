@@ -50,7 +50,7 @@ public class DataImportUI {
 
     }
 
-    public void importDataFromCSVFile() throws IOException {
+    /*public void importDataFromCSVFile() throws IOException {
         boolean loop = true;
         while (loop) {
             System.out.println("Please insert the directory and the name of the file (eg: resources/DataSet_sp04_SensorData.csv):");
@@ -68,19 +68,19 @@ public class DataImportUI {
     }
 
     public void showReadings() {
-        System.out.println("The following geographical areas and respective sensors were imported from the selected JsonFile:");
-        for (GeographicalAreaDTO geographicalAreaDTO : ctrl.getGAListDTO()) {
-            System.out.println("GEOGRAPHICAL AREA");
-            System.out.println(" Id: " + geographicalAreaDTO.getIdentification());
-            System.out.println(" Name: " + geographicalAreaDTO.getDesignation());
-            System.out.println(" SensorList: ");
-            int counter = 1;
-            for (SensorDTO sensorDTO : geographicalAreaDTO.getSensorListDTO()) {
-                System.out.print("  " + counter + " - Sensor Id: " + sensorDTO.getId());
-                System.out.println(" | Name " + sensorDTO.getDesignation());
-                System.out.println("Number of readings imported: " + sensorDTO.getReadingListDTO().size());
-                counter++;
-            }
-        }
-    }
+            System.out.println("The following geographical areas and respective sensors were imported from the selected JsonFile:");
+            for (GeographicalAreaDTO geographicalAreaDTO : ctrl.getGAListDTO()) {
+                System.out.println("GEOGRAPHICAL AREA");
+                System.out.println(" Id: " + geographicalAreaDTO.getIdentification());
+                System.out.println(" Name: " + geographicalAreaDTO.getDesignation());
+                System.out.println(" SensorList: ");
+                int counter = 1;
+                for (SensorDTO sensorDTO : geographicalAreaDTO.getSensorListDTO()) {
+                    System.out.print("  " + counter + " - Sensor Id: " + sensorDTO.getId());
+                    System.out.println(" | Name " + sensorDTO.getDesignation());
+                    System.out.println("Number of readings imported: " + sensorDTO.getReadingListDTO().size());
+                    counter++;
+                }
+            }*/
+
 }

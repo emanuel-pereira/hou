@@ -29,8 +29,9 @@ public final class SystemAdministrationUI {
             options.add("[6] Create a new sensor and associate it to a Geographical Area");
             options.add("[7] Specify that a geographical area is added to another one");
             options.add("[8] Check if a a geographical area is direct/indirectly included to another one");
-            options.add("[9] Import geographical areas and sensors from a JSONFile");
-            options.add("[10] Import readings from a CSVFile");
+            options.add("[9] Remove a sensor from a geographical area, so that it will no longer be used.");
+            options.add("[10] Import geographical areas and sensors from a JSONFile");
+            options.add("[11] Import readings from a CSVFile");
 
             options.add("[0] Exit");
 
@@ -72,13 +73,17 @@ public final class SystemAdministrationUI {
                     ui8.run();
                     break;
                 case 9:
-                    DataImportUI ui9= new DataImportUI(gaList);
-                    ui9.loadJSON();
+                    RemoveGASensorUI ui9 = new RemoveGASensorUI(gaList);
+                    ui9.selectGA();
                     break;
                 case 10:
-                    DataImportUI ui10= new DataImportUI(gaList);
-                    ui10.importDataFromCSVFile();
+                    DataImportUI ui10 = new DataImportUI(gaList);
+                    ui10.loadJSON();
                     break;
+                /*case 11:
+                    DataImportUI ui10 = new DataImportUI(gaList);
+                    ui10.importDataFromCSVFile();
+                    break;*/
                 default:
                     //no action needed
             }
