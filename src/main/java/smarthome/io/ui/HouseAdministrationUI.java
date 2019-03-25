@@ -1,9 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.model.GAList;
-import smarthome.model.House;
-import smarthome.model.SensorTypeList;
-import smarthome.model.SensorTypeRepository;
+import smarthome.model.*;
 
 import java.util.ArrayList;
 
@@ -13,7 +10,8 @@ public final class HouseAdministrationUI {
     }
 
     public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList,
-                                           House house, SensorTypeRepository unitsRep) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+                                           House house, SensorTypeRepository unitsRep, LocationRepository locRep)
+            throws ClassNotFoundException, IllegalAccessException, InstantiationException {
 
         int option = -1;
         while (option != 0) {
@@ -67,11 +65,11 @@ public final class HouseAdministrationUI {
                     ui230.getRoomTotalNominalPower ();
                     break;
                 case 8:
-                    NewSensorUI newSensorUI = new NewSensorUI(house, sensorTypeList, gaList, unitsRep);
+                    NewSensorUI newSensorUI = new NewSensorUI(house, sensorTypeList, gaList, unitsRep, locRep);
                     newSensorUI.checkIfRoomListIsEmpty();
                     break;
                 case 9:
-                    NewSensorUI listSensorsUI = new NewSensorUI(house, sensorTypeList, gaList, unitsRep);
+                    NewSensorUI listSensorsUI = new NewSensorUI(house, sensorTypeList, gaList, unitsRep, locRep);
                     listSensorsUI.selectRoomAndList();
                     break;
                 case 10:

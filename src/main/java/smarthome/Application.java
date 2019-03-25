@@ -26,12 +26,12 @@ public class Application {
     public static void main(String[] args) throws IllegalAccessException, ParseException, InstantiationException, IOException, org.json.simple.parser.ParseException, ClassNotFoundException {
         SpringApplication.run(Application.class);
 
-        menuOptions(typeRep, unitRep);
+        menuOptions(typeRep, unitRep, locRep);
     }
 
 
     @Bean
-    public CommandLineRunner demo(TypeGARepository typeGARepository, SensorTypeRepository unitRepository, GeoRepository geoRepository) {
+    public CommandLineRunner demo(TypeGARepository typeGARepository, SensorTypeRepository unitRepository, GeoRepository geoRepository, LocationRepository locationRep) {
         typeGARepository.save(new TypeGA("novo tipo"));
         typeRep = typeGARepository;
 
@@ -39,6 +39,8 @@ public class Application {
         unitRep = unitRepository;
 
         geoRep = geoRepository;
+
+        locRep = locationRep;
         return args -> {
         };
     }

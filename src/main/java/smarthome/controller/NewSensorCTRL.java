@@ -99,12 +99,18 @@ public class NewSensorCTRL {
      * @param readings        list of readings stored by the sensor
      * @return adds the sensor created to the selected Geographical Area
      */
-
     public boolean addNewSensorToGA(String id, String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, Location location, int indexOfGA, ReadingList readings) {
         GeographicalArea geographicalArea = this.gaList.get(indexOfGA);
         SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);
         Sensor sensor = geographicalArea.getSensorListInGA().newSensor(id,inputName, startDate, location, sensorType, inputUnit, readings);
         return geographicalArea.getSensorListInGA().addSensor(sensor);
+    }
+
+    public boolean addNewSensorToGA(String id, String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, Location location, int indexOfGA, ReadingList readings, LocationRepository locRep) {
+        GeographicalArea geographicalArea = this.gaList.get(indexOfGA);
+        SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);
+        Sensor sensor = geographicalArea.getSensorListInGA().newSensor(id, inputName, startDate, location, sensorType, inputUnit, readings);
+        return geographicalArea.getSensorListInGA().addSensor(sensor, locRep);
     }
 
     /**

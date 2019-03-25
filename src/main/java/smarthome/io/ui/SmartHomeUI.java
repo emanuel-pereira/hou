@@ -1,6 +1,7 @@
 
 package smarthome.io.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import smarthome.model.*;
 
@@ -20,13 +21,16 @@ public class SmartHomeUI {
     private static GAList gaList;
     private static TypeGAList typeGAList;
     private static House house;
+    private static LocationRepository locRep;
 
     public SmartHomeUI() {
         init();
         //FIXME BootStrap.run(house, typeGAList, sensorTypeList);
     }
 
-    public static void menuOptions(TypeGARepository typeRep, SensorTypeRepository unitsRep) throws IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
+    @Autowired
+    public static void menuOptions(TypeGARepository typeRep, SensorTypeRepository unitsRep, LocationRepository rep) throws IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
+        locRep = rep;
         int option = -1;
         while (option != 0) {
 
@@ -44,10 +48,10 @@ public class SmartHomeUI {
             option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");
             switch (option) {
                 case 1:
-                    systemAdministration(house, typeGAList, gaList, sensorTypeList, typeRep, unitsRep);
+                    systemAdministration(house, typeGAList, gaList, sensorTypeList, typeRep, unitsRep, locRep);
                     break;
                 case 2:
-                    houseAdministration(sensorTypeList, gaList, house, unitsRep);
+                    houseAdministration(sensorTypeList, gaList, house, unitsRep, locRep);
                     break;
                 case 3:
                     regularUsage(house, sensorTypeList);

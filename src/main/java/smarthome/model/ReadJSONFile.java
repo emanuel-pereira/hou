@@ -70,6 +70,25 @@ public class ReadJSONFile {
         return gaListDTO;
     }
 
+    public List<GeographicalAreaDTO> importGAs(LocationRepository repository) throws java.text.ParseException, ParseException, IOException {
+        List<GeographicalAreaDTO> gaListDTO = new ArrayList<>();
+        //Start reading JSON objects based on their type(JSONArray, JSONObject)
+        JSONObject jsonGAs = (JSONObject) this.readFile().get("geographical_area_list");
+        JSONArray jsonGAList = (JSONArray) jsonGAs.get("geographical_area");
+        for (Object ga : jsonGAList) {
+            JSONObject jsonGA = (JSONObject) ga;
+            GeographicalArea geographicalArea = createGeographicalArea(jsonGA);
+            SensorList gaSensorList = geographicalArea.getSensorListInGA();
+            addGASensors(jsonGA, gaSensorList);
+            this.gaList.addGA(geographicalArea);
+            repository.save(geographicalArea.getLocation());
+            //todo repository.save(geographicalArea);
+            GeographicalAreaDTO gaDTO = geographicalArea.toDTO();
+            gaListDTO.add(gaDTO);
+        }
+        return gaListDTO;
+    }
+
     /**
      * Method that returns a Geographical Area object after parsing all its attributes from a JSON file
      *

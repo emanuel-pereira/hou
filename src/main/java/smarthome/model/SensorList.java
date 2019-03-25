@@ -28,6 +28,14 @@ public class SensorList {
         } else return false;
     }
 
+    public boolean addSensor(Sensor newSensor, LocationRepository rep) {
+        if (!this.listOfSensors.contains(newSensor)) {
+            this.listOfSensors.add(newSensor);
+            rep.save(newSensor.getLocation());
+            return true;
+        } else return false;
+    }
+
 
     /**
      * Method to return the sensors included in the list

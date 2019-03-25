@@ -1,6 +1,7 @@
 package smarthome.io.ui;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import smarthome.controller.NewSensorCTRL;
 import smarthome.model.*;
 
@@ -22,11 +23,15 @@ public class NewSensorUI {
     private ReadingList readingList = new ReadingList();
     private Scanner read = new Scanner(System.in);
     private boolean isInternal;
-    private SensorTypeRepository rep;
+    private SensorTypeRepository unitsRep;
 
-    public NewSensorUI(House house, SensorTypeList sensorTypeList, GAList listOfGA, SensorTypeRepository unitRep) {
+    @Autowired
+    private LocationRepository locRep;
+
+    public NewSensorUI(House house, SensorTypeList sensorTypeList, GAList listOfGA, SensorTypeRepository unitRep, LocationRepository locRep) {
         this.ctrl = new NewSensorCTRL(house, sensorTypeList, listOfGA);
-        this.rep = unitRep;
+        this.unitsRep = unitRep;
+        this.locRep = locRep;
     }
 
     void checkIfRoomListIsEmpty() {
@@ -148,7 +153,8 @@ public class NewSensorUI {
 
     private void addSensorToGA() {
         Location geoLocation = new Location(this.latitude, this.longitude, this.altitude);
-        this.ctrl.addNewSensorToGA(this.id,this.name, this.startDate, this.indexOfSensorType, this.unit, geoLocation, this.indexOfGA, this.readingList);
+        //this.ctrl.addNewSensorToGA(this.id,this.name, this.startDate, this.indexOfSensorType, this.unit, geoLocation, this.indexOfGA, this.readingList);
+        this.ctrl.addNewSensorToGA(this.id, this.name, this.startDate, this.indexOfSensorType, this.unit, geoLocation, this.indexOfGA, this.readingList, this.locRep);
         System.out.println("The following geographical area sensor was successfully created: ");
         System.out.println("ID: " + this.id);
         System.out.println("NAME: " + this.ctrl.getGASensorName(this.indexOfGA));
