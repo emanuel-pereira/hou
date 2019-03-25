@@ -598,12 +598,12 @@ public final class UtilsUI {
         showMessageBox(infoTitle, "BG_GREEN", infoMessage);
     }
 
-    private static void showMessageBox(String title, String titleColor, String message) {
+    private static void showMessageBox(String title, String titleColor, String text) {
         int padding = 5;
         String aTitle = padWithSpaces(title, title.length(), padding);
         String titlePretty = createWhiteSpace((title.length() - 1) + (padding * 2));
-        String error = padWithSpaces(message, 999, 5);
-
+        String message = padWithSpaces(text, text.length(), padding);
+        String messagePretty = createWhiteSpace((text.length() - 1) + (padding * 2));
 
         format(RESET);
         print("\n");
@@ -614,10 +614,12 @@ public final class UtilsUI {
         format("BOLD", titleColor, BLACK);
         printAndReset(titlePretty);
         format(RESET);
-        format("REVERSED");
-        print("\n");
-        print(error);
-        print("\n\n");
+        format("BG_WHITE", BLACK);
+        printAndReset(messagePretty);
+        format("BG_WHITE", BLACK);
+        printAndReset(message);
+        format("BG_WHITE", BLACK);
+        printAndReset(messagePretty);
         format(RESET);
         print("\n");
     }
