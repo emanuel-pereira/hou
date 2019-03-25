@@ -2,6 +2,7 @@ package smarthome.controller;
 
 import smarthome.model.SensorType;
 import smarthome.model.SensorTypeList;
+import smarthome.model.SensorTypeRepository;
 
 import java.util.List;
 
@@ -28,6 +29,13 @@ public class NewSensorTypeCTRL {
         SensorType sensorType = mSensorTypeList.newSensorType(newSensorType);
         if (sensorType != null)
             return mSensorTypeList.addSensorType(sensorType);
+        return false;
+    }
+
+    public boolean newSensorType(String newSensorType, SensorTypeRepository rep) {
+        SensorType sensorType = mSensorTypeList.newSensorType(newSensorType);
+        if (sensorType != null)
+            return mSensorTypeList.addSensorType(sensorType, rep);
         return false;
     }
 

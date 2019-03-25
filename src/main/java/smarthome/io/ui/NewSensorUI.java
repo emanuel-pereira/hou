@@ -22,10 +22,11 @@ public class NewSensorUI {
     private ReadingList readingList = new ReadingList();
     private Scanner read = new Scanner(System.in);
     private boolean isInternal;
+    private SensorTypeRepository rep;
 
-
-    public NewSensorUI(House house, SensorTypeList sensorTypeList, GAList listOfGA) {
+    public NewSensorUI(House house, SensorTypeList sensorTypeList, GAList listOfGA, SensorTypeRepository unitRep) {
         this.ctrl = new NewSensorCTRL(house, sensorTypeList, listOfGA);
+        this.rep = unitRep;
     }
 
     void checkIfRoomListIsEmpty() {

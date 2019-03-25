@@ -25,7 +25,7 @@
     </properties>
 
     <dependencies>
-        <!-- FIXME Added dependency for JPA Java Persistence API -->
+        <!-- Added dependency for JPA Java Persistence API -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -44,18 +44,26 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Added dependency for Json manipulation -->
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
         </dependency>
         <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20090211</version>
+        </dependency>
+
+
+        <!-- Added dependency for Junit testing -->
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.3.2</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -81,16 +89,6 @@
             <artifactId>annotations</artifactId>
             <version>16.0.2</version>
             <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20090211</version>
         </dependency>
     </dependencies>
 
@@ -190,11 +188,13 @@
                         <!--<param>smarthome.*</param>-->
                         <param>smarthome.controller.*</param>
                         <param>smarthome.model.*</param>
+                        <param>smarthome.dto.*</param>
                     </targetClasses>
                     <targetTests>
                         <!--<param>smarthome.*</param>-->
                         <param>smarthome.controller.*</param>
                         <param>smarthome.model.*</param>
+                        <param>smarthome.dto.*</param>
                     </targetTests>
 
                     <outputFormats>
@@ -216,7 +216,7 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <!-- the class holding the public static void main(String[] args) entry point -->
-                            <mainClass>smarthome.io.ui.SmartHomeUI</mainClass>
+                            <mainClass>smarthome.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

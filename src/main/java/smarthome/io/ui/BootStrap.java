@@ -33,24 +33,24 @@ public final class BootStrap {
      * @throws InstantiationException exception
      * @throws ClassNotFoundException exception
      */
-    public static void run(House house, TypeGAList typeGAList, SensorTypeList sensorTypeList) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
+    /*public static void run(House house, TypeGAList typeGAList, SensorTypeList sensorTypeList) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
         BootStrap.house = house;
         createSensorsUnitTypes(sensorTypeList);
         createTypeOfGAs(typeGAList);
         createHouseGrid();
         createRoom(sensorTypeList);
-    }
+    }*/
 
     /**
      * This method is responsible for all geographical areas types creation.
      * The house creation method is called here, after all GA's are build.
      **/
-    private static void createTypeOfGAs(TypeGAList typeGAList) {
+    /*private static void createTypeOfGAs(TypeGAList typeGAList) {
         TypeGA urbanArea = new TypeGA("urban area");
         typeGAList.addTypeGA(urbanArea);
         TypeGA city = new TypeGA("city");
         typeGAList.addTypeGA(city);
-    }
+    }*/
 
     /**
      * This method is responsible for the creation of the Sensor Unit Types, examples are:

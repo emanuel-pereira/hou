@@ -19,9 +19,9 @@ public class DataImportUI {
     private List<GeographicalAreaDTO> gaListDTO = new ArrayList<>();
     private GeoRepository rep;
 
-    public DataImportUI(GAList gaList, GeoRepository repository) {
+    public DataImportUI(GAList gaList) {
         this.ctrl = new DataImportCTRL(gaList);
-        this.rep = repository;
+        //this.rep = repository;
     }
 
 

@@ -2,6 +2,7 @@ package smarthome.io.ui;
 
 import smarthome.controller.NewSensorTypeCTRL;
 import smarthome.model.SensorTypeList;
+import smarthome.model.SensorTypeRepository;
 
 import java.util.Scanner;
 
@@ -14,6 +15,7 @@ public class NewSensorTypeUI {
 
     private SensorTypeList mSensorTypeList;
     private NewSensorTypeCTRL mCtrlUS5;
+    private SensorTypeRepository rep;
 
     Scanner keyboard = new Scanner(System.in);
 
@@ -22,9 +24,10 @@ public class NewSensorTypeUI {
      *
      * @param inputSensorType - list where the newSensorType is added
      */
-    public NewSensorTypeUI(SensorTypeList inputSensorType) {
+    public NewSensorTypeUI(SensorTypeList inputSensorType, SensorTypeRepository unitRep) {
         mSensorTypeList = inputSensorType;
         mCtrlUS5 = new NewSensorTypeCTRL(mSensorTypeList);
+        this.rep = unitRep;
     }
 
     /**
@@ -46,7 +49,7 @@ public class NewSensorTypeUI {
                 System.out.println("Return to Main Menu");
                 break;
             }
-            if (mCtrlUS5.newSensorType(inputDesignation)) {
+            if (mCtrlUS5.newSensorType(inputDesignation, rep)) {
                 System.out.println("Success: " + inputDesignation + " was added to the list:");
                 System.out.print(mCtrlUS5.returnSensorTypeList());
             } else

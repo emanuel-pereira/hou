@@ -43,11 +43,22 @@ public class SensorTypeList {
         return this.sTypeList.add(newSensorType);
     }
 
+    public boolean addSensorType(SensorType newSensorType, SensorTypeRepository rep) {
+        if (this.sTypeList.contains(newSensorType) || (newSensorType == null))
+            return false;
+        else if (this.sTypeList.add(newSensorType)) {
+            rep.save(newSensorType);
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Returns the number of elements in this list.
+     *
      * @return the number of elements in this list
      */
-    public int size(){
+    public int size() {
         return this.sTypeList.size();
 
     }
@@ -70,13 +81,14 @@ public class SensorTypeList {
      * @return true if the designation is not null or empty after trimming the spaces
      */
     private boolean sensorTypeDesignationIsValid(String sensorTypeDesignation) {
-         if(sensorTypeDesignation == null || sensorTypeDesignation.trim().isEmpty())
+        if (sensorTypeDesignation == null || sensorTypeDesignation.trim().isEmpty())
             return false;
         return sensorTypeDesignation.matches("[a-zA-Z]*");
     }
 
     /**
      * Some SensorTypes are required in some User Stories, so this method checks if a mandatory sensor type exists
+     *
      * @param input sensor type designation
      * @return true if exists and false if not
      */
@@ -101,9 +113,6 @@ public class SensorTypeList {
         }
         return result.toString();
     }
-
-
-
 
 
 }

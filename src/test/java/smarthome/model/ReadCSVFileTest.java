@@ -34,6 +34,9 @@ public class ReadCSVFileTest {
     @Test
     void writeOnCSVFileFailTest() throws IOException {
         ReadCSVFile csv = new ReadCSVFile();
+        //TODO CAN SOMEONE ADD DETAILS ABOUT THIS TEST?
+        //IS IT TO TEST THE CREATION OF A NEW LOG FILE WHEN NONE EXIST?
+        //IS IT TO TEST THE SUCCESSFUL UPDATE OF FAILED READINGS IN THE FILE?
         csv.writeCSVFile("nofile.txt");
         csv.writeStringOnCSVFile("Test");
     }
