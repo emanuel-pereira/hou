@@ -2,7 +2,7 @@ package smarthome.controller;
 
 import smarthome.model.SensorType;
 import smarthome.model.SensorTypeList;
-import smarthome.model.SensorTypeRepository;
+import smarthome.repository.SensorTypeRepository;
 
 import java.util.List;
 

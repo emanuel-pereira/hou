@@ -2,7 +2,7 @@ package smarthome.io.ui;
 
 import smarthome.controller.NewSensorTypeCTRL;
 import smarthome.model.SensorTypeList;
-import smarthome.model.SensorTypeRepository;
+import smarthome.repository.SensorTypeRepository;
 
 import java.util.Scanner;
 

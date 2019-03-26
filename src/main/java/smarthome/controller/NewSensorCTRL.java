@@ -3,6 +3,7 @@ package smarthome.controller;
 import smarthome.model.*;
 import smarthome.model.validations.GPSValidations;
 import smarthome.model.validations.NameValidations;
+import smarthome.repository.LocationRepository;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

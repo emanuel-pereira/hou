@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.repository.LocationRepository;
+
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;

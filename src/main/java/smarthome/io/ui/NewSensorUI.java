@@ -4,6 +4,8 @@ package smarthome.io.ui;
 import org.springframework.beans.factory.annotation.Autowired;
 import smarthome.controller.NewSensorCTRL;
 import smarthome.model.*;
+import smarthome.repository.LocationRepository;
+import smarthome.repository.SensorTypeRepository;
 
 import java.util.GregorianCalendar;
 import java.util.Scanner;

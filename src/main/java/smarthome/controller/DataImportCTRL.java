@@ -3,8 +3,8 @@ package smarthome.controller;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
-import smarthome.model.LocationRepository;
 import smarthome.model.ReadJSONFile;
+import smarthome.repository.LocationRepository;
 
 import java.io.IOException;
 import java.nio.file.Path;

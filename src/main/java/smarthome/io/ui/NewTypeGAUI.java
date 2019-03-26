@@ -2,7 +2,7 @@ package smarthome.io.ui;
 
 import smarthome.controller.NewTypeGACTRL;
 import smarthome.model.TypeGAList;
-import smarthome.model.TypeGARepository;
+import smarthome.repository.TypeGARepository;
 
 public class NewTypeGAUI {
 
@@ -33,6 +33,14 @@ public class NewTypeGAUI {
             this.name = UtilsUI.requestText ("Please use only characters");
             this.createTypeGA(this.typeRep);
         }
+    }
+
+    private void createTypeGA() {
+        if (this.controller.createTypeGA(this.name)) {
+            System.out.println("Success: " + this.name + " added.\n");
+            condition = false;
+        } else
+            System.out.println("This type already exists.");
     }
 
     private void createTypeGA(TypeGARepository rep) {

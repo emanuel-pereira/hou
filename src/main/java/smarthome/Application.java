@@ -6,7 +6,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import smarthome.model.*;
+import smarthome.model.SensorType;
+import smarthome.model.TypeGA;
+import smarthome.repository.GeoRepository;
+import smarthome.repository.LocationRepository;
+import smarthome.repository.SensorTypeRepository;
+import smarthome.repository.TypeGARepository;
 
 import java.io.IOException;
 import java.text.ParseException;

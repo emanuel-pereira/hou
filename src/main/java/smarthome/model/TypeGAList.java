@@ -1,6 +1,8 @@
 package smarthome.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import smarthome.model.validations.NameValidations;
+import smarthome.repository.TypeGARepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +10,9 @@ import java.util.List;
 public class TypeGAList {
 
     private List<TypeGA> typeOfGAList;
+
+    @Autowired
+    private TypeGARepository typeRep;
 
     /**
      * Constructor for TypeGAList where the List of GA's is instantiated
@@ -41,7 +46,9 @@ public class TypeGAList {
      */
     public boolean addTypeGA(TypeGA inputType) {
         if (inputType != null && !this.typeOfGAList.contains(inputType)) {
-            return (this.typeOfGAList.add(inputType));
+            this.typeOfGAList.add(inputType);
+            typeRep.save(inputType);
+            return true;
         } else return false;
     }
 

@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.repository.SensorTypeRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -2,7 +2,7 @@ package smarthome.controller;
 
 import smarthome.model.TypeGA;
 import smarthome.model.TypeGAList;
-import smarthome.model.TypeGARepository;
+import smarthome.repository.TypeGARepository;
 
 public class NewTypeGACTRL {
 
@@ -30,5 +30,13 @@ public class NewTypeGACTRL {
             return false;
         //rep.save(typeGA);
         return this.typeGAList.addTypeGA(typeGA, rep);
+    }
+
+    public boolean createTypeGA(String inputType) {
+        TypeGA typeGA = this.typeGAList.newTypeGA(inputType);
+        if (typeGA == null)
+            return false;
+        //rep.save(typeGA);
+        return this.typeGAList.addTypeGA(typeGA);
     }
 }
