@@ -1,9 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.model.GAList;
-import smarthome.model.House;
-import smarthome.model.SensorTypeList;
-import smarthome.model.TypeGAList;
+import smarthome.model.*;
 import smarthome.repository.LocationRepository;
 import smarthome.repository.SensorTypeRepository;
 import smarthome.repository.TypeGARepository;
@@ -19,7 +16,7 @@ public final class SystemAdministrationUI {
 
     public static void systemAdministration(House house, TypeGAList typeGAList, GAList gaList,
                                             SensorTypeList sensorTypeList, TypeGARepository typeRep,
-                                            SensorTypeRepository unitRep, LocationRepository locRep) throws ParseException,
+                                            SensorTypeRepository unitRep, LocationRepository locRep, OccupationAreaRepository occupRep) throws ParseException,
             org.json.simple.parser.ParseException, IOException {
 
         int option = -1;
@@ -79,11 +76,11 @@ public final class SystemAdministrationUI {
                     ui8.run();
                     break;
                 case 9:
-                    DataImportUI ui9 = new DataImportUI(gaList, locRep);
+                    DataImportUI ui9 = new DataImportUI(gaList, locRep, occupRep);
                     ui9.loadJSON();
                     break;
                 case 10:
-                    DataImportUI ui10 = new DataImportUI(gaList, locRep);
+                    DataImportUI ui10 = new DataImportUI(gaList, locRep, occupRep);
                     ui10.importDataFromCSVFile();
                     break;
                 default:

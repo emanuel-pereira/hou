@@ -10,10 +10,13 @@ public class OccupationArea {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private double occupation = Double.NaN;
     private double length;
     private double width;
 
+    protected OccupationArea() {
+    }
 
     /**
      * Constructor method that determines a length and width for an occupational area and it verifies if

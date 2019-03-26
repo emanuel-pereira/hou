@@ -3,10 +3,7 @@ package smarthome.io.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import smarthome.model.GAList;
-import smarthome.model.House;
-import smarthome.model.SensorTypeList;
-import smarthome.model.TypeGAList;
+import smarthome.model.*;
 import smarthome.repository.LocationRepository;
 import smarthome.repository.SensorTypeRepository;
 import smarthome.repository.TypeGARepository;
@@ -28,6 +25,7 @@ public class SmartHomeUI {
     private static TypeGAList typeGAList;
     private static House house;
     private static LocationRepository locRep;
+    private static OccupationAreaRepository ocRep;
 
     public SmartHomeUI() {
         init();
@@ -35,8 +33,9 @@ public class SmartHomeUI {
     }
 
     @Autowired
-    public static void menuOptions(TypeGARepository typeRep, SensorTypeRepository unitsRep, LocationRepository rep) throws IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
+    public static void menuOptions(TypeGARepository typeRep, SensorTypeRepository unitsRep, LocationRepository rep, OccupationAreaRepository occupRep) throws IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
         locRep = rep;
+        ocRep=occupRep;
         int option = -1;
         while (option != 0) {
 
@@ -54,7 +53,7 @@ public class SmartHomeUI {
             option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");
             switch (option) {
                 case 1:
-                    systemAdministration(house, typeGAList, gaList, sensorTypeList, typeRep, unitsRep, locRep);
+                    systemAdministration(house, typeGAList, gaList, sensorTypeList, typeRep, unitsRep, locRep,ocRep);
                     break;
                 case 2:
                     houseAdministration(sensorTypeList, gaList, house, unitsRep, locRep);
