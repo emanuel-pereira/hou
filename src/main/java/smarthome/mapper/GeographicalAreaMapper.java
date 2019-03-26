@@ -1,15 +1,15 @@
 package smarthome.mapper;
 
 import smarthome.dto.GeographicalAreaDTO;
-import smarthome.dto.SensorDTO;
+import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
-import smarthome.model.Sensor;
 import smarthome.model.SensorList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GeographicalAreaMapper {
-    private SensorTypeMapper sensorTypeMapper;
     private SensorMapper sensorMapper=new SensorMapper();
+
 
     /**
      * Converts a geographicalArea into a geographicalAreaDTO to be used as a model view, containing only Id, Designation and SensorList as attributes
@@ -21,12 +21,18 @@ public class GeographicalAreaMapper {
         geographicalAreaDTO.setIdentification(geographicalArea.getIdentification());
         geographicalAreaDTO.setDesignation(geographicalArea.getGAName());
         SensorList sensorList = geographicalArea.getSensorListInGA();
-        List<SensorDTO> sensorListDTO=geographicalAreaDTO.getSensorListDTO();
-        for (Sensor sensor : sensorList.getSensorList()) {
-            SensorDTO  sensorDTO=sensorMapper.toDto(sensor);
-            sensorListDTO.add(sensorDTO);
-        }
+        geographicalAreaDTO.setSensorListDTO(sensorMapper.toDtoList(sensorList));
         return geographicalAreaDTO;
+    }
+
+    /**
+     * Converts a list of geographical areas into a list of geographical areas DTOs to be used as a model view, containing only Id, Designation and SensorList as attributes
+     * @param gaList to be converted into a geographical area DTO list
+     * @return list of geographical area DTOs
+     */
+    public List<GeographicalAreaDTO> toDtoList(GAList gaList) {
+        List<GeographicalArea> listOfGAs=gaList.getGAList();
+        return listOfGAs.stream().map(this::toDto).collect(Collectors.toList());
     }
 
 }

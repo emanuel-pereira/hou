@@ -24,7 +24,7 @@ public class RemoveGASensorUI {
             System.out.println("The list of geographical areas is empty. Please add at least one.");
             return;
         }
-        System.out.println("Choose a geographical are from the list below:");
+        System.out.println("Choose a geographical area from the list below:");
         int counter = 1;
         for (GeographicalAreaDTO gaDTO : gaListDTO) {
             System.out.print(counter++ + " Id: " + gaDTO.getIdentification());
@@ -37,7 +37,7 @@ public class RemoveGASensorUI {
     }
 
     public void selectSensor() {
-        if (selectedGADTO.getSensorListDTO().size() == 0) {
+        if (selectedGADTO.getSensorListDTO().isEmpty()) {
             System.out.println("The list of sensors is empty. Please add at least one.");
             return;
         }

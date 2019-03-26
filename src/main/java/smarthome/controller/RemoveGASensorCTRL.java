@@ -7,7 +7,6 @@ import smarthome.model.GeographicalArea;
 import smarthome.model.Sensor;
 import smarthome.model.SensorList;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RemoveGASensorCTRL {
@@ -24,11 +23,7 @@ public class RemoveGASensorCTRL {
      * @return a list of geographical area DTOs with attributes id, designation, typeDTO and sensorListDTO
      */
     public List<GeographicalAreaDTO> getGAListDTO() {
-        List<GeographicalAreaDTO> gaDTOList = new ArrayList<>();
-        for (GeographicalArea geographicalArea : gaList.getGAList()) {
-            gaDTOList.add(gaMapper.toDto(geographicalArea));
-        }
-        return gaDTOList;
+        return gaMapper.toDtoList(gaList);
     }
 
     /**

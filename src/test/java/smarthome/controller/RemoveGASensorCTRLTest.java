@@ -148,9 +148,11 @@ class RemoveGASensorCTRLTest {
         GeographicalAreaDTO lisbonDTO= new GeographicalAreaDTO("LIS","Lisbon",sensorListDTO);
         String gaDTOId=lisbonDTO.getIdentification();
         String sensorDTOId=sensorDTO.getId();
+
         RemoveGASensorCTRL ctrl= new RemoveGASensorCTRL(gaList);
         boolean result=ctrl.removeSensor(gaDTOId,sensorDTOId);
         assertTrue(result);
+
         int expectedSize=0;
         int resultingSize=lisbonSensorList.size();
         assertEquals(expectedSize,resultingSize);
