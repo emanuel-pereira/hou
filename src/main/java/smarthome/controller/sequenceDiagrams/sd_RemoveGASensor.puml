@@ -1,0 +1,34 @@
+@startuml
+
+
+
+hidefootbox
+actor SysAdmin
+SysAdmin -> UI:  Remove sensor from \nGeographical Area
+create UI
+create CTRL
+UI -> CTRL: create(gaList)
+CTRL->"gaList:GAList": gaList=getGAList
+UI->CTRL: gaListDTO=getGAListDTO()
+loop for each ga in gaList convert toDTO
+CTRL->GAMapper:toDTO(ga)
+GAMapper->GADTO:gaDTO=create()
+CTRL->GADTO:add(gaDTO)
+end
+SysAdmin<--UI: show gaListDTO
+SysAdmin -> UI: selects GA
+
+SysAdmin<--UI:shows sensorListDTO
+SysAdmin->UI: selects sensorDTO
+UI->CTRL: removeSensor(gaDTOId, sensorDTOId)
+loop for each ga in gaList match id
+CTRL->"gaList:GAList": ga=getGAById(gaDTOId)
+end
+CTRL->"sensorList:SensorList": sensorList=getGASensorList()
+
+loop for each sensor in sensorList match id
+CTRL->"sensorList:SensorList": sensor=getSensorById(sensorDTOId)
+end
+CTRL->"sensorList:SensorList":remove(sensor)
+SysAdmin<--UI:sensor successfully \nremoved message
+@enduml

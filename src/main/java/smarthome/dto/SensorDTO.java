@@ -6,15 +6,21 @@ public class SensorDTO {
 
     private String id;
     private String designation;
-    private List <ReadingDTO> readingListDTO;
+    private SensorTypeDTO sensorTypeDTO;
+    private List<ReadingDTO> readingListDTO;
 
+    public SensorDTO(){}
     public SensorDTO(String id, String designation, List<ReadingDTO> readingListDTO) {
         this.id = id;
         this.designation = designation;
-        this.readingListDTO=readingListDTO;
+        this.readingListDTO = readingListDTO;
     }
-    public SensorDTO(String id, String designation) {
-        this.id = id;
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
         this.designation = designation;
     }
 
@@ -22,12 +28,23 @@ public class SensorDTO {
         return id;
     }
 
-    public String getDesignation() {
-        return designation;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public List<ReadingDTO> getReadingListDTO(){
-        return readingListDTO;
+    public SensorTypeDTO getSensorType() {
+        return sensorTypeDTO;
+    }
 
+    public void setSensorType(SensorTypeDTO sensorTypeDTO) {
+        this.sensorTypeDTO = sensorTypeDTO;
+    }
+
+    public List<ReadingDTO> getReadingListDTO() {
+        return readingListDTO;
+    }
+
+    public void setReadingListDTO(List<ReadingDTO> readingListDTO) {
+        this.readingListDTO = readingListDTO;
     }
 }
