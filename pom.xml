@@ -146,16 +146,20 @@
                         <param>lapr.project.utils.*</param>
                     </inScopeClasses>-->
                     <targetClasses>
-                        <!--<param>smarthome.*</param>-->
                         <param>smarthome.controller.*</param>
                         <param>smarthome.model.*</param>
-                    </targetClasses>
-                    <targetTests>
-                        <!--<param>smarthome.*</param>-->
-                        <param>smarthome.controller.*</param>
-                        <param>smarthome.model.*</param>
-                    </targetTests>
+                        <param>smarthome.mapper.*</param>
+                        <param>smarthome.dto.*</param>
 
+                    </targetClasses>
+
+                    <targetTests>
+                        <param>smarthome.controller.*</param>
+                        <param>smarthome.model.*</param>
+                        <param>smarthome.mapper.*</param>
+                        <param>smarthome.dto.*</param>
+
+                    </targetTests>
                     <outputFormats>
                         <outputFormat>XML</outputFormat>
                         <outputFormat>HTML</outputFormat>

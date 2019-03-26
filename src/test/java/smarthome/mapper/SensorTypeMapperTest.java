@@ -3,9 +3,9 @@ package smarthome.mapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.dto.SensorTypeDTO;
-import smarthome.model.Location;
+
 import smarthome.model.SensorType;
-import sun.management.Sensor;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
