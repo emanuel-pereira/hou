@@ -2,6 +2,7 @@ package smarthome.io.ui;
 
 import smarthome.model.*;
 import smarthome.repository.LocationRepository;
+import smarthome.repository.OccupationAreaRepository;
 import smarthome.repository.SensorTypeRepository;
 import smarthome.repository.TypeGARepository;
 

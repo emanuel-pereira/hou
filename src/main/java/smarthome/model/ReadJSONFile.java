@@ -6,6 +6,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.repository.LocationRepository;
+import smarthome.repository.OccupationAreaRepository;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -71,7 +72,7 @@ public class ReadJSONFile {
         return gaListDTO;
     }
 
-    public List<GeographicalAreaDTO> importGAs(OccupationAreaRepository occupationRep,LocationRepository locationRep) throws java.text.ParseException, ParseException, IOException {
+    public List<GeographicalAreaDTO> importGAs(OccupationAreaRepository occupationRep, LocationRepository locationRep) throws java.text.ParseException, ParseException, IOException {
         List<GeographicalAreaDTO> gaListDTO = new ArrayList<>();
         //Start reading JSON objects based on their type(JSONArray, JSONObject)
         JSONObject jsonGAs = (JSONObject) this.readFile().get("geographical_area_list");

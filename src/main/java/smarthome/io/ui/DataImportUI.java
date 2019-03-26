@@ -4,7 +4,7 @@ import smarthome.controller.DataImportCTRL;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
 import smarthome.model.GAList;
-import smarthome.model.OccupationAreaRepository;
+import smarthome.repository.OccupationAreaRepository;
 import smarthome.repository.GeoRepository;
 import smarthome.repository.LocationRepository;
 

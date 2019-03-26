@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import smarthome.model.*;
 import smarthome.repository.LocationRepository;
+import smarthome.repository.OccupationAreaRepository;
 import smarthome.repository.SensorTypeRepository;
 import smarthome.repository.TypeGARepository;
 
