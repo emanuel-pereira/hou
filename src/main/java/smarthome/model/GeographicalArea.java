@@ -2,6 +2,7 @@ package smarthome.model;
 
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
+import smarthome.repository.Repositories;
 
 import javax.persistence.*;
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class GeographicalArea {
 
     private String designation;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TYPE_ID")
     private TypeGA typeOfGa;
 
@@ -203,8 +204,10 @@ public class GeographicalArea {
                     int hour = dateTime.getHour();
                     int minutes = dateTime.getMinute();
                     Calendar readingDate = new GregorianCalendar(year, month - 1, day, hour, minutes);
-
-                    Reading reading = new Reading(readingValue, readingDate);
+                    
+                    Reading reading = new Reading(readingValue, readingDate, sensor);
+                    //Repository call
+                    Repositories.readingRepository.save(reading);
 
                     if (readingDate.after(sensor.getStartDate()))
                         sensor.getReadingList().addReading(reading);

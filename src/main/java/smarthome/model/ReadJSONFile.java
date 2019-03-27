@@ -68,8 +68,7 @@ public class ReadJSONFile {
             //Repository call
             Repositories.occupationAreaRepository.save(geographicalArea.getOccupation());
             Repositories.locationRepository.save(geographicalArea.getLocation());
-            Repositories.typeGARepository.save(new TypeGA(geographicalArea.getType()));
-            //FixMe Repositories.geoRepository.save(geographicalArea);
+
             this.gaList.addGA(geographicalArea);
             GeographicalAreaDTO gaDTO = geographicalArea.toDTO();
             gaListDTO.add(gaDTO);
@@ -87,11 +86,14 @@ public class ReadJSONFile {
         String id = (String) jsonGA.get("id");
         String description = (String) jsonGA.get("description");
         String type = (String) jsonGA.get("type");
+        TypeGA gaType = new TypeGA(type);
+        //Repository call
+        Repositories.typeGARepository.save(gaType);
         double width = (double) jsonGA.get("width");
         double length = (double) jsonGA.get("length");
         Location location = getLocation(jsonGA);
         OccupationArea occupationArea = new OccupationArea(length, width);
-        return new GeographicalArea(id, description, type, occupationArea, location);
+        return new GeographicalArea(id, description, gaType, occupationArea, location);
     }
 
     /**

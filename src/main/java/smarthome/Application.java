@@ -6,10 +6,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import smarthome.model.GeographicalArea;
-import smarthome.model.Location;
-import smarthome.model.OccupationArea;
-import smarthome.model.TypeGA;
 import smarthome.repository.*;
 
 import java.io.IOException;
@@ -31,14 +27,19 @@ public class Application {
 
 
     @Bean
-    public CommandLineRunner demo(GeoRepository geoRep, LocationRepository locRep, TypeGARepository typeRep, SensorTypeRepository unitRep, OccupationAreaRepository occupRep, SensorRepository sensorRep) {
+    public CommandLineRunner demo(GeoRepository geoRep, LocationRepository locRep, TypeGARepository typeRep,
+                                  SensorTypeRepository unitRep, OccupationAreaRepository occupRep,
+                                  SensorRepository sensorRep, ReadingRepository readingRep) {
         Repositories.typeGARepository = typeRep;
         Repositories.locationRepository = locRep;
         Repositories.geoRepository = geoRep;
         Repositories.occupationAreaRepository = occupRep;
         Repositories.sensorTypeRepository = unitRep;
         Repositories.sensorRepository = sensorRep;
+        Repositories.readingRepository = readingRep;
 
+        /*
+        //Creation of a test Geographical Area
         TypeGA testType = new TypeGA("tipo de teste");
         Repositories.typeGARepository.save(testType);
         Location testLocation = new Location(-8.606409, 41.17923, 125);
@@ -46,11 +47,13 @@ public class Application {
         OccupationArea testOccupation = new OccupationArea(0.249, 0.064989);
         Repositories.occupationAreaRepository.save(testOccupation);
         GeographicalArea testArea = new GeographicalArea("testID", "testArea", testType, testOccupation, testLocation);
-        Repositories.geoRepository.save(testArea);
+        Repositories.geoRepository.save(testArea);*/
 
 
         return args -> {
-            /*// fetch all area types
+            /*
+            //sample fetches for all example data
+            // fetch all area types
             log.info("\u001B[31;1mArea types found with findAll():\u001B[0m");
             log.info("\u001B[31;1m-------------------------------");
             for (TypeGA typeGA : Repositories.typeGARepository.findAll()) {
