@@ -130,4 +130,16 @@ public class SensorList {
         return this.listOfSensors.get(this.listOfSensors.size() - 1);
     }
 
+    public SensorList getActiveSensors() {
+        SensorList activeSensors = new SensorList ();
+        for (Sensor s : this.getSensorList ()) {
+            if (s.isActive ()) {
+                activeSensors.addSensor (s);
+            }
+        }
+        return activeSensors;
+    }
+
+
+
 }

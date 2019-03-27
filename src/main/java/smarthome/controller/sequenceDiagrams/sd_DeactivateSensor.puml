@@ -1,0 +1,35 @@
+@startuml
+hidefootbox
+actor Admin
+
+create ":DeactivateSensorUI"
+Admin -> ":DeactivateSensorUI":  Deactivate sensor in \nGeographical Area
+create ":DeactivateSensorCTRL"
+":DeactivateSensorUI" -> ":DeactivateSensorCTRL": create(gaList)
+":DeactivateSensorUI" -> ":DeactivateSensorCTRL": selectGA()
+":DeactivateSensorCTRL"->"gaList:GAList": gaList=getGAList
+
+
+":DeactivateSensorUI"->":DeactivateSensorCTRL": gaListDTO=getGAListDTO()
+loop for each ga in gaList convert toDTO
+":DeactivateSensorCTRL"->GAMapper:toDTO(ga)
+GAMapper->GADTO:gaDTO=create()
+CTRL->GADTO:add(gaDTO)
+end
+Admin<--":DeactivateSensorUI": show gaListDTO
+Admin -> ":DeactivateSensorUI": selects GA
+
+Admin<--":DeactivateSensorUI":shows sensorListDTO
+Admin->":DeactivateSensorUI": selects sensorDTO
+":DeactivateSensorUI"->CTRL: removeSensor(gaDTOId, sensorDTOId)
+loop for each ga in gaList match id
+":DeactivateSensorCTRL"->"gaList:GAList": ga=getGAById(gaDTOId)
+end
+":DeactivateSensorCTRL"->"sensorList:SensorList": sensorList=getGASensorList()
+
+loop for each sensor in sensorList match id
+":DeactivateSensorCTRL"->"sensorList:SensorList": sensor=getSensorById(sensorDTOId)
+end
+":DeactivateSensorCTRL"->"sensorList:SensorList":remove(sensor)
+Admin<--":DeactivateSensorUI":sensor successfully \nremoved message
+@enduml

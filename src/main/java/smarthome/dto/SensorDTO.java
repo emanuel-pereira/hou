@@ -1,5 +1,6 @@
 package smarthome.dto;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class SensorDTO {
@@ -8,12 +9,19 @@ public class SensorDTO {
     private String designation;
     private SensorTypeDTO sensorTypeDTO;
     private List<ReadingDTO> readingListDTO;
+    private boolean active = true;
+    private Calendar startDate;
 
-    public SensorDTO(){}
+
+    public SensorDTO() {
+    }
+
     public SensorDTO(String id, String designation, List<ReadingDTO> readingListDTO) {
         this.id = id;
         this.designation = designation;
         this.readingListDTO = readingListDTO;
+        this.startDate = startDate;
+
     }
 
     public String getDesignation() {
@@ -42,5 +50,12 @@ public class SensorDTO {
 
     public List<ReadingDTO> getReadingListDTO() {
         return readingListDTO;
+    }
+
+    public Calendar getStartDate() {
+        return this.startDate;
+    }
+    public boolean isActive() {
+        return this.active;
     }
 }

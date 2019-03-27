@@ -3,7 +3,9 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -352,5 +354,28 @@ class SensorListTest {
         Sensor expected = s3;
         Sensor result = sensorList.getLastSensor();
         assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName ("Add three sensors, deactivate one and return the correct size of the list")
+    void getActiveSensors() {
+        SensorType temp = new SensorType("temperature");
+        SensorType wind = new SensorType("wind");
+        GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26, 12, 0);
+        ReadingList readings = new ReadingList();
+        Sensor s1 = new Sensor("sensor1", startDate, temp, "c", readings);
+        Sensor s2 = new Sensor("sensor2", startDate, temp, "c", readings);
+        Sensor s3 = new Sensor("sensor3", startDate, wind, "c", readings);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        sensorList.addSensor(s2);
+        sensorList.addSensor(s3);
+
+        assertEquals(3, sensorList.getActiveSensors ().size ());
+
+        GregorianCalendar pauseDate = new GregorianCalendar(2019, 01, 26, 12, 0);
+        s2.deactivate (pauseDate);
+
+        assertEquals(2, sensorList.getActiveSensors ().size ());
     }
 }
