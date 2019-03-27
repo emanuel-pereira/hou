@@ -1,15 +1,14 @@
 package smarthome.controller;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import smarthome.model.TypeGA;
 import smarthome.model.TypeGAList;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+
 
 class GetTypeGAListCTRLTest {
 
@@ -100,4 +99,5 @@ class GetTypeGAListCTRLTest {
 
         assertEquals (expected, result);
     }
+
 }

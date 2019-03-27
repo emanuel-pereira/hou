@@ -40,6 +40,7 @@ public class NewGeographicalAreaCTRL {
             try {
                 Repositories.saveGA(ga);
             } catch (NullPointerException e) {
+                //do nothing
             }
             return true;
         }

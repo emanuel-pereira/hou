@@ -28,6 +28,5 @@ public class SensorDTO {
 
     public List<ReadingDTO> getReadingListDTO(){
         return readingListDTO;
-
     }
 }
