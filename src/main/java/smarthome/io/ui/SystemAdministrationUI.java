@@ -80,10 +80,10 @@ public final class SystemAdministrationUI {
                     DataImportUI ui10 = new DataImportUI(gaList);
                     ui10.loadJSON();
                     break;
-                /*case 11:
-                    DataImportUI ui10 = new DataImportUI(gaList);
-                    ui10.importDataFromCSVFile();
-                    break;*/
+                case 11:
+                    DataImportUI ui11 = new DataImportUI(gaList);
+                    ui11.importDataFromCSVFile();
+                    break;
                 default:
                     //no action needed
             }

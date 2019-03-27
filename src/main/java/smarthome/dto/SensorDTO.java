@@ -43,8 +43,4 @@ public class SensorDTO {
     public List<ReadingDTO> getReadingListDTO() {
         return readingListDTO;
     }
-
-    public void setReadingListDTO(List<ReadingDTO> readingListDTO) {
-        this.readingListDTO = readingListDTO;
-    }
 }

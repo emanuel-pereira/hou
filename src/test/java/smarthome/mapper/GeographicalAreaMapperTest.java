@@ -30,6 +30,11 @@ class GeographicalAreaMapperTest {
         String result = gaDTO.getDesignation();
 
         assertEquals(expected,result);
+
+        String expected1 =aveiro.getIdentification();
+        String result1 = gaDTO.getIdentification();
+
+        assertEquals(expected1,result1);
     }
 
     @Test
@@ -129,5 +134,8 @@ class GeographicalAreaMapperTest {
         int result=gasDTOs.size();
         assertNotEquals(expected,result);
     }
+
+
+
 
 }

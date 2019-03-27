@@ -3,6 +3,7 @@ package smarthome.mapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.dto.SensorDTO;
+import smarthome.dto.SensorTypeDTO;
 import smarthome.model.Reading;
 import smarthome.model.ReadingList;
 import smarthome.model.Sensor;
@@ -39,6 +40,9 @@ class SensorMapperTest {
         String expected=sensor.getDesignation();
         String result=sensorDTO.getDesignation();
         assertEquals(expected,result);
+        assertNotNull(sensorDTO.getSensorType());
+
+
     }
 
 
