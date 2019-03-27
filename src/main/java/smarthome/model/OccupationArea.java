@@ -61,4 +61,10 @@ public class OccupationArea {
     public double getOccupationArea() {
         return this.occupation;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "\u001B[34;1mOccupation[id=%d, length='%d', width='%d', occupation='%d']\u001B[0m", id, length, width, occupation);
+    }
 }

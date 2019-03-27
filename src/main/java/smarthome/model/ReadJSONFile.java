@@ -5,10 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import smarthome.dto.GeographicalAreaDTO;
-import smarthome.repository.LocationRepository;
-import smarthome.repository.OccupationAreaRepository;
-import smarthome.repository.SensorRepository;
-import smarthome.repository.SensorTypeRepository;
+import smarthome.repository.Repositories;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,11 +22,6 @@ public class ReadJSONFile {
     private JSONParser parser = new JSONParser();
     private GAList gaList;
     private Path filePath;
-    private LocationRepository locRep;
-    private OccupationAreaRepository ocRep;
-    private SensorRepository senRep;
-    private SensorTypeRepository sensorTypeRep;
-
 
     /**
      * public constructor of ReadJSONFile class requiring to input the JSON file path
@@ -37,7 +29,6 @@ public class ReadJSONFile {
      * @param filePath directory where JSON file is located
      */
     public ReadJSONFile(Path filePath, GAList gaList) {
-
         this.filePath = filePath;
         this.gaList = gaList;
     }
@@ -72,11 +63,14 @@ public class ReadJSONFile {
             SensorList gaSensorList = geographicalArea.getSensorListInGA();
             addGASensors(jsonGA, gaSensorList);
             for (Sensor sensor : gaSensorList.getSensorList()) {
-                this.senRep.save(sensor);
+                Repositories.sensorRepository.save(sensor);
             }
+            //Repository call
+            Repositories.occupationAreaRepository.save(geographicalArea.getOccupation());
+            Repositories.locationRepository.save(geographicalArea.getLocation());
+            Repositories.typeGARepository.save(new TypeGA(geographicalArea.getType()));
+            //FixMe Repositories.geoRepository.save(geographicalArea);
             this.gaList.addGA(geographicalArea);
-            this.ocRep.save(geographicalArea.getOccupation());
-            this.locRep.save(geographicalArea.getLocation());
             GeographicalAreaDTO gaDTO = geographicalArea.toDTO();
             gaListDTO.add(gaDTO);
         }
@@ -136,10 +130,11 @@ public class ReadJSONFile {
         cal.setTime(date);
         String sType = (String) sensor.get("type");
         SensorType sensorType = new SensorType(sType);
-        this.sensorTypeRep.save(sensorType);
         String unit = (String) sensor.get("units");
         Location location = getLocation(jsonSensor);
-        this.locRep.save(location);
+        //Repository call
+        Repositories.sensorTypeRepository.save(sensorType);
+        Repositories.locationRepository.save(location);
         return new Sensor(id, name, cal, location, sensorType, unit, new ReadingList());
     }
 
@@ -154,22 +149,6 @@ public class ReadJSONFile {
         double longitude = (double) jsonLocation.get("longitude");
         double altitude = (long) jsonLocation.get("altitude");
         return new Location(latitude, longitude, altitude);
-    }
-
-    public void setLocationRepository(LocationRepository locationRepository) {
-        this.locRep = locationRepository;
-    }
-
-    public void setOccupationAreaRepository(OccupationAreaRepository occupationRep) {
-        this.ocRep = occupationRep;
-    }
-
-    public void setSensorRepository(SensorRepository sensorRep) {
-        this.senRep = sensorRep;
-    }
-
-    public void setSensorTypeRep(SensorTypeRepository sensorTypeRep) {
-        this.sensorTypeRep = sensorTypeRep;
     }
 }
 

@@ -15,22 +15,24 @@ import static java.lang.Double.parseDouble;
 public class GeographicalArea {
 
     @Id
+    @Column(name = "ID")
     private String identification;
 
     private String designation;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Type")
+    @JoinColumn(name = "TYPE_ID")
     private TypeGA typeOfGa;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "location")
+    @JoinColumn(name = "LOCATION_ID")
     private Location location;
 
     @Transient
     private SensorList sensorListInGa;
 
-    @Transient
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "OCCUPATION_ID")
     private OccupationArea occupation;
 
     @Transient
@@ -53,6 +55,15 @@ public class GeographicalArea {
         this.identification = id;
         this.designation = name;
         this.typeOfGa = new TypeGAList().newTypeGA(typeGA);
+        this.occupation = occupationArea;
+        this.location = location;
+        this.sensorListInGa = new SensorList();
+    }
+
+    public GeographicalArea(String id, String name, TypeGA typeGA, OccupationArea occupationArea, Location location) {
+        this.identification = id;
+        this.designation = name;
+        this.typeOfGa = typeGA;
         this.occupation = occupationArea;
         this.location = location;
         this.sensorListInGa = new SensorList();

@@ -2,21 +2,20 @@ package smarthome.controller;
 
 import smarthome.model.SensorType;
 import smarthome.model.SensorTypeList;
-import smarthome.repository.SensorTypeRepository;
 
 import java.util.List;
 
 
 public class NewSensorTypeCTRL {
 
-    private SensorTypeList mSensorTypeList;
+    private SensorTypeList sensorTypeList;
 
     /**
      * Controller constructor
      * @param sensorTypeList the list object on which the user will be able to create new type of GA's
      */
     public NewSensorTypeCTRL(SensorTypeList sensorTypeList) {
-        mSensorTypeList = sensorTypeList;
+        this.sensorTypeList = sensorTypeList;
     }
 
     /**
@@ -26,22 +25,15 @@ public class NewSensorTypeCTRL {
      * false if it was not possible to add the new type of GA, eg. if the type already exists
      */
     public boolean newSensorType(String newSensorType) {
-        SensorType sensorType = mSensorTypeList.newSensorType(newSensorType);
+        SensorType sensorType = this.sensorTypeList.newSensorType(newSensorType);
         if (sensorType != null)
-            return mSensorTypeList.addSensorType(sensorType);
-        return false;
-    }
-
-    public boolean newSensorType(String newSensorType, SensorTypeRepository rep) {
-        SensorType sensorType = mSensorTypeList.newSensorType(newSensorType);
-        if (sensorType != null)
-            return mSensorTypeList.addSensorType(sensorType, rep);
+            return this.sensorTypeList.addSensorType(sensorType);
         return false;
     }
 
 
     public String returnSensorTypeList() {
-        List<SensorType> sensorTypeList = mSensorTypeList.getSensorTypeList();
+        List<SensorType> sensorTypeList = this.sensorTypeList.getSensorTypeList();
         StringBuilder result = new StringBuilder();
 
         for (SensorType sensorType: sensorTypeList){

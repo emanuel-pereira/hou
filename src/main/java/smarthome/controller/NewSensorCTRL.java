@@ -3,7 +3,6 @@ package smarthome.controller;
 import smarthome.model.*;
 import smarthome.model.validations.GPSValidations;
 import smarthome.model.validations.NameValidations;
-import smarthome.repository.LocationRepository;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -105,13 +104,6 @@ public class NewSensorCTRL {
         SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);
         Sensor sensor = geographicalArea.getSensorListInGA().newSensor(id,inputName, startDate, location, sensorType, inputUnit, readings);
         return geographicalArea.getSensorListInGA().addSensor(sensor);
-    }
-
-    public boolean addNewSensorToGA(String id, String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, Location location, int indexOfGA, ReadingList readings, LocationRepository locRep) {
-        GeographicalArea geographicalArea = this.gaList.get(indexOfGA);
-        SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);
-        Sensor sensor = geographicalArea.getSensorListInGA().newSensor(id, inputName, startDate, location, sensorType, inputUnit, readings);
-        return geographicalArea.getSensorListInGA().addSensor(sensor, locRep);
     }
 
     /**

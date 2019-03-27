@@ -2,7 +2,6 @@ package smarthome.controller;
 
 import smarthome.model.TypeGA;
 import smarthome.model.TypeGAList;
-import smarthome.repository.TypeGARepository;
 
 public class NewTypeGACTRL {
 
@@ -24,19 +23,11 @@ public class NewTypeGACTRL {
      * @return true if it was possible to add the user's chosen new type of GA
      * false if it was not possible to add the new type of GA, eg. if the type already exists
      */
-    public boolean createTypeGA(String inputType, TypeGARepository rep) {
-        TypeGA typeGA = this.typeGAList.newTypeGA(inputType);
-        if (typeGA == null)
-            return false;
-        //rep.save(typeGA);
-        return this.typeGAList.addTypeGA(typeGA, rep);
-    }
-
     public boolean createTypeGA(String inputType) {
         TypeGA typeGA = this.typeGAList.newTypeGA(inputType);
         if (typeGA == null)
             return false;
-        //rep.save(typeGA);
         return this.typeGAList.addTypeGA(typeGA);
     }
+
 }

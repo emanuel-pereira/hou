@@ -1,6 +1,6 @@
 package smarthome.model;
 
-import smarthome.repository.LocationRepository;
+import smarthome.repository.Repositories;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -26,18 +26,12 @@ public class SensorList {
     public boolean addSensor(Sensor newSensor) {
         if (!this.listOfSensors.contains(newSensor)) {
             this.listOfSensors.add(newSensor);
+            //Repository call
+            //TODO add other repositories calls
+            Repositories.locationRepository.save(newSensor.getLocation());
             return true;
         } else return false;
     }
-
-    public boolean addSensor(Sensor newSensor, LocationRepository rep) {
-        if (!this.listOfSensors.contains(newSensor)) {
-            this.listOfSensors.add(newSensor);
-            rep.save(newSensor.getLocation());
-            return true;
-        } else return false;
-    }
-
 
     /**
      * Method to return the sensors included in the list

@@ -1,7 +1,9 @@
 package smarthome.io.ui;
 
-import smarthome.model.*;
-import smarthome.repository.*;
+import smarthome.model.GAList;
+import smarthome.model.House;
+import smarthome.model.SensorTypeList;
+import smarthome.model.TypeGAList;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -12,9 +14,8 @@ public final class SystemAdministrationUI {
     private SystemAdministrationUI() {
     }
 
-    public static void systemAdministration(House house, TypeGAList typeGAList, GAList gaList,TypeGARepository typeRep,
-                                            SensorTypeRepository unitRep, LocationRepository locRep, OccupationAreaRepository occupRep, SensorRepository sensorRepository, SensorTypeRepository sensorTypeRepository, SensorTypeList sensorTypeList) throws ParseException,
-            org.json.simple.parser.ParseException, IOException {
+    public static void systemAdministration(House house, TypeGAList typeGAList, GAList gaList, SensorTypeList sensorTypeList)
+            throws ParseException, org.json.simple.parser.ParseException, IOException {
 
         int option = -1;
         while (option != 0) {
@@ -41,7 +42,7 @@ public final class SystemAdministrationUI {
 
             switch (option) {
                 case 1:
-                    NewTypeGAUI ui1 = new NewTypeGAUI(typeGAList, typeRep);
+                    NewTypeGAUI ui1 = new NewTypeGAUI(typeGAList);
                     ui1.run();
                     break;
                 case 2:
@@ -57,11 +58,11 @@ public final class SystemAdministrationUI {
                     ui4.run();
                     break;
                 case 5:
-                    NewSensorTypeUI ui5 = new NewSensorTypeUI(sensorTypeList, unitRep);
-                    ui5.runUS5();
+                    NewSensorTypeUI ui5 = new NewSensorTypeUI(sensorTypeList);
+                    ui5.run();
                     break;
                 case 6:
-                    NewSensorUI ui6 = new NewSensorUI(house, sensorTypeList, gaList, unitRep, locRep);
+                    NewSensorUI ui6 = new NewSensorUI(house, sensorTypeList, gaList);
                     ui6.checkIfGAListIsEmpty();
                     break;
                 case 7:
@@ -73,11 +74,11 @@ public final class SystemAdministrationUI {
                     ui8.run();
                     break;
                 case 9:
-                    DataImportUI ui9 = new DataImportUI(gaList, locRep, occupRep,sensorRepository,sensorTypeRepository);
+                    DataImportUI ui9 = new DataImportUI(gaList);
                     ui9.loadJSON();
                     break;
                 case 10:
-                    DataImportUI ui10 = new DataImportUI(gaList, locRep, occupRep,sensorRepository,sensorTypeRepository);
+                    DataImportUI ui10 = new DataImportUI(gaList);
                     ui10.importDataFromCSVFile();
                     break;
                 default:

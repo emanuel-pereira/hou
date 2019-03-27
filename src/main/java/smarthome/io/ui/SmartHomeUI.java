@@ -3,8 +3,14 @@ package smarthome.io.ui;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import smarthome.model.*;
-import smarthome.repository.*;
+import smarthome.model.GAList;
+import smarthome.model.House;
+import smarthome.model.SensorTypeList;
+import smarthome.model.TypeGAList;
+import smarthome.repository.LocationRepository;
+import smarthome.repository.OccupationAreaRepository;
+import smarthome.repository.SensorRepository;
+import smarthome.repository.SensorTypeRepository;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -33,11 +39,8 @@ public class SmartHomeUI {
     }
 
     @Autowired
-    public static void menuOptions(TypeGARepository typeRep, SensorTypeRepository sensorTypeRepository, LocationRepository rep, OccupationAreaRepository occupRep, SensorRepository sensorRepository) throws IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
-        locRep = rep;
-        ocRep=occupRep;
-        sensorRep=sensorRepository;
-        sensorTypeRep=sensorTypeRepository;
+    public static void menuOptions() throws IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
+
         int option = -1;
         while (option != 0) {
 
@@ -55,10 +58,10 @@ public class SmartHomeUI {
             option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");
             switch (option) {
                 case 1:
-                    systemAdministration(house, typeGAList, gaList, typeRep, sensorTypeRep, locRep,ocRep,sensorRep,sensorTypeRep,sensorTypeList);
+                    systemAdministration(house, typeGAList, gaList, sensorTypeList);
                     break;
                 case 2:
-                    houseAdministration(sensorTypeList, gaList, house, sensorTypeRepository, locRep);
+                    houseAdministration(sensorTypeList, gaList, house);
                     break;
                 case 3:
                     regularUsage(house, sensorTypeList);
