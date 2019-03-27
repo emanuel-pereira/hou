@@ -36,7 +36,7 @@ public class DataImportCTRL {
 
     public void importReadingsFromFile(Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException {
         DataImport dataImport = new DataImport(gaList);
-        dataImport.importFromFile(filePath,"readings");
+        dataImport.importFromFileReadings(filePath,"readings");
     }
 
     /**

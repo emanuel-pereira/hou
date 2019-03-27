@@ -11,8 +11,6 @@ public class Reading {
     private double value;
     private Calendar dateAndTime;
     private String unit;
-    private String IDSensor;
-
 
     /**
      * Reading class Constructor
@@ -22,10 +20,15 @@ public class Reading {
      * @param timeOfReading the date and time of a reading
      */
     public Reading(double readValue, Calendar timeOfReading) {
-
         this.value = readValue;
         this.dateAndTime = timeOfReading;
 
+    }
+
+    public Reading(double readValue, Calendar timeOfReading, String unitValue) {
+        this.value = readValue;
+        this.dateAndTime = timeOfReading;
+        this.unit = unitValue;
     }
 
     /**
@@ -56,14 +59,12 @@ public class Reading {
         return new GregorianCalendar(this.getDateAndTime().get(Calendar.YEAR), this.getDateAndTime().get(Calendar.MONTH), this.getDateAndTime().get(Calendar.DAY_OF_MONTH));
     }
 
-
-    //US610
     /**
      * @return the date of a reading as a string in YYYY-MM-DD format
      */
     public String getDateOfReadingAsString() {
         int year = this.dateAndTime.get(Calendar.YEAR);
-        int month = this.dateAndTime.get(Calendar.MONTH)+1;
+        int month = this.dateAndTime.get(Calendar.MONTH) + 1;
         int day = this.dateAndTime.get(Calendar.DAY_OF_MONTH);
 
         StringBuilder output = new StringBuilder();
@@ -77,15 +78,6 @@ public class Reading {
 
     public ReadingDTO toDTO() {
         return new ReadingDTO(this.value, this.dateAndTime);
-    }
-
-    public Reading(String idSensor, double readValue, Calendar timeOfReading, String unitValue) {
-
-        this.IDSensor = idSensor;
-        this.value = readValue;
-        this.dateAndTime = timeOfReading;
-        this.unit = unitValue;
-
     }
 
 }
