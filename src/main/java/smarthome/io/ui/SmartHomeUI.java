@@ -4,6 +4,7 @@ package smarthome.io.ui;
 import smarthome.model.*;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public class SmartHomeUI {
     private static TypeGAList typeGAList;
     private static House house;
 
-    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, ParseException, IOException, org.json.simple.parser.ParseException {
+    public static void main(String[] args) throws NoSuchMethodException,InvocationTargetException,ClassNotFoundException, IllegalAccessException, InstantiationException, ParseException, IOException, org.json.simple.parser.ParseException {
         init();
         BootStrap.run(house, typeGAList, sensorTypeList);
         menuOptions();
@@ -32,7 +33,7 @@ public class SmartHomeUI {
         typeGAList= new TypeGAList();
     }
 
-    private static void menuOptions() throws IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
+    private static void menuOptions() throws NoSuchMethodException,InvocationTargetException,IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
         int option = -1;
         while (option != 0) {
 

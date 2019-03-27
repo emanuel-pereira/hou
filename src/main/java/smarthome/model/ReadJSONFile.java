@@ -31,7 +31,7 @@ public class ReadJSONFile {
     }
 
     /**
-     * FileReader to read JSON file and pass it to parser.
+     * FileReaderReadings to read JSON file and pass it to parser.
      * @return JSONObject
      * @throws IOException
      * @throws ParseException

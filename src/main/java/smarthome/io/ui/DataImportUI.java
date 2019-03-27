@@ -7,6 +7,7 @@ import smarthome.model.GAList;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
@@ -50,13 +51,14 @@ public class DataImportUI {
 
     }
 
-    public void importDataFromCSVFile() throws IOException {
+    public void importDataFromCSVFile() throws org.json.simple.parser.ParseException,IOException, InvocationTargetException,ClassNotFoundException,NoSuchMethodException,InstantiationException,IllegalAccessException {
         boolean loop = true;
         while (loop) {
             System.out.println("Please insert the directory and the name of the file (eg: resources/DataSet_sp04_SensorData.csv):");
             String filepath = UtilsUI.requestText("Invalid filepath.", "[A-Za-z0-9/._]*");
+            Path path = Paths.get(filepath);
             try {
-                ctrl.importReadingsFromCSVFile(filepath);
+                ctrl.importReadingsFromFile(path);
                 loop = false;
                 System.out.println("Success!");
                 this.showReadings();
@@ -78,7 +80,7 @@ public class DataImportUI {
             for (SensorDTO sensorDTO : geographicalAreaDTO.getSensorListDTO()) {
                 System.out.print("  " + counter + " - Sensor Id: " + sensorDTO.getId());
                 System.out.println(" | Name " + sensorDTO.getDesignation());
-                System.out.println("Number of readings imported: " + sensorDTO.getReadingListDTO().size());
+                System.out.println("Number of readings imported: " + sensorDTO.getReadingList().size());
                 counter++;
             }
         }

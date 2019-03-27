@@ -4,6 +4,7 @@ import smarthome.dto.GeographicalAreaDTO;
 import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
 import smarthome.model.ReadJSONFile;
+import smarthome.model.readers.DataImport;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -33,8 +34,9 @@ public class DataImportCTRL {
 
     }
 
-    public void importReadingsFromCSVFile(String filePath) throws IOException {
-        gaList.importDataFromCSVFileForEachGA(filePath);
+    public void importReadingsFromFile(Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException {
+        DataImport dataImport = new DataImport(gaList);
+        dataImport.importFromFile(filePath,"readings");
     }
 
     /**

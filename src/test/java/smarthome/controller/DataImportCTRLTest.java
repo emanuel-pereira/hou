@@ -67,11 +67,5 @@ class DataImportCTRLTest {
         assertEquals(expected, result);
     }
 
-    @Test
-    void importReadingsFromCSVFileTest() throws IOException {
-        GAList gaList = new GAList();
-        DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        ctrl.importReadingsFromCSVFile("resources/ReadingsRegistry");
-    }
 
 }
