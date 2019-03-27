@@ -22,6 +22,8 @@
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+## To ignore all files contained in .idea
+.idea/
 
 # Gradle
 .idea/**/gradle.xml

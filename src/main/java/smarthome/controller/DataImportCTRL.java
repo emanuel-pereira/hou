@@ -1,7 +1,9 @@
 package smarthome.controller;
 
 import smarthome.dto.GeographicalAreaDTO;
-import smarthome.model.*;
+import smarthome.model.GAList;
+import smarthome.model.GeographicalArea;
+import smarthome.model.ReadJSONFile;
 import smarthome.repository.LocationRepository;
 import smarthome.repository.OccupationAreaRepository;
 import smarthome.repository.SensorRepository;
@@ -36,8 +38,10 @@ public class DataImportCTRL {
 
     public List<GeographicalAreaDTO> loadJSON(Path filePath, OccupationAreaRepository occupationRep, LocationRepository locationRep, SensorRepository sensorRep) throws ParseException, org.json.simple.parser.ParseException, IOException {
         ReadJSONFile jsonFile = new ReadJSONFile(filePath, gaList);
-
-        return jsonFile.importGAs(occupationRep,locationRep,sensorRep);
+        jsonFile.setLocationRepository(locationRep);
+        jsonFile.setOccupationAreaRepository(occupationRep);
+        jsonFile.setSensorRepository(sensorRep);
+        return jsonFile.importGAs();
 
     }
 
