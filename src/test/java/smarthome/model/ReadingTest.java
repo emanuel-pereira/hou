@@ -96,7 +96,7 @@ public class ReadingTest {
     void getUnitValueOfReading() {
 
         GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 31, 21, 30);
-        Reading reading1 = new Reading(13, calendar1, "Celsius");
+        Reading reading1 = new Reading("001_temperature",13, calendar1, "Celsius");
         String expected = "2018-12-31";
         String result = reading1.getDateOfReadingAsString ();
         assertEquals(expected, result);
