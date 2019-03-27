@@ -4,9 +4,11 @@ import smarthome.controller.DataImportCTRL;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
 import smarthome.model.GAList;
+import smarthome.model.Sensor;
 import smarthome.repository.OccupationAreaRepository;
 import smarthome.repository.GeoRepository;
 import smarthome.repository.LocationRepository;
+import smarthome.repository.SensorRepository;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,11 +24,13 @@ public class DataImportUI {
     private GeoRepository rep;
     private LocationRepository locRep;
     private OccupationAreaRepository ocRep;
+    private SensorRepository sensorRep;
 
-    public DataImportUI(GAList gaList, LocationRepository repository, OccupationAreaRepository occupRep) {
+    public DataImportUI(GAList gaList, LocationRepository repository, OccupationAreaRepository occupRep, SensorRepository sensorRepository) {
         this.ctrl = new DataImportCTRL(gaList);
         this.locRep = repository;
         this.ocRep=occupRep;
+        this.sensorRep=sensorRepository;
     }
 
 
@@ -38,7 +42,7 @@ public class DataImportUI {
 
             try {
                 Path path = Paths.get(filepath);
-                gaListDTO = ctrl.loadJSON(path, ocRep,locRep);
+                gaListDTO = ctrl.loadJSON(path, ocRep,locRep,sensorRep);
                 loop = false;
                 this.showGAsDTOs();
             } catch (FileNotFoundException e) {

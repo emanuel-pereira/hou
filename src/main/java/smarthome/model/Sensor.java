@@ -4,21 +4,28 @@ import smarthome.dto.ReadingDTO;
 import smarthome.dto.SensorDTO;
 import smarthome.model.validations.Utils;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-
+@Entity
 public class Sensor {
-
+    @Id
     private String id;
     private String designation;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "LOCATION_ID")
     private Location location;
+    @Transient
     private SensorType sensorType;
     private Calendar startDate;
     private String unit;
     private boolean active;
+    @Transient
     private ReadingList readingList;
+
+    protected Sensor(){}
 
     /**
      * Constructor used to create internal sensors which, unlike external sensors, don't require location coordinates.

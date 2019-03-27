@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.repository.LocationRepository;
 import smarthome.repository.OccupationAreaRepository;
+import smarthome.repository.SensorRepository;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -72,7 +73,7 @@ public class ReadJSONFile {
         return gaListDTO;
     }
 
-    public List<GeographicalAreaDTO> importGAs(OccupationAreaRepository occupationRep, LocationRepository locationRep) throws java.text.ParseException, ParseException, IOException {
+    public List<GeographicalAreaDTO> importGAs(OccupationAreaRepository occupationRep, LocationRepository locationRep, SensorRepository sensorRep) throws java.text.ParseException, ParseException, IOException {
         List<GeographicalAreaDTO> gaListDTO = new ArrayList<>();
         //Start reading JSON objects based on their type(JSONArray, JSONObject)
         JSONObject jsonGAs = (JSONObject) this.readFile().get("geographical_area_list");
@@ -81,7 +82,10 @@ public class ReadJSONFile {
             JSONObject jsonGA = (JSONObject) ga;
             GeographicalArea geographicalArea = createGeographicalArea(jsonGA);
             SensorList gaSensorList = geographicalArea.getSensorListInGA();
-            addGASensors(jsonGA, gaSensorList);
+            addGASensors(jsonGA, gaSensorList, locationRep);
+            for (Sensor sensor : gaSensorList.getSensorList()) {
+                sensorRep.save(sensor);
+            }
             this.gaList.addGA(geographicalArea);
             occupationRep.save(geographicalArea.getOccupation());
             locationRep.save(geographicalArea.getLocation());
@@ -117,6 +121,15 @@ public class ReadJSONFile {
      * @param sensorListInGA JSON area_sensors will be parsed to Sensor objects and then added to the sensorListInGA
      * @throws java.text.ParseException
      */
+    private void addGASensors(JSONObject jsonGA, SensorList sensorListInGA, LocationRepository locationRepository) throws java.text.ParseException {
+        JSONArray jsonAreaSensorList = (JSONArray) jsonGA.get("area_sensor");
+        for (Object areaSensor : jsonAreaSensorList) {
+            JSONObject jsonSensor = (JSONObject) areaSensor;
+            Sensor s = createSensor(jsonSensor, locationRepository);
+            sensorListInGA.addSensor(s);
+        }
+    }
+
     private void addGASensors(JSONObject jsonGA, SensorList sensorListInGA) throws java.text.ParseException {
         JSONArray jsonAreaSensorList = (JSONArray) jsonGA.get("area_sensor");
         for (Object areaSensor : jsonAreaSensorList) {
@@ -126,6 +139,7 @@ public class ReadJSONFile {
         }
     }
 
+
     /**
      * Method that reads a JSONObject with key "sensor" and parses it to a Sensor object
      *
@@ -133,6 +147,23 @@ public class ReadJSONFile {
      * @return a Sensor object
      * @throws java.text.ParseException
      */
+    private Sensor createSensor(JSONObject jsonSensor, LocationRepository locationRepository) throws java.text.ParseException {
+        JSONObject sensor = (JSONObject) jsonSensor.get("sensor");
+        String id = (String) sensor.get("id");
+        String name = (String) sensor.get("name");
+        String startDate = (String) sensor.get("start_date");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = df.parse(startDate);
+        GregorianCalendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        String sType = (String) sensor.get("type");
+        SensorType sensorType = new SensorType(sType);
+        String unit = (String) sensor.get("units");
+        Location location = getLocation(jsonSensor);
+        locationRepository.save(location);
+        return new Sensor(id, name, cal, location, sensorType, unit, new ReadingList());
+    }
+
     private Sensor createSensor(JSONObject jsonSensor) throws java.text.ParseException {
         JSONObject sensor = (JSONObject) jsonSensor.get("sensor");
         String id = (String) sensor.get("id");

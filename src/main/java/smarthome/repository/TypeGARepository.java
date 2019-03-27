@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import smarthome.model.TypeGA;
 
 @Component
-public interface TypeGARepository extends CrudRepository<TypeGA, String> {
+public interface TypeGARepository extends CrudRepository<TypeGA, Long> {
 
     TypeGA findByTypeGeographicalArea(String type);
 

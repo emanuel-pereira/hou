@@ -5,6 +5,6 @@ import org.springframework.stereotype.Component;
 import smarthome.model.OccupationArea;
 
 @Component
-public interface OccupationAreaRepository extends CrudRepository<OccupationArea, String> {
+public interface OccupationAreaRepository extends CrudRepository<OccupationArea, Long> {
 
 }

@@ -5,6 +5,7 @@ import smarthome.model.validations.GPSValidations;
 import javax.persistence.*;
 
 @Entity
+
 public class Location {
     @Transient
     private GPSValidations v = new GPSValidations ();
@@ -31,6 +32,10 @@ public class Location {
         setLatitude(latitude);
         setLongitude(longitude);
         setAltitude(altitude);
+    }
+
+    public Long getId() {
+        return id;
     }
 
     /**

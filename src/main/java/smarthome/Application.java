@@ -6,13 +6,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import smarthome.repository.OccupationAreaRepository;
+import smarthome.repository.*;
 import smarthome.model.SensorType;
 import smarthome.model.TypeGA;
-import smarthome.repository.GeoRepository;
-import smarthome.repository.LocationRepository;
-import smarthome.repository.SensorTypeRepository;
-import smarthome.repository.TypeGARepository;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -29,16 +25,17 @@ public class Application {
     private static TypeGARepository typeRep;
     private static SensorTypeRepository unitRep;
     private static OccupationAreaRepository occupRep;
+    private static SensorRepository sensorRep;
 
     public static void main(String[] args) throws IllegalAccessException, ParseException, InstantiationException, IOException, org.json.simple.parser.ParseException, ClassNotFoundException {
         SpringApplication.run(Application.class);
 
-        menuOptions(typeRep, unitRep, locRep, occupRep);
+        menuOptions(typeRep, unitRep, locRep, occupRep, sensorRep);
     }
 
 
     @Bean
-    public CommandLineRunner demo(TypeGARepository typeGARepository, SensorTypeRepository unitRepository, GeoRepository geoRepository, LocationRepository locationRep,OccupationAreaRepository ocRep) {
+    public CommandLineRunner demo(TypeGARepository typeGARepository, SensorTypeRepository unitRepository, GeoRepository geoRepository, LocationRepository locationRep,OccupationAreaRepository ocRep, SensorRepository sensorRepository) {
         typeGARepository.save(new TypeGA("novo tipo"));
         typeRep = typeGARepository;
 
@@ -49,6 +46,7 @@ public class Application {
         geoRep = geoRepository;
 
         locRep = locationRep;
+        sensorRep= sensorRepository;
         return args -> {
         };
     }

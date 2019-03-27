@@ -4,6 +4,7 @@ import smarthome.dto.GeographicalAreaDTO;
 import smarthome.model.*;
 import smarthome.repository.LocationRepository;
 import smarthome.repository.OccupationAreaRepository;
+import smarthome.repository.SensorRepository;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -26,17 +27,17 @@ public class DataImportCTRL {
      * @throws org.json.simple.parser.ParseException
      * @throws IOException
      */
-    public List<GeographicalAreaDTO> loadJSON(Path filePath) throws ParseException,org.json.simple.parser.ParseException, IOException {
+   public List<GeographicalAreaDTO> loadJSON(Path filePath) throws ParseException,org.json.simple.parser.ParseException, IOException {
         ReadJSONFile jsonFile = new ReadJSONFile(filePath, gaList);
 
         return jsonFile.importGAs();
 
     }
 
-    public List<GeographicalAreaDTO> loadJSON(Path filePath, OccupationAreaRepository occupationRep, LocationRepository locationRep) throws ParseException, org.json.simple.parser.ParseException, IOException {
+    public List<GeographicalAreaDTO> loadJSON(Path filePath, OccupationAreaRepository occupationRep, LocationRepository locationRep, SensorRepository sensorRep) throws ParseException, org.json.simple.parser.ParseException, IOException {
         ReadJSONFile jsonFile = new ReadJSONFile(filePath, gaList);
 
-        return jsonFile.importGAs(occupationRep,locationRep);
+        return jsonFile.importGAs(occupationRep,locationRep,sensorRep);
 
     }
 
