@@ -11,6 +11,7 @@ public class Reading {
     private double value;
     private Calendar dateAndTime;
     private String unit;
+    private String IDSensor;
 
 
     /**
@@ -78,8 +79,9 @@ public class Reading {
         return new ReadingDTO(this.value, this.dateAndTime);
     }
 
-    public Reading(double readValue, Calendar timeOfReading, String unitValue) {
+    public Reading(String idSensor, double readValue, Calendar timeOfReading, String unitValue) {
 
+        this.IDSensor = idSensor;
         this.value = readValue;
         this.dateAndTime = timeOfReading;
         this.unit = unitValue;
