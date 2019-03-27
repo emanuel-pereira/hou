@@ -625,7 +625,7 @@ public final class UtilsUI {
 
 
     public static boolean confirmOption(String continueQuestion, String errorMessage) {
-        print(continueQuestion);
+        print(continueQuestion+"\n");
         String dynamicRegEx = "[yYnN]";
         String yesOrNo = requestText(errorMessage, dynamicRegEx);
         return yesOrNo.contains("y") || yesOrNo.contains("Y");

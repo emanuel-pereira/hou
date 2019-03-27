@@ -51,10 +51,11 @@ public class ListParentGACTRLTest {
 
         //String for new city GA
         String name2 = "Rua 31 de Janeiro";
+        String id2 = "31j";
         //Int for new city GA types, from the list previously create of GA Types
         int GATypeIndexFromList2 = 2;
         //method that invokes the GA creation by passing all the nre city GA parameters
-        assertTrue(ctrl3.newGA(id,name2, GATypeIndexFromList2, occupationArea,location));
+        assertTrue(ctrl3.newGA(id2,name2, GATypeIndexFromList2, occupationArea,location));
 
         //US7
         SetParentOfGACTRL ctrl7 = new SetParentOfGACTRL(gaList);
@@ -107,19 +108,21 @@ public class ListParentGACTRLTest {
 
         //String for new city GA
         String name2 = "Rua 31 de Janeiro";
+        String id2 = "31j";
         //Int for new city GA types, from the list previously create of GA Types
         int GATypeIndexFromList2 = 2;
         //method that invokes the GA creation by passing all the nre city GA parameters
-        assertTrue(ctrl3.newGA(id,name2, GATypeIndexFromList2,occupationArea, location));
+        assertTrue(ctrl3.newGA(id2,name2, GATypeIndexFromList2,occupationArea, location));
 
         //String for new city GA
         String name3 = "Madeira";
+        String id3 = "mdr";
         //Int for new city GA types, from the list previously create of GA Types
         int GATypeIndexFromList3 = 0;
         //method that invokes the GA creation by passing all the nre city GA parameters
         OccupationArea occupationArea3= new OccupationArea(20,20);
         Location location3= new Location(1,3,-10);
-        assertTrue(ctrl3.newGA(id,name3, GATypeIndexFromList3, occupationArea3,location3));
+        assertTrue(ctrl3.newGA(id3,name3, GATypeIndexFromList3, occupationArea3,location3));
 
         //US7
         SetParentOfGACTRL ctrl7 = new SetParentOfGACTRL(GAList);

@@ -5,6 +5,7 @@ import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
 import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
+import smarthome.model.validations.Utils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,7 +19,6 @@ import java.util.List;
 public class DataImportUI {
     private DataImportCTRL ctrl;
     private Path filePath;
-    private List<GeographicalArea> gaListInFile = new ArrayList<>();
 
     public DataImportUI(GAList gaList) {
         this.ctrl = new DataImportCTRL(gaList);
@@ -28,12 +28,12 @@ public class DataImportUI {
     public void loadGeoAreaFile() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, org.json.simple.parser.ParseException, java.text.ParseException  {
         boolean loop = true;
         while (loop) {
-            System.out.println("Please enter the json file path to import geographical areas and sensors (eg: resources/JsonFile.json):");
+            System.out.println("Please enter the file path to import geographical areas and sensors (eg: resources/JsonFile.json):");
             String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
 
             try {
                 this.filePath = Paths.get(filepath);
-                gaListInFile = ctrl.readGeoAreasFromFile(this.filePath);
+                ctrl.readGeoAreasFromFile(this.filePath);
                 loop = false;
                 this.showGAsNumberInFile();
             } catch (FileNotFoundException e) {
@@ -44,33 +44,38 @@ public class DataImportUI {
 
     public void showGAsNumberInFile() throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException   {
         System.out.println("In the file there are\n");
-        System.out.println(" - " + gaListInFile.size() + " geographical area(s).");
-        int nrOfSensors = 0;
-        for (GeographicalArea geographicalArea : gaListInFile) {
-            nrOfSensors += geographicalArea.getSensorListInGA().size();
-        }
-        System.out.println(" - " + nrOfSensors + " sensor(s).");
+        System.out.println(" - " + ctrl.readGeoAreasFromFile(this.filePath).size() + " geographical area(s).");
+        System.out.println(" - " + ctrl.getAllSensorsInFile(this.filePath) + " sensor(s).");
         this.importGAs();
     }
 
     public void importGAs()throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
-        System.out.println("\n------\n");
+        System.out.println("\n------");
         if(UtilsUI.confirmOption("Do you wish to import this data?(y/n)","Please type y for Yes or n for No.")){
             ctrl.importGeoAreasFromFile(this.filePath);
             int notImported = ctrl.failedToAdd();
-            int imported = gaListInFile.size() - notImported;
-            System.out.println("Success!" + imported+ "geographical areas and respective sensors were imported.");
-            if(notImported > 0){
-                System.out.println("Warning: " + notImported + "geographical areas were not imported");
+            int imported = ctrl.readGeoAreasFromFile(this.filePath).size() - notImported;
+            if (notImported > 0 && imported > 0){
+                System.out.println("Success! " + imported+ " geographical areas and respective sensors were imported.");
+                System.out.println("Warning: " + notImported + " geographical areas and respective sensors were not imported");
+                UtilsUI.backToMenu();
+            }
+            if(notImported > 0 && imported < 1){
+                System.out.println("Warning: no geographical areas nor their sensors were not imported");
                 UtilsUI.backToMenu();
             }
             else {
+                System.out.println("Success! " + imported+ " geographical areas and respective sensors were imported.");
                 UtilsUI.backToMenu();
             }
         }
+        else{
+            System.out.println("Import has been canceled.");
+            UtilsUI.backToMenu();
+        }
     }
 
-    public void importDataFromCSVFile() throws org.json.simple.parser.ParseException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public void importDataFromFile() throws org.json.simple.parser.ParseException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         boolean loop = true;
         while (loop) {
             System.out.println("Please insert the directory and the name of the file (eg: resources/DataSet_sp04_SensorData.csv):");
@@ -83,13 +88,13 @@ public class DataImportUI {
                 this.showReadings();
 
             } catch (FileNotFoundException e) {
-                System.out.println("CSV file not found in the specified file path: " + filepath);
+                System.out.println("File not found in the specified file path: " + filepath);
             }
         }
     }
 
     public void showReadings() {
-        System.out.println("The following geographical areas and respective sensors were imported from the selected JsonFile:");
+        System.out.println("The following geographical areas and respective sensors were imported from the selected File:");
         for (GeographicalAreaDTO geographicalAreaDTO : ctrl.getGAListDTO()) {
             System.out.println("GEOGRAPHICAL AREA");
             System.out.println(" Id: " + geographicalAreaDTO.getIdentification());

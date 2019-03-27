@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class GAListTest {
 
@@ -78,10 +79,30 @@ class GAListTest {
         Location location = new Location(1, 3, -10);
         GeographicalArea area1 = ga.newGA("Pt", "Porto", "district", occupationArea, location);
         ga.addGA(area1);
-        boolean expectedResult = false;
+
         boolean result = ga.addGA(area1);
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Shows the list of GAs that were not added to the GAList because a GA with the same ID already existed")
+    void getNotAddedList() {
+        GAList ga = new GAList();
+        OccupationArea occupationArea = new OccupationArea(20, 20);
+        Location location = new Location(1, 3, -10);
+        GeographicalArea area1 = ga.newGA("opo", "Porto", "district", occupationArea, location);
+        GeographicalArea area2 = ga.newGA("opo", "Braga", "district", occupationArea, location);
+        GeographicalArea area3 = ga.newGA("opo", "Gaia", "city", occupationArea, location);
+
+        ga.addGA(area1);
+        ga.addGA(area2);
+        ga.addGA(area3);
+
+        List<GeographicalArea> expectedResult = Arrays.asList(area2,area3);
+        List<GeographicalArea> result = ga.getNotAdded();
         assertEquals(expectedResult, result);
     }
+
 
     @Test
     @DisplayName("Check if method returns a List of GA from the type chosen by the user, when there is only 1 result")
@@ -225,83 +246,4 @@ class GAListTest {
         int result = gaList.size();
         assertEquals(expected, result);
     }
-/*
-    @Test
-    void importDataFromCSVFileForEachGATest() throws IOException {
-        GAList gaList = new GAList();
-        GeographicalArea porto = new GeographicalArea("001", "Porto", "city", new OccupationArea(3,2),new Location(3, 30, 20));
-        GeographicalArea lisboa = new GeographicalArea("002", "Lisboa", "city", new OccupationArea(3,2),new Location(3, 30, 20));
-        gaList.addGA(porto);
-        gaList.addGA(lisboa);
-        GregorianCalendar startDate = new GregorianCalendar(2018,2,3);
-        GregorianCalendar startDate2 = new GregorianCalendar(2018,1,1);
-        Location location = new Location(3,2,1);
-        SensorType temp = new SensorType("Temperature");
-
-        Sensor sensorISEP = new Sensor("TT12346","SensorISEP",startDate,location,temp,"C",new ReadingList());
-        Sensor sensorPorto = new Sensor("TT1236A","SensorPorto",startDate,location,temp,"C",new ReadingList());
-
-        porto.getSensorListInGA().addSensor(sensorPorto);
-        porto.getSensorListInGA().addSensor(sensorISEP);
-        //lisboa.getSensorListInGA().addSensor(sensorLisboa);
-
-        int result = gaList.getGAList().get(0).getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList().size();
-        assertEquals(24,result);
-        int result2 = gaList.getGAList().get(0).getSensorListInGA().getSensorList().get(1).getReadingList().getReadingsList().size();
-        assertEquals(20,result2);
-
-
-        //int result3 = gaList.getGAList().get(1).getSensorListInGA().getSensorList().get(0).getReadingsList().getReadingsList().size();
-        //assertEquals(24,result3);
-    }
-
-    @Test
-    void importGAsSize () throws RuntimeException,org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        GAList gaList = new GAList();
-        GeographicalArea porto = new GeographicalArea("001", "Porto", "city", new OccupationArea(3,2),new Location(3, 30, 20));
-        GeographicalArea lisboa = new GeographicalArea("002", "Lisboa", "city", new OccupationArea(3,2),new Location(3, 30, 20));
-        gaList.addGA(porto);
-        gaList.addGA(lisboa);
-
-        Path path = Paths.get("resources/JsonFile.json");
-        gaList.importGaAndSensor(path);
-
-        int expected = 4;
-        int result = gaList.size();
-
-        assertEquals(expected,result);
-    }
-
-    @Test
-    void importGAsWithAnEqualOne () throws RuntimeException,org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        GAList gaList = new GAList();
-        GeographicalArea porto = new GeographicalArea("Porto", "City of Porto", "city", new OccupationArea(3.30,10.09),new Location(41.149935, -8.610857, 118));
-        GeographicalArea lisboa = new GeographicalArea("LX", "Lisboa", "city", new OccupationArea(3,2),new Location(3, 30, 20));
-        gaList.addGA(porto);
-        gaList.addGA(lisboa);
-
-        Path path = Paths.get("resources/JsonFile.json");
-        gaList.importGaAndSensor(path);
-
-        int expected = 3;
-        int result = gaList.size();
-        assertEquals(expected,result);
-    }
-
-    @Test
-    void importGAsCheckImportedSensors () throws RuntimeException,org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        GAList gaList = new GAList();
-        GeographicalArea porto = new GeographicalArea("Porto", "City of Porto", "city", new OccupationArea(3.30,10.09),new Location(41.149935, -8.610857, 118));
-        GeographicalArea lisboa = new GeographicalArea("LX", "Lisboa", "city", new OccupationArea(3,2),new Location(3, 30, 20));
-        gaList.addGA(porto);
-        gaList.addGA(lisboa);
-
-        Path path = Paths.get("resources/JsonFile.json");
-        gaList.importGaAndSensor(path);
-
-        int expected = 0;
-        int result = porto.getSensorListInGA().size();
-        assertEquals(expected,result);
-    }*/
-
 }
