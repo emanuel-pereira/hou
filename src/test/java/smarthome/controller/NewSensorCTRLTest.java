@@ -69,8 +69,9 @@ class NewSensorCTRLTest {
         Location loc1 = new Location(25,15,12);
         OccupationArea oc2 = new OccupationArea(42,41);
         Location loc2 = new Location(45,25,32);
-        GeographicalArea area1 = gaList.newGA("Pt", "Porto", "district", oc1,loc1);
-        GeographicalArea area2 = gaList.newGA("Pt", "Braga", "district", oc2,loc2);
+        TypeGA typeGA= new TypeGA("district");
+        GeographicalArea area1 = gaList.newGA("Pt", "Porto", typeGA, oc1,loc1);
+        GeographicalArea area2 = gaList.newGA("Pt", "Braga", typeGA, oc2,loc2);
         gaList.addGA(area1);
         gaList.addGA(area2);
 
@@ -91,8 +92,9 @@ class NewSensorCTRLTest {
         Location loc1 = new Location(25,15,12);
         OccupationArea oc2 = new OccupationArea(42,41);
         Location loc2 = new Location(45,25,32);
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1,loc1);
-        GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", "city", oc2,loc2);
+        TypeGA typeGA= new TypeGA("city");
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", typeGA, oc1,loc1);
+        GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", typeGA, oc2,loc2);
 
         gaList.addGA(ga1);
         gaList.addGA(ga2);
@@ -235,7 +237,9 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         OccupationArea occupationArea = new OccupationArea(25, 12);
         Location location = new Location(23, 12, 11);
-        GeographicalArea porto = gaList.newGA("PT", "Porto", "City", occupationArea, location);
+        TypeGA typeGA= new TypeGA("city");
+
+        GeographicalArea porto = gaList.newGA("PT", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
         House house = new House();
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
@@ -266,7 +270,8 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         OccupationArea occupationArea = new OccupationArea(25, 12);
         Location location = new Location(23, 12, 11);
-        GeographicalArea porto = gaList.newGA("PT", "Porto", "City", occupationArea, location);
+        TypeGA typeGA= new TypeGA("city");
+        GeographicalArea porto = gaList.newGA("PT", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
         House house = new House();
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
@@ -285,11 +290,12 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         OccupationArea occupationArea = new OccupationArea(25, 12);
         Location location = new Location(23, 12, 11);
-        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", occupationArea, location);
+        TypeGA typeGA= new TypeGA("city");
+        GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
         OccupationArea occupationArea2 = new OccupationArea(12, 11);
         Location location2 = new Location(45, -15, 23);
-        GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", "City", occupationArea2, location2);
+        GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", typeGA, occupationArea2, location2);
         gaList.addGA(lisboa);
         House house = new House();
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
@@ -361,9 +367,11 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         OccupationArea occupationArea = new OccupationArea(12, 11);
         Location location = new Location(25, 12, 23);
-        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", occupationArea, location);
+        TypeGA typeGA= new TypeGA("city");
+
+        GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
-        GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", "City", occupationArea, location);
+        GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", typeGA, occupationArea, location);
         gaList.addGA(lisboa);
         ReadingList readingList = new ReadingList();
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
@@ -391,13 +399,14 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         OccupationArea occupationArea = new OccupationArea(12, 11);
         Location location = new Location(25, 12, 23);
-        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", occupationArea, location);
+        TypeGA typeGA= new TypeGA("city");
+        GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
         Location location2 = new Location(45, -15, 23);
-        GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", "City", occupationArea, location2);
+        GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", typeGA, occupationArea, location2);
         gaList.addGA(lisboa);
         Location location3 = new Location(29, 7, 2);
-        GeographicalArea aveiro = gaList.newGA("AVR", "Aveiro", "City", occupationArea, location3);
+        GeographicalArea aveiro = gaList.newGA("AVR", "Aveiro", typeGA, occupationArea, location3);
         gaList.addGA(aveiro);
         House house = new House();
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
@@ -417,7 +426,9 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         OccupationArea occupationArea = new OccupationArea(12, 11);
         Location location = new Location(25, 12, 23);
-        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", occupationArea, location);
+        TypeGA typeGA= new TypeGA("city");
+
+        GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
         House house = new House();
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
@@ -442,7 +453,9 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         OccupationArea occupationArea = new OccupationArea(12, 11);
         Location location = new Location(25, 12, 23);
-        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", occupationArea, location);
+        TypeGA typeGA= new TypeGA("city");
+
+        GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
         House house = new House();
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
@@ -467,7 +480,8 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         OccupationArea occupationArea = new OccupationArea(12, 11);
         Location location = new Location(25, 12, 23);
-        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", occupationArea, location);
+        TypeGA typeGA= new TypeGA("city");
+        GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
         House house = new House();
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
@@ -514,7 +528,8 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         OccupationArea occupationArea = new OccupationArea(12, 11);
         Location location = new Location(25, 12, 23);
-        GeographicalArea porto = gaList.newGA("POR", "Porto", "City", occupationArea, location);
+        TypeGA typeGA= new TypeGA("city");
+        GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
         House house = new House();
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);

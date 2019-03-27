@@ -249,24 +249,24 @@ public class ReadingList {
         return dailyAmp;
     }
 
-    public Calendar getStartDateOfReadings(){
+    public Calendar getStartDateOfReadings() {
         Calendar startDate = this.listOfReadings.get(0).getDateAndTime();
 
         for (int i = 0; i < this.listOfReadings.size(); i++) {
             Reading r = this.listOfReadings.get(i);
-            if (r.getDateAndTime().before(startDate)){
+            if (r.getDateAndTime().before(startDate)) {
                 startDate = r.getDateAndTime();
             }
         }
-    return startDate;
+        return startDate;
     }
 
-    public Calendar getEndDateOfReadings(){
+    public Calendar getEndDateOfReadings() {
         Calendar endDate = this.listOfReadings.get(0).getDateAndTime();
 
         for (int i = 0; i < this.listOfReadings.size(); i++) {
             Reading r = this.listOfReadings.get(i);
-            if (r.getDateAndTime().after(endDate)){
+            if (r.getDateAndTime().after(endDate)) {
                 endDate = r.getDateAndTime();
             }
         }

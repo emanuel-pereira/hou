@@ -27,8 +27,14 @@ public class SensorList {
         if (!this.listOfSensors.contains(newSensor)) {
             this.listOfSensors.add(newSensor);
             //Repository call
-            //TODO add other repositories calls
+            Repositories.sensorTypeRepository.save(newSensor.getSensorType());
+
             Repositories.locationRepository.save(newSensor.getLocation());
+            Repositories.sensorRepository.save(newSensor);
+            for (Reading reading : newSensor.getReadingList().getReadingsList()) {
+                reading.setSensor(newSensor);
+                Repositories.readingRepository.save(reading);
+            }
             return true;
         } else return false;
     }
@@ -43,21 +49,20 @@ public class SensorList {
     }
 
     /**
-     * @param inputName name of Sensor
-     * @param startDate startDate of Sensor
-     * @param geoLocation  gps coordinates in which the user wants to place the sensor
-
+     * @param inputName   name of Sensor
+     * @param startDate   startDate of Sensor
+     * @param geoLocation gps coordinates in which the user wants to place the sensor
      * @return List of sensors
      */
-    public Sensor newSensor(String id, String inputName, GregorianCalendar startDate,Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
+    public Sensor newSensor(String id, String inputName, GregorianCalendar startDate, Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
         return new Sensor(id, inputName, startDate, geoLocation, sensorType, inputUnit, readings);
     }
 
     /**
-     * @param name Name of the sensor
-     * @param startDate The first day the sensor starts to work
+     * @param name       Name of the sensor
+     * @param startDate  The first day the sensor starts to work
      * @param sensorType The sensor type
-     * @param unit The measurement unit
+     * @param unit       The measurement unit
      * @return A new interior sensor
      */
     public Sensor createNewInternalSensor(String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {

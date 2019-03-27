@@ -45,7 +45,7 @@ class ReadJSONFileTest {
         js.importGAs();
         GeographicalArea porto = gaList.getLastGA();
         String expected = "city";
-        String result = porto.getType();
+        String result = porto.getTypeName();
         assertEquals(expected, result);
     }
 

@@ -90,8 +90,12 @@ public class GeographicalArea {
      *
      * @return return this geographical Area Type designation
      */
-    public String getType() {
+    public String getTypeName() {
         return this.typeOfGa.toString();
+    }
+
+    public TypeGA getType() {
+        return this.typeOfGa;
     }
 
     /**

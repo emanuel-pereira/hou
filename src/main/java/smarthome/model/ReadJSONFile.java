@@ -62,13 +62,6 @@ public class ReadJSONFile {
             GeographicalArea geographicalArea = createGeographicalArea(jsonGA);
             SensorList gaSensorList = geographicalArea.getSensorListInGA();
             addGASensors(jsonGA, gaSensorList);
-            for (Sensor sensor : gaSensorList.getSensorList()) {
-                Repositories.sensorRepository.save(sensor);
-            }
-            //Repository call
-            Repositories.occupationAreaRepository.save(geographicalArea.getOccupation());
-            Repositories.locationRepository.save(geographicalArea.getLocation());
-
             this.gaList.addGA(geographicalArea);
             GeographicalAreaDTO gaDTO = geographicalArea.toDTO();
             gaListDTO.add(gaDTO);
@@ -87,8 +80,6 @@ public class ReadJSONFile {
         String description = (String) jsonGA.get("description");
         String type = (String) jsonGA.get("type");
         TypeGA gaType = new TypeGA(type);
-        //Repository call
-        Repositories.typeGARepository.save(gaType);
         double width = (double) jsonGA.get("width");
         double length = (double) jsonGA.get("length");
         Location location = getLocation(jsonGA);
@@ -134,9 +125,6 @@ public class ReadJSONFile {
         SensorType sensorType = new SensorType(sType);
         String unit = (String) sensor.get("units");
         Location location = getLocation(jsonSensor);
-        //Repository call
-        Repositories.sensorTypeRepository.save(sensorType);
-        Repositories.locationRepository.save(location);
         return new Sensor(id, name, cal, location, sensorType, unit, new ReadingList());
     }
 
