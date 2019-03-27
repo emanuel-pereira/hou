@@ -8,6 +8,7 @@ import smarthome.dto.GeographicalAreaDTO;
 import smarthome.repository.LocationRepository;
 import smarthome.repository.OccupationAreaRepository;
 import smarthome.repository.SensorRepository;
+import smarthome.repository.SensorTypeRepository;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,6 +28,7 @@ public class ReadJSONFile {
     private LocationRepository locRep;
     private OccupationAreaRepository ocRep;
     private SensorRepository senRep;
+    private SensorTypeRepository sensorTypeRep;
 
 
     /**
@@ -134,6 +136,7 @@ public class ReadJSONFile {
         cal.setTime(date);
         String sType = (String) sensor.get("type");
         SensorType sensorType = new SensorType(sType);
+        this.sensorTypeRep.save(sensorType);
         String unit = (String) sensor.get("units");
         Location location = getLocation(jsonSensor);
         this.locRep.save(location);
@@ -163,6 +166,10 @@ public class ReadJSONFile {
 
     public void setSensorRepository(SensorRepository sensorRep) {
         this.senRep = sensorRep;
+    }
+
+    public void setSensorTypeRep(SensorTypeRepository sensorTypeRep) {
+        this.sensorTypeRep = sensorTypeRep;
     }
 }
 

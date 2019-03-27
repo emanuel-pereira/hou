@@ -12,9 +12,8 @@ public final class SystemAdministrationUI {
     private SystemAdministrationUI() {
     }
 
-    public static void systemAdministration(House house, TypeGAList typeGAList, GAList gaList,
-                                            SensorTypeList sensorTypeList, TypeGARepository typeRep,
-                                            SensorTypeRepository unitRep, LocationRepository locRep, OccupationAreaRepository occupRep, SensorRepository sensorRepository) throws ParseException,
+    public static void systemAdministration(House house, TypeGAList typeGAList, GAList gaList,TypeGARepository typeRep,
+                                            SensorTypeRepository unitRep, LocationRepository locRep, OccupationAreaRepository occupRep, SensorRepository sensorRepository, SensorTypeRepository sensorTypeRepository, SensorTypeList sensorTypeList) throws ParseException,
             org.json.simple.parser.ParseException, IOException {
 
         int option = -1;
@@ -74,11 +73,11 @@ public final class SystemAdministrationUI {
                     ui8.run();
                     break;
                 case 9:
-                    DataImportUI ui9 = new DataImportUI(gaList, locRep, occupRep,sensorRepository);
+                    DataImportUI ui9 = new DataImportUI(gaList, locRep, occupRep,sensorRepository,sensorTypeRepository);
                     ui9.loadJSON();
                     break;
                 case 10:
-                    DataImportUI ui10 = new DataImportUI(gaList, locRep, occupRep,sensorRepository);
+                    DataImportUI ui10 = new DataImportUI(gaList, locRep, occupRep,sensorRepository,sensorTypeRepository);
                     ui10.importDataFromCSVFile();
                     break;
                 default:

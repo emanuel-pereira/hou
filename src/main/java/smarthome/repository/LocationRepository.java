@@ -7,5 +7,4 @@ import smarthome.model.Location;
 @Component
 public interface LocationRepository extends CrudRepository<Location, Long> {
 
-    boolean existsByAltitudeEquals(double altitude);
 }

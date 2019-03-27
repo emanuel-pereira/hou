@@ -25,6 +25,7 @@ public class SmartHomeUI {
     private static LocationRepository locRep;
     private static OccupationAreaRepository ocRep;
     private static SensorRepository sensorRep;
+    private static SensorTypeRepository sensorTypeRep;
 
     public SmartHomeUI() {
         init();
@@ -32,10 +33,11 @@ public class SmartHomeUI {
     }
 
     @Autowired
-    public static void menuOptions(TypeGARepository typeRep, SensorTypeRepository unitsRep, LocationRepository rep, OccupationAreaRepository occupRep, SensorRepository sensorRepository) throws IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
+    public static void menuOptions(TypeGARepository typeRep, SensorTypeRepository sensorTypeRepository, LocationRepository rep, OccupationAreaRepository occupRep, SensorRepository sensorRepository) throws IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
         locRep = rep;
         ocRep=occupRep;
         sensorRep=sensorRepository;
+        sensorTypeRep=sensorTypeRepository;
         int option = -1;
         while (option != 0) {
 
@@ -53,10 +55,10 @@ public class SmartHomeUI {
             option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");
             switch (option) {
                 case 1:
-                    systemAdministration(house, typeGAList, gaList, sensorTypeList, typeRep, unitsRep, locRep,ocRep,sensorRep);
+                    systemAdministration(house, typeGAList, gaList, typeRep, sensorTypeRep, locRep,ocRep,sensorRep,sensorTypeRep,sensorTypeList);
                     break;
                 case 2:
-                    houseAdministration(sensorTypeList, gaList, house, unitsRep, locRep);
+                    houseAdministration(sensorTypeList, gaList, house, sensorTypeRepository, locRep);
                     break;
                 case 3:
                     regularUsage(house, sensorTypeList);

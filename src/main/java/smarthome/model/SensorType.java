@@ -15,6 +15,7 @@ public class SensorType {
     private Long id;
     private String typeOfSensor;
 
+    protected SensorType(){}
 
     /**
      * Constructor method that defines a designation for a type of data

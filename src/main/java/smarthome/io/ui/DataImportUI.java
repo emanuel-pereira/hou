@@ -5,10 +5,7 @@ import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
 import smarthome.model.GAList;
 import smarthome.model.Sensor;
-import smarthome.repository.OccupationAreaRepository;
-import smarthome.repository.GeoRepository;
-import smarthome.repository.LocationRepository;
-import smarthome.repository.SensorRepository;
+import smarthome.repository.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,12 +22,14 @@ public class DataImportUI {
     private LocationRepository locRep;
     private OccupationAreaRepository ocRep;
     private SensorRepository sensorRep;
+    private SensorTypeRepository sensorTypeRep;
 
-    public DataImportUI(GAList gaList, LocationRepository repository, OccupationAreaRepository occupRep, SensorRepository sensorRepository) {
+    public DataImportUI(GAList gaList, LocationRepository repository, OccupationAreaRepository occupRep, SensorRepository sensorRepository, SensorTypeRepository sTypeRep) {
         this.ctrl = new DataImportCTRL(gaList);
         this.locRep = repository;
         this.ocRep=occupRep;
         this.sensorRep=sensorRepository;
+        this.sensorTypeRep=sTypeRep;
     }
 
 
@@ -42,7 +41,7 @@ public class DataImportUI {
 
             try {
                 Path path = Paths.get(filepath);
-                gaListDTO = ctrl.loadJSON(path, ocRep,locRep,sensorRep);
+                gaListDTO = ctrl.loadJSON(path, ocRep,locRep,sensorRep,sensorTypeRep);
                 loop = false;
                 this.showGAsDTOs();
             } catch (FileNotFoundException e) {
