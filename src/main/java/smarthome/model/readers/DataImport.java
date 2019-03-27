@@ -4,12 +4,19 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import smarthome.io.ui.UtilsUI;
 import smarthome.model.GAList;
+import smarthome.model.GeographicalArea;
+import smarthome.model.Reading;
+import smarthome.model.Sensor;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Calendar;
 import java.util.List;
+
+import static java.lang.Double.parseDouble;
 
 public class DataImport {
     private JSONParser parser = new JSONParser();
@@ -21,14 +28,36 @@ public class DataImport {
     }
 
 
-    public List<String[]> importFromFileReadings(Path filePathAndName, String dataType) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
+    public void importFromFileReadings(Path filePathAndName, String dataType) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
         this.filePath = filePathAndName;
         String fileExtension = getFileExtension(filePathAndName);
         String className = getClassName(dataType, fileExtension);
         FileReaderReadings reader = (FileReaderReadings) Class.forName(className).newInstance();
-        return reader.importData(filePathAndName, gaList);
+        List<String[]> dataToImport = reader.importData(this.filePath);
+        loadReadingFiles(dataToImport);
     }
 
+    public void loadReadingFiles(List<String[]> dataToImport) {
+        for (GeographicalArea ga : gaList.getGAList()) {
+            for (String[] field : dataToImport) {
+                String sensorID = field[0];
+                for (Sensor sensor : ga.getSensorListInGA().getSensorList())
+                    if (sensorID.equals(sensor.getId())) {
+
+                        String dateAndTimeString = field[1];
+                        Calendar readingDate = UtilsUI.parseDateToImportReadings(dateAndTimeString);
+                        double readingValue = parseDouble(field[2]);
+                        String unit = field[3];
+
+                        Reading reading = new Reading(readingValue, readingDate, unit);
+
+                        if (readingDate.after(sensor.getStartDate()))
+                            sensor.getReadingList().addReading(reading);
+                    }
+            }
+
+        }
+    }
 
     public String getFileExtension(Path filePathAndName) {
         String filePathAndNameString = filePathAndName.toString();
