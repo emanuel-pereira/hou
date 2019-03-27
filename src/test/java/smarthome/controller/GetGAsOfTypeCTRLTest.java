@@ -1,8 +1,16 @@
 package smarthome.controller;
 
+import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+import smarthome.model.*;
+
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class GetGAsOfTypeCTRLTest {
 
-/*
 
     @Test
     @DisplayName("Show list of one GA from type street, or Type List index position 1 ")
@@ -214,5 +222,5 @@ class GetGAsOfTypeCTRLTest {
 
         assertEquals (expected, result);
 
-    }*/
+    }
 }

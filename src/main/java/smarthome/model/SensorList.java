@@ -1,7 +1,5 @@
 package smarthome.model;
 
-import smarthome.repository.Repositories;
-
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -25,17 +23,7 @@ public class SensorList {
      */
     public boolean addSensor(Sensor newSensor) {
         if (!this.listOfSensors.contains(newSensor)) {
-            this.listOfSensors.add(newSensor);
-            //Repository call
-            Repositories.sensorTypeRepository.save(newSensor.getSensorType());
-
-            Repositories.locationRepository.save(newSensor.getLocation());
-            Repositories.sensorRepository.save(newSensor);
-            for (Reading reading : newSensor.getReadingList().getReadingsList()) {
-                reading.setSensor(newSensor);
-                Repositories.readingRepository.save(reading);
-            }
-            return true;
+            return this.listOfSensors.add(newSensor);
         } else return false;
     }
 

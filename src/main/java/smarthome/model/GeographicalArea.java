@@ -208,11 +208,13 @@ public class GeographicalArea {
                     int hour = dateTime.getHour();
                     int minutes = dateTime.getMinute();
                     Calendar readingDate = new GregorianCalendar(year, month - 1, day, hour, minutes);
-                    
-                    Reading reading = new Reading(readingValue, readingDate, sensor);
-                    //Repository call
-                    Repositories.readingRepository.save(reading);
 
+                    Reading reading = new Reading(readingValue, readingDate, sensor);
+                    try {
+                        //Repository call
+                        Repositories.readingRepository.save(reading);
+                    } catch (NullPointerException e) {
+                    }
                     if (readingDate.after(sensor.getStartDate()))
                         sensor.getReadingList().addReading(reading);
                     else {

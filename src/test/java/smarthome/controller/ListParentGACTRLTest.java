@@ -1,13 +1,23 @@
 package smarthome.controller;
 
+import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+import smarthome.model.GAList;
+import smarthome.model.Location;
+import smarthome.model.OccupationArea;
+import smarthome.model.TypeGAList;
+
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class ListParentGACTRLTest {
     //return GA's List
     //user selects one from the List
 
- /*   //return the parent GA if there's only one
+    //return the parent GA if there's only one
     @DisplayName("Add two GA  with success and look for one's Parent GA, however none was found")
     @Test
-    void addGACheckParent() {
+    public void addGACheckParent() {
         //invoke new empty list
         TypeGAList TypeGAList = new TypeGAList();
         //pass the empty list as a parameter to US1 controller
@@ -63,7 +73,7 @@ public class ListParentGACTRLTest {
 
     @DisplayName("Add four GA's with success and look for the first one's Parent GA")
     @Test
-    void add4GACheckParent() {
+    public void add4GACheckParent() {
         //invoke new empty list
         TypeGAList TypeGAList = new TypeGAList();
         //pass the empty list as a parameter to US1 controller
@@ -125,5 +135,4 @@ public class ListParentGACTRLTest {
         assertEquals(3,ctrl8.getGAListSize());
         assertEquals("Funchal, Madeira", ctrl8.isParentOf(2));
     }
-*/
 }

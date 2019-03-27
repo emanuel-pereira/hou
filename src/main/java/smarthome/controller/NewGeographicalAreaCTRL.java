@@ -1,6 +1,7 @@
 package smarthome.controller;
 
 import smarthome.model.*;
+import smarthome.repository.Repositories;
 
 import java.util.List;
 
@@ -33,7 +34,15 @@ public class NewGeographicalAreaCTRL {
     public boolean newGA(String id, String inputDesignation, int typeGAIndex, OccupationArea occupationArea, Location location) {
         TypeGA typeGA = this.typeGAList.get(typeGAIndex);
         GeographicalArea ga = this.gaList.newGA(id, inputDesignation, typeGA, occupationArea, location);
-        return this.gaList.addGA(ga);
+        if (!this.gaList.addGA(ga)) return false;
+        else {
+            //Repository call
+            try {
+                Repositories.saveGA(ga);
+            } catch (NullPointerException e) {
+            }
+            return true;
+        }
     }
 
 

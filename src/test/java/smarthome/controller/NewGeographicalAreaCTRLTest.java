@@ -1,8 +1,16 @@
 package smarthome.controller;
 
+import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+import smarthome.model.*;
+
+import java.util.List;
+
+import static junit.framework.TestCase.*;
+
 public class NewGeographicalAreaCTRLTest {
 
-   /* @Test
+    @Test
     void newGA() {
         GAList list = new GAList();
         TypeGAList typeGAList = new TypeGAList();
@@ -42,8 +50,7 @@ public class NewGeographicalAreaCTRLTest {
     }
 
 
-    *//*Add a new geographical area in a list with the same GA and get the size of the list that remains as 1.*//*
-
+    //Add a new geographical area in a list with the same GA and get the size of the list that remains as 1.
 
     @Test
     @DisplayName("Add a new geographical area in a list with the same GA")
@@ -67,7 +74,7 @@ public class NewGeographicalAreaCTRLTest {
 
     @Test
     @DisplayName("Add new geographical area in a list with the same and different GA's")
-    void newGAIfRepeatAndDifferentGAs() {
+    public void newGAIfRepeatAndDifferentGAs() {
         GAList list = new GAList();
         TypeGAList typeGAList = new TypeGAList();
         TypeGA district = new TypeGA("district");
@@ -101,7 +108,7 @@ public class NewGeographicalAreaCTRLTest {
 
     @DisplayName("Add GA with GA type from GA type's list with usage of US1 and US3 Controller methods")
     @Test
-    void addGATypeFromList() {
+    public void addGATypeFromList() {
         TypeGAList typeGAList = new TypeGAList();
         NewTypeGACTRL ctrl1 = new NewTypeGACTRL(typeGAList);
         assertTrue(ctrl1.createTypeGA("village"));
@@ -194,5 +201,5 @@ public class NewGeographicalAreaCTRLTest {
         String result= ctrl.getGAType();
         assertEquals(expected,result);
 
-    }*/
+    }
 }

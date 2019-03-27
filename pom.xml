@@ -188,14 +188,18 @@
                     <targetClasses>
                         <!--<param>smarthome.*</param>-->
                         <param>smarthome.controller.*</param>
-                        <param>smarthome.model.*</param>
+                        <param>smarthome.model.devices</param>
+                        <param>smarthome.model.validations</param>
                         <param>smarthome.dto.*</param>
+                        <param>smarthome.repository</param>
                     </targetClasses>
                     <targetTests>
                         <!--<param>smarthome.*</param>-->
                         <param>smarthome.controller.*</param>
-                        <param>smarthome.model.*</param>
+                        <param>smarthome.model.devices</param>
+                        <param>smarthome.model.validations</param>
                         <param>smarthome.dto.*</param>
+                        <param>smarthome.repository</param>
                     </targetTests>
 
                     <outputFormats>

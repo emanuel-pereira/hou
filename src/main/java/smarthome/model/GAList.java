@@ -1,7 +1,5 @@
 package smarthome.model;
 
-import smarthome.repository.Repositories;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,13 +39,7 @@ public class GAList {
     public boolean addGA(GeographicalArea inputGA) {
         if (this.listOfGa.contains(inputGA))
             return false;
-        this.listOfGa.add(inputGA);
-        //Repository call
-        Repositories.occupationAreaRepository.save(inputGA.getOccupation());
-        Repositories.locationRepository.save(inputGA.getLocation());
-        Repositories.typeGARepository.save(inputGA.getType());
-        Repositories.geoRepository.save(inputGA);
-        return true;
+        return this.listOfGa.add(inputGA);
     }
 
     /**

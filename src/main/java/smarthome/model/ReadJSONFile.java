@@ -62,7 +62,14 @@ public class ReadJSONFile {
             GeographicalArea geographicalArea = createGeographicalArea(jsonGA);
             SensorList gaSensorList = geographicalArea.getSensorListInGA();
             addGASensors(jsonGA, gaSensorList);
-            this.gaList.addGA(geographicalArea);
+            if (this.gaList.addGA(geographicalArea)) {
+                //Repository call
+                try {
+                    //Repository call
+                    Repositories.saveGA(geographicalArea);
+                } catch (NullPointerException e) {
+                }
+            }
             GeographicalAreaDTO gaDTO = geographicalArea.toDTO();
             gaListDTO.add(gaDTO);
         }
@@ -100,7 +107,14 @@ public class ReadJSONFile {
         for (Object areaSensor : jsonAreaSensorList) {
             JSONObject jsonSensor = (JSONObject) areaSensor;
             Sensor s = createSensor(jsonSensor);
-            sensorListInGA.addSensor(s);
+            if (sensorListInGA.addSensor(s)) {
+                //Repository call
+                try {
+                    //Repository call
+                    Repositories.saveSensor(s);
+                } catch (NullPointerException e) {
+                }
+            }
         }
     }
 

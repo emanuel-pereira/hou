@@ -50,7 +50,10 @@ public class TypeGAList {
             this.typeOfGAList.add(inputType);
 
             //Repository call
-            Repositories.typeGARepository.save(inputType);
+            try {
+                Repositories.typeGARepository.save(inputType);
+            } catch (NullPointerException e) {
+            }
             return true;
         } else return false;
     }
