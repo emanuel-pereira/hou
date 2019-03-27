@@ -20,7 +20,7 @@ import static java.lang.Double.parseDouble;
 
 public class DataImport {
     private JSONParser parser = new JSONParser();
-    private Path filePath;
+    private Path configFilePath;
     private GAList gaList;
 
     public DataImport(GAList gaList) {
@@ -29,12 +29,20 @@ public class DataImport {
 
 
     public void importFromFileReadings(Path filePathAndName, String dataType) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
-        this.filePath = filePathAndName;
+        this.configFilePath = filePathAndName;
         String fileExtension = getFileExtension(filePathAndName);
         String className = getClassName(dataType, fileExtension);
         FileReaderReadings reader = (FileReaderReadings) Class.forName(className).newInstance();
-        List<String[]> dataToImport = reader.importData(this.filePath);
+        List<String[]> dataToImport = reader.importData(filePathAndName);
         loadReadingFiles(dataToImport);
+    }
+
+    public List<GeographicalArea> importFromFileGeoArea(Path filePathAndName, String dataType) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+        String fileExtension = getFileExtension(filePathAndName);
+        String className = getClassName(dataType, fileExtension);
+        FileReaderGeoArea reader = (FileReaderGeoArea) Class.forName(className).newInstance();
+        List<GeographicalArea> dataToImport = reader.importData(filePathAndName);
+        return dataToImport;
     }
 
     public void loadReadingFiles(List<String[]> dataToImport) {
@@ -59,7 +67,14 @@ public class DataImport {
         }
     }
 
+    public void loadGeoAreaFiles(List<GeographicalArea> dataToImport){
+        for(GeographicalArea ga: dataToImport){
+            this.gaList.addGA(ga);
+        }
+    }
+
     public String getFileExtension(Path filePathAndName) {
+
         String filePathAndNameString = filePathAndName.toString();
         String fileExtension = null;
         if (filePathAndNameString.contains(".")) {
@@ -69,13 +84,13 @@ public class DataImport {
     }
 
     private JSONObject readFile() throws IOException, ParseException {
-        java.io.FileReader fileReader = new java.io.FileReader(filePath.toAbsolutePath().toFile());
+        java.io.FileReader fileReader = new java.io.FileReader(configFilePath.toAbsolutePath().toFile());
         return (JSONObject) this.parser.parse(fileReader);
     }
 
     public String getClassName(String dataType, String fileExtension) throws ParseException, IOException {
         String className = null;
-        this.filePath = Paths.get("resources/ImportFileConfig.json");
+        this.configFilePath = Paths.get("resources/ImportFileConfig.json");
         JSONObject jsonObject = (JSONObject) this.readFile().get("object_type");
         JSONArray jsonTypes = (JSONArray) jsonObject.get(dataType);
         for (Object types : jsonTypes) {
