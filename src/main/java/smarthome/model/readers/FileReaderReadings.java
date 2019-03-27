@@ -5,8 +5,9 @@ import smarthome.model.GAList;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
 public interface FileReaderReadings {
 
-    void importData(Path filePath, GAList gaList) throws ParseException, IOException;
+    List<String[]> importData(Path filePath, GAList gaList) throws ParseException, IOException;
 }

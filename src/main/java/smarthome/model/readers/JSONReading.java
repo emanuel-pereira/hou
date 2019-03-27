@@ -4,19 +4,13 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import smarthome.io.ui.UtilsUI;
 import smarthome.model.GAList;
-import smarthome.model.GeographicalArea;
-import smarthome.model.Reading;
-import smarthome.model.Sensor;
+
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-
-import static java.lang.Double.parseDouble;
 
 public class JSONReading implements FileReaderReadings {
 
@@ -27,6 +21,7 @@ public class JSONReading implements FileReaderReadings {
     public JSONReading(GAList gaList) {
         this.gaList = gaList;
     }
+
     public JSONReading() {
     }
 
@@ -42,11 +37,10 @@ public class JSONReading implements FileReaderReadings {
         return (JSONObject) this.parser.parse(fileReader);
     }
 
-    public void importData(Path filePathAndName,GAList gaList) throws ParseException, IOException {
+    public List<String> importData(Path filePathAndName, GAList gaList) throws ParseException, IOException {
         this.filePath = filePathAndName;
-        this.gaList=gaList;
+        this.gaList = gaList;
         List<String[]> data = extractData();
-        loadData(data);
     }
 
     public List<String[]> extractData() throws ParseException, IOException {
@@ -67,27 +61,4 @@ public class JSONReading implements FileReaderReadings {
         }
         return data;
     }
-
-    public void loadData(List<String[]> data) {
-        for (GeographicalArea ga : gaList.getGAList()) {
-            for (String[] field : data) {
-                String sensorID = field[0];
-                for (Sensor sensor : ga.getSensorListInGA().getSensorList())
-                    if (sensorID.equals(sensor.getId())) {
-
-                        String dateAndTimeString = field[1];
-                        Calendar readingDate = UtilsUI.parseDateToImportReadings(dateAndTimeString);
-                        double readingValue = parseDouble(field[2]);
-                        String unit = field[3];
-
-                        Reading reading = new Reading(readingValue, readingDate, unit);
-
-                        if (readingDate.after(sensor.getStartDate()))
-                            sensor.getReadingList().addReading(reading);
-                    }
-            }
-
-        }
-    }
-
 }
