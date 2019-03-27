@@ -15,6 +15,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import static java.lang.Double.parseDouble;
 
@@ -37,15 +41,8 @@ public class DataImport {
         loadReadingFiles(dataToImport);
     }
 
-    public List<GeographicalArea> importFromFileGeoArea(Path filePathAndName, String dataType) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
-        String fileExtension = getFileExtension(filePathAndName);
-        String className = getClassName(dataType, fileExtension);
-        FileReaderGeoArea reader = (FileReaderGeoArea) Class.forName(className).newInstance();
-        List<GeographicalArea> dataToImport = reader.importData(filePathAndName);
-        return dataToImport;
-    }
-
-    public void loadReadingFiles(List<String[]> dataToImport) {
+    public void loadReadingFiles(List<String[]> dataToImport) throws IOException {
+        Logger logger = createLogFile("invalidReadingsLog.txt");
         for (GeographicalArea ga : gaList.getGAList()) {
             for (String[] field : dataToImport) {
                 String sensorID = field[0];
@@ -61,10 +58,22 @@ public class DataImport {
 
                         if (readingDate.after(sensor.getStartDate()))
                             sensor.getReadingList().addReading(reading);
+
+                        else {
+                            String message = "READING NOT ADDED - VALUE: " + readingValue + " DATE: " + dateAndTimeString + "\nREASON: READING DATE AFTER SENSOR START DATE\n";
+                            logger.log(Level.WARNING, message);
+                        }
                     }
             }
-
         }
+    }
+    public Logger createLogFile(String fileName) throws IOException{
+        Logger logger = Logger.getLogger(GeographicalArea.class.getName());
+        FileHandler fileHandler = new FileHandler(fileName);
+        fileHandler.setFormatter(new SimpleFormatter());
+        logger.setUseParentHandlers(false);
+        logger.addHandler(fileHandler);
+        return logger;
     }
 
     public void loadGeoAreaFiles(List<GeographicalArea> dataToImport){
@@ -77,8 +86,9 @@ public class DataImport {
 
         String filePathAndNameString = filePathAndName.toString();
         String fileExtension = null;
-        if (filePathAndNameString.contains(".")) {
-            fileExtension = filePathAndNameString.substring(filePathAndNameString.lastIndexOf(".") + 1);
+        CharSequence c = ".";
+        if (filePathAndNameString.contains(c)) {
+            fileExtension = filePathAndNameString.substring(filePathAndNameString.lastIndexOf(c.toString()) + 1);
         }
         return fileExtension;
     }

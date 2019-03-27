@@ -5,29 +5,21 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import smarthome.model.ReadingList;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import static org.w3c.dom.Node.ELEMENT_NODE;
 
 
-public class XMLReader {
+public class XMLReading {
 
 
     private Document xmlDocument;
-    private String id;
-    private double value;
-    private Calendar timestamp_date;
-    private String unit;
-    private ReadingList readingList;
 
 
     public void readXMLFile() throws ParserConfigurationException, IOException, SAXException {
@@ -81,47 +73,6 @@ public class XMLReader {
         return xmlReadings;
     }
 
-
-    public String getId() {
-        return id;
-    }
-
-    @XmlAttribute(name = "id")
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public double getValue() {
-        return value;
-    }
-
-    @XmlAttribute(name = "value")
-    public void setValue(double value) {
-        this.value = value;
-    }
-
-    public Calendar getTimestamp_date() {
-        return timestamp_date;
-    }
-
-    @XmlAttribute(name = "timestamp_date")
-    public void setTimestamp_date(Calendar timestamp_date) {
-        this.timestamp_date = timestamp_date;
-    }
-
-    public String getUnit() {
-        return unit;
-    }
-
-    @XmlAttribute(name = "unit")
-    public void setUnit(String unit) {
-        this.unit = unit;
-    }
-
-    @Override
-    public String toString() {
-        return "reading{" + "id" + id + "value" + value + "timestamp_date" + timestamp_date + "unit" + unit + '}';
-    }
 
 }
 

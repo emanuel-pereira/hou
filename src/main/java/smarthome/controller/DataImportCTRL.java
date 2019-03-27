@@ -38,7 +38,6 @@ public class DataImportCTRL {
         DataImport dataImport = new DataImport(gaList);
         dataImport.importFromFileReadings(filePath,"readings");
     }
-
     /**
      *Method that iterates the geographical area list and converts each geographical area to a Data Transfer Object
      * @return a list of geographical area DTOs
