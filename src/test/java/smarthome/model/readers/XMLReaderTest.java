@@ -18,7 +18,7 @@ public class XMLReaderTest {
     private Document xmlDocument;
 
     @Before
-    public void setUP() throws ParserConfigurationException, IOException, SAXException {
+    public void readXMLFile() throws ParserConfigurationException, IOException, SAXException {
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = dbFactory.newDocumentBuilder();
