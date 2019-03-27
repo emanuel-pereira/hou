@@ -76,12 +76,6 @@ public class DataImport {
         return logger;
     }
 
-    public void loadGeoAreaFiles(List<GeographicalArea> dataToImport){
-        for(GeographicalArea ga: dataToImport){
-            this.gaList.addGA(ga);
-        }
-    }
-
     public String getFileExtension(Path filePathAndName) {
 
         String filePathAndNameString = filePathAndName.toString();
@@ -108,5 +102,19 @@ public class DataImport {
             className = (String) jsonReading.get(fileExtension);
         }
         return className;
+    }
+
+    public List<GeographicalArea> importFromFileGeoArea(Path filePathAndName, String dataType) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+        String fileExtension = getFileExtension(filePathAndName);
+        String className = getClassName(dataType, fileExtension);
+        FileReaderGeoArea reader = (FileReaderGeoArea) Class.forName(className).newInstance();
+        List<GeographicalArea> dataToImport = reader.importData(filePathAndName);
+        return dataToImport;
+    }
+
+    public void loadGeoAreaFiles(List<GeographicalArea> dataToImport){
+        for(GeographicalArea ga: dataToImport){
+            this.gaList.addGA(ga);
+        }
     }
 }
