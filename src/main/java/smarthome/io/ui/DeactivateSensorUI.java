@@ -61,7 +61,8 @@ public class DeactivateSensorUI {
         Calendar date = UtilsUI.requestDate ("Please insert a valid date (yyyy-MM-dd format).");
         if (this.controller.deactivateSensor (gaDTOId, sensorDTOId, date)) {
             System.out.println ("The following sensor was successfully deactivated from the geographical area " + selectedGADto.getDesignation () + ":");
-            System.out.println (" - Id: " + sensorDTO.getId () + this.designation + sensorDTO.getDesignation () + ". Active: " + this.controller.sensorStatus (gaDTOId, sensorDTOId) + ".\n");}
+            System.out.println (" - Id: " + sensorDTO.getId () + this.designation + sensorDTO.getDesignation () + ". Active: " + this.controller.sensorStatus (gaDTOId, sensorDTOId) + ".\n");
+        }
     }
 
 

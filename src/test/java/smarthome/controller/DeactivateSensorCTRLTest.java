@@ -56,13 +56,14 @@ class DeactivateSensorCTRLTest {
         DeactivateSensorCTRL ctrl = new DeactivateSensorCTRL (gaList);
 
         int expected = 2;
-        int result = ctrl.getGAList ().size ();
+        int result = ctrl.getGAListSize ();
 
         assertEquals (expected, result);
     }
 
     @Test
-    void deactivateSensor() {
+    @DisplayName("Deactivate a active sensor")
+    void deactivateSensorCorrectly() {
         GAList gaList = new GAList ();
         OccupationArea portoOA = new OccupationArea (25, 20);
         Location portoLoc = new Location (25, 12, 29);
@@ -127,8 +128,71 @@ class DeactivateSensorCTRLTest {
         int result=ctrl.getSensorIfActiveToDto (gaDTOId).size ();
 
         assertEquals(0,result);
-
     }
+
+
+
+    @Test
+    @DisplayName("Returns geographical area Lisbon when searching for a geographical area with Id=LIS")
+    void getGAById() {
+        GAList gaList= new GAList();
+        OccupationArea portoOA= new OccupationArea(25,20);
+        Location portoLoc= new Location(25,12,29);
+        GeographicalArea porto= new GeographicalArea("POR","Porto","City",portoOA,portoLoc);
+        gaList.addGA(porto);
+        OccupationArea lisOA= new OccupationArea(35,20);
+        Location lisLoc= new Location(55,22,29);
+        GeographicalArea lisbon= new GeographicalArea("LIS","Lisbon","City",lisOA,lisLoc);
+        gaList.addGA(lisbon);
+        DeactivateSensorCTRL ctrl= new DeactivateSensorCTRL (gaList);
+        GeographicalArea result=ctrl.getGAById("LIS");
+        assertEquals(lisbon,result);
+    }
+
+    @Test
+    @DisplayName("Returns Null Pointer Exception when searching for an nonexistent geographical area Id")
+    void getGAByIdReturnsNullPointerException() {
+        GAList gaList= new GAList();
+        OccupationArea portoOA= new OccupationArea(25,20);
+        Location portoLoc= new Location(25,12,29);
+        GeographicalArea porto= new GeographicalArea("POR","Porto","City",portoOA,portoLoc);
+        gaList.addGA(porto);
+        OccupationArea lisOA= new OccupationArea(35,20);
+        Location lisLoc= new Location(55,22,29);
+        GeographicalArea lisbon= new GeographicalArea("LIS","Lisbon","City",lisOA,lisLoc);
+        gaList.addGA(lisbon);
+        DeactivateSensorCTRL ctrl= new DeactivateSensorCTRL (gaList);
+        boolean thrown = false;
+        try {
+            GeographicalArea ga=ctrl.getGAById("coim");
+        } catch (NullPointerException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
+    @Test
+    @DisplayName("Don´t return geographical area Lisbon when searching for a geographical area with Id=POR")
+    void getGAByIdNotEquals() {
+        GAList gaList= new GAList();
+        OccupationArea portoOA= new OccupationArea(25,20);
+        Location portoLoc= new Location(25,12,29);
+        GeographicalArea porto= new GeographicalArea("POR","Porto","City",portoOA,portoLoc);
+        gaList.addGA(porto);
+        OccupationArea lisOA= new OccupationArea(35,20);
+        Location lisLoc= new Location(55,22,29);
+        GeographicalArea lisbon= new GeographicalArea("LIS","Lisbon","City",lisOA,lisLoc);
+        gaList.addGA(lisbon);
+        DeactivateSensorCTRL ctrl= new DeactivateSensorCTRL (gaList);
+        GeographicalArea result=ctrl.getGAById("POR");
+        assertNotEquals(lisbon,result);
+    }
+
+
+
+
+
+
 
     @Test
     @DisplayName("Display true because sensor is active")

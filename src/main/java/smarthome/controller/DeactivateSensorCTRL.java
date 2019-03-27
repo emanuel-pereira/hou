@@ -2,6 +2,7 @@ package smarthome.controller;
 
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
+import smarthome.mapper.GeographicalAreaMapper;
 import smarthome.mapper.SensorMapper;
 import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
@@ -16,6 +17,7 @@ public class DeactivateSensorCTRL {
 
     GAList gaList;
     private SensorMapper sensorMapper = new SensorMapper ();
+    private GeographicalAreaMapper gaMapper = new GeographicalAreaMapper ();
 
     public DeactivateSensorCTRL(GAList gaList) {
         this.gaList = gaList;
@@ -23,11 +25,11 @@ public class DeactivateSensorCTRL {
     }
 
     public List<GeographicalAreaDTO> getGAList() {
-        return this.gaList.getGAListDTO ();
+        return this.gaMapper.toDtoList (gaList);
     }
 
 
-    private GeographicalArea getGAById(String gaDTOId) {
+    public GeographicalArea getGAById(String gaDTOId) {
         for (GeographicalArea geographicalArea : this.gaList.getGAList ()) {
             if (geographicalArea.getIdentification ().matches (gaDTOId)) {
                 return geographicalArea;
