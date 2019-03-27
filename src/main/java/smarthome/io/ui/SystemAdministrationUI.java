@@ -74,7 +74,8 @@ public final class SystemAdministrationUI {
                     break;
                 case 9:
                     DataImportUI ui9= new DataImportUI(gaList);
-                    ui9.loadJSON();
+                    ui9.loadGeoAreaFile();
+
                     break;
                 case 10:
                     DataImportUI ui10= new DataImportUI(gaList);

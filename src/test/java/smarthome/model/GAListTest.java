@@ -2,7 +2,11 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.readers.JSONGeoArea;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -55,8 +59,8 @@ class GAListTest {
         GAList ga = new GAList();
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
-        GeographicalArea area1 = ga.newGA("Pt", "Porto", "district", occupationArea, location);
-        GeographicalArea area2 = ga.newGA("Pt", "Braga", "district", occupationArea, location);
+        GeographicalArea area1 = ga.newGA("opo", "Porto", "district", occupationArea, location);
+        GeographicalArea area2 = ga.newGA("bra", "Braga", "district", occupationArea, location);
 
         ga.addGA(area1);
         ga.addGA(area2);
@@ -94,11 +98,11 @@ class GAListTest {
         Location location3 = new Location(41, -8, 83);
 
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Gaia", "City", occupationArea1, location1);
+        GeographicalArea ga1 = new GeographicalArea("vng", "Gaia", "City", occupationArea1, location1);
         gaList.addGA(ga1);
-        GeographicalArea ga2 = new GeographicalArea("Pt", "Matosinhos", "City", occupationArea2, location2);
+        GeographicalArea ga2 = new GeographicalArea("mat", "Matosinhos", "City", occupationArea2, location2);
         gaList.addGA(ga2);
-        GeographicalArea ga3 = new GeographicalArea("Pt", "Cedofeita", "street", occupationArea3, location3);
+        GeographicalArea ga3 = new GeographicalArea("opo", "Cedofeita", "street", occupationArea3, location3);
         gaList.addGA(ga3);
         List<GeographicalArea> expectedresult = new ArrayList<>(Arrays.asList(ga3)); //Usar Arrays.asList dentro de um a nova array list caso dê erro null point exception
         List<GeographicalArea> result = gaList.gAFromThisType("street");
@@ -119,11 +123,11 @@ class GAListTest {
         OccupationArea occupationArea3 = new OccupationArea(2, 5);
         Location location3 = new Location(41, -8, 83);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Gaia", "city", occupationArea1, location1);
+        GeographicalArea ga1 = new GeographicalArea("vng", "Gaia", "city", occupationArea1, location1);
         gaList.addGA(ga1);
-        GeographicalArea ga2 = new GeographicalArea("Pt", "Matosinhos", "city", occupationArea2, location2);
+        GeographicalArea ga2 = new GeographicalArea("mat", "Matosinhos", "city", occupationArea2, location2);
         gaList.addGA(ga2);
-        GeographicalArea ga3 = new GeographicalArea("Pt", "Cedofeita", "Street", occupationArea3, location3);
+        GeographicalArea ga3 = new GeographicalArea("opo", "Cedofeita", "Street", occupationArea3, location3);
         gaList.addGA(ga3);
         List<GeographicalArea> expectedresult = new ArrayList<>(Arrays.asList(ga1, ga2));
         List<GeographicalArea> result = gaList.gAFromThisType("city");
@@ -145,12 +149,13 @@ class GAListTest {
         OccupationArea occupationArea3 = new OccupationArea(2, 5);
         Location location3 = new Location(41, -8, 83);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Gaia", "City", occupationArea1, location1);
+        GeographicalArea ga1 = new GeographicalArea("vng", "Gaia", "City", occupationArea1, location1);
         gaList.addGA(ga1);
-        GeographicalArea ga2 = new GeographicalArea("Pt", "Matosinhos", "City", occupationArea2, location2);
+        GeographicalArea ga2 = new GeographicalArea("mat", "Matosinhos", "City", occupationArea2, location2);
         gaList.addGA(ga2);
-        GeographicalArea ga3 = new GeographicalArea("Pt", "Cedofeita", "Street", occupationArea3, location3);
+        GeographicalArea ga3 = new GeographicalArea("opo", "Cedofeita", "Street", occupationArea3, location3);
         gaList.addGA(ga3);
+
         List<GeographicalArea> expectedresult = Arrays.asList();
         List<GeographicalArea> result = gaList.gAFromThisType("Country");
         assertEquals(expectedresult, result);
@@ -248,8 +253,55 @@ class GAListTest {
 
         //int result3 = gaList.getGAList().get(1).getSensorListInGA().getSensorList().get(0).getReadingsList().getReadingsList().size();
         //assertEquals(24,result3);
+    }
 
+    @Test
+    void importGAsSize () throws RuntimeException,org.json.simple.parser.ParseException, java.text.ParseException, IOException {
+        GAList gaList = new GAList();
+        GeographicalArea porto = new GeographicalArea("001", "Porto", "city", new OccupationArea(3,2),new Location(3, 30, 20));
+        GeographicalArea lisboa = new GeographicalArea("002", "Lisboa", "city", new OccupationArea(3,2),new Location(3, 30, 20));
+        gaList.addGA(porto);
+        gaList.addGA(lisboa);
 
+        Path path = Paths.get("resources/JsonFile.json");
+        gaList.importGaAndSensor(path);
+
+        int expected = 4;
+        int result = gaList.size();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void importGAsWithAnEqualOne () throws RuntimeException,org.json.simple.parser.ParseException, java.text.ParseException, IOException {
+        GAList gaList = new GAList();
+        GeographicalArea porto = new GeographicalArea("Porto", "City of Porto", "city", new OccupationArea(3.30,10.09),new Location(41.149935, -8.610857, 118));
+        GeographicalArea lisboa = new GeographicalArea("LX", "Lisboa", "city", new OccupationArea(3,2),new Location(3, 30, 20));
+        gaList.addGA(porto);
+        gaList.addGA(lisboa);
+
+        Path path = Paths.get("resources/JsonFile.json");
+        gaList.importGaAndSensor(path);
+
+        int expected = 3;
+        int result = gaList.size();
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void importGAsCheckImportedSensors () throws RuntimeException,org.json.simple.parser.ParseException, java.text.ParseException, IOException {
+        GAList gaList = new GAList();
+        GeographicalArea porto = new GeographicalArea("Porto", "City of Porto", "city", new OccupationArea(3.30,10.09),new Location(41.149935, -8.610857, 118));
+        GeographicalArea lisboa = new GeographicalArea("LX", "Lisboa", "city", new OccupationArea(3,2),new Location(3, 30, 20));
+        gaList.addGA(porto);
+        gaList.addGA(lisboa);
+
+        Path path = Paths.get("resources/JsonFile.json");
+        gaList.importGaAndSensor(path);
+
+        int expected = 0;
+        int result = porto.getSensorListInGA().size();
+        assertEquals(expected,result);
     }*/
 
 }

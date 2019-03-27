@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DataImportCTRLTest {
 
-    @Test
+    /*@Test
     @DisplayName("Ensure that GAList has 2 GAs after executing loadJSON method")
     void loadJSON() throws ParseException, org.json.simple.parser.ParseException, IOException {
         GAList gaList = new GAList();
@@ -65,5 +65,5 @@ class DataImportCTRLTest {
         int expected = 2;
         int result = ctrl.getGAListDTO().size();
         assertEquals(expected, result);
-    }
+    }*/
 }

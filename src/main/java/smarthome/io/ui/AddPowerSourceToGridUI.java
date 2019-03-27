@@ -107,7 +107,7 @@ public class AddPowerSourceToGridUI {
     }
 
     private void addPowerSource() {
-        if(UtilsUI.confirmOption("Continue?(y/n)\n", "Please type y for Yes or n for No.", "[yYnN]")){
+        if(UtilsUI.confirmOption("Continue?(y/n)\n", "Please type y for Yes or n for No.")){
             this.ctrl.addNewPSToGrid(this.indexOfHG, this.name, this.type, this.maxPower, this.storageCapacity);
         System.out.println("The following Power Source was successfully created:" +
                 "\n[NAME]: " + this.name +
