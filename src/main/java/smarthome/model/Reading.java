@@ -2,14 +2,23 @@ package smarthome.model;
 
 import smarthome.dto.ReadingDTO;
 
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-
+@Entity
 public class Reading {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private double value;
     private Calendar dateAndTime;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SENSOR_ID")
+    private Sensor sensor;
 
 
     /**
@@ -20,10 +29,14 @@ public class Reading {
      * @param timeOfReading the date and time of a reading
      */
     public Reading(double readValue, Calendar timeOfReading) {
-
         this.value = readValue;
         this.dateAndTime = timeOfReading;
+    }
 
+    public Reading(double readValue, Calendar timeOfReading, Sensor sensor) {
+        this.value = readValue;
+        this.dateAndTime = timeOfReading;
+        this.sensor = sensor;
     }
 
     /**
@@ -56,12 +69,13 @@ public class Reading {
 
 
     //US610
+
     /**
      * @return the date of a reading as a string in YYYY-MM-DD format
      */
     public String getDateOfReadingAsString() {
         int year = this.dateAndTime.get(Calendar.YEAR);
-        int month = this.dateAndTime.get(Calendar.MONTH)+1;
+        int month = this.dateAndTime.get(Calendar.MONTH) + 1;
         int day = this.dateAndTime.get(Calendar.DAY_OF_MONTH);
 
         StringBuilder output = new StringBuilder();

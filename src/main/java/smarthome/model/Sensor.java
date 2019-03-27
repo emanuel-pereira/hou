@@ -12,6 +12,7 @@ import java.util.Objects;
 
 @Entity
 public class Sensor {
+
     @Id
     private String id;
     private String designation;

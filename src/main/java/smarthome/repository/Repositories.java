@@ -7,4 +7,5 @@ public class Repositories {
     public static SensorRepository sensorRepository;
     public static SensorTypeRepository sensorTypeRepository;
     public static TypeGARepository typeGARepository;
+    public static ReadingRepository readingRepository;
 }
