@@ -67,8 +67,9 @@ public class NewSensorUI {
     }
 
     private void inputStartDate() {
-        System.out.println("Insert the start date for the sensor in YYYY-MM-DD HH:MM format.");
-        this.startDate = UtilsUI.requestDate("The date inputted is invalid. Please insert a valid date in YYYY-MM-DD HH:MM");
+        System.out.println("Insert the start date for the sensor in YYYY-MM-DD format.");
+        this.startDate = UtilsUI.requestDate("The date inputted is invalid. Please insert a valid date in YYYY-MM-DD" +
+                "");
         this.selectSensorType();
     }
 
