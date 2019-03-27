@@ -10,6 +10,10 @@ public class Location {
     private double longitude;
     private double altitude;
 
+    public Location(){
+
+    }
+
     /**
      * Constructor requiring latitude, longitude and altitude parameters to create a location. Latitude, longitude and altitude
      * must comply with range values defined in the respective validation methods to create an instance of a location.
@@ -28,7 +32,7 @@ public class Location {
      * Method to set latitude as the one inputted by the user if it complies with latitudeIsValid criteria
      * @param latitude user input
      */
-    private void setLatitude(double latitude) {
+    public void setLatitude(double latitude) {
         if (this.v.latitudeIsValid(latitude))
             this.latitude = latitude;
     }

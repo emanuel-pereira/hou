@@ -11,6 +11,39 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SensorTest {
 
+    @Test
+    void setSensorAttributes(){
+        Sensor sensor = new Sensor();
+
+        sensor.setId("RF12345");
+
+        SensorType sType = new SensorType("rainfall");
+        sensor.setSensorType(sType);
+
+        Calendar date = new GregorianCalendar(2018,Calendar.NOVEMBER,21);
+        sensor.setStartDate(date);
+
+        sensor.setUnit("l/m2");
+        sensor.setSensorDesignation("Meteo station ISEP - rainfall");
+
+        Location location = new Location(70,130,4000);
+        sensor.setSensorLocation(location);
+
+        String result1 = sensor.getId();
+        SensorType result2 = sensor.getSensorType();
+        Calendar result3 = sensor.getStartDate();
+        String result4 = sensor.getUnit();
+        String result5 = sensor.getDesignation();
+        Location result6 = sensor.getLocation();
+
+        assertEquals("RF12345",result1);
+        assertEquals(sType,result2);
+        assertEquals(date,result3);
+        assertEquals("l/m2",result4);
+        assertEquals("Meteo station ISEP - rainfall",result5);
+        assertEquals(location,result6);
+
+    }
 
     @Test
     public void testIfRenamingASensorWithINVALIDStringReturnsFalse() {
