@@ -66,6 +66,4 @@ class DataImportCTRLTest {
         int result = ctrl.getGAListDTO().size();
         assertEquals(expected, result);
     }
-
-
 }

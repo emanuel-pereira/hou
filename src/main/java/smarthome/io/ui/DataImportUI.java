@@ -51,7 +51,7 @@ public class DataImportUI {
 
     }
 
-    public void importDataFromCSVFile() throws org.json.simple.parser.ParseException,IOException, InvocationTargetException,ClassNotFoundException,NoSuchMethodException,InstantiationException,IllegalAccessException {
+    public void importDataFromCSVFile() throws org.json.simple.parser.ParseException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         boolean loop = true;
         while (loop) {
             System.out.println("Please insert the directory and the name of the file (eg: resources/DataSet_sp04_SensorData.csv):");

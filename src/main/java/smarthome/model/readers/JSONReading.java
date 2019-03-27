@@ -15,13 +15,9 @@ public class JSONReading implements FileReaderReadings {
     private JSONParser parser = new JSONParser();
     private Path filePath;
 
-    public JSONReading() {
-    }
-
     /**
      * FileReaderReadings to read JSON file and pass it to parser.
      *
-     * @return JSONObject
      * @throws IOException
      * @throws ParseException
      */

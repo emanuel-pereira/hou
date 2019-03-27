@@ -3,10 +3,8 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -222,7 +220,7 @@ class GAListTest {
         int result = gaList.size();
         assertEquals(expected, result);
     }
-
+/*
     @Test
     void importDataFromCSVFileForEachGATest() throws IOException {
         GAList gaList = new GAList();
@@ -252,6 +250,6 @@ class GAListTest {
         //assertEquals(24,result3);
 
 
-    }
+    }*/
 
 }

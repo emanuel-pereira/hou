@@ -19,10 +19,9 @@ public class XMLReaderTest {
 
     @Before
     public void readXMLFile() throws ParserConfigurationException, IOException, SAXException {
-
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = dbFactory.newDocumentBuilder();
-        xmlDocument = builder.parse("/Users/emanuel/Desktop/project_g6/resources/DataSet_sprint05_SensorData_alt01.xml");
+        xmlDocument = builder.parse("resources/DataSet_sprint05_SensorData_alt01.xml");
     }
 
 
