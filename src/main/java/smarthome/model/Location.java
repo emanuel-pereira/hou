@@ -3,7 +3,6 @@ package smarthome.model;
 import smarthome.model.validations.GPSValidations;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 
@@ -17,9 +16,6 @@ public class Location {
     private double latitude;
     private double longitude;
     private double altitude;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Sensor> sensors;
 
     protected Location() {
     }
