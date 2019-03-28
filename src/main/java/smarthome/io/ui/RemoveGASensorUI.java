@@ -18,6 +18,12 @@ public class RemoveGASensorUI {
         this.ctrl = new RemoveGASensorCTRL(gaList);
     }
 
+    //Broke this method is small methods
+    /**
+     * First: get the GA List (Dto) and validate if the gaList is empty. If so, show message
+     * If not, show it
+     * Second: the user chooses de GA (Dto)
+     */
     public void selectGA() {
         List<GeographicalAreaDTO> gaListDTO = ctrl.getGAListDTO();
         if (gaListDTO.isEmpty()) {
@@ -36,6 +42,14 @@ public class RemoveGASensorUI {
         selectSensor();
     }
 
+    //Broke this method is small methods
+    /**
+     * First: get the Sensor List (Dto) in the GA and validate if the list is empty. If so, show message
+     * If not, show it
+     * Second: the user chooses de Sensor (Dto)
+     * Input the date (future work: date validation)
+     * Show the status of the chosen Sensor
+     */
     public void selectSensor() {
         if (selectedGADTO.getSensorListDTO().isEmpty()) {
             System.out.println("The list of sensors is empty. Please add at least one.");

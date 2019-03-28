@@ -125,7 +125,7 @@ class DeactivateSensorCTRLTest {
 
         DeactivateSensorCTRL ctrl= new DeactivateSensorCTRL (gaList);
 
-        int result=ctrl.getSensorIfActiveToDto (gaDTOId).size ();
+        int result=ctrl.getSensorIfActiveDto (gaDTOId).size ();
 
         assertEquals(0,result);
     }
