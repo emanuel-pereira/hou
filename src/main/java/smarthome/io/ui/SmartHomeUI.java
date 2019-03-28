@@ -1,7 +1,10 @@
 
 package smarthome.io.ui;
 
-import smarthome.model.*;
+import smarthome.model.GAList;
+import smarthome.model.House;
+import smarthome.model.SensorTypeList;
+import smarthome.model.TypeGAList;
 
 import java.io.IOException;
 import java.text.ParseException;

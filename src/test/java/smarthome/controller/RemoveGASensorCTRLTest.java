@@ -7,7 +7,9 @@ import smarthome.dto.SensorDTO;
 import smarthome.mapper.SensorMapper;
 import smarthome.model.*;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

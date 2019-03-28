@@ -2,9 +2,8 @@ package smarthome.model.devices;
 
 import org.junit.jupiter.api.Test;
 import smarthome.model.Device;
-import smarthome.model.devices.OvenType;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class OvenTypeTest {
 

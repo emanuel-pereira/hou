@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
-
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;

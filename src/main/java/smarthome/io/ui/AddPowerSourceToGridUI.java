@@ -1,7 +1,7 @@
 package smarthome.io.ui;
 
 import smarthome.controller.AddPowerSourceToGridCTRL;
-import smarthome.model.*;
+import smarthome.model.House;
 
 import java.util.ArrayList;
 

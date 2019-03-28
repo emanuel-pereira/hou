@@ -1,13 +1,13 @@
 package smarthome.io.ui;
 
 import smarthome.controller.EditDevicesCTRL;
-import smarthome.model.*;
+import smarthome.model.Device;
+import smarthome.model.House;
+import smarthome.model.Room;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import static java.lang.Double.parseDouble;
 
 public class EditDevicesUI {
     private House mHouse;

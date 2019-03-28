@@ -1,8 +1,6 @@
 package smarthome.controller;
 
 import smarthome.model.*;
-import smarthome.model.Device;
-import smarthome.model.DeviceSpecs;
 import smarthome.model.validations.NameValidations;
 
 import java.util.ArrayList;

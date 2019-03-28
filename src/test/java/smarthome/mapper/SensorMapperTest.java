@@ -3,13 +3,10 @@ package smarthome.mapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.dto.SensorDTO;
-import smarthome.dto.SensorTypeDTO;
-import smarthome.model.Reading;
 import smarthome.model.ReadingList;
 import smarthome.model.Sensor;
 import smarthome.model.SensorType;
 
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;

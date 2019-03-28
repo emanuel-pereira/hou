@@ -5,9 +5,9 @@ import org.junit.jupiter.api.Test;
 import smarthome.model.Device;
 import smarthome.model.DeviceSpecs;
 import smarthome.model.DeviceType;
-import smarthome.model.devices.FridgeType;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FridgeTest {
     @Test

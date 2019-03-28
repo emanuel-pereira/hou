@@ -1,9 +1,8 @@
 package smarthome.model.devices;
 
 import org.junit.jupiter.api.Test;
-import smarthome.model.devices.KettleType;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class KettleTypeTest {
 

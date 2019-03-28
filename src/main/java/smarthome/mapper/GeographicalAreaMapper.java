@@ -4,6 +4,7 @@ import smarthome.dto.GeographicalAreaDTO;
 import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
 import smarthome.model.SensorList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -2,7 +2,10 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.model.devices.*;
+import smarthome.model.devices.FanType;
+import smarthome.model.devices.OvenType;
+import smarthome.model.devices.TvType;
+import smarthome.model.devices.WallTowelHeaterType;
 
 import java.util.Arrays;
 import java.util.Calendar;

@@ -2,8 +2,6 @@ package smarthome.model.devices;
 
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
-import smarthome.model.devices.WallTowelHeater;
-import smarthome.model.devices.WallTowelHeaterType;
 
 import java.util.Arrays;
 import java.util.Calendar;

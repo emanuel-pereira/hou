@@ -7,7 +7,8 @@ import smarthome.model.Location;
 import smarthome.model.OccupationArea;
 import smarthome.model.TypeGAList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ListParentGACTRLTest {
     //return GA's List
