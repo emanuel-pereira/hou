@@ -4,12 +4,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,13 +23,13 @@ public class XMLReading implements FileReaderReadings {
     }
 
     @Override
-    public List<String[]> importData(Path filePath) {
+    public List<String[]> importData(Path filePath) throws ParserConfigurationException, IOException, SAXException {
 
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         List<String[]> readingList = new ArrayList<>();
 
-        try {
+
 
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 
@@ -44,15 +46,14 @@ public class XMLReading implements FileReaderReadings {
             }
 
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+
         return readingList;
 
     }
 
 
-    private String[] importReading(Node readingNode) throws ParseException {
+    private String[] importReading(Node readingNode){
 
         String[] data = new String[4];
 
