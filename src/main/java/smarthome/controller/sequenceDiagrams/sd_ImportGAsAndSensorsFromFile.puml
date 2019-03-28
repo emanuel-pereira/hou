@@ -33,7 +33,7 @@ SysAdmin -> ":DataImportUI": Import GAs and \nSensors from a File
 
 
 create ":DataImportCTRL"
-":DataImportUI" -> ":DataImportCTRL": create(gL)
+":DataImportUI" -> ":DataImportCTRL": create(gaList)
 SysAdmin <-- ":DataImportUI": Request file path
 SysAdmin -> ":DataImportUI": Enters file path
 
@@ -42,7 +42,8 @@ SysAdmin -> ":DataImportUI": Enters file path
 create ":DataImport"
 ":DataImportCTRL"->":DataImport":create(gaList)
 
-":DataImportCTRL"->":DataImport": List<GeographicalArea>=\nloadGeoAreaFiles()
+":DataImportCTRL"->":DataImport": List<GeographicalArea>=\nloadGeoAreaFiles(path)
+
 
 create ":{Reader}"
 ":DataImport"->":{Reader}": create()
@@ -52,24 +53,28 @@ note right #FFFF
     JSONGeoArea
 end note
 
-":DataImport" -> ":{Reader}": readConfigFile()
-
+":DataImport" -> ":DataImport": readConfigFile()
 
 ref over ":DataImport", ":{Reader}": Create file reader class based on file extension
 
-":DataImport" -> ":{Reader}": List<GeographicalArea>=\nimportData()
+":DataImport" -> ":{Reader}": List<GeographicalArea>=\n loadData(path)
+ref over ":DataImport",":{Reader}",":DataImportCTRL":Create List of Geographical Areas and its Sensors that were read in from file
 
-ref over ":DataImportUI",":DataImportCTRL": Get list size of Geographical Areas\nand Sensors to show
+":DataImportUI" -> ":DataImportCTRL" :int = getGaListInFileSize(path)
+ ":DataImportUI" -> ":DataImportCTRL" :int = getAllSensorsInFile(path)
+'ref over ":DataImportUI",":DataImportCTRL": Get list size of Geographical Areas\n and Sensors to show
 
-SysAdmin<--":DataImportUI": Show message with size of\nGeographical Areas' list to\nimport and asks to confirm import
+SysAdmin<--":DataImportUI": Show message with size of\nGeographical Areas' list to\n import and asks to confirm import
 
 SysAdmin -> ":DataImportUI": Confirms import
 
-
-
-":DataImportUI" ->":DataImportCTRL": importGeoAreasFromFiles()
-
-
-
-'SysAdmin<--":DataImportUI": Show message with number\nof Geographical Areas and\nSensors successfully imported
+":DataImportUI" ->":DataImportCTRL": importGeoAreasFromFiles(path)
+":DataImportCTRL"-> ":DataImport": importFromFileGeoArea (List<Geographical Area>)
+loop
+":DataImport" -> "gaList:GAList":addGA(Geographical Area)
+":DataImport" -> ":Repositories": saveGA(Geographical Area)
+ref over ":DataImport","gaList:GAList": Add Geographical Areas that were in file to the GAList
+end
+":DataImportUI" -> ":DataImportCTRL" :int = getImportedGaListSize(path)
+SysAdmin<--":DataImportUI": Show success message with number of\n Geographical Areas successfully imported\n and the number of the ones that were not
 @enduml
