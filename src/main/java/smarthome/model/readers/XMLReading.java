@@ -62,17 +62,14 @@ public class XMLReading implements FileReaderReadings {
             String id = getTagValue("id", element);
             data[0] = id;
 
+            String timeStampDate = getTagValue("timestamp_date", element);
+            data[1] = timeStampDate;
 
             String value = getTagValue("value", element);
-            data[1] = value;
-
-            String timeStampDate = getTagValue("timestamp_date", element);
-            data[2] = timeStampDate;
+            data[2] = value;
 
             String unit = getTagValue("unit", element);
             data[3] = unit;
-
-
         }
         return data;
 

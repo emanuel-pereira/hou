@@ -12,6 +12,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 public class XMLReaderTest {
 
@@ -73,6 +76,16 @@ public class XMLReaderTest {
         Element unit = (Element) readingUnit.item(0);
         Assert.assertEquals("F", unit.getTextContent());
     }
+
+    @Test
+    public void importDataTest() throws ParserConfigurationException,IOException,SAXException {
+        XMLReading xmlReading = new XMLReading();
+        Path path = Paths.get("resources/DataSet_sprint05_SensorData_alt01.xml");
+        List<String[]> resultList = xmlReading.importData(path);
+        int size = resultList.size();
+        Assert.assertEquals(61, size);
+    }
+
 
 
 }

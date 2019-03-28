@@ -1,11 +1,13 @@
 package smarthome.controller;
 
+import org.xml.sax.SAXException;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
 import smarthome.model.Sensor;
 import smarthome.model.readers.DataImport;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.text.ParseException;
@@ -56,9 +58,9 @@ public class DataImportCTRL {
         return this.gaList.getNotAdded().size();
     }
 
-    public void importReadingsFromFile(Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException {
+    public void importReadingsFromFile(Path filePath) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
         DataImport dataImport = new DataImport(gaList);
-        dataImport.importFromFileReadings(filePath,"readings");
+        dataImport.importReadingsFromFile(filePath,"readings");
     }
     /**
      *Method that iterates the geographical area list and converts each geographical area to a Data Transfer Object

@@ -1,20 +1,16 @@
 package smarthome.io.ui;
 
+import org.xml.sax.SAXException;
 import smarthome.controller.DataImportCTRL;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
 import smarthome.model.GAList;
-import smarthome.model.GeographicalArea;
-import smarthome.model.validations.Utils;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DataImportUI {
     private DataImportCTRL ctrl;
@@ -75,7 +71,7 @@ public class DataImportUI {
         }
     }
 
-    public void importDataFromFile() throws org.json.simple.parser.ParseException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+    public void importDataFromFile() throws org.json.simple.parser.ParseException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, ParserConfigurationException, SAXException {
         boolean loop = true;
         while (loop) {
             System.out.println("Please insert the directory and the name of the file (eg: resources/DataSet_sp04_SensorData.csv):");

@@ -2,8 +2,10 @@ package smarthome.model;
 
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
+import org.xml.sax.SAXException;
 import smarthome.model.readers.DataImport;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,7 +36,7 @@ class DataImportTest {
     }
 
     @Test
-    void getReadingValueAfterImportingTest() throws IllegalAccessException,ClassNotFoundException,InstantiationException,IOException,ParseException {
+    void getReadingValueAfterImportingTest() throws IllegalAccessException,ClassNotFoundException,InstantiationException,IOException,ParseException, SAXException, ParserConfigurationException {
         GAList gaList = new GAList();
         GeographicalArea ga = new GeographicalArea("001", "Porto", "city", new OccupationArea(3, 2), new Location(3, 30, 20));
         gaList.addGA(ga);
@@ -48,7 +50,7 @@ class DataImportTest {
 
         DataImport dataImport = new DataImport(gaList);
         Path path = Paths.get("resources/DataSet_sprint05_SensorData.json");
-        dataImport.importFromFileReadings(path,"readings");
+        dataImport.importReadingsFromFile(path,"readings");
 
         List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
         double r = rList.get(3).returnValueOfReading();
@@ -56,7 +58,7 @@ class DataImportTest {
     }
 
     @Test
-    void checkIfInvalidReadsAreWrittenOnLogger() throws IllegalAccessException,ClassNotFoundException,InstantiationException,IOException,ParseException {
+    void checkIfInvalidReadsAreWrittenOnLogger() throws SAXException, ParserConfigurationException, IllegalAccessException,ClassNotFoundException,InstantiationException,IOException,ParseException {
         GAList gaList = new GAList();
         GeographicalArea ga = new GeographicalArea("001", "Porto", "city", new OccupationArea(3, 2), new Location(3, 30, 20));
         gaList.addGA(ga);
@@ -70,7 +72,7 @@ class DataImportTest {
 
         DataImport dataImport = new DataImport(gaList);
         Path path = Paths.get("resources/DataSet_sprint05_SensorData.json");
-        dataImport.importFromFileReadings(path,"readings");
+        dataImport.importReadingsFromFile(path,"readings");
 
         List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
         int size = rList.size();
