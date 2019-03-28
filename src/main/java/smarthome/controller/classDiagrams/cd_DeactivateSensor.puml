@@ -9,17 +9,16 @@ class GAList{
 class GeographicalArea{
 - identification: String
 - designation: String
-- sensorListInGa: SensorList
 + getGAName(): String
 + getIdentification(): String
-+ getSensorListInGA: SensorList
++ getSensorListInGA(): SensorList
 }
 
 
 class SensorList{
 - listOfSensors: List<Sensor>
-+ getSensorList: List<Sensor>
-+ getActiveSensors: SensorList
++ getSensorList(): List<Sensor>
++ getActiveSensors(): SensorList
 + deactivateDevice(device, date)
 }
 

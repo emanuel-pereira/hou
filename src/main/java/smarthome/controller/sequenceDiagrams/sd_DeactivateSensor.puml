@@ -59,8 +59,9 @@ end
 loop for each active sensor in GA sensorList match id
 ":DeactivateSensorCTRL"->"sL:SensorList": s=s.getId().matches(sensorDTOId)
 end
-":DeactivateSensorCTRL"->"sL:SensorList":deactivate(sensorID,pauseDate)
+":DeactivateSensorCTRL"->"sL:SensorList":s.deactivate(sensorID,pauseDate)
 "sL:SensorList"->"s:Sensor":deactivate(pauseDate)
+"sL:SensorList" -> ":Repositories":SensorRepository.save(s)
 
 
 Admin <-- ":DeactivateSensorUI": Show Deactivation Message
