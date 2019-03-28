@@ -186,10 +186,18 @@ public class Sensor {
         return Objects.hash (this.designation, this.location, this.sensorType);
     }
 
+    /**
+     * Gets the start date
+     * @return Date
+     */
     public Calendar getStartDate() {
         return this.startDate;
     }
 
+    /**
+     * A pause date that marks when a sensor is deactivated
+     * @return Date
+     */
     public Calendar getPauseDate() {
         return this.pauseDate;
     }

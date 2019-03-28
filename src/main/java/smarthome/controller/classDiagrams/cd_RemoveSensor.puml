@@ -1,0 +1,48 @@
+@startuml
+
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
+
+class GAList{
+- listOfGa: List<GeographicalArea>
++ getGAList(): List<GeographicalArea>
+
+}
+
+class GeographicalArea{
+- identification: String
+- designation: String
+- sensorListInGa: SensorList
++ getGAName(): String
++ getIdentification(): String
++ getSensorListInGA(): SensorList
+}
+
+
+class SensorList{
+- listOfSensors: List<Sensor>
++ removeSensor(sensor)
+}
+
+class Sensor {
+- id: String;
+- designation: String
+- active: boolean
++ getDesignation(): String
++ getId(): String
+}
+
+GAList *- "1..*"GeographicalArea: contains
+GeographicalArea *-- "1"SensorList: contains
+Sensor"*" -* SensorList: contains
+@enduml

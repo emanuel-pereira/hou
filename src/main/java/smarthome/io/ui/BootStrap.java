@@ -103,7 +103,7 @@ public final class BootStrap {
         Room b109 = house.getRoomList().createNewRoom("B109", 1, 7, 11, 3.5);
         house.getRoomList().addRoom(b109);
         mainGrid.attachRoomToGrid(b109);
-        //TODO createDevicesInRoomB109
+        //FIX ME createDevicesInRoomB109
         addReadingsRoomB109SensorTemp(sensorTypeList);
         addReadingsRoomB109SensorHum(sensorTypeList);
     }

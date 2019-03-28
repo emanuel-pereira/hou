@@ -1,6 +1,7 @@
 package smarthome.model;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -129,5 +130,26 @@ public class SensorList {
     public Sensor getLastSensor() {
         return this.listOfSensors.get(this.listOfSensors.size() - 1);
     }
+
+    public SensorList getActiveSensors() {
+        SensorList activeSensors = new SensorList ();
+        for (Sensor s : this.getSensorList ()) {
+            if (s.isActive ()) {
+                activeSensors.addSensor (s);
+            }
+        }
+        return activeSensors;
+    }
+
+
+
+    public void deactivateSensor(String sensorID, Calendar pauseDate) {
+        for (Sensor s : this.getSensorList ()) {
+            if (s.getId ().matches (sensorID)) {
+                s.deactivate (pauseDate);
+            }
+        }
+    }
+
 
 }
