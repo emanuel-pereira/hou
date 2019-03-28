@@ -184,9 +184,9 @@ class EditDevicesCTRLTest {
 
         List<String> result = ctr.getDeviceAttributesListInString(d);
         List<String> expected = new ArrayList<>();
-        expected.add("Freezer Capacity [liters]: NaN");
-        expected.add("Refrigerator Capacity [liters]: NaN");
-        expected.add("Annual Energy Consumption [kWh]: NaN");
+        expected.add("Freezer Capacity");
+        expected.add("Refrigerator Capacity");
+        expected.add("Annual Energy Consumption");
         assertEquals(expected, result);
     }
 
@@ -385,9 +385,9 @@ class EditDevicesCTRLTest {
         List<String> result = ctrl.showDeviceAttributesInString(d);
 
         List<String> expected = new ArrayList<>();
-        expected.add("Freezer Capacity");
-        expected.add("Refrigerator Capacity");
-        expected.add("Annual Energy Consumption");
+        expected.add("Freezer Capacity: NaN liters");
+        expected.add("Refrigerator Capacity: NaN liters");
+        expected.add("Annual Energy Consumption: NaN kWh");
         assertEquals(expected,result);
 
     }
