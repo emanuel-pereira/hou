@@ -73,7 +73,7 @@ public class XMLGeoArea implements FileReaderGeoArea {
 
             Location location = importLocation(element.getElementsByTagName("location").item(0));
 
-            geographicalArea = new GeographicalArea(description, id, type, occupationArea, location);
+            geographicalArea = new GeographicalArea(id, description, type, occupationArea, location);
             addSensorListToGA(geographicalArea, element.getElementsByTagName("area_sensors").item(0));
 
         }
