@@ -60,7 +60,8 @@ public class GenericSpecs implements DeviceSpecs {
             this.attributeUnitsMap.put(this.attributeNames[i], this.attributeUnits[i]);
             this.attributeValuesMap.put(this.attributeNames[i], NaN); // values are not part of the constructor
 
-    }}
+        }
+    }
 
     /* ------ Interface methods ------- */
 
@@ -83,8 +84,7 @@ public class GenericSpecs implements DeviceSpecs {
     public List<Double> getAttributeValues() {
         List<Double> attributeValues = new ArrayList<>();
 
-        for (String key : this.attributeNamesList
-        ) {
+        for (String key : this.attributeNamesList) {
             attributeValues.add(this.attributeValuesMap.get(key));
         }
         return attributeValues;
@@ -94,8 +94,7 @@ public class GenericSpecs implements DeviceSpecs {
 
         List<String> unitsList = new ArrayList<>();
 
-        for (String key : this.attributeNamesList
-        ) {
+        for (String key : this.attributeNamesList) {
             unitsList.add(this.attributeUnitsMap.get(key));
         }
         return unitsList;

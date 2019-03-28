@@ -30,7 +30,8 @@ public class GetDeviceListInGridByTypeUI {
         if (hgRoomListIsEmpty())
             UtilsUI.backToMenu();
         else{
-            this.listDevicesInHG();}
+            this.listDevicesInHG();
+        }
 
     }
 
