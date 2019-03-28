@@ -50,8 +50,7 @@ public class EditDevicesCTRL {
 
     public List<String> getDeviceAttributesListInString(Device device) {
         DeviceSpecs ds = device.getDeviceSpecs();
-        List<String> names = ds.getAttributesNames();
-        return names;
+        return ds.getAttributesNames();
     }
 
     public int getRoomListSize() {
@@ -157,10 +156,7 @@ public class EditDevicesCTRL {
 
         List<String> list = device.getDeviceSpecs().getAttributesNames();
         List<String> output = new ArrayList<>();
-        double value;
-        String unit;
-
-        if (list.size()==0){ //FIXME!!!
+        if (list.isEmpty()){
             return output;
         }
 
@@ -173,7 +169,7 @@ public class EditDevicesCTRL {
             sb.append(" ");
             sb.append(device.getDeviceSpecs().getAttributeUnit(s));
             output.add(sb.toString());
-            sb.delete(0,1000); //FIXME: this is very hacky, but works.
+            sb.delete(0,1000);
         }
 
         return output;

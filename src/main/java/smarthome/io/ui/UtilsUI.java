@@ -456,7 +456,7 @@ public final class UtilsUI {
      */
 
     private static void showFormattedList(String title, List<String> listToShow, boolean numbered, int padding) {
-        if (listToShow.size() == 0) {
+        if (listToShow.isEmpty()) {
             return;
         }
 

@@ -25,8 +25,6 @@ public class DishwasherType implements DeviceType {
      */
     @Override
     public Device createDevice(String deviceName, double nominalPower) {
-        String devType = getDeviceType();
-
         String[] attributeNames = {"Capacity"};
         String[] attributeUnits = {"Dish Sets"};
 
