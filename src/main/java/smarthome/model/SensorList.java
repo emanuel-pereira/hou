@@ -121,7 +121,7 @@ public class SensorList {
         return this.listOfSensors.size();
     }
 
-    public void removeSensor(Sensor sensor){
+    public void removeSensor(Sensor sensor) {
         this.listOfSensors.remove(sensor);
 
     }
@@ -131,10 +131,10 @@ public class SensorList {
     }
 
     public SensorList getActiveSensors() {
-        SensorList activeSensors = new SensorList ();
-        for (Sensor s : this.getSensorList ()) {
-            if (s.isActive ()) {
-                activeSensors.addSensor (s);
+        SensorList activeSensors = new SensorList();
+        for (Sensor s : this.getSensorList()) {
+            if (s.isActive()) {
+                activeSensors.addSensor(s);
             }
         }
         return activeSensors;
@@ -143,14 +143,18 @@ public class SensorList {
 
 
     public void deactivateSensor(String sensorID, Calendar pauseDate) {
-        for (Sensor s : this.getSensorList ()) {
-            if (s.getId ().matches (sensorID)) {
-                s.deactivate (pauseDate);
+        for (Sensor s : this.getSensorList()) {
+            if (s.getId().matches(sensorID)) {
+                s.deactivate(pauseDate);
                 //Repository call
-                Repositories.sensorRepository.save(s);
+                try {
+                    Repositories.sensorRepository.save(s);
+                } catch (Exception e) {
+
+                }
             }
         }
+
+
     }
-
-
 }

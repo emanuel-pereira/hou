@@ -12,7 +12,19 @@ import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/*@ExtendWith(SpringExtension.class)
+@SpringBootTest*/
+
 class DataImportCTRLTest {
+
+    /*@Autowired
+    private GeoRepository geoRepository;*/
+
+    /*@Test
+    void test() {
+        List<GeographicalArea> city = Repositories.geoRepository.findByDesignation("city");
+        assertEquals(0, city.size());
+    }*/
 
     @Test
     @DisplayName("Ensure that GAList has 2 GAs after executing loadJSON method")
