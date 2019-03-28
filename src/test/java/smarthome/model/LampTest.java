@@ -146,7 +146,7 @@ class LampTest {
                 hour = 0;
                 day++;
             }
-            lamp.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
+            lamp.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes),"C"));
         }
 
         Calendar startDate = new GregorianCalendar(2018,11,31);

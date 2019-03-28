@@ -154,8 +154,8 @@ class FanTest {
     @Test
     @DisplayName("Confirm correct activity log size")
     void getActivityLog() {
-        Reading r1 = new Reading (15, new GregorianCalendar (2018, 7, 26, 12, 0));
-        Reading r2 = new Reading (18, new GregorianCalendar (2018, 7, 26, 13, 0));
+        Reading r1 = new Reading (15, new GregorianCalendar (2018, 7, 26, 12, 0),"C");
+        Reading r2 = new Reading (18, new GregorianCalendar (2018, 7, 26, 13, 0),"C");
         FanSpecs specs = new FanSpecs ("Fan");
         Fan fan = new Fan ("Whirlpool", specs, 2500);
         ReadingList activityLog = fan.getActivityLog ();
@@ -193,11 +193,11 @@ class FanTest {
     @Test
     @DisplayName("Get correct energy consumption")
     void getEnergyConsumption() {
-        Reading r1 = new Reading (0.200, new GregorianCalendar (2018, 7, 26, 12, 0));
-        Reading r2 = new Reading (0.200, new GregorianCalendar (2018, 7, 26, 12, 15));
-        Reading r3 = new Reading (0.000, new GregorianCalendar (2018, 7, 26, 12, 30));
-        Reading r4 = new Reading (0.200, new GregorianCalendar (2018, 7, 26, 12, 30));
-        Reading r5 = new Reading (0.200, new GregorianCalendar (2018, 7, 26, 12, 45));
+        Reading r1 = new Reading (0.200, new GregorianCalendar (2018, 7, 26, 12, 0),"C");
+        Reading r2 = new Reading (0.200, new GregorianCalendar (2018, 7, 26, 12, 15),"C");
+        Reading r3 = new Reading (0.000, new GregorianCalendar (2018, 7, 26, 12, 30),"C");
+        Reading r4 = new Reading (0.200, new GregorianCalendar (2018, 7, 26, 12, 30),"C");
+        Reading r5 = new Reading (0.200, new GregorianCalendar (2018, 7, 26, 12, 45),"C");
         FanSpecs specs = new FanSpecs ("Fan");
         Fan fan = new Fan ("Whirlpool", specs, 20);
         ReadingList activityLog = fan.getActivityLog ();

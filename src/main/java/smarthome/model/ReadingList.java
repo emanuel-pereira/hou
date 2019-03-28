@@ -18,11 +18,11 @@ public class ReadingList {
     }
 
     public boolean addReading(Reading newReading) {
-        checkIfReadingHasSameValues(newReading);
         if (this.listOfReadings.contains(newReading))
             return false;
         if (newReading == null)
             return false;
+        checkIfReadingHasSameValues(newReading);
         return this.listOfReadings.add(newReading);
     }
 
@@ -151,7 +151,7 @@ public class ReadingList {
     }
 
     public Reading maxValueInInterval() {
-        Reading max = newReading(Double.MIN_VALUE, new GregorianCalendar());
+        Reading max = new Reading(Double.MIN_VALUE, new GregorianCalendar());
         double value;
 
         for (Reading reading : this.listOfReadings) {
@@ -163,7 +163,7 @@ public class ReadingList {
     }
 
     public Reading minValueInInterval() {
-        Reading min = newReading(Double.MAX_VALUE, new GregorianCalendar());
+        Reading min = new Reading(Double.MAX_VALUE, new GregorianCalendar());
         double value;
 
         for (Reading reading : this.listOfReadings) {
@@ -195,7 +195,7 @@ public class ReadingList {
         for (Calendar date : dates) {
             temp = getReadingsInSpecificDay(date);
             double max = temp.maxValueInInterval().returnValueOfReading();
-            Reading r = newReading(max, date);
+            Reading r = new Reading(max, date);
             dailyMax.addReading(r);
         }
         return dailyMax;
@@ -221,7 +221,7 @@ public class ReadingList {
         for (Calendar date : dates) {
             temp = getReadingsInSpecificDay(date);
             double min = temp.minValueInInterval().returnValueOfReading();
-            Reading day = newReading(min, date);
+            Reading day = new Reading(min, date);
             dailyMin.addReading(day);
         }
 
@@ -275,11 +275,19 @@ public class ReadingList {
     }
 
     boolean checkIfReadingHasSameValues(Reading newReading) {
-        for (Reading reading : this.listOfReadings)
+        for (Reading reading : this.listOfReadings) {
+            try {
+                if (newReading.getUnit().matches("F")) {
+                    newReading.convertToCelsius();
+                    //alterar unidade para C
+                }
+            } catch (NullPointerException e){}
             if (newReading.returnValueOfReading() == reading.returnValueOfReading() &&
                     newReading.getDateOfReadingAsString().equals(reading.getDateOfReadingAsString()) &&
                     newReading.getUnit().equals(reading.getUnit()))
                 return false;
+        }
         return true;
     }
 }
+

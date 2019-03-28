@@ -155,8 +155,8 @@ class DishwasherTest {
     @Test
     @DisplayName("Confirm correct activity log size")
     void getActivityLog() {
-        Reading r1 = new Reading(15, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 0));
-        Reading r2 = new Reading(18, new GregorianCalendar(2018, Calendar.AUGUST, 26, 13, 0));
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 0),"C");
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, Calendar.AUGUST, 26, 13, 0),"C");
         DishwasherSpecs specs = new DishwasherSpecs("Dishwasher");
         Dishwasher dishwasher = new Dishwasher("Whirlpool Diswasher", specs, 2500);
         ReadingList activityLog = dishwasher.getActivityLog();
@@ -194,11 +194,11 @@ class DishwasherTest {
     @Test
     @DisplayName("Get correct energy consumption")
     void getEnergyConsumption() {
-        Reading r1 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 0));
-        Reading r2 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 15));
-        Reading r3 = new Reading(0.000, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 30));
-        Reading r4 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 30));
-        Reading r5 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 45));
+        Reading r1 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 0),"C");
+        Reading r2 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 15),"C");
+        Reading r3 = new Reading(0.000, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 30),"C");
+        Reading r4 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 30),"C");
+        Reading r5 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 45),"C");
         DishwasherSpecs specs = new DishwasherSpecs("Dishwasher");
         Dishwasher dishwasher = new Dishwasher("Whirlpool Dishwasher", specs, 200);
         ReadingList activityLog = dishwasher.getActivityLog();

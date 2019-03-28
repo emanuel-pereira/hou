@@ -74,7 +74,6 @@ public class DataImport {
 
     }
 
-
     public Logger createLogFile(String fileName) throws IOException {
         Logger logger = Logger.getLogger(GeographicalArea.class.getName());
         FileHandler fileHandler = new FileHandler(fileName);

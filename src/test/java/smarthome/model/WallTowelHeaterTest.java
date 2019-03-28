@@ -153,11 +153,11 @@ class WallTowelHeaterTest {
         WallTowelHeater device = new WallTowelHeater("super kettle", specs, 1500);
 
         ReadingList log = device.getActivityLog();
-        Reading r0 = new Reading(100,new GregorianCalendar(2019,Calendar.MARCH,1,1,8,00));
-        Reading r1 = new Reading(100,new GregorianCalendar(2019,Calendar.MARCH,1,1,10,00));
-        Reading r2 = new Reading(100,new GregorianCalendar(2019,Calendar.MARCH,1,1,12,00));
-        Reading r3 = new Reading(100,new GregorianCalendar(2019,Calendar.MARCH,1,1,19,58));
-        Reading r4 = new Reading(100,new GregorianCalendar(2019,Calendar.MARCH,1,1,19,59));
+        Reading r0 = new Reading(100,new GregorianCalendar(2019,Calendar.MARCH,1,1,8,00),"C");
+        Reading r1 = new Reading(100,new GregorianCalendar(2019,Calendar.MARCH,1,1,10,00),"C");
+        Reading r2 = new Reading(100,new GregorianCalendar(2019,Calendar.MARCH,1,1,12,00),"C");
+        Reading r3 = new Reading(100,new GregorianCalendar(2019,Calendar.MARCH,1,1,19,58),"C");
+        Reading r4 = new Reading(100,new GregorianCalendar(2019,Calendar.MARCH,1,1,19,59),"C");
 
         log.addReading(r0);
         log.addReading(r1);

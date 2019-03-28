@@ -1,6 +1,7 @@
 package smarthome.model;
 
 import smarthome.dto.ReadingDTO;
+import smarthome.model.validations.Utils;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -76,6 +77,13 @@ public class Reading {
         output.append("-");
         output.append(day);
         return output.toString();
+    }
+
+    public double convertToCelsius(){
+        if(this.unit.matches("F")){
+            return Utils.round(((this.value-32)/1.8),1);
+        }
+        return this.value;
     }
 
     public ReadingDTO toDTO() {
