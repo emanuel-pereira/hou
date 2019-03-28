@@ -59,25 +59,25 @@ public class Application {
             for (TypeGA typeGA : Repositories.typeGARepository.findAll()) {
                 log.info(typeGA.toString());
             }
-            log.info("");
+            log.info("");*/
 
-            // fetch all locations
+            /*// fetch all locations
             log.info("\u001B[31;1mUsed Locations found with findAll():\u001B[0m");
             log.info("\u001B[31;1m-------------------------------");
             for (Location location: Repositories.locationRepository.findAll()) {
                 log.info(location.toString());
             }
-            log.info("");
+            log.info("");*/
 
-            // fetch all occupation areas
+            /*// fetch all occupation areas
             log.info("\u001B[31;1mDefined Occupation areas found with findAll():\u001B[0m");
             log.info("\u001B[31;1m-------------------------------");
             for (OccupationArea occupationArea: Repositories.occupationAreaRepository.findAll()) {
                 log.info(occupationArea.toString());
             }
-            log.info("");
+            log.info("");*/
 
-            // fetch all areas
+            /*// fetch all areas
             log.info("\u001B[31;1mAreas found with findAll():\u001B[0m");
             log.info("\u001B[31;1m-------------------------------");
             for (GeographicalArea geographicalArea : Repositories.geoRepository.findAll()) {
