@@ -112,7 +112,7 @@ DataImportUI --> DataImportCTRL
 DataImportCTRL --> DataImport
 
 
-DataImport --|> FileReaderReadings
+DataImport .|> FileReaderReadings
 FileReaderReadings ..|> CSVReading
 FileReaderReadings ..|> JSONReading
 FileReaderReadings ..|> XMLReading
