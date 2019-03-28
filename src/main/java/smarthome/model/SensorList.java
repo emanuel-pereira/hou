@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.repository.Repositories;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -144,6 +146,8 @@ public class SensorList {
         for (Sensor s : this.getSensorList ()) {
             if (s.getId ().matches (sensorID)) {
                 s.deactivate (pauseDate);
+                //Repository call
+                Repositories.sensorRepository.save(s);
             }
         }
     }
