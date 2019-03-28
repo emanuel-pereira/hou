@@ -18,6 +18,7 @@ public class ReadingList {
     }
 
     public boolean addReading(Reading newReading) {
+        checkIfReadingHasSameValues(newReading);
         if (this.listOfReadings.contains(newReading))
             return false;
         if (newReading == null)
@@ -249,29 +250,36 @@ public class ReadingList {
         return dailyAmp;
     }
 
-    public Calendar getStartDateOfReadings(){
+    public Calendar getStartDateOfReadings() {
         Calendar startDate = this.listOfReadings.get(0).getDateAndTime();
 
         for (int i = 0; i < this.listOfReadings.size(); i++) {
             Reading r = this.listOfReadings.get(i);
-            if (r.getDateAndTime().before(startDate)){
+            if (r.getDateAndTime().before(startDate)) {
                 startDate = r.getDateAndTime();
             }
         }
-    return startDate;
+        return startDate;
     }
 
-    public Calendar getEndDateOfReadings(){
+    public Calendar getEndDateOfReadings() {
         Calendar endDate = this.listOfReadings.get(0).getDateAndTime();
 
         for (int i = 0; i < this.listOfReadings.size(); i++) {
             Reading r = this.listOfReadings.get(i);
-            if (r.getDateAndTime().after(endDate)){
+            if (r.getDateAndTime().after(endDate)) {
                 endDate = r.getDateAndTime();
             }
         }
         return endDate;
     }
 
-
+    boolean checkIfReadingHasSameValues(Reading newReading) {
+        for (Reading reading : this.listOfReadings)
+            if (newReading.returnValueOfReading() == reading.returnValueOfReading() &&
+                    newReading.getDateOfReadingAsString().equals(reading.getDateOfReadingAsString()) &&
+                    newReading.getUnit().equals(reading.getUnit()))
+                return false;
+        return true;
+    }
 }

@@ -1,7 +1,5 @@
 package smarthome.model;
 
-import smarthome.model.Sensor;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,7 +90,6 @@ public class GAList {
     public GeographicalArea get(int i) {
         return this.listOfGa.get(i);
     }
-
 
     /**
      * US04

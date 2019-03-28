@@ -46,6 +46,8 @@ public class Reading {
         return this.dateAndTime;
     }
 
+    public String getUnit() { return this.unit;}
+
 
     public boolean isSameDay(Calendar date) {
         int rYear = getDateAndTime().get(Calendar.YEAR);
@@ -79,5 +81,4 @@ public class Reading {
     public ReadingDTO toDTO() {
         return new ReadingDTO(this.value, this.dateAndTime);
     }
-
 }

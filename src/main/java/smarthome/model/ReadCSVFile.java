@@ -3,8 +3,9 @@ package smarthome.model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class ReadCSVFile {
 
@@ -27,15 +28,5 @@ public class ReadCSVFile {
             csvValues.add(tokens);
         }
         return csvValues;
-    }
-
-    public void writeCSVFile(String fileName) throws IOException {
-        this.fileWriter = new FileWriter("resources/" + fileName);
-    }
-
-    public void writeStringOnCSVFile(String toWriteOnFile) throws IOException {
-        this.fileWriter.write(toWriteOnFile);
-        this.fileWriter.write(System.lineSeparator());
-        this.fileWriter.flush();
     }
 }
