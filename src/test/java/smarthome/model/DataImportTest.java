@@ -50,7 +50,7 @@ class DataImportTest {
 
         DataImport dataImport = new DataImport(gaList);
         Path path = Paths.get("resources/DataSet_sprint05_SensorData.json");
-        dataImport.importReadingsFromFile(path,"readings");
+        dataImport.importReadingsFromFile(path);
 
         List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
         double r = rList.get(3).returnValueOfReading();
@@ -72,7 +72,7 @@ class DataImportTest {
 
         DataImport dataImport = new DataImport(gaList);
         Path path = Paths.get("resources/DataSet_sprint05_SensorData.json");
-        dataImport.importReadingsFromFile(path,"readings");
+        dataImport.importReadingsFromFile(path);
 
         List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
         int size = rList.size();

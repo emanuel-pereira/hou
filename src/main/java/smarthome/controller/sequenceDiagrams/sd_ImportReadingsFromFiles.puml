@@ -1,5 +1,25 @@
-
 @startuml
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+
+}
+skinparam note {
+BorderColor SteelBlue
+}
 autonumber
 hidefootbox
 actor Administrator
@@ -9,47 +29,48 @@ Administrator -> ":DataImportUI": Ask import
 create ":DataImportCTRL"
 
 
-":DataImportUI" -> ":DataImportCTRL": create
-":DataImportUI" -> "Administrator": ask for file name and path
+":DataImportUI" -> ":DataImportCTRL": create()
+":DataImportUI" --> "Administrator": ask for file name and path
 ":DataImportUI" <- "Administrator": type  file name and path
 
 
-":DataImportUI" -> ":DataImportCTRL": importData\nFromCSVFile(filePath)
-":DataImportCTRL" -> ":DataImport": importDataFromCSV\nFileForEachGA(filePath)
+":DataImportUI" -> ":DataImportCTRL": importReadingsFromFile(filepath)
+":DataImportCTRL" -> ":DataImport": importFromFile(filepath)
 
-loop for each Geographical Area
-":GAList" -> ":GeographicalArea": importReadingsToSensors\nFromCSVFile(filePath)
 
-create ":ReadCSVFile"
-":GeographicalArea" -> ":ReadCSVFile": create
-":GeographicalArea" -> ":ReadCSVFile": readCSVFile(filePath)
-":ReadCSVFile" -> ":GeographicalArea": getDataFromCSVFile()
+create ":{FileReaderReadings}"
+":DataImport" -> ":{FileReaderReadings}": create(filepath)
+note right #FFFF
+{FileReaderReadings} can be:
+    XMLReading
+    JSONReading
+    CSVReading
+    end note
 
-":GeographicalArea" -> ":SensorList": getSensorListinGA()
+":DataImport" -> ":{FileReaderReadings}": importData(filePath)
+":DataImport" -> "gaL:GAList": gaL=getGAList()
 
-loop for each sensor in SensorList
-":SensorList" -> ":Sensor": get()
+loop for each Geographical Area in gaL
 
-":Sensor" -> ":ReadingList": getReadingList()
-create ":Reading"
+":DataImport" -> "sL:SensorList": sL=getSensorList()
 
-":ReadingList" -> ":Reading": newReading(date,value)
-":ReadingList" <- ":Reading": addReading(reading)
-end
-end
+loop for each sensor in sL
+":DataImport" -> "rL:ReadingList": rL=getReadingList()
 
-":DataImportCTRL"<-":DataImportUI":gaListDTO=showNumber\nOfReadingsDTO()
-":DataImportCTRL"->":GAList": gaListDTO=\ngetGAListDTO()
-loop convert GA to GADTO
-":DataImportCTRL"->":GeographicalArea": toDTO()
-create ":GeographicalAreaDTO"
-":GeographicalArea"->":GeographicalAreaDTO": toDTO()
-create ":SensorDTO"
-":Sensor"->":SensorDTO": toDTO()
-create ":ReadingDTO"
-":Reading"->":ReadingDTO": toDTO()
+create "r:Reading"
+
+":DataImport" -> "r:Reading": rL.newReading(date,value,unit)
+":DataImport" -> "rL:ReadingList": rL.addReading(r)
+":DataImport" -> ":Repositories": saveReading(r)
 
 end
+end
+":DataImportUI" -> ":DataImportCTRL": showNumberOfReads()
+":DataImportCTRL" -> ":DataImport": getNumberOfReads()
+
+
+
+
 Administrator<--":DataImportUI": Shows the number \nof readings of each sensor
 @enduml
 
