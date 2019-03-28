@@ -1,0 +1,39 @@
+@startuml
+
+
+
+hidefootbox
+actor SysAdmin
+SysAdmin -> ":RemoveSensorUI":  Remove sensor from \nGeographical Area
+create ":RemoveSensorUI"
+create ":RemoveSensorCTRL"
+":RemoveSensorUI" -> ":RemoveSensorCTRL": create(gaList)
+":RemoveSensorUI"->":RemoveSensorCTRL": gaListDTO=getGAListDTO()
+create GAMapper
+":RemoveSensorCTRL"->GAMapper:create()
+":RemoveSensorCTRL"->":GeographicalAreaMapper":listGaDTO=toDtoList(ga)
+
+
+loop for each ga in gaList convert toDTO
+create "gaDTO: daDto"
+":GeographicalAreaMapper"->"gaDTO: daDto":create()
+
+":GeographicalAreaMapper"->":GeographicalAreaMapper":add(gaDTO)
+end
+SysAdmin<--":RemoveSensorUI": show Geographical Areas
+SysAdmin -> ":RemoveSensorUI": selects Geographical Area
+
+SysAdmin<--":RemoveSensorUI":show Sensors
+SysAdmin->":RemoveSensorUI": selects sensor
+":RemoveSensorUI"->":RemoveSensorCTRL": removeSensor(gaDTOId, sensorDTOId)
+loop for each ga in gaList match id
+":RemoveSensorCTRL"->"gaList:GAList": ga=getGAById(gaDTOId)
+end
+":RemoveSensorCTRL"->"sensorList:SensorList": sensorList=getGASensorList()
+
+loop for each sensor in sensorList match id
+":RemoveSensorCTRL"->"sensorList:SensorList": sensor=getSensorById(sensorDTOId)
+end
+":RemoveSensorCTRL"->"sensorList:SensorList":remove(sensor)
+SysAdmin<--":RemoveSensorUI":sensor successfully \nremoved message
+@enduml

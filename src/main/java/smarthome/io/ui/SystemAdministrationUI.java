@@ -30,15 +30,16 @@ public final class SystemAdministrationUI {
             options.add("[6] Create a new sensor and associate it to a Geographical Area");
             options.add("[7] Specify that a geographical area is added to another one");
             options.add("[8] Check if a a geographical area is direct/indirectly included to another one");
-            options.add("[9] Import geographical areas and sensors from a JSONFile");
-            options.add("[10] Import readings from a CSVFile");
+            options.add("[9] Deactivate a sensor in a geographical area");
+            options.add("[10] Remove a sensor from a geographical area, so that it will no longer be used.");
+            options.add("[11] Import geographical areas and sensors from a JSONFile");
+            options.add("[12] Import readings from a CSVFile");
 
             options.add("[0] Exit");
 
             UtilsUI.showList("System Administrator", options, false, 5);
 
-            option = UtilsUI.requestIntegerInInterval(0, 10, "Please choose an action " +
-                    "between 1 and 10, or 0 to exit the program");
+            option = UtilsUI.requestIntegerInInterval(0, 12, "Please choose an action between 1 and 12, or 0 to exit the program");
 
             switch (option) {
                 case 1:
@@ -74,12 +75,20 @@ public final class SystemAdministrationUI {
                     ui8.run();
                     break;
                 case 9:
-                    DataImportUI ui9 = new DataImportUI(gaList);
-                    ui9.loadJSON();
+                    DeactivateSensorUI ui9 = new DeactivateSensorUI(gaList);
+                    ui9.selectGA ();
                     break;
                 case 10:
-                    DataImportUI ui10 = new DataImportUI(gaList);
-                    ui10.importDataFromCSVFile();
+                    RemoveGASensorUI ui10 = new RemoveGASensorUI(gaList);
+                    ui10.selectGA();
+                    break;
+                case 11:
+                    DataImportUI ui11 = new DataImportUI(gaList);
+                    ui11.loadJSON();
+                    break;
+                case 12:
+                    DataImportUI ui12 = new DataImportUI(gaList);
+                    ui12.importDataFromCSVFile();
                     break;
                 default:
                     //no action needed

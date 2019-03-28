@@ -17,18 +17,4 @@ class ReadingDTOTest {
         double expected = 1.01;
         assertEquals(expected,result);
     }
-
-
-
-/*
-    @Test
-    void getReadingDateAndTime() {
-        Calendar c = new GregorianCalendar();
-        c.set(2019,0,1,12,34);
-        ReadingDTO dto = new ReadingDTO(1.01, c);
-        Calendar result = dto.getReadingDateAndTime();
-        Calendar expected = new GregorianCalendar();
-        expected.set(2019,0,1,12,34);
-        assertEquals(expected,result);
-    }*/
 }

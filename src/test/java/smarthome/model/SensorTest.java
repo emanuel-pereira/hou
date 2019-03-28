@@ -247,11 +247,12 @@ class SensorTest {
     void deactivateSensor() {
         SensorType sensorType = new SensorType ("rain");
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
+        GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
         Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
 
-        assertTrue (sensor.deactivate ());
+        assertTrue (sensor.deactivate (pauseDate));
 
         assertFalse (sensor.isActive ());
     }
@@ -261,12 +262,13 @@ class SensorTest {
     void deactivateSensorTwice() {
         SensorType sensorType = new SensorType ("rain");
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
+        GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
         Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
 
-        assertTrue(sensor.deactivate ());
-        assertFalse(sensor.deactivate ());
+        assertTrue(sensor.deactivate (pauseDate));
+        assertFalse(sensor.deactivate (pauseDate));
 
         assertFalse (sensor.isActive ());
     }
@@ -276,11 +278,12 @@ class SensorTest {
     void reactivateSensor() {
         SensorType sensorType = new SensorType ("rain");
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
+        GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
         Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
 
-        assertTrue(sensor.deactivate ());
+        assertTrue(sensor.deactivate (pauseDate));
         assertTrue(sensor.reactivate ());
 
         assertTrue(sensor.isActive ());
@@ -299,6 +302,44 @@ class SensorTest {
 
         assertTrue(sensor.isActive ());
     }
+
+    @Test
+    @DisplayName("Get pause date if deactivated with success with posterior date")
+    void getDeactivateWithSuccess() {
+        SensorType sensorType = new SensorType ("rain");
+        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
+        GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
+        Location location = new Location (2, 2, 2);
+        ReadingList readingList = new ReadingList ();
+        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+
+        assertTrue (sensor.deactivate (pauseDate));
+
+        Calendar expected = pauseDate;
+        Calendar result = sensor.getPauseDate ();
+
+        assertEquals (expected,result);
+    }
+
+    @Test
+    @DisplayName("Get pause date if deactivated without success withs previous date")
+    void getDeactivateWithoutSuccess() {
+        SensorType sensorType = new SensorType ("rain");
+        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
+        GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 1, 2, 1, 1);
+        Location location = new Location (2, 2, 2);
+        ReadingList readingList = new ReadingList ();
+        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+
+        assertFalse (sensor.deactivate (pauseDate));
+
+        Calendar expected = null;
+        Calendar result = sensor.getPauseDate ();
+
+        assertEquals (expected,result);
+
+    }
+
 
 
 }
