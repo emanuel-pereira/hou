@@ -28,8 +28,4 @@ public class Repositories {
             Repositories.readingRepository.save(reading);
         }
     }
-
-    public static void saveReading(Reading reading) {
-        Repositories.readingRepository.save(reading);
-    }
 }
