@@ -17,7 +17,6 @@ class GeographicalArea{
 
 class SensorList{
 - listOfSensors: List<Sensor>
-+ getSensorList(): List<Sensor>
 + getActiveSensors(): SensorList
 + deactivateDevice(device, date)
 }
