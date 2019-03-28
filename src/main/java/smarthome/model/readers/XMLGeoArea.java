@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 
-public class XMLGeoArea implements FileReaderGeoArea  {
+public class XMLGeoArea implements FileReaderGeoArea {
 
 
     public XMLGeoArea() {
@@ -64,16 +64,16 @@ public class XMLGeoArea implements FileReaderGeoArea  {
             Element element = (Element) gaNode;
 
             String description = getTagValue("description", element);
-            String id = getTagValue("id",element);
+            String id = getTagValue("id", element);
             String type = getTagValue("type", element);
 
             Double width = Double.parseDouble(getTagValue("width", element));
             Double length = Double.parseDouble(getTagValue("length", element));
-            OccupationArea occupationArea = new OccupationArea(length,width);
+            OccupationArea occupationArea = new OccupationArea(length, width);
 
             Location location = importLocation(element.getElementsByTagName("location").item(0));
 
-            geographicalArea = new GeographicalArea(description,id,type,occupationArea,location);
+            geographicalArea = new GeographicalArea(id, description, type, occupationArea, location);
             addSensorListToGA(geographicalArea, element.getElementsByTagName("area_sensors").item(0));
 
         }
@@ -114,7 +114,7 @@ public class XMLGeoArea implements FileReaderGeoArea  {
                 String name = getTagValue("name", sensor);
 
                 String startDate = getTagValue("start_date", sensor);
-                DateFormat df= new SimpleDateFormat("yyyy-MM-dd");
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 Date date = df.parse(startDate);
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(date);
@@ -122,16 +122,13 @@ public class XMLGeoArea implements FileReaderGeoArea  {
                 String sensorType = getTagValue("type", sensor);
                 SensorType type = new SensorType(sensorType);
 
-                String units = getTagValue("units", sensor);
+                String unit = getTagValue("units", sensor);
                 Location location = importLocation(sensor.getElementsByTagName("location").item(0));
-                Sensor newSensor = new Sensor();
-                newSensor.setId(id);
-                newSensor.setSensorDesignation(name);
-                newSensor.setSensorType(type);
-                newSensor.setSensorLocation(location);
 
-                newSensor.setStartDate(calendar);
-                newSensor.setUnit(units);
+                ReadingList readingList = new ReadingList();
+                Sensor newSensor = new Sensor(id, name, calendar, location, type, unit, readingList);
+
+
                 geographicalArea.getSensorListInGA().addSensor(newSensor);
 
             }

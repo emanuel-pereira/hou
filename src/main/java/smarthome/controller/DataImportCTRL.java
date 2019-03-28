@@ -33,7 +33,7 @@ public class DataImportCTRL {
      */
     public List<GeographicalArea> readGeoAreasFromFile (Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
         DataImport dataImport = new DataImport(gaList);
-        List<GeographicalArea> gaListInFile = dataImport.importFromFileGeoArea(filePath,"geographical_area");
+        List<GeographicalArea> gaListInFile = dataImport.importFromFileGeoArea(filePath);
 
         return gaListInFile;
     }
@@ -41,7 +41,7 @@ public class DataImportCTRL {
     public int getAllSensorsInFile (Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
         List<Sensor> allSensors = new ArrayList<>();
         DataImport dataImport = new DataImport(gaList);
-        List<GeographicalArea> gaListInFile = dataImport.importFromFileGeoArea(filePath,"geographical_area");
+        List<GeographicalArea> gaListInFile = dataImport.importFromFileGeoArea(filePath);
         for(GeographicalArea ga: gaListInFile){
             allSensors.addAll(ga.getSensorListInGA().getSensorList());
         }
@@ -60,7 +60,7 @@ public class DataImportCTRL {
 
     public void importReadingsFromFile(Path filePath) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
         DataImport dataImport = new DataImport(gaList);
-        dataImport.importReadingsFromFile(filePath,"readings");
+        dataImport.importReadingsFromFile(filePath);
     }
     /**
      *Method that iterates the geographical area list and converts each geographical area to a Data Transfer Object

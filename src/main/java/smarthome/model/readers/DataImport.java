@@ -34,10 +34,10 @@ public class DataImport {
     }
 
 
-    public void importReadingsFromFile(Path filePathAndName, String dataType) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, ParserConfigurationException, SAXException {
+    public void importReadingsFromFile(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, ParserConfigurationException, SAXException {
         this.configFilePath = filePathAndName;
         String fileExtension = getFileExtension(filePathAndName);
-        String className = getClassName(dataType, fileExtension);
+        String className = getClassName("readings", fileExtension);
         FileReaderReadings reader = (FileReaderReadings) Class.forName(className).newInstance();
         List<String[]> dataToImport = reader.importData(filePathAndName);
         loadReadingFiles(dataToImport);
@@ -47,29 +47,35 @@ public class DataImport {
         Logger logger = createLogFile("invalidReadingsLog.txt");
         for (GeographicalArea ga : gaList.getGAList()) {
             for (String[] field : dataToImport) {
-                String sensorID = field[0];
-                for (Sensor sensor : ga.getSensorListInGA().getSensorList())
-                    if (sensorID.equals(sensor.getId())) {
-
-                        String dateAndTimeString = field[1];
-                        Calendar readingDate = UtilsUI.parseDateToImportReadings(dateAndTimeString);
-                        double readingValue = parseDouble(field[2]);
-                        String unit = field[3];
-
-                        Reading reading = new Reading(readingValue, readingDate, unit);
-
-                        if (readingDate.after(sensor.getStartDate()))
-                            sensor.getReadingList().addReading(reading);
-
-                        else {
-                            String message = "READING NOT ADDED - VALUE: " + readingValue + " DATE: " + dateAndTimeString + "\nREASON: READING DATE AFTER SENSOR START DATE\n";
-                            logger.log(Level.WARNING, message);
-                        }
-                    }
+                loadReadingEachSensor(ga, field,logger);
             }
         }
     }
-    public Logger createLogFile(String fileName) throws IOException{
+
+    public void loadReadingEachSensor(GeographicalArea ga, String[] field, Logger logger) {
+        String sensorID = field[0];
+        for (Sensor sensor : ga.getSensorListInGA().getSensorList())
+            if (sensorID.equals(sensor.getId())) {
+
+                String dateAndTimeString = field[1];
+                Calendar readingDate = UtilsUI.parseDateToImportReadings(dateAndTimeString);
+                double readingValue = parseDouble(field[2]);
+                String unit = field[3];
+
+                Reading reading = new Reading(readingValue, readingDate, unit);
+
+                if (readingDate.after(sensor.getStartDate()))
+                    sensor.getReadingList().addReading(reading);
+                else {
+                    String message = "READING NOT ADDED - VALUE: " + readingValue + " DATE: " + dateAndTimeString + "\nREASON: READING DATE AFTER SENSOR START DATE\n";
+                    logger.log(Level.WARNING, message);
+                }
+            }
+
+    }
+
+
+    public Logger createLogFile(String fileName) throws IOException {
         Logger logger = Logger.getLogger(GeographicalArea.class.getName());
         FileHandler fileHandler = new FileHandler(fileName);
         fileHandler.setFormatter(new SimpleFormatter());
@@ -106,16 +112,16 @@ public class DataImport {
         return className;
     }
 
-    public List<GeographicalArea> importFromFileGeoArea(Path filePathAndName, String dataType) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+    public List<GeographicalArea> importFromFileGeoArea(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
         String fileExtension = getFileExtension(filePathAndName);
-        String className = getClassName(dataType, fileExtension);
+        String className = getClassName("geographical_area", fileExtension);
         FileReaderGeoArea reader = (FileReaderGeoArea) Class.forName(className).newInstance();
         List<GeographicalArea> dataToImport = reader.importData(filePathAndName);
         return dataToImport;
     }
 
-    public void loadGeoAreaFiles(List<GeographicalArea> dataToImport){
-        for(GeographicalArea ga: dataToImport){
+    public void loadGeoAreaFiles(List<GeographicalArea> dataToImport) {
+        for (GeographicalArea ga : dataToImport) {
             this.gaList.addGA(ga);
         }
     }

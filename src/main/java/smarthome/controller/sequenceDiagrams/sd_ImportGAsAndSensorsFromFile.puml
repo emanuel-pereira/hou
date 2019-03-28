@@ -1,0 +1,75 @@
+@startuml
+autonumber
+hidefootbox
+
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+actor SysAdmin
+
+create ":DataImportUI"
+SysAdmin -> ":DataImportUI": Import GAs and \nSensors from a File
+
+
+create ":DataImportCTRL"
+":DataImportUI" -> ":DataImportCTRL": create(gL)
+SysAdmin <-- ":DataImportUI": Request file path
+SysAdmin -> ":DataImportUI": Enters file path
+
+":DataImportUI" -> ":DataImportCTRL": List<GeographicalArea>=\nreadGeoAreasFromFile (path)
+
+create ":DataImport"
+":DataImportCTRL"->":DataImport":create(gaList)
+
+":DataImportCTRL"->":DataImport": List<GeographicalArea>=\nloadGeoAreaFiles()
+
+create ":{Reader}"
+":DataImport"->":{Reader}": create()
+note right #FFFF
+{Reader} can be:
+    XMLGeoArea
+    JSONGeoArea
+end note
+
+":DataImport" -> ":{Reader}": readConfigFile()
+
+
+ref over ":DataImport", ":{Reader}": Create file reader class based on file extension
+
+":DataImport" -> ":{Reader}": List<GeographicalArea>=\nimportData()
+
+ref over ":DataImportUI",":DataImportCTRL": Get list size of Geographical Areas\nand Sensors to show
+
+SysAdmin<--":DataImportUI": Show message with size of\nGeographical Areas' list to\nimport and asks to confirm import
+
+SysAdmin -> ":DataImportUI": Confirms import
+
+
+
+":DataImportUI" ->":DataImportCTRL": importGeoAreasFromFiles()
+
+
+
+'SysAdmin<--":DataImportUI": Show message with number\nof Geographical Areas and\nSensors successfully imported
+@enduml
