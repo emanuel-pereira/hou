@@ -1,0 +1,120 @@
+@startuml
+
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
+
+hide empty members
+
+class DataImportUI{
+-DataImportCTRL ctrl;
+-Path filePath;
++importDataFromFile()
++showReadings()
+
+}
+
+class DataImportCTRL{
+-GAList gaList
++importDataFromFile()
++failedToAdd()
+}
+
+class DataImport{
+-Path configFilePath;
+-GAList gaList;
+
++ importFileFromReadings()
++loadReadingFiles()
++createLogFile(String fileName)
++getFileExtension(Path filePathAndName)
++readFile()
++getClassName(String dataType, String fileExtension)
+}
+
+interface FileReaderReadings {
+- Path filePath;
++ importData(Path filePath)
+}
+
+class JSONReading{
+- Path filePath;
++ readFile()
++ importData(Path filePath)
+}
+
+class XMLReading{
+-Path filePath;
++ importReading()
++ importData(Path filePath)
++ getTagValue()
+}
+
+class CSVReading{
+- Path filePath;
++ importData(Path filePath)
+}
+
+class GAList {
+ - gaList: List<GeographicalArea>
+
+ + getGAList()
+  }
+
+class GeographicalArea {
+-SensorList sensorList
++getSensorList()
+}
+
+
+class SensorList {
+ - sensorList : List<Sensor>
+
+ + getSensorList()
+}
+
+class Sensor {
+- ReadingList readingList
++ getReadingList()
+}
+
+class ReadingList{
+ - readingList : List<Reading>
+
+ + getReadingList()
+ + newReading()
+ + addReading(reading)
+
+}
+
+
+Sensor "1"--"..*" ReadingList
+
+SensorList "1"-"..*" Sensor
+
+GeographicalArea "1" - "..*"SensorList
+
+GAList "1"-- "..*"GeographicalArea
+
+GAList  "1"-o "..*" DataImport
+
+
+DataImportUI --> DataImportCTRL
+DataImportCTRL --> DataImport
+
+
+DataImport --|> FileReaderReadings
+FileReaderReadings ..|> CSVReading
+FileReaderReadings ..|> JSONReading
+FileReaderReadings ..|> XMLReading
+
+@enduml
