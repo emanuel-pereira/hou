@@ -1,8 +1,8 @@
 package smarthome.io.ui;
 
 import smarthome.model.*;
+
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * This entire class is only used in application demonstration and test scenarios
@@ -155,7 +155,7 @@ public final class BootStrap {
 
                 day++;
             }
-            lamp.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
+            lamp.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes),"C"));
         }
         year = 2018;
         month = 11;
