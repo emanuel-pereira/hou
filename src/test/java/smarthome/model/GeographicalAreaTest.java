@@ -250,4 +250,8 @@ public class GeographicalAreaTest {
 
         ga.importReadingsToSensorsFromCSVFile("resources/ReadingsRegistry");
     }
+
+    @Test
+    void getType() {
+    }
 }

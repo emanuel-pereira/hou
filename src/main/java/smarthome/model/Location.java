@@ -17,7 +17,7 @@ public class Location {
     private double longitude;
     private double altitude;
 
-    protected Location() {
+    private Location() {
     }
 
     /**
@@ -34,7 +34,8 @@ public class Location {
         setAltitude(altitude);
     }
 
-    public Long getId() {
+    //necessary for persistence, unused for now
+    private Long getId() {
         return id;
     }
 
@@ -109,6 +110,7 @@ public class Location {
         return this.altitude;
     }
 
+    //only used to print test cases of persistence
     @Override
     public String toString() {
         return String.format(

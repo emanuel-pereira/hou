@@ -40,7 +40,7 @@ public class GeographicalArea {
     private GeographicalArea parentGa;
 
 
-    protected GeographicalArea() {
+    private GeographicalArea() {
     }
 
     /**
@@ -70,6 +70,7 @@ public class GeographicalArea {
         this.sensorListInGa = new SensorList();
     }
 
+    //TODO tests and JAVADOC
     public GeographicalArea(String id, String name) {
         this.identification = id;
         this.designation = name;
@@ -94,6 +95,7 @@ public class GeographicalArea {
         return this.typeOfGa.toString();
     }
 
+    //TODO tests and JAVADOC
     public TypeGA getType() {
         return this.typeOfGa;
     }
