@@ -4,12 +4,14 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.xml.sax.SAXException;
 import smarthome.io.ui.UtilsUI;
 import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
 import smarthome.model.Reading;
 import smarthome.model.Sensor;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -32,7 +34,7 @@ public class DataImport {
     }
 
 
-    public void importFromFileReadings(Path filePathAndName, String dataType) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
+    public void importReadingsFromFile(Path filePathAndName, String dataType) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, ParserConfigurationException, SAXException {
         this.configFilePath = filePathAndName;
         String fileExtension = getFileExtension(filePathAndName);
         String className = getClassName(dataType, fileExtension);

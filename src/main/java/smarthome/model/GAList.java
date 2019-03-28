@@ -1,12 +1,7 @@
 package smarthome.model;
 
-import smarthome.dto.GeographicalAreaDTO;
-import smarthome.dto.SensorDTO;
-import smarthome.model.readers.FileReaderGeoArea;
-import smarthome.model.readers.JSONGeoArea;
+import smarthome.model.Sensor;
 
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,6 +57,18 @@ public class GAList {
         }
         return allIds;
     }
+
+    public List<Reading> getAllReadings(){
+        List<Reading> allReadings = new ArrayList<>();
+        for(GeographicalArea ga : this.listOfGa){
+            List<Sensor> sensorList = ga.getSensorListInGA().getSensorList();
+            for (Sensor sensor : sensorList){
+                List<Reading> readings = sensor.getReadingList().getReadingsList();
+                allReadings.addAll(readings);
+            }
+        }
+        return allReadings;
+    }
     /**
      * Method similar to the get method for Lists but as the List is private in the class it is
      * needed to exist a method that publicly returns the List of GA's to other methods to read
@@ -72,7 +79,7 @@ public class GAList {
         return this.listOfGa;
     }
 
-    public List<GeographicalArea> getNotImported() {
+    public List<GeographicalArea> getNotAdded() {
         return this.notAdded;
     }
 
@@ -132,32 +139,4 @@ public class GAList {
         return this.listOfGa.get(this.listOfGa.size() - 1);
     }
 
-    /*public List<GeographicalArea> importGaAndSensor(Path path) throws RuntimeException,org.json.simple.parser.ParseException, java.text.ParseException, IOException{
-        FileReader reader = new JSONGeoArea (path);
-        this.imported.clear();
-        this.notImported.clear();
-        reader.importData();
-        List<GeographicalAreaDTO> dtoList = reader.getGaListInFile();
-        for (GeographicalAreaDTO gaDto : dtoList){
-            GeographicalArea ga = gaDto.fromDTO();
-            List<SensorDTO> sensorDTOList = gaDto.getSensorListDTO();
-            for(SensorDTO sensorDTO : sensorDTOList){
-                Sensor sensor = sensorDTO.fromDTO();
-                ga.getSensorListInGA().addSensor(sensor);
-            }
-            if(!this.addGA(ga)){
-                this.notImported.add(ga);
-            }
-            else {
-                this.addGA(ga);
-                this.imported.add(ga);
-            }
-        }
-        return this.imported;
-    }*/
-
-    /*public void importDataFromCSVFileForEachGA(String filePathAndName) throws IOException {
-        for(GeographicalArea geographicalArea: this.listOfGa)
-            geographicalArea.importReadingsToSensorsFromCSVFile(filePathAndName);
-    }*/
 }

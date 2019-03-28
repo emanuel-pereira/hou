@@ -69,8 +69,8 @@ class NewSensorCTRLTest {
         Location loc1 = new Location(25,15,12);
         OccupationArea oc2 = new OccupationArea(42,41);
         Location loc2 = new Location(45,25,32);
-        GeographicalArea area1 = gaList.newGA("Pt", "Porto", "district", oc1,loc1);
-        GeographicalArea area2 = gaList.newGA("Pt", "Braga", "district", oc2,loc2);
+        GeographicalArea area1 = gaList.newGA("opo", "Porto", "district", oc1,loc1);
+        GeographicalArea area2 = gaList.newGA("brg", "Braga", "district", oc2,loc2);
         gaList.addGA(area1);
         gaList.addGA(area2);
 

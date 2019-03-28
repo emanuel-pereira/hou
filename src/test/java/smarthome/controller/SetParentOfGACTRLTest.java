@@ -28,7 +28,7 @@ public class SetParentOfGACTRLTest {
         Location loc1 = new Location(4, 6, 8);
 
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc, loc);
+        GeographicalArea ga1 = new GeographicalArea("opo", "Porto", "city", oc, loc);
         GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc1, loc1);
 
         int indexGA1 = 1;
@@ -91,7 +91,7 @@ public class SetParentOfGACTRLTest {
         OccupationArea oc1 = new OccupationArea(11, 6);
         Location loc1 = new Location(4, 6, 8);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc,loc);
+        GeographicalArea ga1 = new GeographicalArea("opo", "Porto", "city", oc,loc);
         GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc1,loc1);
 
         int indexGA1 = 1;
@@ -137,7 +137,7 @@ public class SetParentOfGACTRLTest {
         OccupationArea oc1 = new OccupationArea(7, 3);
         Location loc1 = new Location(5, 3, 6);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc,loc);
+        GeographicalArea ga1 = new GeographicalArea("opo", "Porto", "city", oc,loc);
         GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc1,loc1);
 
         gaList.addGA(ga1);
@@ -160,7 +160,7 @@ public class SetParentOfGACTRLTest {
         OccupationArea oc1 = new OccupationArea(7, 3);
         Location loc1 = new Location(5, 3, 6);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc,loc);
+        GeographicalArea ga1 = new GeographicalArea("opo", "Porto", "city", oc,loc);
         GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc1,loc1);
 
         gaList.addGA(ga1);
@@ -186,7 +186,7 @@ public class SetParentOfGACTRLTest {
         OccupationArea oc1 = new OccupationArea(5, 6);
         Location loc1 = new Location(2,3,4);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc,loc);
+        GeographicalArea ga1 = new GeographicalArea("opo", "Porto", "city", oc,loc);
         GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc1,loc1);
 
 

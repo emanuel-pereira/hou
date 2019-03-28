@@ -1,3 +1,4 @@
+
 @startuml
 autonumber
 hidefootbox
@@ -14,7 +15,7 @@ create ":DataImportCTRL"
 
 
 ":DataImportUI" -> ":DataImportCTRL": importData\nFromCSVFile(filePath)
-":DataImportCTRL" -> ":GAList": importDataFromCSV\nFileForEachGA(filePath)
+":DataImportCTRL" -> ":DataImport": importDataFromCSV\nFileForEachGA(filePath)
 
 loop for each Geographical Area
 ":GAList" -> ":GeographicalArea": importReadingsToSensors\nFromCSVFile(filePath)
@@ -50,4 +51,8 @@ create ":ReadingDTO"
 
 end
 Administrator<--":DataImportUI": Shows the number \nof readings of each sensor
+@enduml
+
+
+
 @enduml

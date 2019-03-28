@@ -24,8 +24,6 @@ public class XMLGeoArea implements FileReaderGeoArea {
 
 
     public XMLGeoArea() {
-
-
     }
 
 

@@ -1,11 +1,13 @@
 package smarthome.controller;
 
+import org.xml.sax.SAXException;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
-import smarthome.model.ReadJSONFile;
+import smarthome.model.Sensor;
 import smarthome.model.readers.DataImport;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.text.ParseException;
@@ -15,6 +17,8 @@ import java.util.List;
 public class DataImportCTRL {
 
     private GAList gaList;
+    private DataImport dataImportR = new DataImport(gaList);
+    private DataImport dataImportG = new DataImport(gaList);
 
     public DataImportCTRL(GAList gaList) {
         this.gaList = gaList;
@@ -27,16 +31,36 @@ public class DataImportCTRL {
      * @throws org.json.simple.parser.ParseException
      * @throws IOException
      */
-    public List<GeographicalAreaDTO> loadJSON(Path filePath) throws ParseException,org.json.simple.parser.ParseException, IOException {
-        ReadJSONFile jsonFile = new ReadJSONFile(filePath, gaList);
+    public List<GeographicalArea> readGeoAreasFromFile (Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
+        DataImport dataImport = new DataImport(gaList);
+        List<GeographicalArea> gaListInFile = dataImport.importFromFileGeoArea(filePath,"geographical_area");
 
-        return jsonFile.importGAs();
-
+        return gaListInFile;
     }
 
-    public void importReadingsFromFile(Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException {
+    public int getAllSensorsInFile (Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
+        List<Sensor> allSensors = new ArrayList<>();
         DataImport dataImport = new DataImport(gaList);
-        dataImport.importFromFileReadings(filePath,"readings");
+        List<GeographicalArea> gaListInFile = dataImport.importFromFileGeoArea(filePath,"geographical_area");
+        for(GeographicalArea ga: gaListInFile){
+            allSensors.addAll(ga.getSensorListInGA().getSensorList());
+        }
+        return allSensors.size();
+    }
+
+    public void importGeoAreasFromFile(Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException{
+        DataImport dataImport = new DataImport(gaList);
+        this.gaList.getNotAdded().clear();
+        dataImport.loadGeoAreaFiles(this.readGeoAreasFromFile(filePath));
+    }
+
+    public int failedToAdd (){
+        return this.gaList.getNotAdded().size();
+    }
+
+    public void importReadingsFromFile(Path filePath) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
+        DataImport dataImport = new DataImport(gaList);
+        dataImport.importReadingsFromFile(filePath,"readings");
     }
     /**
      *Method that iterates the geographical area list and converts each geographical area to a Data Transfer Object
