@@ -40,7 +40,7 @@ public class GeographicalArea {
     private GeographicalArea parentGa;
 
 
-    private GeographicalArea() {
+    protected GeographicalArea() {
     }
 
     /**
@@ -76,8 +76,6 @@ public class GeographicalArea {
         this.designation = name;
     }
 
-    public GeographicalArea() {
-    }
 
     /**
      * method to get this Geographical Area designation
