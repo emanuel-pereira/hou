@@ -56,14 +56,11 @@ public class GenericSpecs implements DeviceSpecs {
 
         for (int i = 0; i < items; i++) {
             this.attributeNamesList.add(this.attributeNames[i]);
-        }
 
-        for (int j = 0; j < items; j++) {
+            this.attributeUnitsMap.put(this.attributeNames[i], this.attributeUnits[i]);
+            this.attributeValuesMap.put(this.attributeNames[i], NaN); // values are not part of the constructor
 
-            this.attributeUnitsMap.put(this.attributeNames[j], this.attributeUnits[j]);
-            this.attributeValuesMap.put(this.attributeNames[j], NaN); // values are not part of the constructor
-        }
-    }
+    }}
 
     /* ------ Interface methods ------- */
 

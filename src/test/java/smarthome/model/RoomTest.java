@@ -290,7 +290,7 @@ public class RoomTest {
      * The sum of the nominal power of two devices with zero nominal power
      */
 
- /*
+ /*FIXME
     @Test
     public void getCorrectNominalPowerIfZero() {
         House house = new House ();
