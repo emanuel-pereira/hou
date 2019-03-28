@@ -115,12 +115,4 @@ public class GAList {
             geographicalArea.importReadingsToSensorsFromCSVFile(filePathAndName);
     }
 
-    public List<GeographicalAreaDTO> getGAListDTO() {
-        List<GeographicalAreaDTO> gaListDTO=new ArrayList<>();
-        for (GeographicalArea ga : listOfGa) {
-            GeographicalAreaDTO gaDTO=ga.toDTO();
-            gaListDTO.add(gaDTO);
-        }
-        return gaListDTO;
-    }
 }
