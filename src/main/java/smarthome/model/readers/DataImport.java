@@ -95,7 +95,7 @@ public class DataImport {
         return fileExtension;
     }
 
-    private JSONObject readFile() throws IOException, ParseException {
+    private JSONObject readConfigFile() throws IOException, ParseException {
         java.io.FileReader fileReader = new java.io.FileReader(configFilePath.toAbsolutePath().toFile());
         return (JSONObject) this.parser.parse(fileReader);
     }
@@ -103,7 +103,7 @@ public class DataImport {
     public String getClassName(String dataType, String fileExtension) throws ParseException, IOException {
         String className = null;
         this.configFilePath = Paths.get("resources/ImportFileConfig.json");
-        JSONObject jsonObject = (JSONObject) this.readFile().get("object_type");
+        JSONObject jsonObject = (JSONObject) this.readConfigFile().get("object_type");
         JSONArray jsonTypes = (JSONArray) jsonObject.get(dataType);
         for (Object types : jsonTypes) {
             JSONObject jsonReading = (JSONObject) types;
@@ -112,16 +112,15 @@ public class DataImport {
         return className;
     }
 
-    public List<GeographicalArea> importFromFileGeoArea(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+    public List<GeographicalArea> loadGeoAreaFiles(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
         String fileExtension = getFileExtension(filePathAndName);
         String className = getClassName("geographical_area", fileExtension);
         FileReaderGeoArea reader = (FileReaderGeoArea) Class.forName(className).newInstance();
-        List<GeographicalArea> dataToImport = reader.importData(filePathAndName);
-        return dataToImport;
+        return reader.loadData(filePathAndName);
     }
 
-    public void loadGeoAreaFiles(List<GeographicalArea> dataToImport) {
-        for (GeographicalArea ga : dataToImport) {
+    public void importFromFileGeoArea(List<GeographicalArea> dataToImport){
+        for(GeographicalArea ga: dataToImport){
             this.gaList.addGA(ga);
         }
     }

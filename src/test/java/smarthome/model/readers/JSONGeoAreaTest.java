@@ -1,8 +1,6 @@
 package smarthome.model.readers;
 
 import org.junit.jupiter.api.Test;
-import smarthome.dto.GeographicalAreaDTO;
-import smarthome.dto.SensorDTO;
 import smarthome.model.GeographicalArea;
 import smarthome.model.Sensor;
 
@@ -23,7 +21,7 @@ class JSONGeoAreaTest {
         JSONGeoArea reader = new JSONGeoArea();
 
         int expected = 2;
-        int result = reader.importData(path).size();
+        int result = reader.loadData(path).size();
 
         assertEquals(expected,result);
     }
@@ -33,7 +31,7 @@ class JSONGeoAreaTest {
         Path path = Paths.get("resources/JsonFile.json");
         JSONGeoArea reader = new JSONGeoArea();
 
-        List<GeographicalArea> gaListInFile = reader.importData(path);
+        List<GeographicalArea> gaListInFile = reader.loadData(path);
 
         GeographicalArea porto = gaListInFile.get(1);
         String expected = "city";
@@ -46,7 +44,7 @@ class JSONGeoAreaTest {
         Path path = Paths.get("resources/JsonFile.json");
         JSONGeoArea reader = new JSONGeoArea();
 
-        List<GeographicalArea> gaListInFile = reader.importData(path);
+        List<GeographicalArea> gaListInFile = reader.loadData(path);
 
         GeographicalArea porto = gaListInFile.get(1);
         double expected = 10.09;
@@ -59,7 +57,7 @@ class JSONGeoAreaTest {
         Path path = Paths.get("resources/JsonFile.json");
         JSONGeoArea reader = new JSONGeoArea();
 
-        List<GeographicalArea> gaListInFile = reader.importData(path);
+        List<GeographicalArea> gaListInFile = reader.loadData(path);
 
         GeographicalArea porto = gaListInFile.get(1);
 
@@ -73,7 +71,7 @@ class JSONGeoAreaTest {
         Path path = Paths.get("resources/JsonFile.json");
         JSONGeoArea reader = new JSONGeoArea();
 
-        List<GeographicalArea> gaListInFile = reader.importData(path);
+        List<GeographicalArea> gaListInFile = reader.loadData(path);
         GeographicalArea porto = gaListInFile.get(1);
         List<Sensor> sensorList = porto.getSensorListInGA().getSensorList();
 
@@ -87,7 +85,7 @@ class JSONGeoAreaTest {
         Path path = Paths.get("resources/JsonFile.json");
         JSONGeoArea reader = new JSONGeoArea();
 
-        List<GeographicalArea> gaListInFile = reader.importData(path);
+        List<GeographicalArea> gaListInFile = reader.loadData(path);
         GeographicalArea porto = gaListInFile.get(1);
         List<Sensor> sensorList = porto.getSensorListInGA().getSensorList();
         Sensor sensor = sensorList.get(1);
@@ -102,7 +100,7 @@ class JSONGeoAreaTest {
         Path path = Paths.get("resources/JsonFile.json");
         JSONGeoArea reader = new JSONGeoArea();
 
-        List<GeographicalArea> gaListInFile = reader.importData(path);
+        List<GeographicalArea> gaListInFile = reader.loadData(path);
         GeographicalArea porto = gaListInFile.get(1);
         List<Sensor> sensorList = porto.getSensorListInGA().getSensorList();
         Sensor sensor = sensorList.get(1);
@@ -110,18 +108,5 @@ class JSONGeoAreaTest {
         GregorianCalendar expected = new GregorianCalendar(2017,Calendar.NOVEMBER,16);
         Calendar result = sensor.getStartDate();
         assertEquals(expected, result);
-    }
-
-    @Test
-    void getAllSensorsInFile () throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        Path path = Paths.get("resources/JsonFile.json");
-        JSONGeoArea reader = new JSONGeoArea();
-
-        reader.importData(path);
-
-        int expected = 4 ;
-        int result = reader.getAllSensors().size();
-
-        assertEquals(expected,result);
     }
 }

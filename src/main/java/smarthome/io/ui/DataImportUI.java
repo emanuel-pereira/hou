@@ -40,8 +40,8 @@ public class DataImportUI {
 
     public void showGAsNumberInFile() throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException   {
         System.out.println("In the file there are\n");
-        System.out.println(" - " + ctrl.readGeoAreasFromFile(this.filePath).size() + " geographical area(s).");
-        System.out.println(" - " + ctrl.getAllSensorsInFile(this.filePath) + " sensor(s).");
+        System.out.println(" - " + ctrl.getGaListInFileSize(this.filePath) + " geographical area(s).");
+        System.out.println(" - " + ctrl.getAllSensorsInFileSize(this.filePath) + " sensor(s).");
         this.importGAs();
     }
 
@@ -50,7 +50,7 @@ public class DataImportUI {
         if(UtilsUI.confirmOption("Do you wish to import this data?(y/n)","Please type y for Yes or n for No.")){
             ctrl.importGeoAreasFromFile(this.filePath);
             int notImported = ctrl.failedToAdd();
-            int imported = ctrl.readGeoAreasFromFile(this.filePath).size() - notImported;
+            int imported = ctrl.getImportedGaListSize(this.filePath);
             if (notImported > 0 && imported > 0){
                 System.out.println("Success! " + imported+ " geographical areas and respective sensors were imported.");
                 System.out.println("Warning: " + notImported + " geographical areas and respective sensors were not imported");

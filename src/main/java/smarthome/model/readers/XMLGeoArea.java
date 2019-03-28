@@ -27,7 +27,7 @@ public class XMLGeoArea implements FileReaderGeoArea {
     }
 
 
-    public List<GeographicalArea> importData(Path filePath) {
+    public List<GeographicalArea> loadData(Path filePath) {
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         List<GeographicalArea> gaList = new ArrayList<>();

@@ -19,7 +19,7 @@ class XMLGeoAreaTest {
         Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
-        int result = xmlReader.importData(path).size();
+        int result = xmlReader.loadData(path).size();
 
         assertEquals(2, result);
 
@@ -30,7 +30,7 @@ class XMLGeoAreaTest {
         Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
-        List<GeographicalArea> gaList = xmlReader.importData(path);
+        List<GeographicalArea> gaList = xmlReader.loadData(path);
 
         GeographicalArea ga = gaList.get(0);
 
@@ -45,7 +45,7 @@ class XMLGeoAreaTest {
         Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
-        List<GeographicalArea> gaList = xmlReader.importData(path);
+        List<GeographicalArea> gaList = xmlReader.loadData(path);
 
         GeographicalArea ga = gaList.get(0);
         double expected = 0.261;
@@ -63,7 +63,7 @@ class XMLGeoAreaTest {
         Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
-        List<GeographicalArea> gaList = xmlReader.importData(path);
+        List<GeographicalArea> gaList = xmlReader.loadData(path);
 
         GeographicalArea ga = gaList.get(1);
 
@@ -87,7 +87,7 @@ class XMLGeoAreaTest {
         Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
-        List<GeographicalArea> gaList = xmlReader.importData(path);
+        List<GeographicalArea> gaList = xmlReader.loadData(path);
 
         GeographicalArea ga = gaList.get(1);
         List<Sensor> sensorList = ga.getSensorListInGA().getSensorList();

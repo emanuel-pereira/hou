@@ -32,16 +32,7 @@ public class JSONGeoArea implements FileReaderGeoArea{
         return (JSONObject) this.parser.parse(fileReader);
     }
 
-    public List<Sensor> getAllSensors() throws org.json.simple.parser.ParseException, java.text.ParseException, IOException  {
-        List<Sensor> allSensors = new ArrayList<>();
-        for(GeographicalArea ga: importData(filePath)){
-            List<Sensor> sensorsInGa = ga.getSensorListInGA().getSensorList();
-            allSensors.addAll(sensorsInGa);
-        }
-        return allSensors;
-    }
-
-    public List<GeographicalArea> importData(Path filePath) throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
+    public List<GeographicalArea> loadData(Path filePath) throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
         this.filePath = filePath;
         List<GeographicalArea> gaList = new ArrayList<>();
         JSONObject jsonGAs = (JSONObject) this.readFile().get("geographical_area_list");

@@ -61,7 +61,7 @@ class DataImportCTRLTest {
         ctrl.importGeoAreasFromFile(path);
 
         int expected = 4;
-        int result = ctrl.getAllSensorsInFile(path);
+        int result = ctrl.getAllSensorsInFileSize(path);
 
         assertEquals(expected,result);
     }
