@@ -13,23 +13,6 @@ skinparam class {
 	FontSize 15
 }
 
-skinparam sequence {
-	ArrowColor SteelBlue
-	ActorBorderColor Dimgray
-	LifeLineBorderColor MidnightBlue
-	LifeLineBackgroundColor #A9DCDF
-
-	ParticipantBorderColor Dimgray
-	ParticipantBackgroundColor SteelBlue
-	ParticipantFontName Calibri Bold
-	ParticipantFontSize 17
-	ParticipantFontColor Ivory
-
-	ActorBackgroundColor SteelBlue
-	ActorFontColor MidnightBlue
-	ActorFontSize 17
-	ActorFontName Aapex
-}
 class GAList{
 - listOfGa: List<GeographicalArea>
 + getGAList(): List<GeographicalArea>
@@ -39,6 +22,7 @@ class GAList{
 class GeographicalArea{
 - identification: String
 - designation: String
+- sensorListInGa: SensorList
 + getGAName(): String
 + getIdentification(): String
 + getSensorListInGA(): SensorList
@@ -47,27 +31,18 @@ class GeographicalArea{
 
 class SensorList{
 - listOfSensors: List<Sensor>
-+ getActiveSensors(): SensorList
-+ deactivateDevice(device, date)
++ removeSensor(sensor)
 }
 
 class Sensor {
 - id: String;
 - designation: String
-- startDate: Calendar
-- pauseDate: Calendar
 - active: boolean
 + getDesignation(): String
 + getId(): String
-+ getStartDate(): Calendar
-+ getPauseDate(): Calendar
-+ deactivate(date): boolean
 }
 
 GAList *- "1..*"GeographicalArea: contains
 GeographicalArea *-- "1"SensorList: contains
 Sensor"*" -* SensorList: contains
-
-
-
 @enduml

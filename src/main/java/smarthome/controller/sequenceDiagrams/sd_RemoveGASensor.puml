@@ -16,6 +16,11 @@ skinparam sequence {
 	ActorFontColor MidnightBlue
 	ActorFontSize 17
 	ActorFontName Aapex
+
+}
+
+skinparam note {
+BorderColor SteelBlue
 }
 hidefootbox
 actor SysAdmin
@@ -24,8 +29,8 @@ create ":RemoveSensorUI"
 create ":RemoveSensorCTRL"
 ":RemoveSensorUI" -> ":RemoveSensorCTRL": create(gaList)
 ":RemoveSensorUI"->":RemoveSensorCTRL": gaListDTO=getGAListDTO()
-create GAMapper
-":RemoveSensorCTRL"->GAMapper:create()
+create ":GAMapper"
+":RemoveSensorCTRL"->":GAMapper":create()
 ":RemoveSensorCTRL"->":GeographicalAreaMapper":listGaDTO=toDtoList(ga)
 
 
@@ -50,5 +55,6 @@ loop for each sensor in sensorList match id
 ":RemoveSensorCTRL"->"sensorList:SensorList": sensor=getSensorById(sensorDTOId)
 end
 ":RemoveSensorCTRL"->"sensorList:SensorList":remove(sensor)
+":RemoveSensorCTRL"->":Repositories":SensorRepository.delete(sensor)
 SysAdmin<--":RemoveSensorUI":sensor successfully \nremoved message
 @enduml

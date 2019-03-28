@@ -9,7 +9,6 @@ import smarthome.model.GeographicalArea;
 import smarthome.model.Sensor;
 import smarthome.model.SensorList;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
