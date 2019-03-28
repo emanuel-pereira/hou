@@ -7,11 +7,11 @@ Admin -> ":DeactivateSensorUI":  Deactivate sensor in \nGeographical Area
 create ":DeactivateSensorCTRL"
 ":DeactivateSensorUI" -> ":DeactivateSensorCTRL": create(gaList)
 
-":DeactivateSensorUI" -> ":DeactivateSensorCTRL": listGADto=getGAList()
+":DeactivateSensorUI" -> ":DeactivateSensorCTRL": listGADto=getGAListDto()
 
 create ":GeographicalAreaMapper"
 ":DeactivateSensorCTRL"->":GeographicalAreaMapper":create()
-":DeactivateSensorCTRL"->":GeographicalAreaMapper":listGaDTO=toDtoList(ga)
+":DeactivateSensorCTRL"->":GeographicalAreaMapper":listGaDTO=toDtoList(gaList)
 ":GeographicalAreaMapper" -> "gaList:GAList": gaList=getGAList
 
 loop for each ga in gaList convert toDTO
@@ -24,7 +24,7 @@ Admin <-- ":DeactivateSensorUI": Show Geographical Areas
 Admin -> ":DeactivateSensorUI": Choose Geographical Area
 
 
-":DeactivateSensorUI" -> ":DeactivateSensorCTRL": listSDto=getSensorIfActiveToDto()
+":DeactivateSensorUI" -> ":DeactivateSensorCTRL": listSDto=getSensorIfActiveDto()
 loop for each ga in gaList match id
 ":DeactivateSensorCTRL"->"gaList:GAList": ga=getGAById(gaDTOId)
 end
@@ -59,7 +59,9 @@ end
 loop for each active sensor in GA sensorList match id
 ":DeactivateSensorCTRL"->"sL:SensorList": s=s.getId().matches(sensorDTOId)
 end
-":DeactivateSensorCTRL"->"s:Sensor":deactivate
+":DeactivateSensorCTRL"->"sL:SensorList":deactivate(sensorID,pauseDate)
+"sL:SensorList"->"s:Sensor":deactivate(pauseDate)
+
 
 Admin <-- ":DeactivateSensorUI": Show Deactivation Message
 

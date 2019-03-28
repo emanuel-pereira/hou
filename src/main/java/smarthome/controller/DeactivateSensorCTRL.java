@@ -47,22 +47,19 @@ public class DeactivateSensorCTRL {
         SensorList sensorList = ga.getSensorListInGA ();
         for (Sensor s : sensorList.getSensorList ()) {
             if (s.getId ().matches (sensorDTOId)) {
-                s.deactivate (pauseDate);
+                sensorList.deactivateSensor (sensorDTOId, pauseDate);
                 return true;
             }
         }
         return false;
     }
 
-    public List<SensorDTO> getSensorIfActiveToDto(String gaDTOId) {
-        List<SensorDTO> sensorListIsActiveDTO = new ArrayList<> ();
+
+    public List<SensorDTO> getSensorIfActiveDto(String gaDTOId) {
         GeographicalArea ga = this.getGAById (gaDTOId);
         SensorList sensorList = ga.getSensorListInGA ();
-        for (Sensor s : sensorList.getActiveSensors ().getSensorList ()) {
-            SensorDTO sDTO = this.sensorMapper.toDto (s);
-            sensorListIsActiveDTO.add (sDTO);
-        }
-        return sensorListIsActiveDTO;
+        SensorList activeSensors = sensorList.getActiveSensors ();
+        return this.sensorMapper.toDtoList (activeSensors);
     }
 
     public boolean sensorStatus(String gaDTOId, String sensorDTOId) {
