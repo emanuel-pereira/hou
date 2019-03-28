@@ -4,73 +4,84 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
+import java.io.File;
+import java.nio.file.Path;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.w3c.dom.Node.ELEMENT_NODE;
+
+public class XMLReading implements FileReaderReadings {
 
 
-public class XMLReading {
+    public XMLReading() {
+    }
 
+    @Override
+    public List<String[]> importData(Path filePath) {
 
-    private Document xmlDocument;
-
-
-    public void readXMLFile() throws ParserConfigurationException, IOException, SAXException {
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = dbFactory.newDocumentBuilder();
-        xmlDocument = builder.parse("/Users/emanuel/Desktop/project_g6/resources/DataSet_sprint05_SensorData_alt01.xml");
-        xmlDocument.getDocumentElement().normalize();
+        List<String[]> readingList = new ArrayList<>();
+
+        try {
+
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+
+            File file = filePath.toFile();
+
+            Document xmlDoc = dBuilder.parse(file);
+
+            xmlDoc.getDocumentElement().normalize();
+
+            NodeList readingNodeList = xmlDoc.getElementsByTagName("reading");
+
+            for (int i = 0; i < readingNodeList.getLength(); i++) {
+                readingList.add(importReading(readingNodeList.item(i)));
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return readingList;
+
     }
 
 
-    public List<String[]> extractData() {
+    private String[] importReading(Node readingNode) throws ParseException {
+
+        String[] data = new String[4];
+
+        if (readingNode.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) readingNode;
+
+            String id = getTagValue("id", element);
+            data[0] = id;
 
 
-        List<String[]> xmlReadings = new ArrayList<>();
+            String value = getTagValue("value", element);
+            data[1] = value;
 
-        NodeList readingsList = xmlDocument.getElementsByTagName("reading");
+            String timeStampDate = getTagValue("timestamp_date", element);
+            data[2] = timeStampDate;
 
-        for (int read = 0; read < readingsList.getLength(); read++) {
-            Node reading = readingsList.item(read);
-
-            if (reading.getNodeType() == ELEMENT_NODE) {
-
-                String[] tokens = new String[4];
-
-                NodeList nodeListReading = xmlDocument.getElementsByTagName("reading");
-
-                Element idElement = (Element) nodeListReading.item(0);
-                NodeList readingID = idElement.getElementsByTagName("id");
-                tokens[0] = readingID.toString();
+            String unit = getTagValue("unit", element);
+            data[3] = unit;
 
 
-                Element timeStampElement = (Element) nodeListReading.item(0);
-                NodeList readingTimeStamp = timeStampElement.getElementsByTagName("timestamp_date");
-                tokens[1] = readingTimeStamp.toString();
-
-                Element valueElement = (Element) nodeListReading.item(0);
-                NodeList readingValue = valueElement.getElementsByTagName("value");
-                tokens[2] = readingValue.toString();
-
-
-                Element unitElement = (Element) nodeListReading.item(0);
-                NodeList readingUnit = unitElement.getElementsByTagName("unit");
-                tokens[3] = readingUnit.toString();
-
-
-                xmlReadings.add(tokens);
-
-            }
         }
-        return xmlReadings;
+        return data;
+
+    }
+
+    private String getTagValue(String tag, Element element) {
+        NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
+        Node node = nodeList.item(0);
+        return node.getNodeValue();
     }
 
 

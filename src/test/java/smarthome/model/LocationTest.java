@@ -10,6 +10,27 @@ import static org.junit.jupiter.api.Assertions.*;
 class LocationTest {
 
     @Test
+    void setSensorAttributes(){
+      Location location = new Location();
+
+      location.setLatitude(80);
+      location.setLongitude(170);
+      location.setAltitude(2300);
+
+      double expected1 = 80;
+      double expected2 = 170;
+      double expected3 = 2300;
+
+      double result1= location.getLatitude();
+      double result2 = location.getLongitude();
+      double result3 = location.getAltitude();
+
+      assertEquals(expected1,result1);
+      assertEquals(expected2,result2);
+      assertEquals(expected3,result3);
+    }
+
+    @Test
     @DisplayName("Check if all GPS coordinates are valid while creating an instance of a location.")
     public void checkIfGPSCoordinatesAreValid() {
         //Arrange
