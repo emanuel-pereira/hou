@@ -16,7 +16,7 @@ public class OvenType implements DeviceType {
     @Override
     public Device createDevice(String devName, double nominalPower) {
         String devType = getDeviceType();
-        DeviceSpecs devSpecs = new OvenSpecs(devType);
+        DeviceSpecs devSpecs = new GenericNoSpecs(devType);
         return new Oven(devName,devSpecs,nominalPower);
     }
 

@@ -83,7 +83,11 @@ public class EditDevicesUI {
 
     private void deviceSpecsConfiguration() {
 
-        UtilsUI.showInfo("Device configuration", "Please enter the parameters needed to configure this "+device.getDeviceType()+".");
+        if (ctrl.getDeviceAttributesListInString(device).isEmpty()) {
+            return;
+        }
+
+        UtilsUI.showInfo("Device configuration", "Please enter the parameters needed to configure this " + device.getDeviceType() + ".");
 
         for (String attribute : ctrl.getDeviceAttributesListInString(device)) {
             System.out.println(attribute);
@@ -101,7 +105,8 @@ public class EditDevicesUI {
         Double nominalPower = UtilsUI.requestDouble("Input not valid, please try again.");
         device = ctrl.createDevice(selectedRoom, deviceType, name, nominalPower);
         deviceSpecsConfiguration();
-        UtilsUI.showList("Device created!", ctrl.showDeviceAttributesInString(device));
+        UtilsUI.showInfo("Success","Device was successfully created.");
+        UtilsUI.showList("Device attributes", ctrl.showDeviceAttributesInString(device), false, 5);
     }
 
     public void roomSelectionToListDevice() {
@@ -113,30 +118,38 @@ public class EditDevicesUI {
         selectedRoom = ctrl.getRoomFromListIndex(selectedRoomIndex);
 
         List<String> ls = ctrl.showDeviceListInString(selectedRoomIndex);
-        UtilsUI.showList("devices available in room", ls, true, 10);
+        UtilsUI.showList("Devices available in room", ls, true, 10);
 
 
     }
 
 
-    //TODO: This is FUBAR.
+    //FIXME: This is slightly FUBAR. Will update as I uncover more weird behaviour.
     public void editDeviceAttributes() {
         roomSelectionToListDevice();
         selectedRoom = ctrl.getRoomFromListIndex(selectedRoomIndex);
+
+
         System.out.println("Select a device");
         deviceIndex = UtilsUI.requestInteger("Invalid selection. Please try again.");
 
         selectedDeviceToEdit = ctrl.getDeviceFromIndex(selectedRoomIndex, deviceIndex);
 
+        List<String> ls = ctrl.showDeviceAttributesInString(selectedDeviceToEdit);
 
-        List <String> ls = ctrl.showDeviceAttributesInString(selectedDeviceToEdit);
-        UtilsUI.showList("Select a attribute to reconfigure",ls,true,5);
-        UtilsUI.requestIntegerInInterval(1,ls.size(),"Please enter a value between 1 and "+ls.size());
+        if (ls.size() == 0) {
+            UtilsUI.showInfo("Info", "This device has no configurable attributes.");
+            return;
+        }
+
+
+        UtilsUI.showList("Select a attribute to configure", ls, true, 5);
+        UtilsUI.requestIntegerInInterval(1, ls.size(), "Please enter a value between 1 and " + ls.size());
         String deviceAttribute = ctrl.getDeviceAttribute(selectedDeviceToEdit, attributeIndex);
         System.out.println("Set the new value of " + deviceAttribute);
         double newValue = UtilsUI.requestDouble("Please enter a numeric value");
         ctrl.setAttribute(selectedDeviceToEdit, deviceAttribute, newValue);
-        UtilsUI.showInfo("Success","The device's specifications were successfully updated.");
+        UtilsUI.showInfo("Success", "The device's specifications were successfully updated.");
 
     }
 

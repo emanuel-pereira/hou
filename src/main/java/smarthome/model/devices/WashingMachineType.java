@@ -27,7 +27,10 @@ public class WashingMachineType implements DeviceType {
     public Device createDevice(String deviceName, double nominalPower) {
         String devType = getDeviceType();
 
-        DeviceSpecs devSpecs = new WashingMachineSpecs(devType);
+        String[] attributeNames = {"Capacity"};
+        String[] attributeUnits = {"L"};
+
+        DeviceSpecs devSpecs = new GenericSpecs(devType,attributeNames,attributeUnits);
 
         return new WashingMachine(deviceName, devSpecs, nominalPower);
     }

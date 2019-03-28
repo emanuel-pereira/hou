@@ -51,15 +51,7 @@ public class EditDevicesCTRL {
     public List<String> getDeviceAttributesListInString(Device device) {
         DeviceSpecs ds = device.getDeviceSpecs();
         List<String> names = ds.getAttributesNames();
-        List<String> units = ds.getAttributeUnits();
-        List<Double> values = ds.getAttributeValues();
-
-        List<String> output = new ArrayList<>();
-
-        for (int i = 0; i < names.size(); i++) {
-            output.add(names.get(i) + " [" + units.get(i) + "]: " + values.get(i));
-        }
-        return output;
+        return names;
     }
 
     public int getRoomListSize() {
@@ -162,7 +154,29 @@ public class EditDevicesCTRL {
     }
 
     public List<String> showDeviceAttributesInString(Device device) {
-        return device.getDeviceSpecs().getAttributesNames();
+
+        List<String> list = device.getDeviceSpecs().getAttributesNames();
+        List<String> output = new ArrayList<>();
+        double value;
+        String unit;
+
+        if (list.size()==0){ //FIXME!!!
+            return output;
+        }
+
+        StringBuilder sb = new StringBuilder();
+
+        for (String s : list) {
+            sb.append(s);
+            sb.append(": ");
+            sb.append(device.getDeviceSpecs().getAttributeValue(s));
+            sb.append(" ");
+            sb.append(device.getDeviceSpecs().getAttributeUnit(s));
+            output.add(sb.toString());
+            sb.delete(0,1000); //FIXME: this is very hacky, but works.
+        }
+
+        return output;
     }
 }
 

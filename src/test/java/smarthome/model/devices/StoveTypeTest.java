@@ -1,4 +1,4 @@
-package smarthome.model;
+package smarthome.model.devices;
 
 import org.junit.jupiter.api.Test;
 import smarthome.model.devices.StoveType;

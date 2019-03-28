@@ -1,6 +1,7 @@
-package smarthome.model;
+package smarthome.model.devices;
 
 import org.junit.jupiter.api.Test;
+import smarthome.model.Device;
 import smarthome.model.devices.LampType;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,8 +10,9 @@ class LampTypeTest {
 
     @Test
     void getDeviceType() {
-        LampType kt = new LampType();
-        String result = kt.getDeviceType();
+        LampType lt = new LampType();
+        Device d = lt.createDevice("Best Lamp in the world",12);
+        String result = d.getDeviceType();
 
         assertEquals("Lamp", result);
     }

@@ -1,22 +1,24 @@
-package smarthome.model;
+package smarthome.model.devices;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.*;
 import smarthome.model.devices.Tv;
-import smarthome.model.devices.TvSpecs;
+import smarthome.model.devices.TvType;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.*;
 
 class TvTest {
 
     @Test
     void setDeviceName() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
+        DeviceType dt = new TvType();
+        Device tv = dt.createDevice("boo", 100);
 
-        Tv tv = new Tv("", tvSpecs, 15);
         tv.setDeviceName("Smart Tv");
 
         String expected = "Smart Tv";
@@ -27,12 +29,13 @@ class TvTest {
 
     @Test
     void setAttributeValue() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
+        DeviceType dt = new TvType();
+        Device tv = dt.createDevice("Tv", 20);
 
-        tvSpecs.setAttributeValue("Capacity", 20);
+        tv.getDeviceSpecs().setAttributeValue("Capacity", 20);
 
-        Double expected = 20.0;
-        Double result = tvSpecs.getAttributeValue("Capacity");
+        Double expected = NaN;
+        Double result = tv.getDeviceSpecs().getAttributeValue("Capacity");
 
         assertEquals(expected, result);
     }
@@ -40,9 +43,8 @@ class TvTest {
 
     @Test
     void getDeviceType() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
-
-        Tv tv = new Tv("Smart Tv", tvSpecs, 15);
+        DeviceType dt = new TvType();
+        Device tv = dt.createDevice("Smart Tv", 15);
         String deviceType = tv.getDeviceType();
 
         String expected = "Tv";
@@ -50,21 +52,20 @@ class TvTest {
         assertEquals(expected, deviceType);
     }
 
-    @Test
+    /*@Test
     void getDeviceSpecs() {
-        TvSpecs specs = new TvSpecs("Tv");
 
-        Tv tv = new Tv("Smart Tv", specs, 15);
+        DeviceType dt = new TvType();
+        Device tv = dt.createDevice("Smart Tv",15);
         DeviceSpecs tvSpecs = tv.getDeviceSpecs();
 
         assertEquals(specs, tvSpecs);
-    }
+    }*/
 
     @Test
     void getNominalPower() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
-
-        Tv tv = new Tv("super Tv", tvSpecs, 15);
+        DeviceType dt = new TvType();
+        Device tv = dt.createDevice("Smart Tv", 15);
 
         Double expected = 15.0;
         Double result = tv.getNominalPower();
@@ -74,18 +75,16 @@ class TvTest {
 
     @Test
     void isActive() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
-
-        Tv tv = new Tv("Smart Tv", tvSpecs, 15);
+        DeviceType dt = new TvType();
+        Device tv = dt.createDevice("Smart Tv", 15);
 
         assertTrue(tv.isActive());
     }
 
     @Test
     void getActivityLog() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
-
-        Tv tv = new Tv("Smart Tv", tvSpecs, 15);
+        DeviceType dt = new TvType();
+        Device tv = dt.createDevice("Smart Tv", 15);
 
         ReadingList tvActivityLog = tv.getActivityLog();
         ReadingList expectedActivityLog = new ReadingList();
@@ -96,13 +95,14 @@ class TvTest {
     @Test
     @DisplayName("getEnergyConsumption execution with no Readings")
     void getEnergyConsumption() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
-
-        Tv tv = new Tv("Smart Tv", tvSpecs, 15);
+        DeviceType dt = new TvType();
+        Device tv = dt.createDevice("Smart Tv", 15);
+        Metered tv1 = (Metered) tv;
 
         Calendar startDate = new GregorianCalendar();
         Calendar endDate = new GregorianCalendar();
-        double energyConsumption = tv.getEnergyConsumption(startDate, endDate);
+
+        double energyConsumption = tv1.getEnergyConsumption(startDate, endDate);
 
         assertEquals(0.0, energyConsumption, 0.001);
     }
@@ -110,9 +110,9 @@ class TvTest {
     @Test
     @DisplayName("getEnergyConsumption execution with valid Readings")
     void getEnergyConsumption2() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
-
-        Tv tv = new Tv("Smart Tv", tvSpecs, 15);
+        DeviceType dt = new TvType();
+        Device d = dt.createDevice("Smart Tv", 15);
+        Tv tv = (Tv) d;
 
         int year = 2018;
         int month = 11;
@@ -145,15 +145,14 @@ class TvTest {
     }
 
     @Test
-    void getEstimatedEnergyConsumption(){
-        TvSpecs tvSpecs = new TvSpecs("Tv");
-        Tv tv = new Tv("Smart Tv", tvSpecs,230);
-
-        tv.setTime(1.5);
-
+    void getEstimatedEnergyConsumption() {
+        DeviceType dt = new TvType();
+        Device d = dt.createDevice("Smart Tv", 345);
+        Tv tv = (Tv) d;
+        tv.setTime(2);
         double result = tv.getEstimatedEnergyConsumption();
 
-        double expected = 345;
+        double expected = 690;
 
         assertEquals(expected, result);
 
@@ -162,9 +161,10 @@ class TvTest {
 
     @Test
     void setNominalPower() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
+        DeviceType dt = new TvType();
+        Device d = dt.createDevice("Smart Tv", 15);
+        Tv tv = (Tv) d;
 
-        Tv tv = new Tv("Smart Tv", tvSpecs, 0);
         tv.setNominalPower(15);
         double expected = 15.0;
         double result = tv.getNominalPower();
@@ -175,8 +175,9 @@ class TvTest {
     @Test
     @DisplayName("Confirm if a device is deactivate and if is not active")
     void deactivateDevice() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
-        Tv tv = new Tv("LG TV", tvSpecs, 2500);
+        DeviceType dt = new TvType();
+        Device d = dt.createDevice("Smart Tv", 15);
+        Tv tv = (Tv) d;
 
         assertTrue(tv.deactivateDevice());
 
@@ -186,8 +187,9 @@ class TvTest {
     @Test
     @DisplayName("Confirm if a device is not deactivate twice")
     void deactivateDeviceTwice() {
-        TvSpecs tvSpecs = new TvSpecs("Tv");
-        Tv tv = new Tv("LG TV", tvSpecs, 2500);
+        DeviceType dt = new TvType();
+        Device d = dt.createDevice("Smart Tv", 15);
+        Tv tv = (Tv) d;
 
         assertTrue(tv.deactivateDevice());
 

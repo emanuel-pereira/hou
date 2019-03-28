@@ -27,8 +27,11 @@ public class DishwasherType implements DeviceType {
     public Device createDevice(String deviceName, double nominalPower) {
         String devType = getDeviceType();
 
-        DeviceSpecs devSpecs = new WashingMachineSpecs(devType);
+        String[] attributeNames = {"Capacity"};
+        String[] attributeUnits = {"Dish Sets"};
 
-        return new WashingMachine(deviceName, devSpecs, nominalPower);
+        DeviceSpecs devSpecs = new GenericSpecs("Dishwasher",attributeNames,attributeUnits);
+
+        return new Dishwasher(deviceName, devSpecs, nominalPower);
     }
 }

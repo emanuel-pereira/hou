@@ -1,9 +1,8 @@
-package smarthome.model;
+package smarthome.model.devices;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.model.devices.WashingMachine;
-import smarthome.model.devices.WashingMachineSpecs;
+import smarthome.model.*;
 
 
 import java.util.Arrays;
@@ -18,12 +17,9 @@ class WashingMachineTest {
     @Test
     @DisplayName("Set and get correct device name")
     void setDeviceName() {
-        WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine("Washing Machine 1", washingMachineSpecs, 100);
-
-        assertEquals("Washing Machine 1", washingMachine.getName());
-
-        washingMachine.setDeviceName("Whirlpool");
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Whirlpool", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
 
         String expected = "Whirlpool";
         String result = washingMachine.getName();
@@ -34,14 +30,15 @@ class WashingMachineTest {
     @Test
     @DisplayName("Set empty device name and get first name")
     void setEmptyDeviceName() {
-        WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine("Whirlpool", washingMachineSpecs, 100);
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
 
-        assertEquals("Whirlpool", washingMachine.getName());
+        assertEquals("Washing Machine 1", washingMachine.getName());
 
         washingMachine.setDeviceName(" ");
 
-        String expected = "Whirlpool";
+        String expected = "Washing Machine 1";
         String result = washingMachine.getName();
 
         assertEquals(expected, result);
@@ -50,8 +47,9 @@ class WashingMachineTest {
     @Test
     @DisplayName("Set and get incorrect device name")
     void getIncorrectDeviceName() {
-        WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine("Washing Machine 1", washingMachineSpecs, 100);
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
 
         assertEquals("Washing Machine 1", washingMachine.getName());
 
@@ -63,23 +61,22 @@ class WashingMachineTest {
         assertNotEquals(expected, result);
     }
 
-    @Test
+    /*@Test
     @DisplayName("Get correct device specs")
     void getDeviceSpecs() {
-        WashingMachineSpecs specs = new WashingMachineSpecs("Washing Machine");
-
-        WashingMachine washingMachine = new WashingMachine("WashingMachine 1", specs, 1500);
-        DeviceSpecs washingMachineSpecs = washingMachine.getDeviceSpecs();
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
 
         assertEquals(specs, washingMachineSpecs);
     }
-
+*/
     @Test
     @DisplayName("Get correct device type")
     void getDeviceType() {
-        WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine("Washing Machine", washingMachineSpecs, 100);
-
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
         String expected = "Washing Machine";
         String result = washingMachine.getDeviceType();
 
@@ -89,8 +86,9 @@ class WashingMachineTest {
     @Test
     @DisplayName("Change the device type but return correct device type")
     void changeDeviceType() {
-        WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs("Lamp");
-        WashingMachine washingMachine = new WashingMachine("Washing Machine", washingMachineSpecs, 100);
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
 
         String expected = "Washing Machine";
         String result = washingMachine.getDeviceType();
@@ -101,8 +99,9 @@ class WashingMachineTest {
     @Test
     @DisplayName("Set and get correct nominal power")
     void getNominalPower() {
-        WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine("Washing Machine", washingMachineSpecs, 200);
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 200);
+        WashingMachine washingMachine = (WashingMachine) d;
 
         assertEquals(200, washingMachine.getNominalPower());
 
@@ -117,8 +116,9 @@ class WashingMachineTest {
     @Test
     @DisplayName("Set negative nominal power and get first nominal power")
     void getInvalidNominalPower() {
-        WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine("Washing Machine", washingMachineSpecs, 200);
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 200);
+        WashingMachine washingMachine = (WashingMachine) d;
 
         assertEquals(200, washingMachine.getNominalPower());
 
@@ -133,9 +133,9 @@ class WashingMachineTest {
     @Test
     @DisplayName("Confirm if a device is correctly active")
     void isActive() {
-        WashingMachineSpecs specs = new WashingMachineSpecs("Washing Machine");
-
-        WashingMachine washingMachine = new WashingMachine("Whirlpool", specs, 2500);
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
 
         assertTrue(washingMachine.isActive());
     }
@@ -143,9 +143,9 @@ class WashingMachineTest {
     @Test
     @DisplayName("Confirm if a device is incorrectly active")
     void isIncorrectlyActive() {
-        WashingMachineSpecs specs = new WashingMachineSpecs("Washing Machine");
-
-        WashingMachine washingMachine = new WashingMachine("Whirlpool", specs, 2500);
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
 
         boolean result = washingMachine.isActive();
 
@@ -157,8 +157,9 @@ class WashingMachineTest {
     void getActivityLog() {
         Reading r1 = new Reading(15, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 0));
         Reading r2 = new Reading(18, new GregorianCalendar(2018, Calendar.AUGUST, 26, 13, 0));
-        WashingMachineSpecs specs = new WashingMachineSpecs("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine("Whirlpool", specs, 2500);
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
         ReadingList activityLog = washingMachine.getActivityLog();
         activityLog.addReading(r1);
         activityLog.addReading(r2);
@@ -172,9 +173,9 @@ class WashingMachineTest {
     @Test
     @DisplayName("Confirm if a device is deactivate and if is not active")
     void deactivateDevice() {
-        WashingMachineSpecs specs = new WashingMachineSpecs("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine("Whirlpool", specs, 2500);
-
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
         assertTrue(washingMachine.deactivateDevice());
 
         assertFalse(washingMachine.isActive());
@@ -183,9 +184,9 @@ class WashingMachineTest {
     @Test
     @DisplayName("Confirm if a device is not deactivate twice")
     void deactivateDeviceTwice() {
-        WashingMachineSpecs specs = new WashingMachineSpecs("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine("Whirlpool", specs, 2500);
-
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
         assertTrue(washingMachine.deactivateDevice());
 
         assertFalse(washingMachine.deactivateDevice());
@@ -199,8 +200,9 @@ class WashingMachineTest {
         Reading r3 = new Reading(0.000, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 30));
         Reading r4 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 30));
         Reading r5 = new Reading(0.200, new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 45));
-        WashingMachineSpecs specs = new WashingMachineSpecs("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine("Whirlpool", specs, 200);
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
         ReadingList activityLog = washingMachine.getActivityLog();
         activityLog.addReading(r1);
         activityLog.addReading(r2);
@@ -219,8 +221,9 @@ class WashingMachineTest {
     @Test
     @DisplayName("Create, add and get correct program list")
     void createProgram() {
-        WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine("Samsung WM", washingMachineSpecs, 200);
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
         Program eco = washingMachine.createProgram("Eco", 50);
         washingMachine.addProgramToList(eco);
         Program full = washingMachine.createProgram("Full", 200);
@@ -235,8 +238,9 @@ class WashingMachineTest {
     @Test
     @DisplayName("Add program to list with success")
     void addNewProgram() {
-        WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine("Samsung WM", washingMachineSpecs, 200);
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
         Program eco = washingMachine.createProgram("Eco", 50);
         washingMachine.addProgramToList(eco);
         Program full = washingMachine.createProgram("Full", 200);
@@ -247,8 +251,9 @@ class WashingMachineTest {
     @Test
     @DisplayName("Add same program to list")
     void addSameProgram() {
-        WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine("Samsung WM", washingMachineSpecs, 200);
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
         Program eco = washingMachine.createProgram("Eco", 50);
         washingMachine.addProgramToList(eco);
 
@@ -258,8 +263,9 @@ class WashingMachineTest {
     @Test
     @DisplayName("Add program with the same name to the list")
     void addProgram() {
-        WashingMachineSpecs washingMachineSpecs = new WashingMachineSpecs("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine("Samsung WM", washingMachineSpecs, 200);
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine washingMachine = (WashingMachine) d;
         Program eco = washingMachine.createProgram("Eco", 50);
         washingMachine.addProgramToList(eco);
         Program full = washingMachine.createProgram("Eco", 200);
@@ -270,64 +276,68 @@ class WashingMachineTest {
     @Test
     @DisplayName("Get null if no metered program is set")
     void getMeteredNullProgram() {
-        WashingMachineSpecs specs = new WashingMachineSpecs ("Washing Machine");
-        WashingMachine wm = new WashingMachine ("Samsung WM", specs, 200);
-        ProgramWithTimer eco = wm.createProgram ("Eco",  50);
-        wm.addProgramToList (eco);
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine wm = (WashingMachine) d;
+        ProgramWithTimer eco = wm.createProgram("Eco", 50);
+        wm.addProgramToList(eco);
 
-        assertNull (wm.getMeteredProgram ());
+        assertNull(wm.getMeteredProgram());
     }
 
     @Test
     @DisplayName("Correctly set a metered program")
     void setMeteredProgram() {
-        WashingMachineSpecs specs = new WashingMachineSpecs ("Washing Machine");
-        WashingMachine wm = new WashingMachine ("Samsung WM", specs, 200);
-        ProgramWithTimer eco = wm.createProgram ("Eco",  50);
-        wm.addProgramToList (eco);
-        ProgramWithTimer fast = wm.createProgram ("Fast",  200);
-        wm.addProgramToList (fast);
-        wm.setMeteredProgram ("Eco");
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine wm = (WashingMachine) d;
+        ProgramWithTimer eco = wm.createProgram("Eco", 50);
+        wm.addProgramToList(eco);
+        ProgramWithTimer fast = wm.createProgram("Fast", 200);
+        wm.addProgramToList(fast);
+        wm.setMeteredProgram("Eco");
 
-        Program result = wm.getMeteredProgram ();
+        Program result = wm.getMeteredProgram();
 
-        assertEquals (eco, result);
+        assertEquals(eco, result);
 
-        wm.setMeteredProgram ("Fast");
+        wm.setMeteredProgram("Fast");
 
-        assertEquals (fast, wm.getMeteredProgram ());
+        assertEquals(fast, wm.getMeteredProgram());
     }
 
     @Test
     @DisplayName("Correctly get the estimated energy consumption")
     void getEstimatedEnergyConsumption() {
-        WashingMachineSpecs specs = new WashingMachineSpecs ("Washing Machine");
-        WashingMachine wm = new WashingMachine ("Washing Machine", specs, 200);
-        ProgramWithTimer slow = wm.createProgram ("Slow",  50);
-        wm.addProgramToList (slow);
-        ProgramWithTimer fast = wm.createProgram ("Fast",  200);
-        wm.addProgramToList (fast);
-        slow.setDuration (2);
-        wm.setMeteredProgram ("Slow");
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine wm = (WashingMachine) d;
+        ProgramWithTimer slow = wm.createProgram("Slow", 50);
+        wm.addProgramToList(slow);
+        ProgramWithTimer fast = wm.createProgram("Fast", 200);
+        wm.addProgramToList(fast);
+        slow.setDuration(2);
+        wm.setMeteredProgram("Slow");
 
         double expected = 50;
-        double result = wm.getEstimatedEnergyConsumption ();
+        double result = wm.getEstimatedEnergyConsumption();
 
-        assertEquals (expected, result);
+        assertEquals(expected, result);
     }
 
     @Test
     void getEstimatedEnergyConsumptionNoProgram() {
-        WashingMachineSpecs specs = new WashingMachineSpecs ("Washing Machine");
-        WashingMachine wm = new WashingMachine ("Washing Machine", specs, 200);
-        ProgramWithTimer slow = wm.createProgram ("Slow",  50);
-        wm.addProgramToList (slow);
-        Program fast = wm.createProgram ("Fast",  200);
-        wm.addProgramToList (fast);
+        DeviceType dt = new WashingMachineType();
+        Device d = dt.createDevice("Washing Machine 1", 100);
+        WashingMachine wm = (WashingMachine) d;
+        ProgramWithTimer slow = wm.createProgram("Slow", 50);
+        wm.addProgramToList(slow);
+        Program fast = wm.createProgram("Fast", 200);
+        wm.addProgramToList(fast);
 
         double expected = 0;
-        double result = wm.getEstimatedEnergyConsumption ();
+        double result = wm.getEstimatedEnergyConsumption();
 
-        assertEquals (expected, result);
+        assertEquals(expected, result);
     }
 }

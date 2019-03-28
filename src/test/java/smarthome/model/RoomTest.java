@@ -3,11 +3,9 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.devices.Fan;
-import smarthome.model.devices.FanSpecs;
+import smarthome.model.devices.FanType;
 import smarthome.model.devices.WashingMachine;
-import smarthome.model.devices.WashingMachineSpecs;
-
-import java.util.GregorianCalendar;
+import smarthome.model.devices.WashingMachineType;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,12 +17,12 @@ public class RoomTest {
     @Test
     public void nameNotValid() {
 
-        Room roomOne = new Room ("  ", 0, 2.5, 3, 2);
+        Room roomOne = new Room("  ", 0, 2.5, 3, 2);
 
         String name = "  ";
-        boolean result = roomOne.validateName (name);
+        boolean result = roomOne.validateName(name);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
     /**
@@ -34,11 +32,11 @@ public class RoomTest {
     public void nullNameNotValid() {
 
         String name = " ";
-        Room roomOne = new Room (name, 0, 2.5, 3, 2);
+        Room roomOne = new Room(name, 0, 2.5, 3, 2);
 
-        boolean result = roomOne.validateName (name);
+        boolean result = roomOne.validateName(name);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
     /**
@@ -47,12 +45,12 @@ public class RoomTest {
     @Test
     public void nameValid() {
 
-        Room roomOne = new Room ("bedroom", 0, 2.5, 3, 4.7);
+        Room roomOne = new Room("bedroom", 0, 2.5, 3, 4.7);
 
         String name = "bedroom";
-        boolean result = roomOne.validateName (name);
+        boolean result = roomOne.validateName(name);
 
-        assertTrue (result);
+        assertTrue(result);
     }
 
     /**
@@ -60,13 +58,13 @@ public class RoomTest {
      */
     @Test
     public void equalsIfRoomEqualsRoom() {
-        Room room1 = new Room ("bedroom", 0, 2.5, 3, 3);
-        Room room2 = new Room ("bedroom", 0, 2.5, 3, 3);
+        Room room1 = new Room("bedroom", 0, 2.5, 3, 3);
+        Room room2 = new Room("bedroom", 0, 2.5, 3, 3);
 
-        boolean result = room1.equals (room2);
+        boolean result = room1.equals(room2);
 
-        assertEquals (room1.hashCode (), room2.hashCode ());
-        assertTrue (result);
+        assertEquals(room1.hashCode(), room2.hashCode());
+        assertTrue(result);
     }
 
     /**
@@ -74,13 +72,13 @@ public class RoomTest {
      */
     @Test
     public void equalsIfRoomEqualsDifferentRoom() {
-        Room room1 = new Room ("bedroom", 0, 2.5, 3, 3);
-        Room room2 = new Room ("garden", 0, 2.5, 3, 3);
+        Room room1 = new Room("bedroom", 0, 2.5, 3, 3);
+        Room room2 = new Room("garden", 0, 2.5, 3, 3);
 
-        boolean result = room1.equals (room2);
+        boolean result = room1.equals(room2);
 
-        assertNotEquals (room1.hashCode (), room2.hashCode ());
-        assertFalse (result);
+        assertNotEquals(room1.hashCode(), room2.hashCode());
+        assertFalse(result);
     }
 
     /**
@@ -89,12 +87,12 @@ public class RoomTest {
     @Test
     public void equalsIfStringEqualsRoom() {
         String person1 = "Joana";
-        Room room1 = new Room ("bedroom", 0, 2.5, 3, 3);
+        Room room1 = new Room("bedroom", 0, 2.5, 3, 3);
         boolean result;
 
-        result = room1.equals (person1);
+        result = room1.equals(person1);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
 
@@ -104,13 +102,13 @@ public class RoomTest {
     @Test
     public void setName() {
 
-        Room bedroom = new Room ("bedroom", 1, 2, 3, 2.5);
-        bedroom.setName ("bedroom1");
+        Room bedroom = new Room("bedroom", 1, 2, 3, 2.5);
+        bedroom.setName("bedroom1");
 
         String expectedResult = "bedroom1";
-        String result = bedroom.getName ();
+        String result = bedroom.getName();
 
-        assertEquals (expectedResult, result);
+        assertEquals(expectedResult, result);
 
     }
 
@@ -120,13 +118,13 @@ public class RoomTest {
     @Test
     public void setFloor() {
 
-        Room bedroom = new Room ("bedroom", 1, 2, 3, 2);
-        bedroom.setFloor (2);
+        Room bedroom = new Room("bedroom", 1, 2, 3, 2);
+        bedroom.setFloor(2);
 
         int expectedResult = 2;
-        int result = bedroom.getFloor ();
+        int result = bedroom.getFloor();
 
-        assertEquals (expectedResult, result);
+        assertEquals(expectedResult, result);
     }
 
     /**
@@ -135,14 +133,14 @@ public class RoomTest {
     @Test
     public void setArea() {
 
-        OccupationArea oa = new OccupationArea (3, 2);
-        Room bedroom = new Room ("bedroom", 1, 2, 3, 2);
-        bedroom.setArea (oa);
+        OccupationArea oa = new OccupationArea(3, 2);
+        Room bedroom = new Room("bedroom", 1, 2, 3, 2);
+        bedroom.setArea(oa);
 
         OccupationArea expectedResult = oa;
-        OccupationArea result = bedroom.getArea ();
+        OccupationArea result = bedroom.getArea();
 
-        assertEquals (expectedResult, result);
+        assertEquals(expectedResult, result);
 
 
     }
@@ -153,85 +151,90 @@ public class RoomTest {
     @Test
     public void setHeight() {
 
-        Room bedroom = new Room ("bedroom", 1, 2, 3, 2);
-        bedroom.setHeight (3);
+        Room bedroom = new Room("bedroom", 1, 2, 3, 2);
+        bedroom.setHeight(3);
 
         double expectedResult = 3;
-        double result = bedroom.getHeight ();
+        double result = bedroom.getHeight();
 
-        assertEquals (expectedResult, result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
     @DisplayName("Correctly get the estimated energy consumption of a room")
     void getCorrectRoomEstimatedEnergyConsumption() {
-        House house = new House ();
-        RoomList roomList = house.getRoomList ();
-        Room kitchen = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
-        roomList.addRoom (kitchen);
+        House house = new House();
+        RoomList roomList = house.getRoomList();
+        Room kitchen = roomList.createNewRoom("bedroom", 1, 2, 2, 2);
+        roomList.addRoom(kitchen);
 
-        FanSpecs fanSpecs = new FanSpecs ("Fan");
-        Fan fan = new Fan ("Fan 1", fanSpecs, 2);
+        DeviceType dt = new FanType();
+        Device d = dt.createDevice("Fan 1",2);
+        Fan fan = (Fan) d;
 
-        WashingMachineSpecs wmSpecs = new WashingMachineSpecs ("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine ("Washing Machine1", wmSpecs, 100);
+        DeviceType dt1= new WashingMachineType();
+        Device d1 = dt1.createDevice("Washing Machine1",100);
+        WashingMachine washingMachine = (WashingMachine) d1;
 
-        DeviceList deviceList = kitchen.getDeviceList ();
-        deviceList.addDevice (fan);
-        deviceList.addDevice (washingMachine);
+        DeviceList deviceList = kitchen.getDeviceList();
+        deviceList.addDevice(fan);
+        deviceList.addDevice(washingMachine);
 
-        ProgramMode fast = fan.createProgram ("Fast", 2);
-        ProgramMode ultraFast = fan.createProgram ("Ultra Fast", 4);
-        fan.addProgramToList (fast);
-        fan.addProgramToList (ultraFast);
-        ultraFast.setTime (10);
-        fan.setMeteredProgram ("Ultra Fast");
+        ProgramMode fast = fan.createProgram("Fast", 2);
+        ProgramMode ultraFast = fan.createProgram("Ultra Fast", 4);
+        fan.addProgramToList(fast);
+        fan.addProgramToList(ultraFast);
+        ultraFast.setTime(10);
+        fan.setMeteredProgram("Ultra Fast");
 
-        ProgramWithTimer eco = washingMachine.createProgram ("Eco", 20);
-        washingMachine.addProgramToList (eco);
-        eco.setDuration (30);
-        washingMachine.setMeteredProgram ("Eco");
+        ProgramWithTimer eco = washingMachine.createProgram("Eco", 20);
+        washingMachine.addProgramToList(eco);
+        eco.setDuration(30);
+        washingMachine.setMeteredProgram("Eco");
 
         double expected = 60;
-        double result = kitchen.getEstimatedEnergyConsumption ();
+        double result = kitchen.getEstimatedEnergyConsumption();
 
-        assertEquals (expected, result);
+        assertEquals(expected, result);
     }
 
     @Test
     @DisplayName("Correctly get the estimated energy consumption of a room")
     void getRoomEstimatedEnergyConsumption() {
-        House house = new House ();
-        RoomList roomList = house.getRoomList ();
-        Room kitchen = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
-        roomList.addRoom (kitchen);
+        House house = new House();
+        RoomList roomList = house.getRoomList();
+        Room kitchen = roomList.createNewRoom("bedroom", 1, 2, 2, 2);
+        roomList.addRoom(kitchen);
 
-        FanSpecs fanSpecs = new FanSpecs ("Fan");
-        Fan fan = new Fan ("Fan 1", fanSpecs, 2);
+        DeviceType dt = new FanType();
+        Device d = dt.createDevice("Fan 1",2);
+        Fan fan = (Fan) d;
 
-        WashingMachineSpecs wmSpecs = new WashingMachineSpecs ("Washing Machine");
-        WashingMachine washingMachine = new WashingMachine ("Washing Machine1", wmSpecs, 100);
+        DeviceType dt1= new WashingMachineType();
+        Device d1 = dt1.createDevice("Washing Machine1",100);
+        WashingMachine washingMachine = (WashingMachine) d1;
 
-        DeviceList deviceList = kitchen.getDeviceList ();
-        deviceList.addDevice (fan);
-        deviceList.addDevice (washingMachine);
 
-        ProgramMode fast = fan.createProgram ("Fast", 2);
-        ProgramMode ultraFast = fan.createProgram ("Ultra Fast", 4);
-        fan.addProgramToList (fast);
-        fan.addProgramToList (ultraFast);
-        ultraFast.setTime (10);
-        fan.setMeteredProgram ("Ultra Fast");
+        DeviceList deviceList = kitchen.getDeviceList();
+        deviceList.addDevice(fan);
+        deviceList.addDevice(washingMachine);
 
-        ProgramWithTimer eco = washingMachine.createProgram ("Eco", 20);
-        washingMachine.addProgramToList (eco);
-        eco.setDuration (30);
-        washingMachine.setMeteredProgram ("Eco");
+        ProgramMode fast = fan.createProgram("Fast", 2);
+        ProgramMode ultraFast = fan.createProgram("Ultra Fast", 4);
+        fan.addProgramToList(fast);
+        fan.addProgramToList(ultraFast);
+        ultraFast.setTime(10);
+        fan.setMeteredProgram("Ultra Fast");
+
+        ProgramWithTimer eco = washingMachine.createProgram("Eco", 20);
+        washingMachine.addProgramToList(eco);
+        eco.setDuration(30);
+        washingMachine.setMeteredProgram("Eco");
 
         double expected = 60;
-        double result = kitchen.getEstimatedEnergyConsumption ();
+        double result = kitchen.getEstimatedEnergyConsumption();
 
-        assertEquals (expected, result);
+        assertEquals(expected, result);
     }
 
     /**
@@ -314,15 +317,15 @@ public class RoomTest {
      */
     @Test
     public void getCorrectNominalPowerIf() {
-        House house = new House ();
-        RoomList roomList = house.getRoomList ();
-        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
-        roomList.addRoom (bedroom);
+        House house = new House();
+        RoomList roomList = house.getRoomList();
+        Room bedroom = roomList.createNewRoom("bedroom", 1, 2, 2, 2);
+        roomList.addRoom(bedroom);
 
         double expectedResult = 0;
-        double result = bedroom.getNominalPower ();
+        double result = bedroom.getNominalPower();
 
-        assertEquals (expectedResult, result);
+        assertEquals(expectedResult, result);
     }
 
     /**

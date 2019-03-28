@@ -1,9 +1,9 @@
-package smarthome.model;
+package smarthome.model.devices;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.*;
 import smarthome.model.devices.Oven;
-import smarthome.model.devices.OvenSpecs;
 import smarthome.model.devices.OvenType;
 
 import java.util.Arrays;
@@ -17,9 +17,8 @@ class OvenTest {
 
     @Test
     void getDeviceName() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device device = dt.createDevice("baker", 420);
 
         String expected = "baker";
         String result = device.getName();
@@ -28,22 +27,20 @@ class OvenTest {
     }
 
 
-    @Test
+    /*@Test
     void getDeviceSpecs() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device device = dt.createDevice("baker", 420);
 
         DeviceSpecs result = device.getDeviceSpecs();
 
         assertEquals(specs, result);
-    }
+    }*/
 
     @Test
     void getDeviceType() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device device = dt.createDevice("baker", 420);
 
         String expected = "Oven";
         String result = device.getDeviceType();
@@ -53,18 +50,16 @@ class OvenTest {
 
     @Test
     void isActive() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device device = dt.createDevice("baker", 420);
 
         assertTrue(device.isActive());
     }
 
     @Test
     void getActivityLog() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device device = dt.createDevice("baker", 420);
 
         ReadingList log = device.getActivityLog();
 
@@ -87,9 +82,8 @@ class OvenTest {
 
     @Test
     void getNominalPower() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device device = dt.createDevice("baker", 420);
 
         double expected = 420;
         double result = device.getNominalPower();
@@ -99,9 +93,8 @@ class OvenTest {
 
     @Test
     void setDeviceName() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("blah", specs, 420);
+        DeviceType dt = new OvenType();
+        Device device = dt.createDevice("baker", 420);
 
         device.setDeviceName("baker");
 
@@ -113,10 +106,8 @@ class OvenTest {
 
     @Test
     void setNominalPower() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
-
+        DeviceType dt = new OvenType();
+        Device device = dt.createDevice("baker", 420);
         device.setNominalPower(3000);
         double expected = 3000;
         double result = device.getNominalPower();
@@ -126,18 +117,16 @@ class OvenTest {
 
     @Test
     void deactivateActivatedDevice() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device device = dt.createDevice("baker", 420);
 
         assertTrue(device.deactivateDevice());
     }
 
     @Test
     void deactivateDeactivatedDevice() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device device = dt.createDevice("baker", 420);
 
         device.deactivateDevice();
         assertFalse(device.deactivateDevice());
@@ -145,10 +134,9 @@ class OvenTest {
 
     @Test
     void getEnergyConsumptionZero() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
-
+        DeviceType dt = new OvenType();
+        Device d = dt.createDevice("baker", 420);
+        Metered device = (Metered) d;
 
         Calendar startDate = new GregorianCalendar();
         Calendar endDate = new GregorianCalendar();
@@ -159,11 +147,11 @@ class OvenTest {
 
     @Test
     void getEnergyConsumption() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device d = dt.createDevice("baker", 420);
+        Metered device = (Metered) d;
 
-        ReadingList log = device.getActivityLog();
+        ReadingList log = d.getActivityLog();
         Reading r0 = new Reading(100, new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 8, 0));
         Reading r1 = new Reading(100, new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 10, 0));
         Reading r2 = new Reading(100, new GregorianCalendar(2019, Calendar.MARCH, 1, 1, 12, 0));
@@ -186,52 +174,55 @@ class OvenTest {
     @Test
     @DisplayName("Get correct estimated energy consumption")
     void getEstimatedEnergyConsumption() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs (type.getDeviceType());
-        Oven device = new Oven ("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device d = dt.createDevice("baker", 420);
 
-        ProgramMode lightOn = device.createProgram ("LightOn",  250);
-        ProgramMode grill = device.createProgram ("Grill",  300);
+        Oven device = (Oven) d;
 
-        device.addProgramToList (lightOn);
-        device.addProgramToList (grill);
+        ProgramMode lightOn = device.createProgram("LightOn", 250);
+        ProgramMode grill = device.createProgram("Grill", 300);
 
-        grill.setTime (2);
+        device.addProgramToList(lightOn);
+        device.addProgramToList(grill);
 
-        device.setMeteredProgram ("Grill");
+        grill.setTime(2);
+
+        device.setMeteredProgram("Grill");
 
         double expected = 600;
         double result = device.getEstimatedEnergyConsumption();
 
-        assertEquals (expected, result);
+        assertEquals(expected, result);
     }
 
     @Test
     @DisplayName("Get zero estimated energy consumption if there is no set program")
     void getEstimatedEnergyConsumptionNoProgram() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs (type.getDeviceType());
-        Oven device = new Oven ("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device d = dt.createDevice("baker", 420);
 
-        ProgramMode lightOn = device.createProgram ("LightOn",  250);
-        ProgramMode grill = device.createProgram ("Grill",  300);
+        Oven device = (Oven) d;
 
-        device.addProgramToList (lightOn);
-        device.addProgramToList (grill);
+        ProgramMode lightOn = device.createProgram("LightOn", 250);
+        ProgramMode grill = device.createProgram("Grill", 300);
 
-        grill.setTime (2);
+        device.addProgramToList(lightOn);
+        device.addProgramToList(grill);
+
+        grill.setTime(2);
 
         double expected = 0;
         double result = device.getEstimatedEnergyConsumption();
 
-        assertEquals (expected, result);
+        assertEquals(expected, result);
     }
 
     @Test
     void createProgram() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device d = dt.createDevice("baker", 420);
+
+        Oven device = (Oven) d;
 
         Program grill = device.createProgram("Grill", 300);
 
@@ -243,9 +234,10 @@ class OvenTest {
 
     @Test
     void addProgramToList() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device d = dt.createDevice("baker", 420);
+
+        Oven device = (Oven) d;
 
         Program p1 = device.createProgram("Grill", 300);
 
@@ -256,9 +248,10 @@ class OvenTest {
 
     @Test
     void addSameProgramToList() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device d = dt.createDevice("baker", 420);
+
+        Oven device = (Oven) d;
 
         Program p1 = device.createProgram("Grill", 300);
         Program p3 = device.createProgram("Light On", 20);
@@ -273,9 +266,10 @@ class OvenTest {
 
     @Test
     void getProgramList() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs(type.getDeviceType());
-        Oven device = new Oven("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device d = dt.createDevice("baker", 420);
+
+        Oven device = (Oven) d;
 
         Program p1 = device.createProgram("Grill", 300);
         Program p2 = device.createProgram("Fan", 250);
@@ -295,39 +289,41 @@ class OvenTest {
     @Test
     @DisplayName("Get null if no program is set as metered")
     void getMeteredNullProgram() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs (type.getDeviceType());
-        Oven device = new Oven ("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device d = dt.createDevice("baker", 420);
 
-        ProgramMode lightOn = device.createProgram ("LightOn",  250);
-        ProgramMode grill = device.createProgram ("Grill",  300);
+        Oven device = (Oven) d;
 
-        device.addProgramToList (lightOn);
-        device.addProgramToList (grill);
+        ProgramMode lightOn = device.createProgram("LightOn", 250);
+        ProgramMode grill = device.createProgram("Grill", 300);
 
-        assertNull (device.getMeteredProgram ());
+        device.addProgramToList(lightOn);
+        device.addProgramToList(grill);
+
+        assertNull(device.getMeteredProgram());
     }
 
     @Test
     @DisplayName("Correctly set metered program")
     void setMeteredProgram() {
-        OvenType type = new OvenType();
-        OvenSpecs specs = new OvenSpecs (type.getDeviceType());
-        Oven device = new Oven ("baker", specs, 420);
+        DeviceType dt = new OvenType();
+        Device d = dt.createDevice("baker", 420);
 
-        ProgramMode lightOn = device.createProgram ("LightOn",  250);
-        ProgramMode grill = device.createProgram ("Grill",  300);
+        Oven device = (Oven) d;
+
+        ProgramMode lightOn = device.createProgram("LightOn", 250);
+        ProgramMode grill = device.createProgram("Grill", 300);
 
 
-        device.addProgramToList (lightOn);
-        device.addProgramToList (grill);
+        device.addProgramToList(lightOn);
+        device.addProgramToList(grill);
 
-        device.setMeteredProgram ("Grill");
+        device.setMeteredProgram("Grill");
 
         Program expected = grill;
-        Program result = device.getMeteredProgram ();
+        Program result = device.getMeteredProgram();
 
-        assertEquals (expected, result);
+        assertEquals(expected, result);
     }
 
 }

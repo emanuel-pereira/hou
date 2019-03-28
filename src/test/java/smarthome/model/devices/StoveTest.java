@@ -1,9 +1,7 @@
-package smarthome.model;
+package smarthome.model.devices;
 
 import org.junit.jupiter.api.Test;
-import smarthome.model.devices.Stove;
-import smarthome.model.devices.StoveSpecs;
-import smarthome.model.devices.StoveType;
+import smarthome.model.*;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -38,7 +36,6 @@ class StoveTest {
         DeviceType dt = new StoveType();
         Device stove = dt.createDevice("kitchen stove", 0);
 
-
         stove.setNominalPower(2500);
         double expected = 2500.0;
         double result = stove.getNominalPower();
@@ -47,15 +44,14 @@ class StoveTest {
     }
 
 
-    @Test
+/*    @Test
     void getDeviceSpecs() {
+        DeviceType dt = new StoveType();
+        Device stove = dt.createDevice("kitchen stove", 0);
 
-        StoveSpecs specs = new StoveSpecs("Stove");
-        Stove stove = new Stove("kitchen stove", specs, 2500);
-        DeviceSpecs stoveSpecs = stove.getDeviceSpecs();
+        DeviceSpecs ds = stove.getDeviceSpecs();
+    }*/
 
-        assertEquals(specs, stoveSpecs);
-    }
 
     @Test
     void getDeviceType() {
@@ -75,8 +71,8 @@ class StoveTest {
     @Test
     void getNominalPower() {
 
-        StoveSpecs specs = new StoveSpecs("Stove");
-        Stove stove = new Stove("kitchen stove", specs, 2500);
+        DeviceType dt = new StoveType();
+        Device stove = dt.createDevice("kitchen stove", 2500);
 
         double expected = 2500.0;
         double result = stove.getNominalPower();
@@ -109,13 +105,14 @@ class StoveTest {
     @Test
     void setAttributeValue() {
 
-        StoveSpecs specs = new StoveSpecs("Stove");
-        Stove stove = new Stove("kitchen stove", specs, 2500);
+        DeviceType dt = new StoveType();
+        Device s = dt.createDevice("kitchen stove", 0);
+        DeviceSpecs stove = s.getDeviceSpecs();
 
         stove.setAttributeValue("capacity", 20.0);
 
         Double expected = 20.0;
-        Double result = specs.getAttributeValue("capacity");
+        Double result = stove.getAttributeValue("capacity");
 
         assertEquals(expected, result);
 
@@ -124,9 +121,8 @@ class StoveTest {
     @Test
     void deactivateDevice() {
 
-        StoveSpecs specs = new StoveSpecs("Stove");
-
-        Stove stove = new Stove("kitchen stove", specs, 2500);
+        DeviceType dt = new StoveType();
+        Device stove = dt.createDevice("kitchen stove", 0);
 
         assertTrue(stove.isActive());
         assertTrue(stove.deactivateDevice());
@@ -137,8 +133,9 @@ class StoveTest {
     @Test
     void getEnergyConsumption() {
 
-        StoveSpecs specs = new StoveSpecs("Stove");
-        Stove stove = new Stove("kitchen stove", specs, 2500);
+        DeviceType dt = new StoveType();
+        Device d = dt.createDevice("kitchen stove", 2500);
+        Metered stove = (Metered) d;
 
         Calendar startHour = new GregorianCalendar();
         Calendar endHour = new GregorianCalendar();
@@ -157,10 +154,11 @@ class StoveTest {
         Reading r4 = new Reading(0.600, new GregorianCalendar(2017, Calendar.FEBRUARY, 8, 19, 33));
         Reading r5 = new Reading(0.400, new GregorianCalendar(2018, Calendar.FEBRUARY, 5, 8, 31));
 
-        StoveSpecs specs = new StoveSpecs("Stove");
-        Stove stove = new Stove("kitchen stove", specs, 2500);
+        DeviceType dt = new StoveType();
+        Device d = dt.createDevice("kitchen stove", 2500);
+        Metered stove = (Metered) d;
 
-        ReadingList activityLog = stove.getActivityLog();
+        ReadingList activityLog = d.getActivityLog();
 
         activityLog.addReading(r1);
         activityLog.addReading(r2);
@@ -179,10 +177,11 @@ class StoveTest {
     }
 
     @Test
-     void createProgram() {
+    void createProgram() {
 
-        StoveSpecs specs = new StoveSpecs("Stove");
-        Stove stove = new Stove("kitchen stove", specs, 2500);
+        DeviceType dt = new StoveType();
+        Device d = dt.createDevice("kitchen stove", 2500);
+        Programmable stove = (Programmable) d;
 
         Program eco = stove.createProgram("Eco", 1500);
         stove.addProgramToList(eco);
@@ -200,8 +199,9 @@ class StoveTest {
 
     @Test
     void addNewProgram() {
-        StoveSpecs specs = new StoveSpecs("Stove");
-        Stove stove = new Stove("kitchen stove", specs, 2500);
+        DeviceType dt = new StoveType();
+        Device d = dt.createDevice("kitchen stove", 2500);
+        Programmable stove = (Programmable) d;
 
         Program eco = stove.createProgram("Eco", 1500);
         stove.addProgramToList(eco);
@@ -212,8 +212,9 @@ class StoveTest {
 
     @Test
     void addSameProgram() {
-        StoveSpecs specs = new StoveSpecs("Stove");
-        Stove stove = new Stove("kitchen stove", specs, 2500);
+        DeviceType dt = new StoveType();
+        Device d = dt.createDevice("kitchen stove", 2500);
+        Programmable stove = (Programmable) d;
         Program eco = stove.createProgram("Eco", 1500);
         stove.addProgramToList(eco);
 
@@ -222,9 +223,9 @@ class StoveTest {
 
     @Test
     void addProgramToList() {
-
-        StoveSpecs specs = new StoveSpecs("Stove");
-        Stove stove = new Stove("kitchen stove", specs, 2500);
+        DeviceType dt = new StoveType();
+        Device d = dt.createDevice("kitchen stove", 2500);
+        Programmable stove = (Programmable) d;
         Program eco = stove.createProgram("Eco", 1500);
         stove.addProgramToList(eco);
         Program full = stove.createProgram("Eco", 1500);
