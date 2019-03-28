@@ -113,8 +113,8 @@ DataImportCTRL --> DataImport
 
 
 DataImport .|> FileReaderReadings
-FileReaderReadings ..|> CSVReading
-FileReaderReadings ..|> JSONReading
-FileReaderReadings ..|> XMLReading
+FileReaderReadings <|.. CSVReading
+FileReaderReadings <|.. JSONReading
+FileReaderReadings <|.. XMLReading
 
 @enduml
