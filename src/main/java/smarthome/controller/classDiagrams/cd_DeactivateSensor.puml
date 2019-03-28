@@ -20,22 +20,20 @@ class SensorList{
 - listOfSensors: List<Sensor>
 + getSensorList: List<Sensor>
 + getActiveSensors: SensorList
-
-+ getDeviceList()
-+ showDeviceListInString()
-+ removeDevice(Device device)
-+ deactivateDevice(Device device)
++ deactivateDevice(device, date)
 }
 
 class Sensor {
-- mName: String
-- mDeviceSpecs: DeviceSpecs
-- mNominalPower: double
-- mActive: boolean;
-- mIsMetered: boolean;
-- mActivityLog: ReadingList ;
-+ status()
-+ deactivateDevice()
+- id: String;
+- designation: String
+- startDate: Calendar
+- pauseDate: Calendar
+- active: boolean
++ getDesignation(): String
++ getId(): String
++ getStartDate(): Calendar
++ getPauseDate(): Calendar
++ deactivate(date): boolean
 }
 
 GAList *- "1..*"GeographicalArea: contains
