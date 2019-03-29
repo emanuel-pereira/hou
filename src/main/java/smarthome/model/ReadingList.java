@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.repository.Repositories;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -24,7 +26,15 @@ public class ReadingList {
             return false;
         if (!checkIfReadingHasNotSameValues(newReading))
             return false;
-        return this.listOfReadings.add(newReading);
+        if (this.listOfReadings.add(newReading)) {
+            //repository call
+            try {
+                Repositories.readingRepository.save(newReading);
+            } catch (Exception e) {
+                //do nothing
+            }
+            return true;
+        } else return false;
     }
 
     public Reading getLastReading() {

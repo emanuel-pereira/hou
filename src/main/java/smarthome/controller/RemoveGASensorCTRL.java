@@ -57,6 +57,7 @@ public class RemoveGASensorCTRL {
                 sensorList.removeSensor(sensor);
                 try {
                     //Repository call
+                    Repositories.readingRepository.deleteAllBySensor(sensor);
                     Repositories.sensorRepository.delete(sensor);
                 } catch (NullPointerException e) {
                 }

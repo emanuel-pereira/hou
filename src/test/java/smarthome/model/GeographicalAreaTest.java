@@ -257,13 +257,13 @@ public class GeographicalAreaTest {
     void setDesignation() {
         GeographicalArea ga = new GeographicalArea("cityX9000", "WonderLand");
         ga.setDesignation("WonderCity");
-        assertEquals("WonderCity", ga.getDesignation());
+        assertEquals("WonderCity", ga.getGAName());
     }
 
     @Test
     void setIdentification() {
         GeographicalArea ga = new GeographicalArea("cityX9000", "WonderLand");
         ga.setIdentification("X9000");
-        assertEquals("X9000", ga.getIdentification());
+        assertEquals("X9000", ga.getId());
     }
 }

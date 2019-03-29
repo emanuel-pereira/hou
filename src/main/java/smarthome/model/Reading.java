@@ -24,6 +24,9 @@ public class Reading {
 
     private String unit;
 
+    protected Reading() {
+    }
+
     /**
      * Reading class Constructor
      * It determines that a reading always has an associated value and a date and time
@@ -36,10 +39,16 @@ public class Reading {
         this.dateAndTime = timeOfReading;
     }
 
-    public Reading(double readValue, Calendar timeOfReading, Sensor sensor) {
+    public Reading(double readValue, Calendar timeOfReading, Sensor sensor, String unitValue) {
         this.value = readValue;
         this.dateAndTime = timeOfReading;
         this.sensor = sensor;
+        this.unit = unitValue;
+    }
+
+    public Reading(double readValue, Calendar timeOfReading, String unitValue) {
+        this.value = readValue;
+        this.dateAndTime = timeOfReading;
         this.unit = unitValue;
     }
 

@@ -8,7 +8,6 @@ import smarthome.model.TypeGAList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ public final class SystemAdministrationUI {
     }
 
     public static void systemAdministration(House house, TypeGAList typeGAList, GAList gaList, SensorTypeList sensorTypeList)
-            throws IOException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParseException, ParserConfigurationException, SAXException {
+            throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParseException, ParserConfigurationException, SAXException {
 
         int option = -1;
         while (option != 0) {

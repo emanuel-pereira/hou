@@ -17,7 +17,7 @@ public class Location {
     private double longitude;
     private double altitude;
 
-    protected Location() {
+    public Location() {
     }
 
     /**

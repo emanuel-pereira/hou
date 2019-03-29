@@ -6,10 +6,9 @@ import smarthome.model.Sensor;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class XMLGeoAreaTest {
 
@@ -35,7 +34,7 @@ class XMLGeoAreaTest {
         GeographicalArea ga = gaList.get(0);
 
         String expected = "urban area";
-        String result = ga.getType();
+        String result = ga.getTypeName();
 
         assertEquals(expected, result);
     }

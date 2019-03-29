@@ -2,14 +2,8 @@ package smarthome.model;
 
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
-import smarthome.repository.Repositories;
 
 import javax.persistence.*;
-import java.io.IOException;
-import java.time.ZonedDateTime;
-import java.util.*;
-
-import static java.lang.Double.parseDouble;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -76,12 +70,10 @@ public class GeographicalArea {
     public GeographicalArea(String id, String name) {
         this.identification = id;
         this.designation = name;
+    }
 
     public String getId() {
         return identification;
-    }
-
-    public GeographicalArea() {
     }
 
 
@@ -197,12 +189,8 @@ public class GeographicalArea {
      *
      * @param ga1 is defined as an geographical area parented with other.
      */
-
-
     public void setParentGA(GeographicalArea ga1) {
-
         this.parentGa = ga1;
-
     }
 
     public OccupationArea getOccupation() {
@@ -216,6 +204,14 @@ public class GeographicalArea {
             sensorListDTO.add(sensorDTO);
         }
         return new GeographicalAreaDTO(this.identification, this.designation, sensorListDTO);
+    }
+
+    public void setIdentification(String id) {
+        this.identification = id;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 }
 

@@ -70,10 +70,10 @@ class NewSensorCTRLTest {
         TypeGA typeGA= new TypeGA("district");
         GeographicalArea area1 = gaList.newGA("Pt", "Porto", typeGA, oc1,loc1);
         GeographicalArea area2 = gaList.newGA("Pt", "Braga", typeGA, oc2,loc2);
-        gaList.addGA(area1);
-        gaList.addGA(area2);
+        assertTrue(gaList.addGA(area1));
+        assertFalse(gaList.addGA(area2));
 
-        List<GeographicalArea> expectedResult = Arrays.asList(area1, area2);
+        List<GeographicalArea> expectedResult = Arrays.asList(area1);
         List<GeographicalArea> result = ctrl.getGAList();
         assertEquals(expectedResult, result);
     }

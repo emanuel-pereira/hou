@@ -11,7 +11,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class JSONGeoAreaTest {
 
@@ -35,7 +35,7 @@ class JSONGeoAreaTest {
 
         GeographicalArea porto = gaListInFile.get(1);
         String expected = "city";
-        String result = porto.getType();
+        String result = porto.getTypeName();
         assertEquals(expected, result);
     }
 
