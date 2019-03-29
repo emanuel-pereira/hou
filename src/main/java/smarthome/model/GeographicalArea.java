@@ -95,13 +95,25 @@ public class GeographicalArea {
         return this.typeOfGa.toString();
     }
 
-    //TODO tests and JAVADOC
+    public boolean setType(TypeGA newtype) {
+        if (newtype != null) {
+            this.typeOfGa = newtype;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Method to return the GA type
+     *
+     * @return GAType
+     */
     public TypeGA getType() {
         return this.typeOfGa;
     }
 
     /**
-     * method to get this Geographical Area Parent Geographical Area
+     * Method to get this Geographical Area Parent Geographical Area
      *
      * @return return this geographical Area Parent
      */

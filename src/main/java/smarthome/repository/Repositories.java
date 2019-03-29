@@ -1,6 +1,8 @@
 package smarthome.repository;
 
-import smarthome.model.*;
+import smarthome.model.GeographicalArea;
+import smarthome.model.Reading;
+import smarthome.model.Sensor;
 
 public class Repositories {
     public static GeoRepository geoRepository;
@@ -19,9 +21,9 @@ public class Repositories {
     }
 
     public static void saveSensor(Sensor s) {
-        SensorType save = Repositories.sensorTypeRepository.save(s.getSensorType());
-        Location save1 = Repositories.locationRepository.save(s.getLocation());
-        Sensor save2 = Repositories.sensorRepository.save(s);
+        Repositories.sensorTypeRepository.save(s.getSensorType());
+        Repositories.locationRepository.save(s.getLocation());
+        Repositories.sensorRepository.save(s);
 
         for (Reading reading : s.getReadingList().getReadingsList()) {
             reading.setSensor(s);

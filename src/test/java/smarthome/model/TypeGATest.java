@@ -64,4 +64,10 @@ class TypeGATest {
         assertEquals(expected, result);
     }
 
+    @Test
+    public void getType() {
+        TypeGA typeGA = new TypeGA();
+
+        assertNull(typeGA.toString());
+    }
 }

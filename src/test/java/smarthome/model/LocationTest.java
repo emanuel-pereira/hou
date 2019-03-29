@@ -268,4 +268,20 @@ class LocationTest {
         //Assert
         assertNotEquals (expectedresult, result);
     }
+
+    @Test
+    public void LocationConstructor() {
+        //Act
+        Location l1 = new Location();
+        l1.setAltitude(2);
+        l1.setLongitude(3);
+        l1.setLatitude(4);
+        //Arrange
+        double result;
+        double expectedresult = 0;
+        //Assert
+        assertEquals(2, l1.getAltitude());
+        assertEquals(3, l1.getLongitude());
+        assertEquals(4, l1.getLatitude());
+    }
 }

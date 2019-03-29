@@ -62,9 +62,15 @@ public class OccupationArea {
         return this.occupation;
     }
 
-    @Override
-    public String toString() {
-        return String.format(
-                "\u001B[34;1mOccupation[id=%d, length='%d', width='%d', occupation='%d']\u001B[0m", id, length, width, occupation);
+    public void setOccupation(double occupation) {
+        this.occupation = occupation;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
     }
 }

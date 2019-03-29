@@ -21,4 +21,6 @@ public class RepositoryTest {
         List<GeographicalArea> city = Repositories.geoRepository.findByDesignation("city");
         assertEquals(0, city.size());
     }
+
+
 }

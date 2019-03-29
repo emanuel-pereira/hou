@@ -34,16 +34,11 @@ public class Location {
         setAltitude(altitude);
     }
 
-    //necessary for persistence, unused for now
-    private Long getId() {
-        return id;
-    }
-
     /**
      * Method to set latitude as the one inputted by the user if it complies with latitudeIsValid criteria
      * @param latitude user input
      */
-    private void setLatitude(double latitude) {
+    public void setLatitude(double latitude) {
         if (this.v.latitudeIsValid(latitude))
             this.latitude = latitude;
     }
