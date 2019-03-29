@@ -22,7 +22,9 @@ public class JSONGeoArea implements FileReaderGeoArea{
     private Path filePath;
     private JSONParser parser = new JSONParser();
 
-    public JSONGeoArea (){
+
+    public JSONGeoArea(){
+        //this constructor is empty so we can use reflection to choose the correct reader
     }
 
 
@@ -48,7 +50,7 @@ public class JSONGeoArea implements FileReaderGeoArea{
         return gaList;
     }
 
-    private GeographicalArea importGA (JSONObject jsonGA) {
+    private static GeographicalArea importGA (JSONObject jsonGA) {
         String id = (String) jsonGA.get("id");
         String description = (String) jsonGA.get("description");
         String type = (String) jsonGA.get("type");
@@ -57,7 +59,7 @@ public class JSONGeoArea implements FileReaderGeoArea{
         return new GeographicalArea(id,description,type,occupationArea,location);
     }
 
-    private OccupationArea importOccupationArea (JSONObject jsonObject){
+    private static OccupationArea importOccupationArea (JSONObject jsonObject){
         double width = (double) jsonObject.get("width");
         double length = (double) jsonObject.get("length");
 
@@ -65,7 +67,7 @@ public class JSONGeoArea implements FileReaderGeoArea{
 
     }
 
-    private void importSensorList (JSONObject jsonGA,List<Sensor> sensorList) throws java.text.ParseException {
+    private static void importSensorList (JSONObject jsonGA,List<Sensor> sensorList) throws java.text.ParseException {
         JSONArray jsonSensorList = (JSONArray) jsonGA.get("area_sensor");
         for(Object areaSensor : jsonSensorList){
             JSONObject jsonSensor = (JSONObject) areaSensor;
@@ -74,7 +76,7 @@ public class JSONGeoArea implements FileReaderGeoArea{
         }
     }
 
-    private Sensor importSensor (JSONObject jsonSensor) throws java.text.ParseException{
+    private static Sensor importSensor (JSONObject jsonSensor) throws java.text.ParseException{
         JSONObject sensor = (JSONObject) jsonSensor.get("sensor");
         String id = (String) sensor.get("id");
         String name = (String) sensor.get("name");
@@ -95,7 +97,7 @@ public class JSONGeoArea implements FileReaderGeoArea{
 
     }
 
-    private Location importLocation(JSONObject jsonObject){
+    private static Location importLocation(JSONObject jsonObject){
         JSONObject jsonLocation = (JSONObject) jsonObject.get("location");
         double latitude = (double) jsonLocation.get("latitude");
         double longitude = (double) jsonLocation.get("longitude");

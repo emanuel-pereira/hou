@@ -51,6 +51,7 @@ class DataImportCTRLTest {
         assertEquals(expected, result);
     }
 
+
     @Test
     void getAllSensorsInFile()throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException{
         GAList gaList = new GAList();
@@ -83,7 +84,40 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void importReading () throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
+    void failToAddIsZero()throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException{
+        GAList gaList = new GAList();
+        DataImportCTRL ctrl = new DataImportCTRL(gaList);
+        String filepath = "resources/JsonFile.json";
+
+        Path path = Paths.get(filepath);
+        ctrl.importGeoAreasFromFile(path);
+
+
+        int expected = 0;
+        int result = ctrl.failedToAdd();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void failToAddDoesNotStack() throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException{
+        GAList gaList = new GAList();
+        DataImportCTRL ctrl = new DataImportCTRL(gaList);
+        String filepath = "resources/JsonFile.json";
+
+        Path path = Paths.get(filepath);
+        ctrl.importGeoAreasFromFile(path);
+        ctrl.importGeoAreasFromFile(path);
+        ctrl.importGeoAreasFromFile(path);
+
+        int expected = 2;
+        int result = ctrl.failedToAdd();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void importReadingZero () throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources/DataSet_sprint05_SensorData.json";
@@ -95,7 +129,26 @@ class DataImportCTRLTest {
         int result = gaList.getAllReadings().size();
 
         assertEquals(expected,result);
+    }
 
+    @Test
+    void importReading () throws java.text.ParseException,IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
+        GAList gaList = new GAList();
+        DataImportCTRL ctrl1 = new DataImportCTRL(gaList);
+        String filepath1 = "resources/JsonFile.json";
+        Path path1 = Paths.get(filepath1);
+        ctrl1.importGeoAreasFromFile(path1);
+
+
+        DataImportCTRL ctrl2 = new DataImportCTRL(gaList);
+        String filepath2 = "resources/DataSet_sprint05_SensorData.json";
+        Path path2 = Paths.get(filepath2);
+        ctrl2.importReadingsFromFile(path2);
+
+        int expected = 61;
+        int result = gaList.getAllReadings().size();
+
+        assertEquals(expected,result);
     }
 
     @Test

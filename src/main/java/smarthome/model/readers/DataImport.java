@@ -41,11 +41,11 @@ public class DataImport {
         String className = getClassName("readings", fileExtension);
         FileReaderReadings reader = (FileReaderReadings) Class.forName(className).newInstance();
         List<String[]> dataToImport = reader.importData(filePathAndName);
-        loadReadingFiles(dataToImport);
+        Logger logger = createLogFile("invalidReadingsLog.txt");
+        loadReadingFiles(dataToImport,logger);
     }
 
-    public void loadReadingFiles(List<String[]> dataToImport) throws IOException {
-        Logger logger = createLogFile("invalidReadingsLog.txt");
+    public void loadReadingFiles(List<String[]> dataToImport,Logger logger)  {
         for (GeographicalArea ga : gaList.getGAList()) {
             for (String[] field : dataToImport) {
                 loadReadingEachSensor(ga, field,logger);
@@ -72,7 +72,8 @@ public class DataImport {
                     sensor.getReadingList().addReading(reading);
                 }
                 else {
-                    String message = "READING NOT ADDED - VALUE: " + readingValue + " DATE: " + dateAndTimeString + "\nREASON: READING DATE AFTER SENSOR START DATE\n";
+                    String message = "READING NOT ADDED - SENSOR: " + sensorID +
+                            " VALUE: " + readingValue + " " + unit + " DATE: " + dateAndTimeString + "\nREASON: READING DATE AFTER SENSOR START DATE\n";
                     logger.log(Level.WARNING, message);
                 }
             }
