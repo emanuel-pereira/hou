@@ -2,7 +2,10 @@ package smarthome.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.model.*;
+import smarthome.model.Device;
+import smarthome.model.House;
+import smarthome.model.HouseGrid;
+import smarthome.model.Room;
 import smarthome.model.devices.FanType;
 import smarthome.model.devices.OvenType;
 import smarthome.model.devices.TvType;
@@ -11,7 +14,8 @@ import smarthome.model.devices.WallTowelHeaterType;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class GetDeviceListInGridByTypeCTRLTest {
 

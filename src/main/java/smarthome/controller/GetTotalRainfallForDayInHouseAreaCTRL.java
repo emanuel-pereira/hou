@@ -1,6 +1,9 @@
 package smarthome.controller;
 
-import smarthome.model.*;
+import smarthome.model.House;
+import smarthome.model.Sensor;
+import smarthome.model.SensorType;
+import smarthome.model.SensorTypeList;
 
 import java.util.GregorianCalendar;
 

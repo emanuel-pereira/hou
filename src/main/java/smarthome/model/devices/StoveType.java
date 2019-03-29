@@ -15,7 +15,11 @@ public class StoveType implements DeviceType {
     public Device createDevice(String deviceName, double nominalPower) {
 
         String devType = getDeviceType();
-        DeviceSpecs deviceSpecs = (DeviceSpecs) new StoveSpecs(devType);
+
+        String[] attributeNames = {"capacity"};
+        String[] attributeUnits = {"Kw/h"};
+
+        DeviceSpecs deviceSpecs = new GenericSpecs(devType,attributeNames,attributeUnits);
         return new Stove(deviceName, deviceSpecs, nominalPower);
     }
 }

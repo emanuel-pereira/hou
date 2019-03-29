@@ -1,0 +1,73 @@
+@startuml
+
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+}
+class GAList{
+- listOfGa: List<GeographicalArea>
++ getGAList(): List<GeographicalArea>
+
+}
+
+class GeographicalArea{
+- identification: String
+- designation: String
++ getGAName(): String
++ getIdentification(): String
++ getSensorListInGA(): SensorList
+}
+
+
+class SensorList{
+- listOfSensors: List<Sensor>
++ getActiveSensors(): SensorList
++ deactivateDevice(device, date)
+}
+
+class Sensor {
+- id: String;
+- designation: String
+- startDate: Calendar
+- pauseDate: Calendar
+- active: boolean
++ getDesignation(): String
++ getId(): String
++ getStartDate(): Calendar
++ getPauseDate(): Calendar
++ deactivate(date): boolean
+}
+
+GAList *- "1..*"GeographicalArea: contains
+GeographicalArea *-- "1"SensorList: contains
+Sensor"*" -* SensorList: contains
+
+
+
+@enduml

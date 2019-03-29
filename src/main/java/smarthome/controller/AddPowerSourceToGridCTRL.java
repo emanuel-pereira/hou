@@ -1,6 +1,9 @@
 package smarthome.controller;
 
-import smarthome.model.*;
+import smarthome.model.House;
+import smarthome.model.HouseGrid;
+import smarthome.model.PowerSource;
+import smarthome.model.PowerSourceList;
 
 import java.util.List;
 

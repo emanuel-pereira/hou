@@ -100,7 +100,7 @@ public class DataImportUI {
             for (SensorDTO sensorDTO : geographicalAreaDTO.getSensorListDTO()) {
                 System.out.print("  " + counter + " - Sensor Id: " + sensorDTO.getId());
                 System.out.println(" | Name " + sensorDTO.getDesignation());
-                System.out.println("Number of readings imported: " + sensorDTO.getReadingList().size());
+                System.out.println("Number of readings imported: " + sensorDTO.getReadingListDTO().size());
                 counter++;
             }
         }

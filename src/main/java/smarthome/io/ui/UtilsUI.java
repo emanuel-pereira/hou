@@ -457,6 +457,10 @@ public final class UtilsUI {
      */
 
     private static void showFormattedList(String title, List<String> listToShow, boolean numbered, int padding) {
+        if (listToShow.isEmpty()) {
+            return;
+        }
+
 
         int tableWidth;
         int widestString = listToShow.get(0).length();

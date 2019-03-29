@@ -39,6 +39,8 @@ public class GeographicalArea {
     public String getId() {
         return identification;
     }
+    public GeographicalArea() {
+    }
 
     /**
      * method to get this Geographical Area designation
