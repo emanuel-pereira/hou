@@ -24,6 +24,7 @@ public class XMLGeoArea implements FileReaderGeoArea {
 
 
     public XMLGeoArea() {
+        //this constructor is empty so we can use reflection to choose the correct reader
     }
 
 
@@ -96,7 +97,7 @@ public class XMLGeoArea implements FileReaderGeoArea {
         return location;
     }
 
-    private String getTagValue(String tag, Element element) {
+    private static String getTagValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = nodeList.item(0);
         return node.getNodeValue();

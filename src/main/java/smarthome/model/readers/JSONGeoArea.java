@@ -24,6 +24,7 @@ public class JSONGeoArea implements FileReaderGeoArea{
 
 
     public JSONGeoArea(){
+        //this constructor is empty so we can use reflection to choose the correct reader
     }
 
 
@@ -66,7 +67,7 @@ public class JSONGeoArea implements FileReaderGeoArea{
 
     }
 
-    private void importSensorList (JSONObject jsonGA,List<Sensor> sensorList) throws java.text.ParseException {
+    private static void importSensorList (JSONObject jsonGA,List<Sensor> sensorList) throws java.text.ParseException {
         JSONArray jsonSensorList = (JSONArray) jsonGA.get("area_sensor");
         for(Object areaSensor : jsonSensorList){
             JSONObject jsonSensor = (JSONObject) areaSensor;

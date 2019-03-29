@@ -7,6 +7,8 @@ import smarthome.model.Sensor;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,6 +24,18 @@ class XMLGeoAreaTest {
         int result = xmlReader.loadData(path).size();
 
         assertEquals(2, result);
+
+    }
+
+    @Test
+    void importDataFailNoGAs() {
+
+        Path path = Paths.get("resources/fakeImportFilesForTests/DataSet_sprint05_GA_FAKE.xml");
+        XMLGeoArea xmlReader = new XMLGeoArea();
+
+        int result = xmlReader.loadData(path).size();
+
+        assertEquals(0, result);
 
     }
 
@@ -95,6 +109,22 @@ class XMLGeoAreaTest {
         int expected = 2;
         int result = sensorList.size();
 
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void checkGASensorTimeImport() {
+        Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
+        XMLGeoArea xmlReader = new XMLGeoArea();
+
+        List<GeographicalArea> gaList = xmlReader.loadData(path);
+
+        GeographicalArea ga = gaList.get(1);
+        List<Sensor> sensorList = ga.getSensorListInGA().getSensorList();
+        Sensor sensor = sensorList.get(1);
+
+        GregorianCalendar expected = new GregorianCalendar(2017, Calendar.NOVEMBER,16);
+        Calendar result = sensor.getStartDate();
         assertEquals(expected, result);
     }
 }
