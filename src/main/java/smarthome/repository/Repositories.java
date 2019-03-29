@@ -19,13 +19,15 @@ public class Repositories {
     }
 
     public static void saveSensor(Sensor s) {
-        SensorType save = Repositories.sensorTypeRepository.save(s.getSensorType());
-        Location save1 = Repositories.locationRepository.save(s.getLocation());
-        Sensor save2 = Repositories.sensorRepository.save(s);
+        Repositories.sensorTypeRepository.save(s.getSensorType());
+        Repositories.locationRepository.save(s.getLocation());
+        Repositories.sensorRepository.save(s);
 
         for (Reading reading : s.getReadingList().getReadingsList()) {
-            reading.setSensor(s);
-            Repositories.readingRepository.save(reading);
+            if (reading.getSensor()==null) {
+                reading.setSensor(s);
+                Repositories.readingRepository.save(reading);
+            }
         }
     }
 }

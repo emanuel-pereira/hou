@@ -7,6 +7,6 @@ import smarthome.model.TypeGA;
 @Component
 public interface TypeGARepository extends CrudRepository<TypeGA, Long> {
 
-    TypeGA findByTypeGeographicalArea(String type);
+    TypeGA findByTGA(String type);
 
 }
