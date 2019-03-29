@@ -2,15 +2,29 @@ package smarthome.model;
 
 import smarthome.dto.ReadingDTO;
 
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-
+@Entity
 public class Reading {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private double value;
     private Calendar dateAndTime;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "SENSOR_ID")
+    //FIXME @NotNull should have this annotation?
+    private Sensor sensor;
+
     private String unit;
+
+    protected Reading() {
+    }
 
     /**
      * Reading class Constructor
@@ -22,7 +36,13 @@ public class Reading {
     public Reading(double readValue, Calendar timeOfReading) {
         this.value = readValue;
         this.dateAndTime = timeOfReading;
+    }
 
+    public Reading(double readValue, Calendar timeOfReading, Sensor sensor, String unitValue) {
+        this.value = readValue;
+        this.dateAndTime = timeOfReading;
+        this.sensor = sensor;
+        this.unit = unitValue;
     }
 
     public Reading(double readValue, Calendar timeOfReading, String unitValue) {
@@ -54,7 +74,6 @@ public class Reading {
         this.unit = newUnit;
 
     }
-
 
     public boolean isSameDay(Calendar date) {
         int rYear = getDateAndTime().get(Calendar.YEAR);
@@ -95,5 +114,17 @@ public class Reading {
 
     public ReadingDTO toDTO() {
         return new ReadingDTO(this.value, this.dateAndTime);
+    }
+
+    public boolean setSensor(Sensor newSensor) {
+        if (newSensor != null) {
+            this.sensor = newSensor;
+            return true;
+        }
+        return false;
+    }
+
+    public Sensor getSensor() {
+        return sensor;
     }
 }

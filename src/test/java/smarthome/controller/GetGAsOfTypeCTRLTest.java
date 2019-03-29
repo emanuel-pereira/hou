@@ -11,7 +11,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GetGAsOfTypeCTRLTest {
 
-
     @Test
     @DisplayName("Show list of one GA from type street, or Type List index position 1 ")
     void getGAListFromTypeTestOneGA() {
@@ -221,5 +220,6 @@ class GetGAsOfTypeCTRLTest {
         String result = ctrl4.showListInString (typeIndex);
 
         assertEquals (expected, result);
+
     }
 }

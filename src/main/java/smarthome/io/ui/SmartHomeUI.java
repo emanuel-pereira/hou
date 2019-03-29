@@ -1,11 +1,17 @@
 
 package smarthome.io.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 import smarthome.model.GAList;
 import smarthome.model.House;
 import smarthome.model.SensorTypeList;
 import smarthome.model.TypeGAList;
+import smarthome.repository.LocationRepository;
+import smarthome.repository.OccupationAreaRepository;
+import smarthome.repository.SensorRepository;
+import smarthome.repository.SensorTypeRepository;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -19,28 +25,32 @@ import static smarthome.io.ui.RegularUsageUI.regularUsage;
 import static smarthome.io.ui.RoomOwnerUI.roomOwner;
 import static smarthome.io.ui.SystemAdministrationUI.systemAdministration;
 
+@Component
 public class SmartHomeUI {
     private static SensorTypeList sensorTypeList;
     private static GAList gaList;
     private static TypeGAList typeGAList;
     private static House house;
+    private static LocationRepository locRep;
+    private static OccupationAreaRepository ocRep;
+    private static SensorRepository sensorRep;
+    private static SensorTypeRepository sensorTypeRep;
 
-    public static void main(String[] args) throws SAXException, ParserConfigurationException, ClassNotFoundException, IllegalAccessException, InstantiationException, ParseException, IOException, org.json.simple.parser.ParseException, InvocationTargetException, NoSuchMethodException {
+    public static void main(String[] args) throws SAXException, ParserConfigurationException, ClassNotFoundException,
+            IllegalAccessException, InstantiationException, ParseException, IOException,
+            org.json.simple.parser.ParseException, InvocationTargetException, NoSuchMethodException {
+
+    }
+    public SmartHomeUI() {
         init();
-        BootStrap.run(house, typeGAList, sensorTypeList);
-        menuOptions();
+        //FIXME BootStrap.run(house, typeGAList, sensorTypeList);
     }
 
-    private static void init() {
-        sensorTypeList = new SensorTypeList();
-        gaList = new GAList();
-        house = new House();
-        typeGAList= new TypeGAList();
-    }
-
-    private static void menuOptions() throws SAXException, ParserConfigurationException, IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException, InvocationTargetException, NoSuchMethodException {
+    @Autowired
+    public static void menuOptions() throws SAXException, ParserConfigurationException, IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException, InvocationTargetException, NoSuchMethodException {
         int option = -1;
         while (option != 0) {
+
 
             ArrayList<String> options = new ArrayList<>();
             options.add("[1] System Administration");
@@ -55,7 +65,7 @@ public class SmartHomeUI {
             option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");
             switch (option) {
                 case 1:
-                    systemAdministration(house,sensorTypeList,typeGAList, gaList);
+                    systemAdministration(house, typeGAList, gaList, sensorTypeList);
                     break;
                 case 2:
                     houseAdministration(sensorTypeList, gaList, house);
@@ -73,5 +83,12 @@ public class SmartHomeUI {
                     //no action needed
             }
         }
+    }
+
+    private static void init() {
+        sensorTypeList = new SensorTypeList();
+        gaList = new GAList();
+        house = new House();
+        typeGAList= new TypeGAList();
     }
 }

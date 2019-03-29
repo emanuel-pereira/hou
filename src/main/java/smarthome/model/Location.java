@@ -2,16 +2,22 @@ package smarthome.model;
 
 import smarthome.model.validations.GPSValidations;
 
+import javax.persistence.*;
+
+@Entity
+
 public class Location {
+    @Transient
     private GPSValidations v = new GPSValidations ();
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     private double latitude;
     private double longitude;
     private double altitude;
 
-    public Location(){
-
+    public Location() {
     }
 
     /**

@@ -25,8 +25,8 @@ public class GAList {
      * @param location         GA central location represented by GPS coordinates
      * @return a new instance of a Geographical Area
      */
-    public GeographicalArea newGA(String inputID, String inputDesignation, String typeArea,OccupationArea occupationArea, Location location) {
-        return new GeographicalArea(inputID, inputDesignation, typeArea, occupationArea,location);
+    public GeographicalArea newGA(String inputID, String inputDesignation, TypeGA typeArea, OccupationArea occupationArea, Location location) {
+        return new GeographicalArea(inputID, inputDesignation, typeArea, occupationArea, location);
     }
 
     /**
@@ -102,7 +102,7 @@ public class GAList {
     public List<GeographicalArea> gAFromThisType(String inputTypeGA) {
         List<GeographicalArea> gAFromTypeList = new ArrayList<>();
         for (GeographicalArea ga : this.listOfGa) {
-            if (ga.getType().equals(inputTypeGA)) {
+            if (ga.getTypeName().equals(inputTypeGA)) {
                 gAFromTypeList.add(ga);
             }
         }
@@ -129,9 +129,10 @@ public class GAList {
     /**
      * @return the number of elements in the geographical areas list as an integer value
      */
-    public int size(){
+    public int size() {
         return this.listOfGa.size();
     }
+
     public GeographicalArea getLastGA() {
         return this.listOfGa.get(this.listOfGa.size() - 1);
     }

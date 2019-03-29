@@ -10,6 +10,7 @@ import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
 import smarthome.model.Reading;
 import smarthome.model.Sensor;
+import smarthome.repository.Repositories;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -64,8 +65,12 @@ public class DataImport {
 
                 Reading reading = new Reading(readingValue, readingDate, unit);
 
-                if (readingDate.after(sensor.getStartDate()))
+                if (readingDate.after(sensor.getStartDate())) {
+                    //repository call
+                    reading.setSensor(sensor);
+                    //dataImport
                     sensor.getReadingList().addReading(reading);
+                }
                 else {
                     String message = "READING NOT ADDED - SENSOR: " + sensorID +
                             " VALUE: " + readingValue + " " + unit + " DATE: " + dateAndTimeString + "\nREASON: READING DATE AFTER SENSOR START DATE\n";
@@ -122,6 +127,12 @@ public class DataImport {
     public void importFromFileGeoArea(List<GeographicalArea> dataToImport){
         for(GeographicalArea ga: dataToImport){
             this.gaList.addGA(ga);
+            //repository call
+            try {
+                Repositories.saveGA(ga);
+            } catch (Exception e) {
+                //do nothing
+            }
         }
     }
 }

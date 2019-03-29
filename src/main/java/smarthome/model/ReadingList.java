@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.repository.Repositories;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -17,6 +19,8 @@ public class ReadingList {
         return new Reading(readValue, timeOfReading);
     }
 
+    //TODO it is needed to create a new method in order to deal/avoid the @notNull matter when filtering lists of
+    // reagings by date
     public boolean addReading(Reading newReading) {
         if (this.listOfReadings.contains(newReading))
             return false;
@@ -24,7 +28,15 @@ public class ReadingList {
             return false;
         if (!checkIfReadingHasNotSameValues(newReading))
             return false;
-        return this.listOfReadings.add(newReading);
+        if (this.listOfReadings.add(newReading)) {
+            //repository call
+            try {
+                Repositories.readingRepository.save(newReading);
+            } catch (Exception e) {
+                //do nothing
+            }
+            return true;
+        } else return false;
     }
 
     public Reading getLastReading() {
@@ -136,7 +148,6 @@ public class ReadingList {
      * @param endDate
      * @return list of the readings with dates in a time interval
      */
-
     public ReadingList filterByDate(Calendar startDate, Calendar endDate) {
         ReadingList readingListInPeriod = new ReadingList();
         for (Reading reading : this.listOfReadings) {
@@ -145,6 +156,7 @@ public class ReadingList {
             if (readingDate.after(startDate) && readingDate.before(endDate)
                     || readingDate.equals(endDate)
                     || readingDate.equals(startDate)) {
+                //TODO there is no connection to the sensor from which the readings came upon this filter by date
                 readingListInPeriod.addReading(reading);
             }
         }
@@ -229,7 +241,7 @@ public class ReadingList {
         return dailyMin;
     }
 
-
+    //TODO verify this method
     public ReadingList dailyAmplitude() {
         List<Reading> dailyMaximumReadings = dailyMaximumReadings().getReadingsList();
         List<Reading> dailyMinimumReadings = dailyMinimumReadings().getReadingsList();
@@ -246,7 +258,9 @@ public class ReadingList {
             dayMaxReading = dailyMaximumReadings.get(i);
             dayMinReading = dailyMinimumReadings.get(i);
             tempReadingValue = dayMaxReading.returnValueOfReading() - dayMinReading.returnValueOfReading();
-            dailyAmp.addReading(new Reading(tempReadingValue, dayMaxReading.getDateAndTime()));
+            Reading tempReading = new Reading(tempReadingValue, dayMaxReading.getDateAndTime());
+            tempReading.setSensor(dayMaxReading.getSensor());
+            dailyAmp.addReading(tempReading);
         }
         return dailyAmp;
     }
@@ -283,6 +297,8 @@ public class ReadingList {
                     newReading.setUnit("C");
                 }
             } catch (NullPointerException e) {
+                String msg = "bygbbyg";
+                //TODO write in application log
             }
 
             if ((Double.compare(newReading.returnValueOfReading(),reading.returnValueOfReading())==0) &&

@@ -59,6 +59,9 @@ class SensorTypeTest {
     }
 
 
-
-
+    @Test
+    void getType() {
+        SensorType type = new SensorType();
+        assertNull(type.getType());
+    }
 }

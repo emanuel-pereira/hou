@@ -7,11 +7,11 @@ import java.util.List;
 
 public class GetTypeGAListCTRL {
 
-    private TypeGAList mTypeGAList;
+    private TypeGAList typeGAList;
 
     /** Constructor of User Story 2. It is used to create a list of types which would be created/added by the user*/
     public GetTypeGAListCTRL(TypeGAList inputList) {
-        mTypeGAList = inputList;
+        typeGAList = inputList;
     }
 
 
@@ -20,7 +20,7 @@ public class GetTypeGAListCTRL {
      * @return List of TypeGA
      */
     public List<TypeGA> getTypeGAList() {
-        return mTypeGAList.getTypeGAList ();
+        return typeGAList.getTypeGAList();
     }
 
     /**Method that shows/prints the list that is originated by the previous method(which is called on line 29) */

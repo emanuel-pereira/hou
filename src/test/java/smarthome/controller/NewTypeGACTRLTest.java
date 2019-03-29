@@ -8,9 +8,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NewTypeGACTRLTest {
 
-    /**
-     * Add a new type of geographical area in an empty list and get the size of the list that is 1.
-     */
+    /*
+     * Add a new type of geographical area in an empty list and get the size of the list that is 1.*/
     @Test
     @DisplayName("Add a new type of geographical area in an empty list")
     void newTypeGAIfSuccessVillage() {
@@ -23,7 +22,7 @@ class NewTypeGACTRLTest {
         assertEquals (1, list.getTypeGAList ().size ());
     }
 
-    /**
+    /*
      * Add a new type of geographical area in a list with other different types and get the size of the list that is 2.
      */
     @Test
@@ -42,7 +41,7 @@ class NewTypeGACTRLTest {
     }
 
 
-    /**
+    /*
      * Add a new type of geographical area in a list with the same type and get the size of the list that remains as 1.
      */
     @Test
@@ -60,7 +59,7 @@ class NewTypeGACTRLTest {
         assertEquals (1, list.getTypeGAList ().size ());
     }
 
-    /**
+    /*
      * Add new types of geographical area in a list with same and different types and get the size of the list.
      * The repetitions are not considered.
      */
@@ -88,7 +87,7 @@ class NewTypeGACTRLTest {
         assertEquals (3, list.getTypeGAList ().size ());
     }
 
-    /**
+    /*
      * Add spaces has type of geographical area in an empty list and confirm that is not possible to add that spaces
      * into the list
      */
@@ -104,7 +103,7 @@ class NewTypeGACTRLTest {
         assertEquals (0, list.getTypeGAList ().size ());
     }
 
-    /**
+    /*
      * Add spaces has type of geographical area in an list with one TypeGA and confirm that is not possible to add that
      * space into the list but is possible to add a correct one after
      */
@@ -177,18 +176,16 @@ class NewTypeGACTRLTest {
     @Test
     @DisplayName("Add a null type of GA")
     void newTypeGAIfSpaceNotAdded4() {
-        TypeGAList list = new TypeGAList ();
+        TypeGAList list = new TypeGAList();
         NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
 
         assertEquals (0, list.getTypeGAList ().size ());
 
-        /*ctrl1.run (null);
-        assertEquals (0, list.getTypeGAList ().size ());*/
+        ctrl1.createTypeGA(null);
+        assertEquals(0, list.getTypeGAList().size());
 
         assertFalse(ctrl1.createTypeGA ("            "));
         assertEquals (0, list.getTypeGAList ().size ());
-
-
 
     }
 }

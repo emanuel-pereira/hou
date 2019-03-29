@@ -4,6 +4,8 @@ package smarthome.model.validations;
 public class NameValidations {
 
     public boolean nameIsValid(String inputName) {
+        if (inputName == null)
+            return false;
         if (inputName.trim().isEmpty()) {
             return false;
         }

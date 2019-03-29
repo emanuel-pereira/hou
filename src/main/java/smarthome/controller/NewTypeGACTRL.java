@@ -24,9 +24,10 @@ public class NewTypeGACTRL {
      * false if it was not possible to add the new type of GA, eg. if the type already exists
      */
     public boolean createTypeGA(String inputType) {
-        TypeGA typeGA = this.typeGAList.newTypeGA (inputType);
-        if (typeGA != null)
-            return this.typeGAList.addTypeGA (typeGA);
-        return false;
+        TypeGA typeGA = this.typeGAList.newTypeGA(inputType);
+        if (typeGA == null)
+            return false;
+        return this.typeGAList.addTypeGA(typeGA);
     }
+
 }

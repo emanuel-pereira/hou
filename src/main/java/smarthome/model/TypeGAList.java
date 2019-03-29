@@ -1,6 +1,9 @@
 package smarthome.model;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import smarthome.model.validations.NameValidations;
+import smarthome.repository.Repositories;
+import smarthome.repository.TypeGARepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +11,9 @@ import java.util.List;
 public class TypeGAList {
 
     private List<TypeGA> typeOfGAList;
+
+    @Autowired
+    private TypeGARepository typeRep;
 
     /**
      * Constructor for TypeGAList where the List of GA's is instantiated
@@ -18,6 +24,7 @@ public class TypeGAList {
 
     /**
      * Method to create a new object Type of GA with the user's input String designation
+     *
      * @param inputName user's input String designation
      * @return a new object Type of GA with the user's input or null if the input was not valid
      */
@@ -26,13 +33,14 @@ public class TypeGAList {
         NameValidations validations = new NameValidations();
         if (inputName != null)
             inputNameLowerCase = inputName.toLowerCase();
-        if (validations.nameIsValid (inputNameLowerCase))
+        if (validations.nameIsValid(inputNameLowerCase))
             return new TypeGA(inputNameLowerCase);
         return null;
     }
 
     /**
      * Method to add the previous created new object into the typeGA ArrayList of GA's types
+     *
      * @param inputType object Type of GA with the user's input
      * @return true if it was possible to add the user new input, false if the input type is
      * already contained.
@@ -40,23 +48,30 @@ public class TypeGAList {
     public boolean addTypeGA(TypeGA inputType) {
         if (inputType != null && !this.typeOfGAList.contains(inputType)) {
             this.typeOfGAList.add(inputType);
+
+            //Repository call
+            try {
+                Repositories.typeGARepository.save(inputType);
+            } catch (NullPointerException e) {
+            }
             return true;
         } else return false;
     }
 
     /**
      * Method to return the the list of previously entered GA type's
+     *
      * @return the list of previously entered GA type's
      */
     public List<TypeGA> getTypeGAList() {
         return this.typeOfGAList;
     }
 
-    public int size(){
+    public int size() {
         return this.typeOfGAList.size();
     }
 
-    public TypeGA get(int index){
+    public TypeGA get(int index) {
         return this.typeOfGAList.get(index);
     }
 

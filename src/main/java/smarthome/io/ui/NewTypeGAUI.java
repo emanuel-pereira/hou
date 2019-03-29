@@ -28,17 +28,16 @@ public class NewTypeGAUI {
         while (condition) {
             System.out.println ("Insert the name of the new type of geographical area:");
             this.name = UtilsUI.requestText ("Please use only characters");
-            this.createTypeGA ();
+            this.createTypeGA();
         }
     }
 
     private void createTypeGA() {
-        if (this.controller.createTypeGA (this.name)) {
-            System.out.println ("Success: " + this.name + " added.\n");
+        if (this.controller.createTypeGA(this.name)) {
+            System.out.println("Success: " + this.name + " added.\n");
             condition = false;
         } else
-            System.out.println ("This type already exists.");
+            System.out.println("This type already exists.");
     }
-
 
 }
