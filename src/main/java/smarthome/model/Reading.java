@@ -93,8 +93,12 @@ public class Reading {
         return new ReadingDTO(this.value, this.dateAndTime);
     }
 
-    public void setSensor(Sensor newSensor) {
-        this.sensor = newSensor;
+    public boolean setSensor(Sensor newSensor) {
+        if (newSensor != null) {
+            this.sensor = newSensor;
+            return true;
+        }
+        return false;
     }
 
     public Sensor getSensor() {
