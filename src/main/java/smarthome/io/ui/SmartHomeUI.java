@@ -1,12 +1,15 @@
 
 package smarthome.io.ui;
 
+import org.xml.sax.SAXException;
 import smarthome.model.GAList;
 import smarthome.model.House;
 import smarthome.model.SensorTypeList;
 import smarthome.model.TypeGAList;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -22,7 +25,7 @@ public class SmartHomeUI {
     private static TypeGAList typeGAList;
     private static House house;
 
-    public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException, ParseException, IOException, org.json.simple.parser.ParseException {
+    public static void main(String[] args) throws SAXException, ParserConfigurationException, ClassNotFoundException, IllegalAccessException, InstantiationException, ParseException, IOException, org.json.simple.parser.ParseException, InvocationTargetException, NoSuchMethodException {
         init();
         BootStrap.run(house, typeGAList, sensorTypeList);
         menuOptions();
@@ -35,7 +38,7 @@ public class SmartHomeUI {
         typeGAList= new TypeGAList();
     }
 
-    private static void menuOptions() throws IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
+    private static void menuOptions() throws SAXException, ParserConfigurationException, IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException, InvocationTargetException, NoSuchMethodException {
         int option = -1;
         while (option != 0) {
 

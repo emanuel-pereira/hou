@@ -1,11 +1,14 @@
 package smarthome.io.ui;
 
+import org.xml.sax.SAXException;
 import smarthome.model.GAList;
 import smarthome.model.House;
 import smarthome.model.SensorTypeList;
 import smarthome.model.TypeGAList;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -14,7 +17,7 @@ public final class SystemAdministrationUI {
     private SystemAdministrationUI() {
     }
 
-    public static void systemAdministration(House house, SensorTypeList sensorTypeList, TypeGAList typeGAList, GAList gaList) throws ParseException, org.json.simple.parser.ParseException, IOException {
+    public static void systemAdministration(House house, SensorTypeList sensorTypeList, TypeGAList typeGAList, GAList gaList) throws IOException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParseException, ParserConfigurationException, SAXException {
 
         int option = -1;
         while (option != 0) {
@@ -31,8 +34,8 @@ public final class SystemAdministrationUI {
             options.add("[8] Check if a a geographical area is direct/indirectly included to another one");
             options.add("[9] Deactivate a sensor in a geographical area");
             options.add("[10] Remove a sensor from a geographical area, so that it will no longer be used.");
-            options.add("[11] Import geographical areas and sensors from a JSONFile");
-            options.add("[12] Import readings from a CSVFile");
+            options.add("[11] Import geographical areas and sensors from a File (XML,JSON)");
+            options.add("[12] Import readings from a File(CSV,XML,JSON)");
 
             options.add("[0] Exit");
 
@@ -83,11 +86,11 @@ public final class SystemAdministrationUI {
                     break;
                 case 11:
                     DataImportUI ui11 = new DataImportUI(gaList);
-                    ui11.loadJSON();
+                    ui11.loadGeoAreaFile();
                     break;
                 case 12:
                     DataImportUI ui12 = new DataImportUI(gaList);
-                    ui12.importDataFromCSVFile();
+                    ui12.importDataFromFile();
                     break;
                 default:
                     //no action needed

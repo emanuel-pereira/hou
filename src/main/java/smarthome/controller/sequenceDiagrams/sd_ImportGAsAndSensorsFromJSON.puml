@@ -1,0 +1,38 @@
+@startuml
+autonumber
+hidefootbox
+actor SysAdmin
+create ":DataImportUI"
+SysAdmin -> ":DataImportUI": Import GAs and \nSensors from JSON
+create ":DataImportCTRL"
+":DataImportUI" -> ":DataImportCTRL": create(gL)
+SysAdmin <-- ":DataImportUI": request JSON file path
+SysAdmin -> ":DataImportUI": Enters JSON file path
+":DataImportUI" -> ":DataImportCTRL": loadJSON(filepath)
+create ":ReadJSONFile"
+":DataImportCTRL"->":ReadJSONFile": create(filePath,gL)
+":DataImportCTRL" -> ":ReadJSONFile": importGAs()
+loop import geographical areas from JSON
+create "ga:GeographicalArea"
+
+":ReadJSONFile" -> "ga:GeographicalArea": ga=createGeographicalArea()
+create "sL:SensorList"
+"ga:GeographicalArea" -> "sL:SensorList": create()
+":ReadJSONFile"->"sL:SensorList": sL=getSensorList()
+loop import sensors from JSON
+create "s:Sensor"
+":ReadJSONFile"->"s:Sensor":s=createSensor()
+":ReadJSONFile"->"sL:SensorList": addGASensor(s)
+end
+":ReadJSONFile"->"gL:GAList": add(GA)
+end
+":DataImportCTRL"<-":DataImportUI":gaListDTO=showGAsDTOs
+loop for each geographical area in gL convert to DTO
+":DataImportCTRL"->"ga:GeographicalArea": toDTO()
+create "gaDTO:GeographicalAreaDTO"
+"ga:GeographicalArea"->"gaDTO:GeographicalAreaDTO": gaDTO=create()
+":DataImportCTRL"->"gaDTO:GeographicalAreaDTO": add(gaDTO)
+end
+":DataImportCTRL"->":DataImportCTRL": gaListDTO=getGAListDTO()
+SysAdmin<--":DataImportUI": Shows geographical areas \nand respective sensors
+@enduml

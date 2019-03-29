@@ -19,7 +19,7 @@ public class GeographicalAreaMapper {
      */
     public GeographicalAreaDTO toDto(GeographicalArea geographicalArea) {
         GeographicalAreaDTO geographicalAreaDTO = new GeographicalAreaDTO();
-        geographicalAreaDTO.setIdentification(geographicalArea.getIdentification());
+        geographicalAreaDTO.setIdentification(geographicalArea.getId());
         geographicalAreaDTO.setDesignation(geographicalArea.getGAName());
         SensorList sensorList = geographicalArea.getSensorListInGA();
         geographicalAreaDTO.setSensorListDTO(sensorMapper.toDtoList(sensorList));

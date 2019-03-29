@@ -149,7 +149,7 @@ class KettleTest {
                 hour = 0;
                 day++;
             }
-            kettleActivityLog.addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
+            kettleActivityLog.addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes),"C"));
         }
 
         Calendar startDate = new GregorianCalendar(2018, 11, 31);

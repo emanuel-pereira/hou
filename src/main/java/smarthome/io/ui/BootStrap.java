@@ -155,7 +155,7 @@ public final class BootStrap {
 
                 day++;
             }
-            lamp.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
+            lamp.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes),"C"));
         }
         year = 2018;
         month = 11;

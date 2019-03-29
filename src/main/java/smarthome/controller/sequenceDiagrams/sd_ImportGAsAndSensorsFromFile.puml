@@ -2,64 +2,79 @@
 autonumber
 hidefootbox
 
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
 actor SysAdmin
 
 create ":DataImportUI"
 SysAdmin -> ":DataImportUI": Import GAs and \nSensors from a File
 
+
 create ":DataImportCTRL"
-":DataImportUI" -> ":DataImportCTRL": create(gL)
+":DataImportUI" -> ":DataImportCTRL": create(gaList)
 SysAdmin <-- ":DataImportUI": Request file path
 SysAdmin -> ":DataImportUI": Enters file path
-":DataImportUI" -> ":DataImportCTRL": loadFile(filepath)
+
+":DataImportUI" -> ":DataImportCTRL": List<GeographicalArea>=\nreadGeoAreasFromFile (path)
+
+create ":DataImport"
+":DataImportCTRL"->":DataImport":create(gaList)
+
+":DataImportCTRL"->":DataImport": List<GeographicalArea>=\nloadGeoAreaFiles(path)
+
 
 create ":{Reader}"
-":DataImportCTRL"->":{Reader}": create(filePath,gL)
-note right
+":DataImport"->":{Reader}": create()
+note right #FFFF
 {Reader} can be:
-    XMLReader
-    JSONReader
+    XMLGeoArea
+    JSONGeoArea
 end note
 
-":DataImportCTRL" -> ":{Reader}": importGAs( )
-":{Reader}" -> "gL:GAList": importGAsFromFile( )
+":DataImport" -> ":DataImport": readConfigFile()
 
+ref over ":DataImport", ":{Reader}": Create file reader class based on file extension
 
-loop Import Geographical Areas from file
+":DataImport" -> ":{Reader}": List<GeographicalArea>=\n loadData(path)
+ref over ":DataImport",":{Reader}",":DataImportCTRL":Create List of Geographical Areas and its Sensors that were read in from file
 
-create "ga:GeographicalArea"
-"gL:GAList" -> "ga:GeographicalArea": ga = newGAFromFile()
+":DataImportUI" -> ":DataImportCTRL" :int = getGaListInFileSize(path)
+ ":DataImportUI" -> ":DataImportCTRL" :int = getAllSensorsInFile(path)
+'ref over ":DataImportUI",":DataImportCTRL": Get list size of Geographical Areas\n and Sensors to show
 
+SysAdmin<--":DataImportUI": Show message with size of\nGeographical Areas' list to\n import and asks to confirm import
 
-create "sL:SensorList"
-"ga:GeographicalArea" -> "sL:SensorList": create( )
+SysAdmin -> ":DataImportUI": Confirms import
 
-
-"gL:GAList"->"gL:GAList": add(GA)
+":DataImportUI" ->":DataImportCTRL": importGeoAreasFromFiles(path)
+":DataImportCTRL"-> ":DataImport": importFromFileGeoArea (List<Geographical Area>)
+loop
+":DataImport" -> "gaList:GAList":addGA(Geographical Area)
+":DataImport" -> ":Repositories": saveGA(Geographical Area)
+ref over ":DataImport","gaList:GAList": Add Geographical Areas that were in file to the GAList
 end
-
-":DataImportCTRL" -> ":{Reader}": importSensors( )
-":{Reader}" -> "sL:SensorList": importSensorsFromFile( )
-
-loop import sensors from file
-
-create "s:Sensor"
-"sL:SensorList"->"s:Sensor":s = newSensorFromFile()
-"sL:SensorList"->"sL:SensorList": addGASensor(s)
-end
-
-
-":DataImportCTRL"<-":DataImportUI":gaListDTO=\nshowGAsDTOs( )
-
-loop for each geographical area in gL convert to DTO
-":DataImportCTRL"->"ga:GeographicalArea": toDTO( )
-
-create "gaDTO:GeographicalAreaDTO"
-"ga:GeographicalArea"->"gaDTO:GeographicalAreaDTO": gaDTO=create()
-":DataImportCTRL"->"gaDTO:GeographicalAreaDTO": add(gaDTO)
-
-end
-
-":DataImportCTRL"->":DataImportCTRL": gaListDTO=getGAListDTO()
-SysAdmin<--":DataImportUI": Show message with number\nof Geographical Areas and\nSensors successfully imported
+":DataImportUI" -> ":DataImportCTRL" :int = getImportedGaListSize(path)
+SysAdmin<--":DataImportUI": Show success message with number of\n Geographical Areas successfully imported\n and the number of the ones that were not
 @enduml

@@ -27,12 +27,12 @@ class GeographicalAreaMapperTest {
         GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
         GeographicalAreaDTO gaDTO = gaMapper.toDto(aveiro);
 
-        String expected =aveiro.getDesignation();
+        String expected =aveiro.getGAName();
         String result = gaDTO.getDesignation();
 
         assertEquals(expected,result);
 
-        String expected1 =aveiro.getIdentification();
+        String expected1 =aveiro.getId();
         String result1 = gaDTO.getIdentification();
 
         assertEquals(expected1,result1);

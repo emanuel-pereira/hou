@@ -88,7 +88,7 @@ public class NewSensorUI {
         System.out.println("Insert the value of the reading:");
 
         double readingValue = UtilsUI.requestDouble(UtilsUI.insertValidParameter("decimal value"));
-        Reading r = this.readingList.newReading(readingValue, date);
+        Reading r = new Reading(readingValue, date);
         this.readingList.addReading(r);
         this.askToAddNewReadings();
     }

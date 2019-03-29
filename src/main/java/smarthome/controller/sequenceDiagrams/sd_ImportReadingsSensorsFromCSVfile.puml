@@ -18,7 +18,6 @@ create ":DataImportCTRL"
 
 loop for each Geographical Area
 ":GAList" -> ":GeographicalArea": importReadingsToSensors\nFromCSVFile(filePath)
-end
 
 create ":ReadCSVFile"
 ":GeographicalArea" -> ":ReadCSVFile": create
@@ -35,6 +34,7 @@ create ":Reading"
 
 ":ReadingList" -> ":Reading": newReading(date,value)
 ":ReadingList" <- ":Reading": addReading(reading)
+end
 end
 
 ":DataImportCTRL"<-":DataImportUI":gaListDTO=showNumber\nOfReadingsDTO()
