@@ -54,7 +54,7 @@ public class XMLReading implements FileReaderReadings {
     }
 
 
-    private String[] importReading(Node readingNode){
+    private static String[] importReading(Node readingNode){
 
         String[] data = new String[4];
 
