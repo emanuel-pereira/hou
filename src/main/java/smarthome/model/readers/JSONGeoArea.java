@@ -49,7 +49,7 @@ public class JSONGeoArea implements FileReaderGeoArea{
         return gaList;
     }
 
-    private GeographicalArea importGA (JSONObject jsonGA) {
+    private static GeographicalArea importGA (JSONObject jsonGA) {
         String id = (String) jsonGA.get("id");
         String description = (String) jsonGA.get("description");
         String type = (String) jsonGA.get("type");
@@ -75,7 +75,7 @@ public class JSONGeoArea implements FileReaderGeoArea{
         }
     }
 
-    private Sensor importSensor (JSONObject jsonSensor) throws java.text.ParseException{
+    private static Sensor importSensor (JSONObject jsonSensor) throws java.text.ParseException{
         JSONObject sensor = (JSONObject) jsonSensor.get("sensor");
         String id = (String) sensor.get("id");
         String name = (String) sensor.get("name");
