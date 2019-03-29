@@ -22,6 +22,7 @@ public class Reading {
     @NotNull
     private Sensor sensor;
 
+    private String unit;
 
     /**
      * Reading class Constructor
@@ -39,6 +40,7 @@ public class Reading {
         this.value = readValue;
         this.dateAndTime = timeOfReading;
         this.sensor = sensor;
+        this.unit = unitValue;
     }
 
     /**
@@ -56,6 +58,14 @@ public class Reading {
         return this.dateAndTime;
     }
 
+    public String getUnit() {
+        return this.unit;
+    }
+
+    public void setUnit(String newUnit) {
+        this.unit = newUnit;
+
+    }
 
     public boolean isSameDay(Calendar date) {
         int rYear = getDateAndTime().get(Calendar.YEAR);
@@ -68,9 +78,6 @@ public class Reading {
     public GregorianCalendar extractYearMonthDay() {
         return new GregorianCalendar(this.getDateAndTime().get(Calendar.YEAR), this.getDateAndTime().get(Calendar.MONTH), this.getDateAndTime().get(Calendar.DAY_OF_MONTH));
     }
-
-
-    //US610
 
     /**
      * @return the date of a reading as a string in YYYY-MM-DD format
@@ -87,6 +94,14 @@ public class Reading {
         output.append("-");
         output.append(day);
         return output.toString();
+    }
+
+    public double convertToCelsius() {
+        if (this.unit.equals("F")) {
+            this.value = ((this.value - 32) / 1.8);
+            this.value = Math.round(this.value*100.0)/100.0;
+        }
+        return this.value;
     }
 
     public ReadingDTO toDTO() {

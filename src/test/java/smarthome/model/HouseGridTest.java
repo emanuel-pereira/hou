@@ -2,7 +2,10 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.model.devices.*;
+import smarthome.model.devices.FanType;
+import smarthome.model.devices.OvenType;
+import smarthome.model.devices.TvType;
+import smarthome.model.devices.WallTowelHeaterType;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -448,12 +451,12 @@ class HouseGridTest {
             grDeviceList.addDevice(fridgeB);
 
             ReadingList fridgeALog = fridgeA.getActivityLog();
-            Reading r1 = new Reading(20, new GregorianCalendar(2018, 2, 1, 9, 10));
-            Reading r2 = new Reading(20, new GregorianCalendar(2018, 2, 1, 12, 10));
-            Reading r3 = new Reading(20, new GregorianCalendar(2018, 2, 1, 12, 20));
-            Reading r4 = new Reading(20, new GregorianCalendar(2018, 2, 1, 12, 30));
-            Reading r5 = new Reading(20, new GregorianCalendar(2018, 2, 1, 14, 40));
-            Reading r6 = new Reading(20, new GregorianCalendar(2018, 2, 1, 17, 50));
+            Reading r1 = new Reading(20, new GregorianCalendar(2018, 2, 1, 9, 10),"C");
+            Reading r2 = new Reading(20, new GregorianCalendar(2018, 2, 2, 9, 10),"C");
+            Reading r3 = new Reading(20, new GregorianCalendar(2018, 2, 3, 9, 10),"C");
+            Reading r4 = new Reading(20, new GregorianCalendar(2018, 2, 4, 9, 10),"C");
+            Reading r5 = new Reading(20, new GregorianCalendar(2018, 2, 5, 9, 10),"C");
+            Reading r6 = new Reading(20, new GregorianCalendar(2018, 2, 6, 9, 10),"C");
 
             fridgeALog.addReading(r1);
             fridgeALog.addReading(r2);
@@ -475,9 +478,9 @@ class HouseGridTest {
         }
 
         Calendar startTime = new GregorianCalendar(2018, 2, 1, 12, 20);
-        Calendar endTime = new GregorianCalendar(2018, 2, 1, 15, 20);
+        Calendar endTime = new GregorianCalendar(2018, 2, 6, 15, 20);
 
-        double expected = 80;
+        double expected = 200;
         double result = grid.getEnergyConsumption(startTime, endTime);
 
         assertEquals(expected, result);

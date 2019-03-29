@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import smarthome.dto.GeographicalAreaDTO;
+
 import smarthome.repository.Repositories;
 
 import java.io.FileReader;
@@ -34,6 +35,7 @@ public class ReadJSONFile {
     }
 
     /**
+     * FileReaderReadings to read JSON file and pass it to parser.
      * FileReader to read JSON file and pass it to parser.
      *
      * @return JSONObject

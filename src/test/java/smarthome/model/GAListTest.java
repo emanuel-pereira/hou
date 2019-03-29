@@ -2,22 +2,18 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import smarthome.model.readers.JSONGeoArea;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@DataJpaTest
-@SpringBootTest
 class GAListTest {
 
     @Test
@@ -68,8 +64,8 @@ class GAListTest {
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
         TypeGA typeGA= new TypeGA("city");
-        GeographicalArea area1 = ga.newGA("Pt", "Porto", typeGA, occupationArea, location);
-        GeographicalArea area2 = ga.newGA("Pt", "Braga", typeGA, occupationArea, location);
+        GeographicalArea area1 = ga.newGA("opo", "Porto", typeGA, occupationArea, location);
+        GeographicalArea area2 = ga.newGA("bra", "Braga", typeGA, occupationArea, location);
 
         ga.addGA(area1);
         ga.addGA(area2);
@@ -88,10 +84,30 @@ class GAListTest {
         TypeGA typeGA= new TypeGA("city");
         GeographicalArea area1 = ga.newGA("Pt", "Porto", typeGA, occupationArea, location);
         ga.addGA(area1);
-        boolean expectedResult = false;
+
         boolean result = ga.addGA(area1);
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Shows the list of GAs that were not added to the GAList because a GA with the same ID already existed")
+    void getNotAddedList() {
+        GAList ga = new GAList();
+        OccupationArea occupationArea = new OccupationArea(20, 20);
+        Location location = new Location(1, 3, -10);
+        GeographicalArea area1 = ga.newGA("opo", "Porto", "district", occupationArea, location);
+        GeographicalArea area2 = ga.newGA("opo", "Braga", "district", occupationArea, location);
+        GeographicalArea area3 = ga.newGA("opo", "Gaia", "city", occupationArea, location);
+
+        ga.addGA(area1);
+        ga.addGA(area2);
+        ga.addGA(area3);
+
+        List<GeographicalArea> expectedResult = Arrays.asList(area2,area3);
+        List<GeographicalArea> result = ga.getNotAdded();
         assertEquals(expectedResult, result);
     }
+
 
     @Test
     @DisplayName("Check if method returns a List of GA from the type chosen by the user, when there is only 1 result")
@@ -108,11 +124,11 @@ class GAListTest {
         Location location3 = new Location(41, -8, 83);
 
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Gaia", "City", occupationArea1, location1);
+        GeographicalArea ga1 = new GeographicalArea("vng", "Gaia", "City", occupationArea1, location1);
         gaList.addGA(ga1);
-        GeographicalArea ga2 = new GeographicalArea("Pt", "Matosinhos", "City", occupationArea2, location2);
+        GeographicalArea ga2 = new GeographicalArea("mat", "Matosinhos", "City", occupationArea2, location2);
         gaList.addGA(ga2);
-        GeographicalArea ga3 = new GeographicalArea("Pt", "Cedofeita", "street", occupationArea3, location3);
+        GeographicalArea ga3 = new GeographicalArea("opo", "Cedofeita", "street", occupationArea3, location3);
         gaList.addGA(ga3);
         List<GeographicalArea> expectedresult = new ArrayList<>(Arrays.asList(ga3)); //Usar Arrays.asList dentro de um a nova array list caso dê erro null point exception
         List<GeographicalArea> result = gaList.gAFromThisType("street");
@@ -133,11 +149,11 @@ class GAListTest {
         OccupationArea occupationArea3 = new OccupationArea(2, 5);
         Location location3 = new Location(41, -8, 83);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Gaia", "city", occupationArea1, location1);
+        GeographicalArea ga1 = new GeographicalArea("vng", "Gaia", "city", occupationArea1, location1);
         gaList.addGA(ga1);
-        GeographicalArea ga2 = new GeographicalArea("Pt", "Matosinhos", "city", occupationArea2, location2);
+        GeographicalArea ga2 = new GeographicalArea("mat", "Matosinhos", "city", occupationArea2, location2);
         gaList.addGA(ga2);
-        GeographicalArea ga3 = new GeographicalArea("Pt", "Cedofeita", "Street", occupationArea3, location3);
+        GeographicalArea ga3 = new GeographicalArea("opo", "Cedofeita", "Street", occupationArea3, location3);
         gaList.addGA(ga3);
         List<GeographicalArea> expectedresult = new ArrayList<>(Arrays.asList(ga1, ga2));
         List<GeographicalArea> result = gaList.gAFromThisType("city");
@@ -159,12 +175,13 @@ class GAListTest {
         OccupationArea occupationArea3 = new OccupationArea(2, 5);
         Location location3 = new Location(41, -8, 83);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Gaia", "City", occupationArea1, location1);
+        GeographicalArea ga1 = new GeographicalArea("vng", "Gaia", "City", occupationArea1, location1);
         gaList.addGA(ga1);
-        GeographicalArea ga2 = new GeographicalArea("Pt", "Matosinhos", "City", occupationArea2, location2);
+        GeographicalArea ga2 = new GeographicalArea("mat", "Matosinhos", "City", occupationArea2, location2);
         gaList.addGA(ga2);
-        GeographicalArea ga3 = new GeographicalArea("Pt", "Cedofeita", "Street", occupationArea3, location3);
+        GeographicalArea ga3 = new GeographicalArea("opo", "Cedofeita", "Street", occupationArea3, location3);
         gaList.addGA(ga3);
+
         List<GeographicalArea> expectedresult = Arrays.asList();
         List<GeographicalArea> result = gaList.gAFromThisType("Country");
         assertEquals(expectedresult, result);
@@ -234,37 +251,4 @@ class GAListTest {
         int result = gaList.size();
         assertEquals(expected, result);
     }
-
-    @Test
-    void importDataFromCSVFileForEachGATest() throws IOException {
-        GAList gaList = new GAList();
-        GeographicalArea porto = new GeographicalArea("001", "Porto", "city", new OccupationArea(3,2),new Location(3, 30, 20));
-        GeographicalArea lisboa = new GeographicalArea("002", "Lisboa", "city", new OccupationArea(3,2),new Location(3, 30, 20));
-        gaList.addGA(porto);
-        gaList.addGA(lisboa);
-        GregorianCalendar startDate = new GregorianCalendar(2018,2,3);
-        GregorianCalendar startDate2 = new GregorianCalendar(2018,1,1);
-        Location location = new Location(3,2,1);
-        SensorType temp = new SensorType("Temperature");
-
-        Sensor sensorISEP = new Sensor("TT12346","SensorISEP",startDate,location,temp,"C",new ReadingList());
-        Sensor sensorPorto = new Sensor("TT1236A","SensorPorto",startDate,location,temp,"C",new ReadingList());
-
-        porto.getSensorListInGA().addSensor(sensorPorto);
-        porto.getSensorListInGA().addSensor(sensorISEP);
-        //lisboa.getSensorListInGA().addSensor(sensorLisboa);
-
-        gaList.importDataFromCSVFileForEachGA("resources/ReadingsRegistry");
-        int result = gaList.getGAList().get(0).getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList().size();
-        assertEquals(24,result);
-        int result2 = gaList.getGAList().get(0).getSensorListInGA().getSensorList().get(1).getReadingList().getReadingsList().size();
-        assertEquals(20,result2);
-
-
-        //int result3 = gaList.getGAList().get(1).getSensorListInGA().getSensorList().get(0).getReadingsList().getReadingsList().size();
-        //assertEquals(24,result3);
-
-
-    }
-
 }

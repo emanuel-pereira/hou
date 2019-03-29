@@ -15,7 +15,7 @@ public class TvType implements DeviceType {
     public Device createDevice(String deviceName, double nominalPower) {
         String devType = getDeviceType();
 
-        DeviceSpecs devSpecs = new TvSpecs(devType);
+        DeviceSpecs devSpecs = new GenericNoSpecs(devType);
 
         return new Tv(deviceName, devSpecs, nominalPower);
     }

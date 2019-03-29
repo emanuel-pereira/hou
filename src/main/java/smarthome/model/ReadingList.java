@@ -22,6 +22,8 @@ public class ReadingList {
             return false;
         if (newReading == null)
             return false;
+        if (!checkIfReadingHasNotSameValues(newReading))
+            return false;
         return this.listOfReadings.add(newReading);
     }
 
@@ -150,7 +152,7 @@ public class ReadingList {
     }
 
     public Reading maxValueInInterval() {
-        Reading max = newReading(Double.MIN_VALUE, new GregorianCalendar());
+        Reading max = new Reading(Double.MIN_VALUE, new GregorianCalendar());
         double value;
 
         for (Reading reading : this.listOfReadings) {
@@ -162,7 +164,7 @@ public class ReadingList {
     }
 
     public Reading minValueInInterval() {
-        Reading min = newReading(Double.MAX_VALUE, new GregorianCalendar());
+        Reading min = new Reading(Double.MAX_VALUE, new GregorianCalendar());
         double value;
 
         for (Reading reading : this.listOfReadings) {
@@ -194,7 +196,7 @@ public class ReadingList {
         for (Calendar date : dates) {
             temp = getReadingsInSpecificDay(date);
             double max = temp.maxValueInInterval().returnValueOfReading();
-            Reading r = newReading(max, date);
+            Reading r = new Reading(max, date);
             dailyMax.addReading(r);
         }
         return dailyMax;
@@ -220,7 +222,7 @@ public class ReadingList {
         for (Calendar date : dates) {
             temp = getReadingsInSpecificDay(date);
             double min = temp.minValueInInterval().returnValueOfReading();
-            Reading day = newReading(min, date);
+            Reading day = new Reading(min, date);
             dailyMin.addReading(day);
         }
 
@@ -273,5 +275,22 @@ public class ReadingList {
         return endDate;
     }
 
+    boolean checkIfReadingHasNotSameValues(Reading newReading) {
+        for (Reading reading : this.listOfReadings) {
+            try {
+                if (newReading.getUnit().equals("F")) {
+                    newReading.convertToCelsius();
+                    newReading.setUnit("C");
+                }
+            } catch (NullPointerException e) {
+            }
 
+            if ((Double.compare(newReading.returnValueOfReading(),reading.returnValueOfReading())==0) &&
+                    newReading.getDateAndTime().equals(reading.getDateAndTime()) &&
+                    newReading.getUnit().equals(reading.getUnit()))
+                return false;
+        }
+        return true;
+    }
 }
+

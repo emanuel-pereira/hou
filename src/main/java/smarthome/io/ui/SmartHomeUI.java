@@ -11,8 +11,15 @@ import smarthome.repository.LocationRepository;
 import smarthome.repository.OccupationAreaRepository;
 import smarthome.repository.SensorRepository;
 import smarthome.repository.SensorTypeRepository;
+import org.xml.sax.SAXException;
+import smarthome.model.GAList;
+import smarthome.model.House;
+import smarthome.model.SensorTypeList;
+import smarthome.model.TypeGAList;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -33,6 +40,7 @@ public class SmartHomeUI {
     private static SensorRepository sensorRep;
     private static SensorTypeRepository sensorTypeRep;
 
+    public static void main(String[] args) throws SAXException, ParserConfigurationException, ClassNotFoundException, IllegalAccessException, InstantiationException, ParseException, IOException, org.json.simple.parser.ParseException, InvocationTargetException, NoSuchMethodException {
     public SmartHomeUI() {
         init();
         //FIXME BootStrap.run(house, typeGAList, sensorTypeList);
@@ -41,6 +49,7 @@ public class SmartHomeUI {
     @Autowired
     public static void menuOptions() throws IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException {
 
+    private static void menuOptions() throws SAXException, ParserConfigurationException, IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException, InvocationTargetException, NoSuchMethodException {
         int option = -1;
         while (option != 0) {
 

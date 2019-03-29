@@ -1,5 +1,31 @@
 @startuml
 hidefootbox
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+
+
 actor Admin
 
 create ":DeactivateSensorUI"
@@ -59,8 +85,9 @@ end
 loop for each active sensor in GA sensorList match id
 ":DeactivateSensorCTRL"->"sL:SensorList": s=s.getId().matches(sensorDTOId)
 end
-":DeactivateSensorCTRL"->"sL:SensorList":deactivate(sensorID,pauseDate)
+":DeactivateSensorCTRL"->"sL:SensorList":s.deactivate(sensorID,pauseDate)
 "sL:SensorList"->"s:Sensor":deactivate(pauseDate)
+"sL:SensorList" -> Repositories:SensorRepository.save(s)
 
 
 Admin <-- ":DeactivateSensorUI": Show Deactivation Message

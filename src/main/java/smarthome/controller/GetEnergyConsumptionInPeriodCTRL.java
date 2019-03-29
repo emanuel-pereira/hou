@@ -1,6 +1,7 @@
 package smarthome.controller;
 
-import smarthome.model.*;
+import smarthome.model.House;
+import smarthome.model.Metered;
 
 import java.util.Calendar;
 import java.util.List;

@@ -10,6 +10,9 @@ import java.time.ZonedDateTime;
 import java.util.*;
 
 import static java.lang.Double.parseDouble;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Geo_Area")
@@ -73,6 +76,12 @@ public class GeographicalArea {
     public GeographicalArea(String id, String name) {
         this.identification = id;
         this.designation = name;
+
+    public String getId() {
+        return identification;
+    }
+
+    public GeographicalArea() {
     }
 
 
@@ -198,65 +207,6 @@ public class GeographicalArea {
 
     public OccupationArea getOccupation() {
         return this.occupation;
-    }
-
-    public void importReadingsToSensorsFromCSVFile(String filePathAndName) throws IOException {
-        ReadCSVFile readCSVFile = new ReadCSVFile();
-        readCSVFile.readCsvFile(filePathAndName);
-        readCSVFile.writeCSVFile("OutdatedReadings");
-        List<String[]> tokens = readCSVFile.getValuesFromCSVFile();
-        for (String[] token : tokens) {
-            String sensorID = token[0];
-            for (Sensor sensor : this.sensorListInGa.getSensorList())
-                if (sensorID.equals(sensor.getId())) {
-                    String dateAndTimeString = token[1];
-                    double readingValue = parseDouble(token[2]);
-                    if (!dateAndTimeString.contains("T"))
-                        dateAndTimeString = dateAndTimeString.concat("T00:00:00+00:00");
-
-                    ZonedDateTime dateTime = ZonedDateTime.parse(dateAndTimeString);
-                    int year = dateTime.getYear();
-                    int month = dateTime.getMonthValue();
-                    int day = dateTime.getDayOfMonth();
-                    int hour = dateTime.getHour();
-                    int minutes = dateTime.getMinute();
-                    Calendar readingDate = new GregorianCalendar(year, month - 1, day, hour, minutes);
-
-                    Reading reading = new Reading(readingValue, readingDate, sensor);
-                    try {
-                        //Repository call
-                        Repositories.readingRepository.save(reading);
-                    } catch (NullPointerException e) {
-                    }
-                    if (readingDate.after(sensor.getStartDate()))
-                        sensor.getReadingList().addReading(reading);
-                    else {
-                        StringBuilder readingNotImported = new StringBuilder();
-                        readingNotImported.append(sensorID);
-                        readingNotImported.append(',');
-                        readingNotImported.append(dateAndTimeString);
-                        readingNotImported.append(',');
-                        readingNotImported.append(readingValue);
-                        readCSVFile.writeStringOnCSVFile(readingNotImported.toString());
-                    }
-                }
-        }
-    }
-
-    public String getIdentification() {
-        return identification;
-    }
-
-    public void setIdentification(String identification) {
-        this.identification = identification;
-    }
-
-    public String getDesignation() {
-        return designation;
-    }
-
-    public void setDesignation(String designation) {
-        this.designation = designation;
     }
 
     public GeographicalAreaDTO toDTO() {

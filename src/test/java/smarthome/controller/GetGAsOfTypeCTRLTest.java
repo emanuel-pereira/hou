@@ -32,9 +32,9 @@ class GetGAsOfTypeCTRLTest {
         OccupationArea oc3 = new OccupationArea(10, 10);
         Location loc3 = new Location(10,10,10);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", oc1,loc1);
-        GeographicalArea ga2 = new GeographicalArea("Pt","Gaia", "city", oc2,loc2);
-        GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita", "street", oc3,loc3);
+        GeographicalArea ga1 = new GeographicalArea("opo","Porto", "city", oc1,loc1);
+        GeographicalArea ga2 = new GeographicalArea("vng","Gaia", "city", oc2,loc2);
+        GeographicalArea ga3 = new GeographicalArea("cdf","Cedofeita", "street", oc3,loc3);
 
         listGa.addGA(ga1);
         listGa.addGA(ga2);
@@ -64,9 +64,9 @@ class GetGAsOfTypeCTRLTest {
         NewGeographicalAreaCTRL ctrl3 = new NewGeographicalAreaCTRL(listGa, listType);
         OccupationArea occupationArea= new OccupationArea(10,10);
         Location location= new Location(10,40,8);
-        ctrl3.newGA("Pt","Porto", 1, occupationArea, location);
-        ctrl3.newGA("Pt","Gaia", 1, occupationArea, location);
-        ctrl3.newGA("Pt","Cedofeita", 0, occupationArea, location);
+        ctrl3.newGA("opo","Porto", 1, occupationArea, location);
+        ctrl3.newGA("vng","Gaia", 1, occupationArea, location);
+        ctrl3.newGA("cdf","Cedofeita", 0, occupationArea, location);
 
         List<GeographicalArea> expected = Arrays.asList(listGa.get(2));
 
@@ -97,9 +97,9 @@ class GetGAsOfTypeCTRLTest {
         OccupationArea oc3 = new OccupationArea(10, 10);
         Location loc3 = new Location(10,10,10);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", oc1,loc1);
-        GeographicalArea ga2 = new GeographicalArea("Pt","Gaia", "city", oc2,loc2);
-        GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita", "street", oc3,loc3);
+        GeographicalArea ga1 = new GeographicalArea("opo","Porto", "city", oc1,loc1);
+        GeographicalArea ga2 = new GeographicalArea("vng","Gaia", "city", oc2,loc2);
+        GeographicalArea ga3 = new GeographicalArea("cdf","Cedofeita", "street", oc3,loc3);
 
         listGa.addGA(ga1);
         listGa.addGA(ga2);
@@ -128,9 +128,9 @@ class GetGAsOfTypeCTRLTest {
         NewGeographicalAreaCTRL ctrl3 = new NewGeographicalAreaCTRL(listGa, listType);
         OccupationArea occupationArea= new OccupationArea(10,10);
         Location location= new Location(10,40,8);
-        ctrl3.newGA("Pt","Porto", 1, occupationArea, location);
-        ctrl3.newGA("Pt","Gaia", 1, occupationArea, location);
-        ctrl3.newGA("Pt","Cedofeita", 0, occupationArea, location);
+        ctrl3.newGA("opo","Porto", 1, occupationArea, location);
+        ctrl3.newGA("vng","Gaia", 1, occupationArea, location);
+        ctrl3.newGA("cdf","Cedofeita", 0, occupationArea, location);
 
         List<GeographicalArea> expected = Arrays.asList(listGa.get(0),listGa.get(1));
 
@@ -156,9 +156,9 @@ class GetGAsOfTypeCTRLTest {
         OccupationArea occupationArea= new OccupationArea(10,10);
         Location location= new Location(10,40,8);
 
-        GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city",occupationArea,location);
-        GeographicalArea ga2 = new GeographicalArea("Pt","Gaia", "city", occupationArea,location);
-        GeographicalArea ga3 = new GeographicalArea("Pt","Cedofeita", "street", occupationArea,location);
+        GeographicalArea ga1 = new GeographicalArea("opo","Porto", "city",occupationArea,location);
+        GeographicalArea ga2 = new GeographicalArea("vng","Gaia", "city", occupationArea,location);
+        GeographicalArea ga3 = new GeographicalArea("cdf","Cedofeita", "street", occupationArea,location);
 
         listGa.addGA(ga1);
         listGa.addGA(ga2);
@@ -187,9 +187,9 @@ class GetGAsOfTypeCTRLTest {
         NewGeographicalAreaCTRL ctrl3 = new NewGeographicalAreaCTRL(listGa, listType);
         OccupationArea occupationArea= new OccupationArea(10,10);
         Location location= new Location(10,40,8);
-        ctrl3.newGA("Pt","Porto", 1, occupationArea,location);
-        ctrl3.newGA("Pt","Gaia", 1, occupationArea,location);
-        ctrl3.newGA("Pt","Cedofeita", 1, occupationArea,location);
+        ctrl3.newGA("opo","Porto", 1, occupationArea,location);
+        ctrl3.newGA("vng","Gaia", 1, occupationArea,location);
+        ctrl3.newGA("cdf","Cedofeita", 1, occupationArea,location);
 
         List<GeographicalArea> expected = Arrays.asList();
 
@@ -211,9 +211,9 @@ class GetGAsOfTypeCTRLTest {
         NewGeographicalAreaCTRL ctrl3 = new NewGeographicalAreaCTRL(listGa,listType);
         OccupationArea occupationArea= new OccupationArea(10,10);
         Location location= new Location(10,40,8);
-        ctrl3.newGA("Pt","Porto", 0, occupationArea,location);
-        ctrl3.newGA("Pt","Gaia", 0, occupationArea,location);
-        ctrl3.newGA("Pt","Cedofeita", 1, occupationArea,location);
+        ctrl3.newGA("opo","Porto", 0, occupationArea,location);
+        ctrl3.newGA("vng","Gaia", 0, occupationArea,location);
+        ctrl3.newGA("cdf","Cedofeita", 1, occupationArea,location);
 
         String expected = "1 - Porto\n2 - Gaia\n";
         GetGAsOfTypeCTRL ctrl4 = new GetGAsOfTypeCTRL(listGa,listType);

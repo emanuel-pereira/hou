@@ -1,5 +1,35 @@
 @startuml
 
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+}
 class GAList{
 - listOfGa: List<GeographicalArea>
 + getGAList(): List<GeographicalArea>
@@ -9,17 +39,15 @@ class GAList{
 class GeographicalArea{
 - identification: String
 - designation: String
-- sensorListInGa: SensorList
 + getGAName(): String
 + getIdentification(): String
-+ getSensorListInGA: SensorList
++ getSensorListInGA(): SensorList
 }
 
 
 class SensorList{
 - listOfSensors: List<Sensor>
-+ getSensorList: List<Sensor>
-+ getActiveSensors: SensorList
++ getActiveSensors(): SensorList
 + deactivateDevice(device, date)
 }
 

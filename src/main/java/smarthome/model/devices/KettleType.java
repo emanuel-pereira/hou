@@ -14,8 +14,10 @@ public class KettleType implements DeviceType {
 
     public Device createDevice(String deviceName, double nominalPower) {
         String devType = getDeviceType();
+        String[] attributeNames = {"Capacity"};
+        String[] attributeUnits = {"l"};
 
-        DeviceSpecs devSpecs = new KettleSpecs(devType);
+        DeviceSpecs devSpecs = new GenericSpecs(devType, attributeNames, attributeUnits);
 
         return new Kettle(deviceName, devSpecs, nominalPower);
     }

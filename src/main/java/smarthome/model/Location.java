@@ -105,13 +105,6 @@ public class Location {
         return this.altitude;
     }
 
-    //only used to print test cases of persistence
-    /*@Override
-    public String toString() {
-        return String.format(
-                "\u001B[34;1mLocation[id=%d, latitude='%d', longitude='%d', altitude='%d']\u001B[0m", id, latitude, longitude, altitude);
-    }*/
-
 
 }
 

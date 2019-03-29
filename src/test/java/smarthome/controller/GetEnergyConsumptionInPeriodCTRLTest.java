@@ -1,6 +1,5 @@
 package smarthome.controller;
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
@@ -42,13 +41,13 @@ class GetEnergyConsumptionInPeriodCTRLTest {
 
         ReadingList fridgeALog = fridgeA.getActivityLog();
         ReadingList fridgeBLog = fridgeB.getActivityLog();
-        Reading r2 = new Reading(18, new GregorianCalendar(2018, 15, 5, 0, 0));
-        Reading r3 = new Reading(22, new GregorianCalendar(2018, 11, 5, 0, 20));
-        Reading r4 = new Reading(37, new GregorianCalendar(2018, 11, 5, 0, 30));
-        Reading r5 = new Reading(31, new GregorianCalendar(2018, 11, 5, 0, 40));
-        Reading r6 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 50));
-        Reading r7 = new Reading(22, new GregorianCalendar(2018, 11, 5, 1, 0));
-        Reading r8 = new Reading(37, new GregorianCalendar(2018, 11, 5, 1, 10));
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 15, 5, 0, 0),"C");
+        Reading r3 = new Reading(22, new GregorianCalendar(2018, 11, 5, 0, 20),"C");
+        Reading r4 = new Reading(37, new GregorianCalendar(2018, 11, 5, 0, 30),"C");
+        Reading r5 = new Reading(31, new GregorianCalendar(2018, 11, 5, 0, 40),"C");
+        Reading r6 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 50),"C");
+        Reading r7 = new Reading(22, new GregorianCalendar(2018, 11, 5, 1, 0),"C");
+        Reading r8 = new Reading(37, new GregorianCalendar(2018, 11, 5, 1, 10),"C");
         fridgeALog.addReading(r2);
         fridgeALog.addReading(r3);
         fridgeALog.addReading(r4);
@@ -108,13 +107,13 @@ class GetEnergyConsumptionInPeriodCTRLTest {
 
         ReadingList fridgeALog = fridgeA.getActivityLog();
         ReadingList fridgeBLog = fridgeB.getActivityLog();
-        Reading r2 = new Reading(18, new GregorianCalendar(2018, 15, 5, 0, 0));
-        Reading r3 = new Reading(22, new GregorianCalendar(2018, 11, 5, 0, 20));
-        Reading r4 = new Reading(37, new GregorianCalendar(2018, 11, 5, 0, 30));
-        Reading r5 = new Reading(31, new GregorianCalendar(2018, 11, 5, 0, 40));
-        Reading r6 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 50));
-        Reading r7 = new Reading(22, new GregorianCalendar(2018, 11, 5, 1, 0));
-        Reading r8 = new Reading(37, new GregorianCalendar(2018, 11, 5, 1, 10));
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 15, 5, 0, 0),"C");
+        Reading r3 = new Reading(22, new GregorianCalendar(2018, 11, 5, 0, 20),"C");
+        Reading r4 = new Reading(37, new GregorianCalendar(2018, 11, 5, 0, 30),"C");
+        Reading r5 = new Reading(31, new GregorianCalendar(2018, 11, 5, 0, 40),"C");
+        Reading r6 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 50),"C");
+        Reading r7 = new Reading(22, new GregorianCalendar(2018, 11, 5, 1, 0),"C");
+        Reading r8 = new Reading(37, new GregorianCalendar(2018, 11, 5, 1, 10),"C");
         fridgeALog.addReading(r2);
         fridgeALog.addReading(r3);
         fridgeALog.addReading(r4);
@@ -175,13 +174,13 @@ class GetEnergyConsumptionInPeriodCTRLTest {
 
         ReadingList fridgeALog = fridgeA.getActivityLog();
         ReadingList fridgeBLog = fridgeB.getActivityLog();
-        Reading r2 = new Reading(18, new GregorianCalendar(2018, 15, 5, 0, 0));
-        Reading r3 = new Reading(22, new GregorianCalendar(2018, 11, 5, 0, 20));
-        Reading r4 = new Reading(37, new GregorianCalendar(2018, 11, 5, 0, 30));
-        Reading r5 = new Reading(31, new GregorianCalendar(2018, 11, 5, 0, 40));
-        Reading r6 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 50));
-        Reading r7 = new Reading(22, new GregorianCalendar(2018, 11, 5, 1, 0));
-        Reading r8 = new Reading(37, new GregorianCalendar(2018, 11, 5, 1, 10));
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 15, 5, 0, 0),"C");
+        Reading r3 = new Reading(22, new GregorianCalendar(2018, 11, 5, 0, 20),"C");
+        Reading r4 = new Reading(37, new GregorianCalendar(2018, 11, 5, 0, 30),"C");
+        Reading r5 = new Reading(31, new GregorianCalendar(2018, 11, 5, 0, 40),"C");
+        Reading r6 = new Reading(18, new GregorianCalendar(2018, 11, 5, 0, 50),"C");
+        Reading r7 = new Reading(22, new GregorianCalendar(2018, 11, 5, 1, 0),"C");
+        Reading r8 = new Reading(37, new GregorianCalendar(2018, 11, 5, 1, 10),"C");
         fridgeALog.addReading(r2);
         fridgeALog.addReading(r3);
         fridgeALog.addReading(r4);

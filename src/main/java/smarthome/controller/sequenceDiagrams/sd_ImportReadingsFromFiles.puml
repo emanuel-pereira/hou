@@ -1,0 +1,79 @@
+@startuml
+skinparam sequence {
+         	ArrowColor SteelBlue
+         	ActorBorderColor Dimgray
+         	LifeLineBorderColor MidnightBlue
+         	LifeLineBackgroundColor #A9DCDF
+
+         	ParticipantBorderColor Dimgray
+         	ParticipantBackgroundColor SteelBlue
+         	ParticipantFontName Calibri Bold
+         	ParticipantFontSize 17
+         	ParticipantFontColor Ivory
+
+         	ActorBackgroundColor SteelBlue
+         	ActorFontColor MidnightBlue
+         	ActorFontSize 17
+         	ActorFontName Aapex
+
+         }
+skinparam note {
+BorderColor SteelBlue
+}
+autonumber
+hidefootbox
+actor Administrator
+
+
+Administrator -> ":DataImportUI": Ask import
+create ":DataImportCTRL"
+
+
+":DataImportUI" -> ":DataImportCTRL": create()
+":DataImportUI" --> "Administrator": ask for file name and path
+":DataImportUI" <- "Administrator": type  file name and path
+
+
+":DataImportUI" -> ":DataImportCTRL": importReadingsFromFile(filepath)
+":DataImportCTRL" -> ":DataImport": importFromFile(filepath)
+
+
+create ":{FileReaderReadings}"
+":DataImport" -> ":{FileReaderReadings}": create(filepath)
+note right #FFFF
+{FileReaderReadings} can be:
+    XMLReading
+    JSONReading
+    CSVReading
+    end note
+
+":DataImport" -> ":{FileReaderReadings}": importData(filePath)
+":DataImport" -> "gaL:GAList": gaL=getGAList()
+
+loop for each Geographical Area in gaL
+
+":DataImport" -> "sL:SensorList": sL=getSensorList()
+
+loop for each sensor in sL
+":DataImport" -> "rL:ReadingList": rL=getReadingList()
+
+create "r:Reading"
+
+":DataImport" -> "r:Reading": rL.newReading(date,value,unit)
+":DataImport" -> "rL:ReadingList": rL.addReading(r)
+":DataImport" -> ":Repositories": saveReading(r)
+
+end
+end
+":DataImportUI" -> ":DataImportCTRL": showNumberOfReads()
+":DataImportCTRL" -> ":DataImport": getNumberOfReads()
+
+
+
+
+Administrator<--":DataImportUI": Shows the number \nof readings of each sensor
+@enduml
+
+
+
+@enduml

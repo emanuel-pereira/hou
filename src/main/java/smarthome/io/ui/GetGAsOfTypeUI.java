@@ -3,6 +3,7 @@ package smarthome.io.ui;
 import smarthome.controller.GetGAsOfTypeCTRL;
 import smarthome.model.GAList;
 import smarthome.model.TypeGAList;
+import smarthome.model.validations.Utils;
 
 import java.util.Scanner;
 
@@ -32,10 +33,13 @@ public class GetGAsOfTypeUI {
         //if there are GAs from the chosen type they are returned
         if (!mCtrlUS4.getGAListFromType(typeIndex).isEmpty()) {
             System.out.println("Here are the Geographical Areas from " + areaType + " type:\n" + mCtrlUS4.showListInString(typeIndex));
+            UtilsUI.backToMenu();
         }
         //if there are no GAs from the chosen type the following message is shown
-        else
+        else{
             System.out.println("No results were found. Please try again.\n\n");
+            UtilsUI.backToMenu();
+        }
     }
 
 }
