@@ -241,7 +241,7 @@ public class ReadingList {
         return dailyMin;
     }
 
-
+    //TODO verify this method
     public ReadingList dailyAmplitude() {
         List<Reading> dailyMaximumReadings = dailyMaximumReadings().getReadingsList();
         List<Reading> dailyMinimumReadings = dailyMinimumReadings().getReadingsList();
@@ -258,7 +258,9 @@ public class ReadingList {
             dayMaxReading = dailyMaximumReadings.get(i);
             dayMinReading = dailyMinimumReadings.get(i);
             tempReadingValue = dayMaxReading.returnValueOfReading() - dayMinReading.returnValueOfReading();
-            dailyAmp.addReading(new Reading(tempReadingValue, dayMaxReading.getDateAndTime()));
+            Reading tempReading = new Reading(tempReadingValue, dayMaxReading.getDateAndTime());
+            tempReading.setSensor(dayMaxReading.getSensor());
+            dailyAmp.addReading(tempReading);
         }
         return dailyAmp;
     }
@@ -295,6 +297,8 @@ public class ReadingList {
                     newReading.setUnit("C");
                 }
             } catch (NullPointerException e) {
+                String msg = "bygbbyg";
+                //TODO write in application log
             }
 
             if ((Double.compare(newReading.returnValueOfReading(),reading.returnValueOfReading())==0) &&
