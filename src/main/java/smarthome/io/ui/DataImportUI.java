@@ -104,5 +104,6 @@ public class DataImportUI {
                 counter++;
             }
         }
+                UtilsUI.backToMenu();
     }
 }
