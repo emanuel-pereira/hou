@@ -29,7 +29,7 @@ public class FanType implements DeviceType {
     public Device createDevice(String deviceName, double nominalPower) {
         String devType = getDeviceType ();
 
-        DeviceSpecs devSpecs = new FanSpecs (devType);
+        DeviceSpecs devSpecs = new GenericNoSpecs(devType);
 
         return new Fan (deviceName, devSpecs, nominalPower);
     }

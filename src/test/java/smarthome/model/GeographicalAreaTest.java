@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -223,23 +222,6 @@ public class GeographicalAreaTest {
     }
 
     @Test
-    public void checkImportedReadingsToSensorsFromCSVFileTest() throws IOException {
-        GeographicalArea ga = new GeographicalArea("001", "Porto", "city", new OccupationArea(3,2),new Location(3, 30, 20));
-        GregorianCalendar startDate = new GregorianCalendar(2018,2,3);
-        Location location = new Location(3,2,1);
-        SensorType temp = new SensorType("Temperature");
-        Sensor sensorISEP = new Sensor("TT12346","SensorISEP",startDate,location,temp,"C",new ReadingList());
-        Sensor sensorPorto = new Sensor("TT1236A","SensorPorto",startDate,location,temp,"C",new ReadingList());
-        ga.getSensorListInGA().addSensor(sensorISEP);
-        ga.getSensorListInGA().addSensor(sensorPorto);
-
-        ga.importReadingsToSensorsFromCSVFile("resources/ReadingsRegistry");
-        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
-        double r = rList.get(3).returnValueOfReading();
-        assertEquals(15.1, r);
-    }
-
-    @Test
     public void checkIfOutdatedReadingsTest() throws IOException {
         GeographicalArea ga = new GeographicalArea("001", "Porto", "city", new OccupationArea(3,2),new Location(3, 30, 20));
         GregorianCalendar startDate = new GregorianCalendar(2019,2,3);
@@ -247,7 +229,5 @@ public class GeographicalAreaTest {
         SensorType temp = new SensorType("Temperature");
         Sensor sensorPorto = new Sensor("TT1236A","SensorPorto",startDate,location,temp,"C",new ReadingList());
         ga.getSensorListInGA().addSensor(sensorPorto);
-
-        ga.importReadingsToSensorsFromCSVFile("resources/ReadingsRegistry");
     }
 }

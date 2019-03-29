@@ -1,6 +1,8 @@
 package smarthome.controller;
 
-import smarthome.model.*;
+import smarthome.model.GAList;
+import smarthome.model.GeographicalArea;
+import smarthome.model.House;
 
 import java.util.List;
 

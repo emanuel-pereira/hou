@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.model.validations.Utils;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -21,6 +23,8 @@ public class ReadingList {
         if (this.listOfReadings.contains(newReading))
             return false;
         if (newReading == null)
+            return false;
+        if (!checkIfReadingHasNotSameValues(newReading))
             return false;
         return this.listOfReadings.add(newReading);
     }
@@ -150,7 +154,7 @@ public class ReadingList {
     }
 
     public Reading maxValueInInterval() {
-        Reading max = newReading(Double.MIN_VALUE, new GregorianCalendar());
+        Reading max = new Reading(Double.MIN_VALUE, new GregorianCalendar());
         double value;
 
         for (Reading reading : this.listOfReadings) {
@@ -162,7 +166,7 @@ public class ReadingList {
     }
 
     public Reading minValueInInterval() {
-        Reading min = newReading(Double.MAX_VALUE, new GregorianCalendar());
+        Reading min = new Reading(Double.MAX_VALUE, new GregorianCalendar());
         double value;
 
         for (Reading reading : this.listOfReadings) {
@@ -194,7 +198,7 @@ public class ReadingList {
         for (Calendar date : dates) {
             temp = getReadingsInSpecificDay(date);
             double max = temp.maxValueInInterval().returnValueOfReading();
-            Reading r = newReading(max, date);
+            Reading r = new Reading(max, date);
             dailyMax.addReading(r);
         }
         return dailyMax;
@@ -220,7 +224,7 @@ public class ReadingList {
         for (Calendar date : dates) {
             temp = getReadingsInSpecificDay(date);
             double min = temp.minValueInInterval().returnValueOfReading();
-            Reading day = newReading(min, date);
+            Reading day = new Reading(min, date);
             dailyMin.addReading(day);
         }
 
@@ -249,29 +253,46 @@ public class ReadingList {
         return dailyAmp;
     }
 
-    public Calendar getStartDateOfReadings(){
+    public Calendar getStartDateOfReadings() {
         Calendar startDate = this.listOfReadings.get(0).getDateAndTime();
 
         for (int i = 0; i < this.listOfReadings.size(); i++) {
             Reading r = this.listOfReadings.get(i);
-            if (r.getDateAndTime().before(startDate)){
+            if (r.getDateAndTime().before(startDate)) {
                 startDate = r.getDateAndTime();
             }
         }
-    return startDate;
+        return startDate;
     }
 
-    public Calendar getEndDateOfReadings(){
+    public Calendar getEndDateOfReadings() {
         Calendar endDate = this.listOfReadings.get(0).getDateAndTime();
 
         for (int i = 0; i < this.listOfReadings.size(); i++) {
             Reading r = this.listOfReadings.get(i);
-            if (r.getDateAndTime().after(endDate)){
+            if (r.getDateAndTime().after(endDate)) {
                 endDate = r.getDateAndTime();
             }
         }
         return endDate;
     }
 
+    boolean checkIfReadingHasNotSameValues(Reading newReading) {
+        for (Reading reading : this.listOfReadings) {
+            try {
+                if (newReading.getUnit().equals("F")) {
+                    newReading.convertToCelsius();
+                    newReading.setUnit("C");
+                }
+            } catch (NullPointerException e) {
+            }
 
+            if (Utils.round(newReading.returnValueOfReading(),1) == Utils.round(reading.returnValueOfReading(),1) &&
+                    newReading.getDateAndTime().equals(reading.getDateAndTime()) &&
+                    newReading.getUnit().equals(reading.getUnit()))
+                return false;
+        }
+        return true;
+    }
 }
+

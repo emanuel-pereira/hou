@@ -11,9 +11,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class NewSensorCTRLTest {
 
@@ -69,8 +67,8 @@ class NewSensorCTRLTest {
         Location loc1 = new Location(25,15,12);
         OccupationArea oc2 = new OccupationArea(42,41);
         Location loc2 = new Location(45,25,32);
-        GeographicalArea area1 = gaList.newGA("Pt", "Porto", "district", oc1,loc1);
-        GeographicalArea area2 = gaList.newGA("Pt", "Braga", "district", oc2,loc2);
+        GeographicalArea area1 = gaList.newGA("opo", "Porto", "district", oc1,loc1);
+        GeographicalArea area2 = gaList.newGA("brg", "Braga", "district", oc2,loc2);
         gaList.addGA(area1);
         gaList.addGA(area2);
 
@@ -102,14 +100,14 @@ class NewSensorCTRLTest {
         sensorTypeList.addSensorType(type1);
         sensorTypeList.addSensorType(type2);
 
-        Reading r1Porto = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 00));
-        Reading r2Porto = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 00));
+        Reading r1Porto = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 00),"C");
+        Reading r2Porto = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 00),"C");
         ReadingList readingsPt = new ReadingList();
         readingsPt.addReading(r1Porto);
         readingsPt.addReading(r2Porto);
 
-        Reading r1Lis = new Reading(27, new GregorianCalendar(2018, 12, 26, 12, 00));
-        Reading r2Lis = new Reading(21, new GregorianCalendar(2018, 12, 26, 13, 00));
+        Reading r1Lis = new Reading(27, new GregorianCalendar(2018, 12, 26, 12, 00),"C");
+        Reading r2Lis = new Reading(21, new GregorianCalendar(2018, 12, 26, 13, 00),"C");
         ReadingList readingsLis = new ReadingList();
         readingsLis.addReading(r1Lis);
         readingsLis.addReading(r2Lis);

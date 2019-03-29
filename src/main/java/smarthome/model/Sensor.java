@@ -16,10 +16,14 @@ public class Sensor {
     private Location location;
     private SensorType sensorType;
     private Calendar startDate;
+    private Calendar pauseDate;
     private String unit;
     private boolean active;
     private ReadingList readingList;
 
+    public Sensor(){
+
+    }
     /**
      * Constructor used to create internal sensors which, unlike external sensors, don't require location coordinates.
      *
@@ -78,6 +82,44 @@ public class Sensor {
             return false;
         }
         return name.matches ("[A-Za-z0-9 \\-]*");
+    }
+
+    /**
+     * Changes the Id of the sensor to the one inputted by the user.
+     *
+     * @param id sensor's id String
+     */
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Changes the type of the sensor to the one inputted by the user.
+     *
+     * @param sensorType sensor's type
+     */
+
+    public void setSensorType(SensorType sensorType) {
+        this.sensorType = sensorType;
+    }
+
+    /**
+     * Changes the start date of the sensor to the one inputted by the user.
+     *
+     * @param startDate date when the sensor started reading
+     */
+    public void setStartDate(Calendar startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * Changes the unit of the sensor to the one inputted by the user.
+     *
+     * @param unit sensor's unit
+     */
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     /**
@@ -185,8 +227,20 @@ public class Sensor {
         return Objects.hash (this.designation, this.location, this.sensorType);
     }
 
+    /**
+     * Gets the start date
+     * @return Date
+     */
     public Calendar getStartDate() {
         return this.startDate;
+    }
+
+    /**
+     * A pause date that marks when a sensor is deactivated
+     * @return Date
+     */
+    public Calendar getPauseDate() {
+        return this.pauseDate;
     }
 
     public String getUnit() {
@@ -206,30 +260,38 @@ public class Sensor {
      * Deactivate sensor if active
      * @return True if deactivated
      */
-    public boolean deactivate() {
-        if (!this.active)
+    public boolean deactivate(Calendar pauseDate) {
+        if ( this.active && pauseDate.after (this.startDate)) {
+            this.active = false;
+            this.pauseDate = pauseDate;
+            return true;
+        } else {
             return false;
-        this.active = false;
-        return true;
+        }
     }
 
-    /**
-     * Reactivate sensor if not active
-     * @return True if reactivated
-     */
-    public boolean reactivate(){
-        if (this.active)
-            return false;
-        this.active = true;
-        return true;
+
+        /**
+         * Reactivate sensor if not active
+         *
+         * @return True if reactivated
+         */
+        public boolean reactivate () {
+            if (this.active)
+                return false;
+            this.active = true;
+            return true;
+        }
+
+        /**
+         * Check if sensor is active
+         *
+         * @return True if active. False if not active
+         */
+        public boolean isActive () {
+            return this.active;
+        }
+
     }
 
-    /**
-     * Check if sensor is active
-     * @return True if active. False if not active
-     */
-    public boolean isActive() {
-        return this.active;
-    }
 
-}

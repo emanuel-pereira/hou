@@ -1,0 +1,17 @@
+{
+  "object_type": {
+    "readings": [
+      {
+        "xml": "smarthome.model.readers.XMLReading",
+        "csv": "smarthome.model.readers.CSVReading",
+        "json": "smarthome.model.readers.JSONReading"
+      }
+    ],
+    "geographical_area": [
+      {
+        "xml": "smarthome.model.readers.XMLGeoArea",
+        "json": "smarthome.model.readers.JSONGeoArea"
+      }
+    ]
+  }
+}

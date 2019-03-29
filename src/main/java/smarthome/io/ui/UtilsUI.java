@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -456,6 +457,10 @@ public final class UtilsUI {
      */
 
     private static void showFormattedList(String title, List<String> listToShow, boolean numbered, int padding) {
+        if (listToShow.isEmpty()) {
+            return;
+        }
+
 
         int tableWidth;
         int widestString = listToShow.get(0).length();
@@ -623,9 +628,37 @@ public final class UtilsUI {
     }
 
 
-    public static boolean confirmOption(String continueQuestion, String errorMessage, String dynamicRegEx) {
-        print(continueQuestion);
+    public static boolean confirmOption(String continueQuestion, String errorMessage) {
+        print(continueQuestion+"\n");
+        String dynamicRegEx = "[yYnN]";
         String yesOrNo = requestText(errorMessage, dynamicRegEx);
         return yesOrNo.contains("y") || yesOrNo.contains("Y");
     }
+
+    public static Calendar parseDateToImportReadings(String dateAndTimeString) {
+        if (dateAndTimeString.contains("/")) {
+            String[] date = dateAndTimeString.split("/");
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(date[2]);
+            stringBuilder.append("-");
+            stringBuilder.append(date[1]);
+            stringBuilder.append("-");
+            stringBuilder.append(date[0]);
+            dateAndTimeString = stringBuilder.toString();
+        }
+        if (!dateAndTimeString.contains("T"))
+            dateAndTimeString = dateAndTimeString.concat("T00:00:00+00:00");
+
+
+        ZonedDateTime dateTime = ZonedDateTime.parse(dateAndTimeString);
+        int year = dateTime.getYear();
+        int month = dateTime.getMonthValue();
+        int day = dateTime.getDayOfMonth();
+        int hour = dateTime.getHour();
+        int minutes = dateTime.getMinute();
+        Calendar readingDate = new GregorianCalendar(year, month - 1, day, hour, minutes);
+        return readingDate;
+    }
+
+
 }

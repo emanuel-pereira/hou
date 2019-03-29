@@ -2,6 +2,7 @@ package smarthome.model.validations;
 
 
 public final class Utils {
+    private Utils(){}
 
     /**
      * Method that rounds a double to specified number of decimal places.

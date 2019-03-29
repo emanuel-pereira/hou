@@ -2,29 +2,81 @@
 skinparam linetype ortho
 hide empty members
 
-class DataImportUI{
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
 
+class DataImportUI{
+- ctrl: DataImportCTRL
+- filepath: Path
+
++ loadGeoAreaFile()
++ showGAsNumberInFile()
++ importGAs()
 }
 
 class DataImportCTRL{
+- gaList: GAList
+
++ readGeoAreasFromFile()
++ getAllSensorsInFile()
++ importGeoAreasFromFile()
++ failedToAdd()
 }
 
+class DataImport{
+- parser: JSONParser
+- configFilePath: Path
+- gaList: GAList
 
-interface Readable {
-+ read()
++ readConfigFile()
++ getFileExtension()
++ getClassName()
++ loadGeoAreaFiles()
++ importFromFileGeoArea()
 }
 
-class JSONReader{
-+ read()
+interface FileReaderGeoArea {
++ loadData()
 }
 
-class XMLReader{
-+ read()
+class JSONReaderGeoArea{
+- filepath: Path
+- parser: JSONParser
+
++ loadData()
+- readFile()
+- importGA()
+- importOccupationArea()
+- importSensorList()
+- importSensor()
+- importLocation()
+}
+
+class XMLReaderGeoArea{
++ loadData()
+- importGeographicalArea()
+- importLocation()
+- getTagValue()
+- addSensorListToGA()
 }
 
  class GAList {
-- gaList: List<GeographicalArea>
+- listOfGa: List<GeographicalArea>
+- notAdded: List<Geographical Area>
+
 + addGA()
++ getNotAdded()
+
   }
 
 
@@ -35,66 +87,42 @@ class GeographicalArea {
 - location: Location
 - sensorListInGa: SensorList
 - occupation: OccupationArea
-+ newGeoAreFromFile()
-+ toDTO()
++ GeographicalArea(identification,\n designation,typeOfGa,occupation,location)
  }
 
- class GeographicalAreaDTO{
- - identification: String
- - designation: String
- - sensorList: List<SensorDTO>
- + GeographicalAreaDTO()
- + getIdentification()
- + getDesignation()
- + getSensorListDTO()
- }
 
  class SensorList{
  - sensorList: List<Sensor>
- + addSensor()
  }
 
  class Sensor {
- - id: String
- - designation: String
- - location: Location
- - sensorType: SensorType
- - startDate: Calendar
- - unit: String
- - readingList: ReadingList
- + newSensorFromFile()
- }
+   - id: String
+   - designation: String
+   - location: Location
+   - sensorType: SensorType
+   - startDate: Calendar
+   - unit: String
+   - readingList: ReadingList
+   + Sensor(id, name,calendar,\n location,type,unit,readingList)
+   }
 
- class SensorDTO{
- - id: String
- - designation: String
- - readingListDTO: List<ReadingDTO>
- + getId()
- + getDesignation()
- + getReadingListDTO()
- }
+DataImportUI -> DataImportCTRL
+DataImportCTRL -> DataImport
+DataImportCTRL -> GAList
 
-DataImportUI ..> DataImportCTRL
+DataImport --> GAList
+DataImport --> FileReaderGeoArea
+FileReaderGeoArea <|. JSONReaderGeoArea
+FileReaderGeoArea <|. XMLReaderGeoArea
 
-DataImportCTRL ..> JSONReader
-DataImportCTRL ..> XMLReader
+JSONReaderGeoArea --> GeographicalArea
+JSONReaderGeoArea --> SensorList
+JSONReaderGeoArea -> Sensor
 
-Readable <. JSONReader
-XMLReader .> Readable
+XMLReaderGeoArea -> GeographicalArea
+XMLReaderGeoArea -> SensorList
+XMLReaderGeoArea -> Sensor
 
-
-JSONReader ..> GeographicalArea
-XMLReader ..> GeographicalArea
-
-XMLReader ..> Sensor
-JSONReader ..> Sensor
-
-
-GeographicalArea ..> GeographicalAreaDTO
-GeographicalArea"*" - GAList
-
-Sensor ..> SensorDTO
-SensorList - "*"Sensor
-
+GeographicalArea -> GAList
 
 @enduml

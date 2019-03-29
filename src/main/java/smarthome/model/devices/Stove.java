@@ -3,6 +3,7 @@ package smarthome.model.devices;
 import smarthome.model.*;
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -122,10 +123,6 @@ public class Stove implements Device, Metered, Programmable{
         } else {
             return 0;
         }
-    }
-
-    public void setAttributeValue(String attribute, Double newValue) {
-        this.getDeviceSpecs().setAttributeValue(attribute, newValue);
     }
 
     @Override

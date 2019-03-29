@@ -14,9 +14,12 @@ public class FridgeType implements DeviceType {
 
     public Device createDevice(String deviceName, double nominalPower) {
 
-        String devType=getDeviceType();
+        String devType = getDeviceType();
 
-        DeviceSpecs devSpecs = new FridgeSpecs(devType);
+        String[] attributeNames = {"Freezer Capacity", "Refrigerator Capacity", "Annual Energy Consumption"};
+        String[] attributeUnits = {"liters", "liters", "kWh"};
+
+        DeviceSpecs devSpecs = new GenericSpecs(devType, attributeNames, attributeUnits);
 
         return new Fridge(deviceName, devSpecs, nominalPower);
     }

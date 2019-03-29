@@ -15,7 +15,10 @@ public class LampType implements DeviceType {
     public Device createDevice(String deviceName, double nominalPower) {
         String devType = getDeviceType();
 
-        DeviceSpecs devSpecs = new LampSpecs(devType);
+        String[] attributeNames = {"Illuminance"};
+        String[] attributeUnits = {"Lumens"};
+
+        DeviceSpecs devSpecs = new GenericSpecs(devType,attributeNames,attributeUnits);
 
         return new Lamp(deviceName, devSpecs, nominalPower);
     }

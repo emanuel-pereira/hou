@@ -1,9 +1,11 @@
 package smarthome.model;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import smarthome.dto.GeographicalAreaDTO;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -31,7 +33,7 @@ public class ReadJSONFile {
     }
 
     /**
-     * FileReader to read JSON file and pass it to parser.
+     * FileReaderReadings to read JSON file and pass it to parser.
      * @return JSONObject
      * @throws IOException
      * @throws ParseException
@@ -47,7 +49,7 @@ public class ReadJSONFile {
      * @throws ParseException
      * @throws IOException
      */
-    public List<GeographicalAreaDTO> importGAs() throws java.text.ParseException, ParseException, IOException {
+  public List<GeographicalAreaDTO> importGAs() throws java.text.ParseException, ParseException, IOException {
         List<GeographicalAreaDTO> gaListDTO=new ArrayList<>();
         //Start reading JSON objects based on their type(JSONArray, JSONObject)
         JSONObject jsonGAs = (JSONObject) this.readFile().get("geographical_area_list");

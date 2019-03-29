@@ -1,6 +1,7 @@
 package smarthome.model;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
