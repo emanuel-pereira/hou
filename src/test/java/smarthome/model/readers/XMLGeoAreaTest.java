@@ -6,12 +6,12 @@ import smarthome.model.Sensor;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class XMLGeoAreaTest {
 

@@ -19,6 +19,8 @@ public class ReadingList {
         return new Reading(readValue, timeOfReading);
     }
 
+    //TODO it is needed to create a new method in order to deal/avoid the @notNull matter when filtering lists of
+    // reagings by date
     public boolean addReading(Reading newReading) {
         if (this.listOfReadings.contains(newReading))
             return false;
@@ -146,7 +148,6 @@ public class ReadingList {
      * @param endDate
      * @return list of the readings with dates in a time interval
      */
-
     public ReadingList filterByDate(Calendar startDate, Calendar endDate) {
         ReadingList readingListInPeriod = new ReadingList();
         for (Reading reading : this.listOfReadings) {
@@ -155,6 +156,7 @@ public class ReadingList {
             if (readingDate.after(startDate) && readingDate.before(endDate)
                     || readingDate.equals(endDate)
                     || readingDate.equals(startDate)) {
+                //TODO there is no connection to the sensor from which the readings came upon this filter by date
                 readingListInPeriod.addReading(reading);
             }
         }

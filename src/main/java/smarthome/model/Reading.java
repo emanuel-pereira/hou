@@ -3,7 +3,6 @@ package smarthome.model;
 import smarthome.dto.ReadingDTO;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -19,7 +18,7 @@ public class Reading {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SENSOR_ID")
-    @NotNull
+    //FIXME @NotNull should have this annotation?
     private Sensor sensor;
 
     private String unit;
