@@ -38,6 +38,7 @@ public class DataImportCTRL {
     public int getGaListInFileSize (Path filePath)throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
         return this.readGeoAreasFromFile(filePath).size();
     }
+
     public int getAllSensorsInFileSize(Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
         List<Sensor> allSensors = new ArrayList<>();
         DataImport dataImport = new DataImport(gaList);

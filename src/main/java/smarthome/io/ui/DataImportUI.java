@@ -21,22 +21,19 @@ public class DataImportUI {
     }
 
 
-    public void loadGeoAreaFile() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, org.json.simple.parser.ParseException, java.text.ParseException  {
-        boolean loop = true;
-        while (loop) {
+    public void loadGeoAreaFile() {
             System.out.println("Please enter the file path to import geographical areas and sensors (eg: resources/JsonFile.json):");
             String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
 
             try {
                 this.filePath = Paths.get(filepath);
                 ctrl.readGeoAreasFromFile(this.filePath);
-                loop = false;
                 this.showGAsNumberInFile();
-            } catch (FileNotFoundException e) {
-                UtilsUI.showError("File not found.", "Json file not found in the specified file path: " + filepath);
+            } catch (Exception e) {
+                UtilsUI.showError("File not found.", "File not found in the specified file path: " + filepath);
+                UtilsUI.backToMenu();
             }
         }
-    }
 
     public void showGAsNumberInFile() throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException   {
         System.out.println("In the file there are\n");

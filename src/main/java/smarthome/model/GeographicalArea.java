@@ -17,6 +17,9 @@ public class GeographicalArea {
     private GeographicalArea parentGa;
 
 
+    public GeographicalArea() {
+    }
+
     /**
      * Constructor required to create a new Geographical Area
      *
@@ -38,8 +41,6 @@ public class GeographicalArea {
 
     public String getId() {
         return identification;
-    }
-    public GeographicalArea() {
     }
 
     /**

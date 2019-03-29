@@ -22,7 +22,8 @@ public class JSONGeoArea implements FileReaderGeoArea{
     private Path filePath;
     private JSONParser parser = new JSONParser();
 
-    public JSONGeoArea (){
+
+    public JSONGeoArea(){
     }
 
 
@@ -57,7 +58,7 @@ public class JSONGeoArea implements FileReaderGeoArea{
         return new GeographicalArea(id,description,type,occupationArea,location);
     }
 
-    private OccupationArea importOccupationArea (JSONObject jsonObject){
+    private static OccupationArea importOccupationArea (JSONObject jsonObject){
         double width = (double) jsonObject.get("width");
         double length = (double) jsonObject.get("length");
 
@@ -95,7 +96,7 @@ public class JSONGeoArea implements FileReaderGeoArea{
 
     }
 
-    private Location importLocation(JSONObject jsonObject){
+    private static Location importLocation(JSONObject jsonObject){
         JSONObject jsonLocation = (JSONObject) jsonObject.get("location");
         double latitude = (double) jsonLocation.get("latitude");
         double longitude = (double) jsonLocation.get("longitude");
