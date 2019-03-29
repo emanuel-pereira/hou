@@ -24,10 +24,9 @@ public class Repositories {
         Repositories.sensorRepository.save(s);
 
         for (Reading reading : s.getReadingList().getReadingsList()) {
-            if (reading.getSensor()==null) {
-                reading.setSensor(s);
-                Repositories.readingRepository.save(reading);
-            }
+            reading.setSensor(s);
+            Repositories.readingRepository.save(reading);
+
         }
     }
 }

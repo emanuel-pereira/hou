@@ -13,6 +13,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -179,7 +180,7 @@ public class RepositoryTest {
         Repositories.sensorRepository.save(sensor1);
         GregorianCalendar r1Date = new GregorianCalendar(2016, Calendar.NOVEMBER, 15, 9, 15);
         Reading reading = new Reading(22, r1Date);
-        reading.setSensor(sensor1);
+        assertTrue(reading.setSensor(sensor1));
         String sensorId = reading.getSensor().getId();
         assertEquals("MV12345", sensorId);
         long repSize = Repositories.sensorRepository.count();
@@ -197,7 +198,7 @@ public class RepositoryTest {
         Sensor sensor1 = new Sensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
         GregorianCalendar r1Date = new GregorianCalendar(2016, Calendar.NOVEMBER, 15, 9, 15);
         Reading reading = new Reading(22, r1Date);
-        reading.setSensor(sensor1);
+        assertTrue(reading.setSensor(sensor1));
         Repositories.saveSensor(sensor1);
         String sensorId = reading.getSensor().getId();
         assertEquals("MV12345", sensorId);
