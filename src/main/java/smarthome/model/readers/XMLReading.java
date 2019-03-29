@@ -58,7 +58,7 @@ public class XMLReading implements FileReaderReadings {
 
         String[] data = new String[4];
 
-        if (readingNode.getNodeType() != Node.ELEMENT_NODE) {
+        if (readingNode.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) readingNode;
 
             String id = getTagValue("id", element);
