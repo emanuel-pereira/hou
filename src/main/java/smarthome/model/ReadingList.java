@@ -22,7 +22,8 @@ public class ReadingList {
             return false;
         if (newReading == null)
             return false;
-        checkIfReadingHasSameValues(newReading);
+        if (!checkIfReadingHasNotSameValues(newReading))
+            return false;
         return this.listOfReadings.add(newReading);
     }
 
@@ -274,16 +275,17 @@ public class ReadingList {
         return endDate;
     }
 
-    boolean checkIfReadingHasSameValues(Reading newReading) {
+    boolean checkIfReadingHasNotSameValues(Reading newReading) {
         for (Reading reading : this.listOfReadings) {
             try {
-                if (newReading.getUnit().matches("F")) {
+                if (newReading.getUnit().equals("F")) {
                     newReading.convertToCelsius();
-                    //alterar unidade para C
+                    newReading.setUnit("C");
                 }
-            } catch (NullPointerException e){}
+            } catch (NullPointerException e) {
+            }
             if (newReading.returnValueOfReading() == reading.returnValueOfReading() &&
-                    newReading.getDateOfReadingAsString().equals(reading.getDateOfReadingAsString()) &&
+                    newReading.getDateAndTime().equals(reading.getDateAndTime()) &&
                     newReading.getUnit().equals(reading.getUnit()))
                 return false;
         }

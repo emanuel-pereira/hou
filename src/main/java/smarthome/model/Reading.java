@@ -1,7 +1,6 @@
 package smarthome.model;
 
 import smarthome.dto.ReadingDTO;
-import smarthome.model.validations.Utils;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -47,7 +46,14 @@ public class Reading {
         return this.dateAndTime;
     }
 
-    public String getUnit() { return this.unit;}
+    public String getUnit() {
+        return this.unit;
+    }
+
+    public void setUnit(String newUnit) {
+        this.unit = newUnit;
+
+    }
 
 
     public boolean isSameDay(Calendar date) {
@@ -79,9 +85,10 @@ public class Reading {
         return output.toString();
     }
 
-    public double convertToCelsius(){
-        if(this.unit.matches("F")){
-            return Utils.round(((this.value-32)/1.8),1);
+    public double convertToCelsius() {
+        if (this.unit.equals("F")) {
+            this.value = ((this.value - 32) / 1.8);
+            this.value = Math.round(this.value*100.0)/100.0;
         }
         return this.value;
     }
