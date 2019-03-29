@@ -88,9 +88,9 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         readingList1.addReading(r3);
 
         ReadingList readingList2 = new ReadingList();
-        Reading r4 = readingList2.newReading(0, new GregorianCalendar(2019, 2, 3, 11, 0));
-        Reading r5 = readingList2.newReading(0, new GregorianCalendar(2019, 2, 3, 12, 0));
-        Reading r6 = readingList2.newReading(0, new GregorianCalendar(2019, 2, 3, 17, 0));
+        Reading r4 = new Reading(0, new GregorianCalendar(2019, 2, 3, 11, 0),"C");
+        Reading r5 = new Reading(0, new GregorianCalendar(2019, 2, 3, 12, 0),"C");
+        Reading r6 = new Reading(0, new GregorianCalendar(2019, 2, 3, 17, 0),"C");
         readingList2.addReading(r4);
         readingList2.addReading(r5);
         readingList2.addReading(r6);
@@ -167,17 +167,17 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
 
         GregorianCalendar startDate = new GregorianCalendar(2018, 15, 31, 11, 0);
         ReadingList readingList1 = new ReadingList();
-        Reading r1 = readingList1.newReading(17, new GregorianCalendar(2018, 12, 31, 11, 0));
-        Reading r2 = readingList1.newReading(15, new GregorianCalendar(2018, 12, 31, 12, 0));
-        Reading r3 = readingList1.newReading(14, new GregorianCalendar(2019, 2, 3, 15, 0));
+        Reading r1 = new Reading(17, new GregorianCalendar(2018, 12, 31, 11, 0),"C");
+        Reading r2 = new Reading(15, new GregorianCalendar(2018, 12, 31, 12, 0),"C");
+        Reading r3 = new Reading(14, new GregorianCalendar(2019, 2, 3, 15, 0),"C");
         readingList1.addReading(r1);
         readingList1.addReading(r2);
         readingList1.addReading(r3);
 
         ReadingList readingList2 = new ReadingList();
-        Reading r4 = readingList2.newReading(0, new GregorianCalendar(2019, 2, 3, 11, 0));
-        Reading r5 = readingList2.newReading(0, new GregorianCalendar(2019, 2, 3, 12, 0));
-        Reading r6 = readingList2.newReading(0, new GregorianCalendar(2019, 2, 3, 17, 0));
+        Reading r4 = new Reading(0, new GregorianCalendar(2019, 2, 3, 11, 0),"C");
+        Reading r5 = new Reading(0, new GregorianCalendar(2019, 2, 3, 12, 0),"C");
+        Reading r6 = new Reading(0, new GregorianCalendar(2019, 2, 3, 17, 0),"C");
         readingList2.addReading(r4);
         readingList2.addReading(r5);
         readingList2.addReading(r6);
@@ -238,9 +238,9 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         readingList1.addReading(r3);
 
         ReadingList readingList2 = new ReadingList();
-        Reading r4 = readingList2.newReading(0, new GregorianCalendar(2019, 2, 3, 11, 0));
-        Reading r5 = readingList2.newReading(0, new GregorianCalendar(2019, 2, 3, 12, 0));
-        Reading r6 = readingList2.newReading(0, new GregorianCalendar(2019, 2, 3, 17, 0));
+        Reading r4 = new Reading(0, new GregorianCalendar(2019, 2, 3, 11, 0),"C");
+        Reading r5 = new Reading(0, new GregorianCalendar(2019, 2, 3, 12, 0),"C");
+        Reading r6 = new Reading(0, new GregorianCalendar(2019, 2, 3, 17, 0),"C");
         readingList2.addReading(r4);
         readingList2.addReading(r5);
         readingList2.addReading(r6);

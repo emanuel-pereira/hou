@@ -63,8 +63,8 @@ class GetCurrentTemperatureInRoomCTRLTest {
         rList.addRoom(r1);
         rList.addRoom(r2);
 
-        Reading r11 = new Reading(15, new GregorianCalendar (2018, 12, 26, 12, 0));
-        Reading r12 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0));
+        Reading r11 = new Reading(15, new GregorianCalendar (2018, 12, 26, 12, 0),"C");
+        Reading r12 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0),"C");
         ReadingList readings1 = new ReadingList ();
         readings1.addReading (r11);
         readings1.addReading(r12);
@@ -153,8 +153,8 @@ class GetCurrentTemperatureInRoomCTRLTest {
         rList.addRoom(r1);
         rList.addRoom(r2);
 
-        Reading r11 = new Reading(15, new GregorianCalendar (2018, 12, 26, 12, 0));
-        Reading r12 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0));
+        Reading r11 = new Reading(15, new GregorianCalendar (2018, 12, 26, 12, 0),"C");
+        Reading r12 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0),"C");
         ReadingList readings1 = new ReadingList ();
         readings1.addReading (r11);
         readings1.addReading(r12);
@@ -197,8 +197,8 @@ class GetCurrentTemperatureInRoomCTRLTest {
         rList.addRoom(r1);
         rList.addRoom(r2);
 
-        Reading r11 = new Reading(15, new GregorianCalendar (2018, 12, 26, 12, 0));
-        Reading r12 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0));
+        Reading r11 = new Reading(15, new GregorianCalendar (2018, 12, 26, 12, 0),"C");
+        Reading r12 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0),"C");
         ReadingList readings1 = new ReadingList ();
         readings1.addReading (r11);
         readings1.addReading(r12);

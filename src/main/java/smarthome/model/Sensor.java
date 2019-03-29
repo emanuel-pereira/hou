@@ -21,6 +21,9 @@ public class Sensor {
     private boolean active;
     private ReadingList readingList;
 
+    public Sensor(){
+
+    }
     /**
      * Constructor used to create internal sensors which, unlike external sensors, don't require location coordinates.
      *
@@ -36,8 +39,8 @@ public class Sensor {
             this.startDate = startDate;
             this.sensorType = sensorType;
             this.unit = unit;
-            this.readingList = readings;
             this.active = true;
+            this.readingList = readings;
         }
     }
 
@@ -60,8 +63,8 @@ public class Sensor {
             this.location = geoLocation;
             this.sensorType = sensorType;
             this.unit = unit;
-            this.readingList = readings;
             this.active = true;
+            this.readingList = readings;
         }
     }
 
@@ -79,6 +82,44 @@ public class Sensor {
             return false;
         }
         return name.matches ("[A-Za-z0-9 \\-]*");
+    }
+
+    /**
+     * Changes the Id of the sensor to the one inputted by the user.
+     *
+     * @param id sensor's id String
+     */
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Changes the type of the sensor to the one inputted by the user.
+     *
+     * @param sensorType sensor's type
+     */
+
+    public void setSensorType(SensorType sensorType) {
+        this.sensorType = sensorType;
+    }
+
+    /**
+     * Changes the start date of the sensor to the one inputted by the user.
+     *
+     * @param startDate date when the sensor started reading
+     */
+    public void setStartDate(Calendar startDate) {
+        this.startDate = startDate;
+    }
+
+    /**
+     * Changes the unit of the sensor to the one inputted by the user.
+     *
+     * @param unit sensor's unit
+     */
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     /**
@@ -217,7 +258,6 @@ public class Sensor {
 
     /**
      * Deactivate sensor if active
-     *
      * @return True if deactivated
      */
     public boolean deactivate(Calendar pauseDate) {
@@ -253,3 +293,5 @@ public class Sensor {
         }
 
     }
+
+

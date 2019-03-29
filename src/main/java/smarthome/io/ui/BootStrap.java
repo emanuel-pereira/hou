@@ -1,8 +1,8 @@
 package smarthome.io.ui;
 
 import smarthome.model.*;
+
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
  * This entire class is only used in application demonstration and test scenarios
@@ -103,7 +103,7 @@ public final class BootStrap {
         Room b109 = house.getRoomList().createNewRoom("B109", 1, 7, 11, 3.5);
         house.getRoomList().addRoom(b109);
         mainGrid.attachRoomToGrid(b109);
-        //TODO createDevicesInRoomB109
+        //FIX ME createDevicesInRoomB109
         addReadingsRoomB109SensorTemp(sensorTypeList);
         addReadingsRoomB109SensorHum(sensorTypeList);
     }
@@ -155,7 +155,7 @@ public final class BootStrap {
 
                 day++;
             }
-            lamp.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes)));
+            lamp.getActivityLog().addReading(new Reading(i, new GregorianCalendar(year, month, day, hour, minutes),"C"));
         }
         year = 2018;
         month = 11;

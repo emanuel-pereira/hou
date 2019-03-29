@@ -40,12 +40,12 @@ public class NewGeographicalAreaCTRLTest {
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
 
-        assertTrue(ctrl1.newGA("Pt", "Porto", 0, occupationArea, location));
+        assertTrue(ctrl1.newGA("opo", "Porto", 0, occupationArea, location));
         assertEquals(1, list.getGAList().size());
 
         OccupationArea occupationArea2 = new OccupationArea(60, 20);
         Location location2 = new Location(10, 20, -11);
-        assertTrue(ctrl1.newGA("Pt", "Lisboa", 0, occupationArea2, location2));
+        assertTrue(ctrl1.newGA("lx", "Lisboa", 0, occupationArea2, location2));
         assertEquals(2, list.getGAList().size());
     }
 
@@ -86,24 +86,24 @@ public class NewGeographicalAreaCTRLTest {
 
         OccupationArea occupation = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
-        assertTrue(ctrl1.newGA("Pt", "Porto", 0, occupation, location));
+        assertTrue(ctrl1.newGA("opo", "Porto", 0, occupation, location));
         assertEquals(1, list.getGAList().size());
 
 
         OccupationArea occupation2 = new OccupationArea(60, 20);
         Location location2 = new Location(60, 20, -11);
-        assertTrue(ctrl1.newGA("Pt", "Lisboa", 0, occupation2, location2));
+        assertTrue(ctrl1.newGA("lx", "Lisboa", 0, occupation2, location2));
         assertEquals(2, list.getGAList().size());
 
-        assertFalse(ctrl1.newGA("Pt", "Porto", 0, occupation, location));
+        assertFalse(ctrl1.newGA("opo", "Porto", 0, occupation, location));
         assertEquals(2, list.getGAList().size());
 
         OccupationArea occupation3 = new OccupationArea(10, 10);
         Location location3 = new Location(50, 30, 1);
-        assertTrue(ctrl1.newGA("Pt", "Braga", 0, occupation3, location3));
+        assertTrue(ctrl1.newGA("brg", "Braga", 0, occupation3, location3));
         assertEquals(3, list.getGAList().size());
 
-        assertFalse(ctrl1.newGA("Pt", "Braga", 0, occupation3, location3));
+        assertFalse(ctrl1.newGA("brg", "Braga", 0, occupation3, location3));
         assertEquals(3, list.getGAList().size());
     }
 

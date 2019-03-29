@@ -16,7 +16,7 @@ public class WallTowelHeaterType implements DeviceType {
     @Override
     public Device createDevice(String devName, double nominalPower) {
         String devType = getDeviceType();
-        DeviceSpecs devSpecs = new WallTowelHeaterSpecs(devType);
+        DeviceSpecs devSpecs = new GenericNoSpecs(devType);
         return new WallTowelHeater(devName,devSpecs,nominalPower);
     }
 }

@@ -4,6 +4,7 @@ import smarthome.dto.GeographicalAreaDTO;
 import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
 import smarthome.model.SensorList;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +19,7 @@ public class GeographicalAreaMapper {
      */
     public GeographicalAreaDTO toDto(GeographicalArea geographicalArea) {
         GeographicalAreaDTO geographicalAreaDTO = new GeographicalAreaDTO();
-        geographicalAreaDTO.setIdentification(geographicalArea.getIdentification());
+        geographicalAreaDTO.setIdentification(geographicalArea.getId());
         geographicalAreaDTO.setDesignation(geographicalArea.getGAName());
         SensorList sensorList = geographicalArea.getSensorListInGA();
         geographicalAreaDTO.setSensorListDTO(sensorMapper.toDtoList(sensorList));

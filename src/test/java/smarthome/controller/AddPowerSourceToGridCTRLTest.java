@@ -2,7 +2,9 @@ package smarthome.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.model.*;
+import smarthome.model.House;
+import smarthome.model.HouseGrid;
+import smarthome.model.PowerSource;
 
 import java.util.Arrays;
 import java.util.List;

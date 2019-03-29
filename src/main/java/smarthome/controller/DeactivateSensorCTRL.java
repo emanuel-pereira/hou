@@ -9,7 +9,6 @@ import smarthome.model.GeographicalArea;
 import smarthome.model.Sensor;
 import smarthome.model.SensorList;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -31,7 +30,7 @@ public class DeactivateSensorCTRL {
 
     public GeographicalArea getGAById(String gaDTOId) {
         for (GeographicalArea geographicalArea : this.gaList.getGAList ()) {
-            if (geographicalArea.getIdentification ().matches (gaDTOId)) {
+            if (geographicalArea.getId ().matches (gaDTOId)) {
                 return geographicalArea;
             }
         }

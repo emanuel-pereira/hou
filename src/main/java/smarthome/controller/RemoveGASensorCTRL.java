@@ -33,7 +33,7 @@ public class RemoveGASensorCTRL {
      */
     public GeographicalArea getGAById(String gaDTOId) {
         for (GeographicalArea geographicalArea : gaList.getGAList()) {
-            if (geographicalArea.getIdentification().matches(gaDTOId)) {
+            if (geographicalArea.getId().matches(gaDTOId)) {
                 return geographicalArea;
             }
         }
