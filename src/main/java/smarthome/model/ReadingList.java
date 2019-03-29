@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.model.validations.Utils;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -284,7 +286,8 @@ public class ReadingList {
                 }
             } catch (NullPointerException e) {
             }
-            if (newReading.returnValueOfReading() == reading.returnValueOfReading() &&
+
+            if (Utils.round(newReading.returnValueOfReading(),1) == Utils.round(reading.returnValueOfReading(),1) &&
                     newReading.getDateAndTime().equals(reading.getDateAndTime()) &&
                     newReading.getUnit().equals(reading.getUnit()))
                 return false;
