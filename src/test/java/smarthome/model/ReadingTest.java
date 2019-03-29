@@ -55,9 +55,9 @@ public class ReadingTest {
 
     //TODO: display name
     @Test
-    void compareYearMonthDay(){
+    void compareYearMonthDay() {
         GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 27);
-        GregorianCalendar calendar2 = new GregorianCalendar(2018,11,27);
+        GregorianCalendar calendar2 = new GregorianCalendar(2018, 11, 27);
 
         Reading reading1 = new Reading(13, calendar1);
 
@@ -69,9 +69,9 @@ public class ReadingTest {
 
     //TODO: display name
     @Test
-    void compareDifferentYearMonthDay(){
+    void compareDifferentYearMonthDay() {
         GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 27);
-        GregorianCalendar calendar2 = new GregorianCalendar(2018,11,28);
+        GregorianCalendar calendar2 = new GregorianCalendar(2018, 11, 28);
 
         Reading reading1 = new Reading(13, calendar1);
 
@@ -81,17 +81,29 @@ public class ReadingTest {
     }
 
 
-
     @Test
     void getDateOfReadingAsString() {
         GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 31, 21, 30);
         Reading reading1 = new Reading(13, calendar1);
 
         String expected = "2018-12-31";
-        String result = reading1.getDateOfReadingAsString ();
+        String result = reading1.getDateOfReadingAsString();
         assertEquals(expected, result);
     }
 
 
+    @Test
+    void setSensor() {
+        GregorianCalendar startDate = new GregorianCalendar(2016, Calendar.NOVEMBER, 15);
+        Location locS1 = new Location(72, 26, 2);
+        SensorType temperature = new SensorType("temperature");
+        ReadingList readingList = new ReadingList();
+        Sensor sensor = new Sensor("TT1025", "Temperature Sensor", startDate, locS1, temperature, "Celsius", readingList);
+        GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 31, 21, 30);
+        Reading reading1 = new Reading(13, calendar1);
+        reading1.setSensor(sensor);
+        Sensor result = reading1.getSensor();
+        assertEquals(sensor, result);
+    }
 
 }

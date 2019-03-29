@@ -15,13 +15,13 @@ public class TypeGA {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String type;
+    private String tGA;
 
     protected TypeGA() {
     }
 
     public TypeGA(String inputTypeGA) {
-        this.type = inputTypeGA;
+        this.tGA = inputTypeGA;
     }
 
 
@@ -46,7 +46,7 @@ public class TypeGA {
             return false;
         }
         TypeGA typeOfGA = (TypeGA) o; //
-        return this.type.equals(typeOfGA.toString());
+        return this.tGA.equals(typeOfGA.toString());
     }
 
 
@@ -57,7 +57,7 @@ public class TypeGA {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(this.type);
+        return Objects.hash(this.tGA);
     }
 
 
@@ -69,9 +69,8 @@ public class TypeGA {
      */
     @Override
     public String toString() {
-        return this.type;
+        return this.tGA;
     }
-
 }
 
 

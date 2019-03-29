@@ -3,6 +3,7 @@ package smarthome.model;
 import smarthome.dto.ReadingDTO;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -18,6 +19,7 @@ public class Reading {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SENSOR_ID")
+    @NotNull
     private Sensor sensor;
 
 
@@ -93,5 +95,9 @@ public class Reading {
 
     public void setSensor(Sensor newSensor) {
         this.sensor = newSensor;
+    }
+
+    public Sensor getSensor() {
+        return sensor;
     }
 }

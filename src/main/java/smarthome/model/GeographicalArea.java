@@ -70,7 +70,6 @@ public class GeographicalArea {
         this.sensorListInGa = new SensorList();
     }
 
-    //TODO tests and JAVADOC
     public GeographicalArea(String id, String name) {
         this.identification = id;
         this.designation = name;
