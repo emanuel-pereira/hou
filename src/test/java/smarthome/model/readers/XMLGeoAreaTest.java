@@ -30,13 +30,26 @@ class XMLGeoAreaTest {
     @Test
     void importDataFailNoGAs() {
 
-        Path path = Paths.get("resources/fakeImportFilesForTests/DataSet_sprint05_GA_FAKE.xml");
+        Path path = Paths.get("resources/fakeImportFilesForTests/DataSet_sprint05_GA_FAKE_01.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
         int result = xmlReader.loadData(path).size();
 
         assertEquals(0, result);
 
+    }
+
+    @Test
+    void importDataGaNodeLengthTest() {
+        Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
+        XMLGeoArea xmlReader = new XMLGeoArea();
+
+        List<GeographicalArea> gaList = xmlReader.loadData(path);
+
+        int expected = 3;
+        int result = gaList.size();
+
+        assertNotEquals(expected, result);
     }
 
     @Test
