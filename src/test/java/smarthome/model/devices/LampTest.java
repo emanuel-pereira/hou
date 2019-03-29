@@ -170,4 +170,17 @@ class LampTest {
 
         assertEquals(expected, result);
     }
+
+    @Test
+    void setTimeAndGetEnergyConsumption() {
+        DeviceType dt = new LampType();
+        Device d = dt.createDevice("Lamp", 15);
+        Lamp lamp = (Lamp) d;
+
+        lamp.setTime(2);
+        double expected = 30;
+        double result = lamp.getEstimatedEnergyConsumption();
+
+        assertEquals(expected,result);
+    }
 }

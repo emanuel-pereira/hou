@@ -125,10 +125,6 @@ public class Stove implements Device, Metered, Programmable{
         }
     }
 
-    public void setAttributeValue(String attribute, Double newValue) {
-        this.getDeviceSpecs().setAttributeValue(attribute, newValue);
-    }
-
     @Override
     public boolean deactivateDevice() {
         this.active = false;

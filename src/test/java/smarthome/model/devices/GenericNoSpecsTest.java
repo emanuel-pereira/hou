@@ -69,6 +69,13 @@ class GenericNoSpecsTest {
 
     @Test
     void getAttributeValues() {
+        GenericNoSpecs specs = new GenericNoSpecs("A device");
+
+        List<Double> expected = new ArrayList<Double>();
+
+        List<Double> result = specs.getAttributeValues();
+
+        assertEquals(expected, result);
     }
 
     @Test

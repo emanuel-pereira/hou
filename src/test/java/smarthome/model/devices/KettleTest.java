@@ -170,4 +170,15 @@ class KettleTest {
 
         assertEquals(expected, result);
     }
+
+    @Test
+    void getEstimatedEnergyConsumption() {
+        DeviceType dt = new KettleType();
+        Device d = dt.createDevice("kettle",100);
+        Kettle kettle = (Kettle) d;
+        double expected = 0.0;
+        double result = kettle.getEstimatedEnergyConsumption();
+
+        assertEquals(expected, result);
+    }
 }

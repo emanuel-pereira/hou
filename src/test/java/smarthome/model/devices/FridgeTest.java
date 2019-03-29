@@ -74,5 +74,15 @@ class FridgeTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    void getEstimatedEnergyConsumption(){
+        DeviceType dt = new FridgeType();
+        Device d = dt.createDevice("foo", 3650);
+        Fridge fridge = (Fridge) d;
+        double expected = 10;
+        double result = fridge.getEstimatedEnergyConsumption();
+
+        assertEquals(expected, result);
+    }
 
 }

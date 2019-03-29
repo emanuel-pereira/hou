@@ -60,16 +60,26 @@ class WashingMachineTest {
         assertNotEquals(expected, result);
     }
 
-    /*@Test
-    @DisplayName("Get correct device specs")
+    @Test
+    @DisplayName("Get device specs and check type")
     void getDeviceSpecs() {
+
         DeviceType dt = new WashingMachineType();
         Device d = dt.createDevice("Washing Machine 1", 100);
-        WashingMachine washingMachine = (WashingMachine) d;
 
-        assertEquals(specs, washingMachineSpecs);
+        String[] attributeNames = {"Capacity"};
+        String[] attributeUnits = {"L"};
+
+        DeviceSpecs foo = new GenericSpecs("Washing Machine",attributeNames,attributeUnits);
+        DeviceSpecs bar = d.getDeviceSpecs();
+
+        String expected = foo.getDeviceType();
+        String result = bar.getDeviceType();
+
+        assertEquals(expected, result);
+
     }
-*/
+
     @Test
     @DisplayName("Get correct device type")
     void getDeviceType() {

@@ -24,17 +24,20 @@ class WallTowelHeaterTest {
     }
 
 
-    /*@Test
-    void getDeviceSpecs() {
+    @Test
+    void getDeviceSpecsAndCheckIfTypeIsSame() {
         DeviceType dt = new WallTowelHeaterType();
         Device d = dt.createDevice("warm towels",3420);
 
-        DeviceSpecs expected = specs;
-        DeviceSpecs result = device.getDeviceSpecs();
+        DeviceSpecs foo = new GenericNoSpecs("WallTowelHeater");
+        DeviceSpecs bar = d.getDeviceSpecs();
 
-        assertEquals(expected,result);
+        String expected = foo.getDeviceType();
+        String result = bar.getDeviceType();
+
+        assertEquals(expected, result);
     }
-*/
+
     @Test
     void getDeviceType() {
         DeviceType dt = new WallTowelHeaterType();

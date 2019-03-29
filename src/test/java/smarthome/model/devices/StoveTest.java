@@ -230,4 +230,53 @@ class StoveTest {
 
         assertFalse(stove.addProgramToList(full));
     }
+
+    @Test
+    void getEstimatedEnergyConsumption() {
+        DeviceType dt = new StoveType();
+        Device d = dt.createDevice("kitchen stove", 2500);
+        Stove stove = (Stove) d;
+
+        Program eco = stove.createProgram("Eco", 1500);
+        stove.addProgramToList(eco);
+
+        stove.setMeteredProgram("Eco");
+
+        double expected = 0;
+        double result = stove.getEstimatedEnergyConsumption();
+        assertEquals (expected,result);
+    }
+
+    @Test
+    void getEstimatedEnergyConsumptionWithNegativeValue() {
+        DeviceType dt = new StoveType();
+        Device d = dt.createDevice("kitchen stove", -500);
+        Stove stove = (Stove) d;
+
+        Program eco = stove.createProgram("Eco", 1500);
+        stove.addProgramToList(eco);
+
+        stove.setMeteredProgram("eco");
+
+        double expected = 0;
+        double result = stove.getEstimatedEnergyConsumption();
+        assertEquals (expected,result);
+    }
+
+    @Test
+    void setAndGetMeteredProgram(){
+        DeviceType dt = new StoveType();
+        Device d = dt.createDevice("kitchen stove", 2500);
+        Stove stove = (Stove) d;
+        Program eco = stove.createProgram("Eco", 1500);
+        stove.addProgramToList(eco);
+        Program full = stove.createProgram("Full", 3000);
+        stove.addProgramToList(full);
+
+        stove.setMeteredProgram("Eco");
+        String result = stove.getMeteredProgram().getProgramName();
+        String expected = "Eco";
+        assertEquals(expected,result);
+
+    }
 }

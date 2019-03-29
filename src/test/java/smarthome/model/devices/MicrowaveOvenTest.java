@@ -65,17 +65,22 @@ class MicrowaveOvenTest {
         assertNotEquals(expected, result);
     }
 
-    /*@Test
-    @DisplayName("Get correct device specs")
+    @Test
+    @DisplayName("Get device specs and check type")
     void getDeviceSpecs() {
-        DeviceType dt = new MicrowaveOvenType();
-        Device d = dt.createDevice("Samsung", 10);
-        MicrowaveOven microwave = (MicrowaveOven) d;
-        DeviceSpecs result = microwave.getDeviceSpecs();
 
-        assertEquals(microwaveSpecs, result);
+        DeviceType dt = new MicrowaveOvenType();
+        Device d = dt.createDevice("Heat Ray 9001", 100);
+
+        DeviceSpecs foo = new GenericNoSpecs("MicrowaveOven");
+        DeviceSpecs bar = d.getDeviceSpecs();
+
+        String expected = foo.getDeviceType();
+        String result = bar.getDeviceType();
+
+        assertEquals(expected, result);
     }
-*/
+
     @Test
     @DisplayName("Get correct device type")
     void getDeviceType() {

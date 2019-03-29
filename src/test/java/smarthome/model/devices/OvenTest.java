@@ -25,15 +25,22 @@ class OvenTest {
     }
 
 
-    /*@Test
+    @Test
+    @DisplayName("Get device specs and check type")
     void getDeviceSpecs() {
+
         DeviceType dt = new OvenType();
-        Device device = dt.createDevice("baker", 420);
+        Device d = dt.createDevice("Bake'n'Make", 100);
 
-        DeviceSpecs result = device.getDeviceSpecs();
+        DeviceSpecs foo = new GenericNoSpecs("Oven");
+        DeviceSpecs bar = d.getDeviceSpecs();
 
-        assertEquals(specs, result);
-    }*/
+        String expected = foo.getDeviceType();
+        String result = bar.getDeviceType();
+
+        assertEquals(expected, result);
+
+    }
 
     @Test
     void getDeviceType() {

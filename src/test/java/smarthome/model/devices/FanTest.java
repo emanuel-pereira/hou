@@ -64,17 +64,23 @@ class FanTest {
         assertNotEquals(expected, result);
     }
 
-/*    @Test
-    @DisplayName("Get correct device specs")
+    @Test
+    @DisplayName("Get device specs and check type")
     void getDeviceSpecs() {
+
         DeviceType dt = new FanType();
-        Device d = dt.createDevice("Whirlpool", 10);
-        Fan fan = (Fan) d;
+        Device d = dt.createDevice("My biggest fan", 100);
 
-        DeviceSpecs result = fan.getDeviceSpecs();
+        DeviceSpecs foo = new GenericNoSpecs("Fan");
+        DeviceSpecs bar = d.getDeviceSpecs();
 
-        assertEquals(fanSpecs, result);
-    }*/
+        String expected = foo.getDeviceType();
+        String result = bar.getDeviceType();
+
+        assertEquals(expected, result);
+
+    }
+
 
     @Test
     @DisplayName("Get correct device type")
