@@ -41,8 +41,6 @@ public class XMLGeoArea implements FileReaderGeoArea {
 
             Document xmlDoc = dBuilder.parse(file);
 
-            xmlDoc.getDocumentElement().normalize();
-
             NodeList gaNodeList = xmlDoc.getElementsByTagName("geographical_area");
 
             for (int i = 0; i < gaNodeList.getLength(); i++) {
@@ -57,7 +55,7 @@ public class XMLGeoArea implements FileReaderGeoArea {
     }
 
 
-    private GeographicalArea importGeographicalArea(Node gaNode) throws ParseException {
+    private static GeographicalArea importGeographicalArea(Node gaNode) throws ParseException {
 
         GeographicalArea geographicalArea = null;
 
@@ -83,7 +81,7 @@ public class XMLGeoArea implements FileReaderGeoArea {
     }
 
 
-    private Location importLocation(Node node) {
+    private static Location importLocation(Node node) {
 
         Element element = (Element) node;
         Double latitude = Double.parseDouble(getTagValue("latitude", element));
@@ -104,7 +102,7 @@ public class XMLGeoArea implements FileReaderGeoArea {
     }
 
 
-    private void addSensorListToGA(GeographicalArea geographicalArea, Node node) throws ParseException {
+    private static void addSensorListToGA(GeographicalArea geographicalArea, Node node) throws ParseException {
 
         Element areaSensors = (Element) node;
         NodeList sensors = areaSensors.getChildNodes();
