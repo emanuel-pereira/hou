@@ -45,7 +45,7 @@ public class SensorTypeList {
         else if (this.typeList.add(newSensorType)) {
             //Repository call
             try {
-                Repositories.sensorTypeRepository.save(newSensorType);
+                Repositories.getSensorTypeRepository().save(newSensorType);
             } catch (NullPointerException e) {
             }
             return true;

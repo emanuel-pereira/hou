@@ -1,19 +1,12 @@
 package smarthome.model;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import smarthome.model.validations.NameValidations;
 import smarthome.repository.Repositories;
-import smarthome.repository.TypeGARepository;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class TypeGAList {
 
     private List<TypeGA> typeOfGAList;
-
-    @Autowired
-    private TypeGARepository typeRep;
 
     /**
      * Constructor for TypeGAList where the List of GA's is instantiated
@@ -51,7 +44,7 @@ public class TypeGAList {
 
             //Repository call
             try {
-                Repositories.typeGARepository.save(inputType);
+                Repositories.getTypeGARepository().save(inputType);
             } catch (NullPointerException e) {
             }
             return true;

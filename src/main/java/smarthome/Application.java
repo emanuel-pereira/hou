@@ -29,13 +29,13 @@ public class Application {
     public CommandLineRunner demo(GeoRepository geoRep, LocationRepository locRep, TypeGARepository typeRep,
                                   SensorTypeRepository unitRep, OccupationAreaRepository occupRep,
                                   SensorRepository sensorRep, ReadingRepository readingRep) {
-        Repositories.typeGARepository = typeRep;
-        Repositories.locationRepository = locRep;
-        Repositories.geoRepository = geoRep;
-        Repositories.occupationAreaRepository = occupRep;
-        Repositories.sensorTypeRepository = unitRep;
-        Repositories.sensorRepository = sensorRep;
-        Repositories.readingRepository = readingRep;
+        Repositories.setTypeGARepository(typeRep);
+        Repositories.setLocationRepository(locRep);
+        Repositories.setGeoRepository(geoRep);
+        Repositories.setOccupationAreaRepository(occupRep);
+        Repositories.setSensorTypeRepository(unitRep);
+        Repositories.setSensorRepository(sensorRep);
+        Repositories.setReadingRepository(readingRep);
 
         return args -> {
         };

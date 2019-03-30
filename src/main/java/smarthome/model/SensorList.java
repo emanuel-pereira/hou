@@ -148,7 +148,7 @@ public class SensorList {
                 s.deactivate(pauseDate);
                 //Repository call
                 try {
-                    Repositories.sensorRepository.save(s);
+                    Repositories.getSensorRepository().save(s);
                 } catch (Exception e) {
 
                 }

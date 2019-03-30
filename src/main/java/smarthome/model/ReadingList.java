@@ -31,7 +31,7 @@ public class ReadingList {
         if (this.listOfReadings.add(newReading)) {
             //repository call
             try {
-                Repositories.readingRepository.save(newReading);
+                Repositories.getReadingRepository().save(newReading);
             } catch (Exception e) {
                 //do nothing
             }
