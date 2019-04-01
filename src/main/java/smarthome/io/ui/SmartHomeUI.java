@@ -1,22 +1,15 @@
 
 package smarthome.io.ui;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 import smarthome.model.GAList;
 import smarthome.model.House;
 import smarthome.model.SensorTypeList;
 import smarthome.model.TypeGAList;
-import smarthome.repository.LocationRepository;
-import smarthome.repository.OccupationAreaRepository;
-import smarthome.repository.SensorRepository;
-import smarthome.repository.SensorTypeRepository;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 import static smarthome.io.ui.HouseAdministrationUI.houseAdministration;
@@ -31,23 +24,10 @@ public class SmartHomeUI {
     private static GAList gaList;
     private static TypeGAList typeGAList;
     private static House house;
-    private static LocationRepository locRep;
-    private static OccupationAreaRepository ocRep;
-    private static SensorRepository sensorRep;
-    private static SensorTypeRepository sensorTypeRep;
 
-    public static void main(String[] args) throws SAXException, ParserConfigurationException, ClassNotFoundException,
-            IllegalAccessException, InstantiationException, ParseException, IOException,
-            org.json.simple.parser.ParseException, InvocationTargetException, NoSuchMethodException {
+    private SmartHomeUI(){}
 
-    }
-    public SmartHomeUI() {
-        init();
-        //FIXME BootStrap.run(house, typeGAList, sensorTypeList);
-    }
-
-    @Autowired
-    public static void menuOptions() throws SAXException, ParserConfigurationException, IllegalAccessException, InstantiationException, ClassNotFoundException, ParseException, org.json.simple.parser.ParseException, IOException, InvocationTargetException, NoSuchMethodException {
+    public static void menuOptions() throws SAXException, ParserConfigurationException, IllegalAccessException, InstantiationException, ClassNotFoundException, org.json.simple.parser.ParseException, IOException {
         int option = -1;
         while (option != 0) {
 
@@ -85,10 +65,10 @@ public class SmartHomeUI {
         }
     }
 
-    private static void init() {
+    public static void init() {
         sensorTypeList = new SensorTypeList();
         gaList = new GAList();
         house = new House();
-        typeGAList= new TypeGAList();
+        typeGAList = new TypeGAList();
     }
 }
