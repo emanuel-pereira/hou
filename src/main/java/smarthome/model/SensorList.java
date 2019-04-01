@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class SensorList {
     private List<Sensor> listOfSensors;
@@ -143,17 +144,17 @@ public class SensorList {
 
 
     public void deactivateSensor(String sensorID, Calendar pauseDate) {
-        for (Sensor s : this.getSensorList()) {
-            if (s.getId().matches(sensorID)) {
-                s.deactivate(pauseDate);
+        for (Sensor s : this.getSensorList())
+            if (s.getId ().matches (sensorID)) {
+                s.deactivate (pauseDate);
                 //Repository call
                 try {
-                    Repositories.getSensorRepository().save(s);
+                    Repositories.getSensorRepository ().save (s);
                 } catch (Exception e) {
+                    Logger.getLogger("Repository unreachable");
 
                 }
             }
-        }
 
 
     }
