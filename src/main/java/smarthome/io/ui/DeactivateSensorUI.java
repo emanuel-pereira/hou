@@ -98,13 +98,20 @@ public class DeactivateSensorUI {
      * Insert the deactivation date of the sensor
      */
     private void insertDate() {
-        System.out.println ("Insert the deactivation date for the sensor in yyyy-MM-dd format:");
-        this.date = UtilsUI.requestDate ("Please insert a valid date (yyyy-MM-dd format).");
-        this.deactivateSensor ();
+        boolean condition = true;
+        while (condition) {
+            System.out.println ("Insert the deactivation date for the sensor in yyyy-MM-dd format:");
+            this.date = UtilsUI.requestDate ("Please insert a valid date (yyyy-MM-dd format).");
+            if (this.sensorDTO.getStartDate().before(date)) {
+                condition = false;
+                this.deactivateSensor ();
+            } else
+                System.out.println ("Set the deactivation date after the creation of the sensor ");
+        }
     }
 
     /**
-     * Deactivate the sensor and show relevant information (need to validate the date, it is only validating in the model)
+     * Deactivate the sensor and show relevant information
      */
     private void deactivateSensor() {
         if (this.controller.deactivateSensor (gaDTOId, sensorDTOId, date)) {
