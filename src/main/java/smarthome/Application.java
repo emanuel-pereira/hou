@@ -6,22 +6,20 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.xml.sax.SAXException;
 import smarthome.repository.*;
-
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
 import java.util.logging.Logger;
 
+import static smarthome.io.ui.SmartHomeUI.init;
 import static smarthome.io.ui.SmartHomeUI.menuOptions;
 
 
 @SpringBootApplication
 public class Application {
 
-    public static void main(String[] args) throws IllegalAccessException, ParseException, InstantiationException, IOException, org.json.simple.parser.ParseException, ClassNotFoundException, SAXException, ParserConfigurationException, NoSuchMethodException, InvocationTargetException {
+    public static void main(String[] args) throws IllegalAccessException, InstantiationException, IOException, org.json.simple.parser.ParseException, ClassNotFoundException, SAXException, ParserConfigurationException {
         SpringApplication.run(Application.class);
-
+        init();
         menuOptions();
     }
 
