@@ -83,8 +83,8 @@ public class DeactivateSensorUI {
     private void selectSensor() {
         System.out.println ("Choose an active Sensor from the list below:");
         int counter = 1;
-        for (SensorDTO sensorDTO : sensorListDTO) {
-            System.out.print (counter++ + " Id: " + sensorDTO.getId () + this.designation + sensorDTO.getDesignation () + ". Active: " + sensorDTO.isActive () + "\n");
+        for (SensorDTO sensor : sensorListDTO) {
+            System.out.print (counter++ + " Id: " + sensor.getId () + this.designation + sensor.getDesignation () + ". Active: " + sensor.isActive () + "\n");
         }
         int index = UtilsUI.requestIntegerInInterval (1, sensorListDTO.size (), "Please choose a valid option");
         index--;
