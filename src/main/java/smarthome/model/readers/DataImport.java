@@ -130,8 +130,8 @@ public class DataImport {
             //repository call
             try {
                 Repositories.saveGA(ga);
-            } catch (Exception e) {
-                //do nothing
+            } catch (NullPointerException e) {
+                Logger.getLogger("Repository unreachable");
             }
         }
     }

@@ -9,6 +9,7 @@ import smarthome.model.SensorList;
 import smarthome.repository.Repositories;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 public class RemoveGASensorCTRL {
     private GAList gaList;
@@ -60,6 +61,8 @@ public class RemoveGASensorCTRL {
                     Repositories.getReadingRepository().deleteAllBySensor(sensor);
                     Repositories.getSensorRepository().delete(sensor);
                 } catch (NullPointerException e) {
+                    Logger.getLogger("Repository unreachable");
+
                 }
                 return true;
             }

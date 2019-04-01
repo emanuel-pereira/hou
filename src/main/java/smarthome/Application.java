@@ -11,6 +11,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.ParseException;
+import java.util.logging.Logger;
 
 import static smarthome.io.ui.SmartHomeUI.menuOptions;
 
@@ -37,7 +38,8 @@ public class Application {
         Repositories.setSensorRepository(sensorRep);
         Repositories.setReadingRepository(readingRep);
 
-        return args -> {
-        };
+        return args ->
+                Logger.getLogger("Application initialization");
+
     }
 }

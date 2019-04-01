@@ -4,6 +4,7 @@ import smarthome.repository.Repositories;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class SensorTypeList {
 
@@ -47,6 +48,7 @@ public class SensorTypeList {
             try {
                 Repositories.getSensorTypeRepository().save(newSensorType);
             } catch (NullPointerException e) {
+                Logger.getLogger("Repository unreachable");
             }
             return true;
         }

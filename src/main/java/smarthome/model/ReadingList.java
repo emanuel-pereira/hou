@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ReadingList {
 
@@ -32,8 +33,8 @@ public class ReadingList {
             //repository call
             try {
                 Repositories.getReadingRepository().save(newReading);
-            } catch (Exception e) {
-                //do nothing
+            } catch (NullPointerException e) {
+                Logger.getLogger("Repository unreachable");
             }
             return true;
         } else return false;
@@ -297,8 +298,7 @@ public class ReadingList {
                     newReading.setUnit("C");
                 }
             } catch (NullPointerException e) {
-                String msg = "bygbbyg";
-                //TODO write in application log
+                Logger.getLogger("Repository unreachable");
             }
 
             if ((Double.compare(newReading.returnValueOfReading(),reading.returnValueOfReading())==0) &&

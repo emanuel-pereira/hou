@@ -7,7 +7,7 @@ import smarthome.model.SensorList;
 
 import java.util.List;
 
-public class Repositories {
+public final class Repositories {
     private static GeoRepository geoRepository = null;
     private static LocationRepository locationRepository = null;
     private static OccupationAreaRepository occupationAreaRepository = null;

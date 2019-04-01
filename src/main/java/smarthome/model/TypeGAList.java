@@ -3,6 +3,7 @@ import smarthome.model.validations.NameValidations;
 import smarthome.repository.Repositories;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class TypeGAList {
 
@@ -46,6 +47,7 @@ public class TypeGAList {
             try {
                 Repositories.getTypeGARepository().save(inputType);
             } catch (NullPointerException e) {
+                Logger.getLogger("Repository unreachable");
             }
             return true;
         } else return false;
