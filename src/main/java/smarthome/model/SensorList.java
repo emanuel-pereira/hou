@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.repository.Repositories;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -24,11 +26,9 @@ public class SensorList {
      */
     public boolean addSensor(Sensor newSensor) {
         if (!this.listOfSensors.contains(newSensor)) {
-            this.listOfSensors.add(newSensor);
-            return true;
+            return this.listOfSensors.add(newSensor);
         } else return false;
     }
-
 
     /**
      * Method to return the sensors included in the list
@@ -40,21 +40,20 @@ public class SensorList {
     }
 
     /**
-     * @param inputName name of Sensor
-     * @param startDate startDate of Sensor
-     * @param geoLocation  gps coordinates in which the user wants to place the sensor
-
+     * @param inputName   name of Sensor
+     * @param startDate   startDate of Sensor
+     * @param geoLocation gps coordinates in which the user wants to place the sensor
      * @return List of sensors
      */
-    public Sensor newSensor(String id, String inputName, GregorianCalendar startDate,Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
+    public Sensor newSensor(String id, String inputName, GregorianCalendar startDate, Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
         return new Sensor(id, inputName, startDate, geoLocation, sensorType, inputUnit, readings);
     }
 
     /**
-     * @param name Name of the sensor
-     * @param startDate The first day the sensor starts to work
+     * @param name       Name of the sensor
+     * @param startDate  The first day the sensor starts to work
      * @param sensorType The sensor type
-     * @param unit The measurement unit
+     * @param unit       The measurement unit
      * @return A new interior sensor
      */
     public Sensor createNewInternalSensor(String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
@@ -122,7 +121,7 @@ public class SensorList {
         return this.listOfSensors.size();
     }
 
-    public void removeSensor(Sensor sensor){
+    public void removeSensor(Sensor sensor) {
         this.listOfSensors.remove(sensor);
 
     }
@@ -132,10 +131,10 @@ public class SensorList {
     }
 
     public SensorList getActiveSensors() {
-        SensorList activeSensors = new SensorList ();
-        for (Sensor s : this.getSensorList ()) {
-            if (s.isActive ()) {
-                activeSensors.addSensor (s);
+        SensorList activeSensors = new SensorList();
+        for (Sensor s : this.getSensorList()) {
+            if (s.isActive()) {
+                activeSensors.addSensor(s);
             }
         }
         return activeSensors;
@@ -144,12 +143,18 @@ public class SensorList {
 
 
     public void deactivateSensor(String sensorID, Calendar pauseDate) {
-        for (Sensor s : this.getSensorList ()) {
-            if (s.getId ().matches (sensorID)) {
-                s.deactivate (pauseDate);
+        for (Sensor s : this.getSensorList()) {
+            if (s.getId().matches(sensorID)) {
+                s.deactivate(pauseDate);
+                //Repository call
+                try {
+                    Repositories.getSensorRepository().save(s);
+                } catch (Exception e) {
+
+                }
             }
         }
+
+
     }
-
-
 }

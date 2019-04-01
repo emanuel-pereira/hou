@@ -86,5 +86,16 @@ public class OccupationAreaTest {
         double result= o.getWidth();
         assertEquals(expectedResult, result);
     }
+
+    @Test
+    void getWidth() {
+        OccupationArea o = new OccupationArea();
+        o.setLength(3);
+        o.setOccupation(4);
+        o.setWidth(5);
+        double expectedWidth = 5;
+        double result = o.getWidth();
+        assertEquals(expectedWidth, result);
+    }
 }
 

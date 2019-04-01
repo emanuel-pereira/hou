@@ -12,8 +12,8 @@ public class NewSensorTypeUI {
     // that the several sensors are able to measure/register
 
 
-    private SensorTypeList mSensorTypeList;
-    private NewSensorTypeCTRL mCtrlUS5;
+    private SensorTypeList sensorTypeList;
+    private NewSensorTypeCTRL ctrl;
 
     Scanner keyboard = new Scanner(System.in);
 
@@ -23,12 +23,12 @@ public class NewSensorTypeUI {
      * @param inputSensorType - list where the newSensorType is added
      */
     public NewSensorTypeUI(SensorTypeList inputSensorType) {
-        mSensorTypeList = inputSensorType;
-        mCtrlUS5 = new NewSensorTypeCTRL(mSensorTypeList);
+        this.sensorTypeList = inputSensorType;
+        this.ctrl = new NewSensorTypeCTRL(sensorTypeList);
     }
 
     /**
-     * Method to runUS5 the US5's UI
+     * Method to run the US5's UI
      * With the it is possible to add one or several data types
      * By writing "r", the user is redirected to the SystemAdministrationUI and leaves the US5UI
      * First, a new data type with designation is created
@@ -37,7 +37,7 @@ public class NewSensorTypeUI {
      */
 
 
-    public void runUS5() {
+    public void run() {
         while (true) {
             System.out.println("Insert a new meteorological characteristic OR Press 'R' to return to Main Menu");
             String inputDesignation = sensorTypeDesignationInputIsValid();
@@ -46,9 +46,9 @@ public class NewSensorTypeUI {
                 System.out.println("Return to Main Menu");
                 break;
             }
-            if (mCtrlUS5.newSensorType(inputDesignation)) {
+            if (ctrl.newSensorType(inputDesignation)) {
                 System.out.println("Success: " + inputDesignation + " was added to the list:");
-                System.out.print(mCtrlUS5.returnSensorTypeList());
+                System.out.print(ctrl.returnSensorTypeList());
             } else
                 System.out.println("Failure. Please try again.");
         }

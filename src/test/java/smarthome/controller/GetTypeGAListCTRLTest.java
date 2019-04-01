@@ -9,10 +9,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 class GetTypeGAListCTRLTest {
 
-
-    /**
+    /*
      * Add new types of geographical area in a list and then confirm that the content is the same when using
      * the getTypeGAList method.
      */
@@ -51,7 +51,7 @@ class GetTypeGAListCTRLTest {
     }
 
 
-    /**
+    /*
      * Add new types of geographical area in a list and then create a new list and test if it has de same size.
      * Using the Debug is possible to see that the content of the list is the same.
      */
@@ -99,4 +99,5 @@ class GetTypeGAListCTRLTest {
 
         assertEquals (expected, result);
     }
+
 }

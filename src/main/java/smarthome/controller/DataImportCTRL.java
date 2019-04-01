@@ -31,13 +31,12 @@ public class DataImportCTRL {
      */
     public List<GeographicalArea> readGeoAreasFromFile (Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
         DataImport dataImport = new DataImport(gaList);
-        List<GeographicalArea> gaListInFile = dataImport.loadGeoAreaFiles(filePath);
-
-        return gaListInFile;
+        return dataImport.loadGeoAreaFiles(filePath);
     }
     public int getGaListInFileSize (Path filePath)throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
         return this.readGeoAreasFromFile(filePath).size();
     }
+
     public int getAllSensorsInFileSize(Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
         List<Sensor> allSensors = new ArrayList<>();
         DataImport dataImport = new DataImport(gaList);

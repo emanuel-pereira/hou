@@ -1,8 +1,10 @@
 package smarthome.io.ui;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import smarthome.controller.NewSensorCTRL;
 import smarthome.model.*;
+import smarthome.repository.LocationRepository;
 
 import java.util.GregorianCalendar;
 import java.util.Scanner;
@@ -23,6 +25,8 @@ public class NewSensorUI {
     private Scanner read = new Scanner(System.in);
     private boolean isInternal;
 
+    @Autowired
+    private LocationRepository locRep;
 
     public NewSensorUI(House house, SensorTypeList sensorTypeList, GAList listOfGA) {
         this.ctrl = new NewSensorCTRL(house, sensorTypeList, listOfGA);
@@ -40,7 +44,7 @@ public class NewSensorUI {
     void checkIfGAListIsEmpty() {
         isInternal = false;
         if (this.ctrl.getGAListSize() == 0) {
-            System.out.println("List of Geographical Areas is empty. Please insert at least one Geographical Area in US3.");
+            System.out.println("List of Geographical Areas is empty. Please insert at least one Geographical Area in System Administration.");
             return;
         }
         this.checkIfSensorTypeListIsEmpty();
@@ -56,15 +60,16 @@ public class NewSensorUI {
 
     private void inputName() {
         System.out.println("Insert the sensor id");
-        this.id = UtilsUI.requestText("The id inputted isn't valid. Only alphanumeric characters are accepted.","[A-Za-z0-9]*");
+        this.id = UtilsUI.requestText("The id inputted isn't valid. Only alphanumeric characters are accepted.", "[A-Za-z0-9]*");
         System.out.println("Insert a name for the sensor");
         this.name = UtilsUI.requestText("The name inputted isn't valid. Only alphanumeric characters, spaces and hyphens are accepted.");
         this.inputStartDate();
     }
 
     private void inputStartDate() {
-        System.out.println("Insert the start date for the sensor in yyyy-MM-dd format.");
-        this.startDate = UtilsUI.requestDate("The date inputted is invalid. Please insert a valid date in yyyy-MM-dd");
+        System.out.println("Insert the start date for the sensor in YYYY-MM-DD format.");
+        this.startDate = UtilsUI.requestDate("The date inputted is invalid. Please insert a valid date in YYYY-MM-DD" +
+                "");
         this.selectSensorType();
     }
 
@@ -83,8 +88,8 @@ public class NewSensorUI {
 
 
     private void inputReading() {
-        System.out.println("Insert the date and time when the reading was made in yyyy-MM-dd hh:mm format:");
-        GregorianCalendar date = UtilsUI.requestDateTime("Insert a valid date and time in yyyy-MM-dd hh:mm format");
+        System.out.println("Insert the date and time when the reading was made in YYYY-MM-DD HH:MM format:");
+        GregorianCalendar date = UtilsUI.requestDateTime("Insert a valid date and time in YYYY-MM-DD HH:MM format");
         System.out.println("Insert the value of the reading:");
 
         double readingValue = UtilsUI.requestDouble(UtilsUI.insertValidParameter("decimal value"));
@@ -112,6 +117,7 @@ public class NewSensorUI {
             this.inputGPSLocation();
         }
         if (this.isInternal) {
+            //TODO Repository call
             this.selectRoom();
         }
     }
@@ -125,12 +131,11 @@ public class NewSensorUI {
         this.addSensorToRoom();
     }
 
-
     private void inputGPSLocation() {
         System.out.println("Insert the latitude of the new sensor:");
         latitude = UtilsUI.requestDoubleInInterval(-90, 90, "Latitude must be between [-90º,90º]");
         System.out.println("Insert the longitude of the new sensor:");
-        longitude = UtilsUI.requestDoubleInInterval(-180, 180, "Latitude must be between [-180º,180º]");
+        longitude = UtilsUI.requestDoubleInInterval(-180, 180, "Longitude must be between [-180º,180º]");
         System.out.println("Insert the altitude of the new sensor:");
         altitude = UtilsUI.requestDoubleInInterval(-12500, 8848, "Altitude must be between [-12.500m, 8848m]");
         this.inputGAOfSensor();
@@ -147,7 +152,7 @@ public class NewSensorUI {
 
     private void addSensorToGA() {
         Location geoLocation = new Location(this.latitude, this.longitude, this.altitude);
-        this.ctrl.addNewSensorToGA(this.id,this.name, this.startDate, this.indexOfSensorType, this.unit, geoLocation, this.indexOfGA, this.readingList);
+        this.ctrl.addNewSensorToGA(this.id, this.name, this.startDate, this.indexOfSensorType, this.unit, geoLocation, this.indexOfGA, this.readingList);
         System.out.println("The following geographical area sensor was successfully created: ");
         System.out.println("ID: " + this.id);
         System.out.println("NAME: " + this.ctrl.getGASensorName(this.indexOfGA));

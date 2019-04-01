@@ -2,15 +2,26 @@ package smarthome.model;
 
 import org.jetbrains.annotations.Contract;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Objects;
 
+@Entity
 public class TypeGA {
 
-    private String typeGeographicalArea;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
+    private String tGA;
+
+    protected TypeGA() {
+    }
 
     public TypeGA(String inputTypeGA) {
-        this.typeGeographicalArea = inputTypeGA;
+        this.tGA = inputTypeGA;
     }
 
 
@@ -35,7 +46,7 @@ public class TypeGA {
             return false;
         }
         TypeGA typeOfGA = (TypeGA) o; //
-        return this.typeGeographicalArea.equals(typeOfGA.toString ());
+        return this.tGA.equals(typeOfGA.toString());
     }
 
 
@@ -46,7 +57,7 @@ public class TypeGA {
      */
     @Override
     public int hashCode() {
-        return Objects.hash (this.typeGeographicalArea);
+        return Objects.hash(this.tGA);
     }
 
 
@@ -58,7 +69,7 @@ public class TypeGA {
      */
     @Override
     public String toString() {
-        return this.typeGeographicalArea;
+        return this.tGA;
     }
 }
 

@@ -6,10 +6,12 @@ import smarthome.model.Sensor;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class XMLGeoAreaTest {
 
@@ -26,6 +28,31 @@ class XMLGeoAreaTest {
     }
 
     @Test
+    void importDataFailNoGAs() {
+
+        Path path = Paths.get("resources/fakeImportFilesForTests/DataSet_sprint05_GA_FAKE_01.xml");
+        XMLGeoArea xmlReader = new XMLGeoArea();
+
+        int result = xmlReader.loadData(path).size();
+
+        assertEquals(0, result);
+
+    }
+
+    @Test
+    void importDataGaNodeLengthTest() {
+        Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
+        XMLGeoArea xmlReader = new XMLGeoArea();
+
+        List<GeographicalArea> gaList = xmlReader.loadData(path);
+
+        int expected = 3;
+        int result = gaList.size();
+
+        assertNotEquals(expected, result);
+    }
+
+    @Test
     void checkGAImport() {
         Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
@@ -35,7 +62,7 @@ class XMLGeoAreaTest {
         GeographicalArea ga = gaList.get(0);
 
         String expected = "urban area";
-        String result = ga.getType();
+        String result = ga.getTypeName();
 
         assertEquals(expected, result);
     }
@@ -95,6 +122,22 @@ class XMLGeoAreaTest {
         int expected = 2;
         int result = sensorList.size();
 
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void checkGASensorTimeImport() {
+        Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
+        XMLGeoArea xmlReader = new XMLGeoArea();
+
+        List<GeographicalArea> gaList = xmlReader.loadData(path);
+
+        GeographicalArea ga = gaList.get(1);
+        List<Sensor> sensorList = ga.getSensorListInGA().getSensorList();
+        Sensor sensor = sensorList.get(1);
+
+        GregorianCalendar expected = new GregorianCalendar(2017, Calendar.NOVEMBER,16);
+        Calendar result = sensor.getStartDate();
         assertEquals(expected, result);
     }
 }

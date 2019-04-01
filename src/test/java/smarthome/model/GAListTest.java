@@ -2,11 +2,7 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.model.readers.JSONGeoArea;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -22,7 +18,8 @@ class GAListTest {
         GAList ga = new GAList();
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
-        GeographicalArea area1 = ga.newGA("Pt", "Porto", "district", occupationArea, location);
+        TypeGA typeGA= new TypeGA("city");
+        GeographicalArea area1 = ga.newGA("Pt", "Porto", typeGA, occupationArea, location);
         String expectedResult = "Porto";
         String result = area1.getGAName();
         assertEquals(expectedResult, result);
@@ -33,7 +30,8 @@ class GAListTest {
         GAList ga = new GAList();
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
-        GeographicalArea area1 = ga.newGA("Pt", "Porto", "district", occupationArea, location);
+        TypeGA typeGA= new TypeGA("city");
+        GeographicalArea area1 = ga.newGA("Pt", "Porto", typeGA, occupationArea, location);
         ga.addGA(area1);
         List<GeographicalArea> expectedResult = Arrays.asList(area1);
         List<GeographicalArea> result = ga.getGAList();
@@ -46,11 +44,12 @@ class GAListTest {
         GAList ga = new GAList();
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
-        GeographicalArea area1 = ga.newGA("Pt", "Porto", "district", occupationArea, location);
+        TypeGA typeGA= new TypeGA("city");
+        GeographicalArea area1 = ga.newGA("Pt", "Porto", typeGA, occupationArea, location);
         ga.addGA(area1);
         assertEquals(Arrays.asList(area1), ga.getGAList());
 
-        GeographicalArea area2 = ga.newGA("Pt", "Porto", "district", occupationArea, location);
+        GeographicalArea area2 = ga.newGA("Pt", "Porto", typeGA, occupationArea, location);
         ga.addGA(area2);
         assertEquals(Arrays.asList(area1), ga.getGAList());
     }
@@ -60,8 +59,9 @@ class GAListTest {
         GAList ga = new GAList();
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
-        GeographicalArea area1 = ga.newGA("opo", "Porto", "district", occupationArea, location);
-        GeographicalArea area2 = ga.newGA("bra", "Braga", "district", occupationArea, location);
+        TypeGA typeGA= new TypeGA("city");
+        GeographicalArea area1 = ga.newGA("opo", "Porto", typeGA, occupationArea, location);
+        GeographicalArea area2 = ga.newGA("bra", "Braga", typeGA, occupationArea, location);
 
         ga.addGA(area1);
         ga.addGA(area2);
@@ -77,7 +77,8 @@ class GAListTest {
         GAList ga = new GAList();
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
-        GeographicalArea area1 = ga.newGA("Pt", "Porto", "district", occupationArea, location);
+        TypeGA typeGA= new TypeGA("city");
+        GeographicalArea area1 = ga.newGA("Pt", "Porto", typeGA, occupationArea, location);
         ga.addGA(area1);
 
         boolean result = ga.addGA(area1);
@@ -90,9 +91,11 @@ class GAListTest {
         GAList ga = new GAList();
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
-        GeographicalArea area1 = ga.newGA("opo", "Porto", "district", occupationArea, location);
-        GeographicalArea area2 = ga.newGA("opo", "Braga", "district", occupationArea, location);
-        GeographicalArea area3 = ga.newGA("opo", "Gaia", "city", occupationArea, location);
+        TypeGA type1 = new TypeGA("district");
+        GeographicalArea area1 = ga.newGA("opo", "Porto", type1, occupationArea, location);
+        GeographicalArea area2 = ga.newGA("opo", "Braga", type1, occupationArea, location);
+        TypeGA type2 = new TypeGA("city");
+        GeographicalArea area3 = ga.newGA("opo", "Gaia", type2, occupationArea, location);
 
         ga.addGA(area1);
         ga.addGA(area2);

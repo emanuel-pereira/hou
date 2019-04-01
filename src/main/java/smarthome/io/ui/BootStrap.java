@@ -1,13 +1,16 @@
+/*
 package smarthome.io.ui;
 
 import smarthome.model.*;
 
 import java.util.GregorianCalendar;
 
+*/
 /**
  * This entire class is only used in application demonstration and test scenarios
  * As a final application this entire class and it's call in SmartHomeUI must be removed.
- */
+ *//*
+
 public final class BootStrap {
     private static int year = 2018;
     private static int month = 11;
@@ -21,44 +24,54 @@ public final class BootStrap {
     private BootStrap() {
     }
 
-    /**
-     * The BootStrap class main method that runs all constructive methods sequentially
-     * In most cases it is not needed to write or add new calls in this method as the
-     * objects such as GA, house grids, sensors, rooms, are all created in secondary
-     * private methods which can be extended or duplicated.
-     *
-     * @param house          bootstrap house object
-     * @param sensorTypeList bootstrap List of sensor Unit Types object
-     * @throws IllegalAccessException exception
-     * @throws InstantiationException exception
-     * @throws ClassNotFoundException exception
-     */
-    public static void run(House house, TypeGAList typeGAList, SensorTypeList sensorTypeList) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
+    */
+/**
+ * The BootStrap class main method that runs all constructive methods sequentially
+ * In most cases it is not needed to write or add new calls in this method as the
+ * objects such as GA, house grids, sensors, rooms, are all created in secondary
+ * private methods which can be extended or duplicated.
+ *
+ * @param house          bootstrap house object
+ * @param sensorTypeList bootstrap List of sensor Unit Types object
+ * @throws IllegalAccessException exception
+ * @throws InstantiationException exception
+ * @throws ClassNotFoundException exception
+ *//*
+
+ */
+/*public static void run(House house, TypeGAList typeGAList, SensorTypeList sensorTypeList) throws IllegalAccessException, InstantiationException, ClassNotFoundException {
         BootStrap.house = house;
         createSensorsUnitTypes(sensorTypeList);
         createTypeOfGAs(typeGAList);
         createHouseGrid();
         createRoom(sensorTypeList);
-    }
+    }*//*
 
-    /**
-     * This method is responsible for all geographical areas types creation.
-     * The house creation method is called here, after all GA's are build.
-     **/
-    private static void createTypeOfGAs(TypeGAList typeGAList) {
+
+ */
+/**
+ * This method is responsible for all geographical areas types creation.
+ * The house creation method is called here, after all GA's are build.
+ **//*
+
+ */
+/*private static void createTypeOfGAs(TypeGAList typeGAList) {
         TypeGA urbanArea = new TypeGA("urban area");
         typeGAList.addTypeGA(urbanArea);
         TypeGA city = new TypeGA("city");
         typeGAList.addTypeGA(city);
-    }
+    }*//*
 
-    /**
-     * This method is responsible for the creation of the Sensor Unit Types, examples are:
-     * - rainfall, humidity, wind speed, temperature
-     *
-     * @param sensorTypeList SensorTypeList global object which represents the ArrayList
-     *                       containing all Sensor Unit Types
-     */
+
+ */
+/**
+ * This method is responsible for the creation of the Sensor Unit Types, examples are:
+ * - rainfall, humidity, wind speed, temperature
+ *
+ * @param sensorTypeList SensorTypeList global object which represents the ArrayList
+ *                       containing all Sensor Unit Types
+ *//*
+
     private static void createSensorsUnitTypes(SensorTypeList sensorTypeList) {
         //set Sensor Types
         SensorType sT1 = sensorTypeList.newSensorType("rainfall");
@@ -69,24 +82,28 @@ public final class BootStrap {
         sensorTypeList.addSensorType(sT3);
     }
 
-    /**
-     * This method is responsible for the house grids creation, and for adding it to electric
-     * house grids list present in the house object
-     */
+    */
+/**
+ * This method is responsible for the house grids creation, and for adding it to electric
+ * house grids list present in the house object
+ *//*
+
     private static void createHouseGrid() {
         HouseGrid mainGrid = house.getHGListInHouse().newHouseGrid("Main Grid");
         house.getHGListInHouse().addHouseGrid(mainGrid);
     }
 
-    /**
-     * This method is responsible for the house rooms creation
-     *
-     * @param sensorTypeList is required to allow the devices creation as this attribute is passed on
-     *                       to the consequent methods, createDevicesInRoomXXX
-     * @throws IllegalAccessException exception
-     * @throws ClassNotFoundException exception
-     * @throws InstantiationException exception
-     */
+    */
+/**
+ * This method is responsible for the house rooms creation
+ *
+ * @param sensorTypeList is required to allow the devices creation as this attribute is passed on
+ *                       to the consequent methods, createDevicesInRoomXXX
+ * @throws IllegalAccessException exception
+ * @throws ClassNotFoundException exception
+ * @throws InstantiationException exception
+ *//*
+
     private static void createRoom(SensorTypeList sensorTypeList) throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         HouseGrid mainGrid = house.getHGListInHouse().get(0);
 
@@ -111,11 +128,13 @@ public final class BootStrap {
 
     // ---------------------------------------------------------------------------------------------------------------------------------------
 
-    /**
-     * This method is responsible for the device creation and consequent addition to a Room
-     * All measured values of energy consumption, in case of existing, are also inserted here.
-     *
-     */
+    */
+/**
+ * This method is responsible for the device creation and consequent addition to a Room
+ * All measured values of energy consumption, in case of existing, are also inserted here.
+ *
+ *//*
+
     private static void createDevicesInRoomB106() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         Room b106 = house.getRoomList().get(0);
         DeviceList deviceListB106 = b106.getDeviceList();
@@ -126,12 +145,14 @@ public final class BootStrap {
         deviceListB106.addDevice(lamp);
     }
 
-    /**
-     * This method is responsible for the device creation and consequent addition to a Room
-     * All measured values of energy consumption, in case of existing, are also inserted here.
-     *
+    */
+/**
+ * This method is responsible for the device creation and consequent addition to a Room
+ * All measured values of energy consumption, in case of existing, are also inserted here.
+ *
 
-     */
+ *//*
+
     private static void createDevicesInRoomB107() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         Room b107 = house.getRoomList().get(1);
         DeviceList deviceListB107 = b107.getDeviceList();
@@ -163,12 +184,14 @@ public final class BootStrap {
         hour = 0;
         minutes = 0;
     }
-    /**
-     * This method is responsible for the indoors Temperature Sensor creation and consequent addition
-     * to a Room X.
-     *
-     * @param sensorTypeList List of sensor available unit/data types
-     */
+    */
+/**
+ * This method is responsible for the indoors Temperature Sensor creation and consequent addition
+ * to a Room X.
+ *
+ * @param sensorTypeList List of sensor available unit/data types
+ *//*
+
     private static void addReadingsRoomB109SensorTemp(SensorTypeList sensorTypeList) {
         Room b109 = house.getRoomList().get(2);
         SensorList b109SensorList = b109.getSensorListInRoom();
@@ -182,12 +205,14 @@ public final class BootStrap {
         b109SensorList.addSensor(b109TempSensor);
     }
 
-    /**
-     * This method is responsible readings creation for a specific Room Sensor
-     *
-     * @return The Reading List containing all Reading entries, paring a value with it's
-     * timestamp (in for of a Gregorian Calendar object)
-     */
+    */
+/**
+ * This method is responsible readings creation for a specific Room Sensor
+ *
+ * @return The Reading List containing all Reading entries, paring a value with it's
+ * timestamp (in for of a Gregorian Calendar object)
+ *//*
+
     private static ReadingList addReadingsTempRoomB109() {
         ReadingList rlTempB109 = new ReadingList();
 
@@ -229,12 +254,14 @@ public final class BootStrap {
         return rlTempB109;
     }
 
-    /**
-     * This method is responsible for the indoors Humidity sensor creation and consequent addition
-     * to a Room X.
-     *
-     * @param sensorTypeList List of sensor available unit/data types
-     */
+    */
+/**
+ * This method is responsible for the indoors Humidity sensor creation and consequent addition
+ * to a Room X.
+ *
+ * @param sensorTypeList List of sensor available unit/data types
+ *//*
+
     private static void addReadingsRoomB109SensorHum(SensorTypeList sensorTypeList) {
         Room b109 = house.getRoomList().get(2);
         SensorList b109SensorList = b109.getSensorListInRoom();
@@ -248,12 +275,14 @@ public final class BootStrap {
         b109SensorList.addSensor(b109HumSensor);
     }
 
-    /**
-     * This method is responsible readings creation for a specific Room Sensor
-     *
-     * @return The Reading List containing all Reading entries, paring a value with it's
-     * timestamp (in for of a Gregorian Calendar object)
-     */
+    */
+/**
+ * This method is responsible readings creation for a specific Room Sensor
+ *
+ * @return The Reading List containing all Reading entries, paring a value with it's
+ * timestamp (in for of a Gregorian Calendar object)
+ *//*
+
     private static ReadingList addReadingsHumRoomB109() {
         ReadingList rlHumB109 = new ReadingList();
 
@@ -295,3 +324,4 @@ public final class BootStrap {
     }
 
 }
+*/

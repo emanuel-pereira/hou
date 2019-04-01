@@ -6,6 +6,7 @@ import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
 import smarthome.model.Sensor;
 import smarthome.model.SensorList;
+import smarthome.repository.Repositories;
 
 import java.util.List;
 
@@ -54,6 +55,12 @@ public class RemoveGASensorCTRL {
         for (Sensor sensor : sensorList.getSensorList()) {
             if (sensor.getId().matches(sensorDTOId)) {
                 sensorList.removeSensor(sensor);
+                try {
+                    //Repository call
+                    Repositories.getReadingRepository().deleteAllBySensor(sensor);
+                    Repositories.getSensorRepository().delete(sensor);
+                } catch (NullPointerException e) {
+                }
                 return true;
             }
         }

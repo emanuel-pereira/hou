@@ -20,6 +20,8 @@ public class XMLReading implements FileReaderReadings {
 
 
     public XMLReading() {
+
+        //This comment is used to avoid code smell
     }
 
     @Override
@@ -37,7 +39,6 @@ public class XMLReading implements FileReaderReadings {
 
             Document xmlDoc = dBuilder.parse(file);
 
-            xmlDoc.getDocumentElement().normalize();
 
             NodeList readingNodeList = xmlDoc.getElementsByTagName("reading");
 
@@ -53,7 +54,7 @@ public class XMLReading implements FileReaderReadings {
     }
 
 
-    private String[] importReading(Node readingNode){
+    private static String[] importReading(Node readingNode){
 
         String[] data = new String[4];
 
@@ -76,7 +77,7 @@ public class XMLReading implements FileReaderReadings {
 
     }
 
-    private String getTagValue(String tag, Element element) {
+    private static String getTagValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = nodeList.item(0);
         return node.getNodeValue();
