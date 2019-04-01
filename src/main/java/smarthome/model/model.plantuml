@@ -1,0 +1,614 @@
+@startuml
+
+title __MODEL's Class Diagram__\n
+
+  package smarthome.model {
+    class Address {
+        - street : String
+        - zipCode : String
+        - town : String
+        + Address()
+        + Address()
+        + setStreet()
+        + setZipCode()
+        + setTown()
+        + validateName()
+        + getName()
+        + validateTown()
+        + getTown()
+        + validateZipCode()
+        + noStartWithSpaces()
+        + getZipCode()
+        + getGPSLocation()
+    }
+  }
+  
+
+  package smarthome.model {
+    class Configuration {
+        - currentFile : String
+        {static} - ERROR : String
+        {static} - GRIDMP : String
+        {static} - DEVICESMP : String
+        + Configuration()
+        + Configuration()
+        - getConfigValue()
+        - getMeteringPeriod()
+        + getGridMeteringPeriod()
+        + getDevicesMeteringPeriod()
+        + getDeviceTypes()
+        - isMeteringPeriodValid()
+    }
+  }
+  
+
+  package smarthome.model {
+    interface Device {
+        {abstract} + getName()
+        {abstract} + getDeviceSpecs()
+        {abstract} + getDeviceType()
+        {abstract} + isActive()
+        {abstract} + getActivityLog()
+        {abstract} + getNominalPower()
+        {abstract} + setDeviceName()
+        {abstract} + setNominalPower()
+        {abstract} + deactivateDevice()
+    }
+  }
+  
+
+  package smarthome.model {
+    class DeviceList {
+        - devicesList : List<Device>
+        + DeviceList()
+        + addDevice()
+        + newDevice()
+        + get()
+        + showDeviceListInString()
+        + getDeviceList()
+        + size()
+        + removeDevice()
+        + deactivateDevice()
+        ~ getMeteredDevices()
+    }
+  }
+  
+
+  package smarthome.model {
+    interface DeviceSpecs {
+        {abstract} + getDeviceType()
+        {abstract} + getAttributesNames()
+        {abstract} + getAttributeValues()
+        {abstract} + getAttributeUnits()
+        {abstract} + getAttributeValue()
+        {abstract} + getAttributeUnit()
+        {abstract} + setAttributeValue()
+        {abstract} + setAttributeUnit()
+    }
+  }
+  
+
+  package smarthome.model {
+    interface DeviceType {
+        {abstract} + getDeviceType()
+        {abstract} + createDevice()
+    }
+  }
+  
+
+  package smarthome.model {
+    class GAList {
+        - listOfGa : List<GeographicalArea>
+        + GAList()
+        + newGA()
+        + addGA()
+        + getGAList()
+        + get()
+        + gAFromThisType()
+        + showGAListInString()
+        + size()
+        + getLastGA()
+        + importDataFromCSVFileForEachGA()
+        + getGAListDTO()
+    }
+  }
+  
+
+  package smarthome.model {
+    class GeographicalArea {
+        - identification : String
+        - designation : String
+        + GeographicalArea()
+        + GeographicalArea()
+        + getGAName()
+        + getType()
+        + getGeographicalParentGA()
+        + getSensorListInGA()
+        + calculateDistanceTo()
+        + getLocation()
+        - calculateDistance()
+        + equals()
+        + hashCode()
+        + setParentGA()
+        + getOccupation()
+        + importReadingsToSensorsFromCSVFile()
+        + getIdentification()
+        + setIdentification()
+        + getDesignation()
+        + setDesignation()
+        + toDTO()
+    }
+  }
+  
+
+  package smarthome.model {
+    class House {
+        - iD : String
+        + House()
+        + House()
+        + House()
+        + getHouseGA()
+        + setHouseGA()
+        + setHouseAddress()
+        + getAddress()
+        + equals()
+        + hashCode()
+        + getRoomList()
+        + getHGListInHouse()
+        + getRoomsWithoutGrid()
+        + showRoomsWithoutHouseGrid()
+        - calculateDistance()
+        - filterListByTypeAndProximity()
+        + filterListByTypeByIntervalAndDistance()
+        + filterByTypeByIntervalAndDistance()
+        + averageOfReadingsInPeriod()
+        + getClosestSensorWithLatestReading()
+        - getClosestSensorsWithReadingsInDate()
+        + closestSensorsWithReadingsInDate()
+        + checkIfClosestSensorsHasReadingsInTimePeriod()
+        + getSensorOfTypeWithLatestReadingsInDate()
+        + getListOfDeviceTypes()
+        + showDeviceTypesList()
+        + getMetered()
+        + showMetered()
+    }
+  }
+  
+
+  package smarthome.model {
+    class HouseGrid {
+        - contractedMaximumPower : double
+        - designation : String
+        + HouseGrid()
+        + getContractedMaximumPower()
+        + setContractedMaximumPower()
+        + getName()
+        + getPSListInHG()
+        + attachRoomToGrid()
+        + detachRoomFromGrid()
+        + getRoomListInAGrid()
+        + getRoomListInAGridSize()
+        + getDeviceListInGrid()
+        + getDeviceListFromType()
+        + getDeviceListInGridGroupBy()
+        + showGroupedDeviceListInGridString()
+        + getNominalPower()
+        + showRoomsInHouseGrid()
+        + equals()
+        + hashCode()
+        + getEnergyConsumption()
+        + getEstimatedEnergyConsumption()
+    }
+  }
+  
+
+  package smarthome.model {
+    class HouseGridList {
+        - hglist : List<HouseGrid>
+        + HouseGridList()
+        + newHouseGrid()
+        + addHouseGrid()
+        + getHouseGridList()
+        + getSize()
+        + get()
+        + showHouseGridListInString()
+    }
+  }
+  
+
+  package smarthome.model {
+    class Location {
+        - latitude : double
+        - longitude : double
+        - altitude : double
+        + Location()
+        - setLatitude()
+        + setLongitude()
+        + setAltitude()
+        + calcLinearDistanceBetweenTwoPoints()
+        + getLatitude()
+        + getLongitude()
+        + getAltitude()
+    }
+  }
+  
+
+  package smarthome.model {
+    interface Metered {
+        {abstract} + getEnergyConsumption()
+        {abstract} + getEstimatedEnergyConsumption()
+        {abstract} + getName()
+    }
+  }
+  
+
+  package smarthome.model {
+    class OccupationArea {
+        - occupation : double
+        - length : double
+        - width : double
+        + OccupationArea()
+        + getWidth()
+        + getLength()
+        + getOccupationArea()
+    }
+  }
+  
+
+  package smarthome.model {
+    class PowerSource {
+        - name : String
+        - typePS : String
+        - maxPower : double
+        - storageCapacity : double
+        + PowerSource()
+        + getName()
+        + getTypePS()
+        + getMaxPower()
+        + getStorageCapacity()
+        + nameIsValid()
+    }
+  }
+  
+
+  package smarthome.model {
+    class PowerSourceList {
+        - psList : List<PowerSource>
+        + PowerSourceList()
+        + newPowerSource()
+        + addPS()
+        + getPSList()
+        + getPSListSize()
+        + showPowerSourceListInString()
+    }
+  }
+  
+
+  package smarthome.model {
+    interface Program {
+        {abstract} + getProgramName()
+        {abstract} + setProgramName()
+        {abstract} + getAttributeName()
+        {abstract} + getAttributeValue()
+        {abstract} + setAttributeValue()
+        {abstract} + getProgramEstimatedEC()
+        {abstract} + equals()
+        {abstract} + hashCode()
+    }
+  }
+  
+
+  package smarthome.model {
+    class ProgramMode {
+        - programName : String
+        - attributeName : String
+        - nominalPower : double
+        - time : double
+        + ProgramMode()
+        + setTime()
+        + getProgramName()
+        + setProgramName()
+        + getAttributeName()
+        + getAttributeValue()
+        + setAttributeValue()
+        + getProgramEstimatedEC()
+        + equals()
+        + hashCode()
+    }
+  }
+  
+
+  package smarthome.model {
+    class ProgramWithTimer {
+        - programName : String
+        - attributeName : String
+        - energyConsumption : double
+        - duration : double
+        + ProgramWithTimer()
+        + setDuration()
+        + getDuration()
+        + getProgramName()
+        + setProgramName()
+        + getAttributeName()
+        + getAttributeValue()
+        + setAttributeValue()
+        + getProgramEstimatedEC()
+        + equals()
+        + hashCode()
+    }
+  }
+  
+
+  package smarthome.model {
+    interface Programmable {
+        {abstract} + createProgram()
+        {abstract} + addProgramToList()
+        {abstract} + getProgramList()
+        {abstract} + setMeteredProgram()
+        {abstract} + getMeteredProgram()
+    }
+  }
+  
+
+  package smarthome.model {
+    class ReadCSVFile {
+        ~ scanner : Scanner
+        ~ commaDelimiter : String
+        ~ fileWriter : FileWriter
+        + readCsvFile()
+        + getValuesFromCSVFile()
+        + writeCSVFile()
+        + writeStringOnCSVFile()
+    }
+  }
+  
+
+  package smarthome.model {
+    class ReadJSONFile {
+        - parser : JSONParser
+        - filePath : Path
+        + ReadJSONFile()
+        - readFile()
+        + importGAs()
+        - createGeographicalArea()
+        - addGASensors()
+        - createSensor()
+        - getLocation()
+    }
+  }
+  
+
+  package smarthome.model {
+    class Reading {
+        - value : double
+        - dateAndTime : Calendar
+        + Reading()
+        + returnValueOfReading()
+        + getMonthOfReading()
+        + getDateAndTime()
+        + isSameDay()
+        + extractYearMonthDay()
+        + getDateOfReadingAsString()
+        + toDTO()
+    }
+  }
+  
+
+  package smarthome.model {
+    class ReadingList {
+        - listOfReadings : List<Reading>
+        + ReadingList()
+        + newReading()
+        + addReading()
+        + getLastReading()
+        + getReadingsList()
+        + size()
+        + totalValueInGivenDay()
+        + checkNumberOfReadingsIsZero()
+        + dailyAverageOfReadings()
+        + getValueOfReadingsInTimeInterval()
+        + getValueOfReadingsInTimeIntervalDevices()
+        + getReadingsInSpecificDay()
+        + filterByDate()
+        + maxValueInInterval()
+        + minValueInInterval()
+        + dailyMaximumReadings()
+        + dailyMinimumReadings()
+        + dailyAmplitude()
+        + getStartDateOfReadings()
+        + getEndDateOfReadings()
+    }
+  }
+  
+
+  package smarthome.model {
+    class Room {
+        - name : String
+        - floor : Integer
+        - height : double
+        + Room()
+        + getName()
+        + setName()
+        + getFloor()
+        + setFloor()
+        + getArea()
+        + setArea()
+        + getHeight()
+        + setHeight()
+        + getNominalPower()
+        + getEnergyConsumption()
+        + getEstimatedEnergyConsumption()
+        + validateName()
+        + getSensorListInRoom()
+        + checkIfSensorTypeExistsInRoom()
+        + getDeviceList()
+        + getSizeDeviceListInRoom()
+        + equals()
+        + hashCode()
+    }
+  }
+  
+
+  package smarthome.model {
+    class RoomList {
+        - listOfRooms : List<Room>
+        + RoomList()
+        + createNewRoom()
+        + addRoom()
+        + checkIfRoomNameExists()
+        + removeRoom()
+        + get()
+        + getRoomListSize()
+        + getRoomList()
+        + showRoomListInString()
+        + removeDeviceFromRoom()
+        + addDeviceToRoom()
+        + getDevicesInAllRoomsByType()
+        + getDeviceLocation()
+        + getEnergyConsumptionByDeviceType()
+        + getMeteredDevicesList()
+    }
+  }
+  
+
+  package smarthome.model {
+    class Sensor {
+        - id : String
+        - designation : String
+        - startDate : Calendar
+        - pauseDate : Calendar
+        - unit : String
+        - active : boolean
+        + Sensor()
+        + Sensor()
+        + nameIsValid()
+        + setSensorDesignation()
+        + getDesignation()
+        + setSensorLocation()
+        + getLocation()
+        + getId()
+        + getSensorType()
+        + getReadingList()
+        + calcLinearDistanceBetweenTwoSensors()
+        + getLastReadingPerSensor()
+        + getLastReadingValuePerSensor()
+        + equals()
+        + hashCode()
+        + getStartDate()
+        + getPauseDate()
+        + getUnit()
+        + toDTO()
+        + deactivate()
+        + reactivate()
+        + isActive()
+    }
+  }
+  
+
+  package smarthome.model {
+    class SensorList {
+        - listOfSensors : List<Sensor>
+        + SensorList()
+        + addSensor()
+        + getSensorList()
+        + newSensor()
+        + createNewInternalSensor()
+        + checkIfRequiredSensorTypeExists()
+        + getRequiredSensorPerType()
+        + showSensorListInString()
+        + getListOfSensorsByType()
+        + size()
+        + removeSensor()
+        + getLastSensor()
+        + getActiveSensors()
+        + deactivateSensor()
+    }
+  }
+  
+
+  package smarthome.model {
+    class SensorType {
+        - typeOfSensor : String
+        + SensorType()
+        + getType()
+        + equals()
+        + hashCode()
+    }
+  }
+  
+
+  package smarthome.model {
+    class SensorTypeList {
+        - sTypeList : List<SensorType>
+        + SensorTypeList()
+        + newSensorType()
+        + addSensorType()
+        + size()
+        + getSensorTypeList()
+        - sensorTypeDesignationIsValid()
+        + checkIfSensorTypeExists()
+        + showSensorTypeListInString()
+    }
+  }
+  
+
+  package smarthome.model {
+    class TypeGA {
+        - typeGeographicalArea : String
+        + TypeGA()
+        + equals()
+        + hashCode()
+        + toString()
+    }
+  }
+  
+
+  package smarthome.model {
+    class TypeGAList {
+        - typeOfGAList : List<TypeGA>
+        + TypeGAList()
+        + newTypeGA()
+        + addTypeGA()
+        + getTypeGAList()
+        + size()
+        + get()
+    }
+  }
+  
+
+  Address o-- Location : gpsLocation
+  GeographicalArea o-- TypeGA : typeOfGa
+  GeographicalArea o-- Location : location
+  GeographicalArea o-- SensorList : sensorListInGa
+  GeographicalArea o-- OccupationArea : occupation
+  GeographicalArea o-- GeographicalArea : parentGa
+  House o-- Address : address
+  House o-- GeographicalArea : gA
+  House o-- RoomList : roomList
+  House o-- HouseGridList : houseGridList
+  HouseGrid -up-|> Metered
+  HouseGrid o-- PowerSourceList : psListInHG
+  HouseGrid o-- RoomList : roomList
+  Location o-- GPSValidations : v
+  ProgramMode -up-|> Program
+  ProgramMode o-- NameValidations : nameValidation
+  ProgramWithTimer -up-|> Program
+  ProgramWithTimer o-- NameValidations : nameValidation
+  ReadJSONFile o-- GAList : gaList
+  Room -up-|> Metered
+  Room o-- OccupationArea : area
+  Room o-- SensorList : sensorListInRoom
+  Room o-- DeviceList : deviceList
+  Sensor o-- Location : location
+  Sensor o-- SensorType : sensorType
+  Sensor o-- ReadingList : readingList
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
