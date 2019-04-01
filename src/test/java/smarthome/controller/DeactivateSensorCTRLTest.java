@@ -57,7 +57,7 @@ class DeactivateSensorCTRLTest {
         DeactivateSensorCTRL ctrl = new DeactivateSensorCTRL (gaList);
 
         int expected = 2;
-        int result = ctrl.getGAListSize ();
+        int result = ctrl.getGAList ().size ();
 
         assertEquals (expected, result);
     }

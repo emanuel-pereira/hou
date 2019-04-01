@@ -78,7 +78,7 @@ public final class SystemAdministrationUI {
                     break;
                 case 9:
                     DeactivateSensorUI ui9 = new DeactivateSensorUI(gaList);
-                    ui9.selectGA ();
+                    ui9.run ();
                     break;
                 case 10:
                     RemoveGASensorUI ui10 = new RemoveGASensorUI(gaList);
