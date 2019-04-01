@@ -131,6 +131,11 @@ public class SensorList {
         return this.listOfSensors.get(this.listOfSensors.size() - 1);
     }
 
+
+    /**
+     * Get all active sensors
+     * @return List of sensors
+     */
     public SensorList getActiveSensors() {
         SensorList activeSensors = new SensorList();
         for (Sensor s : this.getSensorList()) {
@@ -141,8 +146,11 @@ public class SensorList {
         return activeSensors;
     }
 
-
-
+    /**
+     * Deactivate sensor and save new status in the sensorRepository (DB)
+     * @param sensorID id of the sensor
+     * @param pauseDate Deactivation date
+     */
     public void deactivateSensor(String sensorID, Calendar pauseDate) {
         for (Sensor s : this.getSensorList())
             if (s.getId ().matches (sensorID)) {
