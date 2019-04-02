@@ -77,7 +77,7 @@ public class RemoveGASensorCTRL {
      * Method that persists the readings in its repository of the sensor inputted as parameter.
      * @param sensor inputted as parameter
      */
-    private void saveSensorReadings(Sensor sensor) {
+    private static void saveSensorReadings(Sensor sensor) {
         ReadingList readingList = sensor.getReadingList();
         for (Reading reading : readingList.getReadingsList()) {
             //Repository call
