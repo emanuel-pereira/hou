@@ -23,13 +23,8 @@ public class DataImportCTRL {
     }
 
     /**
-     * Method that reads a JSON file in the specified file path and imports all geographical areas and respective sensors, updating the gaList
-     * @param filePath specified by the user
-     * @throws ParseException
-     * @throws org.json.simple.parser.ParseException
-     * @throws IOException
      */
-    public List<GeographicalArea> readGeoAreasFromFile (Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
+    private List<GeographicalArea> readGeoAreasFromFile (Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
         DataImport dataImport = new DataImport(gaList);
         return dataImport.loadGeoAreaFiles(filePath);
     }

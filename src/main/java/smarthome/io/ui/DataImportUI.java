@@ -27,7 +27,6 @@ public class DataImportUI {
 
             try {
                 this.filePath = Paths.get(filepath);
-                ctrl.readGeoAreasFromFile(this.filePath);
                 this.showGAsNumberInFile();
             } catch (Exception e) {
                 UtilsUI.showError("File not found.", "File not found in the specified file path: " + filepath);
