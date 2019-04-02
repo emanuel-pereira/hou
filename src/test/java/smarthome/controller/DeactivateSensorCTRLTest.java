@@ -337,4 +337,40 @@ class DeactivateSensorCTRLTest {
 
         assertFalse(result);
     }
+
+    @Test
+    @DisplayName("Try to deactivate sensor for invalid geographical area id")
+    void removeSensorForInvalidGAIdReturnsFalse() {
+        GAList gaList= new GAList();
+        OccupationArea portoOA= new OccupationArea(25,20);
+        Location portoLoc= new Location(25,12,29);
+        GeographicalArea porto= new GeographicalArea("POR","Porto","City",portoOA,portoLoc);
+        gaList.addGA(porto);
+
+        SensorList lisbonSensorList=porto.getSensorListInGA();
+        Location sLoc= new Location(55,21,26);
+        GregorianCalendar sDate=new GregorianCalendar(2019,2,2);
+        SensorType sensorType=new SensorType("Temperature");
+        Sensor sensor= new Sensor("TL1023","TemperatureSensor",sDate,sLoc,sensorType,"Celsius", new ReadingList());
+        lisbonSensorList.addSensor(sensor);
+
+        SensorMapper sMapper= new SensorMapper();
+        SensorDTO sensorDTO=sMapper.toDto(sensor);
+        List<SensorDTO> sensorListDTO= new ArrayList<>();
+        sensorListDTO.add(sensorDTO);
+
+        String gaDTOId="Ga";
+        String sensorDTOId=sensorDTO.getId();
+        DeactivateSensorCTRL ctrl= new DeactivateSensorCTRL(gaList);
+        GregorianCalendar pDate=new GregorianCalendar(2019,2,2);
+
+        boolean thrown = false;
+        try {
+            ctrl.deactivateSensor(gaDTOId,sensorDTOId,pDate);
+        } catch (NullPointerException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
 }

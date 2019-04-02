@@ -20,6 +20,7 @@ public class SensorMapper {
         SensorDTO sensorDTO = new SensorDTO();
         sensorDTO.setId(sensor.getId());
         sensorDTO.setDesignation(sensor.getDesignation());
+        sensorDTO.setStartDate(sensor.getStartDate());
         sensorDTO.setSensorType(sensorTypeMapper.toDto(sensor.getSensorType()));
         return sensorDTO;
     }
