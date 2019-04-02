@@ -198,7 +198,7 @@ class RemoveGASensorCTRLTest {
 
         boolean thrown = false;
         try {
-            boolean result=ctrl.removeSensor(gaDTOId,sensorDTOId);
+           ctrl.removeSensor(gaDTOId,sensorDTOId);
         } catch (NullPointerException e) {
             thrown = true;
         }
