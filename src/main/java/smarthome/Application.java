@@ -17,6 +17,11 @@ public class Application {
 
     static final Logger log = Logger.getLogger(Application.class);
 
+    /**
+     * Main class that executes Spring application and invokes the init method to initialize the lists used
+     * in the application and invokes the menuOptions() method that lists all UI options that users can select.
+     * @param args
+     */
     public static void main(String[] args) throws IllegalAccessException, InstantiationException, IOException, org.json.simple.parser.ParseException, ClassNotFoundException, SAXException, ParserConfigurationException {
         SpringApplication.run(Application.class);
         SmartHomeUI.init();
