@@ -30,7 +30,7 @@ class XMLGeoAreaTest {
     @Test
     void importDataFailNoGAs() {
 
-        Path path = Paths.get("resources/fakeImportFilesForTests/DataSet_sprint05_GA_FAKE_01.xml");
+        Path path = Paths.get("resources_tests/fakeImportFilesForTests/DataSet_sprint05_GA_FAKE_01.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
         int result = xmlReader.loadData(path).size();

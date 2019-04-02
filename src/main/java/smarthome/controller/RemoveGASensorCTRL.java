@@ -1,5 +1,6 @@
 package smarthome.controller;
 
+import smarthome.Application;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.mapper.GeographicalAreaMapper;
 import smarthome.model.GAList;
@@ -18,6 +19,8 @@ public class RemoveGASensorCTRL {
     public RemoveGASensorCTRL(GAList gaList) {
         this.gaList = gaList;
     }
+
+    static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Application.class);
 
     /**
      * Method that iterates the geographical area list and converts each geographical area in a geographical area DTO which has only the necessary attributes
@@ -58,10 +61,13 @@ public class RemoveGASensorCTRL {
                 sensorList.removeSensor(sensor);
                 try {
                     //Repository call
-                    Repositories.getReadingRepository().deleteAllBySensor(sensor);
+                    Repositories.getReadingRepository().deleteReadingsBySensor(sensor);
+                    log.info("All readings from sensor " + sensor.getId() + " were deleted");
                     Repositories.getSensorRepository().delete(sensor);
+                    log.info("Sensor " + sensor.getId() + " deleted");
                 } catch (NullPointerException e) {
                     Logger.getLogger("Repository unreachable");
+                    log.info("Repository unreachable");
 
                 }
                 return true;

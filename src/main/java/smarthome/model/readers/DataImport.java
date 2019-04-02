@@ -19,7 +19,6 @@ import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.FileHandler;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
@@ -34,6 +33,8 @@ public class DataImport {
         this.gaList = gaList;
     }
 
+    static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
+
 
     public void importReadingsFromFile(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, ParserConfigurationException, SAXException {
         this.configFilePath = filePathAndName;
@@ -41,19 +42,18 @@ public class DataImport {
         String className = getClassName("readings", fileExtension);
         FileReaderReadings reader = (FileReaderReadings) Class.forName(className).newInstance();
         List<String[]> dataToImport = reader.importData(filePathAndName);
-        Logger logger = createLogFile("invalidReadingsLog.txt");
-        loadReadingFiles(dataToImport,logger);
+        loadReadingFiles(dataToImport);
     }
 
-    public void loadReadingFiles(List<String[]> dataToImport,Logger logger)  {
+    public void loadReadingFiles(List<String[]> dataToImport) {
         for (GeographicalArea ga : gaList.getGAList()) {
             for (String[] field : dataToImport) {
-                loadReadingEachSensor(ga, field,logger);
+                loadReadingEachSensor(ga, field);
             }
         }
     }
 
-    public void loadReadingEachSensor(GeographicalArea ga, String[] field, Logger logger) {
+    public void loadReadingEachSensor(GeographicalArea ga, String[] field) {
         String sensorID = field[0];
         for (Sensor sensor : ga.getSensorListInGA().getSensorList())
             if (sensorID.equals(sensor.getId())) {
@@ -66,15 +66,13 @@ public class DataImport {
                 Reading reading = new Reading(readingValue, readingDate, unit);
 
                 if (readingDate.after(sensor.getStartDate())) {
-                    //repository call
                     reading.setSensor(sensor);
                     //dataImport
                     sensor.getReadingList().addReading(reading);
-                }
-                else {
-                    String message = "READING NOT ADDED - SENSOR: " + sensorID +
-                            " VALUE: " + readingValue + " " + unit + " DATE: " + dateAndTimeString + "\nREASON: READING DATE AFTER SENSOR START DATE\n";
-                    logger.log(Level.WARNING, message);
+                } else {
+                    String message = "Reading not added to the DB - sensor: " + sensorID +
+                            " value: " + readingValue + " " + unit + " date: " + dateAndTimeString + "\nreason: reading date after sensor start date";
+                    log.error(message);
                 }
             }
 
@@ -86,6 +84,7 @@ public class DataImport {
         fileHandler.setFormatter(new SimpleFormatter());
         logger.setUseParentHandlers(false);
         logger.addHandler(fileHandler);
+
         return logger;
     }
 
@@ -124,15 +123,17 @@ public class DataImport {
         return reader.loadData(filePathAndName);
     }
 
-    public void importFromFileGeoArea(List<GeographicalArea> dataToImport){
-        for(GeographicalArea ga: dataToImport){
-            this.gaList.addGA(ga);
-            //repository call
-            try {
-                Repositories.saveGA(ga);
-            } catch (NullPointerException e) {
-                Logger.getLogger("Repository unreachable");
-            }
+    public void importFromFileGeoArea(List<GeographicalArea> dataToImport) {
+        for (GeographicalArea ga : dataToImport) {
+            if (this.gaList.addGA(ga)) {
+                try {
+                    //repository call
+                    Repositories.saveGA(ga);
+                    log.info("New Geographical Area '" + ga.getGAName() + "' imported into the systems DB");
+                } catch (NullPointerException e) {
+                    log.warn("Repository unreachable");
+                }
+            } else log.info("No Geographical Areas were imported into the systems DB");
         }
     }
 }

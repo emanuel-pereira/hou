@@ -1,33 +1,33 @@
 package smarthome;
 
+import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.xml.sax.SAXException;
+import smarthome.io.ui.SmartHomeUI;
 import smarthome.repository.*;
+
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.util.logging.Logger;
-
-import static smarthome.io.ui.SmartHomeUI.init;
-import static smarthome.io.ui.SmartHomeUI.menuOptions;
-
 
 @SpringBootApplication
 public class Application {
 
+    static final Logger log = Logger.getLogger(Application.class);
+
     public static void main(String[] args) throws IllegalAccessException, InstantiationException, IOException, org.json.simple.parser.ParseException, ClassNotFoundException, SAXException, ParserConfigurationException {
         SpringApplication.run(Application.class);
-        init();
-        menuOptions();
+        SmartHomeUI.init();
+        SmartHomeUI.menuOptions();
     }
-
 
     @Bean
     public CommandLineRunner demo(GeoRepository geoRep, LocationRepository locRep, TypeGARepository typeRep,
                                   SensorTypeRepository unitRep, OccupationAreaRepository occupRep,
                                   SensorRepository sensorRep, ReadingRepository readingRep) {
+
         Repositories.setTypeGARepository(typeRep);
         Repositories.setLocationRepository(locRep);
         Repositories.setGeoRepository(geoRep);
@@ -37,7 +37,11 @@ public class Application {
         Repositories.setReadingRepository(readingRep);
 
         return args ->
-                Logger.getLogger("Application initialization");
+        {
+            log.info("Application Start-Up");
+        };
 
     }
+
+
 }

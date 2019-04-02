@@ -24,7 +24,7 @@ public class XMLReaderTest {
     public void readXMLFile() throws ParserConfigurationException, IOException, SAXException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = dbFactory.newDocumentBuilder();
-        xmlDocument = builder.parse("resources/DataSet_sprint05_SensorData_alt01.xml");
+        xmlDocument = builder.parse("resources/DataSet_sprint05_SD.xml");
     }
 
 
@@ -80,7 +80,7 @@ public class XMLReaderTest {
     @Test
     public void importDataTest() throws ParserConfigurationException,IOException,SAXException {
         XMLReading xmlReading = new XMLReading();
-        Path path = Paths.get("resources/DataSet_sprint05_SensorData_alt01.xml");
+        Path path = Paths.get("resources/DataSet_sprint05_SD.xml");
         List<String[]> resultList = xmlReading.importData(path);
         int size = resultList.size();
         Assert.assertEquals(61, size);

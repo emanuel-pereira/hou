@@ -1,12 +1,12 @@
 package smarthome.model;
 
+import smarthome.model.readers.DataImport;
 import smarthome.repository.Repositories;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class ReadingList {
 
@@ -16,25 +16,34 @@ public class ReadingList {
         this.listOfReadings = new ArrayList<>();
     }
 
+    final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
+
     public Reading newReading(double readValue, Calendar timeOfReading) {
         return new Reading(readValue, timeOfReading);
     }
 
     //TODO it is needed to create a new method in order to deal/avoid the @notNull matter when filtering lists of
-    // reagings by date
+    // readings by date
     public boolean addReading(Reading newReading) {
-        if (this.listOfReadings.contains(newReading))
+        if (this.listOfReadings.contains(newReading)) {
+            log.warn("Reading not added to the DB");
             return false;
-        if (newReading == null)
+        }
+        if (newReading == null) {
+            log.warn("Reading not added to the DB");
             return false;
-        if (!checkIfReadingHasNotSameValues(newReading))
+        }
+        if (!checkIfReadingHasNotSameValues(newReading)) {
+            log.warn("Reading not added to the DB");
             return false;
+        }
         if (this.listOfReadings.add(newReading)) {
             //repository call
             try {
                 Repositories.getReadingRepository().save(newReading);
+                log.info("Reading added to the DB");
             } catch (NullPointerException e) {
-                Logger.getLogger("Repository unreachable");
+                log.warn("Repository unreachable");
             }
             return true;
         } else return false;
@@ -297,11 +306,11 @@ public class ReadingList {
                     newReading.convertToCelsius();
                     newReading.setUnit("C");
                 }
-            } catch (NullPointerException e) {
-                Logger.getLogger("Repository unreachable");
+            } catch (Exception e) {
+                log.warn(e.getMessage());
             }
 
-            if ((Double.compare(newReading.returnValueOfReading(),reading.returnValueOfReading())==0) &&
+            if ((Double.compare(newReading.returnValueOfReading(), reading.returnValueOfReading()) == 0) &&
                     newReading.getDateAndTime().equals(reading.getDateAndTime()) &&
                     newReading.getUnit().equals(reading.getUnit()))
                 return false;

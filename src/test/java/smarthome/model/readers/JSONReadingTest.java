@@ -8,14 +8,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class JSONReadingTest {
 
     @Test
     void importDataSizeListTest() throws IOException, ParseException {
         JSONReading jsonReading = new JSONReading();
-        Path path = Paths.get("resources/DataSet_sprint05_SensorData.json");
+        Path path = Paths.get("resources/DataSet_sprint05_SD.json");
         List<String[]> result;
         result = jsonReading.importData(path);
 

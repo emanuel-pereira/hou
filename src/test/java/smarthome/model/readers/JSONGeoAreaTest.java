@@ -17,7 +17,7 @@ class JSONGeoAreaTest {
 
     @Test
     void importGAListSize() throws org.json.simple.parser.ParseException, java.text.ParseException, IOException{
-        Path path = Paths.get("resources/JsonFile.json");
+        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
 
         int expected = 2;
@@ -28,7 +28,7 @@ class JSONGeoAreaTest {
 
     @Test
     void checkIfImportGANotNull () throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        Path path = Paths.get("resources/JsonFile.json");
+        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
@@ -41,7 +41,7 @@ class JSONGeoAreaTest {
 
     @Test
     void checkIfImportOccupationAreaNotNull () throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        Path path = Paths.get("resources/JsonFile.json");
+        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
@@ -54,7 +54,7 @@ class JSONGeoAreaTest {
 
     @Test
     void checkIfImportLocationNotNull () throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        Path path = Paths.get("resources/JsonFile.json");
+        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
@@ -68,7 +68,7 @@ class JSONGeoAreaTest {
 
     @Test
     void checkIfImportSensorListNotNull () throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        Path path = Paths.get("resources/JsonFile.json");
+        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
@@ -82,7 +82,7 @@ class JSONGeoAreaTest {
 
     @Test
     void checkIfImportSensorNotNull () throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        Path path = Paths.get("resources/JsonFile.json");
+        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
@@ -97,7 +97,7 @@ class JSONGeoAreaTest {
 
     @Test
     void checkIfImportSensorDateNotNull () throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        Path path = Paths.get("resources/JsonFile.json");
+        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
