@@ -7,17 +7,17 @@ import smarthome.model.*;
 import smarthome.repository.Repositories;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 public class RemoveGASensorCTRL {
     private GAList gaList;
     private GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
+    private static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Application.class);
+
 
     public RemoveGASensorCTRL(GAList gaList) {
         this.gaList = gaList;
     }
 
-    static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(Application.class);
 
     /**
      * Method that iterates the geographical area list and converts each geographical area in a geographical area DTO which has only the necessary attributes
@@ -35,7 +35,7 @@ public class RemoveGASensorCTRL {
      * @param gaDTOId String value correspondent to the id of the geographical area passed as parameter
      * @return geographical area object if its id matches the parameter gaDTOid, else throws a null pointer exception.
      */
-    public GeographicalArea getGAById(String gaDTOId) {
+    private GeographicalArea getGAById(String gaDTOId) {
         for (GeographicalArea geographicalArea : gaList.getGAList()) {
             if (geographicalArea.getId().matches(gaDTOId)) {
                 return geographicalArea;
@@ -60,19 +60,28 @@ public class RemoveGASensorCTRL {
             if (sensor.getId().matches(sensorDTOId)) {
                 sensorList.removeSensor(sensor);
                 try {
+                    saveSensorReadings(sensor);
                     //Repository call
-                    ReadingList readingList = sensor.getReadingList();
-                    for (Reading reading : readingList.getReadingsList()) {
-                        Repositories.getReadingRepository().delete(reading);
-                    }
                     Repositories.getSensorRepository().delete(sensor);
                 } catch (NullPointerException e) {
-                    Logger.getLogger("Repository unreachable");
+                    log.info("Repository unreachable");
 
                 }
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * Method that persists the readings in its repository of the sensor inputted as parameter.
+     * @param sensor inputted as parameter
+     */
+    private void saveSensorReadings(Sensor sensor) {
+        ReadingList readingList = sensor.getReadingList();
+        for (Reading reading : readingList.getReadingsList()) {
+            //Repository call
+            Repositories.getReadingRepository().delete(reading);
+        }
     }
 }
