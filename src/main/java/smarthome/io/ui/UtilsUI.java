@@ -16,6 +16,7 @@ public final class UtilsUI {
     private static final String BLACK = "BLACK";
     private static final String RESET = "RESET";
     private static final String INPUTERROR = "Input error";
+    private static final String BG_WHITE="BG_WHITE";
 
     /**
      * Private constructor of UtilsUI class, which is a collection of static members, hence is not meant to be instantiated.
@@ -499,7 +500,7 @@ public final class UtilsUI {
         printAndReset(padWithSpaces("", tableWidth, padding));
 
         // Display the items
-        format(TextStyle.BG_WHITE.toString(), c);
+        format(BG_WHITE, c);
         String paddedOutput;
         int number;
         for (String item : listToShow
@@ -511,7 +512,7 @@ public final class UtilsUI {
 
             paddedOutput = padWithSpaces(item, tableWidth, padding);
 
-            format(TextStyle.BG_WHITE.toString(), c);
+            format(BG_WHITE, c);
             printAndReset(paddedOutput);
         }
         print("\n");
@@ -619,11 +620,11 @@ public final class UtilsUI {
         format("BOLD", titleColor, BLACK);
         printAndReset(titlePretty);
         format(RESET);
-        format(TextStyle.BG_WHITE.toString(), BLACK);
+        format(BG_WHITE, BLACK);
         printAndReset(messagePretty);
-        format(TextStyle.BG_WHITE.toString(), BLACK);
+        format(BG_WHITE, BLACK);
         printAndReset(message);
-        format(TextStyle.BG_WHITE.toString(), BLACK);
+        format(BG_WHITE, BLACK);
         printAndReset(messagePretty);
         format(RESET);
         print("\n");
