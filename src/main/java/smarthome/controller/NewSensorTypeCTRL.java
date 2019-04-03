@@ -33,10 +33,10 @@ public class NewSensorTypeCTRL {
 
 
     public String returnSensorTypeList() {
-        List<SensorType> sensorTypeList = this.sensorTypeList.getSensorTypeList();
+        List<SensorType> sensorTypes = this.sensorTypeList.getSensorTypeList();
         StringBuilder result = new StringBuilder();
 
-        for (SensorType sensorType: sensorTypeList){
+        for (SensorType sensorType: sensorTypes){
             result.append(sensorType.getType());
             result.append("\n");
         }

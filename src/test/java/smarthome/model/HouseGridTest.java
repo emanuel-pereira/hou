@@ -504,5 +504,78 @@ class HouseGridTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    @DisplayName("Ensure that getEstimatedEnergyConsumption returns 1.09 Kwh")
+    void getEstimatedEnergyConsumption() {
+        HouseGrid grid = new HouseGrid("MainGrid");
+        RoomList roomList = grid.getRoomListInAGrid();
+
+        Room kitchen = new Room("Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("Living Room", 0, 5, 4, 3);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(garage);
+        DeviceList kitDeviceList = kitchen.getDeviceList();
+        DeviceList grDeviceList = garage.getDeviceList();
+
+        try {
+            Device fridgeA = kitDeviceList.newDevice("LG Fridge", "Fridge", 150);
+            Device kettleA = kitDeviceList.newDevice("Daijutsu", "Kettle", 250);
+            Device lampA = kitDeviceList.newDevice("Philips Smart Bulb", "Lamp", 15);
+            Device fridgeB = kitDeviceList.newDevice("Samsung Fridge", "Fridge", 250);
+
+            kitDeviceList.addDevice(fridgeA);
+            kitDeviceList.addDevice(kettleA);
+            kitDeviceList.addDevice(lampA);
+            grDeviceList.addDevice(lampA);
+            grDeviceList.addDevice(fridgeB);
+
+            ReadingList fridgeALog = fridgeA.getActivityLog();
+            Reading r1 = new Reading(20, new GregorianCalendar(2018, 2, 1, 9, 10),"C");
+            Reading r2 = new Reading(20, new GregorianCalendar(2018, 2, 2, 9, 10),"C");
+            Reading r3 = new Reading(20, new GregorianCalendar(2018, 2, 3, 9, 10),"C");
+            Reading r4 = new Reading(20, new GregorianCalendar(2018, 2, 4, 9, 10),"C");
+            Reading r5 = new Reading(20, new GregorianCalendar(2018, 2, 5, 9, 10),"C");
+            Reading r6 = new Reading(20, new GregorianCalendar(2018, 2, 6, 9, 10),"C");
+
+            fridgeALog.addReading(r1);
+            fridgeALog.addReading(r2);
+            fridgeALog.addReading(r3);
+            fridgeALog.addReading(r4);
+            fridgeALog.addReading(r5);
+            fridgeALog.addReading(r6);
+
+            ReadingList fridgeBLog = fridgeB.getActivityLog();
+            fridgeBLog.addReading(r1);
+            fridgeBLog.addReading(r2);
+            fridgeBLog.addReading(r3);
+            fridgeBLog.addReading(r4);
+            fridgeBLog.addReading(r5);
+            fridgeBLog.addReading(r6);
+
+        } catch (Exception e) {
+            //Do nothing.
+        }
+        double expected=1.09;
+        double result=grid.getEstimatedEnergyConsumption();
+        assertEquals(expected,result);
+
+    }
+
+    @Test
+    @DisplayName("Ensure that getEstimatedEnergyConsumption for grid returns zero as the houseGrid does not have any device")
+    void getEstimatedEnergyConsumptionReturnsZero() {
+        HouseGrid grid = new HouseGrid("MainGrid");
+        RoomList roomList = grid.getRoomListInAGrid();
+
+        Room kitchen = new Room("Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("Living Room", 0, 5, 4, 3);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(garage);
+
+        double expected = 0;
+        double result = grid.getEstimatedEnergyConsumption();
+
+        assertEquals(expected, result);
+    }
 }
 
