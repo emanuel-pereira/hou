@@ -16,6 +16,8 @@
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
+.idea/**/dataSources.xml
+.idea/**/misc.xml
 .idea/**/dataSources.ids
 .idea/**/dataSources.local.xml
 .idea/**/sqlDataSources.xml
@@ -23,7 +25,8 @@
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 ## To ignore all files contained in .idea
-.idea/
+.idea/**
+
 
 # Gradle
 .idea/**/gradle.xml
