@@ -28,7 +28,7 @@ public class NewSensorUI {
     void checkIfRoomListIsEmpty() {
         isInternal = true;
         if (this.ctrl.getRoomListSize() == 0) {
-            System.out.println("List of Geographical Areas is empty. Please insert at least one Geographical Area in US3.");
+            System.out.println("List of Rooms is empty. Please insert at least one Room.");
             return;
         }
         this.checkIfSensorTypeListIsEmpty();
