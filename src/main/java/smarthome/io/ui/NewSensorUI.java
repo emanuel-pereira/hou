@@ -25,9 +25,6 @@ public class NewSensorUI {
     private Scanner read = new Scanner(System.in);
     private boolean isInternal;
 
-    @Autowired
-    private LocationRepository locRep;
-
     public NewSensorUI(House house, SensorTypeList sensorTypeList, GAList listOfGA) {
         this.ctrl = new NewSensorCTRL(house, sensorTypeList, listOfGA);
     }
@@ -35,7 +32,7 @@ public class NewSensorUI {
     void checkIfRoomListIsEmpty() {
         isInternal = true;
         if (this.ctrl.getRoomListSize() == 0) {
-            System.out.println("List of Geographical Areas is empty. Please insert at least one Geographical Area in US3.");
+            System.out.println("List of Rooms is empty. Please insert at least one Room.");
             return;
         }
         this.checkIfSensorTypeListIsEmpty();
