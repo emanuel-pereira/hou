@@ -327,9 +327,9 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         House house = new House();
         RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("Kitchen", 0, 4, 5, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
-        Room livingRoom = new Room("Living Room", 0, 6, 5, 3);
+        Room livingRoom = new Room("R02","Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
         int expected=2;
@@ -345,9 +345,9 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         House house = new House();
         RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("Kitchen", 0, 4, 5, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
-        Room livingRoom = new Room("Living Room", 0, 6, 5, 3);
+        Room livingRoom = new Room("R02","Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
         String expected="1 - Kitchen\n" +
@@ -502,9 +502,9 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         House house = new House();
         RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("Kitchen", 0, 4, 5, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
-        Room livingRoom = new Room("Living Room", 0, 6, 5, 3);
+        Room livingRoom = new Room("R02","Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
         SensorList sensorList = kitchen.getSensorListInRoom();
@@ -553,9 +553,9 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         House house = new House();
         RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("Kitchen", 0, 4, 5, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
-        Room livingRoom = new Room("Living Room", 0, 6, 5, 3);
+        Room livingRoom = new Room("R01","Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
         Calendar startDate= new GregorianCalendar(2018,11,15);
@@ -579,9 +579,9 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         House house = new House();
         RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("Kitchen", 0, 4, 5, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
-        Room livingRoom = new Room("Living Room", 0, 6, 5, 3);
+        Room livingRoom = new Room("R01","Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
         Calendar startDate= new GregorianCalendar(2018,11,15);
@@ -604,9 +604,9 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         House house = new House();
         RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("Kitchen", 0, 4, 5, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
-        Room livingRoom = new Room("Living Room", 0, 6, 5, 3);
+        Room livingRoom = new Room("R02", "Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
         Calendar startDate= new GregorianCalendar(2018,11,15);
@@ -629,9 +629,9 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         House house = new House();
         RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("Kitchen", 0, 4, 5, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
-        Room livingRoom = new Room("Living Room", 0, 6, 5, 3);
+        Room livingRoom = new Room("R02","Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
         Calendar startDate= new GregorianCalendar(2018,11,15);
@@ -654,19 +654,19 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         House house = new House();
         RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("Kitchen", 0, 4, 5, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
-        Room livingRoom = new Room("Living Room", 0, 6, 5, 3);
+        Room livingRoom = new Room("R02","Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
         GregorianCalendar startDate= new GregorianCalendar(2018,11,15);
         Location loc= new Location(12,-15,2);
         ReadingList rL= new ReadingList();
         SensorList kitSensorLst=kitchen.getSensorListInRoom();
-        boolean result =ctrl.addNewSensorToRoom("Temperature Sensor",startDate,0,0,"celsius",rL);
+        boolean result =ctrl.addNewSensorToRoom("S01","Temperature Sensor",startDate,0,0,"celsius",rL);
         assertTrue(result);
 
-        boolean result1 =ctrl.addNewSensorToRoom("Temperature Sensor",startDate,0,0,"celsius",rL);
+        boolean result1 =ctrl.addNewSensorToRoom("S01","Temperature Sensor",startDate,0,0,"celsius",rL);
         assertFalse(result1);
     }
 
@@ -681,9 +681,9 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         House house = new House();
         RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("Kitchen", 0, 4, 5, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
-        Room livingRoom = new Room("Living Room", 0, 6, 5, 3);
+        Room livingRoom = new Room("R02", "Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
         Calendar startDate= new GregorianCalendar(2018,11,15);
@@ -712,9 +712,9 @@ class NewSensorCTRLTest {
         GAList gaList = new GAList();
         House house = new House();
         RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("Kitchen", 0, 4, 5, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
-        Room livingRoom = new Room("Living Room", 0, 6, 5, 3);
+        Room livingRoom = new Room("R02","Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
         NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
         Calendar startDate= new GregorianCalendar(2018,11,15);

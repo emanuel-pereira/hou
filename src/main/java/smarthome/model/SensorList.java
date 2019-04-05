@@ -41,6 +41,7 @@ public class SensorList {
     }
 
     /**
+     * @param id   id of the Sensor
      * @param inputName   name of Sensor
      * @param startDate   startDate of Sensor
      * @param geoLocation gps coordinates in which the user wants to place the sensor
@@ -57,8 +58,8 @@ public class SensorList {
      * @param unit       The measurement unit
      * @return A new interior sensor
      */
-    public Sensor createNewInternalSensor(String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
-        return new Sensor(name, startDate, sensorType, unit, readings);
+    public Sensor createNewInternalSensor(String id, String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+        return new Sensor(id, name, startDate, sensorType, unit, readings);
     }
 
     /**
@@ -134,6 +135,7 @@ public class SensorList {
 
     /**
      * Get all active sensors
+     *
      * @return List of sensors
      */
     public SensorList getActiveSensors() {
@@ -148,16 +150,17 @@ public class SensorList {
 
     /**
      * Deactivate sensor and save new status in the sensorRepository (DB)
-     * @param sensorID id of the sensor
+     *
+     * @param sensorID  id of the sensor
      * @param pauseDate Deactivation date
      */
     public void deactivateSensor(String sensorID, Calendar pauseDate) {
         for (Sensor s : this.getSensorList())
-            if (s.getId ().matches (sensorID)) {
-                s.deactivate (pauseDate);
+            if (s.getId().matches(sensorID)) {
+                s.deactivate(pauseDate);
                 //Repository call
                 try {
-                    Repositories.getSensorRepository ().save (s);
+                    Repositories.getSensorRepository().save(s);
                 } catch (Exception e) {
                     Logger.getLogger("Repository unreachable");
 

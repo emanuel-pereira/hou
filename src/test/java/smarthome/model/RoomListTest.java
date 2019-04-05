@@ -18,7 +18,7 @@ public class RoomListTest {
         RoomList roomList = new RoomList();
 
         //Act
-        Room r1 = new Room("BedRoom", 2, 3, 4, 1);
+        Room r1 = new Room("R01","BedRoom", 2, 3, 4, 1);
         roomList.addRoom(r1);
 
         //Assert
@@ -30,7 +30,7 @@ public class RoomListTest {
     void addRoomToList() {
         //Arrange
         RoomList roomList = new RoomList();
-        Room r1 = new Room("LivingRoom", 1, 3, 4, 5);
+        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
 
         //Act
         assertTrue(roomList.addRoom(r1));
@@ -46,8 +46,8 @@ public class RoomListTest {
     public void notAddRepeatedRoom() {
         //Arrange
         RoomList roomList = new RoomList();
-        Room r1 = new Room("Hall", 0, 1, 1, 3);
-        Room r2 = new Room("Garage", 1, 3, 3, 4);
+        Room r1 = new Room("R01","Hall", 0, 1, 1, 3);
+        Room r2 = new Room("R02","Garage", 1, 3, 3, 4);
 
         //Act
         assertEquals(0, roomList.getRoomList().size());
@@ -73,7 +73,7 @@ public class RoomListTest {
         House house2 = new House(a1, g1);
 
         RoomList list = house2.getRoomList();
-        Room kitchen = list.createNewRoom("kitchen", 1, 3, 3.5, 2);
+        Room kitchen = list.createNewRoom("R01","kitchen", 1, 3, 3.5, 2);
         list.addRoom(kitchen);
 
         boolean result = list.checkIfRoomNameExists("kitchen");
@@ -91,7 +91,7 @@ public class RoomListTest {
         House house2 = new House(a1, g1);
 
         RoomList list = house2.getRoomList();
-        Room kitchen = list.createNewRoom("kitchen", 1, 3, 3.5, 2);
+        Room kitchen = list.createNewRoom("R01","kitchen", 1, 3, 3.5, 2);
         list.addRoom(kitchen);
 
         boolean result = list.checkIfRoomNameExists("bedroom");
@@ -104,8 +104,8 @@ public class RoomListTest {
     void removeRoomFromRoomList() {
         //Arrange
         RoomList roomList = new RoomList();
-        Room r1 = new Room("LivingRoom", 1, 3, 4, 5);
-        Room r2 = new Room("Garage", 0, 1, 3, 1);
+        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
+        Room r2 = new Room("R02","Garage", 0, 1, 3, 1);
 
         //Act
         roomList.addRoom(r1);
@@ -124,8 +124,8 @@ public class RoomListTest {
     @DisplayName("Tests if it allows to remove a room from the Room list, that was not preciously added")
     void removeRoomFromRoomListFalse() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("LivingRoom", 1, 3, 4, 5);
-        Room r2 = new Room("Garage", 0, 1, 3, 1);
+        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
+        Room r2 = new Room("R02","Garage", 0, 1, 3, 1);
 
         roomList.addRoom(r1);
 
@@ -136,8 +136,8 @@ public class RoomListTest {
     @DisplayName("Get a Room in the Room List by its index")
     void getRoomFromRoomListByIndex() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("LivingRoom", 1, 3, 4, 5);
-        Room r2 = new Room("Garage", 0, 1, 3, 1);
+        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
+        Room r2 = new Room("R02","Garage", 0, 1, 3, 1);
 
         roomList.addRoom(r1);
         roomList.addRoom(r2);
@@ -152,8 +152,8 @@ public class RoomListTest {
     @Test
     @DisplayName("Tests if two sensor designations are different")
     public void checkIfRoomDesignationAreDifferent() {
-        Room r1 = new Room("A", 1, 3, 3, 1);
-        Room r2 = new Room("B", 2, 3, 4, 5);
+        Room r1 = new Room("R01","A", 1, 3, 3, 1);
+        Room r2 = new Room("R02","B", 2, 3, 4, 5);
 
         boolean result;
 
@@ -167,8 +167,8 @@ public class RoomListTest {
     @DisplayName("Ensure that method getRoomListSize() of RoomList class returns 2")
     void size() {
         RoomList roomList = new RoomList();
-        Room livingRoom = new Room("LivingRoom", 1, 3, 4, 5);
-        Room garage = new Room("Garage", 0, 1, 3, 1);
+        Room livingRoom = new Room("R01","LivingRoom", 1, 3, 4, 5);
+        Room garage = new Room("R02","Garage", 0, 1, 3, 1);
         roomList.addRoom(livingRoom);
         roomList.addRoom(garage);
         int expected = 2;
@@ -181,8 +181,8 @@ public class RoomListTest {
     @DisplayName("Get a Room in the Room List by its index")
     void showRoomListInString() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("LivingRoom", 1, 3, 4, 5);
-        Room r2 = new Room("Garage", 0, 1, 3, 1);
+        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
+        Room r2 = new Room("R02","Garage", 0, 1, 3, 1);
 
         roomList.addRoom(r1);
         roomList.addRoom(r2);
@@ -198,8 +198,8 @@ public class RoomListTest {
     @DisplayName("add Device To Room and List All Devices From all Rooms by type")
     void addDeviceToRoom() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("LivingRoom", 1, 3, 4, 5);
-        Room r2 = new Room("Garage", 0, 1, 3, 1);
+        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
+        Room r2 = new Room("R02","Garage", 0, 1, 3, 1);
 
         roomList.addRoom(r1);
         roomList.addRoom(r2);
@@ -231,8 +231,8 @@ public class RoomListTest {
     @DisplayName("Remove Device From Room and List All Devices From all Rooms by type")
     void removeDeviceFromRoom() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("LivingRoom", 1, 3, 4, 5);
-        Room r2 = new Room("Garage", 0, 1, 3, 1);
+        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
+        Room r2 = new Room("R02","Garage", 0, 1, 3, 1);
 
         roomList.addRoom(r1);
         roomList.addRoom(r2);
@@ -266,8 +266,8 @@ public class RoomListTest {
     @DisplayName("See in which room the device is")
     void getDeviceLocation() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("LivingRoom", 1, 3, 4, 5);
-        Room r2 = new Room("Garage", 0, 1, 3, 1);
+        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
+        Room r2 = new Room("R02","Garage", 0, 1, 3, 1);
 
         roomList.addRoom(r1);
         roomList.addRoom(r2);
@@ -298,8 +298,8 @@ public class RoomListTest {
     @Test
     void getEnergyConsumptionByDeviceType() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("Kitchen", 0, 6, 3.5, 3);
-        Room r2 = new Room("Garage", 0, 6, 4, 3);
+        Room r1 = new Room("R01","Kitchen", 0, 6, 3.5, 3);
+        Room r2 = new Room("R02","Garage", 0, 6, 4, 3);
         roomList.addRoom(r1);
         roomList.addRoom(r2);
 

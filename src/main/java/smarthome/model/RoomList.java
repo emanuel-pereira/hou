@@ -19,6 +19,8 @@ public class RoomList {
 
     /**
      * Method to create a new Room object
+     *
+     * @param id     Id of the room (string)
      * @param name   Name of the room (string)
      * @param floor  Number of the floor (integer)
      * @param length Length of the room (double) to calculate the area
@@ -26,10 +28,10 @@ public class RoomList {
      * @param height Height of the room (double)
      * @return Room with the previous parameters
      */
-    public Room createNewRoom(String name, int floor, double length, double width, double height) {
-        NameValidations validation = new NameValidations ();
-        if (validation.alphanumericName (name)) {
-            return new Room(name, floor, length, width, height);
+    public Room createNewRoom(String id, String name, int floor, double length, double width, double height) {
+        NameValidations validation = new NameValidations();
+        if (validation.alphanumericName(name)) {
+            return new Room(id, name, floor, length, width, height);
         }
         return null;
     }
@@ -50,12 +52,13 @@ public class RoomList {
 
     /**
      * Checks if the room name exists in the room list, so the name is not repeated
+     *
      * @param name Room name
      * @return True if the room name exists
      */
     public boolean checkIfRoomNameExists(String name) {
-        for (Room r : this.getRoomList ()) {
-            if (r.getName ().equals (name)) {
+        for (Room r : this.getRoomList()) {
+            if (r.getName().equals(name)) {
                 return true;
             }
         }
@@ -82,6 +85,7 @@ public class RoomList {
 
     /**
      * Method to check the list size, normally to confirm if the list size is zero, witch means the list is empty
+     *
      * @return The size of the list
      */
     public int getRoomListSize() {
@@ -135,11 +139,11 @@ public class RoomList {
         return deviceListByType;
     }
 
-    public Room getDeviceLocation (Device inputDevice) {
-        Room location  = this.listOfRooms.get(0);
-        for(Room room: this.listOfRooms){
+    public Room getDeviceLocation(Device inputDevice) {
+        Room location = this.listOfRooms.get(0);
+        for (Room room : this.listOfRooms) {
             List<Device> deviceListInRoom = room.getDeviceList().getDeviceList();
-            if (deviceListInRoom.contains(inputDevice)){
+            if (deviceListInRoom.contains(inputDevice)) {
                 location = room;
             }
         }
@@ -159,19 +163,17 @@ public class RoomList {
             deviceDailyConsumption = deviceAnnualConsumption / 365;
             totalEnergyConsumption += deviceDailyConsumption;
         }
-        return Utils.round(totalEnergyConsumption,2);
+        return Utils.round(totalEnergyConsumption, 2);
     }
 
-    public List<Metered> getMeteredDevicesList(){
-        List<Metered> meteredDevListInHouse=new ArrayList<>();
-        for(Room room:this.listOfRooms){
-            List<Metered> meteredDevicesInRoom=room.getDeviceList().getMeteredDevices();
+    public List<Metered> getMeteredDevicesList() {
+        List<Metered> meteredDevListInHouse = new ArrayList<>();
+        for (Room room : this.listOfRooms) {
+            List<Metered> meteredDevicesInRoom = room.getDeviceList().getMeteredDevices();
             meteredDevListInHouse.addAll(meteredDevicesInRoom);
         }
         return meteredDevListInHouse;
     }
-
-
 
 
 }

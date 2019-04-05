@@ -16,25 +16,21 @@ class SensorTest {
         Sensor sensor = new Sensor();
 
         sensor.setId("RF12345");
-
-        SensorType sType = new SensorType("rainfall");
-        sensor.setSensorType(sType);
-
+        sensor.setSensorDesignation("Meteo station ISEP - rainfall");
         Calendar date = new GregorianCalendar(2018,Calendar.NOVEMBER,21);
         sensor.setStartDate(date);
-
-        sensor.setUnit("l/m2");
-        sensor.setSensorDesignation("Meteo station ISEP - rainfall");
-
         Location location = new Location(70,130,4000);
         sensor.setSensorLocation(location);
+        SensorType sType = new SensorType("rainfall");
+        sensor.setSensorType(sType);
+        sensor.setUnit("l/m2");
 
         String result1 = sensor.getId();
-        SensorType result2 = sensor.getSensorType();
-        Calendar result3 = sensor.getStartDate();
-        String result4 = sensor.getUnit();
         String result5 = sensor.getDesignation();
+        Calendar result3 = sensor.getStartDate();
         Location result6 = sensor.getLocation();
+        SensorType result2 = sensor.getSensorType();
+        String result4 = sensor.getUnit();
 
         assertEquals("RF12345",result1);
         assertEquals(sType,result2);

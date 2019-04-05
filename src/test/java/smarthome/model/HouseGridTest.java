@@ -92,7 +92,7 @@ class HouseGridTest {
     @DisplayName("Attach one room to a grid and return true")
     void attachRoomToGrid() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
+        Room roomA = new Room("R01", "bedroom", 1, 2, 2, 2);
 
         boolean result = houseGrid.attachRoomToGrid(roomA);
 
@@ -104,8 +104,8 @@ class HouseGridTest {
     @DisplayName("Attach two different rooms to a grid and return true")
     void attachTwoNewRoomsToGrid() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("garden", 0, 2, 2, 2);
+        Room roomA = new Room("R01", "bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R01", "garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
 
         boolean result = houseGrid.attachRoomToGrid(roomB);
@@ -117,7 +117,7 @@ class HouseGridTest {
     @DisplayName("Attach the same room twice to a grid and return false")
     void attachSameRoomTwiceToGrid() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
+        Room roomA = new Room("R01","bedroom", 1, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
 
         boolean result = houseGrid.attachRoomToGrid(roomA);
@@ -129,8 +129,8 @@ class HouseGridTest {
     @DisplayName("Attach two equal rooms to a grid and return false")
     void attachTwoEqualRoomsToGrid() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("bedroom", 1, 2, 2, 2);
+        Room roomA = new Room("R01", "bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R01", "bedroom", 1, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
 
         boolean result = houseGrid.attachRoomToGrid(roomB);
@@ -142,8 +142,8 @@ class HouseGridTest {
     @DisplayName("Attach two different rooms to a grid and return that room list size")
     void getRoomListInAGridSize() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("garden", 0, 2, 2, 2);
+        Room roomA = new Room("R01","bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R02","garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
         houseGrid.attachRoomToGrid(roomB);
 
@@ -157,8 +157,8 @@ class HouseGridTest {
     @DisplayName("Attach two different rooms to a grid and return that room list")
     void getRoomListInAGrid() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("garden", 0, 2, 2, 2);
+        Room roomA = new Room("R01", "bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R02", "garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
         houseGrid.attachRoomToGrid(roomB);
 
@@ -172,8 +172,8 @@ class HouseGridTest {
     @DisplayName("Detach one room from a grid and return true")
     void detachRoomFromGrid() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("garden", 0, 2, 2, 2);
+        Room roomA = new Room("R01", "bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R02", "garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
         houseGrid.attachRoomToGrid(roomB);
 
@@ -186,8 +186,8 @@ class HouseGridTest {
     @DisplayName("Try to detach a room that doesn't exist in a grid and return false")
     void detachRoom() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("garden", 0, 2, 2, 2);
+        Room roomA = new Room("R01","bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R02","garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
 
         boolean result = houseGrid.detachRoomFromGrid(roomB);
@@ -202,8 +202,8 @@ class HouseGridTest {
         HouseGrid hg1 = new HouseGrid("grid1");
         house.getHGListInHouse().addHouseGrid(hg1);
 
-        Room r1 = new Room("cozinha",1,2,2,2);
-        Room r3 = new Room("quarto",2,2,2,2);
+        Room r1 = new Room("R01", "cozinha",1,2,2,2);
+        Room r3 = new Room("R02", "quarto",2,2,2,2);
         house.getRoomList().addRoom(r1);
         house.getRoomList().addRoom(r3);
 
@@ -240,8 +240,8 @@ class HouseGridTest {
             HouseGrid hg1 = new HouseGrid("grid1");
             house.getHGListInHouse().addHouseGrid(hg1);
 
-            Room r1 = new Room("cozinha",1,2,2,2);
-            Room r3 = new Room("quarto",2,2,2,2);
+            Room r1 = new Room("R01", "cozinha",1,2,2,2);
+            Room r3 = new Room("R02", "quarto",2,2,2,2);
             house.getRoomList().addRoom(r1);
             house.getRoomList().addRoom(r3);
 
@@ -278,8 +278,8 @@ class HouseGridTest {
         HouseGrid hg1 = new HouseGrid("grid1");
         house.getHGListInHouse().addHouseGrid(hg1);
 
-        Room r1 = new Room("cozinha",1,2,2,2);
-        Room r3 = new Room("quarto",2,2,2,2);
+        Room r1 = new Room("R01", "cozinha",1,2,2,2);
+        Room r3 = new Room("R02", "quarto",2,2,2,2);
         house.getRoomList().addRoom(r1);
         house.getRoomList().addRoom(r3);
 
@@ -316,8 +316,8 @@ class HouseGridTest {
         HouseGrid hg1 = new HouseGrid("grid1");
         house.getHGListInHouse().addHouseGrid(hg1);
 
-        Room r1 = new Room("cozinha",1,2,2,2);
-        Room r3 = new Room("quarto",2,2,2,2);
+        Room r1 = new Room("R01","cozinha",1,2,2,2);
+        Room r3 = new Room("R02","quarto",2,2,2,2);
         house.getRoomList().addRoom(r1);
         house.getRoomList().addRoom(r3);
 
@@ -356,8 +356,8 @@ class HouseGridTest {
     @DisplayName("Get the nominal power of a grid")
     void getNominalPower() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("garden", 0, 2, 2, 2);
+        Room roomA = new Room("R01","bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R02", "garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
         houseGrid.attachRoomToGrid(roomB);
         DeviceList deviceList = roomA.getDeviceList();
@@ -430,8 +430,8 @@ class HouseGridTest {
         HouseGrid grid = new HouseGrid("MainGrid");
         RoomList roomList = grid.getRoomListInAGrid();
 
-        Room kitchen = new Room("Kitchen", 0, 8, 8, 3);
-        Room garage = new Room("Living Room", 0, 5, 4, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("R02","Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
 
@@ -492,8 +492,8 @@ class HouseGridTest {
         HouseGrid grid = new HouseGrid("MainGrid");
         RoomList roomList = grid.getRoomListInAGrid();
 
-        Room kitchen = new Room("Kitchen", 0, 8, 8, 3);
-        Room garage = new Room("Living Room", 0, 5, 4, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("R02", "Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
 
@@ -510,8 +510,8 @@ class HouseGridTest {
         HouseGrid grid = new HouseGrid("MainGrid");
         RoomList roomList = grid.getRoomListInAGrid();
 
-        Room kitchen = new Room("Kitchen", 0, 8, 8, 3);
-        Room garage = new Room("Living Room", 0, 5, 4, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("R02","Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
         DeviceList kitDeviceList = kitchen.getDeviceList();
@@ -567,8 +567,8 @@ class HouseGridTest {
         HouseGrid grid = new HouseGrid("MainGrid");
         RoomList roomList = grid.getRoomListInAGrid();
 
-        Room kitchen = new Room("Kitchen", 0, 8, 8, 3);
-        Room garage = new Room("Living Room", 0, 5, 4, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("R02","Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
 
