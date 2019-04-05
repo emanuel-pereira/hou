@@ -11,12 +11,13 @@ import java.util.List;
 public class ReadingList {
 
     private List<Reading> listOfReadings;
+    final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
+
 
     public ReadingList() {
         this.listOfReadings = new ArrayList<>();
     }
 
-    final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
 
     public Reading newReading(double readValue, Calendar timeOfReading) {
         return new Reading(readValue, timeOfReading);
@@ -25,16 +26,18 @@ public class ReadingList {
     //TODO it is needed to create a new method in order to deal/avoid the @notNull matter when filtering lists of
     // readings by date
     public boolean addReading(Reading newReading) {
+        String readingNotAddedMsg = "Reading not added to the DB";
+
         if (this.listOfReadings.contains(newReading)) {
-            log.warn("Reading not added to the DB");
+            log.warn(readingNotAddedMsg);
             return false;
         }
         if (newReading == null) {
-            log.warn("Reading not added to the DB");
+            log.warn(readingNotAddedMsg);
             return false;
         }
         if (!checkIfReadingHasNotSameValues(newReading)) {
-            log.warn("Reading not added to the DB");
+            log.warn(readingNotAddedMsg);
             return false;
         }
         if (this.listOfReadings.add(newReading)) {

@@ -28,12 +28,12 @@ public class DataImport {
     private JSONParser parser = new JSONParser();
     private Path configFilePath;
     private GAList gaList;
+    static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
 
     public DataImport(GAList gaList) {
         this.gaList = gaList;
     }
 
-    static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
 
 
     public void importReadingsFromFile(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, ParserConfigurationException, SAXException {

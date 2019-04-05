@@ -20,6 +20,7 @@ public class Application {
     /**
      * Main class that executes Spring application and invokes the init method to initialize the lists used
      * in the application and invokes the menuOptions() method that lists all UI options that users can select.
+     *
      * @param args
      */
     public static void main(String[] args) throws IllegalAccessException, InstantiationException, IOException, org.json.simple.parser.ParseException, ClassNotFoundException, SAXException, ParserConfigurationException {
@@ -41,11 +42,7 @@ public class Application {
         Repositories.setSensorRepository(sensorRep);
         Repositories.setReadingRepository(readingRep);
 
-        return args ->
-        {
-            log.info("Application Start-Up");
-        };
-
+        return args -> log.info("Application Start-Up");
     }
 
 

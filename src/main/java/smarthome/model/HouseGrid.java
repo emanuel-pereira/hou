@@ -180,7 +180,6 @@ public class HouseGrid implements Metered{
     }
 
     @Override
-    //TODO unit tests
     public double getEstimatedEnergyConsumption() {
         double sum = 0;
         for (Metered room : this.roomList.getRoomList ()) {

@@ -10,7 +10,6 @@ import smarthome.model.readers.DataImport;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
