@@ -17,7 +17,7 @@ public class RoomTest {
     @Test
     public void nameNotValid() {
 
-        Room roomOne = new Room("  ", 0, 2.5, 3, 2);
+        Room roomOne = new Room("  ", "  ", 0, 2.5, 3, 2);
 
         String name = "  ";
         boolean result = roomOne.validateName(name);
@@ -32,7 +32,8 @@ public class RoomTest {
     public void nullNameNotValid() {
 
         String name = " ";
-        Room roomOne = new Room(name, 0, 2.5, 3, 2);
+        String id = " ";
+        Room roomOne = new Room(id, name, 0, 2.5, 3, 2);
 
         boolean result = roomOne.validateName(name);
 
@@ -45,7 +46,7 @@ public class RoomTest {
     @Test
     public void nameValid() {
 
-        Room roomOne = new Room("bedroom", 0, 2.5, 3, 4.7);
+        Room roomOne = new Room("R01", "bedroom", 0, 2.5, 3, 4.7);
 
         String name = "bedroom";
         boolean result = roomOne.validateName(name);
@@ -58,8 +59,8 @@ public class RoomTest {
      */
     @Test
     public void equalsIfRoomEqualsRoom() {
-        Room room1 = new Room("bedroom", 0, 2.5, 3, 3);
-        Room room2 = new Room("bedroom", 0, 2.5, 3, 3);
+        Room room1 = new Room("R01","bedroom", 0, 2.5, 3, 3);
+        Room room2 = new Room("R01","bedroom", 0, 2.5, 3, 3);
 
         boolean result = room1.equals(room2);
 
@@ -72,8 +73,8 @@ public class RoomTest {
      */
     @Test
     public void equalsIfRoomEqualsDifferentRoom() {
-        Room room1 = new Room("bedroom", 0, 2.5, 3, 3);
-        Room room2 = new Room("garden", 0, 2.5, 3, 3);
+        Room room1 = new Room("R01", "bedroom", 0, 2.5, 3, 3);
+        Room room2 = new Room("R02", "garden", 0, 2.5, 3, 3);
 
         boolean result = room1.equals(room2);
 
@@ -87,7 +88,7 @@ public class RoomTest {
     @Test
     public void equalsIfStringEqualsRoom() {
         String person1 = "Joana";
-        Room room1 = new Room("bedroom", 0, 2.5, 3, 3);
+        Room room1 = new Room("R01","bedroom", 0, 2.5, 3, 3);
         boolean result;
 
         result = room1.equals(person1);
@@ -102,7 +103,7 @@ public class RoomTest {
     @Test
     public void setName() {
 
-        Room bedroom = new Room("bedroom", 1, 2, 3, 2.5);
+        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2.5);
         bedroom.setName("bedroom1");
 
         String expectedResult = "bedroom1";
@@ -118,7 +119,7 @@ public class RoomTest {
     @Test
     public void setFloor() {
 
-        Room bedroom = new Room("bedroom", 1, 2, 3, 2);
+        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2);
         bedroom.setFloor(2);
 
         int expectedResult = 2;
@@ -134,13 +135,12 @@ public class RoomTest {
     public void setArea() {
 
         OccupationArea oa = new OccupationArea(3, 2);
-        Room bedroom = new Room("bedroom", 1, 2, 3, 2);
+        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2);
         bedroom.setArea(oa);
 
-        OccupationArea expectedResult = oa;
         OccupationArea result = bedroom.getArea();
 
-        assertEquals(expectedResult, result);
+        assertEquals(oa, result);
 
 
     }
@@ -151,7 +151,7 @@ public class RoomTest {
     @Test
     public void setHeight() {
 
-        Room bedroom = new Room("bedroom", 1, 2, 3, 2);
+        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2);
         bedroom.setHeight(3);
 
         double expectedResult = 3;
@@ -165,7 +165,7 @@ public class RoomTest {
     void getCorrectRoomEstimatedEnergyConsumption() {
         House house = new House();
         RoomList roomList = house.getRoomList();
-        Room kitchen = roomList.createNewRoom("bedroom", 1, 2, 2, 2);
+        Room kitchen = roomList.createNewRoom("R01", "bedroom", 1, 2, 2, 2);
         roomList.addRoom(kitchen);
 
         DeviceType dt = new FanType();
@@ -203,7 +203,7 @@ public class RoomTest {
     void getRoomEstimatedEnergyConsumption() {
         House house = new House();
         RoomList roomList = house.getRoomList();
-        Room kitchen = roomList.createNewRoom("bedroom", 1, 2, 2, 2);
+        Room kitchen = roomList.createNewRoom("R01","bedroom", 1, 2, 2, 2);
         roomList.addRoom(kitchen);
 
         DeviceType dt = new FanType();
@@ -319,7 +319,7 @@ public class RoomTest {
     public void getCorrectNominalPowerIf() {
         House house = new House();
         RoomList roomList = house.getRoomList();
-        Room bedroom = roomList.createNewRoom("bedroom", 1, 2, 2, 2);
+        Room bedroom = roomList.createNewRoom("R01","bedroom", 1, 2, 2, 2);
         roomList.addRoom(bedroom);
 
         double expectedResult = 0;

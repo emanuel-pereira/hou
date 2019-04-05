@@ -98,7 +98,7 @@ public class Sensor {
      * @param id Unique identification
      * @return True if validate correctly
      */
-    private boolean idIsValid(String id) {
+    private boolean sensorIdIsValid(String id) {
         if (id.trim().isEmpty()) {
             return false;
         }
@@ -111,7 +111,7 @@ public class Sensor {
      * @return True if correctly validate
      */
     public boolean setId(String sensorId) {
-        if (this.idIsValid(sensorId)){
+        if (this.sensorIdIsValid(sensorId)){
             this.id = sensorId;
             return true;
         }

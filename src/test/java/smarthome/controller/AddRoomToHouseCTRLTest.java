@@ -25,7 +25,7 @@ class AddRoomToHouseCTRLTest {
         AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL(house1);
         assertEquals(0, house1.getRoomList().getRoomList().size());
 
-        ctrl1.newAddRoom("kitchen", 1, 3, 3.5, 2);
+        ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
         assertEquals(1, roomList.getRoomList().size());
     }
 
@@ -48,8 +48,8 @@ class AddRoomToHouseCTRLTest {
         AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL(house2);
         assertEquals(0, house2.getRoomList().getRoomList().size());
 
-        ctrl1.newAddRoom(" ", 1, 3, 3.5, 2);
-        assertEquals(0, house2.getRoomList().getRoomList().size());
+        ctrl1.newAddRoom("   "," ", 1, 3, 3.5, 2);
+        assertEquals( 0, house2.getRoomList().getRoomList().size());
     }
 
     /**
@@ -70,11 +70,11 @@ class AddRoomToHouseCTRLTest {
         AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL(house2);
         assertEquals(0, house2.getRoomList().getRoomList().size());
 
-        boolean result = ctrl1.newAddRoom("kitchen", 1, 3, 3.5, 2);
+        boolean result = ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
         assertEquals(1, house2.getRoomList().getRoomList().size());
         assertTrue(result);
 
-        boolean result1 = ctrl1.newAddRoom(" ", 1, 3, 3.5, 2);
+        boolean result1 = ctrl1.newAddRoom("  "," ", 1, 3, 3.5, 2);
         assertEquals(1, house2.getRoomList().getRoomList().size());
         assertFalse(result1);
     }
@@ -91,7 +91,7 @@ class AddRoomToHouseCTRLTest {
 
         AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL(house2);
 
-        ctrl1.newAddRoom("kitchen", 1, 3, 3.5, 2);
+        ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
 
         boolean result = ctrl1.checkIfRoomNameExists("kitchen");
         assertTrue(result);
@@ -108,7 +108,7 @@ class AddRoomToHouseCTRLTest {
 
         AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL(house2);
 
-        ctrl1.newAddRoom("kitchen", 1, 3, 3.5, 2);
+        ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
 
         boolean result = ctrl1.checkIfRoomNameExists("bedroom");
         assertFalse(result);

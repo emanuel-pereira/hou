@@ -39,8 +39,8 @@ class GetCurrentTemperatureInRoomCTRLTest {
 
         RoomList rList = h.getRoomList();
         GetCurrentTemperatureInRoomCTRL ctrl = new GetCurrentTemperatureInRoomCTRL(h, sTl);
-        Room room1= new Room("Living Room",1,2,3, 2);
-        Room room2= new Room("Bed Room",1,2,3, 2);
+        Room room1= new Room("R01","Living Room",1,2,3, 2);
+        Room room2= new Room("R02", "Bed Room",1,2,3, 2);
         rList.addRoom (room1);
         rList.addRoom (room2);
         String expected = "1 - Living Room\n2 - Bed Room\n";
@@ -57,8 +57,8 @@ class GetCurrentTemperatureInRoomCTRLTest {
         House h1 = new House ();
         RoomList rList = h1.getRoomList();
 
-        Room r1 = rList.createNewRoom("Living Room", 1, 2, 3, 2);
-        Room r2 = rList.createNewRoom("Bed Room", 1, 2, 3, 2);
+        Room r1 = rList.createNewRoom("R01", "Living Room", 1, 2, 3, 2);
+        Room r2 = rList.createNewRoom("R02", "Bed Room", 1, 2, 3, 2);
 
         rList.addRoom(r1);
         rList.addRoom(r2);
@@ -147,8 +147,8 @@ class GetCurrentTemperatureInRoomCTRLTest {
         House h1 = new House ();
         RoomList rList = h1.getRoomList();
 
-        Room r1 = rList.createNewRoom("Living Room", 1, 2, 3, 2);
-        Room r2 = rList.createNewRoom("Bed Room", 1, 2, 3, 2);
+        Room r1 = rList.createNewRoom("R01", "Living Room", 1, 2, 3, 2);
+        Room r2 = rList.createNewRoom("R02","Bed Room", 1, 2, 3, 2);
 
         rList.addRoom(r1);
         rList.addRoom(r2);
@@ -191,8 +191,8 @@ class GetCurrentTemperatureInRoomCTRLTest {
         House h1 = new House ();
         RoomList rList = h1.getRoomList();
 
-        Room r1 = rList.createNewRoom("Living Room", 1, 2, 3, 2);
-        Room r2 = rList.createNewRoom("Bed Room", 1, 2, 3, 2);
+        Room r1 = rList.createNewRoom("R01", "Living Room", 1, 2, 3, 2);
+        Room r2 = rList.createNewRoom("R01","Bed Room", 1, 2, 3, 2);
 
         rList.addRoom(r1);
         rList.addRoom(r2);

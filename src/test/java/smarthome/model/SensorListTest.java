@@ -233,8 +233,8 @@ class SensorListTest {
         SensorTypeList sensorTypeList = new SensorTypeList();
         RoomList roomList = new RoomList();
 
-        Room r1 = new Room("room1", 1, 1, 1, 1);
-        Room r2 = new Room("room2", 1, 1, 1, 1);
+        Room r1 = new Room("R01","room1", 1, 1, 1, 1);
+        Room r2 = new Room("R02","room2", 1, 1, 1, 1);
 
         roomList.addRoom(r1);
         roomList.addRoom(r2);
@@ -311,10 +311,9 @@ class SensorListTest {
         sensorList.addSensor(s2);
         sensorList.addSensor(s3);
 
-        Sensor expected = s1;
         Sensor result = sensorList.getRequiredSensorPerType("temperature");
 
-        assertEquals(expected, result);
+        assertEquals(s1, result);
     }
 
     @Test
@@ -333,7 +332,7 @@ class SensorListTest {
 
         Sensor result = sensorList.getRequiredSensorPerType("rain");
 
-        assertEquals(null, result);
+        assertNull(result);
     }
 
 
@@ -350,9 +349,8 @@ class SensorListTest {
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
         sensorList.addSensor(s3);
-        Sensor expected = s3;
         Sensor result = sensorList.getLastSensor();
-        assertEquals(expected, result);
+        assertEquals(s3, result);
     }
 
     @Test

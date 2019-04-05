@@ -7,6 +7,7 @@ public class AddRoomToHouseUI {
 
     private AddRoomToHouseCTRL controller;
 
+    private String id;
     private String name;
     private Integer floor;
     private double length;
@@ -19,26 +20,45 @@ public class AddRoomToHouseUI {
      * @param house the current and only house
      */
     public AddRoomToHouseUI(House house) {
-        this.controller = new AddRoomToHouseCTRL (house);
+        this.controller = new AddRoomToHouseCTRL(house);
     }
 
     /**
-     * The first requested input is the name of the room. When the name is entered there is a confirmation to determine
-     * if a room with the same name has already been created.
-     * The method validates the user input according to the text validation rules. If not the cycle warns for the need
+     * The first requested input is the id of the room. When the id is entered there is a confirmation to determine
+     * if a room with the same id has already been created.
+     * The method validates the user input according to the text validation rules. If not, the cycle warns for the need
      * for a new input until correct validation.
-     * The name is used to create a new Room.
+     * The id is used to create a new Room.
      */
     void addRoomToHouse() {
         boolean condition = true;
         while (condition) {
-            System.out.println ("Insert the name of the room:");
-            this.name = UtilsUI.requestText ("Please insert alphanumeric characters!\nInsert the name of the room:", "^[A-Za-z0-9 -]+$");
-            if (!this.controller.checkIfRoomNameExists (this.name)) {
+            System.out.println("Insert the Id of the room:");
+            this.id = UtilsUI.requestText("Please insert alphanumeric characters!\nInsert the Id of the room:", "^[A-Za-z0-9 -]+$");
+            if (!this.controller.checkIfRoomNameExists(this.id)) {
                 condition = false;
-                this.insertFloor ();
+                this.insertName();
             } else
-                System.out.println ("There's a room with that name");
+                System.out.println("The Id already exists");
+        }
+    }
+
+    /**
+     * When the name is entered there is a confirmation to determine
+     * if a room with the same name has already been created.
+     * The method validates the user input according to the text validation rules. If not the cycle warns for the need
+     * for a new input until correct validation.
+     */
+    void insertName() {
+        boolean condition = true;
+        while (condition) {
+            System.out.println("Insert the name of the room:");
+            this.name = UtilsUI.requestText("Please insert alphanumeric characters!\nInsert the name of the room:", "^[A-Za-z0-9 -]+$");
+            if (!this.controller.checkIfRoomNameExists(this.name)) {
+                condition = false;
+                this.insertFloor();
+            } else
+                System.out.println("There's a room with that name");
         }
     }
 
@@ -49,9 +69,9 @@ public class AddRoomToHouseUI {
      * The floor is used to create a new Room.
      */
     private void insertFloor() {
-        System.out.println ("Insert the floor where the room is:");
-        this.floor = UtilsUI.requestInteger ("Please insert a number\nInsert the floor where the room is:");
-        this.insertLength ();
+        System.out.println("Insert the floor where the room is:");
+        this.floor = UtilsUI.requestInteger("Please insert a number\nInsert the floor where the room is:");
+        this.insertLength();
     }
 
     /**
@@ -61,9 +81,9 @@ public class AddRoomToHouseUI {
      * The length is used to create a new Room
      */
     private void insertLength() {
-        System.out.println ("Insert the length of the room (in meters):");
-        this.length = UtilsUI.requestDoubleInInterval (1, 1000, "Please insert a number (higher than zero)\nInsert the length of the room (in meters):");
-        this.insertWidth ();
+        System.out.println("Insert the length of the room (in meters):");
+        this.length = UtilsUI.requestDoubleInInterval(1, 1000, "Please insert a number (higher than zero)\nInsert the length of the room (in meters):");
+        this.insertWidth();
     }
 
     /**
@@ -73,24 +93,24 @@ public class AddRoomToHouseUI {
      * The width is used to create a new Room.
      */
     private void insertWidth() {
-        System.out.println ("Insert the width of the room (in meters):");
-        this.width = UtilsUI.requestDoubleInInterval (1, 1000, "Please insert a number (higher than zero)\nInsert the width of the room (in meters):");
-        this.typeOfRoom ();
+        System.out.println("Insert the width of the room (in meters):");
+        this.width = UtilsUI.requestDoubleInInterval(1, 1000, "Please insert a number (higher than zero)\nInsert the width of the room (in meters):");
+        this.typeOfRoom();
     }
 
     private void typeOfRoom() {
         int option;
-        System.out.println ("Choose the type of room:");
-        System.out.println ("Click 1. Interior space");
-        System.out.println ("Click 2. Exterior space (outdoor)");
-        option = UtilsUI.requestIntegerInInterval (1, 2, "Please choose an option between 1 and 2");
+        System.out.println("Choose the type of room:");
+        System.out.println("Click 1. Interior space");
+        System.out.println("Click 2. Exterior space (outdoor)");
+        option = UtilsUI.requestIntegerInInterval(1, 2, "Please choose an option between 1 and 2");
         switch (option) {
             case 1:
-                this.insertHeight ();
+                this.insertHeight();
                 break;
             case 2:
                 this.height = 0;
-                this.addNewRoom ();
+                this.addNewRoom();
                 break;
             default:
         }
@@ -103,9 +123,9 @@ public class AddRoomToHouseUI {
      * The height is used to create a new Room.
      */
     private void insertHeight() {
-        System.out.println ("Insert the height of the room (in meters):");
-        this.height = UtilsUI.requestDoubleInInterval (0, 1000, "Please insert a number (higher than zero)\nInsert the height of the room (in meters):");
-        this.addNewRoom ();
+        System.out.println("Insert the height of the room (in meters):");
+        this.height = UtilsUI.requestDoubleInInterval(0, 1000, "Please insert a number (higher than zero)\nInsert the height of the room (in meters):");
+        this.addNewRoom();
     }
 
     /**
@@ -113,10 +133,10 @@ public class AddRoomToHouseUI {
      * A success message is shown with all the details of the room.
      */
     private void addNewRoom() {
-        if (this.controller.newAddRoom (this.name, this.floor, this.length, this.width, this.height)) {
-            System.out.println ("Success. The " + this.name + " on the " + this.floor + " floor " + this.showHeight () + this.length * this.width + "m² was created.\n");
+        if (this.controller.newAddRoom(this.id, this.name, this.floor, this.length, this.width, this.height)) {
+            System.out.println("Success. The " + this.name + "with the Id " + this.id + " on the " + this.floor + " floor " + this.showHeight() + this.length * this.width + "m² was created.\n");
         } else {
-            System.out.println ("Fail! Please try again.");
+            System.out.println("Fail! Please try again.");
         }
     }
 

@@ -19,9 +19,9 @@ public class ListRoomsOfHouseCTRLTest {
 
         ListRoomsOfHouseCTRL ctrl108 = new ListRoomsOfHouseCTRL(roomList);
 
-        Room bedroom = new Room("Quarto da Maria", 1, 2, 3, 2);
-        Room kitchen = new Room("Cozinha", 1, 2, 3, 2);
-        Room bathroom = new Room("Quarto de banho", 1, 2, 3, 2);
+        Room bedroom = new Room("R01", "Quarto da Maria", 1, 2, 3, 2);
+        Room kitchen = new Room("R02","Cozinha", 1, 2, 3, 2);
+        Room bathroom = new Room("R03","Quarto de banho", 1, 2, 3, 2);
 
         roomList.addRoom (bedroom);
         roomList.addRoom ( kitchen);
@@ -39,8 +39,8 @@ public class ListRoomsOfHouseCTRLTest {
 
         ListRoomsOfHouseCTRL ctrl108 = new ListRoomsOfHouseCTRL(roomList);
 
-        Room bedroom = new Room("Quarto da Maria", 1, 2, 3, 2);
-        Room kitchen = new Room("Cozinha", 1, 2, 3, 2);
+        Room bedroom = new Room("R01","Quarto da Maria", 1, 2, 3, 2);
+        Room kitchen = new Room("R02","Cozinha", 1, 2, 3, 2);
 
         roomList.addRoom (bedroom);
         roomList.addRoom (kitchen);

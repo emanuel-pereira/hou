@@ -22,8 +22,8 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         hgList.addHouseGrid(grid2);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
 
-        Room kitchen1 = new Room("Kitchen1", 0, 5, 5, 3);
-        Room kitchen2 = new Room("Kitchen2", 0, 6, 4, 3);
+        Room kitchen1 = new Room("R01","Kitchen1", 0, 5, 5, 3);
+        Room kitchen2 = new Room("R02","Kitchen2", 0, 6, 4, 3);
         grid1RoomList.addRoom(kitchen1);
         grid1RoomList.addRoom(kitchen2);
 
@@ -86,8 +86,8 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         hgList.addHouseGrid(grid2);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
 
-        Room kitchen1 = new Room("Kitchen1", 0, 5, 5, 3);
-        Room kitchen2 = new Room("Kitchen2", 0, 6, 4, 3);
+        Room kitchen1 = new Room("R01","Kitchen1", 0, 5, 5, 3);
+        Room kitchen2 = new Room("R02","Kitchen2", 0, 6, 4, 3);
         roomList.addRoom(kitchen1);
         roomList.addRoom(kitchen2);
         grid1RoomList.addRoom(kitchen1);
@@ -153,8 +153,8 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         hgList.addHouseGrid(grid2);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
 
-        Room kitchen1 = new Room("Kitchen1", 0, 5, 5, 3);
-        Room kitchen2 = new Room("Kitchen2", 0, 6, 4, 3);
+        Room kitchen1 = new Room("R01","Kitchen1", 0, 5, 5, 3);
+        Room kitchen2 = new Room("R02","Kitchen2", 0, 6, 4, 3);
         roomList.addRoom(kitchen1);
         roomList.addRoom(kitchen2);
         grid1RoomList.addRoom(kitchen1);
@@ -216,8 +216,8 @@ class GetEnergyConsumptionInPeriodCTRLTest {
 
 
         RoomList roomList = grid.getRoomListInAGrid();
-        Room kitchen = new Room("Kitchen", 0, 8, 8, 3);
-        Room garage = new Room("Living Room", 0, 5, 4, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("R02","Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
 
@@ -250,8 +250,8 @@ class GetEnergyConsumptionInPeriodCTRLTest {
 
 
         RoomList roomList = grid.getRoomListInAGrid();
-        Room kitchen = new Room("Kitchen", 0, 8, 8, 3);
-        Room garage = new Room("Living Room", 0, 5, 4, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("R02","Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
 

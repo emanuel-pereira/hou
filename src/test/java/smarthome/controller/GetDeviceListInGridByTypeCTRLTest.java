@@ -95,8 +95,8 @@ class GetDeviceListInGridByTypeCTRLTest {
         ctrl160.getHouseGridListCtrl().addHouseGrid(houseGrid);
         ctrl160.getHouseGridListCtrl().addHouseGrid(houseGrid2);
 
-        Room roomA = new Room ("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room ("garden", 0, 2, 2, 2);
+        Room roomA = new Room ("R01","bedroom", 1, 2, 2, 2);
+        Room roomB = new Room ("R01","garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid (roomA);
         houseGrid.attachRoomToGrid (roomB);
 
@@ -118,8 +118,8 @@ class GetDeviceListInGridByTypeCTRLTest {
         ctrl160.getHouseGridListCtrl().addHouseGrid(houseGrid);
         ctrl160.getHouseGridListCtrl().addHouseGrid(houseGrid2);
 
-        Room roomA = new Room ("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room ("garden", 0, 2, 2, 2);
+        Room roomA = new Room ("R01","bedroom", 1, 2, 2, 2);
+        Room roomB = new Room ("R01","garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid (roomA);
         houseGrid.attachRoomToGrid (roomB);
 
@@ -140,9 +140,9 @@ class GetDeviceListInGridByTypeCTRLTest {
         house.getHGListInHouse().addHouseGrid(hg1);
         house.getHGListInHouse().addHouseGrid(hg2);
 
-        Room r1 = new Room("cozinha",1,2,2,2);
-        Room r2 = new Room("sala",1,2,2,2);
-        Room r3 = new Room("quarto",2,2,2,2);
+        Room r1 = new Room("R01","cozinha",1,2,2,2);
+        Room r2 = new Room("R02","sala",1,2,2,2);
+        Room r3 = new Room("R03","quarto",2,2,2,2);
         house.getRoomList().addRoom(r1);
         house.getRoomList().addRoom(r2);
         house.getRoomList().addRoom(r3);
@@ -184,9 +184,9 @@ class GetDeviceListInGridByTypeCTRLTest {
         house.getHGListInHouse().addHouseGrid(hg1);
         house.getHGListInHouse().addHouseGrid(hg2);
 
-        Room r1 = new Room("cozinha",1,2,2,2);
-        Room r2 = new Room("sala",1,2,2,2);
-        Room r3 = new Room("quarto",2,2,2,2);
+        Room r1 = new Room("R01","cozinha",1,2,2,2);
+        Room r2 = new Room("R02","sala",1,2,2,2);
+        Room r3 = new Room("R03","quarto",2,2,2,2);
         house.getRoomList().addRoom(r1);
         house.getRoomList().addRoom(r2);
         house.getRoomList().addRoom(r3);
@@ -228,9 +228,9 @@ class GetDeviceListInGridByTypeCTRLTest {
         house.getHGListInHouse().addHouseGrid(hg1);
         house.getHGListInHouse().addHouseGrid(hg2);
 
-        Room r1 = new Room("cozinha",1,2,2,2);
-        Room r2 = new Room("sala",1,2,2,2);
-        Room r3 = new Room("quarto",2,2,2,2);
+        Room r1 = new Room("R01","cozinha",1,2,2,2);
+        Room r2 = new Room("R02","sala",1,2,2,2);
+        Room r3 = new Room("R03","quarto",2,2,2,2);
         house.getRoomList().addRoom(r1);
         house.getRoomList().addRoom(r2);
         house.getRoomList().addRoom(r3);
@@ -272,9 +272,9 @@ class GetDeviceListInGridByTypeCTRLTest {
         house.getHGListInHouse().addHouseGrid(hg1);
         house.getHGListInHouse().addHouseGrid(hg2);
 
-        Room r1 = new Room("cozinha",1,2,2,2);
-        Room r2 = new Room("sala",1,2,2,2);
-        Room r3 = new Room("quarto",2,2,2,2);
+        Room r1 = new Room("R01","cozinha",1,2,2,2);
+        Room r2 = new Room("R02","sala",1,2,2,2);
+        Room r3 = new Room("R03","quarto",2,2,2,2);
         house.getRoomList().addRoom(r1);
         house.getRoomList().addRoom(r2);
         house.getRoomList().addRoom(r3);
@@ -316,9 +316,9 @@ class GetDeviceListInGridByTypeCTRLTest {
         house.getHGListInHouse().addHouseGrid(hg1);
         house.getHGListInHouse().addHouseGrid(hg2);
 
-        Room r1 = new Room("cozinha",1,2,2,2);
-        Room r2 = new Room("sala",1,2,2,2);
-        Room r3 = new Room("quarto",2,2,2,2);
+        Room r1 = new Room("R01","cozinha",1,2,2,2);
+        Room r2 = new Room("R02","sala",1,2,2,2);
+        Room r3 = new Room("R03","quarto",2,2,2,2);
         house.getRoomList().addRoom(r1);
         house.getRoomList().addRoom(r2);
         house.getRoomList().addRoom(r3);
