@@ -31,11 +31,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26, 12, 0);
         ReadingList readings = new ReadingList();
 
-        Sensor s1 = new Sensor("sensor1", startDate, rain, "c", readings);
-        Sensor s2 = new Sensor("sensor2", startDate, temperature, "c", readings);
-        Sensor s3 = new Sensor("sensor3", startDate, wind, "c", readings);
-        Sensor s4 = new Sensor("sensor4", startDate, rain, "c", readings);
-        Sensor s5 = new Sensor("sensor5", startDate, rain, "c", readings);
+        Sensor s1 = new Sensor("S01","sensor1", startDate, rain, "c", readings);
+        Sensor s2 = new Sensor("S02","sensor2", startDate, temperature, "c", readings);
+        Sensor s3 = new Sensor("S03", "sensor3", startDate, wind, "c", readings);
+        Sensor s4 = new Sensor("S04","sensor4", startDate, rain, "c", readings);
+        Sensor s5 = new Sensor("S05", "sensor5", startDate, rain, "c", readings);
 
 
         ga.getSensorListInGA().addSensor(s1);

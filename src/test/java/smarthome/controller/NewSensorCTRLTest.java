@@ -663,10 +663,10 @@ class NewSensorCTRLTest {
         Location loc= new Location(12,-15,2);
         ReadingList rL= new ReadingList();
         SensorList kitSensorLst=kitchen.getSensorListInRoom();
-        boolean result =ctrl.addNewSensorToRoom("Temperature Sensor",startDate,0,0,"celsius",rL);
+        boolean result =ctrl.addNewSensorToRoom("S01","Temperature Sensor",startDate,0,0,"celsius",rL);
         assertTrue(result);
 
-        boolean result1 =ctrl.addNewSensorToRoom("Temperature Sensor",startDate,0,0,"celsius",rL);
+        boolean result1 =ctrl.addNewSensorToRoom("S01","Temperature Sensor",startDate,0,0,"celsius",rL);
         assertFalse(result1);
     }
 

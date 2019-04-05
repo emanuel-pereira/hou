@@ -41,8 +41,9 @@ public class Sensor {
      * @param unit        String parameter to specify sensor's unit of measure
      * @param readings    specifies the sensor's readingList
      */
-    public Sensor(String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+    public Sensor(String id, String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         if (nameIsValid(designation)) {
+            this.id = id;
             this.designation = designation;
             this.startDate = startDate;
             this.sensorType = sensorType;
@@ -85,7 +86,7 @@ public class Sensor {
      * @param name sensor's name
      * @return true if name sensorDesignation is valid, if it is not null or empty
      */
-    public boolean nameIsValid(String name) {
+    private boolean nameIsValid(String name) {
         if (name.trim().isEmpty()) {
             return false;
         }
@@ -93,14 +94,31 @@ public class Sensor {
     }
 
     /**
-     * Changes the Id of the sensor to the one inputted by the user.
-     *
-     * @param id sensor's id String
+     * Accept alphanumeric input without spaces
+     * @param id Unique identification
+     * @return True if validate correctly
      */
-
-    public void setId(String id) {
-        this.id = id;
+    private boolean idIsValid(String id) {
+        if (id.trim().isEmpty()) {
+            return false;
+        }
+        return id.matches("^[a-zA-Z0-9]*$");
     }
+
+    /**
+     * Changes the Id of the sensor to the one inputted by the user.
+     * @param sensorId sensor's id String
+     * @return True if correctly validate
+     */
+    public boolean setId(String sensorId) {
+        if (this.idIsValid(sensorId)){
+            this.id = sensorId;
+            return true;
+        }
+        return false;
+    }
+
+
 
     /**
      * Changes the type of the sensor to the one inputted by the user.
@@ -136,7 +154,7 @@ public class Sensor {
      * @param sensorDesignation sensor's name String
      */
     public boolean setSensorDesignation(String sensorDesignation) {
-        if (nameIsValid(sensorDesignation)) {
+        if (this.nameIsValid(sensorDesignation)) {
             this.designation = sensorDesignation;
             return true;
         }

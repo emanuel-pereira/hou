@@ -118,12 +118,12 @@ public class NewSensorCTRL {
      * @return adds the sensor created to the selected room
 
      */
-    public boolean addNewSensorToRoom(String inputName, GregorianCalendar startDate, int sensorTypeIndex, int indexOfRoom, String unit, ReadingList readingList) {
+    public boolean addNewSensorToRoom(String id, String inputName, GregorianCalendar startDate, int sensorTypeIndex, int indexOfRoom, String unit, ReadingList readingList) {
         RoomList roomList = this.house.getRoomList();
         SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);
         Room room = roomList.get(indexOfRoom);
         SensorList rSensorList = room.getSensorListInRoom();
-        Sensor sensor = rSensorList.createNewInternalSensor(inputName, startDate, sensorType, unit, readingList);
+        Sensor sensor = rSensorList.createNewInternalSensor(id, inputName, startDate, sensorType, unit, readingList);
         return rSensorList.addSensor(sensor);
     }
 

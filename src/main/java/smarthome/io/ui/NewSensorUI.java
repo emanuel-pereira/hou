@@ -49,7 +49,7 @@ public class NewSensorUI {
 
     private void checkIfSensorTypeListIsEmpty() {
         if (this.ctrl.getSensorTypeListSize() == 0) {
-            System.out.println("List of sensor's reading data types is empty. Please insert at least one first in US5.");
+            System.out.println("List of sensor's reading data types is empty. Please insert at least one first.");
             return;
         }
         this.inputName();
@@ -166,8 +166,9 @@ public class NewSensorUI {
     }
 
     private void addSensorToRoom() {
-        this.ctrl.addNewSensorToRoom(this.name, this.startDate, this.indexOfSensorType, indexOfRoom, unit, readingList);
+        this.ctrl.addNewSensorToRoom(this.id, this.name, this.startDate, this.indexOfSensorType, indexOfRoom, unit, readingList);
         System.out.println("The following internal sensor was successfully created: ");
+        System.out.println("ID: " + this.id);
         System.out.println("NAME: " + this.ctrl.getInternalSensorName(this.indexOfRoom));
         System.out.println("ROOM: " + this.ctrl.getRoomName(this.indexOfRoom));
         System.out.println("START DATE: " + UtilsUI.dateToString(this.ctrl.getRoomSensorSDate(indexOfRoom)));
@@ -195,9 +196,7 @@ public class NewSensorUI {
             UtilsUI.backToMenu();
             return;
         }
-        System.out.println("The sensors available in room "
-                + this.ctrl.getInternalSensorName(indexOfRoom)
-                + "are the following: ");
+        System.out.println("The sensors available in room are the following: ");
         System.out.println(this.ctrl.showSensorListInRoom(indexOfRoom));
     }
 }
