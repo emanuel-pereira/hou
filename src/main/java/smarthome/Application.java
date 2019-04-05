@@ -30,14 +30,12 @@ public class Application {
     }
 
     @Bean
-    public CommandLineRunner demo(GeoRepository geoRep, LocationRepository locRep, TypeGARepository typeRep,
-                                  SensorTypeRepository unitRep, OccupationAreaRepository occupRep,
+    public CommandLineRunner demo(GeoRepository geoRep, SensorTypeRepository unitRep, TypeGARepository typeRep,
                                   SensorRepository sensorRep, ReadingRepository readingRep) {
 
+
         Repositories.setTypeGARepository(typeRep);
-        Repositories.setLocationRepository(locRep);
         Repositories.setGeoRepository(geoRep);
-        Repositories.setOccupationAreaRepository(occupRep);
         Repositories.setSensorTypeRepository(unitRep);
         Repositories.setSensorRepository(sensorRep);
         Repositories.setReadingRepository(readingRep);

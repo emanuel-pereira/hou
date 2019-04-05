@@ -1,11 +1,6 @@
 package smarthome.io.ui;
-
-
-import org.springframework.beans.factory.annotation.Autowired;
 import smarthome.controller.NewSensorCTRL;
 import smarthome.model.*;
-import smarthome.repository.LocationRepository;
-
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -25,8 +20,6 @@ public class NewSensorUI {
     private Scanner read = new Scanner(System.in);
     private boolean isInternal;
 
-    @Autowired
-    private LocationRepository locRep;
 
     public NewSensorUI(House house, SensorTypeList sensorTypeList, GAList listOfGA) {
         this.ctrl = new NewSensorCTRL(house, sensorTypeList, listOfGA);

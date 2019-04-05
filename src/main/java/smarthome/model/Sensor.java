@@ -16,8 +16,7 @@ public class Sensor {
     @Id
     private String id;
     private String designation;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "LOCATION_ID")
+    @Embedded
     private Location location;
     @OneToOne
     @JoinColumn(name = "SENSORTYPE_ID")

@@ -22,15 +22,13 @@ public class GeographicalArea {
     @JoinColumn(name = "TYPE_ID")
     private TypeGA typeOfGa;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "LOCATION_ID")
+    @Embedded
     private Location location;
 
     @Transient
     private SensorList sensorListInGa;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "OCCUPATION_ID")
+    @Embedded
     private OccupationArea occupation;
 
     @Transient

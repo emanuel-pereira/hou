@@ -9,8 +9,6 @@ import java.util.List;
 
 public final class Repositories {
     private static GeoRepository geoRepository = null;
-    private static LocationRepository locationRepository = null;
-    private static OccupationAreaRepository occupationAreaRepository = null;
     private static SensorRepository sensorRepository = null;
     private static SensorTypeRepository sensorTypeRepository = null;
     private static TypeGARepository typeGARepository;
@@ -26,14 +24,6 @@ public final class Repositories {
         Repositories.geoRepository = geoRepository;
     }
 
-    public static void setLocationRepository(LocationRepository locationRepository) {
-        Repositories.locationRepository = locationRepository;
-    }
-
-    public static void setOccupationAreaRepository(OccupationAreaRepository occupationAreaRepository) {
-        Repositories.occupationAreaRepository = occupationAreaRepository;
-    }
-
     public static void setSensorRepository(SensorRepository sensorRepository) {
         Repositories.sensorRepository = sensorRepository;
     }
@@ -45,7 +35,6 @@ public final class Repositories {
     public static void setTypeGARepository(TypeGARepository typeGARepository) {
         Repositories.typeGARepository = typeGARepository;
     }
-
     public static void setReadingRepository(ReadingRepository readingRepository) {
         Repositories.readingRepository = readingRepository;
     }
@@ -54,13 +43,7 @@ public final class Repositories {
         return geoRepository;
     }
 
-    public static LocationRepository getLocationRepository() {
-        return locationRepository;
-    }
 
-    public static OccupationAreaRepository getOccupationAreaRepository() {
-        return occupationAreaRepository;
-    }
 
     public static SensorRepository getSensorRepository() {
         return sensorRepository;
@@ -73,14 +56,12 @@ public final class Repositories {
     public static TypeGARepository getTypeGARepository() {
         return typeGARepository;
     }
-
     public static ReadingRepository getReadingRepository() {
         return readingRepository;
     }
 
     public static void saveGA(GeographicalArea ga) {
-        Repositories.occupationAreaRepository.save(ga.getOccupation());
-        Repositories.locationRepository.save(ga.getLocation());
+
         Repositories.typeGARepository.save(ga.getType());
         Repositories.geoRepository.save(ga);
 
@@ -94,7 +75,6 @@ public final class Repositories {
 
     public static void saveSensor(Sensor s) {
         Repositories.sensorTypeRepository.save(s.getSensorType());
-        Repositories.locationRepository.save(s.getLocation());
         Repositories.sensorRepository.save(s);
 
         for (Reading reading : s.getReadingList().getReadingsList()) {

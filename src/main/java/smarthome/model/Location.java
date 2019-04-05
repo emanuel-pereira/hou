@@ -4,15 +4,11 @@ import smarthome.model.validations.GPSValidations;
 
 import javax.persistence.*;
 
-@Entity
+@Embeddable
 
 public class Location {
     @Transient
     private GPSValidations v = new GPSValidations ();
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
     private double latitude;
     private double longitude;
     private double altitude;
