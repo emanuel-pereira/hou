@@ -1,11 +1,26 @@
 @startuml
-skinparam linetype polyline
+skinparam linetype ortho
 
-object House{
+skinparam object {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	BackgroundColor SteelBlue
+
+	AttributeFontColor #FFF
+	AttributeFontName Calibri
+	AttributeFontSize 12
+	AttributeBackgroundColor White
+
+	FontColor Ivory
+	FontSize 16
+}
+
+object House {
 iD
 }
 
 object Address {
+<color: White>
 street
 zipCode
 town
@@ -34,7 +49,6 @@ width
 object Room{
 name
 floor
-area
 height
 }
 
@@ -82,38 +96,36 @@ name
 value
 }
 
-House -- "1" GeographicalArea: > belongs to
-House -- "1" Address: has >
-House -- "1..*" HouseGrid: contains
-HouseGrid --  "1..*" Room: has attached
-House --"*" Room: contains
+House - "1" GeographicalArea
+House -- "1" Address
+House -"*" Room
 
-Address "1" -- "1   " Location: has
+House -- "1..*" HouseGrid
+HouseGrid "1" -- "1..*" Room
+HouseGrid "1" -- "*" PowerSource
 
-GeographicalArea ->  GeographicalArea: is in 0..1
-GeographicalArea "1..*"-- "1" TypeGA: has
-GeographicalArea"   1" -- "1..* " Sensor
-GeographicalArea "   1"-- "    1" OccupationArea: has
-GeographicalArea "1..*  "-- "1" Location: has
+Address "1" - "1   " Location
 
-Room "1 " -- "*" Sensor: contains
-Room "1" -- "1..*  "Device: contains
-Room "1"-- "1" OccupationArea: has
+GeographicalArea"1" -> "1"GeographicalArea
+GeographicalArea "1..*"-- "1" TypeGA
+GeographicalArea"1" -- "1..* " Sensor
+OccupationArea "1" - "1" GeographicalArea
+GeographicalArea "1..*  "- "1" Location
 
-
-Sensor -- "1..*  "Reading: contains
-Sensor "*" -- "1" SensorType: has
-Sensor "1" -- "1" Location: > is in
-
-HouseGrid "1" --  "*" PowerSource: has
-
-Device "1..*" -- "1" DeviceType: has
-Device "1..*" -- "1" DeviceSpecs: has
-Device -- "0..*  "Reading: > contains
-Device "1" -- "0..*" Program: has
+Room "1 " -- "*" Sensor
+Room "1" -- "1..*  "Device
+Room "1"- "1" OccupationArea
 
 
+Sensor -- "1..*  "Reading
+Sensor "*" - "1" SensorType
+Sensor "1" -- "1" Location
 
+
+Device "1..*" -- "1" DeviceSpecs
+Device "1..*" -- "1" DeviceType
+Device "1" -- "0..*" Program
+Device "1"-- "0..*"Reading
 
 
 @enduml
