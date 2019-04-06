@@ -116,14 +116,14 @@ class DataImportCTRLTest {
         assertEquals(expected,result);
     }
 
-    @Test
+   @Test
     void importReadingZero () throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources/DataSet_sprint05_SD.json";
 
         Path path = Paths.get(filepath);
-        ctrl.importReadingsFromFile(path);
+        ctrl.importReadingsFromFile(path,gaList);
 
         int expected = 0;
         int result = gaList.getAllReadings().size();
@@ -143,7 +143,7 @@ class DataImportCTRLTest {
         DataImportCTRL ctrl2 = new DataImportCTRL(gaList);
         String filepath2 = "resources/DataSet_sprint05_SD.json";
         Path path2 = Paths.get(filepath2);
-        ctrl2.importReadingsFromFile(path2);
+        ctrl2.importReadingsFromFile(path2,gaList);
 
         int expected = 61;
         int result = gaList.getAllReadings().size();
@@ -151,21 +151,5 @@ class DataImportCTRLTest {
         assertEquals(expected,result);
     }
 
-    @Test
-    void getGAListDTO() throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
-        GAList gaList = new GAList();
-        DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        String filepath = "resources/DataSet_sprint05_GA.json";
-        try {
-            Path path = Paths.get(filepath);
 
-            ctrl.importGeoAreasFromFile(path);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found in the specified file path: " + filepath);
-        }
-        ctrl.getGAListDTO();
-        int expected = 2;
-        int result = ctrl.getGAListDTO().size();
-        assertEquals(expected, result);
-    }
 }

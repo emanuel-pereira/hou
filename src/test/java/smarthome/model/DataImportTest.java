@@ -36,6 +36,7 @@ class DataImportTest {
         assertEquals(expected, result);
     }
 
+
     @Test
     void getReadingValueAfterImportingTest() throws IllegalAccessException,ClassNotFoundException,InstantiationException,IOException,ParseException, SAXException, ParserConfigurationException {
         GAList gaList = new GAList();
@@ -51,7 +52,7 @@ class DataImportTest {
 
         DataImport dataImport = new DataImport(gaList);
         Path path = Paths.get("resources/DataSet_sprint05_SD.json");
-        dataImport.importReadingsFromFile(path);
+        dataImport.importReadingsFromFile(path,gaList);
 
         List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
         double r = rList.get(3).returnValueOfReading();
@@ -73,12 +74,13 @@ class DataImportTest {
 
         DataImport dataImport = new DataImport(gaList);
         Path path = Paths.get("resources/DataSet_sprint05_SD.json");
-        dataImport.importReadingsFromFile(path);
+        dataImport.importReadingsFromFile(path, gaList);
 
         List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
         int size = rList.size();
         assertEquals(0, size);
     }
+
 
 }
 
