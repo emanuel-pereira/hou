@@ -642,16 +642,10 @@ public final class UtilsUI {
         String dateAndTimeStr = dateAndTimeString;
         if (dateAndTimeString.contains("/")) {
             String[] date = dateAndTimeString.split("/");
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(date[2]);
-            stringBuilder.append("-");
-            stringBuilder.append(date[1]);
-            stringBuilder.append("-");
-            stringBuilder.append(date[0]);
-            dateAndTimeStr = stringBuilder.toString();
+            dateAndTimeStr = date[2] + "-" + date[1] + "-" + date[0];
         }
         if (!dateAndTimeString.contains("T"))
-            dateAndTimeStr = dateAndTimeString.concat("T00:00:00+00:00");
+            dateAndTimeStr = dateAndTimeStr.concat("T00:00:00+00:00");
 
         ZonedDateTime dateTime = ZonedDateTime.parse(dateAndTimeStr);
         int year = dateTime.getYear();

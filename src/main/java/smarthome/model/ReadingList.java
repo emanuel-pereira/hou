@@ -58,7 +58,8 @@ public class ReadingList {
     }
 
     public List<Reading> getReadingsList() {
-        return this.listOfReadings;
+        List<Reading> listOfReadings = this.listOfReadings;
+        return listOfReadings;
     }
 
     public int size() {
@@ -302,6 +303,7 @@ public class ReadingList {
         return endDate;
     }
 
+    //TODO verify accuratness of this method, is it what we require?
     boolean checkIfReadingHasNotSameValues(Reading newReading) {
         for (Reading reading : this.listOfReadings) {
             try {
