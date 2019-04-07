@@ -45,7 +45,7 @@ public class ReadingList {
             try {
                 Repositories.getReadingRepository().save(newReading);
                 log.info("Reading added to the DB");
-            } catch (NullPointerException e) {
+            } catch (Exception e) {
                 log.warn("Repository unreachable");
             }
             return true;

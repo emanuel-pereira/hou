@@ -16,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DataImportTest {
-
+/*
     @Test
     void getFileExtensionTest() {
         GAList gaList = new GAList();
@@ -79,6 +79,6 @@ class DataImportTest {
         int size = rList.size();
         assertEquals(0, size);
     }
-
+*/
 }
 

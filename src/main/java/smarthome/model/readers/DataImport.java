@@ -6,10 +6,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
 import smarthome.io.ui.UtilsUI;
-import smarthome.model.GAList;
-import smarthome.model.GeographicalArea;
-import smarthome.model.Reading;
-import smarthome.model.Sensor;
+import smarthome.model.*;
 import smarthome.repository.Repositories;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -28,36 +25,108 @@ public class DataImport {
     private JSONParser parser = new JSONParser();
     private Path configFilePath;
     private GAList gaList;
+    private RoomList roomList;
     static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
 
+    /**
+     * Constructor for importing data related to GAList
+     *
+     * @param gaList to be updated with data imported through SystemAdministration menu
+     */
     public DataImport(GAList gaList) {
         this.gaList = gaList;
     }
 
-
-
-    public void importReadingsFromFile(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, ParserConfigurationException, SAXException {
-        this.configFilePath = filePathAndName;
-        String fileExtension = getFileExtension(filePathAndName);
-        String className = getClassName("readings", fileExtension);
-        FileReaderReadings reader = (FileReaderReadings) Class.forName(className).newInstance();
-        List<String[]> dataToImport = reader.importData(filePathAndName);
-        loadReadingFiles(dataToImport);
+    /**
+     * Constructor for importing data related to RoomList
+     *
+     * @param roomList to be updated with data imported through HouseAdministration menu
+     */
+    public DataImport(RoomList roomList) {
+        this.roomList = roomList;
     }
 
-    public void loadReadingFiles(List<String[]> dataToImport) {
-        for (GeographicalArea ga : gaList.getGAList()) {
-            for (String[] field : dataToImport) {
-                loadReadingEachSensor(ga, field);
+    /**
+     * This method gets the file extension of the filePath inputted as parameter and then gets the className according to the file extension
+     * so it can create an instance of the respective FileReaderReadings class through reflection.
+     * Afterwards, this method invokes the importData method of the instantiated FileReaderReadings class so it can parse data
+     * to a list of strings.
+     * Finally, the loadReadingFiles method is invoked, which will update the reading List for each sensor contained in the object passed as parameter
+     * which can only be a RoomList or a GAList.
+     *
+     * @param filePath Path object containing the relative or absolute path and file name of the file to be read.
+     * @param object   GAList or RoomList which will have its sensors' readings updated
+     */
+    public void importReadingsFromFile(Path filePath, Object object) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, ParserConfigurationException, SAXException {
+        this.configFilePath = filePath;
+        String fileExtension = getFileExtension(filePath);
+        String className = getClassName("readings", fileExtension);
+        FileReaderReadings reader = (FileReaderReadings) Class.forName(className).newInstance();
+        List<String[]> dataToImport = reader.importData(filePath);
+        loadReadingFiles(dataToImport, object);
+
+    }
+
+
+    /**
+     * This method updates the reading List for each sensor contained in the object passed as parameter
+     * which can only be a RoomList or a GAList.
+     *
+     * @param dataToImport array of strings containing sensor's id and its readings' attributes value
+     * @param object       GAList or RoomList which will have its sensors' readings updated
+     */
+    public void loadReadingFiles(List<String[]> dataToImport, Object object) {
+        if (object.equals(gaList)) {
+            for (GeographicalArea ga : gaList.getGAList()) {
+                importGAsSensorsReadings(dataToImport, ga);
+            }
+        }
+        if (object.equals(roomList)) {
+            for (Room r : roomList.getRoomList()) {
+                importRoomsSensorsReadings(dataToImport, r);
             }
         }
     }
 
-    public void loadReadingEachSensor(GeographicalArea ga, String[] field) {
-        String sensorID = field[0];
-        for (Sensor sensor : ga.getSensorListInGA().getSensorList())
-            if (sensorID.equals(sensor.getId())) {
+    /**
+     * This method updates the sensors' readings of the GeographicalArea object passed as parameter
+     *
+     * @param dataToImport     array of strings containing sensor's id and its readings' attributes value
+     * @param geographicalArea object to be updated
+     */
+    private void importGAsSensorsReadings(List<String[]> dataToImport, GeographicalArea geographicalArea) {
+        for (String[] field : dataToImport) {
+            String sensorID = field[0];
+            SensorList sensorList = geographicalArea.getSensorListInGA();
+            importReadings(field, sensorID, sensorList);
+        }
+    }
 
+    /**
+     * This method updates the sensors' readings of the Room object passed as parameter
+     *
+     * @param dataToImport array of strings containing sensor's id and its readings' attributes value
+     * @param room         object to be updated
+     */
+    private void importRoomsSensorsReadings(List<String[]> dataToImport, Room room) {
+        for (String[] field : dataToImport) {
+            String sensorID = field[0];
+            SensorList sensorList = room.getSensorListInRoom();
+            importReadings(field, sensorID, sensorList);
+        }
+    }
+
+    /**
+     * This method imports readings for the sensor with sensorID passed as parameter.
+     * Only readings with dateAndTime after the sensor's startDate will be imported otherwise tghey will be registered in a log file.
+     *
+     * @param field
+     * @param sensorID
+     * @param sensorList
+     */
+    private void importReadings(String[] field, String sensorID, SensorList sensorList) {
+        for (Sensor sensor : sensorList.getSensorList())
+            if (sensorID.equals(sensor.getId())) {
                 String dateAndTimeString = field[1];
                 Calendar readingDate = UtilsUI.parseDateToImportReadings(dateAndTimeString);
                 double readingValue = parseDouble(field[2]);
@@ -75,7 +144,6 @@ public class DataImport {
                     log.error(message);
                 }
             }
-
     }
 
     public Logger createLogFile(String fileName) throws IOException {
@@ -88,15 +156,21 @@ public class DataImport {
         return logger;
     }
 
-    public String getFileExtension(Path filePathAndName) {
-
-        String filePathAndNameString = filePathAndName.toString();
-        String fileExtension = null;
-        CharSequence c = ".";
-        if (filePathAndNameString.contains(c)) {
-            fileExtension = filePathAndNameString.substring(filePathAndNameString.lastIndexOf(c.toString()) + 1);
+    /**
+     * Method that converts a valid file path to string and returns a substring after the
+     * dot of the path which represents the file extension
+     *
+     * @param filePath inputted for with the relative or absolute path of the file
+     * @return the file extension. If, for some reason, the path parameter does not contain a dot, then this method
+     * throws a null pointer exception. Nevertheless, in UIs filepaths requests always have a regex containing a dot.
+     */
+    public String getFileExtension(Path filePath) {
+        String filePathStr = filePath.toString();
+        CharSequence dot = ".";
+        if (filePathStr.contains(".")) {
+            return filePathStr.substring(filePathStr.lastIndexOf(dot.toString()) + 1);
         }
-        return fileExtension;
+        throw new NullPointerException();
     }
 
     private JSONObject readConfigFile() throws IOException, ParseException {
@@ -136,4 +210,14 @@ public class DataImport {
             } else log.info("No Geographical Areas were imported into the systems DB");
         }
     }
+
+    //House Sensors
+
+    public List<Sensor> loadHouseSensorsFiles(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+        String fileExtension = getFileExtension(filePathAndName);
+        String className = getClassName("house_sensors", fileExtension);
+        FileReaderHouseSensors reader = (FileReaderHouseSensors) Class.forName(className).newInstance();
+        return reader.loadData(filePathAndName);
+    }
+
 }

@@ -89,7 +89,7 @@ public final class SystemAdministrationUI {
                     break;
                 case 12:
                     DataImportUI ui12 = new DataImportUI(gaList);
-                    ui12.importDataFromFile();
+                    ui12.importReadings(gaList);
                     break;
                 default:
                     //no action needed
