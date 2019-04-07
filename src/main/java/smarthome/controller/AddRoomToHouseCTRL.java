@@ -33,11 +33,22 @@ public class AddRoomToHouseCTRL {
         return this.roomList.addRoom (room);
     }
 
+
+    /**
+     * Checks if a room with the same ID was already created
+     *
+     * @param id Designation of the room
+     * @return True if the room ID exist and false if not
+     */
+    public boolean checkIfRoomIdExists(String id) {
+        return this.roomList.checkIfRoomIDExists(id);
+    }
+
     /**
      * Checks if a room with the same name was already created
      *
      * @param name Designation of the room
-     * @return True if the room name exist sand false if not
+     * @return True if the room name exist and false if not
      */
     public boolean checkIfRoomNameExists(String name) {
         return this.roomList.checkIfRoomNameExists (name);
