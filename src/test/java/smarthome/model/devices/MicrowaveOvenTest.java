@@ -21,12 +21,12 @@ class MicrowaveOvenTest {
         Device d = dt.createDevice("Samsung", 10);
         MicrowaveOven microwave = (MicrowaveOven) d;
 
-        assertEquals("Samsung", microwave.getName());
+        assertEquals("Samsung", microwave.getDeviceName());
 
         microwave.setDeviceName("Samsung Microwave");
 
         String expected = "Samsung Microwave";
-        String result = microwave.getName();
+        String result = microwave.getDeviceName();
 
         assertEquals(expected, result);
     }
@@ -38,12 +38,12 @@ class MicrowaveOvenTest {
         Device d = dt.createDevice("Samsung Microwave", 10);
         MicrowaveOven microwave = (MicrowaveOven) d;
 
-        assertEquals("Samsung Microwave", microwave.getName());
+        assertEquals("Samsung Microwave", microwave.getDeviceName());
 
         microwave.setDeviceName(" ");
 
         String expected = "Samsung Microwave";
-        String result = microwave.getName();
+        String result = microwave.getDeviceName();
 
         assertEquals(expected, result);
     }
@@ -55,12 +55,12 @@ class MicrowaveOvenTest {
         Device d = dt.createDevice("Samsung", 10);
         MicrowaveOven microwave = (MicrowaveOven) d;
 
-        assertEquals("Samsung", microwave.getName());
+        assertEquals("Samsung", microwave.getDeviceName());
 
         microwave.setDeviceName("Samsung Microwave");
 
         String expected = "Samsng microwace";
-        String result = microwave.getName();
+        String result = microwave.getDeviceName();
 
         assertNotEquals(expected, result);
     }
@@ -331,13 +331,13 @@ class MicrowaveOvenTest {
         microwave.setMeteredProgram("Slow");
 
         double expected = 100;
-        double result = microwave.getEstimatedEnergyConsumption();
+        double result = microwave.getEnergyConsumption();
 
         assertEquals(expected, result);
     }
 
     @Test
-    @DisplayName("Get zero estimated energy consumption if there isn't no program")
+    @DisplayName("Get zero estimated energy consumption if there isn't any program")
     void getEstimatedEnergyConsumptionNoProgram() {
         DeviceType dt = new MicrowaveOvenType();
         Device d = dt.createDevice("Samsung", 10);
@@ -348,7 +348,7 @@ class MicrowaveOvenTest {
         microwave.addProgramToList(fast);
 
         double expected = 0;
-        double result = microwave.getEstimatedEnergyConsumption();
+        double result = microwave.getEnergyConsumption();
 
         assertEquals(expected, result);
     }

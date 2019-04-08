@@ -77,7 +77,7 @@ public class HouseGridList {
         for (HouseGrid grid : list) {
             result.append(number++);
             result.append(element);
-            result.append(grid.getName());
+            result.append(grid.getMeteredDesignation());
             result.append("\n");
         }
         return result.toString();

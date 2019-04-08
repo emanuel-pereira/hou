@@ -106,7 +106,7 @@ public class RoomTest {
         bedroom.setName("bedroom1");
 
         String expectedResult = "bedroom1";
-        String result = bedroom.getName();
+        String result = bedroom.getMeteredDesignation();
 
         assertEquals(expectedResult, result);
 
@@ -168,12 +168,15 @@ public class RoomTest {
         Room kitchen = roomList.createNewRoom("bedroom", 1, 2, 2, 2);
         roomList.addRoom(kitchen);
 
+        // EXPERIMENTAL
+        kitchen.setTime(1);
+
         DeviceType dt = new FanType();
-        Device d = dt.createDevice("Fan 1",2);
+        Device d = dt.createDevice("Fan 1", 2);
         Fan fan = (Fan) d;
 
-        DeviceType dt1= new WashingMachineType();
-        Device d1 = dt1.createDevice("Washing Machine1",100);
+        DeviceType dt1 = new WashingMachineType();
+        Device d1 = dt1.createDevice("Washing Machine1", 100);
         WashingMachine washingMachine = (WashingMachine) d1;
 
         DeviceList deviceList = kitchen.getDeviceList();
@@ -192,50 +195,13 @@ public class RoomTest {
         eco.setDuration(30);
         washingMachine.setMeteredProgram("Eco");
 
-        double expected = 60;
+
+        double expected = 102;
         double result = kitchen.getEstimatedEnergyConsumption();
 
         assertEquals(expected, result);
     }
 
-    @Test
-    @DisplayName("Correctly get the estimated energy consumption of a room")
-    void getRoomEstimatedEnergyConsumption() {
-        House house = new House();
-        RoomList roomList = house.getRoomList();
-        Room kitchen = roomList.createNewRoom("bedroom", 1, 2, 2, 2);
-        roomList.addRoom(kitchen);
-
-        DeviceType dt = new FanType();
-        Device d = dt.createDevice("Fan 1",2);
-        Fan fan = (Fan) d;
-
-        DeviceType dt1= new WashingMachineType();
-        Device d1 = dt1.createDevice("Washing Machine1",100);
-        WashingMachine washingMachine = (WashingMachine) d1;
-
-
-        DeviceList deviceList = kitchen.getDeviceList();
-        deviceList.addDevice(fan);
-        deviceList.addDevice(washingMachine);
-
-        ProgramMode fast = fan.createProgram("Fast", 2);
-        ProgramMode ultraFast = fan.createProgram("Ultra Fast", 4);
-        fan.addProgramToList(fast);
-        fan.addProgramToList(ultraFast);
-        ultraFast.setTime(10);
-        fan.setMeteredProgram("Ultra Fast");
-
-        ProgramWithTimer eco = washingMachine.createProgram("Eco", 20);
-        washingMachine.addProgramToList(eco);
-        eco.setDuration(30);
-        washingMachine.setMeteredProgram("Eco");
-
-        double expected = 60;
-        double result = kitchen.getEstimatedEnergyConsumption();
-
-        assertEquals(expected, result);
-    }
 
     /**
      * Check if sum of nominal power of devices in room is correct and return correct number
@@ -249,7 +215,7 @@ public class RoomTest {
         RoomList roomList = house.getRoomList ();
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
-        DeviceSpecs ewh = new ElectricWaterHeater ();
+        DeviceSpecs ewh = new Fridge ();
         Device dEWH1 = new Device("EWH DAIKIN1", ewh, 15);
         Device dEWH2 = new Device("EWH DAIKIN2", ewh, 15);
         roomList.addDeviceToRoom (dEWH1, 1);
@@ -274,7 +240,7 @@ public class RoomTest {
         RoomList roomList = house.getRoomList ();
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
-        DeviceSpecs ewh = new ElectricWaterHeater ();
+        DeviceSpecs ewh = new Fridge ();
         Device dEWH1 = new Device("EWH DAIKIN1", ewh, 15);
         roomList.addDeviceToRoom (dEWH1, 1);
 
@@ -341,7 +307,7 @@ public class RoomTest {
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
 
-        DeviceSpecs ewh = new ElectricWaterHeater ();
+        DeviceSpecs ewh = new Fridge ();
         Device dEWH = new Device("EWH DAIKIN", ewh, 15);
 
         roomList.addDeviceToRoom (dEWH, 1);
@@ -368,7 +334,7 @@ public class RoomTest {
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
 
-        DeviceSpecs ewh = new ElectricWaterHeater ();
+        DeviceSpecs ewh = new Fridge ();
         Device dEWH = new Device("EWH DAIKIN", ewh, 15);
 
         roomList.addDeviceToRoom (dEWH, 1);
@@ -411,7 +377,7 @@ public class RoomTest {
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
 
-        DeviceSpecs ewh = new ElectricWaterHeater ();
+        DeviceSpecs ewh = new Fridge ();
         Device dEWH = new Device("EWH DAIKIN", ewh, 15);
         DeviceSpecs tv = new OtherDevices ();
         Device dTv = new Device("Samsung TV", tv, 15);
@@ -493,7 +459,7 @@ public class RoomTest {
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
         DeviceList dL = bedroom.getDeviceList ();
-        DeviceSpecs ewh = new ElectricWaterHeater ();
+        DeviceSpecs ewh = new Fridge ();
         Device dEWH1 = new Device("EWH DAIKIN1", ewh, 15);
         assertTrue (dL.addDevice (dEWH1));
         assertFalse (dL.addDevice (dEWH1));
@@ -508,7 +474,7 @@ public class RoomTest {
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
         DeviceList dL = bedroom.getDeviceList ();
-        DeviceSpecs ewh = new ElectricWaterHeater ();
+        DeviceSpecs ewh = new Fridge ();
         Device dEWH1 = new Device("EWH DAIKIN1", ewh, 15);
         Device dEWH2 = new Device("EWH DAIKIN2", ewh, 15);
         dL.addDevice (dEWH1);
@@ -529,7 +495,7 @@ public class RoomTest {
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
         DeviceList dL = bedroom.getDeviceList ();
-        DeviceSpecs ewh = new ElectricWaterHeater ();
+        DeviceSpecs ewh = new Fridge ();
         Device dEWH1 = new Device("EWH DAIKIN1", ewh, 15);
         Device dEWH2 = new Device("EWH DAIKIN2", ewh, 15);
         dL.addDevice (dEWH1);

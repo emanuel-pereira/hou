@@ -22,7 +22,7 @@ class StoveTest {
         d.setDeviceName("kitchen Stove");
 
         String expected = "kitchen Stove";
-        String result = d.getName();
+        String result = d.getDeviceName();
 
         assertEquals(expected, result);
     }
@@ -170,7 +170,7 @@ class StoveTest {
         Double expected = 1.80;
         Double result = stove.getEnergyConsumption(startDate, endDate);
 
-        assertEquals(expected, result);
+        assertEquals(expected, result,0.01);
 
     }
 
@@ -260,7 +260,7 @@ class StoveTest {
 
         double expected = 0;
         double result = stove.getEstimatedEnergyConsumption();
-        assertEquals (expected,result);
+        assertEquals (expected,result,0.1);
     }
 
     @Test

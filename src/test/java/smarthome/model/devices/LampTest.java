@@ -19,7 +19,7 @@ class LampTest {
         lamp.setDeviceName("super Lamp");
 
         String expected = "super Lamp";
-        String result = lamp.getName();
+        String result = lamp.getDeviceName();
 
         assertEquals(expected, result);
     }
@@ -156,7 +156,7 @@ class LampTest {
         Calendar endDate = new GregorianCalendar(2019, 0, 2);
         double energyConsumption = lamp.getEnergyConsumption(startDate, endDate);
 
-        assertEquals(5.63, energyConsumption, 0.001);
+        assertEquals(5.63, energyConsumption, 0.01);
     }
 
     @Test

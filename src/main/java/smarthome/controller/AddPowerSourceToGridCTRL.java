@@ -33,7 +33,7 @@ public class AddPowerSourceToGridCTRL {
     }
 
     public String getHouseGridName(int indexHG){
-        return this.getHouseGrid(indexHG).getName();
+        return this.getHouseGrid(indexHG).getMeteredDesignation();
     }
 
     public  List<PowerSource> getPowerSourceListCtrl(int indexHG) {
