@@ -56,7 +56,7 @@ public class DataImportUI {
                 System.out.println("Warning: no geographical areas nor their sensors were imported");
                 UtilsUI.backToMenu();
             }
-            else {
+            if(notImported < 1 && imported > 0) {
                 System.out.println("Success! " + imported+ " geographical areas and respective sensors were imported.");
                 UtilsUI.backToMenu();
             }

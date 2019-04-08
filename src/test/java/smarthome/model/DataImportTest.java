@@ -1,6 +1,7 @@
 package smarthome.model;
 
 import org.json.simple.parser.ParseException;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 import smarthome.model.readers.DataImport;
@@ -34,6 +35,55 @@ class DataImportTest {
         String result = dataImport.getClassName("readings", "json");
         String expected = "smarthome.model.readers.JSONReading";
         assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Get Ga List size in file")
+    void getGAListInFileSize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+        GAList gaList = new GAList();
+        DataImport dataImport = new DataImport(gaList);
+        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
+
+        int expected = 2;
+        int result = dataImport.loadGeoAreaFiles(path).size();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Get Ga List size after import")
+    void getGAListImportedSize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+        GAList gaList = new GAList();
+        DataImport dataImport = new DataImport(gaList);
+        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
+
+        List<GeographicalArea> inFile = dataImport.loadGeoAreaFiles(path);
+        dataImport.importFromFileGeoArea(inFile);
+
+        int expected = 2;
+        int result = gaList.size();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Get number of not added GAs")
+    void getGAListNotAddedSize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+        GAList gaList = new GAList();
+        DataImport dataImport = new DataImport(gaList);
+        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
+
+        List<GeographicalArea> inFile1 = dataImport.loadGeoAreaFiles(path);
+        List<GeographicalArea> inFile2 = dataImport.loadGeoAreaFiles(path);
+        List<GeographicalArea> inFile3 = dataImport.loadGeoAreaFiles(path);
+        dataImport.importFromFileGeoArea(inFile1);
+        dataImport.importFromFileGeoArea(inFile2);
+        dataImport.importFromFileGeoArea(inFile3);
+
+        int expected = 2;
+        int result = dataImport.notAddedNumber();
+
+        assertEquals(expected,result);
     }
 
     @Test
