@@ -11,6 +11,8 @@ public class AddRoomToHouseCTRL {
 
     private RoomList roomList;
 
+    static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(AddRoomToHouseCTRL.class);
+
     /**
      * Controller constructor
      *
@@ -40,7 +42,7 @@ public class AddRoomToHouseCTRL {
             try {
                 Repositories.saveRoom(room);
             } catch (NullPointerException e) {
-                Logger.getLogger("Repository unreachable");
+                log.info("Repository unreachable");
             }
             return true;
         }

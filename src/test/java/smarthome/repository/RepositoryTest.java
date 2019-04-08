@@ -354,5 +354,4 @@ public class RepositoryTest {
         assertEquals(2, sensorRepSize);
     }
 
-
 }

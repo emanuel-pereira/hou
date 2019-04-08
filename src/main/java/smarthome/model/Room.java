@@ -25,7 +25,7 @@ public class Room implements Metered {
     private double height;
 
     @Transient
-    private SensorList sensorListInRoom = new SensorList();
+    private SensorList sensorListInRoom;
 
     @Transient
     private DeviceList deviceList;
@@ -50,6 +50,7 @@ public class Room implements Metered {
         this.floor = floor;
         this.area = new OccupationArea(length, width);
         this.height = height;
+        this.sensorListInRoom= new SensorList();
         this.deviceList = new DeviceList();
     }
 
