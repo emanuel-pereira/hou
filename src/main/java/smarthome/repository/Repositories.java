@@ -79,6 +79,16 @@ public final class Repositories {
         }
     }
 
+    public static void saveRoom(Room r) {
+
+        Repositories.roomRepository.save(r);
+
+        SensorList sensorList = r.getSensorListInRoom();
+        List<Sensor> sensors = sensorList.getSensorList();
+        for (Sensor sensor : sensors) {
+            saveSensor(sensor);
+        }
+    }
 
     public static void saveSensor(Sensor s) {
         Repositories.sensorTypeRepository.save(s.getSensorType());
@@ -91,15 +101,6 @@ public final class Repositories {
         }
     }
 
-    public static void saveRoom(Room r) {
 
-        Repositories.roomRepository.save(r);
-
-        SensorList sensorList = r.getSensorListInRoom();
-        List<Sensor> sensors = sensorList.getSensorList();
-        for (Sensor sensor : sensors) {
-            saveSensor(sensor);
-        }
-    }
 
 }

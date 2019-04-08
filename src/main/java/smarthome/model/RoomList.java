@@ -46,7 +46,6 @@ public class RoomList {
     public boolean addRoom(Room newRoom) {
         if (newRoom != null && !this.listOfRooms.contains(newRoom)) {
             this.listOfRooms.add(newRoom);
-            Repositories.saveRoom(newRoom);
 
             return true;
         } else return false;

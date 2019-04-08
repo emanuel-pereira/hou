@@ -67,7 +67,6 @@ public class RepositoryTest {
     }
 
 
-
     @Test
     @DisplayName("Ensure that the geographical area repository has 2 elements persisted ")
     void testNrOfElementsInGeoRepository() {
@@ -293,6 +292,66 @@ public class RepositoryTest {
         long expectedSensorRepSize = 1;
         long resultingSensorRepSize = Repositories.getSensorRepository().count();
         assertNotEquals(expectedSensorRepSize, resultingSensorRepSize);
+    }
+
+    @Test
+    @DisplayName("Ensure that the room repository has 1 element persisted saved in Repository")
+    void numberElementsRoomRepositorySaveInRepository() {
+
+        Room bedroom = new Room("R1", "Bedroom 1", 2, 2, 2, 2);
+        Repositories.getRoomRepository().save(bedroom);
+
+        long roomRepSize = Repositories.getRoomRepository().count();
+
+        assertEquals(1, roomRepSize);
+    }
+
+    /*
+    @Test
+    @DisplayName("Ensure that the room repository has 2 element persisted saved in RoomList")
+    void numberElementsRoomRepositorySaveInRoomList() {
+
+        RoomList rList = new RoomList();
+        Room bedroom = new Room("R1", "Bedroom 1", 2, 2, 2, 2);
+        Room garden = new Room("R2", "Garden", 0, 3, 2, 0);
+        rList.addRoom(bedroom);
+        rList.addRoom(garden);
+
+        long roomRepSize = Repositories.getRoomRepository().count();
+
+        assertEquals(2, roomRepSize);
+    }
+     */
+
+    @Test
+    @DisplayName("Ensure that the room repository has 0 elements persisted")
+    void numberElementsRoomRepositoryIsZero() {
+
+        long roomRepSize = Repositories.getRoomRepository().count();
+
+        assertEquals(0, roomRepSize);
+    }
+
+    @Test
+    @DisplayName("Ensure that the room repository has 1 element and 2 sensors persisted")
+    void numberElementsRoomAndSensorsRepository() {
+
+        Room bedroom = new Room("R1", "Bedroom 1", 2, 2, 2, 2);
+        SensorType temperature = new SensorType("temperature");
+        SensorList sList = bedroom.getSensorListInRoom();
+        Sensor sensor1 = new Sensor("S1", "Sensor1", new GregorianCalendar(2019, 2, 2), temperature, "C", new ReadingList());
+        Sensor sensor2 = new Sensor("S2", "Sensor2", new GregorianCalendar(2019, 3, 4), temperature, "C", new ReadingList());
+
+        sList.addSensor(sensor1);
+        sList.addSensor(sensor2);
+
+        Repositories.saveRoom(bedroom);
+
+        long roomRepSize = Repositories.getRoomRepository().count();
+        assertEquals(1, roomRepSize);
+
+        long sensorRepSize = Repositories.getSensorRepository().count();
+        assertEquals(2, sensorRepSize);
     }
 
 

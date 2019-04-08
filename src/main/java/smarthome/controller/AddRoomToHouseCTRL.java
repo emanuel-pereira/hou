@@ -3,6 +3,9 @@ package smarthome.controller;
 import smarthome.model.House;
 import smarthome.model.Room;
 import smarthome.model.RoomList;
+import smarthome.repository.Repositories;
+
+import java.util.logging.Logger;
 
 public class AddRoomToHouseCTRL {
 
@@ -30,7 +33,17 @@ public class AddRoomToHouseCTRL {
      */
     public boolean newAddRoom(String id, String name, Integer floor, double length, double width, double height) {
         Room room = this.roomList.createNewRoom (id,name, floor, length, width, height);
-        return this.roomList.addRoom (room);
+        if (!this.roomList.addRoom (room)) {
+            return false;
+        } else {
+            //Repository call
+            try {
+                Repositories.saveRoom(room);
+            } catch (NullPointerException e) {
+                Logger.getLogger("Repository unreachable");
+            }
+            return true;
+        }
     }
 
 
