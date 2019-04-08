@@ -71,7 +71,7 @@ public class EditDevicesCTRL {
     public Device createDevice(Room room, String deviceType, String deviceName, double nominalPower) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         DeviceList deviceList = room.getDeviceList();
         Device device = deviceList.newDevice(deviceName, deviceType, nominalPower);
-        deviceList.addDevice(device);
+        deviceList.add(device);
         return device;
     }
 
@@ -89,7 +89,7 @@ public class EditDevicesCTRL {
         Device device;
         device = room.getDeviceList().newDevice(inputName, deviceType, nominalPower);
 
-        return room.getDeviceList().addDevice(device);
+        return room.getDeviceList().add(device);
     }
 
     /**

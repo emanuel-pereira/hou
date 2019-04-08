@@ -75,10 +75,10 @@ class EditDevicesCTRLTest {
         DeviceList kitchenDL = kitchen.getDeviceList();
 
         Device fridge = kitchenDL.newDevice("LG Fridge", "Fridge", 150);
-        kitchenDL.addDevice(fridge);
+        kitchenDL.add(fridge);
 
         Device lamp = kitchenDL.newDevice("Philips", "Lamp", 15);
-        kitchenDL.addDevice(lamp);
+        kitchenDL.add(lamp);
 
 
         List<String> expected = new ArrayList<>();

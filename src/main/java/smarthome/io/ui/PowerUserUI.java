@@ -46,8 +46,8 @@ public final class PowerUserUI {
                     uS172.getGridTotalNominalPower ();
                     break;
                 case 5:
-                    UtilsUI.underMaintenanceMsg("US705");
-
+                    GetTotalNominalPowerUI nominalPowerUI = new GetTotalNominalPowerUI(house);
+                    nominalPowerUI.getSubsetNominalPower();
                     break;
                 case 6:
                     GetEnergyConsumptionInPeriodUI uiEC = new GetEnergyConsumptionInPeriodUI(house);

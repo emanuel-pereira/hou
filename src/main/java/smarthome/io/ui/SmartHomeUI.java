@@ -1,7 +1,6 @@
 
 package smarthome.io.ui;
 
-import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 import smarthome.model.GAList;
 import smarthome.model.House;
@@ -18,7 +17,6 @@ import static smarthome.io.ui.RegularUsageUI.regularUsage;
 import static smarthome.io.ui.RoomOwnerUI.roomOwner;
 import static smarthome.io.ui.SystemAdministrationUI.systemAdministration;
 
-@Component
 public final class SmartHomeUI {
     private static SensorTypeList sensorTypeList;
     private static GAList gaList;
@@ -65,10 +63,12 @@ public final class SmartHomeUI {
         }
     }
 
-    public static void init() {
+    public static void init() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         sensorTypeList = new SensorTypeList();
         gaList = new GAList();
         house = new House();
         typeGAList = new TypeGAList();
+        //TODO remove temporary usage
+        BootStrap.run(house, typeGAList, sensorTypeList);
     }
 }

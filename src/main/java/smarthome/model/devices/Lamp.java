@@ -4,8 +4,10 @@ import smarthome.model.*;
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Calendar;
-
 
 
 public class Lamp implements Device, Metered {

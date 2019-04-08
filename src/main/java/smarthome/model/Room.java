@@ -63,7 +63,7 @@ public class Room implements Metered {
     }
 
 
-    public String getId(){
+    public String getId() {
         return this.id;
     }
 
@@ -141,10 +141,10 @@ public class Room implements Metered {
     @Override
     public double getEstimatedEnergyConsumption() {
         double sum = 0;
-        for (Metered device : this.deviceList.getMeteredDevices ()) {
-            sum += device.getEstimatedEnergyConsumption ();
+        for (Metered device : this.deviceList.getMeteredDevices()) {
+            sum += device.getEstimatedEnergyConsumption();
         }
-        return Utils.round (sum, 2);
+        return Utils.round(sum, 2);
     }
 
     /**
@@ -163,11 +163,12 @@ public class Room implements Metered {
 
     /**
      * Changes the Id of the room to the one inputted by the user.
+     *
      * @param roomId Room's id String
      * @return True if correctly validate
      */
     public boolean setId(String roomId) {
-        if (this.roomIdIsValid(roomId)){
+        if (this.roomIdIsValid(roomId)) {
             this.id = roomId;
             return true;
         }
@@ -176,6 +177,7 @@ public class Room implements Metered {
 
     /**
      * Accept alphanumeric input without spaces
+     *
      * @param id Unique identification
      * @return True if validate correctly
      */

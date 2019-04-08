@@ -15,7 +15,7 @@ public class GetTotalNominalPowerUI {
      * @param house the current and only house
      */
     public GetTotalNominalPowerUI(House house) {
-        controller = new GetTotalNominalPowerCTRL (house);
+        controller = new GetTotalNominalPowerCTRL(house);
     }
 
     /**
@@ -26,20 +26,20 @@ public class GetTotalNominalPowerUI {
      * and devices in the chosen grid.
      */
     public void getGridTotalNominalPower() {
-        if (this.checkIfGridListEmpty ()) {
+        if (this.checkIfGridListEmpty()) {
             return;
         }
-        if (this.checkIfRoomListEmpty ()) {
+        if (this.checkIfRoomListEmpty()) {
             return;
         }
-        this.selectGrid ();
-        if (this.checkIfRoomsExistsInGrid ()) {
+        this.selectGrid();
+        if (this.checkIfRoomsExistsInGrid()) {
             return;
         }
-        if (this.checkIfDevicesExistsInGrid ()) {
+        if (this.checkIfDevicesExistsInGrid()) {
             return;
         }
-        System.out.println ("The total Nominal Power of this Grid is: " + this.controller.getGridTotalNominalPower (indexGrid) + "kW\n");
+        System.out.println("The total Nominal Power of this Grid is: " + this.controller.getGridTotalNominalPower(indexGrid) + "kW\n");
     }
 
     /**
@@ -50,22 +50,50 @@ public class GetTotalNominalPowerUI {
      * in the chosen room.
      */
     public void getRoomTotalNominalPower() {
-        if (this.checkIfRoomListEmpty ()) {
+        if (this.checkIfRoomListEmpty()) {
             return;
         }
-        this.selectRoom ();
-        if (this.checkIfDevicesExistsInRoom ()) {
+        this.selectRoom();
+        if (this.checkIfDevicesExistsInRoom()) {
             return;
         }
-        System.out.println ("The total Nominal Power of this Room is: " + this.controller.getRoomTotalNominalPower (indexRoom) + "kW\n");
+        System.out.println("The total Nominal Power of this Room is: " + this.controller.getRoomTotalNominalPower(indexRoom) + "kW\n");
+    }
+
+    public void getSubsetNominalPower() {
+        if (this.checkIfGridListEmpty()) {
+            return;
+        }
+        if (this.checkIfRoomListEmpty()) {
+            return;
+        }
+        if (this.checkIfRoomsExistsInGrid()) {
+            return;
+        }
+        if (!this.existDevicesInGrids()) {
+            return;
+        }
+        controller.newDeviceList();
+
+        int input = -1;
+        while (true) {
+            UtilsUI.showItemsList("Devices List", controller.getDevices(), true);
+            input = UtilsUI.requestInteger("Please input a integer");
+            if (input == 0) break;
+            else {
+                controller.addDevice(input);
+                System.out.println("Device added");
+            }
+        }
+        System.out.println("The Nominal Power of your selection is: " + this.controller.reportNominalPower() + "kW\n");
     }
 
     /**
      * Checks if the grid list is empty by confirming if the size list is zero
      */
     private boolean checkIfGridListEmpty() {
-        if (this.controller.getGridListSize () == 0) {
-            System.out.println ("Please ask the Administrator to create a House Grid\n");
+        if (this.controller.getGridListSize() == 0) {
+            System.out.println("Please ask the Administrator to create a House Grid\n");
             return true;
         }
         return false;
@@ -75,8 +103,8 @@ public class GetTotalNominalPowerUI {
      * Checks if the room list is empty by confirming if the size list is zero
      */
     private boolean checkIfRoomListEmpty() {
-        if (this.controller.getRoomListSize () == 0) {
-            System.out.println ("Please ask the House Administrator to add Rooms\n");
+        if (this.controller.getRoomListSize() == 0) {
+            System.out.println("Please ask the House Administrator to add Rooms\n");
             return true;
         }
         return false;
@@ -87,10 +115,10 @@ public class GetTotalNominalPowerUI {
      * The user selects the grid from this list.
      */
     private void selectGrid() {
-        System.out.println ("Choose a grid from the list below:");
-        System.out.println (this.controller.showGridListInString ());
-        this.indexGrid = UtilsUI.requestIntegerInInterval (1, this.controller.getGridListSize (),
-                "Not a valid option. Please select a grid from the list below:\n" + this.controller.showGridListInString ());
+        System.out.println("Choose a grid from the list below:");
+        System.out.println(this.controller.showGridListInString());
+        this.indexGrid = UtilsUI.requestIntegerInInterval(1, this.controller.getGridListSize(),
+                "Not a valid option. Please select a grid from the list below:\n" + this.controller.showGridListInString());
         this.indexGrid--;
     }
 
@@ -99,10 +127,10 @@ public class GetTotalNominalPowerUI {
      * The user selects the room from this list.
      */
     private void selectRoom() {
-        System.out.println ("Choose a room from the list below:");
-        System.out.println (this.controller.showRoomListInString ());
-        this.indexRoom = UtilsUI.requestIntegerInInterval (1, this.controller.getRoomListSize (),
-                "Not a valid option. Please select a room from the list below:\n" + this.controller.showRoomListInString ());
+        System.out.println("Choose a room from the list below:");
+        System.out.println(this.controller.showRoomListInString());
+        this.indexRoom = UtilsUI.requestIntegerInInterval(1, this.controller.getRoomListSize(),
+                "Not a valid option. Please select a room from the list below:\n" + this.controller.showRoomListInString());
         this.indexRoom--;
     }
 
@@ -110,8 +138,8 @@ public class GetTotalNominalPowerUI {
      * Before showing the total nominal power this method checks if there are any rooms attached to the grid
      */
     private boolean checkIfRoomsExistsInGrid() {
-        if (this.controller.getSizeRoomListInGrid (this.indexGrid) == 0) {
-            System.out.println ("Please ask the House Administrator to attach Rooms to a Grid\n");
+        if (this.controller.getSizeRoomListInGrid(this.indexGrid) == 0) {
+            System.out.println("Please ask the House Administrator to attach Rooms to a Grid\n");
             return true;
         }
         return false;
@@ -121,8 +149,8 @@ public class GetTotalNominalPowerUI {
      * Before showing the total nominal power this method checks if there are devices added to the rooms in that grid
      */
     private boolean checkIfDevicesExistsInGrid() {
-        if (this.controller.getSizeDeviceListInGrid (this.indexGrid) == 0) {
-            System.out.println ("Please ask the House Administrator to add devices to a Room\n");
+        if (this.controller.getSizeDeviceListInGrid(this.indexGrid) == 0) {
+            System.out.println("Please ask the House Administrator to add devices to a Room\n");
             return true;
         }
         return false;
@@ -132,11 +160,34 @@ public class GetTotalNominalPowerUI {
      * Before showing the total nominal power this method checks if there are devices added to the rooms
      */
     private boolean checkIfDevicesExistsInRoom() {
-        if (this.controller.getSizeDeviceListInRoom (this.indexRoom) == 0) {
-            System.out.println ("Please ask the House Administrator to add devices to the Room\n");
+        if (this.controller.getSizeDeviceListInRoom(this.indexRoom) == 0) {
+            System.out.println("Please ask the House Administrator to add devices to the Room\n");
             return true;
         }
         return false;
     }
+
+    //US705
+    private boolean existDevicesInGrids() {
+        int gridSize = this.controller.getGridListSize();
+        int temp = 0;
+        for (int grid = 0; grid < gridSize; grid++)
+            temp += this.controller.getSizeDeviceListInGrid(grid);
+        if (temp == 0)
+            System.out.println("Please add Devices into the available grid(s)\n");
+        return (temp != 0);
+    }
+
+    //US705
+    private boolean existRoomsAttachedToGrids() {
+        int gridSize = this.controller.getGridListSize();
+        int temp = 0;
+        for (int grid = 0; grid < gridSize; grid++)
+            temp += this.controller.getSizeRoomListInGrid(grid);
+        if (temp == 0)
+            System.out.println("Please ask the House Administrator to attach Rooms to a Grid\n");
+        return (temp != 0);
+    }
+
 
 }

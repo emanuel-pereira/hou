@@ -17,8 +17,8 @@ class DeviceListTest {
         DeviceList deviceList = new DeviceList ();
         Device kettle1 = deviceList.newDevice ("Kettle1", "Kettle", 200);
         Device kettle2 = deviceList.newDevice ("Kettle2", "Kettle", 210);
-        deviceList.addDevice (kettle1);
-        deviceList.addDevice (kettle2);
+        deviceList.add(kettle1);
+        deviceList.add(kettle2);
 
         List<Device> expected = Arrays.asList (kettle1, kettle2);
         List<Device> result = deviceList.getDeviceList ();
@@ -31,8 +31,8 @@ class DeviceListTest {
     void newDeviceFalse() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         DeviceList deviceList = new DeviceList ();
         Device kettle1 = deviceList.newDevice ("Kettle1", "Kettle", 200);
-        deviceList.addDevice (kettle1);
-        assertFalse(deviceList.addDevice (kettle1));
+        deviceList.add(kettle1);
+        assertFalse(deviceList.add(kettle1));
     }
 
     @Test
@@ -41,8 +41,8 @@ class DeviceListTest {
         DeviceList deviceList = new DeviceList ();
         Device lamp = deviceList.newDevice ("Lamp", "Lamp", 20);
         Device kettle = deviceList.newDevice ("Kettle", "Kettle", 120);
-        deviceList.addDevice (lamp);
-        deviceList.addDevice (kettle);
+        deviceList.add(lamp);
+        deviceList.add(kettle);
 
         Device expected = lamp;
         Device result = deviceList.get (0);
@@ -57,8 +57,8 @@ class DeviceListTest {
         DeviceList deviceList = new DeviceList ();
         Device lamp = deviceList.newDevice ("Lamp XBZT1000", "Lamp", 20);
         Device kettle = deviceList.newDevice ("Pretty White Kettle", "Kettle", 120);
-        deviceList.addDevice (lamp);
-        deviceList.addDevice (kettle);
+        deviceList.add(lamp);
+        deviceList.add(kettle);
 
         List<String> expected = new ArrayList<>();
         expected.add("Lamp (Lamp XBZT1000) [Active]");
@@ -76,10 +76,10 @@ class DeviceListTest {
         DeviceList deviceList = new DeviceList ();
         Device lamp = deviceList.newDevice ("Lamp", "Lamp", 20);
         Device kettle1 = deviceList.newDevice ("Kettle1", "Kettle", 200);
-        Device kettle2 = deviceList.newDevice ("Kettle2", "Kettle", 210);        deviceList.addDevice (lamp);
-        deviceList.addDevice (lamp);
-        deviceList.addDevice (kettle1);
-        deviceList.addDevice (kettle2);
+        Device kettle2 = deviceList.newDevice ("Kettle2", "Kettle", 210);        deviceList.add(lamp);
+        deviceList.add(lamp);
+        deviceList.add(kettle1);
+        deviceList.add(kettle2);
 
         int expected1 = 3;
         int result1 = deviceList.size ();
@@ -101,8 +101,8 @@ class DeviceListTest {
         DeviceList deviceList = new DeviceList ();
         Device lamp = deviceList.newDevice ("Lamp", "Lamp", 20);
         Device kettle = deviceList.newDevice ("Kettle", "Kettle", 120);
-        deviceList.addDevice (lamp);
-        deviceList.addDevice (kettle);
+        deviceList.add(lamp);
+        deviceList.add(kettle);
         deviceList.deactivateDevice (kettle);
 
         boolean result = kettle.isActive ();
@@ -120,8 +120,8 @@ class DeviceListTest {
         DeviceList deviceList = new DeviceList ();
         Device lamp = deviceList.newDevice ("Lamp", "Lamp", 20);
         Device kettle = deviceList.newDevice ("Kettle", "Kettle", 120);
-        deviceList.addDevice (lamp);
-        deviceList.addDevice (kettle);
+        deviceList.add(lamp);
+        deviceList.add(kettle);
 
         List<Metered> expected = Arrays.asList ((Metered) lamp, (Metered) kettle);
         List<Metered> result = deviceList.getMeteredDevices ();

@@ -26,11 +26,11 @@ class GetEnergyConsumptionOfWaterHeatingCTRLTest {
         Device lampA = kitDeviceList.newDevice("Philips Smart Bulb", "Lamp", 15);
         Device fridgeB = kitDeviceList.newDevice("Samsung Fridge", "Fridge", 250);
 
-        kitDeviceList.addDevice(fridgeA);
-        kitDeviceList.addDevice(kettleA);
-        kitDeviceList.addDevice(lampA);
-        grDeviceList.addDevice(lampA);
-        grDeviceList.addDevice(fridgeB);
+        kitDeviceList.add(fridgeA);
+        kitDeviceList.add(kettleA);
+        kitDeviceList.add(lampA);
+        grDeviceList.add(lampA);
+        grDeviceList.add(fridgeB);
 
         int expected = 2;
         int result = ctrl.getDevicesInAllRoomsByType("Fridge").size();
@@ -56,8 +56,8 @@ class GetEnergyConsumptionOfWaterHeatingCTRLTest {
         Device ewhA = kitchenDeviceList.newDevice("LG EWH K", "Fridge", 150);
         Device ewhB = garageDeviceList.newDevice("LG EWH G", "Fridge", 150);
 
-        kitchenDeviceList.addDevice(ewhA);
-        garageDeviceList.addDevice(ewhB);
+        kitchenDeviceList.add(ewhA);
+        garageDeviceList.add(ewhB);
 
         double expected = 0;
         //TODO replace Fridge for EWH
@@ -83,8 +83,8 @@ class GetEnergyConsumptionOfWaterHeatingCTRLTest {
         Device ewhA = kitchenDeviceList.newDevice("LG EWH K", "Fridge", 150);
         Device ewhB = garageDeviceList.newDevice("LG EWH G", "Fridge", 150);
 
-        kitchenDeviceList.addDevice(ewhA);
-        garageDeviceList.addDevice(ewhB);
+        kitchenDeviceList.add(ewhA);
+        garageDeviceList.add(ewhB);
 
         /*String volumeOfWater = "Volume of water capacity";
         String hotWaterTemperature = "Hot water temperature";

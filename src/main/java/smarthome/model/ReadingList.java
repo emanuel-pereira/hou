@@ -58,8 +58,7 @@ public class ReadingList {
     }
 
     public List<Reading> getReadingsList() {
-        List<Reading> listOfReadings = this.listOfReadings;
-        return listOfReadings;
+        return this.listOfReadings;
     }
 
     public int size() {

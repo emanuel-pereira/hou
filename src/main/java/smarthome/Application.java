@@ -1,11 +1,13 @@
 package smarthome;
 
+import jdk.nashorn.internal.runtime.linker.Bootstrap;
 import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.xml.sax.SAXException;
+import smarthome.io.ui.BootStrap;
 import smarthome.io.ui.SmartHomeUI;
 import smarthome.repository.*;
 
