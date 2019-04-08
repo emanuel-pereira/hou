@@ -7,15 +7,15 @@ import smarthome.model.House;
 import java.util.List;
 
 
-public class ConfigureHouseLocationCTRL {
+public class ConfigureHouseCTRL {
 
     private GAList gaList;
     private House house;
 
 
-    public ConfigureHouseLocationCTRL(GAList listOfGA, House house) {
+    public ConfigureHouseCTRL(GAList listOfGA) {
         gaList = listOfGA;
-        this.house = house;
+        this.house = new House();
     }
 
     public List<GeographicalArea> getGAList() {

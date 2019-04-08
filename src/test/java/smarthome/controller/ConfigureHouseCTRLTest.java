@@ -9,14 +9,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class ConfigureHouseLocationCTRLTest {
+class ConfigureHouseCTRLTest {
 
     @DisplayName("Tests if Geographical Area List is showed as a string to the user")
     @Test
     void showGAListInString() {
         House h1 = new House();
         GAList gl1 = new GAList();
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
         Location loc1 = new Location(25, 15, 12);
         OccupationArea oc1 = new OccupationArea(32, 41);
@@ -39,7 +39,7 @@ class ConfigureHouseLocationCTRLTest {
     void getGAList() {
         House h1 = new House();
         GAList gl1 = new GAList();
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
         Location loc1 = new Location(25, 15, 12);
         OccupationArea oc1 = new OccupationArea(32, 41);
@@ -63,7 +63,7 @@ class ConfigureHouseLocationCTRLTest {
     void configureHouseLocation() {
         GAList gl1 = new GAList();
         House h1 = new House();
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
         Location loc1 = new Location(25, 15, 12);
         OccupationArea oc1 = new OccupationArea(32, 41);
@@ -83,8 +83,6 @@ class ConfigureHouseLocationCTRLTest {
 
         assertTrue(result);
         assertEquals(ga1, result2);
-
-
     }
 
     @DisplayName("Check if throws exception when the latitude is wrong")
@@ -106,7 +104,7 @@ class ConfigureHouseLocationCTRLTest {
         gl1.addGA(ga2);
 
 
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
         boolean thrown = false;
 
@@ -140,7 +138,7 @@ class ConfigureHouseLocationCTRLTest {
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
         boolean thrown = false;
 
@@ -172,7 +170,7 @@ class ConfigureHouseLocationCTRLTest {
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
         boolean thrown = false;
 
@@ -190,7 +188,7 @@ class ConfigureHouseLocationCTRLTest {
     void getGAListSize() {
         GAList gl1 = new GAList();
         House h1 = new House();
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
         Location loc1 = new Location(25, 15, 12);
         OccupationArea oc1 = new OccupationArea(32, 41);
