@@ -4,6 +4,7 @@ import org.xml.sax.SAXException;
 import smarthome.controller.DataImportCTRL;
 import smarthome.model.GAList;
 import smarthome.model.RoomList;
+import smarthome.model.SensorTypeList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;
@@ -35,8 +36,8 @@ public class DataImportUI {
      *
      * @param roomList parameter to be updated with imported data
      */
-    public DataImportUI(RoomList roomList) {
-        this.ctrl = new DataImportCTRL(roomList);
+    public DataImportUI(RoomList roomList, SensorTypeList sensorTypeList) {
+        this.ctrl = new DataImportCTRL(roomList,sensorTypeList);
     }
 
     public void loadGeoAreaFile() {

@@ -34,6 +34,7 @@ public class Room implements Metered {
         this.height = height;
         this.deviceList = new DeviceList();
     }
+    public Room() {}
 
     /**
      * Method to get the name of the room

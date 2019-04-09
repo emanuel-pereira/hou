@@ -93,7 +93,7 @@ public final class HouseAdministrationUI {
                     break;
 
                 case 13:
-                    DataImportUI ui13 = new DataImportUI(house.getRoomList());
+                    DataImportUI ui13 = new DataImportUI(house.getRoomList(),sensorTypeList);
                     ui13.importReadings(house.getRoomList());
                     break;
                 default:

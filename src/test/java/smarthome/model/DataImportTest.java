@@ -16,7 +16,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DataImportTest {
-/*
     @Test
     void getFileExtensionTest() {
         GAList gaList = new GAList();
@@ -37,7 +36,7 @@ class DataImportTest {
     }
 
     @Test
-    void getReadingValueAfterImportingTest() throws IllegalAccessException,ClassNotFoundException,InstantiationException,IOException,ParseException, SAXException, ParserConfigurationException {
+    void getReadingValueAfterImportingTest() throws IllegalAccessException, ClassNotFoundException, InstantiationException, IOException, ParseException, SAXException, ParserConfigurationException {
         GAList gaList = new GAList();
         GeographicalArea ga = new GeographicalArea("001", "Porto", "city", new OccupationArea(3, 2), new Location(3, 30, 20));
         gaList.addGA(ga);
@@ -51,7 +50,7 @@ class DataImportTest {
 
         DataImport dataImport = new DataImport(gaList);
         Path path = Paths.get("resources/DataSet_sprint05_SD.json");
-        dataImport.importReadingsFromFile(path);
+        dataImport.importReadingsFromFile(path, gaList);
 
         List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
         double r = rList.get(3).returnValueOfReading();
@@ -59,7 +58,7 @@ class DataImportTest {
     }
 
     @Test
-    void checkIfInvalidReadsAreWrittenOnLogger() throws SAXException, ParserConfigurationException, IllegalAccessException,ClassNotFoundException,InstantiationException,IOException,ParseException {
+    void checkIfInvalidReadsAreWrittenOnLogger() throws SAXException, ParserConfigurationException, IllegalAccessException, ClassNotFoundException, InstantiationException, IOException, ParseException {
         GAList gaList = new GAList();
         GeographicalArea ga = new GeographicalArea("001", "Porto", "city", new OccupationArea(3, 2), new Location(3, 30, 20));
         gaList.addGA(ga);
@@ -73,12 +72,39 @@ class DataImportTest {
 
         DataImport dataImport = new DataImport(gaList);
         Path path = Paths.get("resources/DataSet_sprint05_SD.json");
-        dataImport.importReadingsFromFile(path);
+        dataImport.importReadingsFromFile(path, gaList);
 
         List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
         int size = rList.size();
         assertEquals(0, size);
     }
-*/
+
+    @Test
+    void checkIfSensorAreImportedTest() throws IllegalAccessException, ParseException, InstantiationException, IOException, java.text.ParseException, ClassNotFoundException {
+        House house = new House();
+        RoomList roomList = house.getRoomList();
+
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        sensorTypeList.addSensorType(new SensorType("temperature"));
+
+        Room room1 = new Room("B405","B405",3,2,3,1);
+        Room room2 = new Room("B106","B106",3,2,3,1);
+        Room room3 = new Room("B107","B107",3,2,3,1);
+        Room room4 = new Room("B109","B109",3,2,3,1);
+
+        roomList.addRoom(room1);
+        roomList.addRoom(room2);
+        roomList.addRoom(room3);
+        roomList.addRoom(room4);
+
+        DataImport dataImport = new DataImport(roomList,sensorTypeList);
+        Path path = Paths.get("resources/DataSet_sprint06_HouseSensors.json");
+        dataImport.loadHouseSensorsFiles(path);
+
+        List<Sensor> sensorList = house.getRoomList().getRoomList().get(0).getSensorListInRoom().getSensorList();
+        int size = sensorList.size();
+
+        assertEquals(1,size);
+    }
 }
 

@@ -175,5 +175,11 @@ public class RoomList {
         return meteredDevListInHouse;
     }
 
-
+    public Room getRoomIfIDMatchesAnyExistingRoom(String sensorID) {
+        Room matchedRoom = new Room();
+        for (Room room : this.listOfRooms)
+            if (room.getId().equals(sensorID))
+                matchedRoom = room;
+            return matchedRoom;
+    }
 }

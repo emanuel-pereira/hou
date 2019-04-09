@@ -116,6 +116,13 @@ public class SensorTypeList {
         return result.toString();
     }
 
-
+    public SensorType getSensorTypeMatchedWithString(String sensortype) {
+        SensorType sensorTypeMatched = new SensorType();
+        for (SensorType sensorType : this.typeList) {
+            if (sensorType.getType().equals(sensortype))
+                sensorTypeMatched = sensorType;
+        }
+        return sensorTypeMatched;
+    }
 }
 

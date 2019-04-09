@@ -13,8 +13,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Calendar;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -26,6 +27,7 @@ public class DataImport {
     private Path configFilePath;
     private GAList gaList;
     private RoomList roomList;
+    private SensorTypeList sensorTypeList;
     static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
 
     /**
@@ -42,8 +44,9 @@ public class DataImport {
      *
      * @param roomList to be updated with data imported through HouseAdministration menu
      */
-    public DataImport(RoomList roomList) {
+    public DataImport(RoomList roomList,SensorTypeList sensorTypeList) {
         this.roomList = roomList;
+        this.sensorTypeList = sensorTypeList;
     }
 
     /**
@@ -212,12 +215,41 @@ public class DataImport {
     }
 
     //House Sensors
-
-    public List<Sensor> loadHouseSensorsFiles(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+    public void loadHouseSensorsFiles(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
         String fileExtension = getFileExtension(filePathAndName);
         String className = getClassName("house_sensors", fileExtension);
         FileReaderHouseSensors reader = (FileReaderHouseSensors) Class.forName(className).newInstance();
-        return reader.loadData(filePathAndName);
+        List<String[]> dataToImport = reader.loadData(filePathAndName);
+        importHouseSensors(dataToImport);
     }
+
+    public void importHouseSensors(List<String[]> dataToImport) throws java.text.ParseException {
+        List<Sensor> sensorsToImport = new ArrayList<>();
+        for(String[] string : dataToImport) {
+            String roomID = string[0];
+            Room room = roomList.getRoomIfIDMatchesAnyExistingRoom(roomID);
+
+            String sensorID = string[1];
+            String sensorDesignation = string[2];
+            String startDate = string[3];
+
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = df.parse(startDate);
+            GregorianCalendar calendar = new GregorianCalendar();
+            calendar.setTime(date);
+
+            String type = string[4];
+            SensorType sensorType = this.sensorTypeList.getSensorTypeMatchedWithString(type);
+
+            String unit = string[5];
+
+            Sensor newSensor = new Sensor(sensorID,sensorDesignation,calendar,sensorType, unit, new ReadingList());
+            sensorsToImport.add(newSensor);
+
+            room.getSensorListInRoom().addSensor(newSensor);
+        }
+
+    }
+
 
 }

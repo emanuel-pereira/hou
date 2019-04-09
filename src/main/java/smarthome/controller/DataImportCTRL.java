@@ -1,10 +1,7 @@
 package smarthome.controller;
 
 import org.xml.sax.SAXException;
-import smarthome.model.GAList;
-import smarthome.model.GeographicalArea;
-import smarthome.model.RoomList;
-import smarthome.model.Sensor;
+import smarthome.model.*;
 import smarthome.model.readers.DataImport;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -17,6 +14,7 @@ public class DataImportCTRL {
 
     private GAList gaList;
     private RoomList roomList;
+    private SensorTypeList sensorTypeList;
 
 
     /**
@@ -39,8 +37,9 @@ public class DataImportCTRL {
      *
      * @param roomList parameter to be updated with imported data
      */
-    public DataImportCTRL(RoomList roomList) {
+    public DataImportCTRL(RoomList roomList, SensorTypeList sensorTypeList) {
         this.roomList = roomList;
+        this.sensorTypeList = sensorTypeList;
     }
 
 
@@ -83,11 +82,12 @@ public class DataImportCTRL {
             dataImport.importReadingsFromFile(filePath, object);
         }
         if (object.equals(roomList)) {
-            DataImport dataImport = new DataImport(roomList);
+            DataImport dataImport = new DataImport(roomList,sensorTypeList);
             dataImport.importReadingsFromFile(filePath, object);
         }
 
     }
+
     /**
      *Method that iterates the geographical area list and converts each geographical area to a Data Transfer Object
      * @return a list of geographical area DTOs
