@@ -22,7 +22,7 @@ class KettleTest {
         kettle.setDeviceName("super kettle");
 
         String expected = "super kettle";
-        String result = kettle.getName();
+        String result = kettle.getDeviceName();
 
         assertEquals(expected, result);
     }
@@ -156,7 +156,8 @@ class KettleTest {
         Calendar endDate = new GregorianCalendar(2019, 0, 2);
         double energyConsumption = kettle.getEnergyConsumption(startDate, endDate);
 
-        assertEquals(5.63, energyConsumption, 0.001);
+
+        assertEquals(5.63, energyConsumption, 0.01);
     }
 
     @Test

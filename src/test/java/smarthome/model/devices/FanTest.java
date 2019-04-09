@@ -20,12 +20,12 @@ class FanTest {
         Device d = dt.createDevice("Fan 1", 10);
         Fan fan = (Fan) d;
 
-        assertEquals("Fan 1", fan.getName());
+        assertEquals("Fan 1", fan.getDeviceName());
 
         fan.setDeviceName("Whirlpool");
 
         String expected = "Whirlpool";
-        String result = fan.getName();
+        String result = fan.getDeviceName();
 
         assertEquals(expected, result);
     }
@@ -37,12 +37,12 @@ class FanTest {
         Device d = dt.createDevice("Whirlpool", 10);
         Fan fan = (Fan) d;
 
-        assertEquals("Whirlpool", fan.getName());
+        assertEquals("Whirlpool", fan.getDeviceName());
 
         fan.setDeviceName(" ");
 
         String expected = "Whirlpool";
-        String result = fan.getName();
+        String result = fan.getDeviceName();
 
         assertEquals(expected, result);
     }
@@ -54,12 +54,12 @@ class FanTest {
         Device d = dt.createDevice("Fan 1", 10);
         Fan fan = (Fan) d;
 
-        assertEquals("Fan 1", fan.getName());
+        assertEquals("Fan 1", fan.getDeviceName());
 
         fan.setDeviceName("Whirlpool");
 
         String expected = "Something";
-        String result = fan.getName();
+        String result = fan.getDeviceName();
 
         assertNotEquals(expected, result);
     }
@@ -334,7 +334,7 @@ class FanTest {
         fan.setMeteredProgram("Slow");
 
         double expected = 100;
-        double result = fan.getEstimatedEnergyConsumption();
+        double result = fan.getEnergyConsumption();
 
         assertEquals(expected, result);
     }
@@ -351,7 +351,7 @@ class FanTest {
         fan.addProgramToList(fast);
 
         double expected = 0;
-        double result = fan.getEstimatedEnergyConsumption();
+        double result = fan.getEnergyConsumption();
 
         assertEquals(expected, result);
     }

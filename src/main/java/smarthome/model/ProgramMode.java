@@ -47,12 +47,12 @@ public class ProgramMode implements Program {
     }
 
     @Override
-    public double getAttributeValue() {
+    public double getEnergyConsumption() {
         return this.nominalPower;
     }
 
     @Override
-    public void setAttributeValue(double nominalPower) {
+    public void setEnergyConsumption(double nominalPower) {
         if (Utils.valueIsPositive (nominalPower))
             this.nominalPower = nominalPower;
     }

@@ -58,7 +58,7 @@ public class RoomList {
      */
     public boolean checkIfRoomNameExists(String name) {
         for (Room r : this.getRoomList()) {
-            if (r.getName().equals(name)) {
+            if (r.getMeteredDesignation().equals(name)) {
                 return true;
             }
         }
@@ -109,7 +109,7 @@ public class RoomList {
         for (Room room : list) {
             result.append(number++);
             result.append(element);
-            result.append(room.getName());
+            result.append(room.getMeteredDesignation());
             result.append("\n");
         }
         return result.toString();

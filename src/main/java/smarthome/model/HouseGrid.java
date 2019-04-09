@@ -29,7 +29,7 @@ public class HouseGrid implements Metered {
             this.contractedMaximumPower = contractedMaximumPower;
     }
 
-    public String getName() {
+    public String getMeteredDesignation() {
         return this.designation;
     }
 
@@ -106,10 +106,10 @@ public class HouseGrid implements Metered {
         String statusStr = " | Active: ";
         int number = 1;
         for (Device device : list) {
-            String deviceLocation = this.roomList.getDeviceLocation(device).getName();
+            String deviceLocation = this.roomList.getDeviceLocation(device).getMeteredDesignation();
             result.append(number++);
             result.append(element);
-            result.append(device.getName());
+            result.append(device.getDeviceName());
             result.append(typeStr);
             result.append(device.getDeviceType());
             result.append(locationStr);
@@ -144,7 +144,7 @@ public class HouseGrid implements Metered {
         for (Room r : listOfRoomsInHG.getRoomList()) {
             result.append(number++);
             result.append(element);
-            result.append(r.getName());
+            result.append(r.getMeteredDesignation());
             result.append("\n");
         }
         return result.toString();
@@ -184,5 +184,10 @@ public class HouseGrid implements Metered {
             sum += room.getEstimatedEnergyConsumption();
         }
         return Utils.round(sum, 2);
+    }
+
+    @Override
+    public void setTime(double duration){
+        // do nothing.
     }
 }

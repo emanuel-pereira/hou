@@ -22,7 +22,7 @@ public class RoomListTest {
         roomList.addRoom(r1);
 
         //Assert
-        assertEquals("BedRoom", roomList.getRoomList().get(0).getName());
+        assertEquals("BedRoom", roomList.getRoomList().get(0).getMeteredDesignation());
     }
 
     @Test

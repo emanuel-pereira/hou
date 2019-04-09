@@ -107,7 +107,7 @@ class HouseTest {
         House h = new House("Prédio", a1, g1);
         Room room = h.getRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 2);
 
-        assertEquals("bedroom", room.getName());
+        assertEquals("bedroom", room.getMeteredDesignation());
         assertEquals(1, room.getFloor());
         assertEquals(5, room.getArea().getOccupationArea());
     }

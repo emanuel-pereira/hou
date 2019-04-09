@@ -16,6 +16,8 @@ public class Room implements Metered {
     private SensorList sensorListInRoom = new SensorList();
     private DeviceList deviceList;
 
+    private double time;
+
 
     /**
      * This constructor sets up the Room
@@ -40,7 +42,7 @@ public class Room implements Metered {
      *
      * @return Name of the room
      */
-    public String getName() {
+    public String getMeteredDesignation() {
         return this.name;
     }
 
@@ -138,14 +140,22 @@ public class Room implements Metered {
         return Utils.round(sum, 2);
     }
 
+
     @Override
     public double getEstimatedEnergyConsumption() {
         double sum = 0;
         for (Metered device : this.deviceList.getMeteredDevices()) {
+            device.setTime(this.time);
             sum += device.getEstimatedEnergyConsumption();
         }
         return Utils.round(sum, 2);
     }
+
+    @Override
+    public void setTime(double duration) {
+        this.time = duration;
+    }
+
 
     /**
      * Method that checks if a text is only spaces
@@ -251,4 +261,7 @@ public class Room implements Metered {
         return Objects.hash(this.name);
     }
 
+
 }
+
+

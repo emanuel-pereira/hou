@@ -192,7 +192,7 @@ public class NewSensorCTRL {
     public String getRoomName(int indexOfRoom) {
         RoomList roomList = this.house.getRoomList();
         Room room = roomList.get(indexOfRoom);
-        return room.getName();
+        return room.getMeteredDesignation();
     }
 
     /**
