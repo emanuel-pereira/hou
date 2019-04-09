@@ -40,7 +40,7 @@ class FanTypeTest {
         Device wM = type.createDevice ("Singer", 200);
 
         String expected = "Singer";
-        String result = wM.getName ();
+        String result = wM.getDeviceName();
 
         assertEquals(expected, result);
     }

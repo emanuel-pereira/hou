@@ -8,9 +8,9 @@ public interface Program {
 
     String getAttributeName();
 
-    double getAttributeValue();
+    double getEnergyConsumption();
 
-    void setAttributeValue(double attributeValue);
+    void setEnergyConsumption(double attributeValue);
 
     double getProgramEstimatedEC();
 

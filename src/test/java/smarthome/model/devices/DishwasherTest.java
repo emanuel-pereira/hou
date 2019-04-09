@@ -21,12 +21,12 @@ class DishwasherTest {
         Dishwasher dishwasher = (Dishwasher) d;
 
 
-        assertEquals("Whirlpool Washer", dishwasher.getName());
+        assertEquals("Whirlpool Washer", dishwasher.getDeviceName());
 
         dishwasher.setDeviceName("Whirlpool");
 
         String expected = "Whirlpool";
-        String result = dishwasher.getName();
+        String result = dishwasher.getDeviceName();
 
         assertEquals(expected, result);
     }
@@ -38,12 +38,12 @@ class DishwasherTest {
         Device d = dt.createDevice("Whirlpool Washer",100);
         Dishwasher dishwasher = (Dishwasher) d;
 
-        assertEquals("Whirlpool Washer", dishwasher.getName());
+        assertEquals("Whirlpool Washer", dishwasher.getDeviceName());
 
         dishwasher.setDeviceName(" ");
 
         String expected = "Whirlpool Washer";
-        String result = dishwasher.getName();
+        String result = dishwasher.getDeviceName();
 
         assertEquals(expected, result);
     }
@@ -55,12 +55,12 @@ class DishwasherTest {
         Device d = dt.createDevice("Whirlpool Washer",100);
         Dishwasher dishwasher = (Dishwasher) d;
 
-        assertEquals("Whirlpool Washer", dishwasher.getName());
+        assertEquals("Whirlpool Washer", dishwasher.getDeviceName());
 
         dishwasher.setDeviceName("Whirlpool");
 
         String expected = "Whirlpol";
-        String result = dishwasher.getName();
+        String result = dishwasher.getDeviceName();
 
         assertNotEquals(expected, result);
     }
@@ -338,7 +338,7 @@ class DishwasherTest {
         dishwasher.setMeteredProgram("Slow");
 
         double expected = 50;
-        double result = dishwasher.getEstimatedEnergyConsumption();
+        double result = dishwasher.getEnergyConsumption();
 
         assertEquals(expected, result);
     }
@@ -355,7 +355,7 @@ class DishwasherTest {
         dishwasher.addProgramToList(fast);
 
         double expected = 0;
-        double result = dishwasher.getEstimatedEnergyConsumption();
+        double result = dishwasher.getEnergyConsumption();
 
         assertEquals(expected, result);
     }

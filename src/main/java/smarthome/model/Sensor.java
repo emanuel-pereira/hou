@@ -49,6 +49,7 @@ public class Sensor {
             this.unit = unit;
             this.active = true;
             this.readingList = readings;
+            this.location = new Location(0, 0, 0);
         }
     }
 
@@ -94,6 +95,7 @@ public class Sensor {
 
     /**
      * Accept alphanumeric input without spaces
+     *
      * @param id Unique identification
      * @return True if validate correctly
      */
@@ -106,17 +108,17 @@ public class Sensor {
 
     /**
      * Changes the Id of the sensor to the one inputted by the user.
+     *
      * @param sensorId sensor's id String
      * @return True if correctly validate
      */
     public boolean setId(String sensorId) {
-        if (this.sensorIdIsValid(sensorId)){
+        if (this.sensorIdIsValid(sensorId)) {
             this.id = sensorId;
             return true;
         }
         return false;
     }
-
 
 
     /**

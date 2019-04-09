@@ -3,10 +3,12 @@ package smarthome.controller;
 import smarthome.model.*;
 import smarthome.model.validations.GPSValidations;
 import smarthome.model.validations.NameValidations;
+import smarthome.repository.Repositories;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class NewSensorCTRL {
 
@@ -102,8 +104,19 @@ public class NewSensorCTRL {
     public boolean addNewSensorToGA(String id, String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, Location location, int indexOfGA, ReadingList readings) {
         GeographicalArea geographicalArea = this.gaList.get(indexOfGA);
         SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);
-        Sensor sensor = geographicalArea.getSensorListInGA().newSensor(id,inputName, startDate, location, sensorType, inputUnit, readings);
-        return geographicalArea.getSensorListInGA().addSensor(sensor);
+        Sensor sensor = geographicalArea.getSensorListInGA().newSensor(id, inputName, startDate, location, sensorType, inputUnit, readings);
+        if (!geographicalArea.getSensorListInGA().addSensor(sensor)) {
+            return false;
+        } else {
+            //Repository call
+            try {
+                Repositories.saveSensor(sensor);
+            } catch (NullPointerException e) {
+                Logger.getLogger("Repository unreachable");
+            }
+            return true;
+        }
+
     }
 
     /**
@@ -116,7 +129,6 @@ public class NewSensorCTRL {
      * @param unit            String variable to set the sensor's unit of measure
      * @param readingList     list of readings stored by the sensor
      * @return adds the sensor created to the selected room
-
      */
     public boolean addNewSensorToRoom(String id, String inputName, GregorianCalendar startDate, int sensorTypeIndex, int indexOfRoom, String unit, ReadingList readingList) {
         RoomList roomList = this.house.getRoomList();
@@ -124,6 +136,7 @@ public class NewSensorCTRL {
         Room room = roomList.get(indexOfRoom);
         SensorList rSensorList = room.getSensorListInRoom();
         Sensor sensor = rSensorList.createNewInternalSensor(id, inputName, startDate, sensorType, unit, readingList);
+        sensor.setSensorLocation(house.getAddress().getGPSLocation());
         return rSensorList.addSensor(sensor);
     }
 
@@ -192,7 +205,7 @@ public class NewSensorCTRL {
     public String getRoomName(int indexOfRoom) {
         RoomList roomList = this.house.getRoomList();
         Room room = roomList.get(indexOfRoom);
-        return room.getName();
+        return room.getMeteredDesignation();
     }
 
     /**
@@ -206,6 +219,7 @@ public class NewSensorCTRL {
         Sensor createdSensor = ga.getSensorListInGA().getLastSensor();
         return createdSensor.getDesignation();
     }
+
     /**
      * Method to get the id of the sensor created
      *
@@ -282,20 +296,22 @@ public class NewSensorCTRL {
         return createdSensor.getUnit();
     }
 
-    public String showSensorListInRoom (int indexOfRoom){
+    public String showSensorListInRoom(int indexOfRoom) {
         RoomList roomList = this.house.getRoomList();
         Room room = roomList.get(indexOfRoom);
-        SensorList sensorList= room.getSensorListInRoom();
+        SensorList sensorList = room.getSensorListInRoom();
         return sensorList.showSensorListInString();
     }
 
-    public int sensorListInRoomSize (int indexOfRoom){
+    public int sensorListInRoomSize(int indexOfRoom) {
         RoomList roomList = this.house.getRoomList();
         Room room = roomList.get(indexOfRoom);
-        SensorList sensorList= room.getSensorListInRoom();
+        SensorList sensorList = room.getSensorListInRoom();
         return sensorList.size();
     }
 
-
+    public boolean checkIfHouseAsLocation() {
+        return this.house.checkIfLocationExists();
+    }
 
 }
