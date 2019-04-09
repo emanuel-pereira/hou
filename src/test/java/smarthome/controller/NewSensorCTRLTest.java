@@ -733,4 +733,42 @@ class NewSensorCTRLTest {
 
         assertEquals(expected,result);
     }
+
+    @Test
+    @DisplayName("Check if a house has a location")
+    void checkIfLocationExistsWithSuccess() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        SensorType temperature= new SensorType("temperature");
+        SensorType humidity= new SensorType("humidity");
+        sensorTypeList.addSensorType(temperature);
+        sensorTypeList.addSensorType(humidity);
+        GAList gaList = new GAList();
+        Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
+        House h = new House("Prédio", a1, g1);
+        NewSensorCTRL ctrl = new NewSensorCTRL(h, sensorTypeList, gaList);
+
+        assertTrue(ctrl.checkIfHouseAsLocation());
+    }
+
+    @Test
+    @DisplayName("Check if a house hasn't a location")
+    void checkIfLocationDoesntExists() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        SensorType temperature= new SensorType("temperature");
+        SensorType humidity= new SensorType("humidity");
+        sensorTypeList.addSensorType(temperature);
+        sensorTypeList.addSensorType(humidity);
+        GAList gaList = new GAList();
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
+        House h = new House("Prédio", null, g1);
+        NewSensorCTRL ctrl = new NewSensorCTRL(h, sensorTypeList, gaList);
+
+        assertFalse(ctrl.checkIfHouseAsLocation());
+    }
+
 }

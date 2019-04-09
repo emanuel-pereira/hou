@@ -371,6 +371,10 @@ public class House {
         }
         return meteredList.toString();
     }
+
+    public boolean checkIfLocationExists() {
+        return this.getAddress() != null;
+    }
 }
 
 

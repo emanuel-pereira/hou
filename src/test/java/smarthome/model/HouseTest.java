@@ -670,5 +670,30 @@ class HouseTest {
 
     }
 
+    @Test
+    @DisplayName("Check if a house has a location")
+    void checkIfLocationExistsWithSuccess() {
+        Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
+
+
+        House h = new House("Prédio", a1, g1);
+
+        assertTrue(h.checkIfLocationExists());
+    }
+
+    @Test
+    @DisplayName("Check if a house hasn't a location")
+    void checkIfLocationDoesntExists() {
+        Location loc = new Location(20, 20, 2);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
+
+        House h = new House("Prédio", null, g1);
+
+        assertFalse(h.checkIfLocationExists());
+    }
 
 }

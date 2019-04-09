@@ -102,7 +102,7 @@ public class NewSensorCTRL {
     public boolean addNewSensorToGA(String id, String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, Location location, int indexOfGA, ReadingList readings) {
         GeographicalArea geographicalArea = this.gaList.get(indexOfGA);
         SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);
-        Sensor sensor = geographicalArea.getSensorListInGA().newSensor(id,inputName, startDate, location, sensorType, inputUnit, readings);
+        Sensor sensor = geographicalArea.getSensorListInGA().newSensor(id, inputName, startDate, location, sensorType, inputUnit, readings);
         return geographicalArea.getSensorListInGA().addSensor(sensor);
     }
 
@@ -116,7 +116,6 @@ public class NewSensorCTRL {
      * @param unit            String variable to set the sensor's unit of measure
      * @param readingList     list of readings stored by the sensor
      * @return adds the sensor created to the selected room
-
      */
     public boolean addNewSensorToRoom(String id, String inputName, GregorianCalendar startDate, int sensorTypeIndex, int indexOfRoom, String unit, ReadingList readingList) {
         RoomList roomList = this.house.getRoomList();
@@ -207,6 +206,7 @@ public class NewSensorCTRL {
         Sensor createdSensor = ga.getSensorListInGA().getLastSensor();
         return createdSensor.getDesignation();
     }
+
     /**
      * Method to get the id of the sensor created
      *
@@ -283,20 +283,22 @@ public class NewSensorCTRL {
         return createdSensor.getUnit();
     }
 
-    public String showSensorListInRoom (int indexOfRoom){
+    public String showSensorListInRoom(int indexOfRoom) {
         RoomList roomList = this.house.getRoomList();
         Room room = roomList.get(indexOfRoom);
-        SensorList sensorList= room.getSensorListInRoom();
+        SensorList sensorList = room.getSensorListInRoom();
         return sensorList.showSensorListInString();
     }
 
-    public int sensorListInRoomSize (int indexOfRoom){
+    public int sensorListInRoomSize(int indexOfRoom) {
         RoomList roomList = this.house.getRoomList();
         Room room = roomList.get(indexOfRoom);
-        SensorList sensorList= room.getSensorListInRoom();
+        SensorList sensorList = room.getSensorListInRoom();
         return sensorList.size();
     }
 
-
+    public boolean checkIfHouseAsLocation() {
+        return this.house.checkIfLocationExists();
+    }
 
 }
