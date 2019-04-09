@@ -1,9 +1,10 @@
 package smarthome.controller;
 
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
-import smarthome.model.GAList;
+import smarthome.model.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;
@@ -14,7 +15,6 @@ import java.nio.file.Paths;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DataImportCTRLTest {
-/*
     @Test
     @DisplayName("Ensure that GAList has 2 GAs after executing loadJSON method")
     void loadGeoAreas() throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
@@ -123,7 +123,7 @@ class DataImportCTRLTest {
         String filepath = "resources/DataSet_sprint05_SD.json";
 
         Path path = Paths.get(filepath);
-        ctrl.importReadingsFromFile(path,);
+        ctrl.importReadingsFromFile(path,gaList);
 
         int expected = 0;
         int result = gaList.getAllReadings().size();
@@ -143,7 +143,7 @@ class DataImportCTRLTest {
         DataImportCTRL ctrl2 = new DataImportCTRL(gaList);
         String filepath2 = "resources/DataSet_sprint05_SD.json";
         Path path2 = Paths.get(filepath2);
-        ctrl2.importReadingsFromFile(path2);
+        ctrl2.importReadingsFromFile(path2,gaList);
 
         int expected = 61;
         int result = gaList.getAllReadings().size();
@@ -151,6 +151,64 @@ class DataImportCTRLTest {
         assertEquals(expected,result);
     }
 
+    @Test
+    void importHouseSensors() throws IllegalAccessException, ParseException, InstantiationException, java.text.ParseException, ClassNotFoundException, IOException {
+        House house = new House();
+        RoomList roomList = house.getRoomList();
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        sensorTypeList.addSensorType(new SensorType("temperature"));
+        Room room1 = new Room("B405","B405",3,2,3,1);
+        Room room2 = new Room("B106","B106",3,2,3,1);
+        Room room3 = new Room("B107","B107",3,2,3,1);
+        Room room4 = new Room("B109","B109",3,2,3,1);
+        Room room5 = new Room("B110","B110",1,1,1,1);
+        roomList.addRoom(room1);
+        roomList.addRoom(room2);
+        roomList.addRoom(room3);
+        roomList.addRoom(room4);
+        roomList.addRoom(room5);
+        String filepath = "resources_tests/fakeImportFilesForTests/DataSet_sprint06_HouseSensors-AllSensorsSameRoom.json";
+        Path path = Paths.get(filepath);
+        DataImportCTRL ctrl = new DataImportCTRL(roomList,sensorTypeList);
+        ctrl.importHouseSensors(path);
+
+        int result = house.getRoomList().getRoomList().get(0).getSensorListInRoom().getSensorList().size();
+
+        assertEquals(4,result);
+    }
+
+    @Test
+    void checkIfRepeatedSensorsAreNotImported() throws IllegalAccessException, ParseException, InstantiationException, java.text.ParseException, ClassNotFoundException, IOException {
+        House house = new House();
+        RoomList roomList = house.getRoomList();
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        sensorTypeList.addSensorType(new SensorType("temperature"));
+        Room room1 = new Room("B405","B405",3,2,3,1);
+        Room room2 = new Room("B106","B106",3,2,3,1);
+        Room room3 = new Room("B107","B107",3,2,3,1);
+        Room room4 = new Room("B109","B109",3,2,3,1);
+        Room room5 = new Room("B110","B110",1,1,1,1);
+        roomList.addRoom(room1);
+        roomList.addRoom(room2);
+        roomList.addRoom(room3);
+        roomList.addRoom(room4);
+        roomList.addRoom(room5);
+        String filepath = "resources_tests/fakeImportFilesForTests/DataSet_sprint06_HouseSensors-AllSensorsSameID.json";
+        Path path = Paths.get(filepath);
+        DataImportCTRL ctrl = new DataImportCTRL(roomList,sensorTypeList);
+        ctrl.importHouseSensors(path);
+
+        int result = house.getRoomList().getRoomList().get(0).getSensorListInRoom().getSensorList().size();
+
+        assertEquals(1,result);
+    }
+
+
+
+
+
+
+/*
     @Test
     void getGAListDTO() throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
@@ -168,6 +226,5 @@ class DataImportCTRLTest {
         int result = ctrl.getGAListDTO().size();
         assertEquals(expected, result);
     }
-
- */
+    */
 }

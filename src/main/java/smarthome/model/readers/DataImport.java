@@ -16,9 +16,6 @@ import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 import static java.lang.Double.parseDouble;
 
@@ -44,7 +41,7 @@ public class DataImport {
      *
      * @param roomList to be updated with data imported through HouseAdministration menu
      */
-    public DataImport(RoomList roomList,SensorTypeList sensorTypeList) {
+    public DataImport(RoomList roomList, SensorTypeList sensorTypeList) {
         this.roomList = roomList;
         this.sensorTypeList = sensorTypeList;
     }
@@ -67,7 +64,6 @@ public class DataImport {
         FileReaderReadings reader = (FileReaderReadings) Class.forName(className).newInstance();
         List<String[]> dataToImport = reader.importData(filePath);
         loadReadingFiles(dataToImport, object);
-
     }
 
 
@@ -149,15 +145,6 @@ public class DataImport {
             }
     }
 
-    public Logger createLogFile(String fileName) throws IOException {
-        Logger logger = Logger.getLogger(GeographicalArea.class.getName());
-        FileHandler fileHandler = new FileHandler(fileName);
-        fileHandler.setFormatter(new SimpleFormatter());
-        logger.setUseParentHandlers(false);
-        logger.addHandler(fileHandler);
-
-        return logger;
-    }
 
     /**
      * Method that converts a valid file path to string and returns a substring after the
@@ -225,7 +212,7 @@ public class DataImport {
 
     public void importHouseSensors(List<String[]> dataToImport) throws java.text.ParseException {
         List<Sensor> sensorsToImport = new ArrayList<>();
-        for(String[] string : dataToImport) {
+        for (String[] string : dataToImport) {
             String roomID = string[0];
             Room room = roomList.getRoomIfIDMatchesAnyExistingRoom(roomID);
 
@@ -243,7 +230,7 @@ public class DataImport {
 
             String unit = string[5];
 
-            Sensor newSensor = new Sensor(sensorID,sensorDesignation,calendar,sensorType, unit, new ReadingList());
+            Sensor newSensor = new Sensor(sensorID, sensorDesignation, calendar, sensorType, unit, new ReadingList());
             sensorsToImport.add(newSensor);
 
             room.getSensorListInRoom().addSensor(newSensor);
@@ -251,5 +238,8 @@ public class DataImport {
 
     }
 
-
+    public int getSizeOfSensorsReadyToImport(List<String[]> dataToImport) {
+        int size = dataToImport.size();
+        return size;
+    }
 }

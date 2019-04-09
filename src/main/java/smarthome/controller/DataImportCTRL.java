@@ -1,5 +1,6 @@
 package smarthome.controller;
 
+import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
 import smarthome.model.*;
 import smarthome.model.readers.DataImport;
@@ -85,8 +86,13 @@ public class DataImportCTRL {
             DataImport dataImport = new DataImport(roomList,sensorTypeList);
             dataImport.importReadingsFromFile(filePath, object);
         }
-
     }
+
+    public void importHouseSensors(Path filePath) throws IllegalAccessException, ParseException, InstantiationException, IOException, java.text.ParseException, ClassNotFoundException {
+        DataImport dataImport = new DataImport(roomList,sensorTypeList);
+        dataImport.loadHouseSensorsFiles(filePath);
+    }
+
 
     /**
      *Method that iterates the geographical area list and converts each geographical area to a Data Transfer Object

@@ -116,10 +116,10 @@ public class SensorTypeList {
         return result.toString();
     }
 
-    public SensorType getSensorTypeMatchedWithString(String sensortype) {
+    public SensorType getSensorTypeMatchedWithString(String sensorTypeDesignation) {
         SensorType sensorTypeMatched = new SensorType();
         for (SensorType sensorType : this.typeList) {
-            if (sensorType.getType().equals(sensortype))
+            if (sensorType.getType().equals(sensorTypeDesignation))
                 sensorTypeMatched = sensorType;
         }
         return sensorTypeMatched;

@@ -91,14 +91,17 @@ class DataImportTest {
         Room room2 = new Room("B106","B106",3,2,3,1);
         Room room3 = new Room("B107","B107",3,2,3,1);
         Room room4 = new Room("B109","B109",3,2,3,1);
+        Room room5 = new Room("B109","B109",1,1,1,1);
+
 
         roomList.addRoom(room1);
         roomList.addRoom(room2);
         roomList.addRoom(room3);
         roomList.addRoom(room4);
+        roomList.addRoom(room5);
 
         DataImport dataImport = new DataImport(roomList,sensorTypeList);
-        Path path = Paths.get("resources/DataSet_sprint06_HouseSensors.json");
+        Path path = Paths.get("resources/DataSet_sprint06_HouseSensors-AllSensorsSameID.json");
         dataImport.loadHouseSensorsFiles(path);
 
         List<Sensor> sensorList = house.getRoomList().getRoomList().get(0).getSensorListInRoom().getSensorList();

@@ -211,12 +211,12 @@ class SensorListTest {
         GregorianCalendar startDate = new GregorianCalendar(2018, 8, 1, 9, 0);
         Location loc = new Location(40, 20, 10);
         ReadingList readingList = new ReadingList();
-        Sensor s1 = new Sensor("", "RainfallSensorOfPorto", startDate, loc, type1, "Celsius", readingList);
+        Sensor s1 = new Sensor("ID01", "RainfallSensorOfPorto", startDate, loc, type1, "Celsius", readingList);
         SensorType temperature = new SensorType("temperature");
         GregorianCalendar sDate2 = new GregorianCalendar(2018, 9, 1, 15, 0);
         Location loc2 = new Location(42, 20, 10);
         ReadingList readings = new ReadingList();
-        Sensor s2 = new Sensor("", "TemperatureSensor", sDate2, loc2, temperature, "Celsius", readings);
+        Sensor s2 = new Sensor("ID02", "TemperatureSensor", sDate2, loc2, temperature, "Celsius", readings);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);

@@ -13,9 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class JSONHouseSensorsTest {
 
     @Test
-    void importDataSizeListTest() throws IOException, ParseException, java.text.ParseException {
+    void importDataSizeListTest() throws IOException, ParseException {
         JSONHouseSensors jsonHouseSensors = new JSONHouseSensors();
-        Path path = Paths.get("resources/DataSet_sprint06_HouseSensors.json");
+        Path path = Paths.get("resources/DataSet_sprint06_HouseSensors-AllSensorsSameID.json");
         List<String[]> result;
         result = jsonHouseSensors.loadData(path);
         assertEquals(result.size(),4);
