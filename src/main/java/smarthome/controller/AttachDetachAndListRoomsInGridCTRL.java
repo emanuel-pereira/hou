@@ -23,7 +23,7 @@ public class AttachDetachAndListRoomsInGridCTRL {
     public String getRoomOfHGName(int indexOfHG, int indexOfRoom) {
         HouseGrid houseGrid = this.houseGridList.get(indexOfHG);
         Room room = houseGrid.getRoomListInAGrid().get(indexOfRoom);
-        return room.getName();
+        return room.getMeteredDesignation();
 
     }
 
@@ -35,7 +35,7 @@ public class AttachDetachAndListRoomsInGridCTRL {
      */
     public String getHGName(int indexOfHG) {
         HouseGrid houseGrid = this.houseGridList.get(indexOfHG);
-        return houseGrid.getName();
+        return houseGrid.getMeteredDesignation();
     }
 
     /**
@@ -69,7 +69,7 @@ public class AttachDetachAndListRoomsInGridCTRL {
         RoomList roomListInGH = houseGrid.getRoomListInAGrid();
         int sizeOfRoomList = getRoomListOfHGSize(indexOfHouseGrid);
         Room lastRoom = roomListInGH.get(sizeOfRoomList-1);
-        return lastRoom.getName();
+        return lastRoom.getMeteredDesignation();
     }
 
 

@@ -51,12 +51,12 @@ public class ProgramWithTimer implements Program {
     }
 
     @Override
-    public double getAttributeValue() {
+    public double getEnergyConsumption() {
         return this.energyConsumption;
     }
 
     @Override
-    public void setAttributeValue(double energyConsumption) {
+    public void setEnergyConsumption(double energyConsumption) {
         if (Utils.valueIsPositive(energyConsumption))
             this.energyConsumption = energyConsumption;
 

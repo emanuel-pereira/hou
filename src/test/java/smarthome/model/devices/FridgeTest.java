@@ -17,7 +17,7 @@ class FridgeTest {
 
         Device d = dt.createDevice("foo", 100);
         d.setDeviceName("bar");
-        String result = d.getName();
+        String result = d.getDeviceName();
         String expected = "bar";
         assertEquals(expected, result);
     }

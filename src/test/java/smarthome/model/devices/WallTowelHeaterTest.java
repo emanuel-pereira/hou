@@ -18,7 +18,7 @@ class WallTowelHeaterTest {
         Device d = dt.createDevice("warm towels", 3420);
 
         String expected = "warm towels";
-        String result = d.getName();
+        String result = d.getDeviceName();
 
         assertEquals(expected, result);
     }
@@ -98,7 +98,7 @@ class WallTowelHeaterTest {
         d.setDeviceName("warm towels");
 
         String expected = "warm towels";
-        String result = d.getName();
+        String result = d.getDeviceName();
 
         assertEquals(expected, result);
     }

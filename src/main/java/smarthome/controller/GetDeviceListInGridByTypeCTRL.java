@@ -27,9 +27,9 @@ public class GetDeviceListInGridByTypeCTRL {
         return this.getHouseGridListCtrl().get(indexHG-1);
     }
 
-    public String getHouseGridName(int indexHG){
-        return this.getHouseGrid(indexHG).getName();
-    }
+        public String getHouseGridName(int indexHG){
+            return this.getHouseGrid(indexHG).getMeteredDesignation();
+        }
 
     public RoomList getListOfRoomsInGrid(int indexHG) {
         return this.getHouseGrid(indexHG).getRoomListInAGrid();

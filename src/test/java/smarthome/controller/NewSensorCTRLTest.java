@@ -257,7 +257,6 @@ class NewSensorCTRLTest {
         GregorianCalendar startDate = new GregorianCalendar(2020, 11, 1);
         Location loc = new Location(25, 28, 11);
         Sensor sensor = new Sensor("T0001", "Name", startDate, loc, temperature, "Celsius", new ReadingList());
-        porto.getSensorListInGA().addSensor(sensor);
 
         boolean expected = true;
         boolean result = ctrl.latitudeIsValid(sensor.getLocation().getLatitude());
@@ -451,8 +450,6 @@ class NewSensorCTRLTest {
         ReadingList readingList = new ReadingList();
         Sensor s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
         SensorList portoSensorList = porto.getSensorListInGA();
-        portoSensorList.getSensorList().clear();
-
         portoSensorList.addSensor(s1);
         String expected = "T0001";
         String result = ctrl.getGASensorId(0);
@@ -481,8 +478,6 @@ class NewSensorCTRLTest {
         ReadingList readingList = new ReadingList();
         Sensor s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
         SensorList portoSensorList = porto.getSensorListInGA();
-        portoSensorList.getSensorList().clear();
-
         portoSensorList.addSensor(s1);
         String expected = "Temperature sensor 1";
         String result = ctrl.getGASensorName(0);
@@ -510,13 +505,10 @@ class NewSensorCTRLTest {
         ReadingList readingList = new ReadingList();
         Sensor s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
         SensorList portoSensorList = porto.getSensorListInGA();
-        portoSensorList.getSensorList().clear();
-
         portoSensorList.addSensor(s1);
         Calendar result = ctrl.getGASensorSDate(0);
         assertEquals(startDate, result);
     }
-
     @Test
     @DisplayName("Ensure getRoomSensorSDate() returns the the sensor's start date")
     void getRoomSensorSDate() {
@@ -537,8 +529,6 @@ class NewSensorCTRLTest {
         Location location2 = new Location(23, -15, 12);
         ReadingList readingList = new ReadingList();
         Sensor s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
-        sensorList.getSensorList().clear();
-
         sensorList.addSensor(s1);
         Calendar result = ctrl.getRoomSensorSDate(0);
         assertEquals(startDate, result);
@@ -570,8 +560,6 @@ class NewSensorCTRLTest {
 
         Sensor s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
         SensorList portoSensorList = porto.getSensorListInGA();
-        portoSensorList.getSensorList().clear();
-
         portoSensorList.addSensor(s1);
         String expected = "Celsius";
         String result = ctrl.getGASensorUnit(0);
@@ -800,4 +788,21 @@ class NewSensorCTRLTest {
 
         assertEquals(expected, result);
     }
+
+    @Test
+    @DisplayName("Check if a house has a location")
+    void checkIfLocationExistsWithSuccess() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        SensorType temperature = new SensorType("temperature");
+        SensorType humidity = new SensorType("humidity");
+        sensorTypeList.addSensorType(temperature);
+        sensorTypeList.addSensorType(humidity);
+        GAList gaList = new GAList();
+
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
+
+        assertTrue(ctrl.checkIfHouseAsLocation());
+    }
+
+
 }

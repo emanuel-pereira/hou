@@ -4,8 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
-import smarthome.model.devices.Fridge;
 import smarthome.model.devices.FridgeType;
+import smarthome.model.devices.Fridge;
 import smarthome.model.devices.Lamp;
 import smarthome.model.validations.NameValidations;
 
@@ -85,7 +85,7 @@ class EditDevicesCTRLTest {
         ctrl.addDevice(1, "LG Fridge", "Fridge", 2);
 
         String expected = "LG Fridge";
-        String result = kitchenDL.get(0).getName();
+        String result = kitchenDL.get(0).getDeviceName();
         assertEquals(expected, result);
     }
 

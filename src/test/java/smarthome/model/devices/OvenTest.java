@@ -19,7 +19,7 @@ class OvenTest {
         Device device = dt.createDevice("baker", 420);
 
         String expected = "baker";
-        String result = device.getName();
+        String result = device.getDeviceName();
 
         assertEquals(expected, result);
     }
@@ -104,7 +104,7 @@ class OvenTest {
         device.setDeviceName("baker");
 
         String expected = "baker";
-        String result = device.getName();
+        String result = device.getDeviceName();
 
         assertEquals(expected, result);
     }

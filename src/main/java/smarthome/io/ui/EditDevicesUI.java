@@ -176,13 +176,13 @@ public class EditDevicesUI {
     }
 
     public void listDevicesInRoom() {
-        System.out.println("List of devices in " + selectedRoom.getName() + ":");
+        System.out.println("List of devices in " + selectedRoom.getMeteredDesignation() + ":");
         System.out.println(ctrl.showDeviceListInString(selectedRoomIndex));
     }
 
     private boolean deviceListInRoomIsNotEmpty() {
         if (ctrl.getDeviceList(selectedRoom).getDeviceList().isEmpty()) {
-            System.out.println("The device list in " + selectedRoom.getName() + " is empty.\n");
+            System.out.println("The device list in " + selectedRoom.getMeteredDesignation() + " is empty.\n");
             return false;
         }
         return true;

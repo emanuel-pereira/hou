@@ -93,7 +93,7 @@ public class House {
         for (Room r : listOfRoomsWithHouseGrid.getRoomList()) {
             result.append(number++);
             result.append(element);
-            result.append(r.getName());
+            result.append(r.getMeteredDesignation());
             result.append("\n");
         }
         return result.toString();
@@ -353,11 +353,15 @@ public class House {
         for (Metered metered : getMetered()) {
             meteredList.append(nr);
             meteredList.append(" - ");
-            meteredList.append(metered.getName());
+            meteredList.append(metered.getMeteredDesignation());
             meteredList.append("\n");
             nr++;
         }
         return meteredList.toString();
+    }
+
+    public static boolean checkIfLocationExists() {
+        return getAddress() != null;
     }
 }
 
