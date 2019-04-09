@@ -1,21 +1,20 @@
 package smarthome.io.ui;
 
 
-import smarthome.controller.ConfigureHouseLocationCTRL;
+import smarthome.controller.ConfigureHouseCTRL;
 import smarthome.model.GAList;
-import smarthome.model.House;
 
-public class ConfigureHouseLocationUI {
+public class ConfigureHouseUI {
 
-    private ConfigureHouseLocationCTRL ctrl;
+    private ConfigureHouseCTRL ctrl;
     private int indexGA;
     private String streetName;
     private String zipCode;
     private String town;
 
 
-    public ConfigureHouseLocationUI(GAList listOfGA, House house) {
-        ctrl = new ConfigureHouseLocationCTRL(listOfGA, house);
+    public ConfigureHouseUI(GAList listOfGA) {
+        ctrl = new ConfigureHouseCTRL(listOfGA);
     }
 
     public void checkIfGAListIsEmpty() {

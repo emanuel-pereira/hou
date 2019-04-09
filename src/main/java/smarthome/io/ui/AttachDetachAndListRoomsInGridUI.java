@@ -2,15 +2,15 @@
 package smarthome.io.ui;
 
 import smarthome.controller.AttachDetachAndListRoomsInGridCTRL;
-import smarthome.model.House;
+
 public class AttachDetachAndListRoomsInGridUI {
 
     private AttachDetachAndListRoomsInGridCTRL ctrl;
     private int indexOfHG;
     private int indexOfRoom;
 
-    public AttachDetachAndListRoomsInGridUI(House house) {
-        this.ctrl = new AttachDetachAndListRoomsInGridCTRL(house);
+    public AttachDetachAndListRoomsInGridUI() {
+        this.ctrl = new AttachDetachAndListRoomsInGridCTRL();
     }
 
     public void checkIfHGListIsEmpty() {

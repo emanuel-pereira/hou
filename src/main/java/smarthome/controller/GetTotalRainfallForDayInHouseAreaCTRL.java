@@ -1,22 +1,22 @@
 package smarthome.controller;
 
-import smarthome.model.House;
 import smarthome.model.Sensor;
 import smarthome.model.SensorType;
 import smarthome.model.SensorTypeList;
 
 import java.util.GregorianCalendar;
 
+import static smarthome.model.House.*;
+
+
 public class GetTotalRainfallForDayInHouseAreaCTRL {
 
 
     private SensorTypeList mSensorTypeList;
-    private House mHouse;
 
-    public GetTotalRainfallForDayInHouseAreaCTRL(House house, SensorTypeList sensorTypeList) {
+    public GetTotalRainfallForDayInHouseAreaCTRL(SensorTypeList sensorTypeList) {
 
         mSensorTypeList = sensorTypeList;
-        mHouse = house;
     }
 
     /**
@@ -35,7 +35,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRL {
      * @return true if at least exists one of the possible closest sensors with readings in the inputDate, otherwise returns false
      */
     public boolean closestSensorsWithLatestReadingsInDate(GregorianCalendar inputDate, SensorType sensorType){
-        return mHouse.closestSensorsWithReadingsInDate(inputDate,sensorType);
+        return closestSensorsWithReadingsInDate(inputDate,sensorType);
     }
     /**
      * Method that sums up the values of readings in the date inputted as parameter for the selected sensorType
@@ -45,7 +45,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRL {
      * @return a double value which resulted from summing up the values of readings in the date inputted as parameter
      */
     public double showTotalValueInADay(GregorianCalendar inputDate, SensorType sensorType) {
-        Sensor sensor = mHouse.getSensorOfTypeWithLatestReadingsInDate(inputDate, sensorType);
+        Sensor sensor = getSensorOfTypeWithLatestReadingsInDate(inputDate, sensorType);
 
         return sensor.getReadingList().totalValueInGivenDay(inputDate);
     }
@@ -55,6 +55,6 @@ public class GetTotalRainfallForDayInHouseAreaCTRL {
      * @return true if house geographical area is already configured, otherwise returns false
      */
     public boolean isHouseGAConfigured() {
-        return mHouse.getHouseGA() != null;
+        return getHouseGA() != null;
     }
 }

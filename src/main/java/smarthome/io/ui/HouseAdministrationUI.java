@@ -1,18 +1,18 @@
 package smarthome.io.ui;
 
 import smarthome.model.GAList;
-import smarthome.model.House;
 import smarthome.model.SensorTypeList;
 
 import java.util.ArrayList;
+
+import static smarthome.model.House.getHouseRoomList;
 
 public final class HouseAdministrationUI {
 
     private HouseAdministrationUI() {
     }
 
-    public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList,
-                                           House house)
+    public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList)
             throws ClassNotFoundException, IllegalAccessException, InstantiationException {
 
         int option = -1;
@@ -39,52 +39,52 @@ public final class HouseAdministrationUI {
 
             switch (option) {
                 case 1:
-                    ConfigureHouseLocationUI ui101 = new ConfigureHouseLocationUI(gaList, house);
+                    ConfigureHouseUI ui101 = new ConfigureHouseUI(gaList);
                     ui101.checkIfGAListIsEmpty();
                     break;
                 case 2:
-                    AddRoomToHouseUI ui105 = new AddRoomToHouseUI(house);
+                    AddRoomToHouseUI ui105 = new AddRoomToHouseUI();
                     ui105.addRoomToHouse();
                     break;
                 case 3:
-                    ListRoomsOfHouseUI ui108 = new ListRoomsOfHouseUI(house.getRoomList());
+                    ListRoomsOfHouseUI ui108 = new ListRoomsOfHouseUI();
                     ui108.run();
                     break;
                 case 4:
-                    NewHouseGridUI ui130 = new NewHouseGridUI(house);
+                    NewHouseGridUI ui130 = new NewHouseGridUI();
                     ui130.run();
                     break;
                 case 5:
-                    AddPowerSourceToGridUI ui135 = new AddPowerSourceToGridUI(house);
+                    AddPowerSourceToGridUI ui135 = new AddPowerSourceToGridUI();
                     ui135.checkIfHGListIsEmpty();
                     break;
                 case 6:
-                    AttachDetachAndListRoomsInGridUI ui145 = new AttachDetachAndListRoomsInGridUI(house);
+                    AttachDetachAndListRoomsInGridUI ui145 = new AttachDetachAndListRoomsInGridUI();
                     ui145.checkIfHGListIsEmpty();
                     break;
                 case 7:
-                    GetTotalNominalPowerUI ui230 = new GetTotalNominalPowerUI(house);
-                    ui230.getRoomTotalNominalPower ();
+                    GetTotalNominalPowerUI ui230 = new GetTotalNominalPowerUI();
+                    ui230.getRoomTotalNominalPower();
                     break;
                 case 8:
-                    NewSensorUI newSensorUI = new NewSensorUI(house, sensorTypeList, gaList);
+                    NewSensorUI newSensorUI = new NewSensorUI(sensorTypeList, gaList);
                     newSensorUI.checkIfRoomListIsEmpty();
                     break;
                 case 9:
-                    NewSensorUI listSensorsUI = new NewSensorUI(house, sensorTypeList, gaList);
+                    NewSensorUI listSensorsUI = new NewSensorUI(sensorTypeList, gaList);
                     listSensorsUI.selectRoomAndList();
                     break;
                 case 10:
-                    EditDevicesUI ui210 = new EditDevicesUI(house);
+                    EditDevicesUI ui210 = new EditDevicesUI();
                     ui210.selectOption();
                     break;
                 case 11:
-                    GetDeviceListInGridByTypeUI ui160 = new GetDeviceListInGridByTypeUI(house);
+                    GetDeviceListInGridByTypeUI ui160 = new GetDeviceListInGridByTypeUI();
                     ui160.checkIfHGListIsEmpty();
                     break;
                 case 12:
-                    GetTotalNominalPowerUI uS172 = new GetTotalNominalPowerUI(house);
-                    uS172.getGridTotalNominalPower ();
+                    GetTotalNominalPowerUI uS172 = new GetTotalNominalPowerUI();
+                    uS172.getGridTotalNominalPower();
                     break;
                 default:
                     //no action needed

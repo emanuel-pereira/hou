@@ -21,14 +21,14 @@ class DataImportCTRLTest {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources/DataSet_sprint05_GA.json";
+        Path path = Paths.get(filepath);
         try {
-            Path path = Paths.get(filepath);
             ctrl.importGeoAreasFromFile(path);
         } catch (FileNotFoundException e) {
             System.out.println("File not found in the specified file path: " + filepath);
         }
         int expected = 2;
-        int result = gaList.size();
+        int result = ctrl.getGaListInFileSize(path);
         assertEquals(expected, result);
     }
 
@@ -64,6 +64,20 @@ class DataImportCTRLTest {
         int expected = 4;
         int result = ctrl.getAllSensorsInFileSize(path);
 
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void importGeoAreasFromFile() throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException{
+        GAList gaList = new GAList();
+        DataImportCTRL ctrl = new DataImportCTRL(gaList);
+        String filepath = "resources/DataSet_sprint05_GA.json";
+
+        Path path = Paths.get(filepath);
+        ctrl.importGeoAreasFromFile(path);
+
+        int expected = 2;
+        int result = ctrl.getImportedGaListSize(path);
         assertEquals(expected,result);
     }
 
@@ -106,7 +120,6 @@ class DataImportCTRLTest {
         String filepath = "resources/DataSet_sprint05_GA.json";
 
         Path path = Paths.get(filepath);
-        ctrl.importGeoAreasFromFile(path);
         ctrl.importGeoAreasFromFile(path);
         ctrl.importGeoAreasFromFile(path);
 

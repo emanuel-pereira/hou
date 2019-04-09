@@ -1,0 +1,88 @@
+@startuml
+autonumber
+hidefootbox
+
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+actor SysAdmin
+
+create ":ConfigureHouseUI"
+SysAdmin -> ":ConfigureHouseUI": Configure the House\n from a file
+
+
+create ":ConfigureHouseCTRL"
+":ConfigureHouseUI" -> ":ConfigureHouseCTRL": create(gaList)
+":ConfigureHouseUI" -> ":ConfigureHouseCTRL": getGAList()
+":ConfigureHouseCTRL" -> ":gaList:GAList": getGAList()
+
+SysAdmin<--":ConfigureHouseUI": showGAList
+SysAdmin -> ":ConfigureHouseUI": gaId = Choose Geographical Area
+
+SysAdmin<--":ConfigureHouseUI": ask for House Location
+SysAdmin -> ":ConfigureHouseUI": location = insert\n House Location coordinates
+
+":ConfigureHouseUI" -> ":ConfigureHouseCTRL": configHouse(gaId,location)
+
+create ":DataImport"
+":ConfigureHouseCTRL"->":DataImport":create(gaList)
+":ConfigureHouseCTRL"->":DataImport": configHouse(gaId,location)
+
+
+
+'":ConfigureHouseCTRL"->":DataImport": List<GeographicalArea>=\nloadGeoAreaFiles(path)
+
+
+create ":{FileReaderHouse}"
+":DataImport"->":{FileReaderHouse}": create(ga,location,file)
+note right #FFFF
+{FileReaderHouse} can be:
+    JSONHouse
+end note
+
+":DataImport" -> ":DataImport": readConfigFile()
+
+ref over ":DataImport", ":{FileReaderHouse}": Create file reader class based on file extension
+
+":DataImport" -> ":{FileReaderHouse}": List<Room>=\n loadRooms(path)
+ref over ":DataImport",":{FileReaderHouse}",":DataImport":Create List of rooms that were read in the file
+":DataImport" -> ":{FileReaderHouse}": List<HouseGrid>=\n loadGrids(path)
+ref over ":DataImport",":{FileReaderHouse}",":DataImport":Create List of HouseGrids that were read in the file
+
+'":ConfigureHouseUI" ->":ConfigureHouseCTRL": importGeoAreasFromFiles(path)
+'":ConfigureHouseCTRL"-> ":DataImport": importFromFileGeoArea (List<Geographical Area>)
+'loop
+'":DataImport" -> "gaList:GAList":addGA(Geographical Area)
+'":DataImport" -> ":Repositories": saveGA(Geographical Area)
+'ref over ":DataImport","gaList:GAList": Add Geographical Areas that were in file to the GAList
+'end
+
+":ConfigureHouseUI" -> ":ConfigureHouseCTRL" :address = getHouseAddress()
+":ConfigureHouseUI" -> ":ConfigureHouseCTRL" :ga = getHouseGa()
+":ConfigureHouseUI" -> ":ConfigureHouseCTRL" :int = getRoomListInFileSize()
+ ":ConfigureHouseUI" -> ":ConfigureHouseCTRL" :int = getGridListInFile()
+'ref over ":ConfigureHouseUI",":ConfigureHouseCTRL": Get list size of Geographical Areas\n and Sensors to show
+
+SysAdmin<--":ConfigureHouseUI": Show success message with the House's address, ga, number of Rooms and Grids
+@enduml

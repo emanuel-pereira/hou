@@ -1,33 +1,54 @@
 package smarthome.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.model.Device;
-import smarthome.model.House;
-import smarthome.model.HouseGrid;
-import smarthome.model.Room;
+import smarthome.model.*;
 import smarthome.model.devices.FanType;
 import smarthome.model.devices.OvenType;
 import smarthome.model.devices.TvType;
 import smarthome.model.devices.WallTowelHeaterType;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static smarthome.model.House.getHGListInHouse;
+import static smarthome.model.House.getHouseRoomList;
 
 class GetDeviceListInGridByTypeCTRLTest {
+
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @Test
     @DisplayName("Return the house's house grid list")
     void getHouseGridListTest () {
-        House house = new House();
-        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL(house);
+
+        getHGListInHouse().getHouseGridList().clear();
+        getHouseRoomList().getRoomList().clear();
+
+        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        house.getHGListInHouse().addHouseGrid(hg1);
-        house.getHGListInHouse().addHouseGrid(hg2);
+        getHGListInHouse().addHouseGrid(hg1);
+        getHGListInHouse().addHouseGrid(hg2);
+
 
         List<HouseGrid> expectedResult = Arrays.asList(hg1,hg2);
         List<HouseGrid> result = ctrl160.getHouseGridListCtrl().getHouseGridList();
@@ -38,12 +59,14 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house's house grid list size")
     void getHouseGridListSizeTest () {
-        House house = new House();
-        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL(house);
+        getHGListInHouse().getHouseGridList().clear();
+        getHouseRoomList().getRoomList().clear();
+
+        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        house.getHGListInHouse().addHouseGrid(hg1);
-        house.getHGListInHouse().addHouseGrid(hg2);
+        getHGListInHouse().addHouseGrid(hg1);
+        getHGListInHouse().addHouseGrid(hg2);
 
         int expectedResult = 2;
         int result = ctrl160.getHGListSizeCtrl();
@@ -54,12 +77,14 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house's house grid list in a string")
     void showHouseGridListInStringTest () {
-        House house = new House();
-        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL(house);
+        getHGListInHouse().getHouseGridList().clear();
+        getHouseRoomList().getRoomList().clear();
+
+        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        house.getHGListInHouse().addHouseGrid(hg1);
-        house.getHGListInHouse().addHouseGrid(hg2);
+        getHGListInHouse().addHouseGrid(hg1);
+        getHGListInHouse().addHouseGrid(hg2);
 
         String expectedResult = "1 - grid1\n"+
                 "2 - grid2\n";
@@ -71,12 +96,14 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the name of a chosen house grid")
     void getHouseGridNameTest () {
-        House house = new House();
-        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL(house);
+        getHGListInHouse().getHouseGridList().clear();
+        getHouseRoomList().getRoomList().clear();
+
+        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        house.getHGListInHouse().addHouseGrid(hg1);
-        house.getHGListInHouse().addHouseGrid(hg2);
+        getHGListInHouse().addHouseGrid(hg1);
+        getHGListInHouse().addHouseGrid(hg2);
 
         String expectedResult = "grid1";
         String result = ctrl160.getHouseGridName(1);
@@ -87,8 +114,10 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's room list")
     void getRoomListInAGridTest() {
-        House house = new House();
-        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL(house);
+        getHGListInHouse().getHouseGridList().clear();
+        getHouseRoomList().getRoomList().clear();
+
+        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
 
         HouseGrid houseGrid = new HouseGrid ("main");
         HouseGrid houseGrid2 = new HouseGrid ("backup");
@@ -110,8 +139,10 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's room list size")
     void getRoomListInAGridSizeTest() {
-        House house = new House();
-        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL(house);
+        getHGListInHouse().getHouseGridList().clear();
+        getHouseRoomList().getRoomList().clear();
+
+        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
 
         HouseGrid houseGrid = new HouseGrid ("main");
         HouseGrid houseGrid2 = new HouseGrid ("backup");
@@ -133,19 +164,21 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's device list size")
     void deviceListInGridCtrlTestSize() {
-        House house = new House();
-        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL(house);
+        getHGListInHouse().getHouseGridList().clear();
+        getHouseRoomList().getRoomList().clear();
+
+        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        house.getHGListInHouse().addHouseGrid(hg1);
-        house.getHGListInHouse().addHouseGrid(hg2);
+        getHGListInHouse().addHouseGrid(hg1);
+        getHGListInHouse().addHouseGrid(hg2);
 
         Room r1 = new Room("R01","cozinha",1,2,2,2);
         Room r2 = new Room("R02","sala",1,2,2,2);
         Room r3 = new Room("R03","quarto",2,2,2,2);
-        house.getRoomList().addRoom(r1);
-        house.getRoomList().addRoom(r2);
-        house.getRoomList().addRoom(r3);
+        getHouseRoomList().addRoom(r1);
+        getHouseRoomList().addRoom(r2);
+        getHouseRoomList().addRoom(r3);
 
         OvenType typeOven = new OvenType();
         WallTowelHeaterType typeWth = new WallTowelHeaterType();
@@ -158,11 +191,14 @@ class GetDeviceListInGridByTypeCTRLTest {
         Device d4 = typeFan.createDevice("Micro Fan",250);
         Device d5 = typeTv.createDevice("Smart Tv",200);
 
-        house.getRoomList().get(0).getDeviceList().add(d1);
-        house.getRoomList().get(0).getDeviceList().add(d2);
-        house.getRoomList().get(0).getDeviceList().add(d3);
-        house.getRoomList().get(1).getDeviceList().add(d4);
-        house.getRoomList().get(2).getDeviceList().add(d5);
+        hg1.getDeviceListInGrid().getDeviceList().clear();
+        hg2.getDeviceListInGrid().getDeviceList().clear();
+
+        getHouseRoomList().get(0).getDeviceList().addDevice(d1);
+        getHouseRoomList().get(0).getDeviceList().addDevice(d2);
+        getHouseRoomList().get(0).getDeviceList().addDevice(d3);
+        getHouseRoomList().get(1).getDeviceList().addDevice(d4);
+        getHouseRoomList().get(2).getDeviceList().addDevice(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);
@@ -177,19 +213,21 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's device list")
     void deviceListInGridCtrlTest() {
-        House house = new House();
-        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL(house);
+        getHGListInHouse().getHouseGridList().clear();
+        getHouseRoomList().getRoomList().clear();
+
+        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        house.getHGListInHouse().addHouseGrid(hg1);
-        house.getHGListInHouse().addHouseGrid(hg2);
+        getHGListInHouse().addHouseGrid(hg1);
+        getHGListInHouse().addHouseGrid(hg2);
 
         Room r1 = new Room("R01","cozinha",1,2,2,2);
         Room r2 = new Room("R02","sala",1,2,2,2);
         Room r3 = new Room("R03","quarto",2,2,2,2);
-        house.getRoomList().addRoom(r1);
-        house.getRoomList().addRoom(r2);
-        house.getRoomList().addRoom(r3);
+        getHouseRoomList().addRoom(r1);
+        getHouseRoomList().addRoom(r2);
+        getHouseRoomList().addRoom(r3);
 
         OvenType typeOven = new OvenType();
         WallTowelHeaterType typeWth = new WallTowelHeaterType();
@@ -202,11 +240,14 @@ class GetDeviceListInGridByTypeCTRLTest {
         Device d4 = typeFan.createDevice("Micro Fan",250);
         Device d5 = typeTv.createDevice("Smart Tv",200);
 
-        house.getRoomList().get(0).getDeviceList().add(d1);
-        house.getRoomList().get(0).getDeviceList().add(d2);
-        house.getRoomList().get(0).getDeviceList().add(d3);
-        house.getRoomList().get(1).getDeviceList().add(d4);
-        house.getRoomList().get(2).getDeviceList().add(d5);
+        hg1.getDeviceListInGrid().getDeviceList().clear();
+        hg2.getDeviceListInGrid().getDeviceList().clear();
+
+        getHouseRoomList().get(0).getDeviceList().addDevice(d1);
+        getHouseRoomList().get(0).getDeviceList().addDevice(d2);
+        getHouseRoomList().get(0).getDeviceList().addDevice(d3);
+        getHouseRoomList().get(1).getDeviceList().addDevice(d4);
+        getHouseRoomList().get(2).getDeviceList().addDevice(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);
@@ -221,19 +262,21 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's device list but the devices are ordered by type")
     void deviceListInGridCtrlTestGROUPBY() {
-        House house = new House();
-        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL(house);
+        getHGListInHouse().getHouseGridList().clear();
+        getHouseRoomList().getRoomList().clear();
+
+        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        house.getHGListInHouse().addHouseGrid(hg1);
-        house.getHGListInHouse().addHouseGrid(hg2);
+        getHGListInHouse().addHouseGrid(hg1);
+        getHGListInHouse().addHouseGrid(hg2);
 
         Room r1 = new Room("R01","cozinha",1,2,2,2);
         Room r2 = new Room("R02","sala",1,2,2,2);
         Room r3 = new Room("R03","quarto",2,2,2,2);
-        house.getRoomList().addRoom(r1);
-        house.getRoomList().addRoom(r2);
-        house.getRoomList().addRoom(r3);
+        getHouseRoomList().addRoom(r1);
+        getHouseRoomList().addRoom(r2);
+        getHouseRoomList().addRoom(r3);
 
         OvenType typeOven = new OvenType();
         WallTowelHeaterType typeWth = new WallTowelHeaterType();
@@ -246,11 +289,14 @@ class GetDeviceListInGridByTypeCTRLTest {
         Device d4 = typeFan.createDevice("Micro Fan",250);
         Device d5 = typeTv.createDevice("Smart Tv",200);
 
-        house.getRoomList().get(0).getDeviceList().add(d1);
-        house.getRoomList().get(0).getDeviceList().add(d2);
-        house.getRoomList().get(0).getDeviceList().add(d3);
-        house.getRoomList().get(1).getDeviceList().add(d4);
-        house.getRoomList().get(2).getDeviceList().add(d5);
+        hg1.getDeviceListInGrid().getDeviceList().clear();
+        hg2.getDeviceListInGrid().getDeviceList().clear();
+
+        getHouseRoomList().get(0).getDeviceList().addDevice(d1);
+        getHouseRoomList().get(0).getDeviceList().addDevice(d2);
+        getHouseRoomList().get(0).getDeviceList().addDevice(d3);
+        getHouseRoomList().get(1).getDeviceList().addDevice(d4);
+        getHouseRoomList().get(2).getDeviceList().addDevice(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);
@@ -265,19 +311,21 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Check if by changing the order of the devices it will show not equals")
     void deviceListInGridCtrlTestGROUPBYnotEquals() {
-        House house = new House();
-        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL(house);
+        getHGListInHouse().getHouseGridList().clear();
+        getHouseRoomList().getRoomList().clear();
+
+        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        house.getHGListInHouse().addHouseGrid(hg1);
-        house.getHGListInHouse().addHouseGrid(hg2);
+        getHGListInHouse().addHouseGrid(hg1);
+        getHGListInHouse().addHouseGrid(hg2);
 
         Room r1 = new Room("R01","cozinha",1,2,2,2);
         Room r2 = new Room("R02","sala",1,2,2,2);
         Room r3 = new Room("R03","quarto",2,2,2,2);
-        house.getRoomList().addRoom(r1);
-        house.getRoomList().addRoom(r2);
-        house.getRoomList().addRoom(r3);
+        getHouseRoomList().addRoom(r1);
+        getHouseRoomList().addRoom(r2);
+        getHouseRoomList().addRoom(r3);
 
         OvenType typeOven = new OvenType();
         WallTowelHeaterType typeWth = new WallTowelHeaterType();
@@ -290,11 +338,14 @@ class GetDeviceListInGridByTypeCTRLTest {
         Device d4 = typeFan.createDevice("Micro Fan",250);
         Device d5 = typeTv.createDevice("Smart Tv",200);
 
-        house.getRoomList().get(0).getDeviceList().add(d1);
-        house.getRoomList().get(0).getDeviceList().add(d2);
-        house.getRoomList().get(0).getDeviceList().add(d3);
-        house.getRoomList().get(1).getDeviceList().add(d4);
-        house.getRoomList().get(2).getDeviceList().add(d5);
+        hg1.getDeviceListInGrid().getDeviceList().clear();
+        hg2.getDeviceListInGrid().getDeviceList().clear();
+
+        getHouseRoomList().get(0).getDeviceList().addDevice(d1);
+        getHouseRoomList().get(0).getDeviceList().addDevice(d2);
+        getHouseRoomList().get(0).getDeviceList().addDevice(d3);
+        getHouseRoomList().get(1).getDeviceList().addDevice(d4);
+        getHouseRoomList().get(2).getDeviceList().addDevice(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);
@@ -309,19 +360,21 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's device list but the devices are ordered by type, in string format. Also show's the location(room) of each device")
     void showGroupedByDeviceListInGridStringTest() {
-        House house = new House();
-        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL(house);
+        getHGListInHouse().getHouseGridList().clear();
+        getHouseRoomList().getRoomList().clear();
+
+        GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        house.getHGListInHouse().addHouseGrid(hg1);
-        house.getHGListInHouse().addHouseGrid(hg2);
+        getHGListInHouse().addHouseGrid(hg1);
+        getHGListInHouse().addHouseGrid(hg2);
 
         Room r1 = new Room("R01","cozinha",1,2,2,2);
         Room r2 = new Room("R02","sala",1,2,2,2);
         Room r3 = new Room("R03","quarto",2,2,2,2);
-        house.getRoomList().addRoom(r1);
-        house.getRoomList().addRoom(r2);
-        house.getRoomList().addRoom(r3);
+        getHouseRoomList().addRoom(r1);
+        getHouseRoomList().addRoom(r2);
+        getHouseRoomList().addRoom(r3);
 
         OvenType typeOven = new OvenType();
         WallTowelHeaterType typeWth = new WallTowelHeaterType();
@@ -334,11 +387,14 @@ class GetDeviceListInGridByTypeCTRLTest {
         Device d4 = typeFan.createDevice("Micro Fan",250);
         Device d5 = typeTv.createDevice("Smart Tv",200);
 
-        house.getRoomList().get(0).getDeviceList().add(d1);
-        house.getRoomList().get(0).getDeviceList().add(d2);
-        house.getRoomList().get(0).getDeviceList().add(d3);
-        house.getRoomList().get(1).getDeviceList().add(d4);
-        house.getRoomList().get(2).getDeviceList().add(d5);
+        hg1.getDeviceListInGrid().getDeviceList().clear();
+        hg2.getDeviceListInGrid().getDeviceList().clear();
+
+        getHouseRoomList().get(0).getDeviceList().addDevice(d1);
+        getHouseRoomList().get(0).getDeviceList().addDevice(d2);
+        getHouseRoomList().get(0).getDeviceList().addDevice(d3);
+        getHouseRoomList().get(1).getDeviceList().addDevice(d4);
+        getHouseRoomList().get(2).getDeviceList().addDevice(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);

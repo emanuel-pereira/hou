@@ -2,20 +2,36 @@ package smarthome.model;
 
 import smarthome.model.validations.Utils;
 
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "Room")
 public class Room implements Metered {
 
+    @Id
+    @Column(name = "ID")
     private String id;
+
     private String name;
+
     private Integer floor;
+
+    @Embedded
     private OccupationArea area;
+
     private double height;
-    private SensorList sensorListInRoom = new SensorList();
+
+    @Transient
+    private SensorList sensorListInRoom;
+
+    @Transient
     private DeviceList deviceList;
 
+    protected Room() {
+    }
     private double time;
 
 
@@ -34,6 +50,7 @@ public class Room implements Metered {
         this.floor = floor;
         this.area = new OccupationArea(length, width);
         this.height = height;
+        this.sensorListInRoom= new SensorList();
         this.deviceList = new DeviceList();
     }
 
@@ -139,7 +156,6 @@ public class Room implements Metered {
         }
         return Utils.round(sum, 2);
     }
-
 
     @Override
     public double getEstimatedEnergyConsumption() {
@@ -261,7 +277,4 @@ public class Room implements Metered {
         return Objects.hash(this.name);
     }
 
-
 }
-
-

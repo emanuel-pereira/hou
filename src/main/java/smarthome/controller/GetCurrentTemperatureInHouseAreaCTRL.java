@@ -2,13 +2,15 @@ package smarthome.controller;
 
 import smarthome.model.*;
 
+import static smarthome.model.House.getClosestSensorWithLatestReading;
+import static smarthome.model.House.getHouseGA;
+
+
 public class GetCurrentTemperatureInHouseAreaCTRL {
 
-    private House house;
     private SensorTypeList sensorTypeList;
 
-    public GetCurrentTemperatureInHouseAreaCTRL(House house, SensorTypeList sensorTypeList) {
-        this.house = house;
+    public GetCurrentTemperatureInHouseAreaCTRL(SensorTypeList sensorTypeList) {
         this.sensorTypeList = sensorTypeList;
     }
 
@@ -22,8 +24,8 @@ public class GetCurrentTemperatureInHouseAreaCTRL {
     /**
      * @return the geographical area where the house instance is located.
      */
-    public GeographicalArea getHouseGA(){
-        return this.house.getHouseGA();
+    public GeographicalArea getHouseGACTRL(){
+        return getHouseGA();
     }
 
     /**
@@ -48,7 +50,7 @@ public class GetCurrentTemperatureInHouseAreaCTRL {
      * @return the size of the list of sensors of the selected sensorType
      */
     public int getSensorListOfTypeSize(SensorType sensorType) {
-        GeographicalArea houseGA= this.house.getHouseGA();
+        GeographicalArea houseGA= getHouseGA();
         SensorList gaOfHouseSensorList=houseGA.getSensorListInGA();
         return gaOfHouseSensorList.getListOfSensorsByType(sensorType).size();
 
@@ -61,8 +63,8 @@ public class GetCurrentTemperatureInHouseAreaCTRL {
      * @return the closest sensor to the house location of the selected sensor type,
      * considering as fall-back selection criterion the sensor with the latest readings.
      */
-    public Sensor getClosestSensorWithLatestReading(SensorType sensorType) {
-        return this.house.getClosestSensorWithLatestReading(sensorType);
+    public Sensor getClosestSensorWithLatestReadingCTRL(SensorType sensorType) {
+        return getClosestSensorWithLatestReading(sensorType);
     }
 
     /**

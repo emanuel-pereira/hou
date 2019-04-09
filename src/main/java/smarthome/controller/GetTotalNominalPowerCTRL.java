@@ -4,6 +4,9 @@ import smarthome.dto.DeviceDTO;
 import smarthome.io.ui.UtilsUI;
 import smarthome.model.*;
 
+import static smarthome.model.House.getHGListInHouse;
+import static smarthome.model.House.getHouseRoomList;
+
 import java.util.List;
 
 public class GetTotalNominalPowerCTRL {
@@ -15,11 +18,11 @@ public class GetTotalNominalPowerCTRL {
     /**
      * Controller constructor
      *
-     * @param house the current and only house
+     *
      */
-    public GetTotalNominalPowerCTRL(House house) {
-        this.houseGridList = house.getHGListInHouse();
-        this.roomList = house.getRoomList();
+    public GetTotalNominalPowerCTRL() {
+        this.houseGridList = getHGListInHouse();
+        this.roomList = getHouseRoomList();
     }
 
     /**

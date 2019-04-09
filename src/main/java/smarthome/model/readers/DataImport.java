@@ -16,6 +16,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.logging.FileHandler;
@@ -25,13 +26,15 @@ import java.util.logging.SimpleFormatter;
 import static java.lang.Double.parseDouble;
 
 public class DataImport {
+    static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
     private JSONParser parser = new JSONParser();
     private Path configFilePath;
     private GAList gaList;
-    static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
+    private List<GeographicalArea> notAdded;
 
     public DataImport(GAList gaList) {
         this.gaList = gaList;
+        this.notAdded = new ArrayList<>();
     }
 
 
@@ -124,6 +127,7 @@ public class DataImport {
     }
 
     public void importFromFileGeoArea(List<GeographicalArea> dataToImport) {
+        this.notAdded.clear();
         for (GeographicalArea ga : dataToImport) {
             if (this.gaList.addGA(ga)) {
                 try {
@@ -133,7 +137,14 @@ public class DataImport {
                 } catch (NullPointerException e) {
                     log.warn("Repository unreachable");
                 }
-            } else log.info("No Geographical Areas were imported into the systems DB");
+            } else{
+                this.notAdded.add(ga);
+                log.info("No Geographical Areas were imported into the systems DB");}
         }
     }
+
+    public int notAddedNumber(){
+        return this.notAdded.size();
+    }
+
 }

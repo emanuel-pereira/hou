@@ -1,4 +1,5 @@
 package smarthome.io.ui;
+
 import smarthome.controller.NewSensorCTRL;
 import smarthome.model.*;
 import java.util.GregorianCalendar;
@@ -21,11 +22,15 @@ public class NewSensorUI {
     private boolean isInternal;
 
 
-    public NewSensorUI(House house, SensorTypeList sensorTypeList, GAList listOfGA) {
-        this.ctrl = new NewSensorCTRL(house, sensorTypeList, listOfGA);
+    public NewSensorUI(SensorTypeList sensorTypeList, GAList listOfGA) {
+        this.ctrl = new NewSensorCTRL(sensorTypeList, listOfGA);
     }
 
     void checkIfRoomListIsEmpty() {
+        if (!this.ctrl.checkIfHouseAsLocation()) {
+            System.out.println("Need to configure the house first. Please insert the location of the house.\n");
+            return;
+        }
         isInternal = true;
         if (this.ctrl.getRoomListSize() == 0) {
             System.out.println("List of Rooms is empty. Please insert at least one Room.");

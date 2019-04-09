@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetTotalNominalPowerCTRL;
-import smarthome.model.House;
 
 public class GetTotalNominalPowerUI {
 
@@ -11,11 +10,9 @@ public class GetTotalNominalPowerUI {
 
     /**
      * User interface constructor
-     *
-     * @param house the current and only house
      */
-    public GetTotalNominalPowerUI(House house) {
-        controller = new GetTotalNominalPowerCTRL(house);
+    public GetTotalNominalPowerUI() {
+        controller = new GetTotalNominalPowerCTRL();
     }
 
     /**

@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetEnergyConsumptionInPeriodCTRL;
-import smarthome.model.House;
 
 import java.util.GregorianCalendar;
 
@@ -15,16 +14,16 @@ public class GetEnergyConsumptionInPeriodUI {
     private String ecString = "[Energy Consumption]: ";
 
 
-    public GetEnergyConsumptionInPeriodUI(House house) {
-        mCtrl = new GetEnergyConsumptionInPeriodCTRL(house);
+    public GetEnergyConsumptionInPeriodUI() {
+        mCtrl = new GetEnergyConsumptionInPeriodCTRL();
     }
 
 
     public void selectMetered() {
         System.out.println("Choose the metered object from the list below to get its total energy consumption in a time interval:");
-        System.out.println(mCtrl.showMetered());
+        System.out.println(mCtrl.showMeteredCTRL());
         this.indexOfMetered = UtilsUI.requestIntegerInInterval(1, mCtrl.meteredListSize(),
-                "Not a valid option. Please select a device from the list below:\n" + mCtrl.showMetered());
+                "Not a valid option. Please select a device from the list below:\n" + mCtrl.showMeteredCTRL());
         this.indexOfMetered--;
         this.getStartDate();
     }

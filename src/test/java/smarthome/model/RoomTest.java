@@ -96,6 +96,35 @@ public class RoomTest {
         assertFalse(result);
     }
 
+    /**
+     * Test to define/edit the id of the room.
+     */
+    @Test
+    public void setIdCorrectly() {
+        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2.5);
+        bedroom.setId("R1");
+
+        String expectedResult = "R1";
+        String result = bedroom.getId();
+
+        assertEquals(expectedResult, result);
+
+    }
+
+    /**
+     * Test to define/edit the id of the room.
+     */
+    @Test
+    public void setIdIncorrectly() {
+        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2.5);
+        bedroom.setId(" ");
+
+        String expectedResult = "R01";
+        String result = bedroom.getId();
+
+        assertEquals(expectedResult, result);
+    }
+
 
     /**
      * Test to define/edit the name of the room.
@@ -163,8 +192,7 @@ public class RoomTest {
     @Test
     @DisplayName("Correctly get the estimated energy consumption of a room")
     void getCorrectRoomEstimatedEnergyConsumption() {
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = new RoomList();
         Room kitchen = roomList.createNewRoom("R01", "bedroom", 1, 2, 2, 2);
         roomList.addRoom(kitchen);
 
@@ -213,7 +241,7 @@ public class RoomTest {
     @Test
     public void getCorrectNominalPowerIfTwoDevices() {
         House house = new House ();
-        RoomList roomList = house.getRoomList ();
+        RoomList roomList = house.getHouseRoomList ();
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
         DeviceSpecs ewh = new Fridge ();
@@ -238,7 +266,7 @@ public class RoomTest {
     @Test
     public void getCorrectNominalPowerIfOneDevice() {
         House house = new House ();
-        RoomList roomList = house.getRoomList ();
+        RoomList roomList = house.getHouseRoomList ();
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
         DeviceSpecs ewh = new Fridge ();
@@ -260,8 +288,7 @@ public class RoomTest {
  /*FIXME
     @Test
     public void getCorrectNominalPowerIfZero() {
-        House house = new House ();
-        RoomList roomList = house.getRoomList ();
+        RoomList roomList = getHouseRoomList ();
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
 
@@ -284,8 +311,7 @@ public class RoomTest {
      */
     @Test
     public void getCorrectNominalPowerIf() {
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = new RoomList();
         Room bedroom = roomList.createNewRoom("R01","bedroom", 1, 2, 2, 2);
         roomList.addRoom(bedroom);
 
@@ -304,7 +330,7 @@ public class RoomTest {
     public void getIncorrectNominalPower() {
 
         House house = new House ();
-        RoomList roomList = house.getRoomList ();
+        RoomList roomList = house.getHouseRoomList ();
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
 
@@ -331,7 +357,7 @@ public class RoomTest {
     @Test
     void getRoomEnergyConsumptionInPeriod1() {
         House house = new House ();
-        RoomList roomList = house.getRoomList ();
+        RoomList roomList = house.getHouseRoomList ();
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
 
@@ -374,7 +400,7 @@ public class RoomTest {
     @Test
     void getRoomEnergyConsumptionInPeriod2() {
         House house = new House ();
-        RoomList roomList = house.getRoomList ();
+        RoomList roomList = house.getHouseRoomList ();
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
 
@@ -456,7 +482,7 @@ public class RoomTest {
     @Test
     public void checkIfSameDeviceIsAddedTwice() {
         House house = new House ();
-        RoomList roomList = house.getRoomList ();
+        RoomList roomList = house.getHouseRoomList ();
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
         DeviceList dL = bedroom.getDeviceList ();
@@ -471,7 +497,7 @@ public class RoomTest {
     @Test
     public void getLastDevice() {
         House house = new House ();
-        RoomList roomList = house.getRoomList ();
+        RoomList roomList = house.getHouseRoomList ();
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
         DeviceList dL = bedroom.getDeviceList ();
@@ -492,7 +518,7 @@ public class RoomTest {
     @Test
     void getSizeDeviceListInRoom() {
         House house = new House ();
-        RoomList roomList = house.getRoomList ();
+        RoomList roomList = house.getHouseRoomList ();
         Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
         DeviceList dL = bedroom.getDeviceList ();
