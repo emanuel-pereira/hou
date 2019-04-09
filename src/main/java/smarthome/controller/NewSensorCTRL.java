@@ -3,10 +3,12 @@ package smarthome.controller;
 import smarthome.model.*;
 import smarthome.model.validations.GPSValidations;
 import smarthome.model.validations.NameValidations;
+import smarthome.repository.Repositories;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class NewSensorCTRL {
 
@@ -103,7 +105,18 @@ public class NewSensorCTRL {
         GeographicalArea geographicalArea = this.gaList.get(indexOfGA);
         SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);
         Sensor sensor = geographicalArea.getSensorListInGA().newSensor(id, inputName, startDate, location, sensorType, inputUnit, readings);
-        return geographicalArea.getSensorListInGA().addSensor(sensor);
+        if (!geographicalArea.getSensorListInGA().addSensor(sensor)) {
+            return false;
+        } else {
+            //Repository call
+            try {
+                Repositories.saveSensor(sensor);
+            } catch (NullPointerException e) {
+                Logger.getLogger("Repository unreachable");
+            }
+            return true;
+        }
+
     }
 
     /**

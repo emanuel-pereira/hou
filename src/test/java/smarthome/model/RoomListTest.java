@@ -98,6 +98,41 @@ public class RoomListTest {
         assertFalse(result);
     }
 
+    @Test
+    void checkIffRoomIdExists() {
+        Address a1 = new Address("Rua Luis Pacheco", "3380-45", "Lisboa", 41, 12.3, 110);
+
+        Location loc = new Location(25, 35, 15);
+        OccupationArea oc = new OccupationArea(40, 45);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
+
+        House house2 = new House(a1, g1);
+
+        RoomList list = house2.getRoomList();
+        Room kitchen = list.createNewRoom("R01","kitchen", 1, 3, 3.5, 2);
+        list.addRoom(kitchen);
+
+        boolean result = list.checkIfRoomIDExists("R01");
+        assertTrue(result);
+    }
+
+    @Test
+    void checkIfRoomIdNotExists() {
+        Address a1 = new Address("Rua Luis Pacheco", "3380-45", "Lisboa", 41, 12.3, 110);
+
+        Location loc = new Location(25, 35, 15);
+        OccupationArea oc = new OccupationArea(40, 45);
+        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
+
+        House house2 = new House(a1, g1);
+
+        RoomList list = house2.getRoomList();
+        Room kitchen = list.createNewRoom("R01","kitchen", 1, 3, 3.5, 2);
+        list.addRoom(kitchen);
+
+        boolean result = list.checkIfRoomIDExists("R02");
+        assertFalse(result);
+    }
 
     @Test
     @DisplayName("Tests if a room is removed from the Room list")

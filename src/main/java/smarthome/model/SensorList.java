@@ -27,10 +27,13 @@ public class SensorList {
      */
     public boolean addSensor(Sensor newSensor) {
         if (!this.listOfSensors.contains(newSensor)) {
-            Repositories.saveSensor(newSensor);
             return this.listOfSensors.add(newSensor);
         } else return false;
     }
+
+
+
+
 
     /**
      * Method to return the sensors included in the list

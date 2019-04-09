@@ -96,6 +96,35 @@ public class RoomTest {
         assertFalse(result);
     }
 
+    /**
+     * Test to define/edit the id of the room.
+     */
+    @Test
+    public void setIdCorrecty() {
+        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2.5);
+        bedroom.setId("R1");
+
+        String expectedResult = "R1";
+        String result = bedroom.getId();
+
+        assertEquals(expectedResult, result);
+
+    }
+
+    /**
+     * Test to define/edit the id of the room.
+     */
+    @Test
+    public void setIdIncorrectly() {
+        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2.5);
+        bedroom.setId(" ");
+
+        String expectedResult = "R01";
+        String result = bedroom.getId();
+
+        assertEquals(expectedResult, result);
+    }
+
 
     /**
      * Test to define/edit the name of the room.
