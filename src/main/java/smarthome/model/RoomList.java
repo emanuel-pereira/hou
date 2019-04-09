@@ -58,7 +58,7 @@ public class RoomList {
      */
     public boolean checkIfRoomNameExists(String name) {
         for (Room r : this.getRoomList()) {
-            if (r.getName().equals(name)) {
+            if (r.getMeteredDesignation().equals(name)) {
                 return true;
             }
         }

@@ -202,44 +202,7 @@ public class RoomTest {
         assertEquals(expected, result);
     }
 
-    @Test
-    @DisplayName("Correctly get the estimated energy consumption of a room")
-    void getRoomEstimatedEnergyConsumption() {
-        House house = new House();
-        RoomList roomList = house.getRoomList();
-        Room kitchen = roomList.createNewRoom("R01","bedroom", 1, 2, 2, 2);
-        roomList.addRoom(kitchen);
 
-        DeviceType dt = new FanType();
-        Device d = dt.createDevice("Fan 1",2);
-        Fan fan = (Fan) d;
-
-        DeviceType dt1= new WashingMachineType();
-        Device d1 = dt1.createDevice("Washing Machine1",100);
-        WashingMachine washingMachine = (WashingMachine) d1;
-
-
-        DeviceList deviceList = kitchen.getDeviceList();
-        deviceList.addDevice(fan);
-        deviceList.addDevice(washingMachine);
-
-        ProgramMode fast = fan.createProgram("Fast", 2);
-        ProgramMode ultraFast = fan.createProgram("Ultra Fast", 4);
-        fan.addProgramToList(fast);
-        fan.addProgramToList(ultraFast);
-        ultraFast.setTime(10);
-        fan.setMeteredProgram("Ultra Fast");
-
-        ProgramWithTimer eco = washingMachine.createProgram("Eco", 20);
-        washingMachine.addProgramToList(eco);
-        eco.setDuration(30);
-        washingMachine.setMeteredProgram("Eco");
-
-        double expected = 60;
-        double result = kitchen.getEstimatedEnergyConsumption();
-
-        assertEquals(expected, result);
-    }
 
     /**
      * Check if sum of nominal power of devices in room is correct and return correct number
