@@ -14,6 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 class DeactivateSensorCTRLTest {
 
     @Test
@@ -56,13 +57,13 @@ class DeactivateSensorCTRLTest {
         DeactivateSensorCTRL ctrl = new DeactivateSensorCTRL (gaList);
 
         int expected = 2;
-        int result = ctrl.getGAListSize ();
+        int result = ctrl.getGAList ().size ();
 
         assertEquals (expected, result);
     }
 
     @Test
-    @DisplayName("Deactivate a active sensor")
+    @DisplayName("Deactivate a active sensor with success")
     void deactivateSensorCorrectly() {
         GAList gaList = new GAList ();
         OccupationArea portoOA = new OccupationArea (25, 20);
@@ -95,6 +96,40 @@ class DeactivateSensorCTRLTest {
         DeactivateSensorCTRL ctrl = new DeactivateSensorCTRL (gaList);
         boolean result = ctrl.deactivateSensor (gaDTOId, sensorDTOId, pDate);
         assertTrue (result);
+    }
+
+    @Test
+    @DisplayName("Try to deactivate a sensor with the wrong name and return false")
+    void deactivateSensorIfWrongName() {
+        GAList gaList= new GAList();
+        OccupationArea portoOA= new OccupationArea(25,20);
+        Location portoLoc= new Location(25,12,29);
+        GeographicalArea porto= new GeographicalArea("POR","Porto","City",portoOA,portoLoc);
+        gaList.addGA(porto);
+        OccupationArea lisOA= new OccupationArea(35,20);
+        Location lisLoc= new Location(55,22,29);
+        GeographicalArea lisbon= new GeographicalArea("LIS","Lisbon","City",lisOA,lisLoc);
+        gaList.addGA(lisbon);
+
+        SensorList lisbonSensorList=lisbon.getSensorListInGA();
+        Location sLoc= new Location(55,21,26);
+        GregorianCalendar sDate=new GregorianCalendar(2019,2,2);
+        SensorType sensorType=new SensorType("Temperature");
+        Sensor sensor= new Sensor("TL1023","TemperatureSensor",sDate,sLoc,sensorType,"Celsius", new ReadingList());
+        lisbonSensorList.addSensor(sensor);
+
+        SensorMapper sMapper= new SensorMapper();
+        SensorDTO sensorDTO=sMapper.toDto(sensor);
+        List<SensorDTO> sensorListDTO= new ArrayList<>();
+        sensorListDTO.add(sensorDTO);
+
+        GeographicalAreaDTO lisbonDTO= new GeographicalAreaDTO("LIS","Lisbon",sensorListDTO);
+        String gaDTOId=lisbonDTO.getIdentification();
+        String sensorDTOId="invalidID";
+        DeactivateSensorCTRL ctrl= new DeactivateSensorCTRL (gaList);
+        GregorianCalendar pDate=new GregorianCalendar(2019,8,2);
+        boolean result=ctrl.deactivateSensor (gaDTOId,sensorDTOId,pDate);
+        assertFalse(result);
     }
 
     @Test
@@ -188,12 +223,6 @@ class DeactivateSensorCTRLTest {
         assertNotEquals(lisbon,result);
     }
 
-
-
-
-
-
-
     @Test
     @DisplayName("Display true because sensor is active")
     void sensorStatusTrue() {
@@ -272,4 +301,76 @@ class DeactivateSensorCTRLTest {
 
         assertFalse(result);
     }
+
+    @Test
+    @DisplayName("Check if the is not possible to deactivate a sensor with a invalid sensor id")
+    void deactivateSensorForInvalidSensorId() {
+        GAList gaList= new GAList();
+        OccupationArea portoOA= new OccupationArea(25,20);
+        Location portoLoc= new Location(25,12,29);
+        GeographicalArea porto= new GeographicalArea("POR","Porto","City",portoOA,portoLoc);
+        gaList.addGA(porto);
+        OccupationArea lisOA= new OccupationArea(35,20);
+        Location lisLoc= new Location(55,22,29);
+        GeographicalArea lisbon= new GeographicalArea("LIS","Lisbon","City",lisOA,lisLoc);
+        gaList.addGA(lisbon);
+
+        SensorList lisbonSensorList=lisbon.getSensorListInGA();
+        Location sLoc= new Location(55,21,26);
+        GregorianCalendar sDate=new GregorianCalendar(2019,2,2);
+        SensorType sensorType=new SensorType("Temperature");
+        Sensor sensor= new Sensor("TL1023","TemperatureSensor",sDate,sLoc,sensorType,"Celsius", new ReadingList());
+        lisbonSensorList.addSensor(sensor);
+
+        SensorMapper sMapper= new SensorMapper();
+        SensorDTO sensorDTO=sMapper.toDto(sensor);
+        List<SensorDTO> sensorListDTO= new ArrayList<>();
+        sensorListDTO.add(sensorDTO);
+
+        GeographicalAreaDTO lisbonDTO= new GeographicalAreaDTO("LIS","Lisbon",sensorListDTO);
+        String gaDTOId=lisbonDTO.getIdentification();
+        String sensorDTOId="invalidID";
+        DeactivateSensorCTRL ctrl= new DeactivateSensorCTRL (gaList);
+        GregorianCalendar pDate=new GregorianCalendar(2019,2,2);
+
+        boolean result=ctrl.deactivateSensor (gaDTOId,sensorDTOId,pDate);
+
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Try to deactivate sensor for invalid geographical area id")
+    void removeSensorForInvalidGAIdReturnsFalse() {
+        GAList gaList= new GAList();
+        OccupationArea portoOA= new OccupationArea(25,20);
+        Location portoLoc= new Location(25,12,29);
+        GeographicalArea porto= new GeographicalArea("POR","Porto","City",portoOA,portoLoc);
+        gaList.addGA(porto);
+
+        SensorList lisbonSensorList=porto.getSensorListInGA();
+        Location sLoc= new Location(55,21,26);
+        GregorianCalendar sDate=new GregorianCalendar(2019,2,2);
+        SensorType sensorType=new SensorType("Temperature");
+        Sensor sensor= new Sensor("TL1023","TemperatureSensor",sDate,sLoc,sensorType,"Celsius", new ReadingList());
+        lisbonSensorList.addSensor(sensor);
+
+        SensorMapper sMapper= new SensorMapper();
+        SensorDTO sensorDTO=sMapper.toDto(sensor);
+        List<SensorDTO> sensorListDTO= new ArrayList<>();
+        sensorListDTO.add(sensorDTO);
+
+        String gaDTOId="Ga";
+        String sensorDTOId=sensorDTO.getId();
+        DeactivateSensorCTRL ctrl= new DeactivateSensorCTRL(gaList);
+        GregorianCalendar pDate=new GregorianCalendar(2019,2,2);
+
+        boolean thrown = false;
+        try {
+            ctrl.deactivateSensor(gaDTOId,sensorDTOId,pDate);
+        } catch (NullPointerException e) {
+            thrown = true;
+        }
+        assertTrue(thrown);
+    }
+
 }

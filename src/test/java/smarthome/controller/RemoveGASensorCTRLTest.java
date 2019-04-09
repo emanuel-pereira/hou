@@ -61,61 +61,6 @@ class RemoveGASensorCTRLTest {
         assertNotEquals(expected,result);
     }
 
-    @Test
-    @DisplayName("Ensure that method returns geographical area Lisbon when searching for a geographical area with Id=LIS")
-    void getGAById() {
-        GAList gaList= new GAList();
-        OccupationArea portoOA= new OccupationArea(25,20);
-        Location portoLoc= new Location(25,12,29);
-        GeographicalArea porto= new GeographicalArea("POR","Porto","City",portoOA,portoLoc);
-        gaList.addGA(porto);
-        OccupationArea lisOA= new OccupationArea(35,20);
-        Location lisLoc= new Location(55,22,29);
-        GeographicalArea lisbon= new GeographicalArea("LIS","Lisbon","City",lisOA,lisLoc);
-        gaList.addGA(lisbon);
-        RemoveGASensorCTRL ctrl= new RemoveGASensorCTRL(gaList);
-        GeographicalArea result=ctrl.getGAById("LIS");
-        assertEquals(lisbon,result);
-    }
-
-    @Test
-    @DisplayName("Ensure that method returns Null Pointer Exception when searching for an nonexistent geographical area Id")
-    void getGAByIdReturnsNullPointerException() {
-        GAList gaList= new GAList();
-        OccupationArea portoOA= new OccupationArea(25,20);
-        Location portoLoc= new Location(25,12,29);
-        GeographicalArea porto= new GeographicalArea("POR","Porto","City",portoOA,portoLoc);
-        gaList.addGA(porto);
-        OccupationArea lisOA= new OccupationArea(35,20);
-        Location lisLoc= new Location(55,22,29);
-        GeographicalArea lisbon= new GeographicalArea("LIS","Lisbon","City",lisOA,lisLoc);
-        gaList.addGA(lisbon);
-        RemoveGASensorCTRL ctrl= new RemoveGASensorCTRL(gaList);
-        boolean thrown = false;
-        try {
-            GeographicalArea ga=ctrl.getGAById("coim");
-        } catch (NullPointerException e) {
-            thrown = true;
-        }
-        assertTrue(thrown);
-    }
-
-    @Test
-    @DisplayName("Ensure that method does not return geographical area Lisbon when searching for a geographical area with Id=POR")
-    void getGAByIdNotEquals() {
-        GAList gaList= new GAList();
-        OccupationArea portoOA= new OccupationArea(25,20);
-        Location portoLoc= new Location(25,12,29);
-        GeographicalArea porto= new GeographicalArea("POR","Porto","City",portoOA,portoLoc);
-        gaList.addGA(porto);
-        OccupationArea lisOA= new OccupationArea(35,20);
-        Location lisLoc= new Location(55,22,29);
-        GeographicalArea lisbon= new GeographicalArea("LIS","Lisbon","City",lisOA,lisLoc);
-        gaList.addGA(lisbon);
-        RemoveGASensorCTRL ctrl= new RemoveGASensorCTRL(gaList);
-        GeographicalArea result=ctrl.getGAById("POR");
-        assertNotEquals(lisbon,result);
-    }
 
     @Test
     @DisplayName("Ensure that removeSensor method removes sensor from the sensor list of lisbon")
@@ -198,7 +143,7 @@ class RemoveGASensorCTRLTest {
 
         boolean thrown = false;
         try {
-            boolean result=ctrl.removeSensor(gaDTOId,sensorDTOId);
+           ctrl.removeSensor(gaDTOId,sensorDTOId);
         } catch (NullPointerException e) {
             thrown = true;
         }

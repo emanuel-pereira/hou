@@ -9,6 +9,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -20,7 +21,7 @@ class DataImportTest {
     void getFileExtensionTest() {
         GAList gaList = new GAList();
         DataImport dataImport = new DataImport(gaList);
-        Path path = Paths.get("resources/DataSet_sprint05_SensorData.json");
+        Path path = Paths.get("resources/DataSet_sprint05_SD.json");
         String result = dataImport.getFileExtension(path);
         String expected = "json";
         assertEquals(expected, result);
@@ -40,7 +41,7 @@ class DataImportTest {
         GAList gaList = new GAList();
         GeographicalArea ga = new GeographicalArea("001", "Porto", "city", new OccupationArea(3, 2), new Location(3, 30, 20));
         gaList.addGA(ga);
-        GregorianCalendar startDate = new GregorianCalendar(2018, 2, 3);
+        GregorianCalendar startDate = new GregorianCalendar(2018, Calendar.MARCH, 3);
         Location location = new Location(3, 2, 1);
         SensorType temp = new SensorType("Temperature");
         Sensor sensorISEP = new Sensor("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
@@ -49,7 +50,7 @@ class DataImportTest {
         ga.getSensorListInGA().addSensor(sensorPorto);
 
         DataImport dataImport = new DataImport(gaList);
-        Path path = Paths.get("resources/DataSet_sprint05_SensorData.json");
+        Path path = Paths.get("resources/DataSet_sprint05_SD.json");
         dataImport.importReadingsFromFile(path);
 
         List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
@@ -62,7 +63,7 @@ class DataImportTest {
         GAList gaList = new GAList();
         GeographicalArea ga = new GeographicalArea("001", "Porto", "city", new OccupationArea(3, 2), new Location(3, 30, 20));
         gaList.addGA(ga);
-        GregorianCalendar startDate = new GregorianCalendar(2020, 2, 3);
+        GregorianCalendar startDate = new GregorianCalendar(2020, Calendar.MARCH, 3);
         Location location = new Location(3, 2, 1);
         SensorType temp = new SensorType("Temperature");
         Sensor sensorISEP = new Sensor("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
@@ -71,7 +72,7 @@ class DataImportTest {
         ga.getSensorListInGA().addSensor(sensorPorto);
 
         DataImport dataImport = new DataImport(gaList);
-        Path path = Paths.get("resources/DataSet_sprint05_SensorData.json");
+        Path path = Paths.get("resources/DataSet_sprint05_SD.json");
         dataImport.importReadingsFromFile(path);
 
         List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();

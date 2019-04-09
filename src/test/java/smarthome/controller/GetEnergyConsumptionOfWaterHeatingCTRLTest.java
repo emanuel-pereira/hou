@@ -13,8 +13,8 @@ class GetEnergyConsumptionOfWaterHeatingCTRLTest {
         RoomList roomList = house.getRoomList();
         GetEnergyConsumptionOfWaterHeatingCTRL ctrl = new GetEnergyConsumptionOfWaterHeatingCTRL(house);
 
-        Room kitchen = new Room("Kitchen", 0, 8, 8, 3);
-        Room garage = new Room("Living Room", 0, 5, 4, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("R02","Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
 
@@ -44,8 +44,8 @@ class GetEnergyConsumptionOfWaterHeatingCTRLTest {
         GetEnergyConsumptionOfWaterHeatingCTRL ctrl = new GetEnergyConsumptionOfWaterHeatingCTRL(house);
 
         RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("Kitchen", 0, 6, 3.5, 3);
-        Room garage = new Room("Garage", 0, 6, 4, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 6, 3.5, 3);
+        Room garage = new Room("R02","Garage", 0, 6, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
 
@@ -71,8 +71,8 @@ class GetEnergyConsumptionOfWaterHeatingCTRLTest {
         GetEnergyConsumptionOfWaterHeatingCTRL ctrl = new GetEnergyConsumptionOfWaterHeatingCTRL(house);
 
         RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("Kitchen", 0, 6, 3.5, 3);
-        Room garage = new Room("Garage", 0, 6, 4, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 6, 3.5, 3);
+        Room garage = new Room("R02","Garage", 0, 6, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
 

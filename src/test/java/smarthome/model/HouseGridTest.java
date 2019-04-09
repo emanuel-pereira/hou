@@ -92,7 +92,7 @@ class HouseGridTest {
     @DisplayName("Attach one room to a grid and return true")
     void attachRoomToGrid() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
+        Room roomA = new Room("R01", "bedroom", 1, 2, 2, 2);
 
         boolean result = houseGrid.attachRoomToGrid(roomA);
 
@@ -104,8 +104,8 @@ class HouseGridTest {
     @DisplayName("Attach two different rooms to a grid and return true")
     void attachTwoNewRoomsToGrid() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("garden", 0, 2, 2, 2);
+        Room roomA = new Room("R01", "bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R01", "garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
 
         boolean result = houseGrid.attachRoomToGrid(roomB);
@@ -117,7 +117,7 @@ class HouseGridTest {
     @DisplayName("Attach the same room twice to a grid and return false")
     void attachSameRoomTwiceToGrid() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
+        Room roomA = new Room("R01","bedroom", 1, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
 
         boolean result = houseGrid.attachRoomToGrid(roomA);
@@ -129,8 +129,8 @@ class HouseGridTest {
     @DisplayName("Attach two equal rooms to a grid and return false")
     void attachTwoEqualRoomsToGrid() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("bedroom", 1, 2, 2, 2);
+        Room roomA = new Room("R01", "bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R01", "bedroom", 1, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
 
         boolean result = houseGrid.attachRoomToGrid(roomB);
@@ -142,8 +142,8 @@ class HouseGridTest {
     @DisplayName("Attach two different rooms to a grid and return that room list size")
     void getRoomListInAGridSize() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("garden", 0, 2, 2, 2);
+        Room roomA = new Room("R01","bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R02","garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
         houseGrid.attachRoomToGrid(roomB);
 
@@ -157,8 +157,8 @@ class HouseGridTest {
     @DisplayName("Attach two different rooms to a grid and return that room list")
     void getRoomListInAGrid() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("garden", 0, 2, 2, 2);
+        Room roomA = new Room("R01", "bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R02", "garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
         houseGrid.attachRoomToGrid(roomB);
 
@@ -172,8 +172,8 @@ class HouseGridTest {
     @DisplayName("Detach one room from a grid and return true")
     void detachRoomFromGrid() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("garden", 0, 2, 2, 2);
+        Room roomA = new Room("R01", "bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R02", "garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
         houseGrid.attachRoomToGrid(roomB);
 
@@ -186,8 +186,8 @@ class HouseGridTest {
     @DisplayName("Try to detach a room that doesn't exist in a grid and return false")
     void detachRoom() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("garden", 0, 2, 2, 2);
+        Room roomA = new Room("R01","bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R02","garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
 
         boolean result = houseGrid.detachRoomFromGrid(roomB);
@@ -202,8 +202,8 @@ class HouseGridTest {
         HouseGrid hg1 = new HouseGrid("grid1");
         house.getHGListInHouse().addHouseGrid(hg1);
 
-        Room r1 = new Room("cozinha",1,2,2,2);
-        Room r3 = new Room("quarto",2,2,2,2);
+        Room r1 = new Room("R01", "cozinha",1,2,2,2);
+        Room r3 = new Room("R02", "quarto",2,2,2,2);
         house.getRoomList().addRoom(r1);
         house.getRoomList().addRoom(r3);
 
@@ -240,8 +240,8 @@ class HouseGridTest {
             HouseGrid hg1 = new HouseGrid("grid1");
             house.getHGListInHouse().addHouseGrid(hg1);
 
-            Room r1 = new Room("cozinha",1,2,2,2);
-            Room r3 = new Room("quarto",2,2,2,2);
+            Room r1 = new Room("R01", "cozinha",1,2,2,2);
+            Room r3 = new Room("R02", "quarto",2,2,2,2);
             house.getRoomList().addRoom(r1);
             house.getRoomList().addRoom(r3);
 
@@ -278,8 +278,8 @@ class HouseGridTest {
         HouseGrid hg1 = new HouseGrid("grid1");
         house.getHGListInHouse().addHouseGrid(hg1);
 
-        Room r1 = new Room("cozinha",1,2,2,2);
-        Room r3 = new Room("quarto",2,2,2,2);
+        Room r1 = new Room("R01", "cozinha",1,2,2,2);
+        Room r3 = new Room("R02", "quarto",2,2,2,2);
         house.getRoomList().addRoom(r1);
         house.getRoomList().addRoom(r3);
 
@@ -316,8 +316,8 @@ class HouseGridTest {
         HouseGrid hg1 = new HouseGrid("grid1");
         house.getHGListInHouse().addHouseGrid(hg1);
 
-        Room r1 = new Room("cozinha",1,2,2,2);
-        Room r3 = new Room("quarto",2,2,2,2);
+        Room r1 = new Room("R01","cozinha",1,2,2,2);
+        Room r3 = new Room("R02","quarto",2,2,2,2);
         house.getRoomList().addRoom(r1);
         house.getRoomList().addRoom(r3);
 
@@ -356,8 +356,8 @@ class HouseGridTest {
     @DisplayName("Get the nominal power of a grid")
     void getNominalPower() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("garden", 0, 2, 2, 2);
+        Room roomA = new Room("R01","bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R02", "garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
         houseGrid.attachRoomToGrid(roomB);
         DeviceList deviceList = roomA.getDeviceList();
@@ -430,8 +430,8 @@ class HouseGridTest {
         HouseGrid grid = new HouseGrid("MainGrid");
         RoomList roomList = grid.getRoomListInAGrid();
 
-        Room kitchen = new Room("Kitchen", 0, 8, 8, 3);
-        Room garage = new Room("Living Room", 0, 5, 4, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("R02","Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
 
@@ -492,8 +492,8 @@ class HouseGridTest {
         HouseGrid grid = new HouseGrid("MainGrid");
         RoomList roomList = grid.getRoomListInAGrid();
 
-        Room kitchen = new Room("Kitchen", 0, 8, 8, 3);
-        Room garage = new Room("Living Room", 0, 5, 4, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("R02", "Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
 
@@ -504,5 +504,78 @@ class HouseGridTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    @DisplayName("Ensure that getEstimatedEnergyConsumption returns 1.09 Kwh")
+    void getEstimatedEnergyConsumption() {
+        HouseGrid grid = new HouseGrid("MainGrid");
+        RoomList roomList = grid.getRoomListInAGrid();
+
+        Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("R02","Living Room", 0, 5, 4, 3);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(garage);
+        DeviceList kitDeviceList = kitchen.getDeviceList();
+        DeviceList grDeviceList = garage.getDeviceList();
+
+        try {
+            Device fridgeA = kitDeviceList.newDevice("LG Fridge", "Fridge", 150);
+            Device kettleA = kitDeviceList.newDevice("Daijutsu", "Kettle", 250);
+            Device lampA = kitDeviceList.newDevice("Philips Smart Bulb", "Lamp", 15);
+            Device fridgeB = kitDeviceList.newDevice("Samsung Fridge", "Fridge", 250);
+
+            kitDeviceList.addDevice(fridgeA);
+            kitDeviceList.addDevice(kettleA);
+            kitDeviceList.addDevice(lampA);
+            grDeviceList.addDevice(lampA);
+            grDeviceList.addDevice(fridgeB);
+
+            ReadingList fridgeALog = fridgeA.getActivityLog();
+            Reading r1 = new Reading(20, new GregorianCalendar(2018, 2, 1, 9, 10),"C");
+            Reading r2 = new Reading(20, new GregorianCalendar(2018, 2, 2, 9, 10),"C");
+            Reading r3 = new Reading(20, new GregorianCalendar(2018, 2, 3, 9, 10),"C");
+            Reading r4 = new Reading(20, new GregorianCalendar(2018, 2, 4, 9, 10),"C");
+            Reading r5 = new Reading(20, new GregorianCalendar(2018, 2, 5, 9, 10),"C");
+            Reading r6 = new Reading(20, new GregorianCalendar(2018, 2, 6, 9, 10),"C");
+
+            fridgeALog.addReading(r1);
+            fridgeALog.addReading(r2);
+            fridgeALog.addReading(r3);
+            fridgeALog.addReading(r4);
+            fridgeALog.addReading(r5);
+            fridgeALog.addReading(r6);
+
+            ReadingList fridgeBLog = fridgeB.getActivityLog();
+            fridgeBLog.addReading(r1);
+            fridgeBLog.addReading(r2);
+            fridgeBLog.addReading(r3);
+            fridgeBLog.addReading(r4);
+            fridgeBLog.addReading(r5);
+            fridgeBLog.addReading(r6);
+
+        } catch (Exception e) {
+            //Do nothing.
+        }
+        double expected=1.09;
+        double result=grid.getEstimatedEnergyConsumption();
+        assertEquals(expected,result);
+
+    }
+
+    @Test
+    @DisplayName("Ensure that getEstimatedEnergyConsumption for grid returns zero as the houseGrid does not have any device")
+    void getEstimatedEnergyConsumptionReturnsZero() {
+        HouseGrid grid = new HouseGrid("MainGrid");
+        RoomList roomList = grid.getRoomListInAGrid();
+
+        Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("R02","Living Room", 0, 5, 4, 3);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(garage);
+
+        double expected = 0;
+        double result = grid.getEstimatedEnergyConsumption();
+
+        assertEquals(expected, result);
+    }
 }
 

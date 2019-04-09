@@ -8,6 +8,12 @@
     <artifactId>smarthome</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.0.5.RELEASE</version>
+    </parent>
+
     <name>smarthome</name>
 
     <!-- FIXME change it to the project's website -->
@@ -19,18 +25,46 @@
     </properties>
 
     <dependencies>
+        <!-- Added dependency for JPA Java Persistence API -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Added dependency for Json manipulation -->
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
         </dependency>
         <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20090211</version>
+        </dependency>
+
+
+        <!-- Added dependency for Junit testing -->
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.3.2</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -57,9 +91,23 @@
             <version>16.0.2</version>
             <scope>compile</scope>
         </dependency>
+
+        <!--Stackify for logging everything-->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
     </dependencies>
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
             <!-- Required for compiling the project usign maven -->
             <plugin><!-- Compiler configuration-->
                 <groupId>org.apache.maven.plugins</groupId>
@@ -140,26 +188,20 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <!--<timestampedReports>false</timestampedReports>-->
-                    <!--<inScopeClasses>
-                        <param>lapr.project.model.*</param>
-                        <param>lapr.project.utils.*</param>
-                    </inScopeClasses>-->
                     <targetClasses>
+                        <!--<param>smarthome.Application</param>-->
                         <param>smarthome.controller.*</param>
                         <param>smarthome.model.*</param>
-                        <param>smarthome.mapper.*</param>
                         <param>smarthome.dto.*</param>
-
+                        <param>smarthome.repository.*</param>
                     </targetClasses>
-
                     <targetTests>
                         <param>smarthome.controller.*</param>
                         <param>smarthome.model.*</param>
-                        <param>smarthome.mapper.*</param>
                         <param>smarthome.dto.*</param>
-
+                        <param>smarthome.repository.*</param>
                     </targetTests>
+
                     <outputFormats>
                         <outputFormat>XML</outputFormat>
                         <outputFormat>HTML</outputFormat>
@@ -178,11 +220,12 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
+                            <!-- the class holding the public static void main(String[] args) entry point -->
+                            <mainClass>smarthome.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
 </project>

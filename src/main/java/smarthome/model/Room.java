@@ -8,6 +8,7 @@ import java.util.Objects;
 
 public class Room implements Metered {
 
+    private String id;
     private String name;
     private Integer floor;
     private OccupationArea area;
@@ -27,7 +28,8 @@ public class Room implements Metered {
      * @param width  The width of the room to calculate the area
      * @param height The height of the room
      */
-    public Room(String name, Integer floor, double length, double width, double height) {
+    public Room(String id, String name, Integer floor, double length, double width, double height) {
+        this.id = id;
         this.name = name;
         this.floor = floor;
         this.area = new OccupationArea(length, width);
@@ -60,6 +62,11 @@ public class Room implements Metered {
      */
     public int getFloor() {
         return this.floor;
+    }
+
+
+    public String getId(){
+        return this.id;
     }
 
     /**
@@ -164,6 +171,30 @@ public class Room implements Metered {
         return true;
     }
 
+    /**
+     * Changes the Id of the room to the one inputted by the user.
+     * @param roomId Room's id String
+     * @return True if correctly validate
+     */
+    public boolean setId(String roomId) {
+        if (this.roomIdIsValid(roomId)){
+            this.id = roomId;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Accept alphanumeric input without spaces
+     * @param id Unique identification
+     * @return True if validate correctly
+     */
+    private boolean roomIdIsValid(String id) {
+        if (id.trim().isEmpty()) {
+            return false;
+        }
+        return id.matches("^[a-zA-Z0-9]*$");
+    }
 
     public SensorList getSensorListInRoom() {
         return this.sensorListInRoom;

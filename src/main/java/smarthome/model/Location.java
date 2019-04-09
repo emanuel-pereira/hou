@@ -2,16 +2,18 @@ package smarthome.model;
 
 import smarthome.model.validations.GPSValidations;
 
+import javax.persistence.*;
+
+@Embeddable
+
 public class Location {
+    @Transient
     private GPSValidations v = new GPSValidations ();
-
-
     private double latitude;
     private double longitude;
     private double altitude;
 
-    public Location(){
-
+    public Location() {
     }
 
     /**

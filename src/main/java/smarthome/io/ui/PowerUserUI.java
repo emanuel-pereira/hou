@@ -4,12 +4,12 @@ import smarthome.model.House;
 
 import java.util.ArrayList;
 
-final class PowerUserUI {
+public final class PowerUserUI {
 
     private PowerUserUI() {
     }
 
-    static void powerUser(House house) {
+    public static void powerUser(House house) {
         int option = -1;
 
         while (option != 0) {

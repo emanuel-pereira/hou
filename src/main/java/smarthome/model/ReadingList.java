@@ -1,5 +1,8 @@
 package smarthome.model;
 
+import smarthome.model.readers.DataImport;
+import smarthome.repository.Repositories;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -8,23 +11,45 @@ import java.util.List;
 public class ReadingList {
 
     private List<Reading> listOfReadings;
+    final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
+
 
     public ReadingList() {
         this.listOfReadings = new ArrayList<>();
     }
 
+
     public Reading newReading(double readValue, Calendar timeOfReading) {
         return new Reading(readValue, timeOfReading);
     }
 
+    //TODO it is needed to create a new method in order to deal/avoid the @notNull matter when filtering lists of
+    // readings by date
     public boolean addReading(Reading newReading) {
-        if (this.listOfReadings.contains(newReading))
+        String readingNotAddedMsg = "Reading not added to the DB";
+
+        if (this.listOfReadings.contains(newReading)) {
+            log.warn(readingNotAddedMsg);
             return false;
-        if (newReading == null)
+        }
+        if (newReading == null) {
+            log.warn(readingNotAddedMsg);
             return false;
-        if (!checkIfReadingHasNotSameValues(newReading))
+        }
+        if (!checkIfReadingHasNotSameValues(newReading)) {
+            log.warn(readingNotAddedMsg);
             return false;
-        return this.listOfReadings.add(newReading);
+        }
+        if (this.listOfReadings.add(newReading)) {
+            //repository call
+            try {
+                Repositories.getReadingRepository().save(newReading);
+                log.info("Reading added to the DB");
+            } catch (NullPointerException e) {
+                log.warn("Repository unreachable");
+            }
+            return true;
+        } else return false;
     }
 
     public Reading getLastReading() {
@@ -136,7 +161,6 @@ public class ReadingList {
      * @param endDate
      * @return list of the readings with dates in a time interval
      */
-
     public ReadingList filterByDate(Calendar startDate, Calendar endDate) {
         ReadingList readingListInPeriod = new ReadingList();
         for (Reading reading : this.listOfReadings) {
@@ -145,6 +169,7 @@ public class ReadingList {
             if (readingDate.after(startDate) && readingDate.before(endDate)
                     || readingDate.equals(endDate)
                     || readingDate.equals(startDate)) {
+                //TODO there is no connection to the sensor from which the readings came upon this filter by date
                 readingListInPeriod.addReading(reading);
             }
         }
@@ -229,7 +254,7 @@ public class ReadingList {
         return dailyMin;
     }
 
-
+    //TODO verify this method
     public ReadingList dailyAmplitude() {
         List<Reading> dailyMaximumReadings = dailyMaximumReadings().getReadingsList();
         List<Reading> dailyMinimumReadings = dailyMinimumReadings().getReadingsList();
@@ -246,7 +271,9 @@ public class ReadingList {
             dayMaxReading = dailyMaximumReadings.get(i);
             dayMinReading = dailyMinimumReadings.get(i);
             tempReadingValue = dayMaxReading.returnValueOfReading() - dayMinReading.returnValueOfReading();
-            dailyAmp.addReading(new Reading(tempReadingValue, dayMaxReading.getDateAndTime()));
+            Reading tempReading = new Reading(tempReadingValue, dayMaxReading.getDateAndTime());
+            tempReading.setSensor(dayMaxReading.getSensor());
+            dailyAmp.addReading(tempReading);
         }
         return dailyAmp;
     }
@@ -282,10 +309,11 @@ public class ReadingList {
                     newReading.convertToCelsius();
                     newReading.setUnit("C");
                 }
-            } catch (NullPointerException e) {
+            } catch (Exception e) {
+                log.warn(e.getMessage());
             }
 
-            if ((Double.compare(newReading.returnValueOfReading(),reading.returnValueOfReading())==0) &&
+            if ((Double.compare(newReading.returnValueOfReading(), reading.returnValueOfReading()) == 0) &&
                     newReading.getDateAndTime().equals(reading.getDateAndTime()) &&
                     newReading.getUnit().equals(reading.getUnit()))
                 return false;

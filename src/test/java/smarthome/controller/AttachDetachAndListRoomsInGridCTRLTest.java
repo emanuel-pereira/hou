@@ -18,7 +18,7 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         HouseGridList hgList = house.getHGListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
-        Room kitchen = new Room("Kitchen", 0, 4, 3, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 3, 3);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
         grid1RoomList.addRoom(kitchen);
         String expected = "Kitchen";
@@ -36,7 +36,7 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         HouseGridList hgList = house.getHGListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
-        Room kitchen = new Room("Kitchen", 0, 4, 3, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 3, 3);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
         grid1RoomList.addRoom(kitchen);
         String expected = "Grid 1";
@@ -49,8 +49,8 @@ class AttachDetachAndListRoomsInGridCTRLTest {
     void getListOfRoomsSize() {
         House house = new House();
         AttachDetachAndListRoomsInGridCTRL ctrl = new AttachDetachAndListRoomsInGridCTRL(house);
-        Room kitchen = new Room("Kitchen", 0, 4, 3, 3);
-        Room bathroom = new Room("Bathroom", 0, 2, 3, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 3, 3);
+        Room bathroom = new Room("R02","Bathroom", 0, 2, 3, 3);
         RoomList roomList = house.getRoomList();
         roomList.addRoom(kitchen);
         roomList.addRoom(bathroom);
@@ -69,8 +69,8 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         HouseGridList hgList = house.getHGListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
-        Room kitchen = new Room("Kitchen", 0, 4, 3, 3);
-        Room bathroom = new Room("Bathroom", 0, 2, 3, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 3, 3);
+        Room bathroom = new Room("R02","Bathroom", 0, 2, 3, 3);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
         grid1RoomList.addRoom(kitchen);
         grid1RoomList.addRoom(bathroom);
@@ -89,8 +89,8 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         HouseGridList hgList = house.getHGListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
-        Room kitchen = new Room("Kitchen", 0, 4, 3, 3);
-        Room bathroom = new Room("Bathroom", 0, 2, 3, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 3, 3);
+        Room bathroom = new Room("R02","Bathroom", 0, 2, 3, 3);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
         grid1RoomList.addRoom(kitchen);
         grid1RoomList.addRoom(bathroom);
@@ -108,8 +108,8 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         HouseGridList hgList = house.getHGListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
-        Room kitchen = new Room("Kitchen", 0, 4, 3, 3);
-        Room bathroom = new Room("Bathroom", 0, 2, 3, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 3, 3);
+        Room bathroom = new Room("R02","Bathroom", 0, 2, 3, 3);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
         grid1RoomList.addRoom(kitchen);
         grid1RoomList.addRoom(bathroom);
@@ -128,8 +128,8 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         HouseGridList hgList = house.getHGListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
-        Room kitchen = new Room("Kitchen", 0, 4, 3, 3);
-        Room bathroom = new Room("Bathroom", 0, 2, 3, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 3, 3);
+        Room bathroom = new Room("R02","Bathroom", 0, 2, 3, 3);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
         grid1RoomList.addRoom(kitchen);
         grid1RoomList.addRoom(bathroom);
@@ -148,8 +148,8 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         HouseGridList hgList = house.getHGListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
-        Room kitchen = new Room("Kitchen", 0, 4, 3, 3);
-        Room bathroom = new Room("Bathroom", 0, 2, 3, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 3, 3);
+        Room bathroom = new Room("R02","Bathroom", 0, 2, 3, 3);
         houseRoomList.addRoom(kitchen);
         houseRoomList.addRoom(bathroom);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
@@ -169,8 +169,8 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         HouseGridList hgList = house.getHGListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
-        Room kitchen = new Room("Kitchen", 0, 4, 3, 3);
-        Room bathroom = new Room("Bathroom", 0, 2, 3, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 3, 3);
+        Room bathroom = new Room("R02", "Bathroom", 0, 2, 3, 3);
         houseRoomList.addRoom(kitchen);
         houseRoomList.addRoom(bathroom);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
@@ -191,8 +191,8 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         HouseGridList hgList = house.getHGListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
-        Room kitchen = new Room("Kitchen", 0, 4, 3, 3);
-        Room bathroom = new Room("Bathroom", 0, 2, 3, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 3, 3);
+        Room bathroom = new Room("R02","Bathroom", 0, 2, 3, 3);
         houseRoomList.addRoom(kitchen);
         houseRoomList.addRoom(bathroom);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
@@ -215,8 +215,8 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         HouseGridList hgList = house.getHGListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
-        Room kitchen = new Room("Kitchen", 0, 4, 3, 3);
-        Room bathroom = new Room("Bathroom", 0, 2, 3, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 3, 3);
+        Room bathroom = new Room("R02","Bathroom", 0, 2, 3, 3);
         houseRoomList.addRoom(kitchen);
         houseRoomList.addRoom(bathroom);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
@@ -237,8 +237,8 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         HouseGridList hgList = house.getHGListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
-        Room kitchen = new Room("Kitchen", 0, 4, 3, 3);
-        Room bathroom = new Room("Bathroom", 0, 2, 3, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 4, 3, 3);
+        Room bathroom = new Room("R02","Bathroom", 0, 2, 3, 3);
         houseRoomList.addRoom(kitchen);
         houseRoomList.addRoom(bathroom);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();

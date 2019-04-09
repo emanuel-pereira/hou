@@ -159,8 +159,8 @@ public class GeographicalAreaTest {
         Location loc2 = new Location(3, 4, 5);
 
 
-        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1,loc1);
-        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc2,loc2);
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc2, loc2);
 
         ga1.setParentGA(ga2);
 
@@ -223,11 +223,47 @@ public class GeographicalAreaTest {
 
     @Test
     public void checkIfOutdatedReadingsTest() throws IOException {
-        GeographicalArea ga = new GeographicalArea("001", "Porto", "city", new OccupationArea(3,2),new Location(3, 30, 20));
-        GregorianCalendar startDate = new GregorianCalendar(2019,2,3);
-        Location location = new Location(3,2,1);
+        GeographicalArea ga = new GeographicalArea("001", "Porto", "city", new OccupationArea(3, 2), new Location(3, 30, 20));
+        GregorianCalendar startDate = new GregorianCalendar(2019, 2, 3);
+        Location location = new Location(3, 2, 1);
         SensorType temp = new SensorType("Temperature");
-        Sensor sensorPorto = new Sensor("TT1236A","SensorPorto",startDate,location,temp,"C",new ReadingList());
+        Sensor sensorPorto = new Sensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
         ga.getSensorListInGA().addSensor(sensorPorto);
+        //TODO where is assert?
+    }
+
+    @Test
+    void getType() {
+        GeographicalArea ga = new GeographicalArea();
+        assertNull(ga.getType());
+    }
+
+    @Test
+    void checkGAConstructor() {
+        GeographicalArea ga = new GeographicalArea("cityX9000", "WonderLand");
+        TypeGA newType = new TypeGA("city");
+        assertTrue(ga.setType(newType));
+        assertEquals(newType, ga.getType());
+    }
+
+    @Test
+    void checkGAConstructorWithNullParemeter() {
+        GeographicalArea ga = new GeographicalArea("cityX9000", "WonderLand");
+        TypeGA newType = null;
+        assertFalse(ga.setType(newType));
+    }
+
+    @Test
+    void setDesignation() {
+        GeographicalArea ga = new GeographicalArea("cityX9000", "WonderLand");
+        ga.setDesignation("WonderCity");
+        assertEquals("WonderCity", ga.getGAName());
+    }
+
+    @Test
+    void setIdentification() {
+        GeographicalArea ga = new GeographicalArea("cityX9000", "WonderLand");
+        ga.setIdentification("X9000");
+        assertEquals("X9000", ga.getId());
     }
 }

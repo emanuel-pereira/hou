@@ -14,7 +14,7 @@ class CSVReadingTest {
     @Test
     void importDataSizeListTest() throws FileNotFoundException {
         CSVReading csvReading = new CSVReading();
-        Path path = Paths.get("resources/DataSet_sp05_SensorData.csv");
+        Path path = Paths.get("resources/DataSet_sprint05_SD.csv");
         List<String[]> result;
         result = csvReading.importData(path);
 

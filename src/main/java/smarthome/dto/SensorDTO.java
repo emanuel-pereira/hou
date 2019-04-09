@@ -47,6 +47,10 @@ public class SensorDTO {
         this.sensorTypeDTO = sensorTypeDTO;
     }
 
+    public void setStartDate(Calendar startDate) {
+        this.startDate= startDate;
+    }
+
     public List<ReadingDTO> getReadingListDTO() {
         return readingListDTO;
     }

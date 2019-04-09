@@ -3,7 +3,6 @@ package smarthome.io.ui;
 import smarthome.controller.GetGAsOfTypeCTRL;
 import smarthome.model.GAList;
 import smarthome.model.TypeGAList;
-import smarthome.model.validations.Utils;
 
 import java.util.Scanner;
 

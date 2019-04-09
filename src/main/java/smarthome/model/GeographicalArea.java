@@ -3,19 +3,40 @@ package smarthome.model;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "Geo_Area")
 public class GeographicalArea {
+
+    @Id
+    @Column(name = "ID")
     private String identification;
+
     private String designation;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TYPE_ID")
     private TypeGA typeOfGa;
+
+    @Embedded
     private Location location;
+
+    @Transient
     private SensorList sensorListInGa;
+
+    @Embedded
     private OccupationArea occupation;
+
+    @Transient
     private GeographicalArea parentGa;
 
+
+    protected GeographicalArea() {
+    }
 
     /**
      * Constructor required to create a new Geographical Area
@@ -33,14 +54,26 @@ public class GeographicalArea {
         this.occupation = occupationArea;
         this.location = location;
         this.sensorListInGa = new SensorList();
+    }
 
+    public GeographicalArea(String id, String name, TypeGA typeGA, OccupationArea occupationArea, Location location) {
+        this.identification = id;
+        this.designation = name;
+        this.typeOfGa = typeGA;
+        this.occupation = occupationArea;
+        this.location = location;
+        this.sensorListInGa = new SensorList();
+    }
+
+    public GeographicalArea(String id, String name) {
+        this.identification = id;
+        this.designation = name;
     }
 
     public String getId() {
         return identification;
     }
-    public GeographicalArea() {
-    }
+
 
     /**
      * method to get this Geographical Area designation
@@ -56,12 +89,29 @@ public class GeographicalArea {
      *
      * @return return this geographical Area Type designation
      */
-    public String getType() {
+    public String getTypeName() {
         return this.typeOfGa.toString();
     }
 
+    public boolean setType(TypeGA newtype) {
+        if (newtype != null) {
+            this.typeOfGa = newtype;
+            return true;
+        }
+        return false;
+    }
+
     /**
-     * method to get this Geographical Area Parent Geographical Area
+     * Method to return the GA type
+     *
+     * @return GAType
+     */
+    public TypeGA getType() {
+        return this.typeOfGa;
+    }
+
+    /**
+     * Method to get this Geographical Area Parent Geographical Area
      *
      * @return return this geographical Area Parent
      */
@@ -137,13 +187,10 @@ public class GeographicalArea {
      *
      * @param ga1 is defined as an geographical area parented with other.
      */
-
-
     public void setParentGA(GeographicalArea ga1) {
-
         this.parentGa = ga1;
-
     }
+
     public OccupationArea getOccupation() {
         return this.occupation;
     }
@@ -155,6 +202,14 @@ public class GeographicalArea {
             sensorListDTO.add(sensorDTO);
         }
         return new GeographicalAreaDTO(this.identification, this.designation, sensorListDTO);
+    }
+
+    public void setIdentification(String id) {
+        this.identification = id;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 }
 

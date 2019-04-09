@@ -16,6 +16,7 @@ public final class UtilsUI {
     private static final String BLACK = "BLACK";
     private static final String RESET = "RESET";
     private static final String INPUTERROR = "Input error";
+    private static final String BG_WHITE="BG_WHITE";
 
     /**
      * Private constructor of UtilsUI class, which is a collection of static members, hence is not meant to be instantiated.
@@ -499,7 +500,7 @@ public final class UtilsUI {
         printAndReset(padWithSpaces("", tableWidth, padding));
 
         // Display the items
-        format("BG_WHITE", c);
+        format(BG_WHITE, c);
         String paddedOutput;
         int number;
         for (String item : listToShow
@@ -511,7 +512,7 @@ public final class UtilsUI {
 
             paddedOutput = padWithSpaces(item, tableWidth, padding);
 
-            format("BG_WHITE", c);
+            format(BG_WHITE, c);
             printAndReset(paddedOutput);
         }
         print("\n");
@@ -603,12 +604,12 @@ public final class UtilsUI {
         showMessageBox(infoTitle, "BG_GREEN", infoMessage);
     }
 
-    private static void showMessageBox(String title, String titleColor, String message) {
+    private static void showMessageBox(String title, String titleColor, String text) {
         int padding = 5;
         String aTitle = padWithSpaces(title, title.length(), padding);
         String titlePretty = createWhiteSpace((title.length() - 1) + (padding * 2));
-        String error = padWithSpaces(message, 999, 5);
-
+        String message = padWithSpaces(text, text.length(), padding);
+        String messagePretty = createWhiteSpace((text.length() - 1) + (padding * 2));
 
         format(RESET);
         print("\n");
@@ -619,23 +620,26 @@ public final class UtilsUI {
         format("BOLD", titleColor, BLACK);
         printAndReset(titlePretty);
         format(RESET);
-        format("REVERSED");
-        print("\n");
-        print(error);
-        print("\n\n");
+        format(BG_WHITE, BLACK);
+        printAndReset(messagePretty);
+        format(BG_WHITE, BLACK);
+        printAndReset(message);
+        format(BG_WHITE, BLACK);
+        printAndReset(messagePretty);
         format(RESET);
         print("\n");
     }
 
 
     public static boolean confirmOption(String continueQuestion, String errorMessage) {
-        print(continueQuestion+"\n");
+        print(continueQuestion + "\n");
         String dynamicRegEx = "[yYnN]";
         String yesOrNo = requestText(errorMessage, dynamicRegEx);
         return yesOrNo.contains("y") || yesOrNo.contains("Y");
     }
 
     public static Calendar parseDateToImportReadings(String dateAndTimeString) {
+        String dateAndTimeStr = dateAndTimeString;
         if (dateAndTimeString.contains("/")) {
             String[] date = dateAndTimeString.split("/");
             StringBuilder stringBuilder = new StringBuilder();
@@ -644,20 +648,18 @@ public final class UtilsUI {
             stringBuilder.append(date[1]);
             stringBuilder.append("-");
             stringBuilder.append(date[0]);
-            dateAndTimeString = stringBuilder.toString();
+            dateAndTimeStr = stringBuilder.toString();
         }
         if (!dateAndTimeString.contains("T"))
-            dateAndTimeString = dateAndTimeString.concat("T00:00:00+00:00");
+            dateAndTimeStr = dateAndTimeString.concat("T00:00:00+00:00");
 
-
-        ZonedDateTime dateTime = ZonedDateTime.parse(dateAndTimeString);
+        ZonedDateTime dateTime = ZonedDateTime.parse(dateAndTimeStr);
         int year = dateTime.getYear();
         int month = dateTime.getMonthValue();
         int day = dateTime.getDayOfMonth();
         int hour = dateTime.getHour();
         int minutes = dateTime.getMinute();
-        Calendar readingDate = new GregorianCalendar(year, month - 1, day, hour, minutes);
-        return readingDate;
+        return new GregorianCalendar(year, month - 1, day, hour, minutes);
     }
 
 

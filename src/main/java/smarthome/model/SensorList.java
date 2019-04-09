@@ -1,9 +1,12 @@
 package smarthome.model;
 
+import smarthome.repository.Repositories;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class SensorList {
     private List<Sensor> listOfSensors;
@@ -24,11 +27,9 @@ public class SensorList {
      */
     public boolean addSensor(Sensor newSensor) {
         if (!this.listOfSensors.contains(newSensor)) {
-            this.listOfSensors.add(newSensor);
-            return true;
+            return this.listOfSensors.add(newSensor);
         } else return false;
     }
-
 
     /**
      * Method to return the sensors included in the list
@@ -40,25 +41,25 @@ public class SensorList {
     }
 
     /**
-     * @param inputName name of Sensor
-     * @param startDate startDate of Sensor
-     * @param geoLocation  gps coordinates in which the user wants to place the sensor
-
+     * @param id   id of the Sensor
+     * @param inputName   name of Sensor
+     * @param startDate   startDate of Sensor
+     * @param geoLocation gps coordinates in which the user wants to place the sensor
      * @return List of sensors
      */
-    public Sensor newSensor(String id, String inputName, GregorianCalendar startDate,Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
+    public Sensor newSensor(String id, String inputName, GregorianCalendar startDate, Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
         return new Sensor(id, inputName, startDate, geoLocation, sensorType, inputUnit, readings);
     }
 
     /**
-     * @param name Name of the sensor
-     * @param startDate The first day the sensor starts to work
+     * @param name       Name of the sensor
+     * @param startDate  The first day the sensor starts to work
      * @param sensorType The sensor type
-     * @param unit The measurement unit
+     * @param unit       The measurement unit
      * @return A new interior sensor
      */
-    public Sensor createNewInternalSensor(String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
-        return new Sensor(name, startDate, sensorType, unit, readings);
+    public Sensor createNewInternalSensor(String id, String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+        return new Sensor(id, name, startDate, sensorType, unit, readings);
     }
 
     /**
@@ -122,7 +123,7 @@ public class SensorList {
         return this.listOfSensors.size();
     }
 
-    public void removeSensor(Sensor sensor){
+    public void removeSensor(Sensor sensor) {
         this.listOfSensors.remove(sensor);
 
     }
@@ -131,25 +132,41 @@ public class SensorList {
         return this.listOfSensors.get(this.listOfSensors.size() - 1);
     }
 
+
+    /**
+     * Get all active sensors
+     *
+     * @return List of sensors
+     */
     public SensorList getActiveSensors() {
-        SensorList activeSensors = new SensorList ();
-        for (Sensor s : this.getSensorList ()) {
-            if (s.isActive ()) {
-                activeSensors.addSensor (s);
+        SensorList activeSensors = new SensorList();
+        for (Sensor s : this.getSensorList()) {
+            if (s.isActive()) {
+                activeSensors.addSensor(s);
             }
         }
         return activeSensors;
     }
 
-
-
+    /**
+     * Deactivate sensor and save new status in the sensorRepository (DB)
+     *
+     * @param sensorID  id of the sensor
+     * @param pauseDate Deactivation date
+     */
     public void deactivateSensor(String sensorID, Calendar pauseDate) {
-        for (Sensor s : this.getSensorList ()) {
-            if (s.getId ().matches (sensorID)) {
-                s.deactivate (pauseDate);
+        for (Sensor s : this.getSensorList())
+            if (s.getId().matches(sensorID)) {
+                s.deactivate(pauseDate);
+                //Repository call
+                try {
+                    Repositories.getSensorRepository().save(s);
+                } catch (Exception e) {
+                    Logger.getLogger("Repository unreachable");
+
+                }
             }
-        }
+
+
     }
-
-
 }

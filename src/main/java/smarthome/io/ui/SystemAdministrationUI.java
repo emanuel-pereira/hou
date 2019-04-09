@@ -8,8 +8,6 @@ import smarthome.model.TypeGAList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 public final class SystemAdministrationUI {
@@ -17,7 +15,8 @@ public final class SystemAdministrationUI {
     private SystemAdministrationUI() {
     }
 
-    public static void systemAdministration(House house, SensorTypeList sensorTypeList, TypeGAList typeGAList, GAList gaList) throws IOException, InvocationTargetException, ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParseException, ParserConfigurationException, SAXException {
+    public static void systemAdministration(House house, TypeGAList typeGAList, GAList gaList, SensorTypeList sensorTypeList)
+            throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
 
         int option = -1;
         while (option != 0) {
@@ -62,7 +61,7 @@ public final class SystemAdministrationUI {
                     break;
                 case 5:
                     NewSensorTypeUI ui5 = new NewSensorTypeUI(sensorTypeList);
-                    ui5.runUS5();
+                    ui5.run();
                     break;
                 case 6:
                     NewSensorUI ui6 = new NewSensorUI(house, sensorTypeList, gaList);
@@ -78,7 +77,7 @@ public final class SystemAdministrationUI {
                     break;
                 case 9:
                     DeactivateSensorUI ui9 = new DeactivateSensorUI(gaList);
-                    ui9.selectGA ();
+                    ui9.run ();
                     break;
                 case 10:
                     RemoveGASensorUI ui10 = new RemoveGASensorUI(gaList);

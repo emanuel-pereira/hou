@@ -57,9 +57,9 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
         GregorianCalendar startDate = new GregorianCalendar(1, 1, 1, 1, 1);
         ReadingList rList = new ReadingList();
 
-        Sensor s1 = new Sensor("sensorA", startDate, sensorType1, "c", rList);
-        Sensor s2 = new Sensor("sensorB", startDate, sensorType1, "c", rList);
-        Sensor s3 = new Sensor("sensorC", startDate, sensorType2, "c", rList);
+        Sensor s1 = new Sensor("S01","sensorA", startDate, sensorType1, "c", rList);
+        Sensor s2 = new Sensor("S02", "sensorB", startDate, sensorType1, "c", rList);
+        Sensor s3 = new Sensor("S03", "sensorC", startDate, sensorType2, "c", rList);
 
         OccupationArea oc = new OccupationArea(1, 1);
         Location loc = new Location(1, 1, 1);

@@ -20,7 +20,7 @@ public class AddRoomToHouseCTRL {
 
     /**
      * Method to create a Room object and add it to a list in the House
-     *
+     * @param id   Id of the room (string)
      * @param name   Name of the room (string)
      * @param floor  Number of the floor (integer)
      * @param length Length of the room (double) to calculate the area
@@ -28,8 +28,8 @@ public class AddRoomToHouseCTRL {
      * @param height Height of the room (double)
      * @return True if the Room is created and added with success
      */
-    public boolean newAddRoom(String name, Integer floor, double length, double width, double height) {
-        Room room = this.roomList.createNewRoom (name, floor, length, width, height);
+    public boolean newAddRoom(String id, String name, Integer floor, double length, double width, double height) {
+        Room room = this.roomList.createNewRoom (id,name, floor, length, width, height);
         return this.roomList.addRoom (room);
     }
 

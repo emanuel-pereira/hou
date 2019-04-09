@@ -132,7 +132,7 @@ class ConfigurationTest {
     @Test
     void checkBoundaries_C() {
 
-        Configuration c = new Configuration("resources/configFilesForTests/config_DMP1440_GMP1.properties");
+        Configuration c = new Configuration("resources_tests/configFilesForTests/config_DMP1440_GMP1.properties");
 
         int expected = 1440;
         int result = c.getDevicesMeteringPeriod();
@@ -143,7 +143,7 @@ class ConfigurationTest {
     @Test
     void checkBoundaries_D() {
 
-        Configuration c = new Configuration("resources/configFilesForTests/config_DMP1440_GMP1.properties");
+        Configuration c = new Configuration("resources_tests/configFilesForTests/config_DMP1440_GMP1.properties");
 
         int expected = 1;
         int result = c.getGridMeteringPeriod();

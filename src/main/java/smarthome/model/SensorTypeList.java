@@ -1,17 +1,20 @@
 package smarthome.model;
 
+import smarthome.repository.Repositories;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class SensorTypeList {
 
-    private List<SensorType> sTypeList;
+    private List<SensorType> typeList;
 
     /**
      * Constructor method that creates a new list to save data type objects
      */
     public SensorTypeList() {
-        this.sTypeList = new ArrayList<>();
+        this.typeList = new ArrayList<>();
     }
 
 
@@ -38,17 +41,27 @@ public class SensorTypeList {
      * @return true if the object is added to the list
      */
     public boolean addSensorType(SensorType newSensorType) {
-        if (this.sTypeList.contains(newSensorType) || (newSensorType == null))
+        if (this.typeList.contains(newSensorType) || (newSensorType == null))
             return false;
-        return this.sTypeList.add(newSensorType);
+        else if (this.typeList.add(newSensorType)) {
+            //Repository call
+            try {
+                Repositories.getSensorTypeRepository().save(newSensorType);
+            } catch (NullPointerException e) {
+                Logger.getLogger("Repository unreachable");
+            }
+            return true;
+        }
+        return false;
     }
 
     /**
      * Returns the number of elements in this list.
+     *
      * @return the number of elements in this list
      */
-    public int size(){
-        return this.sTypeList.size();
+    public int size() {
+        return this.typeList.size();
 
     }
 
@@ -59,7 +72,7 @@ public class SensorTypeList {
      * @return list of data types created
      */
     public List<SensorType> getSensorTypeList() {
-        return this.sTypeList;
+        return this.typeList;
     }
 
 
@@ -70,18 +83,19 @@ public class SensorTypeList {
      * @return true if the designation is not null or empty after trimming the spaces
      */
     private boolean sensorTypeDesignationIsValid(String sensorTypeDesignation) {
-         if(sensorTypeDesignation == null || sensorTypeDesignation.trim().isEmpty())
+        if (sensorTypeDesignation == null || sensorTypeDesignation.trim().isEmpty())
             return false;
         return sensorTypeDesignation.matches("[a-zA-Z]*");
     }
 
     /**
      * Some SensorTypes are required in some User Stories, so this method checks if a mandatory sensor type exists
+     *
      * @param input sensor type designation
      * @return true if exists and false if not
      */
     public boolean checkIfSensorTypeExists(String input) {
-        for (SensorType type : this.sTypeList) {
+        for (SensorType type : this.typeList) {
             if (type.getType().equalsIgnoreCase(input)) {
                 return true;
             }
@@ -93,7 +107,7 @@ public class SensorTypeList {
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
-        for (SensorType sensorType : this.sTypeList) {
+        for (SensorType sensorType : this.typeList) {
             result.append(number++);
             result.append(element);
             result.append(sensorType.getType());
@@ -101,9 +115,6 @@ public class SensorTypeList {
         }
         return result.toString();
     }
-
-
-
 
 
 }

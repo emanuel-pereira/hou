@@ -8,14 +8,14 @@ import java.util.List;
 
 public class NewSensorTypeCTRL {
 
-    private SensorTypeList mSensorTypeList;
+    private SensorTypeList sensorTypeList;
 
     /**
      * Controller constructor
      * @param sensorTypeList the list object on which the user will be able to create new type of GA's
      */
     public NewSensorTypeCTRL(SensorTypeList sensorTypeList) {
-        mSensorTypeList = sensorTypeList;
+        this.sensorTypeList = sensorTypeList;
     }
 
     /**
@@ -25,18 +25,18 @@ public class NewSensorTypeCTRL {
      * false if it was not possible to add the new type of GA, eg. if the type already exists
      */
     public boolean newSensorType(String newSensorType) {
-        SensorType sensorType = mSensorTypeList.newSensorType(newSensorType);
+        SensorType sensorType = this.sensorTypeList.newSensorType(newSensorType);
         if (sensorType != null)
-            return mSensorTypeList.addSensorType(sensorType);
+            return this.sensorTypeList.addSensorType(sensorType);
         return false;
     }
 
 
     public String returnSensorTypeList() {
-        List<SensorType> sensorTypeList = mSensorTypeList.getSensorTypeList();
+        List<SensorType> sensorTypes = this.sensorTypeList.getSensorTypeList();
         StringBuilder result = new StringBuilder();
 
-        for (SensorType sensorType: sensorTypeList){
+        for (SensorType sensorType: sensorTypes){
             result.append(sensorType.getType());
             result.append("\n");
         }

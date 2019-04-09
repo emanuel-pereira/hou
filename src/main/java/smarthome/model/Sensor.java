@@ -4,26 +4,33 @@ import smarthome.dto.ReadingDTO;
 import smarthome.dto.SensorDTO;
 import smarthome.model.validations.Utils;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-
+@Entity
 public class Sensor {
+
+    @Id
     private String id;
     private String designation;
+    @Embedded
     private Location location;
+    @OneToOne
+    @JoinColumn(name = "SENSORTYPE_ID")
     private SensorType sensorType;
     private Calendar startDate;
     private Calendar pauseDate;
     private String unit;
     private boolean active;
+    @Transient
     private ReadingList readingList;
 
-    public Sensor(){
-
+    protected Sensor() {
     }
+
     /**
      * Constructor used to create internal sensors which, unlike external sensors, don't require location coordinates.
      *
@@ -33,8 +40,9 @@ public class Sensor {
      * @param unit        String parameter to specify sensor's unit of measure
      * @param readings    specifies the sensor's readingList
      */
-    public Sensor(String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
-        if (nameIsValid (designation)) {
+    public Sensor(String id, String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+        if (nameIsValid(designation)) {
+            this.id = id;
             this.designation = designation;
             this.startDate = startDate;
             this.sensorType = sensorType;
@@ -56,7 +64,7 @@ public class Sensor {
      * @param readings    specifies the sensor's readingList
      */
     public Sensor(String id, String designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
-        if (nameIsValid (designation)) {
+        if (nameIsValid(designation)) {
             this.id = id;
             this.designation = designation;
             this.startDate = startDate;
@@ -77,22 +85,39 @@ public class Sensor {
      * @param name sensor's name
      * @return true if name sensorDesignation is valid, if it is not null or empty
      */
-    public boolean nameIsValid(String name) {
-        if (name.trim ().isEmpty ()) {
+    private boolean nameIsValid(String name) {
+        if (name.trim().isEmpty()) {
             return false;
         }
-        return name.matches ("[A-Za-z0-9 \\-]*");
+        return name.matches("[A-Za-z0-9 \\-]*");
+    }
+
+    /**
+     * Accept alphanumeric input without spaces
+     * @param id Unique identification
+     * @return True if validate correctly
+     */
+    private boolean sensorIdIsValid(String id) {
+        if (id.trim().isEmpty()) {
+            return false;
+        }
+        return id.matches("^[a-zA-Z0-9]*$");
     }
 
     /**
      * Changes the Id of the sensor to the one inputted by the user.
-     *
-     * @param id sensor's id String
+     * @param sensorId sensor's id String
+     * @return True if correctly validate
      */
-
-    public void setId(String id) {
-        this.id = id;
+    public boolean setId(String sensorId) {
+        if (this.sensorIdIsValid(sensorId)){
+            this.id = sensorId;
+            return true;
+        }
+        return false;
     }
+
+
 
     /**
      * Changes the type of the sensor to the one inputted by the user.
@@ -128,7 +153,7 @@ public class Sensor {
      * @param sensorDesignation sensor's name String
      */
     public boolean setSensorDesignation(String sensorDesignation) {
-        if (nameIsValid (sensorDesignation)) {
+        if (this.nameIsValid(sensorDesignation)) {
             this.designation = sensorDesignation;
             return true;
         }
@@ -190,7 +215,7 @@ public class Sensor {
      * @return calculated distance betwwen both objects
      */
     public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
-        return Utils.round (this.location.calcLinearDistanceBetweenTwoPoints (sensor1.getLocation (), sensor2.getLocation ()), 2);
+        return Utils.round(this.location.calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation()), 2);
     }
 
 
@@ -200,12 +225,12 @@ public class Sensor {
      * @return the last reading of a list of readings
      */
     public Reading getLastReadingPerSensor() {
-        return this.readingList.getLastReading ();
+        return this.readingList.getLastReading();
     }
 
     public double getLastReadingValuePerSensor() {
         double lastValue;
-        lastValue = this.readingList.getReadingsList ().get (this.readingList.getReadingsList ().size () - 1).returnValueOfReading ();
+        lastValue = this.readingList.getReadingsList().get(this.readingList.getReadingsList().size() - 1).returnValueOfReading();
         return lastValue;
     }
 
@@ -219,16 +244,17 @@ public class Sensor {
             return false;
         }
         Sensor sensor = (Sensor) o;
-        return Objects.equals (this.designation, sensor.designation);
+        return Objects.equals(this.designation, sensor.designation);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash (this.designation, this.location, this.sensorType);
+        return Objects.hash(this.designation, this.location, this.sensorType);
     }
 
     /**
      * Gets the start date
+     *
      * @return Date
      */
     public Calendar getStartDate() {
@@ -237,6 +263,7 @@ public class Sensor {
 
     /**
      * A pause date that marks when a sensor is deactivated
+     *
      * @return Date
      */
     public Calendar getPauseDate() {
@@ -248,20 +275,21 @@ public class Sensor {
     }
 
     public SensorDTO toDTO() {
-        List<ReadingDTO> readingListDTO = new ArrayList<> ();
-        for (Reading reading : this.readingList.getReadingsList ()) {
-            ReadingDTO readingDTO = reading.toDTO ();
-            readingListDTO.add (readingDTO);
+        List<ReadingDTO> readingListDTO = new ArrayList<>();
+        for (Reading reading : this.readingList.getReadingsList()) {
+            ReadingDTO readingDTO = reading.toDTO();
+            readingListDTO.add(readingDTO);
         }
-        return new SensorDTO (this.id, this.designation, readingListDTO);
+        return new SensorDTO(this.id, this.designation, readingListDTO);
     }
 
     /**
      * Deactivate sensor if active
+     *
      * @return True if deactivated
      */
     public boolean deactivate(Calendar pauseDate) {
-        if ( this.active && pauseDate.after (this.startDate)) {
+        if (this.active && pauseDate.after(this.startDate)) {
             this.active = false;
             this.pauseDate = pauseDate;
             return true;
@@ -270,28 +298,25 @@ public class Sensor {
         }
     }
 
-
-        /**
-         * Reactivate sensor if not active
-         *
-         * @return True if reactivated
-         */
-        public boolean reactivate () {
-            if (this.active)
-                return false;
-            this.active = true;
-            return true;
-        }
-
-        /**
-         * Check if sensor is active
-         *
-         * @return True if active. False if not active
-         */
-        public boolean isActive () {
-            return this.active;
-        }
-
+    /**
+     * Reactivate sensor if not active
+     *
+     * @return True if reactivated
+     */
+    public boolean reactivate() {
+        if (this.active)
+            return false;
+        this.active = true;
+        return true;
     }
 
+    /**
+     * Check if sensor is active
+     *
+     * @return True if active. False if not active
+     */
+    public boolean isActive() {
+        return this.active;
+    }
 
+}

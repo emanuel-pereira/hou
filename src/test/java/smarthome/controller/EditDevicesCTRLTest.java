@@ -21,8 +21,8 @@ class EditDevicesCTRLTest {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
         RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("Kitchen", 0, 5.5, 5, 3);
-        Room bathroom = new Room("Bathroom", 0, 3, 2, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 5.5, 5, 3);
+        Room bathroom = new Room("R02","Bathroom", 0, 3, 2, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(bathroom);
         String expected = "1 - Kitchen\n2 - Bathroom\n";
@@ -36,8 +36,8 @@ class EditDevicesCTRLTest {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
         RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("Kitchen", 0, 5.5, 5, 3);
-        Room bathroom = new Room("Bathroom", 0, 3, 2, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 5.5, 5, 3);
+        Room bathroom = new Room("R02","Bathroom", 0, 3, 2, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(bathroom);
         roomList.addRoom(kitchen);
@@ -55,7 +55,7 @@ class EditDevicesCTRLTest {
     void addDeviceToRoom() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
+        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
         house.getRoomList().addRoom(kitchen);
         DeviceList kitchenDL = kitchen.getDeviceList();
 
@@ -70,7 +70,7 @@ class EditDevicesCTRLTest {
     void showDeviceListInString() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
+        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
         house.getRoomList().addRoom(kitchen);
         DeviceList kitchenDL = kitchen.getDeviceList();
 
@@ -112,7 +112,7 @@ class EditDevicesCTRLTest {
     void getDeviceListTest() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
+        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
         house.getRoomList().addRoom(kitchen);
         DeviceList kitchenDL = kitchen.getDeviceList();
 
@@ -127,7 +127,7 @@ class EditDevicesCTRLTest {
     void getDeviceAttribute() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
+        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
         house.getRoomList().addRoom(kitchen);
         DeviceList kitchenDL = kitchen.getDeviceList();
 
@@ -145,8 +145,8 @@ class EditDevicesCTRLTest {
     void setAttributeTest() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
-        Room livingRoom = new Room("Living Room", 0, 3, 2, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
+        Room livingRoom = new Room("R01","Living Room", 0, 3, 2, 3);
         house.getRoomList().addRoom(kitchen);
         house.getRoomList().addRoom(livingRoom);
 
@@ -196,8 +196,8 @@ class EditDevicesCTRLTest {
     void removeDeviceFromRoom() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
-        Room livingRoom = new Room("Living Room", 0, 3, 2, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
+        Room livingRoom = new Room("R02","Living Room", 0, 3, 2, 3);
         house.getRoomList().addRoom(kitchen);
         house.getRoomList().addRoom(livingRoom);
 
@@ -218,8 +218,8 @@ class EditDevicesCTRLTest {
     void changeDeviceRoom() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
-        Room livingRoom = new Room("Living Room", 0, 3, 2, 3);
+        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
+        Room livingRoom = new Room("R02","Living Room", 0, 3, 2, 3);
         house.getRoomList().addRoom(kitchen);
         house.getRoomList().addRoom(livingRoom);
 
@@ -246,7 +246,7 @@ class EditDevicesCTRLTest {
     void removeDevice() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("Kitchen", 0, 6, 4, 2.5);
+        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
         house.getRoomList().addRoom(kitchen);
 
         ctrl.addDevice(1, "LG Fridge", "Fridge", 200);
@@ -264,7 +264,7 @@ class EditDevicesCTRLTest {
     void deactivateDevice() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room livingRoom = new Room("Living Room", 0, 3, 2, 3);
+        Room livingRoom = new Room("R01","Living Room", 0, 3, 2, 3);
         RoomList roomList = house.getRoomList();
         roomList.addRoom(livingRoom);
         ctrl.addDevice(1, "LG Fridge", "Fridge", 200);
@@ -280,7 +280,7 @@ class EditDevicesCTRLTest {
     void NotPossibleToDeactivateDeviceSecondTime() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room livingRoom = new Room("Living Room", 0, 3, 2, 3);
+        Room livingRoom = new Room("R01","Living Room", 0, 3, 2, 3);
         RoomList roomList = house.getRoomList();
         roomList.addRoom(livingRoom);
         ctrl.addDevice(1, "LG Fridge", "Fridge", 200);
@@ -302,7 +302,7 @@ class EditDevicesCTRLTest {
     void createdDeviceTest() throws IllegalAccessException, InstantiationException, ClassNotFoundException {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room livingRoom = new Room("Living Room", 0, 3, 2, 3);
+        Room livingRoom = new Room("R01","Living Room", 0, 3, 2, 3);
         RoomList roomList = house.getRoomList();
         roomList.addRoom(livingRoom);
         DeviceList livingRoomDL = livingRoom.getDeviceList();
@@ -351,7 +351,7 @@ class EditDevicesCTRLTest {
     void getDeviceFromIndex() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room livingRoom = new Room("Living Room", 0, 3, 2, 3);
+        Room livingRoom = new Room("R01","Living Room", 0, 3, 2, 3);
         RoomList roomList = house.getRoomList();
         roomList.addRoom(livingRoom);
         ctrl.addDevice(1, "LG Fridge", "Fridge", 200);
@@ -365,7 +365,7 @@ class EditDevicesCTRLTest {
     void getDeviceList() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         House house = new House();
         EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room livingRoom = new Room("Living Room", 0, 3, 2, 3);
+        Room livingRoom = new Room("R01","Living Room", 0, 3, 2, 3);
         RoomList roomList = house.getRoomList();
         roomList.addRoom(livingRoom);
         ctrl.addDevice(1, "LG Fridge", "Fridge", 200);

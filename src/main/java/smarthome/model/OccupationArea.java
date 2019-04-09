@@ -1,11 +1,15 @@
 package smarthome.model;
 
-public class OccupationArea {
+import javax.persistence.*;
 
+@Embeddable
+public class OccupationArea {
     private double occupation = Double.NaN;
     private double length;
     private double width;
 
+    protected OccupationArea() {
+    }
 
     /**
      * Constructor method that determines a length and width for an occupational area and it verifies if
@@ -49,5 +53,17 @@ public class OccupationArea {
      */
     public double getOccupationArea() {
         return this.occupation;
+    }
+
+    public void setOccupation(double occupation) {
+        this.occupation = occupation;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
     }
 }

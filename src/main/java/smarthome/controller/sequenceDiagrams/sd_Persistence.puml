@@ -1,0 +1,30 @@
+@startuml
+autonumber
+hidefootbox
+
+participant ":{Reader}"
+note right
+{Reader} can be:
+    XMLReader
+    JSONReader
+end note
+loop import geographical areas from file
+
+
+create "ga:GeographicalArea"
+
+":{Reader}" -> "ga:GeographicalArea": ga=createGeographicalArea()
+create "sL:SensorList"
+"ga:GeographicalArea" -> "sL:SensorList": create()
+":{Reader}"->"sL:SensorList": sL=getSensorList()
+loop import sensors from file
+create "s:Sensor"
+":{Reader}"->"s:Sensor":s=createSensor()
+":{Reader}"->"sL:SensorList": addGASensor(s)
+":{Reader}"->"SensorRepository": saveSensor(s)
+end
+":{Reader}"->"gL:GAList": add(GA)
+":{Reader}"->"GeoRepository": saveGA(GA)
+end
+
+@enduml
