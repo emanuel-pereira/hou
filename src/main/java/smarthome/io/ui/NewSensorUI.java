@@ -21,8 +21,8 @@ public class NewSensorUI {
     private boolean isInternal;
 
 
-    public NewSensorUI(House house, SensorTypeList sensorTypeList, GAList listOfGA) {
-        this.ctrl = new NewSensorCTRL(house, sensorTypeList, listOfGA);
+    public NewSensorUI(SensorTypeList sensorTypeList, GAList listOfGA) {
+        this.ctrl = new NewSensorCTRL(sensorTypeList, listOfGA);
     }
 
     void checkIfRoomListIsEmpty() {

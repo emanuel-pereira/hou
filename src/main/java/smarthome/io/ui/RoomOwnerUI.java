@@ -1,7 +1,5 @@
 package smarthome.io.ui;
 
-import smarthome.model.House;
-
 import java.util.Scanner;
 
 public final class RoomOwnerUI {
@@ -9,7 +7,7 @@ public final class RoomOwnerUI {
     private RoomOwnerUI() {
     }
 
-    public static void roomOwner(House house) {
+    public static void roomOwner() {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("Room Owners UI");
@@ -21,7 +19,7 @@ public final class RoomOwnerUI {
             option = Integer.parseInt(keyboard.nextLine());
             switch (option) {
                 case 1:
-                    GetTotalNominalPowerUI ui230 = new GetTotalNominalPowerUI(house);
+                    GetTotalNominalPowerUI ui230 = new GetTotalNominalPowerUI();
                     ui230.getRoomTotalNominalPower ();
                     break;
                 case 2:

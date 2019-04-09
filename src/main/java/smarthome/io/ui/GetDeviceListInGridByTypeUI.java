@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetDeviceListInGridByTypeCTRL;
-import smarthome.model.House;
 
 public class GetDeviceListInGridByTypeUI {
 
@@ -9,8 +8,8 @@ public class GetDeviceListInGridByTypeUI {
     private int indexOfHG;
 
 
-    public GetDeviceListInGridByTypeUI(House house) {
-        this.ctrl = new GetDeviceListInGridByTypeCTRL(house);
+    public GetDeviceListInGridByTypeUI() {
+        this.ctrl = new GetDeviceListInGridByTypeCTRL();
     }
 
     public void checkIfHGListIsEmpty() {

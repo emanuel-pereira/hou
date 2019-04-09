@@ -1,8 +1,9 @@
 package smarthome.controller;
 
-import smarthome.model.House;
 import smarthome.model.Room;
 import smarthome.model.RoomList;
+
+import static smarthome.model.House.getHouseRoomList;
 
 public class AddRoomToHouseCTRL {
 
@@ -11,10 +12,9 @@ public class AddRoomToHouseCTRL {
     /**
      * Controller constructor
      *
-     * @param house the current and only house
      */
-    public AddRoomToHouseCTRL(House house) {
-        this.roomList = house.getRoomList ();
+    public AddRoomToHouseCTRL() {
+        this.roomList = getHouseRoomList();
 
     }
 

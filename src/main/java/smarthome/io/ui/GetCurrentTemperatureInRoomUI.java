@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetCurrentTemperatureInRoomCTRL;
-import smarthome.model.House;
 import smarthome.model.SensorTypeList;
 
 public class GetCurrentTemperatureInRoomUI {
@@ -13,8 +12,8 @@ public class GetCurrentTemperatureInRoomUI {
     private String msgTitle = "Oops!";
 
 
-    public GetCurrentTemperatureInRoomUI(House house, SensorTypeList sensorTypeList) {
-        this.controller = new GetCurrentTemperatureInRoomCTRL(house, sensorTypeList);
+    public GetCurrentTemperatureInRoomUI(SensorTypeList sensorTypeList) {
+        this.controller = new GetCurrentTemperatureInRoomCTRL(sensorTypeList);
     }
 
 

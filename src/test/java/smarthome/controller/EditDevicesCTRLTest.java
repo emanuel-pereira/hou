@@ -1,5 +1,6 @@
 package smarthome.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
@@ -8,21 +9,41 @@ import smarthome.model.devices.FridgeType;
 import smarthome.model.devices.Lamp;
 import smarthome.model.validations.NameValidations;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static smarthome.model.House.getHouseRoomList;
 
 class EditDevicesCTRLTest {
+
+
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @Test
     @DisplayName("Ensure showRoomListInString method returns a list of two rooms: Kitchen and Bathroom")
     void showRoomListInString() {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("R01","Kitchen", 0, 5.5, 5, 3);
-        Room bathroom = new Room("R02","Bathroom", 0, 3, 2, 3);
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
+        RoomList roomList = getHouseRoomList();
+
+        Room kitchen = new Room("R01", "Kitchen", 0, 5.5, 5, 3);
+        Room bathroom = new Room("R02", "Bathroom", 0, 3, 2, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(bathroom);
         String expected = "1 - Kitchen\n2 - Bathroom\n";
@@ -33,11 +54,12 @@ class EditDevicesCTRLTest {
     @Test
     @DisplayName("Ensure that RoomList has a size of 2 even though trying to add the same two rooms twice to the RoomList")
     void getRoomListTest() {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        RoomList roomList = house.getRoomList();
-        Room kitchen = new Room("R01","Kitchen", 0, 5.5, 5, 3);
-        Room bathroom = new Room("R02","Bathroom", 0, 3, 2, 3);
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
+        RoomList roomList = getHouseRoomList();
+        Room kitchen = new Room("R01", "Kitchen", 0, 5.5, 5, 3);
+        Room bathroom = new Room("R02", "Bathroom", 0, 3, 2, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(bathroom);
         roomList.addRoom(kitchen);
@@ -53,10 +75,11 @@ class EditDevicesCTRLTest {
 
     @Test
     void addDeviceToRoom() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
-        house.getRoomList().addRoom(kitchen);
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
+        Room kitchen = new Room("R01", "Kitchen", 0, 6, 4, 2.5);
+        getHouseRoomList().addRoom(kitchen);
         DeviceList kitchenDL = kitchen.getDeviceList();
 
         ctrl.addDevice(1, "LG Fridge", "Fridge", 2);
@@ -68,10 +91,11 @@ class EditDevicesCTRLTest {
 
     @Test
     void showDeviceListInString() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
-        house.getRoomList().addRoom(kitchen);
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
+        Room kitchen = new Room("R01", "Kitchen", 0, 6, 4, 2.5);
+        getHouseRoomList().addRoom(kitchen);
         DeviceList kitchenDL = kitchen.getDeviceList();
 
         Device fridge = kitchenDL.newDevice("LG Fridge", "Fridge", 150);
@@ -92,8 +116,9 @@ class EditDevicesCTRLTest {
     @Test
     @DisplayName("Ensure that an alphanumeric name with spaces and hyphens is valid")
     void alphanumericName() {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
         String name = "Fridge 1 - Sony";
         boolean result = ctrl.alphanumericName(name);
         assertTrue(result);
@@ -102,6 +127,8 @@ class EditDevicesCTRLTest {
     @Test
     @DisplayName("Ensure that alphanumericName() method returns false to empty string")
     void emptyStringReturnsFalse() {
+        getHouseRoomList().getRoomList().clear();
+
         NameValidations n = new NameValidations();
         String name = " ";
         boolean result = n.alphanumericName(name);
@@ -110,10 +137,11 @@ class EditDevicesCTRLTest {
 
     @Test
     void getDeviceListTest() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
-        house.getRoomList().addRoom(kitchen);
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
+        Room kitchen = new Room("R01", "Kitchen", 0, 6, 4, 2.5);
+        getHouseRoomList().addRoom(kitchen);
         DeviceList kitchenDL = kitchen.getDeviceList();
 
         ctrl.addDevice(1, "LG Fridge", "Fridge", 2);
@@ -123,12 +151,12 @@ class EditDevicesCTRLTest {
         assertEquals(expected, result);
     }
 
-    //@Test
+    // @Test
     void getDeviceAttribute() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
-        house.getRoomList().addRoom(kitchen);
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
+        Room kitchen = new Room("R01", "Kitchen", 0, 6, 4, 2.5);
+        getHouseRoomList().addRoom(kitchen);
         DeviceList kitchenDL = kitchen.getDeviceList();
 
         ctrl.addDevice(1, "LG Fridge", "Fridge", 2);
@@ -143,12 +171,13 @@ class EditDevicesCTRLTest {
 
     @Test
     void setAttributeTest() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
-        Room livingRoom = new Room("R01","Living Room", 0, 3, 2, 3);
-        house.getRoomList().addRoom(kitchen);
-        house.getRoomList().addRoom(livingRoom);
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
+        Room kitchen = new Room("R01", "Kitchen", 0, 6, 4, 2.5);
+        Room livingRoom = new Room("R01", "Living Room", 0, 3, 2, 3);
+        getHouseRoomList().addRoom(kitchen);
+        getHouseRoomList().addRoom(livingRoom);
 
         ctrl.addDevice(1, "LG Fridge", "Fridge", 200);
         ctrl.addDevice(2, "Philips Lamp", "Lamp", 20);
@@ -164,8 +193,9 @@ class EditDevicesCTRLTest {
 
     @Test
     void getDeviceAttributeTest() {
-        House h = new House();
-        EditDevicesCTRL ctr = new EditDevicesCTRL(h);
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctr = new EditDevicesCTRL();
         DeviceType dt = new FridgeType();
         Device d = dt.createDevice("Zanussi", 100);
 
@@ -177,8 +207,9 @@ class EditDevicesCTRLTest {
 
     @Test
     void getDeviceAttributesListTest() {
-        House h = new House();
-        EditDevicesCTRL ctr = new EditDevicesCTRL(h);
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctr = new EditDevicesCTRL();
         DeviceType dt = new FridgeType();
         Device d = dt.createDevice("Zanussi", 100);
 
@@ -194,12 +225,13 @@ class EditDevicesCTRLTest {
     @Test
     @DisplayName("Ensure that device microwave is removed from room kitchen")
     void removeDeviceFromRoom() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
-        Room livingRoom = new Room("R02","Living Room", 0, 3, 2, 3);
-        house.getRoomList().addRoom(kitchen);
-        house.getRoomList().addRoom(livingRoom);
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
+        Room kitchen = new Room("R01", "Kitchen", 0, 6, 4, 2.5);
+        Room livingRoom = new Room("R02", "Living Room", 0, 3, 2, 3);
+        getHouseRoomList().addRoom(kitchen);
+        getHouseRoomList().addRoom(livingRoom);
 
         ctrl.addDevice(1, "LG Fridge", "Fridge", 200);
         ctrl.addDevice(1, "Philips Lamp", "Lamp", 20);
@@ -216,12 +248,13 @@ class EditDevicesCTRLTest {
     @Test
     @DisplayName("Ensure that device microwave is removed from Kitchen and then added to Living Room")
     void changeDeviceRoom() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
-        Room livingRoom = new Room("R02","Living Room", 0, 3, 2, 3);
-        house.getRoomList().addRoom(kitchen);
-        house.getRoomList().addRoom(livingRoom);
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
+        Room kitchen = new Room("R01", "Kitchen", 0, 6, 4, 2.5);
+        Room livingRoom = new Room("R02", "Living Room", 0, 3, 2, 3);
+        getHouseRoomList().addRoom(kitchen);
+        getHouseRoomList().addRoom(livingRoom);
 
         assertTrue(ctrl.addDevice(1, "LG Fridge", "Fridge", 200));
         assertTrue(ctrl.addDevice(1, "Philips Lamp", "Lamp", 20));
@@ -244,10 +277,11 @@ class EditDevicesCTRLTest {
     @Test
     @DisplayName("Ensure that device Fridge is removed from Kitchen")
     void removeDevice() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room kitchen = new Room("R01","Kitchen", 0, 6, 4, 2.5);
-        house.getRoomList().addRoom(kitchen);
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
+        Room kitchen = new Room("R01", "Kitchen", 0, 6, 4, 2.5);
+        getHouseRoomList().addRoom(kitchen);
 
         ctrl.addDevice(1, "LG Fridge", "Fridge", 200);
         ctrl.addDevice(1, "Philips Lamp", "Lamp", 20);
@@ -262,10 +296,11 @@ class EditDevicesCTRLTest {
 
     @Test
     void deactivateDevice() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room livingRoom = new Room("R01","Living Room", 0, 3, 2, 3);
-        RoomList roomList = house.getRoomList();
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
+        Room livingRoom = new Room("R01", "Living Room", 0, 3, 2, 3);
+        RoomList roomList = getHouseRoomList();
         roomList.addRoom(livingRoom);
         ctrl.addDevice(1, "LG Fridge", "Fridge", 200);
         ctrl.addDevice(1, "Philips Lamp", "Lamp", 20);
@@ -278,10 +313,11 @@ class EditDevicesCTRLTest {
 
     @Test
     void NotPossibleToDeactivateDeviceSecondTime() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room livingRoom = new Room("R01","Living Room", 0, 3, 2, 3);
-        RoomList roomList = house.getRoomList();
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
+        Room livingRoom = new Room("R01", "Living Room", 0, 3, 2, 3);
+        RoomList roomList = getHouseRoomList();
         roomList.addRoom(livingRoom);
         ctrl.addDevice(1, "LG Fridge", "Fridge", 200);
         ctrl.addDevice(1, "Philips Lamp", "Lamp", 20);
@@ -300,10 +336,12 @@ class EditDevicesCTRLTest {
 
     @Test
     void createdDeviceTest() throws IllegalAccessException, InstantiationException, ClassNotFoundException {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room livingRoom = new Room("R01","Living Room", 0, 3, 2, 3);
-        RoomList roomList = house.getRoomList();
+
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
+        Room livingRoom = new Room("R01", "Living Room", 0, 3, 2, 3);
+        RoomList roomList = getHouseRoomList();
         roomList.addRoom(livingRoom);
         DeviceList livingRoomDL = livingRoom.getDeviceList();
 
@@ -316,8 +354,9 @@ class EditDevicesCTRLTest {
 
     @Test
     void showDeviceTypesListInStringTest() {
-        House house = new House();
-        EditDevicesCTRL ctr = new EditDevicesCTRL(house);
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctr = new EditDevicesCTRL();
         String expected = "1 - ElectricWaterHeater\n" +
                 "2 - WashingMachine\n" +
                 "3 - Dishwasher\n" +
@@ -341,18 +380,21 @@ class EditDevicesCTRLTest {
 
     @Test
     void getDeviceTypeFromIndexTest() {
-        House h = new House();
-        EditDevicesCTRL ctr = new EditDevicesCTRL(h);
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctr = new EditDevicesCTRL();
         String type = ctr.getDeviceTypeFromIndex(1);
         assertEquals("ElectricWaterHeater", type);
     }
 
     @Test
     void getDeviceFromIndex() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room livingRoom = new Room("R01","Living Room", 0, 3, 2, 3);
-        RoomList roomList = house.getRoomList();
+
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
+        Room livingRoom = new Room("R01", "Living Room", 0, 3, 2, 3);
+        RoomList roomList = getHouseRoomList();
         roomList.addRoom(livingRoom);
         ctrl.addDevice(1, "LG Fridge", "Fridge", 200);
         ctrl.addDevice(1, "Philips Lamp", "Lamp", 20);
@@ -363,10 +405,11 @@ class EditDevicesCTRLTest {
 
     @Test
     void getDeviceList() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
-        Room livingRoom = new Room("R01","Living Room", 0, 3, 2, 3);
-        RoomList roomList = house.getRoomList();
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
+        Room livingRoom = new Room("R01", "Living Room", 0, 3, 2, 3);
+        RoomList roomList = getHouseRoomList();
         roomList.addRoom(livingRoom);
         ctrl.addDevice(1, "LG Fridge", "Fridge", 200);
         ctrl.addDevice(1, "Philips Lamp", "Lamp", 20);
@@ -376,9 +419,10 @@ class EditDevicesCTRLTest {
     }
 
     @Test
-    void showDeviceAttributesInStringTest(){
-        House house = new House();
-        EditDevicesCTRL ctrl = new EditDevicesCTRL(house);
+    void showDeviceAttributesInStringTest() {
+        getHouseRoomList().getRoomList().clear();
+
+        EditDevicesCTRL ctrl = new EditDevicesCTRL();
         DeviceType dt = new FridgeType();
         Device d = dt.createDevice("Zanussi", 100);
 
@@ -388,7 +432,7 @@ class EditDevicesCTRLTest {
         expected.add("Freezer Capacity: NaN liters");
         expected.add("Refrigerator Capacity: NaN liters");
         expected.add("Annual Energy Consumption: NaN kWh");
-        assertEquals(expected,result);
+        assertEquals(expected, result);
 
     }
 }

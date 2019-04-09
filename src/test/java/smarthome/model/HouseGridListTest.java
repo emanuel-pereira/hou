@@ -8,26 +8,25 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HouseGridListTest {
 
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+
     @Test
     @DisplayName("Add a new house grid to the house grid list of a house and check that the " +
             "same house grid object cannot be added twice")
     void newHouseGrid() {
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Lisboa", l1);
-
-        OccupationArea oc = new OccupationArea(10,10);
-        Location loc = new Location(10,10,10);
-        GeographicalArea g1 = new GeographicalArea("LX","Lisboa", "cidade",oc,loc);
-
-        House house = new House("Casa", a1, g1);
-        HouseGridList hglist = house.getHGListInHouse ();
-        HouseGrid h1 = hglist.newHouseGrid( "main grid");
+        HouseGridList hglist = new HouseGridList();
+        HouseGrid h1 = hglist.newHouseGrid("main grid");
 
         assertTrue(hglist.addHouseGrid(h1));
 
         assertEquals(1, hglist.getHouseGridList().size());
         //Ensure the same house grid cannot be added twice
         hglist.addHouseGrid(h1);
+
         assertEquals(1, hglist.getHouseGridList().size());
         assertFalse(hglist.addHouseGrid(h1));
         assertEquals(1, hglist.getHouseGridList().size());
@@ -43,7 +42,7 @@ class HouseGridListTest {
         hgList.addHouseGrid(hg2);
 
         HouseGrid result = hgList.get(1);
-        assertEquals(hg2,result);
+        assertEquals(hg2, result);
     }
 
 

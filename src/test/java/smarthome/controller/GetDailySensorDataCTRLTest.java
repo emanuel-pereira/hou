@@ -1,11 +1,13 @@
 package smarthome.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.dto.ReadingDTO;
 import smarthome.io.ui.UtilsUI;
 import smarthome.model.*;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -15,14 +17,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GetDailySensorDataCTRLTest {
 
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
+
     @Test
     @DisplayName("Tests if filter by type and interval is working")
     void filterByTypeAndInterval() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
 
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0),"C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0),"C");
@@ -67,9 +79,9 @@ class GetDailySensorDataCTRLTest {
 
         Sensor sensor = new Sensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
-        ga.getSensorListInGA().addSensor(sensor);
+        g1.getSensorListInGA().addSensor(sensor);
 
-        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(house, sensorTypeList);
+        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
         GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.MAY, 1);
         GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JUNE, 30);
@@ -81,11 +93,6 @@ class GetDailySensorDataCTRLTest {
 
     @Test
     void checkIfClosestSensorsHasReadingsInTimePeriod() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
 
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0),"C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0),"C");
@@ -130,22 +137,17 @@ class GetDailySensorDataCTRLTest {
 
         Sensor sensor = new Sensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
-        ga.getSensorListInGA().addSensor(sensor);
+        g1.getSensorListInGA().addSensor(sensor);
 
-        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(house, sensorTypeList);
+        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
         GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.MAY, 1);
         GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JUNE, 30);
-        assertTrue(ctrl.checkIfClosestSensorsHasReadingsInTimePeriod(sensorType, startDate, endDate));
+        assertTrue(ctrl.checkIfClosestSensorsHasReadingsInTimePeriodCTRL(sensorType, startDate, endDate));
     }
 
     @Test
     void displayMaximum() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
 
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0),"C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0),"C");
@@ -190,9 +192,9 @@ class GetDailySensorDataCTRLTest {
 
         Sensor sensor = new Sensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
-        ga.getSensorListInGA().addSensor(sensor);
+        g1.getSensorListInGA().addSensor(sensor);
 
-        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(house, sensorTypeList);
+        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
         GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.MAY, 1);
         GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JUNE, 30);
@@ -204,11 +206,6 @@ class GetDailySensorDataCTRLTest {
 
     @Test
     void displayMinimum() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
 
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0),"C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0),"C");
@@ -253,9 +250,9 @@ class GetDailySensorDataCTRLTest {
 
         Sensor sensor = new Sensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
-        ga.getSensorListInGA().addSensor(sensor);
+        g1.getSensorListInGA().addSensor(sensor);
 
-        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(house, sensorTypeList);
+        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
         GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.MAY, 1);
         GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JUNE, 30);
@@ -267,11 +264,6 @@ class GetDailySensorDataCTRLTest {
 
     @Test
     void displayAmplitude() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
 
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0),"C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0),"C");
@@ -316,9 +308,9 @@ class GetDailySensorDataCTRLTest {
 
         Sensor sensor = new Sensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
-        ga.getSensorListInGA().addSensor(sensor);
+        g1.getSensorListInGA().addSensor(sensor);
 
-        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(house, sensorTypeList);
+        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
         GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.MAY, 1);
         GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JUNE, 30);
@@ -330,11 +322,8 @@ class GetDailySensorDataCTRLTest {
 
     @Test
     void displayAmplitude2() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
+
+        g1.getSensorListInGA().getSensorList().clear();
 
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0),"C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0),"C");
@@ -379,9 +368,9 @@ class GetDailySensorDataCTRLTest {
 
         Sensor sensor = new Sensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
-        ga.getSensorListInGA().addSensor(sensor);
+        g1.getSensorListInGA().addSensor(sensor);
 
-        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(house, sensorTypeList);
+        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
         GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.JUNE, 2);
         GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JUNE, 3);
@@ -393,11 +382,8 @@ class GetDailySensorDataCTRLTest {
 
     @Test
     void displayAmplitude3() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
+
+        g1.getSensorListInGA().getSensorList().clear();
 
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0),"C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0),"C");
@@ -442,9 +428,9 @@ class GetDailySensorDataCTRLTest {
 
         Sensor sensor = new Sensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
-        ga.getSensorListInGA().addSensor(sensor);
+        g1.getSensorListInGA().addSensor(sensor);
 
-        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(house, sensorTypeList);
+        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
         GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.JUNE, 3);
         GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JUNE, 3);
@@ -456,64 +442,45 @@ class GetDailySensorDataCTRLTest {
 
     @Test
     void checkIfSensorTypeExistsTrue() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
-
+        g1.getSensorListInGA().getSensorList().clear();
         SensorType sensorType = new SensorType("temperature");
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(sensorType);
-        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(house, sensorTypeList);
+        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
         assertTrue(ctrl.checkIfSensorTypeExists("temperature"));
     }
 
     @Test
     void checkIfSensorTypeExistsFalse() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
-
+        g1.getSensorListInGA().getSensorList().clear();
         SensorType sensorType = new SensorType("temperature");
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(sensorType);
-        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(house, sensorTypeList);
+        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
         assertFalse(ctrl.checkIfSensorTypeExists("rainfall"));
     }
 
     @Test
     void isHouseGAConfiguredTrue() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
-
+        g1.getSensorListInGA().getSensorList().clear();
         SensorType sensorType = new SensorType("temperature");
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(sensorType);
-        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(house, sensorTypeList);
+        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
         assertTrue(ctrl.isHouseGAConfigured());
     }
 
     @Test
     void isHouseGAConfiguredFalse() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
+        g1.getSensorListInGA().getSensorList().clear();
 
         SensorType sensorType = new SensorType("temperature");
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(sensorType);
-        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(house, sensorTypeList);
+        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
         //TODO not possible to test false case scenario
         assertFalse(!ctrl.isHouseGAConfigured());
@@ -521,17 +488,14 @@ class GetDailySensorDataCTRLTest {
 
     @Test
     void filterByType() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
 
-        SensorType sensorType = new SensorType("temperature");
-        SensorTypeList sensorTypeList = new SensorTypeList();
-        sensorTypeList.addSensorType(sensorType);
-        GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(house, sensorTypeList);
+            SensorType sensorType = new SensorType("temperature");
+            SensorTypeList sensorTypeList = new SensorTypeList();
+            sensorTypeList.addSensorType(sensorType);
+            GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
-        assertEquals(0, ctrl.filterByType(sensorType));
-    }
+            assertEquals(0, ctrl.filterByType(sensorType));
+        }
+
+
 }

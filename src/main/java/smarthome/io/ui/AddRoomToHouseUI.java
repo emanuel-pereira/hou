@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.AddRoomToHouseCTRL;
-import smarthome.model.House;
 
 public class AddRoomToHouseUI {
 
@@ -17,10 +16,9 @@ public class AddRoomToHouseUI {
     /**
      * User interface constructor
      *
-     * @param house the current and only house
      */
-    public AddRoomToHouseUI(House house) {
-        this.controller = new AddRoomToHouseCTRL(house);
+    public AddRoomToHouseUI() {
+        this.controller = new AddRoomToHouseCTRL();
     }
 
     /**
