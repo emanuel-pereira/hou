@@ -1,6 +1,5 @@
 package smarthome.controller;
 
-import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
 import smarthome.model.*;
 import smarthome.model.readers.DataImport;
