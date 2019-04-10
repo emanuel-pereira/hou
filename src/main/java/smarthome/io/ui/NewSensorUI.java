@@ -2,6 +2,7 @@ package smarthome.io.ui;
 
 import smarthome.controller.NewSensorCTRL;
 import smarthome.model.*;
+
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -96,15 +97,11 @@ public class NewSensorUI {
     }
 
     private void askToAddReadings() {
-        String option;
-        System.out.println("Do you want to insert readings for the sensor(y/n)?");
-        option = read.nextLine();
-        if (option.matches("n")) {
-            inputSensorUnit();
-        }
-        if (option.matches("y")) {
+        if (UtilsUI.confirmOption("Do you want to insert readings for the sensor (y/n)?",
+                "Please insert only 'Y' or 'N' characters")) {
             this.inputReading();
         }
+        inputSensorUnit();
     }
 
     private void inputSensorUnit() {
@@ -114,7 +111,6 @@ public class NewSensorUI {
             this.inputGPSLocation();
         }
         if (this.isInternal) {
-            //TODO Repository call
             this.selectRoom();
         }
     }

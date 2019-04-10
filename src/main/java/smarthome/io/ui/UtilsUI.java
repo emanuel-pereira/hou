@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.dto.DeviceDTO;
-import smarthome.model.Device;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -48,6 +47,11 @@ public final class UtilsUI {
     }
 
     /**
+     * - Double.MIN_VALUE 4.9e-324 (still positive) is the smallest possible positive number
+     * - Double.MAX_VALUE 1.8e+308 is the biggest possible number
+     * Given the prior values, [- Double.MAX_VALUE] is the smallest possible actual number you can represent
+     * with a double, meaning - 1.8e+308
+     *
      * @param input any String
      * @return true if it's a valid representation of a double
      */
@@ -57,10 +61,10 @@ public final class UtilsUI {
         try {
             d = Double.parseDouble(input);
         } catch (Exception e) {
-            d = Double.MIN_VALUE;
+            d = - Double.MAX_VALUE;
         }
 
-        return (d > Double.MIN_VALUE);
+        return (d > - Double.MAX_VALUE);
     }
 
     /**
