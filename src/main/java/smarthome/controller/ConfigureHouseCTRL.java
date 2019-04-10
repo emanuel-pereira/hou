@@ -45,8 +45,14 @@ public class ConfigureHouseCTRL {
     /**
      * @return the number of elements in the geographical areas list as an integer value
      */
+
     public int getGAListSize() {
         return this.gaList.size();
+    }
+
+    public String getIdFromIndex (int index){
+        GeographicalArea geoArea = this.gaList.get(index-1);
+        return geoArea.getId();
     }
 
 
