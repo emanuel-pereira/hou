@@ -27,9 +27,21 @@ public class SensorList {
      */
     public boolean addSensor(Sensor newSensor) {
         if (!this.listOfSensors.contains(newSensor)) {
-            return this.listOfSensors.add(newSensor);
+            this.listOfSensors.add(newSensor);
+            //Repository call
+            try {
+                Repositories.saveSensor(newSensor);
+            } catch (NullPointerException e) {
+                Logger.getLogger("Repository unreachable");
+            }
+            return true;
         } else return false;
     }
+
+
+
+
+
 
     /**
      * Method to return the sensors included in the list

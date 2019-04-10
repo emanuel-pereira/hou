@@ -260,6 +260,30 @@ class SensorTest {
     }
 
     @Test
+    @DisplayName("Set a sensor Id with success")
+    void setIdSucccess() {
+        SensorType rain = new SensorType ("rain");
+        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
+        Location location = new Location (2, 2, 2);
+        ReadingList readingList = new ReadingList ();
+        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, rain, "l/m2", readingList);
+
+        assertTrue (sensor.setId("P233"));
+    }
+
+    @Test
+    @DisplayName("Set a sensor Id without success")
+    void setIdWithouSucccess() {
+        SensorType rain = new SensorType ("rain");
+        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
+        Location location = new Location (2, 2, 2);
+        ReadingList readingList = new ReadingList ();
+        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, rain, "l/m2", readingList);
+
+        assertFalse (sensor.setId(" "));
+    }
+
+    @Test
     @DisplayName("Check if a sensor is active when is created and return true")
     void activeSensor() {
         SensorType sensorType = new SensorType ("rain");

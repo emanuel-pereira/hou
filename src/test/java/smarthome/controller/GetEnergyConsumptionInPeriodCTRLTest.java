@@ -1,23 +1,43 @@
 package smarthome.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
+import java.lang.reflect.Field;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static smarthome.model.House.getHGListInHouse;
+import static smarthome.model.House.getHouseRoomList;
+
 
 class GetEnergyConsumptionInPeriodCTRLTest {
+
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
 
     @Test
     void getEnergyConsumptionInPeriod() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        House house = new House();
-        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
+
+        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL();
         HouseGrid grid1 = new HouseGrid("Grid 1");
         HouseGrid grid2 = new HouseGrid("Grid 2");
-        HouseGridList hgList = house.getHGListInHouse();
+        HouseGridList hgList = getHGListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
@@ -75,13 +95,13 @@ class GetEnergyConsumptionInPeriodCTRLTest {
 
     @Test
     void getHouseGridEnergyConsumptionInPeriod() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        House house = new House();
-        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
-        RoomList roomList = house.getRoomList();
+
+        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL();
+        RoomList roomList = getHouseRoomList();
 
         HouseGrid grid1 = new HouseGrid("Grid 1");
         HouseGrid grid2 = new HouseGrid("Grid 2");
-        HouseGridList hgList = house.getHGListInHouse();
+        HouseGridList hgList = getHGListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
@@ -142,13 +162,14 @@ class GetEnergyConsumptionInPeriodCTRLTest {
 
     @Test
     void getRoomEnergyConsumptionInPeriod() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        House house = new House();
-        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
-        RoomList roomList = house.getRoomList();
+         
+
+        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL();
+        RoomList roomList = getHouseRoomList();
 
         HouseGrid grid1 = new HouseGrid("Grid 1");
         HouseGrid grid2 = new HouseGrid("Grid 2");
-        HouseGridList hgList = house.getHGListInHouse();
+        HouseGridList hgList = getHGListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
@@ -208,9 +229,10 @@ class GetEnergyConsumptionInPeriodCTRLTest {
 
     @Test
     void getMeteredName() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        House house = new House();
-        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
-        HouseGridList houseGridList = house.getHGListInHouse();
+         
+
+        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL();
+        HouseGridList houseGridList = getHGListInHouse();
         HouseGrid grid = new HouseGrid("MainGrid");
         houseGridList.addHouseGrid(grid);
 
@@ -242,9 +264,9 @@ class GetEnergyConsumptionInPeriodCTRLTest {
 
     @Test
     void showMetered() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        House house = new House();
-        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL(house);
-        HouseGridList houseGridList = house.getHGListInHouse();
+
+        GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL();
+        HouseGridList houseGridList = getHGListInHouse();
         HouseGrid grid = new HouseGrid("MainGrid");
         houseGridList.addHouseGrid(grid);
 
@@ -275,7 +297,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
                 "5 - KettleA\n" +
                 "6 - LampA\n" +
                 "7 - FridgeB\n";
-        String result = ctrl.showMetered();
+        String result = ctrl.showMeteredCTRL();
         assertEquals(expected, result);
     }
 }

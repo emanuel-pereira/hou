@@ -1,4 +1,5 @@
 package smarthome.io.ui;
+
 import smarthome.controller.NewSensorCTRL;
 import smarthome.model.*;
 import java.util.GregorianCalendar;
@@ -21,11 +22,15 @@ public class NewSensorUI {
     private boolean isInternal;
 
 
-    public NewSensorUI(House house, SensorTypeList sensorTypeList, GAList listOfGA) {
-        this.ctrl = new NewSensorCTRL(house, sensorTypeList, listOfGA);
+    public NewSensorUI(SensorTypeList sensorTypeList, GAList listOfGA) {
+        this.ctrl = new NewSensorCTRL(sensorTypeList, listOfGA);
     }
 
     void checkIfRoomListIsEmpty() {
+        if (!this.ctrl.checkIfHouseAsLocation()) {
+            System.out.println("Need to configure the house first. Please insert the location of the house.\n");
+            return;
+        }
         isInternal = true;
         if (this.ctrl.getRoomListSize() == 0) {
             System.out.println("List of Rooms is empty. Please insert at least one Room.");
@@ -53,9 +58,9 @@ public class NewSensorUI {
 
     private void inputName() {
         System.out.println("Insert the sensor id");
-        this.id = UtilsUI.requestText("The id inputted isn't valid. Only alphanumeric characters are accepted.", "[A-Za-z0-9]*");
+        this.id = UtilsUI.requestText("The id inputted isn't valid. Only alphanumeric characters are accepted.", "^[a-zA-Z0-9]*$");
         System.out.println("Insert a name for the sensor");
-        this.name = UtilsUI.requestText("The name inputted isn't valid. Only alphanumeric characters, spaces and hyphens are accepted.");
+        this.name = UtilsUI.requestText("The name inputted isn't valid. Only alphanumeric characters, spaces and hyphens are accepted.", "[A-Za-z0-9 \\-]*");
         this.inputStartDate();
     }
 

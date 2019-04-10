@@ -1,7 +1,5 @@
 package smarthome.io.ui;
 
-import smarthome.model.House;
-
 import java.util.ArrayList;
 
 public final class PowerUserUI {
@@ -9,7 +7,7 @@ public final class PowerUserUI {
     private PowerUserUI() {
     }
 
-    public static void powerUser(House house) {
+    public static void powerUser() {
         int option = -1;
 
         while (option != 0) {
@@ -30,19 +28,19 @@ public final class PowerUserUI {
 
             switch (option) {
                 case 1:
-                    GetDeviceListInGridByTypeUI ui160 = new GetDeviceListInGridByTypeUI(house);
+                    GetDeviceListInGridByTypeUI ui160 = new GetDeviceListInGridByTypeUI();
                     ui160.checkIfHGListIsEmpty();
                     break;
                 case 2:
-                    EditDevicesUI devicesUI = new EditDevicesUI(house);
+                    EditDevicesUI devicesUI = new EditDevicesUI();
                     devicesUI.deactivateDevice();
                     break;
                 case 3:
-                    GetTotalNominalPowerUI ui230 = new GetTotalNominalPowerUI(house);
+                    GetTotalNominalPowerUI ui230 = new GetTotalNominalPowerUI();
                     ui230.getRoomTotalNominalPower ();
                     break;
                 case 4:
-                    GetTotalNominalPowerUI uS172 = new GetTotalNominalPowerUI(house);
+                    GetTotalNominalPowerUI uS172 = new GetTotalNominalPowerUI();
                     uS172.getGridTotalNominalPower ();
                     break;
                 case 5:
@@ -50,7 +48,7 @@ public final class PowerUserUI {
 
                     break;
                 case 6:
-                    GetEnergyConsumptionInPeriodUI uiEC = new GetEnergyConsumptionInPeriodUI(house);
+                    GetEnergyConsumptionInPeriodUI uiEC = new GetEnergyConsumptionInPeriodUI();
                     uiEC.selectMetered();
                     break;
                 case 7:

@@ -1,11 +1,30 @@
 package smarthome.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
+import java.lang.reflect.Field;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static smarthome.model.House.getHouseRoomList;
 
 class AddRoomToHouseCTRLTest {
+
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal", loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     /**
      * Create a new room in the house with an empty room list and get the size of the room list to check if it was created
@@ -14,18 +33,13 @@ class AddRoomToHouseCTRLTest {
     @Test
     void createNewRoom() {
 
-        Address a1 = new Address("Rua Júlio Dinis", "3380-45", "Porto", 25, 34, 15);
-        Location loc = new Location(25, 35, 15);
-        OccupationArea oc = new OccupationArea(40, 45);
-        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", oc, loc);
+        RoomList roomList = getHouseRoomList();
 
-        House house1 = new House(a1, g1);
-        RoomList roomList = house1.getRoomList();
 
-        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL(house1);
-        assertEquals(0, house1.getRoomList().getRoomList().size());
+        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
+        assertEquals(0, getHouseRoomList().getRoomList().size());
 
-        ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
+        ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
         assertEquals(1, roomList.getRoomList().size());
     }
 
@@ -37,19 +51,13 @@ class AddRoomToHouseCTRLTest {
 
     @Test
     void cantCreateNewRoom() {
-        Address a1 = new Address("Rua Júlio Dinis", "3380-45", "Porto", 22, 32, 8);
 
-        Location loc = new Location(25, 35, 15);
-        OccupationArea oc = new OccupationArea(40, 45);
-        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", oc, loc);
 
-        House house2 = new House(a1, g1);
+        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
+        assertEquals(0, getHouseRoomList().getRoomList().size());
 
-        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL(house2);
-        assertEquals(0, house2.getRoomList().getRoomList().size());
-
-        ctrl1.newAddRoom("   "," ", 1, 3, 3.5, 2);
-        assertEquals( 0, house2.getRoomList().getRoomList().size());
+        ctrl1.newAddRoom("   ", " ", 1, 3, 3.5, 2);
+        assertEquals(0, getHouseRoomList().getRoomList().size());
     }
 
     /**
@@ -59,39 +67,26 @@ class AddRoomToHouseCTRLTest {
 
     @Test
     void createOneRoomSuccessAnotherFail() {
-        Address a1 = new Address("Rua Júlio Dinis", "3380-45", "", 41, 12.3, 110);
-        Location loc = new Location(25, 35, 15);
-        OccupationArea oc = new OccupationArea(40, 45);
 
-        GeographicalArea g1 = new GeographicalArea("POR", "Porto", "City", oc, loc);
+        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
+        assertEquals(0, getHouseRoomList().getRoomList().size());
 
-        House house2 = new House(a1, g1);
-
-        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL(house2);
-        assertEquals(0, house2.getRoomList().getRoomList().size());
-
-        boolean result = ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
-        assertEquals(1, house2.getRoomList().getRoomList().size());
+        boolean result = ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
+        assertEquals(1, getHouseRoomList().getRoomList().size());
         assertTrue(result);
 
-        boolean result1 = ctrl1.newAddRoom("  "," ", 1, 3, 3.5, 2);
-        assertEquals(1, house2.getRoomList().getRoomList().size());
+        boolean result1 = ctrl1.newAddRoom("  ", " ", 1, 3, 3.5, 2);
+        assertEquals(1, getHouseRoomList().getRoomList().size());
         assertFalse(result1);
     }
 
     @Test
     void checkIffRoomNameExists() {
-        Address a1 = new Address("Rua Luis Pacheco", "3380-45", "Lisboa", 41, 12.3, 110);
 
-        OccupationArea oc = new OccupationArea(40, 45);
-        Location loc = new Location(25, 35, 15);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
 
-        House house2 = new House(a1, g1);
+        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
 
-        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL(house2);
-
-        ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
+        ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
 
         boolean result = ctrl1.checkIfRoomNameExists("kitchen");
         assertTrue(result);
@@ -99,18 +94,37 @@ class AddRoomToHouseCTRLTest {
 
     @Test
     void checkIfRoomNameNotExists() {
-        Address a1 = new Address("Rua Luis Pacheco", "3380-45", "Lisboa", 41, 12.3, 110);
-        OccupationArea oc = new OccupationArea(40, 45);
-        Location loc = new Location(25, 35, 15);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
 
-        House house2 = new House(a1, g1);
 
-        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL(house2);
+        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
 
-        ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
+        ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
 
         boolean result = ctrl1.checkIfRoomNameExists("bedroom");
+        assertFalse(result);
+    }
+
+    @Test
+    void checkIffRoomIdExists() {
+
+
+        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
+
+        ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
+
+        boolean result = ctrl1.checkIfRoomIdExists("R01");
+        assertTrue(result);
+    }
+
+    @Test
+    void checkIfRoomIdNotExists() {
+
+
+        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
+
+        ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
+
+        boolean result = ctrl1.checkIfRoomIdExists("R1");
         assertFalse(result);
     }
 

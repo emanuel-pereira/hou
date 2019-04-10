@@ -1,21 +1,37 @@
 package smarthome.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
+import java.lang.reflect.Field;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static smarthome.model.House.*;
+
 
 public class GetTotalRainfallForDayInHouseAreaCTRLTest {
 
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @Test
     @DisplayName("Verify if rainfall sensor exists.")
     void checkIfRequiredSensorTypeExists() {
-
-        House h1 = new House();
 
         SensorTypeList sL = new SensorTypeList();
         SensorType temperature = sL.newSensorType("temperature");
@@ -27,7 +43,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         assertTrue(sL.addSensorType(rainfall));
         assertEquals(2, sL.getSensorTypeList().size());
 
-        GetTotalRainfallForDayInHouseAreaCTRL ctrl620 = new GetTotalRainfallForDayInHouseAreaCTRL(h1, sL);
+        GetTotalRainfallForDayInHouseAreaCTRL ctrl620 = new GetTotalRainfallForDayInHouseAreaCTRL(sL);
 
         boolean result = ctrl620.checkIfSensorTypeExists("rainfall");
 
@@ -39,7 +55,6 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
     @DisplayName("verify if rainfall sensor does not exists.")
     void checkIfRequiredSensorTypeNotExists() {
 
-        House h1 = new House();
         SensorTypeList sL = new SensorTypeList();
         SensorType temperature = sL.newSensorType("temperature");
         SensorType humidity = sL.newSensorType("humidity");
@@ -50,7 +65,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         assertTrue(sL.addSensorType(humidity));
         assertEquals(2, sL.getSensorTypeList().size());
 
-        GetTotalRainfallForDayInHouseAreaCTRL ctrl620 = new GetTotalRainfallForDayInHouseAreaCTRL(h1, sL);
+        GetTotalRainfallForDayInHouseAreaCTRL ctrl620 = new GetTotalRainfallForDayInHouseAreaCTRL(sL);
 
         boolean result = ctrl620.checkIfSensorTypeExists("rainfall");
 
@@ -66,10 +81,9 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         Location loc1 = new Location(1,1,1);
 
         GeographicalArea ga = new GeographicalArea("POR", "Porto", "City", oc1,loc1);
-        House house = new House();
-        house.setHouseGA(ga);
-        house.setHouseAddress("Street", "15", "4420", 5, 5, 5);
-        SensorList houseGASensorList = house.getHouseGA().getSensorListInGA();
+        setHouseGA(ga);
+        setHouseAddress("Street", "15", "4420", 5, 5, 5);
+        SensorList houseGASensorList = getHouseGA().getSensorListInGA();
 
 
         SensorTypeList sensorTypeList = new SensorTypeList();
@@ -108,7 +122,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         houseGASensorList.addSensor(s3);
 
 
-        GetTotalRainfallForDayInHouseAreaCTRL ctr = new GetTotalRainfallForDayInHouseAreaCTRL(house, sensorTypeList);
+        GetTotalRainfallForDayInHouseAreaCTRL ctr = new GetTotalRainfallForDayInHouseAreaCTRL(sensorTypeList);
 
         GregorianCalendar date = new GregorianCalendar(2019, 2, 3);
 
@@ -122,29 +136,16 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
     @Test
     @DisplayName("Test that house has already a geographical area configured")
     void isHouseGAConfigured() {
-        House house = new House();
-
         OccupationArea oc1 = new OccupationArea(1, 1);
         Location loc1 = new Location(1,1,1);
 
         GeographicalArea ga = new GeographicalArea("PORTO", "Porto", "City", oc1,loc1);
-        house.setHouseGA(ga);
+        setHouseGA(ga);
         SensorTypeList sensorTypeList = new SensorTypeList();
-        GetTotalRainfallForDayInHouseAreaCTRL ctrl = new GetTotalRainfallForDayInHouseAreaCTRL(house, sensorTypeList);
+        GetTotalRainfallForDayInHouseAreaCTRL ctrl = new GetTotalRainfallForDayInHouseAreaCTRL(sensorTypeList);
         boolean result = ctrl.isHouseGAConfigured();
         assertTrue(result);
     }
-
-    @Test
-    @DisplayName("Test that house doesn't have a geographical area configured")
-    void houseWithoutGA() {
-        House house = new House();
-        SensorTypeList sensorTypeList = new SensorTypeList();
-        GetTotalRainfallForDayInHouseAreaCTRL ctrl = new GetTotalRainfallForDayInHouseAreaCTRL(house, sensorTypeList);
-        boolean result = ctrl.isHouseGAConfigured();
-        assertFalse(result);
-    }
-
 
     @Test
     @DisplayName("Ensure that closest rainfall sensor has readings in 2019-02-03")
@@ -153,10 +154,9 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         OccupationArea oc1 = new OccupationArea(1, 1);
         Location loc1 = new Location(1,1,1);
         GeographicalArea ga = new GeographicalArea("POR", "Porto", "City", oc1,loc1);
-        House house = new House();
-        house.setHouseGA(ga);
-        house.setHouseAddress("Street", "15", "4420", 5, 5, 5);
-        SensorList houseGASensorList = house.getHouseGA().getSensorListInGA();
+        setHouseGA(ga);
+        setHouseAddress("Street", "15", "4420", 5, 5, 5);
+        SensorList houseGASensorList = getHouseGA().getSensorListInGA();
 
 
         SensorTypeList sensorTypeList = new SensorTypeList();
@@ -197,7 +197,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         houseGASensorList.addSensor(s3);
 
 
-        GetTotalRainfallForDayInHouseAreaCTRL ctr = new GetTotalRainfallForDayInHouseAreaCTRL(house, sensorTypeList);
+        GetTotalRainfallForDayInHouseAreaCTRL ctr = new GetTotalRainfallForDayInHouseAreaCTRL(sensorTypeList);
 
         GregorianCalendar date = new GregorianCalendar(2019, 2, 3);
 
@@ -216,10 +216,9 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         OccupationArea oc1 = new OccupationArea(1, 1);
         Location loc1 = new Location(1,1,1);
         GeographicalArea ga = new GeographicalArea("POR", "Porto", "City", oc1,loc1);
-        House house = new House();
-        house.setHouseGA(ga);
-        house.setHouseAddress("Street", "15", "4420", 5, 5, 5);
-        SensorList houseGASensorList = house.getHouseGA().getSensorListInGA();
+        setHouseGA(ga);
+        setHouseAddress("Street", "15", "4420", 5, 5, 5);
+        SensorList houseGASensorList = getHouseGA().getSensorListInGA();
 
 
         SensorTypeList sensorTypeList = new SensorTypeList();
@@ -260,7 +259,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         houseGASensorList.addSensor(s3);
 
 
-        GetTotalRainfallForDayInHouseAreaCTRL ctr = new GetTotalRainfallForDayInHouseAreaCTRL(house, sensorTypeList);
+        GetTotalRainfallForDayInHouseAreaCTRL ctr = new GetTotalRainfallForDayInHouseAreaCTRL( sensorTypeList);
 
         GregorianCalendar date = new GregorianCalendar(2019, 3, 15);
 

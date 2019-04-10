@@ -3,10 +3,7 @@ package smarthome.io.ui;
 
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
-import smarthome.model.GAList;
-import smarthome.model.House;
-import smarthome.model.SensorTypeList;
-import smarthome.model.TypeGAList;
+import smarthome.model.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -23,7 +20,15 @@ public final class SmartHomeUI {
     private static SensorTypeList sensorTypeList;
     private static GAList gaList;
     private static TypeGAList typeGAList;
-    private static House house;
+
+
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+
+    House h = House.getHouseInstance(a1, g1);
+
 
     private SmartHomeUI(){}
 
@@ -45,19 +50,19 @@ public final class SmartHomeUI {
             option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");
             switch (option) {
                 case 1:
-                    systemAdministration(house, typeGAList, gaList, sensorTypeList);
+                    systemAdministration(typeGAList, gaList, sensorTypeList);
                     break;
                 case 2:
-                    houseAdministration(sensorTypeList, gaList, house);
+                    houseAdministration(sensorTypeList, gaList);
                     break;
                 case 3:
-                    regularUsage(house, sensorTypeList);
+                    regularUsage(sensorTypeList);
                     break;
                 case 4:
-                    powerUser(house);
+                    powerUser();
                     break;
                 case 5:
-                    roomOwner(house);
+                    roomOwner();
                     break;
                 default:
                     //no action needed
@@ -68,7 +73,7 @@ public final class SmartHomeUI {
     public static void init() {
         sensorTypeList = new SensorTypeList();
         gaList = new GAList();
-        house = new House();
+        //TODO: instancia de casa?
         typeGAList = new TypeGAList();
     }
 }

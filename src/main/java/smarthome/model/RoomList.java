@@ -2,9 +2,11 @@ package smarthome.model;
 
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
+import smarthome.repository.Repositories;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class RoomList {
     private List<Room> listOfRooms;
@@ -45,10 +47,32 @@ public class RoomList {
     public boolean addRoom(Room newRoom) {
         if (newRoom != null && !this.listOfRooms.contains(newRoom)) {
             this.listOfRooms.add(newRoom);
+            //Repository call
+            try {
+                Repositories.saveRoom(newRoom);
+            } catch (NullPointerException e) {
+                Logger.getLogger("Repository unreachable");
+            }
             return true;
         } else return false;
     }
 
+
+
+    /**
+     * Checks if the room ID exists in the room list, so the ID is not repeated
+     *
+     * @param id Room ID
+     * @return True if the room ID exists
+     */
+    public boolean checkIfRoomIDExists(String id) {
+        for (Room r : this.getRoomList()) {
+            if (r.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Checks if the room name exists in the room list, so the name is not repeated

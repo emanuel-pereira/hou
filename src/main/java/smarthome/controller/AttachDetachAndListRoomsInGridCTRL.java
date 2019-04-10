@@ -3,13 +3,14 @@ package smarthome.controller;
 
 import smarthome.model.*;
 
+import static smarthome.model.House.*;
+
+
 public class AttachDetachAndListRoomsInGridCTRL {
-    private House house;
     private HouseGridList houseGridList;
 
-    public AttachDetachAndListRoomsInGridCTRL(House house) {
-        this.house = house;
-        this.houseGridList = house.getHGListInHouse();
+    public AttachDetachAndListRoomsInGridCTRL() {
+        this.houseGridList = getHGListInHouse();
     }
 
     /**
@@ -41,7 +42,7 @@ public class AttachDetachAndListRoomsInGridCTRL {
      * @return the size of the house's roomList
      */
     public int getListOfRoomsSize() {
-        return this.house.getRoomList().getRoomListSize();
+        return getHouseRoomList().getRoomListSize();
     }
 
 
@@ -92,7 +93,7 @@ public class AttachDetachAndListRoomsInGridCTRL {
      */
     private RoomList getRoomsWithoutGrid(int indexOfHouseGrid) {
         HouseGrid houseGrid = this.houseGridList.get(indexOfHouseGrid);
-        return this.house.getRoomsWithoutGrid(houseGrid);
+        return getHouseRoomsWithoutGrid(houseGrid);
     }
 
     /**
@@ -110,7 +111,7 @@ public class AttachDetachAndListRoomsInGridCTRL {
      */
     public String showRoomsWithoutHouseGrid(int indexOfHouseGrid) {
         HouseGrid houseGrid = this.houseGridList.get(indexOfHouseGrid);
-        return this.house.showRoomsWithoutHouseGrid(houseGrid);
+        return showHouseRoomsWithoutHouseGrid(houseGrid);
     }
 
     /**

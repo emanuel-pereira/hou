@@ -1,22 +1,39 @@
 package smarthome.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static smarthome.model.House.getHouseGA;
 
-class ConfigureHouseLocationCTRLTest {
+class ConfigureHouseCTRLTest {
+
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @DisplayName("Tests if Geographical Area List is showed as a string to the user")
     @Test
     void showGAListInString() {
-        House h1 = new House();
         GAList gl1 = new GAList();
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
         Location loc1 = new Location(25, 15, 12);
         OccupationArea oc1 = new OccupationArea(32, 41);
@@ -37,9 +54,8 @@ class ConfigureHouseLocationCTRLTest {
     @DisplayName("Tests if Geographical Area List is returned")
     @Test
     void getGAList() {
-        House h1 = new House();
         GAList gl1 = new GAList();
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
         Location loc1 = new Location(25, 15, 12);
         OccupationArea oc1 = new OccupationArea(32, 41);
@@ -62,8 +78,7 @@ class ConfigureHouseLocationCTRLTest {
     @Test
     void configureHouseLocation() {
         GAList gl1 = new GAList();
-        House h1 = new House();
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
         Location loc1 = new Location(25, 15, 12);
         OccupationArea oc1 = new OccupationArea(32, 41);
@@ -78,7 +93,7 @@ class ConfigureHouseLocationCTRLTest {
 
 
         boolean result = ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", 41, 12.3, 110);
-        GeographicalArea result2 = h1.getHouseGA();
+        GeographicalArea result2 = getHouseGA();
 
 
         assertTrue(result);
@@ -92,7 +107,6 @@ class ConfigureHouseLocationCTRLTest {
     void throwsIllegalArgumentExceptionForLatitude() {
 
         GAList gl1 = new GAList();
-        House h1 = new House();
 
         Location loc1 = new Location(25, 15, 12);
         OccupationArea oc1 = new OccupationArea(32, 41);
@@ -106,7 +120,7 @@ class ConfigureHouseLocationCTRLTest {
         gl1.addGA(ga2);
 
 
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
         boolean thrown = false;
 
@@ -125,7 +139,6 @@ class ConfigureHouseLocationCTRLTest {
     void throwsIllegalArgumentExceptionForLongitude() {
 
         GAList gl1 = new GAList();
-        House h1 = new House();
 
 
         Location loc1 = new Location(25, 15, 12);
@@ -140,7 +153,7 @@ class ConfigureHouseLocationCTRLTest {
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
         boolean thrown = false;
 
@@ -159,7 +172,6 @@ class ConfigureHouseLocationCTRLTest {
     void throwsIllegalArgumentExceptionForAltitude() {
 
         GAList gl1 = new GAList();
-        House h1 = new House();
 
         Location loc1 = new Location(25, 15, 12);
         OccupationArea oc1 = new OccupationArea(32, 41);
@@ -172,7 +184,7 @@ class ConfigureHouseLocationCTRLTest {
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
         boolean thrown = false;
 
@@ -189,8 +201,7 @@ class ConfigureHouseLocationCTRLTest {
     @Test
     void getGAListSize() {
         GAList gl1 = new GAList();
-        House h1 = new House();
-        ConfigureHouseLocationCTRL ctrl101 = new ConfigureHouseLocationCTRL(gl1, h1);
+        ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
         Location loc1 = new Location(25, 15, 12);
         OccupationArea oc1 = new OccupationArea(32, 41);

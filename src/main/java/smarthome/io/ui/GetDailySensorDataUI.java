@@ -2,7 +2,6 @@ package smarthome.io.ui;
 
 import smarthome.controller.GetDailySensorDataCTRL;
 import smarthome.dto.ReadingDTO;
-import smarthome.model.House;
 import smarthome.model.SensorType;
 import smarthome.model.SensorTypeList;
 
@@ -22,8 +21,8 @@ public class GetDailySensorDataUI {
             "system administrator to add some sensors first. You can also import geographical areas and sensors from a JSONFile";
 
 
-    public GetDailySensorDataUI(House house, SensorTypeList sensorTypeList) {
-        this.superCTRL = new GetDailySensorDataCTRL(house, sensorTypeList);
+    public GetDailySensorDataUI(SensorTypeList sensorTypeList) {
+        this.superCTRL = new GetDailySensorDataCTRL(sensorTypeList);
     }
 
 
@@ -106,7 +105,7 @@ public class GetDailySensorDataUI {
         }
         //request start date and end date user inputs
 
-        if (this.superCTRL.checkIfClosestSensorsHasReadingsInTimePeriod(sensorType, startDate, endDate))
+        if (this.superCTRL.checkIfClosestSensorsHasReadingsInTimePeriodCTRL(sensorType, startDate, endDate))
             calculations(this.sensorType, this.startDate, this.endDate, mode);
         else {
             UtilsUI.showError(this.msgTitle, this.msgNoData);
@@ -125,7 +124,7 @@ public class GetDailySensorDataUI {
             UtilsUI.showError(this.msgTitle, this.msgNoSensor);
             return;
         }
-        if (this.superCTRL.checkIfClosestSensorsHasReadingsInTimePeriod(sensorType, startDate, endDate))
+        if (this.superCTRL.checkIfClosestSensorsHasReadingsInTimePeriodCTRL(sensorType, startDate, endDate))
             calculations(this.sensorType, this.startDate, this.endDate, mode);
         else
             UtilsUI.showError(this.msgTitle, this.msgNoData);
@@ -143,7 +142,7 @@ public class GetDailySensorDataUI {
             UtilsUI.showError(this.msgTitle, this.msgNoSensor);
             return;
         }
-        if (this.superCTRL.checkIfClosestSensorsHasReadingsInTimePeriod(sensorType, startDate, endDate))
+        if (this.superCTRL.checkIfClosestSensorsHasReadingsInTimePeriodCTRL(sensorType, startDate, endDate))
             calculations(this.sensorType, this.startDate, this.endDate, mode);
         else
             UtilsUI.showError(this.msgTitle, this.msgNoData);

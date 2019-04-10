@@ -86,25 +86,27 @@ class GAListTest {
     }
 
     @Test
-    @DisplayName("Shows the list of GAs that were not added to the GAList because a GA with the same ID already existed")
-    void getNotAddedList() {
-        GAList ga = new GAList();
+    @DisplayName("get  a GA by its ID")
+    void getGaById () {
+        GAList gaList = new GAList();
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
         TypeGA type1 = new TypeGA("district");
-        GeographicalArea area1 = ga.newGA("opo", "Porto", type1, occupationArea, location);
-        GeographicalArea area2 = ga.newGA("opo", "Braga", type1, occupationArea, location);
+        GeographicalArea area1 = gaList.newGA("opo", "Porto", type1, occupationArea, location);
+        GeographicalArea area2 = gaList.newGA("bra", "Braga", type1, occupationArea, location);
         TypeGA type2 = new TypeGA("city");
-        GeographicalArea area3 = ga.newGA("opo", "Gaia", type2, occupationArea, location);
+        GeographicalArea area3 = gaList.newGA("vng", "Gaia", type2, occupationArea, location);
 
-        ga.addGA(area1);
-        ga.addGA(area2);
-        ga.addGA(area3);
+        gaList.addGA(area1);
+        gaList.addGA(area2);
+        gaList.addGA(area3);
 
-        List<GeographicalArea> expectedResult = Arrays.asList(area2,area3);
-        List<GeographicalArea> result = ga.getNotAdded();
-        assertEquals(expectedResult, result);
+        GeographicalArea expected = area2;
+        GeographicalArea result = gaList.getById("bra");
+
+        assertEquals(expected,result);
     }
+
 
 
     @Test
@@ -153,9 +155,9 @@ class GAListTest {
         gaList.addGA(ga2);
         GeographicalArea ga3 = new GeographicalArea("opo", "Cedofeita", "Street", occupationArea3, location3);
         gaList.addGA(ga3);
-        List<GeographicalArea> expectedresult = new ArrayList<>(Arrays.asList(ga1, ga2));
+        List<GeographicalArea> expected = new ArrayList<>(Arrays.asList(ga1, ga2));
         List<GeographicalArea> result = gaList.gAFromThisType("city");
-        assertEquals(expectedresult, result);
+        assertEquals(expected, result);
     }
 
     @Test

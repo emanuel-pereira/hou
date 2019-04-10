@@ -1,20 +1,21 @@
 package smarthome.controller;
 
+
 import smarthome.model.*;
 import smarthome.model.validations.NameValidations;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static smarthome.model.House.*;
+
 public class EditDevicesCTRL {
 
-    private House house;
     private RoomList roomList;
     private NameValidations nameValidations;
 
-    public EditDevicesCTRL(House house) {
-        this.house = house;
-        this.roomList = this.house.getRoomList();
+    public EditDevicesCTRL() {
+        this.roomList = getHouseRoomList();
         this.nameValidations = new NameValidations();
     }
 
@@ -38,7 +39,7 @@ public class EditDevicesCTRL {
     }
 
     public Room getRoomFromListIndex(int roomIndex) {
-        return house.getRoomList().getRoomList().get(roomIndex - 1);
+        return getRoomList().getRoomList().get(roomIndex - 1);
     }
 
     public Device getDeviceFromIndex(int indexOfRoom, int indexOfDevice) {
@@ -56,7 +57,7 @@ public class EditDevicesCTRL {
     }
 
     public String getDeviceTypeFromIndex(int deviceTypeIndex) {
-        return house.getListOfDeviceTypes().get(deviceTypeIndex - 1);
+        return getListOfDeviceTypes().get(deviceTypeIndex - 1);
     }
 
     /**
@@ -138,7 +139,7 @@ public class EditDevicesCTRL {
     }
 
     public String showDeviceTypesListInString() {
-        return house.showDeviceTypesList();
+        return showDeviceTypesList();
     }
 
     public String showRoomListInString() {

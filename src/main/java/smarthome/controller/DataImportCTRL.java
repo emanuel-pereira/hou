@@ -16,16 +16,18 @@ import java.util.List;
 public class DataImportCTRL {
 
     private GAList gaList;
+    private DataImport dataImportGeoArea;
 
     public DataImportCTRL(GAList gaList) {
         this.gaList = gaList;
+        this.dataImportGeoArea = new DataImport(gaList);
     }
 
-    /**
+    /**private method that return the list of Geographical areas(with encapsulated sensors if they exist) present in the file
+     * @param filePath
      */
     private List<GeographicalArea> readGeoAreasFromFile (Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
-        DataImport dataImport = new DataImport(gaList);
-        return dataImport.loadGeoAreaFiles(filePath);
+        return dataImportGeoArea.loadGeoAreaFiles(filePath);
     }
     public int getGaListInFileSize (Path filePath)throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
         return this.readGeoAreasFromFile(filePath).size();
@@ -42,13 +44,11 @@ public class DataImportCTRL {
     }
 
     public void importGeoAreasFromFile(Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException{
-        DataImport dataImport = new DataImport(gaList);
-        this.gaList.getNotAdded().clear();
-        dataImport.importFromFileGeoArea(this.readGeoAreasFromFile(filePath));
+        dataImportGeoArea.importFromFileGeoArea(this.readGeoAreasFromFile(filePath));
     }
 
     public int failedToAdd (){
-        return this.gaList.getNotAdded().size();
+        return dataImportGeoArea.notAddedNumber();
     }
 
     public int getImportedGaListSize (Path filepath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {

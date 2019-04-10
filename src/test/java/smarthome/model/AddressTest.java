@@ -7,35 +7,36 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AddressTest {
 
+
     @Test
     @DisplayName("define and check house address, zip code, town, location and geographical area")
     void checkHouseLocation() {
         //Arrange
-        Location l1 = new Location (41, 12.3, 110);
-        Address a1 = new Address ("Rua Dinis Júlio", "222-767", "Lisboa", l1);
+        Location l1 = new Location(41, 12.3, 110);
+        Address a1 = new Address("Rua Dinis Júlio", "234", "222-767", "Lisboa", "Portugal", l1);
 
 
         //Act
-        a1.setStreet ("Rua Júlio Dinis, 345");
-        a1.setZipCode ("3380-45");
-        a1.setTown ("Porto");
+        a1.setStreet("Rua Júlio Dinis, 345");
+        a1.setZipCode("3380-45");
+        a1.setTown("Porto");
 
 
-        String result1 = a1.getName ();
-        String result2 = a1.getZipCode ();
-        String result3 = a1.getTown ();
-        double result4 = l1.getLatitude ();
-        double result5 = l1.getLongitude ();
-        double result6 = l1.getAltitude ();
+        String result1 = a1.getName();
+        String result2 = a1.getZipCode();
+        String result3 = a1.getTown();
+        double result4 = l1.getLatitude();
+        double result5 = l1.getLongitude();
+        double result6 = l1.getAltitude();
 
 
         //Assert
-        assertEquals ("Rua Júlio Dinis, 345", result1);
-        assertEquals ("3380-45", result2);
-        assertEquals ("Porto", result3);
-        assertEquals (41, result4);
-        assertEquals (12.3, result5);
-        assertEquals (110, result6);
+        assertEquals("Rua Júlio Dinis, 345", result1);
+        assertEquals("3380-45", result2);
+        assertEquals("Porto", result3);
+        assertEquals(41, result4);
+        assertEquals(12.3, result5);
+        assertEquals(110, result6);
     }
 
     /**
@@ -44,14 +45,14 @@ class AddressTest {
     @Test
     void validateNameIfCorrect() {
 
-        Location location1 = new Location (23, 67, 89);
+        Location location1 = new Location(23, 67, 89);
         String streetName = "Rua António Nobre";
-        Address address1 = new Address (streetName, "333-568", "Porto", location1);
+        Address address1 = new Address(streetName, "457", "333-568", "Porto", "Portugal", location1);
 
-        boolean result = address1.validateName (streetName);
+        boolean result = address1.validateName(streetName);
 
-        assertTrue (result);
-        assertEquals (streetName, address1.getName ());
+        assertTrue(result);
+        assertEquals(streetName, address1.getName());
     }
 
     /**
@@ -60,13 +61,13 @@ class AddressTest {
     @Test
     void validateNameIfEmpty() {
 
-        Location location1 = new Location (23, 67, 89);
+        Location location1 = new Location(23, 67, 89);
         String streetName = " ";
-        Address address1 = new Address (streetName, "333-568", "Lisboa", location1);
+        Address address1 = new Address(streetName, "233", "333-568", "Lisboa", "Portugal", location1);
 
-        boolean result = address1.validateName (streetName);
+        boolean result = address1.validateName(streetName);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
     /**
@@ -75,13 +76,13 @@ class AddressTest {
     @Test
     void validateNameIfFalse() {
 
-        Location location1 = new Location (23, 67, 89);
+        Location location1 = new Location(23, 67, 89);
         String streetName = null;
-        Address address1 = new Address (streetName, "333-568", "Lisboa", location1);
+        Address address1 = new Address(streetName, "100", "333-568", "Lisboa", "Portugal", location1);
 
-        boolean result = address1.validateName (streetName);
+        boolean result = address1.validateName(streetName);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
     /**
@@ -90,13 +91,13 @@ class AddressTest {
     @Test
     void validateNameIfIncorrect() {
 
-        Location location1 = new Location (23, 67, 89);
+        Location location1 = new Location(23, 67, 89);
         String streetName = " Rua Pacheco, 2";
-        Address address1 = new Address (streetName, "333-568", "Porto", location1);
+        Address address1 = new Address(streetName, "120", "333-568", "Porto", "Portugal", location1);
 
-        boolean result = address1.validateName (streetName);
+        boolean result = address1.validateName(streetName);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
     /**
@@ -105,14 +106,14 @@ class AddressTest {
     @Test
     void validateTownIfCorrect() {
 
-        Location location1 = new Location (23, 67, 89);
+        Location location1 = new Location(23, 67, 89);
         String town = "Porto";
-        Address address1 = new Address ("Rua Julio Dinis, 56", "3368-786", town, location1);
+        Address address1 = new Address("Rua Julio Dinis", "56", "3368-786", town, "Portugal", location1);
 
-        boolean result = address1.validateTown (town);
+        boolean result = address1.validateTown(town);
 
-        assertTrue (result);
-        assertEquals (town, address1.getTown ());
+        assertTrue(result);
+        assertEquals(town, address1.getTown());
     }
 
     /**
@@ -121,13 +122,13 @@ class AddressTest {
     @Test
     void validateTownIfFalse() {
 
-        Location location1 = new Location (23, 67, 89);
+        Location location1 = new Location(23, 67, 89);
         String town = null;
-        Address address1 = new Address ("Rua Pacheco da Cunha", "333-568", town, location1);
+        Address address1 = new Address("Rua Pacheco da Cunha", "200", "333-568", town, "Portugal", location1);
 
-        boolean result = address1.validateTown (town);
+        boolean result = address1.validateTown(town);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
     /**
@@ -136,13 +137,13 @@ class AddressTest {
     @Test
     void validateTownIfEmpty() {
 
-        Location location1 = new Location (23, 67, 89);
+        Location location1 = new Location(23, 67, 89);
         String town = "       ";
-        Address address1 = new Address ("Rua Pacheco da Cunha", "333-568", town, location1);
+        Address address1 = new Address("Rua Pacheco da Cunha", "222", "333-568", town, "Portugal", location1);
 
-        boolean result = address1.validateTown (town);
+        boolean result = address1.validateTown(town);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
     /**
@@ -151,13 +152,13 @@ class AddressTest {
     @Test
     void validateTownIfStartsSpace() {
 
-        Location location1 = new Location (23, 67, 89);
+        Location location1 = new Location(23, 67, 89);
         String town = " Lisboa";
-        Address address1 = new Address ("Rua Pacheco da Cunha, n. 67", "333-568", town, location1);
+        Address address1 = new Address("Rua Pacheco da Cunha", "67", "333-568", town, "Portugal", location1);
 
-        boolean result = address1.validateTown (town);
+        boolean result = address1.validateTown(town);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
     /**
@@ -166,14 +167,14 @@ class AddressTest {
     @Test
     void validateZipCodeIfCorrect() {
 
-        Location location1 = new Location (23, 67, 89);
+        Location location1 = new Location(23, 67, 89);
         String code = "3370-767";
-        Address address1 = new Address ("Twelve Street", code, "Porto", location1);
+        Address address1 = new Address("Twelve Street", "20", code, "Porto", "Portugal", location1);
 
-        boolean result = address1.validateZipCode (code);
+        boolean result = address1.validateZipCode(code);
 
-        assertTrue (result);
-        assertEquals (code, address1.getZipCode ());
+        assertTrue(result);
+        assertEquals(code, address1.getZipCode());
     }
 
     /**
@@ -182,13 +183,13 @@ class AddressTest {
     @Test
     void validateZipCodeIfEmpty() {
 
-        Location location1 = new Location (23, 67, 89);
+        Location location1 = new Location(23, 67, 89);
         String code = "  ";
-        Address address1 = new Address ("Newport Junction", code, "Lisboa", location1);
+        Address address1 = new Address("Newport Junction", "33", code, "Lisboa", "Portugal", location1);
 
-        boolean result = address1.validateZipCode (code);
+        boolean result = address1.validateZipCode(code);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
     /**
@@ -197,13 +198,13 @@ class AddressTest {
     @Test
     void validateZipCodeIfFalse() {
 
-        Location location1 = new Location (23, 67, 89);
+        Location location1 = new Location(23, 67, 89);
         String code = null;
-        Address address1 = new Address ("Newport Junction", code, "Lisboa", location1);
+        Address address1 = new Address("Newport Junction", "4", code, "Lisboa", "Portugal", location1);
 
-        boolean result = address1.validateZipCode (code);
+        boolean result = address1.validateZipCode(code);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
     /**
@@ -212,13 +213,13 @@ class AddressTest {
     @Test
     void validateZipCodeIfIncorrect() {
 
-        Location location1 = new Location (23, 67, 89);
+        Location location1 = new Location(23, 67, 89);
         String code = " LW 3343";
-        Address address1 = new Address ("Madison Avenue", code, "Vila Nova de Gaia", location1);
+        Address address1 = new Address("Madison Avenue","205", code, "Vila Nova de Gaia","Portugal", location1);
 
-        boolean result = address1.validateZipCode (code);
+        boolean result = address1.validateZipCode(code);
 
-        assertFalse (result);
+        assertFalse(result);
     }
 
     /**
@@ -227,12 +228,12 @@ class AddressTest {
     @Test
     void gpsLocation() {
 
-        Location location1 = new Location (23, 67, 89);
-        Address address1 = new Address ("Twelve Street", "3370-767", "Lisboa", location1);
+        Location location1 = new Location(23, 67, 89);
+        Address address1 = new Address("Twelve Street","34", "3370-767", "Lisboa","Portugal", location1);
 
-        Location result = address1.getGPSLocation ();
+        Location result = address1.getGPSLocation();
 
-        assertEquals (location1, result);
+        assertEquals(location1, result);
     }
 
     /**
@@ -243,22 +244,22 @@ class AddressTest {
     void checkIncorrectSetStreetName() {
         //Arrange
         Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Júlio Dinis, 345", "3380-45", "Porto", l1);
+        Address a1 = new Address("Rua Júlio Dinis","345", "3380-45", "Porto","Portugal", l1);
 
         //Act
-        a1.setStreet (" ");
+        a1.setStreet(" ");
         a1.setZipCode(" ");
-        a1.setTown (" ");
+        a1.setTown(" ");
 
         String result1 = a1.getName();
         String result2 = a1.getZipCode();
-        String result3 = a1.getTown ();
-        double  result4 = l1.getLatitude();
+        String result3 = a1.getTown();
+        double result4 = l1.getLatitude();
         double result5 = l1.getLongitude();
         double result6 = l1.getAltitude();
 
         //Assert
-        assertEquals("Rua Júlio Dinis, 345", result1);
+        assertEquals("Rua Júlio Dinis", result1);
         assertEquals("3380-45", result2);
         assertEquals("Porto", result3);
         assertEquals(41, result4);
@@ -274,12 +275,12 @@ class AddressTest {
     void otherConstructorValidateNameIfCorrect() {
 
         String streetName = "Rua António Nobre, 89";
-        Address address1 = new Address (streetName, "333-568", "Porto", 23, 67, 89);
+        Address address1 = new Address(streetName, "333-568", "Porto", 23, 67, 89);
 
-        boolean result = address1.validateName (streetName);
+        boolean result = address1.validateName(streetName);
 
-        assertTrue (result);
-        assertEquals (streetName, address1.getName ());
+        assertTrue(result);
+        assertEquals(streetName, address1.getName());
     }
 
     /**
@@ -289,12 +290,12 @@ class AddressTest {
     void otherConstructorValidateTownIfCorrect() {
 
         String town = "Porto";
-        Address address1 = new Address ("Rua Julio Dinis", "333-568", town, 12, 22, 189);
+        Address address1 = new Address("Rua Julio Dinis", "333-568", town, 12, 22, 189);
 
-        boolean result = address1.validateTown (town);
+        boolean result = address1.validateTown(town);
 
-        assertTrue (result);
-        assertEquals (town, address1.getTown ());
+        assertTrue(result);
+        assertEquals(town, address1.getTown());
     }
 
 
@@ -305,12 +306,12 @@ class AddressTest {
     void otherConstructorValidateZipCodeIfCorrect() {
 
         String code = "3370-767";
-        Address address1 = new Address ("Twelve Street", code, "Aveiro", 23, 67, 89);
+        Address address1 = new Address("Twelve Street", code, "Aveiro", 23, 67, 89);
 
-        boolean result = address1.validateZipCode (code);
+        boolean result = address1.validateZipCode(code);
 
-        assertTrue (result);
-        assertEquals (code, address1.getZipCode ());
+        assertTrue(result);
+        assertEquals(code, address1.getZipCode());
     }
 
     /**
@@ -320,12 +321,12 @@ class AddressTest {
     void otherConstructorValidateNameIfIncorrect() {
 
         String streetName = " ";
-        Address address1 = new Address (streetName, "333-568", "Porto", 23, 67, 89);
+        Address address1 = new Address(streetName, "333-568", "Porto", 23, 67, 89);
 
-        boolean result = address1.validateName (streetName);
+        boolean result = address1.validateName(streetName);
 
-        assertFalse (result);
-        assertEquals (streetName, address1.getName ());
+        assertFalse(result);
+        assertEquals(streetName, address1.getName());
     }
 
     /**
@@ -335,12 +336,12 @@ class AddressTest {
     void otherConstructorValidateTownIfIncorrect() {
 
         String town = " ";
-        Address address1 = new Address ("Rua Julio Dinis", "333-568", town, 10, 22, 18);
+        Address address1 = new Address("Rua Julio Dinis", "333-568", town, 10, 22, 18);
 
-        boolean result = address1.validateTown (town);
+        boolean result = address1.validateTown(town);
 
-        assertFalse (result);
-        assertEquals (town, address1.getTown ());
+        assertFalse(result);
+        assertEquals(town, address1.getTown());
     }
 
 
@@ -351,12 +352,12 @@ class AddressTest {
     void otherConstructorValidateZipCodeIfIncorrect() {
 
         String code = " 3370-767";
-        Address address1 = new Address ("Twelve Street", code, "Aveiro", 23, 67, 89);
+        Address address1 = new Address("Twelve Street", code, "Aveiro", 23, 67, 89);
 
-        boolean result = address1.validateZipCode (code);
+        boolean result = address1.validateZipCode(code);
 
-        assertFalse (result);
-        assertEquals (code, address1.getZipCode ());
+        assertFalse(result);
+        assertEquals(code, address1.getZipCode());
     }
 
 }

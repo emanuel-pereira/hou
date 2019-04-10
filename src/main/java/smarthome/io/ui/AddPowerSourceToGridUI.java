@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.AddPowerSourceToGridCTRL;
-import smarthome.model.House;
 
 import java.util.ArrayList;
 
@@ -14,8 +13,8 @@ public class AddPowerSourceToGridUI {
     private double maxPower;
     private double storageCapacity;
 
-    public AddPowerSourceToGridUI(House house) {
-        this.ctrl = new AddPowerSourceToGridCTRL(house);
+    public AddPowerSourceToGridUI() {
+        this.ctrl = new AddPowerSourceToGridCTRL();
     }
 
     public void checkIfHGListIsEmpty() {
@@ -47,7 +46,7 @@ public class AddPowerSourceToGridUI {
                     this.selectHGListPS();
                     break;
                 default:
-                //no action needed
+                    //no action needed
             }
         }
     }
@@ -63,9 +62,9 @@ public class AddPowerSourceToGridUI {
             UtilsUI.backToMenu();
         }
         else{
-        System.out.println("List of Power Sources attached to " + this.ctrl.getHouseGridName(this.indexOfHG) + ":");
-        System.out.println(this.ctrl.showPowerSourceListInString(this.indexOfHG));
-        UtilsUI.backToMenu();
+            System.out.println("List of Power Sources attached to " + this.ctrl.getHouseGridName(this.indexOfHG) + ":");
+            System.out.println(this.ctrl.showPowerSourceListInString(this.indexOfHG));
+            UtilsUI.backToMenu();
         }
     }
 
@@ -109,12 +108,12 @@ public class AddPowerSourceToGridUI {
     private void addPowerSource() {
         if(UtilsUI.confirmOption("Continue?(y/n)\n", "Please type y for Yes or n for No.")){
             this.ctrl.addNewPSToGrid(this.indexOfHG, this.name, this.type, this.maxPower, this.storageCapacity);
-        System.out.println("The following Power Source was successfully created:" +
-                "\n[NAME]: " + this.name +
-                "\n[TYPE]: " + this.type +
-                "\n[MAX POWER]: " + UtilsUI.formatDecimal(this.maxPower,2) +
-                "\n[STORAGE CAPACITY]: " + UtilsUI.formatDecimal(this.storageCapacity,2));
-        UtilsUI.backToMenu();
+            System.out.println("The following Power Source was successfully created:" +
+                    "\n[NAME]: " + this.name +
+                    "\n[TYPE]: " + this.type +
+                    "\n[MAX POWER]: " + UtilsUI.formatDecimal(this.maxPower,2) +
+                    "\n[STORAGE CAPACITY]: " + UtilsUI.formatDecimal(this.storageCapacity,2));
+            UtilsUI.backToMenu();
         }
         else{
             System.out.println("Operation was canceled!");
