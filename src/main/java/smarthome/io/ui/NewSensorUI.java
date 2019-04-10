@@ -58,9 +58,9 @@ public class NewSensorUI {
 
     private void inputName() {
         System.out.println("Insert the sensor id");
-        this.id = UtilsUI.requestText("The id inputted isn't valid. Only alphanumeric characters are accepted.", "[A-Za-z0-9]*");
+        this.id = UtilsUI.requestText("The id inputted isn't valid. Only alphanumeric characters are accepted.", "^[a-zA-Z0-9]*$");
         System.out.println("Insert a name for the sensor");
-        this.name = UtilsUI.requestText("The name inputted isn't valid. Only alphanumeric characters, spaces and hyphens are accepted.");
+        this.name = UtilsUI.requestText("The name inputted isn't valid. Only alphanumeric characters, spaces and hyphens are accepted.", "[A-Za-z0-9 \\-]*");
         this.inputStartDate();
     }
 

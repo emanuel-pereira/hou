@@ -35,17 +35,7 @@ public class AddRoomToHouseCTRL {
      */
     public boolean newAddRoom(String id, String name, Integer floor, double length, double width, double height) {
         Room room = this.roomList.createNewRoom (id,name, floor, length, width, height);
-        if (!this.roomList.addRoom (room)) {
-            return false;
-        } else {
-            //Repository call
-            try {
-                Repositories.saveRoom(room);
-            } catch (NullPointerException e) {
-                log.info("Repository unreachable");
-            }
-            return true;
-        }
+        return this.roomList.addRoom (room);
     }
 
 

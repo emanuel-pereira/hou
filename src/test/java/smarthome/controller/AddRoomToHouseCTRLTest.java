@@ -104,4 +104,28 @@ class AddRoomToHouseCTRLTest {
         assertFalse(result);
     }
 
+    @Test
+    void checkIffRoomIdExists() {
+        getHouseRoomList().getRoomList().clear();
+
+        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
+
+        ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
+
+        boolean result = ctrl1.checkIfRoomIdExists("R01");
+        assertTrue(result);
+    }
+
+    @Test
+    void checkIfRoomIdNotExists() {
+        getHouseRoomList().getRoomList().clear();
+
+        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
+
+        ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
+
+        boolean result = ctrl1.checkIfRoomIdExists("R1");
+        assertFalse(result);
+    }
+
 }
