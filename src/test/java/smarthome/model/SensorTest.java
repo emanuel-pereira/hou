@@ -370,5 +370,28 @@ class SensorTest {
     }
 
 
+    @Test
+    @DisplayName("Try to unsuccessfully set an Id")
+    void setIdWithoutSuccess() {
+        SensorType sensorType = new SensorType ("rain");
+        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
+        Location location = new Location (2, 2, 2);
+        ReadingList readingList = new ReadingList ();
+        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+
+        assertFalse(sensor.setId(" "));
+    }
+
+    @Test
+    @DisplayName("Try to successfully set an Id")
+    void setIdWithSuccess() {
+        SensorType sensorType = new SensorType ("rain");
+        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
+        Location location = new Location (2, 2, 2);
+        ReadingList readingList = new ReadingList ();
+        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+
+        assertTrue(sensor.setId("P235"));
+    }
 
 }
