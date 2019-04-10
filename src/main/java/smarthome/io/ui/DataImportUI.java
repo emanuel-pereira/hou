@@ -131,18 +131,18 @@ public class DataImportUI {
 
 
     public void loadHouseSensorsFile() {
-        System.out.println("Please enter the file path to import geographical areas and sensors (eg: resources/DataSet_sprint06_HouseSensors.json):");
+        System.out.println("Please enter the file path to import sensors (eg: resources/DataSet_sprint06_HouseSensors.json):");
         String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
         try {
             this.filePath = Paths.get(filepath);
-            this.sizeOfSensorsFile();
+            this.numberOfSensorsInFile();
         } catch (Exception e) {
             UtilsUI.showError("File not found.", "File not found in the specified file path: " + filepath);
             UtilsUI.backToMenu();
         }
     }
 
-    public void sizeOfSensorsFile() throws
+    public void numberOfSensorsInFile() throws
             IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         System.out.println("In the file there are\n");
         System.out.println(" - " + ctrl.sizeOfSensorsFile(this.filePath) + " sensor(s).");

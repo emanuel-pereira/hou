@@ -19,19 +19,19 @@ class DataImportUI{
 - ctrl: DataImportCTRL
 - filepath: Path
 
-+ loadGeoAreaFile()
-+ showGAsNumberInFile()
-+ importGAs()
++ loadHouseSensorsFile()
++ importHouseSensors()
++ numberOfSensorsInFile()
+
 }
 
 class DataImportCTRL{
 - roomList: RoomList
 - sensorTypeList: SensorTypeList
 
-+ readGeoAreasFromFile()
-+ getAllSensorsInFile()
-+ importGeoAreasFromFile()
-+ failedToAdd()
++ importHouseSensors()
++ sizeOfSensorsFile()
+
 }
 
 class DataImport{
