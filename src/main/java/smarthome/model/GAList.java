@@ -37,7 +37,7 @@ public class GAList {
      * @return boolean value, true if correctly added, false if not added
      */
     public boolean addGA(GeographicalArea inputGA) {
-        if (this.listOfGa.contains(inputGA) || this.getAllGaId().contains(inputGA.getId())){
+        if (this.listOfGa.contains(inputGA)){
             return false;
         }
         else{
@@ -45,14 +45,6 @@ public class GAList {
         }
     }
 
-
-    public List<String> getAllGaId (){
-        List<String> allIds = new ArrayList<>();
-        for(GeographicalArea ga : this.listOfGa){
-            allIds.add(ga.getId());
-        }
-        return allIds;
-    }
 
     public List<Reading> getAllReadings(){
         List<Reading> allReadings = new ArrayList<>();

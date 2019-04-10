@@ -24,7 +24,7 @@ public class DataImportCTRL {
     }
 
     /**private method that return the list of Geographical areas(with encapsulated sensors if they exist) present in the file
-     * @param filePath
+     * @param filePath file that has info to import
      */
     private List<GeographicalArea> readGeoAreasFromFile (Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
         return dataImportGeoArea.loadGeoAreaFiles(filePath);
@@ -71,4 +71,6 @@ public class DataImportCTRL {
         }
         return gaListDTO;
     }
+
+
 }

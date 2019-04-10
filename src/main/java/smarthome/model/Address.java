@@ -27,12 +27,6 @@ public class Address {
         this.gpsLocation = gpsLocation;
     }
 
-    public Address(String streetName, String zipCode, String town, double latitude, double longitude, double altitude) {
-        this.street = streetName;
-        this.zipCode = zipCode;
-        this.town = town;
-        this.gpsLocation = new Location (latitude, longitude, altitude);
-    }
 
     public void setStreet(String streetName) {
         if (this.validateName (streetName)) {
@@ -158,6 +152,15 @@ public class Address {
      */
     public String getZipCode() {
         return this.zipCode;
+    }
+
+
+    /**
+     * sets the house address coordinates
+     * @param gpsLocation new Location object that will replace the previous one
+     */
+    public void setGpsLocation(Location gpsLocation) {
+        this.gpsLocation = gpsLocation;
     }
 
     /**

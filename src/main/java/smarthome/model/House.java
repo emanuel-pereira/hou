@@ -38,20 +38,12 @@ public class House {
         gA = houseGA;
     }
 
-    public static void setHouseAddress(String streetName, String houseNumber, String zipCode, double latitude, double longitude, double altitude) {
-        address = new Address(streetName, houseNumber, zipCode, latitude, longitude, altitude);
+    public static void setHouseAddress(Address houseAddress) {
+        address = houseAddress;
     }
 
     public static Address getAddress() {
         return address;
-    }
-
-
-
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(address, gA);
     }
 
     public static RoomList getHouseRoomList() {

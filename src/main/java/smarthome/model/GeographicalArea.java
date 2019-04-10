@@ -171,14 +171,14 @@ public class GeographicalArea {
             return false;
         }
         GeographicalArea that = (GeographicalArea) o;
-        return Objects.equals(this.identification, that.identification) &&
+        return Objects.equals(this.identification, that.identification) /*&&
                 Objects.equals(this.designation, that.designation) &&
-                Objects.equals(this.typeOfGa, that.typeOfGa);
+                Objects.equals(this.typeOfGa, that.typeOfGa)*/;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.identification, this.designation, this.typeOfGa);
+        return Objects.hash(this.identification/*, this.designation, this.typeOfGa*/);
     }
 
     /**

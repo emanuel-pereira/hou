@@ -175,7 +175,7 @@ class EditDevicesCTRLTest {
 
         EditDevicesCTRL ctrl = new EditDevicesCTRL();
         Room kitchen = new Room("R01", "Kitchen", 0, 6, 4, 2.5);
-        Room livingRoom = new Room("R01", "Living Room", 0, 3, 2, 3);
+        Room livingRoom = new Room("R02", "Living Room", 0, 3, 2, 3);
         getHouseRoomList().addRoom(kitchen);
         getHouseRoomList().addRoom(livingRoom);
 

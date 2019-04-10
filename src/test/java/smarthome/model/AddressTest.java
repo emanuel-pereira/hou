@@ -12,14 +12,14 @@ class AddressTest {
     @DisplayName("define and check house address, zip code, town, location and geographical area")
     void checkHouseLocation() {
         //Arrange
-        Location l1 = new Location(41, 12.3, 110);
-        Address a1 = new Address("Rua Dinis Júlio", "234", "222-767", "Lisboa", "Portugal", l1);
+        Location l1 = new Location (41, 12.3, 110);
+        Address a1 = new Address ("Rua Dinis Júlio","123", "222-767", "Lisboa","Portugal", l1);
 
 
         //Act
-        a1.setStreet("Rua Júlio Dinis, 345");
-        a1.setZipCode("3380-45");
-        a1.setTown("Porto");
+        a1.setStreet ("Rua Júlio Dinis");
+        a1.setZipCode ("3380-45");
+        a1.setTown ("Porto");
 
 
         String result1 = a1.getName();
@@ -31,12 +31,12 @@ class AddressTest {
 
 
         //Assert
-        assertEquals("Rua Júlio Dinis, 345", result1);
-        assertEquals("3380-45", result2);
-        assertEquals("Porto", result3);
-        assertEquals(41, result4);
-        assertEquals(12.3, result5);
-        assertEquals(110, result6);
+        assertEquals ("Rua Júlio Dinis", result1);
+        assertEquals ("3380-45", result2);
+        assertEquals ("Porto", result3);
+        assertEquals (41, result4);
+        assertEquals (12.3, result5);
+        assertEquals (110, result6);
     }
 
     /**
@@ -47,7 +47,7 @@ class AddressTest {
 
         Location location1 = new Location(23, 67, 89);
         String streetName = "Rua António Nobre";
-        Address address1 = new Address(streetName, "457", "333-568", "Porto", "Portugal", location1);
+        Address address1 = new Address (streetName,"123", "333-568", "Porto","Portugal", location1);
 
         boolean result = address1.validateName(streetName);
 
@@ -63,7 +63,7 @@ class AddressTest {
 
         Location location1 = new Location(23, 67, 89);
         String streetName = " ";
-        Address address1 = new Address(streetName, "233", "333-568", "Lisboa", "Portugal", location1);
+        Address address1 = new Address (streetName,"123", "333-568", "Lisboa","Portugal", location1);
 
         boolean result = address1.validateName(streetName);
 
@@ -78,7 +78,7 @@ class AddressTest {
 
         Location location1 = new Location(23, 67, 89);
         String streetName = null;
-        Address address1 = new Address(streetName, "100", "333-568", "Lisboa", "Portugal", location1);
+        Address address1 = new Address (streetName,"123", "333-568", "Lisboa","Portugal", location1);
 
         boolean result = address1.validateName(streetName);
 
@@ -93,7 +93,7 @@ class AddressTest {
 
         Location location1 = new Location(23, 67, 89);
         String streetName = " Rua Pacheco, 2";
-        Address address1 = new Address(streetName, "120", "333-568", "Porto", "Portugal", location1);
+        Address address1 = new Address (streetName,"123", "333-568", "Porto","Portugal", location1);
 
         boolean result = address1.validateName(streetName);
 
@@ -108,7 +108,7 @@ class AddressTest {
 
         Location location1 = new Location(23, 67, 89);
         String town = "Porto";
-        Address address1 = new Address("Rua Julio Dinis", "56", "3368-786", town, "Portugal", location1);
+        Address address1 = new Address ("Rua Julio Dinis","56", "3368-786", town,"Portugal", location1);
 
         boolean result = address1.validateTown(town);
 
@@ -124,7 +124,7 @@ class AddressTest {
 
         Location location1 = new Location(23, 67, 89);
         String town = null;
-        Address address1 = new Address("Rua Pacheco da Cunha", "200", "333-568", town, "Portugal", location1);
+        Address address1 = new Address ("Rua Pacheco da Cunha","123", "333-568", town,"Portugal", location1);
 
         boolean result = address1.validateTown(town);
 
@@ -139,7 +139,7 @@ class AddressTest {
 
         Location location1 = new Location(23, 67, 89);
         String town = "       ";
-        Address address1 = new Address("Rua Pacheco da Cunha", "222", "333-568", town, "Portugal", location1);
+        Address address1 = new Address ("Rua Pacheco da Cunha","123", "333-568", town,"Portugal", location1);
 
         boolean result = address1.validateTown(town);
 
@@ -154,7 +154,7 @@ class AddressTest {
 
         Location location1 = new Location(23, 67, 89);
         String town = " Lisboa";
-        Address address1 = new Address("Rua Pacheco da Cunha", "67", "333-568", town, "Portugal", location1);
+        Address address1 = new Address ("Rua Pacheco da Cunha","67", "333-568", town,"Portugal", location1);
 
         boolean result = address1.validateTown(town);
 
@@ -169,7 +169,7 @@ class AddressTest {
 
         Location location1 = new Location(23, 67, 89);
         String code = "3370-767";
-        Address address1 = new Address("Twelve Street", "20", code, "Porto", "Portugal", location1);
+        Address address1 = new Address ("Twelve Street","123", code, "Porto","Portugal", location1);
 
         boolean result = address1.validateZipCode(code);
 
@@ -185,7 +185,7 @@ class AddressTest {
 
         Location location1 = new Location(23, 67, 89);
         String code = "  ";
-        Address address1 = new Address("Newport Junction", "33", code, "Lisboa", "Portugal", location1);
+        Address address1 = new Address ("Newport Junction","123", code, "Lisboa","Portugal", location1);
 
         boolean result = address1.validateZipCode(code);
 
@@ -200,7 +200,7 @@ class AddressTest {
 
         Location location1 = new Location(23, 67, 89);
         String code = null;
-        Address address1 = new Address("Newport Junction", "4", code, "Lisboa", "Portugal", location1);
+        Address address1 = new Address ("Newport Junction","123", code, "Lisboa","Portugal", location1);
 
         boolean result = address1.validateZipCode(code);
 
@@ -215,7 +215,7 @@ class AddressTest {
 
         Location location1 = new Location(23, 67, 89);
         String code = " LW 3343";
-        Address address1 = new Address("Madison Avenue","205", code, "Vila Nova de Gaia","Portugal", location1);
+        Address address1 = new Address ("Madison Avenue","123", code, "Vila Nova de Gaia","Portugal", location1);
 
         boolean result = address1.validateZipCode(code);
 
@@ -228,8 +228,8 @@ class AddressTest {
     @Test
     void gpsLocation() {
 
-        Location location1 = new Location(23, 67, 89);
-        Address address1 = new Address("Twelve Street","34", "3370-767", "Lisboa","Portugal", location1);
+        Location location1 = new Location (23, 67, 89);
+        Address address1 = new Address ("Twelve Street","123", "3370-767", "Lisboa","Portugal", location1);
 
         Location result = address1.getGPSLocation();
 
@@ -274,8 +274,9 @@ class AddressTest {
     @Test
     void otherConstructorValidateNameIfCorrect() {
 
-        String streetName = "Rua António Nobre, 89";
-        Address address1 = new Address(streetName, "333-568", "Porto", 23, 67, 89);
+        String streetName = "Rua António Nobre";
+        Location houseLocation = new Location(23, 67, 89);
+        Address address1 = new Address(streetName, "15", "4430-250", "Porto","Portugal",houseLocation);
 
         boolean result = address1.validateName(streetName);
 
@@ -290,7 +291,8 @@ class AddressTest {
     void otherConstructorValidateTownIfCorrect() {
 
         String town = "Porto";
-        Address address1 = new Address("Rua Julio Dinis", "333-568", town, 12, 22, 189);
+        Location houseLocation = new Location(12, 22, 189);
+        Address address1 = new Address("Rua Julio Dinis", "15", "4430-250", town,"Portugal",houseLocation);
 
         boolean result = address1.validateTown(town);
 
@@ -306,7 +308,8 @@ class AddressTest {
     void otherConstructorValidateZipCodeIfCorrect() {
 
         String code = "3370-767";
-        Address address1 = new Address("Twelve Street", code, "Aveiro", 23, 67, 89);
+        Location houseLocation = new Location(23, 67, 89);
+        Address address1 = new Address ("Twelve Street","123", code, "Aveiro", "Portugal",houseLocation);
 
         boolean result = address1.validateZipCode(code);
 
@@ -321,7 +324,8 @@ class AddressTest {
     void otherConstructorValidateNameIfIncorrect() {
 
         String streetName = " ";
-        Address address1 = new Address(streetName, "333-568", "Porto", 23, 67, 89);
+        Location location = new Location(23, 67, 89);
+        Address address1 = new Address (streetName, "123","333-568", "Porto", "Portugal",location);
 
         boolean result = address1.validateName(streetName);
 
@@ -336,7 +340,8 @@ class AddressTest {
     void otherConstructorValidateTownIfIncorrect() {
 
         String town = " ";
-        Address address1 = new Address("Rua Julio Dinis", "333-568", town, 10, 22, 18);
+        Location location = new Location(23, 67, 89);
+        Address address1 = new Address ("Rua Julio Dinis", "123","333-568", town, "Portugal", location);
 
         boolean result = address1.validateTown(town);
 
@@ -352,7 +357,8 @@ class AddressTest {
     void otherConstructorValidateZipCodeIfIncorrect() {
 
         String code = " 3370-767";
-        Address address1 = new Address("Twelve Street", code, "Aveiro", 23, 67, 89);
+        Location location = new Location(23, 67, 89);
+        Address address1 = new Address ("Twelve Street","123", code, "Aveiro", "Portugal", location);
 
         boolean result = address1.validateZipCode(code);
 

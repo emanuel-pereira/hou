@@ -125,7 +125,7 @@ class GetDeviceListInGridByTypeCTRLTest {
         ctrl160.getHouseGridListCtrl().addHouseGrid(houseGrid2);
 
         Room roomA = new Room ("R01","bedroom", 1, 2, 2, 2);
-        Room roomB = new Room ("R01","garden", 0, 2, 2, 2);
+        Room roomB = new Room ("R02","garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid (roomA);
         houseGrid.attachRoomToGrid (roomB);
 
@@ -150,7 +150,7 @@ class GetDeviceListInGridByTypeCTRLTest {
         ctrl160.getHouseGridListCtrl().addHouseGrid(houseGrid2);
 
         Room roomA = new Room ("R01","bedroom", 1, 2, 2, 2);
-        Room roomB = new Room ("R01","garden", 0, 2, 2, 2);
+        Room roomB = new Room ("R02","garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid (roomA);
         houseGrid.attachRoomToGrid (roomB);
 

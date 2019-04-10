@@ -43,11 +43,7 @@ public class HouseGridList {
      * @return the list of house grids in the house as ArrayList
      */
     public List<HouseGrid> getHouseGridList() {
-        List<HouseGrid> gridList = new ArrayList<>();
-        for (HouseGrid grid : this.hglist) {
-            gridList.add(grid);
-        }
-        return gridList;
+        return this.hglist;
     }
 
     /**

@@ -76,13 +76,6 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
     @Test
     @DisplayName("Ensure that inputted month and day are invalid")
     void requestReadingRainfall() {
-
-        OccupationArea oc1 = new OccupationArea(1, 1);
-        Location loc1 = new Location(1,1,1);
-
-        GeographicalArea ga = new GeographicalArea("POR", "Porto", "City", oc1,loc1);
-        setHouseGA(ga);
-        setHouseAddress("Street", "15", "4420", 5, 5, 5);
         SensorList houseGASensorList = getHouseGA().getSensorListInGA();
 
 
@@ -136,11 +129,6 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
     @Test
     @DisplayName("Test that house has already a geographical area configured")
     void isHouseGAConfigured() {
-        OccupationArea oc1 = new OccupationArea(1, 1);
-        Location loc1 = new Location(1,1,1);
-
-        GeographicalArea ga = new GeographicalArea("PORTO", "Porto", "City", oc1,loc1);
-        setHouseGA(ga);
         SensorTypeList sensorTypeList = new SensorTypeList();
         GetTotalRainfallForDayInHouseAreaCTRL ctrl = new GetTotalRainfallForDayInHouseAreaCTRL(sensorTypeList);
         boolean result = ctrl.isHouseGAConfigured();
@@ -151,11 +139,6 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
     @DisplayName("Ensure that closest rainfall sensor has readings in 2019-02-03")
 
     void closestSensorsWithReadingsInDate() {
-        OccupationArea oc1 = new OccupationArea(1, 1);
-        Location loc1 = new Location(1,1,1);
-        GeographicalArea ga = new GeographicalArea("POR", "Porto", "City", oc1,loc1);
-        setHouseGA(ga);
-        setHouseAddress("Street", "15", "4420", 5, 5, 5);
         SensorList houseGASensorList = getHouseGA().getSensorListInGA();
 
 
@@ -212,12 +195,6 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
     @DisplayName("Ensure that closest rainfall sensor doesn't have readings in 2019-03-15")
 
     void closestSensorsWithoutReadingsInDate() {
-
-        OccupationArea oc1 = new OccupationArea(1, 1);
-        Location loc1 = new Location(1,1,1);
-        GeographicalArea ga = new GeographicalArea("POR", "Porto", "City", oc1,loc1);
-        setHouseGA(ga);
-        setHouseAddress("Street", "15", "4420", 5, 5, 5);
         SensorList houseGASensorList = getHouseGA().getSensorListInGA();
 
 

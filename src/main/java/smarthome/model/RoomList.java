@@ -31,7 +31,7 @@ public class RoomList {
      */
     public Room createNewRoom(String id, String name, int floor, double length, double width, double height) {
         NameValidations validation = new NameValidations();
-        if (validation.alphanumericName(name)) {
+        if (validation.alphanumericName(name) && validation.alphanumericName(id)) {
             return new Room(id, name, floor, length, width, height);
         }
         return null;
@@ -97,6 +97,18 @@ public class RoomList {
      */
     public Room get(int i) {
         return this.listOfRooms.get(i);
+    }
+
+    public Room getRoomById (String inputId) {
+        Room room = get(0);
+        for(Room  r : this.listOfRooms) {
+            room = r;
+            if (room.getId().matches(inputId)) {
+                break;
+            }
+        }
+        return room;
+
     }
 
     /**

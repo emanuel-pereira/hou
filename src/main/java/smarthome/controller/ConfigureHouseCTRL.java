@@ -1,9 +1,12 @@
 package smarthome.controller;
 
-import smarthome.model.GAList;
-import smarthome.model.GeographicalArea;
-import smarthome.model.House;
+import org.json.simple.parser.ParseException;
+import smarthome.dto.GeographicalAreaDTO;
+import smarthome.mapper.GeographicalAreaMapper;
+import smarthome.model.*;
+import smarthome.model.readers.DataImport;
 
+import java.io.IOException;
 import java.util.List;
 
 import static smarthome.model.House.*;
@@ -11,26 +14,29 @@ import static smarthome.model.House.*;
 
 public class ConfigureHouseCTRL {
 
+    private DataImport dataImportHouse;
+    private GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
     private GAList gaList;
 
 
     public ConfigureHouseCTRL(GAList listOfGA) {
         gaList = listOfGA;
+        this.dataImportHouse = new DataImport(this.gaList);
     }
 
-    public List<GeographicalArea> getGAList() {
-        return gaList.getGAList();
+    public List<GeographicalAreaDTO> getGAListDTO() {
+        return gaMapper.toDtoList(gaList);
     }
 
-    public String showGAList() {
-        List<GeographicalArea> list = gaList.getGAList();
+    public String showGAListDTO() {
+        List<GeographicalAreaDTO> list = getGAListDTO();
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
-        for (GeographicalArea ga : list) {
+        for (GeographicalAreaDTO ga : list) {
             result.append(number++);
             result.append(element);
-            result.append(ga.getGAName());
+            result.append(ga.getIdentification()+", " +ga.getDesignation()+";");
             result.append("\n");
         }
         return result.toString();
@@ -44,11 +50,39 @@ public class ConfigureHouseCTRL {
     }
 
 
-    public boolean configureHouseLocation(int indexOfGA, String streetName, String zipCode, String town,  double latitude, double longitude, double altitude) {
-        GeographicalArea ga = gaList.getGAList().get(indexOfGA-1);
+    public boolean configureHouseLocation(int indexOfGA, String streetName, String number, String zipCode, String town, String country,  double latitude, double longitude, double altitude) {
+        GeographicalArea ga = this.gaList.getGAList().get(indexOfGA-1);
         setHouseGA(ga);
-        setHouseAddress(streetName, zipCode, town, latitude, longitude, altitude);
+        Location location = new Location(latitude,longitude,altitude);
+        Address houseAddress = new Address(streetName, number, zipCode, town, country,location);
+        setHouseAddress(houseAddress);
         return getAddress() != null;
 
     }
+
+    /**Methods for US100 - Configure House From File*/
+
+   public void configureHouseFromFileCTRL (String idGeoArea,double latitude,double longitude,double altitude) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
+        GeographicalArea geoArea = this.gaList.getById(idGeoArea);
+        setHouseGA(geoArea);
+
+        this.dataImportHouse.importHouse();
+
+        Address houseAddress = getAddress();
+        Location location = new Location(latitude,longitude,altitude);
+        houseAddress.setGpsLocation(location);
+        setHouseAddress(houseAddress);
+    }
+
+    public int getRoomListSizeCTRL(){
+       return getHouseRoomList().getRoomListSize();
+    }
+
+    public int getGridListSizeCTRL(){
+        return getHGListInHouse().getSize();
+    }
+
+
+
+
 }

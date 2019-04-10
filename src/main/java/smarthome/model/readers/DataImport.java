@@ -6,10 +6,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
 import smarthome.io.ui.UtilsUI;
-import smarthome.model.GAList;
-import smarthome.model.GeographicalArea;
-import smarthome.model.Reading;
-import smarthome.model.Sensor;
+import smarthome.model.*;
 import smarthome.repository.Repositories;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,6 +26,7 @@ public class DataImport {
     static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
     private JSONParser parser = new JSONParser();
     private Path configFilePath;
+    private Path configHouseFilePath = Paths.get("resources/DataSet_sprint06_House.json");
     private GAList gaList;
     private List<GeographicalArea> notAdded;
 
@@ -36,7 +34,6 @@ public class DataImport {
         this.gaList = gaList;
         this.notAdded = new ArrayList<>();
     }
-
 
 
     public void importReadingsFromFile(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, ParserConfigurationException, SAXException {
@@ -147,4 +144,15 @@ public class DataImport {
         return this.notAdded.size();
     }
 
+    /**US100 CONFIGURE HOUSE BY FILE IMPORT*/
+
+    private FileReaderHouse getHouseConfigFileReader() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException{
+        String fileExtension = getFileExtension(this.configHouseFilePath);
+        String className = getClassName("house", fileExtension);
+        return  (FileReaderHouse) Class.forName(className).newInstance();
+    }
+
+    public void importHouse() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException{
+        getHouseConfigFileReader().importHouseConfiguration(this.configHouseFilePath);
+    }
 }

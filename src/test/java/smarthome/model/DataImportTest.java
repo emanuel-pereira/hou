@@ -1,6 +1,7 @@
 package smarthome.model;
 
 import org.json.simple.parser.ParseException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
@@ -8,6 +9,7 @@ import smarthome.model.readers.DataImport;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Calendar;
@@ -15,8 +17,24 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static smarthome.model.House.*;
 
 class DataImportTest {
+
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @Test
     void getFileExtensionTest() {
@@ -130,5 +148,62 @@ class DataImportTest {
         assertEquals(0, size);
     }
 
+    @Test
+    @DisplayName("Returns an Address Object from the information in the file that can be set as the house address")
+    void loadHouseAddressTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException{
+       GAList gaList = new GAList();
+        DataImport dataImport = new DataImport(gaList);
+
+        dataImport.importHouse();
+
+        String expected = "R. Dr. António Bernardino de Almeida";
+        String result = getAddress().getName();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Returns a number of Rooms from the information in the file that can be set as the house's RoomList")
+    void loadHouseRoomListTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException{
+        GAList gaList = new GAList();
+        DataImport dataImport = new DataImport(gaList);
+
+        dataImport.importHouse();
+
+        int expected = 7;
+        int result = getHouseRoomList().getRoomListSize();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Returns a number of Grids from the information in the file that can be set as the house's HouseGridList")
+    void loadHouseGridListTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException{
+        GAList gaList = new GAList();
+        DataImport dataImport = new DataImport(gaList);
+
+        dataImport.importHouse();
+
+        int expected = 2;
+        int result = getHGListInHouse().getSize();
+
+        assertEquals(expected,result);
+    }
+
+   /* @Test
+    @DisplayName("Returns a number Rooms that are inside a Grid")
+    void checkIfRoomListInGridTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException{
+        GAList gaList = new GAList();
+        House house = new House();
+        DataImport dataImport = new DataImport(gaList,house);
+
+        dataImport.importHouseConfiguration();
+
+        int expected = 2;
+        int result = getHGListInHouse().get(0).getRoomListInAGridSize();
+
+        assertEquals(expected,result);
+    }
+*/
 }
 

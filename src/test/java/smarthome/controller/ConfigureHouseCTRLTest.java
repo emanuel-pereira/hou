@@ -1,16 +1,21 @@
 package smarthome.controller;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.dto.GeographicalAreaDTO;
+import smarthome.mapper.GeographicalAreaMapper;
 import smarthome.model.*;
 
 import java.lang.reflect.Field;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static smarthome.model.House.getHouseGA;
+import static smarthome.model.House.*;
 
 class ConfigureHouseCTRLTest {
 
@@ -46,8 +51,9 @@ class ConfigureHouseCTRLTest {
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
-        String expected = "1 - Porto\n2 - Lisboa\n";
-        String result = ctrl101.showGAList();
+        String expected = "1 - Pt, Porto;\n" +
+                          "2 - Ls, Lisboa;\n";
+        String result = ctrl101.showGAListDTO();
         assertEquals(expected, result);
     }
 
@@ -68,8 +74,10 @@ class ConfigureHouseCTRLTest {
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
-        List<GeographicalArea> expectedResult = gl1.getGAList();
-        List<GeographicalArea> result = ctrl101.getGAList();
+        GeographicalAreaMapper mapper = new GeographicalAreaMapper();
+
+        List<GeographicalAreaDTO> expectedResult = mapper.toDtoList(gl1);
+        List<GeographicalAreaDTO> result = ctrl101.getGAListDTO();
         assertEquals(expectedResult, result);
     }
 
@@ -91,10 +99,9 @@ class ConfigureHouseCTRLTest {
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
+        boolean result = ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",41, 12.3, 110);
 
-        boolean result = ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", 41, 12.3, 110);
         GeographicalArea result2 = getHouseGA();
-
 
         assertTrue(result);
         assertEquals(ga1, result2);
@@ -126,7 +133,7 @@ class ConfigureHouseCTRLTest {
 
         try {
 
-            ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", 400, 12.3, 110);
+            ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",400, 12.3, 110);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -158,8 +165,7 @@ class ConfigureHouseCTRLTest {
         boolean thrown = false;
 
         try {
-
-            ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", 80, 181, 110);
+            ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",80, 181, 110);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -190,7 +196,7 @@ class ConfigureHouseCTRLTest {
 
         try {
 
-            ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", 80, -170, -13000);
+            ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",80, -170,-13000);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -217,6 +223,136 @@ class ConfigureHouseCTRLTest {
 
         int expected=2;
         int result = ctrl101.getGAListSize();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Check if Address in file was properly set")
+    void checkAddressTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
+        GAList gl1 = new GAList();
+        ConfigureHouseCTRL ctrl = new ConfigureHouseCTRL(gl1);
+
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
+
+        gl1.addGA(ga1);
+        gl1.addGA(ga2);
+
+        ctrl.configureHouseFromFileCTRL(ga1.getId(),25,14,12);
+
+        String expected = "R. Dr. António Bernardino de Almeida";
+        String result = getAddress().getName();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Check if Address's new Location was properly set")
+    void checkAddressNewLocationTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
+        GAList gl1 = new GAList();
+        ConfigureHouseCTRL ctrl = new ConfigureHouseCTRL(gl1);
+
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
+
+        gl1.addGA(ga1);
+        gl1.addGA(ga2);
+
+        ctrl.configureHouseFromFileCTRL(ga1.getId(),25,14,12);
+
+        double expected = 14;
+        double result = getAddress().getGPSLocation().getLongitude();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Check if the Rooms in the File were properly added")
+    void checkRoomListSizeTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
+        GAList gl1 = new GAList();
+        ConfigureHouseCTRL ctrl = new ConfigureHouseCTRL(gl1);
+
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
+
+        gl1.addGA(ga1);
+        gl1.addGA(ga2);
+
+        ctrl.configureHouseFromFileCTRL(ga1.getId(),25,14,12);
+
+        int expected = 7;
+        int result = ctrl.getRoomListSizeCTRL();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Check if the Grids in the File were properly added")
+    void checkGridListSizeTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
+        GAList gl1 = new GAList();
+        ConfigureHouseCTRL ctrl = new ConfigureHouseCTRL(gl1);
+
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
+
+        gl1.addGA(ga1);
+        gl1.addGA(ga2);
+
+        ctrl.configureHouseFromFileCTRL(ga1.getId(),25,14,12);
+
+        int expected = 2;
+        int result = ctrl.getGridListSizeCTRL();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Check if the Rooms,in the Grids in the File were properly added")
+    void checkRoomListInGridSizeTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
+        GAList gl1 = new GAList();
+        ConfigureHouseCTRL ctrl = new ConfigureHouseCTRL(gl1);
+
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
+
+        gl1.addGA(ga1);
+        gl1.addGA(ga2);
+
+        ctrl.configureHouseFromFileCTRL(ga1.getId(),25,14,12);
+
+        int expected = 5;
+        int result = getHGListInHouse().get(0).getRoomListInAGridSize();
 
         assertEquals(expected,result);
     }
