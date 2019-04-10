@@ -12,7 +12,7 @@ import static smarthome.model.House.getHouseRoomList;
 class AddRoomToHouseCTRLTest {
 
     Location loc = new Location(20, 20, 2);
-    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal", loc);
     OccupationArea oc = new OccupationArea(2, 5);
     GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
     House house = House.getHouseInstance(a1, g1);
@@ -34,12 +34,12 @@ class AddRoomToHouseCTRLTest {
     void createNewRoom() {
 
         RoomList roomList = getHouseRoomList();
-        getHouseRoomList().getRoomList().clear();
+
 
         AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
         assertEquals(0, getHouseRoomList().getRoomList().size());
 
-        ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
+        ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
         assertEquals(1, roomList.getRoomList().size());
     }
 
@@ -51,13 +51,13 @@ class AddRoomToHouseCTRLTest {
 
     @Test
     void cantCreateNewRoom() {
-        getHouseRoomList().getRoomList().clear();
+
 
         AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
         assertEquals(0, getHouseRoomList().getRoomList().size());
 
-        ctrl1.newAddRoom("   "," ", 1, 3, 3.5, 2);
-        assertEquals( 0, getHouseRoomList().getRoomList().size());
+        ctrl1.newAddRoom("   ", " ", 1, 3, 3.5, 2);
+        assertEquals(0, getHouseRoomList().getRoomList().size());
     }
 
     /**
@@ -67,26 +67,26 @@ class AddRoomToHouseCTRLTest {
 
     @Test
     void createOneRoomSuccessAnotherFail() {
-        getHouseRoomList().getRoomList().clear();
+
         AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
         assertEquals(0, getHouseRoomList().getRoomList().size());
 
-        boolean result = ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
+        boolean result = ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
         assertEquals(1, getHouseRoomList().getRoomList().size());
         assertTrue(result);
 
-        boolean result1 = ctrl1.newAddRoom("  "," ", 1, 3, 3.5, 2);
+        boolean result1 = ctrl1.newAddRoom("  ", " ", 1, 3, 3.5, 2);
         assertEquals(1, getHouseRoomList().getRoomList().size());
         assertFalse(result1);
     }
 
     @Test
     void checkIffRoomNameExists() {
-        getHouseRoomList().getRoomList().clear();
+
 
         AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
 
-        ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
+        ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
 
         boolean result = ctrl1.checkIfRoomNameExists("kitchen");
         assertTrue(result);
@@ -94,11 +94,11 @@ class AddRoomToHouseCTRLTest {
 
     @Test
     void checkIfRoomNameNotExists() {
-        getHouseRoomList().getRoomList().clear();
+
 
         AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
 
-        ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
+        ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
 
         boolean result = ctrl1.checkIfRoomNameExists("bedroom");
         assertFalse(result);
@@ -106,11 +106,11 @@ class AddRoomToHouseCTRLTest {
 
     @Test
     void checkIffRoomIdExists() {
-        getHouseRoomList().getRoomList().clear();
+
 
         AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
 
-        ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
+        ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
 
         boolean result = ctrl1.checkIfRoomIdExists("R01");
         assertTrue(result);
@@ -118,11 +118,11 @@ class AddRoomToHouseCTRLTest {
 
     @Test
     void checkIfRoomIdNotExists() {
-        getHouseRoomList().getRoomList().clear();
+
 
         AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
 
-        ctrl1.newAddRoom("R01","kitchen", 1, 3, 3.5, 2);
+        ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
 
         boolean result = ctrl1.checkIfRoomIdExists("R1");
         assertFalse(result);

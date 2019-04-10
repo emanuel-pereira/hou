@@ -206,7 +206,7 @@ class HouseGridTest {
     @Test
     @DisplayName("Get the Device List in a Grid")
     void getDeviceList() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         HouseGrid hg1 = new HouseGrid("grid1");
         getHGListInHouse().addHouseGrid(hg1);
@@ -246,7 +246,7 @@ class HouseGridTest {
     @DisplayName("Get the Device List in a Grid from a specific Type")
     void getDeviceListFromType() {
 
-        getHouseRoomList().getRoomList().clear();
+         
 
         HouseGrid hg1 = new HouseGrid("grid1");
         getHGListInHouse().addHouseGrid(hg1);
@@ -323,7 +323,7 @@ class HouseGridTest {
     @DisplayName("Print the device list in Grid ordered by type")
     void deviceListInGridCtrlTestGroupByTypeInString() {
 
-        getHouseRoomList().getRoomList().clear();
+         
 
         HouseGrid hg1 = new HouseGrid("grid1");
         getHGListInHouse().addHouseGrid(hg1);

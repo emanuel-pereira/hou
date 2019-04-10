@@ -39,7 +39,7 @@ class HouseTest {
 
     @Test
     void newRoom() {
-        getHouseRoomList().getRoomList().clear();
+         
         Room room = getHouseRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 2);
 
         assertEquals("bedroom", room.getMeteredDesignation());
@@ -54,7 +54,7 @@ class HouseTest {
 
     @Test
     void addOneRoom() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         Room room = getHouseRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 2);
 
@@ -71,7 +71,7 @@ class HouseTest {
 
     @Test
     void addTwoRooms() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         Room room = getHouseRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 2);
         Room room1 = getHouseRoomList().createNewRoom("R02", "garden", 0, 2.5, 3, 2);
@@ -94,7 +94,7 @@ class HouseTest {
 
     @Test
     void addOneRoomEmptyName() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         Room room = getHouseRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 2);
         Room room1 = getHouseRoomList().createNewRoom(" ", "  ", 0, 2.5, 3, 2);
@@ -118,7 +118,7 @@ class HouseTest {
 
     @Test
     void nameNotValid() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         Room room = getHouseRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 2);
         Room room1 = getHouseRoomList().createNewRoom("  ", "  ", 0, 2.5, 3, 2);
@@ -144,7 +144,7 @@ class HouseTest {
 
     @Test
     void addOneGetTrueAddAnotherGetFalse() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         Room room = getHouseRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 1.7);
         Room room1 = getHouseRoomList().createNewRoom(" ", "  ", 0, 2.5, 3, 2);
@@ -168,7 +168,7 @@ class HouseTest {
     @Test
     @DisplayName("Ensure a room is removed from the list of rooms of a house ")
     void removeRoom() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         Room room1 = getHouseRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 2);
         Room room2 = getHouseRoomList().createNewRoom("R02", "kitchen", 1, 4, 5, 2);
@@ -185,7 +185,7 @@ class HouseTest {
             "cannot be removed")
     void removeRoomReturnsFalse() {
 
-        getHouseRoomList().getRoomList().clear();
+         
 
         Room room1 = getHouseRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 2);
         getHouseRoomList().addRoom(room1);
@@ -197,8 +197,6 @@ class HouseTest {
     @Test
     @DisplayName("Get House Grid List from the House")
     void getHouseGridListFromHouseTest() {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
 
         HouseGrid hg01 = new HouseGrid("grid01");
         HouseGrid hg02 = new HouseGrid("grid02");
@@ -215,8 +213,6 @@ class HouseTest {
 
     @Test
     void showRoomsWithoutGrid() {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
 
         HouseGrid hg1 = new HouseGrid("grid01");
         HouseGrid hg2 = new HouseGrid("grid02");
@@ -240,8 +236,6 @@ class HouseTest {
 
     @Test
     void showRoomsWithoutHouseGrid() {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
 
         HouseGrid hg1 = new HouseGrid("grid01");
         HouseGrid hg2 = new HouseGrid("grid02");
@@ -299,8 +293,6 @@ class HouseTest {
     @DisplayName("Ensure that sensor with the latest reading in the specified date is sensor s3.")
     void getSensorOfTypeWithLatestReadingsInDateTest() {
 
-        getHouseGA().getSensorListInGA().getSensorList().clear();
-
         SensorType temperature = new SensorType("temperature");
 
         GregorianCalendar startDate = new GregorianCalendar(2018, 11, 25);
@@ -345,7 +337,6 @@ class HouseTest {
     @Test
     @DisplayName("Tests if the second sensor has the most recent readings")
     void getSecondSensorWithLatestReadingsNotInPeriod() {
-        getHouseGA().getSensorListInGA().getSensorList().clear();
 
         SensorType sT = new SensorType("rainfall");
 
@@ -400,8 +391,6 @@ class HouseTest {
     @DisplayName("Tests if a sensor with no readings in period is not selected  ")
     void getClosestSensorWithLatestReadingsNotInPeriod() {
 
-        g1.getSensorListInGA().getSensorList().clear();
-
         SensorType sT = new SensorType("rainfall");
 
         GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.JULY, 1);
@@ -454,8 +443,6 @@ class HouseTest {
     @Test
     @DisplayName("Tests if readings with a date equal to start date are included in the average")
     void averageOfReadingsWithStartDate() {
-
-        g1.getSensorListInGA().getSensorList().clear();
 
         SensorType sT = new SensorType("rainfall");
 
@@ -510,8 +497,6 @@ class HouseTest {
     @Test
     @DisplayName("Tests if readings with a date equal to end date are included in the average")
     void averageOfReadingsWithEndDate() {
-
-        getHouseGA().getSensorListInGA().getSensorList().clear();
 
         SensorType sT = new SensorType("rainfall");
 

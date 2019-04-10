@@ -35,8 +35,6 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getGridListSizeIfTwo() {
 
-        getHGListInHouse().getHouseGridList().clear();
-
         HouseGridList houseGridList = getHGListInHouse();
         HouseGrid houseGrid1 = houseGridList.newHouseGrid("InternalGrid");
         houseGridList.addHouseGrid(houseGrid1);
@@ -57,8 +55,6 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getGridListSizeIfZero() {
 
-        getHGListInHouse().getHouseGridList().clear();
-
         GetTotalNominalPowerCTRL US172CTRL = new GetTotalNominalPowerCTRL();
 
         double expectedResult = 0;
@@ -73,8 +69,6 @@ class GetTotalNominalPowerCTRLTest {
      */
     @Test
     void getRoomListSizeIfOne() {
-        getHGListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
 
         RoomList roomList = getHouseRoomList();
         Room room1 = roomList.createNewRoom("R01","Bedroom", 2, 1.5, 2, 1.7);
@@ -93,7 +87,6 @@ class GetTotalNominalPowerCTRLTest {
      */
     @Test
     void getRoomListSizeIfZero() {
-        getHouseRoomList().getRoomList().clear();
 
         GetTotalNominalPowerCTRL US172CTRL = new GetTotalNominalPowerCTRL();
 
@@ -109,7 +102,7 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void showGridListInString() {
 
-        getHGListInHouse().getHouseGridList().clear();
+         
 
         HouseGridList houseGridList = getHGListInHouse();
         HouseGrid houseGrid1 = houseGridList.newHouseGrid("InternalGrid");
@@ -130,7 +123,7 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void showRoomListInString() {
 
-        getHouseRoomList().getRoomList().clear();
+         
 
         Room r1 = new Room("R01","cozinha", 1, 10, 20, 3);
         Room r2 = new Room("R02","sala", 1, 10, 20, 3);
@@ -151,8 +144,8 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getGridTotalNominalPowerIfCorrect() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-        getHGListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
+         
+         
         RoomList roomList = getHouseRoomList();
 
         HouseGrid grid1 = new HouseGrid("Grid 1");
@@ -194,8 +187,8 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getRoomTotalNominalPower() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
+         
+         
 
         RoomList roomList = getHouseRoomList();
 
@@ -240,8 +233,8 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getSizeRoomListInGridIfOne() {
 
-        getHGListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
+         
+         
 
         HouseGridList houseGridList = getHGListInHouse();
         HouseGrid houseGrid1 = houseGridList.newHouseGrid("InternalGrid");
@@ -269,8 +262,8 @@ class GetTotalNominalPowerCTRLTest {
      */
     @Test
     void getSizeRoomListInGridIfTwo() {
-        getHGListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
+         
+         
 
         HouseGridList houseGridList = getHGListInHouse();
         HouseGrid houseGrid1 = houseGridList.newHouseGrid("InternalGrid");
@@ -296,7 +289,7 @@ class GetTotalNominalPowerCTRLTest {
      */
     @Test
     void getSizeRoomListInGridIfZero() {
-        getHGListInHouse().getHouseGridList().clear();
+         
 
         HouseGridList houseGridList = getHGListInHouse();
         HouseGrid houseGrid1 = houseGridList.newHouseGrid("InternalGrid");
@@ -316,7 +309,7 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getSizeRoomListInSecondGridIfZero() {
 
-        getHouseRoomList().getRoomList().clear();
+         
         RoomList roomList = getHouseRoomList();
 
         HouseGrid grid1 = new HouseGrid("Grid 1");
@@ -349,8 +342,8 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getSizeDeviceListInGridIfZero() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
+         
+         
 
         RoomList roomList = getHouseRoomList();
 
@@ -391,8 +384,8 @@ class GetTotalNominalPowerCTRLTest {
      */
     @Test
     void getSizeDeviceListInFirstGridIfZero() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
+         
+         
 
         RoomList roomList = getHouseRoomList();
 
@@ -436,8 +429,8 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getSizeDeviceListInRoomIfTwo() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
+         
+         
 
         RoomList roomList = getHouseRoomList();
 
@@ -482,8 +475,8 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getSizeDeviceListInRoomIfZero() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
+         
+         
 
         RoomList roomList = getHouseRoomList();
 

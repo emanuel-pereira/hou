@@ -323,7 +323,7 @@ class GetDailySensorDataCTRLTest {
     @Test
     void displayAmplitude2() {
 
-        g1.getSensorListInGA().getSensorList().clear();
+         
 
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0),"C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0),"C");
@@ -383,7 +383,7 @@ class GetDailySensorDataCTRLTest {
     @Test
     void displayAmplitude3() {
 
-        g1.getSensorListInGA().getSensorList().clear();
+         
 
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0),"C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0),"C");
@@ -442,7 +442,7 @@ class GetDailySensorDataCTRLTest {
 
     @Test
     void checkIfSensorTypeExistsTrue() {
-        g1.getSensorListInGA().getSensorList().clear();
+         
         SensorType sensorType = new SensorType("temperature");
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(sensorType);
@@ -453,7 +453,7 @@ class GetDailySensorDataCTRLTest {
 
     @Test
     void checkIfSensorTypeExistsFalse() {
-        g1.getSensorListInGA().getSensorList().clear();
+         
         SensorType sensorType = new SensorType("temperature");
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(sensorType);
@@ -464,7 +464,7 @@ class GetDailySensorDataCTRLTest {
 
     @Test
     void isHouseGAConfiguredTrue() {
-        g1.getSensorListInGA().getSensorList().clear();
+         
         SensorType sensorType = new SensorType("temperature");
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(sensorType);
@@ -475,7 +475,7 @@ class GetDailySensorDataCTRLTest {
 
     @Test
     void isHouseGAConfiguredFalse() {
-        g1.getSensorListInGA().getSensorList().clear();
+         
 
         SensorType sensorType = new SensorType("temperature");
         SensorTypeList sensorTypeList = new SensorTypeList();

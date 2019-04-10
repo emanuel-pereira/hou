@@ -30,7 +30,7 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
 
     @Test
     void getSensorTypeListInStringTest() {
-        g1.getSensorListInGA().getSensorList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
 
@@ -50,7 +50,7 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
 
     @Test
     void getSensorTypeByIndexTest() {
-        g1.getSensorListInGA().getSensorList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
 
@@ -71,10 +71,10 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
 
     @Test
     void getListSensorsOfOneTypeTest() {
-        g1.getSensorListInGA().getSensorList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
-        sensorTypeList.getSensorTypeList().clear();
+         
 
         SensorType sensorType1 = new SensorType("wind");
         SensorType sensorType2 = new SensorType("temp");
@@ -104,10 +104,10 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
     @Test
     void getLastReadingOfSensorTest() {
 
-        g1.getSensorListInGA().getSensorList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
-        sensorTypeList.getSensorTypeList().clear();
+         
 
         SensorType wind = new SensorType("wind");
         SensorType temperature = new SensorType("temperature");
@@ -163,10 +163,10 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
     @Test
     void getSensorTypeListSize() {
 
-        g1.getSensorListInGA().getSensorList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
-        sensorTypeList.getSensorTypeList().clear();
+         
 
         SensorType wind = new SensorType("wind");
         SensorType temperature = new SensorType("temperature");
@@ -182,10 +182,10 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
 
     @Test
     void getHouseGATest() {
-        g1.getSensorListInGA().getSensorList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
-        sensorTypeList.getSensorTypeList().clear();
+         
 
         SensorType wind = new SensorType("wind");
         SensorType temperature = new SensorType("temperature");

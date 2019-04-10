@@ -16,7 +16,7 @@ import static smarthome.model.House.getHouseRoomList;
 class AttachDetachAndListRoomsInGridCTRLTest {
 
     Location loc = new Location(20, 20, 2);
-    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal", loc);
     OccupationArea oc = new OccupationArea(2, 5);
     GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
     House house = House.getHouseInstance(a1, g1);
@@ -32,8 +32,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
 
     @Test
     void getRoomOfHGName() {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
 
         AttachDetachAndListRoomsInGridCTRL ctrl = new AttachDetachAndListRoomsInGridCTRL();
         HouseGrid grid1 = new HouseGrid("Grid 1");
@@ -55,8 +53,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
     @Test
     @DisplayName("Ensure that the houseGridName ")
     void getHGName() {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
 
         AttachDetachAndListRoomsInGridCTRL ctrl = new AttachDetachAndListRoomsInGridCTRL();
         HouseGrid grid1 = new HouseGrid("Grid 1");
@@ -66,7 +62,7 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         hgList.addHouseGrid(grid2);
         Room kitchen = new Room("R01", "Kitchen", 0, 4, 3, 3);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
-        grid1RoomList.getRoomList().clear();
+
         grid1RoomList.addRoom(kitchen);
         String expected = "Grid 1";
         String result = ctrl.getHGName(0);
@@ -76,8 +72,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
     @Test
     @DisplayName("Ensure that the size of the roomList is 2 ")
     void getListOfRoomsSize() {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
 
         AttachDetachAndListRoomsInGridCTRL ctrl = new AttachDetachAndListRoomsInGridCTRL();
         Room kitchen = new Room("R01", "Kitchen", 0, 4, 3, 3);
@@ -93,8 +87,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
     @Test
     @DisplayName("Ensure that the size of the roomList in the selected houseGrid is 2 ")
     void getRoomListOfHGSize() {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
 
         AttachDetachAndListRoomsInGridCTRL ctrl = new AttachDetachAndListRoomsInGridCTRL();
         HouseGrid grid1 = new HouseGrid("Grid 1");
@@ -115,8 +107,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
     @Test
     @DisplayName("Ensure that the name of the room in the selected houseGrid is Bathroom")
     void getNameOfLastRoomInHG() {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
 
         AttachDetachAndListRoomsInGridCTRL ctrl = new AttachDetachAndListRoomsInGridCTRL();
         HouseGrid grid1 = new HouseGrid("Grid 1");
@@ -137,8 +127,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
 
     @Test
     void showHouseGridListInString() {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
 
         AttachDetachAndListRoomsInGridCTRL ctrl = new AttachDetachAndListRoomsInGridCTRL();
         HouseGrid grid1 = new HouseGrid("Grid 1");
@@ -149,7 +137,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         Room kitchen = new Room("R01", "Kitchen", 0, 4, 3, 3);
         Room bathroom = new Room("R02", "Bathroom", 0, 2, 3, 3);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
-        grid1RoomList.getRoomList().clear();
 
         grid1RoomList.addRoom(kitchen);
         grid1RoomList.addRoom(bathroom);
@@ -161,8 +148,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
 
     @Test
     void getHouseGridListSize() {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
 
         AttachDetachAndListRoomsInGridCTRL ctrl = new AttachDetachAndListRoomsInGridCTRL();
         HouseGrid grid1 = new HouseGrid("Grid 1");
@@ -173,7 +158,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         Room kitchen = new Room("R01", "Kitchen", 0, 4, 3, 3);
         Room bathroom = new Room("R02", "Bathroom", 0, 2, 3, 3);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
-        grid1.getRoomListInAGrid().getRoomList().clear();
 
         grid1RoomList.addRoom(kitchen);
         grid1RoomList.addRoom(bathroom);
@@ -184,8 +168,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
 
     @Test
     void getRoomsWithoutGridSize() {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
 
         AttachDetachAndListRoomsInGridCTRL ctrl = new AttachDetachAndListRoomsInGridCTRL();
         RoomList houseRoomList = getHouseRoomList();
@@ -199,7 +181,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         houseRoomList.addRoom(kitchen);
         houseRoomList.addRoom(bathroom);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
-        grid1.getRoomListInAGrid().getRoomList().clear();
 
         grid1RoomList.addRoom(kitchen);
         int expected = 1;
@@ -209,8 +190,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
 
     @Test
     void showRoomsWithoutHouseGrid() {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
 
         AttachDetachAndListRoomsInGridCTRL ctrl = new AttachDetachAndListRoomsInGridCTRL();
         RoomList houseRoomList = getHouseRoomList();
@@ -224,7 +203,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         houseRoomList.addRoom(kitchen);
         houseRoomList.addRoom(bathroom);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
-        grid1.getRoomListInAGrid().getRoomList().clear();
 
 
         grid1RoomList.addRoom(kitchen);
@@ -236,8 +214,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
     @Test
     @DisplayName("Ensure that room Bathroom is attached to grid1")
     void attachRoomToHouseGrid() {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
 
         AttachDetachAndListRoomsInGridCTRL ctrl = new AttachDetachAndListRoomsInGridCTRL();
         RoomList houseRoomList = getHouseRoomList();
@@ -251,21 +227,22 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         houseRoomList.addRoom(kitchen);
         houseRoomList.addRoom(bathroom);
 
-        grid1.getRoomListInAGrid().getRoomList().clear();
+
         grid1.getRoomListInAGrid().addRoom(kitchen);
+
 
         boolean result = ctrl.attachRoomToHouseGrid(1, 1);
         assertTrue(result);
         int expected = 1;
         int result1 = ctrl.getRoomListOfHGSize(0);
+
         assertEquals(expected, result1);
     }
 
     @Test
     @DisplayName("Ensure that showRoomsInHouseGrid() returns the room Bathroom")
     void showRoomsInHouseGrid() {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
+
 
         AttachDetachAndListRoomsInGridCTRL ctrl = new AttachDetachAndListRoomsInGridCTRL();
         RoomList houseRoomList = getHouseRoomList();
@@ -282,7 +259,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         houseRoomList.addRoom(kitchen);
         houseRoomList.addRoom(bathroom);
 
-        grid1.getRoomListInAGrid().getRoomList().clear();
         grid1.getRoomListInAGrid().addRoom(bathroom);
 
         String expected = "1 - Bathroom\n";
@@ -293,8 +269,7 @@ class AttachDetachAndListRoomsInGridCTRLTest {
     @Test
     @DisplayName("Ensure that room Kitchen is detached from the houseGrid")
     void detachRoomFromGrid() {
-        getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
+
 
         AttachDetachAndListRoomsInGridCTRL ctrl = new AttachDetachAndListRoomsInGridCTRL();
 
@@ -312,7 +287,6 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         houseRoomList.addRoom(kitchen);
         houseRoomList.addRoom(bathroom);
 
-        grid1.getRoomListInAGrid().getRoomList().clear();
 
         grid1.getRoomListInAGrid().addRoom(kitchen);
         grid1.getRoomListInAGrid().addRoom(bathroom);
