@@ -14,7 +14,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static smarthome.model.House.getHouseGA;
 import static smarthome.model.House.getHouseRoomList;
 
 
@@ -241,7 +240,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Test if GPS coordinates validation methods return true when GPS coordinates are within defined range")
     void testIfGPSCoordinatesAreValid() {
-        getHouseGA().getSensorListInGA().getSensorList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -333,7 +332,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure that the size of the room list is 2")
     void getRoomListSize() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
@@ -351,7 +350,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure that all rooms are displayed in string")
     void showRoomListInStr() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
@@ -370,7 +369,6 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getSensorType method returns temperature as it is the sensor type of the sensor in the last index position of the sensorList of geographical area Lisboa")
     void getSensorType() {
-        getHouseGA().getSensorListInGA().getSensorList().clear();
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -403,7 +401,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getGAName() returns name Aveiro as it is the name of the geographical area in the selected index position of the geographical area list.")
     void getGAName() {
-        getHouseGA().getSensorListInGA().getSensorList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -431,7 +429,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getGASensorName() returns the the sensor's id")
     void getGASensorId() {
-        getHouseGA().getSensorListInGA().getSensorList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -459,7 +457,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getGASensorName() returns the the sensor's name")
     void getSensorName() {
-        getHouseGA().getSensorListInGA().getSensorList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -487,7 +485,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getGASensorSDate() returns the the sensor's start date")
     void getStartDate() {
-        getHouseGA().getSensorListInGA().getSensorList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -512,7 +510,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getRoomSensorSDate() returns the the sensor's start date")
     void getRoomSensorSDate() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -538,7 +536,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getGASensorUnit() returns the the sensor's unit of measure")
     void getUnit() {
-        getHouseGA().getSensorListInGA().getSensorList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -570,7 +568,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getRoomSensorType() returns the the sensor's type")
     void getRoomSensorType() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
@@ -588,7 +586,6 @@ class NewSensorCTRLTest {
         ReadingList rL = new ReadingList();
         Sensor sensor = new Sensor("T0001", "Temperature Sensor", startDate, loc, temperature, "celsius", rL);
         SensorList kitSensorLst = kitchen.getSensorListInRoom();
-        kitSensorLst.getSensorList().clear();
 
         kitSensorLst.addSensor(sensor);
         String expected = "temperature";
@@ -600,7 +597,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getRoomName() returns the room's name where the sensor is installed")
     void getRoomName() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
@@ -617,7 +614,6 @@ class NewSensorCTRLTest {
         ReadingList rL = new ReadingList();
         Sensor sensor = new Sensor("T0001", "Temperature Sensor", startDate, loc, temperature, "celsius", rL);
         SensorList kitSensorLst = kitchen.getSensorListInRoom();
-        kitSensorLst.getSensorList().clear();
 
         kitSensorLst.addSensor(sensor);
         String expected = "Kitchen";
@@ -628,7 +624,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getInternalSensorName() returns the sensor's name")
     void getInternalSensorName() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
@@ -645,7 +641,7 @@ class NewSensorCTRLTest {
         ReadingList rL = new ReadingList();
         Sensor sensor = new Sensor("T0001", "Temperature Sensor", startDate, loc, temperature, "celsius", rL);
         SensorList kitSensorLst = kitchen.getSensorListInRoom();
-        kitSensorLst.getSensorList().clear();
+
 
         kitSensorLst.addSensor(sensor);
         String expected = "Temperature Sensor";
@@ -656,7 +652,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getRoomSensorUnit() returns the sensor's unit of measure")
     void getRoomSensorUnit() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
@@ -673,7 +669,7 @@ class NewSensorCTRLTest {
         ReadingList rL = new ReadingList();
         Sensor sensor = new Sensor("T0001", "Temperature Sensor", startDate, loc, temperature, "celsius", rL);
         SensorList kitSensorLst = kitchen.getSensorListInRoom();
-        kitSensorLst.getSensorList().clear();
+
 
         kitSensorLst.addSensor(sensor);
         String expected = "celsius";
@@ -684,7 +680,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure same sensor is created and added only once to the selected sensor list when trying to add it twice")
     void addNewSensorToRoom() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
@@ -715,7 +711,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure sensor list of living room has a size of two elements")
     void sensorListInRoomSize() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
@@ -740,7 +736,6 @@ class NewSensorCTRLTest {
         Sensor humiditySensor = new Sensor("H0001", "Humidity Sensor", startDate, loc, temperature, "%", rL);
 
         SensorList lrSensorList = livingRoom.getSensorListInRoom();
-        lrSensorList.getSensorList().clear();
 
         lrSensorList.addSensor(tempSensor);
         lrSensorList.addSensor(humiditySensor);
@@ -753,7 +748,7 @@ class NewSensorCTRLTest {
 
     @Test
     void showSensorListInRoom() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
@@ -777,7 +772,6 @@ class NewSensorCTRLTest {
         Sensor humiditySensor = new Sensor("H0001", "Humidity Sensor", startDate, loc, temperature, "%", rL);
 
         SensorList lrSensorList = livingRoom.getSensorListInRoom();
-        lrSensorList.getSensorList().clear();
 
         lrSensorList.addSensor(tempSensor);
         lrSensorList.addSensor(humiditySensor);

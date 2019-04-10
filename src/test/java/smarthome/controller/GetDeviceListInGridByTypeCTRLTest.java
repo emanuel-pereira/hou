@@ -40,9 +40,6 @@ class GetDeviceListInGridByTypeCTRLTest {
     @DisplayName("Return the house's house grid list")
     void getHouseGridListTest () {
 
-        getHGListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
-
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
@@ -59,8 +56,6 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house's house grid list size")
     void getHouseGridListSizeTest () {
-        getHGListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
@@ -77,8 +72,6 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house's house grid list in a string")
     void showHouseGridListInStringTest () {
-        getHGListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
@@ -96,8 +89,6 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the name of a chosen house grid")
     void getHouseGridNameTest () {
-        getHGListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
@@ -114,8 +105,6 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's room list")
     void getRoomListInAGridTest() {
-        getHGListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
 
@@ -139,8 +128,6 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's room list size")
     void getRoomListInAGridSizeTest() {
-        getHGListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
 
@@ -164,8 +151,6 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's device list size")
     void deviceListInGridCtrlTestSize() {
-        getHGListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
@@ -191,8 +176,6 @@ class GetDeviceListInGridByTypeCTRLTest {
         Device d4 = typeFan.createDevice("Micro Fan",250);
         Device d5 = typeTv.createDevice("Smart Tv",200);
 
-        hg1.getDeviceListInGrid().getDeviceList().clear();
-        hg2.getDeviceListInGrid().getDeviceList().clear();
 
         getHouseRoomList().get(0).getDeviceList().addDevice(d1);
         getHouseRoomList().get(0).getDeviceList().addDevice(d2);
@@ -213,8 +196,6 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's device list")
     void deviceListInGridCtrlTest() {
-        getHGListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
@@ -240,8 +221,6 @@ class GetDeviceListInGridByTypeCTRLTest {
         Device d4 = typeFan.createDevice("Micro Fan",250);
         Device d5 = typeTv.createDevice("Smart Tv",200);
 
-        hg1.getDeviceListInGrid().getDeviceList().clear();
-        hg2.getDeviceListInGrid().getDeviceList().clear();
 
         getHouseRoomList().get(0).getDeviceList().addDevice(d1);
         getHouseRoomList().get(0).getDeviceList().addDevice(d2);
@@ -262,8 +241,6 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's device list but the devices are ordered by type")
     void deviceListInGridCtrlTestGROUPBY() {
-        getHGListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
@@ -288,9 +265,6 @@ class GetDeviceListInGridByTypeCTRLTest {
         Device d3 = typeWth.createDevice("Textile Dryer",300);
         Device d4 = typeFan.createDevice("Micro Fan",250);
         Device d5 = typeTv.createDevice("Smart Tv",200);
-
-        hg1.getDeviceListInGrid().getDeviceList().clear();
-        hg2.getDeviceListInGrid().getDeviceList().clear();
 
         getHouseRoomList().get(0).getDeviceList().addDevice(d1);
         getHouseRoomList().get(0).getDeviceList().addDevice(d2);
@@ -311,8 +285,6 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Check if by changing the order of the devices it will show not equals")
     void deviceListInGridCtrlTestGROUPBYnotEquals() {
-        getHGListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
@@ -337,9 +309,6 @@ class GetDeviceListInGridByTypeCTRLTest {
         Device d3 = typeWth.createDevice("Textile Dryer",300);
         Device d4 = typeFan.createDevice("Micro Fan",250);
         Device d5 = typeTv.createDevice("Smart Tv",200);
-
-        hg1.getDeviceListInGrid().getDeviceList().clear();
-        hg2.getDeviceListInGrid().getDeviceList().clear();
 
         getHouseRoomList().get(0).getDeviceList().addDevice(d1);
         getHouseRoomList().get(0).getDeviceList().addDevice(d2);
@@ -360,8 +329,6 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's device list but the devices are ordered by type, in string format. Also show's the location(room) of each device")
     void showGroupedByDeviceListInGridStringTest() {
-        getHGListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
@@ -386,9 +353,6 @@ class GetDeviceListInGridByTypeCTRLTest {
         Device d3 = typeWth.createDevice("Textile Dryer",300);
         Device d4 = typeFan.createDevice("Micro Fan",250);
         Device d5 = typeTv.createDevice("Smart Tv",200);
-
-        hg1.getDeviceListInGrid().getDeviceList().clear();
-        hg2.getDeviceListInGrid().getDeviceList().clear();
 
         getHouseRoomList().get(0).getDeviceList().addDevice(d1);
         getHouseRoomList().get(0).getDeviceList().addDevice(d2);

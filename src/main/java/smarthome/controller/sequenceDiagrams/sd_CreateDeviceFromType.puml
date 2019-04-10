@@ -1,0 +1,57 @@
+@startuml
+autonumber
+hidefootbox
+
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+
+activate ":DeviceList"
+
+create ":{DeviceType}"
+":DeviceList" --> ":{DeviceType}" : create a device type by reflection
+
+activate ":{DeviceType}"
+create ":DeviceSpecs"
+":{DeviceType}" --> ":DeviceSpecs" : create()
+activate ":DeviceSpecs"
+
+create ":Device"
+
+":{DeviceType}" --> ":Device" : create()
+activate ":Device"
+
+":{DeviceType}" <-- ":Device" :
+deactivate ":Device"
+deactivate
+
+
+":{DeviceType}" --> ":DeviceList" : casts specificDevice to Device
+deactivate ":{DeviceType}"
+
+
+deactivate ":DeviceList"
+
+
+@enduml

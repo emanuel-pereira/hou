@@ -41,7 +41,6 @@ public class Sensor {
      * @param readings    specifies the sensor's readingList
      */
     public Sensor(String id, String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
-        if (nameIsValid(designation)) {
             this.id = id;
             this.designation = designation;
             this.startDate = startDate;
@@ -50,7 +49,6 @@ public class Sensor {
             this.active = true;
             this.readingList = readings;
             this.location = new Location(0, 0, 0);
-        }
     }
 
     /**
@@ -65,7 +63,6 @@ public class Sensor {
      * @param readings    specifies the sensor's readingList
      */
     public Sensor(String id, String designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
-        if (nameIsValid(designation)) {
             this.id = id;
             this.designation = designation;
             this.startDate = startDate;
@@ -74,7 +71,6 @@ public class Sensor {
             this.unit = unit;
             this.active = true;
             this.readingList = readings;
-        }
     }
 
     /**

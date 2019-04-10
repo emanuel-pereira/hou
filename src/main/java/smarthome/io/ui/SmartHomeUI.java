@@ -2,9 +2,7 @@
 package smarthome.io.ui;
 
 import org.xml.sax.SAXException;
-import smarthome.model.GAList;
-import smarthome.model.SensorTypeList;
-import smarthome.model.TypeGAList;
+import smarthome.model.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -20,6 +18,14 @@ public final class SmartHomeUI {
     private static SensorTypeList sensorTypeList;
     private static GAList gaList;
     private static TypeGAList typeGAList;
+
+
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+
+    House h = House.getHouseInstance(a1, g1);
 
 
     private SmartHomeUI(){}
