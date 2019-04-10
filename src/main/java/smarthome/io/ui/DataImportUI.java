@@ -152,7 +152,7 @@ public class DataImportUI {
 
     public void numberOfSensorsInFile() throws
             IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
-        System.out.println("In the file there are\n");
+        System.out.println("In the file there are:\n");
         System.out.println(" - " + ctrl.sizeOfSensorsFile(this.filePath) + " sensor(s).");
         this.importHouseSensors();
     }

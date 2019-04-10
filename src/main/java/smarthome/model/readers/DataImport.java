@@ -234,11 +234,29 @@ public class DataImport {
 
             Sensor newSensor = new Sensor(sensorID, sensorDesignation, calendar, sensorType, unit, new ReadingList());
 
-            if (!(room==null || sensorType==null) && room.getSensorListInRoom().addSensor(newSensor)){
-                room.getSensorListInRoom().addSensor(newSensor);
-                sensorsAdded++;}
-            else
+            //Needs to be improved
+
+            if (room == null) {
+                String message = "Sensor not added to the DB - sensor: " + sensorID +
+                        " designation: " + sensorDesignation + "\nreason: The sensor was not imported because the room do not exists";
+                log.error(message);
                 sensorsNotAdded++;
+            } else if (sensorType == null) {
+                String message = "Sensor not added to the DB - sensor: " + sensorID +
+                        " designation: " + sensorDesignation + "start date: " + calendar +
+                        " sensorType: " + sensorType + "unit: " + unit + "\nreason: The sensor type do not exists";
+                log.error(message);
+                sensorsNotAdded++;
+            } else if (!room.getSensorListInRoom().addSensor(newSensor)) {
+                String message = "Sensor not added to the DB - sensor: " + sensorID +
+                        " designation: " + sensorDesignation + "start date: " + calendar +
+                        " sensorType: " + sensorType + "unit: " + unit + "\nreason: The sensor already exists";
+                log.error(message);
+                sensorsNotAdded++;
+            } else {
+                room.getSensorListInRoom().addSensor(newSensor);
+                sensorsAdded++;
+            }
         }
     }
 
