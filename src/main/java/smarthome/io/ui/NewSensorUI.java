@@ -75,8 +75,7 @@ public class NewSensorUI {
                 UtilsUI.INSERTVALIDOPTION
                         + this.ctrl.showSensorTypeListInString());
         indexOfSensorType--;
-        System.out.println("Please fill in the following fields to add at least a reading to a sensor.");
-        this.inputReading();
+        this.askToAddReadings();
     }
 
 
@@ -88,12 +87,12 @@ public class NewSensorUI {
         double readingValue = UtilsUI.requestDouble(UtilsUI.insertValidParameter("decimal value"));
         Reading r = new Reading(readingValue, date);
         this.readingList.addReading(r);
-        this.askToAddNewReadings();
+        this.askToAddReadings();
     }
 
-    private void askToAddNewReadings() {
+    private void askToAddReadings() {
         String option;
-        System.out.println("Do you want to insert new readings for the sensor(y/n)?");
+        System.out.println("Do you want to insert readings for the sensor(y/n)?");
         option = read.nextLine();
         if (option.matches("n")) {
             inputSensorUnit();
@@ -125,11 +124,11 @@ public class NewSensorUI {
     }
 
     private void inputGPSLocation() {
-        System.out.println("Insert the latitude of the new sensor:");
+        System.out.println("Insert the latitude of the new sensor [-90º, 90º]:");
         latitude = UtilsUI.requestDoubleInInterval(-90, 90, "Latitude must be between [-90º,90º]");
-        System.out.println("Insert the longitude of the new sensor:");
+        System.out.println("Insert the longitude of the new sensor [-180º, 180º]:");
         longitude = UtilsUI.requestDoubleInInterval(-180, 180, "Longitude must be between [-180º,180º]");
-        System.out.println("Insert the altitude of the new sensor:");
+        System.out.println("Insert the altitude of the new sensor (in meters):");
         altitude = UtilsUI.requestDoubleInInterval(-12500, 8848, "Altitude must be between [-12.500m, 8848m]");
         this.inputGAOfSensor();
     }

@@ -303,16 +303,15 @@ public class ReadingList {
     }
 
     boolean checkIfReadingHasNotSameValues(Reading newReading) {
-        for (Reading reading : this.listOfReadings) {
-            try {
-                if (newReading.getUnit().equals("F")) {
-                    newReading.convertToCelsius();
-                    newReading.setUnit("C");
-                }
-            } catch (Exception e) {
-                log.warn(e.getMessage());
+        try {
+            if (newReading.getUnit().equals("F")) {
+                newReading.convertToCelsius();
+                newReading.setUnit("C");
             }
-
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        }
+        for (Reading reading : this.listOfReadings) {
             if ((Double.compare(newReading.returnValueOfReading(), reading.returnValueOfReading()) == 0) &&
                     newReading.getDateAndTime().equals(reading.getDateAndTime()) &&
                     newReading.getUnit().equals(reading.getUnit()))

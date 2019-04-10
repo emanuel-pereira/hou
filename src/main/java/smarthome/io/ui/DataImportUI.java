@@ -54,6 +54,7 @@ public class DataImportUI {
 
     public void showGAsNumberInFile() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         System.out.println("In the file there are\n");
+
         System.out.println(" - " + ctrl.getGaListInFileSize(this.filePath) + " geographical area(s).");
         System.out.println(" - " + ctrl.getAllSensorsInFileSize(this.filePath) + " sensor(s).");
         this.importGAs();
@@ -91,11 +92,23 @@ public class DataImportUI {
             String filepath = UtilsUI.requestText("Invalid filepath.", "[A-Za-z0-9/._]*");
             Path path = Paths.get(filepath);
             try {
-                ctrl.importReadingsFromFile(path, object);
+                if (UtilsUI.confirmOption("Please confirm if you want to import room sensors' readings. (y/n)", "Please type y for Yes or n for No.")) {
+                    ctrl.importReadingsFromFile(path, object);
+                    int invalidReadings = ctrl.getNrOfInvalidReadings();
+                    int importedReadings = ctrl.getNrOfImportedReadings();
+                    System.out.println("Readings import task completed:");
+                    if (importedReadings == 0) {
+                        System.out.println("No readings were imported. Please verify if the file contains valid readings.");
+                    }
+                    if (invalidReadings > 0) {
+                        System.out.println(" - " + invalidReadings +"readings are invalid and saved on the activity log");
+                    }
+                    if (importedReadings > 0) {
+                        System.out.println(" - " + ctrl.getNrOfImportedReadings() + " readings were imported\n");
+                    }
+                    loop = false;
+                }
                 loop = false;
-                System.out.println("Readings imported!");
-                /*TODO: replace this method to show nr of imported and nr of non-imported readings
-                this.showReadings();*/
             } catch (FileNotFoundException e) {
                 System.out.println("File not found in the specified file path: " + filepath);
             }
@@ -103,21 +116,3 @@ public class DataImportUI {
     }
 }
 
-    /*public void showReadings() {
-        System.out.println("The following geographical areas and respective sensors were imported from the selected File:");
-        for (GeographicalAreaDTO geographicalAreaDTO : ctrl.getGAListDTO()) {
-            System.out.println("GEOGRAPHICAL AREA");
-            System.out.println(" Id: " + geographicalAreaDTO.getIdentification());
-            System.out.println(" Name: " + geographicalAreaDTO.getDesignation());
-            System.out.println(" SensorList: ");
-            int counter = 1;
-            for (SensorDTO sensorDTO : geographicalAreaDTO.getSensorListDTO()) {
-                System.out.print("  " + counter + " - Sensor Id: " + sensorDTO.getId());
-                System.out.println(" | Name " + sensorDTO.getDesignation());
-                System.out.println("Number of readings imported: " + sensorDTO.getReadingListDTO().size());
-                counter++;
-            }
-        }
-                UtilsUI.backToMenu();
-    }
-}*/

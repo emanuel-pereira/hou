@@ -1,5 +1,6 @@
 package smarthome.model.readers;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,11 +14,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 import static java.lang.Double.parseDouble;
 
@@ -26,7 +25,11 @@ public class DataImport {
     private Path configFilePath;
     private GAList gaList;
     private RoomList roomList;
-    static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
+    static final Logger log = Logger.getLogger(DataImport.class);
+    private int nrOfAddedReadings = 0;
+    private int nrOfInvalidReadings = 0;
+    private List<Sensor> sensors = new ArrayList<>();
+
 
     /**
      * Constructor for importing data related to GAList
@@ -46,6 +49,14 @@ public class DataImport {
         this.roomList = roomList;
     }
 
+    public int getNrOfAddedReadings() {
+        return this.nrOfAddedReadings;
+    }
+
+    public int getNrOfInvalidReadings() {
+        return this.nrOfInvalidReadings;
+    }
+
     /**
      * This method gets the file extension of the filePath inputted as parameter and then gets the className according to the file extension
      * so it can create an instance of the respective FileReaderReadings class through reflection.
@@ -62,99 +73,79 @@ public class DataImport {
         String fileExtension = getFileExtension(filePath);
         String className = getClassName("readings", fileExtension);
         FileReaderReadings reader = (FileReaderReadings) Class.forName(className).newInstance();
-        List<String[]> dataToImport = reader.importData(filePath);
-        loadReadingFiles(dataToImport, object);
+        try {
+            List<String[]> dataToImport = reader.importData(filePath);
+            loadReadingFiles(dataToImport, object);
 
+        } catch (NullPointerException e) {
+            log.error("Invalid file structure");
+        }
     }
-
 
     /**
      * This method updates the reading List for each sensor contained in the object passed as parameter
      * which can only be a RoomList or a GAList.
      *
-     * @param dataToImport array of strings containing sensor's id and its readings' attributes value
-     * @param object       GAList or RoomList which will have its sensors' readings updated
+     * @param readingsToImport array of strings containing sensor's id and its readings' attributes value
+     * @param object           GAList or RoomList which will have its sensors' readings updated
      */
-    public void loadReadingFiles(List<String[]> dataToImport, Object object) {
-        if (object.equals(gaList)) {
-            for (GeographicalArea ga : gaList.getGAList()) {
-                importGAsSensorsReadings(dataToImport, ga);
-            }
-        }
+    public void loadReadingFiles(List<String[]> readingsToImport, Object object) {
         if (object.equals(roomList)) {
-            for (Room r : roomList.getRoomList()) {
-                importRoomsSensorsReadings(dataToImport, r);
+            sensors = roomList.getAllSensors();
+            importSensorsReadings(readingsToImport);
+        }
+        if (object.equals(gaList)) {
+            sensors = gaList.getAllSensors();
+            importSensorsReadings(readingsToImport);
+        }
+    }
+
+    //fazer for each sensor in all sensors se sensorid existe então não adiciona
+    private void importSensorsReadings(List<String[]> readingsToImport) {
+        for (String[] reading : readingsToImport) {
+            String sensorID = reading[0];
+            if (importReading(reading, sensorID)) {
+                this.nrOfAddedReadings++;
+            } else {
+                this.nrOfInvalidReadings++;
             }
         }
     }
 
-    /**
-     * This method updates the sensors' readings of the GeographicalArea object passed as parameter
-     *
-     * @param dataToImport     array of strings containing sensor's id and its readings' attributes value
-     * @param geographicalArea object to be updated
-     */
-    private void importGAsSensorsReadings(List<String[]> dataToImport, GeographicalArea geographicalArea) {
-        for (String[] field : dataToImport) {
-            String sensorID = field[0];
-            SensorList sensorList = geographicalArea.getSensorListInGA();
-            importReadings(field, sensorID, sensorList);
-        }
-    }
 
     /**
-     * This method updates the sensors' readings of the Room object passed as parameter
-     *
-     * @param dataToImport array of strings containing sensor's id and its readings' attributes value
-     * @param room         object to be updated
-     */
-    private void importRoomsSensorsReadings(List<String[]> dataToImport, Room room) {
-        for (String[] field : dataToImport) {
-            String sensorID = field[0];
-            SensorList sensorList = room.getSensorListInRoom();
-            importReadings(field, sensorID, sensorList);
-        }
-    }
-
-    /**
-     * This method imports readings for the sensor with sensorID passed as parameter.
-     * Only readings with dateAndTime after the sensor's startDate will be imported otherwise tghey will be registered in a log file.
+     * This method imports a reading for the sensor with sensorID passed as parameter.
+     * Only readings with dateAndTime after the sensor's startDate will be imported otherwise they will be registered in a log file.
      *
      * @param field
      * @param sensorID
-     * @param sensorList
      */
-    private void importReadings(String[] field, String sensorID, SensorList sensorList) {
-        for (Sensor sensor : sensorList.getSensorList())
+    private boolean importReading(String[] field, String sensorID) {
+        for (Sensor sensor : sensors) {
             if (sensorID.equals(sensor.getId())) {
                 String dateAndTimeString = field[1];
                 Calendar readingDate = UtilsUI.parseDateToImportReadings(dateAndTimeString);
                 double readingValue = parseDouble(field[2]);
                 String unit = field[3];
-
                 Reading reading = new Reading(readingValue, readingDate, unit);
-
                 if (readingDate.after(sensor.getStartDate())) {
                     reading.setSensor(sensor);
                     //dataImport
-                    sensor.getReadingList().addReading(reading);
+                    if (sensor.getReadingList().addReading(reading)) {
+
+                        return true;
+                    }
                 } else {
                     String message = "Reading not added to the DB - sensor: " + sensorID +
                             " value: " + readingValue + " " + unit + " date: " + dateAndTimeString + "\nreason: reading date after sensor start date";
                     log.error(message);
+                    return false;
                 }
             }
+        }
+        return false;
     }
 
-    public Logger createLogFile(String fileName) throws IOException {
-        Logger logger = Logger.getLogger(GeographicalArea.class.getName());
-        FileHandler fileHandler = new FileHandler(fileName);
-        fileHandler.setFormatter(new SimpleFormatter());
-        logger.setUseParentHandlers(false);
-        logger.addHandler(fileHandler);
-
-        return logger;
-    }
 
     /**
      * Method that converts a valid file path to string and returns a substring after the

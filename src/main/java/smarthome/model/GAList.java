@@ -56,6 +56,18 @@ public class GAList {
         return allIds;
     }
 
+    /**
+     * @return a global list of sensors containing all sensors within each geographical area.
+     */
+    public List<Sensor> getAllSensors(){
+        List<Sensor> sensors = new ArrayList<>();
+        for(GeographicalArea ga : this.listOfGa){
+            List<Sensor> gaSensorList = ga.getSensorListInGA().getSensorList();
+            sensors.addAll(gaSensorList);
+        }
+        return sensors;
+    }
+
     public List<Reading> getAllReadings(){
         List<Reading> allReadings = new ArrayList<>();
         for(GeographicalArea ga : this.listOfGa){
