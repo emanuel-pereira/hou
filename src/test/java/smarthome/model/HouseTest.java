@@ -15,7 +15,6 @@ import static smarthome.model.House.*;
 
 class HouseTest {
 
-
     Location loc = new Location(20, 20, 2);
     Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
     OccupationArea oc = new OccupationArea(2, 5);
@@ -23,9 +22,9 @@ class HouseTest {
     House house = House.getHouseInstance(a1, g1);
 
     @BeforeEach
-    public void resetMySingleton() throws SecurityException,
-            NoSuchFieldException, IllegalArgumentException,
+    public void resetMySingleton() throws SecurityException, NoSuchFieldException, IllegalArgumentException,
             IllegalAccessException {
+
         Field instance = House.class.getDeclaredField("theHouse");
         instance.setAccessible(true);
         instance.set(null, null);

@@ -86,7 +86,7 @@ public class DeviceList {
         List<Device> devices = this.getDeviceList();
 
         for (Device device : devices) {
-            list.add(new DeviceDTO(device.getDeviceType(), device.getName(), String.valueOf(device.isActive())));
+            list.add(new DeviceDTO(device.getDeviceType(), device.getDeviceName(), String.valueOf(device.isActive())));
         }
 
         return list;

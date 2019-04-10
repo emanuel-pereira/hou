@@ -1,19 +1,17 @@
 package smarthome.controller;
 
-import smarthome.dto.DeviceDTO;
-import smarthome.io.ui.UtilsUI;
-import smarthome.model.*;
+import smarthome.model.HouseGrid;
+import smarthome.model.HouseGridList;
+import smarthome.model.Room;
+import smarthome.model.RoomList;
 
 import static smarthome.model.House.getHGListInHouse;
 import static smarthome.model.House.getHouseRoomList;
-
-import java.util.List;
 
 public class GetTotalNominalPowerCTRL {
 
     private HouseGridList houseGridList;
     private RoomList roomList;
-    private DeviceList devices;
 
     /**
      * Controller constructor
@@ -119,40 +117,5 @@ public class GetTotalNominalPowerCTRL {
     public int getSizeDeviceListInRoom(int indexRoom) {
         return this.roomList.get(indexRoom).getDeviceList().size();
     }
-
-    //US705
-    public void newDeviceList() {
-        this.devices = new DeviceList();
-    }
-
-    //US705
-    public boolean addDeviceIndex(int deviceIndex) {
-        String deviceName = houseGridList.getDevices().showDeviceListInString().get(deviceIndex - 1);
-        return true;
-        //return this.devices.add(newDevice);
-    }
-
-    //US705
-    public boolean addDevice(int index) {
-        int i = index - 1;
-        Device device = houseGridList.getDevices().get(i);
-        return this.devices.add(device);
-    }
-
-    //US705
-    public boolean addDevice(Device device) {
-        return this.devices.add(device);
-    }
-
-    //US705
-    public double reportNominalPower() {
-        return this.devices.reportNominalPower();
-    }
-
-    //US705
-    public List<DeviceDTO> getDevices() {
-        return houseGridList.getDevices().getDevicesListDTO();
-    }
-
 
 }

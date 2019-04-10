@@ -73,6 +73,8 @@ public class Sensor {
             this.readingList = readings;
     }
 
+
+
     /**
      * Method to check if the sensorDesignation given to name the sensor meets the criteria defined to be
      * considered a valid sensorDesignation, namely:
@@ -316,5 +318,4 @@ public class Sensor {
     public boolean isActive() {
         return this.active;
     }
-
 }

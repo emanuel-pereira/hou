@@ -57,34 +57,6 @@ public class GetTotalNominalPowerUI {
         System.out.println("The total Nominal Power of this Room is: " + this.controller.getRoomTotalNominalPower(indexRoom) + "kW\n");
     }
 
-    public void getSubsetNominalPower() {
-        if (this.checkIfGridListEmpty()) {
-            return;
-        }
-        if (this.checkIfRoomListEmpty()) {
-            return;
-        }
-        if (this.checkIfRoomsExistsInGrid()) {
-            return;
-        }
-        if (!this.existDevicesInGrids()) {
-            return;
-        }
-        controller.newDeviceList();
-
-        int input = -1;
-        while (true) {
-            UtilsUI.showItemsList("Devices List", controller.getDevices(), true);
-            input = UtilsUI.requestInteger("Please input a integer");
-            if (input == 0) break;
-            else {
-                controller.addDevice(input);
-                System.out.println("Device added");
-            }
-        }
-        System.out.println("The Nominal Power of your selection is: " + this.controller.reportNominalPower() + "kW\n");
-    }
-
     /**
      * Checks if the grid list is empty by confirming if the size list is zero
      */

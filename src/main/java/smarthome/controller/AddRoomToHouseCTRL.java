@@ -1,10 +1,8 @@
 package smarthome.controller;
 
+import org.apache.log4j.Logger;
 import smarthome.model.Room;
 import smarthome.model.RoomList;
-import smarthome.repository.Repositories;
-
-import java.util.logging.Logger;
 
 import static smarthome.model.House.getHouseRoomList;
 
@@ -12,7 +10,7 @@ public class AddRoomToHouseCTRL {
 
     private RoomList roomList;
 
-    static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(AddRoomToHouseCTRL.class);
+    static final Logger log = Logger.getLogger(AddRoomToHouseCTRL.class);
 
     /**
      * Controller constructor

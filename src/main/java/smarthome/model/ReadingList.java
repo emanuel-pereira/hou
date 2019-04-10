@@ -1,17 +1,20 @@
 package smarthome.model;
 
-import smarthome.model.readers.DataImport;
-import smarthome.repository.Repositories;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import smarthome.repository.ReadingRepository;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+@Component
 public class ReadingList {
 
     private List<Reading> listOfReadings;
-    final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
+    static final Logger log = Logger.getLogger(ReadingList.class);
 
 
     public ReadingList() {
@@ -22,6 +25,9 @@ public class ReadingList {
     public Reading newReading(double readValue, Calendar timeOfReading) {
         return new Reading(readValue, timeOfReading);
     }
+
+    @Autowired
+    ReadingRepository readingRep;
 
     //TODO it is needed to create a new method in order to deal/avoid the @notNull matter when filtering lists of
     // readings by date
@@ -43,7 +49,8 @@ public class ReadingList {
         if (this.listOfReadings.add(newReading)) {
             //repository call
             try {
-                Repositories.getReadingRepository().save(newReading);
+                readingRep.save(newReading);
+                //Repositories.getReadingRepository().save(newReading);
                 log.info("Reading added to the DB");
             } catch (NullPointerException e) {
                 log.warn("Repository unreachable");
@@ -310,7 +317,7 @@ public class ReadingList {
                     newReading.convertToCelsius();
                     newReading.setUnit("C");
                 }
-            } catch (Exception e) {
+            } catch (NullPointerException e) {
                 log.warn(e.getMessage());
             }
 

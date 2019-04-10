@@ -1,5 +1,6 @@
 package smarthome.model.readers;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -19,18 +20,15 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 import static java.lang.Double.parseDouble;
 
 public class DataImport {
-    static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
     private JSONParser parser = new JSONParser();
     private Path configFilePath;
     private GAList gaList;
     private List<GeographicalArea> notAdded;
+    static final Logger log = Logger.getLogger(DataImport.class);
 
     public DataImport(GAList gaList) {
         this.gaList = gaList;
@@ -79,16 +77,6 @@ public class DataImport {
                 }
             }
 
-    }
-
-    public Logger createLogFile(String fileName) throws IOException {
-        Logger logger = Logger.getLogger(GeographicalArea.class.getName());
-        FileHandler fileHandler = new FileHandler(fileName);
-        fileHandler.setFormatter(new SimpleFormatter());
-        logger.setUseParentHandlers(false);
-        logger.addHandler(fileHandler);
-
-        return logger;
     }
 
     public String getFileExtension(Path filePathAndName) {

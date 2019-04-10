@@ -63,7 +63,7 @@ public class House {
     }
 
     public boolean addGrid(HouseGrid newGrid){
-        return this.houseGridList.addHouseGrid(newGrid);
+        return houseGridList.addHouseGrid(newGrid);
     }
 
 

@@ -177,11 +177,11 @@ class GetDeviceListInGridByTypeCTRLTest {
         Device d5 = typeTv.createDevice("Smart Tv",200);
 
 
-        getHouseRoomList().get(0).getDeviceList().addDevice(d1);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d2);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d3);
-        getHouseRoomList().get(1).getDeviceList().addDevice(d4);
-        getHouseRoomList().get(2).getDeviceList().addDevice(d5);
+        getHouseRoomList().get(0).getDeviceList().add(d1);
+        getHouseRoomList().get(0).getDeviceList().add(d2);
+        getHouseRoomList().get(0).getDeviceList().add(d3);
+        getHouseRoomList().get(1).getDeviceList().add(d4);
+        getHouseRoomList().get(2).getDeviceList().add(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);
@@ -222,11 +222,11 @@ class GetDeviceListInGridByTypeCTRLTest {
         Device d5 = typeTv.createDevice("Smart Tv",200);
 
 
-        getHouseRoomList().get(0).getDeviceList().addDevice(d1);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d2);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d3);
-        getHouseRoomList().get(1).getDeviceList().addDevice(d4);
-        getHouseRoomList().get(2).getDeviceList().addDevice(d5);
+        getHouseRoomList().get(0).getDeviceList().add(d1);
+        getHouseRoomList().get(0).getDeviceList().add(d2);
+        getHouseRoomList().get(0).getDeviceList().add(d3);
+        getHouseRoomList().get(1).getDeviceList().add(d4);
+        getHouseRoomList().get(2).getDeviceList().add(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);
@@ -266,11 +266,11 @@ class GetDeviceListInGridByTypeCTRLTest {
         Device d4 = typeFan.createDevice("Micro Fan",250);
         Device d5 = typeTv.createDevice("Smart Tv",200);
 
-        getHouseRoomList().get(0).getDeviceList().addDevice(d1);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d2);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d3);
-        getHouseRoomList().get(1).getDeviceList().addDevice(d4);
-        getHouseRoomList().get(2).getDeviceList().addDevice(d5);
+        getHouseRoomList().get(0).getDeviceList().add(d1);
+        getHouseRoomList().get(0).getDeviceList().add(d2);
+        getHouseRoomList().get(0).getDeviceList().add(d3);
+        getHouseRoomList().get(1).getDeviceList().add(d4);
+        getHouseRoomList().get(2).getDeviceList().add(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);
@@ -310,11 +310,11 @@ class GetDeviceListInGridByTypeCTRLTest {
         Device d4 = typeFan.createDevice("Micro Fan",250);
         Device d5 = typeTv.createDevice("Smart Tv",200);
 
-        getHouseRoomList().get(0).getDeviceList().addDevice(d1);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d2);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d3);
-        getHouseRoomList().get(1).getDeviceList().addDevice(d4);
-        getHouseRoomList().get(2).getDeviceList().addDevice(d5);
+        getHouseRoomList().get(0).getDeviceList().add(d1);
+        getHouseRoomList().get(0).getDeviceList().add(d2);
+        getHouseRoomList().get(0).getDeviceList().add(d3);
+        getHouseRoomList().get(1).getDeviceList().add(d4);
+        getHouseRoomList().get(2).getDeviceList().add(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);
@@ -354,11 +354,11 @@ class GetDeviceListInGridByTypeCTRLTest {
         Device d4 = typeFan.createDevice("Micro Fan",250);
         Device d5 = typeTv.createDevice("Smart Tv",200);
 
-        getHouseRoomList().get(0).getDeviceList().addDevice(d1);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d2);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d3);
-        getHouseRoomList().get(1).getDeviceList().addDevice(d4);
-        getHouseRoomList().get(2).getDeviceList().addDevice(d5);
+        getHouseRoomList().get(0).getDeviceList().add(d1);
+        getHouseRoomList().get(0).getDeviceList().add(d2);
+        getHouseRoomList().get(0).getDeviceList().add(d3);
+        getHouseRoomList().get(1).getDeviceList().add(d4);
+        getHouseRoomList().get(2).getDeviceList().add(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);

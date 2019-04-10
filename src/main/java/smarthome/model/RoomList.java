@@ -1,15 +1,17 @@
 package smarthome.model;
 
+import org.apache.log4j.Logger;
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
 import smarthome.repository.Repositories;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class RoomList {
+
     private List<Room> listOfRooms;
+    static final Logger log = Logger.getLogger(RoomList.class);
 
 
     /**
@@ -51,12 +53,11 @@ public class RoomList {
             try {
                 Repositories.saveRoom(newRoom);
             } catch (NullPointerException e) {
-                Logger.getLogger("Repository unreachable");
+                log.warn("Repository unreachable");
             }
             return true;
         } else return false;
     }
-
 
 
     /**

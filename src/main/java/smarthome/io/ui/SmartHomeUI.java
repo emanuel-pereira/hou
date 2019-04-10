@@ -33,8 +33,6 @@ public final class SmartHomeUI {
     public static void menuOptions() throws SAXException, ParserConfigurationException, IllegalAccessException, InstantiationException, ClassNotFoundException, org.json.simple.parser.ParseException, IOException {
         int option = -1;
         while (option != 0) {
-
-
             ArrayList<String> options = new ArrayList<>();
             options.add("[1] System Administration");
             options.add("[2] House Administration");
@@ -42,7 +40,6 @@ public final class SmartHomeUI {
             options.add("[4] Power User");
             options.add("[5] Room Owner");
             options.add("[0] Exit");
-
             UtilsUI.showList("Main Menu", options, false, 5);
 
             option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");
@@ -68,12 +65,9 @@ public final class SmartHomeUI {
         }
     }
 
-    public static void init() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
+    public static void init() {
         sensorTypeList = new SensorTypeList();
         gaList = new GAList();
-        //TODO: instancia de casa?
         typeGAList = new TypeGAList();
-        //TODO remove temporary usage
-        BootStrap.run(house, typeGAList, sensorTypeList);
     }
 }

@@ -1,15 +1,16 @@
 package smarthome.controller;
 
+import org.apache.log4j.Logger;
 import smarthome.model.*;
 import smarthome.repository.Repositories;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 public class NewGeographicalAreaCTRL {
 
     private GAList gaList;
     private TypeGAList typeGAList;
+    static final Logger log = Logger.getLogger(NewGeographicalAreaCTRL.class);
 
 
     /**
@@ -42,7 +43,7 @@ public class NewGeographicalAreaCTRL {
             try {
                 Repositories.saveGA(ga);
             } catch (NullPointerException e) {
-                Logger.getLogger("Repository unreachable");
+                log.warn("Repository unreachable");
             }
             return true;
         }
