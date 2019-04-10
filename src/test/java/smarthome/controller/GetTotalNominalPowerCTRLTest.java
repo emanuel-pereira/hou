@@ -35,7 +35,6 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getGridListSizeIfTwo() {
 
-        getGridListInHouse().getHouseGridList().clear();
 
         HouseGridList houseGridList = getGridListInHouse();
         HouseGrid houseGrid1 = houseGridList.newHouseGrid("InternalGrid");
@@ -57,8 +56,6 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getGridListSizeIfZero() {
 
-        getGridListInHouse().getHouseGridList().clear();
-
         GetTotalNominalPowerCTRL US172CTRL = new GetTotalNominalPowerCTRL();
 
         double expectedResult = 0;
@@ -73,11 +70,9 @@ class GetTotalNominalPowerCTRLTest {
      */
     @Test
     void getRoomListSizeIfOne() {
-        getGridListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
 
         RoomList roomList = getHouseRoomList();
-        Room room1 = roomList.createNewRoom("R01","Bedroom", 2, 1.5, 2, 1.7);
+        Room room1 = roomList.createNewRoom("R01", "Bedroom", 2, 1.5, 2, 1.7);
         roomList.addRoom(room1);
         GetTotalNominalPowerCTRL US172CTRL = new GetTotalNominalPowerCTRL();
 
@@ -93,7 +88,6 @@ class GetTotalNominalPowerCTRLTest {
      */
     @Test
     void getRoomListSizeIfZero() {
-        getHouseRoomList().getRoomList().clear();
 
         GetTotalNominalPowerCTRL US172CTRL = new GetTotalNominalPowerCTRL();
 
@@ -109,7 +103,7 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void showGridListInString() {
 
-        getGridListInHouse().getHouseGridList().clear();
+
 
         HouseGridList houseGridList = getGridListInHouse();
         HouseGrid houseGrid1 = houseGridList.newHouseGrid("InternalGrid");
@@ -130,10 +124,10 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void showRoomListInString() {
 
-        getHouseRoomList().getRoomList().clear();
 
-        Room r1 = new Room("R01","cozinha", 1, 10, 20, 3);
-        Room r2 = new Room("R02","sala", 1, 10, 20, 3);
+
+        Room r1 = new Room("R01", "cozinha", 1, 10, 20, 3);
+        Room r2 = new Room("R02", "sala", 1, 10, 20, 3);
         getHouseRoomList().addRoom(r1);
         getHouseRoomList().addRoom(r2);
         GetTotalNominalPowerCTRL US230CTRL = new GetTotalNominalPowerCTRL();
@@ -151,8 +145,8 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getGridTotalNominalPowerIfCorrect() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-        getGridListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
+
+
         RoomList roomList = getHouseRoomList();
 
         HouseGrid grid1 = new HouseGrid("Grid 1");
@@ -163,7 +157,7 @@ class GetTotalNominalPowerCTRLTest {
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
 
         Room kitchen1 = new Room("R01", "Kitchen1", 0, 5, 5, 3);
-        Room kitchen2 = new Room("R02","Kitchen2", 0, 6, 4, 3);
+        Room kitchen2 = new Room("R02", "Kitchen2", 0, 6, 4, 3);
         roomList.addRoom(kitchen1);
         roomList.addRoom(kitchen2);
         grid1RoomList.addRoom(kitchen1);
@@ -176,10 +170,10 @@ class GetTotalNominalPowerCTRLTest {
         Device fridgeB = k2DeviceList.newDevice("FridgeB", "Fridge", 150);
         Device kettle = k1DeviceList.newDevice("KettleA", "Kettle", 1500);
         Device lamp = k1DeviceList.newDevice("LampA", "Lamp", 15);
-        k1DeviceList.addDevice(fridgeA);
-        k2DeviceList.addDevice(fridgeB);
-        k1DeviceList.addDevice(kettle);
-        k1DeviceList.addDevice(lamp);
+        k1DeviceList.add(fridgeA);
+        k2DeviceList.add(fridgeB);
+        k1DeviceList.add(kettle);
+        k1DeviceList.add(lamp);
         GetTotalNominalPowerCTRL US172CTRL = new GetTotalNominalPowerCTRL();
 
         double expectedResult = 1815.0;
@@ -194,8 +188,8 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getRoomTotalNominalPower() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-        getHouseRoomList().getRoomList().clear();
-        getGridListInHouse().getHouseGridList().clear();
+
+
 
         RoomList roomList = getHouseRoomList();
 
@@ -206,8 +200,8 @@ class GetTotalNominalPowerCTRLTest {
         hgList.addHouseGrid(grid2);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
 
-        Room kitchen1 = new Room("R01","Kitchen1", 0, 5, 5, 3);
-        Room kitchen2 = new Room("R02","Kitchen2", 0, 6, 4, 3);
+        Room kitchen1 = new Room("R01", "Kitchen1", 0, 5, 5, 3);
+        Room kitchen2 = new Room("R02", "Kitchen2", 0, 6, 4, 3);
         roomList.addRoom(kitchen1);
         roomList.addRoom(kitchen2);
         grid1RoomList.addRoom(kitchen1);
@@ -220,10 +214,10 @@ class GetTotalNominalPowerCTRLTest {
         Device fridgeB = k2DeviceList.newDevice("FridgeB", "Fridge", 150);
         Device kettle = k1DeviceList.newDevice("KettleA", "Kettle", 1500);
         Device lamp = k1DeviceList.newDevice("LampA", "Lamp", 15);
-        k1DeviceList.addDevice(fridgeA);
-        k2DeviceList.addDevice(fridgeB);
-        k1DeviceList.addDevice(kettle);
-        k1DeviceList.addDevice(lamp);
+        k1DeviceList.add(fridgeA);
+        k2DeviceList.add(fridgeB);
+        k1DeviceList.add(kettle);
+        k1DeviceList.add(lamp);
 
         GetTotalNominalPowerCTRL US230CTRL = new GetTotalNominalPowerCTRL();
 
@@ -240,8 +234,8 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getSizeRoomListInGridIfOne() {
 
-        getGridListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
+
+
 
         HouseGridList houseGridList = getGridListInHouse();
         HouseGrid houseGrid1 = houseGridList.newHouseGrid("InternalGrid");
@@ -249,10 +243,10 @@ class GetTotalNominalPowerCTRLTest {
         HouseGrid houseGrid2 = houseGridList.newHouseGrid("ExternalGrid");
         houseGridList.addHouseGrid(houseGrid2);
         RoomList roomList = getHouseRoomList();
-        Room room1 = roomList.createNewRoom("R01","Bedroom", 2, 1.5, 2, 1.7);
+        Room room1 = roomList.createNewRoom("R01", "Bedroom", 2, 1.5, 2, 1.7);
         roomList.addRoom(room1);
         houseGrid1.attachRoomToGrid(room1);
-        Room room2 = roomList.createNewRoom("R02","Kitchen", 0, 1.5, 2, 1.7);
+        Room room2 = roomList.createNewRoom("R02", "Kitchen", 0, 1.5, 2, 1.7);
         roomList.addRoom(room2);
         houseGrid2.attachRoomToGrid(room2);
         GetTotalNominalPowerCTRL ctrl = new GetTotalNominalPowerCTRL();
@@ -269,17 +263,17 @@ class GetTotalNominalPowerCTRLTest {
      */
     @Test
     void getSizeRoomListInGridIfTwo() {
-        getGridListInHouse().getHouseGridList().clear();
-        getHouseRoomList().getRoomList().clear();
+
+
 
         HouseGridList houseGridList = getGridListInHouse();
         HouseGrid houseGrid1 = houseGridList.newHouseGrid("InternalGrid");
         houseGridList.addHouseGrid(houseGrid1);
         RoomList roomList = getHouseRoomList();
-        Room room1 = roomList.createNewRoom("R01","Bedroom", 2, 1.5, 2, 1.7);
+        Room room1 = roomList.createNewRoom("R01", "Bedroom", 2, 1.5, 2, 1.7);
         roomList.addRoom(room1);
         houseGrid1.attachRoomToGrid(room1);
-        Room room2 = roomList.createNewRoom("R02","Kitchen", 0, 1.5, 2, 1.7);
+        Room room2 = roomList.createNewRoom("R02", "Kitchen", 0, 1.5, 2, 1.7);
         roomList.addRoom(room2);
         houseGrid1.attachRoomToGrid(room2);
         GetTotalNominalPowerCTRL ctrl = new GetTotalNominalPowerCTRL();
@@ -296,7 +290,7 @@ class GetTotalNominalPowerCTRLTest {
      */
     @Test
     void getSizeRoomListInGridIfZero() {
-        getGridListInHouse().getHouseGridList().clear();
+
 
         HouseGridList houseGridList = getGridListInHouse();
         HouseGrid houseGrid1 = houseGridList.newHouseGrid("InternalGrid");
@@ -316,7 +310,7 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getSizeRoomListInSecondGridIfZero() {
 
-        getHouseRoomList().getRoomList().clear();
+
         RoomList roomList = getHouseRoomList();
 
         HouseGrid grid1 = new HouseGrid("Grid 1");
@@ -326,8 +320,8 @@ class GetTotalNominalPowerCTRLTest {
         hgList.addHouseGrid(grid2);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
 
-        Room kitchen1 = new Room("R01","Kitchen1", 0, 5, 5, 3);
-        Room kitchen2 = new Room("R02","Kitchen2", 0, 6, 4, 3);
+        Room kitchen1 = new Room("R01", "Kitchen1", 0, 5, 5, 3);
+        Room kitchen2 = new Room("R02", "Kitchen2", 0, 6, 4, 3);
         roomList.addRoom(kitchen1);
         roomList.addRoom(kitchen2);
         grid1RoomList.addRoom(kitchen1);
@@ -349,8 +343,8 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getSizeDeviceListInGridIfZero() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-        getHouseRoomList().getRoomList().clear();
-        getGridListInHouse().getHouseGridList().clear();
+
+
 
         RoomList roomList = getHouseRoomList();
 
@@ -361,7 +355,7 @@ class GetTotalNominalPowerCTRLTest {
         hgList.addHouseGrid(grid2);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
 
-        Room kitchen1 = new Room("R01","Kitchen1", 0, 5, 5, 3);
+        Room kitchen1 = new Room("R01", "Kitchen1", 0, 5, 5, 3);
         Room kitchen2 = new Room("R02", "Kitchen2", 0, 6, 4, 3);
         roomList.addRoom(kitchen1);
         roomList.addRoom(kitchen2);
@@ -372,9 +366,9 @@ class GetTotalNominalPowerCTRLTest {
         Device fridgeA = k1DeviceList.newDevice("FridgeA", "Fridge", 150);
         Device kettle = k1DeviceList.newDevice("KettleA", "Kettle", 1500);
         Device lamp = k1DeviceList.newDevice("LampA", "Lamp", 15);
-        k1DeviceList.addDevice(fridgeA);
-        k1DeviceList.addDevice(kettle);
-        k1DeviceList.addDevice(lamp);
+        k1DeviceList.add(fridgeA);
+        k1DeviceList.add(kettle);
+        k1DeviceList.add(lamp);
         GetTotalNominalPowerCTRL ctrl = new GetTotalNominalPowerCTRL();
 
         int expected = 3;
@@ -391,8 +385,8 @@ class GetTotalNominalPowerCTRLTest {
      */
     @Test
     void getSizeDeviceListInFirstGridIfZero() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        getHouseRoomList().getRoomList().clear();
-        getGridListInHouse().getHouseGridList().clear();
+
+
 
         RoomList roomList = getHouseRoomList();
 
@@ -403,8 +397,8 @@ class GetTotalNominalPowerCTRLTest {
         hgList.addHouseGrid(grid2);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
 
-        Room kitchen1 = new Room("R01","Kitchen1", 0, 5, 5, 3);
-        Room kitchen2 = new Room("R02","Kitchen2", 0, 6, 4, 3);
+        Room kitchen1 = new Room("R01", "Kitchen1", 0, 5, 5, 3);
+        Room kitchen2 = new Room("R02", "Kitchen2", 0, 6, 4, 3);
         roomList.addRoom(kitchen1);
         roomList.addRoom(kitchen2);
         grid1RoomList.addRoom(kitchen1);
@@ -415,10 +409,10 @@ class GetTotalNominalPowerCTRLTest {
         Device fridgeB = k1DeviceList.newDevice("FridgeB", "Fridge", 150);
         Device kettle = k1DeviceList.newDevice("KettleA", "Kettle", 1500);
         Device lamp = k1DeviceList.newDevice("LampA", "Lamp", 15);
-        k1DeviceList.addDevice(fridgeA);
-        k1DeviceList.addDevice(fridgeB);
-        k1DeviceList.addDevice(kettle);
-        k1DeviceList.addDevice(lamp);
+        k1DeviceList.add(fridgeA);
+        k1DeviceList.add(fridgeB);
+        k1DeviceList.add(kettle);
+        k1DeviceList.add(lamp);
         GetTotalNominalPowerCTRL ctrl = new GetTotalNominalPowerCTRL();
 
         int expected = 4;
@@ -436,8 +430,8 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getSizeDeviceListInRoomIfTwo() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-        getHouseRoomList().getRoomList().clear();
-        getGridListInHouse().getHouseGridList().clear();
+
+
 
         RoomList roomList = getHouseRoomList();
 
@@ -448,8 +442,8 @@ class GetTotalNominalPowerCTRLTest {
         hgList.addHouseGrid(grid2);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
 
-        Room kitchen1 = new Room("R01","Kitchen1", 0, 5, 5, 3);
-        Room kitchen2 = new Room("R02","Kitchen2", 0, 6, 4, 3);
+        Room kitchen1 = new Room("R01", "Kitchen1", 0, 5, 5, 3);
+        Room kitchen2 = new Room("R02", "Kitchen2", 0, 6, 4, 3);
         roomList.addRoom(kitchen1);
         roomList.addRoom(kitchen2);
         grid1RoomList.addRoom(kitchen1);
@@ -462,10 +456,10 @@ class GetTotalNominalPowerCTRLTest {
         Device fridgeB = k2DeviceList.newDevice("FridgeB", "Fridge", 150);
         Device kettle = k1DeviceList.newDevice("KettleA", "Kettle", 1500);
         Device lamp = k1DeviceList.newDevice("LampA", "Lamp", 15);
-        k1DeviceList.addDevice(fridgeA);
-        k2DeviceList.addDevice(fridgeB);
-        k1DeviceList.addDevice(kettle);
-        k1DeviceList.addDevice(lamp);
+        k1DeviceList.add(fridgeA);
+        k2DeviceList.add(fridgeB);
+        k1DeviceList.add(kettle);
+        k1DeviceList.add(lamp);
         GetTotalNominalPowerCTRL ctrl = new GetTotalNominalPowerCTRL();
 
         int expectedResult = 3;
@@ -482,8 +476,8 @@ class GetTotalNominalPowerCTRLTest {
     @Test
     void getSizeDeviceListInRoomIfZero() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-        getHouseRoomList().getRoomList().clear();
-        getGridListInHouse().getHouseGridList().clear();
+
+
 
         RoomList roomList = getHouseRoomList();
 
@@ -494,8 +488,8 @@ class GetTotalNominalPowerCTRLTest {
         hgList.addHouseGrid(grid2);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
 
-        Room kitchen1 = new Room("R01","Kitchen1", 0, 5, 5, 3);
-        Room kitchen2 = new Room("R02","Kitchen2", 0, 6, 4, 3);
+        Room kitchen1 = new Room("R01", "Kitchen1", 0, 5, 5, 3);
+        Room kitchen2 = new Room("R02", "Kitchen2", 0, 6, 4, 3);
         roomList.addRoom(kitchen1);
         roomList.addRoom(kitchen2);
         grid1RoomList.addRoom(kitchen1);
@@ -507,10 +501,10 @@ class GetTotalNominalPowerCTRLTest {
         Device fridgeB = k1DeviceList.newDevice("FridgeB", "Fridge", 150);
         Device kettle = k1DeviceList.newDevice("KettleA", "Kettle", 1500);
         Device lamp = k1DeviceList.newDevice("LampA", "Lamp", 15);
-        k1DeviceList.addDevice(fridgeA);
-        k1DeviceList.addDevice(fridgeB);
-        k1DeviceList.addDevice(kettle);
-        k1DeviceList.addDevice(lamp);
+        k1DeviceList.add(fridgeA);
+        k1DeviceList.add(fridgeB);
+        k1DeviceList.add(kettle);
+        k1DeviceList.add(lamp);
         GetTotalNominalPowerCTRL ctrl = new GetTotalNominalPowerCTRL();
 
         int expectedResult = 4;

@@ -1,26 +1,33 @@
 package smarthome.controller;
 
+import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
+import smarthome.model.*;
 import smarthome.model.GAList;
+import smarthome.model.GeographicalArea;
+import smarthome.model.Room;
+import smarthome.model.RoomList;
 
+import javax.sql.rowset.CachedRowSet;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.GregorianCalendar;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 class DataImportCTRLTest {
 
     @Test
     @DisplayName("Ensure that GAList has 2 GAs after executing loadJSON method")
-    void loadGeoAreas() throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
+    void loadGeoAreas() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        String filepath = "resources/DataSet_sprint05_GA.json";
+        String filepath = "resources_tests/DataSet_sprint05_GA.json";
         Path path = Paths.get(filepath);
         try {
             ctrl.importGeoAreasFromFile(path);
@@ -37,7 +44,7 @@ class DataImportCTRLTest {
     void loadGeoAreasFileNotFound()throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        String filepath = "resources/JsonFile1.json";
+        String filepath = "resources_tests/JsonFile1.json";
         try {
             Path path = Paths.get(filepath);
             ctrl.importGeoAreasFromFile(path);
@@ -53,10 +60,10 @@ class DataImportCTRLTest {
 
 
     @Test
-    void getAllSensorsInFile()throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException{
+    void getAllSensorsInFile() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        String filepath = "resources/DataSet_sprint05_GA.json";
+        String filepath = "resources_tests/DataSet_sprint05_GA.json";
 
         Path path = Paths.get(filepath);
         ctrl.importGeoAreasFromFile(path);
@@ -64,14 +71,14 @@ class DataImportCTRLTest {
         int expected = 4;
         int result = ctrl.getAllSensorsInFileSize(path);
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
     void importGeoAreasFromFile() throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException{
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        String filepath = "resources/DataSet_sprint05_GA.json";
+        String filepath = "resources_tests/DataSet_sprint05_GA.json";
 
         Path path = Paths.get(filepath);
         ctrl.importGeoAreasFromFile(path);
@@ -82,10 +89,10 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void failToAdd() throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException{
+    void failToAdd() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        String filepath = "resources/DataSet_sprint05_GA.json";
+        String filepath = "resources_tests/DataSet_sprint05_GA.json";
 
         Path path = Paths.get(filepath);
         ctrl.importGeoAreasFromFile(path);
@@ -94,14 +101,14 @@ class DataImportCTRLTest {
         int expected = 2;
         int result = ctrl.failedToAdd();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
-    void failToAddIsZero()throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException{
+    void failToAddIsZero() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        String filepath = "resources/DataSet_sprint05_GA.json";
+        String filepath = "resources_tests/DataSet_sprint05_GA.json";
 
         Path path = Paths.get(filepath);
         ctrl.importGeoAreasFromFile(path);
@@ -110,14 +117,14 @@ class DataImportCTRLTest {
         int expected = 0;
         int result = ctrl.failedToAdd();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
-    void failToAddDoesNotStack() throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException{
+    void failToAddDoesNotStack() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        String filepath = "resources/DataSet_sprint05_GA.json";
+        String filepath = "resources_tests/DataSet_sprint05_GA.json";
 
         Path path = Paths.get(filepath);
         ctrl.importGeoAreasFromFile(path);
@@ -126,59 +133,406 @@ class DataImportCTRLTest {
         int expected = 2;
         int result = ctrl.failedToAdd();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
-    void importReadingZero () throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
+    void importReadingZero() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        String filepath = "resources/DataSet_sprint05_SD.json";
+        String filepath = "resources_tests/DataSet_sprint05_SD.json";
 
         Path path = Paths.get(filepath);
-        ctrl.importReadingsFromFile(path);
+        ctrl.importReadingsFromFile(path, gaList);
 
         int expected = 0;
         int result = gaList.getAllReadings().size();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
-    void importReading () throws java.text.ParseException,IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
+    void importReading() throws java.text.ParseException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl1 = new DataImportCTRL(gaList);
-        String filepath1 = "resources/DataSet_sprint05_GA.json";
+        String filepath1 = "resources_tests/DataSet_sprint05_GA.json";
         Path path1 = Paths.get(filepath1);
         ctrl1.importGeoAreasFromFile(path1);
 
 
         DataImportCTRL ctrl2 = new DataImportCTRL(gaList);
-        String filepath2 = "resources/DataSet_sprint05_SD.json";
+        String filepath2 = "resources_tests/DataSet_sprint05_SD.json";
         Path path2 = Paths.get(filepath2);
-        ctrl2.importReadingsFromFile(path2);
+        ctrl2.importReadingsFromFile(path2, gaList);
 
         int expected = 61;
         int result = gaList.getAllReadings().size();
+
+        assertEquals(expected, result);
+    }
+
+
+    @Test
+    @DisplayName("Ensure that the number of invalid readings is 4")
+    void getNrOfInvalidReadings() throws IllegalAccessException, ParseException, IOException, InstantiationException, SAXException, ParserConfigurationException, ClassNotFoundException {
+        Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
+        SensorList kitchenSL = kitchen.getSensorListInRoom();
+        GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
+        Location s0Location = new Location(12, 25, 32);
+        SensorType temperature = new SensorType("temperature");
+        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor0);
+
+        GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
+        Location s1Location = new Location(12, 25, 32);
+        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor1);
+
+        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor2);
+
+        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor3);
+
+        Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
+        SensorList bedroomSL = bedroom.getSensorListInRoom();
+        Location location = new Location(12, 32, 15);
+        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        bedroomSL.addSensor(brSensor);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(kitchen);
+        roomList.addRoom(bedroom);
+        DataImportCTRL ctrl = new DataImportCTRL(roomList);
+        String filepath1 = "resources_tests/fakeImportFilesForTests/roomSensorsReadings01.json";
+        Path path = Paths.get(filepath1);
+        ctrl.importReadingsFromFile(path, roomList);
+
+        int expectedInvalidReadings = 4;
+        int resultingInvalidReadings = ctrl.getNrOfInvalidReadings();
+        assertEquals(expectedInvalidReadings, resultingInvalidReadings);
+    }
+
+
+    @Test
+    @DisplayName("Ensure that the number of imported readings is 2")
+    void getNrOfImportedReadings() throws IllegalAccessException, ParseException, IOException, InstantiationException, SAXException, ParserConfigurationException, ClassNotFoundException {
+        Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
+        SensorList kitchenSL = kitchen.getSensorListInRoom();
+        GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
+        Location s0Location = new Location(12, 25, 32);
+        SensorType temperature = new SensorType("temperature");
+        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor0);
+
+        GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
+        Location s1Location = new Location(12, 25, 32);
+        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor1);
+
+        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor2);
+
+        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor3);
+
+        Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
+        SensorList bedroomSL = bedroom.getSensorListInRoom();
+        Location location = new Location(12, 32, 15);
+        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        bedroomSL.addSensor(brSensor);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(kitchen);
+        roomList.addRoom(bedroom);
+        DataImportCTRL ctrl = new DataImportCTRL(roomList);
+        String filepath1 = "resources_tests/fakeImportFilesForTests/roomSensorsReadings01.json";
+        Path path = Paths.get(filepath1);
+        ctrl.importReadingsFromFile(path, roomList);
+
+        int expected = 2;
+        int result = ctrl.getNrOfImportedReadings();
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Ensure that the number of imported readings is 0")
+    void getNrOfImportedReadingsIsZeroInEmptyFile() throws IllegalAccessException, ParseException, IOException, InstantiationException, SAXException, ParserConfigurationException, ClassNotFoundException {
+        Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
+        SensorList kitchenSL = kitchen.getSensorListInRoom();
+        GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
+        Location s0Location = new Location(12, 25, 32);
+        SensorType temperature = new SensorType("temperature");
+        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor0);
+
+        GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
+        Location s1Location = new Location(12, 25, 32);
+        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor1);
+
+        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor2);
+
+        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor3);
+
+        Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
+        SensorList bedroomSL = bedroom.getSensorListInRoom();
+        Location location = new Location(12, 32, 15);
+        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        bedroomSL.addSensor(brSensor);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(kitchen);
+        roomList.addRoom(bedroom);
+        DataImportCTRL ctrl = new DataImportCTRL(roomList);
+        String filepath1 = "resources_tests/fakeImportFilesForTests/roomSensorsReadings02.json";
+        Path path = Paths.get(filepath1);
+        ctrl.importReadingsFromFile(path, roomList);
+
+        int expected = 0;
+        int result = ctrl.getNrOfImportedReadings();
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Ensure that the number of invalid readings is 0 in empty file")
+    void getNrOfInvalidReadingsIsZeroInEmptyFile() throws IllegalAccessException, ParseException, IOException, InstantiationException, SAXException, ParserConfigurationException, ClassNotFoundException {
+        Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
+        SensorList kitchenSL = kitchen.getSensorListInRoom();
+        GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
+        Location s0Location = new Location(12, 25, 32);
+        SensorType temperature = new SensorType("temperature");
+        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor0);
+
+        GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
+        Location s1Location = new Location(12, 25, 32);
+        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor1);
+
+        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor2);
+
+        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor3);
+
+        Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
+        SensorList bedroomSL = bedroom.getSensorListInRoom();
+        Location location = new Location(12, 32, 15);
+        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        bedroomSL.addSensor(brSensor);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(kitchen);
+        roomList.addRoom(bedroom);
+        DataImportCTRL ctrl = new DataImportCTRL(roomList);
+        String filepath1 = "resources_tests/fakeImportFilesForTests/roomSensorsReadings02.json";
+        Path path = Paths.get(filepath1);
+        ctrl.importReadingsFromFile(path, roomList);
+
+        int expected = 0;
+        int result = ctrl.getNrOfImportedReadings();
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Ensure that the number of imported readings is 0 for invalid file format")
+    void getNrOfImportedReadingsIsZeroForInvalidFormatFile() throws IllegalAccessException, ParseException, IOException, InstantiationException, SAXException, ParserConfigurationException, ClassNotFoundException {
+        Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
+        SensorList kitchenSL = kitchen.getSensorListInRoom();
+        GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
+        Location s0Location = new Location(12, 25, 32);
+        SensorType temperature = new SensorType("temperature");
+        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor0);
+
+        GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
+        Location s1Location = new Location(12, 25, 32);
+        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor1);
+
+        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor2);
+
+        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor3);
+
+        Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
+        SensorList bedroomSL = bedroom.getSensorListInRoom();
+        Location location = new Location(12, 32, 15);
+        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        bedroomSL.addSensor(brSensor);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(kitchen);
+        roomList.addRoom(bedroom);
+        DataImportCTRL ctrl = new DataImportCTRL(roomList);
+        String filepath1 = "resources_tests/fakeImportFilesForTests/roomSensorsReadings03.json";
+        Path path = Paths.get(filepath1);
+        ctrl.importReadingsFromFile(path, roomList);
+
+        int expected = 0;
+        int result = ctrl.getNrOfImportedReadings();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Ensure that the number of imported readings is 0 for invalid file format")
+    void getNrOfInvalidReadingsIsZeroForInvalidFormatFile() throws IllegalAccessException, ParseException, IOException, InstantiationException, SAXException, ParserConfigurationException, ClassNotFoundException {
+        Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
+        SensorList kitchenSL = kitchen.getSensorListInRoom();
+        GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
+        Location s0Location = new Location(12, 25, 32);
+        SensorType temperature = new SensorType("temperature");
+        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor0);
+
+        GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
+        Location s1Location = new Location(12, 25, 32);
+        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor1);
+
+        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor2);
+
+        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        kitchenSL.addSensor(tSensor3);
+
+        Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
+        SensorList bedroomSL = bedroom.getSensorListInRoom();
+        Location location = new Location(12, 32, 15);
+        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        bedroomSL.addSensor(brSensor);
+        RoomList roomList = new RoomList();
+        roomList.addRoom(kitchen);
+        roomList.addRoom(bedroom);
+        DataImportCTRL ctrl = new DataImportCTRL(roomList);
+        String filepath1 = "resources_tests/fakeImportFilesForTests/roomSensorsReadings03.json";
+        Path path = Paths.get(filepath1);
+        ctrl.importReadingsFromFile(path, roomList);
+
+        int expected = 0;
+        int result = ctrl.getNrOfInvalidReadings();
+        assertEquals(expected, result);
+
+
+    }
+
+    @Test
+    void checkRoomListSizeIsZero() {
+
+        RoomList roomList = new RoomList();
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(roomList);
+
+        int expected = 0;
+        int result = dataImportCTRL.roomListSize();
+
+        assertEquals(expected, result);
+
+    }
+    @Test
+    void checkRoomListSizeIsTwo() {
+
+        RoomList roomList = new RoomList();
+        Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
+        Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(bedroom);
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(roomList);
+
+        int expected = 2;
+        int result = dataImportCTRL.roomListSize();
+
+        assertEquals(expected, result);
+
+    }
+
+
+    @Test
+    void getGaListInFileSize() throws IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
+
+        GAList gaList = new GAList();
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
+        String filepath1 = "resources/DataSet_sprint05_GA.json";
+        Path path1 = Paths.get(filepath1);
+        dataImportCTRL.getImportedGaListSize(path1);
+
+        int expected = 0;
+        int result = dataImportCTRL.failedToAdd();
+
+        assertEquals(expected, result);
+
+    }
+
+    @Test
+    void getImportedGaListSize() throws IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
+
+        GAList gaList = new GAList();
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
+        String filepath1 = "resources/DataSet_sprint05_GA.json";
+
+        Path path1 = Paths.get(filepath1);
+        dataImportCTRL.importGeoAreasFromFile(path1);
+
+
+        int expected = 2;
+        int result = dataImportCTRL.getGaListInFileSize(path1);
+
+        assertEquals(expected, result);
+    }
+
+
+
+    @Test
+    void getSizeSensorListInHouseRoomsIsEmpty() {
+
+        RoomList roomList = new RoomList();
+        Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
+        Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(bedroom);
+
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(roomList);
+
+        dataImportCTRL.getSizeSensorListInHouseRooms();
+
+        int expected = 0;
+
+        int result = dataImportCTRL.getSizeSensorListInHouseRooms();
 
         assertEquals(expected,result);
     }
 
     @Test
-    void getGAListDTO() throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
-        GAList gaList = new GAList();
-        DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        String filepath = "resources/DataSet_sprint05_GA.json";
-        try {
-            Path path = Paths.get(filepath);
+    void getSizeSensorListInHouseRoomsHasTwoSensors() {
 
-            ctrl.importGeoAreasFromFile(path);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found in the specified file path: " + filepath);
-        }
-        ctrl.getGAListDTO();
+        RoomList roomList = new RoomList();
+        Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
+        Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(bedroom);
+
+        SensorList kSensorList = kitchen.getSensorListInRoom();
+        GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
+        Location s0Location = new Location(12, 25, 32);
+        SensorType temperature = new SensorType("temperature");
+        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        kSensorList.addSensor(tSensor0);
+        SensorList bSensorList = bedroom.getSensorListInRoom();
+        GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
+        Location s1Location = new Location(12, 25, 32);
+        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+
+        bSensorList.addSensor(tSensor1);
+
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(roomList);
+
+        dataImportCTRL.getSizeSensorListInHouseRooms();
+
         int expected = 2;
-        int result = ctrl.getGAListDTO().size();
-        assertEquals(expected, result);
+
+        int result = dataImportCTRL.getSizeSensorListInHouseRooms();
+
+        assertEquals(expected,result);
     }
 }

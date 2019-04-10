@@ -97,7 +97,6 @@ public final class Repositories {
         for (Reading reading : s.getReadingList().getReadingsList()) {
             reading.setSensor(s);
             Repositories.readingRepository.save(reading);
-
         }
     }
 

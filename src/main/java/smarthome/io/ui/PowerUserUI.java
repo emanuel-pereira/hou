@@ -44,8 +44,7 @@ public final class PowerUserUI {
                     uS172.getGridTotalNominalPower ();
                     break;
                 case 5:
-                    UtilsUI.underMaintenanceMsg("US705");
-
+                    UtilsUI.showInfo("404","The US is currently not available");
                     break;
                 case 6:
                     GetEnergyConsumptionInPeriodUI uiEC = new GetEnergyConsumptionInPeriodUI();

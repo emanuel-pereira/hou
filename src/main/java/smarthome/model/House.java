@@ -54,6 +54,10 @@ public class House {
         return houseGridList;
     }
 
+    public boolean addGrid(HouseGrid newGrid){
+        return houseGridList.addHouseGrid(newGrid);
+    }
+
 
     /**
      * Method to get a list of rooms not included in the roomList of the houseGrid defined as parameter.
@@ -97,7 +101,6 @@ public class House {
      * @param aLocation location that is compared to the house location
      * @return distance value between the location of the house and other location
      */
-
     public static double calculateDistance(Location aLocation) {
         return address.getGPSLocation().calcLinearDistanceBetweenTwoPoints(address.getGPSLocation(), aLocation);
     }

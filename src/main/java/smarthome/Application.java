@@ -33,7 +33,6 @@ public class Application {
     public CommandLineRunner demo(GeoRepository geoRep, RoomRepository rRep, SensorTypeRepository unitRep, TypeGARepository typeRep,
                                   SensorRepository sensorRep, ReadingRepository readingRep) {
 
-
         Repositories.setTypeGARepository(typeRep);
         Repositories.setGeoRepository(geoRep);
         Repositories.setRoomRepository(rRep);

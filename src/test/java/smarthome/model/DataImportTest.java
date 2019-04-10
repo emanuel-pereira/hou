@@ -40,7 +40,7 @@ class DataImportTest {
     void getFileExtensionTest() {
         GAList gaList = new GAList();
         DataImport dataImport = new DataImport(gaList);
-        Path path = Paths.get("resources/DataSet_sprint05_SD.json");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_SD.json");
         String result = dataImport.getFileExtension(path);
         String expected = "json";
         assertEquals(expected, result);
@@ -60,7 +60,7 @@ class DataImportTest {
     void getGAListInFileSize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImport dataImport = new DataImport(gaList);
-        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
 
         int expected = 2;
         int result = dataImport.loadGeoAreaFiles(path).size();
@@ -73,7 +73,7 @@ class DataImportTest {
     void getGAListImportedSize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImport dataImport = new DataImport(gaList);
-        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
 
         List<GeographicalArea> inFile = dataImport.loadGeoAreaFiles(path);
         dataImport.importFromFileGeoArea(inFile);
@@ -89,7 +89,7 @@ class DataImportTest {
     void getGAListNotAddedSize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImport dataImport = new DataImport(gaList);
-        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
 
         List<GeographicalArea> inFile1 = dataImport.loadGeoAreaFiles(path);
         List<GeographicalArea> inFile2 = dataImport.loadGeoAreaFiles(path);
@@ -118,8 +118,8 @@ class DataImportTest {
         ga.getSensorListInGA().addSensor(sensorPorto);
 
         DataImport dataImport = new DataImport(gaList);
-        Path path = Paths.get("resources/DataSet_sprint05_SD.json");
-        dataImport.importReadingsFromFile(path);
+        Path path = Paths.get("resources_tests/DataSet_sprint05_SD.json");
+        dataImport.importReadingsFromFile(path,gaList);
 
         List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
         double r = rList.get(3).returnValueOfReading();
@@ -140,8 +140,8 @@ class DataImportTest {
         ga.getSensorListInGA().addSensor(sensorPorto);
 
         DataImport dataImport = new DataImport(gaList);
-        Path path = Paths.get("resources/DataSet_sprint05_SD.json");
-        dataImport.importReadingsFromFile(path);
+        Path path = Paths.get("resources_tests/DataSet_sprint05_SD.json");
+        dataImport.importReadingsFromFile(path,gaList);
 
         List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
         int size = rList.size();

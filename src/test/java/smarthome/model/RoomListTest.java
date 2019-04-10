@@ -298,9 +298,9 @@ public class RoomListTest {
         Device d2 = fanType.createDevice("Windy", 50);
         Device d3 = fridgeType.createDevice("Mini Bar", 230);
 
-        r1DeviceList.addDevice(d1);
-        r2DeviceList.addDevice(d2);
-        r2DeviceList.addDevice(d3);
+        r1DeviceList.add(d1);
+        r2DeviceList.add(d2);
+        r2DeviceList.add(d3);
 
         double expected = 0;
         double result = roomList.getEnergyConsumptionByDeviceType("Fridge");

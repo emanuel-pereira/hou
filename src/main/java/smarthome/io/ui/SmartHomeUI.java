@@ -1,7 +1,6 @@
 
 package smarthome.io.ui;
 
-import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 import smarthome.model.*;
 
@@ -15,7 +14,6 @@ import static smarthome.io.ui.RegularUsageUI.regularUsage;
 import static smarthome.io.ui.RoomOwnerUI.roomOwner;
 import static smarthome.io.ui.SystemAdministrationUI.systemAdministration;
 
-@Component
 public final class SmartHomeUI {
     private static SensorTypeList sensorTypeList;
     private static GAList gaList;
@@ -27,13 +25,12 @@ public final class SmartHomeUI {
     GeographicalArea g1 = new GeographicalArea("Default", "Default", "Default", oc, loc);
     House house = House.getHouseInstance(a1, g1);
 
+
     private SmartHomeUI(){}
 
     public static void menuOptions() throws SAXException, ParserConfigurationException, IllegalAccessException, InstantiationException, ClassNotFoundException, org.json.simple.parser.ParseException, IOException {
         int option = -1;
         while (option != 0) {
-
-
             ArrayList<String> options = new ArrayList<>();
             options.add("[1] System Administration");
             options.add("[2] House Administration");
@@ -41,7 +38,6 @@ public final class SmartHomeUI {
             options.add("[4] Power User");
             options.add("[5] Room Owner");
             options.add("[0] Exit");
-
             UtilsUI.showList("Main Menu", options, false, 5);
 
             option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");
@@ -70,7 +66,6 @@ public final class SmartHomeUI {
     public static void init() {
         sensorTypeList = new SensorTypeList();
         gaList = new GAList();
-        //TODO: instancia de casa?
         typeGAList = new TypeGAList();
     }
 }

@@ -34,8 +34,6 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @DisplayName("Tests if the list of rainfall sensors in the geographical area of the house is returned")
     void getGARainfallSensors() {
 
-        g1.getSensorListInGA().getSensorList().clear();
-
         SensorType rain = new SensorType("rainfall");
         SensorType wind = new SensorType("wind");
         SensorType temperature = new SensorType("temperature");
@@ -69,7 +67,6 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @Test
     @DisplayName("Tests if the closest rainfall sensors to the house with readings in period are returned")
     void getClosestRainfallSensorsWithReadingsInTimePeriod() {
-        g1.getSensorListInGA().getSensorList().clear();
 
         SensorType sT = new SensorType("rainfall");
         SensorType sT2 = new SensorType("wind");
@@ -151,7 +148,7 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @Test
     @DisplayName("Tests if returns false when the closest rainfall sensors do not have readings in period")
     void checkThatClosestRainfallSensorsDoNotHaveReadingsInPeriod() {
-        g1.getSensorListInGA().getSensorList().clear();
+         
 
         SensorType sT = new SensorType("rainfall");
         SensorType sT2 = new SensorType("wind");
@@ -230,8 +227,6 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @DisplayName("Tests if returns true when the closest rainfall sensors do not have readings in period")
     void checkThatClosestRainfallSensorsHaveReadingsInPeriod() {
 
-        g1.getSensorListInGA().getSensorList().clear();
-
         SensorType sT = new SensorType("rainfall");
         SensorType sT2 = new SensorType("wind");
         SensorType sT3 = new SensorType("temperature");
@@ -308,7 +303,7 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @Test
     @DisplayName("Tests if calculates daily average rainfall when there is only one closest sensor")
     void calculateAverageOfRainfallReadingsForOneSensor() {
-        g1.getSensorListInGA().getSensorList().clear();
+         
 
         SensorType sT = new SensorType("rainfall");
         SensorType sT2 = new SensorType("wind");
@@ -387,8 +382,6 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @DisplayName("Tests if calculates daily average rainfall when there is more than one sensor at same distance")
     void calculateAverageOfRainfallForTwoEquidistantSensors() {
 
-        g1.getSensorListInGA().getSensorList().clear();
-
         SensorType sT = new SensorType("rainfall");
         SensorType sT2 = new SensorType("wind");
         SensorType sT3 = new SensorType("temperature");
@@ -465,8 +458,6 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @Test
     @DisplayName("Tests if calculates daily average rainfall when equidistant sensor have readings with the same date")
     void calculateAverageOfRainfallReadingsWithSameDate() {
-
-        g1.getSensorListInGA().getSensorList().clear();
 
         SensorType sT = new SensorType("rainfall");
         SensorType sT2 = new SensorType("wind");

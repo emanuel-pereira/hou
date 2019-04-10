@@ -18,6 +18,6 @@ class CSVReadingTest {
         List<String[]> result;
         result = csvReading.importData(path);
 
-        assertEquals(result.size(),62);
+        assertEquals(62,result.size());
     }
 }

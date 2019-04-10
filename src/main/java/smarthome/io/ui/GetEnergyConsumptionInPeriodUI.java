@@ -31,14 +31,14 @@ public class GetEnergyConsumptionInPeriodUI {
 
     private void getStartDate() {
         System.out.println("Insert the time interval in which you want to get the energy consumption.");
-        System.out.println("Insert the starting date in yyyy-mm-dd HH:mm format:");
-        this.startDate = UtilsUI.requestDateTime("Please insert a valid start date and time in yyyy-MM-dd HH:mm format.");
+        System.out.println("Insert the starting date in YYYY-MM-DD HH:mm format:");
+        this.startDate = UtilsUI.requestDateTime("Please insert a valid start date and time in YYYY-MM-DD HH:mm format.");
         this.getEndDate();
     }
 
     private void getEndDate() {
-        System.out.println("Insert the ending date in yyyy-mm-dd HH:mm format:");
-        this.endDate = UtilsUI.requestDateTime("Please insert a valid end date and time in yyyy-MM-dd HH:mm format.");
+        System.out.println("Insert the ending date in YYYY-MM-DD HH:mm format:");
+        this.endDate = UtilsUI.requestDateTime("Please insert a valid end date and time in YYYY-MM-DD HH:mm format.");
         this.getEnergyConsumption();
     }
 

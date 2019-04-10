@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.devices.FanType;
@@ -7,6 +8,7 @@ import smarthome.model.devices.OvenType;
 import smarthome.model.devices.TvType;
 import smarthome.model.devices.WallTowelHeaterType;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -23,6 +25,15 @@ class HouseGridTest {
     OccupationArea oc = new OccupationArea(2, 5);
     GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
     House house = House.getHouseInstance(a1, g1);
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @Test
     @DisplayName("Set new House Grid with correct Power Value")
@@ -206,7 +217,7 @@ class HouseGridTest {
     @Test
     @DisplayName("Get the Device List in a Grid")
     void getDeviceList() {
-        getHouseRoomList().getRoomList().clear();
+         
 
         HouseGrid hg1 = new HouseGrid("grid1");
         getGridListInHouse().addHouseGrid(hg1);
@@ -227,11 +238,11 @@ class HouseGridTest {
         Device d4 = typeFan.createDevice("Micro Fan", 250);
         Device d5 = typeTv.createDevice("Smart Tv", 200);
 
-        getHouseRoomList().get(0).getDeviceList().addDevice(d1);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d2);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d3);
-        getHouseRoomList().get(1).getDeviceList().addDevice(d4);
-        getHouseRoomList().get(1).getDeviceList().addDevice(d5);
+        getHouseRoomList().get(0).getDeviceList().add(d1);
+        getHouseRoomList().get(0).getDeviceList().add(d2);
+        getHouseRoomList().get(0).getDeviceList().add(d3);
+        getHouseRoomList().get(1).getDeviceList().add(d4);
+        getHouseRoomList().get(1).getDeviceList().add(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);
@@ -246,7 +257,7 @@ class HouseGridTest {
     @DisplayName("Get the Device List in a Grid from a specific Type")
     void getDeviceListFromType() {
 
-        getHouseRoomList().getRoomList().clear();
+         
 
         HouseGrid hg1 = new HouseGrid("grid1");
         getGridListInHouse().addHouseGrid(hg1);
@@ -267,11 +278,11 @@ class HouseGridTest {
         Device d4 = typeFan.createDevice("Micro Fan", 250);
         Device d5 = typeTv.createDevice("Smart Tv", 200);
 
-        getHouseRoomList().get(0).getDeviceList().addDevice(d1);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d2);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d3);
-        getHouseRoomList().get(1).getDeviceList().addDevice(d4);
-        getHouseRoomList().get(1).getDeviceList().addDevice(d5);
+        getHouseRoomList().get(0).getDeviceList().add(d1);
+        getHouseRoomList().get(0).getDeviceList().add(d2);
+        getHouseRoomList().get(0).getDeviceList().add(d3);
+        getHouseRoomList().get(1).getDeviceList().add(d4);
+        getHouseRoomList().get(1).getDeviceList().add(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);
@@ -323,8 +334,6 @@ class HouseGridTest {
     @DisplayName("Print the device list in Grid ordered by type")
     void deviceListInGridCtrlTestGroupByTypeInString() {
 
-        getHouseRoomList().getRoomList().clear();
-
         HouseGrid hg1 = new HouseGrid("grid1");
         getGridListInHouse().addHouseGrid(hg1);
 
@@ -344,11 +353,11 @@ class HouseGridTest {
         Device d4 = typeFan.createDevice("Micro Fan", 250);
         Device d5 = typeTv.createDevice("Smart Tv", 200);
 
-        getHouseRoomList().get(0).getDeviceList().addDevice(d1);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d2);
-        getHouseRoomList().get(0).getDeviceList().addDevice(d3);
-        getHouseRoomList().get(1).getDeviceList().addDevice(d4);
-        getHouseRoomList().get(1).getDeviceList().addDevice(d5);
+        getHouseRoomList().get(0).getDeviceList().add(d1);
+        getHouseRoomList().get(0).getDeviceList().add(d2);
+        getHouseRoomList().get(0).getDeviceList().add(d3);
+        getHouseRoomList().get(1).getDeviceList().add(d4);
+        getHouseRoomList().get(1).getDeviceList().add(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);
@@ -379,10 +388,10 @@ class HouseGridTest {
             Device fridgeB = deviceList.newDevice("FridgeB", "Fridge", 150);
             Device kettle = deviceList.newDevice("KettleA", "Kettle", 1500);
             Device lamp = deviceList.newDevice("LampA", "Lamp", 15);
-            deviceList.addDevice(fridgeA);
-            deviceList.addDevice(fridgeB);
-            deviceList.addDevice(kettle);
-            deviceList.addDevice(lamp);
+            deviceList.add(fridgeA);
+            deviceList.add(fridgeB);
+            deviceList.add(kettle);
+            deviceList.add(lamp);
         } catch (Exception e) {
             //Do nothing.
         }
@@ -456,11 +465,11 @@ class HouseGridTest {
             Device lampA = kitDeviceList.newDevice("Philips Smart Bulb", "Lamp", 15);
             Device fridgeB = kitDeviceList.newDevice("Samsung Fridge", "Fridge", 250);
 
-            kitDeviceList.addDevice(fridgeA);
-            kitDeviceList.addDevice(kettleA);
-            kitDeviceList.addDevice(lampA);
-            grDeviceList.addDevice(lampA);
-            grDeviceList.addDevice(fridgeB);
+            kitDeviceList.add(fridgeA);
+            kitDeviceList.add(kettleA);
+            kitDeviceList.add(lampA);
+            grDeviceList.add(lampA);
+            grDeviceList.add(fridgeB);
 
             ReadingList fridgeALog = fridgeA.getActivityLog();
             Reading r1 = new Reading(20, new GregorianCalendar(2018, 2, 1, 9, 10), "C");
@@ -535,11 +544,11 @@ class HouseGridTest {
             Device lampA = kitDeviceList.newDevice("Philips Smart Bulb", "Lamp", 15);
             Device fridgeB = kitDeviceList.newDevice("Samsung Fridge", "Fridge", 250);
 
-            kitDeviceList.addDevice(fridgeA);
-            kitDeviceList.addDevice(kettleA);
-            kitDeviceList.addDevice(lampA);
-            grDeviceList.addDevice(lampA);
-            grDeviceList.addDevice(fridgeB);
+            kitDeviceList.add(fridgeA);
+            kitDeviceList.add(kettleA);
+            kitDeviceList.add(lampA);
+            grDeviceList.add(lampA);
+            grDeviceList.add(fridgeB);
 
             ReadingList fridgeALog = fridgeA.getActivityLog();
             Reading r1 = new Reading(20, new GregorianCalendar(2018, 2, 1, 9, 10), "C");

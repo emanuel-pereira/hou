@@ -1,14 +1,15 @@
 package smarthome.model;
 
+import org.apache.log4j.Logger;
 import smarthome.repository.Repositories;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class SensorTypeList {
 
     private List<SensorType> typeList;
+    static final Logger log = Logger.getLogger(SensorTypeList.class);
 
     /**
      * Constructor method that creates a new list to save data type objects
@@ -48,7 +49,7 @@ public class SensorTypeList {
             try {
                 Repositories.getSensorTypeRepository().save(newSensorType);
             } catch (NullPointerException e) {
-                Logger.getLogger("Repository unreachable");
+                log.warn("Repository unreachable");
             }
             return true;
         }

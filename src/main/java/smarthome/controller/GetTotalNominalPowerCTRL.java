@@ -1,6 +1,9 @@
 package smarthome.controller;
 
-import smarthome.model.*;
+import smarthome.model.HouseGrid;
+import smarthome.model.HouseGridList;
+import smarthome.model.Room;
+import smarthome.model.RoomList;
 
 import static smarthome.model.House.getGridListInHouse;
 import static smarthome.model.House.getHouseRoomList;

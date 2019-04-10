@@ -34,8 +34,6 @@ class GetEnergyConsumptionInPeriodCTRLTest {
     @Test
     void getEnergyConsumptionInPeriod() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-        getHouseRoomList().getRoomList().clear();
-
         GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL();
         HouseGrid grid1 = new HouseGrid("Grid 1");
         HouseGrid grid2 = new HouseGrid("Grid 2");
@@ -56,10 +54,10 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         Device fridgeB = k2DeviceList.newDevice("FridgeB", "Fridge", 150);
         Device kettle = k1DeviceList.newDevice("KettleA", "Kettle", 1500);
         Device lamp = k1DeviceList.newDevice("LampA", "Lamp", 15);
-        k1DeviceList.addDevice(fridgeA);
-        k2DeviceList.addDevice(fridgeB);
-        k1DeviceList.addDevice(kettle);
-        k1DeviceList.addDevice(lamp);
+        k1DeviceList.add(fridgeA);
+        k2DeviceList.add(fridgeB);
+        k1DeviceList.add(kettle);
+        k1DeviceList.add(lamp);
 
         ReadingList fridgeALog = fridgeA.getActivityLog();
         ReadingList fridgeBLog = fridgeB.getActivityLog();
@@ -97,7 +95,6 @@ class GetEnergyConsumptionInPeriodCTRLTest {
 
     @Test
     void getHouseGridEnergyConsumptionInPeriod() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        getHouseRoomList().getRoomList().clear();
 
         GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL();
         RoomList roomList = getHouseRoomList();
@@ -123,10 +120,10 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         Device fridgeB = k2DeviceList.newDevice("FridgeB", "Fridge", 150);
         Device kettle = k1DeviceList.newDevice("KettleA", "Kettle", 1500);
         Device lamp = k1DeviceList.newDevice("LampA", "Lamp", 15);
-        k1DeviceList.addDevice(fridgeA);
-        k2DeviceList.addDevice(fridgeB);
-        k1DeviceList.addDevice(kettle);
-        k1DeviceList.addDevice(lamp);
+        k1DeviceList.add(fridgeA);
+        k2DeviceList.add(fridgeB);
+        k1DeviceList.add(kettle);
+        k1DeviceList.add(lamp);
 
         ReadingList fridgeALog = fridgeA.getActivityLog();
         ReadingList fridgeBLog = fridgeB.getActivityLog();
@@ -165,8 +162,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
 
     @Test
     void getRoomEnergyConsumptionInPeriod() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-
-        getHouseRoomList().getRoomList().clear();
+         
 
         GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL();
         RoomList roomList = getHouseRoomList();
@@ -192,10 +188,10 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         Device fridgeB = k2DeviceList.newDevice("FridgeB", "Fridge", 150);
         Device kettle = k1DeviceList.newDevice("KettleA", "Kettle", 1500);
         Device lamp = k1DeviceList.newDevice("LampA", "Lamp", 15);
-        k1DeviceList.addDevice(fridgeA);
-        k2DeviceList.addDevice(fridgeB);
-        k1DeviceList.addDevice(kettle);
-        k1DeviceList.addDevice(lamp);
+        k1DeviceList.add(fridgeA);
+        k2DeviceList.add(fridgeB);
+        k1DeviceList.add(kettle);
+        k1DeviceList.add(lamp);
 
         ReadingList fridgeALog = fridgeA.getActivityLog();
         ReadingList fridgeBLog = fridgeB.getActivityLog();
@@ -233,7 +229,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
 
     @Test
     void getMeteredName() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        getHouseRoomList().getRoomList().clear();
+         
 
         GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL();
         HouseGridList houseGridList = getGridListInHouse();
@@ -255,10 +251,10 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         Device fridgeB = grDeviceList.newDevice("FridgeB", "Fridge", 150);
         Device kettle = kitDeviceList.newDevice("KettleA", "Kettle", 1500);
         Device lamp = grDeviceList.newDevice("LampA", "Lamp", 15);
-        kitDeviceList.addDevice(fridgeA);
-        grDeviceList.addDevice(fridgeB);
-        kitDeviceList.addDevice(kettle);
-        kitDeviceList.addDevice(lamp);
+        kitDeviceList.add(fridgeA);
+        grDeviceList.add(fridgeB);
+        kitDeviceList.add(kettle);
+        kitDeviceList.add(lamp);
 
         String expected = "Living Room";
         String result = ctrl.getMeteredName(2);
@@ -269,8 +265,6 @@ class GetEnergyConsumptionInPeriodCTRLTest {
     @Test
     void showMetered() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 
-        getHouseRoomList().getRoomList().clear();
-
         GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL();
         HouseGridList houseGridList = getGridListInHouse();
         HouseGrid grid = new HouseGrid("MainGrid");
@@ -291,10 +285,10 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         Device fridgeB = grDeviceList.newDevice("FridgeB", "Fridge", 150);
         Device kettle = kitDeviceList.newDevice("KettleA", "Kettle", 1500);
         Device lamp = grDeviceList.newDevice("LampA", "Lamp", 15);
-        kitDeviceList.addDevice(fridgeA);
-        grDeviceList.addDevice(fridgeB);
-        kitDeviceList.addDevice(kettle);
-        kitDeviceList.addDevice(lamp);
+        kitDeviceList.add(fridgeA);
+        grDeviceList.add(fridgeB);
+        kitDeviceList.add(kettle);
+        kitDeviceList.add(lamp);
 
         String expected = "1 - MainGrid\n" +
                 "2 - Kitchen\n" +

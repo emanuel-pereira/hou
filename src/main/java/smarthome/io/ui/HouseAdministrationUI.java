@@ -1,10 +1,12 @@
 package smarthome.io.ui;
 
 import org.json.simple.parser.ParseException;
+import org.xml.sax.SAXException;
 import smarthome.model.GAList;
 import smarthome.model.SensorTypeList;
 
 import java.io.IOException;
+import javax.xml.parsers.ParserConfigurationException;
 import java.util.ArrayList;
 
 import static smarthome.model.House.getHouseRoomList;
@@ -14,8 +16,7 @@ public final class HouseAdministrationUI {
     private HouseAdministrationUI() {
     }
 
-    public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList)
-            throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
+    public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList)throws ClassNotFoundException, InstantiationException, IllegalAccessException, SAXException, ParserConfigurationException, ParseException, IOException {
 
         int option = -1;
         while (option != 0) {
@@ -34,11 +35,12 @@ public final class HouseAdministrationUI {
             options.add("[11] List (edit/add/remove) devices in a room");
             options.add("[12] Show all the devices connected to a grid");
             options.add("[13] Show the total nominal power connected to a grid");
+            options.add("[14] Import house sensors' readings from file (CSV,XML,JSON)");
             options.add("[0] Exit");
 
             UtilsUI.showList("House administration", options, false, 5);
 
-            option = UtilsUI.requestIntegerInInterval(0, 12, "Please choose an action between 1 and 12, or 0 to exit the program");
+            option = UtilsUI.requestIntegerInInterval(0, 12, "Please choose an action between 1 and 14, or 0 to exit the program");
 
             switch (option) {
                 case 1:
@@ -92,6 +94,10 @@ public final class HouseAdministrationUI {
                 case 13:
                     GetTotalNominalPowerUI uS172 = new GetTotalNominalPowerUI();
                     uS172.getGridTotalNominalPower();
+                    break;
+                case 14:
+                    DataImportUI ui13 = new DataImportUI(getHouseRoomList());
+                    ui13.checkIfRoomsAndSensorsExists(getHouseRoomList());
                     break;
                 default:
                     //no action needed

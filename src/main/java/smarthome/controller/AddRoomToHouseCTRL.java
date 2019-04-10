@@ -1,10 +1,8 @@
 package smarthome.controller;
 
+import org.apache.log4j.Logger;
 import smarthome.model.Room;
 import smarthome.model.RoomList;
-import smarthome.repository.Repositories;
-
-import java.util.logging.Logger;
 
 import static smarthome.model.House.getHouseRoomList;
 
@@ -12,7 +10,7 @@ public class AddRoomToHouseCTRL {
 
     private RoomList roomList;
 
-    static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(AddRoomToHouseCTRL.class);
+    static final Logger log = Logger.getLogger(AddRoomToHouseCTRL.class);
 
     /**
      * Controller constructor
@@ -35,17 +33,7 @@ public class AddRoomToHouseCTRL {
      */
     public boolean newAddRoom(String id, String name, Integer floor, double length, double width, double height) {
         Room room = this.roomList.createNewRoom (id,name, floor, length, width, height);
-        if (!this.roomList.addRoom (room)) {
-            return false;
-        } else {
-            //Repository call
-            try {
-                Repositories.saveRoom(room);
-            } catch (NullPointerException e) {
-                log.info("Repository unreachable");
-            }
-            return true;
-        }
+        return this.roomList.addRoom (room);
     }
 
 

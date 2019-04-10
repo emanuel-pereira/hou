@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import org.apache.log4j.Logger;
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
 import smarthome.repository.Repositories;
@@ -8,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomList {
+
     private List<Room> listOfRooms;
+    static final Logger log = Logger.getLogger(RoomList.class);
 
 
     /**
@@ -46,10 +49,16 @@ public class RoomList {
     public boolean addRoom(Room newRoom) {
         if (newRoom != null && !this.listOfRooms.contains(newRoom)) {
             this.listOfRooms.add(newRoom);
-
+            //Repository call
+            try {
+                Repositories.saveRoom(newRoom);
+            } catch (NullPointerException e) {
+                log.warn("Repository unreachable");
+            }
             return true;
         } else return false;
     }
+
 
     /**
      * Checks if the room ID exists in the room list, so the ID is not repeated
@@ -201,6 +210,19 @@ public class RoomList {
             meteredDevListInHouse.addAll(meteredDevicesInRoom);
         }
         return meteredDevListInHouse;
+    }
+
+    /**
+     * @return a global list of sensors containing all sensors within each room.
+     */
+    public List<Sensor> getAllSensors(){
+        List<Sensor> sensors = new ArrayList<>();
+        for(Room room : this.listOfRooms){
+            SensorList roomSensorList = room.getSensorListInRoom();
+            sensors.addAll(roomSensorList.getSensorList());
+
+        }
+        return sensors;
     }
 
 

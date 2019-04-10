@@ -39,7 +39,8 @@ public final class SystemAdministrationUI {
 
             UtilsUI.showList("System Administrator", options, false, 5);
 
-            option = UtilsUI.requestIntegerInInterval(0, 12, "Please choose an action between 1 and 12, or 0 to exit the program");
+            option = UtilsUI.requestIntegerInInterval(0, 12, "Please choose an action " +
+                    "between 1 and 12, or 0 to return");
 
             switch (option) {
                 case 1:
@@ -88,7 +89,7 @@ public final class SystemAdministrationUI {
                     break;
                 case 12:
                     DataImportUI ui12 = new DataImportUI(gaList);
-                    ui12.importDataFromFile();
+                    ui12.importReadings(gaList);
                     break;
                 default:
                     //no action needed

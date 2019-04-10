@@ -12,7 +12,7 @@ import static smarthome.model.House.getGridListInHouse;
 public class AddPowerSourceToGridCTRL {
 
     public AddPowerSourceToGridCTRL() {
-
+        //Controller public constructor
     }
 
     public List<HouseGrid> getHouseGridList() {

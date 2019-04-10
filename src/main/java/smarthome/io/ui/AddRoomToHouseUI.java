@@ -52,7 +52,7 @@ public class AddRoomToHouseUI {
         while (condition) {
             System.out.println("Insert the name of the room:");
             this.name = UtilsUI.requestText("Please insert alphanumeric characters!\nInsert the name of the room:", "^[A-Za-z0-9 -]+$");
-            if (!this.controller.checkIfRoomNameExists(this.name)) {
+            if (!this.controller.checkIfRoomIdExists(this.name)) {
                 condition = false;
                 this.insertFloor();
             } else

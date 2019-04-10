@@ -2,9 +2,10 @@ package smarthome.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import smarthome.model.TypeGA;
 
-@Component
+@Repository
 public interface TypeGARepository extends CrudRepository<TypeGA, Long> {
 
     TypeGA findByTGA(String type);

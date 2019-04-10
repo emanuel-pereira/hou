@@ -1,15 +1,16 @@
 package smarthome.model;
 
+import org.apache.log4j.Logger;
 import smarthome.repository.Repositories;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class SensorList {
     private List<Sensor> listOfSensors;
+    static final Logger log = Logger.getLogger(SensorList.class);
 
 
     /**
@@ -27,9 +28,17 @@ public class SensorList {
      */
     public boolean addSensor(Sensor newSensor) {
         if (!this.listOfSensors.contains(newSensor)) {
-            return this.listOfSensors.add(newSensor);
+            this.listOfSensors.add(newSensor);
+            //Repository call
+            try {
+                Repositories.saveSensor(newSensor);
+            } catch (NullPointerException e) {
+                log.warn("Repository unreachable");
+            }
+            return true;
         } else return false;
     }
+
 
 
 
@@ -45,7 +54,7 @@ public class SensorList {
     }
 
     /**
-     * @param id   id of the Sensor
+     * @param id          id of the Sensor
      * @param inputName   name of Sensor
      * @param startDate   startDate of Sensor
      * @param geoLocation gps coordinates in which the user wants to place the sensor
@@ -166,8 +175,7 @@ public class SensorList {
                 try {
                     Repositories.getSensorRepository().save(s);
                 } catch (Exception e) {
-                    Logger.getLogger("Repository unreachable");
-
+                    log.warn("Repository unreachable");
                 }
             }
 

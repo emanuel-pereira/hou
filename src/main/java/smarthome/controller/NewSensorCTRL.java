@@ -107,18 +107,7 @@ public class NewSensorCTRL {
         GeographicalArea geographicalArea = this.gaList.get(indexOfGA);
         SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);
         Sensor sensor = geographicalArea.getSensorListInGA().newSensor(id, inputName, startDate, location, sensorType, inputUnit, readings);
-        if (!geographicalArea.getSensorListInGA().addSensor(sensor)) {
-            return false;
-        } else {
-            //Repository call
-            try {
-                Repositories.saveSensor(sensor);
-            } catch (NullPointerException e) {
-                Logger.getLogger("Repository unreachable");
-            }
-            return true;
-        }
-
+        return geographicalArea.getSensorListInGA().addSensor(sensor);
     }
 
     /**
