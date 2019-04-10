@@ -35,12 +35,13 @@ public final class HouseAdministrationUI {
             options.add("[10] List (edit/add/remove) devices in a room");
             options.add("[11] Show all the devices connected to a grid");
             options.add("[12] Show the total nominal power connected to a grid");
-            options.add("[13] Import house sensors' readings from file (CSV,XML,JSON)");
+            options.add("[13] Import sensors to the house from a File(JSON)");
+            options.add("[14] Import house sensors' readings from file (CSV,XML,JSON)");
             options.add("[0] Exit");
 
             UtilsUI.showList("House administration", options, false, 5);
 
-            option = UtilsUI.requestIntegerInInterval(0, 13, "Please choose an action between 1 and 12, or 0 to exit the program");
+            option = UtilsUI.requestIntegerInInterval(0, 14, "Please choose an action between 1 and 12, or 0 to exit the program");
 
             switch (option) {
                 case 1:
@@ -91,8 +92,11 @@ public final class HouseAdministrationUI {
                     GetTotalNominalPowerUI uS172 = new GetTotalNominalPowerUI(house);
                     uS172.getGridTotalNominalPower ();
                     break;
-
                 case 13:
+                    DataImportUI ui14 = new DataImportUI(house.getRoomList(),sensorTypeList);
+                    ui14.loadHouseSensorsFile();
+                    break;
+                case 14:
                     DataImportUI ui13 = new DataImportUI(house.getRoomList(),sensorTypeList);
                     ui13.importReadings(house.getRoomList());
                     break;

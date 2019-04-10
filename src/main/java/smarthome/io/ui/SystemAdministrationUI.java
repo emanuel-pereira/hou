@@ -36,14 +36,12 @@ public final class SystemAdministrationUI {
             options.add("[10] Remove a sensor from a geographical area, so that it will no longer be used.");
             options.add("[11] Import geographical areas and sensors from a File (XML,JSON)");
             options.add("[12] Import readings from a File(CSV,XML,JSON)");
-            options.add("[14] Import sensors to the house from a File(JSON)");
-
 
             options.add("[0] Exit");
 
             UtilsUI.showList("System Administrator", options, false, 5);
 
-            option = UtilsUI.requestIntegerInInterval(0, 14, "Please choose an action between 1 and 14, or 0 to exit the program");
+            option = UtilsUI.requestIntegerInInterval(0, 12, "Please choose an action between 1 and 14, or 0 to exit the program");
 
             switch (option) {
                 case 1:
@@ -94,10 +92,6 @@ public final class SystemAdministrationUI {
                     DataImportUI ui12 = new DataImportUI(gaList);
                     ui12.importReadings(gaList);
                     break;
-                case 14:
-                   DataImportUI ui14 = new DataImportUI(house.getRoomList(),sensorTypeList);
-                   ui14.loadHouseSensorsFile();
-                   break;
                 default:
                     //no action needed
             }
