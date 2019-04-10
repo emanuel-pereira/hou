@@ -2,7 +2,7 @@ package smarthome.controller;
 
 import smarthome.model.*;
 
-import static smarthome.model.House.getHGListInHouse;
+import static smarthome.model.House.getGridListInHouse;
 import static smarthome.model.House.getHouseRoomList;
 
 public class GetTotalNominalPowerCTRL {
@@ -16,7 +16,7 @@ public class GetTotalNominalPowerCTRL {
      *
      */
     public GetTotalNominalPowerCTRL() {
-        this.houseGridList = getHGListInHouse();
+        this.houseGridList = getGridListInHouse();
         this.roomList = getHouseRoomList();
     }
 

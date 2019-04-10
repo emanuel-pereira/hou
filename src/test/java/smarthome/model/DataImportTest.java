@@ -185,7 +185,7 @@ class DataImportTest {
         dataImport.importHouse();
 
         int expected = 2;
-        int result = getHGListInHouse().getSize();
+        int result = getGridListInHouse().getSize();
 
         assertEquals(expected,result);
     }
@@ -200,7 +200,7 @@ class DataImportTest {
         dataImport.importHouseConfiguration();
 
         int expected = 2;
-        int result = getHGListInHouse().get(0).getRoomListInAGridSize();
+        int result = getGridListInHouse().get(0).getRoomListInAGridSize();
 
         assertEquals(expected,result);
     }

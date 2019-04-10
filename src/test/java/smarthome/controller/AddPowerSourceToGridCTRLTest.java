@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static smarthome.model.House.getHGListInHouse;
+import static smarthome.model.House.getGridListInHouse;
 
 
 class AddPowerSourceToGridCTRLTest {
@@ -35,13 +35,13 @@ class AddPowerSourceToGridCTRLTest {
     void getHouseGridListTest() {
 
         AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL();
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
 
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
 
-        getHGListInHouse().addHouseGrid(hg01);
-        getHGListInHouse().addHouseGrid(hg02);
+        getGridListInHouse().addHouseGrid(hg01);
+        getGridListInHouse().addHouseGrid(hg02);
 
 
         List<HouseGrid> expectedResult = Arrays.asList(hg01, hg02);
@@ -54,12 +54,12 @@ class AddPowerSourceToGridCTRLTest {
     @DisplayName("Method to get the size of the list of the previously inserted House Grids")
     void getHouseGridListTestSize() {
         AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL();
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
 
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
-        getHGListInHouse().addHouseGrid(hg01);
-        getHGListInHouse().addHouseGrid(hg02);
+        getGridListInHouse().addHouseGrid(hg01);
+        getGridListInHouse().addHouseGrid(hg02);
 
         int expectedResult = 2;
         int result = ctrl135.getHGListSizeCtrl();
@@ -71,12 +71,12 @@ class AddPowerSourceToGridCTRLTest {
     @DisplayName("Method to get a list of the previously inserted House Grids, testing it adds both with AssertNotEquals")
     void getHouseGridListTestNotEquals() {
         AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL();
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
 
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
-        getHGListInHouse().addHouseGrid(hg01);
-        getHGListInHouse().addHouseGrid(hg02);
+        getGridListInHouse().addHouseGrid(hg01);
+        getGridListInHouse().addHouseGrid(hg02);
 
 
         List<HouseGrid> expectedResult = Arrays.asList(hg01);
@@ -90,12 +90,12 @@ class AddPowerSourceToGridCTRLTest {
     void getHouseGridListTestInString() {
 
         AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL();
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
 
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
-        getHGListInHouse().addHouseGrid(hg01);
-        getHGListInHouse().addHouseGrid(hg02);
+        getGridListInHouse().addHouseGrid(hg01);
+        getGridListInHouse().addHouseGrid(hg02);
 
 
         String expectedResult = "1 - energygrid01\n" +
@@ -109,13 +109,13 @@ class AddPowerSourceToGridCTRLTest {
     @DisplayName("Return the name of a chosen house grid")
     void getHouseGridNameTest() {
         AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL();
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
 
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
 
-        getHGListInHouse().addHouseGrid(hg1);
-        getHGListInHouse().addHouseGrid(hg2);
+        getGridListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg2);
 
         String expectedResult = "grid1";
         String result = ctrl135.getHouseGridName(1);
@@ -127,12 +127,12 @@ class AddPowerSourceToGridCTRLTest {
     @DisplayName("Add a Power Source to a House Grid from the List")
     void addPSTest() {
         AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL();
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
 
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
-        getHGListInHouse().addHouseGrid(hg01);
-        getHGListInHouse().addHouseGrid(hg02);
+        getGridListInHouse().addHouseGrid(hg01);
+        getGridListInHouse().addHouseGrid(hg02);
 
         hg01.getPSListInHG().getPSList().clear();
         hg02.getPSListInHG().getPSList().clear();
@@ -146,12 +146,12 @@ class AddPowerSourceToGridCTRLTest {
     @DisplayName("Add a Power Source to a House Grid from the List, asserting with notEquals")
     void addPSTestNotEquals() {
         AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL();
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
 
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
-        getHGListInHouse().addHouseGrid(hg01);
-        getHGListInHouse().addHouseGrid(hg02);
+        getGridListInHouse().addHouseGrid(hg01);
+        getGridListInHouse().addHouseGrid(hg02);
 
         hg01.getPSListInHG().getPSList().clear();
         hg02.getPSListInHG().getPSList().clear();
@@ -168,12 +168,12 @@ class AddPowerSourceToGridCTRLTest {
     @DisplayName("Get Power Source List")
     void getPSListTest() {
         AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL();
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
 
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
-        getHGListInHouse().addHouseGrid(hg01);
-        getHGListInHouse().addHouseGrid(hg02);
+        getGridListInHouse().addHouseGrid(hg01);
+        getGridListInHouse().addHouseGrid(hg02);
 
         PowerSource ps1 = new PowerSource("panel002", "solar", 100, 100);
         PowerSource ps2 = new PowerSource("turbine003", "wind", 100, 100);
@@ -195,12 +195,12 @@ class AddPowerSourceToGridCTRLTest {
     @DisplayName("Get Power Source List")
     void getPSListTestSize() {
         AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL();
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
 
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
-        getHGListInHouse().addHouseGrid(hg01);
-        getHGListInHouse().addHouseGrid(hg02);
+        getGridListInHouse().addHouseGrid(hg01);
+        getGridListInHouse().addHouseGrid(hg02);
 
         hg01.getPSListInHG().getPSList().clear();
         hg02.getPSListInHG().getPSList().clear();
@@ -218,12 +218,12 @@ class AddPowerSourceToGridCTRLTest {
     @DisplayName("Get Power Source List Size Zero")
     void getPSListTestSizeZero() {
         AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL();
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
 
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
-        getHGListInHouse().addHouseGrid(hg01);
-        getHGListInHouse().addHouseGrid(hg02);
+        getGridListInHouse().addHouseGrid(hg01);
+        getGridListInHouse().addHouseGrid(hg02);
 
         hg01.getPSListInHG().getPSList().clear();
         hg02.getPSListInHG().getPSList().clear();
@@ -241,12 +241,12 @@ class AddPowerSourceToGridCTRLTest {
     @DisplayName("Show Power Source List In String")
     void showPSListInStringTest() {
         AddPowerSourceToGridCTRL ctrl135 = new AddPowerSourceToGridCTRL();
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
 
         HouseGrid hg01 = new HouseGrid("energygrid01");
         HouseGrid hg02 = new HouseGrid("energygrid02");
-        getHGListInHouse().addHouseGrid(hg01);
-        getHGListInHouse().addHouseGrid(hg02);
+        getGridListInHouse().addHouseGrid(hg01);
+        getGridListInHouse().addHouseGrid(hg02);
 
         hg01.getPSListInHG().getPSList().clear();
         hg02.getPSListInHG().getPSList().clear();

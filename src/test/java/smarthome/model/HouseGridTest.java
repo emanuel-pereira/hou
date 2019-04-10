@@ -13,7 +13,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static smarthome.model.House.getHGListInHouse;
+import static smarthome.model.House.getGridListInHouse;
 import static smarthome.model.House.getHouseRoomList;
 
 class HouseGridTest {
@@ -209,7 +209,7 @@ class HouseGridTest {
         getHouseRoomList().getRoomList().clear();
 
         HouseGrid hg1 = new HouseGrid("grid1");
-        getHGListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg1);
 
         Room r1 = new Room("R01", "cozinha", 1, 2, 2, 2);
         Room r3 = new Room("R02", "quarto", 2, 2, 2, 2);
@@ -249,7 +249,7 @@ class HouseGridTest {
         getHouseRoomList().getRoomList().clear();
 
         HouseGrid hg1 = new HouseGrid("grid1");
-        getHGListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg1);
 
         Room r1 = new Room("R01", "cozinha", 1, 2, 2, 2);
         Room r3 = new Room("R02", "quarto", 2, 2, 2, 2);
@@ -286,7 +286,7 @@ class HouseGridTest {
     @DisplayName("Get the Device List in a Grid ordered Type")
     void getDeviceListGroupedByType() {
         HouseGrid hg1 = new HouseGrid("grid1");
-        getHGListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg1);
 
         Room r1 = new Room("R01", "cozinha", 1, 2, 2, 2);
         Room r3 = new Room("R02", "quarto", 2, 2, 2, 2);
@@ -326,7 +326,7 @@ class HouseGridTest {
         getHouseRoomList().getRoomList().clear();
 
         HouseGrid hg1 = new HouseGrid("grid1");
-        getHGListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg1);
 
         Room r1 = new Room("R01", "cozinha", 1, 2, 2, 2);
         Room r3 = new Room("R02", "quarto", 2, 2, 2, 2);

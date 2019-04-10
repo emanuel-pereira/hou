@@ -2,7 +2,7 @@ package smarthome.controller;
 
 import smarthome.model.*;
 
-import static smarthome.model.House.getHGListInHouse;
+import static smarthome.model.House.getGridListInHouse;
 
 public class GetDeviceListInGridByTypeCTRL {
 
@@ -12,11 +12,11 @@ public class GetDeviceListInGridByTypeCTRL {
     }
 
     public HouseGridList getHouseGridListCtrl() {
-        return getHGListInHouse();
+        return getGridListInHouse();
     }
 
     public int getHGListSizeCtrl() {
-        return getHGListInHouse().getSize();
+        return getGridListInHouse().getSize();
     }
 
     public String showHouseGridListInStringCtrl() {

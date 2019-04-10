@@ -3,9 +3,7 @@ package smarthome.io.ui;
 
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
-import smarthome.model.GAList;
-import smarthome.model.SensorTypeList;
-import smarthome.model.TypeGAList;
+import smarthome.model.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -23,6 +21,11 @@ public final class SmartHomeUI {
     private static GAList gaList;
     private static TypeGAList typeGAList;
 
+    Location loc = new Location(1, 1, 1);
+    Address a1 = new Address("Default", "Default","0000-000","Default","Default",loc);
+    OccupationArea oc = new OccupationArea(1, 1);
+    GeographicalArea g1 = new GeographicalArea("Default", "Default", "Default", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
 
     private SmartHomeUI(){}
 

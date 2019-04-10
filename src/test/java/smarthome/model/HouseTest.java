@@ -198,16 +198,16 @@ class HouseTest {
     @DisplayName("Get House Grid List from the House")
     void getHouseGridListFromHouseTest() {
         getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
 
         HouseGrid hg01 = new HouseGrid("grid01");
         HouseGrid hg02 = new HouseGrid("grid02");
 
-        getHGListInHouse().addHouseGrid(hg01);
-        getHGListInHouse().addHouseGrid(hg02);
+        getGridListInHouse().addHouseGrid(hg01);
+        getGridListInHouse().addHouseGrid(hg02);
 
         List<HouseGrid> expectedResult = Arrays.asList(hg01, hg02);
-        List<HouseGrid> result = getHGListInHouse().getHouseGridList();
+        List<HouseGrid> result = getGridListInHouse().getHouseGridList();
 
         assertEquals(expectedResult, result);
 
@@ -216,11 +216,11 @@ class HouseTest {
     @Test
     void showRoomsWithoutGrid() {
         getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
 
         HouseGrid hg1 = new HouseGrid("grid01");
         HouseGrid hg2 = new HouseGrid("grid02");
-        HouseGridList hgLst = getHGListInHouse();
+        HouseGridList hgLst = getGridListInHouse();
         hgLst.addHouseGrid(hg1);
         hgLst.addHouseGrid(hg2);
         RoomList roomLstOfHouse = getHouseRoomList();
@@ -241,11 +241,11 @@ class HouseTest {
     @Test
     void showRoomsWithoutHouseGrid() {
         getHouseRoomList().getRoomList().clear();
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
 
         HouseGrid hg1 = new HouseGrid("grid01");
         HouseGrid hg2 = new HouseGrid("grid02");
-        HouseGridList hgLst = getHGListInHouse();
+        HouseGridList hgLst = getGridListInHouse();
         hgLst.addHouseGrid(hg1);
         hgLst.addHouseGrid(hg2);
         RoomList roomLstOfHouse = getHouseRoomList();

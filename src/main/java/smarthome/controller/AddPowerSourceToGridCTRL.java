@@ -6,7 +6,7 @@ import smarthome.model.PowerSourceList;
 
 import java.util.List;
 
-import static smarthome.model.House.getHGListInHouse;
+import static smarthome.model.House.getGridListInHouse;
 
 
 public class AddPowerSourceToGridCTRL {
@@ -16,15 +16,15 @@ public class AddPowerSourceToGridCTRL {
     }
 
     public List<HouseGrid> getHouseGridList() {
-        return getHGListInHouse().getHouseGridList();
+        return getGridListInHouse().getHouseGridList();
     }
 
     public int getHGListSizeCtrl() {
-        return getHGListInHouse().getSize();
+        return getGridListInHouse().getSize();
     }
 
     public String getHGListInStringCtrl (){
-        return getHGListInHouse().showHouseGridListInString();
+        return getGridListInHouse().showHouseGridListInString();
     }
 
     private HouseGrid getHouseGrid(int indexHG){

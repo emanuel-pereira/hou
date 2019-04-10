@@ -50,7 +50,7 @@ public class House {
         return roomList;
     }
 
-    public static HouseGridList getHGListInHouse() {
+    public static HouseGridList getGridListInHouse() {
         return houseGridList;
     }
 

@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static smarthome.model.House.getHGListInHouse;
+import static smarthome.model.House.getGridListInHouse;
 import static smarthome.model.House.getHouseRoomList;
 
 
@@ -39,7 +39,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL();
         HouseGrid grid1 = new HouseGrid("Grid 1");
         HouseGrid grid2 = new HouseGrid("Grid 2");
-        HouseGridList hgList = getHGListInHouse();
+        HouseGridList hgList = getGridListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
@@ -104,7 +104,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
 
         HouseGrid grid1 = new HouseGrid("Grid 1");
         HouseGrid grid2 = new HouseGrid("Grid 2");
-        HouseGridList hgList = getHGListInHouse();
+        HouseGridList hgList = getGridListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
@@ -173,7 +173,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
 
         HouseGrid grid1 = new HouseGrid("Grid 1");
         HouseGrid grid2 = new HouseGrid("Grid 2");
-        HouseGridList hgList = getHGListInHouse();
+        HouseGridList hgList = getGridListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
         RoomList grid1RoomList = grid1.getRoomListInAGrid();
@@ -236,7 +236,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         getHouseRoomList().getRoomList().clear();
 
         GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL();
-        HouseGridList houseGridList = getHGListInHouse();
+        HouseGridList houseGridList = getGridListInHouse();
         HouseGrid grid = new HouseGrid("MainGrid");
         houseGridList.addHouseGrid(grid);
 
@@ -272,7 +272,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         getHouseRoomList().getRoomList().clear();
 
         GetEnergyConsumptionInPeriodCTRL ctrl = new GetEnergyConsumptionInPeriodCTRL();
-        HouseGridList houseGridList = getHGListInHouse();
+        HouseGridList houseGridList = getGridListInHouse();
         HouseGrid grid = new HouseGrid("MainGrid");
         houseGridList.addHouseGrid(grid);
 

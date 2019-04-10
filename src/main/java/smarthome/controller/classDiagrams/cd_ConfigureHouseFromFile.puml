@@ -1,0 +1,111 @@
+@startuml
+
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
+
+'UI
+class ConfigureHouseUI {
+- ctrl:ConfigureHouseCTRL
+- gaList:GAList
+
++ configHouseFromFile()
+- selectGA()
+- coordinatesInput()
+- createHouseFromFile()
+}
+
+'CONTROLLER
+class ConfigureHouseCTRL {
+- dataImportHouse : DataImport
+- gaMapper : GeographicalAreaMapper
+- gaList : GAList
+
++ getGAListDTO()
++ showGAListDTO()
++ getGAListSize()
++ getIdFromIndex()
++ configureHouseFromFileCTRL()
++ getRoomListSizeCTRL()
++ getGridListSizeCTRL()
+}
+
+'DTO
+class GeographicalAreaDTO{
+}
+
+'MAPPER
+class GeographicalAreaMapper {
+- sensorMapper: SensorMapper
+
++ toDtoList()
+}
+
+'MODEL.READERS
+class DataImport{
+- parser : JSONParser
+- configFilePath : Path
+- configHouseFilePath : Path
+- gaList : GAList
+- notAdded : List<GeographicalArea>
+
+- getFileExtension()
+- readConfigFile()
+- getClassName()
+- getHouseConfigFileReader()
++ importHouse()
+}
+
+interface FileReaderHouse {
++ importHouseConfiguration()
+}
+
+class JSONHouse {
+- filePath : Path
+- parser : JSONParser
+
++ importHouseConfiguration()
+- readFile()
+- importAddress()
+- importRooms()
+- importGrids()
+- loadRoom()
+- loadGrid()
+- loadRoomsInGrid()
+}
+
+'MODEL
+class House {
+- address : Address
+- gA : GeographicalArea
+- roomList: RoomList
+- houseGridList : HouseGridList
+- theHouse : House
+
++ getHouseInstance()
++ getHouseGA()
++ setHouseGA()
++ getAddress()
++ setAddress()
++ getHouseRoomList()
++ getGridListInHouse()
+}
+
+class GeographicalArea(){
+-
+
++ getId()
+
+}
+
+
+@enduml

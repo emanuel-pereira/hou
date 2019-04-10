@@ -91,7 +91,7 @@ public class ConfigureHouseCTRL {
     }
 
     public int getGridListSizeCTRL(){
-        return getHGListInHouse().getSize();
+        return getGridListInHouse().getSize();
     }
 
 

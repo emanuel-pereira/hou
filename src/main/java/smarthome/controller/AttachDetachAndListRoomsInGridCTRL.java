@@ -10,7 +10,7 @@ public class AttachDetachAndListRoomsInGridCTRL {
     private HouseGridList houseGridList;
 
     public AttachDetachAndListRoomsInGridCTRL() {
-        this.houseGridList = getHGListInHouse();
+        this.houseGridList = getGridListInHouse();
     }
 
     /**

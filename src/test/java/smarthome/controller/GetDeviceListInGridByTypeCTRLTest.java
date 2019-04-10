@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static smarthome.model.House.getHGListInHouse;
+import static smarthome.model.House.getGridListInHouse;
 import static smarthome.model.House.getHouseRoomList;
 
 class GetDeviceListInGridByTypeCTRLTest {
@@ -40,14 +40,14 @@ class GetDeviceListInGridByTypeCTRLTest {
     @DisplayName("Return the house's house grid list")
     void getHouseGridListTest () {
 
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
         getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        getHGListInHouse().addHouseGrid(hg1);
-        getHGListInHouse().addHouseGrid(hg2);
+        getGridListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg2);
 
 
         List<HouseGrid> expectedResult = Arrays.asList(hg1,hg2);
@@ -59,14 +59,14 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house's house grid list size")
     void getHouseGridListSizeTest () {
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
         getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        getHGListInHouse().addHouseGrid(hg1);
-        getHGListInHouse().addHouseGrid(hg2);
+        getGridListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg2);
 
         int expectedResult = 2;
         int result = ctrl160.getHGListSizeCtrl();
@@ -77,14 +77,14 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house's house grid list in a string")
     void showHouseGridListInStringTest () {
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
         getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        getHGListInHouse().addHouseGrid(hg1);
-        getHGListInHouse().addHouseGrid(hg2);
+        getGridListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg2);
 
         String expectedResult = "1 - grid1\n"+
                 "2 - grid2\n";
@@ -96,14 +96,14 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the name of a chosen house grid")
     void getHouseGridNameTest () {
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
         getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        getHGListInHouse().addHouseGrid(hg1);
-        getHGListInHouse().addHouseGrid(hg2);
+        getGridListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg2);
 
         String expectedResult = "grid1";
         String result = ctrl160.getHouseGridName(1);
@@ -114,7 +114,7 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's room list")
     void getRoomListInAGridTest() {
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
         getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
@@ -139,7 +139,7 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's room list size")
     void getRoomListInAGridSizeTest() {
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
         getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
@@ -164,14 +164,14 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's device list size")
     void deviceListInGridCtrlTestSize() {
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
         getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        getHGListInHouse().addHouseGrid(hg1);
-        getHGListInHouse().addHouseGrid(hg2);
+        getGridListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg2);
 
         Room r1 = new Room("R01","cozinha",1,2,2,2);
         Room r2 = new Room("R02","sala",1,2,2,2);
@@ -213,14 +213,14 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's device list")
     void deviceListInGridCtrlTest() {
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
         getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        getHGListInHouse().addHouseGrid(hg1);
-        getHGListInHouse().addHouseGrid(hg2);
+        getGridListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg2);
 
         Room r1 = new Room("R01","cozinha",1,2,2,2);
         Room r2 = new Room("R02","sala",1,2,2,2);
@@ -262,14 +262,14 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's device list but the devices are ordered by type")
     void deviceListInGridCtrlTestGROUPBY() {
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
         getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        getHGListInHouse().addHouseGrid(hg1);
-        getHGListInHouse().addHouseGrid(hg2);
+        getGridListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg2);
 
         Room r1 = new Room("R01","cozinha",1,2,2,2);
         Room r2 = new Room("R02","sala",1,2,2,2);
@@ -311,14 +311,14 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Check if by changing the order of the devices it will show not equals")
     void deviceListInGridCtrlTestGROUPBYnotEquals() {
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
         getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        getHGListInHouse().addHouseGrid(hg1);
-        getHGListInHouse().addHouseGrid(hg2);
+        getGridListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg2);
 
         Room r1 = new Room("R01","cozinha",1,2,2,2);
         Room r2 = new Room("R02","sala",1,2,2,2);
@@ -360,14 +360,14 @@ class GetDeviceListInGridByTypeCTRLTest {
     @Test
     @DisplayName("Return the house grid's device list but the devices are ordered by type, in string format. Also show's the location(room) of each device")
     void showGroupedByDeviceListInGridStringTest() {
-        getHGListInHouse().getHouseGridList().clear();
+        getGridListInHouse().getHouseGridList().clear();
         getHouseRoomList().getRoomList().clear();
 
         GetDeviceListInGridByTypeCTRL ctrl160 = new GetDeviceListInGridByTypeCTRL();
         HouseGrid hg1 = new HouseGrid("grid1");
         HouseGrid hg2 = new HouseGrid("grid2");
-        getHGListInHouse().addHouseGrid(hg1);
-        getHGListInHouse().addHouseGrid(hg2);
+        getGridListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg2);
 
         Room r1 = new Room("R01","cozinha",1,2,2,2);
         Room r2 = new Room("R02","sala",1,2,2,2);

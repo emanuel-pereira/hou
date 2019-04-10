@@ -10,7 +10,6 @@ import smarthome.model.*;
 
 import java.lang.reflect.Field;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -367,7 +366,7 @@ class ConfigureHouseCTRLTest {
         ctrl.configureHouseFromFileCTRL(id,25,14,12);
 
         int expected = 5;
-        int result = getHGListInHouse().get(0).getRoomListInAGridSize();
+        int result = getGridListInHouse().get(0).getRoomListInAGridSize();
 
         assertEquals(expected,result);
     }

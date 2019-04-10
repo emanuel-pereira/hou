@@ -117,7 +117,7 @@ class JSONHouseTest {
 
         //List<HouseGrid> importGrids = reader.loadGrids(path);
 
-        assertEquals(2, getHGListInHouse().getSize());
+        assertEquals(2, getGridListInHouse().getSize());
     }
     @Test
     void loadGrids2() throws IOException, ParseException, ClassCastException {
@@ -125,7 +125,7 @@ class JSONHouseTest {
         JSONHouse reader = new JSONHouse();
 
         reader.importHouseConfiguration(path);
-        HouseGridList houseGridList = House.getHGListInHouse();
+        HouseGridList houseGridList = House.getGridListInHouse();
 
         //reader.loadGrids(path);
 
@@ -142,7 +142,7 @@ class JSONHouseTest {
         //reader.loadGrids(path);
 
         int expected = 2;
-        int result = getHGListInHouse().get(1).getRoomListInAGridSize();
+        int result = getGridListInHouse().get(1).getRoomListInAGridSize();
 
         assertEquals(expected, result);
     }

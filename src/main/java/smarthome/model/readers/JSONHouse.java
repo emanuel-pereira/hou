@@ -28,13 +28,13 @@ public class JSONHouse implements FileReaderHouse {
 
     public void importHouseConfiguration(Path path) throws IOException, ParseException {
         this.filePath = path;
-        loadAddress(path);
+        importAddress(path);
         //if changing info doesn't clear the previous lists please clear them here!
-        loadRooms(path);
-        loadGrids(path);
+        importRooms(path);
+        importGrids(path);
     }
 
-    public void loadAddress(Path path) throws IOException, ParseException {
+    private void importAddress(Path path) throws IOException, ParseException {
         this.filePath = path;
         JSONObject jsonAddress = (JSONObject) this.readFile().get("adress");
         String street = (String) jsonAddress.get("street");
@@ -47,36 +47,36 @@ public class JSONHouse implements FileReaderHouse {
         setHouseAddress(houseAddress);
     }
 
-    public void loadRooms(Path path) throws IOException, ParseException {
+    private void importRooms(Path path) throws IOException, ParseException {
         this.filePath = path;
         RoomList roomList = new RoomList();
         JSONArray jsonRooms = (JSONArray) this.readFile().get("room");
 
         for (Object room : jsonRooms) {
             JSONObject jsonRoom = (JSONObject) room;
-            Room roomFromFile = importRoom(jsonRoom);
+            Room roomFromFile = loadRoom(jsonRoom);
             roomList.addRoom(roomFromFile);
         }
         getHouseRoomList().getRoomList().addAll(roomList.getRoomList());
     }
 
-    public void loadGrids(Path path) throws IOException, ParseException {
+    private void importGrids(Path path) throws IOException, ParseException {
         this.filePath = path;
         List<HouseGrid> hgList = new ArrayList<>();
         JSONArray jsonGrids = (JSONArray) this.readFile().get("grid");
 
         for (Object grid : jsonGrids) {
             JSONObject jsonGrid = (JSONObject) grid;
-            HouseGrid gridFromFile = importGrid(jsonGrid);
+            HouseGrid gridFromFile = loadGrid(jsonGrid);
             RoomList gridRoomList = gridFromFile.getRoomListInAGrid();
-            importRoomsInGrid(jsonGrid, gridRoomList);
+            loadRoomsInGrid(jsonGrid, gridRoomList);
             hgList.add(gridFromFile);
         }
-        getHGListInHouse().getHouseGridList().addAll(hgList);
+        getGridListInHouse().getHouseGridList().addAll(hgList);
     }
 
 
-    private static Room importRoom(JSONObject jsonRoom) {
+    private static Room loadRoom(JSONObject jsonRoom) {
         String id = (String) jsonRoom.get("id");
         String description = (String) jsonRoom.get("description");
         String floorString = (String) jsonRoom.get("floor");
@@ -87,12 +87,12 @@ public class JSONHouse implements FileReaderHouse {
         return new Room(id, description, floor, width, length, height);
     }
 
-    private static HouseGrid importGrid(JSONObject jsonGrid) {
+    private static HouseGrid loadGrid(JSONObject jsonGrid) {
         String name = (String) jsonGrid.get("name");
         return new HouseGrid(name);
     }
 
-    public void importRoomsInGrid(JSONObject jsonGrid, RoomList roomsInGrid) {
+    private void loadRoomsInGrid(JSONObject jsonGrid, RoomList roomsInGrid) {
         JSONArray jsonRoomsId = (JSONArray) jsonGrid.get("rooms");
         for (Object id : jsonRoomsId) {
             String roomId = (String) id;

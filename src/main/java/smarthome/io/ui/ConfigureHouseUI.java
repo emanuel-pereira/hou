@@ -5,10 +5,8 @@ import org.json.simple.parser.ParseException;
 import smarthome.controller.ConfigureHouseCTRL;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.model.GAList;
-import smarthome.model.validations.Utils;
 
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.List;
 
 public class ConfigureHouseUI {
@@ -23,8 +21,6 @@ public class ConfigureHouseUI {
     private double latitude;
     private double longitude;
     private double altitude;
-    private GeographicalAreaDTO selectedGADTO;
-    private String designationMsg = " | Designation: ";
 
 
     public ConfigureHouseUI(GAList listOfGA) {
