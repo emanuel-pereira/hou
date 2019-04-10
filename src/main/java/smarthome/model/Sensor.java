@@ -73,8 +73,6 @@ public class Sensor {
             this.readingList = readings;
     }
 
-
-
     /**
      * Method to check if the sensorDesignation given to name the sensor meets the criteria defined to be
      * considered a valid sensorDesignation, namely:
@@ -235,23 +233,6 @@ public class Sensor {
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Sensor)) {
-            return false;
-        }
-        Sensor sensor = (Sensor) o;
-        return Objects.equals(this.designation, sensor.designation);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.designation, this.location, this.sensorType);
-    }
-
     /**
      * Gets the start date
      *
@@ -317,5 +298,23 @@ public class Sensor {
      */
     public boolean isActive() {
         return this.active;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Sensor)) {
+            return false;
+        }
+        Sensor sensor = (Sensor) o;
+        return id.equals(sensor.id) ||
+                designation.equals(sensor.designation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, designation);
     }
 }

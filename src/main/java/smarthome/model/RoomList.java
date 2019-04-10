@@ -200,5 +200,18 @@ public class RoomList {
         return meteredDevListInHouse;
     }
 
+    /**
+     * @return a global list of sensors containing all sensors within each room.
+     */
+    public List<Sensor> getAllSensors(){
+        List<Sensor> sensors = new ArrayList<>();
+        for(Room room : this.listOfRooms){
+            SensorList roomSensorList = room.getSensorListInRoom();
+            sensors.addAll(roomSensorList.getSensorList());
+
+        }
+        return sensors;
+    }
+
 
 }
