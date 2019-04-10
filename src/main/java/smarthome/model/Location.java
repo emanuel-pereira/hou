@@ -116,14 +116,15 @@ public class Location {
         String separator = " | ";
         String degree = "º";
 
+        output.append(separator + "Latitude: ");
         output.append(this.latitude);
         output.append(degree);
-        output.append(separator);
+        output.append(separator + "Longitude: ");
         output.append(this.longitude);
         output.append(degree);
-        output.append(separator);
+        output.append(separator + "Altitude: ");
         output.append(this.altitude);
-        output.append("meters");
+        output.append(" meters");
 
         return output.toString();
     }

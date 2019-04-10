@@ -57,10 +57,10 @@ public final class UtilsUI {
         try {
             d = Double.parseDouble(input);
         } catch (Exception e) {
-            d = Double.MIN_VALUE;
+            d = -Double.MAX_VALUE;
         }
 
-        return (d > Double.MIN_VALUE);
+        return (d > -Double.MAX_VALUE);
     }
 
     /**

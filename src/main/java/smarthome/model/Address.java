@@ -183,15 +183,17 @@ public class Address {
 
     public String addressToString() {
         StringBuilder output = new StringBuilder();
+        String space = "    ";
         String line = "\n";
         String comma = ", ";
 
+        output.append(space);
         output.append(this.street);
         output.append(comma);
         output.append(this.number);
         output.append(comma);
         output.append(this.zipCode);
-        output.append(line);
+        output.append(line + space);
         output.append(this.town);
         output.append(comma);
         output.append(this.country);
