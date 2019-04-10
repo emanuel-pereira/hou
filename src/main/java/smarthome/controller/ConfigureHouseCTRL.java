@@ -50,14 +50,16 @@ public class ConfigureHouseCTRL {
         return this.gaList.size();
     }
 
+
+    //TODO: tests
     public String getIdFromIndex (int index){
         GeographicalArea geoArea = this.gaList.get(index-1);
         return geoArea.getId();
     }
 
 
-    public boolean configureHouseLocation(int indexOfGA, String streetName, String number, String zipCode, String town, String country,  double latitude, double longitude, double altitude) {
-        GeographicalArea ga = this.gaList.getGAList().get(indexOfGA-1);
+    public boolean configureHouseLocation(String idGeoArea, String streetName, String number, String zipCode, String town, String country,  double latitude, double longitude, double altitude) {
+        GeographicalArea ga = this.gaList.getById(idGeoArea);
         setHouseGA(ga);
         Location location = new Location(latitude,longitude,altitude);
         Address houseAddress = new Address(streetName, number, zipCode, town, country,location);
@@ -78,6 +80,10 @@ public class ConfigureHouseCTRL {
         Location location = new Location(latitude,longitude,altitude);
         houseAddress.setGpsLocation(location);
         setHouseAddress(houseAddress);
+    }
+
+    public String showAddressInString(){
+       return getAddress().addressToString();
     }
 
     public int getRoomListSizeCTRL(){

@@ -102,6 +102,32 @@ public class Location {
     }
 
 
+    //TODO: add tests
+
+    /**
+     *
+     *Method to turn the Location object into a string
+     *
+     *@return location information as a String
+     */
+    public String locationToString(){
+        StringBuilder output = new StringBuilder();
+
+        String separator = " | ";
+        String degree = "º";
+
+        output.append(this.latitude);
+        output.append(degree);
+        output.append(separator);
+        output.append(this.longitude);
+        output.append(degree);
+        output.append(separator);
+        output.append(this.altitude);
+        output.append("meters");
+
+        return output.toString();
+    }
+
 }
 
 

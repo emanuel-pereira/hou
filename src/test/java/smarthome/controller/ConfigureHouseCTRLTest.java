@@ -99,7 +99,9 @@ class ConfigureHouseCTRLTest {
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
-        boolean result = ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",41, 12.3, 110);
+        String id = ctrl101.getIdFromIndex(1);
+
+        boolean result = ctrl101.configureHouseLocation(id , "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",41, 12.3, 110);
 
         GeographicalArea result2 = getHouseGA();
 
@@ -129,11 +131,13 @@ class ConfigureHouseCTRLTest {
 
         ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
+        String id = ctrl101.getIdFromIndex(1);
+
         boolean thrown = false;
 
         try {
 
-            ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",400, 12.3, 110);
+            ctrl101.configureHouseLocation(id, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",400, 12.3, 110);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -161,11 +165,12 @@ class ConfigureHouseCTRLTest {
         gl1.addGA(ga2);
 
         ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
+        String id = ctrl101.getIdFromIndex(1);
 
         boolean thrown = false;
 
         try {
-            ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",80, 181, 110);
+            ctrl101.configureHouseLocation(id, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",80, 181, 110);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -191,12 +196,13 @@ class ConfigureHouseCTRLTest {
         gl1.addGA(ga2);
 
         ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
+        String id = ctrl101.getIdFromIndex(1);
 
         boolean thrown = false;
 
         try {
 
-            ctrl101.configureHouseLocation(1, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",80, -170,-13000);
+            ctrl101.configureHouseLocation(id, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",80, -170,-13000);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -245,7 +251,9 @@ class ConfigureHouseCTRLTest {
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
-        ctrl.configureHouseFromFileCTRL(ga1.getId(),25,14,12);
+        String id = ctrl.getIdFromIndex(1);
+
+        ctrl.configureHouseFromFileCTRL(id,25,14,12);
 
         String expected = "R. Dr. António Bernardino de Almeida";
         String result = getAddress().getName();
@@ -270,8 +278,9 @@ class ConfigureHouseCTRLTest {
 
         gl1.addGA(ga1);
         gl1.addGA(ga2);
+        String id = ctrl.getIdFromIndex(1);
 
-        ctrl.configureHouseFromFileCTRL(ga1.getId(),25,14,12);
+        ctrl.configureHouseFromFileCTRL(id,25,14,12);
 
         double expected = 14;
         double result = getAddress().getGPSLocation().getLongitude();
@@ -297,7 +306,9 @@ class ConfigureHouseCTRLTest {
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
-        ctrl.configureHouseFromFileCTRL(ga1.getId(),25,14,12);
+        String id = ctrl.getIdFromIndex(1);
+
+        ctrl.configureHouseFromFileCTRL(id,25,14,12);
 
         int expected = 7;
         int result = ctrl.getRoomListSizeCTRL();
@@ -323,7 +334,9 @@ class ConfigureHouseCTRLTest {
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
-        ctrl.configureHouseFromFileCTRL(ga1.getId(),25,14,12);
+        String id = ctrl.getIdFromIndex(1);
+
+        ctrl.configureHouseFromFileCTRL(id,25,14,12);
 
         int expected = 2;
         int result = ctrl.getGridListSizeCTRL();
@@ -349,7 +362,9 @@ class ConfigureHouseCTRLTest {
         gl1.addGA(ga1);
         gl1.addGA(ga2);
 
-        ctrl.configureHouseFromFileCTRL(ga1.getId(),25,14,12);
+        String id = ctrl.getIdFromIndex(1);
+
+        ctrl.configureHouseFromFileCTRL(id,25,14,12);
 
         int expected = 5;
         int result = getHGListInHouse().get(0).getRoomListInAGridSize();
