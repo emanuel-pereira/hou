@@ -37,7 +37,7 @@ public class DataImportUI {
      * @param roomList parameter to be updated with imported data
      */
     public DataImportUI(RoomList roomList, SensorTypeList sensorTypeList) {
-        this.ctrl = new DataImportCTRL(roomList,sensorTypeList);
+        this.ctrl = new DataImportCTRL(roomList, sensorTypeList);
     }
 
     public void loadGeoAreaFile() {
@@ -102,6 +102,54 @@ public class DataImportUI {
             }
         }
     }
+
+    public void importHouseSensors() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+        int[] counters;
+        System.out.println("\n------");
+        if (UtilsUI.confirmOption("Do you wish to import this data?(y/n)", "Please type y for Yes or n for No.")) {
+            counters = ctrl.importHouseSensors(this.filePath);
+            int sensorsAdded = counters[0];
+            int sensorsNotAdded = counters[1];
+            if (sensorsNotAdded > 0 && sensorsAdded > 0) {
+                System.out.println("Success! " + sensorsAdded + " sensors were imported.");
+                System.out.println("Warning: " + sensorsNotAdded + " sensors were not imported");
+                UtilsUI.backToMenu();
+            }
+            if (sensorsNotAdded > 0 && sensorsAdded < 1) {
+                System.out.println("Warning: no sensors were imported");
+                UtilsUI.backToMenu();
+            }
+            if (sensorsNotAdded < 1 && sensorsAdded > 0) {
+                System.out.println("Success! " + sensorsAdded + " sensors were imported.");
+                UtilsUI.backToMenu();
+            }
+        } else {
+            System.out.println("Import has been canceled.");
+            UtilsUI.backToMenu();
+        }
+    }
+
+
+    public void loadHouseSensorsFile() {
+        System.out.println("Please enter the file path to import geographical areas and sensors (eg: resources/DataSet_sprint06_HouseSensors.json):");
+        String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
+        try {
+            this.filePath = Paths.get(filepath);
+            this.showHouseNumberInFile();
+        } catch (Exception e) {
+            UtilsUI.showError("File not found.", "File not found in the specified file path: " + filepath);
+            UtilsUI.backToMenu();
+        }
+    }
+
+    public void showHouseNumberInFile() throws
+            IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+        System.out.println("In the file there are\n");
+        System.out.println(" - " + ctrl.sizeOfSensorsFile(this.filePath) + " sensor(s).");
+        this.importHouseSensors();
+    }
+
+
 }
 
     /*public void showReadings() {

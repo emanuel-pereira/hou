@@ -117,7 +117,7 @@ public class SensorTypeList {
     }
 
     public SensorType getSensorTypeMatchedWithString(String sensorTypeDesignation) {
-        SensorType sensorTypeMatched = new SensorType();
+        SensorType sensorTypeMatched = null;
         for (SensorType sensorType : this.typeList) {
             if (sensorType.getType().equals(sensorTypeDesignation))
                 sensorTypeMatched = sensorType;

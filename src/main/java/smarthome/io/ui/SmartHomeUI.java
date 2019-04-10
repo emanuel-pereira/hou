@@ -10,6 +10,7 @@ import smarthome.model.TypeGAList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import static smarthome.io.ui.HouseAdministrationUI.houseAdministration;
@@ -27,7 +28,7 @@ public final class SmartHomeUI {
 
     private SmartHomeUI(){}
 
-    public static void menuOptions() throws SAXException, ParserConfigurationException, IllegalAccessException, InstantiationException, ClassNotFoundException, org.json.simple.parser.ParseException, IOException {
+    public static void menuOptions() throws SAXException, ParserConfigurationException, IllegalAccessException, InstantiationException, ClassNotFoundException, org.json.simple.parser.ParseException, IOException, ParseException {
         int option = -1;
         while (option != 0) {
 

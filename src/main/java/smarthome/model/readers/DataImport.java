@@ -25,6 +25,8 @@ public class DataImport {
     private GAList gaList;
     private RoomList roomList;
     private SensorTypeList sensorTypeList;
+    private int sensorsNotAdded;
+    private int sensorsAdded;
     static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
 
     /**
@@ -202,16 +204,17 @@ public class DataImport {
     }
 
     //House Sensors
-    public void loadHouseSensorsFiles(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+    public List<String[]> loadHouseSensorsFiles(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
         String fileExtension = getFileExtension(filePathAndName);
         String className = getClassName("house_sensors", fileExtension);
         FileReaderHouseSensors reader = (FileReaderHouseSensors) Class.forName(className).newInstance();
         List<String[]> dataToImport = reader.loadData(filePathAndName);
-        importHouseSensors(dataToImport);
+        return dataToImport;
     }
 
     public void importHouseSensors(List<String[]> dataToImport) throws java.text.ParseException {
-        List<Sensor> sensorsToImport = new ArrayList<>();
+        sensorsAdded = 0;
+        sensorsNotAdded = 0;
         for (String[] string : dataToImport) {
             String roomID = string[0];
             Room room = roomList.getRoomIfIDMatchesAnyExistingRoom(roomID);
@@ -231,15 +234,20 @@ public class DataImport {
             String unit = string[5];
 
             Sensor newSensor = new Sensor(sensorID, sensorDesignation, calendar, sensorType, unit, new ReadingList());
-            sensorsToImport.add(newSensor);
 
-            room.getSensorListInRoom().addSensor(newSensor);
+            if (!(room==null || sensorType==null) && room.getSensorListInRoom().addSensor(newSensor)){
+                room.getSensorListInRoom().addSensor(newSensor);
+                sensorsAdded++;}
+            else
+                sensorsNotAdded++;
         }
-
     }
 
-    public int getSizeOfSensorsReadyToImport(List<String[]> dataToImport) {
-        int size = dataToImport.size();
-        return size;
+    public int getSizeOfSensorsAdded() {
+        return sensorsAdded;
+    }
+
+    public int getSizeOfSensorsNotAdded() {
+        return sensorsNotAdded;
     }
 }

@@ -176,7 +176,7 @@ public class RoomList {
     }
 
     public Room getRoomIfIDMatchesAnyExistingRoom(String sensorID) {
-        Room matchedRoom = new Room();
+        Room matchedRoom = null;
         for (Room room : this.listOfRooms)
             if (room.getId().equals(sensorID))
                 matchedRoom = room;

@@ -11,6 +11,7 @@ import smarthome.repository.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.text.ParseException;
 
 @SpringBootApplication
 public class Application {
@@ -23,7 +24,7 @@ public class Application {
      *
      * @param args
      */
-    public static void main(String[] args) throws IllegalAccessException, InstantiationException, IOException, org.json.simple.parser.ParseException, ClassNotFoundException, SAXException, ParserConfigurationException {
+    public static void main(String[] args) throws IllegalAccessException, InstantiationException, IOException, org.json.simple.parser.ParseException, ClassNotFoundException, SAXException, ParserConfigurationException, ParseException {
         SpringApplication.run(Application.class);
         SmartHomeUI.init();
         SmartHomeUI.menuOptions();

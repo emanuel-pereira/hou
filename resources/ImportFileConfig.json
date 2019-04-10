@@ -15,7 +15,6 @@
     ],
     "house_sensors": [
       {
-        "xml": "smarthome.model.readers.XMLHouseSensors",
         "json": "smarthome.model.readers.JSONHouseSensors"
       }
     ]
