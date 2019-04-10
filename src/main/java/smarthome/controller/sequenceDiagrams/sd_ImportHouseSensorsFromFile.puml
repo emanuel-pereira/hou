@@ -64,7 +64,7 @@ ref over ":DataImport",":{Reader}",":DataImportCTRL":Create list of Sensors for 
  ":DataImportUI" -> ":DataImportCTRL" :int = getAllSensorsInFile(path)
 'ref over ":DataImportUI",":DataImportCTRL": Get list size of Geographical Areas\n and Sensors to show
 
-SysAdmin<--":DataImportUI": Show message with the size of\House Sensor list to \nimport and asks to confirm import
+SysAdmin<--":DataImportUI": Show the size of Sensor list\nto import and asks\nto confirm import
 
 SysAdmin -> ":DataImportUI": Confirms import
 
@@ -80,5 +80,5 @@ create "s:Sensor"
 "rSList: SensorList" -> ":Repositories": saveSensor(s)
 end
 ":DataImportUI" -> ":DataImportCTRL" :int = getImportedHouseSensorListSize(path)
-SysAdmin<--":DataImportUI": Show success message with number of\n Sensors successfully imported\n and the number of the ones that were not
+SysAdmin<--":DataImportUI": Show the number of Sensors that\nwere imported and the number of\nthe ones that were not
 @enduml
