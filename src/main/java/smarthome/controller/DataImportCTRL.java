@@ -44,7 +44,6 @@ public class DataImportCTRL {
     }
 
 
-
     private List<GeographicalArea> readGeoAreasFromFile(Path filePath) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         DataImport dataImport = new DataImport(gaList);
         return dataImport.loadGeoAreaFiles(filePath);
@@ -93,15 +92,23 @@ public class DataImportCTRL {
         DataImport dataImport = new DataImport(roomList, sensorTypeList);
         List<String[]> dataToImport = dataImport.loadHouseSensorsFiles(filePath);
         dataImport.importHouseSensors(dataToImport);
-        int[]counters= new int[2];
-        counters[0]=dataImport.getSizeOfSensorsAdded();
-        counters[1]=dataImport.getSizeOfSensorsNotAdded();
+        int[] counters = new int[2];
+        counters[0] = dataImport.getSizeOfSensorsAdded();
+        counters[1] = dataImport.getSizeOfSensorsNotAdded();
         return counters;
     }
 
     public int sizeOfSensorsFile(Path filePath) throws IllegalAccessException, ParseException, InstantiationException, IOException, java.text.ParseException, ClassNotFoundException {
         DataImport dataImport = new DataImport(roomList, sensorTypeList);
         return dataImport.loadHouseSensorsFiles(filePath).size();
+    }
+
+    public int roomListSize(){
+        return this.roomList.getRoomListSize();
+    }
+
+    public int sensorTypeListSize(){
+        return this.sensorTypeList.getSensorTypeList().size();
     }
 
 

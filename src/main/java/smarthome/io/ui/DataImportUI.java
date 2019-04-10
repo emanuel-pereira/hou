@@ -112,11 +112,11 @@ public class DataImportUI {
             int sensorsNotAdded = counters[1];
             if (sensorsNotAdded > 0 && sensorsAdded > 0) {
                 System.out.println("Success! " + sensorsAdded + " sensors were imported.");
-                System.out.println("Warning: " + sensorsNotAdded + " sensors were not imported");
+                System.out.println("Warning: " + sensorsNotAdded + " sensors were not imported. Check log file for details.");
                 UtilsUI.backToMenu();
             }
             if (sensorsNotAdded > 0 && sensorsAdded < 1) {
-                System.out.println("Warning: no sensors were imported");
+                System.out.println("Info: no sensors were imported. Check log file for details.");
                 UtilsUI.backToMenu();
             }
             if (sensorsNotAdded < 1 && sensorsAdded > 0) {
@@ -131,6 +131,14 @@ public class DataImportUI {
 
 
     public void loadHouseSensorsFile() {
+        if (this.roomListEmpty()) {
+            System.out.println("Before importing sensors please add rooms first.\n");
+            return;
+        }
+        if (this.sensorTypeListEmpty()) {
+            System.out.println("Before importing sensors please add sensor types first.\n");
+            return;
+        }
         System.out.println("Please enter the file path to import sensors (eg: resources/DataSet_sprint06_HouseSensors.json):");
         String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
         try {
@@ -149,8 +157,16 @@ public class DataImportUI {
         this.importHouseSensors();
     }
 
+    private boolean roomListEmpty() {
+        return this.ctrl.roomListSize() == 0;
+    }
+
+    private boolean sensorTypeListEmpty() {
+        return this.ctrl.sensorTypeListSize() == 0;
+    }
 
 }
+
 
     /*public void showReadings() {
         System.out.println("The following geographical areas and respective sensors were imported from the selected File:");
