@@ -74,42 +74,38 @@ class Room {
  }
 
 
- class SensorTypeList{
- - sensorList: List<SensorType>
+class SensorTypeList{
+- sensorList: List<SensorType>
 
- + getSensorTypeMatchedWithString()
++ getSensorTypeMatchedWithString()
+}
 
- }
+class SensorList{
+- sensorList: List<Sensor>
 
- class SensorList{
- - sensorList: List<Sensor>
++ addSensor()
+}
 
- + addSensor()
- }
+class Sensor {
+- id: String
+- designation: String
+- sensorType: SensorType
+- startDate: Calendar
+- unit: String
+- readingList: ReadingList
 
- class Sensor {
-   - id: String
-   - designation: String
-   - location: Location
-   - sensorType: SensorType
-   - startDate: Calendar
-   - unit: String
-   - readingList: ReadingList
-   }
++ Sensor(id, name,calendar,type,unit,readingList)
+}
 
+RoomList -> Room
+Room --> SensorList
+SensorList -> Sensor
 DataImportUI -> DataImportCTRL
 DataImportCTRL -> DataImport
-
+DataImport -> SensorTypeList
 DataImport --> RoomList
-RoomList -> Room
-
 DataImport --> FileReaderHouseSensors
 FileReaderHouseSensors <|. JSONHouseSensors
-DataImport -> SensorTypeList
-Room -> SensorList
-SensorList -> Sensor
-
-
 
 
 @enduml
