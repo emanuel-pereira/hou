@@ -1,13 +1,16 @@
 package smarthome.model;
+
+import org.apache.log4j.Logger;
 import smarthome.model.validations.NameValidations;
 import smarthome.repository.Repositories;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 public class TypeGAList {
 
     private List<TypeGA> typeOfGAList;
+    static final Logger log = Logger.getLogger(TypeGAList.class);
 
     /**
      * Constructor for TypeGAList where the List of GA's is instantiated
@@ -47,7 +50,7 @@ public class TypeGAList {
             try {
                 Repositories.getTypeGARepository().save(inputType);
             } catch (NullPointerException e) {
-                Logger.getLogger("Repository unreachable");
+                log.warn("Repository unreachable");
             }
             return true;
         } else return false;

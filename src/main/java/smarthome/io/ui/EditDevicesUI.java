@@ -2,7 +2,6 @@ package smarthome.io.ui;
 
 import smarthome.controller.EditDevicesCTRL;
 import smarthome.model.Device;
-import smarthome.model.House;
 import smarthome.model.Room;
 
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EditDevicesUI {
-    private House mHouse;
     private Scanner read = new Scanner(System.in);
     private int selectedRoomIndex;
     private EditDevicesCTRL ctrl;
@@ -18,9 +16,8 @@ public class EditDevicesUI {
     private Device device;
 
 
-    public EditDevicesUI(House house) {
-        mHouse = house;
-        ctrl = new EditDevicesCTRL(mHouse);
+    public EditDevicesUI() {
+        ctrl = new EditDevicesCTRL();
 
     }
 
@@ -179,13 +176,13 @@ public class EditDevicesUI {
     }
 
     public void listDevicesInRoom() {
-        System.out.println("List of devices in " + selectedRoom.getName() + ":");
+        System.out.println("List of devices in " + selectedRoom.getMeteredDesignation() + ":");
         System.out.println(ctrl.showDeviceListInString(selectedRoomIndex));
     }
 
     private boolean deviceListInRoomIsNotEmpty() {
         if (ctrl.getDeviceList(selectedRoom).getDeviceList().isEmpty()) {
-            System.out.println("The device list in " + selectedRoom.getName() + " is empty.\n");
+            System.out.println("The device list in " + selectedRoom.getMeteredDesignation() + " is empty.\n");
             return false;
         }
         return true;

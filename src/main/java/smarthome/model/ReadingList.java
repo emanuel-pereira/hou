@@ -1,17 +1,20 @@
 package smarthome.model;
 
-import smarthome.model.readers.DataImport;
-import smarthome.repository.Repositories;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import smarthome.repository.ReadingRepository;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+@Component
 public class ReadingList {
 
     private List<Reading> listOfReadings;
-    final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
+    static final Logger log = Logger.getLogger(ReadingList.class);
 
 
     public ReadingList() {
@@ -302,6 +305,7 @@ public class ReadingList {
         return endDate;
     }
 
+    //TODO verify accuratness of this method, is it what we require?
     boolean checkIfReadingHasNotSameValues(Reading newReading) {
         try {
             if (newReading.getUnit().equals("F")) {

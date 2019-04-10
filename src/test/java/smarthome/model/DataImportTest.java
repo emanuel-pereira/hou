@@ -1,6 +1,7 @@
 package smarthome.model;
 
 import org.json.simple.parser.ParseException;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 import smarthome.model.readers.DataImport;
@@ -21,7 +22,7 @@ class DataImportTest {
     void getFileExtensionTest() {
         GAList gaList = new GAList();
         DataImport dataImport = new DataImport(gaList);
-        Path path = Paths.get("resources/DataSet_sprint05_SD.json");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_SD.json");
         String result = dataImport.getFileExtension(path);
         String expected = "json";
         assertEquals(expected, result);
@@ -36,6 +37,54 @@ class DataImportTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    @DisplayName("Get Ga List size in file")
+    void getGAListInFileSize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+        GAList gaList = new GAList();
+        DataImport dataImport = new DataImport(gaList);
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
+
+        int expected = 2;
+        int result = dataImport.loadGeoAreaFiles(path).size();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Get Ga List size after import")
+    void getGAListImportedSize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+        GAList gaList = new GAList();
+        DataImport dataImport = new DataImport(gaList);
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
+
+        List<GeographicalArea> inFile = dataImport.loadGeoAreaFiles(path);
+        dataImport.importFromFileGeoArea(inFile);
+
+        int expected = 2;
+        int result = gaList.size();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Get number of not added GAs")
+    void getGAListNotAddedSize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+        GAList gaList = new GAList();
+        DataImport dataImport = new DataImport(gaList);
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
+
+        List<GeographicalArea> inFile1 = dataImport.loadGeoAreaFiles(path);
+        List<GeographicalArea> inFile2 = dataImport.loadGeoAreaFiles(path);
+        List<GeographicalArea> inFile3 = dataImport.loadGeoAreaFiles(path);
+        dataImport.importFromFileGeoArea(inFile1);
+        dataImport.importFromFileGeoArea(inFile2);
+        dataImport.importFromFileGeoArea(inFile3);
+
+        int expected = 2;
+        int result = dataImport.notAddedNumber();
+
+        assertEquals(expected,result);
+    }
 
     @Test
     void getReadingValueAfterImportingTest() throws IllegalAccessException,ClassNotFoundException,InstantiationException,IOException,ParseException, SAXException, ParserConfigurationException {
@@ -51,8 +100,8 @@ class DataImportTest {
         ga.getSensorListInGA().addSensor(sensorPorto);
 
         DataImport dataImport = new DataImport(gaList);
-        Path path = Paths.get("resources/DataSet_sprint05_SD.json");
-        dataImport.importReadingsFromFile(path,gaList);
+        Path path = Paths.get("resources_tests/DataSet_sprint05_SD.json");
+        dataImport.importReadingsFromFile(path);
 
         List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
         double r = rList.get(3).returnValueOfReading();
@@ -73,14 +122,13 @@ class DataImportTest {
         ga.getSensorListInGA().addSensor(sensorPorto);
 
         DataImport dataImport = new DataImport(gaList);
-        Path path = Paths.get("resources/DataSet_sprint05_SD.json");
-        dataImport.importReadingsFromFile(path, gaList);
+        Path path = Paths.get("resources_tests/DataSet_sprint05_SD.json");
+        dataImport.importReadingsFromFile(path);
 
         List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
         int size = rList.size();
         assertEquals(0, size);
     }
-
 
 }
 

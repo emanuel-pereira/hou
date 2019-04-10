@@ -21,7 +21,7 @@ class WashingMachineTest {
         WashingMachine washingMachine = (WashingMachine) d;
 
         String expected = "Whirlpool";
-        String result = washingMachine.getName();
+        String result = washingMachine.getDeviceName();
 
         assertEquals(expected, result);
     }
@@ -33,12 +33,12 @@ class WashingMachineTest {
         Device d = dt.createDevice("Washing Machine 1", 100);
         WashingMachine washingMachine = (WashingMachine) d;
 
-        assertEquals("Washing Machine 1", washingMachine.getName());
+        assertEquals("Washing Machine 1", washingMachine.getDeviceName());
 
         washingMachine.setDeviceName(" ");
 
         String expected = "Washing Machine 1";
-        String result = washingMachine.getName();
+        String result = washingMachine.getDeviceName();
 
         assertEquals(expected, result);
     }
@@ -50,12 +50,12 @@ class WashingMachineTest {
         Device d = dt.createDevice("Washing Machine 1", 100);
         WashingMachine washingMachine = (WashingMachine) d;
 
-        assertEquals("Washing Machine 1", washingMachine.getName());
+        assertEquals("Washing Machine 1", washingMachine.getDeviceName());
 
         washingMachine.setDeviceName("Whirlpool");
 
         String expected = "Whirlpol";
-        String result = washingMachine.getName();
+        String result = washingMachine.getDeviceName();
 
         assertNotEquals(expected, result);
     }
@@ -86,7 +86,7 @@ class WashingMachineTest {
         DeviceType dt = new WashingMachineType();
         Device d = dt.createDevice("Washing Machine 1", 100);
         WashingMachine washingMachine = (WashingMachine) d;
-        String expected = "Washing Machine";
+        String expected = "WashingMachine";
         String result = washingMachine.getDeviceType();
 
         assertEquals(expected, result);
@@ -99,7 +99,7 @@ class WashingMachineTest {
         Device d = dt.createDevice("Washing Machine 1", 100);
         WashingMachine washingMachine = (WashingMachine) d;
 
-        String expected = "Washing Machine";
+        String expected = "WashingMachine";
         String result = washingMachine.getDeviceType();
 
         assertEquals(expected, result);
@@ -329,7 +329,7 @@ class WashingMachineTest {
         wm.setMeteredProgram("Slow");
 
         double expected = 50;
-        double result = wm.getEstimatedEnergyConsumption();
+        double result = wm.getEnergyConsumption();
 
         assertEquals(expected, result);
     }
@@ -345,7 +345,7 @@ class WashingMachineTest {
         wm.addProgramToList(fast);
 
         double expected = 0;
-        double result = wm.getEstimatedEnergyConsumption();
+        double result = wm.getEnergyConsumption();
 
         assertEquals(expected, result);
     }

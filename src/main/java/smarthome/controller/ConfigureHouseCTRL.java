@@ -6,16 +6,16 @@ import smarthome.model.House;
 
 import java.util.List;
 
+import static smarthome.model.House.*;
 
-public class ConfigureHouseLocationCTRL {
+
+public class ConfigureHouseCTRL {
 
     private GAList gaList;
-    private House house;
 
 
-    public ConfigureHouseLocationCTRL(GAList listOfGA, House house) {
+    public ConfigureHouseCTRL(GAList listOfGA) {
         gaList = listOfGA;
-        this.house = house;
     }
 
     public List<GeographicalArea> getGAList() {
@@ -46,9 +46,9 @@ public class ConfigureHouseLocationCTRL {
 
     public boolean configureHouseLocation(int indexOfGA, String streetName, String zipCode, String town,  double latitude, double longitude, double altitude) {
         GeographicalArea ga = gaList.getGAList().get(indexOfGA-1);
-        house.setHouseGA(ga);
-        house.setHouseAddress(streetName, zipCode, town, latitude, longitude, altitude);
-        return house.getAddress() != null;
+        setHouseGA(ga);
+        setHouseAddress(streetName, zipCode, town, latitude, longitude, altitude);
+        return getAddress() != null;
 
     }
 }

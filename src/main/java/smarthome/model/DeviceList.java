@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.dto.DeviceDTO;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,10 @@ public class DeviceList {
      * @param device instance to be added to the device list
      * @return boolean result of the device addition
      */
-    public boolean addDevice(Device device) {
+    //TODO should we be able to create an instance of an object outside of this method? Or should we wire the add
+    // method to the new device that exists in this class, so that whenever we want to create a device we use add
+    // method instead of both newDevice and add methods
+    public boolean add(Device device) {
         if (!this.devicesList.contains(device)) {
             this.devicesList.add(device);
             return true;
@@ -65,7 +70,7 @@ public class DeviceList {
         for (Device device : list) {
             sb.append(device.getDeviceSpecs().getDeviceType());
             sb.append(" (");
-            sb.append(device.getName());
+            sb.append(device.getDeviceName());
             sb.append(") ");
             String fragment = device.isActive() ? active : notActive;
             sb.append(fragment);
@@ -73,6 +78,18 @@ public class DeviceList {
             sb.delete(0, sb.length());
         }
         return result;
+    }
+
+    //US705
+    public List<DeviceDTO> getDevicesListDTO() {
+        List<DeviceDTO> list = new ArrayList<>();
+        List<Device> devices = this.getDeviceList();
+
+        for (Device device : devices) {
+            list.add(new DeviceDTO(device.getDeviceType(), device.getDeviceName(), String.valueOf(device.isActive())));
+        }
+
+        return list;
     }
 
     public List<Device> getDeviceList() {
@@ -114,6 +131,24 @@ public class DeviceList {
             meteredDeviceList.add(meteredDevice);
         }
         return meteredDeviceList;
+    }
+
+    //US705
+    public double reportNominalPower() {
+        double total = 0.0;
+        for (Device device : this.getDeviceList())
+            total += device.getNominalPower();
+        return total;
+    }
+
+    //US705
+    public Device match(String deviceName) {
+        if (this.devicesList.contains(deviceName)) {
+            for (Device device : this.devicesList)
+                if (device.equals(deviceName))
+                    return device;
+        }
+        return null;
     }
 
 }

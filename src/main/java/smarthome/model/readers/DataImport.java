@@ -29,6 +29,8 @@ public class DataImport {
     private int nrOfAddedReadings = 0;
     private int nrOfInvalidReadings = 0;
     private List<Sensor> sensors = new ArrayList<>();
+    private List<GeographicalArea> notAdded;
+    static final Logger log = Logger.getLogger(DataImport.class);
 
 
     /**
@@ -38,6 +40,7 @@ public class DataImport {
      */
     public DataImport(GAList gaList) {
         this.gaList = gaList;
+        this.notAdded = new ArrayList<>();
     }
 
     /**
@@ -189,6 +192,7 @@ public class DataImport {
     }
 
     public void importFromFileGeoArea(List<GeographicalArea> dataToImport) {
+        this.notAdded.clear();
         for (GeographicalArea ga : dataToImport) {
             if (this.gaList.addGA(ga)) {
                 try {
@@ -198,7 +202,14 @@ public class DataImport {
                 } catch (NullPointerException e) {
                     log.warn("Repository unreachable");
                 }
-            } else log.info("No Geographical Areas were imported into the systems DB");
+            } else{
+                this.notAdded.add(ga);
+                log.info("No Geographical Areas were imported into the systems DB");}
         }
     }
+
+    public int notAddedNumber(){
+        return this.notAdded.size();
+    }
+
 }

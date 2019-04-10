@@ -2,9 +2,8 @@ package smarthome.model;
 
 public interface Device {
 
-
     /* ---- Getters ---- */
-    String getName();
+    String getDeviceName();
 
     DeviceSpecs getDeviceSpecs();
 

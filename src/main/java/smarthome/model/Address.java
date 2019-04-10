@@ -3,9 +3,12 @@ package smarthome.model;
 public class Address {
 
     private String street;
+    private String number;
     private String zipCode;
     private String town;
+    private String country;
     private Location gpsLocation;
+
 
     /**
      * This constructor sets up the Address that will be used in the House
@@ -15,10 +18,12 @@ public class Address {
      * @param town        Required town
      * @param gpsLocation Required GPS location
      */
-    public Address(String streetName, String zipCode, String town, Location gpsLocation) {
+    public Address(String streetName,String number, String zipCode, String town, String country, Location gpsLocation) {
         this.street = streetName;
+        this.number = number;
         this.zipCode = zipCode;
         this.town = town;
+        this.country = country;
         this.gpsLocation = gpsLocation;
     }
 
@@ -35,6 +40,11 @@ public class Address {
         }
     }
 
+    public void setNumber(String number) {
+        if(this.validateNumber(number)){
+            this.number = number;
+        }
+    }
 
     public void setZipCode(String zipCode) {
         if (this.validateZipCode (zipCode)) {
@@ -45,6 +55,12 @@ public class Address {
     public void setTown(String town) {
         if (this.validateTown (town)) {
             this.town = town;
+        }
+    }
+
+    public void setCountry(String country) {
+        if (this.validateTown (country)) {
+            this.country = country;
         }
     }
 
@@ -70,6 +86,19 @@ public class Address {
         return this.street;
     }
 
+
+
+    public boolean validateNumber(String number) {
+        if (number == null || number.trim ().isEmpty ()) {
+            return false;
+        }
+        return this.noStartWithSpaces (number);
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
     /**
      * Validates the number of the house. It accepts only numbers with no spaces
      *
@@ -90,6 +119,18 @@ public class Address {
      */
     public String getTown() {
         return this.town;
+    }
+
+
+    public boolean validateCountry(String country) {
+        if (country == null || country.trim ().isEmpty ()) {
+            return false;
+        }
+        return this.noStartWithSpaces (country);
+    }
+
+    public String getCountry() {
+        return country;
     }
 
     /**

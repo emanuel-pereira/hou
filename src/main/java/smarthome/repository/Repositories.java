@@ -1,9 +1,6 @@
 package smarthome.repository;
 
-import smarthome.model.GeographicalArea;
-import smarthome.model.Reading;
-import smarthome.model.Sensor;
-import smarthome.model.SensorList;
+import smarthome.model.*;
 
 import java.util.List;
 
@@ -13,6 +10,7 @@ public final class Repositories {
     private static SensorTypeRepository sensorTypeRepository = null;
     private static TypeGARepository typeGARepository;
     private static ReadingRepository readingRepository = null;
+    private static RoomRepository roomRepository = null;
 
     /**
      * Private constructor to hide the implicit one
@@ -35,14 +33,18 @@ public final class Repositories {
     public static void setTypeGARepository(TypeGARepository typeGARepository) {
         Repositories.typeGARepository = typeGARepository;
     }
+
     public static void setReadingRepository(ReadingRepository readingRepository) {
         Repositories.readingRepository = readingRepository;
+    }
+
+    public static void setRoomRepository(RoomRepository roomRepository) {
+        Repositories.roomRepository = roomRepository;
     }
 
     public static GeoRepository getGeoRepository() {
         return geoRepository;
     }
-
 
 
     public static SensorRepository getSensorRepository() {
@@ -56,8 +58,13 @@ public final class Repositories {
     public static TypeGARepository getTypeGARepository() {
         return typeGARepository;
     }
+
     public static ReadingRepository getReadingRepository() {
         return readingRepository;
+    }
+
+    public static RoomRepository getRoomRepository() {
+        return roomRepository;
     }
 
     public static void saveGA(GeographicalArea ga) {
@@ -72,6 +79,16 @@ public final class Repositories {
         }
     }
 
+    public static void saveRoom(Room r) {
+
+        Repositories.roomRepository.save(r);
+
+        SensorList sensorList = r.getSensorListInRoom();
+        List<Sensor> sensors = sensorList.getSensorList();
+        for (Sensor sensor : sensors) {
+            saveSensor(sensor);
+        }
+    }
 
     public static void saveSensor(Sensor s) {
         Repositories.sensorTypeRepository.save(s.getSensorType());
@@ -80,7 +97,9 @@ public final class Repositories {
         for (Reading reading : s.getReadingList().getReadingsList()) {
             reading.setSensor(s);
             Repositories.readingRepository.save(reading);
-
         }
     }
+
+
+
 }

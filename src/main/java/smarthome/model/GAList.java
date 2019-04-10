@@ -6,14 +6,13 @@ import java.util.List;
 public class GAList {
 
     private List<GeographicalArea> listOfGa;
-    private List<GeographicalArea> notAdded;
 
     /**
      * Constructor method to set the attribute of the GA's List as an ArrayList
      */
     public GAList() {
         this.listOfGa = new ArrayList<>();
-        this.notAdded = new ArrayList<>();
+
     }
 
     /**
@@ -39,7 +38,6 @@ public class GAList {
      */
     public boolean addGA(GeographicalArea inputGA) {
         if (this.listOfGa.contains(inputGA) || this.getAllGaId().contains(inputGA.getId())){
-            this.notAdded.add(inputGA);
             return false;
         }
         else{
@@ -89,10 +87,6 @@ public class GAList {
         return this.listOfGa;
     }
 
-    public List<GeographicalArea> getNotAdded() {
-        return this.notAdded;
-    }
-
     /**
      * Method to get a specific Geographical Area in index position i
      *
@@ -101,6 +95,17 @@ public class GAList {
      */
     public GeographicalArea get(int i) {
         return this.listOfGa.get(i);
+    }
+
+    public GeographicalArea getById(String inputId) {
+        GeographicalArea geoArea = get(0);
+        for(GeographicalArea ga : this.listOfGa) {
+            geoArea = ga;
+            if (geoArea.getId().matches(inputId)) {
+                break;
+            }
+        }
+        return geoArea;
     }
 
     /**

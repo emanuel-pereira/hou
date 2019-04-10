@@ -1,13 +1,17 @@
 package smarthome.model;
 
+import org.apache.log4j.Logger;
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
+import smarthome.repository.Repositories;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoomList {
+
     private List<Room> listOfRooms;
+    static final Logger log = Logger.getLogger(RoomList.class);
 
 
     /**
@@ -45,10 +49,31 @@ public class RoomList {
     public boolean addRoom(Room newRoom) {
         if (newRoom != null && !this.listOfRooms.contains(newRoom)) {
             this.listOfRooms.add(newRoom);
+            //Repository call
+            try {
+                Repositories.saveRoom(newRoom);
+            } catch (NullPointerException e) {
+                log.warn("Repository unreachable");
+            }
             return true;
         } else return false;
     }
 
+
+    /**
+     * Checks if the room ID exists in the room list, so the ID is not repeated
+     *
+     * @param id Room ID
+     * @return True if the room ID exists
+     */
+    public boolean checkIfRoomIDExists(String id) {
+        for (Room r : this.getRoomList()) {
+            if (r.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Checks if the room name exists in the room list, so the name is not repeated
@@ -58,7 +83,7 @@ public class RoomList {
      */
     public boolean checkIfRoomNameExists(String name) {
         for (Room r : this.getRoomList()) {
-            if (r.getName().equals(name)) {
+            if (r.getMeteredDesignation().equals(name)) {
                 return true;
             }
         }
@@ -109,7 +134,7 @@ public class RoomList {
         for (Room room : list) {
             result.append(number++);
             result.append(element);
-            result.append(room.getName());
+            result.append(room.getMeteredDesignation());
             result.append("\n");
         }
         return result.toString();

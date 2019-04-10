@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetCurrentTemperatureInHouseAreaCTRL;
-import smarthome.model.House;
 import smarthome.model.Sensor;
 import smarthome.model.SensorType;
 import smarthome.model.SensorTypeList;
@@ -14,8 +13,8 @@ public class GetCurrentTemperatureInHouseAreaUI {
     Scanner read = new Scanner(System.in);
     private SensorType sensorType;
 
-    public GetCurrentTemperatureInHouseAreaUI(House house, SensorTypeList sensorTypeList) {
-        this.ctrl = new GetCurrentTemperatureInHouseAreaCTRL(house, sensorTypeList);
+    public GetCurrentTemperatureInHouseAreaUI(SensorTypeList sensorTypeList) {
+        this.ctrl = new GetCurrentTemperatureInHouseAreaCTRL(sensorTypeList);
     }
 
 
@@ -29,7 +28,7 @@ public class GetCurrentTemperatureInHouseAreaUI {
     }
 
     private void checkHouseGA() {
-        if (this.ctrl.getHouseGA() == null) {
+        if (this.ctrl.getHouseGACTRL() == null) {
             System.out.println("The house configuration does not have a geographical area. Please ask the System Administrator to configure this.\n");
             return;
         }
@@ -51,7 +50,7 @@ public class GetCurrentTemperatureInHouseAreaUI {
             System.out.println("No sensors of that type in the house area");
             return;
         }
-        Sensor closestSensor = this.ctrl.getClosestSensorWithLatestReading(this.sensorType);
+        Sensor closestSensor = this.ctrl.getClosestSensorWithLatestReadingCTRL(this.sensorType);
         double currentReadingValue = this.ctrl.getLastReadingOfSensor(closestSensor);
         System.out.println("The current " + this.sensorType.getType() + " in the House Area is " + currentReadingValue);
     }

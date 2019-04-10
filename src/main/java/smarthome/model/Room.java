@@ -2,19 +2,39 @@ package smarthome.model;
 
 import smarthome.model.validations.Utils;
 
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "Room")
 public class Room implements Metered {
 
+    @Id
+    @Column(name = "ID")
     private String id;
+
     private String name;
+
     private Integer floor;
+
+    @Embedded
     private OccupationArea area;
+
     private double height;
-    private SensorList sensorListInRoom = new SensorList();
+
+    @Transient
+    private SensorList sensorListInRoom;
+
+    @Transient
     private DeviceList deviceList;
+
+    protected Room() {
+    }
+
+    @Transient
+    private double time;
 
 
     /**
@@ -32,6 +52,7 @@ public class Room implements Metered {
         this.floor = floor;
         this.area = new OccupationArea(length, width);
         this.height = height;
+        this.sensorListInRoom= new SensorList();
         this.deviceList = new DeviceList();
     }
 
@@ -40,7 +61,7 @@ public class Room implements Metered {
      *
      * @return Name of the room
      */
-    public String getName() {
+    public String getMeteredDesignation() {
         return this.name;
     }
 
@@ -63,7 +84,7 @@ public class Room implements Metered {
     }
 
 
-    public String getId(){
+    public String getId() {
         return this.id;
     }
 
@@ -141,11 +162,18 @@ public class Room implements Metered {
     @Override
     public double getEstimatedEnergyConsumption() {
         double sum = 0;
-        for (Metered device : this.deviceList.getMeteredDevices ()) {
-            sum += device.getEstimatedEnergyConsumption ();
+        for (Metered device : this.deviceList.getMeteredDevices()) {
+            device.setTime(this.time);
+            sum += device.getEstimatedEnergyConsumption();
         }
-        return Utils.round (sum, 2);
+        return Utils.round(sum, 2);
     }
+
+    @Override
+    public void setTime(double duration) {
+        this.time = duration;
+    }
+
 
     /**
      * Method that checks if a text is only spaces
@@ -163,11 +191,12 @@ public class Room implements Metered {
 
     /**
      * Changes the Id of the room to the one inputted by the user.
+     *
      * @param roomId Room's id String
      * @return True if correctly validate
      */
     public boolean setId(String roomId) {
-        if (this.roomIdIsValid(roomId)){
+        if (this.roomIdIsValid(roomId)) {
             this.id = roomId;
             return true;
         }
@@ -176,6 +205,7 @@ public class Room implements Metered {
 
     /**
      * Accept alphanumeric input without spaces
+     *
      * @param id Unique identification
      * @return True if validate correctly
      */

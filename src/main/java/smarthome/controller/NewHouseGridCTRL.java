@@ -1,14 +1,14 @@
 package smarthome.controller;
 
-import smarthome.model.House;
+
 import smarthome.model.HouseGrid;
+
+import static smarthome.model.House.getHGListInHouse;
 
 public class NewHouseGridCTRL {
 
-    private House mHouse;
+    public NewHouseGridCTRL() {
 
-    public NewHouseGridCTRL(House house) {
-        mHouse = house;
     }
 
     /**
@@ -17,7 +17,7 @@ public class NewHouseGridCTRL {
      * @return list of objects of HouseGrid type
      */
     public int getHouseGridListSize() {
-        return mHouse.getHGListInHouse().getSize();
+        return getHGListInHouse().getSize();
     }
 
     /**
@@ -26,7 +26,7 @@ public class NewHouseGridCTRL {
      * @return String Result List
      */
     public String showGridsListInString() {
-        return mHouse.getHGListInHouse().showHouseGridListInString();
+        return getHGListInHouse().showHouseGridListInString();
     }
 
     /**
@@ -38,7 +38,7 @@ public class NewHouseGridCTRL {
      * false if not
      */
     public boolean createNewHouseGrid(String id) {
-        HouseGrid newHouseGrid = mHouse.getHGListInHouse().newHouseGrid(id);
-        return mHouse.getHGListInHouse().addHouseGrid(newHouseGrid);
+        HouseGrid newHouseGrid = getHGListInHouse().newHouseGrid(id);
+        return getHGListInHouse().addHouseGrid(newHouseGrid);
     }
 }

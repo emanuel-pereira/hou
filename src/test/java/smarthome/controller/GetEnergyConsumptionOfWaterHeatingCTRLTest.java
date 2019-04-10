@@ -1,17 +1,37 @@
 package smarthome.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
+import java.lang.reflect.Field;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static smarthome.model.House.getHouseRoomList;
+
 
 class GetEnergyConsumptionOfWaterHeatingCTRLTest {
 
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
+
     @Test
     void getDevicesInAllRoomsByType() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        House house = new House();
-        RoomList roomList = house.getRoomList();
-        GetEnergyConsumptionOfWaterHeatingCTRL ctrl = new GetEnergyConsumptionOfWaterHeatingCTRL(house);
+        RoomList roomList = getHouseRoomList();
+        GetEnergyConsumptionOfWaterHeatingCTRL ctrl = new GetEnergyConsumptionOfWaterHeatingCTRL();
 
         Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
         Room garage = new Room("R02","Living Room", 0, 5, 4, 3);
@@ -26,11 +46,11 @@ class GetEnergyConsumptionOfWaterHeatingCTRLTest {
         Device lampA = kitDeviceList.newDevice("Philips Smart Bulb", "Lamp", 15);
         Device fridgeB = kitDeviceList.newDevice("Samsung Fridge", "Fridge", 250);
 
-        kitDeviceList.addDevice(fridgeA);
-        kitDeviceList.addDevice(kettleA);
-        kitDeviceList.addDevice(lampA);
-        grDeviceList.addDevice(lampA);
-        grDeviceList.addDevice(fridgeB);
+        kitDeviceList.add(fridgeA);
+        kitDeviceList.add(kettleA);
+        kitDeviceList.add(lampA);
+        grDeviceList.add(lampA);
+        grDeviceList.add(fridgeB);
 
         int expected = 2;
         int result = ctrl.getDevicesInAllRoomsByType("Fridge").size();
@@ -40,10 +60,9 @@ class GetEnergyConsumptionOfWaterHeatingCTRLTest {
 
     @Test
     void getEnergyConsumptionByDeviceType() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        House house = new House();
-        GetEnergyConsumptionOfWaterHeatingCTRL ctrl = new GetEnergyConsumptionOfWaterHeatingCTRL(house);
+        GetEnergyConsumptionOfWaterHeatingCTRL ctrl = new GetEnergyConsumptionOfWaterHeatingCTRL();
 
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = getHouseRoomList();
         Room kitchen = new Room("R01","Kitchen", 0, 6, 3.5, 3);
         Room garage = new Room("R02","Garage", 0, 6, 4, 3);
         roomList.addRoom(kitchen);
@@ -56,8 +75,8 @@ class GetEnergyConsumptionOfWaterHeatingCTRLTest {
         Device ewhA = kitchenDeviceList.newDevice("LG EWH K", "Fridge", 150);
         Device ewhB = garageDeviceList.newDevice("LG EWH G", "Fridge", 150);
 
-        kitchenDeviceList.addDevice(ewhA);
-        garageDeviceList.addDevice(ewhB);
+        kitchenDeviceList.add(ewhA);
+        garageDeviceList.add(ewhB);
 
         double expected = 0;
         //TODO replace Fridge for EWH
@@ -67,10 +86,9 @@ class GetEnergyConsumptionOfWaterHeatingCTRLTest {
 
     @Test
     void setAttribute() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        House house = new House();
-        GetEnergyConsumptionOfWaterHeatingCTRL ctrl = new GetEnergyConsumptionOfWaterHeatingCTRL(house);
+        GetEnergyConsumptionOfWaterHeatingCTRL ctrl = new GetEnergyConsumptionOfWaterHeatingCTRL();
 
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = getHouseRoomList();
         Room kitchen = new Room("R01","Kitchen", 0, 6, 3.5, 3);
         Room garage = new Room("R02","Garage", 0, 6, 4, 3);
         roomList.addRoom(kitchen);
@@ -83,8 +101,8 @@ class GetEnergyConsumptionOfWaterHeatingCTRLTest {
         Device ewhA = kitchenDeviceList.newDevice("LG EWH K", "Fridge", 150);
         Device ewhB = garageDeviceList.newDevice("LG EWH G", "Fridge", 150);
 
-        kitchenDeviceList.addDevice(ewhA);
-        garageDeviceList.addDevice(ewhB);
+        kitchenDeviceList.add(ewhA);
+        garageDeviceList.add(ewhB);
 
         /*String volumeOfWater = "Volume of water capacity";
         String hotWaterTemperature = "Hot water temperature";
