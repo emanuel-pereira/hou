@@ -208,8 +208,7 @@ public class DataImport {
         String fileExtension = getFileExtension(filePathAndName);
         String className = getClassName("house_sensors", fileExtension);
         FileReaderHouseSensors reader = (FileReaderHouseSensors) Class.forName(className).newInstance();
-        List<String[]> dataToImport = reader.loadData(filePathAndName);
-        return dataToImport;
+        return reader.loadData(filePathAndName);
     }
 
     public void importHouseSensors(List<String[]> dataToImport) throws java.text.ParseException {

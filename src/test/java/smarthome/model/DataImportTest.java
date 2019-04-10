@@ -101,8 +101,8 @@ class DataImportTest {
         roomList.addRoom(room5);
 
         DataImport dataImport = new DataImport(roomList,sensorTypeList);
-        Path path = Paths.get("resources/DataSet_sprint06_HouseSensors-AllSensorsSameID.json");
-        dataImport.loadHouseSensorsFiles(path);
+        Path path = Paths.get("resources/DataSet_sprint06_HouseSensors.json");
+        dataImport.importHouseSensors(dataImport.loadHouseSensorsFiles(path));
 
         List<Sensor> sensorList = house.getRoomList().getRoomList().get(0).getSensorListInRoom().getSensorList();
         int size = sensorList.size();

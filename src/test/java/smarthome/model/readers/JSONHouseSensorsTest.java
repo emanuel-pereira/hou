@@ -15,7 +15,7 @@ public class JSONHouseSensorsTest {
     @Test
     void importDataSizeListTest() throws IOException, ParseException {
         JSONHouseSensors jsonHouseSensors = new JSONHouseSensors();
-        Path path = Paths.get("resources/DataSet_sprint06_HouseSensors-AllSensorsSameID.json");
+        Path path = Paths.get("resources/DataSet_sprint06_HouseSensors.json");
         List<String[]> result;
         result = jsonHouseSensors.loadData(path);
         assertEquals(result.size(),4);
