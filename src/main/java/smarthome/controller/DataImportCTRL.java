@@ -2,10 +2,7 @@ package smarthome.controller;
 
 import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
-import smarthome.model.GAList;
-import smarthome.model.GeographicalArea;
-import smarthome.model.RoomList;
-import smarthome.model.Sensor;
+import smarthome.model.*;
 import smarthome.model.readers.DataImport;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -46,6 +43,20 @@ public class DataImportCTRL {
         this.roomList = roomList;
         this.dataImport = new DataImport(roomList);
 
+    }
+
+
+    public int roomListSize() {
+        return this.roomList.getRoomListSize();
+    }
+
+
+    public int getSizeSensorListInHouseRooms() {
+        int size = 0;
+        for (Room r : roomList.getRoomList()) {
+            size += r.getSensorListInRoom().size();
+        }
+        return size;
     }
 
 

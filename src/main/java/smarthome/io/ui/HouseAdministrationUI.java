@@ -69,7 +69,7 @@ public final class HouseAdministrationUI {
                     break;
                 case 7:
                     GetTotalNominalPowerUI ui230 = new GetTotalNominalPowerUI(house);
-                    ui230.getRoomTotalNominalPower ();
+                    ui230.getRoomTotalNominalPower();
                     break;
                 case 8:
                     NewSensorUI newSensorUI = new NewSensorUI(house, sensorTypeList, gaList);
@@ -89,12 +89,12 @@ public final class HouseAdministrationUI {
                     break;
                 case 12:
                     GetTotalNominalPowerUI uS172 = new GetTotalNominalPowerUI(house);
-                    uS172.getGridTotalNominalPower ();
+                    uS172.getGridTotalNominalPower();
                     break;
 
                 case 13:
                     DataImportUI ui13 = new DataImportUI(house.getRoomList());
-                    ui13.importReadings(house.getRoomList());
+                    ui13.checkIfRoomsAndSensorsExists(house.getRoomList());
                     break;
                 default:
                     //no action needed

@@ -5,6 +5,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 import smarthome.model.*;
+import smarthome.model.GAList;
+import smarthome.model.GeographicalArea;
+import smarthome.model.Room;
+import smarthome.model.RoomList;
 
 import javax.sql.rowset.CachedRowSet;
 import javax.xml.parsers.ParserConfigurationException;
@@ -399,5 +403,124 @@ class DataImportCTRLTest {
         assertEquals(expected, result);
 
 
+    }
+
+
+    @Test
+    void checkRoomListSizeIsZero() {
+
+        RoomList roomList = new RoomList();
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(roomList);
+
+        int expected = 0;
+        int result = dataImportCTRL.roomListSize();
+
+        assertEquals(expected, result);
+
+    }
+    @Test
+    void checkRoomListSizeIsTwo() {
+
+        RoomList roomList = new RoomList();
+        Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
+        Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(bedroom);
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(roomList);
+
+        int expected = 2;
+        int result = dataImportCTRL.roomListSize();
+
+        assertEquals(expected, result);
+
+    }
+
+
+    @Test
+    void getGaListInFileSize() throws IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
+
+        GAList gaList = new GAList();
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
+        String filepath1 = "resources/DataSet_sprint05_GA.json";
+        Path path1 = Paths.get(filepath1);
+        dataImportCTRL.getImportedGaListSize(path1);
+
+        int expected = 0;
+        int result = dataImportCTRL.failedToAdd();
+
+        assertEquals(expected, result);
+
+    }
+
+    @Test
+    void getImportedGaListSize() throws IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
+
+        GAList gaList = new GAList();
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
+        String filepath1 = "resources/DataSet_sprint05_GA.json";
+
+        Path path1 = Paths.get(filepath1);
+        dataImportCTRL.importGeoAreasFromFile(path1);
+
+
+        int expected = 2;
+        int result = dataImportCTRL.getGaListInFileSize(path1);
+
+        assertEquals(expected, result);
+    }
+
+
+
+    @Test
+    void getSizeSensorListInHouseRoomsIsEmpty() {
+
+        RoomList roomList = new RoomList();
+        Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
+        Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(bedroom);
+
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(roomList);
+
+        dataImportCTRL.getSizeSensorListInHouseRooms();
+
+        int expected = 0;
+
+        int result = dataImportCTRL.getSizeSensorListInHouseRooms();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void getSizeSensorListInHouseRoomsHasTwoSensors() {
+
+        RoomList roomList = new RoomList();
+        Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
+        Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
+        roomList.addRoom(kitchen);
+        roomList.addRoom(bedroom);
+
+        SensorList kSensorList = kitchen.getSensorListInRoom();
+        GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
+        Location s0Location = new Location(12, 25, 32);
+        SensorType temperature = new SensorType("temperature");
+        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        kSensorList.addSensor(tSensor0);
+        SensorList bSensorList = bedroom.getSensorListInRoom();
+        GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
+        Location s1Location = new Location(12, 25, 32);
+        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+
+        bSensorList.addSensor(tSensor1);
+
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(roomList);
+
+        dataImportCTRL.getSizeSensorListInHouseRooms();
+
+        int expected = 2;
+
+        int result = dataImportCTRL.getSizeSensorListInHouseRooms();
+
+        assertEquals(expected,result);
     }
 }

@@ -1,5 +1,6 @@
 package smarthome.io.ui;
 
+import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
 import smarthome.controller.DataImportCTRL;
 import smarthome.model.GAList;
@@ -54,7 +55,6 @@ public class DataImportUI {
 
     public void showGAsNumberInFile() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         System.out.println("In the file there are\n");
-
         System.out.println(" - " + ctrl.getGaListInFileSize(this.filePath) + " geographical area(s).");
         System.out.println(" - " + ctrl.getAllSensorsInFileSize(this.filePath) + " sensor(s).");
         this.importGAs();
@@ -114,5 +114,19 @@ public class DataImportUI {
             }
         }
     }
-}
 
+
+
+    public void checkIfRoomsAndSensorsExists(Object object) throws IllegalAccessException, ParseException, IOException, InstantiationException, SAXException, ParserConfigurationException, ClassNotFoundException {
+
+        if (ctrl.roomListSize() != 0 && ctrl.getSizeSensorListInHouseRooms() != 0) {
+            this.importReadings(object);
+
+        } else {
+            System.out.println("There are no sensors or rooms in house. Please add one sensor on a room of the house for insert readings." +
+                    "To import readings sensors, the house must have, at least, one room and one sensor.");
+            UtilsUI.backToMenu();
+
+        }
+    }
+}
