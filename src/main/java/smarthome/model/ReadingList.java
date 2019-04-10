@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import smarthome.repository.ReadingRepository;
+import smarthome.repository.Repositories;
 
 import java.util.ArrayList;
 import java.util.Calendar;

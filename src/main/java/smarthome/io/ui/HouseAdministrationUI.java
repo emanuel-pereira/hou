@@ -9,13 +9,15 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static smarthome.model.House.*;
+
 public final class HouseAdministrationUI {
 
     private HouseAdministrationUI() {
     }
 
     public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList)
-            throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+            throws ClassNotFoundException, IllegalAccessException, InstantiationException, SAXException, ParserConfigurationException, ParseException, IOException {
 
         int option = -1;
         while (option != 0) {
@@ -91,8 +93,8 @@ public final class HouseAdministrationUI {
                     break;
 
                 case 13:
-                    DataImportUI ui13 = new DataImportUI(house.getRoomList());
-                    ui13.checkIfRoomsAndSensorsExists(house.getRoomList());
+                    DataImportUI ui13 = new DataImportUI(getHouseRoomList());
+                    ui13.checkIfRoomsAndSensorsExists(getHouseRoomList());
                     break;
                 default:
                     //no action needed

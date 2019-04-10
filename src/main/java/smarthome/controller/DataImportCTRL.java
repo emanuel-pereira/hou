@@ -61,7 +61,7 @@ public class DataImportCTRL {
      * @param filePath
      */
     private List<GeographicalArea> readGeoAreasFromFile (Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
-        return dataImportGeoArea.loadGeoAreaFiles(filePath);
+        return dataImport.loadGeoAreaFiles(filePath);
     }
 
     public int getGaListInFileSize (Path filePath)throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
@@ -78,11 +78,11 @@ public class DataImportCTRL {
     }
 
     public void importGeoAreasFromFile(Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException{
-        dataImportGeoArea.importFromFileGeoArea(this.readGeoAreasFromFile(filePath));
+        dataImport.importFromFileGeoArea(this.readGeoAreasFromFile(filePath));
     }
 
     public int failedToAdd (){
-        return dataImportGeoArea.notAddedNumber();
+        return dataImport.notAddedNumber();
     }
 
     public int getImportedGaListSize (Path filepath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
@@ -98,10 +98,17 @@ public class DataImportCTRL {
         }
     }
 
+    /**
+     * @return the number of imported readings
+     */
     public int getNrOfImportedReadings(){
         return dataImport.getNrOfAddedReadings();
     }
 
+    /**
+     * @return the number of invalid readings which includes readings outside the sensor's operation
+     * period or readings that don't match any sensorId
+     */
     public int getNrOfInvalidReadings(){
         return dataImport.getNrOfInvalidReadings();
     }

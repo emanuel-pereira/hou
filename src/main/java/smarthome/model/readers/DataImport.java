@@ -30,7 +30,6 @@ public class DataImport {
     private int nrOfInvalidReadings = 0;
     private List<Sensor> sensors = new ArrayList<>();
     private List<GeographicalArea> notAdded;
-    static final Logger log = Logger.getLogger(DataImport.class);
 
 
     /**
