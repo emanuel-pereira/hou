@@ -489,7 +489,7 @@ class HouseTest {
 
         double result = averageOfReadingsInPeriod(sT, startDate, endDate);
 
-        assertEquals(48.425, result, 0.1);
+        assertEquals(34.4, result, 0.1);
 
 
     }
@@ -543,7 +543,7 @@ class HouseTest {
 
         double result = averageOfReadingsInPeriod(sT, startDate, endDate);
 
-        assertEquals(27.6, result);
+        assertEquals(27.1, result);
 
     }
 

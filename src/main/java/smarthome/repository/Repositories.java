@@ -68,7 +68,7 @@ public final class Repositories {
     }
 
     public static void saveGA(GeographicalArea ga) {
-
+        Repositories.getTypeGARepository().save(ga.getType());
         Repositories.geoRepository.save(ga);
 
         SensorList sensorList = ga.getSensorListInGA();
@@ -90,6 +90,7 @@ public final class Repositories {
     }
 
     public static void saveSensor(Sensor s) {
+        Repositories.getSensorTypeRepository().save(s.getSensorType());
         Repositories.sensorRepository.save(s);
 
         for (Reading reading : s.getReadingList().getReadingsList()) {

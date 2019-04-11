@@ -15,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
 
+
+
     Location loc = new Location(20, 20, 2);
     Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
     OccupationArea oc = new OccupationArea(2, 5);
@@ -355,7 +357,7 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         rL3.addReading(r10);
 
         Location l1 = new Location(45, -12, 200);
-        Location l2 = new Location(47, -12, 200);
+        Location l2 = new Location(21, 21, 200);
 
         Sensor s21 = new Sensor("R0001","RainSensor", sDate1, l2, sT, "l/m2", rL1);
         Sensor s22 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
@@ -375,7 +377,7 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
 
         double result = ctrl623.calculateAverageOfRainfallReadings(sT, startDate, endDate);
 
-        assertEquals(38.47, result, 0.1);
+        assertEquals(22.83, result, 0.1);
     }
 
     @Test
@@ -452,7 +454,7 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
 
         double result = ctrl623.calculateAverageOfRainfallReadings(sT, startDate, endDate);
 
-        assertEquals(20.46, result, 0.1);
+        assertEquals(22.83, result, 0.1);
     }
 
     @Test
@@ -527,7 +529,7 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
 
         double result = ctrl623.calculateAverageOfRainfallReadings(sT, startDate, endDate);
 
-        assertEquals(46.46, result, 0.1);
+        assertEquals(14.5, result, 0.1);
     }
 
 }
