@@ -5,8 +5,8 @@ import org.xml.sax.SAXException;
 import smarthome.model.GAList;
 import smarthome.model.SensorTypeList;
 
-import java.io.IOException;
 import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static smarthome.model.House.getHouseRoomList;
@@ -41,7 +41,7 @@ public final class HouseAdministrationUI {
 
             UtilsUI.showList("House administration", options, false, 5);
 
-            option = UtilsUI.requestIntegerInInterval(0, 15, "Please choose an action between 1 and 12, or 0 to exit the program");
+            option = UtilsUI.requestIntegerInInterval(0, 15, "Please choose an action between 1 and 15, or 0 to exit the program");
 
             switch (option) {
                 case 1:

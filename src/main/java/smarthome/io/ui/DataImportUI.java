@@ -114,7 +114,7 @@ public class DataImportUI {
         boolean loop = true;
         while (loop) {
             System.out.println("Please insert the directory and the name of the file (eg: resources/DataSet_sprint06_GAData.json):");
-            String filepath = UtilsUI.requestText("Invalid filepath.", "[A-Za-z0-9/._]*");
+            String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
             Path path = Paths.get(filepath);
             try {
                 if (UtilsUI.confirmOption("Please confirm if you want to import sensors' readings. (y/n)", "Please type y for Yes or n for No.")) {
