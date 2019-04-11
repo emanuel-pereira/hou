@@ -16,7 +16,6 @@ public class DataImportCTRL {
     private GAList gaList;
     private RoomList roomList;
     private SensorTypeList sensorTypeList;
-    private RoomList roomList;
     private DataImport dataImport;
 
     public DataImportCTRL(GAList gaList) {
@@ -35,12 +34,25 @@ public class DataImportCTRL {
     public DataImportCTRL(RoomList roomList) {
         this.roomList = roomList;
         this.dataImport = new DataImport(roomList);
-
     }
+
+    /**
+     * Constructor for importing data related to RoomList and SensorTypeList.
+     * Creates an instance of the DataImportCTRL with RoomList and SensorTypeList passed as parameters when DataImportUI is invoked through
+     * HouseAdministration menu, i.e, when the user wants to import information related to RoomList, such as sensors
+     * or readings.
+     *
+     * @param roomList parameter to be updated with imported data
+     * @param sensorTypeList parameter to be updated with imported data
+     */
+    public DataImportCTRL(RoomList roomList, SensorTypeList sensorTypeList) {
+        this.roomList = roomList;
+        this.sensorTypeList = sensorTypeList;
+    }
+
     public int roomListSize() {
         return this.roomList.getRoomListSize();
     }
-
 
     public int getSizeSensorListInHouseRooms() {
         int size = 0;
@@ -50,17 +62,6 @@ public class DataImportCTRL {
         return size;
     }
 
-    /**private method that return the list of Geographical areas(with encapsulated sensors if they exist) present in the file
-     * @param filePath file that has info to import
-     */
-    public DataImportCTRL(RoomList roomList, SensorTypeList sensorTypeList) {
-        this.roomList = roomList;
-        this.sensorTypeList = sensorTypeList;
-    }
-
-
-    private List<GeographicalArea> readGeoAreasFromFile(Path filePath) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
-        DataImport dataImport = new DataImport(gaList);
     private List<GeographicalArea> readGeoAreasFromFile (Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
         return dataImport.loadGeoAreaFiles(filePath);
     }
@@ -92,11 +93,9 @@ public class DataImportCTRL {
 
     public void importReadingsFromFile(Path filePath, Object object) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
         if (object.equals(gaList)) {
-            DataImport dataImport = new DataImport(gaList);
             dataImport.importReadingsFromFile(filePath, object);
         }
         if (object.equals(roomList)) {
-            DataImport dataImport = new DataImport(roomList, sensorTypeList);
             dataImport.importReadingsFromFile(filePath, object);
         }
     }
@@ -114,24 +113,11 @@ public class DataImportCTRL {
     public int sizeOfSensorsFile(Path filePath) throws IllegalAccessException, ParseException, InstantiationException, IOException, java.text.ParseException, ClassNotFoundException {
         DataImport dataImport = new DataImport(roomList, sensorTypeList);
         return dataImport.loadHouseSensorsFiles(filePath).size();
-    public void importReadingsFromFile(Path filePath, Object object) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
-        if (object.equals(gaList)) {
-            dataImport.importReadingsFromFile(filePath, object);
-        }
-        if (object.equals(roomList)) {
-            dataImport.importReadingsFromFile(filePath, object);
-        }
-    }
-
-
-    public int roomListSize(){
-        return this.roomList.getRoomListSize();
     }
 
     public int sensorTypeListSize(){
         return this.sensorTypeList.getSensorTypeList().size();
     }
-
 
     /**
      * @return the number of imported readings
@@ -147,6 +133,5 @@ public class DataImportCTRL {
     public int getNrOfInvalidReadings(){
         return dataImport.getNrOfInvalidReadings();
     }
-
 
 }

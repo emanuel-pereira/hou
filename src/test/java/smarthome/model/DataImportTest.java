@@ -18,6 +18,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static smarthome.model.House.*;
+import static smarthome.model.House.getHouseRoomList;
 
 class DataImportTest {
 
@@ -207,8 +208,7 @@ class DataImportTest {
 */
     @Test
     void checkIfSensorAreImportedTest() throws IllegalAccessException, ParseException, InstantiationException, IOException, java.text.ParseException, ClassNotFoundException {
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = getHouseRoomList();
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(new SensorType("temperature"));
@@ -230,7 +230,7 @@ class DataImportTest {
         Path path = Paths.get("resources/DataSet_sprint06_HouseSensors.json");
         dataImport.importHouseSensors(dataImport.loadHouseSensorsFiles(path));
 
-        List<Sensor> sensorList = house.getRoomList().getRoomList().get(0).getSensorListInRoom().getSensorList();
+        List<Sensor> sensorList = roomList.getRoomList().get(0).getSensorListInRoom().getSensorList();
         int size = sensorList.size();
 
         assertEquals(1,size);

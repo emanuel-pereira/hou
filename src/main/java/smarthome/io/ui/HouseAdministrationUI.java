@@ -97,7 +97,7 @@ public final class HouseAdministrationUI {
                     uS172.getGridTotalNominalPower();
                     break;
                 case 14:
-                    DataImportUI ui14 = new DataImportUI(house.getRoomList(),sensorTypeList);
+                    DataImportUI ui14 = new DataImportUI(getHouseRoomList(),sensorTypeList);
                     ui14.loadHouseSensorsFile();
                     break;
                 case 15:

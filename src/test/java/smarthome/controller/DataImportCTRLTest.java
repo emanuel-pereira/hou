@@ -21,6 +21,7 @@ import java.util.GregorianCalendar;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static smarthome.model.House.getHouseRoomList;
 
 class DataImportCTRLTest {
 
@@ -43,7 +44,7 @@ class DataImportCTRLTest {
 
     @Test
     @DisplayName("Ensure that GAList has 0 GAs after executing loadJSON method when json file is not found in specified path")
-    void loadGeoAreasFileNotFound()throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
+    void loadGeoAreasFileNotFound() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources_tests/JsonFile1.json";
@@ -77,7 +78,7 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void importGeoAreasFromFile() throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException{
+    void importGeoAreasFromFile() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
@@ -87,7 +88,7 @@ class DataImportCTRLTest {
 
         int expected = 2;
         int result = ctrl.getImportedGaListSize(path);
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
@@ -432,6 +433,7 @@ class DataImportCTRLTest {
         assertEquals(expected, result);
 
     }
+
     @Test
     void checkRoomListSizeIsTwo() {
 
@@ -451,8 +453,7 @@ class DataImportCTRLTest {
 
     @Test
     void importHouseSensors() throws IllegalAccessException, ParseException, InstantiationException, java.text.ParseException, ClassNotFoundException, IOException {
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = getHouseRoomList();
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(new SensorType("temperature"));
         Room room1 = new Room("B405", "B405", 3, 2, 3, 1);
@@ -470,15 +471,14 @@ class DataImportCTRLTest {
         DataImportCTRL ctrl = new DataImportCTRL(roomList, sensorTypeList);
         ctrl.importHouseSensors(path);
 
-        int result = house.getRoomList().getRoomList().get(0).getSensorListInRoom().getSensorList().size();
+        int result = roomList.getRoomList().get(0).getSensorListInRoom().getSensorList().size();
 
         assertEquals(4, result);
     }
 
     @Test
     void checkIfRepeatedSensorsAreNotImported() throws IllegalAccessException, ParseException, InstantiationException, java.text.ParseException, ClassNotFoundException, IOException {
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = getHouseRoomList();
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(new SensorType("temperature"));
         Room room1 = new Room("B405", "B405", 3, 2, 3, 1);
@@ -496,7 +496,7 @@ class DataImportCTRLTest {
         DataImportCTRL ctrl = new DataImportCTRL(roomList, sensorTypeList);
         ctrl.importHouseSensors(path);
 
-        int result = house.getRoomList().getRoomList().get(0).getSensorListInRoom().getSensorList().size();
+        int result = roomList.getRoomList().get(0).getSensorListInRoom().getSensorList().size();
 
         assertEquals(1, result);
     }
@@ -504,8 +504,7 @@ class DataImportCTRLTest {
     @Test
     @DisplayName("Count the sensors that are correct and incorrectly added ")
     void getSizeOfSensorsAddandNotAdded() throws IllegalAccessException, ParseException, InstantiationException, java.text.ParseException, ClassNotFoundException, IOException {
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = getHouseRoomList();
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(new SensorType("temperature"));
         Room room1 = new Room("R1", "B405", 3, 2, 3, 1);
@@ -530,8 +529,7 @@ class DataImportCTRLTest {
     @Test
     @DisplayName("Check the size of the room list")
     void roomListSize() {
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = new RoomList();
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(new SensorType("temperature"));
 
@@ -543,10 +541,11 @@ class DataImportCTRLTest {
     }
 
     @Test
-    @DisplayName("Check the size of the sensor list")
+    @DisplayName("Check the size of the sensor type list")
     void sensorTypeListSize() {
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+
+
+        RoomList roomList = getHouseRoomList();
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(new SensorType("temperature"));
 
@@ -556,7 +555,6 @@ class DataImportCTRLTest {
 
         assertEquals(1, result);
     }
-
 
 
     @Test
@@ -593,7 +591,6 @@ class DataImportCTRLTest {
     }
 
 
-
     @Test
     void getSizeSensorListInHouseRoomsIsEmpty() {
 
@@ -611,7 +608,7 @@ class DataImportCTRLTest {
 
         int result = dataImportCTRL.getSizeSensorListInHouseRooms();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
@@ -644,6 +641,6 @@ class DataImportCTRLTest {
 
         int result = dataImportCTRL.getSizeSensorListInHouseRooms();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 }

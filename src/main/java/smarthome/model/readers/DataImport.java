@@ -14,9 +14,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static java.lang.Double.parseDouble;
 
@@ -31,7 +31,9 @@ public class DataImport {
     private int nrOfInvalidReadings = 0;
     private List<Sensor> sensors = new ArrayList<>();
     private List<GeographicalArea> notAdded;
-
+    private SensorTypeList sensorTypeList;
+    private int sensorsNotAdded;
+    private int sensorsAdded;
 
     /**
      * Constructor for importing data related to GAList
@@ -124,13 +126,12 @@ public int getNrOfAddedReadings() {
         }
     }
 
-
     /**
      * This method imports a reading for the sensor with sensorID passed as parameter.
      * Only readings with dateAndTime after the sensor's startDate will be imported otherwise they will be registered in a log file.
      *
-     * @param field
-     * @param sensorID
+     * @param field Position in the array
+     * @param sensorID Id of the sensor
      */
     private boolean importReading(String[] field, String sensorID) {
         for (Sensor sensor : sensors) {
@@ -158,7 +159,6 @@ public int getNrOfAddedReadings() {
         }
         return false;
     }
-
 
     /**
      * Method that converts a valid file path to string and returns a substring after the
@@ -294,7 +294,6 @@ public int getNrOfAddedReadings() {
     public void importHouse() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException{
         getHouseConfigFileReader().importHouseConfiguration(this.configHouseFilePath);
     }
-}
 
     public int getSizeOfSensorsNotAdded() {
         return sensorsNotAdded;
