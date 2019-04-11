@@ -1,0 +1,36 @@
+{
+  "sensor": [
+    {
+      "id": "S1",
+      "room": "R1",
+      "name": "Temperature B405",
+      "start_date": "2016-11-15",
+      "type": "temperature",
+      "units": "C"
+    },
+    {
+      "id": "S2",
+      "room": "R2",
+      "name": "Temperature B106",
+      "start_date": "2016-11-15",
+      "type": "temperature",
+      "units": "C"
+    },
+    {
+      "id": "S3",
+      "room": "R3",
+      "name": "Temperature B107",
+      "start_date": "2017-11-15",
+      "type": "temperature",
+      "units": "C"
+    },
+    {
+      "id": "S4",
+      "room": "R4",
+      "name": "Temperature B109",
+      "start_date": "2017-11-16",
+      "type": "temperature",
+      "units": "C"
+    }
+  ]
+}

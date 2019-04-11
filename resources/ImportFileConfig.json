@@ -17,6 +17,11 @@
       {
         "json": "smarthome.model.readers.JSONHouse"
       }
+    ],
+    "house_sensors": [
+      {
+        "json": "smarthome.model.readers.JSONHouseSensors"
+      }
     ]
   }
 }

@@ -1,0 +1,118 @@
+@startuml
+skinparam linetype ortho
+hide empty members
+
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
+
+class DataImportUI{
+- ctrl: DataImportCTRL
+- filepath: Path
+
++ loadHouseSensorsFile()
++ importHouseSensors()
+- numberOfSensorsInFile()
+- roomListEmpty()
+- sensorTypeListEmpty()
+
+}
+
+class DataImportCTRL{
+- roomList: RoomList
+- sensorTypeList: SensorTypeList
+
++ importHouseSensors()
++ sizeOfSensorsFile()
++ roomListSize()
++ sensorTypeListSize()
+
+}
+
+class DataImport{
+- parser: JSONParser
+- configFilePath: Path
+- roomList: RoomList
+- sensorTypeList: SensorTypeList
+
++ readConfigFile()
++ getFileExtension()
++ getClassName()
++ loadHouseSensorsFiles()
++ importHouseSensors()
++ getSizeOfSensorsAdded()
++ getSizeOfSensorsNotAdded
+}
+
+interface FileReaderHouseSensors {
++ loadData()
+}
+
+class JSONHouseSensors{
+- filepath: Path
+- parser: JSONParser
+
++ loadData()
+- readFile()
+}
+
+class RoomList {
+- listOfRooms: List<Room>
+
++ getRoomIfIDMatchesAnyExistingRoom()
+}
+
+
+class Room {
+- id : String
+
++ getId()
++ getSensorListInRoom()
+ }
+
+
+class SensorTypeList{
+- sensorList: List<SensorType>
+
++ getSensorTypeMatchedWithString()
+}
+
+class SensorList{
+- sensorList: List<Sensor>
+
++ getSensorList()
++ addSensor()
+}
+
+class Sensor {
+- id: String
+- designation: String
+- sensorType: SensorType
+- startDate: Calendar
+- unit: String
+- readingList: ReadingList
+
++ Sensor(id, name,calendar,type,unit,readingList)
+}
+
+RoomList -> Room
+Room --> SensorList
+SensorList -> Sensor
+DataImportUI -> DataImportCTRL
+DataImportCTRL -> DataImport
+DataImport -> SensorTypeList
+DataImport --> RoomList
+DataImport --> FileReaderHouseSensors
+FileReaderHouseSensors <|. JSONHouseSensors
+
+
+@enduml

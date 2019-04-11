@@ -1,5 +1,6 @@
 package smarthome.controller;
 
+import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
 import smarthome.model.*;
 import smarthome.model.readers.DataImport;
@@ -14,17 +15,9 @@ public class DataImportCTRL {
 
     private GAList gaList;
     private RoomList roomList;
+    private SensorTypeList sensorTypeList;
     private DataImport dataImport;
 
-
-    /**
-     * Constructor for importing data related to GAList.
-     * Creates an instance of the DataImportCTRL with GAList passed as parameter when DataImportUI is invoked through
-     * SystemAdministration menu, i.e, when the user wants to import information related to GAList,
-     * such as sensors or readings.
-     *
-     * @param gaList parameter to be updated with imported data
-     */
     public DataImportCTRL(GAList gaList) {
         this.gaList = gaList;
         this.dataImport = new DataImport(gaList);
@@ -41,14 +34,35 @@ public class DataImportCTRL {
     public DataImportCTRL(RoomList roomList) {
         this.roomList = roomList;
         this.dataImport = new DataImport(roomList);
-
     }
+
+    /**
+     * Constructor for importing data related to RoomList and SensorTypeList.
+     * Creates an instance of the DataImportCTRL with RoomList and SensorTypeList passed as parameters when DataImportUI is invoked through
+     * HouseAdministration menu, i.e, when the user wants to import information related to RoomList, such as sensors
+     * or readings.
+     *
+     * @param roomList parameter to be updated with imported data
+     * @param sensorTypeList parameter to be updated with imported data
+     */
+    public DataImportCTRL(RoomList roomList, SensorTypeList sensorTypeList) {
+        this.roomList = roomList;
+        this.sensorTypeList = sensorTypeList;
+    }
+
+    /**
+     * @return the size of the room list to check in the UI if there are already rooms configured.
+     */
     public int roomListSize() {
         return this.roomList.getRoomListSize();
     }
 
 
-    public int getSizeSensorListInHouseRooms() {
+    /**
+     *
+     * @return the nr of sensors in the room list
+     */
+    public int nrOfSensorsInAllRooms() {
         int size = 0;
         for (Room r : roomList.getRoomList()) {
             size += r.getSensorListInRoom().size();
@@ -56,9 +70,6 @@ public class DataImportCTRL {
         return size;
     }
 
-    /**private method that return the list of Geographical areas(with encapsulated sensors if they exist) present in the file
-     * @param filePath file that has info to import
-     */
     private List<GeographicalArea> readGeoAreasFromFile (Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
         return dataImport.loadGeoAreaFiles(filePath);
     }
@@ -97,6 +108,25 @@ public class DataImportCTRL {
         }
     }
 
+    public int[] importHouseSensors(Path filePath) throws IllegalAccessException, ParseException, InstantiationException, IOException, java.text.ParseException, ClassNotFoundException {
+        DataImport dataImport = new DataImport(roomList, sensorTypeList);
+        List<String[]> dataToImport = dataImport.loadHouseSensorsFiles(filePath);
+        dataImport.importHouseSensors(dataToImport);
+        int[] counters = new int[2];
+        counters[0] = dataImport.getSizeOfSensorsAdded();
+        counters[1] = dataImport.getSizeOfSensorsNotAdded();
+        return counters;
+    }
+
+    public int getSizeOfSensorsFile(Path filePath) throws IllegalAccessException, ParseException, InstantiationException, IOException, java.text.ParseException, ClassNotFoundException {
+        DataImport dataImport = new DataImport(roomList, sensorTypeList);
+        return dataImport.loadHouseSensorsFiles(filePath).size();
+    }
+
+    public int sensorTypeListSize(){
+        return this.sensorTypeList.getSensorTypeList().size();
+    }
+
     /**
      * @return the number of imported readings
      */
@@ -111,6 +141,5 @@ public class DataImportCTRL {
     public int getNrOfInvalidReadings(){
         return dataImport.getNrOfInvalidReadings();
     }
-
 
 }
