@@ -14,10 +14,10 @@ class CSVReadingTest {
     @Test
     void importDataSizeListTest() throws FileNotFoundException {
         CSVReading csvReading = new CSVReading();
-        Path path = Paths.get("resources/DataSet_sprint05_SD.csv");
-        List<String[]> result;
-        result = csvReading.importData(path);
+        Path path = Paths.get("resources_tests/DataSet_sprint05_SD.csv");
 
-        assertEquals(62,result.size());
+        int result = csvReading.importData(path).size();
+
+        assertEquals(61,result);
     }
 }

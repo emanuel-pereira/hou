@@ -3,17 +3,16 @@ package smarthome.controller;
 import smarthome.model.TypeGA;
 import smarthome.model.TypeGAList;
 
-public class NewTypeGACTRL {
+import static smarthome.model.TypeGAList.addTypeGA;
+import static smarthome.model.TypeGAList.newTypeGA;
 
-    private TypeGAList typeGAList;
+public class NewTypeGACTRL {
 
     /**
      * Controller constructor
      *
-     * @param inputList the list object on which the user will be able to create new type of GA's
      */
-    public NewTypeGACTRL(TypeGAList inputList) {
-        this.typeGAList = inputList;
+    public NewTypeGACTRL() {
     }
 
     /**
@@ -24,10 +23,10 @@ public class NewTypeGACTRL {
      * false if it was not possible to add the new type of GA, eg. if the type already exists
      */
     public boolean createTypeGA(String inputType) {
-        TypeGA typeGA = this.typeGAList.newTypeGA(inputType);
+        TypeGA typeGA = newTypeGA(inputType);
         if (typeGA == null)
             return false;
-        return this.typeGAList.addTypeGA(typeGA);
+        return addTypeGA(typeGA);
     }
 
 }

@@ -1,5 +1,6 @@
 package smarthome.repository;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,12 +14,14 @@ import smarthome.dto.SensorDTO;
 import smarthome.mapper.SensorMapper;
 import smarthome.model.*;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static smarthome.model.TypeGAList.addTypeGA;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -26,6 +29,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class RepositoryTest {
+
+    TypeGAList typeGAList = TypeGAList.getTypeGAListInstance();
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = TypeGAList.class.getDeclaredField("typeGaList");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @Test
     @DisplayName("Ensure that the typeGA repository has 3 types of GAs persisted")
@@ -122,7 +136,7 @@ public class RepositoryTest {
         Sensor sensor = new Sensor("TT1023", "Temperature Sensor", new GregorianCalendar(2019, 2, 2), locL, temperature, "Celsius", new ReadingList());
         lSensorList.addSensor(sensor);
         Repositories.saveGA(lisbon);
-        long typeGARepSize = Repositories.getGeoRepository().count();
+        long typeGARepSize = Repositories.getTypeGARepository().count();
         assertNotEquals(0, typeGARepSize);
 
         long sensorRepSize = Repositories.getSensorRepository().count();
@@ -191,10 +205,9 @@ public class RepositoryTest {
     @DisplayName("Ensure that the geographical area repository has 1 sensor persisted")
     void newGA() {
         GAList list = new GAList();
-        TypeGAList typeGAList = new TypeGAList();
         TypeGA district = new TypeGA("district");
-        typeGAList.addTypeGA(district);
-        NewGeographicalAreaCTRL ctrl = new NewGeographicalAreaCTRL(list, typeGAList);
+        assertTrue(addTypeGA(district));
+        NewGeographicalAreaCTRL ctrl = new NewGeographicalAreaCTRL(list);
         OccupationArea occupationArea = new OccupationArea(25, 12);
         Location location = new Location(23, 12, 7);
         ctrl.newGA("Pt", "Porto", 0, occupationArea, location);

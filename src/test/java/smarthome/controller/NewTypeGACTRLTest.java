@@ -1,25 +1,41 @@
 package smarthome.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.TypeGAList;
 
+import java.lang.reflect.Field;
+
 import static org.junit.jupiter.api.Assertions.*;
+import static smarthome.model.TypeGAList.getTypeGAListInstance;
+import static smarthome.model.TypeGAList.size;
 
 class NewTypeGACTRLTest {
+
+    TypeGAList typeGAList = getTypeGAListInstance();
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = TypeGAList.class.getDeclaredField("typeGaList");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     /*
      * Add a new type of geographical area in an empty list and get the size of the list that is 1.*/
     @Test
     @DisplayName("Add a new type of geographical area in an empty list")
     void newTypeGAIfSuccessVillage() {
-        TypeGAList list = new TypeGAList ();
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
 
-        assertEquals (0, list.getTypeGAList ().size ());
-        ctrl1.createTypeGA ("village");
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
 
-        assertEquals (1, list.getTypeGAList ().size ());
+        assertEquals(0, size());
+        ctrl1.createTypeGA("village");
+
+        assertEquals(1, size());
     }
 
     /*
@@ -28,16 +44,16 @@ class NewTypeGACTRLTest {
     @Test
     @DisplayName("Add a new type of geographical area in a list with other types")
     void newTypeGAIfSuccessCityAfterVillage() {
-        TypeGAList list = new TypeGAList ();
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
 
-        assertEquals (0, list.getTypeGAList ().size ());
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
 
-        ctrl1.createTypeGA ("village");
-        assertEquals (1, list.getTypeGAList ().size ());
+        assertEquals(0, size());
 
-        ctrl1.createTypeGA ("city");
-        assertEquals (2, list.getTypeGAList ().size ());
+        ctrl1.createTypeGA("village");
+        assertEquals(1, size());
+
+        ctrl1.createTypeGA("city");
+        assertEquals(2, size());
     }
 
 
@@ -47,16 +63,16 @@ class NewTypeGACTRLTest {
     @Test
     @DisplayName("Add a new type of geographical area in a list with same type")
     void newTypeGAIfCityAfterCity() {
-        TypeGAList list = new TypeGAList ();
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
 
-        assertEquals (0, list.getTypeGAList ().size ());
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
 
-        ctrl1.createTypeGA ("city");
-        assertEquals (1, list.getTypeGAList ().size ());
+        assertEquals(0, size());
 
-        ctrl1.createTypeGA ("city");
-        assertEquals (1, list.getTypeGAList ().size ());
+        ctrl1.createTypeGA("city");
+        assertEquals(1, size());
+
+        ctrl1.createTypeGA("city");
+        assertEquals(1, size());
     }
 
     /*
@@ -66,25 +82,25 @@ class NewTypeGACTRLTest {
     @Test
     @DisplayName("Add  new types of geographical area in a list with same and different types")
     void newTypeGAIfRepeatAndDifferentTypes() {
-        TypeGAList list = new TypeGAList ();
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
 
-        assertEquals (0, list.getTypeGAList ().size ());
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
 
-        ctrl1.createTypeGA ("city");
-        assertEquals (1, list.getTypeGAList ().size ());
+        assertEquals(0, size());
 
-        ctrl1.createTypeGA ("village");
-        assertEquals (2, list.getTypeGAList ().size ());
+        ctrl1.createTypeGA("city");
+        assertEquals(1, size());
 
-        ctrl1.createTypeGA ("city");
-        assertEquals (2, list.getTypeGAList ().size ());
+        ctrl1.createTypeGA("village");
+        assertEquals(2, size());
 
-        ctrl1.createTypeGA ("country");
-        assertEquals (3, list.getTypeGAList ().size ());
+        ctrl1.createTypeGA("city");
+        assertEquals(2, size());
 
-        ctrl1.createTypeGA ("country");
-        assertEquals (3, list.getTypeGAList ().size ());
+        ctrl1.createTypeGA("country");
+        assertEquals(3, size());
+
+        ctrl1.createTypeGA("country");
+        assertEquals(3, size());
     }
 
     /*
@@ -94,13 +110,13 @@ class NewTypeGACTRLTest {
     @Test
     @DisplayName("Add a wrong type of geographical area in an empty list")
     void newTypeGAIfSpaceNotAddedEmptyList() {
-        TypeGAList list = new TypeGAList ();
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
 
-        assertEquals (0, list.getTypeGAList ().size ());
-        ctrl1.createTypeGA (" ");
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
 
-        assertEquals (0, list.getTypeGAList ().size ());
+        assertEquals(0, size());
+        ctrl1.createTypeGA(" ");
+
+        assertEquals(0, size());
     }
 
     /*
@@ -110,82 +126,82 @@ class NewTypeGACTRLTest {
     @Test
     @DisplayName("Add a wrong type of geographical area in a list")
     void newTypeGAIfSpaceNotAdded() {
-        TypeGAList list = new TypeGAList ();
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
 
-        assertEquals (0, list.getTypeGAList ().size ());
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
 
-        ctrl1.createTypeGA ("village");
-        assertEquals (1, list.getTypeGAList ().size ());
+        assertEquals(0, size());
 
-        ctrl1.createTypeGA ("            ");
-        assertEquals (1, list.getTypeGAList ().size ());
+        ctrl1.createTypeGA("village");
+        assertEquals(1, size());
 
-        ctrl1.createTypeGA ("city");
-        assertEquals (2, list.getTypeGAList ().size ());
+        ctrl1.createTypeGA("            ");
+        assertEquals(1, size());
+
+        ctrl1.createTypeGA("city");
+        assertEquals(2, size());
     }
 
     @Test
     @DisplayName("Add a string with an unaccepted character 'Ç' type of GA")
     void newTypeGAIfSpaceNotAdded2() {
-        TypeGAList list = new TypeGAList ();
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
 
-        assertEquals (0, list.getTypeGAList ().size ());
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
 
-        ctrl1.createTypeGA ("village");
-        assertEquals (1, list.getTypeGAList ().size ());
+        assertEquals(0, size());
 
-        ctrl1.createTypeGA ("VillageÇ");
-        assertEquals (1, list.getTypeGAList ().size ());
+        ctrl1.createTypeGA("village");
+        assertEquals(1, size());
 
-        ctrl1.createTypeGA ("            ");
-        assertEquals (1, list.getTypeGAList ().size ());
+        ctrl1.createTypeGA("VillageÇ");
+        assertEquals(1, size());
 
-        ctrl1.createTypeGA ("city");
-        assertEquals (2, list.getTypeGAList ().size ());
+        ctrl1.createTypeGA("            ");
+        assertEquals(1, size());
+
+        ctrl1.createTypeGA("city");
+        assertEquals(2, size());
     }
 
     @Test
     @DisplayName("Add a repetitive string with lower case and a title case and a upper case type of GA")
     void newTypeGAIfSpaceNotAdded3() {
-        TypeGAList list = new TypeGAList ();
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
 
-        assertEquals (0, list.getTypeGAList ().size ());
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
 
-        assertTrue(ctrl1.createTypeGA ("village"));
-        assertEquals (1, list.getTypeGAList ().size ());
+        assertEquals(0, size());
 
-        assertFalse(ctrl1.createTypeGA ("Village"));
-        assertEquals (1, list.getTypeGAList ().size ());
+        assertTrue(ctrl1.createTypeGA("village"));
+        assertEquals(1, size());
 
-        assertFalse(ctrl1.createTypeGA ("VILLAGE"));
-        assertEquals (1, list.getTypeGAList ().size ());
+        assertFalse(ctrl1.createTypeGA("Village"));
+        assertEquals(1, size());
 
-        assertFalse(ctrl1.createTypeGA ("VILlage"));
-        assertEquals (1, list.getTypeGAList ().size ());
+        assertFalse(ctrl1.createTypeGA("VILLAGE"));
+        assertEquals(1, size());
 
-        assertFalse(ctrl1.createTypeGA ("village"));
-        assertEquals (1, list.getTypeGAList ().size ());
+        assertFalse(ctrl1.createTypeGA("VILlage"));
+        assertEquals(1, size());
 
-        assertTrue(ctrl1.createTypeGA ("city"));
-        assertEquals (2, list.getTypeGAList ().size ());
+        assertFalse(ctrl1.createTypeGA("village"));
+        assertEquals(1, size());
+
+        assertTrue(ctrl1.createTypeGA("city"));
+        assertEquals(2, size());
     }
 
     @Test
     @DisplayName("Add a null type of GA")
     void newTypeGAIfSpaceNotAdded4() {
-        TypeGAList list = new TypeGAList();
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
 
-        assertEquals (0, list.getTypeGAList ().size ());
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
+
+        assertEquals(0, size());
 
         ctrl1.createTypeGA(null);
-        assertEquals(0, list.getTypeGAList().size());
+        assertEquals(0, size());
 
-        assertFalse(ctrl1.createTypeGA ("            "));
-        assertEquals (0, list.getTypeGAList ().size ());
+        assertFalse(ctrl1.createTypeGA("            "));
+        assertEquals(0, size());
 
     }
 }

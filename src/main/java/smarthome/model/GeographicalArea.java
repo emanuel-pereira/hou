@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static smarthome.model.TypeGAList.newTypeGA;
+
 @Entity
 @Table(name = "Geo_Area")
 public class GeographicalArea {
@@ -50,7 +52,7 @@ public class GeographicalArea {
     public GeographicalArea(String id, String name, String typeGA, OccupationArea occupationArea, Location location) {
         this.identification = id;
         this.designation = name;
-        this.typeOfGa = new TypeGAList().newTypeGA(typeGA);
+        this.typeOfGa = newTypeGA(typeGA);
         this.occupation = occupationArea;
         this.location = location;
         this.sensorListInGa = new SensorList();

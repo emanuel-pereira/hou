@@ -12,10 +12,9 @@ public class NewTypeGAUI {
     /**
      * User interface constructor
      *
-     * @param inputList Is the list of types of geographical areas
      */
-    public NewTypeGAUI(TypeGAList inputList) {
-        this.controller = new NewTypeGACTRL (inputList);
+    public NewTypeGAUI() {
+        this.controller = new NewTypeGACTRL();
     }
 
     /**
@@ -26,8 +25,8 @@ public class NewTypeGAUI {
     public void run() {
         condition = true;
         while (condition) {
-            System.out.println ("Insert the name of the new type of geographical area:");
-            this.name = UtilsUI.requestText ("Please use only characters");
+            System.out.println("Insert the name of the new type of geographical area:");
+            this.name = UtilsUI.requestText("Please use only characters");
             this.createTypeGA();
         }
     }

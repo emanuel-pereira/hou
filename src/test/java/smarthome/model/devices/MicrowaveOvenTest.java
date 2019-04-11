@@ -223,7 +223,7 @@ class MicrowaveOvenTest {
         Calendar startDate = new GregorianCalendar(2018, 7, 26, 12, 15);
         Calendar endDate = new GregorianCalendar(2018, 7, 26, 12, 45);
 
-        double expected = 0.400;
+        double expected = 0.200;
         double result = microwave.getEnergyConsumption(startDate, endDate);
 
         assertEquals(expected, result, 0.001);
