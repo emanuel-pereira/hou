@@ -2,10 +2,7 @@ package smarthome.controller;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.model.GAList;
-import smarthome.model.GeographicalArea;
-import smarthome.model.Location;
-import smarthome.model.OccupationArea;
+import smarthome.model.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +24,9 @@ public class SetParentOfGACTRLTest {
         OccupationArea oc1 = new OccupationArea(11, 6);
         Location loc1 = new Location(4, 6, 8);
 
-
+        TypeGAList.addTypeGA(new TypeGA("city"));
         GeographicalArea ga1 = new GeographicalArea("opo", "Porto", "city", oc, loc);
+        TypeGAList.addTypeGA(new TypeGA("country"));
         GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc1, loc1);
 
         int indexGA1 = 1;
@@ -58,9 +56,11 @@ public class SetParentOfGACTRLTest {
         OccupationArea oc2 = new OccupationArea(111, 117);
         Location loc2 = new Location(14, 16, 18);
 
-        GeographicalArea ga1 = new GeographicalArea("Opo", "Porto", "city", oc,loc);
-        GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", "city", oc1,loc1);
-        GeographicalArea ga3 = new GeographicalArea("Pt", "Portugal", "country", oc2,loc2);
+        TypeGAList.addTypeGA(new TypeGA("city"));
+        GeographicalArea ga1 = new GeographicalArea("Opo", "Porto", "city", oc, loc);
+        GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", "city", oc1, loc1);
+        TypeGAList.addTypeGA(new TypeGA("country"));
+        GeographicalArea ga3 = new GeographicalArea("Pt", "Portugal", "country", oc2, loc2);
 
         int indexGA1 = 1;
         int indexGA2 = 2;
@@ -91,8 +91,10 @@ public class SetParentOfGACTRLTest {
         OccupationArea oc1 = new OccupationArea(11, 6);
         Location loc1 = new Location(4, 6, 8);
 
-        GeographicalArea ga1 = new GeographicalArea("opo", "Porto", "city", oc,loc);
-        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc1,loc1);
+        TypeGAList.addTypeGA(new TypeGA("city"));
+        GeographicalArea ga1 = new GeographicalArea("opo", "Porto", "city", oc, loc);
+        TypeGAList.addTypeGA(new TypeGA("country"));
+        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc1, loc1);
 
         int indexGA1 = 1;
         int indexGA2 = 2;
@@ -137,8 +139,10 @@ public class SetParentOfGACTRLTest {
         OccupationArea oc1 = new OccupationArea(7, 3);
         Location loc1 = new Location(5, 3, 6);
 
-        GeographicalArea ga1 = new GeographicalArea("opo", "Porto", "city", oc,loc);
-        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc1,loc1);
+        TypeGAList.addTypeGA(new TypeGA("city"));
+        GeographicalArea ga1 = new GeographicalArea("opo", "Porto", "city", oc, loc);
+        TypeGAList.addTypeGA(new TypeGA("country"));
+        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc1, loc1);
 
         gaList.addGA(ga1);
         gaList.addGA(ga2);
@@ -160,8 +164,10 @@ public class SetParentOfGACTRLTest {
         OccupationArea oc1 = new OccupationArea(7, 3);
         Location loc1 = new Location(5, 3, 6);
 
-        GeographicalArea ga1 = new GeographicalArea("opo", "Porto", "city", oc,loc);
-        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc1,loc1);
+        TypeGAList.addTypeGA(new TypeGA("city"));
+        GeographicalArea ga1 = new GeographicalArea("opo", "Porto", "city", oc, loc);
+        TypeGAList.addTypeGA(new TypeGA("country"));
+        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc1, loc1);
 
         gaList.addGA(ga1);
         gaList.addGA(ga2);
@@ -184,10 +190,12 @@ public class SetParentOfGACTRLTest {
         OccupationArea oc = new OccupationArea(5, 6);
         Location loc = new Location(2, 3, 4);
         OccupationArea oc1 = new OccupationArea(5, 6);
-        Location loc1 = new Location(2,3,4);
+        Location loc1 = new Location(2, 3, 4);
 
-        GeographicalArea ga1 = new GeographicalArea("opo", "Porto", "city", oc,loc);
-        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc1,loc1);
+        TypeGAList.addTypeGA(new TypeGA("city"));
+        GeographicalArea ga1 = new GeographicalArea("opo", "Porto", "city", oc, loc);
+        TypeGAList.addTypeGA(new TypeGA("country"));
+        GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc1, loc1);
 
 
         gaList.addGA(ga1);

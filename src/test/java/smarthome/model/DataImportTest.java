@@ -18,7 +18,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static smarthome.model.House.*;
-import static smarthome.model.House.getHouseRoomList;
 
 class DataImportTest {
 
@@ -74,6 +73,8 @@ class DataImportTest {
     void getGAListImportedSize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImport dataImport = new DataImport(gaList);
+        TypeGAList.addTypeGA(new TypeGA("city"));
+        TypeGAList.addTypeGA(new TypeGA("urban area"));
         Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
 
         List<GeographicalArea> inFile = dataImport.loadGeoAreaFiles(path);
@@ -108,6 +109,7 @@ class DataImportTest {
     @Test
     void getReadingValueAfterImportingTest() throws IllegalAccessException,ClassNotFoundException,InstantiationException,IOException,ParseException, SAXException, ParserConfigurationException {
         GAList gaList = new GAList();
+        TypeGAList.addTypeGA(new TypeGA("city"));
         GeographicalArea ga = new GeographicalArea("001", "Porto", "city", new OccupationArea(3, 2), new Location(3, 30, 20));
         gaList.addGA(ga);
         GregorianCalendar startDate = new GregorianCalendar(2018, Calendar.MARCH, 3);
@@ -227,7 +229,7 @@ class DataImportTest {
         roomList.addRoom(room5);
 
         DataImport dataImport = new DataImport(roomList,sensorTypeList);
-        Path path = Paths.get("resources/DataSet_sprint06_HouseSensors.json");
+        Path path = Paths.get("resources_tests/DataSet_sprint06_HouseSensors.json");
         dataImport.importHouseSensors(dataImport.loadHouseSensorsFiles(path));
 
         List<Sensor> sensorList = roomList.getRoomList().get(0).getSensorListInRoom().getSensorList();

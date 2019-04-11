@@ -52,7 +52,7 @@ public class GeographicalArea {
     public GeographicalArea(String id, String name, String typeGA, OccupationArea occupationArea, Location location) {
         this.identification = id;
         this.designation = name;
-        this.typeOfGa = newTypeGA(typeGA);
+        this.typeOfGa = newTypeGA(typeGA.toLowerCase());
         this.occupation = occupationArea;
         this.location = location;
         this.sensorListInGa = new SensorList();

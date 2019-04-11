@@ -142,4 +142,7 @@ public class DataImportCTRL {
         return dataImport.getNrOfInvalidReadings();
     }
 
+    public int typeGAListSize() {
+        return TypeGAList.size();
+    }
 }

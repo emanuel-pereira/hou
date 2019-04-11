@@ -23,6 +23,7 @@ public class Application {
     OccupationArea oc = new OccupationArea(1, 1);
     GeographicalArea g1 = new GeographicalArea(defaults, defaults, defaults, oc, loc);
     House house = House.getHouseInstance(a1, g1);
+    TypeGAList typeGAList = TypeGAList.getTypeGAListInstance();
 
     static final Logger log = Logger.getLogger(Application.class);
 

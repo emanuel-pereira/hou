@@ -225,7 +225,7 @@ public class DataImport {
                 }
             } else {
                 this.notAdded.add(ga);
-                log.info("No Geographical Areas were imported into the systems DB");
+                log.warn("No Geographical Areas were imported into the systems DB");
             }
         }
     }

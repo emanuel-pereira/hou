@@ -6,9 +6,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 import smarthome.model.*;
-import smarthome.model.GAList;
-import smarthome.model.Room;
-import smarthome.model.RoomList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;
@@ -18,7 +15,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.GregorianCalendar;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static smarthome.model.House.getHouseRoomList;
@@ -30,6 +26,7 @@ class DataImportCTRLTest {
     OccupationArea oc = new OccupationArea(2, 5);
     GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
     House house = House.getHouseInstance(a1, g1);
+    TypeGAList typeGAList = TypeGAList.getTypeGAListInstance();
 
     @BeforeEach
     public void resetMySingleton() throws SecurityException,
@@ -38,6 +35,9 @@ class DataImportCTRLTest {
         Field instance = House.class.getDeclaredField("theHouse");
         instance.setAccessible(true);
         instance.set(null, null);
+        Field instance2 = TypeGAList.class.getDeclaredField("typeGaList");
+        instance2.setAccessible(true);
+        instance2.set(null, null);
     }
 
     @Test
@@ -45,6 +45,8 @@ class DataImportCTRLTest {
     void loadGeoAreas() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
+        TypeGAList.addTypeGA(new TypeGA("city"));
+        TypeGAList.addTypeGA(new TypeGA("urban area"));
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
         Path path = Paths.get(filepath);
         try {
@@ -96,6 +98,9 @@ class DataImportCTRLTest {
     void importGeoAreasFromFile() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
+
+        TypeGAList.addTypeGA(new TypeGA("city"));
+        TypeGAList.addTypeGA(new TypeGA("urban area"));
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
 
         Path path = Paths.get(filepath);
@@ -126,6 +131,8 @@ class DataImportCTRLTest {
     void failToAddIsZero() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
+        TypeGAList.addTypeGA(new TypeGA("city"));
+        TypeGAList.addTypeGA(new TypeGA("urban area"));
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
 
         Path path = Paths.get(filepath);
@@ -173,6 +180,8 @@ class DataImportCTRLTest {
     void importReading() throws java.text.ParseException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl1 = new DataImportCTRL(gaList);
+        TypeGAList.addTypeGA(new TypeGA("city"));
+        TypeGAList.addTypeGA(new TypeGA("urban area"));
         String filepath1 = "resources_tests/DataSet_sprint05_GA.json";
         Path path1 = Paths.get(filepath1);
         ctrl1.importGeoAreasFromFile(path1);
@@ -602,7 +611,7 @@ class DataImportCTRLTest {
 
         GAList gaList = new GAList();
         DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
-        String filepath1 = "resources/DataSet_sprint05_GA.json";
+        String filepath1 = "resources_tests/DataSet_sprint05_GA.json";
         Path path1 = Paths.get(filepath1);
         dataImportCTRL.getImportedGaListSize(path1);
 
@@ -618,7 +627,7 @@ class DataImportCTRLTest {
 
         GAList gaList = new GAList();
         DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
-        String filepath1 = "resources/DataSet_sprint05_GA.json";
+        String filepath1 = "resources_tests/DataSet_sprint05_GA.json";
 
         Path path1 = Paths.get(filepath1);
         dataImportCTRL.importGeoAreasFromFile(path1);

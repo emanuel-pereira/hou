@@ -189,7 +189,7 @@ class NewGeographicalAreaCTRLTest {
         GAList gaList = new GAList();
         OccupationArea occupationArea = new OccupationArea(15, 22);
         Location location = new Location(25, 32, 15);
-        GeographicalArea porto = new GeographicalArea("POR", "Porto", typeGAList.toString(), occupationArea, location);
+        GeographicalArea porto = new GeographicalArea("POR", "Porto", city, occupationArea, location);
         gaList.addGA(porto);
         NewGeographicalAreaCTRL ctrl = new NewGeographicalAreaCTRL(gaList);
         String expected = "Porto";

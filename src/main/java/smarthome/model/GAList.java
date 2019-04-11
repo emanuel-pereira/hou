@@ -40,8 +40,9 @@ public class GAList {
         if (this.listOfGa.contains(inputGA)) {
             return false;
         } else {
-            if (TypeGAList.contains(inputGA.getType()))
+            if (TypeGAList.contains(inputGA.getType())) {
                 return this.listOfGa.add(inputGA);
+            }
             return false;
         }
     }

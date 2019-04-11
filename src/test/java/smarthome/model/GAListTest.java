@@ -18,7 +18,7 @@ class GAListTest {
         GAList ga = new GAList();
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
-        TypeGA typeGA= new TypeGA("city");
+        TypeGA typeGA = new TypeGA("city");
         GeographicalArea area1 = ga.newGA("Pt", "Porto", typeGA, occupationArea, location);
         String expectedResult = "Porto";
         String result = area1.getGAName();
@@ -30,7 +30,8 @@ class GAListTest {
         GAList ga = new GAList();
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
-        TypeGA typeGA= new TypeGA("city");
+        TypeGA typeGA = new TypeGA("city");
+        TypeGAList.addTypeGA(typeGA);
         GeographicalArea area1 = ga.newGA("Pt", "Porto", typeGA, occupationArea, location);
         ga.addGA(area1);
         List<GeographicalArea> expectedResult = Arrays.asList(area1);
@@ -44,7 +45,8 @@ class GAListTest {
         GAList ga = new GAList();
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
-        TypeGA typeGA= new TypeGA("city");
+        TypeGA typeGA = new TypeGA("city");
+        TypeGAList.addTypeGA(typeGA);
         GeographicalArea area1 = ga.newGA("Pt", "Porto", typeGA, occupationArea, location);
         ga.addGA(area1);
         assertEquals(Arrays.asList(area1), ga.getGAList());
@@ -59,7 +61,8 @@ class GAListTest {
         GAList ga = new GAList();
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
-        TypeGA typeGA= new TypeGA("city");
+        TypeGA typeGA = new TypeGA("city");
+        TypeGAList.addTypeGA(typeGA);
         GeographicalArea area1 = ga.newGA("opo", "Porto", typeGA, occupationArea, location);
         GeographicalArea area2 = ga.newGA("bra", "Braga", typeGA, occupationArea, location);
 
@@ -77,7 +80,7 @@ class GAListTest {
         GAList ga = new GAList();
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
-        TypeGA typeGA= new TypeGA("city");
+        TypeGA typeGA = new TypeGA("city");
         GeographicalArea area1 = ga.newGA("Pt", "Porto", typeGA, occupationArea, location);
         ga.addGA(area1);
 
@@ -87,14 +90,16 @@ class GAListTest {
 
     @Test
     @DisplayName("get  a GA by its ID")
-    void getGaById () {
+    void getGaById() {
         GAList gaList = new GAList();
         OccupationArea occupationArea = new OccupationArea(20, 20);
         Location location = new Location(1, 3, -10);
         TypeGA type1 = new TypeGA("district");
+        TypeGAList.addTypeGA(type1);
         GeographicalArea area1 = gaList.newGA("opo", "Porto", type1, occupationArea, location);
         GeographicalArea area2 = gaList.newGA("bra", "Braga", type1, occupationArea, location);
         TypeGA type2 = new TypeGA("city");
+        TypeGAList.addTypeGA(type2);
         GeographicalArea area3 = gaList.newGA("vng", "Gaia", type2, occupationArea, location);
 
         gaList.addGA(area1);
@@ -104,9 +109,8 @@ class GAListTest {
         GeographicalArea expected = area2;
         GeographicalArea result = gaList.getById("bra");
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
-
 
 
     @Test
@@ -123,11 +127,12 @@ class GAListTest {
         OccupationArea occupationArea3 = new OccupationArea(2, 5);
         Location location3 = new Location(41, -8, 83);
 
-
+        TypeGAList.addTypeGA(new TypeGA("city"));
         GeographicalArea ga1 = new GeographicalArea("vng", "Gaia", "City", occupationArea1, location1);
         gaList.addGA(ga1);
         GeographicalArea ga2 = new GeographicalArea("mat", "Matosinhos", "City", occupationArea2, location2);
         gaList.addGA(ga2);
+        TypeGAList.addTypeGA(new TypeGA("Street"));
         GeographicalArea ga3 = new GeographicalArea("opo", "Cedofeita", "street", occupationArea3, location3);
         gaList.addGA(ga3);
         List<GeographicalArea> expectedresult = new ArrayList<>(Arrays.asList(ga3)); //Usar Arrays.asList dentro de um a nova array list caso dê erro null point exception
@@ -149,10 +154,12 @@ class GAListTest {
         OccupationArea occupationArea3 = new OccupationArea(2, 5);
         Location location3 = new Location(41, -8, 83);
 
+        TypeGAList.addTypeGA(new TypeGA("city"));
         GeographicalArea ga1 = new GeographicalArea("vng", "Gaia", "city", occupationArea1, location1);
         gaList.addGA(ga1);
         GeographicalArea ga2 = new GeographicalArea("mat", "Matosinhos", "city", occupationArea2, location2);
         gaList.addGA(ga2);
+        TypeGAList.addTypeGA(new TypeGA("Street"));
         GeographicalArea ga3 = new GeographicalArea("opo", "Cedofeita", "Street", occupationArea3, location3);
         gaList.addGA(ga3);
         List<GeographicalArea> expected = new ArrayList<>(Arrays.asList(ga1, ga2));
@@ -222,7 +229,7 @@ class GAListTest {
 
         OccupationArea occupationArea2 = new OccupationArea(42, 41);
         Location location2 = new Location(45, 25, 32);
-
+        TypeGAList.addTypeGA(new TypeGA("city"));
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", occupationArea1, location2);
         GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", "city", occupationArea2, location2);
         gaList.addGA(ga1);
@@ -242,7 +249,7 @@ class GAListTest {
         OccupationArea occupationArea2 = new OccupationArea(42, 41);
         Location location2 = new Location(45, 25, 32);
 
-
+        TypeGAList.addTypeGA(new TypeGA("city"));
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", occupationArea1, location1);
         GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", "city", occupationArea2, location2);
         gaList.addGA(ga1);

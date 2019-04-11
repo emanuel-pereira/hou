@@ -21,7 +21,7 @@ public class TypeGAList {
 
     public static TypeGAList getTypeGAListInstance() {
 
-        if (typeGaList == null){
+        if (typeGaList == null) {
             typeGaList = new TypeGAList();
         }
 
@@ -33,7 +33,7 @@ public class TypeGAList {
     }
 
     public static boolean contains(TypeGA type) {
-        return typeOfGAList.contains(type);
+        return listOfGaTypes.contains(type);
     }
 
     /**
@@ -79,11 +79,11 @@ public class TypeGAList {
      *
      * @return the list of previously entered GA type's
      */
-    public static  List<TypeGA> getTypeGAList() {
+    public static List<TypeGA> getTypeGAList() {
         return listOfGaTypes;
     }
 
-    public static  int size() {
+    public static int size() {
         return listOfGaTypes.size();
     }
 
@@ -91,4 +91,11 @@ public class TypeGAList {
         return listOfGaTypes.get(index);
     }
 
+    public static TypeGA get(String type) {
+        for (TypeGA typeGA : listOfGaTypes) {
+            if (typeGA.toString().matches(type))
+                return typeGA;
+        }
+        return null;
+    }
 }

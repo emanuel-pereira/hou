@@ -1,10 +1,14 @@
 package smarthome.model.readers;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import smarthome.model.GeographicalArea;
+import smarthome.model.House;
 import smarthome.model.Sensor;
+import smarthome.model.TypeGAList;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Calendar;
@@ -15,9 +19,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class JSONGeoAreaTest {
 
+    TypeGAList typeGAList = TypeGAList.getTypeGAListInstance();
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+        Field instance2 = TypeGAList.class.getDeclaredField("typeGaList");
+        instance2.setAccessible(true);
+        instance2.set(null, null);
+    }
+
     @Test
     void importGAListSize() throws org.json.simple.parser.ParseException, java.text.ParseException, IOException{
-        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
 
         int expected = 2;
@@ -28,7 +46,7 @@ class JSONGeoAreaTest {
 
     @Test
     void checkIfImportGANotNull () throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
@@ -41,7 +59,7 @@ class JSONGeoAreaTest {
 
     @Test
     void checkIfImportOccupationAreaNotNull () throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
@@ -54,7 +72,7 @@ class JSONGeoAreaTest {
 
     @Test
     void checkIfImportLocationNotNull () throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
@@ -68,7 +86,7 @@ class JSONGeoAreaTest {
 
     @Test
     void checkIfImportSensorListNotNull () throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
@@ -82,7 +100,7 @@ class JSONGeoAreaTest {
 
     @Test
     void checkIfImportSensorNotNull () throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
@@ -97,7 +115,7 @@ class JSONGeoAreaTest {
 
     @Test
     void checkIfImportSensorDateNotNull () throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        Path path = Paths.get("resources/DataSet_sprint05_GA.json");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);

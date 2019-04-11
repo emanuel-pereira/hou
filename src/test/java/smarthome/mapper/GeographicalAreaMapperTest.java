@@ -22,20 +22,20 @@ class GeographicalAreaMapperTest {
         SensorList sensorList = aveiro.getSensorListInGA();
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
-        Sensor sensor = new Sensor("S01","Temperature Sensor", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
+        Sensor sensor = new Sensor("S01", "Temperature Sensor", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
         sensorList.addSensor(sensor);
         GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
         GeographicalAreaDTO gaDTO = gaMapper.toDto(aveiro);
 
-        String expected =aveiro.getGAName();
+        String expected = aveiro.getGAName();
         String result = gaDTO.getDesignation();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
 
-        String expected1 =aveiro.getId();
+        String expected1 = aveiro.getId();
         String result1 = gaDTO.getIdentification();
 
-        assertEquals(expected1,result1);
+        assertEquals(expected1, result1);
     }
 
     @Test
@@ -47,15 +47,15 @@ class GeographicalAreaMapperTest {
         SensorList sensorList = aveiro.getSensorListInGA();
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
-        Sensor sensor = new Sensor("S01","Temperature Sensor", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
+        Sensor sensor = new Sensor("S01", "Temperature Sensor", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
         sensorList.addSensor(sensor);
         GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
         GeographicalAreaDTO gaDTO = gaMapper.toDto(aveiro);
 
-        int expected =aveiro.getSensorListInGA().size();
+        int expected = aveiro.getSensorListInGA().size();
         int result = gaDTO.getSensorListDTO().size();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
 
@@ -68,23 +68,22 @@ class GeographicalAreaMapperTest {
         SensorList sensorList = aveiro.getSensorListInGA();
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
-        Sensor sensor = new Sensor("S01","Temperature Sensor", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
+        Sensor sensor = new Sensor("S01", "Temperature Sensor", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
         sensorList.addSensor(sensor);
         GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
         GeographicalAreaDTO gaDTO = gaMapper.toDto(aveiro);
 
-        int expected =0;
+        int expected = 0;
         int result = gaDTO.getSensorListDTO().size();
 
-        assertNotEquals(expected,result);
+        assertNotEquals(expected, result);
     }
-
 
 
     @Test
     @DisplayName("Ensure that all geographical areas in GAList are converted to DTOs")
     void toDtoList() {
-        GAList gaList= new GAList();
+        GAList gaList = new GAList();
 
         OccupationArea area1 = new OccupationArea(25, 25);
         Location loc1 = new Location(18, 2, 13);
@@ -92,27 +91,28 @@ class GeographicalAreaMapperTest {
         SensorList sLPorto = porto.getSensorListInGA();
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
-        Sensor sensor = new Sensor("S01","Temperature Sensor", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
+        Sensor sensor = new Sensor("S01", "Temperature Sensor", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
         sLPorto.addSensor(sensor);
         gaList.addGA(porto);
 
         OccupationArea area2 = new OccupationArea(25, 25);
         Location loc2 = new Location(18, 2, 13);
+        TypeGAList.addTypeGA(new TypeGA("city"));
         GeographicalArea lisbon = new GeographicalArea("AVR", "Aveiro", "City", area2, loc2);
         gaList.addGA(lisbon);
 
-        GeographicalAreaMapper geographicalAreaMapper= new GeographicalAreaMapper();
-        List<GeographicalAreaDTO> gasDTOs=geographicalAreaMapper.toDtoList(gaList);
-        int expected=2;
-        int result=gasDTOs.size();
-        assertEquals(expected,result);
+        GeographicalAreaMapper geographicalAreaMapper = new GeographicalAreaMapper();
+        List<GeographicalAreaDTO> gasDTOs = geographicalAreaMapper.toDtoList(gaList);
+        int expected = 2;
+        int result = gasDTOs.size();
+        assertEquals(expected, result);
     }
 
 
     @Test
     @DisplayName("Ensure that after executing the toDtoList method the size of the list of geographical area DTOs doesn't remain zero")
     void toDtoListDoesNotReturnEmptyGADTOList() {
-        GAList gaList= new GAList();
+        GAList gaList = new GAList();
 
         OccupationArea area1 = new OccupationArea(25, 25);
         Location loc1 = new Location(18, 2, 13);
@@ -120,23 +120,22 @@ class GeographicalAreaMapperTest {
         SensorList sLPorto = porto.getSensorListInGA();
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
-        Sensor sensor = new Sensor("S01","Temperature Sensor", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
+        Sensor sensor = new Sensor("S01", "Temperature Sensor", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
         sLPorto.addSensor(sensor);
         gaList.addGA(porto);
 
         OccupationArea area2 = new OccupationArea(25, 25);
         Location loc2 = new Location(18, 2, 13);
+        TypeGAList.addTypeGA(new TypeGA("city"));
         GeographicalArea lisbon = new GeographicalArea("AVR", "Aveiro", "City", area2, loc2);
         gaList.addGA(lisbon);
 
-        GeographicalAreaMapper geographicalAreaMapper= new GeographicalAreaMapper();
-        List<GeographicalAreaDTO> gasDTOs=geographicalAreaMapper.toDtoList(gaList);
-        int expected=0;
-        int result=gasDTOs.size();
-        assertNotEquals(expected,result);
+        GeographicalAreaMapper geographicalAreaMapper = new GeographicalAreaMapper();
+        List<GeographicalAreaDTO> gasDTOs = geographicalAreaMapper.toDtoList(gaList);
+        int expected = 0;
+        int result = gasDTOs.size();
+        assertNotEquals(expected, result);
     }
-
-
 
 
 }

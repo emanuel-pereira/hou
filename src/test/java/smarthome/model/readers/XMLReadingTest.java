@@ -20,7 +20,7 @@ public class XMLReadingTest {
 
         XMLReading xmlReading = new XMLReading();
 
-        Path path = Paths.get("resources/DataSet_sprint05_SD.xml");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_SD.xml");
         List<String[]> result;
         result = xmlReading.importData(path);
 

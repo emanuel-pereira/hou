@@ -1,20 +1,21 @@
 package smarthome.controller;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.json.simple.parser.ParseException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.mapper.GeographicalAreaMapper;
 import smarthome.model.*;
 
-import java.lang.reflect.Field;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static smarthome.model.House.*;
+import static smarthome.model.TypeGAList.getTypeGAListInstance;
 
 class ConfigureHouseCTRLTest {
 
@@ -23,14 +24,18 @@ class ConfigureHouseCTRLTest {
     OccupationArea oc = new OccupationArea(2, 5);
     GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
     House house = House.getHouseInstance(a1, g1);
+    TypeGAList typeGAList = getTypeGAListInstance();
 
     @BeforeEach
     public void resetMySingleton() throws SecurityException,
             NoSuchFieldException, IllegalArgumentException,
             IllegalAccessException {
-        Field instance = House.class.getDeclaredField("theHouse");
-        instance.setAccessible(true);
-        instance.set(null, null);
+        Field instance1 = House.class.getDeclaredField("theHouse");
+        instance1.setAccessible(true);
+        instance1.set(null, null);
+        Field instance2 = TypeGAList.class.getDeclaredField("typeGaList");
+        instance2.setAccessible(true);
+        instance2.set(null, null);
     }
 
     @DisplayName("Tests if Geographical Area List is showed as a string to the user")
@@ -43,6 +48,8 @@ class ConfigureHouseCTRLTest {
         OccupationArea oc1 = new OccupationArea(32, 41);
         Location loc2 = new Location(45, 25, 32);
         OccupationArea oc2 = new OccupationArea(42, 41);
+
+        TypeGAList.addTypeGA(new TypeGA("city"));
 
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
@@ -92,6 +99,8 @@ class ConfigureHouseCTRLTest {
         Location loc2 = new Location(45, 25, 32);
         OccupationArea oc2 = new OccupationArea(42, 41);
 
+        TypeGAList.addTypeGA(new TypeGA("city"));
+
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
 
@@ -120,6 +129,8 @@ class ConfigureHouseCTRLTest {
         OccupationArea oc1 = new OccupationArea(32, 41);
         Location loc2 = new Location(45, 25, 32);
         OccupationArea oc2 = new OccupationArea(42, 41);
+
+        TypeGAList.addTypeGA(new TypeGA("city"));
 
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
@@ -156,6 +167,8 @@ class ConfigureHouseCTRLTest {
         Location loc2 = new Location(45, 25, 32);
         OccupationArea oc2 = new OccupationArea(42, 41);
 
+        TypeGAList.addTypeGA(new TypeGA("city"));
+
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
 
@@ -188,6 +201,8 @@ class ConfigureHouseCTRLTest {
         Location loc2 = new Location(45, 25, 32);
         OccupationArea oc2 = new OccupationArea(42, 41);
 
+        TypeGAList.addTypeGA(new TypeGA("city"));
+
         GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", oc1,loc1);
         GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", oc2,loc2);
 
@@ -219,6 +234,8 @@ class ConfigureHouseCTRLTest {
         Location loc2 = new Location(45, 25, 32);
         OccupationArea oc2 = new OccupationArea(42, 41);
 
+        TypeGAList.addTypeGA(new TypeGA("city"));
+
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
 
@@ -243,6 +260,8 @@ class ConfigureHouseCTRLTest {
 
         Location loc2 = new Location(45, 25, 32);
         OccupationArea oc2 = new OccupationArea(42, 41);
+
+        TypeGAList.addTypeGA(new TypeGA("city"));
 
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
@@ -272,6 +291,8 @@ class ConfigureHouseCTRLTest {
         Location loc2 = new Location(45, 25, 32);
         OccupationArea oc2 = new OccupationArea(42, 41);
 
+        TypeGAList.addTypeGA(new TypeGA("city"));
+
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
 
@@ -298,6 +319,8 @@ class ConfigureHouseCTRLTest {
 
         Location loc2 = new Location(45, 25, 32);
         OccupationArea oc2 = new OccupationArea(42, 41);
+
+        TypeGAList.addTypeGA(new TypeGA("city"));
 
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
@@ -327,6 +350,8 @@ class ConfigureHouseCTRLTest {
         Location loc2 = new Location(45, 25, 32);
         OccupationArea oc2 = new OccupationArea(42, 41);
 
+        TypeGAList.addTypeGA(new TypeGA("city"));
+
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
 
@@ -354,6 +379,8 @@ class ConfigureHouseCTRLTest {
 
         Location loc2 = new Location(45, 25, 32);
         OccupationArea oc2 = new OccupationArea(42, 41);
+
+        TypeGAList.addTypeGA(new TypeGA("city"));
 
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);

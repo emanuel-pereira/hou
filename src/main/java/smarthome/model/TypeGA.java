@@ -21,7 +21,7 @@ public class TypeGA {
     }
 
     public TypeGA(String inputTypeGA) {
-        this.tGA = inputTypeGA;
+        this.tGA = inputTypeGA.toLowerCase();
     }
 
 

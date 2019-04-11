@@ -20,10 +20,11 @@ import static smarthome.model.House.getHouseRoomList;
 class NewSensorCTRLTest {
 
     Location loc = new Location(20, 20, 2);
-    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal", loc);
     OccupationArea oc = new OccupationArea(2, 5);
     GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
     House house = House.getHouseInstance(a1, g1);
+    TypeGAList typeGAList = TypeGAList.getTypeGAListInstance();
 
     @BeforeEach
     public void resetMySingleton() throws SecurityException,
@@ -32,6 +33,9 @@ class NewSensorCTRLTest {
         Field instance = House.class.getDeclaredField("theHouse");
         instance.setAccessible(true);
         instance.set(null, null);
+        Field instance2 = TypeGAList.class.getDeclaredField("typeGaList");
+        instance2.setAccessible(true);
+        instance2.set(null, null);
     }
 
     @DisplayName("Test if SensorTypeList is showed as a string to the user")
@@ -63,6 +67,8 @@ class NewSensorCTRLTest {
         OccupationArea oc2 = new OccupationArea(42, 41);
         Location loc2 = new Location(45, 25, 32);
 
+        TypeGAList.addTypeGA(new TypeGA("city"));
+
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", "city", oc2, loc2);
         gaList.addGA(ga1);
@@ -83,6 +89,7 @@ class NewSensorCTRLTest {
         OccupationArea oc2 = new OccupationArea(42, 41);
         Location loc2 = new Location(45, 25, 32);
         TypeGA typeGA = new TypeGA("district");
+        TypeGAList.addTypeGA(typeGA);
         GeographicalArea area1 = gaList.newGA("Pt", "Porto", typeGA, oc1, loc1);
         GeographicalArea area2 = gaList.newGA("Pt", "Braga", typeGA, oc2, loc2);
         assertTrue(gaList.addGA(area1));
@@ -105,6 +112,7 @@ class NewSensorCTRLTest {
         OccupationArea oc2 = new OccupationArea(42, 41);
         Location loc2 = new Location(45, 25, 32);
         TypeGA typeGA = new TypeGA("city");
+        TypeGAList.addTypeGA(typeGA);
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", typeGA, oc1, loc1);
         GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", typeGA, oc2, loc2);
 
@@ -240,7 +248,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Test if GPS coordinates validation methods return true when GPS coordinates are within defined range")
     void testIfGPSCoordinatesAreValid() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -300,6 +308,7 @@ class NewSensorCTRLTest {
         OccupationArea occupationArea = new OccupationArea(25, 12);
         Location location = new Location(23, 12, 11);
         TypeGA typeGA = new TypeGA("city");
+        TypeGAList.addTypeGA(typeGA);
         GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
         OccupationArea occupationArea2 = new OccupationArea(12, 11);
@@ -332,7 +341,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure that the size of the room list is 2")
     void getRoomListSize() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
@@ -350,7 +359,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure that all rooms are displayed in string")
     void showRoomListInStr() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
@@ -377,7 +386,7 @@ class NewSensorCTRLTest {
         OccupationArea occupationArea = new OccupationArea(12, 11);
         Location location = new Location(25, 12, 23);
         TypeGA typeGA = new TypeGA("city");
-
+        TypeGAList.addTypeGA(typeGA);
         GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
         GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", typeGA, occupationArea, location);
@@ -401,7 +410,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getGAName() returns name Aveiro as it is the name of the geographical area in the selected index position of the geographical area list.")
     void getGAName() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -410,6 +419,7 @@ class NewSensorCTRLTest {
         OccupationArea occupationArea = new OccupationArea(12, 11);
         Location location = new Location(25, 12, 23);
         TypeGA typeGA = new TypeGA("city");
+        TypeGAList.addTypeGA(typeGA);
         GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
         Location location2 = new Location(45, -15, 23);
@@ -429,7 +439,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getGASensorName() returns the the sensor's id")
     void getGASensorId() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -438,7 +448,7 @@ class NewSensorCTRLTest {
         OccupationArea occupationArea = new OccupationArea(12, 11);
         Location location = new Location(25, 12, 23);
         TypeGA typeGA = new TypeGA("city");
-
+        TypeGAList.addTypeGA(typeGA);
         GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
@@ -457,7 +467,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getGASensorName() returns the the sensor's name")
     void getSensorName() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -466,7 +476,7 @@ class NewSensorCTRLTest {
         OccupationArea occupationArea = new OccupationArea(12, 11);
         Location location = new Location(25, 12, 23);
         TypeGA typeGA = new TypeGA("city");
-
+        TypeGAList.addTypeGA(typeGA);
         GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
@@ -485,7 +495,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getGASensorSDate() returns the the sensor's start date")
     void getStartDate() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -494,6 +504,7 @@ class NewSensorCTRLTest {
         OccupationArea occupationArea = new OccupationArea(12, 11);
         Location location = new Location(25, 12, 23);
         TypeGA typeGA = new TypeGA("city");
+        TypeGAList.addTypeGA(typeGA);
         GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
@@ -507,10 +518,11 @@ class NewSensorCTRLTest {
         Calendar result = ctrl.getGASensorSDate(0);
         assertEquals(startDate, result);
     }
+
     @Test
     @DisplayName("Ensure getRoomSensorSDate() returns the the sensor's start date")
     void getRoomSensorSDate() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -536,7 +548,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getGASensorUnit() returns the the sensor's unit of measure")
     void getUnit() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
@@ -546,6 +558,7 @@ class NewSensorCTRLTest {
         OccupationArea occupationArea = new OccupationArea(12, 11);
         Location location = new Location(25, 12, 23);
         TypeGA typeGA = new TypeGA("city");
+        TypeGAList.addTypeGA(typeGA);
         GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
 
@@ -568,7 +581,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getRoomSensorType() returns the the sensor's type")
     void getRoomSensorType() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
@@ -597,7 +610,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getRoomName() returns the room's name where the sensor is installed")
     void getRoomName() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
@@ -624,7 +637,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getInternalSensorName() returns the sensor's name")
     void getInternalSensorName() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
@@ -652,7 +665,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getRoomSensorUnit() returns the sensor's unit of measure")
     void getRoomSensorUnit() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
@@ -680,7 +693,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure same sensor is created and added only once to the selected sensor list when trying to add it twice")
     void addNewSensorToRoom() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
@@ -711,7 +724,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure sensor list of living room has a size of two elements")
     void sensorListInRoomSize() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
@@ -748,7 +761,7 @@ class NewSensorCTRLTest {
 
     @Test
     void showSensorListInRoom() {
-         
+
 
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");

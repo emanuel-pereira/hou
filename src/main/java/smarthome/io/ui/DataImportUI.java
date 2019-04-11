@@ -59,14 +59,22 @@ public class DataImportUI {
         System.out.println("Please enter the file path to import geographical areas and sensors (eg: resources/DataSet_sprint06_GA.json):");
         String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
 
+        if (ctrl.typeGAListSize() == 0){
+            UtilsUI.showError("Error","The list of GA types is empty. Please create some first");
+            log.warn("The list of GA types is empty");
+            UtilsUI.backToMenu();
+            return;
+        }
+
         try {
             this.filePath = Paths.get(filepath);
             this.showGAsNumberInFile();
         } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | ParseException | java.text.ParseException e) {
             UtilsUI.showError("File not found.", "File not found in the specified file path: " + filepath);
-            UtilsUI.backToMenu();
             log.warn(e.getMessage());
+            UtilsUI.backToMenu();
         }
+
     }
 
     public void showGAsNumberInFile() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {

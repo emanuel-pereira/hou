@@ -104,6 +104,7 @@ public class RepositoryTest {
         OccupationArea oaP = new OccupationArea(25, 30);
         Location locP = new Location(22, 66, 20);
         TypeGA city = new TypeGA("City");
+        TypeGAList.addTypeGA(city);
         GeographicalArea porto = new GeographicalArea("POR", "Porto", city, oaP, locP);
         Repositories.saveGA(porto);
         OccupationArea oaL = new OccupationArea(32, 38);
@@ -126,6 +127,7 @@ public class RepositoryTest {
         OccupationArea oaP = new OccupationArea(25, 30);
         Location locP = new Location(22, 66, 20);
         TypeGA city = new TypeGA("City");
+        TypeGAList.addTypeGA(city);
         GeographicalArea porto = new GeographicalArea("POR", "Porto", city, oaP, locP);
         Repositories.saveGA(porto);
         OccupationArea oaL = new OccupationArea(32, 38);
@@ -222,6 +224,7 @@ public class RepositoryTest {
         //ga Porto created and added to gaList
         OccupationArea portoOA = new OccupationArea(25, 20);
         Location portoLoc = new Location(25, 12, 29);
+        TypeGAList.addTypeGA(new TypeGA("city"));
         GeographicalArea porto = new GeographicalArea("POR", "Porto", "City", portoOA, portoLoc);
         gaList.addGA(porto);
         //ga Lisbon created and added to gaList
@@ -268,6 +271,7 @@ public class RepositoryTest {
         //ga Porto created and added to gaList
         OccupationArea portoOA = new OccupationArea(25, 20);
         Location portoLoc = new Location(25, 12, 29);
+        TypeGAList.addTypeGA(new TypeGA("city"));
         GeographicalArea porto = new GeographicalArea("POR", "Porto", "City", portoOA, portoLoc);
         gaList.addGA(porto);
         //ga Lisbon created and added to gaList

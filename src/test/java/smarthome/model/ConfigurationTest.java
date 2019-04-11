@@ -48,7 +48,7 @@ class ConfigurationTest {
 
     @Test
     void getGridMeteringPeriodTestFailNotAnInt() {
-        Configuration c = new Configuration("resources/configFilesForTests/configFalseNotAnInt.properties");
+        Configuration c = new Configuration("resources_tests/configFilesForTests/configFalseNotAnInt.properties");
         c.getGridMeteringPeriod();
 
         int expectedResult = -1;
@@ -60,7 +60,7 @@ class ConfigurationTest {
     @Test
     void getDevicesMeteringPeriodFailNNotMultipleOf1440() {
 
-        Configuration c = new Configuration("resources/configFilesForTests/configFalseNotMultipleOf1440.properties");
+        Configuration c = new Configuration("resources_tests/configFilesForTests/configFalseNotMultipleOf1440.properties");
         c.getDevicesMeteringPeriod();
 
         int expectedResult = -1;
@@ -71,7 +71,7 @@ class ConfigurationTest {
 
     @Test
     void getGridMeteringPeriodTestFailNotMultipleOf1440() {
-        Configuration c = new Configuration("resources/configFilesForTests/configFalseNotMultipleOf1440.properties");
+        Configuration c = new Configuration("resources_tests/configFilesForTests/configFalseNotMultipleOf1440.properties");
         c.getGridMeteringPeriod();
 
         int expectedResult = -1;
@@ -84,7 +84,7 @@ class ConfigurationTest {
     @Test
     void getDeviceTypesFAIL() {
 
-        Configuration c = new Configuration("resources/configFilesForTests/configFalseNotAnInt.properties");
+        Configuration c = new Configuration("resources_tests/configFilesForTests/configFalseNotAnInt.properties");
 
         List<String> expectedResult = new ArrayList<>();
 
@@ -96,7 +96,7 @@ class ConfigurationTest {
     @Test
     void fileNotFound() {
 
-        Configuration c = new Configuration("resources/nofile.properties");
+        Configuration c = new Configuration("resources_tests/nofile.properties");
         c.getDevicesMeteringPeriod();
 
         int expectedResult = -1;
@@ -110,7 +110,7 @@ class ConfigurationTest {
     @Test
     void checkBoundaries_A() {
 
-        Configuration c = new Configuration("resources/configFilesForTests/configLimits.properties");
+        Configuration c = new Configuration("resources_tests/configFilesForTests/configLimits.properties");
 
         int expected = -1;
         int result = c.getDevicesMeteringPeriod();
@@ -121,7 +121,7 @@ class ConfigurationTest {
     @Test
     void checkBoundaries_B() {
 
-        Configuration c = new Configuration("resources/configFilesForTests/configLimits.properties");
+        Configuration c = new Configuration("resources_tests/configFilesForTests/configLimits.properties");
 
         int expected = -1;
         int result = c.getGridMeteringPeriod();

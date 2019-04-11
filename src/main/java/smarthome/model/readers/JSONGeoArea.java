@@ -15,15 +15,14 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class JSONGeoArea implements FileReaderGeoArea{
+public class JSONGeoArea implements FileReaderGeoArea {
     private Path filePath;
     private JSONParser parser = new JSONParser();
 
 
-    public JSONGeoArea(){
+    public JSONGeoArea() {
         //this constructor is empty so we can use reflection to choose the correct reader
     }
-
 
 
     private JSONObject readFile() throws IOException, ParseException {
@@ -37,43 +36,46 @@ public class JSONGeoArea implements FileReaderGeoArea{
         JSONObject jsonGAs = (JSONObject) this.readFile().get("geographical_area_list");
         JSONArray jsonGAList = (JSONArray) jsonGAs.get("geographical_area");
 
-        for(Object ga : jsonGAList) {
+        for (Object ga : jsonGAList) {
             JSONObject jsonGA = (JSONObject) ga;
             GeographicalArea geoArea = importGA(jsonGA);
             List<Sensor> gaSensorList = geoArea.getSensorListInGA().getSensorList();
-            importSensorList(jsonGA,gaSensorList);
+            importSensorList(jsonGA, gaSensorList);
             gaList.add(geoArea);
         }
         return gaList;
     }
 
-    private static GeographicalArea importGA (JSONObject jsonGA) {
+    private static GeographicalArea importGA(JSONObject jsonGA) {
         String id = (String) jsonGA.get("id");
         String description = (String) jsonGA.get("description");
-        TypeGA type = (TypeGA) jsonGA.get("type");
+        String type = jsonGA.get("type").toString();
+        TypeGA typeGA = TypeGAList.get(type);
+        if (typeGA == null)
+            typeGA = new TypeGA(type);
         Location location = importLocation(jsonGA);
         OccupationArea occupationArea = importOccupationArea(jsonGA);
-        return new GeographicalArea(id,description,type,occupationArea,location);
+        return new GeographicalArea(id, description, typeGA, occupationArea, location);
     }
 
-    private static OccupationArea importOccupationArea (JSONObject jsonObject){
+    private static OccupationArea importOccupationArea(JSONObject jsonObject) {
         double width = (double) jsonObject.get("width");
         double length = (double) jsonObject.get("length");
 
-        return new OccupationArea(length,width);
+        return new OccupationArea(length, width);
 
     }
 
-    private static void importSensorList (JSONObject jsonGA,List<Sensor> sensorList) throws java.text.ParseException {
+    private static void importSensorList(JSONObject jsonGA, List<Sensor> sensorList) throws java.text.ParseException {
         JSONArray jsonSensorList = (JSONArray) jsonGA.get("area_sensor");
-        for(Object areaSensor : jsonSensorList){
+        for (Object areaSensor : jsonSensorList) {
             JSONObject jsonSensor = (JSONObject) areaSensor;
             Sensor sensor = importSensor(jsonSensor);
             sensorList.add(sensor);
         }
     }
 
-    private static Sensor importSensor (JSONObject jsonSensor) throws java.text.ParseException{
+    private static Sensor importSensor(JSONObject jsonSensor) throws java.text.ParseException {
         JSONObject sensor = (JSONObject) jsonSensor.get("sensor");
         String id = (String) sensor.get("id");
         String name = (String) sensor.get("name");
@@ -90,16 +92,16 @@ public class JSONGeoArea implements FileReaderGeoArea{
         String unit = (String) sensor.get("units");
         Location location = importLocation(jsonSensor);
         ReadingList readings = new ReadingList();
-        return new Sensor(id,name,calendar,location,type,unit,readings);
+        return new Sensor(id, name, calendar, location, type, unit, readings);
 
     }
 
-    private static Location importLocation(JSONObject jsonObject){
+    private static Location importLocation(JSONObject jsonObject) {
         JSONObject jsonLocation = (JSONObject) jsonObject.get("location");
         double latitude = (double) jsonLocation.get("latitude");
         double longitude = (double) jsonLocation.get("longitude");
         double altitude = (long) jsonLocation.get("altitude");
 
-        return new Location(latitude,longitude,altitude);
+        return new Location(latitude, longitude, altitude);
     }
 }

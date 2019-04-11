@@ -8,12 +8,14 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name = "House_Grids")
 public class HouseGrid implements Metered {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
-    @Column(name = "MAX_POWER")
+    @Transient
     private double contractedMaximumPower = Double.NaN;
     private String designation;
 

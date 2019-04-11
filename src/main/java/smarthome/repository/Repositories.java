@@ -77,7 +77,6 @@ public final class Repositories {
     }
 
     public static void saveGA(GeographicalArea ga) {
-        Repositories.getTypeGARepository().save(ga.getType());
         Repositories.geoRepository.save(ga);
 
         SensorList sensorList = ga.getSensorListInGA();

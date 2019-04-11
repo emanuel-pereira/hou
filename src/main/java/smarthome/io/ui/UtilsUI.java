@@ -594,6 +594,7 @@ public final class UtilsUI {
         print("\n");
         Scanner s = new Scanner(System.in);
         s.nextLine();
+        return;
     }
 
     public static void underMaintenanceMsg(String inputUS) {
