@@ -1,26 +1,28 @@
 package smarthome.model.readers;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
 import smarthome.model.*;
-
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-
 import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 
 public class XMLGeoArea implements FileReaderGeoArea {
+
+    static final Logger log = Logger.getLogger(XMLGeoArea.class);
 
 
     public XMLGeoArea() {
@@ -47,9 +49,8 @@ public class XMLGeoArea implements FileReaderGeoArea {
                 gaList.add(importGeographicalArea(gaNodeList.item(i)));
             }
 
-
         } catch (Exception e) {
-            e.printStackTrace();
+            log.warn(e.getMessage());
         }
         return gaList;
     }

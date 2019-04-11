@@ -16,62 +16,75 @@ skinparam class {
 hide empty members
 
 class DataImportUI{
--DataImportHouseCTRL houseCtrl;
--Path filePath;
-+importDataHouseFromFile()
-+showReadingsOfHouse()
+-ctrl: DataImportCTRL
+-filePath: Path
++importReadings()
++checkIfRoomsAndSensorsExists()
 
 }
 
 class DataImportCtrl{
--RoomList roomList
-+importDataHouseFromFile()
-+failedToAddDataHouse()
+-roomList: RoomList
+-dataImport: DataImport
++importReadingsFromFile()
++roomListSize()
++houseSensorsSize()
++getNrOfImportedReadings()
++getNrOfInvalidReadings()
 }
 
 class DataImport{
--Path configFilePath;
--RoomList roomList;
+-parser: JSONParser
+-configFilePath: Path
+-roomList: RoomList
+-log: Logger
+-nrOfAddedReadings: int
+-nrOfInvalidReadings: int
+-sensors: List<sensor>
 
-+ importFileFromReadingsHouse()
-+loadReadingFilesHouse()
-+createLogFileHouse(String fileName)
-+getFileExtensionHouse(Path filePathAndName)
-+readFileHouse()
-+getClassName(String dataType, String fileExtension)
++getFileExtension()
++getClassName()
++readConfigFile()
++importReadingsFromFile()
++loadReadingFiles()
++importSensorsReadings()
++importReading()
++getNrOfAddedReadings()
++getNrOfInvalidReadings()
+
 }
 
 interface FileReaderReadings {
-- Path filePath;
-+ importReadingsToHouse(Path filePath)
+- filePath: Path
++ importData(Path filePath)
 }
 
 class JSONReading{
-- Path filePath;
-+ readHouseFile()
-+ importReadingsToHouse(Path filePath)
+- filePath: Path
++ importData(Path filePath)
++ readFile()
 }
 
 class XMLReading{
--Path filePath;
-+ importReadingHouse()
-+importReadingsToHouse(Path filePath)
+- filePath: Path
++ importData(Path filePath)
++importReading()
 + getTagValue()
 }
 
 class CSVReading{
-- Path filePath;
-+importReadingsToHouse(Path filePath)
+- filePath: Path
++ importData(Path filePath)
 }
 
 class RoomList {
- - RoomList: List<Room>
-
- + getRoom()
+ - listOfRooms: List<Room>
+ + getRoomList()
+ +getAllSensors()
   }
 
 class Room {
--SensorList sensorList
+-sensorListInRoom: SensorList
 +getSensorListRoom()
 }
 
@@ -83,12 +96,12 @@ class SensorList {
 }
 
 class Sensor {
-- ReadingList readingList
+- readingList: ReadingList
 + getReadingListRoom()
 }
 
 class ReadingList{
- - readingList : List<Reading>
+ - listOfReadings: List<Reading>
 
  + getReadingListRoom()
  + newReading()
@@ -96,14 +109,9 @@ class ReadingList{
 
 }
 
-class Repositories{
- - readingList : List<Reading>
 
-+ saveReading()
 
-}
 
-ReadingList "1"--"1" Repositories
 
 Sensor "1"--"..*" ReadingList
 
@@ -116,7 +124,7 @@ RoomList "1"-- "..*"Room
 RoomList  "1"-o "..*" DataImport
 
 
-DataImportUI --> DataImportCtrl
+DataImportUI -> DataImportCtrl
 DataImportCtrl --> DataImport
 
 

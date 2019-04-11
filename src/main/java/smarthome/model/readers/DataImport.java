@@ -14,9 +14,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static java.lang.Double.parseDouble;
 
@@ -26,11 +26,14 @@ public class DataImport {
     private Path configHouseFilePath = Paths.get("resources/DataSet_sprint06_House.json");
     private GAList gaList;
     private RoomList roomList;
-    static final Logger log = Logger.getLogger(DataImport.class);
     private int nrOfAddedReadings = 0;
     private int nrOfInvalidReadings = 0;
     private List<Sensor> sensors = new ArrayList<>();
     private List<GeographicalArea> notAdded;
+    private SensorTypeList sensorTypeList;
+    private int sensorsNotAdded;
+    private int sensorsAdded;
+    static final Logger log = Logger.getLogger(DataImport.class);
 
 
     /**
@@ -52,7 +55,17 @@ public class DataImport {
         this.roomList = roomList;
     }
 
-public int getNrOfAddedReadings() {
+    /**
+     * Constructor for importing data related to RoomList
+     *
+     * @param roomList to be updated with data imported through HouseAdministration menu
+     */
+    public DataImport(RoomList roomList, SensorTypeList sensorTypeList) {
+        this.roomList = roomList;
+        this.sensorTypeList = sensorTypeList;
+    }
+
+    public int getNrOfAddedReadings() {
         return this.nrOfAddedReadings;
     }
 
@@ -115,17 +128,17 @@ public int getNrOfAddedReadings() {
         }
     }
 
-
     /**
      * This method imports a reading for the sensor with sensorID passed as parameter.
      * Only readings with dateAndTime after the sensor's startDate will be imported otherwise they will be registered in a log file.
      *
-     * @param field
-     * @param sensorID
+     * @param field Position in the array
+     * @param sensorID Id of the sensor
      */
     private boolean importReading(String[] field, String sensorID) {
         for (Sensor sensor : sensors) {
             if (sensorID.equals(sensor.getId())) {
+
                 String dateAndTimeString = field[1];
                 Calendar readingDate = UtilsUI.parseDateToImportReadings(dateAndTimeString);
                 double readingValue = parseDouble(field[2]);
@@ -148,7 +161,6 @@ public int getNrOfAddedReadings() {
         }
         return false;
     }
-
 
     /**
      * Method that converts a valid file path to string and returns a substring after the
@@ -202,25 +214,93 @@ public int getNrOfAddedReadings() {
                 } catch (NullPointerException e) {
                     log.warn("Repository unreachable");
                 }
-            } else{
+            } else {
                 this.notAdded.add(ga);
-                log.info("No Geographical Areas were imported into the systems DB");}
+                log.info("No Geographical Areas were imported into the systems DB");
+            }
         }
     }
 
-    public int notAddedNumber(){
+    //House Sensors
+    public List<String[]> loadHouseSensorsFiles(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+        String fileExtension = getFileExtension(filePathAndName);
+        String className = getClassName("house_sensors", fileExtension);
+        FileReaderHouseSensors reader = (FileReaderHouseSensors) Class.forName(className).newInstance();
+        return reader.loadData(filePathAndName);
+    }
+
+    public void importHouseSensors(List<String[]> dataToImport) throws java.text.ParseException {
+        sensorsAdded = 0;
+        sensorsNotAdded = 0;
+        for (String[] string : dataToImport) {
+            String roomID = string[0];
+            Room room = roomList.getRoomIfIDMatchesAnyExistingRoom(roomID);
+
+            String sensorID = string[1];
+            String sensorDesignation = string[2];
+            String startDate = string[3];
+
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Date date = df.parse(startDate);
+            GregorianCalendar calendar = new GregorianCalendar();
+            calendar.setTime(date);
+
+            String type = string[4];
+            SensorType sensorType = this.sensorTypeList.getSensorTypeMatchedWithString(type);
+
+            String unit = string[5];
+
+            Sensor newSensor = new Sensor(sensorID, sensorDesignation, calendar, sensorType, unit, new ReadingList());
+
+            //Needs to be improved
+
+            if (room == null) {
+                String message = "Sensor not added to the DB - sensor: " + sensorID +
+                        " designation: " + sensorDesignation + "\nreason: The sensor was not imported because the room do not exists";
+                log.error(message);
+                sensorsNotAdded++;
+            } else if (sensorType == null) {
+                String message = "Sensor not added to the DB - sensor: " + sensorID +
+                        " designation: " + sensorDesignation + "start date: " + calendar +
+                        " sensorType: " + sensorType + "unit: " + unit + "\nreason: The sensor type do not exists";
+                log.error(message);
+                sensorsNotAdded++;
+            } else if (!room.getSensorListInRoom().addSensor(newSensor)) {
+                String message = "Sensor not added to the DB - sensor: " + sensorID +
+                        " designation: " + sensorDesignation + "start date: " + calendar +
+                        " sensorType: " + sensorType + "unit: " + unit + "\nreason: The sensor already exists";
+                log.error(message);
+                sensorsNotAdded++;
+            } else {
+                room.getSensorListInRoom().addSensor(newSensor);
+                sensorsAdded++;
+            }
+        }
+    }
+
+    public int getSizeOfSensorsAdded() {
+        return sensorsAdded;
+    }
+
+    public int notAddedNumber() {
         return this.notAdded.size();
     }
 
-    /**US100 CONFIGURE HOUSE BY FILE IMPORT*/
+    /**
+     * US100 CONFIGURE HOUSE BY FILE IMPORT
+     */
 
-    private FileReaderHouse getHouseConfigFileReader() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException{
+    private FileReaderHouse getHouseConfigFileReader() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
         String fileExtension = getFileExtension(this.configHouseFilePath);
         String className = getClassName("house", fileExtension);
-        return  (FileReaderHouse) Class.forName(className).newInstance();
+        return (FileReaderHouse) Class.forName(className).newInstance();
     }
 
-    public void importHouse() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException{
+    public void importHouse() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
         getHouseConfigFileReader().importHouseConfiguration(this.configHouseFilePath);
+    }
+
+    public int getSizeOfSensorsNotAdded() {
+        return sensorsNotAdded;
     }
 }

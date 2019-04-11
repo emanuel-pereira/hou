@@ -1,7 +1,5 @@
 package smarthome.model;
 
-import java.util.Calendar;
-
 public class Address {
 
     private String street;
@@ -179,8 +177,7 @@ public class Address {
      *
      * @return address information as a String
      */
-//TODO: add tests
-
+    //TODO: add tests
     public String addressToString() {
         StringBuilder output = new StringBuilder();
         String space = "    ";

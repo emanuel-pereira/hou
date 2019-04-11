@@ -1,7 +1,5 @@
 package smarthome.model;
 
-import smarthome.dto.DeviceDTO;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,18 +78,6 @@ public class DeviceList {
         return result;
     }
 
-    //US705
-    public List<DeviceDTO> getDevicesListDTO() {
-        List<DeviceDTO> list = new ArrayList<>();
-        List<Device> devices = this.getDeviceList();
-
-        for (Device device : devices) {
-            list.add(new DeviceDTO(device.getDeviceType(), device.getDeviceName(), String.valueOf(device.isActive())));
-        }
-
-        return list;
-    }
-
     public List<Device> getDeviceList() {
         return this.devicesList;
     }
@@ -131,24 +117,6 @@ public class DeviceList {
             meteredDeviceList.add(meteredDevice);
         }
         return meteredDeviceList;
-    }
-
-    //US705
-    public double reportNominalPower() {
-        double total = 0.0;
-        for (Device device : this.getDeviceList())
-            total += device.getNominalPower();
-        return total;
-    }
-
-    //US705
-    public Device match(String deviceName) {
-        if (this.devicesList.contains(deviceName)) {
-            for (Device device : this.devicesList)
-                if (device.equals(deviceName))
-                    return device;
-        }
-        return null;
     }
 
 }

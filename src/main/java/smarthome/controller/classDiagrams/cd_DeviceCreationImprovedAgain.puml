@@ -1,0 +1,161 @@
+@startuml
+skinparam linetype ortho
+
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
+
+class DeviceList
+{
+- devicesList
++ add()
++ newDevice()
++ get()
++ showDeviceListInString()
++ getDeviceList()
++ removeDevice()
++ deactivateDevice()
++ getMeteredDevices()
+}
+
+interface DeviceType
+{
++getDeviceType()
++createDevice()
+}
+
+class ConcreteDeviceTypeA
+{
++getDeviceType()
++createDevice()
+}
+class ConcreteDeviceTypeB
+{
++getDeviceType()
++createDevice()
+}
+
+
+
+
+
+class ConcreteDeviceB {
+- nameValidation
+- deviceSpecs
+- name
+- nominalPower
+- active
+- activityLog
+
++getDeviceName()
++getDeviceSpecs()
++getDeviceType()
++isActive()
++getActivityLog()
++getNominalPower()
++setDeviceName()
++setNominalPower()
++deactivateDevice()
+}
+
+class GenericDevice {
+- nameValidation
+- deviceSpecs
+- name
+- nominalPower
+- active
+- activityLog
+
++getDeviceName()
++getDeviceSpecs()
++getDeviceType()
++isActive()
++getActivityLog()
++getNominalPower()
++setDeviceName()
++setNominalPower()
++deactivateDevice()
+}
+
+class GenericSpecs
+{
+- attributeNames
+- attributeUnits
+- String deviceTypeDesignation
+- attributeNamesList
+- attributeValuesMap
+- attributeUnitsMap
++getDeviceType()
++getAttributesNames()
++getAttributeValues()
++getAttributeUnits()
++getAttributeValue()
++getAttributeUnit()
++setAttributeValue()
++setAttributeUnit()
+}
+
+interface DeviceSpecs
+{
++getDeviceType()
++getAttributesNames()
++getAttributeValues()
++getAttributeUnits()
++getAttributeValue()
++getAttributeUnit()
++setAttributeValue()
++setAttributeUnit()
+}
+
+
+
+interface Device
+{
++getDeviceName()
++getDeviceSpecs()
++getDeviceType()
++isActive()
++getActivityLog()
++getNominalPower()
++setDeviceName()
++setNominalPower()
++deactivateDevice()
+}
+
+
+
+
+DeviceList -left- ConcreteDeviceTypeA
+DeviceList -right- ConcreteDeviceTypeB
+
+ConcreteDeviceTypeA .up.|> DeviceType
+ConcreteDeviceTypeB .up.|> DeviceType
+
+GenericSpecs ..|> DeviceSpecs
+
+ConcreteDeviceA -down- GenericDevice
+
+GenericDevice ..|> Device
+
+GenericDevice *-right- GenericSpecs
+
+
+ConcreteDeviceTypeA -down- ConcreteDeviceA
+
+ConcreteDeviceTypeB -down- ConcreteDeviceB
+
+ConcreteDeviceB ..|> Device
+ConcreteDeviceB *-right- GenericSpecs
+
+
+
+@enduml

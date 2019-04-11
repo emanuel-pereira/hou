@@ -1,0 +1,83 @@
+@startuml
+autonumber
+hidefootbox
+
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+actor SysAdmin
+
+create ":DataImportUI"
+SysAdmin -> ":DataImportUI": Import House Sensors\nfrom a File
+
+
+create ":DataImportCTRL"
+":DataImportUI" -> ":DataImportCTRL": create(roomL, sTypeList)
+SysAdmin <-- ":DataImportUI": Request file path
+SysAdmin -> ":DataImportUI": Enters file path
+
+":DataImportUI" -> ":DataImportCTRL": loadHouseSensors (path)
+
+create ":DataImport"
+":DataImportCTRL"->":DataImport":create(roomL, sTypeList)
+
+":DataImportCTRL"->":DataImport": loadHouseSensors(path)
+
+
+create ":{Reader}"
+":DataImport"->":{Reader}": create()
+note right #FFFF
+{Reader} can be:
+    JSONHouseSensors
+end note
+
+":DataImport" -> ":DataImport": readConfigFile()
+
+ref over ":DataImport", ":{Reader}": Create file reader class based on file extension\n
+
+":DataImport" -> ":{Reader}": loadData(path)
+ref over ":DataImport",":{Reader}",":DataImportCTRL":Create list of Sensors for each Room that are read from the file\n
+
+
+":DataImportUI" -> ":DataImportCTRL" :int = getSizeOfSensorsFile(path)
+'ref over ":DataImportUI",":DataImportCTRL": Get list size of Geographical Areas\n and Sensors to show
+
+SysAdmin<--":DataImportUI": Show the size of Sensor list\nto import and asks\nto confirm import
+
+SysAdmin -> ":DataImportUI": Confirms import
+
+":DataImportUI" ->":DataImportCTRL": importHouseSensorsFromFiles(path)
+":DataImportCTRL"-> ":DataImport": importFromFileHouseSensors (List<String[]>))
+loop for each element in the list
+":DataImport" -> "roomList:RoomList":room = getRoom(roomID)
+":DataImport" -> "rSList: SensorList":rSList=room.getSensorListInRoom();
+create "s:Sensor"
+":DataImport" -> "s:Sensor":s=rSList.newSensor(id,name,startDate,sType,unit,readingL)
+":DataImport" -> "rSList: SensorList":addSensor(s)
+":DataImport" -> "rSList: SensorList": saveSensor(s)
+"rSList: SensorList" -> ":Repositories": saveSensor(s)
+end
+":DataImportUI" -> ":DataImportCTRL" :int[] = getImportedHouseSensorListSize(path)
+SysAdmin<--":DataImportUI": Show the number of Sensors that\nwere imported and the number of\nthe ones that were not
+@enduml

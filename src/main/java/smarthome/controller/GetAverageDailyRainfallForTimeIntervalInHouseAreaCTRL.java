@@ -12,8 +12,9 @@ import static smarthome.model.House.*;
 public class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL {
 
 
-    public GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL() {
 
+    public GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL() {
+        //default public Controller constructor, empty on purpose
     }
 
 
