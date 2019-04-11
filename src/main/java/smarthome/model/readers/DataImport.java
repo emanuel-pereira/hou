@@ -16,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import static java.lang.Double.parseDouble;
@@ -140,7 +141,15 @@ public class DataImport {
             if (sensorID.equals(sensor.getId())) {
 
                 String dateAndTimeString = field[1];
-                Calendar readingDate = UtilsUI.parseDateToImportReadings(dateAndTimeString);
+                Calendar readingDate = null;
+                try{
+                readingDate = UtilsUI.parseDateToImportReadings(dateAndTimeString);}
+                catch (DateTimeParseException e){
+                    String message = "Reading not added to the DB - sensor: " + sensorID +
+                            " value: " + field[2] + " " + field[3] + " date: " + dateAndTimeString + "\nreason: " + e.getMessage();
+                    log.error(message);
+                    return false;
+                }
                 double readingValue = parseDouble(field[2]);
                 String unit = field[3];
                 Reading reading = new Reading(readingValue, readingDate, unit);
