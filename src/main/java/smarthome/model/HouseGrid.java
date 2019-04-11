@@ -2,14 +2,24 @@ package smarthome.model;
 
 import smarthome.model.validations.Utils;
 
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
 public class HouseGrid implements Metered {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+
+    @Column(name = "MAX_POWER")
     private double contractedMaximumPower = Double.NaN;
     private String designation;
+
+    @Transient
     private PowerSourceList psListInHG;
+    @Transient
     private RoomList roomList;
 
 

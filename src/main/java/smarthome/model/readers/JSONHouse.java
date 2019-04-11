@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import smarthome.model.*;
+import smarthome.repository.Repositories;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -71,8 +72,11 @@ public class JSONHouse implements FileReaderHouse {
             RoomList gridRoomList = gridFromFile.getRoomListInAGrid();
             loadRoomsInGrid(jsonGrid, gridRoomList);
             hgList.add(gridFromFile);
+
         }
-        getGridListInHouse().getHouseGridList().addAll(hgList);
+        if (getGridListInHouse().getHouseGridList().addAll(hgList))
+            for (HouseGrid grid : hgList)
+                Repositories.getGridsRepository().save(grid);
     }
 
 

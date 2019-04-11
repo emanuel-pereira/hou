@@ -1,5 +1,7 @@
 package smarthome.model;
 
+import smarthome.repository.Repositories;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class HouseGridList {
     public boolean addHouseGrid(HouseGrid inputHouseGrid) {
         if (!this.hglist.contains(inputHouseGrid)) {
             this.hglist.add(inputHouseGrid);
+            Repositories.getGridsRepository().save(inputHouseGrid);
             return true;
         } else return false;
     }

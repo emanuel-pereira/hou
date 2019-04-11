@@ -11,6 +11,7 @@ public final class Repositories {
     private static TypeGARepository typeGARepository;
     private static ReadingRepository readingRepository = null;
     private static RoomRepository roomRepository = null;
+    private static GridRepository gridsRepository = null;
 
     /**
      * Private constructor to hide the implicit one
@@ -42,6 +43,10 @@ public final class Repositories {
         Repositories.roomRepository = roomRepository;
     }
 
+    public static void setGridsRepository(GridRepository gridsRepository) {
+        Repositories.gridsRepository = gridsRepository;
+    }
+
     public static GeoRepository getGeoRepository() {
         return geoRepository;
     }
@@ -65,6 +70,10 @@ public final class Repositories {
 
     public static RoomRepository getRoomRepository() {
         return roomRepository;
+    }
+
+    public static GridRepository getGridsRepository() {
+        return gridsRepository;
     }
 
     public static void saveGA(GeographicalArea ga) {
