@@ -7,13 +7,22 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.xml.sax.SAXException;
 import smarthome.io.ui.SmartHomeUI;
+import smarthome.model.*;
 import smarthome.repository.*;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.text.ParseException;
 
 @SpringBootApplication
 public class Application {
+
+    private String defaults = "Default";
+    Location loc = new Location(1, 1, 1);
+    Address a1 = new Address(defaults, defaults,"0000-000",defaults,defaults,loc);
+    OccupationArea oc = new OccupationArea(1, 1);
+    GeographicalArea g1 = new GeographicalArea(defaults, defaults, defaults, oc, loc);
+    House house = House.getHouseInstance(a1, g1);
 
     static final Logger log = Logger.getLogger(Application.class);
 
@@ -23,7 +32,7 @@ public class Application {
      *
      * @param args
      */
-    public static void main(String[] args) throws IllegalAccessException, InstantiationException, IOException, org.json.simple.parser.ParseException, ClassNotFoundException, SAXException, ParserConfigurationException {
+    public static void main(String[] args) throws IllegalAccessException, InstantiationException, IOException, org.json.simple.parser.ParseException, ClassNotFoundException, SAXException, ParserConfigurationException, ParseException {
         SpringApplication.run(Application.class);
         SmartHomeUI.init();
         SmartHomeUI.menuOptions();

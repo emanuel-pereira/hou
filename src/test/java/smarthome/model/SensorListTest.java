@@ -394,7 +394,7 @@ class SensorListTest {
 
         GregorianCalendar pDate = new GregorianCalendar(2019, 2, 2);
 
-        lisbonSensorList.deactivateSensor("not valid", pDate);
+        lisbonSensorList.deactivateSensor("TL", pDate);
 
         int expected = 1;
         int result = lisbonSensorList.getActiveSensors().size();
