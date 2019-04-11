@@ -18,6 +18,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static smarthome.model.House.*;
+import static smarthome.model.House.getHouseRoomList;
 
 class DataImportTest {
 
@@ -205,5 +206,34 @@ class DataImportTest {
         assertEquals(expected,result);
     }
 */
+    @Test
+    void checkIfSensorAreImportedTest() throws IllegalAccessException, ParseException, InstantiationException, IOException, java.text.ParseException, ClassNotFoundException {
+        RoomList roomList = getHouseRoomList();
+
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        sensorTypeList.addSensorType(new SensorType("temperature"));
+
+        Room room1 = new Room("B405","B405",3,2,3,1);
+        Room room2 = new Room("B106","B106",3,2,3,1);
+        Room room3 = new Room("B107","B107",3,2,3,1);
+        Room room4 = new Room("B109","B109",3,2,3,1);
+        Room room5 = new Room("B109","B109",1,1,1,1);
+
+
+        roomList.addRoom(room1);
+        roomList.addRoom(room2);
+        roomList.addRoom(room3);
+        roomList.addRoom(room4);
+        roomList.addRoom(room5);
+
+        DataImport dataImport = new DataImport(roomList,sensorTypeList);
+        Path path = Paths.get("resources/DataSet_sprint06_HouseSensors.json");
+        dataImport.importHouseSensors(dataImport.loadHouseSensorsFiles(path));
+
+        List<Sensor> sensorList = roomList.getRoomList().get(0).getSensorListInRoom().getSensorList();
+        int size = sensorList.size();
+
+        assertEquals(1,size);
+    }
 }
 
