@@ -1,16 +1,14 @@
 package smarthome.model.devices;
 
-import smarthome.model.*;
-import smarthome.model.validations.NameValidations;
-import smarthome.model.validations.Utils;
+import smarthome.model.DeviceSpecs;
+import smarthome.model.Program;
+import smarthome.model.ProgramWithTimer;
+import smarthome.model.Programmable;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class Dishwasher extends GenericDevice implements Programmable {
-
-    private NameValidations nameValidation = new NameValidations();
 
     private List<Program> programList = new ArrayList<>();
     private ProgramWithTimer meteredProgram;

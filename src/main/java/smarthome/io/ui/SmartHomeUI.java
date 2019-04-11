@@ -19,10 +19,11 @@ public final class SmartHomeUI {
     private static GAList gaList;
     private static TypeGAList typeGAList;
 
+    private String defaults = "Default";
     Location loc = new Location(1, 1, 1);
-    Address a1 = new Address("Default", "Default","0000-000","Default","Default",loc);
+    Address a1 = new Address(defaults, defaults,"0000-000",defaults,defaults,loc);
     OccupationArea oc = new OccupationArea(1, 1);
-    GeographicalArea g1 = new GeographicalArea("Default", "Default", "Default", oc, loc);
+    GeographicalArea g1 = new GeographicalArea(defaults, defaults, defaults, oc, loc);
     House house = House.getHouseInstance(a1, g1);
 
 

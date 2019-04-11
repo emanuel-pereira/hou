@@ -13,6 +13,7 @@ public class GetEnergyConsumptionInPeriodCTRL {
 
 
     public GetEnergyConsumptionInPeriodCTRL() {
+        //default public Controller constructor, empty on purpose
     }
 
     /**

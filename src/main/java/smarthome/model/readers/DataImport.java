@@ -26,11 +26,11 @@ public class DataImport {
     private Path configHouseFilePath = Paths.get("resources/DataSet_sprint06_House.json");
     private GAList gaList;
     private RoomList roomList;
-    static final Logger log = Logger.getLogger(DataImport.class);
     private int nrOfAddedReadings = 0;
     private int nrOfInvalidReadings = 0;
     private List<Sensor> sensors = new ArrayList<>();
     private List<GeographicalArea> notAdded;
+    static final Logger log = Logger.getLogger(DataImport.class);
 
 
     /**
@@ -52,7 +52,7 @@ public class DataImport {
         this.roomList = roomList;
     }
 
-public int getNrOfAddedReadings() {
+    public int getNrOfAddedReadings() {
         return this.nrOfAddedReadings;
     }
 
@@ -202,25 +202,28 @@ public int getNrOfAddedReadings() {
                 } catch (NullPointerException e) {
                     log.warn("Repository unreachable");
                 }
-            } else{
+            } else {
                 this.notAdded.add(ga);
-                log.info("No Geographical Areas were imported into the systems DB");}
+                log.info("No Geographical Areas were imported into the systems DB");
+            }
         }
     }
 
-    public int notAddedNumber(){
+    public int notAddedNumber() {
         return this.notAdded.size();
     }
 
-    /**US100 CONFIGURE HOUSE BY FILE IMPORT*/
+    /**
+     * US100 CONFIGURE HOUSE BY FILE IMPORT
+     */
 
-    private FileReaderHouse getHouseConfigFileReader() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException{
+    private FileReaderHouse getHouseConfigFileReader() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
         String fileExtension = getFileExtension(this.configHouseFilePath);
         String className = getClassName("house", fileExtension);
-        return  (FileReaderHouse) Class.forName(className).newInstance();
+        return (FileReaderHouse) Class.forName(className).newInstance();
     }
 
-    public void importHouse() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException{
+    public void importHouse() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
         getHouseConfigFileReader().importHouseConfiguration(this.configHouseFilePath);
     }
 }

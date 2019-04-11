@@ -80,17 +80,4 @@ public class HouseGridList {
         return result.toString();
     }
 
-    //US705
-    //TODO use DTO
-    public DeviceList getDevices() {
-        DeviceList devices = new DeviceList();
-        for (int grid = 0; grid < this.getSize(); grid++) {
-            HouseGrid tempGrid = this.get(grid);
-            List<Device> tempList = tempGrid.getDeviceListInGrid().getDeviceList();
-            for (Device device : tempList)
-                devices.add(device);
-        }
-        return devices;
-    }
-
 }

@@ -1,6 +1,9 @@
 package smarthome.controller;
 
-import smarthome.model.*;
+import smarthome.model.DeviceList;
+import smarthome.model.HouseGrid;
+import smarthome.model.HouseGridList;
+import smarthome.model.RoomList;
 
 import static smarthome.model.House.getGridListInHouse;
 
@@ -8,7 +11,7 @@ public class GetDeviceListInGridByTypeCTRL {
 
 
     public GetDeviceListInGridByTypeCTRL () {
-
+        //default public Controller constructor, empty on purpose
     }
 
     public HouseGridList getHouseGridListCtrl() {
