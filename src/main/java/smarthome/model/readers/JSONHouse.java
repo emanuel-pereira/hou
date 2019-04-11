@@ -49,20 +49,18 @@ public class JSONHouse implements FileReaderHouse {
 
     private void importRooms(Path path) throws IOException, ParseException {
         this.filePath = path;
-        RoomList roomList = new RoomList();
         JSONArray jsonRooms = (JSONArray) this.readFile().get("room");
 
         for (Object room : jsonRooms) {
             JSONObject jsonRoom = (JSONObject) room;
             Room roomFromFile = loadRoom(jsonRoom);
-            roomList.addRoom(roomFromFile);
+            getHouseRoomList().addRoom(roomFromFile);
         }
-        getHouseRoomList().getRoomList().addAll(roomList.getRoomList());
+
     }
 
     private void importGrids(Path path) throws IOException, ParseException {
         this.filePath = path;
-        List<HouseGrid> hgList = new ArrayList<>();
         JSONArray jsonGrids = (JSONArray) this.readFile().get("grid");
 
         for (Object grid : jsonGrids) {
@@ -70,9 +68,8 @@ public class JSONHouse implements FileReaderHouse {
             HouseGrid gridFromFile = loadGrid(jsonGrid);
             RoomList gridRoomList = gridFromFile.getRoomListInAGrid();
             loadRoomsInGrid(jsonGrid, gridRoomList);
-            hgList.add(gridFromFile);
+            getGridListInHouse().addHouseGrid(gridFromFile);
         }
-        getGridListInHouse().getHouseGridList().addAll(hgList);
     }
 
 

@@ -20,8 +20,9 @@ public class NewHouseGridUI {
      **/
     public void run() {
         String id = null;
-        if (mCtrlUS130.getHouseGridListSize () == 0)
+        if (mCtrlUS130.getHouseGridListSize () == 0){
             System.out.println ("List of House Grids is empty, please insert one first. \n");
+        }
         else if (mCtrlUS130.getHouseGridListSize () != 0)
             System.out.println ("There already exist the following grids:\n" + mCtrlUS130.showGridsListInString ());
         while (id == null) {
@@ -32,6 +33,7 @@ public class NewHouseGridUI {
         if (mCtrlUS130.createNewHouseGrid (id)) {
             System.out.println ("It was created a new electric Grid successfully with the name: " + id);
             System.out.println (mCtrlUS130.showGridsListInString ());
+            UtilsUI.backToMenu();
         }
     }
 }

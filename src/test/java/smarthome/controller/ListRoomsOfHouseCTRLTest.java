@@ -47,7 +47,9 @@ public class ListRoomsOfHouseCTRLTest {
         roomList.addRoom(kitchen);
         roomList.addRoom(bathroom);
 
-        String expectedResult = "1 - Quarto da Maria\n2 - Cozinha\n3 - Quarto de banho\n";
+        String expectedResult = "1 - R01, Quarto da Maria\n" +
+                                "2 - R02, Cozinha\n" +
+                                "3 - R03, Quarto de banho\n";
         String result = ctrl108.showListRoomInString();
 
         assertEquals(expectedResult, result);

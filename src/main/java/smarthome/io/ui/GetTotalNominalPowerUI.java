@@ -1,6 +1,7 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetTotalNominalPowerCTRL;
+import smarthome.model.validations.Utils;
 
 public class GetTotalNominalPowerUI {
 
@@ -24,19 +25,24 @@ public class GetTotalNominalPowerUI {
      */
     public void getGridTotalNominalPower() {
         if (this.checkIfGridListEmpty()) {
+            UtilsUI.backToMenu();
             return;
         }
         if (this.checkIfRoomListEmpty()) {
+            UtilsUI.backToMenu();
             return;
         }
         this.selectGrid();
         if (this.checkIfRoomsExistsInGrid()) {
+            UtilsUI.backToMenu();
             return;
         }
         if (this.checkIfDevicesExistsInGrid()) {
+            UtilsUI.backToMenu();
             return;
         }
         System.out.println("The total Nominal Power of this Grid is: " + this.controller.getGridTotalNominalPower(indexGrid) + "kW\n");
+        UtilsUI.backToMenu();
     }
 
     /**
@@ -48,10 +54,12 @@ public class GetTotalNominalPowerUI {
      */
     public void getRoomTotalNominalPower() {
         if (this.checkIfRoomListEmpty()) {
+            UtilsUI.backToMenu();
             return;
         }
         this.selectRoom();
         if (this.checkIfDevicesExistsInRoom()) {
+            UtilsUI.backToMenu();
             return;
         }
         System.out.println("The total Nominal Power of this Room is: " + this.controller.getRoomTotalNominalPower(indexRoom) + "kW\n");

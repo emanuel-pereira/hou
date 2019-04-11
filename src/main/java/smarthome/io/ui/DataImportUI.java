@@ -53,7 +53,7 @@ public class DataImportUI {
     }
 
     public void loadGeoAreaFile() {
-        System.out.println("Please enter the file path to import geographical areas and sensors (eg: resources/DataSet_sprint05_GA.json):");
+        System.out.println("Please enter the file path to import geographical areas and sensors (eg: resources/DataSet_sprint06_GA.json):");
         String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
 
         try {
@@ -62,6 +62,7 @@ public class DataImportUI {
         } catch (Exception e) {
             UtilsUI.showError("File not found.", "File not found in the specified file path: " + filepath);
             UtilsUI.backToMenu();
+            return;
         }
     }
 
@@ -112,19 +113,25 @@ public class DataImportUI {
                     System.out.println("Readings import task completed:");
                     if (importedReadings == 0) {
                         System.out.println("No readings were imported. Please verify if the file contains valid readings.");
+                        UtilsUI.backToMenu();
                     }
                     if (importedReadings > 0) {
                         System.out.println(" - " + ctrl.getNrOfImportedReadings() + " readings were imported\n");
+                        UtilsUI.backToMenu();
                     }
-                    if (invalidReadings > 0) {
+                    if (invalidReadings > 0 && importedReadings > 0) {
+                        System.out.println(" - " + ctrl.getNrOfImportedReadings() + " readings were imported\n");
                         System.out.println(" - " + invalidReadings +" readings were not imported. The non-importing " +
                                 "\nreason for each invalid reading can be found in the importError.log file.");
+                        UtilsUI.backToMenu();
                     }
                     loop = false;
                 }
                 loop = false;
             } catch (FileNotFoundException e) {
                 System.out.println("File not found in the specified file path: " + filepath);
+                UtilsUI.backToMenu();
+                return;
             }
         }
     }
@@ -159,10 +166,12 @@ public class DataImportUI {
     public void loadHouseSensorsFile() {
         if (this.roomListEmpty()) {
             System.out.println("Before importing sensors please add rooms first.\n");
+            UtilsUI.backToMenu();
             return;
         }
         if (this.sensorTypeListEmpty()) {
             System.out.println("Before importing sensors please add sensor types first.\n");
+            UtilsUI.backToMenu();
             return;
         }
         System.out.println("Please enter the file path to import sensors (eg: resources/DataSet_sprint06_HouseSensors.json):");

@@ -59,7 +59,8 @@ class GetCurrentTemperatureInRoomCTRLTest {
         Room room2 = new Room("R02", "Bed Room", 1, 2, 3, 2);
         rList.addRoom(room1);
         rList.addRoom(room2);
-        String expected = "1 - Living Room\n2 - Bed Room\n";
+        String expected = "1 - R01, Living Room\n" +
+                            "2 - R02, Bed Room\n";
         String result = ctrl.showRoomListInString();
         assertEquals(expected, result);
     }

@@ -217,7 +217,7 @@ class GetGAsOfTypeCTRLTest {
 
         String expected = "1 - Porto\n2 - Gaia\n";
         GetGAsOfTypeCTRL ctrl4 = new GetGAsOfTypeCTRL(listGa,listType);
-        String result = ctrl4.showListInString (typeIndex);
+        String result = ctrl4.showListGAFromType(typeIndex);
 
         assertEquals (expected, result);
 

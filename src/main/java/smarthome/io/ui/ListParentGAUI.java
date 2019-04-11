@@ -34,9 +34,14 @@ public class ListParentGAUI {
             if (inputIndex == 0) {//input 0 returns to main US's menu
                 System.out.println("Return to Main Menu");
             } else {
-                if (mCtrlUS8.isParentOf(inputIndex).isEmpty())
+                if (mCtrlUS8.isParentOf(inputIndex).isEmpty()){
                     System.out.println("No parent Geographical Area was defined yet for this Geographical Area, please select US7 to set up Parent GA's in the next menu \n");
-                else System.out.println("The Geographical Area was included to: " + mCtrlUS8.isParentOf(inputIndex));
+                    UtilsUI.backToMenu();
+                }
+                else {
+                    System.out.println("The Geographical Area was included to: " + mCtrlUS8.isParentOf(inputIndex));
+                    UtilsUI.backToMenu();
+                }
             }
         }
     }
@@ -50,6 +55,7 @@ public class ListParentGAUI {
     public boolean returnGAStringList() {
         if (mCtrlUS8.getGAListSize() == 0) {
             System.out.println("List of geographical areas is empty, please insert one first in US3 \n \n");
+            UtilsUI.backToMenu();
             return false;
         } else {
             System.out.println("Current list of geographical areas: ");

@@ -58,7 +58,7 @@ public final class SystemAdministrationUI {
                     break;
                 case 4:
                     GetGAsOfTypeUI ui4 = new GetGAsOfTypeUI(gaList, typeGAList);
-                    ui4.run();
+                    ui4.checkLists();
                     break;
                 case 5:
                     NewSensorTypeUI ui5 = new NewSensorTypeUI(sensorTypeList);
@@ -66,7 +66,7 @@ public final class SystemAdministrationUI {
                     break;
                 case 6:
                     NewSensorUI ui6 = new NewSensorUI(sensorTypeList, gaList);
-                    ui6.checkIfGAListIsEmpty();
+                    ui6.inputNameGASensor();
                     break;
                 case 7:
                     SetParentOfGAUI ui7 = new SetParentOfGAUI(gaList);

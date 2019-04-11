@@ -36,8 +36,10 @@ public class AddRoomToHouseUI {
             if (!this.controller.checkIfRoomIdExists(this.id)) {
                 condition = false;
                 this.insertName();
-            } else
+            } else{
                 System.out.println("The Id already exists");
+                UtilsUI.backToMenu();
+            }
         }
     }
 
@@ -55,8 +57,10 @@ public class AddRoomToHouseUI {
             if (!this.controller.checkIfRoomIdExists(this.name)) {
                 condition = false;
                 this.insertFloor();
-            } else
-                System.out.println("There's a room with that name");
+            } else {
+                System.out.println("There's already a room with that name");
+                UtilsUI.backToMenu();
+            }
         }
     }
 
@@ -133,8 +137,11 @@ public class AddRoomToHouseUI {
     private void addNewRoom() {
         if (this.controller.newAddRoom(this.id, this.name, this.floor, this.length, this.width, this.height)) {
             System.out.println("Success. The " + this.name + " with the Id " + this.id + " on the " + this.floor + " floor " + this.showHeight() + this.length * this.width + "m² was created.\n");
-        } else {
+            UtilsUI.backToMenu();
+        }
+        else {
             System.out.println("Fail! Please try again.");
+            UtilsUI.backToMenu();
         }
     }
 

@@ -38,6 +38,7 @@ public class NewGeographicalAreaUI {
 
         if (this.ctrl.typeGAListSize() == 0) {
             System.out.println("There are no types of Geographical Areas created. Please create one first.\n");
+            UtilsUI.backToMenu();
             return;
         }
         this.insertIDAndName();
@@ -90,5 +91,6 @@ public class NewGeographicalAreaUI {
 
         System.out.println("The geographical area " + this.ctrl.getGAName()
                 + " of type " + this.ctrl.getGAType() + " was created.\n");
+        UtilsUI.backToMenu();
     }
 }

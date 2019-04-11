@@ -25,9 +25,12 @@ public class GetTypeGAListUI {
     public void run() {
         if (mCtrlUS2.getTypeGAList().isEmpty()) {
             System.out.println ("List of type of geographical area is empty, please insert one first");
-        } else {
+            UtilsUI.backToMenu();
+        }
+        else {
             System.out.println ("Current list of types of geographical area:");
-                System.out.println (mCtrlUS2.showListInString ());
+            System.out.println (mCtrlUS2.showListInString ());
+            UtilsUI.backToMenu();
             }
         }
 }

@@ -15,6 +15,7 @@ public class GetDeviceListInGridByTypeUI {
     public void checkIfHGListIsEmpty() {
         if (this.ctrl.getHGListSizeCtrl() == 0) {
             System.out.println("List of HouseGrids is empty. Please insert a HouseGrid first.");
+            UtilsUI.backToMenu();
             return;
         }
         this.selectHG();

@@ -2,6 +2,7 @@ package smarthome.controller;
 
 import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
+import smarthome.model.TypeGA;
 import smarthome.model.TypeGAList;
 
 import java.util.List;
@@ -33,12 +34,27 @@ public class GetGAsOfTypeCTRL {
         return mGAList.gAFromThisType(areaType);
     }
 
+    public String showListTypeGA() {
+        List<TypeGA> list = mTypeGAList.getTypeGAList();
+        StringBuilder result = new StringBuilder ();
+        String element = " - ";
+        int number = 1;
+        for (TypeGA position : list) {
+            result.append (number++);
+            result.append (element);
+            result.append (position);
+            result.append ("\n");
+        }
+        return result.toString ();
+    }
+
+
     /**
      * US4 method that shows the list of GAs returned by the previous method in a string
      *
      * @param typeAreaIndex is a number that matches a position in the list of types from which the user can choose from
      */
-    public String showListInString(int typeAreaIndex) {
+    public String showListGAFromType(int typeAreaIndex) {
         List<GeographicalArea> list = this.getGAListFromType(typeAreaIndex);
         StringBuilder result = new StringBuilder();
         String element1 = " - ";

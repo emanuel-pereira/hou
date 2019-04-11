@@ -172,8 +172,8 @@ public class RoomListTest {
         roomList.addRoom(r1);
         roomList.addRoom(r2);
 
-        String expected = "1 - LivingRoom\n" +
-                "2 - Garage\n";
+        String expected = "1 - R01, LivingRoom\n" +
+                            "2 - R02, Garage\n";
         String result = roomList.showRoomListInString();
 
         assertEquals(expected, result);
