@@ -50,11 +50,19 @@ public class DataImportCTRL {
         this.sensorTypeList = sensorTypeList;
     }
 
+    /**
+     * @return the size of the room list to check in the UI if there are already rooms configured.
+     */
     public int roomListSize() {
         return this.roomList.getRoomListSize();
     }
 
-    public int getSizeSensorListInHouseRooms() {
+
+    /**
+     *
+     * @return the nr of sensors in the room list
+     */
+    public int nrOfSensorsInAllRooms() {
         int size = 0;
         for (Room r : roomList.getRoomList()) {
             size += r.getSensorListInRoom().size();

@@ -16,16 +16,16 @@ skinparam class {
 hide empty members
 
 class DataImportUI{
--DataImportCTRL Ctrl;
--Path filePath;
+-ctrl: DataImportCTRL
+-filePath: Path
 +importReadings()
 +checkIfRoomsAndSensorsExists()
 
 }
 
 class DataImportCtrl{
--RoomList roomList
--DataImport dataImport
+-roomList: RoomList
+-dataImport: DataImport
 +importReadingsFromFile()
 +roomListSize()
 +houseSensorsSize()
@@ -34,12 +34,13 @@ class DataImportCtrl{
 }
 
 class DataImport{
--Path configFilePath;
--RoomList roomList;
--Logger log
--int nrOfAddedReadings
--int int nrOfInvalidReadings
--sensors : List<sensorList>
+-parser: JSONParser
+-configFilePath: Path
+-roomList: RoomList
+-log: Logger
+-nrOfAddedReadings: int
+-nrOfInvalidReadings: int
+-sensors: List<sensor>
 
 +getFileExtension()
 +getClassName()
@@ -54,36 +55,36 @@ class DataImport{
 }
 
 interface FileReaderReadings {
-- Path filePath;
+- filePath: Path
 + importData(Path filePath)
 }
 
 class JSONReading{
-- Path filePath;
+- filePath: Path
 + importData(Path filePath)
 + readFile()
 }
 
 class XMLReading{
--Path filePath;
+- filePath: Path
 + importData(Path filePath)
 +importReading()
 + getTagValue()
 }
 
 class CSVReading{
-- Path filePath;
+- filePath: Path
 + importData(Path filePath)
 }
 
 class RoomList {
- - RoomList: List<Room>
+ - listOfRooms: List<Room>
  + getRoomList()
  +getAllSensors()
   }
 
 class Room {
--SensorList: List<sensor>
+-sensorListInRoom: SensorList
 +getSensorListRoom()
 }
 
@@ -95,12 +96,12 @@ class SensorList {
 }
 
 class Sensor {
-- ReadingList readingList
+- readingList: ReadingList
 + getReadingListRoom()
 }
 
 class ReadingList{
- - readingList : List<Reading>
+ - listOfReadings: List<Reading>
 
  + getReadingListRoom()
  + newReading()
@@ -108,14 +109,9 @@ class ReadingList{
 
 }
 
-class Repositories{
- - readingList : List<Reading>
 
-+ saveReading()
 
-}
 
-ReadingList "1"--"1" Repositories
 
 Sensor "1"--"..*" ReadingList
 
@@ -128,7 +124,7 @@ RoomList "1"-- "..*"Room
 RoomList  "1"-o "..*" DataImport
 
 
-DataImportUI --> DataImportCtrl
+DataImportUI -> DataImportCtrl
 DataImportCtrl --> DataImport
 
 

@@ -102,7 +102,7 @@ public final class HouseAdministrationUI {
                     break;
                 case 15:
                     DataImportUI ui13 = new DataImportUI(getHouseRoomList());
-                    ui13.checkIfRoomsAndSensorsExists(getHouseRoomList());
+                    ui13.checkIfRoomListIsEmpty(getHouseRoomList());
                     break;
                 default:
                     //no action needed

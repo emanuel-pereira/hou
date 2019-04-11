@@ -5,7 +5,6 @@ import org.xml.sax.SAXException;
 import smarthome.controller.DataImportCTRL;
 import smarthome.model.GAList;
 import smarthome.model.RoomList;
-import smarthome.model.RoomList;
 import smarthome.model.SensorTypeList;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -114,12 +113,14 @@ public class DataImportUI {
                     if (importedReadings == 0) {
                         System.out.println("No readings were imported. Please verify if the file contains valid readings.");
                     }
-                    if (invalidReadings > 0) {
-                        System.out.println(" - " + invalidReadings + "readings are invalid and saved on the activity log");
-                    }
                     if (importedReadings > 0) {
                         System.out.println(" - " + ctrl.getNrOfImportedReadings() + " readings were imported\n");
                     }
+                    if (invalidReadings > 0) {
+                        System.out.println(" - " + invalidReadings +" readings were not imported. The non-importing " +
+                                "\nreason for each invalid reading can be found in the importError.log file.");
+                    }
+                    loop = false;
                 }
                 loop = false;
             } catch (FileNotFoundException e) {
@@ -190,17 +191,22 @@ public class DataImportUI {
         return this.ctrl.sensorTypeListSize() == 0;
     }
 
-    public void checkIfRoomsAndSensorsExists(Object object) throws IllegalAccessException, ParseException, IOException, InstantiationException, SAXException, ParserConfigurationException, ClassNotFoundException {
+    public void checkIfRoomListIsEmpty(Object object) throws IllegalAccessException, ParseException, IOException, InstantiationException, SAXException, ParserConfigurationException, ClassNotFoundException {
 
-        if (ctrl.roomListSize() != 0 && ctrl.getSizeSensorListInHouseRooms() != 0) {
-            this.importReadings(object);
-
-        } else {
-            System.out.println("There are no sensors or rooms in house. Please add one sensor on a room of the house for insert readings." +
-                    "To import readings sensors, the house must have, at least, one room and one sensor.");
+        if (ctrl.roomListSize()==0) {
+            System.out.println("The room list is empty. You need to add rooms and respective sensors so that you can import readings.");
             UtilsUI.backToMenu();
-
         }
+        this.checkIfRoomSensorsExists(object);
+
     }
+    private void checkIfRoomSensorsExists(Object object) throws IllegalAccessException, ParseException, IOException, InstantiationException, SAXException, ParserConfigurationException, ClassNotFoundException {
+        if(ctrl.nrOfSensorsInAllRooms() == 0){
+            System.out.println("There are no room sensors created. Please create room sensors first for which you want to import readings.");
+            UtilsUI.backToMenu();
+        }
+        this.importReadings(object);
+    }
+
 
 }

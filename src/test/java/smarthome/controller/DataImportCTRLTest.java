@@ -7,11 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
 import smarthome.model.*;
 import smarthome.model.GAList;
-import smarthome.model.GeographicalArea;
 import smarthome.model.Room;
 import smarthome.model.RoomList;
 
-import javax.sql.rowset.CachedRowSet;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -619,11 +617,9 @@ class DataImportCTRLTest {
 
         DataImportCTRL dataImportCTRL = new DataImportCTRL(roomList);
 
-        dataImportCTRL.getSizeSensorListInHouseRooms();
-
         int expected = 0;
 
-        int result = dataImportCTRL.getSizeSensorListInHouseRooms();
+        int result = dataImportCTRL.nrOfSensorsInAllRooms();
 
         assertEquals(expected, result);
     }
@@ -652,11 +648,9 @@ class DataImportCTRLTest {
 
         DataImportCTRL dataImportCTRL = new DataImportCTRL(roomList);
 
-        dataImportCTRL.getSizeSensorListInHouseRooms();
-
         int expected = 2;
 
-        int result = dataImportCTRL.getSizeSensorListInHouseRooms();
+        int result = dataImportCTRL.nrOfSensorsInAllRooms();
 
         assertEquals(expected, result);
     }
