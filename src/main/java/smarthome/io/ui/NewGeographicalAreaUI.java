@@ -26,11 +26,10 @@ public class NewGeographicalAreaUI {
      * with this US
      *
      * @param inputList  GAList input with reference to the overall GA's list
-     * @param typeGAList GA Types List input with reference to the overall
-     *                   GA's types list
+     *
      */
-    NewGeographicalAreaUI(GAList inputList, TypeGAList typeGAList) {
-        this.ctrl = new NewGeographicalAreaCTRL(inputList, typeGAList);
+    NewGeographicalAreaUI(GAList inputList) {
+        this.ctrl = new NewGeographicalAreaCTRL(inputList);
     }
 
 

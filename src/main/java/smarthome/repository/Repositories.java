@@ -8,7 +8,7 @@ public final class Repositories {
     private static GeoRepository geoRepository = null;
     private static SensorRepository sensorRepository = null;
     private static SensorTypeRepository sensorTypeRepository = null;
-    private static TypeGARepository typeGARepository;
+    private static TypeGARepository typeGARepository= null;
     private static ReadingRepository readingRepository = null;
     private static RoomRepository roomRepository = null;
 

@@ -1,5 +1,6 @@
 package smarthome.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.GAList;
@@ -7,10 +8,26 @@ import smarthome.model.Location;
 import smarthome.model.OccupationArea;
 import smarthome.model.TypeGAList;
 
+import java.lang.reflect.Field;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static smarthome.model.TypeGAList.getTypeGAListInstance;
+import static smarthome.model.TypeGAList.size;
 
 public class ListParentGACTRLTest {
+
+    TypeGAList typeGAList = getTypeGAListInstance();
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = TypeGAList.class.getDeclaredField("typeGaList");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
+
     //return GA's List
     //user selects one from the List
 
@@ -19,24 +36,24 @@ public class ListParentGACTRLTest {
     @Test
     void addGACheckParent() {
         //invoke new empty list
-        TypeGAList TypeGAList = new TypeGAList();
+
         //pass the empty list as a parameter to US1 controller
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(TypeGAList);
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
         //creation of a new GA Type and it's addition to the initially empty list
         assertTrue(ctrl1.createTypeGA ("village"));
-        assertEquals(1, TypeGAList.getTypeGAList().size());
+        assertEquals(1, size());
         //creation of a new GA Type and it's addition to the previously list already with one element
         assertTrue(ctrl1.createTypeGA ("city"));
         //check the size of the list, now with both elements successfully added
-        assertEquals(2, TypeGAList.getTypeGAList().size());
+        assertEquals(2, size());
         assertTrue(ctrl1.createTypeGA ("street"));
         //check the size of the list, now with both elements successfully added
-        assertEquals(3, TypeGAList.getTypeGAList().size());
+        assertEquals(3, size());
 
         //creation of a new list of GA's, for now empty
         GAList gaList = new GAList();
         //invocation of the controller for the US3, passing both list's: GA's and GATypes's as parameters
-        NewGeographicalAreaCTRL ctrl3 = new NewGeographicalAreaCTRL(gaList, TypeGAList);
+        NewGeographicalAreaCTRL ctrl3 = new NewGeographicalAreaCTRL(gaList);
         //GA's list size is initially zero
         assertEquals(0, gaList.getGAList().size());
 
@@ -76,24 +93,24 @@ public class ListParentGACTRLTest {
     @Test
     void add4GACheckParent() {
         //invoke new empty list
-        TypeGAList TypeGAList = new TypeGAList();
+
         //pass the empty list as a parameter to US1 controller
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(TypeGAList);
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
         //creation of a new GA Type and it's addition to the initially empty list
         assertTrue(ctrl1.createTypeGA ("district"));
-        assertEquals(1, TypeGAList.getTypeGAList().size());
+        assertEquals(1, size());
         //creation of a new GA Type and it's addition to the previously list already with one element
         assertTrue(ctrl1.createTypeGA ("city"));
         //check the size of the list, now with both elements successfully added
-        assertEquals(2, TypeGAList.getTypeGAList().size());
+        assertEquals(2, size());
         assertTrue(ctrl1.createTypeGA ("street"));
         //check the size of the list, now with both elements successfully added
-        assertEquals(3, TypeGAList.getTypeGAList().size());
+        assertEquals(3, size());
 
         //creation of a new list of GA's, for now empty
         GAList GAList = new GAList();
         //invocation of the controller for the US3, passing both list's: GA's and GATypes's as parameters
-        NewGeographicalAreaCTRL ctrl3 = new NewGeographicalAreaCTRL(GAList, TypeGAList);
+        NewGeographicalAreaCTRL ctrl3 = new NewGeographicalAreaCTRL(GAList);
         //GA's list size is initially zero
         assertEquals(0, GAList.getGAList().size());
 

@@ -18,7 +18,6 @@ import static smarthome.io.ui.SystemAdministrationUI.systemAdministration;
 public final class SmartHomeUI {
     private static SensorTypeList sensorTypeList;
     private static GAList gaList;
-    private static TypeGAList typeGAList;
 
     private String defaults = "Default";
     Location loc = new Location(1, 1, 1);
@@ -45,7 +44,7 @@ public final class SmartHomeUI {
             option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");
             switch (option) {
                 case 1:
-                    systemAdministration(typeGAList, gaList, sensorTypeList);
+                    systemAdministration(gaList, sensorTypeList);
                     break;
                 case 2:
                     houseAdministration(sensorTypeList, gaList);
@@ -68,6 +67,5 @@ public final class SmartHomeUI {
     public static void init() {
         sensorTypeList = new SensorTypeList();
         gaList = new GAList();
-        typeGAList = new TypeGAList();
     }
 }
