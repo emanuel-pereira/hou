@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetTypeGAListCTRL;
-import smarthome.model.TypeGAList;
 
 public class GetTypeGAListUI {
 
@@ -23,9 +22,12 @@ public class GetTypeGAListUI {
     public void run() {
         if (ctrlUS2.getTypeGAListCTRL().isEmpty()) {
             System.out.println ("List of type of geographical area is empty, please insert one first");
-        } else {
+            UtilsUI.backToMenu();
+        }
+        else {
             System.out.println ("Current list of types of geographical area:");
-                System.out.println (ctrlUS2.showListInString ());
+            System.out.println (ctrlUS2.showListInString ());
+            UtilsUI.backToMenu();
             }
         }
 }

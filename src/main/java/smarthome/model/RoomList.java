@@ -146,7 +146,7 @@ public class RoomList {
         for (Room room : list) {
             result.append(number++);
             result.append(element);
-            result.append(room.getMeteredDesignation());
+            result.append(room.getId()+", " +room.getMeteredDesignation());
             result.append("\n");
         }
         return result.toString();

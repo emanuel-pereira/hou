@@ -14,12 +14,26 @@ public class SetParentOfGAUI {
     }
 
     public void run() {
+        if(this.checkGAListSize()){
+            UtilsUI.backToMenu();
+        }
+        else{
         System.out.println("Choose a Geographical Area from the list below to be inserted in another one (or insert 0 to return to Main Menu): ");
         System.out.println(controlerUS7.showListInString());
         gaIndex1 = UtilsUI.requestIntegerInInterval(1, controlerUS7.getGAListSize(), "Please insert a valid Geographical Area");
         this.run1();
+        }
     }
 
+    private boolean checkGAListSize() {
+        if (controlerUS7.getGAListSize() == 0) {
+            System.out.println("There no Geographical Areas. Please add at least one.");
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
     private void run1() {
 

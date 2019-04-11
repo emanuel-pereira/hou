@@ -369,8 +369,8 @@ class NewSensorCTRLTest {
         Room livingRoom = new Room("R02", "Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
-        String expected = "1 - Kitchen\n" +
-                "2 - Living Room\n";
+        String expected = "1 - R01, Kitchen\n" +
+                            "2 - R02, Living Room\n";
         String result = ctrl.showRoomListInStr();
         assertEquals(expected, result);
     }

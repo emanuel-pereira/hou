@@ -44,7 +44,7 @@ public class ListParentGACTRL {
      * Method to return the GA's List size in int form
      *
      * @return int parameter size of list, if 0/null the list is empty
-     * if the list is not empty then the showListInString() method will be called next
+     * if the list is not empty then the showListGAFromType() method will be called next
      */
     public int getGAListSize() {
         return mGAList.getGAList().size();

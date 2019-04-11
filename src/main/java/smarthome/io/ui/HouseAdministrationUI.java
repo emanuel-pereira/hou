@@ -78,7 +78,7 @@ public final class HouseAdministrationUI {
                     break;
                 case 9:
                     NewSensorUI newSensorUI = new NewSensorUI(sensorTypeList, gaList);
-                    newSensorUI.checkIfRoomListIsEmpty();
+                    newSensorUI.inputNameRoomSensor();
                     break;
                 case 10:
                     NewSensorUI listSensorsUI = new NewSensorUI(sensorTypeList, gaList);

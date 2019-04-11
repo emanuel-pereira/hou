@@ -17,6 +17,7 @@ public class AttachDetachAndListRoomsInGridUI {
 
         if (this.ctrl.getHouseGridListSize() == 0) {
             System.out.println("List of HouseGrids is empty. Please insert a HouseGrid in US130.");
+            UtilsUI.backToMenu();
             return;
         }
         this.checkIfRoomListIsEmpty();
@@ -24,7 +25,8 @@ public class AttachDetachAndListRoomsInGridUI {
 
     private void checkIfRoomListIsEmpty() {
         if (this.ctrl.getListOfRoomsSize() == 0) {
-            System.out.println("List of rooms is empty. Please insert a room in US105.");
+            System.out.println("List of rooms is empty. Please insert add at least one.");
+            UtilsUI.backToMenu();
             return;
         }
         this.selectOption();
@@ -81,6 +83,7 @@ public class AttachDetachAndListRoomsInGridUI {
     private void showRoomsInHG() {
         System.out.println("List of rooms attached to " + this.ctrl.getHGName(this.indexOfHG) + ":");
         System.out.println(this.ctrl.showRoomsInHouseGrid(this.indexOfHG));
+        UtilsUI.backToMenu();
     }
 
 
@@ -90,14 +93,17 @@ public class AttachDetachAndListRoomsInGridUI {
     }
 
     private void listRoomsOfHG() {
-        if (hgRoomListIsEmpty())
+        if (hgRoomListIsEmpty()){
+            UtilsUI.backToMenu();
             return;
+        }
         this.showRoomsInHG();
     }
 
     private boolean hgRoomListIsEmpty() {
         if (this.ctrl.getRoomListOfHGSize(this.indexOfHG) == 0) {
             System.out.println("List of rooms in HouseGrid is empty. Please attach one first.");
+            UtilsUI.backToMenu();
             return true;
         }
         return false;

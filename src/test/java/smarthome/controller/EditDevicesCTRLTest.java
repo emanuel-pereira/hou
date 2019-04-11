@@ -46,7 +46,8 @@ class EditDevicesCTRLTest {
         Room bathroom = new Room("R02", "Bathroom", 0, 3, 2, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(bathroom);
-        String expected = "1 - Kitchen\n2 - Bathroom\n";
+        String expected = "1 - R01, Kitchen\n" +
+                            "2 - R02, Bathroom\n";
         String result = ctrl.showRoomListInString();
         assertEquals(expected, result);
     }

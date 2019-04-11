@@ -133,7 +133,8 @@ class GetTotalNominalPowerCTRLTest {
         GetTotalNominalPowerCTRL US230CTRL = new GetTotalNominalPowerCTRL();
 
 
-        String expectedResult = "1 - cozinha\n2 - sala\n";
+        String expectedResult = "1 - R01, cozinha\n" +
+                                 "2 - R02, sala\n";
         String result = US230CTRL.showRoomListInString();
 
         assertEquals(expectedResult, result);

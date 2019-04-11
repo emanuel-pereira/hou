@@ -37,6 +37,7 @@ public class NewTypeGAUI {
             condition = false;
         } else
             System.out.println("This type already exists.");
+        UtilsUI.backToMenu();
     }
 
 }

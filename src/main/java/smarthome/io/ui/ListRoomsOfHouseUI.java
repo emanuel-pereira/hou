@@ -17,8 +17,11 @@ public class ListRoomsOfHouseUI {
         if (mCtrlUS108.roomListSize () != 0) {
             System.out.println ("The Rooms of the house are:");
             System.out.println (mCtrlUS108.showListRoomInString ());
-        } else {
+            UtilsUI.backToMenu();
+        }
+        else {
             System.out.println ("There are no rooms. Please add a room to the house");
+            UtilsUI.backToMenu();
         }
     }
 }

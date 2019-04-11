@@ -28,6 +28,7 @@ public class RemoveGASensorUI {
         List<GeographicalAreaDTO> gaListDTO = ctrl.getGAListDTO();
         if (gaListDTO.isEmpty()) {
             System.out.println("The list of geographical areas is empty. Please add at least one.");
+            UtilsUI.backToMenu();
             return;
         }
         System.out.println("Choose a geographical area from the list below:");
@@ -53,6 +54,7 @@ public class RemoveGASensorUI {
     public void selectSensor() {
         if (selectedGADTO.getSensorListDTO().isEmpty()) {
             System.out.println("The list of sensors is empty. Please add at least one.");
+            UtilsUI.backToMenu();
             return;
         }
         System.out.println("Choose a sensor from the list below:");
@@ -70,6 +72,7 @@ public class RemoveGASensorUI {
         if (this.ctrl.removeSensor(gaDTOId, sensorDTOId)) {
             System.out.println("The following sensor was successfully removed from the geographical area " + selectedGADTO.getDesignation() + ":");
             System.out.println(" - Id: " + sensorDTO.getId() + designationMsg + sensorDTO.getDesignation() + "\n");
+            UtilsUI.backToMenu();
         }
     }
 
