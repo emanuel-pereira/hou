@@ -97,11 +97,10 @@ public class ConfigureHouseUI {
     private void createHouseFromFile() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
 
         ctrl.configureHouseFromFileCTRL(idGeoArea, this.latitude, this.longitude, this.altitude);
-        System.out.println("Success! The House has been created with the following configuration:\n"
-                + " | Address:\n"
-                +ctrl.showAddressInString() + "\n    with "
-                + ctrl.getRoomListSizeCTRL() + " rooms and "
-                + ctrl.getGridListSizeCTRL() + " grids.");
+        System.out.println("Success! The House has " + ctrl.getRoomListSizeCTRL() + " Rooms, " + ctrl.getGridListSizeCTRL() + " Grids," + " and the following location:\n"                + " | Geographical Area:\n"
+                + ctrl.showGAInString()
+                + "\n | Address:\n"
+                + ctrl.showAddressInString());
         UtilsUI.backToMenu();
     }
 

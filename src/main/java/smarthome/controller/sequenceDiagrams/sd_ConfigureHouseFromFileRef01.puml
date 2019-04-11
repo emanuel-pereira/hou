@@ -1,0 +1,77 @@
+@startuml
+autonumber
+hidefootbox
+
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+'START FROM CONTROLLER
+create ":ConfigureHouseCTRL"
+create ":DataImport"
+":ConfigureHouseCTRL"->":DataImport":create(gaList)
+":ConfigureHouseCTRL"->":DataImport": importHouse()
+
+'CREATE READER FROM REFLECTION
+create ":{FileReaderHouse}"
+":DataImport"->":{FileReaderHouse}": create(file)
+note right #FFFF
+{FileReaderHouse} can be:
+    JSONHouse
+end note
+
+":DataImport" -> ":DataImport": readConfigFile()
+
+ref over ":DataImport", ":{FileReaderHouse}": Create file reader class based on file extension
+
+'IMPORT HOUSE FROM FILE
+":DataImport" -> ":{FileReaderHouse}": importHouseConfiguration(path)
+
+create ":Address"
+":{FileReaderHouse}" -> ":Address":create()
+ref over ":{FileReaderHouse}", ":Address",":House":importAddress()
+
+create ":Room"
+":{FileReaderHouse}" -> ":Room":create()
+
+ref over ":{FileReaderHouse}","RoomList",":Room",":House": Parse,Creation and Addition of Rooms in File
+
+
+create ":HouseGrid"
+":{FileReaderHouse}" -> ":HouseGrid":create()
+ref over ":{FileReaderHouse}","HouseGridList",":HouseGrid",":House": Parse,Creation and Addition of Grids in File (as well as the rooms associated with them)
+
+
+'SET HOUSE GA FROM USER INPUT
+":ConfigureHouseCTRL" -> ":GAList":geoArea = getById()
+":ConfigureHouseCTRL" -> ":House":setHouseGA(geoArea)
+
+
+'SET LOCATION FROM USER INPUT
+create "inputLocation:Location"
+":ConfigureHouseCTRL" -> "inputLocation:Location":create(inputLocation)
+":ConfigureHouseCTRL" -> ":House":getAddress()
+":ConfigureHouseCTRL"->":Address":setLocation(inputLocation)
+
+
+@enduml

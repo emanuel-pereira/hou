@@ -189,6 +189,31 @@ class DataImportCTRLTest {
         assertEquals(expected, result);
     }
 
+    @Test
+    @DisplayName("Count all the sensors of the file")
+    void getSizeOfSensorsFile() throws IllegalAccessException, ParseException, InstantiationException, java.text.ParseException, ClassNotFoundException, IOException {
+        RoomList roomList = getHouseRoomList();
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        sensorTypeList.addSensorType(new SensorType("temperature"));
+        Room room1 = new Room("R1", "B405", 3, 2, 3, 1);
+        Room room2 = new Room("R2", "B106", 3, 2, 3, 1);
+        Room room3 = new Room("R3", "B107", 3, 2, 3, 1);
+        Room room4 = new Room("R5", "B109", 3, 2, 3, 1);
+        roomList.addRoom(room1);
+        roomList.addRoom(room2);
+        roomList.addRoom(room3);
+        roomList.addRoom(room4);
+        String filepath = "resources_tests/fakeImportFilesForTests/DataSet_sprint06_HouseSensors-DifferentSensors.json";
+        Path path = Paths.get(filepath);
+        DataImportCTRL ctrl = new DataImportCTRL(roomList, sensorTypeList);
+
+        int result = ctrl.getSizeOfSensorsFile(path);
+
+        int expected = 4 ;
+
+        assertEquals(expected, result);
+    }
+
 
     @Test
     @DisplayName("Ensure that the number of invalid readings is 4")
