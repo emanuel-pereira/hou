@@ -16,18 +16,12 @@ public class DataImportCTRL {
     private GAList gaList;
     private RoomList roomList;
     private SensorTypeList sensorTypeList;
+    private RoomList roomList;
+    private DataImport dataImport;
 
-
-    /**
-     * Constructor for importing data related to GAList.
-     * Creates an instance of the DataImportCTRL with GAList passed as parameter when DataImportUI is invoked through
-     * SystemAdministration menu, i.e, when the user wants to import information related to GAList,
-     * such as sensors or readings.
-     *
-     * @param gaList parameter to be updated with imported data
-     */
     public DataImportCTRL(GAList gaList) {
         this.gaList = gaList;
+        this.dataImport = new DataImport(gaList);
     }
 
     /**
@@ -38,6 +32,27 @@ public class DataImportCTRL {
      *
      * @param roomList parameter to be updated with imported data
      */
+    public DataImportCTRL(RoomList roomList) {
+        this.roomList = roomList;
+        this.dataImport = new DataImport(roomList);
+
+    }
+    public int roomListSize() {
+        return this.roomList.getRoomListSize();
+    }
+
+
+    public int getSizeSensorListInHouseRooms() {
+        int size = 0;
+        for (Room r : roomList.getRoomList()) {
+            size += r.getSensorListInRoom().size();
+        }
+        return size;
+    }
+
+    /**private method that return the list of Geographical areas(with encapsulated sensors if they exist) present in the file
+     * @param filePath file that has info to import
+     */
     public DataImportCTRL(RoomList roomList, SensorTypeList sensorTypeList) {
         this.roomList = roomList;
         this.sensorTypeList = sensorTypeList;
@@ -46,16 +61,16 @@ public class DataImportCTRL {
 
     private List<GeographicalArea> readGeoAreasFromFile(Path filePath) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         DataImport dataImport = new DataImport(gaList);
+    private List<GeographicalArea> readGeoAreasFromFile (Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
         return dataImport.loadGeoAreaFiles(filePath);
     }
 
-    public int getGaListInFileSize(Path filePath) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    public int getGaListInFileSize (Path filePath)throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException  {
         return this.readGeoAreasFromFile(filePath).size();
     }
 
     public int getAllSensorsInFileSize(Path filePath) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         List<Sensor> allSensors = new ArrayList<>();
-        DataImport dataImport = new DataImport(gaList);
         List<GeographicalArea> gaListInFile = dataImport.loadGeoAreaFiles(filePath);
         for (GeographicalArea ga : gaListInFile) {
             allSensors.addAll(ga.getSensorListInGA().getSensorList());
@@ -63,17 +78,15 @@ public class DataImportCTRL {
         return allSensors.size();
     }
 
-    public void importGeoAreasFromFile(Path filePath) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
-        DataImport dataImport = new DataImport(gaList);
-        this.gaList.getNotAdded().clear();
+    public void importGeoAreasFromFile(Path filePath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException{
         dataImport.importFromFileGeoArea(this.readGeoAreasFromFile(filePath));
     }
 
-    public int failedToAdd() {
-        return this.gaList.getNotAdded().size();
+    public int failedToAdd (){
+        return dataImport.notAddedNumber();
     }
 
-    public int getImportedGaListSize(Path filepath) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    public int getImportedGaListSize (Path filepath) throws IOException,ClassNotFoundException,InstantiationException,IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         return getGaListInFileSize(filepath) - failedToAdd();
     }
 
@@ -101,7 +114,15 @@ public class DataImportCTRL {
     public int sizeOfSensorsFile(Path filePath) throws IllegalAccessException, ParseException, InstantiationException, IOException, java.text.ParseException, ClassNotFoundException {
         DataImport dataImport = new DataImport(roomList, sensorTypeList);
         return dataImport.loadHouseSensorsFiles(filePath).size();
+    public void importReadingsFromFile(Path filePath, Object object) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
+        if (object.equals(gaList)) {
+            dataImport.importReadingsFromFile(filePath, object);
+        }
+        if (object.equals(roomList)) {
+            dataImport.importReadingsFromFile(filePath, object);
+        }
     }
+
 
     public int roomListSize(){
         return this.roomList.getRoomListSize();
@@ -113,14 +134,19 @@ public class DataImportCTRL {
 
 
     /**
-     *Method that iterates the geographical area list and converts each geographical area to a Data Transfer Object
-     * @return a list of geographical area DTOs
+     * @return the number of imported readings
      */
-    /*public List<GeographicalAreaDTO> getGAListDTO() {
-        for (GeographicalArea ga : gaList.getGAList()) {
-            ga.getSensorListInGA().size()
-            gaListDTO.add(gaDTO);
-        }
-        return gaListDTO;
-    }*/
+    public int getNrOfImportedReadings(){
+        return dataImport.getNrOfAddedReadings();
+    }
+
+    /**
+     * @return the number of invalid readings which includes readings outside the sensor's operation
+     * period or readings that don't match any sensorId
+     */
+    public int getNrOfInvalidReadings(){
+        return dataImport.getNrOfInvalidReadings();
+    }
+
+
 }

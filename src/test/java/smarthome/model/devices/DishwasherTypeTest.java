@@ -40,7 +40,7 @@ class DishwasherTypeTest {
         Device dishwasher = type.createDevice ("Ariston", 20);
 
         String expected = "Ariston";
-        String result = dishwasher.getName ();
+        String result = dishwasher.getDeviceName();
 
         assertEquals(expected, result);
     }

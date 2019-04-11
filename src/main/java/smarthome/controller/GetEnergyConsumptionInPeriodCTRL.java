@@ -1,17 +1,18 @@
 package smarthome.controller;
 
-import smarthome.model.House;
 import smarthome.model.Metered;
 
 import java.util.Calendar;
 import java.util.List;
 
+import static smarthome.model.House.getMetered;
+import static smarthome.model.House.showMetered;
+
 public class GetEnergyConsumptionInPeriodCTRL {
-    private House house;
 
 
-    public GetEnergyConsumptionInPeriodCTRL(House house) {
-        this.house = house;
+
+    public GetEnergyConsumptionInPeriodCTRL() {
     }
 
     /**
@@ -21,16 +22,16 @@ public class GetEnergyConsumptionInPeriodCTRL {
      * @return the device in the index position of the device list of metered devices
      */
     public String getMeteredName(int indexOfMetered) {
-        List<Metered> meteredDeviceList = this.house.getMetered();
+        List<Metered> meteredDeviceList = getMetered();
         Metered metered = meteredDeviceList.get(indexOfMetered);
-        return metered.getName();
+        return metered.getMeteredDesignation();
     }
 
     /**
      * @return lists all metered elements in a string format
      */
-    public String showMetered() {
-        return this.house.showMetered();
+    public String showMeteredCTRL() {
+        return showMetered();
     }
 
 
@@ -43,7 +44,7 @@ public class GetEnergyConsumptionInPeriodCTRL {
      * @return the energy consumed in the specified time interval for the selected metered object
      */
     public double getEnergyConsumptionInPeriod(int indexOfMetered, Calendar startDate, Calendar endDate) {
-        List<Metered> meteredList = this.house.getMetered();
+        List<Metered> meteredList = getMetered();
         Metered selectedMetered = meteredList.get(indexOfMetered);
         return selectedMetered.getEnergyConsumption(startDate, endDate);
     }
@@ -52,7 +53,7 @@ public class GetEnergyConsumptionInPeriodCTRL {
      * @return an integer value representing the number of elements in the list of metered objects
      */
     public int meteredListSize() {
-        return this.house.getMetered().size();
+        return getMetered().size();
     }
 
 }

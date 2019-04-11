@@ -41,7 +41,6 @@ public class Sensor {
      * @param readings    specifies the sensor's readingList
      */
     public Sensor(String id, String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
-        if (nameIsValid(designation)) {
             this.id = id;
             this.designation = designation;
             this.startDate = startDate;
@@ -49,7 +48,7 @@ public class Sensor {
             this.unit = unit;
             this.active = true;
             this.readingList = readings;
-        }
+            this.location = new Location(0, 0, 0);
     }
 
     /**
@@ -64,7 +63,6 @@ public class Sensor {
      * @param readings    specifies the sensor's readingList
      */
     public Sensor(String id, String designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
-        if (nameIsValid(designation)) {
             this.id = id;
             this.designation = designation;
             this.startDate = startDate;
@@ -73,7 +71,6 @@ public class Sensor {
             this.unit = unit;
             this.active = true;
             this.readingList = readings;
-        }
     }
 
     /**
@@ -94,6 +91,7 @@ public class Sensor {
 
     /**
      * Accept alphanumeric input without spaces
+     *
      * @param id Unique identification
      * @return True if validate correctly
      */
@@ -106,17 +104,17 @@ public class Sensor {
 
     /**
      * Changes the Id of the sensor to the one inputted by the user.
+     *
      * @param sensorId sensor's id String
      * @return True if correctly validate
      */
     public boolean setId(String sensorId) {
-        if (this.sensorIdIsValid(sensorId)){
+        if (this.sensorIdIsValid(sensorId)) {
             this.id = sensorId;
             return true;
         }
         return false;
     }
-
 
 
     /**
@@ -235,23 +233,6 @@ public class Sensor {
     }
 
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Sensor)) {
-            return false;
-        }
-        Sensor sensor = (Sensor) o;
-        return Objects.equals(this.designation, sensor.designation);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(this.designation, this.location, this.sensorType);
-    }
-
     /**
      * Gets the start date
      *
@@ -319,4 +300,21 @@ public class Sensor {
         return this.active;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Sensor)) {
+            return false;
+        }
+        Sensor sensor = (Sensor) o;
+        return id.equals(sensor.id) ||
+                designation.equals(sensor.designation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, designation);
+    }
 }

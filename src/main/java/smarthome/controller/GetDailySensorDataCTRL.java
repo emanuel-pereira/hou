@@ -6,12 +6,13 @@ import smarthome.model.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import static smarthome.model.House.*;
+
+
 public class GetDailySensorDataCTRL {
-    private House house;
     private SensorTypeList sensorTypeList;
 
-    public GetDailySensorDataCTRL(House house, SensorTypeList sensorTypeList) {
-        this.house = house;
+    public GetDailySensorDataCTRL(SensorTypeList sensorTypeList) {
         this.sensorTypeList = sensorTypeList;
     }
 
@@ -20,26 +21,26 @@ public class GetDailySensorDataCTRL {
     }
 
     public boolean isHouseGAConfigured() {
-        return this.house.getHouseGA() != null;
+        return getHouseGA() != null;
     }
 
     public int filterByType(SensorType sensorType) {
-        GeographicalArea houseGA = this.house.getHouseGA();
+        GeographicalArea houseGA = getHouseGA();
         SensorList gaSensorList = houseGA.getSensorListInGA();
         SensorList listOfType = gaSensorList.getListOfSensorsByType(sensorType);
         return listOfType.size();
     }
 
     public SensorList filterByTypeAndInterval(SensorType sensorType, Calendar startDate, Calendar endDate) {
-        return this.house.filterListByTypeByIntervalAndDistance(sensorType, startDate, endDate);
+        return filterListByTypeByIntervalAndDistance(sensorType, startDate, endDate);
     }
 
-    public boolean checkIfClosestSensorsHasReadingsInTimePeriod(SensorType sensorType, Calendar startDate, Calendar endDate) {
-        return house.checkIfClosestSensorsHasReadingsInTimePeriod(sensorType, startDate, endDate);
+    public boolean checkIfClosestSensorsHasReadingsInTimePeriodCTRL(SensorType sensorType, Calendar startDate, Calendar endDate) {
+        return checkIfClosestSensorsHasReadingsInTimePeriod(sensorType, startDate, endDate);
     }
 
     public ReadingDTO displayMaximum(SensorType sensorType, Calendar startDate, Calendar endDate) {
-        Sensor sensor = this.house.filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
+        Sensor sensor = filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
         endDate.add(Calendar.DATE, 1);
         ReadingList sensorReadings = sensor.getReadingList().filterByDate(startDate, endDate);
         endDate.add(Calendar.DATE, -1);
@@ -49,7 +50,7 @@ public class GetDailySensorDataCTRL {
     }
 
     public ReadingDTO displayMinimum(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate) {
-        Sensor sensor = this.house.filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
+        Sensor sensor = filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
         endDate.add(Calendar.DATE, 1);
         ReadingList sensorReadings = sensor.getReadingList().filterByDate(startDate, endDate);
         endDate.add(Calendar.DATE, -1);
@@ -59,7 +60,7 @@ public class GetDailySensorDataCTRL {
     }
 
     public ReadingDTO displayAmplitude(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate) {
-        Sensor sensor = this.house.filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
+        Sensor sensor = filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
         endDate.add(Calendar.DATE, 1);
         ReadingList sensorReadings = sensor.getReadingList().filterByDate(startDate, endDate);
         endDate.add(Calendar.DATE, -1);

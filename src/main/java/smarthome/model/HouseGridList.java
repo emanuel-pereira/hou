@@ -29,6 +29,7 @@ public class HouseGridList {
      * @param inputHouseGrid houseGrid to be added to list of HouseGrids of a house instance.
      * @return true if houseGrid is added to list or false otherwise.
      */
+    //TODO due to DDD this method should only be called internally by the house, and never exposed publicly to other classes
     public boolean addHouseGrid(HouseGrid inputHouseGrid) {
         if (!this.hglist.contains(inputHouseGrid)) {
             this.hglist.add(inputHouseGrid);
@@ -43,11 +44,7 @@ public class HouseGridList {
      * @return the list of house grids in the house as ArrayList
      */
     public List<HouseGrid> getHouseGridList() {
-        List<HouseGrid> gridList = new ArrayList<>();
-        for (HouseGrid grid : this.hglist) {
-            gridList.add(grid);
-        }
-        return gridList;
+        return this.hglist;
     }
 
     /**
@@ -77,10 +74,23 @@ public class HouseGridList {
         for (HouseGrid grid : list) {
             result.append(number++);
             result.append(element);
-            result.append(grid.getName());
+            result.append(grid.getMeteredDesignation());
             result.append("\n");
         }
         return result.toString();
+    }
+
+    //US705
+    //TODO use DTO
+    public DeviceList getDevices() {
+        DeviceList devices = new DeviceList();
+        for (int grid = 0; grid < this.getSize(); grid++) {
+            HouseGrid tempGrid = this.get(grid);
+            List<Device> tempList = tempGrid.getDeviceListInGrid().getDeviceList();
+            for (Device device : tempList)
+                devices.add(device);
+        }
+        return devices;
     }
 
 }

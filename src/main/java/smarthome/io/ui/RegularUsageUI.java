@@ -1,6 +1,5 @@
 package smarthome.io.ui;
 
-import smarthome.model.House;
 import smarthome.model.SensorTypeList;
 
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ public final class RegularUsageUI {
     private RegularUsageUI() {
     }
 
-    public static void regularUsage(House house, SensorTypeList sensorTypeList) {
+    public static void regularUsage(SensorTypeList sensorTypeList) {
         int option = -1;
 
         while (option != 0) {
@@ -31,34 +30,34 @@ public final class RegularUsageUI {
 
             switch (option) {
                 case 1:
-                    GetCurrentTemperatureInHouseAreaUI us600 = new GetCurrentTemperatureInHouseAreaUI(house, sensorTypeList);
+                    GetCurrentTemperatureInHouseAreaUI us600 = new GetCurrentTemperatureInHouseAreaUI(sensorTypeList);
                     us600.run();
                     break;
                 case 2:
-                    GetCurrentTemperatureInRoomUI uS605CurrentTempRoomUI = new GetCurrentTemperatureInRoomUI(house, sensorTypeList);
+                    GetCurrentTemperatureInRoomUI uS605CurrentTempRoomUI = new GetCurrentTemperatureInRoomUI(sensorTypeList);
                     uS605CurrentTempRoomUI.run();
                     break;
                 case 3:
                     UtilsUI.underMaintenanceMsg("610");
                     break;
                 case 4:
-                    GetTotalRainfallForDayInHouseAreaUI getTotalRainfallForDayInHouseAreaUI = new GetTotalRainfallForDayInHouseAreaUI(house, sensorTypeList);
+                    GetTotalRainfallForDayInHouseAreaUI getTotalRainfallForDayInHouseAreaUI = new GetTotalRainfallForDayInHouseAreaUI(sensorTypeList);
                     getTotalRainfallForDayInHouseAreaUI.run();
                     break;
                 case 5:
-                    GetAverageDailyRainfallForTimeIntervalInHouseAreaUI avgRainfallUi = new GetAverageDailyRainfallForTimeIntervalInHouseAreaUI(house);
+                    GetAverageDailyRainfallForTimeIntervalInHouseAreaUI avgRainfallUi = new GetAverageDailyRainfallForTimeIntervalInHouseAreaUI();
                     avgRainfallUi.getAverageDailyRainfallForInterval();
                     break;
                 case 6:
-                    GetDailySensorDataUI getDailySensorDataUI = new GetDailySensorDataUI(house, sensorTypeList);
+                    GetDailySensorDataUI getDailySensorDataUI = new GetDailySensorDataUI(sensorTypeList);
                     getDailySensorDataUI.displayLastMaximum();
                     break;
                 case 7:
-                    getDailySensorDataUI = new GetDailySensorDataUI(house, sensorTypeList);
+                    getDailySensorDataUI = new GetDailySensorDataUI(sensorTypeList);
                     getDailySensorDataUI.displayFirstMaximum();
                     break;
                 case 8:
-                    getDailySensorDataUI = new GetDailySensorDataUI(house, sensorTypeList);
+                    getDailySensorDataUI = new GetDailySensorDataUI(sensorTypeList);
                     getDailySensorDataUI.displayMaxAmplitude();
                     break;
                 default:

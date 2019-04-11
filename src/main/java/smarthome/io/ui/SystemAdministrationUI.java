@@ -2,7 +2,6 @@ package smarthome.io.ui;
 
 import org.xml.sax.SAXException;
 import smarthome.model.GAList;
-import smarthome.model.House;
 import smarthome.model.SensorTypeList;
 import smarthome.model.TypeGAList;
 
@@ -16,8 +15,8 @@ public final class SystemAdministrationUI {
     private SystemAdministrationUI() {
     }
 
-    public static void systemAdministration(House house, TypeGAList typeGAList, GAList gaList, SensorTypeList sensorTypeList)
-            throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException, ParseException {
+    public static void systemAdministration(TypeGAList typeGAList, GAList gaList, SensorTypeList sensorTypeList)
+            throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
 
         int option = -1;
         while (option != 0) {
@@ -41,7 +40,8 @@ public final class SystemAdministrationUI {
 
             UtilsUI.showList("System Administrator", options, false, 5);
 
-            option = UtilsUI.requestIntegerInInterval(0, 12, "Please choose an action between 1 and 14, or 0 to exit the program");
+            option = UtilsUI.requestIntegerInInterval(0, 12, "Please choose an action " +
+                    "between 1 and 12, or 0 to return");
 
             switch (option) {
                 case 1:
@@ -65,7 +65,7 @@ public final class SystemAdministrationUI {
                     ui5.run();
                     break;
                 case 6:
-                    NewSensorUI ui6 = new NewSensorUI(house, sensorTypeList, gaList);
+                    NewSensorUI ui6 = new NewSensorUI(sensorTypeList, gaList);
                     ui6.checkIfGAListIsEmpty();
                     break;
                 case 7:

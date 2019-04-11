@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.AddRoomToHouseCTRL;
-import smarthome.model.House;
 
 public class AddRoomToHouseUI {
 
@@ -17,10 +16,9 @@ public class AddRoomToHouseUI {
     /**
      * User interface constructor
      *
-     * @param house the current and only house
      */
-    public AddRoomToHouseUI(House house) {
-        this.controller = new AddRoomToHouseCTRL(house);
+    public AddRoomToHouseUI() {
+        this.controller = new AddRoomToHouseCTRL();
     }
 
     /**
@@ -35,7 +33,7 @@ public class AddRoomToHouseUI {
         while (condition) {
             System.out.println("Insert the Id of the room:");
             this.id = UtilsUI.requestText("Please insert alphanumeric characters!\nInsert the Id of the room:", "^[A-Za-z0-9 -]+$");
-            if (!this.controller.checkIfRoomNameExists(this.id)) {
+            if (!this.controller.checkIfRoomIdExists(this.id)) {
                 condition = false;
                 this.insertName();
             } else
@@ -54,7 +52,7 @@ public class AddRoomToHouseUI {
         while (condition) {
             System.out.println("Insert the name of the room:");
             this.name = UtilsUI.requestText("Please insert alphanumeric characters!\nInsert the name of the room:", "^[A-Za-z0-9 -]+$");
-            if (!this.controller.checkIfRoomNameExists(this.name)) {
+            if (!this.controller.checkIfRoomIdExists(this.name)) {
                 condition = false;
                 this.insertFloor();
             } else
@@ -134,7 +132,7 @@ public class AddRoomToHouseUI {
      */
     private void addNewRoom() {
         if (this.controller.newAddRoom(this.id, this.name, this.floor, this.length, this.width, this.height)) {
-            System.out.println("Success. The " + this.name + "with the Id " + this.id + " on the " + this.floor + " floor " + this.showHeight() + this.length * this.width + "m² was created.\n");
+            System.out.println("Success. The " + this.name + " with the Id " + this.id + " on the " + this.floor + " floor " + this.showHeight() + this.length * this.width + "m² was created.\n");
         } else {
             System.out.println("Fail! Please try again.");
         }

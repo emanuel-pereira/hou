@@ -1,11 +1,16 @@
 package smarthome.model;
 
+import java.util.Calendar;
+
 public class Address {
 
     private String street;
+    private String number;
     private String zipCode;
     private String town;
+    private String country;
     private Location gpsLocation;
+
 
     /**
      * This constructor sets up the Address that will be used in the House
@@ -15,36 +20,43 @@ public class Address {
      * @param town        Required town
      * @param gpsLocation Required GPS location
      */
-    public Address(String streetName, String zipCode, String town, Location gpsLocation) {
+    public Address(String streetName, String number, String zipCode, String town, String country, Location gpsLocation) {
         this.street = streetName;
+        this.number = number;
         this.zipCode = zipCode;
         this.town = town;
+        this.country = country;
         this.gpsLocation = gpsLocation;
     }
 
-    public Address(String streetName, String zipCode, String town, double latitude, double longitude, double altitude) {
-        this.street = streetName;
-        this.zipCode = zipCode;
-        this.town = town;
-        this.gpsLocation = new Location (latitude, longitude, altitude);
-    }
 
     public void setStreet(String streetName) {
-        if (this.validateName (streetName)) {
+        if (this.validateName(streetName)) {
             this.street = streetName;
         }
     }
 
+    public void setNumber(String number) {
+        if (this.validateNumber(number)) {
+            this.number = number;
+        }
+    }
 
     public void setZipCode(String zipCode) {
-        if (this.validateZipCode (zipCode)) {
+        if (this.validateZipCode(zipCode)) {
             this.zipCode = zipCode;
         }
     }
 
     public void setTown(String town) {
-        if (this.validateTown (town)) {
+        if (this.validateTown(town)) {
             this.town = town;
+        }
+    }
+
+    public void setCountry(String country) {
+        if (this.validateTown(country)) {
+            this.country = country;
         }
     }
 
@@ -55,10 +67,10 @@ public class Address {
      * @return False if nulls, empty spaces and texts that start with spaces
      */
     public boolean validateName(String name) {
-        if (name == null || name.trim ().isEmpty ()) {
+        if (name == null || name.trim().isEmpty()) {
             return false;
         }
-        return this.noStartWithSpaces (name);
+        return this.noStartWithSpaces(name);
     }
 
     /**
@@ -70,6 +82,18 @@ public class Address {
         return this.street;
     }
 
+
+    public boolean validateNumber(String number) {
+        if (number == null || number.trim().isEmpty()) {
+            return false;
+        }
+        return this.noStartWithSpaces(number);
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
     /**
      * Validates the number of the house. It accepts only numbers with no spaces
      *
@@ -77,10 +101,10 @@ public class Address {
      * @return False if nulls, empty spaces and numbers that starts and ends with spaces
      */
     public boolean validateTown(String town) {
-        if (town == null || town.trim ().isEmpty ()) {
+        if (town == null || town.trim().isEmpty()) {
             return false;
         }
-        return this.noStartWithSpaces (town);
+        return this.noStartWithSpaces(town);
     }
 
     /**
@@ -92,6 +116,18 @@ public class Address {
         return this.town;
     }
 
+
+    public boolean validateCountry(String country) {
+        if (country == null || country.trim().isEmpty()) {
+            return false;
+        }
+        return this.noStartWithSpaces(country);
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
     /**
      * Validates the zip code of the house
      *
@@ -99,15 +135,15 @@ public class Address {
      * @return False if nulls, empty spaces and if it starts with spaces
      */
     public boolean validateZipCode(String code) {
-        if (code == null || code.trim ().isEmpty ()) {
+        if (code == null || code.trim().isEmpty()) {
             return false;
         }
-        return this.noStartWithSpaces (code);
+        return this.noStartWithSpaces(code);
     }
 
 
     public boolean noStartWithSpaces(String text) {
-        return text.matches ("^(?![\\s]).*");
+        return text.matches("^(?![\\s]).*");
     }
 
     /**
@@ -119,6 +155,16 @@ public class Address {
         return this.zipCode;
     }
 
+
+    /**
+     * sets the house address coordinates
+     *
+     * @param gpsLocation new Location object that will replace the previous one
+     */
+    public void setGpsLocation(Location gpsLocation) {
+        this.gpsLocation = gpsLocation;
+    }
+
     /**
      * Get GPS location
      *
@@ -128,6 +174,35 @@ public class Address {
         return this.gpsLocation;
     }
 
+    /**
+     * Method to turn the Address object into a string
+     *
+     * @return address information as a String
+     */
+//TODO: add tests
+
+    public String addressToString() {
+        StringBuilder output = new StringBuilder();
+        String space = "    ";
+        String line = "\n";
+        String comma = ", ";
+
+        output.append(space);
+        output.append(this.street);
+        output.append(comma);
+        output.append(this.number);
+        output.append(comma);
+        output.append(this.zipCode);
+        output.append(line + space);
+        output.append(this.town);
+        output.append(comma);
+        output.append(this.country);
+        output.append(line);
+        output.append(this.gpsLocation.locationToString());
+
+        return output.toString();
+
+    }
 
 }
 

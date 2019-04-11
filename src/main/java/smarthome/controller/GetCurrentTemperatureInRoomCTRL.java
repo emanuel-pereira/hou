@@ -4,16 +4,16 @@ import smarthome.model.*;
 
 import java.util.List;
 
+import static smarthome.model.House.getHouseRoomList;
+
 public class GetCurrentTemperatureInRoomCTRL {
 
-    private House mHouse;
     private SensorTypeList mSensorTypeList;
     private RoomList mRoomList;
 
 
-    public GetCurrentTemperatureInRoomCTRL(House house, SensorTypeList sensorTypeList) {
-        mHouse = house;
-        mRoomList = mHouse.getRoomList();
+    public GetCurrentTemperatureInRoomCTRL(SensorTypeList sensorTypeList) {
+        mRoomList = getHouseRoomList();
         mSensorTypeList = sensorTypeList;
     }
 

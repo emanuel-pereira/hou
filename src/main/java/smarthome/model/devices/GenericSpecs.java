@@ -56,7 +56,6 @@ public class GenericSpecs implements DeviceSpecs {
 
         for (int i = 0; i < items; i++) {
             this.attributeNamesList.add(this.attributeNames[i]);
-
             this.attributeUnitsMap.put(this.attributeNames[i], this.attributeUnits[i]);
             this.attributeValuesMap.put(this.attributeNames[i], NaN); // values are not part of the constructor
 
@@ -108,7 +107,7 @@ public class GenericSpecs implements DeviceSpecs {
 
     public void setAttributeValue(String attribute, double newValue) {
         if (this.attributeValuesMap.containsKey(attribute)) {
-            this.attributeValuesMap.replace(attribute, newValue);
+            this.attributeValuesMap.put(attribute, newValue);
         }
     }
 }

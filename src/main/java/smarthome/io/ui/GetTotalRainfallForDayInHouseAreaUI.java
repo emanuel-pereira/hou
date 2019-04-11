@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetTotalRainfallForDayInHouseAreaCTRL;
-import smarthome.model.House;
 import smarthome.model.SensorType;
 import smarthome.model.SensorTypeList;
 
@@ -14,9 +13,9 @@ public class GetTotalRainfallForDayInHouseAreaUI {
     private SensorType sensorType = new SensorType(this.rainfall);
 
 
-    public GetTotalRainfallForDayInHouseAreaUI(House house, SensorTypeList sensorType) {
+    public GetTotalRainfallForDayInHouseAreaUI(SensorTypeList sensorType) {
 
-        this.ctrl = new GetTotalRainfallForDayInHouseAreaCTRL(house, sensorType);
+        this.ctrl = new GetTotalRainfallForDayInHouseAreaCTRL(sensorType);
     }
 
     public void run() {

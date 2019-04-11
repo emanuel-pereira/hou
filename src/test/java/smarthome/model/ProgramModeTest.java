@@ -24,10 +24,10 @@ class ProgramModeTest {
     @DisplayName("Set and get attribute value")
     void setAttributeValue() {
         ProgramMode program = new ProgramMode ("Eco", 0.78);
-        program.setAttributeValue (0.80);
+        program.setEnergyConsumption(0.80);
 
         double expected = 0.80;
-        double result = program.getAttributeValue ();
+        double result = program.getEnergyConsumption();
 
         assertEquals (expected, result);
     }

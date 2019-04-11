@@ -18,7 +18,7 @@ class XMLGeoAreaTest {
     @Test
     void importData() {
 
-        Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
         int result = xmlReader.loadData(path).size();
@@ -41,7 +41,7 @@ class XMLGeoAreaTest {
 
     @Test
     void importDataGaNodeLengthTest() {
-        Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
         List<GeographicalArea> gaList = xmlReader.loadData(path);
@@ -54,7 +54,7 @@ class XMLGeoAreaTest {
 
     @Test
     void checkGAImport() {
-        Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
         List<GeographicalArea> gaList = xmlReader.loadData(path);
@@ -69,7 +69,7 @@ class XMLGeoAreaTest {
 
     @Test
     void checkOccupationAreaImport() {
-        Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
         List<GeographicalArea> gaList = xmlReader.loadData(path);
@@ -87,7 +87,7 @@ class XMLGeoAreaTest {
 
     @Test
     void checkLocationImport() {
-        Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
         List<GeographicalArea> gaList = xmlReader.loadData(path);
@@ -111,7 +111,7 @@ class XMLGeoAreaTest {
 
     @Test
     void checkGASensorsImport() {
-        Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
         List<GeographicalArea> gaList = xmlReader.loadData(path);
@@ -127,7 +127,7 @@ class XMLGeoAreaTest {
 
     @Test
     void checkGASensorTimeImport() {
-        Path path = Paths.get("resources/DataSet_sprint05_GA.xml");
+        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
         List<GeographicalArea> gaList = xmlReader.loadData(path);

@@ -20,7 +20,7 @@ class TvTest {
         tv.setDeviceName("Smart Tv");
 
         String expected = "Smart Tv";
-        String result = tv.getName();
+        String result = tv.getDeviceName();
 
         assertEquals(expected, result);
     }
@@ -139,7 +139,7 @@ class TvTest {
         Calendar endDate = new GregorianCalendar(2019, Calendar.JANUARY, 2);
         double energyConsumption = tv.getEnergyConsumption(startDate, endDate);
 
-        assertEquals(5.63, energyConsumption, 0.001);
+        assertEquals(5.63, energyConsumption, 0.01);
     }
 
     @Test

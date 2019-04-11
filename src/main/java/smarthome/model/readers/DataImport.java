@@ -1,5 +1,6 @@
 package smarthome.model.readers;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,21 +14,24 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import static java.lang.Double.parseDouble;
 
 public class DataImport {
     private JSONParser parser = new JSONParser();
     private Path configFilePath;
+    private Path configHouseFilePath = Paths.get("resources/DataSet_sprint06_House.json");
     private GAList gaList;
     private RoomList roomList;
-    private SensorTypeList sensorTypeList;
-    private int sensorsNotAdded;
-    private int sensorsAdded;
-    static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(DataImport.class);
+    static final Logger log = Logger.getLogger(DataImport.class);
+    private int nrOfAddedReadings = 0;
+    private int nrOfInvalidReadings = 0;
+    private List<Sensor> sensors = new ArrayList<>();
+    private List<GeographicalArea> notAdded;
+
 
     /**
      * Constructor for importing data related to GAList
@@ -36,6 +40,16 @@ public class DataImport {
      */
     public DataImport(GAList gaList) {
         this.gaList = gaList;
+        this.notAdded = new ArrayList<>();
+    }
+
+    /**
+     * Constructor for importing data related to RoomList
+     *
+     * @param roomList to be updated with data imported through HouseAdministration menu
+     */
+    public DataImport(RoomList roomList) {
+        this.roomList = roomList;
     }
 
     /**
@@ -46,6 +60,13 @@ public class DataImport {
     public DataImport(RoomList roomList, SensorTypeList sensorTypeList) {
         this.roomList = roomList;
         this.sensorTypeList = sensorTypeList;
+    }
+public int getNrOfAddedReadings() {
+        return this.nrOfAddedReadings;
+    }
+
+    public int getNrOfInvalidReadings() {
+        return this.nrOfInvalidReadings;
     }
 
     /**
@@ -64,87 +85,78 @@ public class DataImport {
         String fileExtension = getFileExtension(filePath);
         String className = getClassName("readings", fileExtension);
         FileReaderReadings reader = (FileReaderReadings) Class.forName(className).newInstance();
-        List<String[]> dataToImport = reader.importData(filePath);
-        loadReadingFiles(dataToImport, object);
-    }
+        try {
+            List<String[]> dataToImport = reader.importData(filePath);
+            loadReadingFiles(dataToImport, object);
 
+        } catch (NullPointerException e) {
+            log.error("Invalid file structure");
+        }
+    }
 
     /**
      * This method updates the reading List for each sensor contained in the object passed as parameter
      * which can only be a RoomList or a GAList.
      *
-     * @param dataToImport array of strings containing sensor's id and its readings' attributes value
-     * @param object       GAList or RoomList which will have its sensors' readings updated
+     * @param readingsToImport array of strings containing sensor's id and its readings' attributes value
+     * @param object           GAList or RoomList which will have its sensors' readings updated
      */
-    public void loadReadingFiles(List<String[]> dataToImport, Object object) {
-        if (object.equals(gaList)) {
-            for (GeographicalArea ga : gaList.getGAList()) {
-                importGAsSensorsReadings(dataToImport, ga);
-            }
-        }
+    public void loadReadingFiles(List<String[]> readingsToImport, Object object) {
         if (object.equals(roomList)) {
-            for (Room r : roomList.getRoomList()) {
-                importRoomsSensorsReadings(dataToImport, r);
+            sensors = roomList.getAllSensors();
+            importSensorsReadings(readingsToImport);
+        }
+        if (object.equals(gaList)) {
+            sensors = gaList.getAllSensors();
+            importSensorsReadings(readingsToImport);
+        }
+    }
+
+    //fazer for each sensor in all sensors se sensorid existe então não adiciona
+    private void importSensorsReadings(List<String[]> readingsToImport) {
+        for (String[] reading : readingsToImport) {
+            String sensorID = reading[0];
+            if (importReading(reading, sensorID)) {
+                this.nrOfAddedReadings++;
+            } else {
+                this.nrOfInvalidReadings++;
             }
         }
     }
 
-    /**
-     * This method updates the sensors' readings of the GeographicalArea object passed as parameter
-     *
-     * @param dataToImport     array of strings containing sensor's id and its readings' attributes value
-     * @param geographicalArea object to be updated
-     */
-    private void importGAsSensorsReadings(List<String[]> dataToImport, GeographicalArea geographicalArea) {
-        for (String[] field : dataToImport) {
-            String sensorID = field[0];
-            SensorList sensorList = geographicalArea.getSensorListInGA();
-            importReadings(field, sensorID, sensorList);
-        }
-    }
 
     /**
-     * This method updates the sensors' readings of the Room object passed as parameter
-     *
-     * @param dataToImport array of strings containing sensor's id and its readings' attributes value
-     * @param room         object to be updated
-     */
-    private void importRoomsSensorsReadings(List<String[]> dataToImport, Room room) {
-        for (String[] field : dataToImport) {
-            String sensorID = field[0];
-            SensorList sensorList = room.getSensorListInRoom();
-            importReadings(field, sensorID, sensorList);
-        }
-    }
-
-    /**
-     * This method imports readings for the sensor with sensorID passed as parameter.
-     * Only readings with dateAndTime after the sensor's startDate will be imported otherwise tghey will be registered in a log file.
+     * This method imports a reading for the sensor with sensorID passed as parameter.
+     * Only readings with dateAndTime after the sensor's startDate will be imported otherwise they will be registered in a log file.
      *
      * @param field
      * @param sensorID
-     * @param sensorList
      */
-    private void importReadings(String[] field, String sensorID, SensorList sensorList) {
-        for (Sensor sensor : sensorList.getSensorList())
+    private boolean importReading(String[] field, String sensorID) {
+        for (Sensor sensor : sensors) {
             if (sensorID.equals(sensor.getId())) {
+
                 String dateAndTimeString = field[1];
                 Calendar readingDate = UtilsUI.parseDateToImportReadings(dateAndTimeString);
                 double readingValue = parseDouble(field[2]);
                 String unit = field[3];
-
                 Reading reading = new Reading(readingValue, readingDate, unit);
-
                 if (readingDate.after(sensor.getStartDate())) {
                     reading.setSensor(sensor);
                     //dataImport
-                    sensor.getReadingList().addReading(reading);
+                    if (sensor.getReadingList().addReading(reading)) {
+
+                        return true;
+                    }
                 } else {
                     String message = "Reading not added to the DB - sensor: " + sensorID +
                             " value: " + readingValue + " " + unit + " date: " + dateAndTimeString + "\nreason: reading date after sensor start date";
                     log.error(message);
+                    return false;
                 }
             }
+        }
+        return false;
     }
 
 
@@ -190,6 +202,7 @@ public class DataImport {
     }
 
     public void importFromFileGeoArea(List<GeographicalArea> dataToImport) {
+        this.notAdded.clear();
         for (GeographicalArea ga : dataToImport) {
             if (this.gaList.addGA(ga)) {
                 try {
@@ -199,7 +212,9 @@ public class DataImport {
                 } catch (NullPointerException e) {
                     log.warn("Repository unreachable");
                 }
-            } else log.info("No Geographical Areas were imported into the systems DB");
+            } else{
+                this.notAdded.add(ga);
+                log.info("No Geographical Areas were imported into the systems DB");}
         }
     }
 
@@ -263,6 +278,23 @@ public class DataImport {
     public int getSizeOfSensorsAdded() {
         return sensorsAdded;
     }
+
+    public int notAddedNumber(){
+        return this.notAdded.size();
+    }
+
+    /**US100 CONFIGURE HOUSE BY FILE IMPORT*/
+
+    private FileReaderHouse getHouseConfigFileReader() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException{
+        String fileExtension = getFileExtension(this.configHouseFilePath);
+        String className = getClassName("house", fileExtension);
+        return  (FileReaderHouse) Class.forName(className).newInstance();
+    }
+
+    public void importHouse() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException{
+        getHouseConfigFileReader().importHouseConfiguration(this.configHouseFilePath);
+    }
+}
 
     public int getSizeOfSensorsNotAdded() {
         return sensorsNotAdded;
