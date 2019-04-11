@@ -25,17 +25,22 @@ hidefootbox
 actor HouseAdministrator
 
 
-HouseAdministrator -> ":DataImportUI": Ask import
+HouseAdministrator -> ":DataImportUI": Import house sensors' readings
 create ":DataImportCTRL"
 
 
-":DataImportUI" -> ":DataImportCTRL": create()
-":DataImportUI" --> "HouseAdministrator": ask for file name and path
-":DataImportUI" <- "HouseAdministrator": type  file name and path
+":DataImportUI" -> ":DataImportCTRL": create(roomList)
+create ":DataImport"
+":DataImportCTRL" -> ":DataImport": create(roomList)
+
+":DataImportUI" --> "HouseAdministrator": asks for file URI
+":DataImportUI" <- "HouseAdministrator": inputs file URI
+":DataImportUI" --> "HouseAdministrator": asks to confirm file URI
+":DataImportUI" <- "HouseAdministrator": confirms file URI
 
 
-":DataImportUI" -> ":DataImportCTRL": importReadingsFromHouseFile(filepath)
-":DataImportCTRL" -> ":DataImport": importFromHouseFile(filepath)
+":DataImportUI" -> ":DataImportCTRL": importReadingsFromFile(filepath, roomList)
+":DataImportCTRL" -> ":DataImport": importReadingsFromFile(filepath, roomList)
 
 
 create ":{FileReaderReadings}"
@@ -47,15 +52,12 @@ note right #FFFF
     CSVReading
     end note
 
-":DataImport" -> ":{FileReaderReadings}": importReadingsToHouse(filePath)
-":DataImport" -> "rL:RoomList": rL=getRoomList()
+":DataImport" -> ":{FileReaderReadings}": importData(filePath)
+":DataImport" -> "roomList:RoomList": sL=getAllSensors()
 
-loop for each Room in rL
-
-":DataImport" -> "sL:SensorList": sL=getSensorListRoom()
 
 loop for each sensor in sL
-":DataImport" -> "rL:ReadingList": rL=getReadingListRoom()
+":DataImport" -> "rL:ReadingList": rL=getReadingList()
 
 create "r:Reading"
 
@@ -64,14 +66,16 @@ create "r:Reading"
 ":DataImport" -> ":Repositories": saveReading(r)
 
 end
-end
-":DataImportUI" -> ":DataImportCTRL": showNumberOfReadsHouse()
-":DataImportCTRL" -> ":DataImport": getNumberOfReadsHouse()
 
 
+":DataImportUI" -> ":DataImportCTRL": getNrOfImportedReadings()
+":DataImportCTRL" -> ":DataImport": getNrOfImportedReadings()
+":DataImportUI" -> ":DataImportCTRL": getNrOfInvalidReadings()
+
+":DataImportCTRL" -> ":DataImport": getNrOfInvalidReadings()
 
 
-HouseAdministrator<--":DataImportUI": Shows the number \nof readings of each sensor in house
+HouseAdministrator<--":DataImportUI": Shows the number of imported \n readings and invalid readings
 @enduml
 
 
