@@ -88,8 +88,8 @@ public class DataImportUI {
                 System.out.println("Warning: no geographical areas nor their sensors were imported");
                 UtilsUI.backToMenu();
             }
-            if(notImported < 1 && imported > 0) {
-                System.out.println("Success! " + imported+ " geographical areas and respective sensors were imported.");
+            if (notImported < 1 && imported > 0) {
+                System.out.println("Success! " + imported + " geographical areas and respective sensors were imported.");
                 UtilsUI.backToMenu();
             }
         } else {
@@ -115,12 +115,11 @@ public class DataImportUI {
                         System.out.println("No readings were imported. Please verify if the file contains valid readings.");
                     }
                     if (invalidReadings > 0) {
-                        System.out.println(" - " + invalidReadings +"readings are invalid and saved on the activity log");
+                        System.out.println(" - " + invalidReadings + "readings are invalid and saved on the activity log");
                     }
                     if (importedReadings > 0) {
                         System.out.println(" - " + ctrl.getNrOfImportedReadings() + " readings were imported\n");
                     }
-                    loop = false;
                 }
                 loop = false;
             } catch (FileNotFoundException e) {

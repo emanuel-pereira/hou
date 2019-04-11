@@ -1,8 +1,8 @@
 package smarthome.model;
 
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
 import smarthome.repository.Repositories;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -40,16 +40,15 @@ public class ReadingList {
             log.warn(readingNotAddedMsg);
             return false;
         }
-        if (this.listOfReadings.add(newReading)) {
-            //repository call
-            try {
-                Repositories.getReadingRepository().save(newReading);
-                log.info("Reading added to the DB");
-            } catch (Exception e) {
-                log.warn("Repository unreachable");
-            }
-            return true;
-        } else return false;
+        this.listOfReadings.add(newReading);
+        //repository call
+        try {
+            Repositories.getReadingRepository().save(newReading);
+            log.info("Reading added to the DB");
+        } catch (Exception e) {
+            log.warn("Repository unreachable");
+        }
+        return true;
     }
 
     public Reading getLastReading() {

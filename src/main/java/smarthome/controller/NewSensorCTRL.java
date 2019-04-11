@@ -3,12 +3,10 @@ package smarthome.controller;
 import smarthome.model.*;
 import smarthome.model.validations.GPSValidations;
 import smarthome.model.validations.NameValidations;
-import smarthome.repository.Repositories;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.logging.Logger;
 
 import static smarthome.model.House.*;
 
@@ -103,6 +101,7 @@ public class NewSensorCTRL {
      * @param readings        list of readings stored by the sensor
      * @return adds the sensor created to the selected Geographical Area
      */
+    //TODO decreease number of method parameters to less than 7
     public boolean addNewSensorToGA(String id, String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, Location location, int indexOfGA, ReadingList readings) {
         GeographicalArea geographicalArea = this.gaList.get(indexOfGA);
         SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);

@@ -8,7 +8,7 @@ import static smarthome.model.House.getGridListInHouse;
 public class NewHouseGridCTRL {
 
     public NewHouseGridCTRL() {
-
+        //Controller constructor, empty on purpose
     }
 
     /**

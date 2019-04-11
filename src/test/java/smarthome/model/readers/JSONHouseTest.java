@@ -10,7 +10,7 @@ import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static smarthome.model.House.*;
 
 class JSONHouseTest {
@@ -119,6 +119,7 @@ class JSONHouseTest {
 
         assertEquals(2, getGridListInHouse().getSize());
     }
+
     @Test
     void loadGrids2() throws IOException, ParseException, ClassCastException {
         Path path = Paths.get("resources_tests/DataSet_sprint06_House.json");

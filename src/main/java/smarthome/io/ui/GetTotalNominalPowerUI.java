@@ -136,27 +136,4 @@ public class GetTotalNominalPowerUI {
         return false;
     }
 
-    //US705
-    private boolean existDevicesInGrids() {
-        int gridSize = this.controller.getGridListSize();
-        int temp = 0;
-        for (int grid = 0; grid < gridSize; grid++)
-            temp += this.controller.getSizeDeviceListInGrid(grid);
-        if (temp == 0)
-            System.out.println("Please add Devices into the available grid(s)\n");
-        return (temp != 0);
-    }
-
-    //US705
-    private boolean existRoomsAttachedToGrids() {
-        int gridSize = this.controller.getGridListSize();
-        int temp = 0;
-        for (int grid = 0; grid < gridSize; grid++)
-            temp += this.controller.getSizeRoomListInGrid(grid);
-        if (temp == 0)
-            System.out.println("Please ask the House Administrator to attach Rooms to a Grid\n");
-        return (temp != 0);
-    }
-
-
 }

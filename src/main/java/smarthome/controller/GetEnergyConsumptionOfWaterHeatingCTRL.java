@@ -1,7 +1,6 @@
 package smarthome.controller;
 
 import smarthome.model.Device;
-import smarthome.model.House;
 import smarthome.model.RoomList;
 
 import java.util.List;
