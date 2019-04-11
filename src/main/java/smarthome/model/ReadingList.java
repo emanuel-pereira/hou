@@ -36,8 +36,8 @@ public class ReadingList {
             log.warn(readingNotAddedMsg);
             return false;
         }
-        if (!checkIfReadingHasNotSameValues(newReading)) {
-            log.warn(readingNotAddedMsg);
+        if (!checkIfIsDuplicate(newReading)) {
+            log.error("Duplicate reading");
             return false;
         }
         this.listOfReadings.add(newReading);
@@ -302,7 +302,16 @@ public class ReadingList {
     }
 
     //TODO verify accuratness of this method, is it what we require?
-    boolean checkIfReadingHasNotSameValues(Reading newReading) {
+    boolean checkIfIsDuplicate(Reading newReading) {
+        convertReadings(newReading);
+        for (Reading reading : this.listOfReadings) {
+            if (newReading.getDateAndTime().equals(reading.getDateAndTime()))
+                return false;
+        }
+        return true;
+    }
+
+    private void convertReadings(Reading newReading) {
         try {
             if (newReading.getUnit().equals("F")) {
                 newReading.convertToCelsius();
@@ -311,13 +320,6 @@ public class ReadingList {
         } catch (Exception e) {
             log.warn(e.getMessage());
         }
-        for (Reading reading : this.listOfReadings) {
-            if ((Double.compare(newReading.returnValueOfReading(), reading.returnValueOfReading()) == 0) &&
-                    newReading.getDateAndTime().equals(reading.getDateAndTime()) &&
-                    newReading.getUnit().equals(reading.getUnit()))
-                return false;
-        }
-        return true;
     }
 }
 

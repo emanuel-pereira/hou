@@ -6,10 +6,11 @@ import smarthome.repository.Repositories;
 
 import java.util.List;
 
+import static smarthome.model.TypeGAList.*;
+
 public class NewGeographicalAreaCTRL {
 
     private GAList gaList;
-    private TypeGAList typeGAList;
     static final Logger log = Logger.getLogger(NewGeographicalAreaCTRL.class);
 
 
@@ -17,11 +18,9 @@ public class NewGeographicalAreaCTRL {
      * US3 controller constructor which is invoked when by US3UI on start to this is controller two parameters need to be passed:
      *
      * @param gaInputList     GA's List where the list methods will be invoked from, the List allows to create GA's and addi to a list of GA's
-     * @param gaTypeInputList GA Types List is a List of types (eg. city, country, stree) previously created by the user in US1
      */
-    public NewGeographicalAreaCTRL(GAList gaInputList, TypeGAList gaTypeInputList) {
+    public NewGeographicalAreaCTRL(GAList gaInputList) {
         this.gaList = gaInputList;
-        this.typeGAList = gaTypeInputList;
     }
 
     /**
@@ -34,7 +33,7 @@ public class NewGeographicalAreaCTRL {
      * @return the prior information is used to invoke the newGA method from the GA's List class making a request to create a new GA with the users input
      */
     public boolean newGA(String id, String inputDesignation, int typeGAIndex, OccupationArea occupationArea, Location location) {
-        TypeGA typeGA = this.typeGAList.get(typeGAIndex);
+        TypeGA typeGA = get(typeGAIndex);
         GeographicalArea ga = this.gaList.newGA(id, inputDesignation, typeGA, occupationArea, location);
         if (!this.gaList.addGA(ga)) {
             return false;
@@ -54,7 +53,7 @@ public class NewGeographicalAreaCTRL {
      * @return an integer value correspondent to the number of elements in the type of geographical area list.
      */
     public int typeGAListSize() {
-        return this.typeGAList.size();
+        return size();
     }
 
 
@@ -62,7 +61,7 @@ public class NewGeographicalAreaCTRL {
      * Method that shows the list of types of geographical areas in a string format
      */
     public String showTypeGAListInStr() {
-        List<TypeGA> list = this.typeGAList.getTypeGAList();
+        List<TypeGA> list = getTypeGAList();
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;

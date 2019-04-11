@@ -9,14 +9,27 @@ import java.util.List;
 
 public class TypeGAList {
 
-    private List<TypeGA> typeOfGAList;
+    //TODO: mudar nome
+    private static List<TypeGA> listOfGaTypes;
+    private static TypeGAList typeGaList = null;
+
     static final Logger log = Logger.getLogger(TypeGAList.class);
 
     /**
      * Constructor for TypeGAList where the List of GA's is instantiated
      */
-    public TypeGAList() {
-        this.typeOfGAList = new ArrayList<>();
+
+    public static TypeGAList getTypeGAListInstance() {
+
+        if (typeGaList == null){
+            typeGaList = new TypeGAList();
+        }
+
+        return typeGaList;
+    }
+
+    private TypeGAList() {
+        listOfGaTypes = new ArrayList<>();
     }
 
     /**
@@ -25,9 +38,10 @@ public class TypeGAList {
      * @param inputName user's input String designation
      * @return a new object Type of GA with the user's input or null if the input was not valid
      */
-    public TypeGA newTypeGA(String inputName) {
+    public static TypeGA newTypeGA(String inputName) {
         String inputNameLowerCase = null;
         NameValidations validations = new NameValidations();
+        //TODO: Throw Exception
         if (inputName != null)
             inputNameLowerCase = inputName.toLowerCase();
         if (validations.nameIsValid(inputNameLowerCase))
@@ -42,9 +56,9 @@ public class TypeGAList {
      * @return true if it was possible to add the user new input, false if the input type is
      * already contained.
      */
-    public boolean addTypeGA(TypeGA inputType) {
-        if (inputType != null && !this.typeOfGAList.contains(inputType)) {
-            this.typeOfGAList.add(inputType);
+    public static boolean addTypeGA(TypeGA inputType) {
+        if (inputType != null && !listOfGaTypes.contains(inputType)) {
+            listOfGaTypes.add(inputType);
 
             //Repository call
             try {
@@ -61,16 +75,16 @@ public class TypeGAList {
      *
      * @return the list of previously entered GA type's
      */
-    public List<TypeGA> getTypeGAList() {
-        return this.typeOfGAList;
+    public static  List<TypeGA> getTypeGAList() {
+        return listOfGaTypes;
     }
 
-    public int size() {
-        return this.typeOfGAList.size();
+    public static  int size() {
+        return listOfGaTypes.size();
     }
 
-    public TypeGA get(int index) {
-        return this.typeOfGAList.get(index);
+    public static TypeGA get(int index) {
+        return listOfGaTypes.get(index);
     }
 
 }

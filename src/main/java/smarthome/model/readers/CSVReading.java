@@ -17,6 +17,8 @@ public class CSVReading implements FileReaderReadings {
         List<String[]> dataToImport = new ArrayList<>();
         File file = new File(filePathAndName.toString());
         Scanner scanner = new Scanner(file);
+        //to ignore csv file header
+        scanner.nextLine();
         scanner.useDelimiter(this.commaDelimiter);
         while (scanner.hasNext()) {
             String line = scanner.nextLine();

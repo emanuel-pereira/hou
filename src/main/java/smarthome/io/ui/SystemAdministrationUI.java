@@ -15,7 +15,7 @@ public final class SystemAdministrationUI {
     private SystemAdministrationUI() {
     }
 
-    public static void systemAdministration(TypeGAList typeGAList, GAList gaList, SensorTypeList sensorTypeList)
+    public static void systemAdministration(GAList gaList, SensorTypeList sensorTypeList)
             throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
 
         int option = -1;
@@ -45,19 +45,19 @@ public final class SystemAdministrationUI {
 
             switch (option) {
                 case 1:
-                    NewTypeGAUI ui1 = new NewTypeGAUI(typeGAList);
+                    NewTypeGAUI ui1 = new NewTypeGAUI();
                     ui1.run();
                     break;
                 case 2:
-                    GetTypeGAListUI ui2 = new GetTypeGAListUI(typeGAList);
+                    GetTypeGAListUI ui2 = new GetTypeGAListUI();
                     ui2.run();
                     break;
                 case 3:
-                    NewGeographicalAreaUI ui3 = new NewGeographicalAreaUI(gaList, typeGAList);
+                    NewGeographicalAreaUI ui3 = new NewGeographicalAreaUI(gaList);
                     ui3.checkIfTypeGAListIsEmpty();
                     break;
                 case 4:
-                    GetGAsOfTypeUI ui4 = new GetGAsOfTypeUI(gaList, typeGAList);
+                    GetGAsOfTypeUI ui4 = new GetGAsOfTypeUI(gaList);
                     ui4.checkLists();
                     break;
                 case 5:

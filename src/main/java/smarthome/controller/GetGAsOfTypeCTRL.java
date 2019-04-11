@@ -7,20 +7,19 @@ import smarthome.model.TypeGAList;
 
 import java.util.List;
 
+import static smarthome.model.TypeGAList.getTypeGAList;
+
 public class GetGAsOfTypeCTRL {
 
-    private GAList mGAList;
-    private TypeGAList mTypeGAList;
+    private GAList gaList;
 
     /**
      * US4 constructor
      *
      * @param inputGAList     is the list of GA created on US3
-     * @param inputTypeGAList is the list of types that was created on US1 and printed on US2
      */
-    public GetGAsOfTypeCTRL(GAList inputGAList, TypeGAList inputTypeGAList) {
-        mGAList = inputGAList;
-        mTypeGAList = inputTypeGAList;
+    public GetGAsOfTypeCTRL(GAList inputGAList) {
+        gaList = inputGAList;
     }
 
     /**
@@ -30,8 +29,8 @@ public class GetGAsOfTypeCTRL {
      * @param typeAreaIndex is a number that matches a position in the list of types from which the user can choose from
      */
     public List<GeographicalArea> getGAListFromType(int typeAreaIndex) {
-        String areaType = mTypeGAList.getTypeGAList().get(typeAreaIndex - 1).toString();
-        return mGAList.gAFromThisType(areaType);
+        String areaType = getTypeGAList().get(typeAreaIndex - 1).toString();
+        return gaList.gAFromThisType(areaType);
     }
 
     public String showListTypeGA() {

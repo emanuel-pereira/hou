@@ -106,7 +106,7 @@ public class DataImportUI {
             String filepath = UtilsUI.requestText("Invalid filepath.", "[A-Za-z0-9/._]*");
             Path path = Paths.get(filepath);
             try {
-                if (UtilsUI.confirmOption("Please confirm if you want to import room sensors' readings. (y/n)", "Please type y for Yes or n for No.")) {
+                if (UtilsUI.confirmOption("Please confirm if you want to import sensors' readings. (y/n)", "Please type y for Yes or n for No.")) {
                     ctrl.importReadingsFromFile(path, object);
                     int invalidReadings = ctrl.getNrOfInvalidReadings();
                     int importedReadings = ctrl.getNrOfImportedReadings();
@@ -121,8 +121,7 @@ public class DataImportUI {
                     }
                     if (invalidReadings > 0 && importedReadings > 0) {
                         System.out.println(" - " + ctrl.getNrOfImportedReadings() + " readings were imported\n");
-                        System.out.println(" - " + invalidReadings +" readings were not imported. The non-importing " +
-                                "\nreason for each invalid reading can be found in the importError.log file.");
+                        System.out.println(" - " + invalidReadings +" readings were not imported. Check log file for details.");
                         UtilsUI.backToMenu();
                     }
                     loop = false;
@@ -205,6 +204,7 @@ public class DataImportUI {
         if (ctrl.roomListSize()==0) {
             System.out.println("The room list is empty. You need to add rooms and respective sensors so that you can import readings.");
             UtilsUI.backToMenu();
+            return;
         }
         this.checkIfRoomSensorsExists(object);
 
@@ -213,6 +213,7 @@ public class DataImportUI {
         if(ctrl.nrOfSensorsInAllRooms() == 0){
             System.out.println("There are no room sensors created. Please create room sensors first for which you want to import readings.");
             UtilsUI.backToMenu();
+            return;
         }
         this.importReadings(object);
     }

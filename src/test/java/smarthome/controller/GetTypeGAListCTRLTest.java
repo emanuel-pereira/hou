@@ -1,16 +1,31 @@
 package smarthome.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import smarthome.model.TypeGA;
 import smarthome.model.TypeGAList;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static smarthome.model.TypeGAList.getTypeGAListInstance;
+import static smarthome.model.TypeGAList.size;
 
 
 class GetTypeGAListCTRLTest {
+
+    TypeGAList typeGAList = getTypeGAListInstance();
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = TypeGAList.class.getDeclaredField("typeGaList");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     /*
      * Add new types of geographical area in a list and then confirm that the content is the same when using
@@ -18,36 +33,36 @@ class GetTypeGAListCTRLTest {
      */
     @Test
     void getTypeGAListCorrectContent() {
-        TypeGAList list = new TypeGAList ();
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
-        ctrl1.createTypeGA ("village");
-        ctrl1.createTypeGA ("city");
 
-        TypeGA type1 = new TypeGA ("village");
-        TypeGA type2 = new TypeGA ("city");
-        List<TypeGA> expected = Arrays.asList (type1, type2);
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
+        ctrl1.createTypeGA("village");
+        ctrl1.createTypeGA("city");
 
-        GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL(list);
-        List<TypeGA> result = ctrl2.getTypeGAList ();
+        TypeGA type1 = new TypeGA("village");
+        TypeGA type2 = new TypeGA("city");
+        List<TypeGA> expected = Arrays.asList(type1, type2);
 
-        assertEquals (expected, result);
+        GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL();
+        List<TypeGA> result = ctrl2.getTypeGAListCTRL();
+
+        assertEquals(expected, result);
     }
 
     @Test
     void getTypeGAListIncorrectContent() {
-        TypeGAList list = new TypeGAList ();
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
-        ctrl1.createTypeGA ("village");
-        ctrl1.createTypeGA ("country");
 
-        GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL(list);
-        TypeGA type1 = new TypeGA ("village");
-        TypeGA type2 = new TypeGA ("city");
-        List<TypeGA> expected = Arrays.asList (type1, type2);
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
+        ctrl1.createTypeGA("village");
+        ctrl1.createTypeGA("country");
 
-        List<TypeGA> result = ctrl2.getTypeGAList ();
+        GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL();
+        TypeGA type1 = new TypeGA("village");
+        TypeGA type2 = new TypeGA("city");
+        List<TypeGA> expected = Arrays.asList(type1, type2);
 
-        assertNotEquals (expected, result);
+        List<TypeGA> result = ctrl2.getTypeGAListCTRL();
+
+        assertNotEquals(expected, result);
     }
 
 
@@ -57,47 +72,47 @@ class GetTypeGAListCTRLTest {
      */
     @Test
     void getTypeGAListCorrectSize() {
-        TypeGAList list = new TypeGAList ();
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
 
-        ctrl1.createTypeGA ("village");
-        assertEquals (1, list.getTypeGAList ().size ());
-        ctrl1.createTypeGA ("city");
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
 
-        GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL(list);
-        List<TypeGA> list2 = ctrl2.getTypeGAList ();
-        assertEquals (2, list2.size ());
+        ctrl1.createTypeGA("village");
+        assertEquals(1, size());
+        ctrl1.createTypeGA("city");
+
+        GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL();
+        List<TypeGA> list2 = ctrl2.getTypeGAListCTRL();
+        assertEquals(2, list2.size());
     }
 
     @Test
     void getTypeGAListIncorrectSize() {
-        TypeGAList list = new TypeGAList ();
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
 
-        assertTrue(ctrl1.createTypeGA ("village"));
-        assertEquals (1, list.getTypeGAList ().size ());
-        assertTrue(ctrl1.createTypeGA ("city"));
-        assertEquals (2, list.getTypeGAList ().size ());
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
 
-        GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL(list);
-        List<TypeGA> list2 = ctrl2.getTypeGAList ();
-        assertEquals (2, list2.size ());
+        assertTrue(ctrl1.createTypeGA("village"));
+        assertEquals(1, size());
+        assertTrue(ctrl1.createTypeGA("city"));
+        assertEquals(2, size());
+
+        GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL();
+        List<TypeGA> list2 = ctrl2.getTypeGAListCTRL();
+        assertEquals(2, list2.size());
     }
 
 
     @Test
     void showListInString() {
-        TypeGAList list = new TypeGAList ();
-        NewTypeGACTRL ctrl1 = new NewTypeGACTRL(list);
-        ctrl1.createTypeGA ("village");
-        ctrl1.createTypeGA ("city");
+
+        NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
+        ctrl1.createTypeGA("village");
+        ctrl1.createTypeGA("city");
 
         String expected = "1 - village\n2 - city\n";
 
-        GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL(list);
-        String result = ctrl2.showListInString ();
+        GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL();
+        String result = ctrl2.showListInString();
 
-        assertEquals (expected, result);
+        assertEquals(expected, result);
     }
 
 }

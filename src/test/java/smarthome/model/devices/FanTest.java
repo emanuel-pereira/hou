@@ -226,7 +226,7 @@ class FanTest {
         Calendar startDate = new GregorianCalendar(2018, 7, 26, 12, 15);
         Calendar endDate = new GregorianCalendar(2018, 7, 26, 12, 45);
 
-        double expected = 0.400;
+        double expected = 0.200;
         double result = fan.getEnergyConsumption(startDate, endDate);
 
         assertEquals(expected, result, 0.001);

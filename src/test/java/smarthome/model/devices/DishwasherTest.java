@@ -230,7 +230,7 @@ class DishwasherTest {
         Calendar startDate = new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 15);
         Calendar endDate = new GregorianCalendar(2018, Calendar.AUGUST, 26, 12, 45);
 
-        double expected = 0.400;
+        double expected = 0.200;
         double result = dishwasher.getEnergyConsumption(startDate, endDate);
 
         assertEquals(expected, result, 0.001);

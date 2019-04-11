@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ReadingListTest {
 
+
     @Test
     @DisplayName("Ensure newReading method creates local instance of reading and that addReading method adds it readingList")
     void newReading() {
@@ -86,7 +87,7 @@ class ReadingListTest {
 
         int result = readingList.size();
 
-        assertEquals(4, result);
+        assertEquals(2, result);
 
     }
 
@@ -108,7 +109,7 @@ class ReadingListTest {
         readingList.addReading(r3);
         readingList.addReading(r4);
 
-        double expected1 = 49;
+        double expected1 = 15;
 
         double result1 = readingList.totalValueInGivenDay(new GregorianCalendar(2019, 2, 2));
 
@@ -160,7 +161,7 @@ class ReadingListTest {
 
 
         double result = readingList.dailyAverageOfReadings(date);
-        assertEquals(22.3, result, 0.1);
+        assertEquals(18.0, result, 0.1);
 
     }
 
@@ -250,7 +251,7 @@ class ReadingListTest {
         rL1.addReading(r3);
         rL1.addReading(r4);
 
-        List<Reading> expectedResult = Arrays.asList(r1, r2, r3);
+        List<Reading> expectedResult = Arrays.asList(r1, r2);
 
         List<Reading> result = rL1.filterByDate(startDate, endDate).getReadingsList();
 

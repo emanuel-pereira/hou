@@ -1,18 +1,15 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetTypeGAListCTRL;
-import smarthome.model.TypeGAList;
 
 public class GetTypeGAListUI {
 
 
-    TypeGAList mTypeGAList;
-    GetTypeGAListCTRL mCtrlUS2;
+    GetTypeGAListCTRL ctrlUS2;
 
 
-    public GetTypeGAListUI(TypeGAList inputList) {
-        mTypeGAList = inputList;
-        mCtrlUS2 = new GetTypeGAListCTRL(mTypeGAList);
+    public GetTypeGAListUI() {
+        ctrlUS2 = new GetTypeGAListCTRL();
     }
 
 
@@ -23,13 +20,13 @@ public class GetTypeGAListUI {
      * The last statement allows the numbering of each element.
      */
     public void run() {
-        if (mCtrlUS2.getTypeGAList().isEmpty()) {
+        if (ctrlUS2.getTypeGAListCTRL().isEmpty()) {
             System.out.println ("List of type of geographical area is empty, please insert one first");
             UtilsUI.backToMenu();
         }
         else {
             System.out.println ("Current list of types of geographical area:");
-            System.out.println (mCtrlUS2.showListInString ());
+            System.out.println (ctrlUS2.showListInString ());
             UtilsUI.backToMenu();
             }
         }
