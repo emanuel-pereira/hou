@@ -1,6 +1,5 @@
 package smarthome.model;
 
-import org.apache.log4j.Logger;
 import smarthome.repository.Repositories;
 
 import java.util.ArrayList;
@@ -43,7 +42,6 @@ public class SensorList {
     public boolean checkIfAnySensorHasSameID(Sensor newSensor) {
         for (Sensor sensor : this.listOfSensors)
             if (sensor.getId().equals(newSensor.getId())) {
-                //log
                 return true;}
         return false;
     }

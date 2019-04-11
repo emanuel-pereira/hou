@@ -110,7 +110,7 @@ public class DataImportCTRL {
         return counters;
     }
 
-    public int sizeOfSensorsFile(Path filePath) throws IllegalAccessException, ParseException, InstantiationException, IOException, java.text.ParseException, ClassNotFoundException {
+    public int getSizeOfSensorsFile(Path filePath) throws IllegalAccessException, ParseException, InstantiationException, IOException, java.text.ParseException, ClassNotFoundException {
         DataImport dataImport = new DataImport(roomList, sensorTypeList);
         return dataImport.loadHouseSensorsFiles(filePath).size();
     }
