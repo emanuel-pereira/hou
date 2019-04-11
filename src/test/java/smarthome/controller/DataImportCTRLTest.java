@@ -203,7 +203,7 @@ class DataImportCTRLTest {
         roomList.addRoom(kitchen);
         roomList.addRoom(bedroom);
         DataImportCTRL ctrl = new DataImportCTRL(roomList);
-        String filepath1 = "resources_tests/fakeImportFilesForTests/roomSensorsReadings01.json";
+        String filepath1 = "resources_tests/fakeImportFilesForTests/RoomSensorsReadings01.json";
         Path path = Paths.get(filepath1);
         ctrl.importReadingsFromFile(path, roomList);
 
@@ -244,7 +244,7 @@ class DataImportCTRLTest {
         roomList.addRoom(kitchen);
         roomList.addRoom(bedroom);
         DataImportCTRL ctrl = new DataImportCTRL(roomList);
-        String filepath1 = "resources_tests/fakeImportFilesForTests/roomSensorsReadings01.json";
+        String filepath1 = "resources_tests/fakeImportFilesForTests/RoomSensorsReadings01.json";
         Path path = Paths.get(filepath1);
         ctrl.importReadingsFromFile(path, roomList);
 
@@ -285,7 +285,7 @@ class DataImportCTRLTest {
         roomList.addRoom(kitchen);
         roomList.addRoom(bedroom);
         DataImportCTRL ctrl = new DataImportCTRL(roomList);
-        String filepath1 = "resources_tests/fakeImportFilesForTests/roomSensorsReadings02.json";
+        String filepath1 = "resources_tests/fakeImportFilesForTests/RoomSensorsReadings02.json";
         Path path = Paths.get(filepath1);
         ctrl.importReadingsFromFile(path, roomList);
 
@@ -326,7 +326,7 @@ class DataImportCTRLTest {
         roomList.addRoom(kitchen);
         roomList.addRoom(bedroom);
         DataImportCTRL ctrl = new DataImportCTRL(roomList);
-        String filepath1 = "resources_tests/fakeImportFilesForTests/roomSensorsReadings02.json";
+        String filepath1 = "resources_tests/fakeImportFilesForTests/RoomSensorsReadings02.json";
         Path path = Paths.get(filepath1);
         ctrl.importReadingsFromFile(path, roomList);
 
@@ -367,7 +367,7 @@ class DataImportCTRLTest {
         roomList.addRoom(kitchen);
         roomList.addRoom(bedroom);
         DataImportCTRL ctrl = new DataImportCTRL(roomList);
-        String filepath1 = "resources_tests/fakeImportFilesForTests/roomSensorsReadings03.json";
+        String filepath1 = "resources_tests/fakeImportFilesForTests/RoomSensorsReadings03.json";
         Path path = Paths.get(filepath1);
         ctrl.importReadingsFromFile(path, roomList);
 
@@ -407,7 +407,7 @@ class DataImportCTRLTest {
         roomList.addRoom(kitchen);
         roomList.addRoom(bedroom);
         DataImportCTRL ctrl = new DataImportCTRL(roomList);
-        String filepath1 = "resources_tests/fakeImportFilesForTests/roomSensorsReadings03.json";
+        String filepath1 = "resources_tests/fakeImportFilesForTests/RoomSensorsReadings03.json";
         Path path = Paths.get(filepath1);
         ctrl.importReadingsFromFile(path, roomList);
 
