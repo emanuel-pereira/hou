@@ -126,7 +126,6 @@ public class NewSensorCTRL {
         Room room = roomList.get(indexOfRoom);
         SensorList rSensorList = room.getSensorListInRoom();
         Sensor sensor = rSensorList.createNewInternalSensor(id, inputName, startDate, sensorType, unit, readingList);
-        sensor.setSensorLocation(getAddress().getGPSLocation());
         return rSensorList.addSensor(sensor);
     }
 
