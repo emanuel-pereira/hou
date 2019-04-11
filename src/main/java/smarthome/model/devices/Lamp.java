@@ -1,10 +1,6 @@
 package smarthome.model.devices;
 
-import smarthome.model.*;
-import smarthome.model.validations.NameValidations;
-import smarthome.model.validations.Utils;
-
-import java.util.Calendar;
+import smarthome.model.DeviceSpecs;
 
 public class Lamp extends GenericDevice  {
 

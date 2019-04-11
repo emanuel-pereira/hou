@@ -13,9 +13,13 @@
         "json": "smarthome.model.readers.JSONGeoArea"
       }
     ],
+    "house": [
+      {
+        "json": "smarthome.model.readers.JSONHouse"
+      }
+    ],
     "house_sensors": [
       {
-        "xml": "smarthome.model.readers.XMLHouseSensors",
         "json": "smarthome.model.readers.JSONHouseSensors"
       }
     ]

@@ -1,14 +1,13 @@
 package smarthome.io.ui;
 
+import smarthome.dto.DeviceDTO;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public final class UtilsUI {
 
@@ -16,7 +15,7 @@ public final class UtilsUI {
     private static final String BLACK = "BLACK";
     private static final String RESET = "RESET";
     private static final String INPUTERROR = "Input error";
-    private static final String BG_WHITE="BG_WHITE";
+    private static final String BG_WHITE = "BG_WHITE";
 
     /**
      * Private constructor of UtilsUI class, which is a collection of static members, hence is not meant to be instantiated.
@@ -48,6 +47,11 @@ public final class UtilsUI {
     }
 
     /**
+     * - Double.MIN_VALUE 4.9e-324 (still positive) is the smallest possible positive number
+     * - Double.MAX_VALUE 1.8e+308 is the biggest possible number
+     * Given the prior values, [- Double.MAX_VALUE] is the smallest possible actual number you can represent
+     * with a double, meaning - 1.8e+308
+     *
      * @param input any String
      * @return true if it's a valid representation of a double
      */
@@ -57,10 +61,10 @@ public final class UtilsUI {
         try {
             d = Double.parseDouble(input);
         } catch (Exception e) {
-            d = Double.MIN_VALUE;
+            d = - Double.MAX_VALUE;
         }
 
-        return (d > Double.MIN_VALUE);
+        return (d > - Double.MAX_VALUE);
     }
 
     /**
@@ -448,6 +452,18 @@ public final class UtilsUI {
         showFormattedList(title, listToShow, false, 1);
     }
 
+    public static void showItemsList(String title, List<DeviceDTO> list, boolean numbered) {
+        String temp;
+        ArrayList<String> listToShow = new ArrayList<>();
+        for (DeviceDTO item : list) {
+            temp = "(" + item.getType() + ")";
+            temp = temp.concat(" " + item.getName() + " ");
+            temp = temp.concat("[" + item.getActive()+ "]");
+            listToShow.add(temp);
+        }
+        showFormattedList(title, listToShow, numbered, 1);
+    }
+
     /**
      * UI method for displaying a formatted list to the user
      *
@@ -638,20 +654,15 @@ public final class UtilsUI {
         return yesOrNo.contains("y") || yesOrNo.contains("Y");
     }
 
+    //TODO move this method to DATAImport class
     public static Calendar parseDateToImportReadings(String dateAndTimeString) {
         String dateAndTimeStr = dateAndTimeString;
         if (dateAndTimeString.contains("/")) {
             String[] date = dateAndTimeString.split("/");
-            StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(date[2]);
-            stringBuilder.append("-");
-            stringBuilder.append(date[1]);
-            stringBuilder.append("-");
-            stringBuilder.append(date[0]);
-            dateAndTimeStr = stringBuilder.toString();
+            dateAndTimeStr = date[2] + "-" + date[1] + "-" + date[0];
         }
         if (!dateAndTimeString.contains("T"))
-            dateAndTimeStr = dateAndTimeString.concat("T00:00:00+00:00");
+            dateAndTimeStr = dateAndTimeStr.concat("T00:00:00+00:00");
 
         ZonedDateTime dateTime = ZonedDateTime.parse(dateAndTimeStr);
         int year = dateTime.getYear();

@@ -2,7 +2,8 @@ package smarthome.model;
 
 import smarthome.model.validations.GPSValidations;
 
-import javax.persistence.*;
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 
 @Embeddable
 
@@ -101,6 +102,31 @@ public class Location {
         return this.altitude;
     }
 
+    /**
+     *
+     *Method to turn the Location object into a string
+     *
+     *@return location information as a String
+     */
+    //TODO missing tests
+    public String locationToString(){
+        StringBuilder output = new StringBuilder();
+
+        String separator = " | ";
+        String degree = "º";
+
+        output.append(separator + "Latitude: ");
+        output.append(this.latitude);
+        output.append(degree);
+        output.append(separator + "Longitude: ");
+        output.append(this.longitude);
+        output.append(degree);
+        output.append(separator + "Altitude: ");
+        output.append(this.altitude);
+        output.append(" meters");
+
+        return output.toString();
+    }
 
 }
 

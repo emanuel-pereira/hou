@@ -1,20 +1,20 @@
 package smarthome.controller;
 
 import smarthome.model.Device;
-import smarthome.model.House;
 import smarthome.model.RoomList;
 
 import java.util.List;
 
 import static java.lang.Double.parseDouble;
+import static smarthome.model.House.getHouseRoomList;
 
 public class GetEnergyConsumptionOfWaterHeatingCTRL {
 
     private RoomList roomList;
 
 
-    public GetEnergyConsumptionOfWaterHeatingCTRL(House house) {
-        this.roomList = house.getRoomList();
+    public GetEnergyConsumptionOfWaterHeatingCTRL() {
+        this.roomList = getHouseRoomList();
     }
 
     public List<Device> getDevicesInAllRoomsByType(String deviceType) {
@@ -25,7 +25,7 @@ public class GetEnergyConsumptionOfWaterHeatingCTRL {
         return this.roomList.getEnergyConsumptionByDeviceType(deviceType);
     }
 
-    public void setAttribute(Device device, String attribute, String newValue){
-        device.getDeviceSpecs().setAttributeValue(attribute,parseDouble(newValue));
+    public void setAttribute(Device device, String attribute, String newValue) {
+        device.getDeviceSpecs().setAttributeValue(attribute, parseDouble(newValue));
     }
 }

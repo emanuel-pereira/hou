@@ -1,31 +1,30 @@
 package smarthome.controller;
 
-import smarthome.model.House;
 import smarthome.model.HouseGrid;
 import smarthome.model.PowerSource;
 import smarthome.model.PowerSourceList;
 
 import java.util.List;
 
+import static smarthome.model.House.getGridListInHouse;
+
+
 public class AddPowerSourceToGridCTRL {
 
-    private House mHouse;
-
-
-    public AddPowerSourceToGridCTRL(House house) {
-        mHouse = house;
+    public AddPowerSourceToGridCTRL() {
+        //Controller public constructor
     }
 
     public List<HouseGrid> getHouseGridList() {
-        return mHouse.getHGListInHouse().getHouseGridList();
+        return getGridListInHouse().getHouseGridList();
     }
 
     public int getHGListSizeCtrl() {
-        return mHouse.getHGListInHouse().getSize();
+        return getGridListInHouse().getSize();
     }
 
     public String getHGListInStringCtrl (){
-        return mHouse.getHGListInHouse().showHouseGridListInString();
+        return getGridListInHouse().showHouseGridListInString();
     }
 
     private HouseGrid getHouseGrid(int indexHG){

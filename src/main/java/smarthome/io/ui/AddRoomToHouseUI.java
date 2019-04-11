@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.AddRoomToHouseCTRL;
-import smarthome.model.House;
 
 public class AddRoomToHouseUI {
 
@@ -17,10 +16,9 @@ public class AddRoomToHouseUI {
     /**
      * User interface constructor
      *
-     * @param house the current and only house
      */
-    public AddRoomToHouseUI(House house) {
-        this.controller = new AddRoomToHouseCTRL(house);
+    public AddRoomToHouseUI() {
+        this.controller = new AddRoomToHouseCTRL();
     }
 
     /**
@@ -54,7 +52,7 @@ public class AddRoomToHouseUI {
         while (condition) {
             System.out.println("Insert the name of the room:");
             this.name = UtilsUI.requestText("Please insert alphanumeric characters!\nInsert the name of the room:", "^[A-Za-z0-9 -]+$");
-            if (!this.controller.checkIfRoomNameExists(this.name)) {
+            if (!this.controller.checkIfRoomIdExists(this.name)) {
                 condition = false;
                 this.insertFloor();
             } else

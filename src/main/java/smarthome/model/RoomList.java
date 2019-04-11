@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import org.apache.log4j.Logger;
 import smarthome.model.validations.NameValidations;
 import smarthome.model.validations.Utils;
 import smarthome.repository.Repositories;
@@ -8,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomList {
+
     private List<Room> listOfRooms;
+    static final Logger log = Logger.getLogger(RoomList.class);
 
 
     /**
@@ -31,7 +34,7 @@ public class RoomList {
      */
     public Room createNewRoom(String id, String name, int floor, double length, double width, double height) {
         NameValidations validation = new NameValidations();
-        if (validation.alphanumericName(name)) {
+        if (validation.alphanumericName(name) && validation.alphanumericName(id)) {
             return new Room(id, name, floor, length, width, height);
         }
         return null;
@@ -46,10 +49,16 @@ public class RoomList {
     public boolean addRoom(Room newRoom) {
         if (newRoom != null && !this.listOfRooms.contains(newRoom)) {
             this.listOfRooms.add(newRoom);
-
+            //Repository call
+            try {
+                Repositories.saveRoom(newRoom);
+            } catch (NullPointerException e) {
+                log.warn("Repository unreachable");
+            }
             return true;
         } else return false;
     }
+
 
     /**
      * Checks if the room ID exists in the room list, so the ID is not repeated
@@ -97,6 +106,18 @@ public class RoomList {
      */
     public Room get(int i) {
         return this.listOfRooms.get(i);
+    }
+
+    public Room getRoomById (String inputId) {
+        Room room = get(0);
+        for(Room  r : this.listOfRooms) {
+            room = r;
+            if (room.getId().matches(inputId)) {
+                break;
+            }
+        }
+        return room;
+
     }
 
     /**
@@ -191,5 +212,25 @@ public class RoomList {
         return meteredDevListInHouse;
     }
 
+    /**
+     * @return a global list of sensors containing all sensors within each room.
+     */
+    public List<Sensor> getAllSensors(){
+        List<Sensor> sensors = new ArrayList<>();
+        for(Room room : this.listOfRooms){
+            SensorList roomSensorList = room.getSensorListInRoom();
+            sensors.addAll(roomSensorList.getSensorList());
 
+        }
+        return sensors;
+    }
+
+
+    public Room getRoomIfIDMatchesAnyExistingRoom(String sensorID) {
+        Room matchedRoom = null;
+        for (Room room : this.listOfRooms)
+            if (room.getId().equals(sensorID))
+                matchedRoom = room;
+            return matchedRoom;
+    }
 }

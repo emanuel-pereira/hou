@@ -32,6 +32,8 @@ public class Room implements Metered {
 
     protected Room() {
     }
+
+    @Transient
     private double time;
 
 
@@ -264,7 +266,7 @@ public class Room implements Metered {
             return false;
         }
         Room room = (Room) o;
-        return Objects.equals(this.name, room.name);
+        return Objects.equals(this.id, room.id);
     }
 
     /**
@@ -274,7 +276,7 @@ public class Room implements Metered {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(this.name);
+        return Objects.hash(this.id);
     }
 
 }

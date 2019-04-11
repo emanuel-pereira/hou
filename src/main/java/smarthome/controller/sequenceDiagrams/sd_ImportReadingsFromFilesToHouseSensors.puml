@@ -1,0 +1,81 @@
+@startuml
+skinparam sequence {
+         	ArrowColor SteelBlue
+         	ActorBorderColor Dimgray
+         	LifeLineBorderColor MidnightBlue
+         	LifeLineBackgroundColor #A9DCDF
+
+         	ParticipantBorderColor Dimgray
+         	ParticipantBackgroundColor SteelBlue
+         	ParticipantFontName Calibri Bold
+         	ParticipantFontSize 17
+         	ParticipantFontColor Ivory
+
+         	ActorBackgroundColor SteelBlue
+         	ActorFontColor MidnightBlue
+         	ActorFontSize 17
+         	ActorFontName Aapex
+
+         }
+skinparam note {
+BorderColor SteelBlue
+}
+autonumber
+hidefootbox
+actor HouseAdministrator
+
+
+HouseAdministrator -> ":DataImportUI": Import house sensors' readings
+create ":DataImportCTRL"
+
+
+":DataImportUI" -> ":DataImportCTRL": create(roomList)
+create ":DataImport"
+":DataImportCTRL" -> ":DataImport": create(roomList)
+
+":DataImportUI" --> "HouseAdministrator": asks for file URI
+":DataImportUI" <- "HouseAdministrator": inputs file URI
+":DataImportUI" --> "HouseAdministrator": asks to confirm file URI
+":DataImportUI" <- "HouseAdministrator": confirms file URI
+
+
+":DataImportUI" -> ":DataImportCTRL": importReadingsFromFile(filepath, roomList)
+":DataImportCTRL" -> ":DataImport": importReadingsFromFile(filepath, roomList)
+
+
+create ":{FileReaderReadings}"
+":DataImport" -> ":{FileReaderReadings}": create(filepath)
+note right #FFFF
+{FileReaderReadings} can be:
+    XMLReading
+    JSONReading
+    CSVReading
+    end note
+
+":DataImport" -> ":{FileReaderReadings}": importData(filePath)
+":DataImport" -> "roomList:RoomList": sL=getAllSensors()
+
+
+loop for each sensor in sL
+":DataImport" -> "rL:ReadingList": rL=getReadingList()
+
+create "r:Reading"
+
+":DataImport" -> "r:Reading": rL.newReading(date,value,unit)
+":DataImport" -> "rL:ReadingList": rL.addReading(r)
+":DataImport" -> ":Repositories": saveReading(r)
+
+end
+
+
+":DataImportUI" -> ":DataImportCTRL": getNrOfImportedReadings()
+":DataImportCTRL" -> ":DataImport": getNrOfImportedReadings()
+":DataImportUI" -> ":DataImportCTRL": getNrOfInvalidReadings()
+
+":DataImportCTRL" -> ":DataImport": getNrOfInvalidReadings()
+
+
+HouseAdministrator<--":DataImportUI": Shows the number of imported \n readings and invalid readings
+@enduml
+
+

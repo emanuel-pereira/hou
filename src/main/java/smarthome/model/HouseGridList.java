@@ -29,6 +29,7 @@ public class HouseGridList {
      * @param inputHouseGrid houseGrid to be added to list of HouseGrids of a house instance.
      * @return true if houseGrid is added to list or false otherwise.
      */
+    //TODO due to DDD this method should only be called internally by the house, and never exposed publicly to other classes
     public boolean addHouseGrid(HouseGrid inputHouseGrid) {
         if (!this.hglist.contains(inputHouseGrid)) {
             this.hglist.add(inputHouseGrid);
@@ -43,11 +44,7 @@ public class HouseGridList {
      * @return the list of house grids in the house as ArrayList
      */
     public List<HouseGrid> getHouseGridList() {
-        List<HouseGrid> gridList = new ArrayList<>();
-        for (HouseGrid grid : this.hglist) {
-            gridList.add(grid);
-        }
-        return gridList;
+        return this.hglist;
     }
 
     /**

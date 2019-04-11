@@ -1,8 +1,8 @@
 package smarthome.dto;
 
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GeographicalAreaDTO {
 
@@ -39,5 +39,24 @@ public class GeographicalAreaDTO {
 
     public void setSensorListDTO(List<SensorDTO> sensorList) {
         this.sensorListDTO = sensorList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof GeographicalAreaDTO)) {
+            return false;
+        }
+        GeographicalAreaDTO that = (GeographicalAreaDTO) o;
+        return Objects.equals(this.identification, that.identification) /*&&
+                Objects.equals(this.designation, that.designation) &&
+                Objects.equals(this.typeOfGa, that.typeOfGa)*/;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.identification);
     }
 }

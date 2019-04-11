@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.devices.FanType;
@@ -7,14 +8,32 @@ import smarthome.model.devices.OvenType;
 import smarthome.model.devices.TvType;
 import smarthome.model.devices.WallTowelHeaterType;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static smarthome.model.House.getGridListInHouse;
+import static smarthome.model.House.getHouseRoomList;
 
 class HouseGridTest {
+
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @Test
     @DisplayName("Set new House Grid with correct Power Value")
@@ -105,7 +124,7 @@ class HouseGridTest {
     void attachTwoNewRoomsToGrid() {
         HouseGrid houseGrid = new HouseGrid("main");
         Room roomA = new Room("R01", "bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("R01", "garden", 0, 2, 2, 2);
+        Room roomB = new Room("R02", "garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
 
         boolean result = houseGrid.attachRoomToGrid(roomB);
@@ -117,7 +136,7 @@ class HouseGridTest {
     @DisplayName("Attach the same room twice to a grid and return false")
     void attachSameRoomTwiceToGrid() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("R01","bedroom", 1, 2, 2, 2);
+        Room roomA = new Room("R01", "bedroom", 1, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
 
         boolean result = houseGrid.attachRoomToGrid(roomA);
@@ -142,8 +161,8 @@ class HouseGridTest {
     @DisplayName("Attach two different rooms to a grid and return that room list size")
     void getRoomListInAGridSize() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("R01","bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("R02","garden", 0, 2, 2, 2);
+        Room roomA = new Room("R01", "bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R02", "garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
         houseGrid.attachRoomToGrid(roomB);
 
@@ -186,8 +205,8 @@ class HouseGridTest {
     @DisplayName("Try to detach a room that doesn't exist in a grid and return false")
     void detachRoom() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("R01","bedroom", 1, 2, 2, 2);
-        Room roomB = new Room("R02","garden", 0, 2, 2, 2);
+        Room roomA = new Room("R01", "bedroom", 1, 2, 2, 2);
+        Room roomB = new Room("R02", "garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
 
         boolean result = houseGrid.detachRoomFromGrid(roomB);
@@ -197,146 +216,148 @@ class HouseGridTest {
 
     @Test
     @DisplayName("Get the Device List in a Grid")
-    void getDeviceList(){
-        House house = new House();
-        HouseGrid hg1 = new HouseGrid("grid1");
-        house.getHGListInHouse().addHouseGrid(hg1);
+    void getDeviceList() {
+         
 
-        Room r1 = new Room("R01", "cozinha",1,2,2,2);
-        Room r3 = new Room("R02", "quarto",2,2,2,2);
-        house.getRoomList().addRoom(r1);
-        house.getRoomList().addRoom(r3);
+        HouseGrid hg1 = new HouseGrid("grid1");
+        getGridListInHouse().addHouseGrid(hg1);
+
+        Room r1 = new Room("R01", "cozinha", 1, 2, 2, 2);
+        Room r3 = new Room("R02", "quarto", 2, 2, 2, 2);
+        getHouseRoomList().addRoom(r1);
+        getHouseRoomList().addRoom(r3);
 
         OvenType typeOven = new OvenType();
         WallTowelHeaterType typeWth = new WallTowelHeaterType();
         TvType typeTv = new TvType();
         FanType typeFan = new FanType();
 
-        Device d1 = typeOven.createDevice("baker",420);
-        Device d2 = typeTv.createDevice("Silver",200);
-        Device d3 = typeWth.createDevice("Textile Dryer",300);
-        Device d4 = typeFan.createDevice("Micro Fan",250);
-        Device d5 = typeTv.createDevice("Smart Tv",200);
+        Device d1 = typeOven.createDevice("baker", 420);
+        Device d2 = typeTv.createDevice("Silver", 200);
+        Device d3 = typeWth.createDevice("Textile Dryer", 300);
+        Device d4 = typeFan.createDevice("Micro Fan", 250);
+        Device d5 = typeTv.createDevice("Smart Tv", 200);
 
-        house.getRoomList().get(0).getDeviceList().addDevice(d1);
-        house.getRoomList().get(0).getDeviceList().addDevice(d2);
-        house.getRoomList().get(0).getDeviceList().addDevice(d3);
-        house.getRoomList().get(1).getDeviceList().addDevice(d4);
-        house.getRoomList().get(1).getDeviceList().addDevice(d5);
+        getHouseRoomList().get(0).getDeviceList().add(d1);
+        getHouseRoomList().get(0).getDeviceList().add(d2);
+        getHouseRoomList().get(0).getDeviceList().add(d3);
+        getHouseRoomList().get(1).getDeviceList().add(d4);
+        getHouseRoomList().get(1).getDeviceList().add(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);
 
-        List<Device> expectedResult = Arrays.asList(d1,d2,d3,d4,d5);
+        List<Device> expectedResult = Arrays.asList(d1, d2, d3, d4, d5);
         List<Device> result = hg1.getDeviceListInGrid().getDeviceList();
 
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
     @Test
     @DisplayName("Get the Device List in a Grid from a specific Type")
-    void getDeviceListFromType(){
-            House house = new House();
-            HouseGrid hg1 = new HouseGrid("grid1");
-            house.getHGListInHouse().addHouseGrid(hg1);
+    void getDeviceListFromType() {
 
-            Room r1 = new Room("R01", "cozinha",1,2,2,2);
-            Room r3 = new Room("R02", "quarto",2,2,2,2);
-            house.getRoomList().addRoom(r1);
-            house.getRoomList().addRoom(r3);
+         
 
-            OvenType typeOven = new OvenType();
-            WallTowelHeaterType typeWth = new WallTowelHeaterType();
-            TvType typeTv = new TvType();
-            FanType typeFan = new FanType();
-
-            Device d1 = typeOven.createDevice("baker",420);
-            Device d2 = typeTv.createDevice("Silver",200);
-            Device d3 = typeWth.createDevice("Textile Dryer",300);
-            Device d4 = typeFan.createDevice("Micro Fan",250);
-            Device d5 = typeTv.createDevice("Smart Tv",200);
-
-            house.getRoomList().get(0).getDeviceList().addDevice(d1);
-            house.getRoomList().get(0).getDeviceList().addDevice(d2);
-            house.getRoomList().get(0).getDeviceList().addDevice(d3);
-            house.getRoomList().get(1).getDeviceList().addDevice(d4);
-            house.getRoomList().get(1).getDeviceList().addDevice(d5);
-
-            hg1.getRoomListInAGrid().addRoom(r1);
-            hg1.getRoomListInAGrid().addRoom(r3);
-
-            List<Device> expectedResult = Arrays.asList(d2,d5);
-            List<Device> result = hg1.getDeviceListFromType(16).getDeviceList();
-
-            assertEquals(expectedResult,result);
-    }
-
-    @Test
-    @DisplayName("Get the Device List in a Grid ordered Type")
-    void getDeviceListGroupedByType(){
-        House house = new House();
         HouseGrid hg1 = new HouseGrid("grid1");
-        house.getHGListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg1);
 
-        Room r1 = new Room("R01", "cozinha",1,2,2,2);
-        Room r3 = new Room("R02", "quarto",2,2,2,2);
-        house.getRoomList().addRoom(r1);
-        house.getRoomList().addRoom(r3);
+        Room r1 = new Room("R01", "cozinha", 1, 2, 2, 2);
+        Room r3 = new Room("R02", "quarto", 2, 2, 2, 2);
+        getHouseRoomList().addRoom(r1);
+        getHouseRoomList().addRoom(r3);
 
         OvenType typeOven = new OvenType();
         WallTowelHeaterType typeWth = new WallTowelHeaterType();
         TvType typeTv = new TvType();
         FanType typeFan = new FanType();
 
-        Device d1 = typeOven.createDevice("baker",420);
-        Device d2 = typeTv.createDevice("Silver",200);
-        Device d3 = typeWth.createDevice("Textile Dryer",300);
-        Device d4 = typeFan.createDevice("Micro Fan",250);
-        Device d5 = typeTv.createDevice("Smart Tv",200);
+        Device d1 = typeOven.createDevice("baker", 420);
+        Device d2 = typeTv.createDevice("Silver", 200);
+        Device d3 = typeWth.createDevice("Textile Dryer", 300);
+        Device d4 = typeFan.createDevice("Micro Fan", 250);
+        Device d5 = typeTv.createDevice("Smart Tv", 200);
 
-        house.getRoomList().get(0).getDeviceList().addDevice(d1);
-        house.getRoomList().get(0).getDeviceList().addDevice(d2);
-        house.getRoomList().get(0).getDeviceList().addDevice(d3);
-        house.getRoomList().get(1).getDeviceList().addDevice(d4);
-        house.getRoomList().get(1).getDeviceList().addDevice(d5);
+        getHouseRoomList().get(0).getDeviceList().add(d1);
+        getHouseRoomList().get(0).getDeviceList().add(d2);
+        getHouseRoomList().get(0).getDeviceList().add(d3);
+        getHouseRoomList().get(1).getDeviceList().add(d4);
+        getHouseRoomList().get(1).getDeviceList().add(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);
 
-        List<Device> expectedResult = Arrays.asList(d1,d3,d4,d2,d5);
-        List<Device> result = hg1.getDeviceListInGridGroupBy().getDeviceList();
+        List<Device> expectedResult = Arrays.asList(d2, d5);
+        List<Device> result = hg1.getDeviceListFromType(16).getDeviceList();
 
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
-    @Test
-    @DisplayName("Print the device list in Grid ordered by type")
-    void deviceListInGridCtrlTestGroupByTypeInString() {
-        House house = new House();
+    /*@Test
+    @DisplayName("Get the Device List in a Grid ordered Type")
+    void getDeviceListGroupedByType() {
         HouseGrid hg1 = new HouseGrid("grid1");
-        house.getHGListInHouse().addHouseGrid(hg1);
+        getGridListInHouse().addHouseGrid(hg1);
 
-        Room r1 = new Room("R01","cozinha",1,2,2,2);
-        Room r3 = new Room("R02","quarto",2,2,2,2);
-        house.getRoomList().addRoom(r1);
-        house.getRoomList().addRoom(r3);
+        Room r1 = new Room("R01", "cozinha", 1, 2, 2, 2);
+        Room r3 = new Room("R02", "quarto", 2, 2, 2, 2);
+        getHouseRoomList().addRoom(r1);
+        getHouseRoomList().addRoom(r3);
 
         OvenType typeOven = new OvenType();
         WallTowelHeaterType typeWth = new WallTowelHeaterType();
         TvType typeTv = new TvType();
         FanType typeFan = new FanType();
 
-        Device d1 = typeOven.createDevice("baker",420);
-        Device d2 = typeTv.createDevice("Silver",200);
-        Device d3 = typeWth.createDevice("Textile Dryer",300);
-        Device d4 = typeFan.createDevice("Micro Fan",250);
-        Device d5 = typeTv.createDevice("Smart Tv",200);
+        Device d1 = typeOven.createDevice("baker", 420);
+        Device d2 = typeTv.createDevice("Silver", 200);
+        Device d3 = typeWth.createDevice("Textile Dryer", 300);
+        Device d4 = typeFan.createDevice("Micro Fan", 250);
+        Device d5 = typeTv.createDevice("Smart Tv", 200);
 
-        house.getRoomList().get(0).getDeviceList().addDevice(d1);
-        house.getRoomList().get(0).getDeviceList().addDevice(d2);
-        house.getRoomList().get(0).getDeviceList().addDevice(d3);
-        house.getRoomList().get(1).getDeviceList().addDevice(d4);
-        house.getRoomList().get(1).getDeviceList().addDevice(d5);
+        getHouseRoomList().get(0).getDeviceList().addDevice(d1);
+        getHouseRoomList().get(0).getDeviceList().addDevice(d2);
+        getHouseRoomList().get(0).getDeviceList().addDevice(d3);
+        getHouseRoomList().get(1).getDeviceList().addDevice(d4);
+        getHouseRoomList().get(1).getDeviceList().addDevice(d5);
+
+        hg1.getRoomListInAGrid().addRoom(r1);
+        hg1.getRoomListInAGrid().addRoom(r3);
+
+        List<Device> expectedResult = Arrays.asList(d1, d3, d4, d2, d5);
+        List<Device> result = hg1.getDeviceListInGridGroupBy().getDeviceList();
+
+        assertEquals(expectedResult, result);
+    }
+*/
+    @Test
+    @DisplayName("Print the device list in Grid ordered by type")
+    void deviceListInGridCtrlTestGroupByTypeInString() {
+
+        HouseGrid hg1 = new HouseGrid("grid1");
+        getGridListInHouse().addHouseGrid(hg1);
+
+        Room r1 = new Room("R01", "cozinha", 1, 2, 2, 2);
+        Room r3 = new Room("R02", "quarto", 2, 2, 2, 2);
+        getHouseRoomList().addRoom(r1);
+        getHouseRoomList().addRoom(r3);
+
+        OvenType typeOven = new OvenType();
+        WallTowelHeaterType typeWth = new WallTowelHeaterType();
+        TvType typeTv = new TvType();
+        FanType typeFan = new FanType();
+
+        Device d1 = typeOven.createDevice("baker", 420);
+        Device d2 = typeTv.createDevice("Silver", 200);
+        Device d3 = typeWth.createDevice("Textile Dryer", 300);
+        Device d4 = typeFan.createDevice("Micro Fan", 250);
+        Device d5 = typeTv.createDevice("Smart Tv", 200);
+
+        getHouseRoomList().get(0).getDeviceList().add(d1);
+        getHouseRoomList().get(0).getDeviceList().add(d2);
+        getHouseRoomList().get(0).getDeviceList().add(d3);
+        getHouseRoomList().get(1).getDeviceList().add(d4);
+        getHouseRoomList().get(1).getDeviceList().add(d5);
 
         hg1.getRoomListInAGrid().addRoom(r1);
         hg1.getRoomListInAGrid().addRoom(r3);
@@ -348,7 +369,7 @@ class HouseGridTest {
                 "5 - Device: Smart Tv | Type: Tv | Location: quarto | Active: true\n";
         String result = hg1.showGroupedDeviceListInGridString();
 
-        assertEquals(expectedResult,result);
+        assertEquals(expectedResult, result);
     }
 
 
@@ -356,7 +377,7 @@ class HouseGridTest {
     @DisplayName("Get the nominal power of a grid")
     void getNominalPower() {
         HouseGrid houseGrid = new HouseGrid("main");
-        Room roomA = new Room("R01","bedroom", 1, 2, 2, 2);
+        Room roomA = new Room("R01", "bedroom", 1, 2, 2, 2);
         Room roomB = new Room("R02", "garden", 0, 2, 2, 2);
         houseGrid.attachRoomToGrid(roomA);
         houseGrid.attachRoomToGrid(roomB);
@@ -367,10 +388,10 @@ class HouseGridTest {
             Device fridgeB = deviceList.newDevice("FridgeB", "Fridge", 150);
             Device kettle = deviceList.newDevice("KettleA", "Kettle", 1500);
             Device lamp = deviceList.newDevice("LampA", "Lamp", 15);
-            deviceList.addDevice(fridgeA);
-            deviceList.addDevice(fridgeB);
-            deviceList.addDevice(kettle);
-            deviceList.addDevice(lamp);
+            deviceList.add(fridgeA);
+            deviceList.add(fridgeB);
+            deviceList.add(kettle);
+            deviceList.add(lamp);
         } catch (Exception e) {
             //Do nothing.
         }
@@ -430,8 +451,8 @@ class HouseGridTest {
         HouseGrid grid = new HouseGrid("MainGrid");
         RoomList roomList = grid.getRoomListInAGrid();
 
-        Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
-        Room garage = new Room("R02","Living Room", 0, 5, 4, 3);
+        Room kitchen = new Room("R01", "Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("R02", "Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
 
@@ -444,19 +465,19 @@ class HouseGridTest {
             Device lampA = kitDeviceList.newDevice("Philips Smart Bulb", "Lamp", 15);
             Device fridgeB = kitDeviceList.newDevice("Samsung Fridge", "Fridge", 250);
 
-            kitDeviceList.addDevice(fridgeA);
-            kitDeviceList.addDevice(kettleA);
-            kitDeviceList.addDevice(lampA);
-            grDeviceList.addDevice(lampA);
-            grDeviceList.addDevice(fridgeB);
+            kitDeviceList.add(fridgeA);
+            kitDeviceList.add(kettleA);
+            kitDeviceList.add(lampA);
+            grDeviceList.add(lampA);
+            grDeviceList.add(fridgeB);
 
             ReadingList fridgeALog = fridgeA.getActivityLog();
-            Reading r1 = new Reading(20, new GregorianCalendar(2018, 2, 1, 9, 10),"C");
-            Reading r2 = new Reading(20, new GregorianCalendar(2018, 2, 2, 9, 10),"C");
-            Reading r3 = new Reading(20, new GregorianCalendar(2018, 2, 3, 9, 10),"C");
-            Reading r4 = new Reading(20, new GregorianCalendar(2018, 2, 4, 9, 10),"C");
-            Reading r5 = new Reading(20, new GregorianCalendar(2018, 2, 5, 9, 10),"C");
-            Reading r6 = new Reading(20, new GregorianCalendar(2018, 2, 6, 9, 10),"C");
+            Reading r1 = new Reading(20, new GregorianCalendar(2018, 2, 1, 9, 10), "C");
+            Reading r2 = new Reading(20, new GregorianCalendar(2018, 2, 2, 9, 10), "C");
+            Reading r3 = new Reading(20, new GregorianCalendar(2018, 2, 3, 9, 10), "C");
+            Reading r4 = new Reading(20, new GregorianCalendar(2018, 2, 4, 9, 10), "C");
+            Reading r5 = new Reading(20, new GregorianCalendar(2018, 2, 5, 9, 10), "C");
+            Reading r6 = new Reading(20, new GregorianCalendar(2018, 2, 6, 9, 10), "C");
 
             fridgeALog.addReading(r1);
             fridgeALog.addReading(r2);
@@ -492,7 +513,7 @@ class HouseGridTest {
         HouseGrid grid = new HouseGrid("MainGrid");
         RoomList roomList = grid.getRoomListInAGrid();
 
-        Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
+        Room kitchen = new Room("R01", "Kitchen", 0, 8, 8, 3);
         Room garage = new Room("R02", "Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
@@ -510,8 +531,8 @@ class HouseGridTest {
         HouseGrid grid = new HouseGrid("MainGrid");
         RoomList roomList = grid.getRoomListInAGrid();
 
-        Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
-        Room garage = new Room("R02","Living Room", 0, 5, 4, 3);
+        Room kitchen = new Room("R01", "Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("R02", "Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
         DeviceList kitDeviceList = kitchen.getDeviceList();
@@ -523,19 +544,19 @@ class HouseGridTest {
             Device lampA = kitDeviceList.newDevice("Philips Smart Bulb", "Lamp", 15);
             Device fridgeB = kitDeviceList.newDevice("Samsung Fridge", "Fridge", 250);
 
-            kitDeviceList.addDevice(fridgeA);
-            kitDeviceList.addDevice(kettleA);
-            kitDeviceList.addDevice(lampA);
-            grDeviceList.addDevice(lampA);
-            grDeviceList.addDevice(fridgeB);
+            kitDeviceList.add(fridgeA);
+            kitDeviceList.add(kettleA);
+            kitDeviceList.add(lampA);
+            grDeviceList.add(lampA);
+            grDeviceList.add(fridgeB);
 
             ReadingList fridgeALog = fridgeA.getActivityLog();
-            Reading r1 = new Reading(20, new GregorianCalendar(2018, 2, 1, 9, 10),"C");
-            Reading r2 = new Reading(20, new GregorianCalendar(2018, 2, 2, 9, 10),"C");
-            Reading r3 = new Reading(20, new GregorianCalendar(2018, 2, 3, 9, 10),"C");
-            Reading r4 = new Reading(20, new GregorianCalendar(2018, 2, 4, 9, 10),"C");
-            Reading r5 = new Reading(20, new GregorianCalendar(2018, 2, 5, 9, 10),"C");
-            Reading r6 = new Reading(20, new GregorianCalendar(2018, 2, 6, 9, 10),"C");
+            Reading r1 = new Reading(20, new GregorianCalendar(2018, 2, 1, 9, 10), "C");
+            Reading r2 = new Reading(20, new GregorianCalendar(2018, 2, 2, 9, 10), "C");
+            Reading r3 = new Reading(20, new GregorianCalendar(2018, 2, 3, 9, 10), "C");
+            Reading r4 = new Reading(20, new GregorianCalendar(2018, 2, 4, 9, 10), "C");
+            Reading r5 = new Reading(20, new GregorianCalendar(2018, 2, 5, 9, 10), "C");
+            Reading r6 = new Reading(20, new GregorianCalendar(2018, 2, 6, 9, 10), "C");
 
             fridgeALog.addReading(r1);
             fridgeALog.addReading(r2);
@@ -555,9 +576,9 @@ class HouseGridTest {
         } catch (Exception e) {
             //Do nothing.
         }
-        double expected=1.09;
-        double result=grid.getEstimatedEnergyConsumption();
-        assertEquals(expected,result);
+        double expected = 1.09;
+        double result = grid.getEstimatedEnergyConsumption();
+        assertEquals(expected, result);
 
     }
 
@@ -567,8 +588,8 @@ class HouseGridTest {
         HouseGrid grid = new HouseGrid("MainGrid");
         RoomList roomList = grid.getRoomListInAGrid();
 
-        Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
-        Room garage = new Room("R02","Living Room", 0, 5, 4, 3);
+        Room kitchen = new Room("R01", "Kitchen", 0, 8, 8, 3);
+        Room garage = new Room("R02", "Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
         roomList.addRoom(garage);
 

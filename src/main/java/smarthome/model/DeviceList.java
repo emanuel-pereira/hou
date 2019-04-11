@@ -19,7 +19,10 @@ public class DeviceList {
      * @param device instance to be added to the device list
      * @return boolean result of the device addition
      */
-    public boolean addDevice(Device device) {
+    //TODO should we be able to create an instance of an object outside of this method? Or should we wire the add
+    // method to the new device that exists in this class, so that whenever we want to create a device we use add
+    // method instead of both newDevice and add methods
+    public boolean add(Device device) {
         if (!this.devicesList.contains(device)) {
             this.devicesList.add(device);
             return true;

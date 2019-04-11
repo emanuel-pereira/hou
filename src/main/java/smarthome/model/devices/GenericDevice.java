@@ -13,7 +13,6 @@ public abstract class GenericDevice implements Device, Metered {
     private boolean active;
     private ReadingList activityLog;
     private double time = 0;
-    private boolean isMetered = true;
 
     /**
      * Constructs a Device with a user given name.
@@ -21,7 +20,6 @@ public abstract class GenericDevice implements Device, Metered {
      * @param deviceName  name given by the user to the device (requested during runtime)
      * @param deviceSpecs is
      */
-
     public GenericDevice(String deviceName, DeviceSpecs deviceSpecs, double nominalPower) { // deviceName is the name given by the user
         this.name = deviceName;
         this.deviceSpecs = deviceSpecs;
@@ -48,7 +46,7 @@ public abstract class GenericDevice implements Device, Metered {
     }
 
     public String getDeviceType() {
-        return this.getClass().getSimpleName().toString();
+        return this.getClass().getSimpleName();
     }
 
     /**

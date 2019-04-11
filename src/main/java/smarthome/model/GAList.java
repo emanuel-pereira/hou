@@ -6,14 +6,13 @@ import java.util.List;
 public class GAList {
 
     private List<GeographicalArea> listOfGa;
-    private List<GeographicalArea> notAdded;
 
     /**
      * Constructor method to set the attribute of the GA's List as an ArrayList
      */
     public GAList() {
         this.listOfGa = new ArrayList<>();
-        this.notAdded = new ArrayList<>();
+
     }
 
     /**
@@ -38,8 +37,7 @@ public class GAList {
      * @return boolean value, true if correctly added, false if not added
      */
     public boolean addGA(GeographicalArea inputGA) {
-        if (this.listOfGa.contains(inputGA) || this.getAllGaId().contains(inputGA.getId())){
-            this.notAdded.add(inputGA);
+        if (this.listOfGa.contains(inputGA)){
             return false;
         }
         else{
@@ -48,12 +46,16 @@ public class GAList {
     }
 
 
-    public List<String> getAllGaId (){
-        List<String> allIds = new ArrayList<>();
+    /**
+     * @return a global list of sensors containing all sensors within each geographical area.
+     */
+    public List<Sensor> getAllSensors(){
+        List<Sensor> sensors = new ArrayList<>();
         for(GeographicalArea ga : this.listOfGa){
-            allIds.add(ga.getId());
+            List<Sensor> gaSensorList = ga.getSensorListInGA().getSensorList();
+            sensors.addAll(gaSensorList);
         }
-        return allIds;
+        return sensors;
     }
 
     public List<Reading> getAllReadings(){
@@ -77,10 +79,6 @@ public class GAList {
         return this.listOfGa;
     }
 
-    public List<GeographicalArea> getNotAdded() {
-        return this.notAdded;
-    }
-
     /**
      * Method to get a specific Geographical Area in index position i
      *
@@ -89,6 +87,17 @@ public class GAList {
      */
     public GeographicalArea get(int i) {
         return this.listOfGa.get(i);
+    }
+
+    public GeographicalArea getById(String inputId) {
+        GeographicalArea geoArea = get(0);
+        for(GeographicalArea ga : this.listOfGa) {
+            geoArea = ga;
+            if (geoArea.getId().matches(inputId)) {
+                break;
+            }
+        }
+        return geoArea;
     }
 
     /**

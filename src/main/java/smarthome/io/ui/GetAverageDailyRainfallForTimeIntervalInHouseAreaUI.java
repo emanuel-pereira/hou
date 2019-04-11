@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL;
-import smarthome.model.House;
 import smarthome.model.Sensor;
 import smarthome.model.SensorList;
 import smarthome.model.SensorType;
@@ -39,9 +38,9 @@ public class GetAverageDailyRainfallForTimeIntervalInHouseAreaUI {
     private GregorianCalendar endDate;
 
 
-    public GetAverageDailyRainfallForTimeIntervalInHouseAreaUI(House house) {
+    public GetAverageDailyRainfallForTimeIntervalInHouseAreaUI() {
 
-        this.ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(house);
+        this.ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL();
 
     }
 

@@ -2,6 +2,7 @@ package smarthome.io.ui;
 
 import smarthome.controller.NewSensorCTRL;
 import smarthome.model.*;
+
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -22,8 +23,8 @@ public class NewSensorUI {
     private boolean isInternal;
 
 
-    public NewSensorUI(House house, SensorTypeList sensorTypeList, GAList listOfGA) {
-        this.ctrl = new NewSensorCTRL(house, sensorTypeList, listOfGA);
+    public NewSensorUI(SensorTypeList sensorTypeList, GAList listOfGA) {
+        this.ctrl = new NewSensorCTRL(sensorTypeList, listOfGA);
     }
 
     void checkIfRoomListIsEmpty() {
@@ -58,9 +59,9 @@ public class NewSensorUI {
 
     private void inputName() {
         System.out.println("Insert the sensor id");
-        this.id = UtilsUI.requestText("The id inputted isn't valid. Only alphanumeric characters are accepted.", "[A-Za-z0-9]*");
+        this.id = UtilsUI.requestText("The id inputted isn't valid. Only alphanumeric characters are accepted.", "^[a-zA-Z0-9]*$");
         System.out.println("Insert a name for the sensor");
-        this.name = UtilsUI.requestText("The name inputted isn't valid. Only alphanumeric characters, spaces and hyphens are accepted.");
+        this.name = UtilsUI.requestText("The name inputted isn't valid. Only alphanumeric characters, spaces and hyphens are accepted.", "[A-Za-z0-9 \\-]*");
         this.inputStartDate();
     }
 
@@ -96,15 +97,11 @@ public class NewSensorUI {
     }
 
     private void askToAddReadings() {
-        String option;
-        System.out.println("Do you want to insert readings for the sensor(y/n)?");
-        option = read.nextLine();
-        if (option.matches("n")) {
-            inputSensorUnit();
-        }
-        if (option.matches("y")) {
+        if (UtilsUI.confirmOption("Do you want to insert readings for the sensor (y/n)?",
+                "Please insert only 'Y' or 'N' characters")) {
             this.inputReading();
         }
+        inputSensorUnit();
     }
 
     private void inputSensorUnit() {
@@ -114,7 +111,6 @@ public class NewSensorUI {
             this.inputGPSLocation();
         }
         if (this.isInternal) {
-            //TODO Repository call
             this.selectRoom();
         }
     }

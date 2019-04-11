@@ -18,7 +18,6 @@ public class Reading {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SENSOR_ID")
-    //FIXME @NotNull should have this annotation?
     private Sensor sensor;
 
     private String unit;

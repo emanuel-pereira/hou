@@ -211,12 +211,12 @@ class SensorListTest {
         GregorianCalendar startDate = new GregorianCalendar(2018, 8, 1, 9, 0);
         Location loc = new Location(40, 20, 10);
         ReadingList readingList = new ReadingList();
-        Sensor s1 = new Sensor("", "RainfallSensorOfPorto", startDate, loc, type1, "Celsius", readingList);
+        Sensor s1 = new Sensor("AB", "RainfallSensorOfPorto", startDate, loc, type1, "Celsius", readingList);
         SensorType temperature = new SensorType("temperature");
         GregorianCalendar sDate2 = new GregorianCalendar(2018, 9, 1, 15, 0);
         Location loc2 = new Location(42, 20, 10);
         ReadingList readings = new ReadingList();
-        Sensor s2 = new Sensor("", "TemperatureSensor", sDate2, loc2, temperature, "Celsius", readings);
+        Sensor s2 = new Sensor("BC", "TemperatureSensor", sDate2, loc2, temperature, "Celsius", readings);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -394,7 +394,7 @@ class SensorListTest {
 
         GregorianCalendar pDate = new GregorianCalendar(2019, 2, 2);
 
-        lisbonSensorList.deactivateSensor("not valid", pDate);
+        lisbonSensorList.deactivateSensor("TL", pDate);
 
         int expected = 1;
         int result = lisbonSensorList.getActiveSensors().size();

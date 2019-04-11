@@ -2,27 +2,45 @@
 package smarthome.controller;
 
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static smarthome.model.House.getHouseRoomList;
+
 
 class NewSensorCTRLTest {
 
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @DisplayName("Test if SensorTypeList is showed as a string to the user")
     @Test
     void showSensorTypeListInString() {
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         SensorType type1 = new SensorType("Temperature");
         SensorType type2 = new SensorType("Wind");
         sensorTypeList.addSensorType(type1);
@@ -38,14 +56,12 @@ class NewSensorCTRLTest {
     void showGAListInString() {
         SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
 
         OccupationArea oc1 = new OccupationArea(32, 41);
         Location loc1 = new Location(25, 15, 12);
         OccupationArea oc2 = new OccupationArea(42, 41);
         Location loc2 = new Location(45, 25, 32);
-
 
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         GeographicalArea ga2 = new GeographicalArea("Lis", "Lisboa", "city", oc2, loc2);
@@ -60,8 +76,7 @@ class NewSensorCTRLTest {
     void getGAList() {
         SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
 
         OccupationArea oc1 = new OccupationArea(32, 41);
         Location loc1 = new Location(25, 15, 12);
@@ -83,8 +98,7 @@ class NewSensorCTRLTest {
     void addNewSensorToGA() {
         SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
 
         OccupationArea oc1 = new OccupationArea(32, 41);
         Location loc1 = new Location(25, 15, 12);
@@ -139,8 +153,7 @@ class NewSensorCTRLTest {
 
         Reading r1Porto = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 00));
         readingsPt.addReading(r1Porto);
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
 
         boolean thrown = false;
 
@@ -174,8 +187,7 @@ class NewSensorCTRLTest {
         Reading r1Porto = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 00));
         readingsPt.addReading(r1Porto);
 
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
 
         boolean thrown = false;
 
@@ -209,8 +221,7 @@ class NewSensorCTRLTest {
         Reading r1Porto = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 00));
         readingsPt.addReading(r1Porto);
 
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
 
         boolean thrown = false;
 
@@ -229,6 +240,8 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Test if GPS coordinates validation methods return true when GPS coordinates are within defined range")
     void testIfGPSCoordinatesAreValid() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
@@ -239,8 +252,7 @@ class NewSensorCTRLTest {
 
         GeographicalArea porto = gaList.newGA("PT", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         GregorianCalendar startDate = new GregorianCalendar(2020, 11, 1);
         Location loc = new Location(25, 28, 11);
         Sensor sensor = new Sensor("T0001", "Name", startDate, loc, temperature, "Celsius", new ReadingList());
@@ -271,8 +283,7 @@ class NewSensorCTRLTest {
         TypeGA typeGA = new TypeGA("city");
         GeographicalArea porto = gaList.newGA("PT", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         String inputName = "Sensor - ISEP";
 
         boolean result = ctrl.nameIsValid(inputName);
@@ -295,8 +306,7 @@ class NewSensorCTRLTest {
         Location location2 = new Location(45, -15, 23);
         GeographicalArea lisboa = gaList.newGA("LIS", "Lisboa", typeGA, occupationArea2, location2);
         gaList.addGA(lisboa);
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         int expected = 2;
         int result = ctrl.getGAListSize();
         assertEquals(expected, result);
@@ -311,8 +321,7 @@ class NewSensorCTRLTest {
         SensorType precipitation = sensorTypeList.newSensorType("precipitation");
         sensorTypeList.addSensorType(precipitation);
         GAList gaList = new GAList();
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         int expected = 2;
         int result = ctrl.getSensorTypeListSize();
         assertEquals(expected, result);
@@ -323,15 +332,16 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure that the size of the room list is 2")
     void getRoomListSize() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = getHouseRoomList();
         Room kitchen = new Room("R01", "Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
         Room livingRoom = new Room("R02", "Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         int expected = 2;
         int result = ctrl.getRoomListSize();
         assertEquals(expected, result);
@@ -340,15 +350,16 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure that all rooms are displayed in string")
     void showRoomListInStr() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         GAList gaList = new GAList();
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = getHouseRoomList();
         Room kitchen = new Room("R01", "Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
         Room livingRoom = new Room("R02", "Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         String expected = "1 - Kitchen\n" +
                 "2 - Living Room\n";
         String result = ctrl.showRoomListInStr();
@@ -358,6 +369,7 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getSensorType method returns temperature as it is the sensor type of the sensor in the last index position of the sensorList of geographical area Lisboa")
     void getSensorType() {
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
@@ -378,8 +390,7 @@ class NewSensorCTRLTest {
         Sensor s2 = new Sensor("T0002", "LisboaTempSensor2", startDate, loc2, temperature, "Cº", readingList);
         lisboa.getSensorListInGA().addSensor(s1);
         lisboa.getSensorListInGA().addSensor(s2);
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
 
         String expected = "temperature";
         String result = ctrl.getGASensorType(1);
@@ -390,6 +401,8 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getGAName() returns name Aveiro as it is the name of the geographical area in the selected index position of the geographical area list.")
     void getGAName() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
@@ -405,8 +418,7 @@ class NewSensorCTRLTest {
         Location location3 = new Location(29, 7, 2);
         GeographicalArea aveiro = gaList.newGA("AVR", "Aveiro", typeGA, occupationArea, location3);
         gaList.addGA(aveiro);
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
 
         String expected = "Aveiro";
         String result = ctrl.getGAName(2);
@@ -417,6 +429,8 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getGASensorName() returns the the sensor's id")
     void getGASensorId() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
@@ -427,8 +441,7 @@ class NewSensorCTRLTest {
 
         GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         SensorList sensorList = new SensorList();
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
         Location location2 = new Location(23, -15, 12);
@@ -444,6 +457,8 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getGASensorName() returns the the sensor's name")
     void getSensorName() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
@@ -454,8 +469,7 @@ class NewSensorCTRLTest {
 
         GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         SensorList sensorList = new SensorList();
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
         Location location2 = new Location(23, -15, 12);
@@ -471,6 +485,8 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getGASensorSDate() returns the the sensor's start date")
     void getStartDate() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
@@ -480,8 +496,7 @@ class NewSensorCTRLTest {
         TypeGA typeGA = new TypeGA("city");
         GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         SensorList sensorList = new SensorList();
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
         Location location2 = new Location(23, -15, 12);
@@ -492,21 +507,21 @@ class NewSensorCTRLTest {
         Calendar result = ctrl.getGASensorSDate(0);
         assertEquals(startDate, result);
     }
-
     @Test
     @DisplayName("Ensure getRoomSensorSDate() returns the the sensor's start date")
     void getRoomSensorSDate() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
         GAList gaList = new GAList();
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = getHouseRoomList();
         Room kitchen = new Room("R01", "Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
         Room livingRoom = new Room("R02", "Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         SensorList sensorList = kitchen.getSensorListInRoom();
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
         Location location2 = new Location(23, -15, 12);
@@ -521,21 +536,26 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getGASensorUnit() returns the the sensor's unit of measure")
     void getUnit() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = sensorTypeList.newSensorType("temperature");
         sensorTypeList.addSensorType(temperature);
+
         GAList gaList = new GAList();
         OccupationArea occupationArea = new OccupationArea(12, 11);
         Location location = new Location(25, 12, 23);
         TypeGA typeGA = new TypeGA("city");
         GeographicalArea porto = gaList.newGA("POR", "Porto", typeGA, occupationArea, location);
         gaList.addGA(porto);
-        House house = new House();
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
+
         SensorList sensorList = new SensorList();
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
         Location location2 = new Location(23, -15, 12);
         ReadingList readingList = new ReadingList();
+
         Sensor s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
         SensorList portoSensorList = porto.getSensorListInGA();
         portoSensorList.addSensor(s1);
@@ -548,22 +568,25 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getRoomSensorType() returns the the sensor's type")
     void getRoomSensorType() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
         sensorTypeList.addSensorType(temperature);
+
         GAList gaList = new GAList();
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = getHouseRoomList();
         Room kitchen = new Room("R01", "Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
         Room livingRoom = new Room("R01", "Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
-        Calendar startDate = new GregorianCalendar(2018, 11, 15);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
+        Calendar startDate = new GregorianCalendar(2018, Calendar.DECEMBER, 15);
         Location loc = new Location(12, -15, 2);
         ReadingList rL = new ReadingList();
         Sensor sensor = new Sensor("T0001", "Temperature Sensor", startDate, loc, temperature, "celsius", rL);
         SensorList kitSensorLst = kitchen.getSensorListInRoom();
+
         kitSensorLst.addSensor(sensor);
         String expected = "temperature";
         String result = ctrl.getRoomSensorType(0);
@@ -574,22 +597,24 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getRoomName() returns the room's name where the sensor is installed")
     void getRoomName() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
         sensorTypeList.addSensorType(temperature);
         GAList gaList = new GAList();
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = getHouseRoomList();
         Room kitchen = new Room("R01", "Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
         Room livingRoom = new Room("R01", "Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         Calendar startDate = new GregorianCalendar(2018, 11, 15);
         Location loc = new Location(12, -15, 2);
         ReadingList rL = new ReadingList();
         Sensor sensor = new Sensor("T0001", "Temperature Sensor", startDate, loc, temperature, "celsius", rL);
         SensorList kitSensorLst = kitchen.getSensorListInRoom();
+
         kitSensorLst.addSensor(sensor);
         String expected = "Kitchen";
         String result = ctrl.getRoomName(0);
@@ -599,22 +624,25 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getInternalSensorName() returns the sensor's name")
     void getInternalSensorName() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
         sensorTypeList.addSensorType(temperature);
         GAList gaList = new GAList();
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = getHouseRoomList();
         Room kitchen = new Room("R01", "Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
         Room livingRoom = new Room("R02", "Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         Calendar startDate = new GregorianCalendar(2018, 11, 15);
         Location loc = new Location(12, -15, 2);
         ReadingList rL = new ReadingList();
         Sensor sensor = new Sensor("T0001", "Temperature Sensor", startDate, loc, temperature, "celsius", rL);
         SensorList kitSensorLst = kitchen.getSensorListInRoom();
+
+
         kitSensorLst.addSensor(sensor);
         String expected = "Temperature Sensor";
         String result = ctrl.getInternalSensorName(0);
@@ -624,22 +652,25 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure getRoomSensorUnit() returns the sensor's unit of measure")
     void getRoomSensorUnit() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
         sensorTypeList.addSensorType(temperature);
         GAList gaList = new GAList();
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+        RoomList roomList = getHouseRoomList();
         Room kitchen = new Room("R01", "Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
         Room livingRoom = new Room("R02", "Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         Calendar startDate = new GregorianCalendar(2018, 11, 15);
         Location loc = new Location(12, -15, 2);
         ReadingList rL = new ReadingList();
         Sensor sensor = new Sensor("T0001", "Temperature Sensor", startDate, loc, temperature, "celsius", rL);
         SensorList kitSensorLst = kitchen.getSensorListInRoom();
+
+
         kitSensorLst.addSensor(sensor);
         String expected = "celsius";
         String result = ctrl.getRoomSensorUnit(0);
@@ -649,24 +680,26 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure same sensor is created and added only once to the selected sensor list when trying to add it twice")
     void addNewSensorToRoom() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
         sensorTypeList.addSensorType(temperature);
+
         GAList gaList = new GAList();
-        OccupationArea oa = new OccupationArea(3000, 3000);
-        TypeGA city = new TypeGA("City");
-        Location location = new Location(12, 56, 66);
-        Address address = new Address("Main Street", "3309-029", "Porto", location);
-        GeographicalArea ga = new GeographicalArea("Porto", "City of Porto", city, oa, location);
-        House house = new House("Hose",address, ga);
-        RoomList roomList = house.getRoomList();
+
+        RoomList roomList = getHouseRoomList();
         Room kitchen = new Room("R01", "Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
         Room livingRoom = new Room("R02", "Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
-        GregorianCalendar startDate = new GregorianCalendar(2018, 11, 15);
+
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
+
+        GregorianCalendar startDate = new GregorianCalendar(2018, Calendar.DECEMBER, 15);
+
         ReadingList rL = new ReadingList();
+
 
         boolean result = ctrl.addNewSensorToRoom("S01", "Temperature Sensor", startDate, 0, 0, "celsius", rL);
         assertTrue(result);
@@ -678,19 +711,24 @@ class NewSensorCTRLTest {
     @Test
     @DisplayName("Ensure sensor list of living room has a size of two elements")
     void sensorListInRoomSize() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
         SensorType humidity = new SensorType("humidity");
         sensorTypeList.addSensorType(temperature);
         sensorTypeList.addSensorType(humidity);
+
         GAList gaList = new GAList();
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+
+        RoomList roomList = getHouseRoomList();
         Room kitchen = new Room("R01", "Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
         Room livingRoom = new Room("R02", "Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
+
         Calendar startDate = new GregorianCalendar(2018, 11, 15);
         Location loc = new Location(12, -15, 2);
         ReadingList rL = new ReadingList();
@@ -698,6 +736,7 @@ class NewSensorCTRLTest {
         Sensor humiditySensor = new Sensor("H0001", "Humidity Sensor", startDate, loc, temperature, "%", rL);
 
         SensorList lrSensorList = livingRoom.getSensorListInRoom();
+
         lrSensorList.addSensor(tempSensor);
         lrSensorList.addSensor(humiditySensor);
 
@@ -709,19 +748,23 @@ class NewSensorCTRLTest {
 
     @Test
     void showSensorListInRoom() {
+         
+
         SensorTypeList sensorTypeList = new SensorTypeList();
         SensorType temperature = new SensorType("temperature");
         SensorType humidity = new SensorType("humidity");
         sensorTypeList.addSensorType(temperature);
         sensorTypeList.addSensorType(humidity);
+
         GAList gaList = new GAList();
-        House house = new House();
-        RoomList roomList = house.getRoomList();
+
+        RoomList roomList = getHouseRoomList();
         Room kitchen = new Room("R01", "Kitchen", 0, 4, 5, 3);
         roomList.addRoom(kitchen);
         Room livingRoom = new Room("R02", "Living Room", 0, 6, 5, 3);
         roomList.addRoom(livingRoom);
-        NewSensorCTRL ctrl = new NewSensorCTRL(house, sensorTypeList, gaList);
+
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         Calendar startDate = new GregorianCalendar(2018, 11, 15);
         Location loc = new Location(12, -15, 2);
         ReadingList rL = new ReadingList();
@@ -729,6 +772,7 @@ class NewSensorCTRLTest {
         Sensor humiditySensor = new Sensor("H0001", "Humidity Sensor", startDate, loc, temperature, "%", rL);
 
         SensorList lrSensorList = livingRoom.getSensorListInRoom();
+
         lrSensorList.addSensor(tempSensor);
         lrSensorList.addSensor(humiditySensor);
 
@@ -748,32 +792,11 @@ class NewSensorCTRLTest {
         sensorTypeList.addSensorType(temperature);
         sensorTypeList.addSensorType(humidity);
         GAList gaList = new GAList();
-        Address a1 = new Address("Av. da Liberdade, 34", "2000-123", "Lisboa", 41, 12.3, 110);
-        Location loc = new Location(20, 20, 2);
-        OccupationArea oc = new OccupationArea(2, 5);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
-        House h = new House("Prédio", a1, g1);
-        NewSensorCTRL ctrl = new NewSensorCTRL(h, sensorTypeList, gaList);
+
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
 
         assertTrue(ctrl.checkIfHouseAsLocation());
     }
 
-    @Test
-    @DisplayName("Check if a house hasn't a location")
-    void checkIfLocationDoesntExists() {
-        SensorTypeList sensorTypeList = new SensorTypeList();
-        SensorType temperature = new SensorType("temperature");
-        SensorType humidity = new SensorType("humidity");
-        sensorTypeList.addSensorType(temperature);
-        sensorTypeList.addSensorType(humidity);
-        GAList gaList = new GAList();
-        Location loc = new Location(20, 20, 2);
-        OccupationArea oc = new OccupationArea(2, 5);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
-        House h = new House("Prédio", null, g1);
-        NewSensorCTRL ctrl = new NewSensorCTRL(h, sensorTypeList, gaList);
-
-        assertFalse(ctrl.checkIfHouseAsLocation());
-    }
 
 }

@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetEnergyConsumptionInPeriodCTRL;
-import smarthome.model.House;
 
 import java.util.GregorianCalendar;
 
@@ -15,16 +14,16 @@ public class GetEnergyConsumptionInPeriodUI {
     private String ecString = "[Energy Consumption]: ";
 
 
-    public GetEnergyConsumptionInPeriodUI(House house) {
-        mCtrl = new GetEnergyConsumptionInPeriodCTRL(house);
+    public GetEnergyConsumptionInPeriodUI() {
+        mCtrl = new GetEnergyConsumptionInPeriodCTRL();
     }
 
 
     public void selectMetered() {
         System.out.println("Choose the metered object from the list below to get its total energy consumption in a time interval:");
-        System.out.println(mCtrl.showMetered());
+        System.out.println(mCtrl.showMeteredCTRL());
         this.indexOfMetered = UtilsUI.requestIntegerInInterval(1, mCtrl.meteredListSize(),
-                "Not a valid option. Please select a device from the list below:\n" + mCtrl.showMetered());
+                "Not a valid option. Please select a device from the list below:\n" + mCtrl.showMeteredCTRL());
         this.indexOfMetered--;
         this.getStartDate();
     }
@@ -32,14 +31,14 @@ public class GetEnergyConsumptionInPeriodUI {
 
     private void getStartDate() {
         System.out.println("Insert the time interval in which you want to get the energy consumption.");
-        System.out.println("Insert the starting date in yyyy-mm-dd HH:mm format:");
-        this.startDate = UtilsUI.requestDateTime("Please insert a valid start date and time in yyyy-MM-dd HH:mm format.");
+        System.out.println("Insert the starting date in YYYY-MM-DD HH:mm format:");
+        this.startDate = UtilsUI.requestDateTime("Please insert a valid start date and time in YYYY-MM-DD HH:mm format.");
         this.getEndDate();
     }
 
     private void getEndDate() {
-        System.out.println("Insert the ending date in yyyy-mm-dd HH:mm format:");
-        this.endDate = UtilsUI.requestDateTime("Please insert a valid end date and time in yyyy-MM-dd HH:mm format.");
+        System.out.println("Insert the ending date in YYYY-MM-DD HH:mm format:");
+        this.endDate = UtilsUI.requestDateTime("Please insert a valid end date and time in YYYY-MM-DD HH:mm format.");
         this.getEnergyConsumption();
     }
 

@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.ListRoomsOfHouseCTRL;
-import smarthome.model.RoomList;
 
 public class ListRoomsOfHouseUI {
 
@@ -9,8 +8,8 @@ public class ListRoomsOfHouseUI {
     private ListRoomsOfHouseCTRL mCtrlUS108;
 
 
-    public ListRoomsOfHouseUI(RoomList inputList) {
-        mCtrlUS108 = new ListRoomsOfHouseCTRL(inputList);
+    public ListRoomsOfHouseUI() {
+        mCtrlUS108 = new ListRoomsOfHouseCTRL();
 
     }
 

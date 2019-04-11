@@ -1,10 +1,13 @@
 package smarthome.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
 
+import java.lang.reflect.Field;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -12,24 +15,32 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
 
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @Test
     @DisplayName("Tests if the list of rainfall sensors in the geographical area of the house is returned")
     void getGARainfallSensors() {
-        Address a1 = new Address("Rua Fernandes Tomás,345", "4200-734", "Porto", 85, 120, -2300);
-        OccupationArea oc1 = new OccupationArea(234, 345);
-        Location loc1 = new Location(86, 120, -2300);
-
-        GeographicalArea ga = new GeographicalArea("PT", "Porto", "city", oc1, loc1);
-        House h1 = new House(a1, ga);
-
 
         SensorType rain = new SensorType("rainfall");
         SensorType wind = new SensorType("wind");
         SensorType temperature = new SensorType("temperature");
 
-        GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26, 12, 0);
+        GregorianCalendar startDate = new GregorianCalendar(2018, Calendar.DECEMBER, 26, 12, 0);
         ReadingList readings = new ReadingList();
+
 
         Sensor s1 = new Sensor("S01","sensor1", startDate, rain, "c", readings);
         Sensor s2 = new Sensor("S02","sensor2", startDate, temperature, "c", readings);
@@ -37,14 +48,13 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Sensor s4 = new Sensor("S04","sensor4", startDate, rain, "c", readings);
         Sensor s5 = new Sensor("S05", "sensor5", startDate, rain, "c", readings);
 
+        g1.getSensorListInGA().addSensor(s1);
+        g1.getSensorListInGA().addSensor(s2);
+        g1.getSensorListInGA().addSensor(s3);
+        g1.getSensorListInGA().addSensor(s4);
+        g1.getSensorListInGA().addSensor(s5);
 
-        ga.getSensorListInGA().addSensor(s1);
-        ga.getSensorListInGA().addSensor(s2);
-        ga.getSensorListInGA().addSensor(s3);
-        ga.getSensorListInGA().addSensor(s4);
-        ga.getSensorListInGA().addSensor(s5);
-
-        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(h1);
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL();
 
         List<Sensor> expected = Arrays.asList(s1, s4, s5);
         List<Sensor> result = ctrl623.getGARainfallSensors(rain).getSensorList();
@@ -57,13 +67,6 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @Test
     @DisplayName("Tests if the closest rainfall sensors to the house with readings in period are returned")
     void getClosestRainfallSensorsWithReadingsInTimePeriod() {
-
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
 
         SensorType sT = new SensorType("rainfall");
         SensorType sT2 = new SensorType("wind");
@@ -118,22 +121,22 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l2 = new Location(47, -12, 200);
 
 
-        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l1, sT, "l/m2", rL2);
-        Sensor s3 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s4 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s5 = new Sensor("R0003","RainSensor3", sDate1, l2, sT, "l/m2", rL3);
+        Sensor s6 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s7 = new Sensor("R0002","RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+        Sensor s8 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s9 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s10 = new Sensor("R0003","RainSensor3", sDate1, l2, sT, "l/m2", rL3);
 
 
-        ga.getSensorListInGA().addSensor(s1);
-        ga.getSensorListInGA().addSensor(s2);
-        ga.getSensorListInGA().addSensor(s3);
-        ga.getSensorListInGA().addSensor(s4);
-        ga.getSensorListInGA().addSensor(s5);
+        g1.getSensorListInGA().addSensor(s6);
+        g1.getSensorListInGA().addSensor(s7);
+        g1.getSensorListInGA().addSensor(s8);
+        g1.getSensorListInGA().addSensor(s9);
+        g1.getSensorListInGA().addSensor(s10);
 
-        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(house);
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL();
 
-        List<Sensor> expected = Arrays.asList(s1, s2);
+        List<Sensor> expected = Arrays.asList(s6, s7);
         List<Sensor> result = ctrl623.getClosestRainfallSensorsWithReadingsInTimePeriod(sT, startDate, endDate).getSensorList();
 
         assertEquals(expected, result);
@@ -145,12 +148,7 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @Test
     @DisplayName("Tests if returns false when the closest rainfall sensors do not have readings in period")
     void checkThatClosestRainfallSensorsDoNotHaveReadingsInPeriod() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
+         
 
         SensorType sT = new SensorType("rainfall");
         SensorType sT2 = new SensorType("wind");
@@ -204,21 +202,21 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s3 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s4 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s5 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensor s11 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s12 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensor s13 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s14 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s15 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
-        ga.getSensorListInGA().addSensor(s1);
-        ga.getSensorListInGA().addSensor(s2);
-        ga.getSensorListInGA().addSensor(s3);
-        ga.getSensorListInGA().addSensor(s4);
-        ga.getSensorListInGA().addSensor(s5);
+        g1.getSensorListInGA().addSensor(s11);
+        g1.getSensorListInGA().addSensor(s12);
+        g1.getSensorListInGA().addSensor(s13);
+        g1.getSensorListInGA().addSensor(s14);
+        g1.getSensorListInGA().addSensor(s15);
 
 
-        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(house);
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL();
 
         boolean result = ctrl623.checkIfClosestRainfallSensorsHaveReadingsInPeriod(sT, startDate, endDate);
 
@@ -228,12 +226,6 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @Test
     @DisplayName("Tests if returns true when the closest rainfall sensors do not have readings in period")
     void checkThatClosestRainfallSensorsHaveReadingsInPeriod() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
 
         SensorType sT = new SensorType("rainfall");
         SensorType sT2 = new SensorType("wind");
@@ -287,21 +279,21 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s3 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s4 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s5 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensor s16 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s17 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensor s18 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s19 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s20 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
-        ga.getSensorListInGA().addSensor(s1);
-        ga.getSensorListInGA().addSensor(s2);
-        ga.getSensorListInGA().addSensor(s3);
-        ga.getSensorListInGA().addSensor(s4);
-        ga.getSensorListInGA().addSensor(s5);
+        g1.getSensorListInGA().addSensor(s16);
+        g1.getSensorListInGA().addSensor(s17);
+        g1.getSensorListInGA().addSensor(s18);
+        g1.getSensorListInGA().addSensor(s19);
+        g1.getSensorListInGA().addSensor(s20);
 
 
-        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(house);
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL();
 
         boolean result = ctrl623.checkIfClosestRainfallSensorsHaveReadingsInPeriod(sT, startDate, endDate);
 
@@ -311,12 +303,7 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @Test
     @DisplayName("Tests if calculates daily average rainfall when there is only one closest sensor")
     void calculateAverageOfRainfallReadingsForOneSensor() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
+         
 
         SensorType sT = new SensorType("rainfall");
         SensorType sT2 = new SensorType("wind");
@@ -370,21 +357,21 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l2, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s3 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s4 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s5 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensor s21 = new Sensor("R0001","RainSensor", sDate1, l2, sT, "l/m2", rL1);
+        Sensor s22 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensor s23 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s24 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s25 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
-        ga.getSensorListInGA().addSensor(s1);
-        ga.getSensorListInGA().addSensor(s2);
-        ga.getSensorListInGA().addSensor(s3);
-        ga.getSensorListInGA().addSensor(s4);
-        ga.getSensorListInGA().addSensor(s5);
+        g1.getSensorListInGA().addSensor(s21);
+        g1.getSensorListInGA().addSensor(s22);
+        g1.getSensorListInGA().addSensor(s23);
+        g1.getSensorListInGA().addSensor(s24);
+        g1.getSensorListInGA().addSensor(s25);
 
 
-        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(house);
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL();
 
         double result = ctrl623.calculateAverageOfRainfallReadings(sT, startDate, endDate);
 
@@ -394,12 +381,6 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @Test
     @DisplayName("Tests if calculates daily average rainfall when there is more than one sensor at same distance")
     void calculateAverageOfRainfallForTwoEquidistantSensors() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
 
         SensorType sT = new SensorType("rainfall");
         SensorType sT2 = new SensorType("wind");
@@ -453,21 +434,21 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s3 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s4 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s5 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensor s26 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s27 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensor s28 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s29 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s30 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
-        ga.getSensorListInGA().addSensor(s1);
-        ga.getSensorListInGA().addSensor(s2);
-        ga.getSensorListInGA().addSensor(s3);
-        ga.getSensorListInGA().addSensor(s4);
-        ga.getSensorListInGA().addSensor(s5);
+        g1.getSensorListInGA().addSensor(s26);
+        g1.getSensorListInGA().addSensor(s27);
+        g1.getSensorListInGA().addSensor(s28);
+        g1.getSensorListInGA().addSensor(s29);
+        g1.getSensorListInGA().addSensor(s30);
 
 
-        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(house);
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL();
 
         double result = ctrl623.calculateAverageOfRainfallReadings(sT, startDate, endDate);
 
@@ -477,11 +458,6 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @Test
     @DisplayName("Tests if calculates daily average rainfall when equidistant sensor have readings with the same date")
     void calculateAverageOfRainfallReadingsWithSameDate() {
-        Address a1 = new Address("Rua de Cedofeita", "4000-678", "Porto", 40, -12, 200);
-        OccupationArea oc1 = new OccupationArea(23, 45);
-        Location loc1 = new Location(40, -12, 200);
-        GeographicalArea ga = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
-        House house = new House(a1, ga);
 
         SensorType sT = new SensorType("rainfall");
         SensorType sT2 = new SensorType("wind");
@@ -533,21 +509,21 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s3 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s4 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s5 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensor s31 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s32 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensor s33 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s34 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s35 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
-        ga.getSensorListInGA().addSensor(s1);
-        ga.getSensorListInGA().addSensor(s2);
-        ga.getSensorListInGA().addSensor(s3);
-        ga.getSensorListInGA().addSensor(s4);
-        ga.getSensorListInGA().addSensor(s5);
+        g1.getSensorListInGA().addSensor(s31);
+        g1.getSensorListInGA().addSensor(s32);
+        g1.getSensorListInGA().addSensor(s33);
+        g1.getSensorListInGA().addSensor(s34);
+        g1.getSensorListInGA().addSensor(s35);
 
 
-        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(house);
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL();
 
         double result = ctrl623.calculateAverageOfRainfallReadings(sT, startDate, endDate);
 

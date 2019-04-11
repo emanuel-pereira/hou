@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.NewHouseGridCTRL;
-import smarthome.model.House;
 
 import java.util.Scanner;
 
@@ -10,8 +9,8 @@ public class NewHouseGridUI {
     private Scanner keyboard = new Scanner (System.in);
     private NewHouseGridCTRL mCtrlUS130;
 
-    public NewHouseGridUI(House house) {
-        mCtrlUS130 = new NewHouseGridCTRL (house);
+    public NewHouseGridUI() {
+        mCtrlUS130 = new NewHouseGridCTRL();
     }
 
     /**

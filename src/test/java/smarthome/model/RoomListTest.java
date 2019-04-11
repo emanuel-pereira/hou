@@ -18,7 +18,7 @@ public class RoomListTest {
         RoomList roomList = new RoomList();
 
         //Act
-        Room r1 = new Room("R01","BedRoom", 2, 3, 4, 1);
+        Room r1 = new Room("R01", "BedRoom", 2, 3, 4, 1);
         roomList.addRoom(r1);
 
         //Assert
@@ -30,7 +30,7 @@ public class RoomListTest {
     void addRoomToList() {
         //Arrange
         RoomList roomList = new RoomList();
-        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
+        Room r1 = new Room("R01", "LivingRoom", 1, 3, 4, 5);
 
         //Act
         assertTrue(roomList.addRoom(r1));
@@ -46,8 +46,8 @@ public class RoomListTest {
     public void notAddRepeatedRoom() {
         //Arrange
         RoomList roomList = new RoomList();
-        Room r1 = new Room("R01","Hall", 0, 1, 1, 3);
-        Room r2 = new Room("R02","Garage", 1, 3, 3, 4);
+        Room r1 = new Room("R01", "Hall", 0, 1, 1, 3);
+        Room r2 = new Room("R02", "Garage", 1, 3, 3, 4);
 
         //Act
         assertEquals(0, roomList.getRoomList().size());
@@ -64,16 +64,8 @@ public class RoomListTest {
 
     @Test
     void checkIffRoomNameExists() {
-        Address a1 = new Address("Rua Luis Pacheco", "3380-45", "Lisboa", 41, 12.3, 110);
-
-        Location loc = new Location(25, 35, 15);
-        OccupationArea oc = new OccupationArea(40, 45);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
-
-        House house2 = new House(a1, g1);
-
-        RoomList list = house2.getRoomList();
-        Room kitchen = list.createNewRoom("R01","kitchen", 1, 3, 3.5, 2);
+        RoomList list = new RoomList();
+        Room kitchen = list.createNewRoom("R01", "kitchen", 1, 3, 3.5, 2);
         list.addRoom(kitchen);
 
         boolean result = list.checkIfRoomNameExists("kitchen");
@@ -82,65 +74,23 @@ public class RoomListTest {
 
     @Test
     void checkIfRoomNameNotExists() {
-        Address a1 = new Address("Rua Luis Pacheco", "3380-45", "Lisboa", 41, 12.3, 110);
 
-        Location loc = new Location(25, 35, 15);
-        OccupationArea oc = new OccupationArea(40, 45);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
-
-        House house2 = new House(a1, g1);
-
-        RoomList list = house2.getRoomList();
-        Room kitchen = list.createNewRoom("R01","kitchen", 1, 3, 3.5, 2);
+        RoomList list = new RoomList();
+        Room kitchen = list.createNewRoom("R01", "kitchen", 1, 3, 3.5, 2);
         list.addRoom(kitchen);
 
         boolean result = list.checkIfRoomNameExists("bedroom");
         assertFalse(result);
     }
 
-    @Test
-    void checkIffRoomIdExists() {
-        Address a1 = new Address("Rua Luis Pacheco", "3380-45", "Lisboa", 41, 12.3, 110);
-
-        Location loc = new Location(25, 35, 15);
-        OccupationArea oc = new OccupationArea(40, 45);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
-
-        House house2 = new House(a1, g1);
-
-        RoomList list = house2.getRoomList();
-        Room kitchen = list.createNewRoom("R01","kitchen", 1, 3, 3.5, 2);
-        list.addRoom(kitchen);
-
-        boolean result = list.checkIfRoomIDExists("R01");
-        assertTrue(result);
-    }
-
-    @Test
-    void checkIfRoomIdNotExists() {
-        Address a1 = new Address("Rua Luis Pacheco", "3380-45", "Lisboa", 41, 12.3, 110);
-
-        Location loc = new Location(25, 35, 15);
-        OccupationArea oc = new OccupationArea(40, 45);
-        GeographicalArea g1 = new GeographicalArea("LIS", "Lisboa", "City", oc, loc);
-
-        House house2 = new House(a1, g1);
-
-        RoomList list = house2.getRoomList();
-        Room kitchen = list.createNewRoom("R01","kitchen", 1, 3, 3.5, 2);
-        list.addRoom(kitchen);
-
-        boolean result = list.checkIfRoomIDExists("R02");
-        assertFalse(result);
-    }
 
     @Test
     @DisplayName("Tests if a room is removed from the Room list")
     void removeRoomFromRoomList() {
         //Arrange
         RoomList roomList = new RoomList();
-        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
-        Room r2 = new Room("R02","Garage", 0, 1, 3, 1);
+        Room r1 = new Room("R01", "LivingRoom", 1, 3, 4, 5);
+        Room r2 = new Room("R02", "Garage", 0, 1, 3, 1);
 
         //Act
         roomList.addRoom(r1);
@@ -159,8 +109,8 @@ public class RoomListTest {
     @DisplayName("Tests if it allows to remove a room from the Room list, that was not preciously added")
     void removeRoomFromRoomListFalse() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
-        Room r2 = new Room("R02","Garage", 0, 1, 3, 1);
+        Room r1 = new Room("R01", "LivingRoom", 1, 3, 4, 5);
+        Room r2 = new Room("R02", "Garage", 0, 1, 3, 1);
 
         roomList.addRoom(r1);
 
@@ -171,8 +121,8 @@ public class RoomListTest {
     @DisplayName("Get a Room in the Room List by its index")
     void getRoomFromRoomListByIndex() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
-        Room r2 = new Room("R02","Garage", 0, 1, 3, 1);
+        Room r1 = new Room("R01", "LivingRoom", 1, 3, 4, 5);
+        Room r2 = new Room("R02", "Garage", 0, 1, 3, 1);
 
         roomList.addRoom(r1);
         roomList.addRoom(r2);
@@ -180,15 +130,15 @@ public class RoomListTest {
         Room expected = r2;
         Room result = roomList.get(1);
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
 
     @Test
     @DisplayName("Tests if two sensor designations are different")
     public void checkIfRoomDesignationAreDifferent() {
-        Room r1 = new Room("R01","A", 1, 3, 3, 1);
-        Room r2 = new Room("R02","B", 2, 3, 4, 5);
+        Room r1 = new Room("R01", "A", 1, 3, 3, 1);
+        Room r2 = new Room("R02", "B", 2, 3, 4, 5);
 
         boolean result;
 
@@ -202,8 +152,8 @@ public class RoomListTest {
     @DisplayName("Ensure that method getRoomListSize() of RoomList class returns 2")
     void size() {
         RoomList roomList = new RoomList();
-        Room livingRoom = new Room("R01","LivingRoom", 1, 3, 4, 5);
-        Room garage = new Room("R02","Garage", 0, 1, 3, 1);
+        Room livingRoom = new Room("R01", "LivingRoom", 1, 3, 4, 5);
+        Room garage = new Room("R02", "Garage", 0, 1, 3, 1);
         roomList.addRoom(livingRoom);
         roomList.addRoom(garage);
         int expected = 2;
@@ -216,8 +166,8 @@ public class RoomListTest {
     @DisplayName("Get a Room in the Room List by its index")
     void showRoomListInString() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
-        Room r2 = new Room("R02","Garage", 0, 1, 3, 1);
+        Room r1 = new Room("R01", "LivingRoom", 1, 3, 4, 5);
+        Room r2 = new Room("R02", "Garage", 0, 1, 3, 1);
 
         roomList.addRoom(r1);
         roomList.addRoom(r2);
@@ -226,15 +176,15 @@ public class RoomListTest {
                 "2 - Garage\n";
         String result = roomList.showRoomListInString();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
     @DisplayName("add Device To Room and List All Devices From all Rooms by type")
     void addDeviceToRoom() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
-        Room r2 = new Room("R02","Garage", 0, 1, 3, 1);
+        Room r1 = new Room("R01", "LivingRoom", 1, 3, 4, 5);
+        Room r2 = new Room("R02", "Garage", 0, 1, 3, 1);
 
         roomList.addRoom(r1);
         roomList.addRoom(r2);
@@ -244,30 +194,30 @@ public class RoomListTest {
         TvType typeTv = new TvType();
         FanType typeFan = new FanType();
 
-        Device d1 = typeOven.createDevice("baker",420);
-        Device d2 = typeTv.createDevice("Silver",200);
-        Device d3 = typeWth.createDevice("Textile Dryer",300);
-        Device d4 = typeFan.createDevice("Micro Fan",250);
-        Device d5 = typeTv.createDevice("Smart Tv",200);
+        Device d1 = typeOven.createDevice("baker", 420);
+        Device d2 = typeTv.createDevice("Silver", 200);
+        Device d3 = typeWth.createDevice("Textile Dryer", 300);
+        Device d4 = typeFan.createDevice("Micro Fan", 250);
+        Device d5 = typeTv.createDevice("Smart Tv", 200);
 
-        assertTrue(roomList.addDeviceToRoom(d1,1));
-        assertTrue (roomList.addDeviceToRoom(d2,1));
-        assertTrue(roomList.addDeviceToRoom(d3,1));
-        assertTrue(roomList.addDeviceToRoom(d4,2));
-        assertTrue(roomList.addDeviceToRoom(d5,2));
+        assertTrue(roomList.addDeviceToRoom(d1, 1));
+        assertTrue(roomList.addDeviceToRoom(d2, 1));
+        assertTrue(roomList.addDeviceToRoom(d3, 1));
+        assertTrue(roomList.addDeviceToRoom(d4, 2));
+        assertTrue(roomList.addDeviceToRoom(d5, 2));
 
-        List<Device> expected = Arrays.asList(d2,d5);
+        List<Device> expected = Arrays.asList(d2, d5);
         List<Device> result = roomList.getDevicesInAllRoomsByType("Tv");
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
     @DisplayName("Remove Device From Room and List All Devices From all Rooms by type")
     void removeDeviceFromRoom() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
-        Room r2 = new Room("R02","Garage", 0, 1, 3, 1);
+        Room r1 = new Room("R01", "LivingRoom", 1, 3, 4, 5);
+        Room r2 = new Room("R02", "Garage", 0, 1, 3, 1);
 
         roomList.addRoom(r1);
         roomList.addRoom(r2);
@@ -277,32 +227,32 @@ public class RoomListTest {
         TvType typeTv = new TvType();
         FanType typeFan = new FanType();
 
-        Device d1 = typeOven.createDevice("baker",420);
-        Device d2 = typeTv.createDevice("Silver",200);
-        Device d3 = typeWth.createDevice("Textile Dryer",300);
-        Device d4 = typeFan.createDevice("Micro Fan",250);
-        Device d5 = typeTv.createDevice("Smart Tv",200);
+        Device d1 = typeOven.createDevice("baker", 420);
+        Device d2 = typeTv.createDevice("Silver", 200);
+        Device d3 = typeWth.createDevice("Textile Dryer", 300);
+        Device d4 = typeFan.createDevice("Micro Fan", 250);
+        Device d5 = typeTv.createDevice("Smart Tv", 200);
 
-        assertTrue(roomList.addDeviceToRoom(d1,1));
-        assertTrue (roomList.addDeviceToRoom(d2,1));
-        assertTrue(roomList.addDeviceToRoom(d3,1));
-        assertTrue(roomList.addDeviceToRoom(d4,2));
-        assertTrue(roomList.addDeviceToRoom(d5,2));
+        assertTrue(roomList.addDeviceToRoom(d1, 1));
+        assertTrue(roomList.addDeviceToRoom(d2, 1));
+        assertTrue(roomList.addDeviceToRoom(d3, 1));
+        assertTrue(roomList.addDeviceToRoom(d4, 2));
+        assertTrue(roomList.addDeviceToRoom(d5, 2));
 
-        assertTrue(roomList.removeDeviceFromRoom(d2,1));
+        assertTrue(roomList.removeDeviceFromRoom(d2, 1));
 
         List<Device> expected = Arrays.asList(d5);
         List<Device> result = roomList.getDevicesInAllRoomsByType("Tv");
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
     @DisplayName("See in which room the device is")
     void getDeviceLocation() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("R01","LivingRoom", 1, 3, 4, 5);
-        Room r2 = new Room("R02","Garage", 0, 1, 3, 1);
+        Room r1 = new Room("R01", "LivingRoom", 1, 3, 4, 5);
+        Room r2 = new Room("R02", "Garage", 0, 1, 3, 1);
 
         roomList.addRoom(r1);
         roomList.addRoom(r2);
@@ -312,29 +262,29 @@ public class RoomListTest {
         TvType typeTv = new TvType();
         FanType typeFan = new FanType();
 
-        Device d1 = typeOven.createDevice("baker",420);
-        Device d2 = typeTv.createDevice("Silver",200);
-        Device d3 = typeWth.createDevice("Textile Dryer",300);
-        Device d4 = typeFan.createDevice("Micro Fan",250);
-        Device d5 = typeTv.createDevice("Smart Tv",200);
+        Device d1 = typeOven.createDevice("baker", 420);
+        Device d2 = typeTv.createDevice("Silver", 200);
+        Device d3 = typeWth.createDevice("Textile Dryer", 300);
+        Device d4 = typeFan.createDevice("Micro Fan", 250);
+        Device d5 = typeTv.createDevice("Smart Tv", 200);
 
-        assertTrue(roomList.addDeviceToRoom(d1,1));
-        assertTrue(roomList.addDeviceToRoom(d2,1));
-        assertTrue(roomList.addDeviceToRoom(d3,1));
-        assertTrue(roomList.addDeviceToRoom(d4,2));
-        assertTrue(roomList.addDeviceToRoom(d5,2));
+        assertTrue(roomList.addDeviceToRoom(d1, 1));
+        assertTrue(roomList.addDeviceToRoom(d2, 1));
+        assertTrue(roomList.addDeviceToRoom(d3, 1));
+        assertTrue(roomList.addDeviceToRoom(d4, 2));
+        assertTrue(roomList.addDeviceToRoom(d5, 2));
 
         Room expected = r1;
         Room result = roomList.getDeviceLocation(d2);
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
     @Test
     void getEnergyConsumptionByDeviceType() {
         RoomList roomList = new RoomList();
-        Room r1 = new Room("R01","Kitchen", 0, 6, 3.5, 3);
-        Room r2 = new Room("R02","Garage", 0, 6, 4, 3);
+        Room r1 = new Room("R01", "Kitchen", 0, 6, 3.5, 3);
+        Room r2 = new Room("R02", "Garage", 0, 6, 4, 3);
         roomList.addRoom(r1);
         roomList.addRoom(r2);
 
@@ -344,13 +294,13 @@ public class RoomListTest {
         FridgeType fridgeType = new FridgeType();
         FanType fanType = new FanType();
 
-        Device d1 = fridgeType.createDevice("Frigo",733);
-        Device d2 = fanType.createDevice("Windy",50);
-        Device d3 = fridgeType.createDevice("Mini Bar",230);
+        Device d1 = fridgeType.createDevice("Frigo", 733);
+        Device d2 = fanType.createDevice("Windy", 50);
+        Device d3 = fridgeType.createDevice("Mini Bar", 230);
 
-        r1DeviceList.addDevice(d1);
-        r2DeviceList.addDevice(d2);
-        r2DeviceList.addDevice(d3);
+        r1DeviceList.add(d1);
+        r2DeviceList.add(d2);
+        r2DeviceList.add(d3);
 
         double expected = 0;
         double result = roomList.getEnergyConsumptionByDeviceType("Fridge");
