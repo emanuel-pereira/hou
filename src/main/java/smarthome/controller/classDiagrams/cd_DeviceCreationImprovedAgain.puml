@@ -134,17 +134,17 @@ interface Device
 
 
 
-DeviceList -left- ConcreteDeviceTypeA
+DeviceList -right- ConcreteDeviceTypeA
 DeviceList -right- ConcreteDeviceTypeB
 
-ConcreteDeviceTypeA .up.|> DeviceType
-ConcreteDeviceTypeB .up.|> DeviceType
+ConcreteDeviceTypeA .down|> DeviceType
+ConcreteDeviceTypeB .down|> DeviceType
 
-GenericSpecs ..|> DeviceSpecs
+GenericSpecs .|> DeviceSpecs
 
-ConcreteDeviceA -down- GenericDevice
+ConcreteDeviceA -down- GenericDevice :extends
 
-GenericDevice ..|> Device
+GenericDevice .left|> Device
 
 GenericDevice *-right- GenericSpecs
 
@@ -153,7 +153,7 @@ ConcreteDeviceTypeA -down- ConcreteDeviceA
 
 ConcreteDeviceTypeB -down- ConcreteDeviceB
 
-ConcreteDeviceB ..|> Device
+ConcreteDeviceB .left|> Device
 ConcreteDeviceB *-right- GenericSpecs
 
 

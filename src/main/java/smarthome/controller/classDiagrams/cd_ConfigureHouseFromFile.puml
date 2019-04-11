@@ -1,4 +1,6 @@
 @startuml
+skinparam linetype ortho
+hide empty members
 
 skinparam class {
 	ArrowColor SteelBlue
@@ -29,7 +31,6 @@ class ConfigureHouseCTRL {
 - dataImportHouse : DataImport
 - gaMapper : GeographicalAreaMapper
 - gaList : GAList
-
 + getGAListDTO()
 + showGAListDTO()
 + getGAListSize()
@@ -41,12 +42,15 @@ class ConfigureHouseCTRL {
 
 'DTO
 class GeographicalAreaDTO{
+- identification: String
+- designation: String
++ getIdentification()
++ getDesignation()
 }
 
 'MAPPER
 class GeographicalAreaMapper {
 - sensorMapper: SensorMapper
-
 + toDtoList()
 }
 
@@ -57,7 +61,6 @@ class DataImport{
 - configHouseFilePath : Path
 - gaList : GAList
 - notAdded : List<GeographicalArea>
-
 - getFileExtension()
 - readConfigFile()
 - getClassName()
@@ -84,13 +87,27 @@ class JSONHouse {
 }
 
 'MODEL
-class House {
-- address : Address
-- gA : GeographicalArea
-- roomList: RoomList
-- houseGridList : HouseGridList
-- theHouse : House
+class GAList{
+- listOfGA: List<GeographicalArea>
++ get(int)
++ size()
+}
 
+class GeographicalArea{
+ - identification: String
+ - designation: String
+ + getId()
+ + getGAName()
+ + gaInString()
+
+ }
+
+class House {
+- address: Address
+- gA: GeographicalArea
+- roomList: RoomList
+- houseGridList: HouseGridList
+- theHouse: House
 + getHouseInstance()
 + getHouseGA()
 + setHouseGA()
@@ -100,12 +117,71 @@ class House {
 + getGridListInHouse()
 }
 
-class GeographicalArea(){
--
-
-+ getId()
-
+class RoomList {
+- listOfRooms: List<Room>
++ getRoomListSize()
++ getRoomById(String)
 }
 
+class Room{
+- id: String
++ getId()
+}
+
+class HouseGridList {
+- listOfRooms: List<Room>
++ getRoomListSize()
++ getRoomById(String)
+}
+
+class HouseGrid {
+- roomList: RoomList
++ getRoomListInAGrid()
+}
+
+
+ class Address{
+ - street: String
+ - number: String
+ - zipCode: String
+ - town: String
+ - country: String
+ - gpsLocation: Location
++ setGpsLocation()
++ addressToString()
+ }
+
+class Location{
+- latitude: double
+- longitude: double
+- altitude: double
++ locationToString()
+}
+
+ConfigureHouseUI .> ConfigureHouseCTRL
+ConfigureHouseCTRL --> GeographicalAreaDTO
+ConfigureHouseCTRL --> Location
+ConfigureHouseCTRL -> DataImport
+DataImport ..> JSONHouse
+
+GeographicalArea"1" -- "1" GAList
+GeographicalArea "1"-- "0..1"GeographicalArea
+House -- "1" GeographicalArea
+House -- "1" Address
+Address"1" - "1"Location
+
+House - "1" RoomList
+RoomList -- "*" Room
+
+House -- "1"HouseGridList
+HouseGridList "1  " --- "1..*"HouseGrid
+
+GeographicalArea <.. GeographicalAreaDTO
+GeographicalAreaDTO ..> GeographicalAreaMapper
+
+JSONHouse .|> FileReaderHouse
+JSONHouse ---> Address
+JSONHouse -> Room
+JSONHouse --> HouseGrid
 
 @enduml

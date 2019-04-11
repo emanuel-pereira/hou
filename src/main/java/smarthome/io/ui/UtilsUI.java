@@ -585,11 +585,12 @@ public final class UtilsUI {
     }
 
     public static void backToMenu() {
-
         printAndReset("\n");
         format("BG_BLUE", "BOLD", BLACK);
-        print("\n");
+        print(" ");
         print("[ENTER] to return to the previous menu");
+        print(" ");
+        format(RESET);
         print("\n");
         Scanner s = new Scanner(System.in);
         s.nextLine();

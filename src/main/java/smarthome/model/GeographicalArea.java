@@ -211,6 +211,23 @@ public class GeographicalArea {
     public void setDesignation(String designation) {
         this.designation = designation;
     }
+
+    //TODO: tests
+
+    public String gaInString(){
+
+        StringBuilder output = new StringBuilder();
+        String space = "    ";
+        String comma = ", ";
+
+        output.append(space);
+        output.append(designation);
+        output.append(comma);
+        output.append(identification);
+
+
+        return output.toString();
+    }
 }
 
 

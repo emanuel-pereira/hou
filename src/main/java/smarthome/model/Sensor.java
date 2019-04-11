@@ -10,6 +10,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
+import static smarthome.model.House.getAddress;
+
 @Entity
 public class Sensor {
 
@@ -48,7 +50,8 @@ public class Sensor {
             this.unit = unit;
             this.active = true;
             this.readingList = readings;
-            this.location = new Location(0, 0, 0);
+            this.location = (getAddress().getGPSLocation());
+
     }
 
     /**
