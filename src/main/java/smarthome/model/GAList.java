@@ -37,11 +37,12 @@ public class GAList {
      * @return boolean value, true if correctly added, false if not added
      */
     public boolean addGA(GeographicalArea inputGA) {
-        if (this.listOfGa.contains(inputGA)){
+        if (this.listOfGa.contains(inputGA)) {
             return false;
-        }
-        else{
-        return this.listOfGa.add(inputGA);
+        } else {
+            if (TypeGAList.contains(inputGA.getType()))
+                return this.listOfGa.add(inputGA);
+            return false;
         }
     }
 
@@ -49,26 +50,27 @@ public class GAList {
     /**
      * @return a global list of sensors containing all sensors within each geographical area.
      */
-    public List<Sensor> getAllSensors(){
+    public List<Sensor> getAllSensors() {
         List<Sensor> sensors = new ArrayList<>();
-        for(GeographicalArea ga : this.listOfGa){
+        for (GeographicalArea ga : this.listOfGa) {
             List<Sensor> gaSensorList = ga.getSensorListInGA().getSensorList();
             sensors.addAll(gaSensorList);
         }
         return sensors;
     }
 
-    public List<Reading> getAllReadings(){
+    public List<Reading> getAllReadings() {
         List<Reading> allReadings = new ArrayList<>();
-        for(GeographicalArea ga : this.listOfGa){
+        for (GeographicalArea ga : this.listOfGa) {
             List<Sensor> sensorList = ga.getSensorListInGA().getSensorList();
-            for (Sensor sensor : sensorList){
+            for (Sensor sensor : sensorList) {
                 List<Reading> readings = sensor.getReadingList().getReadingsList();
                 allReadings.addAll(readings);
             }
         }
         return allReadings;
     }
+
     /**
      * Method similar to the get method for Lists but as the List is private in the class it is
      * needed to exist a method that publicly returns the List of GA's to other methods to read
@@ -91,7 +93,7 @@ public class GAList {
 
     public GeographicalArea getById(String inputId) {
         GeographicalArea geoArea = get(0);
-        for(GeographicalArea ga : this.listOfGa) {
+        for (GeographicalArea ga : this.listOfGa) {
             geoArea = ga;
             if (geoArea.getId().matches(inputId)) {
                 break;

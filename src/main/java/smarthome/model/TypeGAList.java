@@ -19,6 +19,10 @@ public class TypeGAList {
         this.typeOfGAList = new ArrayList<>();
     }
 
+    public static boolean contains(TypeGA type) {
+        return typeOfGAList.contains(type);
+    }
+
     /**
      * Method to create a new object Type of GA with the user's input String designation
      *

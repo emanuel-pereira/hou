@@ -73,8 +73,8 @@ public class ConfigureHouseUI {
         System.out.println("Insert a door number for the house:");
         number = UtilsUI.requestText("Only alphanumeric characters are accepted.", "^[A-Za-z0-9 -,.]+$");
 
-        System.out.println("Insert the zip-code of House:");
-        zipCode = UtilsUI.requestText("Please, insert a valid zip-code.", "[0-9]{4}-[0-9]{3}");
+        System.out.println("Insert the zip-code of House (0000-000):");
+        zipCode = UtilsUI.requestText("Please, insert a valid zip-code (0000-000).", "[0-9]{4}-[0-9]{3}");
 
         System.out.println("Insert the village:");
         town = UtilsUI.requestText("Only alphabetic characters are allowed", "^[A-Za-z .]+$");

@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import org.apache.log4j.Logger;
 import smarthome.repository.Repositories;
 
 import java.util.ArrayList;
@@ -8,6 +9,7 @@ import java.util.List;
 public class HouseGridList {
 
     private List<HouseGrid> hglist;
+    static final Logger log = Logger.getLogger(HouseGridList.class);
 
     public HouseGridList() {
         this.hglist = new ArrayList<>();
@@ -35,7 +37,12 @@ public class HouseGridList {
     public boolean addHouseGrid(HouseGrid inputHouseGrid) {
         if (!this.hglist.contains(inputHouseGrid)) {
             this.hglist.add(inputHouseGrid);
-            Repositories.getGridsRepository().save(inputHouseGrid);
+            try {
+                //Repository call
+                Repositories.getGridsRepository().save(inputHouseGrid);
+            } catch (NullPointerException e) {
+                log.warn("Repository unreachable");
+            }
             return true;
         } else return false;
     }

@@ -1,5 +1,6 @@
 package smarthome.io.ui;
 
+import org.apache.log4j.Logger;
 import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
 import smarthome.controller.DataImportCTRL;
@@ -14,8 +15,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class DataImportUI {
+
     private DataImportCTRL ctrl;
     private Path filePath;
+    static final Logger log = Logger.getLogger(DataImportUI.class);
 
     /**
      * Constructor for importing data related to GAList.
@@ -53,15 +56,16 @@ public class DataImportUI {
     }
 
     public void loadGeoAreaFile() {
-        System.out.println("Please enter the file path to import geographical areas and sensors (eg: resources/DataSet_sprint05_GA.json):");
+        System.out.println("Please enter the file path to import geographical areas and sensors (eg: resources/DataSet_sprint06_GA.json):");
         String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
 
         try {
             this.filePath = Paths.get(filepath);
             this.showGAsNumberInFile();
-        } catch (Exception e) {
+        } catch (IOException | ClassNotFoundException | InstantiationException | IllegalAccessException | ParseException | java.text.ParseException e) {
             UtilsUI.showError("File not found.", "File not found in the specified file path: " + filepath);
             UtilsUI.backToMenu();
+            log.warn(e.getMessage());
         }
     }
 
@@ -101,7 +105,7 @@ public class DataImportUI {
     public void importReadings(Object object) throws org.json.simple.parser.ParseException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, ParserConfigurationException, SAXException {
         boolean loop = true;
         while (loop) {
-            System.out.println("Please insert the directory and the name of the file (eg: resources/DataSet_sprint05_SD.csv):");
+            System.out.println("Please insert the directory and the name of the file (eg: resources/DataSet_sprint06_GAData.json):");
             String filepath = UtilsUI.requestText("Invalid filepath.", "[A-Za-z0-9/._]*");
             Path path = Paths.get(filepath);
             try {

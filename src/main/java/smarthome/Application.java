@@ -40,7 +40,7 @@ public class Application {
 
     @Bean
     public CommandLineRunner demo(GeoRepository geoRep, RoomRepository rRep, SensorTypeRepository unitRep, TypeGARepository typeRep,
-                                  SensorRepository sensorRep, ReadingRepository readingRep) {
+                                  SensorRepository sensorRep, ReadingRepository readingRep, GridRepository gridsRep) {
 
         Repositories.setTypeGARepository(typeRep);
         Repositories.setGeoRepository(geoRep);
@@ -48,6 +48,7 @@ public class Application {
         Repositories.setSensorTypeRepository(unitRep);
         Repositories.setSensorRepository(sensorRep);
         Repositories.setReadingRepository(readingRep);
+        Repositories.setGridsRepository(gridsRep);
 
         return args -> log.info("Application Start-Up");
     }

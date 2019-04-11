@@ -1,5 +1,6 @@
 package smarthome.model.readers;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -17,6 +18,7 @@ import static smarthome.model.House.*;
 public class JSONHouse implements FileReaderHouse {
     private Path filePath;
     private JSONParser parser = new JSONParser();
+    static final Logger log = Logger.getLogger(JSONHouse.class);
 
     public JSONHouse() {
         /* empty constructor to allow reflection */
@@ -76,7 +78,12 @@ public class JSONHouse implements FileReaderHouse {
         }
         if (getGridListInHouse().getHouseGridList().addAll(hgList))
             for (HouseGrid grid : hgList)
-                Repositories.getGridsRepository().save(grid);
+                try {
+                    //Repository call
+                    Repositories.getGridsRepository().save(grid);
+                } catch (NullPointerException e) {
+                    log.warn("Repository unreachable");
+                }
     }
 
 

@@ -4,19 +4,16 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
-import smarthome.model.GeographicalArea;
-import smarthome.model.Sensor;
-import smarthome.model.SensorType;
-import smarthome.model.ReadingList;
-import smarthome.model.Location;
-import smarthome.model.OccupationArea;
+import smarthome.model.*;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 public class JSONGeoArea implements FileReaderGeoArea{
     private Path filePath;
@@ -53,7 +50,7 @@ public class JSONGeoArea implements FileReaderGeoArea{
     private static GeographicalArea importGA (JSONObject jsonGA) {
         String id = (String) jsonGA.get("id");
         String description = (String) jsonGA.get("description");
-        String type = (String) jsonGA.get("type");
+        TypeGA type = (TypeGA) jsonGA.get("type");
         Location location = importLocation(jsonGA);
         OccupationArea occupationArea = importOccupationArea(jsonGA);
         return new GeographicalArea(id,description,type,occupationArea,location);

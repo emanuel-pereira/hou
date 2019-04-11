@@ -220,8 +220,8 @@ public class DataImport {
                     //repository call
                     Repositories.saveGA(ga);
                     log.info("New Geographical Area '" + ga.getGAName() + "' imported into the systems DB");
-                } catch (NullPointerException e) {
-                    log.warn("Repository unreachable");
+                } catch (Exception e) {
+                    log.warn(e.getMessage());
                 }
             } else {
                 this.notAdded.add(ga);
@@ -298,7 +298,6 @@ public class DataImport {
     /**
      * US100 CONFIGURE HOUSE BY FILE IMPORT
      */
-
     private FileReaderHouse getHouseConfigFileReader() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
         String fileExtension = getFileExtension(this.configHouseFilePath);
         String className = getClassName("house", fileExtension);
