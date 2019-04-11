@@ -171,15 +171,15 @@ public class DataImportUI {
             this.filePath = Paths.get(filepath);
             this.numberOfSensorsInFile();
         } catch (Exception e) {
-            UtilsUI.showError("File not found.", "File not found in the specified file path: " + filepath);
+            UtilsUI.showError("File not found.", "Incorrect file or invalid path");
             UtilsUI.backToMenu();
         }
     }
 
-    public void numberOfSensorsInFile() throws
+    private void numberOfSensorsInFile() throws
             IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         System.out.println("In the file there are:\n");
-        System.out.println(" - " + ctrl.sizeOfSensorsFile(this.filePath) + " sensor(s).");
+        System.out.println(" - " + ctrl.getSizeOfSensorsFile(this.filePath) + " sensor(s).");
         this.importHouseSensors();
     }
 
