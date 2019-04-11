@@ -1,0 +1,122 @@
+@startuml
+skinparam linetype ortho
+
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
+
+class DeviceList
+{
+- devicesList
++ add()
++ newDevice()
++ get()
++ showDeviceListInString()
++ getDeviceList()
++ removeDevice()
++ deactivateDevice()
++ getMeteredDevices()
+}
+
+DeviceList -- ConcreteDeviceType : creates by reflection
+
+
+
+
+interface DeviceType
+{
++getDeviceType()
++createDevice()
+}
+
+class ConcreteDeviceType
+{
++getDeviceType()
++createDevice()
+}
+
+
+ConcreteDeviceType .down.|> DeviceType
+ConcreteDeviceType -right- ConcreteDevice : instantiates
+
+
+
+class ConcreteDevice {
+- nameValidation
+- deviceSpecs
+- name
+- nominalPower
+- active
+- activityLog
+
++getDeviceName()
++getDeviceSpecs()
++getDeviceType()
++isActive()
++getActivityLog()
++getNominalPower()
++setDeviceName()
++setNominalPower()
++deactivateDevice()
+}
+
+
+class GenericSpecs
+{
+- attributeNames
+- attributeUnits
+- String deviceTypeDesignation
+- attributeNamesList
+- attributeValuesMap
+- attributeUnitsMap
++getDeviceType()
++getAttributesNames()
++getAttributeValues()
++getAttributeUnits()
++getAttributeValue()
++getAttributeUnit()
++setAttributeValue()
++setAttributeUnit()
+}
+
+interface DeviceSpecs
+{
++getDeviceType()
++getAttributesNames()
++getAttributeValues()
++getAttributeUnits()
++getAttributeValue()
++getAttributeUnit()
++setAttributeValue()
++setAttributeUnit()
+}
+
+GenericSpecs .right.|> DeviceSpecs : implements
+
+interface Device
+{
++getDeviceName()
++getDeviceSpecs()
++getDeviceType()
++isActive()
++getActivityLog()
++getNominalPower()
++setDeviceName()
++setNominalPower()
++deactivateDevice()
+}
+
+
+ConcreteDevice .right.|> Device : implements
+ConcreteDevice *-- GenericSpecs : has
+
+@enduml
