@@ -1,6 +1,7 @@
 package smarthome.controller;
 
 import org.json.simple.parser.ParseException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.xml.sax.SAXException;
@@ -14,6 +15,7 @@ import javax.sql.rowset.CachedRowSet;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.GregorianCalendar;
@@ -24,6 +26,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static smarthome.model.House.getHouseRoomList;
 
 class DataImportCTRLTest {
+
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @Test
     @DisplayName("Ensure that GAList has 2 GAs after executing loadJSON method")
