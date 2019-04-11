@@ -21,7 +21,9 @@ class DataImportUI{
 
 + loadHouseSensorsFile()
 + importHouseSensors()
-+ numberOfSensorsInFile()
+- numberOfSensorsInFile()
+- roomListEmpty()
+- sensorTypeListEmpty()
 
 }
 
@@ -31,6 +33,8 @@ class DataImportCTRL{
 
 + importHouseSensors()
 + sizeOfSensorsFile()
++ roomListSize()
++ sensorTypeListSize()
 
 }
 
@@ -45,6 +49,8 @@ class DataImport{
 + getClassName()
 + loadHouseSensorsFiles()
 + importHouseSensors()
++ getSizeOfSensorsAdded()
++ getSizeOfSensorsNotAdded
 }
 
 interface FileReaderHouseSensors {
@@ -83,6 +89,7 @@ class SensorTypeList{
 class SensorList{
 - sensorList: List<Sensor>
 
++ getSensorList()
 + addSensor()
 }
 

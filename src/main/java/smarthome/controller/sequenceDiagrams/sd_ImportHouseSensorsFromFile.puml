@@ -60,8 +60,7 @@ ref over ":DataImport", ":{Reader}": Create file reader class based on file exte
 ref over ":DataImport",":{Reader}",":DataImportCTRL":Create list of Sensors for each Room that are read from the file\n
 
 
-":DataImportUI" -> ":DataImportCTRL" :int = getHouseSensorFileSize(path)
- ":DataImportUI" -> ":DataImportCTRL" :int = getAllSensorsInFile(path)
+":DataImportUI" -> ":DataImportCTRL" :int = getSizeOfSensorsFile(path)
 'ref over ":DataImportUI",":DataImportCTRL": Get list size of Geographical Areas\n and Sensors to show
 
 SysAdmin<--":DataImportUI": Show the size of Sensor list\nto import and asks\nto confirm import
@@ -71,14 +70,14 @@ SysAdmin -> ":DataImportUI": Confirms import
 ":DataImportUI" ->":DataImportCTRL": importHouseSensorsFromFiles(path)
 ":DataImportCTRL"-> ":DataImport": importFromFileHouseSensors (List<String[]>))
 loop for each element in the list
-":DataImport" -> "roomList:RoomL":room = getRoom(roomID)
+":DataImport" -> "roomList:RoomList":room = getRoom(roomID)
 ":DataImport" -> "rSList: SensorList":rSList=room.getSensorListInRoom();
 create "s:Sensor"
-":DataImport" -> "s:Sensor":rSList.newSensor(id,name,startDate,sType,unit,readingL)
+":DataImport" -> "s:Sensor":s=rSList.newSensor(id,name,startDate,sType,unit,readingL)
 ":DataImport" -> "rSList: SensorList":addSensor(s)
 ":DataImport" -> "rSList: SensorList": saveSensor(s)
 "rSList: SensorList" -> ":Repositories": saveSensor(s)
 end
-":DataImportUI" -> ":DataImportCTRL" :int = getImportedHouseSensorListSize(path)
+":DataImportUI" -> ":DataImportCTRL" :int[] = getImportedHouseSensorListSize(path)
 SysAdmin<--":DataImportUI": Show the number of Sensors that\nwere imported and the number of\nthe ones that were not
 @enduml
