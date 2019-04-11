@@ -116,7 +116,10 @@ public class Location {
         String separator = " | ";
         String degree = "º";
 
-        output.append(separator + "Latitude: ");
+        output.append(" | Location:");
+        output.append("\n");
+        output.append("    ");
+        output.append("Latitude: ");
         output.append(this.latitude);
         output.append(degree);
         output.append(separator + "Longitude: ");

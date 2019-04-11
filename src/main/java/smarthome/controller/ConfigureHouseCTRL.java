@@ -94,7 +94,11 @@ public class ConfigureHouseCTRL {
         return getGridListInHouse().getSize();
     }
 
+    //TODO: tests
+  public String showGAInString(){
+       return getHouseGA().gaInString();
 
+    }
 
 
 }
