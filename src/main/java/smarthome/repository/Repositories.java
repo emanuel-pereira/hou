@@ -98,7 +98,9 @@ public final class Repositories {
     }
 
     public static void saveSensor(Sensor s) {
+        //TODO remove when solution for duplicates is found and implemented
         Repositories.getSensorTypeRepository().save(s.getSensorType());
+
         Repositories.sensorRepository.save(s);
 
         for (Reading reading : s.getReadingList().getReadingsList()) {

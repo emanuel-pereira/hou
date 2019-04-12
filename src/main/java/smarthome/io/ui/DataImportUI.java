@@ -56,7 +56,7 @@ public class DataImportUI {
     }
 
     public void loadGeoAreaFile() {
-        System.out.println("Please enter the file path to import geographical areas and sensors (eg: resources/DataSet_sprint06_GA.json):");
+        System.out.println("Please enter the file path to import geographical areas and sensors:");
         String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
 
         if (ctrl.typeGAListSize() == 0){
@@ -113,7 +113,7 @@ public class DataImportUI {
     public void importReadings(Object object) throws org.json.simple.parser.ParseException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, ParserConfigurationException, SAXException {
         boolean loop = true;
         while (loop) {
-            System.out.println("Please insert the directory and the name of the file (eg: resources/DataSet_sprint06_GAData.json):");
+            System.out.println("Please insert the directory and the name of the file:");
             String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
             Path path = Paths.get(filepath);
             try {
@@ -183,7 +183,7 @@ public class DataImportUI {
             UtilsUI.backToMenu();
             return;
         }
-        System.out.println("Please enter the file path to import sensors (eg: resources/DataSet_sprint06_HouseSensors.json):");
+        System.out.println("Please enter the file path to import House sensors:");
         String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
         try {
             this.filePath = Paths.get(filepath);
