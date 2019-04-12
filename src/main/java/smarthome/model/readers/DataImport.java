@@ -153,7 +153,7 @@ public class DataImport {
                 double readingValue = parseDouble(field[2]);
                 String unit = field[3];
                 Reading reading = new Reading(readingValue, readingDate, unit);
-                if (readingDate.after(sensor.getStartDate())) {
+                if (readingDate.after(sensor.getStartDate())||reading.equals(sensor.getStartDate())) {
                     reading.setSensor(sensor);
                     //dataImport
                     if (sensor.getReadingList().addReading(reading)) {
