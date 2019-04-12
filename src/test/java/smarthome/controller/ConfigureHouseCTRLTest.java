@@ -274,7 +274,7 @@ class ConfigureHouseCTRLTest {
         ctrl.configureHouseFromFileCTRL(id,25,14,12);
 
         String expected = "R. Dr. António Bernardino de Almeida";
-        String result = getAddress().getName();
+        String result = getAddress().getStreet();
 
         assertEquals(expected,result);
     }

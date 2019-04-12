@@ -100,7 +100,6 @@ public class ConfigureHouseCTRL {
     //TODO: tests
   public String showGAInString(){
        return getHouseGA().gaInString();
-
     }
 
 
