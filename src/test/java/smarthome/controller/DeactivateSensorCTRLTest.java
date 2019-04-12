@@ -1,5 +1,6 @@
 package smarthome.controller;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.dto.GeographicalAreaDTO;
@@ -8,7 +9,9 @@ import smarthome.mapper.GeographicalAreaMapper;
 import smarthome.mapper.SensorMapper;
 import smarthome.model.*;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -16,6 +19,25 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class DeactivateSensorCTRLTest {
+
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal", loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+    TypeGAList typeGAList = TypeGAList.getTypeGAListInstance();
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+        Field instance2 = TypeGAList.class.getDeclaredField("typeGaList");
+        instance2.setAccessible(true);
+        instance2.set(null, null);
+    }
 
     @Test
     @DisplayName("Check the correct size of the gaList")
@@ -81,7 +103,7 @@ class DeactivateSensorCTRLTest {
 
         SensorList lisbonSensorList = lisbon.getSensorListInGA();
         Location sLoc = new Location(55, 21, 26);
-        GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
+        GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
         Sensor sensor = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
@@ -94,7 +116,7 @@ class DeactivateSensorCTRLTest {
         GeographicalAreaDTO lisbonDTO = new GeographicalAreaDTO("LIS", "Lisbon", sensorListDTO);
         String gaDTOId = lisbonDTO.getIdentification();
         String sensorDTOId = sensorDTO.getId();
-        GregorianCalendar pDate = new GregorianCalendar(2019, 2, 2);
+        GregorianCalendar pDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
 
         DeactivateSensorCTRL ctrl = new DeactivateSensorCTRL(gaList);
         boolean result = ctrl.deactivateSensor(gaDTOId, sensorDTOId, pDate);
@@ -117,7 +139,7 @@ class DeactivateSensorCTRLTest {
 
         SensorList lisbonSensorList = lisbon.getSensorListInGA();
         Location sLoc = new Location(55, 21, 26);
-        GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
+        GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
         Sensor sensor = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
@@ -131,7 +153,7 @@ class DeactivateSensorCTRLTest {
         String gaDTOId = lisbonDTO.getIdentification();
         String sensorDTOId = "invalidID";
         DeactivateSensorCTRL ctrl = new DeactivateSensorCTRL(gaList);
-        GregorianCalendar pDate = new GregorianCalendar(2019, 8, 2);
+        GregorianCalendar pDate = new GregorianCalendar(2019, Calendar.SEPTEMBER, 2);
         boolean result = ctrl.deactivateSensor(gaDTOId, sensorDTOId, pDate);
         assertFalse(result);
     }
@@ -148,11 +170,11 @@ class DeactivateSensorCTRLTest {
         SensorList lisbonSensorList = lisbon.getSensorListInGA();
 
         Location sLoc = new Location(55, 21, 26);
-        GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
+        GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
         Sensor sensor = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
-        GregorianCalendar pDate = new GregorianCalendar(2019, 8, 2);
+        GregorianCalendar pDate = new GregorianCalendar(2019, Calendar.SEPTEMBER, 2);
         sensor.deactivate(pDate);
 
         SensorMapper sMapper = new SensorMapper();
@@ -242,7 +264,7 @@ class DeactivateSensorCTRLTest {
         SensorList lisbonSensorList = lisbon.getSensorListInGA();
 
         Location sLoc = new Location(55, 21, 26);
-        GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
+        GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
 
         Sensor sensor1 = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
@@ -281,7 +303,7 @@ class DeactivateSensorCTRLTest {
         SensorList lisbonSensorList = lisbon.getSensorListInGA();
 
         Location sLoc = new Location(55, 21, 26);
-        GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
+        GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
 
         Sensor sensor1 = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
@@ -289,7 +311,7 @@ class DeactivateSensorCTRLTest {
         Sensor sensor2 = new Sensor("TL1024", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor2);
 
-        GregorianCalendar pDate = new GregorianCalendar(2019, 2, 2);
+        GregorianCalendar pDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         sensor2.deactivate(pDate);
 
         SensorMapper sMapper = new SensorMapper();
@@ -326,7 +348,7 @@ class DeactivateSensorCTRLTest {
 
         SensorList lisbonSensorList = lisbon.getSensorListInGA();
         Location sLoc = new Location(55, 21, 26);
-        GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
+        GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
         Sensor sensor = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
@@ -340,7 +362,7 @@ class DeactivateSensorCTRLTest {
         String gaDTOId = lisbonDTO.getIdentification();
         String sensorDTOId = "invalidID";
         DeactivateSensorCTRL ctrl = new DeactivateSensorCTRL(gaList);
-        GregorianCalendar pDate = new GregorianCalendar(2019, 2, 2);
+        GregorianCalendar pDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
 
         boolean result = ctrl.deactivateSensor(gaDTOId, sensorDTOId, pDate);
 
@@ -358,7 +380,7 @@ class DeactivateSensorCTRLTest {
 
         SensorList lisbonSensorList = porto.getSensorListInGA();
         Location sLoc = new Location(55, 21, 26);
-        GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
+        GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
         Sensor sensor = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
@@ -371,7 +393,7 @@ class DeactivateSensorCTRLTest {
         String gaDTOId = "Ga";
         String sensorDTOId = sensorDTO.getId();
         DeactivateSensorCTRL ctrl = new DeactivateSensorCTRL(gaList);
-        GregorianCalendar pDate = new GregorianCalendar(2019, 2, 2);
+        GregorianCalendar pDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
 
         boolean thrown = false;
         try {
