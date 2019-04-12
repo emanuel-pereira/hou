@@ -24,6 +24,9 @@ public class HouseGrid implements Metered {
     @Transient
     private RoomList roomList;
 
+    protected HouseGrid() {
+    }
+
 
     public HouseGrid(String designation) {
         this.designation = designation;
@@ -199,7 +202,7 @@ public class HouseGrid implements Metered {
     }
 
     @Override
-    public void setTime(double duration){
+    public void setTime(double duration) {
         // do nothing.
     }
 }

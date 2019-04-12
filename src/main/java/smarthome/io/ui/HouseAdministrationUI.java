@@ -35,8 +35,8 @@ public final class HouseAdministrationUI {
             options.add("[11] List (edit/add/remove) devices in a room");
             options.add("[12] Show all the devices connected to a grid");
             options.add("[13] Show the total nominal power connected to a grid");
-            options.add("[14] Import sensors to the house from a File(JSON)");
-            options.add("[15] Import house sensors' readings from file (CSV,XML,JSON)");
+            options.add("[14] Import sensors to the house from a file (JSON)");
+            options.add("[15] Import house sensors' readings from a file");
             options.add("[0] Exit");
 
             UtilsUI.showList("House administration", options, false, 5);
@@ -78,7 +78,7 @@ public final class HouseAdministrationUI {
                     break;
                 case 9:
                     NewSensorUI newSensorUI = new NewSensorUI(sensorTypeList, gaList);
-                    newSensorUI.inputNameRoomSensor();
+                    newSensorUI.checkIfRoomListIsEmpty();
                     break;
                 case 10:
                     NewSensorUI listSensorsUI = new NewSensorUI(sensorTypeList, gaList);

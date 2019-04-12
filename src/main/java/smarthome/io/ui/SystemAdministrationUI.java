@@ -3,11 +3,9 @@ package smarthome.io.ui;
 import org.xml.sax.SAXException;
 import smarthome.model.GAList;
 import smarthome.model.SensorTypeList;
-import smarthome.model.TypeGAList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 public final class SystemAdministrationUI {
@@ -34,7 +32,7 @@ public final class SystemAdministrationUI {
             options.add("[9] Deactivate a sensor in a geographical area");
             options.add("[10] Remove a sensor from a geographical area, so that it will no longer be used.");
             options.add("[11] Import geographical areas and sensors from a File (XML,JSON)");
-            options.add("[12] Import readings from a File(CSV,XML,JSON)");
+            options.add("[12] Import geographical areas sensors' readings from a file");
 
             options.add("[0] Exit");
 
@@ -66,7 +64,7 @@ public final class SystemAdministrationUI {
                     break;
                 case 6:
                     NewSensorUI ui6 = new NewSensorUI(sensorTypeList, gaList);
-                    ui6.inputNameGASensor();
+                    ui6.checkIfGAListIsEmpty();
                     break;
                 case 7:
                     SetParentOfGAUI ui7 = new SetParentOfGAUI(gaList);

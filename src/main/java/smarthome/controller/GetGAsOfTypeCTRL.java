@@ -3,7 +3,6 @@ package smarthome.controller;
 import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
 import smarthome.model.TypeGA;
-import smarthome.model.TypeGAList;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class GetGAsOfTypeCTRL {
     }
 
     public String showListTypeGA() {
-        List<TypeGA> list = mTypeGAList.getTypeGAList();
+        List<TypeGA> list = getTypeGAList();
         StringBuilder result = new StringBuilder ();
         String element = " - ";
         int number = 1;

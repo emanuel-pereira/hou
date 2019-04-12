@@ -73,7 +73,6 @@ public class DataImportUI {
             UtilsUI.showError("File not found.", "File not found in the specified file path: " + filepath);
             log.warn(e.getMessage());
             UtilsUI.backToMenu();
-            return;
         }
 
     }
@@ -87,7 +86,7 @@ public class DataImportUI {
 
     public void importGAs() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         System.out.println("\n------");
-        if (UtilsUI.confirmOption("Do you wish to import this data?(y/n)", "Please type y for Yes or n for No.")) {
+        if (UtilsUI.confirmOption("Do you wish to import this data?(y/n)", "Please type y/Y for Yes or n/N for No.")) {
             ctrl.importGeoAreasFromFile(this.filePath);
             int notImported = ctrl.failedToAdd();
             int imported = ctrl.getImportedGaListSize(this.filePath);
@@ -110,7 +109,7 @@ public class DataImportUI {
         }
     }
 
-
+    //TODO refactor this method to reduce its cognitive Complexity for less than 15
     public void importReadings(Object object) throws org.json.simple.parser.ParseException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, ParserConfigurationException, SAXException {
         boolean loop = true;
         while (loop) {
@@ -127,7 +126,7 @@ public class DataImportUI {
                         System.out.println("No readings were imported. Please verify if the file contains valid readings.");
                         UtilsUI.backToMenu();
                     }
-                    if (importedReadings > 0) {
+                    if (importedReadings > 0 && invalidReadings == 0) {
                         System.out.println(" - " + ctrl.getNrOfImportedReadings() + " readings were imported\n");
                         UtilsUI.backToMenu();
                     }
@@ -136,7 +135,6 @@ public class DataImportUI {
                         System.out.println(" - " + invalidReadings +" readings were not imported. Check log file for details.");
                         UtilsUI.backToMenu();
                     }
-                    loop = false;
                 }
                 loop = false;
             } catch (FileNotFoundException e) {
