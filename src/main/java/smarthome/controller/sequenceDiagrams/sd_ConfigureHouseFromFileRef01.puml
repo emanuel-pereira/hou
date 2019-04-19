@@ -27,51 +27,33 @@ BorderColor SteelBlue
 }
 
 'START FROM CONTROLLER
-create ":ConfigureHouseCTRL"
-create ":DataImport"
-":ConfigureHouseCTRL"->":DataImport":create(gaList)
-":ConfigureHouseCTRL"->":DataImport": importHouse()
-
-'CREATE READER FROM REFLECTION
-create ":{FileReaderHouse}"
-":DataImport"->":{FileReaderHouse}": create(file)
-note right #FFFF
-{FileReaderHouse} can be:
-    JSONHouse
-end note
-
-":DataImport" -> ":DataImport": readConfigFile()
-
-ref over ":DataImport", ":{FileReaderHouse}": Create file reader class based on file extension
-
-'IMPORT HOUSE FROM FILE
-":DataImport" -> ":{FileReaderHouse}": importHouseConfiguration(path)
-
-create ":Address"
-":{FileReaderHouse}" -> ":Address":create()
-ref over ":{FileReaderHouse}", ":Address",":House":importAddress()
-
-create ":Room"
-":{FileReaderHouse}" -> ":Room":create()
-
-ref over ":{FileReaderHouse}","RoomList",":Room",":House": Parse,Creation and Addition of Rooms in File
 
 
-create ":HouseGrid"
-":{FileReaderHouse}" -> ":HouseGrid":create()
-ref over ":{FileReaderHouse}","HouseGridList",":HouseGrid",":House": Parse,Creation and Addition of Grids in File (as well as the rooms associated with them)
+":ConfigureHouseCTRL"->":DataImport": importHouseConfiguration(path)
 
+":DataImport" -> ":{FileReaderHouse}":create()
 
-'SET HOUSE GA FROM USER INPUT
-":ConfigureHouseCTRL" -> ":GAList":geoArea = getById()
-":ConfigureHouseCTRL" -> ":House":setHouseGA(geoArea)
+create "ad:Address"
 
+":{FileReaderHouse}" -> "ad:Address":importAddress()
+":{FileReaderHouse}" -> "ad:Address":create()
+":{FileReaderHouse}" -> "ad:Address":setAddress(ad)
 
-'SET LOCATION FROM USER INPUT
-create "inputLocation:Location"
-":ConfigureHouseCTRL" -> "inputLocation:Location":create(inputLocation)
-":ConfigureHouseCTRL" -> ":House":getAddress()
-":ConfigureHouseCTRL"->":Address":setLocation(inputLocation)
+loop Import of the list of Rooms
+create "r:Room"
+":{FileReaderHouse}" -> "r:Room":importRooms()
+":{FileReaderHouse}" -> "r:Room":create()
+":{FileReaderHouse}" -> ":RoomList":addRoom(r)
+end
+
+loop
+create "hg:HouseGrid"
+":{FileReaderHouse}" -> "hg:HouseGrid":importGrids()
+":{FileReaderHouse}" -> "hg:HouseGrid":create()
+":{FileReaderHouse}" -> ":HouseGridList":addHouseGrid()
+
+end
+
 
 
 @enduml

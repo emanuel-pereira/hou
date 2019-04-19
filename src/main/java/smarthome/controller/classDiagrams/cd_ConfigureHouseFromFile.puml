@@ -160,28 +160,28 @@ class Location{
 
 ConfigureHouseUI .> ConfigureHouseCTRL
 ConfigureHouseCTRL --> GeographicalAreaDTO
-ConfigureHouseCTRL --> Location
-ConfigureHouseCTRL -> DataImport
-DataImport ..> JSONHouse
+ConfigureHouseCTRL ---> Location
+ConfigureHouseCTRL --> DataImport
+DataImport --> FileReaderHouse
 
-GeographicalArea"1" -- "1" GAList
+GeographicalArea"1" - "1" GAList
 GeographicalArea "1"-- "0..1"GeographicalArea
 House -- "1" GeographicalArea
 House -- "1" Address
 Address"1" - "1"Location
 
 House - "1" RoomList
-RoomList -- "*" Room
+RoomList - "*" Room
 
 House -- "1"HouseGridList
-HouseGridList "1  " --- "1..*"HouseGrid
+HouseGridList "1  " -- "1..*"HouseGrid
 
 GeographicalArea <.. GeographicalAreaDTO
-GeographicalAreaDTO ..> GeographicalAreaMapper
+GeographicalAreaDTO .> GeographicalAreaMapper
 
 JSONHouse .|> FileReaderHouse
-JSONHouse ---> Address
-JSONHouse -> Room
+JSONHouse --> Address
+JSONHouse --> Room
 JSONHouse --> HouseGrid
 
 @enduml
