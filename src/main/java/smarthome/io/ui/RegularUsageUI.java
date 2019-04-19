@@ -45,7 +45,7 @@ public final class RegularUsageUI {
                     getTotalRainfallForDayInHouseAreaUI.run();
                     break;
                 case 5:
-                    GetAverageDailyRainfallForTimeIntervalInHouseAreaUI avgRainfallUi = new GetAverageDailyRainfallForTimeIntervalInHouseAreaUI();
+                    GetAverageDailyRainfallForTimeIntervalInHouseAreaUI avgRainfallUi = new GetAverageDailyRainfallForTimeIntervalInHouseAreaUI(sensorTypeList);
                     avgRainfallUi.getAverageDailyRainfallForInterval();
                     break;
                 case 6:

@@ -16,9 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
 
 
-
     Location loc = new Location(20, 20, 2);
-    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal", loc);
     OccupationArea oc = new OccupationArea(2, 5);
     GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
     House house = House.getHouseInstance(a1, g1);
@@ -33,6 +32,42 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     }
 
     @Test
+    @DisplayName("Tests that the rainfall type of sensor exists")
+    void checkIfSensorTypeExistsTrue() {
+
+        SensorType sensorType = new SensorType("rainfall");
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        sensorTypeList.addSensorType(sensorType);
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sensorTypeList);
+
+        assertTrue(ctrl.checkIfSensorTypeExists("rainfall"));
+    }
+
+    @Test
+    @DisplayName("Tests that the rainfall type of sensor does not exist")
+    void checkIfSensorTypeExistsFalse() {
+
+        SensorType sensorType = new SensorType("rainfall");
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        sensorTypeList.addSensorType(sensorType);
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sensorTypeList);
+
+        assertFalse(ctrl.checkIfSensorTypeExists("temperature"));
+    }
+
+    @Test
+    @DisplayName("Tests that the House location is configured")
+    void isHouseGAConfiguredTrue() {
+
+        SensorType sensorType = new SensorType("rainfall");
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        sensorTypeList.addSensorType(sensorType);
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sensorTypeList);
+
+        assertTrue(ctrl.isHouseGAConfigured());
+    }
+
+    @Test
     @DisplayName("Tests if the list of rainfall sensors in the geographical area of the house is returned")
     void getGARainfallSensors() {
 
@@ -40,14 +75,20 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         SensorType wind = new SensorType("wind");
         SensorType temperature = new SensorType("temperature");
 
+        SensorTypeList sTList = new SensorTypeList();
+
+        sTList.addSensorType(rain);
+        sTList.addSensorType(wind);
+        sTList.addSensorType(temperature);
+
         GregorianCalendar startDate = new GregorianCalendar(2018, Calendar.DECEMBER, 26, 12, 0);
         ReadingList readings = new ReadingList();
 
 
-        Sensor s1 = new Sensor("S01","sensor1", startDate, rain, "c", readings);
-        Sensor s2 = new Sensor("S02","sensor2", startDate, temperature, "c", readings);
+        Sensor s1 = new Sensor("S01", "sensor1", startDate, rain, "c", readings);
+        Sensor s2 = new Sensor("S02", "sensor2", startDate, temperature, "c", readings);
         Sensor s3 = new Sensor("S03", "sensor3", startDate, wind, "c", readings);
-        Sensor s4 = new Sensor("S04","sensor4", startDate, rain, "c", readings);
+        Sensor s4 = new Sensor("S04", "sensor4", startDate, rain, "c", readings);
         Sensor s5 = new Sensor("S05", "sensor5", startDate, rain, "c", readings);
 
         g1.getSensorListInGA().addSensor(s1);
@@ -56,7 +97,7 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         g1.getSensorListInGA().addSensor(s4);
         g1.getSensorListInGA().addSensor(s5);
 
-        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL();
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);
 
         List<Sensor> expected = Arrays.asList(s1, s4, s5);
         List<Sensor> result = ctrl623.getGARainfallSensors(rain).getSensorList();
@@ -74,15 +115,21 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         SensorType sT2 = new SensorType("wind");
         SensorType sT3 = new SensorType("temperature");
 
-        GregorianCalendar startDate = new GregorianCalendar(2017, 6, 1);
-        GregorianCalendar endDate = new GregorianCalendar(2017, 6, 6);
+        SensorTypeList sTList = new SensorTypeList();
 
-        GregorianCalendar sDate1 = new GregorianCalendar(2017, 5, 28);
-        GregorianCalendar sDate2 = new GregorianCalendar(2017, 4, 28);
+        sTList.addSensorType(sT);
+        sTList.addSensorType(sT2);
+        sTList.addSensorType(sT3);
 
-        GregorianCalendar date1 = new GregorianCalendar(2017, 5, 30);
-        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 2);
-        GregorianCalendar date3 = new GregorianCalendar(2017, 6, 3);
+        GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.JULY, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JULY, 6);
+
+        GregorianCalendar sDate1 = new GregorianCalendar(2017, Calendar.JUNE, 28);
+        GregorianCalendar sDate2 = new GregorianCalendar(2017, Calendar.MAY, 28);
+
+        GregorianCalendar date1 = new GregorianCalendar(2017, Calendar.JUNE, 30);
+        GregorianCalendar date2 = new GregorianCalendar(2017, Calendar.JULY, 2);
+        GregorianCalendar date3 = new GregorianCalendar(2017, Calendar.JULY, 3);
 
         Reading r1 = new Reading(12.3, date1);
         Reading r2 = new Reading(34.2, date2);
@@ -95,8 +142,8 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         rL1.addReading(r3);
         rL1.addReading(r4);
 
-        GregorianCalendar date4 = new GregorianCalendar(2017, 6, 5);
-        GregorianCalendar date5 = new GregorianCalendar(2017, 6, 6);
+        GregorianCalendar date4 = new GregorianCalendar(2017, Calendar.JULY, 5);
+        GregorianCalendar date5 = new GregorianCalendar(2017, Calendar.JULY, 6);
 
         Reading r5 = new Reading(14.5, date4);
         Reading r6 = new Reading(70.6, date4);
@@ -107,8 +154,8 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         rL2.addReading(r6);
         rL2.addReading(r7);
 
-        GregorianCalendar date6 = new GregorianCalendar(2017, 5, 30);
-        GregorianCalendar date7 = new GregorianCalendar(2017, 6, 7);
+        GregorianCalendar date6 = new GregorianCalendar(2017, Calendar.JUNE, 30);
+        GregorianCalendar date7 = new GregorianCalendar(2017, Calendar.JULY, 7);
 
         Reading r8 = new Reading(14.5, date6);
         Reading r9 = new Reading(70.6, date7);
@@ -123,11 +170,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l2 = new Location(47, -12, 200);
 
 
-        Sensor s6 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s7 = new Sensor("R0002","RainSensor2", sDate2, l1, sT, "l/m2", rL2);
-        Sensor s8 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s9 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s10 = new Sensor("R0003","RainSensor3", sDate1, l2, sT, "l/m2", rL3);
+        Sensor s6 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s7 = new Sensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+        Sensor s8 = new Sensor("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s9 = new Sensor("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s10 = new Sensor("R0003", "RainSensor3", sDate1, l2, sT, "l/m2", rL3);
 
 
         g1.getSensorListInGA().addSensor(s6);
@@ -136,10 +183,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         g1.getSensorListInGA().addSensor(s9);
         g1.getSensorListInGA().addSensor(s10);
 
-        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL();
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);
 
         List<Sensor> expected = Arrays.asList(s6, s7);
         List<Sensor> result = ctrl623.getClosestRainfallSensorsWithReadingsInTimePeriod(sT, startDate, endDate).getSensorList();
+
 
         assertEquals(expected, result);
 
@@ -150,21 +198,27 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @Test
     @DisplayName("Tests if returns false when the closest rainfall sensors do not have readings in period")
     void checkThatClosestRainfallSensorsDoNotHaveReadingsInPeriod() {
-         
+
 
         SensorType sT = new SensorType("rainfall");
         SensorType sT2 = new SensorType("wind");
         SensorType sT3 = new SensorType("temperature");
 
-        GregorianCalendar startDate = new GregorianCalendar(2017, 5, 1);
-        GregorianCalendar endDate = new GregorianCalendar(2017, 6, 30);
+        SensorTypeList sTList = new SensorTypeList();
 
-        GregorianCalendar sDate1 = new GregorianCalendar(2017, 5, 28);
-        GregorianCalendar sDate2 = new GregorianCalendar(2017, 4, 28);
+        sTList.addSensorType(sT);
+        sTList.addSensorType(sT2);
+        sTList.addSensorType(sT3);
 
-        GregorianCalendar date1 = new GregorianCalendar(2017, 3, 20);
-        GregorianCalendar date2 = new GregorianCalendar(2017, 10, 2);
-        GregorianCalendar date3 = new GregorianCalendar(2017, 8, 3);
+        GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.JUNE, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JULY, 30);
+
+        GregorianCalendar sDate1 = new GregorianCalendar(2017, Calendar.JUNE, 28);
+        GregorianCalendar sDate2 = new GregorianCalendar(2017, Calendar.MAY, 28);
+
+        GregorianCalendar date1 = new GregorianCalendar(2017, Calendar.APRIL, 20);
+        GregorianCalendar date2 = new GregorianCalendar(2017, Calendar.NOVEMBER, 2);
+        GregorianCalendar date3 = new GregorianCalendar(2017, Calendar.SEPTEMBER, 3);
 
         Reading r1 = new Reading(12.3, date1);
         Reading r2 = new Reading(34.2, date2);
@@ -177,8 +231,8 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         rL1.addReading(r3);
         rL1.addReading(r4);
 
-        GregorianCalendar date4 = new GregorianCalendar(2017, 6, 5);
-        GregorianCalendar date5 = new GregorianCalendar(2017, 6, 6);
+        GregorianCalendar date4 = new GregorianCalendar(2017, Calendar.JULY, 5);
+        GregorianCalendar date5 = new GregorianCalendar(2017, Calendar.JULY, 6);
 
         Reading r5 = new Reading(14.5, date4);
         Reading r6 = new Reading(70.6, date4);
@@ -189,8 +243,8 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         rL2.addReading(r6);
         rL2.addReading(r7);
 
-        GregorianCalendar date6 = new GregorianCalendar(2017, 4, 30);
-        GregorianCalendar date7 = new GregorianCalendar(2017, 7, 1);
+        GregorianCalendar date6 = new GregorianCalendar(2017, Calendar.MAY, 30);
+        GregorianCalendar date7 = new GregorianCalendar(2017, Calendar.AUGUST, 1);
 
         Reading r8 = new Reading(14.5, date6);
         Reading r9 = new Reading(70.6, date7);
@@ -204,11 +258,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s11 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s12 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s13 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s14 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s15 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensor s11 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s12 = new Sensor("R0002", "RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensor s13 = new Sensor("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s14 = new Sensor("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s15 = new Sensor("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
         g1.getSensorListInGA().addSensor(s11);
@@ -218,7 +272,7 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         g1.getSensorListInGA().addSensor(s15);
 
 
-        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL();
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);
 
         boolean result = ctrl623.checkIfClosestRainfallSensorsHaveReadingsInPeriod(sT, startDate, endDate);
 
@@ -233,15 +287,21 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         SensorType sT2 = new SensorType("wind");
         SensorType sT3 = new SensorType("temperature");
 
-        GregorianCalendar startDate = new GregorianCalendar(2017, 5, 1);
-        GregorianCalendar endDate = new GregorianCalendar(2017, 6, 30);
+        SensorTypeList sTList = new SensorTypeList();
 
-        GregorianCalendar sDate1 = new GregorianCalendar(2017, 5, 28);
-        GregorianCalendar sDate2 = new GregorianCalendar(2017, 4, 28);
+        sTList.addSensorType(sT);
+        sTList.addSensorType(sT2);
+        sTList.addSensorType(sT3);
 
-        GregorianCalendar date1 = new GregorianCalendar(2017, 5, 20);
-        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 16);
-        GregorianCalendar date3 = new GregorianCalendar(2017, 6, 30);
+        GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.JUNE, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JULY, 30);
+
+        GregorianCalendar sDate1 = new GregorianCalendar(2017, Calendar.JUNE, 28);
+        GregorianCalendar sDate2 = new GregorianCalendar(2017, Calendar.MAY, 28);
+
+        GregorianCalendar date1 = new GregorianCalendar(2017, Calendar.JUNE, 20);
+        GregorianCalendar date2 = new GregorianCalendar(2017, Calendar.JULY, 16);
+        GregorianCalendar date3 = new GregorianCalendar(2017, Calendar.JULY, 30);
 
         Reading r1 = new Reading(12.3, date1);
         Reading r2 = new Reading(34.2, date2);
@@ -254,8 +314,8 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         rL1.addReading(r3);
         rL1.addReading(r4);
 
-        GregorianCalendar date4 = new GregorianCalendar(2017, 6, 5);
-        GregorianCalendar date5 = new GregorianCalendar(2017, 6, 6);
+        GregorianCalendar date4 = new GregorianCalendar(2017, Calendar.JULY, 5);
+        GregorianCalendar date5 = new GregorianCalendar(2017, Calendar.JULY, 6);
 
         Reading r5 = new Reading(14.5, date4);
         Reading r6 = new Reading(70.6, date4);
@@ -266,8 +326,8 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         rL2.addReading(r6);
         rL2.addReading(r7);
 
-        GregorianCalendar date6 = new GregorianCalendar(2017, 5, 12);
-        GregorianCalendar date7 = new GregorianCalendar(2017, 6, 24);
+        GregorianCalendar date6 = new GregorianCalendar(2017, Calendar.JUNE, 12);
+        GregorianCalendar date7 = new GregorianCalendar(2017, Calendar.JULY, 24);
 
         Reading r8 = new Reading(14.5, date6);
         Reading r9 = new Reading(70.6, date7);
@@ -281,11 +341,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s16 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s17 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s18 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s19 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s20 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensor s16 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s17 = new Sensor("R0002", "RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensor s18 = new Sensor("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s19 = new Sensor("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s20 = new Sensor("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
         g1.getSensorListInGA().addSensor(s16);
@@ -295,7 +355,7 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         g1.getSensorListInGA().addSensor(s20);
 
 
-        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL();
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);
 
         boolean result = ctrl623.checkIfClosestRainfallSensorsHaveReadingsInPeriod(sT, startDate, endDate);
 
@@ -305,21 +365,27 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
     @Test
     @DisplayName("Tests if calculates daily average rainfall when there is only one closest sensor")
     void calculateAverageOfRainfallReadingsForOneSensor() {
-         
+
 
         SensorType sT = new SensorType("rainfall");
         SensorType sT2 = new SensorType("wind");
         SensorType sT3 = new SensorType("temperature");
 
-        GregorianCalendar startDate = new GregorianCalendar(2017, 5, 1);
-        GregorianCalendar endDate = new GregorianCalendar(2017, 6, 30);
+        SensorTypeList sTList = new SensorTypeList();
 
-        GregorianCalendar sDate1 = new GregorianCalendar(2017, 5, 28);
-        GregorianCalendar sDate2 = new GregorianCalendar(2017, 4, 28);
+        sTList.addSensorType(sT);
+        sTList.addSensorType(sT2);
+        sTList.addSensorType(sT3);
 
-        GregorianCalendar date1 = new GregorianCalendar(2017, 5, 20);
-        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 16);
-        GregorianCalendar date3 = new GregorianCalendar(2017, 6, 30);
+        GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.JUNE, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JULY, 30);
+
+        GregorianCalendar sDate1 = new GregorianCalendar(2017, Calendar.JUNE, 28);
+        GregorianCalendar sDate2 = new GregorianCalendar(2017, Calendar.MAY, 28);
+
+        GregorianCalendar date1 = new GregorianCalendar(2017, Calendar.JUNE, 20);
+        GregorianCalendar date2 = new GregorianCalendar(2017, Calendar.JULY, 16);
+        GregorianCalendar date3 = new GregorianCalendar(2017, Calendar.JULY, 30);
 
         Reading r1 = new Reading(12.3, date1);
         Reading r2 = new Reading(34.2, date2);
@@ -332,8 +398,8 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         rL1.addReading(r3);
         rL1.addReading(r4);
 
-        GregorianCalendar date4 = new GregorianCalendar(2017, 6, 5);
-        GregorianCalendar date5 = new GregorianCalendar(2017, 6, 6);
+        GregorianCalendar date4 = new GregorianCalendar(2017, Calendar.JULY, 5);
+        GregorianCalendar date5 = new GregorianCalendar(2017, Calendar.JULY, 6);
 
         Reading r5 = new Reading(14.5, date4);
         Reading r6 = new Reading(70.6, date4);
@@ -344,8 +410,8 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         rL2.addReading(r6);
         rL2.addReading(r7);
 
-        GregorianCalendar date6 = new GregorianCalendar(2017, 5, 12);
-        GregorianCalendar date7 = new GregorianCalendar(2017, 6, 24);
+        GregorianCalendar date6 = new GregorianCalendar(2017, Calendar.JUNE, 12);
+        GregorianCalendar date7 = new GregorianCalendar(2017, Calendar.JULY, 24);
 
         Reading r8 = new Reading(14.5, date6);
         Reading r9 = new Reading(70.6, date7);
@@ -359,11 +425,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(21, 21, 200);
 
-        Sensor s21 = new Sensor("R0001","RainSensor", sDate1, l2, sT, "l/m2", rL1);
-        Sensor s22 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s23 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s24 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s25 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensor s21 = new Sensor("R0001", "RainSensor", sDate1, l2, sT, "l/m2", rL1);
+        Sensor s22 = new Sensor("R0002", "RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensor s23 = new Sensor("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s24 = new Sensor("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s25 = new Sensor("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
         g1.getSensorListInGA().addSensor(s21);
@@ -373,7 +439,7 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         g1.getSensorListInGA().addSensor(s25);
 
 
-        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL();
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);
 
         double result = ctrl623.calculateAverageOfRainfallReadings(sT, startDate, endDate);
 
@@ -388,15 +454,21 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         SensorType sT2 = new SensorType("wind");
         SensorType sT3 = new SensorType("temperature");
 
-        GregorianCalendar startDate = new GregorianCalendar(2017, 5, 1);
-        GregorianCalendar endDate = new GregorianCalendar(2017, 6, 30);
+        SensorTypeList sTList = new SensorTypeList();
 
-        GregorianCalendar sDate1 = new GregorianCalendar(2017, 5, 28);
-        GregorianCalendar sDate2 = new GregorianCalendar(2017, 4, 28);
+        sTList.addSensorType(sT);
+        sTList.addSensorType(sT2);
+        sTList.addSensorType(sT3);
 
-        GregorianCalendar date1 = new GregorianCalendar(2017, 5, 20);
-        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 16);
-        GregorianCalendar date3 = new GregorianCalendar(2017, 6, 30);
+        GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.JUNE, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JULY, 30);
+
+        GregorianCalendar sDate1 = new GregorianCalendar(2017, Calendar.JUNE, 28);
+        GregorianCalendar sDate2 = new GregorianCalendar(2017, Calendar.MAY, 28);
+
+        GregorianCalendar date1 = new GregorianCalendar(2017, Calendar.JUNE, 20);
+        GregorianCalendar date2 = new GregorianCalendar(2017, Calendar.JULY, 16);
+        GregorianCalendar date3 = new GregorianCalendar(2017, Calendar.JULY, 30);
 
         Reading r1 = new Reading(12.3, date1);
         Reading r2 = new Reading(34.2, date2);
@@ -409,8 +481,8 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         rL1.addReading(r3);
         rL1.addReading(r4);
 
-        GregorianCalendar date4 = new GregorianCalendar(2017, 6, 5);
-        GregorianCalendar date5 = new GregorianCalendar(2017, 6, 6);
+        GregorianCalendar date4 = new GregorianCalendar(2017, Calendar.JULY, 5);
+        GregorianCalendar date5 = new GregorianCalendar(2017, Calendar.JULY, 6);
 
         Reading r5 = new Reading(14.5, date4);
         Reading r6 = new Reading(70.6, date4);
@@ -421,8 +493,8 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         rL2.addReading(r6);
         rL2.addReading(r7);
 
-        GregorianCalendar date6 = new GregorianCalendar(2017, 5, 12);
-        GregorianCalendar date7 = new GregorianCalendar(2017, 6, 24);
+        GregorianCalendar date6 = new GregorianCalendar(2017, Calendar.JUNE, 12);
+        GregorianCalendar date7 = new GregorianCalendar(2017, Calendar.JULY, 24);
 
         Reading r8 = new Reading(14.5, date6);
         Reading r9 = new Reading(70.6, date7);
@@ -436,11 +508,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s26 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s27 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s28 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s29 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s30 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensor s26 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s27 = new Sensor("R0002", "RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensor s28 = new Sensor("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s29 = new Sensor("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s30 = new Sensor("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
         g1.getSensorListInGA().addSensor(s26);
@@ -450,7 +522,7 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         g1.getSensorListInGA().addSensor(s30);
 
 
-        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL();
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);
 
         double result = ctrl623.calculateAverageOfRainfallReadings(sT, startDate, endDate);
 
@@ -465,13 +537,19 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         SensorType sT2 = new SensorType("wind");
         SensorType sT3 = new SensorType("temperature");
 
-        GregorianCalendar startDate = new GregorianCalendar(2017, 5, 1);
-        GregorianCalendar endDate = new GregorianCalendar(2017, 6, 30);
+        SensorTypeList sTList = new SensorTypeList();
 
-        GregorianCalendar sDate1 = new GregorianCalendar(2017, 5, 28);
-        GregorianCalendar sDate2 = new GregorianCalendar(2017, 4, 28);
+        sTList.addSensorType(sT);
+        sTList.addSensorType(sT2);
+        sTList.addSensorType(sT3);
 
-        GregorianCalendar date1 = new GregorianCalendar(2017, 5, 20, 12, 00);
+        GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.JUNE, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JULY, 30);
+
+        GregorianCalendar sDate1 = new GregorianCalendar(2017, Calendar.JUNE, 28);
+        GregorianCalendar sDate2 = new GregorianCalendar(2017, Calendar.MAY, 28);
+
+        GregorianCalendar date1 = new GregorianCalendar(2017, Calendar.JUNE, 20, 12, 00);
 
         Reading r1 = new Reading(12.3, date1);
         Reading r2 = new Reading(34.2, date1);
@@ -484,8 +562,8 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         rL1.addReading(r3);
         rL1.addReading(r4);
 
-        GregorianCalendar date2 = new GregorianCalendar(2017, 6, 5);
-        GregorianCalendar date3 = new GregorianCalendar(2017, 6, 6);
+        GregorianCalendar date2 = new GregorianCalendar(2017, Calendar.JULY, 5);
+        GregorianCalendar date3 = new GregorianCalendar(2017, Calendar.JULY, 6);
 
         Reading r5 = new Reading(14.5, date2);
         Reading r6 = new Reading(70.6, date2);
@@ -497,7 +575,7 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         rL2.addReading(r7);
 
 
-        GregorianCalendar date4 = new GregorianCalendar(2017, 5, 20, 14, 00);
+        GregorianCalendar date4 = new GregorianCalendar(2017, Calendar.JUNE, 20, 14, 00);
 
         Reading r8 = new Reading(14.5, date4);
         Reading r9 = new Reading(70.6, date4);
@@ -511,11 +589,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s31 = new Sensor("R0001","RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s32 = new Sensor("R0002","RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s33 = new Sensor("W0001","WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s34 = new Sensor("T0001","TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s35 = new Sensor("R0003","RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensor s31 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s32 = new Sensor("R0002", "RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensor s33 = new Sensor("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensor s34 = new Sensor("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensor s35 = new Sensor("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
         g1.getSensorListInGA().addSensor(s31);
@@ -525,7 +603,7 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         g1.getSensorListInGA().addSensor(s35);
 
 
-        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL();
+        GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);
 
         double result = ctrl623.calculateAverageOfRainfallReadings(sT, startDate, endDate);
 
