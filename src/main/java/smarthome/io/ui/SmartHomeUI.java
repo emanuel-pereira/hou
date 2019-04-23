@@ -38,7 +38,6 @@ public final class SmartHomeUI {
             options.add("[3] Regular User");
             options.add("[4] Power User");
             options.add("[5] Room Owner");
-            options.add("[0] Exit");
             UtilsUI.showList("Main Menu", options, false, 5);
 
             option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");

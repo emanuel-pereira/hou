@@ -21,11 +21,11 @@ public final class SystemAdministrationUI {
 
             ArrayList<String> options = new ArrayList<>();
 
-            options.add("[1] Define a new type of geographical area to later classify the geographical areas");
+            options.add("[1] Define a new type of geographical area");
             options.add("[2] Get the list of previously defined types of geographical areas");
             options.add("[3] Create a new geographical area");
             options.add("[4] See which geographical areas correspond to a specific type");
-            options.add("[5] Specify a new meteorological characteristic that sensors can measure/register");
+            options.add("[5] Define a new type of sensor");
             options.add("[6] Create a new sensor and associate it to a Geographical Area");
             options.add("[7] Specify that a geographical area is added to another one");
             options.add("[8] Check if a a geographical area is direct/indirectly included to another one");
@@ -60,7 +60,7 @@ public final class SystemAdministrationUI {
                     break;
                 case 5:
                     NewSensorTypeUI ui5 = new NewSensorTypeUI(sensorTypeList);
-                    ui5.run();
+                    ui5.createNewSensorType();
                     break;
                 case 6:
                     NewSensorUI ui6 = new NewSensorUI(sensorTypeList, gaList);
