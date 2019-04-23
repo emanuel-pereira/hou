@@ -26,48 +26,56 @@ skinparam note {
 BorderColor SteelBlue
 }
 
-actor SysAdmin
+actor SystemAdmin
 
 create ":ConfigureHouseUI"
-SysAdmin -> ":ConfigureHouseUI": Configure the House\n from a file
+SystemAdmin -> ":ConfigureHouseUI": Configure the House\n from a file
 
 
 create ":ConfigureHouseCTRL"
 ":ConfigureHouseUI" -> ":ConfigureHouseCTRL": create(gaList)
 ":ConfigureHouseUI" -> ":ConfigureHouseCTRL": showGAListDTO()
-":ConfigureHouseCTRL" -> ":gaList:GAList": getGAList()
+":ConfigureHouseCTRL" -> "gaList:GAList": getGAList()
 
 create ":GeographicalAreaMapper"
 ":ConfigureHouseCTRL" -> ":GeographicalAreaMapper":create()
 
-ref over ":ConfigureHouseCTRL",":GeographicalAreaMapper":Convert GeoAreas to Dtos
+ref over ":ConfigureHouseCTRL",":GeographicalAreaMapper":Convert GeoAreas to DTOs
 
-SysAdmin<--":ConfigureHouseUI": showGAListDTO
-SysAdmin -> ":ConfigureHouseUI": gaId = Choose Geographical Area
+SystemAdmin<--":ConfigureHouseUI": Show list of available\nGeographical Areas
 
-SysAdmin<--":ConfigureHouseUI": ask for House Location
-SysAdmin -> ":ConfigureHouseUI": location = insert\n House Location coordinates
+SystemAdmin -> ":ConfigureHouseUI": Choose Geographical Area and\ninsert House GPS coordinates
 
-":ConfigureHouseUI" -> ":ConfigureHouseCTRL": configureHouseFromFileCTRL(gaId,location)
+SystemAdmin<--":ConfigureHouseUI": Ask for House Location
+
+":ConfigureHouseUI" -> ":ConfigureHouseCTRL": configureHouseFromFileCTRL\n(gaId,location)
 
 
 create ":DataImport"
 ":ConfigureHouseCTRL"->":DataImport":create(gaList)
 ":ConfigureHouseCTRL"->":DataImport": importHouse()
 
-create ":{FileReaderHouse}"
-":DataImport"->":{FileReaderHouse}": create(file)
+
 note right #FFFF
 {FileReaderHouse} can be:
     JSONHouse
 end note
 
-":DataImport" -> ":DataImport": readConfigFile()
+":DataImport" -> ":DataImport": fRH =\ngetHouseConfigFileReader()
 
-ref over ":DataImport", ":{FileReaderHouse}": Create file reader class based on file extension
 
-":DataImport" -> ":{FileReaderHouse}": importHouseConfiguration(path)
-ref over ":ConfigureHouseCTRL",":DataImport",":{FileReaderHouse}",":DataImport",":House":Set Address, add Rooms and Grids (and add Rooms to their respective Grid) that were in the file
+
+":DataImport" -> "fRH:{FileReaderHouse}": importHouseConfiguration\n(path)
+ref over "fRH:{FileReaderHouse}":Set Address, add Rooms and Grids\n(and add Rooms to their respective Grid)\nthat were in the file
+
+
+create "location:Location"
+":ConfigureHouseCTRL" -> "location:Location":create(inputLocation)
+":ConfigureHouseCTRL" -> ":House": ad = getAddress()
+":ConfigureHouseCTRL"->"ad:Address":setLocation(location)
+":ConfigureHouseCTRL" -> ":GAList":getById(gaId)
+":ConfigureHouseCTRL" -> ":House":setHouseGA(geoArea)
+
 
 ":ConfigureHouseUI" -> ":ConfigureHouseCTRL" :String = showAddressInString()
 ":ConfigureHouseUI" -> ":ConfigureHouseCTRL" :String = showGAInString()
@@ -75,5 +83,5 @@ ref over ":ConfigureHouseCTRL",":DataImport",":{FileReaderHouse}",":DataImport",
 ":ConfigureHouseUI" -> ":ConfigureHouseCTRL" :int = getGridListSizeCTRL()
 
 
-SysAdmin<--":ConfigureHouseUI": Show success message with the House's\n address, ga, number of Rooms and Grids
+SystemAdmin<--":ConfigureHouseUI": Show success message\nwith the House's number of Rooms\nand Grids, Address and GA
 @enduml
