@@ -58,10 +58,9 @@ public class ListParentGACTRL {
      * @return List of GA's designations as a number ordered List
      */
     public String showListInString() {
-        List<GeographicalArea> gaList = this.gaList.getGAList();
         StringBuilder result = new StringBuilder();
         int number = 1;
-        for (GeographicalArea GA : gaList) {
+        for (GeographicalArea GA : gaList.getGAList()) {
             result.append(number++);
             result.append(" - ");
             result.append(GA.getGAName());

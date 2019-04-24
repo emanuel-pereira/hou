@@ -1,7 +1,6 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetTotalNominalPowerCTRL;
-import smarthome.model.validations.Utils;
 
 public class GetTotalNominalPowerUI {
 

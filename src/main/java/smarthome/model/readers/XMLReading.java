@@ -29,16 +29,9 @@ public class XMLReading implements FileReaderReadings {
     @Override
     public List<String[]> importData(Path filePath) throws ParserConfigurationException, IOException, SAXException {
 
-        String maliciousSample = "xxe.xml";
-
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         dbFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
         List<String[]> readingList = new ArrayList<>();
-
-
-        /*try(FileInputStream fileInputStream = new FileInputStream(maliciousSample)){
-
-        }*/
 
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 

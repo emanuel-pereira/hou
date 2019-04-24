@@ -16,6 +16,7 @@ public class JSONHouseSensors implements FileReaderHouseSensors{
 
 
     public JSONHouseSensors() {
+        /*Constructor is supposed to be empty*/
     }
 
     private JSONObject readFile() throws IOException, ParseException {
