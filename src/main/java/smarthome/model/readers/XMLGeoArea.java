@@ -7,8 +7,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import smarthome.model.*;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.nio.file.Path;
 import java.text.DateFormat;
@@ -30,9 +32,12 @@ public class XMLGeoArea implements FileReaderGeoArea {
     }
 
 
-    public List<GeographicalArea> loadData(Path filePath) {
+    public List<GeographicalArea> loadData(Path filePath) throws ParserConfigurationException {
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        dbFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
+        //XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE
+        //
         List<GeographicalArea> gaList = new ArrayList<>();
 
         try {

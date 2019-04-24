@@ -55,7 +55,7 @@ public class DataImportUI {
         this.ctrl = new DataImportCTRL(roomList);
     }
 
-    public void loadGeoAreaFile() {
+    public void loadGeoAreaFile() throws ParserConfigurationException {
         System.out.println("Please enter the file path to import geographical areas and sensors:");
         String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
 
@@ -77,14 +77,14 @@ public class DataImportUI {
 
     }
 
-    public void showGAsNumberInFile() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    public void showGAsNumberInFile() throws ParserConfigurationException,  IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         System.out.println("In the file there are\n");
         System.out.println(" - " + ctrl.getGaListInFileSize(this.filePath) + " geographical area(s).");
         System.out.println(" - " + ctrl.getAllSensorsInFileSize(this.filePath) + " sensor(s).");
         this.importGAs();
     }
 
-    public void importGAs() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    public void importGAs() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         System.out.println("\n------");
         if (UtilsUI.confirmOption("Do you wish to import this data?(y/n)", "Please type y/Y for Yes or n/N for No.")) {
             ctrl.importGeoAreasFromFile(this.filePath);

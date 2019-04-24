@@ -205,7 +205,7 @@ public class DataImport {
         return className;
     }
 
-    public List<GeographicalArea> loadGeoAreaFiles(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+    public List<GeographicalArea> loadGeoAreaFiles(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException, ParserConfigurationException {
         String fileExtension = getFileExtension(filePathAndName);
         String className = getClassName("geographical_area", fileExtension);
         FileReaderGeoArea reader = (FileReaderGeoArea) Class.forName(className).newInstance();
