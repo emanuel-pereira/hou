@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TypeGATest {
 
-    //Testar Equals
 
     @Test
     public void equalsIfPersonEqualsTypeGA() {
