@@ -1,7 +1,7 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetCurrentTemperatureInHouseAreaCTRL;
-import smarthome.model.Sensor;
+import smarthome.model.Sensors;
 import smarthome.model.SensorType;
 import smarthome.model.SensorTypeList;
 
@@ -50,7 +50,7 @@ public class GetCurrentTemperatureInHouseAreaUI {
             System.out.println("No sensors of that type in the house area");
             return;
         }
-        Sensor closestSensor = this.ctrl.getClosestSensorWithLatestReadingCTRL(this.sensorType);
+        Sensors closestSensor = this.ctrl.getClosestSensorWithLatestReadingCTRL(this.sensorType);
         double currentReadingValue = this.ctrl.getLastReadingOfSensor(closestSensor);
         System.out.println("The current " + this.sensorType.getType() + " in the House Area is " + currentReadingValue);
     }

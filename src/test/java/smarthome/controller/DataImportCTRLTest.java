@@ -232,24 +232,24 @@ class DataImportCTRLTest {
         GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
         Location s0Location = new Location(12, 25, 32);
         SensorType temperature = new SensorType("temperature");
-        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        Sensors tSensor0 = new Sensors("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor0);
 
         GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
         Location s1Location = new Location(12, 25, 32);
-        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor1 = new Sensors("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor1);
 
-        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor2 = new Sensors("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor2);
 
-        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor3 = new Sensors("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor3);
 
         Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
         SensorList bedroomSL = bedroom.getSensorListInRoom();
         Location location = new Location(12, 32, 15);
-        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        Sensors brSensor = new Sensors("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
         bedroomSL.addSensor(brSensor);
         RoomList roomList = new RoomList();
         roomList.addRoom(kitchen);
@@ -273,24 +273,24 @@ class DataImportCTRLTest {
         GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
         Location s0Location = new Location(12, 25, 32);
         SensorType temperature = new SensorType("temperature");
-        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        Sensors tSensor0 = new Sensors("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor0);
 
         GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
         Location s1Location = new Location(12, 25, 32);
-        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor1 = new Sensors("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor1);
 
-        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor2 = new Sensors("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor2);
 
-        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor3 = new Sensors("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor3);
 
         Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
         SensorList bedroomSL = bedroom.getSensorListInRoom();
         Location location = new Location(12, 32, 15);
-        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        Sensors brSensor = new Sensors("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
         bedroomSL.addSensor(brSensor);
         RoomList roomList = new RoomList();
         roomList.addRoom(kitchen);
@@ -314,24 +314,24 @@ class DataImportCTRLTest {
         GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
         Location s0Location = new Location(12, 25, 32);
         SensorType temperature = new SensorType("temperature");
-        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        Sensors tSensor0 = new Sensors("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor0);
 
         GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
         Location s1Location = new Location(12, 25, 32);
-        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor1 = new Sensors("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor1);
 
-        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor2 = new Sensors("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor2);
 
-        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor3 = new Sensors("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor3);
 
         Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
         SensorList bedroomSL = bedroom.getSensorListInRoom();
         Location location = new Location(12, 32, 15);
-        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        Sensors brSensor = new Sensors("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
         bedroomSL.addSensor(brSensor);
         RoomList roomList = new RoomList();
         roomList.addRoom(kitchen);
@@ -355,24 +355,24 @@ class DataImportCTRLTest {
         GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
         Location s0Location = new Location(12, 25, 32);
         SensorType temperature = new SensorType("temperature");
-        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        Sensors tSensor0 = new Sensors("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor0);
 
         GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
         Location s1Location = new Location(12, 25, 32);
-        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor1 = new Sensors("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor1);
 
-        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor2 = new Sensors("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor2);
 
-        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor3 = new Sensors("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor3);
 
         Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
         SensorList bedroomSL = bedroom.getSensorListInRoom();
         Location location = new Location(12, 32, 15);
-        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        Sensors brSensor = new Sensors("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
         bedroomSL.addSensor(brSensor);
         RoomList roomList = new RoomList();
         roomList.addRoom(kitchen);
@@ -396,24 +396,24 @@ class DataImportCTRLTest {
         GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
         Location s0Location = new Location(12, 25, 32);
         SensorType temperature = new SensorType("temperature");
-        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        Sensors tSensor0 = new Sensors("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor0);
 
         GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
         Location s1Location = new Location(12, 25, 32);
-        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor1 = new Sensors("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor1);
 
-        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor2 = new Sensors("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor2);
 
-        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor3 = new Sensors("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor3);
 
         Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
         SensorList bedroomSL = bedroom.getSensorListInRoom();
         Location location = new Location(12, 32, 15);
-        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        Sensors brSensor = new Sensors("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
         bedroomSL.addSensor(brSensor);
         RoomList roomList = new RoomList();
         roomList.addRoom(kitchen);
@@ -436,24 +436,24 @@ class DataImportCTRLTest {
         GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
         Location s0Location = new Location(12, 25, 32);
         SensorType temperature = new SensorType("temperature");
-        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        Sensors tSensor0 = new Sensors("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor0);
 
         GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
         Location s1Location = new Location(12, 25, 32);
-        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor1 = new Sensors("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor1);
 
-        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor2 = new Sensors("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor2);
 
-        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor3 = new Sensors("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor3);
 
         Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
         SensorList bedroomSL = bedroom.getSensorListInRoom();
         Location location = new Location(12, 32, 15);
-        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        Sensors brSensor = new Sensors("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
         bedroomSL.addSensor(brSensor);
         RoomList roomList = new RoomList();
         roomList.addRoom(kitchen);
@@ -671,12 +671,12 @@ class DataImportCTRLTest {
         GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
         Location s0Location = new Location(12, 25, 32);
         SensorType temperature = new SensorType("temperature");
-        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        Sensors tSensor0 = new Sensors("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
         kSensorList.addSensor(tSensor0);
         SensorList bSensorList = bedroom.getSensorListInRoom();
         GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
         Location s1Location = new Location(12, 25, 32);
-        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensors tSensor1 = new Sensors("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
 
         bSensorList.addSensor(tSensor1);
 

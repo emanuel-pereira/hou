@@ -227,7 +227,7 @@ public class GeographicalAreaTest {
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 3);
         Location location = new Location(3, 2, 1);
         SensorType temp = new SensorType("Temperature");
-        Sensor sensorPorto = new Sensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
+        Sensors sensorPorto = new Sensors("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
         ga.getSensorListInGA().addSensor(sensorPorto);
         //TODO where is assert?
     }

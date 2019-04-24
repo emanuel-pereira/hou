@@ -56,7 +56,7 @@ public class RemoveGASensorCTRL {
     public boolean removeSensor(String gaDTOId, String sensorDTOId) {
         GeographicalArea ga = getGAById(gaDTOId);
         SensorList sensorList = ga.getSensorListInGA();
-        for (Sensor sensor : sensorList.getSensorList()) {
+        for (Sensors sensor : sensorList.getSensorList()) {
             if (sensor.getId().matches(sensorDTOId)) {
                 sensorList.removeSensor(sensor);
                 try {
@@ -76,7 +76,7 @@ public class RemoveGASensorCTRL {
      * Method that persists the readings in its repository of the sensor inputted as parameter.
      * @param sensor inputted as parameter
      */
-    private static void saveSensorReadings(Sensor sensor) {
+    private static void saveSensorReadings(Sensors sensor) {
         ReadingList readingList = sensor.getReadingList();
         for (Reading reading : readingList.getReadingsList()) {
             //Repository call

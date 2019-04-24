@@ -63,7 +63,7 @@ public class GetCurrentTemperatureInHouseAreaCTRL {
      * @return the closest sensor to the house location of the selected sensor type,
      * considering as fall-back selection criterion the sensor with the latest readings.
      */
-    public Sensor getClosestSensorWithLatestReadingCTRL(SensorType sensorType) {
+    public Sensors getClosestSensorWithLatestReadingCTRL(SensorType sensorType) {
         return getClosestSensorWithLatestReading(sensorType);
     }
 
@@ -72,7 +72,7 @@ public class GetCurrentTemperatureInHouseAreaCTRL {
      * @param sensor selected to get the last reading
      * @return the last reading value registered for the selected sensor
      */
-    public double getLastReadingOfSensor(Sensor sensor){
+    public double getLastReadingOfSensor(Sensors sensor){
         return sensor.getLastReadingValuePerSensor();
     }
 }

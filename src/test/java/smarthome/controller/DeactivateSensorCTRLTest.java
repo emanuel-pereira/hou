@@ -105,7 +105,7 @@ class DeactivateSensorCTRLTest {
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
-        Sensor sensor = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        Sensors sensor = new Sensors("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
 
         SensorMapper sMapper = new SensorMapper();
@@ -141,7 +141,7 @@ class DeactivateSensorCTRLTest {
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
-        Sensor sensor = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        Sensors sensor = new Sensors("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
 
         SensorMapper sMapper = new SensorMapper();
@@ -172,7 +172,7 @@ class DeactivateSensorCTRLTest {
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
-        Sensor sensor = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        Sensors sensor = new Sensors("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
         GregorianCalendar pDate = new GregorianCalendar(2019, Calendar.SEPTEMBER, 2);
         sensor.deactivate(pDate);
@@ -267,9 +267,9 @@ class DeactivateSensorCTRLTest {
         GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
 
-        Sensor sensor1 = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        Sensors sensor1 = new Sensors("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor1);
-        Sensor sensor2 = new Sensor("TL1024", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        Sensors sensor2 = new Sensors("TL1024", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor2);
 
         SensorMapper sMapper = new SensorMapper();
@@ -306,9 +306,9 @@ class DeactivateSensorCTRLTest {
         GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
 
-        Sensor sensor1 = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        Sensors sensor1 = new Sensors("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor1);
-        Sensor sensor2 = new Sensor("TL1024", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        Sensors sensor2 = new Sensors("TL1024", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor2);
 
         GregorianCalendar pDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
@@ -350,7 +350,7 @@ class DeactivateSensorCTRLTest {
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
-        Sensor sensor = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        Sensors sensor = new Sensors("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
 
         SensorMapper sMapper = new SensorMapper();
@@ -382,7 +382,7 @@ class DeactivateSensorCTRLTest {
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
-        Sensor sensor = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        Sensors sensor = new Sensors("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
 
         SensorMapper sMapper = new SensorMapper();

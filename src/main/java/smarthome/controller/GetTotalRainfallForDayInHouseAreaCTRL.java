@@ -1,6 +1,6 @@
 package smarthome.controller;
 
-import smarthome.model.Sensor;
+import smarthome.model.Sensors;
 import smarthome.model.SensorType;
 import smarthome.model.SensorTypeList;
 
@@ -45,7 +45,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRL {
      * @return a double value which resulted from summing up the values of readings in the date inputted as parameter
      */
     public double showTotalValueInADay(GregorianCalendar inputDate, SensorType sensorType) {
-        Sensor sensor = getSensorOfTypeWithLatestReadingsInDate(inputDate, sensorType);
+        Sensors sensor = getSensorOfTypeWithLatestReadingsInDate(inputDate, sensorType);
 
         return sensor.getReadingList().totalValueInGivenDay(inputDate);
     }

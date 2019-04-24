@@ -112,7 +112,7 @@ public class RepositoryTest {
         GeographicalArea lisbon = new GeographicalArea("PT", "Lisboa", city, oaL, locL);
         SensorList lSensorList = lisbon.getSensorListInGA();
         SensorType temperature = new SensorType("temperature");
-        Sensor sensor = new Sensor("TT1023", "Temperature Sensor", new GregorianCalendar(2019, 2, 2), locL, temperature, "Celsius", new ReadingList());
+        Sensors sensor = new Sensors("TT1023", "Temperature Sensors", new GregorianCalendar(2019, 2, 2), locL, temperature, "Celsius", new ReadingList());
         lSensorList.addSensor(sensor);
         Repositories.saveGA(lisbon);
         long geoRepSize = Repositories.getGeoRepository().count();
@@ -135,7 +135,7 @@ public class RepositoryTest {
         GeographicalArea lisbon = new GeographicalArea("PT", "Lisboa", city, oaL, locL);
         SensorList lSensorList = lisbon.getSensorListInGA();
         SensorType temperature = new SensorType("temperature");
-        Sensor sensor = new Sensor("TT1023", "Temperature Sensor", new GregorianCalendar(2019, 2, 2), locL, temperature, "Celsius", new ReadingList());
+        Sensors sensor = new Sensors("TT1023", "Temperature Sensors", new GregorianCalendar(2019, 2, 2), locL, temperature, "Celsius", new ReadingList());
         lSensorList.addSensor(sensor);
         Repositories.saveGA(lisbon);
         long typeGARepSize = Repositories.getTypeGARepository().count();
@@ -154,7 +154,7 @@ public class RepositoryTest {
         SensorType wind = new SensorType("wind");
         Repositories.getSensorTypeRepository().save(wind);
         ReadingList readingList = new ReadingList();
-        Sensor sensor1 = new Sensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
+        Sensors sensor1 = new Sensors("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
         Repositories.getSensorRepository().save(sensor1);
         GregorianCalendar r1Date = new GregorianCalendar(2016, Calendar.NOVEMBER, 15, 9, 15);
         Reading reading = new Reading(22, r1Date);
@@ -173,7 +173,7 @@ public class RepositoryTest {
         Location locS1 = new Location(72, 26, 2);
         SensorType wind = new SensorType("wind");
         ReadingList readingList = new ReadingList();
-        Sensor sensor1 = new Sensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
+        Sensors sensor1 = new Sensors("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
         GregorianCalendar r1Date = new GregorianCalendar(2016, Calendar.NOVEMBER, 15, 9, 15);
         Reading reading = new Reading(22, r1Date);
         assertTrue(reading.setSensor(sensor1));
@@ -191,7 +191,7 @@ public class RepositoryTest {
         Location locS1 = new Location(72, 26, 2);
         SensorType wind = new SensorType("wind");
         ReadingList readingList = new ReadingList();
-        Sensor sensor1 = new Sensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
+        Sensors sensor1 = new Sensors("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
         GregorianCalendar r1Date = new GregorianCalendar(2016, Calendar.NOVEMBER, 15, 9, 15);
         Reading reading = new Reading(22, r1Date);
         assertTrue(reading.setSensor(sensor1));
@@ -238,7 +238,7 @@ public class RepositoryTest {
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
         SensorType sensorType = new SensorType("Temperature");
-        Sensor sensor = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        Sensors sensor = new Sensors("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
 
         //created sensorDTO from sensor
@@ -285,7 +285,7 @@ public class RepositoryTest {
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
         SensorType sensorType = new SensorType("Temperature");
-        Sensor sensor = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        Sensors sensor = new Sensors("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
 
         //created sensorDTO from sensor
@@ -356,8 +356,8 @@ public class RepositoryTest {
         Room bedroom = new Room("R1", "Bedroom 1", 2, 2, 2, 2);
         SensorType temperature = new SensorType("temperature");
         SensorList sList = bedroom.getSensorListInRoom();
-        Sensor sensor1 = new Sensor("S1", "Sensor1", new GregorianCalendar(2019, 2, 2), temperature, "C", new ReadingList());
-        Sensor sensor2 = new Sensor("S2", "Sensor2", new GregorianCalendar(2019, 3, 4), temperature, "C", new ReadingList());
+        Sensors sensor1 = new Sensors("S1", "Sensor1", new GregorianCalendar(2019, 2, 2), temperature, "C", new ReadingList());
+        Sensors sensor2 = new Sensors("S2", "Sensor2", new GregorianCalendar(2019, 3, 4), temperature, "C", new ReadingList());
 
         sList.addSensor(sensor1);
         sList.addSensor(sensor2);

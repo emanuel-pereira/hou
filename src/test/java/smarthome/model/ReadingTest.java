@@ -106,11 +106,11 @@ public class ReadingTest {
         Location locS1 = new Location(72, 26, 2);
         SensorType temperature = new SensorType("temperature");
         ReadingList readingList = new ReadingList();
-        Sensor sensor = new Sensor("TT1025", "Temperature Sensor", startDate, locS1, temperature, "Celsius", readingList);
+        Sensors sensor = new Sensors("TT1025", "Temperature Sensors", startDate, locS1, temperature, "Celsius", readingList);
         GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 31, 21, 30);
         Reading reading1 = new Reading(13, calendar1);
         reading1.setSensor(sensor);
-        Sensor result = reading1.getSensor();
+        Sensors result = reading1.getSensor();
         assertEquals(sensor, result);
     }
 

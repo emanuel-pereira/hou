@@ -122,13 +122,13 @@ public class House {
 
         SensorList sensorListOfType = gaSensorList.getListOfSensorsByType(sensorType);
         double distance;
-        List<Sensor> sensorList = sensorListOfType.getSensorList();
-        Sensor firstSensor = sensorList.get(0);
+        List<Sensors> sensorList = sensorListOfType.getSensorList();
+        Sensors firstSensor = sensorList.get(0);
         Location sensorLocation = firstSensor.getLocation();
         double minDistance = calculateDistance(sensorLocation);
         SensorList closestSensors = new SensorList();
 
-        for (Sensor sensor : sensorList) {
+        for (Sensors sensor : sensorList) {
             Location location = sensor.getLocation();
             distance = calculateDistance(location);
             if (BigDecimal.valueOf(distance).equals(BigDecimal.valueOf(minDistance))) {
@@ -149,7 +149,7 @@ public class House {
             return new SensorList();
         else {
             SensorList closestSensorWithReadingsInPeriod = new SensorList();
-            for (Sensor sensor : closestSensorsOfType.getSensorList()) {
+            for (Sensors sensor : closestSensorsOfType.getSensorList()) {
                 ReadingList readingListInPeriod = sensor.getReadingList().filterByDate(startDate, endDate);
                 if (!readingListInPeriod.getReadingsList().isEmpty())
                     closestSensorWithReadingsInPeriod.addSensor(sensor);
@@ -167,13 +167,13 @@ public class House {
      * @return the closest sensor to the house
      */
 
-    public static Sensor filterByTypeByIntervalAndDistance(SensorType type, Calendar startDate, Calendar endDate) {
+    public static Sensors filterByTypeByIntervalAndDistance(SensorType type, Calendar startDate, Calendar endDate) {
         SensorList closestSensorList = filterListByTypeByIntervalAndDistance(type, startDate, endDate);
-        Sensor closestSensor = closestSensorList.getSensorList().get(0);
+        Sensors closestSensor = closestSensorList.getSensorList().get(0);
         ReadingList readingsInPeriod = closestSensor.getReadingList().filterByDate(startDate, endDate);
         Reading latestReadingInPeriod = readingsInPeriod.getLastReading();
 
-        for (Sensor sensor : closestSensorList.getSensorList()) {
+        for (Sensors sensor : closestSensorList.getSensorList()) {
             ReadingList sensorReadingsInPeriod = sensor.getReadingList().filterByDate(startDate, endDate);
             Reading sensorLatestReadingInPeriod = sensorReadingsInPeriod.getLastReading();
 
@@ -195,7 +195,7 @@ public class House {
      */
 
     public static double averageOfReadingsInPeriod(SensorType type, Calendar startDate, Calendar endDate) {
-        Sensor closestSensorWithLatestReadingsInPeriod = filterByTypeByIntervalAndDistance(type, startDate, endDate);
+        Sensors closestSensorWithLatestReadingsInPeriod = filterByTypeByIntervalAndDistance(type, startDate, endDate);
         ReadingList readingsFromSensorInPeriod = closestSensorWithLatestReadingsInPeriod.getReadingList();
         ReadingList readingsInPeriod = readingsFromSensorInPeriod.filterByDate(startDate, endDate);
 
@@ -218,16 +218,16 @@ public class House {
      * Method that selects the sensor with the latest readings, when the closest sensors to the house of the selected
      * sensorType are at the same distance to the house.
      *
-     * @param sensorType type of Sensor selected
+     * @param sensorType type of Sensors selected
      * @return the sensor with the most recent reading of the closest sensors to the house.
      */
-    public static Sensor getClosestSensorWithLatestReading(SensorType sensorType) {
+    public static Sensors getClosestSensorWithLatestReading(SensorType sensorType) {
         SensorList closestSensors = filterListByTypeAndProximity(sensorType);
-        Sensor closestSensorWithLatestReading = closestSensors.getSensorList().get(0);
+        Sensors closestSensorWithLatestReading = closestSensors.getSensorList().get(0);
         Reading lastReading = closestSensorWithLatestReading.getLastReadingPerSensor();
         Calendar lastDate = lastReading.getDateAndTime();
 
-        for (Sensor sensor : closestSensors.getSensorList()) {
+        for (Sensors sensor : closestSensors.getSensorList()) {
             Reading sensorLastReading = sensor.getLastReadingPerSensor();
             if (sensorLastReading.getDateAndTime().after(lastDate)) {
                 lastDate = sensor.getLastReadingPerSensor().getDateAndTime();
@@ -248,7 +248,7 @@ public class House {
     public static SensorList getClosestSensorsWithReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
         SensorList closestSensorsByType = filterListByTypeAndProximity(sensorType);
         SensorList sensorsWithReadingsInDate = new SensorList();
-        for (Sensor sensor : closestSensorsByType.getSensorList()) {
+        for (Sensors sensor : closestSensorsByType.getSensorList()) {
             ReadingList readingListInDay = sensor.getReadingList().getReadingsInSpecificDay(inputDate);
             if (!(readingListInDay.getReadingsList().isEmpty())) {
                 sensorsWithReadingsInDate.addSensor(sensor);
@@ -285,18 +285,18 @@ public class House {
      * @param sensorType selected to check the closest sensors of that type
      * @return the closest sensor with the latest readings in the specified date.
      */
-    public static Sensor getSensorOfTypeWithLatestReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
+    public static Sensors getSensorOfTypeWithLatestReadingsInDate(GregorianCalendar inputDate, SensorType sensorType) {
 
         SensorList closestSensors = getClosestSensorsWithReadingsInDate(inputDate, sensorType);
 
-        Sensor closestSensorWithLatestReading = closestSensors.getSensorList().get(0);
+        Sensors closestSensorWithLatestReading = closestSensors.getSensorList().get(0);
 
         ReadingList readingListInDay = closestSensorWithLatestReading.getReadingList().getReadingsInSpecificDay(inputDate);
         Reading lastReading = readingListInDay.getLastReading();
 
         Calendar lastDate = lastReading.getDateAndTime();
 
-        for (Sensor sensor : closestSensors.getSensorList()) {
+        for (Sensors sensor : closestSensors.getSensorList()) {
             ReadingList sensorReadingListInDay = sensor.getReadingList().getReadingsInSpecificDay(inputDate);
             Reading sensorLastReadingInDay = sensorReadingListInDay.getLastReading();
             Calendar timeOfLastReading = sensorLastReadingInDay.getDateAndTime();

@@ -13,7 +13,7 @@ class SensorTest {
 
     @Test
     void setSensorAttributes(){
-        Sensor sensor = new Sensor();
+        Sensors sensor = new Sensors();
 
         sensor.setId("RF12345");
         sensor.setSensorDesignation("Meteo station ISEP - rainfall");
@@ -47,7 +47,7 @@ class SensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readingList = new ReadingList ();
-        Sensor tempSensor = new Sensor ("", "", startDate, loc, type1, "Celsius", readingList);
+        Sensors tempSensor = new Sensors("", "", startDate, loc, type1, "Celsius", readingList);
         String designation = "";
         boolean result = tempSensor.setSensorDesignation (designation);
         assertFalse (result);
@@ -60,7 +60,7 @@ class SensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readingList = new ReadingList ();
-        Sensor tempSensor = new Sensor ("", "Sensor04TempPorto", startDate, loc, type1, "Celsius", readingList);
+        Sensors tempSensor = new Sensors("", "Sensor04TempPorto", startDate, loc, type1, "Celsius", readingList);
         String designation = "Sensor04TempPorto";
         boolean result = tempSensor.setSensorDesignation (designation);
         assertTrue (result);
@@ -73,7 +73,7 @@ class SensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readingList = new ReadingList ();
-        Sensor tempSensor = new Sensor ("", "Sensor01TempMat", startDate, loc, type1, "Celsius", readingList);
+        Sensors tempSensor = new Sensors("", "Sensor01TempMat", startDate, loc, type1, "Celsius", readingList);
         String designation = "";
         String expectedResult = "Sensor01TempMat";
         tempSensor.setSensorDesignation (designation);
@@ -87,7 +87,7 @@ class SensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readingList = new ReadingList ();
-        Sensor tempSensor = new Sensor ("", " ", startDate, loc, type1, "meters", readingList);
+        Sensors tempSensor = new Sensors("", " ", startDate, loc, type1, "meters", readingList);
         String designation = "SensorVisibilityLisbon";
         tempSensor.setSensorDesignation (designation);
         String expectedResult = "SensorVisibilityLisbon";
@@ -101,7 +101,7 @@ class SensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readingList = new ReadingList ();
-        Sensor tempSensor = new Sensor ("", "sensor", startDate, loc, type1, "meters", readingList);
+        Sensors tempSensor = new Sensors("", "sensor", startDate, loc, type1, "meters", readingList);
         String designation = "SensorVisibilityLisboa";
         tempSensor.setSensorDesignation (designation);
         String expectedResult = "SensorVisibilityLisboa";
@@ -116,7 +116,7 @@ class SensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readingList = new ReadingList ();
-        Sensor sensor = new Sensor ("", "WindSensorSantarem", startDate, loc, type1, "meters", readingList);
+        Sensors sensor = new Sensors("", "WindSensorSantarem", startDate, loc, type1, "meters", readingList);
         String designation = "WindSensorLisboa";
         sensor.setSensorDesignation (designation);
         String expectedResult = "WindSensorSantarem";
@@ -131,7 +131,7 @@ class SensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readingList = new ReadingList ();
-        Sensor rainfallSensor = new Sensor ("", "RainfallSensorOfPorto", startDate, loc, type1, "Celsius", readingList);
+        Sensors rainfallSensor = new Sensors("", "RainfallSensorOfPorto", startDate, loc, type1, "Celsius", readingList);
         Location loc1 = new Location (30, -12, 62);
         rainfallSensor.setSensorLocation (loc1);
         Location result = rainfallSensor.getLocation ();
@@ -151,8 +151,8 @@ class SensorTest {
         Location l2 = new Location (30, 25, 20);
         ReadingList readings = new ReadingList ();
 
-        Sensor sensor1 = new Sensor ("P2355", "PrecipitationSensor", rTime1, l1, type1, "l/m2", readings);
-        Sensor sensor2 = new Sensor ("TT1023", "TemperatureSensor", rTime2, l2, type2, "C", readings);
+        Sensors sensor1 = new Sensors("P2355", "PrecipitationSensor", rTime1, l1, type1, "l/m2", readings);
+        Sensors sensor2 = new Sensors("TT1023", "TemperatureSensor", rTime2, l2, type2, "C", readings);
 
         double expectedResult = 33.91;
         double result = sensor1.calcLinearDistanceBetweenTwoSensors (sensor1, sensor2);
@@ -170,8 +170,8 @@ class SensorTest {
         Location loc = new Location (10, 10, 10);
         ReadingList readings = new ReadingList ();
 
-        Sensor sensor1 = new Sensor ("P2355", "PrecipitationSensor", rTime1, loc, type1, "l/m2", readings);
-        Sensor sensor2 = new Sensor ("TT1023", "TemperatureSensor", rTime2, loc, type2, "C", readings);
+        Sensors sensor1 = new Sensors("P2355", "PrecipitationSensor", rTime1, loc, type1, "l/m2", readings);
+        Sensors sensor2 = new Sensors("TT1023", "TemperatureSensor", rTime2, loc, type2, "C", readings);
 
         double expectedResult = 0;
         double result = sensor1.calcLinearDistanceBetweenTwoSensors (sensor1, sensor2);
@@ -189,8 +189,8 @@ class SensorTest {
         SensorType type2 = new SensorType ("temperature");
         ReadingList readings = new ReadingList ();
 
-        Sensor sensor1 = new Sensor ("P2355", "PrecipitationSensor", rTime1, loc1, type1, "l/m2", readings);
-        Sensor sensor2 = new Sensor ("TT1023", "TemperatureSensor", rTime2, loc2, type2, "C", readings);
+        Sensors sensor1 = new Sensors("P2355", "PrecipitationSensor", rTime1, loc1, type1, "l/m2", readings);
+        Sensors sensor2 = new Sensors("TT1023", "TemperatureSensor", rTime2, loc2, type2, "C", readings);
 
         double expectedResult = 0;
         double result = sensor1.calcLinearDistanceBetweenTwoSensors (sensor1, sensor2);
@@ -209,8 +209,8 @@ class SensorTest {
         SensorType type2 = new SensorType ("temperature");
         ReadingList readings = new ReadingList ();
 
-        Sensor sensor1 = new Sensor ("P2355", "PrecipitationSensor", rTime1, loc1, type1, "l/m2", readings);
-        Sensor sensor2 = new Sensor ("TT1023", "TemperatureSensor", rTime2, loc2, type2, "C", readings);
+        Sensors sensor1 = new Sensors("P2355", "PrecipitationSensor", rTime1, loc1, type1, "l/m2", readings);
+        Sensors sensor2 = new Sensors("TT1023", "TemperatureSensor", rTime2, loc2, type2, "C", readings);
         double expectedResult = 0;
         double result = sensor1.calcLinearDistanceBetweenTwoSensors (sensor1, sensor2);
         assertNotEquals (expectedResult, result);
@@ -227,8 +227,8 @@ class SensorTest {
         SensorType type2 = new SensorType ("temperature");
         ReadingList readings = new ReadingList ();
 
-        Sensor sensor1 = new Sensor ("P2355", "PrecipitationSensor", startDate, loc, type1, "l/m2", readings);
-        Sensor sensor2 = new Sensor ("TT1023", "TemperatureSensor", startDate, loc, type2, "C", readings);
+        Sensors sensor1 = new Sensors("P2355", "PrecipitationSensor", startDate, loc, type1, "l/m2", readings);
+        Sensors sensor2 = new Sensors("TT1023", "TemperatureSensor", startDate, loc, type2, "C", readings);
 
         assertNotEquals (sensor1, sensor2);
         assertNotEquals (sensor2, type1);
@@ -241,7 +241,7 @@ class SensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readings = new ReadingList ();
-        Sensor sensor1 = new Sensor ("P2355", "PrecipitationSensor", startDate, loc, type1, "l/m2", readings);
+        Sensors sensor1 = new Sensors("P2355", "PrecipitationSensor", startDate, loc, type1, "l/m2", readings);
         Calendar expected = new GregorianCalendar (2018, 8, 1, 9, 0);
         Calendar result = sensor1.getStartDate ();
         assertEquals (expected, result);
@@ -253,7 +253,7 @@ class SensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readings = new ReadingList ();
-        Sensor sensor1 = new Sensor ("P2355", "PrecipitationSensor", startDate, loc, type1, "l/m2", readings);
+        Sensors sensor1 = new Sensors("P2355", "PrecipitationSensor", startDate, loc, type1, "l/m2", readings);
         String expected = "l/m2";
         String result = sensor1.getUnit ();
         assertEquals (expected, result);
@@ -266,7 +266,7 @@ class SensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, rain, "l/m2", readingList);
+        Sensors sensor = new Sensors("P2355", "PrecipitationSensor", startDate, location, rain, "l/m2", readingList);
 
         assertTrue (sensor.setId("P233"));
     }
@@ -278,7 +278,7 @@ class SensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, rain, "l/m2", readingList);
+        Sensors sensor = new Sensors("P2355", "PrecipitationSensor", startDate, location, rain, "l/m2", readingList);
 
         assertFalse (sensor.setId(" "));
     }
@@ -290,7 +290,7 @@ class SensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        Sensors sensor = new Sensors("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
 
         assertTrue (sensor.isActive ());
     }
@@ -303,7 +303,7 @@ class SensorTest {
         GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        Sensors sensor = new Sensors("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
 
         assertTrue (sensor.deactivate (pauseDate));
 
@@ -318,7 +318,7 @@ class SensorTest {
         GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        Sensors sensor = new Sensors("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
 
         assertTrue(sensor.deactivate (pauseDate));
         assertFalse(sensor.deactivate (pauseDate));
@@ -334,7 +334,7 @@ class SensorTest {
         GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        Sensors sensor = new Sensors("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
 
         assertTrue(sensor.deactivate (pauseDate));
         assertTrue(sensor.reactivate ());
@@ -349,7 +349,7 @@ class SensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        Sensors sensor = new Sensors("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
 
         assertFalse(sensor.reactivate ());
 
@@ -364,7 +364,7 @@ class SensorTest {
         GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        Sensors sensor = new Sensors("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
 
         assertTrue (sensor.deactivate (pauseDate));
 
@@ -382,7 +382,7 @@ class SensorTest {
         GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 1, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        Sensors sensor = new Sensors("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
 
         assertFalse (sensor.deactivate (pauseDate));
 
@@ -401,7 +401,7 @@ class SensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        Sensors sensor = new Sensors("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
 
         assertFalse(sensor.setId(" "));
     }
@@ -413,7 +413,7 @@ class SensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        Sensors sensor = new Sensors("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
 
         assertTrue(sensor.setId("P235"));
     }

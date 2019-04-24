@@ -102,12 +102,12 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         readingList2.addReading(r5);
         readingList2.addReading(r6);
         Location l1= new Location(85, 65, 10);
-        Sensor s0 = new Sensor("W2501","WindSensor2", startDate, l1, wind, "c", readingList2);
+        Sensors s0 = new Sensors("W2501","WindSensor2", startDate, l1, wind, "c", readingList2);
         Location l2= new Location(80, 50, 10);
-        Sensor s1 = new Sensor("W2502","WindSensor1", startDate,l2 , wind, "c", readingList1);
-        Sensor s2 = new Sensor("W2503","WindSensor3", startDate, l2, wind, "c", readingList2);
+        Sensors s1 = new Sensors("W2502","WindSensor1", startDate,l2 , wind, "c", readingList1);
+        Sensors s2 = new Sensors("W2503","WindSensor3", startDate, l2, wind, "c", readingList2);
         Location l3= new Location(1.5, 1.5, 1.5);
-        Sensor s3 = new Sensor("T2501","TemperatureSensor", startDate, l3, temperature, "c", readingList2);
+        Sensors s3 = new Sensors("T2501","TemperatureSensor", startDate, l3, temperature, "c", readingList2);
 
         houseGASensorList.addSensor(s0);
         houseGASensorList.addSensor(s1);
@@ -169,10 +169,10 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         Location l2= new Location(80, 50, 10);
         Location l3= new Location(1.5, 1.5, 1.5);
 
-        Sensor s0 = new Sensor("R0001","RainfallSensor2", startDate,l1, rainfall, "c", readingList2);
-        Sensor s1 = new Sensor("R0002","RainfallSensor1", startDate, l2, rainfall, "c", readingList1);
-        Sensor s2 = new Sensor("W0001","WindSensor3", startDate,l2, rainfall, "c", readingList2);
-        Sensor s3 = new Sensor("T0001","TemperatureSensor", startDate, l3, temperature, "c", readingList2);
+        Sensors s0 = new Sensors("R0001","RainfallSensor2", startDate,l1, rainfall, "c", readingList2);
+        Sensors s1 = new Sensors("R0002","RainfallSensor1", startDate, l2, rainfall, "c", readingList1);
+        Sensors s2 = new Sensors("W0001","WindSensor3", startDate,l2, rainfall, "c", readingList2);
+        Sensors s3 = new Sensors("T0001","TemperatureSensor", startDate, l3, temperature, "c", readingList2);
 
         houseGASensorList.addSensor(s0);
         houseGASensorList.addSensor(s1);
@@ -225,10 +225,10 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
         Location l2= new Location(80, 50, 10);
         Location l3= new Location(1.5, 1.5, 1.5);
 
-        Sensor s0 = new Sensor("R0001","RainfallSensor2", startDate, l1, rainfall, "c", readingList2);
-        Sensor s1 = new Sensor("R0002","RainfallSensor1", startDate, l2, rainfall, "c", readingList1);
-        Sensor s2 = new Sensor("W0001","WindSensor3", startDate, l2, rainfall, "c", readingList2);
-        Sensor s3 = new Sensor("T0001","TemperatureSensor", startDate, l3, temperature, "c", readingList2);
+        Sensors s0 = new Sensors("R0001","RainfallSensor2", startDate, l1, rainfall, "c", readingList2);
+        Sensors s1 = new Sensors("R0002","RainfallSensor1", startDate, l2, rainfall, "c", readingList1);
+        Sensors s2 = new Sensors("W0001","WindSensor3", startDate, l2, rainfall, "c", readingList2);
+        Sensors s3 = new Sensors("T0001","TemperatureSensor", startDate, l3, temperature, "c", readingList2);
 
         houseGASensorList.addSensor(s0);
         houseGASensorList.addSensor(s1);

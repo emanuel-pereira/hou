@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class SensorList {
-    private final List<Sensor> listOfSensors;
+    private final List<Sensors> listOfSensors;
     static final Logger log = Logger.getLogger(SensorList.class);
 
 
@@ -22,12 +22,12 @@ public class SensorList {
     }
 
     /**
-     * Method to add a sensor object to Sensor list, if it is not on the list yet
+     * Method to add a sensor object to Sensors list, if it is not on the list yet
      *
-     * @param newSensor - new Sensor object that will or not be added to the list
+     * @param newSensor - new Sensors object that will or not be added to the list
      * @return true if the object is added to the list
      */
-    public boolean addSensor(Sensor newSensor) {
+    public boolean addSensor(Sensors newSensor) {
         if (!this.listOfSensors.contains(newSensor)) {
             this.listOfSensors.add(newSensor);
             //Repository call
@@ -40,8 +40,8 @@ public class SensorList {
         } else return false;
     }
 
-    public boolean checkIfAnySensorHasSameID(Sensor newSensor) {
-        for (Sensor sensor : this.listOfSensors)
+    public boolean checkIfAnySensorHasSameID(Sensors newSensor) {
+        for (Sensors sensor : this.listOfSensors)
             if (sensor.getId().equals(newSensor.getId())) {
                 return true;}
         return false;
@@ -52,19 +52,19 @@ public class SensorList {
      *
      * @return list of sensors created
      */
-    public List<Sensor> getSensorList() {
+    public List<Sensors> getSensorList() {
         return this.listOfSensors;
     }
 
     /**
-     * @param id          id of the Sensor
-     * @param inputName   name of Sensor
-     * @param startDate   startDate of Sensor
+     * @param id          id of the Sensors
+     * @param inputName   name of Sensors
+     * @param startDate   startDate of Sensors
      * @param geoLocation gps coordinates in which the user wants to place the sensor
      * @return List of sensors
      */
-    public Sensor newSensor(String id, String inputName, GregorianCalendar startDate, Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
-        return new Sensor(id, inputName, startDate, geoLocation, sensorType, inputUnit, readings);
+    public Sensors newSensor(String id, String inputName, GregorianCalendar startDate, Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
+        return new Sensors(id, inputName, startDate, geoLocation, sensorType, inputUnit, readings);
     }
 
     /**
@@ -74,18 +74,18 @@ public class SensorList {
      * @param unit       The measurement unit
      * @return A new interior sensor
      */
-    public Sensor createNewInternalSensor(String id, String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
-        return new Sensor(id, name, startDate, sensorType, unit, readings);
+    public Sensors createNewInternalSensor(String id, String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+        return new Sensors(id, name, startDate, sensorType, unit, readings);
     }
 
     /**
      * Some SensorTypes are required in some User Stories, so this method checks if a mandatory sensor type exists
      *
-     * @param sensorType Sensor type designation
-     * @return Sensor type designation
+     * @param sensorType Sensors type designation
+     * @return Sensors type designation
      */
     public boolean checkIfRequiredSensorTypeExists(String sensorType) {
-        for (Sensor s : this.listOfSensors) {
+        for (Sensors s : this.listOfSensors) {
             if (s.getSensorType().getType().equals(sensorType)) {
                 return true;
             }
@@ -96,12 +96,12 @@ public class SensorList {
     /**
      * Gets a sensor of one specific type
      *
-     * @param type Sensor type designation
+     * @param type Sensors type designation
      * @return A specific type sensor
      */
-    public Sensor getRequiredSensorPerType(String type) {
-        Sensor requiredSensor = null;
-        for (Sensor sensor : this.listOfSensors)
+    public Sensors getRequiredSensorPerType(String type) {
+        Sensors requiredSensor = null;
+        for (Sensors sensor : this.listOfSensors)
             if (sensor.getSensorType().getType().equals(type))
                 requiredSensor = sensor;
         return requiredSensor;
@@ -117,7 +117,7 @@ public class SensorList {
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
-        for (Sensor sensor : this.listOfSensors) {
+        for (Sensors sensor : this.listOfSensors) {
             result.append(number++);
             result.append(element);
             result.append(sensor.getDesignation());
@@ -128,7 +128,7 @@ public class SensorList {
 
     public SensorList getListOfSensorsByType(SensorType sensorType) {
         SensorList listOfSensorsByType = new SensorList();
-        for (Sensor sensor : this.listOfSensors) {
+        for (Sensors sensor : this.listOfSensors) {
             if (sensor.getSensorType().equals(sensorType))
                 listOfSensorsByType.addSensor(sensor);
         }
@@ -139,12 +139,12 @@ public class SensorList {
         return this.listOfSensors.size();
     }
 
-    public void removeSensor(Sensor sensor) {
+    public void removeSensor(Sensors sensor) {
         this.listOfSensors.remove(sensor);
 
     }
 
-    public Sensor getLastSensor() {
+    public Sensors getLastSensor() {
         return this.listOfSensors.get(this.listOfSensors.size() - 1);
     }
 
@@ -156,7 +156,7 @@ public class SensorList {
      */
     public SensorList getActiveSensors() {
         SensorList activeSensors = new SensorList();
-        for (Sensor s : this.getSensorList()) {
+        for (Sensors s : this.getSensorList()) {
             if (s.isActive()) {
                 activeSensors.addSensor(s);
             }
@@ -171,7 +171,7 @@ public class SensorList {
      * @param pauseDate Deactivation date
      */
     public void deactivateSensor(String sensorID, Calendar pauseDate) {
-        for (Sensor s : this.getSensorList())
+        for (Sensors s : this.getSensorList())
             if (s.getId().matches(sensorID)) {
                 s.deactivate(pauseDate);
                 //Repository call

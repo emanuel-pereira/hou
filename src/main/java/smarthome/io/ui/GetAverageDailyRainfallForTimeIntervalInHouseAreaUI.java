@@ -44,7 +44,7 @@ public class GetAverageDailyRainfallForTimeIntervalInHouseAreaUI {
     private void checkIfGaHasRainfallSensors() {
 
         SensorList gaRainfallSensors = this.ctrl623.getGARainfallSensors(this.sensorType);
-        List<Sensor> gaRainfallSensorList = gaRainfallSensors.getSensorList();
+        List<Sensors> gaRainfallSensorList = gaRainfallSensors.getSensorList();
 
         if (!gaRainfallSensorList.isEmpty()) {
 
@@ -72,7 +72,7 @@ public class GetAverageDailyRainfallForTimeIntervalInHouseAreaUI {
     private void checkIfRainfallSensorsHaveReadingsInPeriod() {
 
         SensorList gaRainfallSensorsWithReadingsInPeriod = this.ctrl623.getClosestRainfallSensorsWithReadingsInTimePeriod(this.sensorType, startDate, endDate);
-        List<Sensor> gaRainfallSensorListWithReadingsInPeriod = gaRainfallSensorsWithReadingsInPeriod.getSensorList();
+        List<Sensors> gaRainfallSensorListWithReadingsInPeriod = gaRainfallSensorsWithReadingsInPeriod.getSensorList();
 
         if (gaRainfallSensorListWithReadingsInPeriod.isEmpty()) {
 

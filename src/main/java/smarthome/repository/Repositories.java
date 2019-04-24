@@ -80,8 +80,8 @@ public final class Repositories {
         Repositories.geoRepository.save(ga);
 
         SensorList sensorList = ga.getSensorListInGA();
-        List<Sensor> sensors = sensorList.getSensorList();
-        for (Sensor sensor : sensors) {
+        List<Sensors> sensors = sensorList.getSensorList();
+        for (Sensors sensor : sensors) {
             saveSensor(sensor);
         }
     }
@@ -91,13 +91,13 @@ public final class Repositories {
         Repositories.roomRepository.save(r);
 
         SensorList sensorList = r.getSensorListInRoom();
-        List<Sensor> sensors = sensorList.getSensorList();
-        for (Sensor sensor : sensors) {
+        List<Sensors> sensors = sensorList.getSensorList();
+        for (Sensors sensor : sensors) {
             saveSensor(sensor);
         }
     }
 
-    public static void saveSensor(Sensor s) {
+    public static void saveSensor(Sensors s) {
         //TODO remove when solution for duplicates is found and implemented
         Repositories.getSensorTypeRepository().save(s.getSensorType());
 

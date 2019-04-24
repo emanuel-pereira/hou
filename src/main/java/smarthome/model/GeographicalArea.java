@@ -199,7 +199,7 @@ public class GeographicalArea {
 
     public GeographicalAreaDTO toDTO() {
         List<SensorDTO> sensorListDTO = new ArrayList<>();
-        for (Sensor sensor : this.sensorListInGa.getSensorList()) {
+        for (Sensors sensor : this.sensorListInGa.getSensorList()) {
             SensorDTO sensorDTO = sensor.toDTO();
             sensorListDTO.add(sensorDTO);
         }

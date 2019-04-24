@@ -81,7 +81,7 @@ public class DeactivateSensorUI {
      * Show active sensors and ask to select one
      */
     private void selectSensor() {
-        System.out.println ("Choose an active Sensor from the list below:");
+        System.out.println ("Choose an active Sensors from the list below:");
         int counter = 1;
         for (SensorDTO sensor : sensorListDTO) {
             System.out.print (counter++ + " Id: " + sensor.getId () + DESIGNATION + sensor.getDesignation () + ". Active: " + sensor.isActive () + "\n");

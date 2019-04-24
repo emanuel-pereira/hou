@@ -215,8 +215,8 @@ public class RoomList {
     /**
      * @return a global list of sensors containing all sensors within each room.
      */
-    public List<Sensor> getAllSensors(){
-        List<Sensor> sensors = new ArrayList<>();
+    public List<Sensors> getAllSensors(){
+        List<Sensors> sensors = new ArrayList<>();
         for(Room room : this.listOfRooms){
             SensorList roomSensorList = room.getSensorListInRoom();
             sensors.addAll(roomSensorList.getSensorList());

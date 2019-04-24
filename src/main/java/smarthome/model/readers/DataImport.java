@@ -29,7 +29,7 @@ public class DataImport {
     private RoomList roomList;
     private int nrOfAddedReadings = 0;
     private int nrOfInvalidReadings = 0;
-    private List<Sensor> sensors = new ArrayList<>();
+    private List<Sensors> sensors = new ArrayList<>();
     private List<GeographicalArea> notAdded;
     private SensorTypeList sensorTypeList;
     private int sensorsNotAdded;
@@ -137,7 +137,7 @@ public class DataImport {
      * @param sensorID Id of the sensor
      */
     private boolean importReading(String[] field, String sensorID) {
-        for (Sensor sensor : sensors) {
+        for (Sensors sensor : sensors) {
             if (sensorID.equals(sensor.getId())) {
 
                 String dateAndTimeString = field[1];
@@ -259,23 +259,23 @@ public class DataImport {
 
             String unit = string[5];
 
-            Sensor newSensor = new Sensor(sensorID, sensorDesignation, calendar, sensorType, unit, new ReadingList());
+            Sensors newSensor = new Sensors(sensorID, sensorDesignation, calendar, sensorType, unit, new ReadingList());
 
             //Needs to be improved
 
             if (room == null) {
-                String message = "Sensor not added to the DB - sensor: " + sensorID +
+                String message = "Sensors not added to the DB - sensor: " + sensorID +
                         " designation: " + sensorDesignation + "\nreason: The sensor was not imported because the room do not exists";
                 log.error(message);
                 sensorsNotAdded++;
             } else if (sensorType == null) {
-                String message = "Sensor not added to the DB - sensor: " + sensorID +
+                String message = "Sensors not added to the DB - sensor: " + sensorID +
                         " designation: " + sensorDesignation + "start date: " + calendar +
                         " sensorType: " + sensorType + "unit: " + unit + "\nreason: The sensor type do not exists";
                 log.error(message);
                 sensorsNotAdded++;
             } else if (!room.getSensorListInRoom().addSensor(newSensor)) {
-                String message = "Sensor not added to the DB - sensor: " + sensorID +
+                String message = "Sensors not added to the DB - sensor: " + sensorID +
                         " designation: " + sensorDesignation + "start date: " + calendar +
                         " sensorType: " + sensorType + "unit: " + unit + "\nreason: The sensor already exists";
                 log.error(message);

@@ -13,7 +13,7 @@ import java.util.Objects;
 import static smarthome.model.House.getAddress;
 
 @Entity
-public class Sensor {
+public class Sensors {
 
     @Id
     private String id;
@@ -30,7 +30,7 @@ public class Sensor {
     @Transient
     private ReadingList readingList;
 
-    protected Sensor() {
+    protected Sensors() {
     }
 
     /**
@@ -42,7 +42,7 @@ public class Sensor {
      * @param unit        String parameter to specify sensor's unit of measure
      * @param readings    specifies the sensor's readingList
      */
-    public Sensor(String id, String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+    public Sensors(String id, String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
             this.id = id;
             this.designation = designation;
             this.startDate = startDate;
@@ -65,7 +65,7 @@ public class Sensor {
      * @param unit        String parameter to specify sensor's unit of measure
      * @param readings    specifies the sensor's readingList
      */
-    public Sensor(String id, String designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
+    public Sensors(String id, String designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
             this.id = id;
             this.designation = designation;
             this.startDate = startDate;
@@ -215,7 +215,7 @@ public class Sensor {
      * @param sensor2 object sensor 2
      * @return calculated distance betwwen both objects
      */
-    public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
+    public double calcLinearDistanceBetweenTwoSensors(Sensors sensor1, Sensors sensor2) {
         return Utils.round(this.location.calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation()), 2);
     }
 
@@ -308,10 +308,10 @@ public class Sensor {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Sensor)) {
+        if (!(o instanceof Sensors)) {
             return false;
         }
-        Sensor sensor = (Sensor) o;
+        Sensors sensor = (Sensors) o;
         return id.equals(sensor.id) ||
                 designation.equals(sensor.designation);
     }

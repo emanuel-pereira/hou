@@ -1,7 +1,7 @@
 package smarthome.mapper;
 
 import smarthome.dto.SensorDTO;
-import smarthome.model.Sensor;
+import smarthome.model.Sensors;
 import smarthome.model.SensorList;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public class SensorMapper {
      * @param sensor to be converted in sensorDTO
      * @return a sensorDTO
      */
-    public SensorDTO toDto(Sensor sensor) {
+    public SensorDTO toDto(Sensors sensor) {
         SensorDTO sensorDTO = new SensorDTO();
         sensorDTO.setId(sensor.getId());
         sensorDTO.setDesignation(sensor.getDesignation());
@@ -31,7 +31,7 @@ public class SensorMapper {
      * @return a list of sensorDTOs
      */
     public List<SensorDTO> toDtoList(SensorList sensorList) {
-        List<Sensor> listOfSensors=sensorList.getSensorList();
+        List<Sensors> listOfSensors=sensorList.getSensorList();
         return listOfSensors.stream().map(this::toDto).collect(Collectors.toList());
     }
 

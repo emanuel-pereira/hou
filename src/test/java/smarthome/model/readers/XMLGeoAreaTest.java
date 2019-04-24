@@ -2,7 +2,7 @@ package smarthome.model.readers;
 
 import org.junit.jupiter.api.Test;
 import smarthome.model.GeographicalArea;
-import smarthome.model.Sensor;
+import smarthome.model.Sensors;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.nio.file.Path;
@@ -118,7 +118,7 @@ class XMLGeoAreaTest {
         List<GeographicalArea> gaList = xmlReader.loadData(path);
 
         GeographicalArea ga = gaList.get(1);
-        List<Sensor> sensorList = ga.getSensorListInGA().getSensorList();
+        List<Sensors> sensorList = ga.getSensorListInGA().getSensorList();
 
         int expected = 2;
         int result = sensorList.size();
@@ -134,8 +134,8 @@ class XMLGeoAreaTest {
         List<GeographicalArea> gaList = xmlReader.loadData(path);
 
         GeographicalArea ga = gaList.get(1);
-        List<Sensor> sensorList = ga.getSensorListInGA().getSensorList();
-        Sensor sensor = sensorList.get(1);
+        List<Sensors> sensorList = ga.getSensorListInGA().getSensorList();
+        Sensors sensor = sensorList.get(1);
 
         GregorianCalendar expected = new GregorianCalendar(2017, Calendar.NOVEMBER,16);
         Calendar result = sensor.getStartDate();

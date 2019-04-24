@@ -85,11 +85,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         ReadingList readings = new ReadingList();
 
 
-        Sensor s1 = new Sensor("S01", "sensor1", startDate, rain, "c", readings);
-        Sensor s2 = new Sensor("S02", "sensor2", startDate, temperature, "c", readings);
-        Sensor s3 = new Sensor("S03", "sensor3", startDate, wind, "c", readings);
-        Sensor s4 = new Sensor("S04", "sensor4", startDate, rain, "c", readings);
-        Sensor s5 = new Sensor("S05", "sensor5", startDate, rain, "c", readings);
+        Sensors s1 = new Sensors("S01", "sensor1", startDate, rain, "c", readings);
+        Sensors s2 = new Sensors("S02", "sensor2", startDate, temperature, "c", readings);
+        Sensors s3 = new Sensors("S03", "sensor3", startDate, wind, "c", readings);
+        Sensors s4 = new Sensors("S04", "sensor4", startDate, rain, "c", readings);
+        Sensors s5 = new Sensors("S05", "sensor5", startDate, rain, "c", readings);
 
         g1.getSensorListInGA().addSensor(s1);
         g1.getSensorListInGA().addSensor(s2);
@@ -99,8 +99,8 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
 
         GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);
 
-        List<Sensor> expected = Arrays.asList(s1, s4, s5);
-        List<Sensor> result = ctrl623.getGARainfallSensors(rain).getSensorList();
+        List<Sensors> expected = Arrays.asList(s1, s4, s5);
+        List<Sensors> result = ctrl623.getGARainfallSensors(rain).getSensorList();
 
 
         assertEquals(expected, result);
@@ -170,11 +170,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l2 = new Location(47, -12, 200);
 
 
-        Sensor s6 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s7 = new Sensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
-        Sensor s8 = new Sensor("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s9 = new Sensor("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s10 = new Sensor("R0003", "RainSensor3", sDate1, l2, sT, "l/m2", rL3);
+        Sensors s6 = new Sensors("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensors s7 = new Sensors("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+        Sensors s8 = new Sensors("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensors s9 = new Sensors("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensors s10 = new Sensors("R0003", "RainSensor3", sDate1, l2, sT, "l/m2", rL3);
 
 
         g1.getSensorListInGA().addSensor(s6);
@@ -185,8 +185,8 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
 
         GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);
 
-        List<Sensor> expected = Arrays.asList(s6, s7);
-        List<Sensor> result = ctrl623.getClosestRainfallSensorsWithReadingsInTimePeriod(sT, startDate, endDate).getSensorList();
+        List<Sensors> expected = Arrays.asList(s6, s7);
+        List<Sensors> result = ctrl623.getClosestRainfallSensorsWithReadingsInTimePeriod(sT, startDate, endDate).getSensorList();
 
 
         assertEquals(expected, result);
@@ -258,11 +258,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s11 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s12 = new Sensor("R0002", "RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s13 = new Sensor("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s14 = new Sensor("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s15 = new Sensor("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensors s11 = new Sensors("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensors s12 = new Sensors("R0002", "RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensors s13 = new Sensors("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensors s14 = new Sensors("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensors s15 = new Sensors("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
         g1.getSensorListInGA().addSensor(s11);
@@ -341,11 +341,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s16 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s17 = new Sensor("R0002", "RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s18 = new Sensor("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s19 = new Sensor("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s20 = new Sensor("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensors s16 = new Sensors("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensors s17 = new Sensors("R0002", "RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensors s18 = new Sensors("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensors s19 = new Sensors("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensors s20 = new Sensors("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
         g1.getSensorListInGA().addSensor(s16);
@@ -425,11 +425,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(21, 21, 200);
 
-        Sensor s21 = new Sensor("R0001", "RainSensor", sDate1, l2, sT, "l/m2", rL1);
-        Sensor s22 = new Sensor("R0002", "RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s23 = new Sensor("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s24 = new Sensor("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s25 = new Sensor("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensors s21 = new Sensors("R0001", "RainSensor", sDate1, l2, sT, "l/m2", rL1);
+        Sensors s22 = new Sensors("R0002", "RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensors s23 = new Sensors("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensors s24 = new Sensors("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensors s25 = new Sensors("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
         g1.getSensorListInGA().addSensor(s21);
@@ -508,11 +508,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s26 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s27 = new Sensor("R0002", "RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s28 = new Sensor("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s29 = new Sensor("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s30 = new Sensor("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensors s26 = new Sensors("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensors s27 = new Sensors("R0002", "RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensors s28 = new Sensors("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensors s29 = new Sensors("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensors s30 = new Sensors("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
         g1.getSensorListInGA().addSensor(s26);
@@ -589,11 +589,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Location l1 = new Location(45, -12, 200);
         Location l2 = new Location(47, -12, 200);
 
-        Sensor s31 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s32 = new Sensor("R0002", "RainSensor2", sDate2, l2, sT, "l/m2", rL2);
-        Sensor s33 = new Sensor("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
-        Sensor s34 = new Sensor("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
-        Sensor s35 = new Sensor("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
+        Sensors s31 = new Sensors("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensors s32 = new Sensors("R0002", "RainSensor2", sDate2, l2, sT, "l/m2", rL2);
+        Sensors s33 = new Sensors("W0001", "WindSensor", sDate1, l2, sT2, "km/h", rL1);
+        Sensors s34 = new Sensors("T0001", "TempSensor", sDate2, l2, sT3, "C", rL2);
+        Sensors s35 = new Sensors("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
         g1.getSensorListInGA().addSensor(s31);
