@@ -4,8 +4,8 @@ import smarthome.model.Device;
 import smarthome.model.DeviceSpecs;
 import smarthome.model.DeviceType;
 
-public class WineCoolerType implements DeviceType {
-    private String deviceType = "WineCooler";
+public class FreezerType implements DeviceType {
+    private String deviceType = "Freezer";
 
     /**
      * @return getter method for deviceType
@@ -15,19 +15,19 @@ public class WineCoolerType implements DeviceType {
     }
 
     /**
-     * Creator method for a device of type Wine Cooler, in which is created an instance of its DeviceSpecs where
-     * are defined its specific attributes and then creates an instance of a Wine Cooler
+     * Creator method for a device of type Freezer, in which is created an instance of its DeviceSpecs where
+     * are defined its specific attributes and then creates an instance of a Freezer
      * @param deviceName name of the device
      * @param nominalPower specific attributes of the device WineCooler
-     * @return an instance of a WineCooler
+     * @return an instance of a Freezer
      */
     public Device createDevice(String deviceName, double nominalPower) {
         String devType = getDeviceType();
-        String[] attributeNames = {"Number of bottles","Annual Energy Consumption"};
-        String[] attributeUnits = {"bottles","kWh"};
+        String[] attributeNames = {"Freezer Capacity","Annual Energy Consumption"};
+        String[] attributeUnits = {"liters", "kWh"};
 
         DeviceSpecs devSpecs = new GenericSpecs(devType, attributeNames, attributeUnits);
 
-        return new WineCooler(deviceName, devSpecs, nominalPower);
+        return new Freezer(deviceName, devSpecs, nominalPower);
     }
 }
