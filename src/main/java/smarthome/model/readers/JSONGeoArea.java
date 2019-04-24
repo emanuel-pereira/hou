@@ -61,9 +61,9 @@ public class JSONGeoArea implements FileReaderGeoArea {
     private static OccupationArea importOccupationArea(JSONObject jsonObject) {
 
         String widthString = jsonObject.get("width").toString();
-        double width = UtilsParser.ifLongTurnDouble(widthString);
+        double width = Double.parseDouble(widthString);
         String lengthString = jsonObject.get("length").toString();
-        double length = UtilsParser.ifLongTurnDouble(lengthString);
+        double length = Double.parseDouble(lengthString);
 
         return new OccupationArea(length, width);
 
@@ -103,11 +103,11 @@ public class JSONGeoArea implements FileReaderGeoArea {
         JSONObject jsonLocation = (JSONObject) jsonObject.get("location");
 
         String latitudeString = jsonLocation.get("latitude").toString();
-        double latitude = UtilsParser.ifLongTurnDouble(latitudeString);
+        double latitude = Double.parseDouble(latitudeString);
         String longitudeString = jsonLocation.get("longitude").toString();
-        double longitude = UtilsParser.ifLongTurnDouble(longitudeString);
+        double longitude = Double.parseDouble(longitudeString);
         String altitudeString = jsonLocation.get("altitude").toString();
-        double altitude = UtilsParser.ifLongTurnDouble(altitudeString);
+        double altitude = Double.parseDouble(altitudeString);
 
         return new Location(latitude, longitude, altitude);
     }

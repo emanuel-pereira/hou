@@ -90,11 +90,11 @@ public class JSONHouse implements FileReaderHouse {
         int floor = Integer.parseInt(floorString);
 
         String widthString = jsonRoom.get("width").toString();
-        double width = UtilsParser.ifLongTurnDouble(widthString);
+        double width = Double.parseDouble(widthString);
         String lengthString = jsonRoom.get("length").toString();
-        double length = UtilsParser.ifLongTurnDouble(lengthString);
+        double length = Double.parseDouble(lengthString);
         String heightString = jsonRoom.get("height").toString();
-        double height = UtilsParser.ifLongTurnDouble(heightString);
+        double height = Double.parseDouble(heightString);
 
         return new Room(id, description, floor, width, length, height);
     }

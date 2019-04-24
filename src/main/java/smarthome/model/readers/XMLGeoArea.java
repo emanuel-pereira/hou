@@ -68,9 +68,9 @@ public class XMLGeoArea implements FileReaderGeoArea {
             String type = getTagValue("type", element);
 
             String widthString = getTagValue("width", element);
-            Double width = UtilsParser.ifLongTurnDouble(widthString);
+            double width = Double.parseDouble(widthString);
             String lengthString = getTagValue("length", element);
-            Double length = UtilsParser.ifLongTurnDouble(lengthString);
+            double length = Double.parseDouble(lengthString);
             OccupationArea occupationArea = new OccupationArea(length, width);
 
             Location location = importLocation(element.getElementsByTagName("location").item(0));
@@ -87,12 +87,12 @@ public class XMLGeoArea implements FileReaderGeoArea {
     private static Location importLocation(Node node) {
 
         Element element = (Element) node;
-        String latitudeString = getTagValue("latitude", element);//.toString();
-        Double latitude = UtilsParser.ifLongTurnDouble(latitudeString);
+        String latitudeString = getTagValue("latitude", element);
+        double latitude = Double.parseDouble(latitudeString);
         String longitudeString = getTagValue("longitude", element);
-        Double longitude = UtilsParser.ifLongTurnDouble(longitudeString);
+        double longitude = Double.parseDouble(longitudeString);
         String altitudeString = getTagValue("altitude", element);
-        Double altitude = UtilsParser.ifLongTurnDouble(altitudeString);
+        double altitude = Double.parseDouble(altitudeString);
 
         Location location = new Location();
         location.setLatitude(latitude);

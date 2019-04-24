@@ -6,10 +6,10 @@ import smarthome.model.DeviceType;
 
 public class TvType implements DeviceType {
 
-    private final String deviceType = "Tv";
+    private static final String DEVICE_TYPE = "Tv";
 
     public String getDeviceType() {
-        return this.deviceType;
+        return DEVICE_TYPE;
     }
 
     public Device createDevice(String deviceName, double nominalPower) {

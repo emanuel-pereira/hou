@@ -9,7 +9,7 @@ public class SensorDTO {
     private String designation;
     private SensorTypeDTO sensorTypeDTO;
     private List<ReadingDTO> readingListDTO;
-    private final boolean active = true;
+    private static final boolean ACTIVE = true;
     private Calendar startDate;
 
 
@@ -59,6 +59,6 @@ public class SensorDTO {
         return this.startDate;
     }
     public boolean isActive() {
-        return this.active;
+        return ACTIVE;
     }
 }

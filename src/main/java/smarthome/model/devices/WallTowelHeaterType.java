@@ -6,11 +6,11 @@ import smarthome.model.DeviceType;
 
 public class WallTowelHeaterType implements DeviceType {
 
-    private final String deviceType = "WallTowelHeater";
+    private static final String DEVICE_TYPE = "WallTowelHeater";
 
     @Override
     public String getDeviceType() {
-        return this.deviceType;
+        return DEVICE_TYPE;
     }
 
     @Override

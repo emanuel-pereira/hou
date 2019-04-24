@@ -10,11 +10,11 @@ import java.util.List;
 public class GetAverageDailyRainfallForTimeIntervalInHouseAreaUI {
 
     private final GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623;
-    private final String rainfall = "rainfall";
-    private final SensorType sensorType = new SensorType(this.rainfall);
+    private static final String RAINFALL = "rainfall";
+    private final SensorType sensorType = new SensorType(RAINFALL);
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;
-    private final String msgTitle = "Data not found";
+    private static final String MSG_TITLE = "Data not found";
 
 
     public GetAverageDailyRainfallForTimeIntervalInHouseAreaUI(SensorTypeList sensorTypeList) {
@@ -29,7 +29,7 @@ public class GetAverageDailyRainfallForTimeIntervalInHouseAreaUI {
             checkIfHouseLocationIsConfigured();
         } else {
             String msg = "Please ask the Administrator to create the " + this.sensorType.getType() + " sensor type";
-            UtilsUI.showError(this.msgTitle, msg);
+            UtilsUI.showError(MSG_TITLE, msg);
         }
 
     }
@@ -37,7 +37,7 @@ public class GetAverageDailyRainfallForTimeIntervalInHouseAreaUI {
     private void checkIfHouseLocationIsConfigured() {
         if (!ctrl623.isHouseGAConfigured()) {
             String msg = "The house configuration is incomplete. Please configure the house location first.";
-            UtilsUI.showError(this.msgTitle, msg);
+            UtilsUI.showError(MSG_TITLE, msg);
         } else checkIfGaHasRainfallSensors();
     }
 
@@ -51,8 +51,8 @@ public class GetAverageDailyRainfallForTimeIntervalInHouseAreaUI {
             requestTimePeriod();
 
         } else {
-            String msg = "There are no rainfall sensors in the house area";
-            UtilsUI.showError(this.msgTitle, msg);
+            String msg = "There are no RAINFALL sensors in the house area";
+            UtilsUI.showError(MSG_TITLE, msg);
 
         }
     }
@@ -77,14 +77,14 @@ public class GetAverageDailyRainfallForTimeIntervalInHouseAreaUI {
         if (gaRainfallSensorListWithReadingsInPeriod.isEmpty()) {
 
             String msg = "There are no readings for the given time period.";
-            UtilsUI.showError(this.msgTitle, msg);
+            UtilsUI.showError(MSG_TITLE, msg);
 
         } else calculateAverageOfReadings();
 
     }
 
     private void calculateAverageOfReadings() {
-        System.out.println("The average daily rainfall between " + UtilsUI.dateToString(this.startDate) + " and " + UtilsUI.dateToString(this.endDate) +
+        System.out.println("The average daily RAINFALL between " + UtilsUI.dateToString(this.startDate) + " and " + UtilsUI.dateToString(this.endDate) +
                 " is " + ctrl623.calculateAverageOfRainfallReadings(this.sensorType, this.startDate, this.endDate) + "mm.\n");
 
     }

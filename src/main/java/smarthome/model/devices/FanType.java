@@ -6,7 +6,7 @@ import smarthome.model.DeviceType;
 
 public class FanType implements DeviceType {
 
-    private final String deviceType = "Fan";
+    private static final String DEVICE_TYPE = "Fan";
 
     /**
      * Get device type
@@ -15,7 +15,7 @@ public class FanType implements DeviceType {
      */
     @Override
     public String getDeviceType() {
-        return this.deviceType;
+        return DEVICE_TYPE;
     }
 
     /**

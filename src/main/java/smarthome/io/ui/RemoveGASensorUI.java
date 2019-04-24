@@ -12,7 +12,7 @@ public class RemoveGASensorUI {
 
     private final RemoveGASensorCTRL ctrl;
     private GeographicalAreaDTO selectedGADTO;
-    private final String designationMsg=" | Designation: ";
+    private static final String designationMsg=" | Designation: ";
 
     public RemoveGASensorUI(GAList gaList) {
         this.ctrl = new RemoveGASensorCTRL(gaList);

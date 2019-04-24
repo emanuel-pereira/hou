@@ -6,10 +6,10 @@ import smarthome.model.DeviceType;
 
 public class FridgeType implements DeviceType {
 
-    private final String deviceType = "Fridge"; // The device type can be anything -- fridge, water heater, etc. Use as identifier.
+    private static final String DEVICE_TYPE = "Fridge"; // The device type can be anything -- fridge, water heater, etc. Use as identifier.
 
     public String getDeviceType() {
-        return this.deviceType;
+        return DEVICE_TYPE;
     }
 
     public Device createDevice(String deviceName, double nominalPower) {

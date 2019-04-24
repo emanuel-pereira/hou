@@ -6,10 +6,10 @@ import smarthome.model.DeviceType;
 
 public class LampType implements DeviceType {
 
-    private final String deviceType = "Lamp";
+    private static final String DEVICE_TYPE = "Lamp";
 
     public String getDeviceType() {
-        return this.deviceType;
+        return DEVICE_TYPE;
     }
 
     public Device createDevice(String deviceName, double nominalPower) {
