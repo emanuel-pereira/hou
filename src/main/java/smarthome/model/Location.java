@@ -9,7 +9,7 @@ import javax.persistence.Transient;
 
 public class Location {
     @Transient
-    private GPSValidations v = new GPSValidations ();
+    private final GPSValidations v = new GPSValidations ();
     private double latitude;
     private double longitude;
     private double altitude;

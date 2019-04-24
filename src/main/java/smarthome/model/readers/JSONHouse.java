@@ -17,7 +17,7 @@ import static smarthome.model.House.*;
 
 public class JSONHouse implements FileReaderHouse {
     private Path filePath;
-    private JSONParser parser = new JSONParser();
+    private final JSONParser parser = new JSONParser();
     static final Logger log = Logger.getLogger(JSONHouse.class);
 
     public JSONHouse() {
@@ -85,11 +85,17 @@ public class JSONHouse implements FileReaderHouse {
     private static Room loadRoom(JSONObject jsonRoom) {
         String id = (String) jsonRoom.get("id");
         String description = (String) jsonRoom.get("description");
+
         String floorString = (String) jsonRoom.get("floor");
         int floor = Integer.parseInt(floorString);
-        double width = (double) jsonRoom.get("width");
-        double length = (double) jsonRoom.get("length");
-        double height = (double) jsonRoom.get("height");
+
+        String widthString = jsonRoom.get("width").toString();
+        double width = UtilsParser.ifLongTurnDouble(widthString);
+        String lengthString = jsonRoom.get("length").toString();
+        double length = UtilsParser.ifLongTurnDouble(lengthString);
+        String heightString = jsonRoom.get("height").toString();
+        double height = UtilsParser.ifLongTurnDouble(heightString);
+
         return new Room(id, description, floor, width, length, height);
     }
 
@@ -105,7 +111,6 @@ public class JSONHouse implements FileReaderHouse {
             Room room = getHouseRoomList().getRoomById(roomId);
             roomsInGrid.addRoom(room);
         }
-
     }
 
 }

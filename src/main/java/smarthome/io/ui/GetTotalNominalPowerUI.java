@@ -5,7 +5,7 @@ import smarthome.model.validations.Utils;
 
 public class GetTotalNominalPowerUI {
 
-    private GetTotalNominalPowerCTRL controller;
+    private final GetTotalNominalPowerCTRL controller;
     private int indexGrid;
     private int indexRoom;
 

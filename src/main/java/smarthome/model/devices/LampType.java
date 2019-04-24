@@ -6,7 +6,7 @@ import smarthome.model.DeviceType;
 
 public class LampType implements DeviceType {
 
-    private String deviceType = "Lamp";
+    private final String deviceType = "Lamp";
 
     public String getDeviceType() {
         return this.deviceType;

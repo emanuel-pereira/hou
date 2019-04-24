@@ -13,7 +13,7 @@ public class DeactivateSensorUI {
 
     DeactivateSensorCTRL controller;
     private GeographicalAreaDTO selectedGADto;
-    private String designation = ". Designation: ";
+    private final String designation = ". Designation: ";
     private List<GeographicalAreaDTO> gaListDTO;
     private String gaDTOId;
     private List<SensorDTO> sensorListDTO;

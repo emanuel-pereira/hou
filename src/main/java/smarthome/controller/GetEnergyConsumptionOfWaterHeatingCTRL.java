@@ -10,7 +10,7 @@ import static smarthome.model.House.getHouseRoomList;
 
 public class GetEnergyConsumptionOfWaterHeatingCTRL {
 
-    private RoomList roomList;
+    private final RoomList roomList;
 
 
     public GetEnergyConsumptionOfWaterHeatingCTRL() {

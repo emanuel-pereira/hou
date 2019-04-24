@@ -6,7 +6,7 @@ import smarthome.model.DeviceType;
 
 public class DishwasherType implements DeviceType {
 
-    private String deviceType = "Dishwasher";
+    private final String deviceType = "Dishwasher";
 
     /**
      * Get device type

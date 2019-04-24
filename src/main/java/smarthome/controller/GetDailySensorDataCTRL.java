@@ -10,7 +10,7 @@ import static smarthome.model.House.*;
 
 
 public class GetDailySensorDataCTRL {
-    private SensorTypeList sensorTypeList;
+    private final SensorTypeList sensorTypeList;
 
     public GetDailySensorDataCTRL(SensorTypeList sensorTypeList) {
         this.sensorTypeList = sensorTypeList;

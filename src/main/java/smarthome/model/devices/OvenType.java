@@ -6,7 +6,7 @@ import smarthome.model.DeviceType;
 
 public class OvenType implements DeviceType {
 
-    private String deviceType = "Oven";
+    private final String deviceType = "Oven";
 
     @Override
     public String getDeviceType() {

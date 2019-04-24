@@ -5,12 +5,12 @@ import smarthome.model.GAList;
 
 public class SetParentOfGAUI {
 
-    private SetParentOfGACTRL controlerUS7;
+    private final SetParentOfGACTRL ctrl;
     private int gaIndex1;
     private int gaIndex2;
 
     public SetParentOfGAUI(GAList inputList) {
-        controlerUS7 = new SetParentOfGACTRL(inputList);
+        ctrl = new SetParentOfGACTRL(inputList);
     }
 
     public void run() {
@@ -19,14 +19,14 @@ public class SetParentOfGAUI {
         }
         else{
         System.out.println("Choose a Geographical Area from the list below to be inserted in another one (or insert 0 to return to Main Menu): ");
-        System.out.println(controlerUS7.showListInString());
-        gaIndex1 = UtilsUI.requestIntegerInInterval(1, controlerUS7.getGAListSize(), "Please insert a valid Geographical Area");
+        System.out.println(ctrl.showListInString());
+        gaIndex1 = UtilsUI.requestIntegerInInterval(1, ctrl.getGAListSize(), "Please insert a valid Geographical Area");
         this.run1();
         }
     }
 
     private boolean checkGAListSize() {
-        if (controlerUS7.getGAListSize() == 0) {
+        if (ctrl.getGAListSize() == 0) {
             System.out.println("There no Geographical Areas. Please add at least one.");
             return true;
         }
@@ -42,9 +42,9 @@ public class SetParentOfGAUI {
 
 
             System.out.println("Success!");
-            System.out.println("Choose a Geographical Area from the list below to set as parent of " + controlerUS7.getGaName(gaIndex1));
-            System.out.println(controlerUS7.showListInString());
-            gaIndex2 = UtilsUI.requestIntegerInInterval(1, controlerUS7.getGAListSize(), "Please insert a valid geographical area");
+            System.out.println("Choose a Geographical Area from the list below to set as parent of " + ctrl.getGaName(gaIndex1));
+            System.out.println(ctrl.showListInString());
+            gaIndex2 = UtilsUI.requestIntegerInInterval(1, ctrl.getGAListSize(), "Please insert a valid geographical area");
 
             if (gaIndex1 == gaIndex2) {
                 System.out.println("Error. Please choose a different area");
@@ -55,8 +55,8 @@ public class SetParentOfGAUI {
 
         }
 
-        controlerUS7.setParentofGA(gaIndex1, gaIndex2);
-        System.out.println("Success, the area " + controlerUS7.getGaName(gaIndex1) + " was added to " + controlerUS7.getGaName(gaIndex2));
+        ctrl.setParentofGA(gaIndex1, gaIndex2);
+        System.out.println("Success, the area " + ctrl.getGaName(gaIndex1) + " was added to " + ctrl.getGaName(gaIndex2));
         UtilsUI.backToMenu();
     }
 }

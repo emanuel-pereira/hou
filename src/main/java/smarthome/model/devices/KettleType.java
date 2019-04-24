@@ -6,7 +6,7 @@ import smarthome.model.DeviceType;
 
 public class KettleType implements DeviceType {
 
-    private String deviceType = "Kettle";
+    private final String deviceType = "Kettle";
 
     public String getDeviceType() {
         return this.deviceType;

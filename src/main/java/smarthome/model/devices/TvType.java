@@ -6,7 +6,7 @@ import smarthome.model.DeviceType;
 
 public class TvType implements DeviceType {
 
-    private String deviceType = "Tv";
+    private final String deviceType = "Tv";
 
     public String getDeviceType() {
         return this.deviceType;

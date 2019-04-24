@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class EditDevicesUI {
-    private Scanner read = new Scanner(System.in);
+    private final Scanner read = new Scanner(System.in);
     private int selectedRoomIndex;
-    private EditDevicesCTRL ctrl;
+    private final EditDevicesCTRL ctrl;
     private Room selectedRoom;
     private Device device;
 

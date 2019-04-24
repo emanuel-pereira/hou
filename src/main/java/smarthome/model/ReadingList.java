@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ReadingList {
 
-    private List<Reading> listOfReadings;
+    private final List<Reading> listOfReadings;
     static final Logger log = Logger.getLogger(ReadingList.class);
 
 

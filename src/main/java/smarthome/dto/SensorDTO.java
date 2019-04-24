@@ -5,11 +5,11 @@ import java.util.List;
 
 public class SensorDTO {
 
-    private String id;
+    private  String id;
     private String designation;
     private SensorTypeDTO sensorTypeDTO;
     private List<ReadingDTO> readingListDTO;
-    private boolean active = true;
+    private final boolean active = true;
     private Calendar startDate;
 
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Stove extends GenericDevice implements Programmable {
 
-    private List<Program> programList = new ArrayList<>();
+    private final List<Program> programList = new ArrayList<>();
     private ProgramMode meteredProgram;
 
     public Stove(String deviceName, DeviceSpecs deviceSpecs, double nominalPower) {

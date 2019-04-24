@@ -6,7 +6,7 @@ import smarthome.model.DeviceType;
 
 public class WashingMachineType implements DeviceType {
 
-    private String deviceType = "Washing Machine";
+    private final String deviceType = "Washing Machine";
 
     /**
      * Get device type

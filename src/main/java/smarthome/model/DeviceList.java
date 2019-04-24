@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DeviceList {
-    private List<Device> devicesList;
+    private final List<Device> devicesList;
 
     /**
      * Constructor initializing an empty device list.

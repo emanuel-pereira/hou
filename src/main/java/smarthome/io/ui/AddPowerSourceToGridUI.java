@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class AddPowerSourceToGridUI {
 
-    private AddPowerSourceToGridCTRL ctrl;
+    private final AddPowerSourceToGridCTRL ctrl;
     private int indexOfHG;
     private String name;
     private String type;

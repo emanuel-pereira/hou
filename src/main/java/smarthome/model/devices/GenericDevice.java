@@ -6,12 +6,12 @@ import smarthome.model.validations.NameValidations;
 import java.util.Calendar;
 
 public abstract class GenericDevice implements Device, Metered {
-    private NameValidations nameValidation = new NameValidations();
-    private DeviceSpecs deviceSpecs;
+    private final NameValidations nameValidation = new NameValidations();
+    private final DeviceSpecs deviceSpecs;
     private String name;
     private double nominalPower;
     private boolean active;
-    private ReadingList activityLog;
+    private final ReadingList activityLog;
     private double time = 0;
 
     /**

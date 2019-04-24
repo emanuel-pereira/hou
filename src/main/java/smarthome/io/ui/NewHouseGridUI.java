@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class NewHouseGridUI {
 
-    private Scanner keyboard = new Scanner (System.in);
-    private NewHouseGridCTRL mCtrlUS130;
+    private final Scanner keyboard = new Scanner (System.in);
+    private final NewHouseGridCTRL mCtrlUS130;
 
     public NewHouseGridUI() {
         mCtrlUS130 = new NewHouseGridCTRL();

@@ -6,8 +6,8 @@ import smarthome.model.SensorTypeList;
 public class NewSensorTypeUI {
 
 
-    private SensorTypeList sensorTypeList;
-    private NewSensorTypeCTRL ctrl;
+    private final SensorTypeList sensorTypeList;
+    private final NewSensorTypeCTRL ctrl;
     private String type;
 
 

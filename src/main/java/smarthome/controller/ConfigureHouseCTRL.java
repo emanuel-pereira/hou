@@ -17,9 +17,9 @@ import static smarthome.model.House.*;
 
 public class ConfigureHouseCTRL {
 
-    private DataImport dataImportHouse;
-    private GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
-    private GAList gaList;
+    private final DataImport dataImportHouse;
+    private final GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
+    private final GAList gaList;
 
 
     public ConfigureHouseCTRL(GAList listOfGA) {

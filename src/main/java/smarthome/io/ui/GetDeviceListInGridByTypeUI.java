@@ -4,7 +4,7 @@ import smarthome.controller.GetDeviceListInGridByTypeCTRL;
 
 public class GetDeviceListInGridByTypeUI {
 
-    private GetDeviceListInGridByTypeCTRL ctrl;
+    private final GetDeviceListInGridByTypeCTRL ctrl;
     private int indexOfHG;
 
 

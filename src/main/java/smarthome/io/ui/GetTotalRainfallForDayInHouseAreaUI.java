@@ -8,9 +8,9 @@ import java.util.GregorianCalendar;
 
 public class GetTotalRainfallForDayInHouseAreaUI {
 
-    private GetTotalRainfallForDayInHouseAreaCTRL ctrl;
-    private String rainfall = "rainfall";
-    private SensorType sensorType = new SensorType(this.rainfall);
+    private final GetTotalRainfallForDayInHouseAreaCTRL ctrl;
+    private final String rainfall = "rainfall";
+    private final SensorType sensorType = new SensorType(this.rainfall);
 
 
     public GetTotalRainfallForDayInHouseAreaUI(SensorTypeList sensorType) {

@@ -9,7 +9,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class SensorList {
-    private List<Sensor> listOfSensors;
+    private final List<Sensor> listOfSensors;
     static final Logger log = Logger.getLogger(SensorList.class);
 
 

@@ -3,9 +3,9 @@ package smarthome.dto;
 import smarthome.model.Location;
 
 public class LocationDTO {
-    private double latitude;
-    private double longitude;
-    private double altitude;
+    private final double latitude;
+    private final double longitude;
+    private final double altitude;
 
     public LocationDTO(double latitude, double longitude, double altitude) {
         this.latitude = latitude;

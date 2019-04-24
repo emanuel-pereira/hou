@@ -9,8 +9,8 @@ import smarthome.repository.Repositories;
 import java.util.List;
 
 public class RemoveGASensorCTRL {
-    private GAList gaList;
-    private GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
+    private final GAList gaList;
+    private final GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
     static final Logger log = Logger.getLogger(RemoveGASensorCTRL.class);
 
 

@@ -6,10 +6,10 @@ import smarthome.model.SensorTypeList;
 public class GetCurrentTemperatureInRoomUI {
 
 
-    private GetCurrentTemperatureInRoomCTRL controller;
-    private String temperature = "temperature";
+    private final GetCurrentTemperatureInRoomCTRL controller;
+    private final String temperature = "temperature";
     private int roomIndex;
-    private String msgTitle = "Oops!";
+    private final String msgTitle = "Oops!";
 
 
     public GetCurrentTemperatureInRoomUI(SensorTypeList sensorTypeList) {

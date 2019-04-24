@@ -7,9 +7,9 @@ import java.util.Objects;
 
 public class ProgramMode implements Program {
 
-    private NameValidations nameValidation = new NameValidations ();
+    private final NameValidations nameValidation = new NameValidations ();
     private String programName;
-    private String attributeName;
+    private final String attributeName;
     private double nominalPower;
     private double time;
 

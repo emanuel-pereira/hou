@@ -6,7 +6,7 @@ import smarthome.model.DeviceType;
 
 public class StoveType implements DeviceType {
 
-    private String deviceType = "Stove";
+    private final String deviceType = "Stove";
 
     public String getDeviceType() {
         return this.deviceType;

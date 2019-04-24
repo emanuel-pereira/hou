@@ -13,10 +13,10 @@ import static smarthome.model.House.*;
 
 public class NewSensorCTRL {
 
-    private SensorTypeList sensorTypeList;
-    private GAList gaList;
-    private GPSValidations gpsValidations;
-    private NameValidations nameValidations;
+    private final SensorTypeList sensorTypeList;
+    private final GAList gaList;
+    private final GPSValidations gpsValidations;
+    private final NameValidations nameValidations;
 
 
 

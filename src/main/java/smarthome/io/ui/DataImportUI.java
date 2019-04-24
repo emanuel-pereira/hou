@@ -16,7 +16,7 @@ import java.nio.file.Paths;
 
 public class DataImportUI {
 
-    private DataImportCTRL ctrl;
+    private final DataImportCTRL ctrl;
     private Path filePath;
     static final Logger log = Logger.getLogger(DataImportUI.class);
 

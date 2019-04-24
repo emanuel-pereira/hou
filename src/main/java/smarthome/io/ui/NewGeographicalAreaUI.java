@@ -8,7 +8,7 @@ import smarthome.model.TypeGAList;
 
 public class NewGeographicalAreaUI {
 
-    private NewGeographicalAreaCTRL ctrl;
+    private final NewGeographicalAreaCTRL ctrl;
     private String id;
     private String name;
     private int typeIndex;

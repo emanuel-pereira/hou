@@ -8,7 +8,7 @@ import java.util.List;
 
 public class HouseGridList {
 
-    private List<HouseGrid> hglist;
+    private final List<HouseGrid> hglist;
     static final Logger log = Logger.getLogger(HouseGridList.class);
 
     public HouseGridList() {

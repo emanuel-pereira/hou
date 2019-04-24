@@ -9,12 +9,12 @@ import java.util.List;
 
 public class GetAverageDailyRainfallForTimeIntervalInHouseAreaUI {
 
-    private GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623;
-    private String rainfall = "rainfall";
-    private SensorType sensorType = new SensorType(this.rainfall);
+    private final GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623;
+    private final String rainfall = "rainfall";
+    private final SensorType sensorType = new SensorType(this.rainfall);
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;
-    private String msgTitle = "Data not found";
+    private final String msgTitle = "Data not found";
 
 
     public GetAverageDailyRainfallForTimeIntervalInHouseAreaUI(SensorTypeList sensorTypeList) {

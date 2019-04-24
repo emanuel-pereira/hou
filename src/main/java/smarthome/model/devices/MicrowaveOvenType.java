@@ -6,7 +6,7 @@ import smarthome.model.DeviceType;
 
 public class MicrowaveOvenType implements DeviceType {
 
-    private String deviceType = "MicrowaveOven";
+    private final String deviceType = "MicrowaveOven";
 
     @Override
     public String getDeviceType() {

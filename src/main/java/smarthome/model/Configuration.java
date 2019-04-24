@@ -14,7 +14,7 @@ import java.util.Properties;
  */
 
 public class Configuration {
-    private String currentFile;
+    private final String currentFile;
     private static final String ERROR = "ERROR";
     private static final String GRIDMP = "gridMeteringPeriod";
     private static final String DEVICESMP = "devicesMeteringPeriod";

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class Dishwasher extends GenericDevice implements Programmable {
 
-    private List<Program> programList = new ArrayList<>();
+    private final List<Program> programList = new ArrayList<>();
     private ProgramWithTimer meteredProgram;
 
     /**
