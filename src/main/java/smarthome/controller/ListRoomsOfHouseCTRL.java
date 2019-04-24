@@ -6,18 +6,18 @@ import static smarthome.model.House.getHouseRoomList;
 
 public class ListRoomsOfHouseCTRL {
 
-    private RoomList mRoomList;
+    private final RoomList roomList;
 
     public ListRoomsOfHouseCTRL() {
-        mRoomList = getHouseRoomList();
+        this.roomList = getHouseRoomList();
     }
 
     public int roomListSize(){
-        return mRoomList.getRoomListSize ();
+        return this.roomList.getRoomListSize ();
     }
 
     public String showListRoomInString() {
-       return mRoomList.showRoomListInString ();
+       return this.roomList.showRoomListInString ();
     }
 
 }

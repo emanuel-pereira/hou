@@ -6,10 +6,10 @@ import smarthome.model.DeviceType;
 
 public class StoveType implements DeviceType {
 
-    private String deviceType = "Stove";
+    private static final String DEVICE_TYPE = "Stove";
 
     public String getDeviceType() {
-        return this.deviceType;
+        return DEVICE_TYPE;
     }
 
     public Device createDevice(String deviceName, double nominalPower) {

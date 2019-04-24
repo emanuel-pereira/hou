@@ -3,8 +3,8 @@ package smarthome.dto;
 import smarthome.model.OccupationArea;
 
 public class OccupationAreaDTO {
-    private double width;
-    private double length;
+    private final double width;
+    private final double length;
 
 
     public OccupationAreaDTO(double width, double length) {

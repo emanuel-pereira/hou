@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class ListParentGAUI {
 
-    private Scanner keyboard = new Scanner(System.in);
-    private ListParentGACTRL mCtrlUS8;
+    private final Scanner keyboard = new Scanner(System.in);
+    private final ListParentGACTRL mCtrlUS8;
 
     /**
      * This is the constructor method for the UI, it will receive the GA's list in order to

@@ -9,7 +9,7 @@ import static smarthome.model.House.*;
 
 public class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL {
 
-    private SensorTypeList sensorTypeList;
+    private final SensorTypeList sensorTypeList;
 
 
     public GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(SensorTypeList sensorTypeList) {

@@ -10,8 +10,8 @@ import static smarthome.model.House.getHouseRoomList;
 
 public class GetTotalNominalPowerCTRL {
 
-    private HouseGridList houseGridList;
-    private RoomList roomList;
+    private final HouseGridList houseGridList;
+    private final RoomList roomList;
 
     /**
      * Controller constructor

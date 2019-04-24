@@ -22,9 +22,9 @@ import java.util.*;
 import static java.lang.Double.parseDouble;
 
 public class DataImport {
-    private JSONParser parser = new JSONParser();
+    private final JSONParser parser = new JSONParser();
     private Path configFilePath;
-    private Path configHouseFilePath = Paths.get("resources/DataSet_sprint06_House.json");
+    private final Path configHouseFilePath = Paths.get("resources/DataSet_sprint06_House.json");
     private GAList gaList;
     private RoomList roomList;
     private int nrOfAddedReadings = 0;

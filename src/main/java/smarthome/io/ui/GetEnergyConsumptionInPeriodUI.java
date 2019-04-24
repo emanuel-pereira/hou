@@ -6,24 +6,24 @@ import java.util.GregorianCalendar;
 
 public class GetEnergyConsumptionInPeriodUI {
 
-    private GetEnergyConsumptionInPeriodCTRL mCtrl;
+    private final GetEnergyConsumptionInPeriodCTRL ctrl;
     private int indexOfMetered;
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;
-    private String timePeriodStr = "[Time Period]: ";
-    private String ecString = "[Energy Consumption]: ";
+    private static final String TIME_PERIOD = "[Time Period]: ";
+    private static final String EC_STRING = "[Energy Consumption]: ";
 
 
     public GetEnergyConsumptionInPeriodUI() {
-        mCtrl = new GetEnergyConsumptionInPeriodCTRL();
+        ctrl = new GetEnergyConsumptionInPeriodCTRL();
     }
 
 
     public void selectMetered() {
         System.out.println("Choose the metered object from the list below to get its total energy consumption in a time interval:");
-        System.out.println(mCtrl.showMeteredCTRL());
-        this.indexOfMetered = UtilsUI.requestIntegerInInterval(1, mCtrl.meteredListSize(),
-                "Not a valid option. Please select a device from the list below:\n" + mCtrl.showMeteredCTRL());
+        System.out.println(ctrl.showMeteredCTRL());
+        this.indexOfMetered = UtilsUI.requestIntegerInInterval(1, ctrl.meteredListSize(),
+                "Not a valid option. Please select a device from the list below:\n" + ctrl.showMeteredCTRL());
         this.indexOfMetered--;
         this.getStartDate();
     }
@@ -43,10 +43,10 @@ public class GetEnergyConsumptionInPeriodUI {
     }
 
     private void getEnergyConsumption() {
-        String meteredName = mCtrl.getMeteredName(this.indexOfMetered);
+        String meteredName = ctrl.getMeteredName(this.indexOfMetered);
         System.out.println("Total Energy Consumption in time period:");
         System.out.println("[Metered]: " + meteredName);
-        System.out.println(this.timePeriodStr + "[" + UtilsUI.dateToString(this.startDate) + " - " + UtilsUI.dateToString(this.endDate) + "]");
-        System.out.println(this.ecString + mCtrl.getEnergyConsumptionInPeriod(this.indexOfMetered, this.startDate, this.endDate) + "\n");
+        System.out.println(TIME_PERIOD + "[" + UtilsUI.dateToString(this.startDate) + " - " + UtilsUI.dateToString(this.endDate) + "]");
+        System.out.println(EC_STRING + ctrl.getEnergyConsumptionInPeriod(this.indexOfMetered, this.startDate, this.endDate) + "\n");
     }
 }

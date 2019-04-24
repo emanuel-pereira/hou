@@ -9,8 +9,8 @@ import static smarthome.model.TypeGAList.getTypeGAList;
 
 public class GetGAsOfTypeUI {
 
-    private GAList gaList;
-    private GetGAsOfTypeCTRL ctrlUS4;
+    private final GAList gaList;
+    private final GetGAsOfTypeCTRL ctrlUS4;
 
     public GetGAsOfTypeUI(GAList inputGAList) {
         gaList = inputGAList;

@@ -7,7 +7,7 @@ import static smarthome.model.House.*;
 
 
 public class AttachDetachAndListRoomsInGridCTRL {
-    private HouseGridList houseGridList;
+    private final HouseGridList houseGridList;
 
     public AttachDetachAndListRoomsInGridCTRL() {
         this.houseGridList = getGridListInHouse();

@@ -17,7 +17,7 @@ import java.text.ParseException;
 @SpringBootApplication
 public class Application {
 
-    private String defaults = "Default";
+    private static final String defaults = "Default";
     Location loc = new Location(1, 1, 1);
     Address a1 = new Address(defaults, defaults,"0000-000",defaults,defaults,loc);
     OccupationArea oc = new OccupationArea(1, 1);

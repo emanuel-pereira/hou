@@ -12,7 +12,7 @@ import java.util.List;
 
 public class JSONHouseSensors implements FileReaderHouseSensors{
     private Path filePath;
-    private JSONParser parser = new JSONParser();
+    private final JSONParser parser = new JSONParser();
 
 
     public JSONHouseSensors() {

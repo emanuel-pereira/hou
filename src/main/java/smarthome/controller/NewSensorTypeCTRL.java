@@ -8,7 +8,7 @@ import java.util.List;
 
 public class NewSensorTypeCTRL {
 
-    private SensorTypeList sensorTypeList;
+    private final SensorTypeList sensorTypeList;
 
     /**
      * Controller constructor

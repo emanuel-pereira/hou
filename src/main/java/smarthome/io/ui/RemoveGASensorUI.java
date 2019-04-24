@@ -10,9 +10,9 @@ import java.util.List;
 
 public class RemoveGASensorUI {
 
-    private RemoveGASensorCTRL ctrl;
+    private final RemoveGASensorCTRL ctrl;
     private GeographicalAreaDTO selectedGADTO;
-    private String designationMsg=" | Designation: ";
+    private static final String designationMsg=" | Designation: ";
 
     public RemoveGASensorUI(GAList gaList) {
         this.ctrl = new RemoveGASensorCTRL(gaList);

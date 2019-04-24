@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Fan extends GenericDevice implements Programmable {
 
-    private List<Program> programList = new ArrayList<>();
+    private final List<Program> programList = new ArrayList<>();
     private ProgramMode meteredProgram;
 
     public Fan(String name, DeviceSpecs deviceSpecs, double nominalPower) {

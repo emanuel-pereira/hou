@@ -4,7 +4,7 @@ import smarthome.controller.AddRoomToHouseCTRL;
 
 public class AddRoomToHouseUI {
 
-    private AddRoomToHouseCTRL controller;
+    private final AddRoomToHouseCTRL controller;
 
     private String id;
     private String name;

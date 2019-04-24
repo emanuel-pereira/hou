@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ConfigureHouseUI {
 
-    private ConfigureHouseCTRL ctrl;
+    private final ConfigureHouseCTRL ctrl;
     private String idGeoArea;
     private String streetName;
     private String number;

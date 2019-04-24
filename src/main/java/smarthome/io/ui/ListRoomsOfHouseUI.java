@@ -5,7 +5,7 @@ import smarthome.controller.ListRoomsOfHouseCTRL;
 public class ListRoomsOfHouseUI {
 
 
-    private ListRoomsOfHouseCTRL mCtrlUS108;
+    private final ListRoomsOfHouseCTRL mCtrlUS108;
 
 
     public ListRoomsOfHouseUI() {

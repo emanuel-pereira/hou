@@ -9,15 +9,15 @@ import java.util.GregorianCalendar;
 
 public class GetDailySensorDataUI {
 
-    private GetDailySensorDataCTRL superCTRL;
+    private final GetDailySensorDataCTRL superCTRL;
     private SensorType sensorType;
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;
-    private String temperature = "temperature";
-    private String msgTitle = "Data not found";
-    private String msgNoData = ("The sensors in the house area do not have readings in the specified date." +
+    private static final String TEMPERATURE = "temperature";
+    private static final String MSG_TITLE = "Data not found";
+    private static final String MSG_NO_DATA = ("The sensors in the house area do not have readings in the specified date." +
             "\n    Please select a date with registered readings. You can also import readings from a CSV File");
-    private String msgNoSensor = "There are still no sensors in the geographical area of the house. \n    Please ask the " +
+    private static final String MSG_NO_SENSOR = "There are still no sensors in the geographical area of the house. \n    Please ask the " +
             "system administrator to add some sensors first. You can also import geographical areas and sensors from a JSONFile";
 
 
@@ -31,7 +31,7 @@ public class GetDailySensorDataUI {
             return this.checkIfHouseLocationIsConfigured();
         } else {
             String msg = "Please ask the Administrator to create the " + this.sensorType.getType() + " sensor type";
-            UtilsUI.showError(this.msgTitle, msg);
+            UtilsUI.showError(MSG_TITLE, msg);
         }
         return false;
     }
@@ -39,7 +39,7 @@ public class GetDailySensorDataUI {
     private boolean checkIfHouseLocationIsConfigured() {
         if (!this.superCTRL.isHouseGAConfigured()) {
             String msg = "The house configuration is incomplete. Please configure the house location first.";
-            UtilsUI.showError(this.msgTitle, msg);
+            UtilsUI.showError(MSG_TITLE, msg);
             return false;
         }
         return true;
@@ -74,7 +74,7 @@ public class GetDailySensorDataUI {
                 break;
             case 3:
                 readingDTO = superCTRL.displayAmplitude(sensorType, startDate, endDate);
-                entrance = "The day with the highest temperature amplitude";
+                entrance = "The day with the highest TEMPERATURE amplitude";
                 unit = "°C";
                 this.buildMessage(entrance, readingDTO, unit);
                 break;
@@ -95,12 +95,12 @@ public class GetDailySensorDataUI {
     public void displayFirstMaximum() {
         int mode = 1;
         //set specific sensor data type for this US
-        this.sensorType = new SensorType(temperature);
+        this.sensorType = new SensorType(TEMPERATURE);
         if (!isValid())
             return;
         requestTimePeriod();
         if (this.superCTRL.filterByType(sensorType) == 0) {
-            UtilsUI.showError(this.msgTitle, this.msgNoSensor);
+            UtilsUI.showError(MSG_TITLE, MSG_NO_SENSOR);
             return;
         }
         //request start date and end date user inputs
@@ -108,44 +108,44 @@ public class GetDailySensorDataUI {
         if (this.superCTRL.checkIfClosestSensorsHasReadingsInTimePeriodCTRL(sensorType, startDate, endDate))
             calculations(this.sensorType, this.startDate, this.endDate, mode);
         else {
-            UtilsUI.showError(this.msgTitle, this.msgNoData);
+            UtilsUI.showError(MSG_TITLE, MSG_NO_DATA);
         }
     }
 
     public void displayLastMaximum() {
         int mode = 2;
         //set specific sensor data type for this US
-        this.sensorType = new SensorType(temperature);
+        this.sensorType = new SensorType(TEMPERATURE);
         if (!isValid())
             return;
         //request start date and end date user inputs
         requestTimePeriod();
         if (this.superCTRL.filterByType(sensorType) == 0) {
-            UtilsUI.showError(this.msgTitle, this.msgNoSensor);
+            UtilsUI.showError(MSG_TITLE, MSG_NO_SENSOR);
             return;
         }
         if (this.superCTRL.checkIfClosestSensorsHasReadingsInTimePeriodCTRL(sensorType, startDate, endDate))
             calculations(this.sensorType, this.startDate, this.endDate, mode);
         else
-            UtilsUI.showError(this.msgTitle, this.msgNoData);
+            UtilsUI.showError(MSG_TITLE, MSG_NO_DATA);
     }
 
     public void displayMaxAmplitude() {
         int mode = 3;
         //set specific sensor data type for this US
-        this.sensorType = new SensorType(temperature);
+        this.sensorType = new SensorType(TEMPERATURE);
         if (!isValid())
             return;
         //request start date and end date user inputs
         requestTimePeriod();
         if (this.superCTRL.filterByType(sensorType) == 0) {
-            UtilsUI.showError(this.msgTitle, this.msgNoSensor);
+            UtilsUI.showError(MSG_TITLE, MSG_NO_SENSOR);
             return;
         }
         if (this.superCTRL.checkIfClosestSensorsHasReadingsInTimePeriodCTRL(sensorType, startDate, endDate))
             calculations(this.sensorType, this.startDate, this.endDate, mode);
         else
-            UtilsUI.showError(this.msgTitle, this.msgNoData);
+            UtilsUI.showError(MSG_TITLE, MSG_NO_DATA);
     }
 }
 

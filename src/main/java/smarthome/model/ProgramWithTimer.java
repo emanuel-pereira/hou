@@ -7,9 +7,9 @@ import java.util.Objects;
 
 public class ProgramWithTimer implements Program {
 
-    private NameValidations nameValidation = new NameValidations();
+    private final NameValidations nameValidation = new NameValidations();
     private String programName;
-    private String attributeName;
+    private final String attributeName;
     private double energyConsumption;
     private double duration;
 

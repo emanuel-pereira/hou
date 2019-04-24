@@ -5,7 +5,7 @@ import smarthome.controller.AttachDetachAndListRoomsInGridCTRL;
 
 public class AttachDetachAndListRoomsInGridUI {
 
-    private AttachDetachAndListRoomsInGridCTRL ctrl;
+    private final AttachDetachAndListRoomsInGridCTRL ctrl;
     private int indexOfHG;
     private int indexOfRoom;
 

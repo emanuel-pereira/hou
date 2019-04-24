@@ -11,7 +11,7 @@ import java.util.List;
 public class MicrowaveOven extends GenericDevice implements Programmable {
 
 
-    private List<Program> programList = new ArrayList<>();
+    private final List<Program> programList = new ArrayList<>();
     private ProgramMode meteredProgram;
 
     public MicrowaveOven(String name, DeviceSpecs deviceSpecs, double nominalPower) {
