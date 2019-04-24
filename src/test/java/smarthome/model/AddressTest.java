@@ -366,4 +366,18 @@ class AddressTest {
         assertEquals(code, address1.getZipCode());
     }
 
+    @Test
+    public void addressToString() {
+
+        Location location = new Location(23, 67, 89);
+
+        String expected = "    Rua Júlio Dinis, 80, 4200-120\n    Porto, Portugal\n | Location:\n    Latitude: 23.0º | Longitude: 67.0º | Altitude: 89.0 meters";
+
+        Address a = new Address("Rua Júlio Dinis","80", "4200-120","Porto","Portugal", location);
+        String result;
+        result = a.addressToString();
+
+        assertEquals(expected, result);
+    }
+
 }
