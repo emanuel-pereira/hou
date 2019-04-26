@@ -19,6 +19,7 @@ public class DataImportUI {
     private DataImportCTRL ctrl;
     private Path filePath;
     static final Logger log = Logger.getLogger(DataImportUI.class);
+    private String loadTime = "Import task completed [ %d milliseconds ]%n";
 
     /**
      * Constructor for importing data related to GAList.
@@ -87,12 +88,17 @@ public class DataImportUI {
     public void importGAs() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         System.out.println("\n------");
         if (UtilsUI.confirmOption("Do you wish to import this data?(y/n)", "Please type y/Y for Yes or n/N for No.")) {
+            long start = System.currentTimeMillis();
             ctrl.importGeoAreasFromFile(this.filePath);
+            long end = System.currentTimeMillis();
+            long loadingTime = (end - start);
+
             int notImported = ctrl.failedToAdd();
             int imported = ctrl.getImportedGaListSize(this.filePath);
             if (notImported > 0 && imported > 0) {
                 System.out.println("Success! " + imported + " geographical areas and respective sensors were imported.");
                 System.out.println("Warning: " + notImported + " geographical areas and respective sensors were not imported");
+                System.out.printf(loadTime, loadingTime);
                 UtilsUI.backToMenu();
             }
             if (notImported > 0 && imported < 1) {
@@ -101,6 +107,7 @@ public class DataImportUI {
             }
             if (notImported < 1 && imported > 0) {
                 System.out.println("Success! " + imported + " geographical areas and respective sensors were imported.");
+                System.out.printf(loadTime, loadingTime);
                 UtilsUI.backToMenu();
             }
         } else {
@@ -118,21 +125,26 @@ public class DataImportUI {
             Path path = Paths.get(filepath);
             try {
                 if (UtilsUI.confirmOption("Please confirm if you want to import sensors' readings. (y/n)", "Please type y for Yes or n for No.")) {
+                    System.out.println("Loading data...");
+                    long start = System.currentTimeMillis();
                     ctrl.importReadingsFromFile(path, object);
+                    long end = System.currentTimeMillis();
+                    long loadingTime = (end - start);
                     int invalidReadings = ctrl.getNrOfInvalidReadings();
                     int importedReadings = ctrl.getNrOfImportedReadings();
-                    System.out.println("Readings import task completed:");
                     if (importedReadings == 0) {
                         System.out.println("No readings were imported. Please verify if the file contains valid readings.");
                         UtilsUI.backToMenu();
                     }
                     if (importedReadings > 0 && invalidReadings == 0) {
                         System.out.println(" - " + ctrl.getNrOfImportedReadings() + " readings were imported\n");
+                        System.out.printf(loadTime, loadingTime);
                         UtilsUI.backToMenu();
                     }
                     if (invalidReadings > 0 && importedReadings > 0) {
                         System.out.println(" - " + ctrl.getNrOfImportedReadings() + " readings were imported\n");
                         System.out.println(" - " + invalidReadings +" readings were not imported. Check log file for details.");
+                        System.out.printf(loadTime, loadingTime);
                         UtilsUI.backToMenu();
                     }
                 }
@@ -149,12 +161,16 @@ public class DataImportUI {
         int[] counters;
         System.out.println("\n------");
         if (UtilsUI.confirmOption("Do you wish to import this data?(y/n)", "Please type y for Yes or n for No.")) {
+            long start = System.currentTimeMillis();
             counters = ctrl.importHouseSensors(this.filePath);
+            long end = System.currentTimeMillis();
+            long loadingTime = end - start;
             int sensorsAdded = counters[0];
             int sensorsNotAdded = counters[1];
             if (sensorsNotAdded > 0 && sensorsAdded > 0) {
                 System.out.println("Success! " + sensorsAdded + " sensors were imported.");
                 System.out.println("Warning: " + sensorsNotAdded + " sensors were not imported. Check log file for details.");
+                System.out.printf(loadTime, loadingTime);
                 UtilsUI.backToMenu();
             }
             if (sensorsNotAdded > 0 && sensorsAdded < 1) {
@@ -163,6 +179,7 @@ public class DataImportUI {
             }
             if (sensorsNotAdded < 1 && sensorsAdded > 0) {
                 System.out.println("Success! " + sensorsAdded + " sensors were imported.");
+                System.out.printf(loadTime, loadingTime);
                 UtilsUI.backToMenu();
             }
         } else {
