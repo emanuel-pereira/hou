@@ -1,25 +1,16 @@
 package smarthome.model;
 
-import smarthome.dto.ReadingDTO;
-import smarthome.dto.SensorDTO;
 import smarthome.model.validations.Utils;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-import java.util.Objects;
-
-import static smarthome.model.House.getAddress;
 
 @Entity
-public class InternalSensor {
+public class InternalSensor implements Sensor {
 
     @Id
     private String id;
     private String designation;
-    @Embedded
-    private Location location;
     @OneToOne
     @JoinColumn(name = "SENSORTYPE_ID")
     private SensorType sensorType;
@@ -29,105 +20,50 @@ public class InternalSensor {
     private boolean active;
     @Transient
     private ReadingList readingList;
+    @Transient
+    private SensorBehavior sensorBehavior;
+
 
     protected InternalSensor() {
     }
 
     /**
-     * Constructor used to create internal sensors which, unlike external sensors, don't require location coordinates.
-     *
-     * @param designation String parameter to specify sensor's designation
-     * @param startDate   specifies the sensor start date as a Calendar dataType
-     * @param sensorType  specifies the sensor type as a SensorType instance
-     * @param unit        String parameter to specify sensor's unit of measure
-     * @param readings    specifies the sensor's readingList
-     */
-    public InternalSensor(String id, String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
-            this.id = id;
-            this.designation = designation;
-            this.startDate = startDate;
-            this.sensorType = sensorType;
-            this.unit = unit;
-            this.active = true;
-            this.readingList = readings;
-            this.location = (getAddress().getGPSLocation());
-
-    }
-
-    /**
-     * Constructor used to create external sensors which require location coordinates.
+     * Constructor used to create internal sensors which require location coordinates.
      *
      * @param id          String parameter to specify sensor's id
      * @param designation String parameter to specify sensor's designation
      * @param startDate   specifies the sensor start date as a Calendar dataType
-     * @param geoLocation specifies the sensor GPS coordinates
      * @param sensorType  specifies the sensor start date as a Calendar variable
      * @param unit        String parameter to specify sensor's unit of measure
      * @param readings    specifies the sensor's readingList
      */
-    public InternalSensor(String id, String designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
-            this.id = id;
-            this.designation = designation;
-            this.startDate = startDate;
-            this.location = geoLocation;
-            this.sensorType = sensorType;
-            this.unit = unit;
-            this.active = true;
-            this.readingList = readings;
-    }
-
-    /**
-     * Method to check if the sensorDesignation given to name the sensor meets the criteria defined to be
-     * considered a valid sensorDesignation, namely:
-     * - name cannot be empty or null
-     * - name must have only alphanumeric characters
-     *
-     * @param name sensor's name
-     * @return true if name sensorDesignation is valid, if it is not null or empty
-     */
-    private boolean nameIsValid(String name) {
-        if (name.trim().isEmpty()) {
-            return false;
-        }
-        return name.matches("[A-Za-z0-9 \\-]*");
-    }
-
-    /**
-     * Accept alphanumeric input without spaces
-     *
-     * @param id Unique identification
-     * @return True if validate correctly
-     */
-    private boolean sensorIdIsValid(String id) {
-        if (id.trim().isEmpty()) {
-            return false;
-        }
-        return id.matches("^[a-zA-Z0-9]*$");
+    public InternalSensor(String id, String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+        this.sensorBehavior = new SensorBehavior(id, designation, startDate, sensorType, unit, readings);
+        this.id = this.sensorBehavior.getId();
+        this.designation = this.sensorBehavior.getDesignation();
+        this.startDate = this.sensorBehavior.getStartDate();
+        this.sensorType = this.sensorBehavior.getSensorType();
+        this.unit = this.sensorBehavior.getUnit();
+        this.active = this.sensorBehavior.isActive();
+        this.readingList = this.sensorBehavior.getReadingList();
     }
 
     /**
      * Changes the Id of the sensor to the one inputted by the user.
      *
      * @param sensorId sensor's id String
-     * @return True if correctly validate
      */
     public boolean setId(String sensorId) {
-        if (this.sensorIdIsValid(sensorId)) {
-            this.id = sensorId;
-            return true;
-        }
-        return false;
+            return this.sensorBehavior.setId(sensorId);
     }
-
 
     /**
      * Changes the type of the sensor to the one inputted by the user.
      *
      * @param sensorType sensor's type
      */
-
     public void setSensorType(SensorType sensorType) {
-        this.sensorType = sensorType;
+        this.sensorBehavior.setSensorType(sensorType);
     }
 
     /**
@@ -136,7 +72,7 @@ public class InternalSensor {
      * @param startDate date when the sensor started reading
      */
     public void setStartDate(Calendar startDate) {
-        this.startDate = startDate;
+        this.sensorBehavior.setStartDate(startDate);
     }
 
     /**
@@ -145,7 +81,7 @@ public class InternalSensor {
      * @param unit sensor's unit
      */
     public void setUnit(String unit) {
-        this.unit = unit;
+        this.sensorBehavior.setUnit(unit);
     }
 
     /**
@@ -154,11 +90,7 @@ public class InternalSensor {
      * @param sensorDesignation sensor's name String
      */
     public boolean setSensorDesignation(String sensorDesignation) {
-        if (this.nameIsValid(sensorDesignation)) {
-            this.designation = sensorDesignation;
-            return true;
-        }
-        return false;
+        return this.sensorBehavior.setSensorDesignation(sensorDesignation);
     }
 
     /**
@@ -167,32 +99,14 @@ public class InternalSensor {
      * @return is the sensor's name designation
      */
     public String getDesignation() {
-        return this.designation;
+        return this.sensorBehavior.getDesignation();
     }
 
-    /**
-     * Changes the location of the sensor to the new location coordinates inputted by the user.
-     *
-     * @param location , of the object Location type, to update the location of the sensor
-     */
-    public void setSensorLocation(Location location) {
-        this.location = location;
-    }
-
-    /**
-     * Returns the location coordinates of the sensor
-     *
-     * @return object Location
-     */
-    public Location getLocation() {
-        return this.location;
-    }
-
-    /**
+       /**
      * @return the sensor's id
      */
     public String getId() {
-        return this.id;
+        return this.sensorBehavior.getId();
     }
 
     /**
@@ -201,22 +115,11 @@ public class InternalSensor {
      * @return object dataType
      */
     public SensorType getSensorType() {
-        return this.sensorType;
+        return this.sensorBehavior.getSensorType();
     }
 
     public ReadingList getReadingList() {
-        return this.readingList;
-    }
-
-    /**
-     * Method to calculate linear distance between two sensors
-     *
-     * @param sensor1 object sensor 1
-     * @param sensor2 object sensor 2
-     * @return calculated distance betwwen both objects
-     */
-    public double calcLinearDistanceBetweenTwoSensors(InternalSensor sensor1, InternalSensor sensor2) {
-        return Utils.round(this.location.calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation()), 2);
+        return this.sensorBehavior.getReadingList();
     }
 
 
@@ -226,13 +129,11 @@ public class InternalSensor {
      * @return the last reading of a list of readings
      */
     public Reading getLastReadingPerSensor() {
-        return this.readingList.getLastReading();
+        return this.sensorBehavior.getLastReadingPerSensor();
     }
 
     public double getLastReadingValuePerSensor() {
-        double lastValue;
-        lastValue = this.readingList.getReadingsList().get(this.readingList.getReadingsList().size() - 1).returnValueOfReading();
-        return lastValue;
+        return this.sensorBehavior.getLastReadingValuePerSensor();
     }
 
 
@@ -242,7 +143,7 @@ public class InternalSensor {
      * @return Date
      */
     public Calendar getStartDate() {
-        return this.startDate;
+        return this.sensorBehavior.getStartDate();
     }
 
     /**
@@ -251,21 +152,13 @@ public class InternalSensor {
      * @return Date
      */
     public Calendar getPauseDate() {
-        return this.pauseDate;
+        return this.sensorBehavior.getPauseDate();
     }
 
     public String getUnit() {
-        return this.unit;
+        return this.sensorBehavior.getUnit();
     }
 
-    public SensorDTO toDTO() {
-        List<ReadingDTO> readingListDTO = new ArrayList<>();
-        for (Reading reading : this.readingList.getReadingsList()) {
-            ReadingDTO readingDTO = reading.toDTO();
-            readingListDTO.add(readingDTO);
-        }
-        return new SensorDTO(this.id, this.designation, readingListDTO);
-    }
 
     /**
      * Deactivate sensor if active
@@ -273,13 +166,8 @@ public class InternalSensor {
      * @return True if deactivated
      */
     public boolean deactivate(Calendar pauseDate) {
-        if (this.active && pauseDate.after(this.startDate)) {
-            this.active = false;
-            this.pauseDate = pauseDate;
-            return true;
-        } else {
-            return false;
-        }
+            return this.sensorBehavior.deactivate(pauseDate);
+
     }
 
     /**
@@ -288,10 +176,7 @@ public class InternalSensor {
      * @return True if reactivated
      */
     public boolean reactivate() {
-        if (this.active)
-            return false;
-        this.active = true;
-        return true;
+        return this.sensorBehavior.reactivate();
     }
 
     /**
@@ -300,24 +185,8 @@ public class InternalSensor {
      * @return True if active. False if not active
      */
     public boolean isActive() {
-        return this.active;
+        return this.sensorBehavior.isActive();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof InternalSensor)) {
-            return false;
-        }
-        InternalSensor sensor = (InternalSensor) o;
-        return id.equals(sensor.id) ||
-                designation.equals(sensor.designation);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, designation);
-    }
 }

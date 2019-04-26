@@ -32,9 +32,9 @@ public class ExternalSensor implements Sensor {
     @Transient
     private SensorBehavior sensorBehavior;
 
+
     protected ExternalSensor() {
     }
-
 
     /**
      * Constructor used to create external sensors which require location coordinates.
@@ -48,68 +48,34 @@ public class ExternalSensor implements Sensor {
      * @param readings    specifies the sensor's readingList
      */
     public ExternalSensor(String id, String designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
-        this.id = id;
-        this.designation = designation;
-        this.startDate = startDate;
+        this.sensorBehavior = new SensorBehavior(id, designation, startDate, sensorType, unit, readings);
+        this.id = this.sensorBehavior.getId();
+        this.designation = this.sensorBehavior.getDesignation();
+        this.startDate = this.sensorBehavior.getStartDate();
+        this.sensorType = this.sensorBehavior.getSensorType();
+        this.unit = this.sensorBehavior.getUnit();
+        this.active = this.sensorBehavior.isActive();
+        this.readingList = this.sensorBehavior.getReadingList();
+
         this.location = geoLocation;
-        this.sensorType = sensorType;
-        this.unit = unit;
-        this.active = true;
-        this.readingList = readings;
-    }
-
-    /**
-     * Method to check if the sensorDesignation given to name the sensor meets the criteria defined to be
-     * considered a valid sensorDesignation, namely:
-     * - name cannot be empty or null
-     * - name must have only alphanumeric characters
-     *
-     * @param name sensor's name
-     * @return true if name sensorDesignation is valid, if it is not null or empty
-     */
-    private boolean nameIsValid(String name) {
-        if (name.trim().isEmpty()) {
-            return false;
-        }
-        return name.matches("[A-Za-z0-9 \\-]*");
-    }
-
-    /**
-     * Accept alphanumeric input without spaces
-     *
-     * @param id Unique identification
-     * @return True if validate correctly
-     */
-    private boolean sensorIdIsValid(String id) {
-        if (id.trim().isEmpty()) {
-            return false;
-        }
-        return id.matches("^[a-zA-Z0-9]*$");
     }
 
     /**
      * Changes the Id of the sensor to the one inputted by the user.
      *
      * @param sensorId sensor's id String
-     * @return True if correctly validate
      */
     public boolean setId(String sensorId) {
-        if (this.sensorIdIsValid(sensorId)) {
-            this.id = sensorId;
-            return true;
-        }
-        return false;
+            return this.sensorBehavior.setId(sensorId);
     }
-
 
     /**
      * Changes the type of the sensor to the one inputted by the user.
      *
      * @param sensorType sensor's type
      */
-
     public void setSensorType(SensorType sensorType) {
-        this.sensorType = sensorType;
+        this.sensorBehavior.setSensorType(sensorType);
     }
 
     /**
@@ -118,7 +84,7 @@ public class ExternalSensor implements Sensor {
      * @param startDate date when the sensor started reading
      */
     public void setStartDate(Calendar startDate) {
-        this.startDate = startDate;
+        this.sensorBehavior.setStartDate(startDate);
     }
 
     /**
@@ -127,7 +93,7 @@ public class ExternalSensor implements Sensor {
      * @param unit sensor's unit
      */
     public void setUnit(String unit) {
-        this.unit = unit;
+        this.sensorBehavior.setUnit(unit);
     }
 
     /**
@@ -136,11 +102,7 @@ public class ExternalSensor implements Sensor {
      * @param sensorDesignation sensor's name String
      */
     public boolean setSensorDesignation(String sensorDesignation) {
-        if (this.nameIsValid(sensorDesignation)) {
-            this.designation = sensorDesignation;
-            return true;
-        }
-        return false;
+        return this.sensorBehavior.setSensorDesignation(sensorDesignation);
     }
 
     /**
@@ -149,7 +111,7 @@ public class ExternalSensor implements Sensor {
      * @return is the sensor's name designation
      */
     public String getDesignation() {
-        return this.designation;
+        return this.sensorBehavior.getDesignation();
     }
 
     /**
@@ -166,7 +128,6 @@ public class ExternalSensor implements Sensor {
      *
      * @return object Location
      */
-    @Override
     public Location getLocation() {
         return this.location;
     }
@@ -175,7 +136,7 @@ public class ExternalSensor implements Sensor {
      * @return the sensor's id
      */
     public String getId() {
-        return this.id;
+        return this.sensorBehavior.getId();
     }
 
     /**
@@ -184,12 +145,11 @@ public class ExternalSensor implements Sensor {
      * @return object dataType
      */
     public SensorType getSensorType() {
-        return this.sensorType;
+        return this.sensorBehavior.getSensorType();
     }
 
-    @Override
     public ReadingList getReadingList() {
-        return this.readingList;
+        return this.sensorBehavior.getReadingList();
     }
 
     /**
@@ -197,9 +157,9 @@ public class ExternalSensor implements Sensor {
      *
      * @param sensor1 object sensor 1
      * @param sensor2 object sensor 2
-     * @return calculated distance betwwen both objects
+     * @return calculated distance between both objects
      */
-    public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
+    public double calcLinearDistanceBetweenTwoSensors(ExternalSensor sensor1, ExternalSensor sensor2) {
 
         return Utils.round(getLocation().calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation()), 2);
     }
@@ -215,7 +175,7 @@ public class ExternalSensor implements Sensor {
     }
 
     public double getLastReadingValuePerSensor() {
-       return this.sensorBehavior.getLastReadingValuePerSensor();
+        return this.sensorBehavior.getLastReadingValuePerSensor();
     }
 
 
@@ -225,7 +185,7 @@ public class ExternalSensor implements Sensor {
      * @return Date
      */
     public Calendar getStartDate() {
-        return this.startDate;
+        return this.sensorBehavior.getStartDate();
     }
 
     /**
@@ -234,21 +194,13 @@ public class ExternalSensor implements Sensor {
      * @return Date
      */
     public Calendar getPauseDate() {
-        return this.pauseDate;
+        return this.sensorBehavior.getPauseDate();
     }
 
     public String getUnit() {
-        return this.unit;
+        return this.sensorBehavior.getUnit();
     }
 
-    public SensorDTO toDTO() {
-        List<ReadingDTO> readingListDTO = new ArrayList<>();
-        for (Reading reading : this.readingList.getReadingsList()) {
-            ReadingDTO readingDTO = reading.toDTO();
-            readingListDTO.add(readingDTO);
-        }
-        return new SensorDTO(this.id, this.designation, readingListDTO);
-    }
 
     /**
      * Deactivate sensor if active
@@ -256,13 +208,8 @@ public class ExternalSensor implements Sensor {
      * @return True if deactivated
      */
     public boolean deactivate(Calendar pauseDate) {
-        if (this.active && pauseDate.after(this.startDate)) {
-            this.active = false;
-            this.pauseDate = pauseDate;
-            return true;
-        } else {
-            return false;
-        }
+            return this.sensorBehavior.deactivate(pauseDate);
+
     }
 
     /**
@@ -271,10 +218,7 @@ public class ExternalSensor implements Sensor {
      * @return True if reactivated
      */
     public boolean reactivate() {
-        if (this.active)
-            return false;
-        this.active = true;
-        return true;
+        return this.sensorBehavior.reactivate();
     }
 
     /**
@@ -283,24 +227,8 @@ public class ExternalSensor implements Sensor {
      * @return True if active. False if not active
      */
     public boolean isActive() {
-        return this.active;
+        return this.sensorBehavior.isActive();
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof ExternalSensor)) {
-            return false;
-        }
-        ExternalSensor sensor = (ExternalSensor) o;
-        return id.equals(sensor.id) ||
-                designation.equals(sensor.designation);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, designation);
-    }
 }

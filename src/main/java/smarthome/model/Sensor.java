@@ -4,8 +4,7 @@ import java.util.Calendar;
 
 public interface Sensor {
 
-    Location getLocation();
-    ReadingList getReadingList();
-
+    String getId();
+    String getDesignation();
 
 }
