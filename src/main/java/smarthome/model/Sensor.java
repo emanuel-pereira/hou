@@ -12,22 +12,51 @@ import java.util.Objects;
 
 import static smarthome.model.House.getAddress;
 
+/**
+ * The sensor class is an entity which will be persisted in the DB.
+ * All class attributes will be persisted in the form of columns of the table.
+ */
 @Entity
 public class Sensor {
 
+    /**
+     * Object Identifier which is setup upon Sensor creation.
+     */
     @Id
     private String id;
+
     private String designation;
+
+    /**
+     * Object Location which is setup upon Sensor creation.
+     * Upon persistence Spring will annotate Location Class attributes as if they were from this present class.
+     * The @Embedded annotation is used to specify a persistent field or property of an entity whose value is an
+     * instance of an embeddable class.
+     */
     @Embedded
     private Location location;
+
+    /**
+     * This field needs to be a match with this Sensor Type Id.
+     * Foreign Key Constraint with SensorTypes Table.
+     * The match between this SensorType and the Table of SensorTypes is a One to One relationship, however the
+     * opposite is not true.
+     */
     @OneToOne
     @JoinColumn(name = "SENSORTYPE_ID")
     private SensorType sensorType;
+
     private Calendar startDate;
     private Calendar pauseDate;
     private String unit;
     private boolean active;
-    @Transient
+
+    /**
+     * The @Embedded annotation is used to specify a persistent field or property of an entity whose value is an
+     * instance of an embeddable class.
+     * In this case, List<Reading> object contained by the ReadingList will be embedded into this class.
+     */
+    @Embedded
     private ReadingList readingList;
 
     protected Sensor() {
@@ -43,15 +72,14 @@ public class Sensor {
      * @param readings    specifies the sensor's readingList
      */
     public Sensor(String id, String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
-            this.id = id;
-            this.designation = designation;
-            this.startDate = startDate;
-            this.sensorType = sensorType;
-            this.unit = unit;
-            this.active = true;
-            this.readingList = readings;
-            this.location = (getAddress().getGPSLocation());
-
+        this.id = id;
+        this.designation = designation;
+        this.startDate = startDate;
+        this.sensorType = sensorType;
+        this.unit = unit;
+        this.active = true;
+        this.readingList = readings;
+        this.location = (getAddress().getGPSLocation());
     }
 
     /**
@@ -66,14 +94,14 @@ public class Sensor {
      * @param readings    specifies the sensor's readingList
      */
     public Sensor(String id, String designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
-            this.id = id;
-            this.designation = designation;
-            this.startDate = startDate;
-            this.location = geoLocation;
-            this.sensorType = sensorType;
-            this.unit = unit;
-            this.active = true;
-            this.readingList = readings;
+        this.id = id;
+        this.designation = designation;
+        this.startDate = startDate;
+        this.location = geoLocation;
+        this.sensorType = sensorType;
+        this.unit = unit;
+        this.active = true;
+        this.readingList = readings;
     }
 
     /**

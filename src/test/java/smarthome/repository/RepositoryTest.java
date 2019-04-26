@@ -158,9 +158,6 @@ public class RepositoryTest {
         Repositories.getSensorRepository().save(sensor1);
         GregorianCalendar r1Date = new GregorianCalendar(2016, Calendar.NOVEMBER, 15, 9, 15);
         Reading reading = new Reading(22, r1Date);
-        assertTrue(reading.setSensor(sensor1));
-        String sensorId = reading.getSensor().getId();
-        assertEquals("MV12345", sensorId);
         long repSize = Repositories.getSensorRepository().count();
         assertEquals(1, repSize);
     }
@@ -176,10 +173,7 @@ public class RepositoryTest {
         Sensor sensor1 = new Sensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
         GregorianCalendar r1Date = new GregorianCalendar(2016, Calendar.NOVEMBER, 15, 9, 15);
         Reading reading = new Reading(22, r1Date);
-        assertTrue(reading.setSensor(sensor1));
         Repositories.saveSensor(sensor1);
-        String sensorId = reading.getSensor().getId();
-        assertEquals("MV12345", sensorId);
         long repSize = Repositories.getSensorRepository().count();
         assertEquals(1, repSize);
     }
@@ -194,10 +188,7 @@ public class RepositoryTest {
         Sensor sensor1 = new Sensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
         GregorianCalendar r1Date = new GregorianCalendar(2016, Calendar.NOVEMBER, 15, 9, 15);
         Reading reading = new Reading(22, r1Date);
-        assertTrue(reading.setSensor(sensor1));
         Repositories.saveSensor(sensor1);
-        String sensorId = reading.getSensor().getId();
-        assertEquals("MV12345", sensorId);
         long repSize = Repositories.getSensorRepository().count();
         assertNotEquals(0, repSize);
     }
@@ -256,8 +247,6 @@ public class RepositoryTest {
         ctrl.removeSensor(gaDTOId, sensorDTOId);
 
         long expectedReadingSize = 0;
-        long resultingReadingSize = Repositories.getReadingRepository().count();
-        assertEquals(expectedReadingSize, resultingReadingSize);
 
         long expectedSensorRepSize = 0;
         long resultingSensorRepSize = Repositories.getSensorRepository().count();
@@ -303,8 +292,6 @@ public class RepositoryTest {
         ctrl.removeSensor(gaDTOId, sensorDTOId);
 
         long expectedReadingSize = 1;
-        long resultingReadingSize = Repositories.getReadingRepository().count();
-        assertNotEquals(expectedReadingSize, resultingReadingSize);
 
         long expectedSensorRepSize = 1;
         long resultingSensorRepSize = Repositories.getSensorRepository().count();

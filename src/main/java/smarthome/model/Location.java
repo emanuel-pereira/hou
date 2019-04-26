@@ -5,9 +5,19 @@ import smarthome.model.validations.GPSValidations;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 
+/**
+ * The @Embeddable annotation allows to specify a class whose instances are stored as intrinsic part of the owning
+ * entity. This annotation has no attributes.
+ * The behaviour of the persistence of this class, is such as if this class attributes were from the parent class
+ * were this Embeddable is Embedded(eg. Sensor.Location).
+ */
 @Embeddable
-
 public class Location {
+
+    /**
+     * Java's transient keyword is used to denote that a field is not to be serialized, whereas JPA's @Transient
+     * annotation is used to indicate that a field is not to be persisted in the database
+     */
     @Transient
     private GPSValidations v = new GPSValidations ();
     private double latitude;
@@ -32,7 +42,7 @@ public class Location {
     }
 
     /**
-     * Method to set latitude as the one inputted by the user if it complies with latitudeIsValid criteria
+     * Method to set latitude as the one inputted by the user if it complies with latitudeIsValid criteria.
      * @param latitude user input
      */
     public void setLatitude(double latitude) {

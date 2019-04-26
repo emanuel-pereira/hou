@@ -1,53 +1,62 @@
 package smarthome.model;
 
 import org.apache.log4j.Logger;
-import smarthome.repository.Repositories;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+/**
+ * The @Embeddable annotation allows to specify a class whose instances are stored as intrinsic part of the owning
+ * entity. This annotation has no attributes.
+ * The behaviour of the persistence of this class, is such as if this class attributes were from the parent class
+ * were this Embeddable is Embedded(eg. Sensor.listOfReadings [List<Reading>]).
+ */
+@Embeddable
 public class ReadingList {
 
-    private List<Reading> listOfReadings;
+    @Transient
     static final Logger log = Logger.getLogger(ReadingList.class);
-
+    /**
+     * Defines a collection of instances of a basic type or embeddable class. Must be specified if the collection
+     * is to be mapped by means of a collection table.
+     * JPA 2.0 defines an ElementCollection mapping. It is meant to handle several non-standard relationship mappings.
+     * An ElementCollection can be used to define a one-to-many relationship to an Embeddable object, or a Basic
+     * value (such as a collection of Strings).
+     * The @ElementCollection values are always stored in a separate table, and even using @Embeddable in this class
+     * this List object will not be embeddably persisted in the database, as the @ElementCollection acts like a
+     * Transient instance
+     */
+    @ElementCollection
+    private List<Reading> listOfReadings;
 
     public ReadingList() {
         this.listOfReadings = new ArrayList<>();
     }
 
-
     public Reading newReading(double readValue, Calendar timeOfReading) {
         return new Reading(readValue, timeOfReading);
     }
 
-    //TODO it is needed to create a new method in order to deal/avoid the @notNull matter when filtering lists of
-    // readings by date
     public boolean addReading(Reading newReading) {
-        String readingNotAddedMsg = "Reading not added to the DB";
 
         if (this.listOfReadings.contains(newReading)) {
-            log.warn(readingNotAddedMsg);
+            log.warn("Reading not added to the DB, as it is already contained");
             return false;
         }
         if (newReading == null) {
-            log.warn(readingNotAddedMsg);
+            log.warn("Reading invalid");
             return false;
         }
         if (!checkIfIsDuplicate(newReading)) {
-            log.error("Duplicate reading");
+            log.error("Duplicate reading, an instance of this reading already exists");
             return false;
         }
         this.listOfReadings.add(newReading);
-        //repository call
-        try {
-            Repositories.getReadingRepository().save(newReading);
-            log.info("Reading added to the DB");
-        } catch (Exception e) {
-            log.warn("Repository unreachable");
-        }
         return true;
     }
 
@@ -168,7 +177,6 @@ public class ReadingList {
             if (readingDate.after(startDate) && readingDate.before(endDate)
                     || readingDate.equals(endDate)
                     || readingDate.equals(startDate)) {
-                //TODO there is no connection to the sensor from which the readings came upon this filter by date
                 readingListInPeriod.addReading(reading);
             }
         }
@@ -271,7 +279,6 @@ public class ReadingList {
             dayMinReading = dailyMinimumReadings.get(i);
             tempReadingValue = dayMaxReading.returnValueOfReading() - dayMinReading.returnValueOfReading();
             Reading tempReading = new Reading(tempReadingValue, dayMaxReading.getDateAndTime());
-            tempReading.setSensor(dayMaxReading.getSensor());
             dailyAmp.addReading(tempReading);
         }
         return dailyAmp;

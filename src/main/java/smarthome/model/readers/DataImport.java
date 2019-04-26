@@ -20,6 +20,7 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import static java.lang.Double.parseDouble;
+import static smarthome.repository.Repositories.saveSensor;
 
 public class DataImport {
     private JSONParser parser = new JSONParser();
@@ -110,14 +111,22 @@ public class DataImport {
         if (object.equals(roomList)) {
             sensors = roomList.getAllSensors();
             importSensorsReadings(readingsToImport);
+            for (Sensor sensor : sensors)
+                //repository call were the reading is being persisted
+                saveSensor(sensor);
         }
+
         if (object.equals(gaList)) {
             sensors = gaList.getAllSensors();
             importSensorsReadings(readingsToImport);
+            for (Sensor sensor : sensors)
+                //repository call were the reading is being persisted
+                saveSensor(sensor);
         }
     }
 
-    //fazer for each sensor in all sensors se sensorid existe então não adiciona
+    //TODO: add JavaDoc for existing comment
+    // fazer for each sensor in all sensors se sensorid existe então não adiciona
     private void importSensorsReadings(List<String[]> readingsToImport) {
         for (String[] reading : readingsToImport) {
             String sensorID = reading[0];
@@ -133,7 +142,7 @@ public class DataImport {
      * This method imports a reading for the sensor with sensorID passed as parameter.
      * Only readings with dateAndTime after the sensor's startDate will be imported otherwise they will be registered in a log file.
      *
-     * @param field Position in the array
+     * @param field    Position in the array
      * @param sensorID Id of the sensor
      */
     private boolean importReading(String[] field, String sensorID) {
@@ -142,9 +151,9 @@ public class DataImport {
 
                 String dateAndTimeString = field[1];
                 Calendar readingDate = null;
-                try{
-                readingDate = UtilsUI.parseDateToImportReadings(dateAndTimeString);}
-                catch (DateTimeParseException e){
+                try {
+                    readingDate = UtilsUI.parseDateToImportReadings(dateAndTimeString);
+                } catch (DateTimeParseException e) {
                     String message = "Reading not added to the DB - sensor: " + sensorID +
                             " value: " + field[2] + " " + field[3] + " date: " + dateAndTimeString + "\nreason: " + e.getMessage();
                     log.error(message);
@@ -153,8 +162,7 @@ public class DataImport {
                 double readingValue = parseDouble(field[2]);
                 String unit = field[3];
                 Reading reading = new Reading(readingValue, readingDate, unit);
-                if (readingDate.after(sensor.getStartDate())||reading.isSameDay(sensor.getStartDate())) {
-                    reading.setSensor(sensor);
+                if (readingDate.after(sensor.getStartDate()) || reading.isSameDay(sensor.getStartDate())) {
                     //dataImport
                     if (sensor.getReadingList().addReading(reading)) {
 
