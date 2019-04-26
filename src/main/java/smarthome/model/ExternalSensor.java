@@ -13,7 +13,7 @@ import java.util.Objects;
 import static smarthome.model.House.getAddress;
 
 @Entity
-public class ExternalSensor {
+public class ExternalSensor implements Sensor {
 
     @Id
     private String id;
@@ -29,30 +29,12 @@ public class ExternalSensor {
     private boolean active;
     @Transient
     private ReadingList readingList;
+    @Transient
+    private SensorBehavior sensorBehavior;
 
     protected ExternalSensor() {
     }
 
-    /**
-     * Constructor used to create internal sensors which, unlike external sensors, don't require location coordinates.
-     *
-     * @param designation String parameter to specify sensor's designation
-     * @param startDate   specifies the sensor start date as a Calendar dataType
-     * @param sensorType  specifies the sensor type as a SensorType instance
-     * @param unit        String parameter to specify sensor's unit of measure
-     * @param readings    specifies the sensor's readingList
-     */
-    public ExternalSensor(String id, String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
-            this.id = id;
-            this.designation = designation;
-            this.startDate = startDate;
-            this.sensorType = sensorType;
-            this.unit = unit;
-            this.active = true;
-            this.readingList = readings;
-            this.location = (getAddress().getGPSLocation());
-
-    }
 
     /**
      * Constructor used to create external sensors which require location coordinates.
@@ -66,14 +48,14 @@ public class ExternalSensor {
      * @param readings    specifies the sensor's readingList
      */
     public ExternalSensor(String id, String designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
-            this.id = id;
-            this.designation = designation;
-            this.startDate = startDate;
-            this.location = geoLocation;
-            this.sensorType = sensorType;
-            this.unit = unit;
-            this.active = true;
-            this.readingList = readings;
+        this.id = id;
+        this.designation = designation;
+        this.startDate = startDate;
+        this.location = geoLocation;
+        this.sensorType = sensorType;
+        this.unit = unit;
+        this.active = true;
+        this.readingList = readings;
     }
 
     /**
@@ -184,6 +166,7 @@ public class ExternalSensor {
      *
      * @return object Location
      */
+    @Override
     public Location getLocation() {
         return this.location;
     }
@@ -204,6 +187,7 @@ public class ExternalSensor {
         return this.sensorType;
     }
 
+    @Override
     public ReadingList getReadingList() {
         return this.readingList;
     }
@@ -215,8 +199,9 @@ public class ExternalSensor {
      * @param sensor2 object sensor 2
      * @return calculated distance betwwen both objects
      */
-    public double calcLinearDistanceBetweenTwoSensors(ExternalSensor sensor1, ExternalSensor sensor2) {
-        return Utils.round(this.location.calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation()), 2);
+    public double calcLinearDistanceBetweenTwoSensors(Sensor sensor1, Sensor sensor2) {
+
+        return Utils.round(getLocation().calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation()), 2);
     }
 
 
@@ -226,13 +211,11 @@ public class ExternalSensor {
      * @return the last reading of a list of readings
      */
     public Reading getLastReadingPerSensor() {
-        return this.readingList.getLastReading();
+        return this.sensorBehavior.getLastReadingPerSensor();
     }
 
     public double getLastReadingValuePerSensor() {
-        double lastValue;
-        lastValue = this.readingList.getReadingsList().get(this.readingList.getReadingsList().size() - 1).returnValueOfReading();
-        return lastValue;
+       return this.sensorBehavior.getLastReadingValuePerSensor();
     }
 
 
