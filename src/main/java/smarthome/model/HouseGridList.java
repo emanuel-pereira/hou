@@ -8,11 +8,14 @@ import java.util.List;
 
 public class HouseGridList {
 
-    private final List<HouseGrid> hglist;
+    private final List<HouseGrid> hgList;
+    //private final List<HouseGrid> hgListCopy;
     static final Logger log = Logger.getLogger(HouseGridList.class);
 
     public HouseGridList() {
-        this.hglist = new ArrayList<>();
+        this.hgList = new ArrayList<>();
+        /*hgListCopy = new ArrayList<>();
+        this.hgListCopy.addAll(hgList);*/
     }
 
     /**
@@ -35,8 +38,8 @@ public class HouseGridList {
      */
     //TODO due to DDD this method should only be called internally by the house, and never exposed publicly to other classes
     public boolean addHouseGrid(HouseGrid inputHouseGrid) {
-        if (!this.hglist.contains(inputHouseGrid)) {
-            this.hglist.add(inputHouseGrid);
+        if (!this.hgList.contains(inputHouseGrid)) {
+            this.hgList.add(inputHouseGrid);
             try {
                 //Repository call
                 Repositories.getGridsRepository().save(inputHouseGrid);
@@ -54,7 +57,10 @@ public class HouseGridList {
      * @return the list of house grids in the house as ArrayList
      */
     public List<HouseGrid> getHouseGridList() {
-        return this.hglist;
+       // List<HouseGrid> hgListCopy = new ArrayList<>(hgList);
+        //hgListCopy.addAll(hgList);
+        return new ArrayList<>(hgList);
+        //return hgListCopy;
     }
 
     /**
@@ -63,11 +69,11 @@ public class HouseGridList {
      * @return int form value that represents the electric grid list size
      */
     public int getSize() {
-        return this.hglist.size();
+        return this.hgList.size();
     }
 
     public HouseGrid get(int i) {
-        return this.hglist.get(i);
+        return this.hgList.get(i);
     }
 
 
