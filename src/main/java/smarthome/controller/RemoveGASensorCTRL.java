@@ -56,16 +56,17 @@ public class RemoveGASensorCTRL {
     public boolean removeSensor(String gaDTOId, String sensorDTOId) {
         GeographicalArea ga = getGAById(gaDTOId);
         SensorList sensorList = ga.getSensorListInGA();
-        for (Sensors sensor : sensorList.getSensorList()) {
+        for (Sensor sensor : sensorList.getSensorList()) {
             if (sensor.getId().matches(sensorDTOId)) {
                 sensorList.removeSensor(sensor);
+                /*
                 try {
                     saveSensorReadings(sensor);
                     //Repository call
                     Repositories.getSensorRepository().delete(sensor);
                 } catch (NullPointerException e) {
                     log.warn("Repository unreachable");
-                }
+                }*/
                 return true;
             }
         }

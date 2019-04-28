@@ -197,6 +197,7 @@ public class GeographicalArea {
         return this.occupation;
     }
 
+    /*
     public GeographicalAreaDTO toDTO() {
         List<SensorDTO> sensorListDTO = new ArrayList<>();
         for (Sensors sensor : this.sensorListInGa.getSensorList()) {
@@ -205,6 +206,7 @@ public class GeographicalArea {
         }
         return new GeographicalAreaDTO(this.identification, this.designation, sensorListDTO);
     }
+    */
 
     public void setIdentification(String id) {
         this.identification = id;

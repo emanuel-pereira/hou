@@ -394,9 +394,9 @@ class NewSensorCTRLTest {
         ReadingList readingList = new ReadingList();
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
         Location loc1 = new Location(25, -15, 5);
-        Sensors s1 = new Sensors("T0001", "LisboaTempSensor1", startDate, loc1, temperature, "Cº", readingList);
+        Sensor s1 = new ExternalSensor("T0001", "LisboaTempSensor1", startDate, loc1, temperature, "Cº", readingList);
         Location loc2 = new Location(27, -14, 6);
-        Sensors s2 = new Sensors("T0002", "LisboaTempSensor2", startDate, loc2, temperature, "Cº", readingList);
+        Sensor s2 = new ExternalSensor("T0002", "LisboaTempSensor2", startDate, loc2, temperature, "Cº", readingList);
         lisboa.getSensorListInGA().addSensor(s1);
         lisboa.getSensorListInGA().addSensor(s2);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
@@ -456,7 +456,7 @@ class NewSensorCTRLTest {
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
         Location location2 = new Location(23, -15, 12);
         ReadingList readingList = new ReadingList();
-        Sensors s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
+        Sensor s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
         SensorList portoSensorList = porto.getSensorListInGA();
         portoSensorList.addSensor(s1);
         String expected = "T0001";
@@ -484,7 +484,7 @@ class NewSensorCTRLTest {
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
         Location location2 = new Location(23, -15, 12);
         ReadingList readingList = new ReadingList();
-        Sensors s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
+        Sensor s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
         SensorList portoSensorList = porto.getSensorListInGA();
         portoSensorList.addSensor(s1);
         String expected = "Temperature sensor 1";
@@ -512,7 +512,7 @@ class NewSensorCTRLTest {
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
         Location location2 = new Location(23, -15, 12);
         ReadingList readingList = new ReadingList();
-        Sensors s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
+        Sensor s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
         SensorList portoSensorList = porto.getSensorListInGA();
         portoSensorList.addSensor(s1);
         Calendar result = ctrl.getGASensorSDate(0);
@@ -538,7 +538,7 @@ class NewSensorCTRLTest {
         GregorianCalendar startDate = new GregorianCalendar(2019, 2, 15);
         Location location2 = new Location(23, -15, 12);
         ReadingList readingList = new ReadingList();
-        Sensors s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
+        Sensor s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
         sensorList.addSensor(s1);
         Calendar result = ctrl.getRoomSensorSDate(0);
         assertEquals(startDate, result);
@@ -569,7 +569,7 @@ class NewSensorCTRLTest {
         Location location2 = new Location(23, -15, 12);
         ReadingList readingList = new ReadingList();
 
-        Sensors s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
+        Sensor s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
         SensorList portoSensorList = porto.getSensorListInGA();
         portoSensorList.addSensor(s1);
         String expected = "Celsius";
@@ -595,9 +595,8 @@ class NewSensorCTRLTest {
         roomList.addRoom(livingRoom);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         Calendar startDate = new GregorianCalendar(2018, Calendar.DECEMBER, 15);
-        Location loc = new Location(12, -15, 2);
         ReadingList rL = new ReadingList();
-        Sensors sensor = new Sensors("T0001", "Temperature Sensors", startDate, loc, temperature, "celsius", rL);
+        Sensor sensor = new InternalSensor("T0001", "Temperature Sensors", startDate,  temperature, "celsius", rL);
         SensorList kitSensorLst = kitchen.getSensorListInRoom();
 
         kitSensorLst.addSensor(sensor);
@@ -623,9 +622,8 @@ class NewSensorCTRLTest {
         roomList.addRoom(livingRoom);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         Calendar startDate = new GregorianCalendar(2018, 11, 15);
-        Location loc = new Location(12, -15, 2);
         ReadingList rL = new ReadingList();
-        Sensors sensor = new Sensors("T0001", "Temperature Sensors", startDate, loc, temperature, "celsius", rL);
+        Sensor sensor = new InternalSensor("T0001", "Temperature Sensors", startDate, temperature, "celsius", rL);
         SensorList kitSensorLst = kitchen.getSensorListInRoom();
 
         kitSensorLst.addSensor(sensor);
@@ -650,9 +648,8 @@ class NewSensorCTRLTest {
         roomList.addRoom(livingRoom);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         Calendar startDate = new GregorianCalendar(2018, 11, 15);
-        Location loc = new Location(12, -15, 2);
         ReadingList rL = new ReadingList();
-        Sensors sensor = new Sensors("T0001", "Temperature Sensors", startDate, loc, temperature, "celsius", rL);
+        Sensor sensor = new InternalSensor("T0001", "Temperature Sensors", startDate, temperature, "celsius", rL);
         SensorList kitSensorLst = kitchen.getSensorListInRoom();
 
 
@@ -678,9 +675,8 @@ class NewSensorCTRLTest {
         roomList.addRoom(livingRoom);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         Calendar startDate = new GregorianCalendar(2018, 11, 15);
-        Location loc = new Location(12, -15, 2);
         ReadingList rL = new ReadingList();
-        Sensors sensor = new Sensors("T0001", "Temperature Sensors", startDate, loc, temperature, "celsius", rL);
+        Sensor sensor = new InternalSensor("T0001", "Temperature Sensors", startDate, temperature, "celsius", rL);
         SensorList kitSensorLst = kitchen.getSensorListInRoom();
 
 
@@ -743,10 +739,9 @@ class NewSensorCTRLTest {
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
 
         Calendar startDate = new GregorianCalendar(2018, 11, 15);
-        Location loc = new Location(12, -15, 2);
         ReadingList rL = new ReadingList();
-        Sensors tempSensor = new Sensors("T0001", "Temperature Sensors", startDate, loc, temperature, "celsius", rL);
-        Sensors humiditySensor = new Sensors("H0001", "Humidity Sensors", startDate, loc, temperature, "%", rL);
+        Sensor tempSensor = new InternalSensor("T0001", "Temperature Sensors", startDate, temperature, "celsius", rL);
+        Sensor humiditySensor = new InternalSensor("H0001", "Humidity Sensors", startDate, temperature, "%", rL);
 
         SensorList lrSensorList = livingRoom.getSensorListInRoom();
 
@@ -779,10 +774,9 @@ class NewSensorCTRLTest {
 
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         Calendar startDate = new GregorianCalendar(2018, 11, 15);
-        Location loc = new Location(12, -15, 2);
         ReadingList rL = new ReadingList();
-        Sensors tempSensor = new Sensors("T0001", "Temperature Sensors", startDate, loc, temperature, "celsius", rL);
-        Sensors humiditySensor = new Sensors("H0001", "Humidity Sensors", startDate, loc, temperature, "%", rL);
+        Sensor tempSensor = new InternalSensor("T0001", "Temperature Sensors", startDate, temperature, "celsius", rL);
+        Sensor humiditySensor = new InternalSensor("H0001", "Humidity Sensors", startDate, temperature, "%", rL);
 
         SensorList lrSensorList = livingRoom.getSensorListInRoom();
 

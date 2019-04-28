@@ -76,6 +76,7 @@ public final class Repositories {
         return gridsRepository;
     }
 
+    /*
     public static void saveGA(GeographicalArea ga) {
         Repositories.geoRepository.save(ga);
 
@@ -85,7 +86,9 @@ public final class Repositories {
             saveSensor(sensor);
         }
     }
+    */
 
+    /*
     public static void saveRoom(Room r) {
 
         Repositories.roomRepository.save(r);
@@ -96,8 +99,9 @@ public final class Repositories {
             saveSensor(sensor);
         }
     }
-
-    public static void saveSensor(Sensors s) {
+    */
+    /*
+    public static void saveSensor(Sensor s) {
         //TODO remove when solution for duplicates is found and implemented
         Repositories.getSensorTypeRepository().save(s.getSensorType());
 
@@ -108,7 +112,7 @@ public final class Repositories {
             Repositories.readingRepository.save(reading);
         }
     }
-
+*/
 
 
 }

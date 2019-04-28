@@ -18,7 +18,7 @@ public class Reading {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SENSOR_ID")
-    private Sensors sensor;
+    private Sensor sensor;
 
     private String unit;
 
@@ -37,7 +37,7 @@ public class Reading {
         this.dateAndTime = timeOfReading;
     }
 
-    public Reading(double readValue, Calendar timeOfReading, Sensors sensor, String unitValue) {
+    public Reading(double readValue, Calendar timeOfReading, Sensor sensor, String unitValue) {
         this.value = readValue;
         this.dateAndTime = timeOfReading;
         this.sensor = sensor;
@@ -115,7 +115,7 @@ public class Reading {
         return new ReadingDTO(this.value, this.dateAndTime);
     }
 
-    public boolean setSensor(Sensors newSensor) {
+    public boolean setSensor(Sensor newSensor) {
         if (newSensor != null) {
             this.sensor = newSensor;
             return true;
@@ -123,7 +123,7 @@ public class Reading {
         return false;
     }
 
-    public Sensors getSensor() {
+    public Sensor getSensor() {
         return sensor;
     }
 }

@@ -4,10 +4,7 @@ import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
 import smarthome.mapper.GeographicalAreaMapper;
 import smarthome.mapper.SensorMapper;
-import smarthome.model.GAList;
-import smarthome.model.GeographicalArea;
-import smarthome.model.Sensors;
-import smarthome.model.SensorList;
+import smarthome.model.*;
 
 import java.util.Calendar;
 import java.util.List;
@@ -56,7 +53,7 @@ public class DeactivateSensorCTRL {
     public boolean deactivateSensor(String gaDTOId, String sensorDTOId, Calendar pauseDate) {
         GeographicalArea ga = getGAById (gaDTOId);
         SensorList sensorList = ga.getSensorListInGA ();
-        for (Sensors s : sensorList.getSensorList ()) {
+        for (Sensor s : sensorList.getSensorList ()) {
             if (s.getId ().matches (sensorDTOId)) {
                 sensorList.deactivateSensor (sensorDTOId, pauseDate);
                 return true;
@@ -86,7 +83,7 @@ public class DeactivateSensorCTRL {
     public boolean sensorStatus(String gaDTOId, String sensorDTOId) {
         GeographicalArea ga = getGAById (gaDTOId);
         SensorList sensorList = ga.getSensorListInGA ();
-        for (Sensors s : sensorList.getSensorList ())
+        for (Sensor s : sensorList.getSensorList ())
             if (s.getId ().matches (sensorDTOId) && s.isActive ()) {
                 return true;
             }

@@ -79,7 +79,7 @@ public class DataImportCTRL {
     }
 
     public int getAllSensorsInFileSize(Path filePath) throws ParserConfigurationException,IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
-        List<Sensors> allSensors = new ArrayList<>();
+        List<Sensor> allSensors = new ArrayList<>();
         List<GeographicalArea> gaListInFile = dataImport.loadGeoAreaFiles(filePath);
         for (GeographicalArea ga : gaListInFile) {
             allSensors.addAll(ga.getSensorListInGA().getSensorList());

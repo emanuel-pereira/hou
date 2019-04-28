@@ -1,6 +1,7 @@
 package smarthome.mapper;
 
 import smarthome.dto.SensorDTO;
+import smarthome.model.Sensor;
 import smarthome.model.Sensors;
 import smarthome.model.SensorList;
 
@@ -9,14 +10,15 @@ import java.util.stream.Collectors;
 
 public class SensorMapper {
 
-    private final SensorTypeMapper sensorTypeMapper= new SensorTypeMapper();
+    private final SensorTypeMapper sensorTypeMapper = new SensorTypeMapper();
 
     /**
      * Converts a sensor into a sensorDTO to be used as a model view, containing only Id, Designation and SensorType as attributes.
+     *
      * @param sensor to be converted in sensorDTO
      * @return a sensorDTO
      */
-    public SensorDTO toDto(Sensors sensor) {
+    public SensorDTO toDto(Sensor sensor) {
         SensorDTO sensorDTO = new SensorDTO();
         sensorDTO.setId(sensor.getId());
         sensorDTO.setDesignation(sensor.getDesignation());
@@ -31,7 +33,7 @@ public class SensorMapper {
      * @return a list of sensorDTOs
      */
     public List<SensorDTO> toDtoList(SensorList sensorList) {
-        List<Sensors> listOfSensors=sensorList.getSensorList();
+        List<Sensor> listOfSensors=sensorList.getSensorList();
         return listOfSensors.stream().map(this::toDto).collect(Collectors.toList());
     }
 

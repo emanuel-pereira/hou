@@ -115,8 +115,8 @@ class DataImportTest {
         GregorianCalendar startDate = new GregorianCalendar(2018, Calendar.MARCH, 3);
         Location location = new Location(3, 2, 1);
         SensorType temp = new SensorType("Temperature");
-        Sensors sensorISEP = new Sensors("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
-        Sensors sensorPorto = new Sensors("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
+        Sensor sensorISEP = new ExternalSensor("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
+        Sensor sensorPorto = new ExternalSensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
         ga.getSensorListInGA().addSensor(sensorISEP);
         ga.getSensorListInGA().addSensor(sensorPorto);
 
@@ -137,8 +137,8 @@ class DataImportTest {
         GregorianCalendar startDate = new GregorianCalendar(2020, Calendar.MARCH, 3);
         Location location = new Location(3, 2, 1);
         SensorType temp = new SensorType("Temperature");
-        Sensors sensorISEP = new Sensors("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
-        Sensors sensorPorto = new Sensors("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
+        Sensor sensorISEP = new ExternalSensor("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
+        Sensor sensorPorto = new ExternalSensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
         ga.getSensorListInGA().addSensor(sensorISEP);
         ga.getSensorListInGA().addSensor(sensorPorto);
 
@@ -232,7 +232,7 @@ class DataImportTest {
         Path path = Paths.get("resources_tests/DataSet_sprint06_HouseSensors.json");
         dataImport.importHouseSensors(dataImport.loadHouseSensorsFiles(path));
 
-        List<Sensors> sensorList = roomList.getRoomList().get(0).getSensorListInRoom().getSensorList();
+        List<Sensor> sensorList = roomList.getRoomList().get(0).getSensorListInRoom().getSensorList();
         int size = sensorList.size();
 
         assertEquals(1,size);

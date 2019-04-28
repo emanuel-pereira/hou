@@ -39,7 +39,7 @@ public class JSONGeoArea implements FileReaderGeoArea {
         for (Object ga : jsonGAList) {
             JSONObject jsonGA = (JSONObject) ga;
             GeographicalArea geoArea = importGA(jsonGA);
-            List<Sensors> gaSensorList = geoArea.getSensorListInGA().getSensorList();
+            List<Sensor> gaSensorList = geoArea.getSensorListInGA().getSensorList();
             importSensorList(jsonGA, gaSensorList);
             gaList.add(geoArea);
         }
@@ -69,16 +69,16 @@ public class JSONGeoArea implements FileReaderGeoArea {
 
     }
 
-    private static void importSensorList(JSONObject jsonGA, List<Sensors> sensorList) throws java.text.ParseException {
+    private static void importSensorList(JSONObject jsonGA, List<Sensor> sensorList) throws java.text.ParseException {
         JSONArray jsonSensorList = (JSONArray) jsonGA.get("area_sensor");
         for (Object areaSensor : jsonSensorList) {
             JSONObject jsonSensor = (JSONObject) areaSensor;
-            Sensors sensor = importSensor(jsonSensor);
+            Sensor sensor = importSensor(jsonSensor);
             sensorList.add(sensor);
         }
     }
 
-    private static Sensors importSensor(JSONObject jsonSensor) throws java.text.ParseException {
+    private static Sensor importSensor(JSONObject jsonSensor) throws java.text.ParseException {
         JSONObject sensor = (JSONObject) jsonSensor.get("sensor");
         String id = (String) sensor.get("id");
         String name = (String) sensor.get("name");
@@ -95,7 +95,7 @@ public class JSONGeoArea implements FileReaderGeoArea {
         String unit = (String) sensor.get("units");
         Location location = importLocation(jsonSensor);
         ReadingList readings = new ReadingList();
-        return new Sensors(id, name, calendar, location, type, unit, readings);
+        return new ExternalSensor(id, name, calendar, location, type, unit, readings);
 
     }
 

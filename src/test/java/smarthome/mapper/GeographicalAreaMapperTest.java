@@ -22,7 +22,7 @@ class GeographicalAreaMapperTest {
         SensorList sensorList = aveiro.getSensorListInGA();
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
-        Sensors sensor = new Sensors("S01", "Temperature Sensors", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
+        Sensor sensor = new ExternalSensor("S01", "Temperature Sensors", new GregorianCalendar(2019, 1, 5),location, temperature, "Celsius", readingList);
         sensorList.addSensor(sensor);
         GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
         GeographicalAreaDTO gaDTO = gaMapper.toDto(aveiro);
@@ -47,7 +47,7 @@ class GeographicalAreaMapperTest {
         SensorList sensorList = aveiro.getSensorListInGA();
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
-        Sensors sensor = new Sensors("S01", "Temperature Sensors", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
+        Sensor sensor = new ExternalSensor("S01", "Temperature Sensors", new GregorianCalendar(2019, 1, 5),location, temperature, "Celsius", readingList);
         sensorList.addSensor(sensor);
         GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
         GeographicalAreaDTO gaDTO = gaMapper.toDto(aveiro);
@@ -68,7 +68,7 @@ class GeographicalAreaMapperTest {
         SensorList sensorList = aveiro.getSensorListInGA();
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
-        Sensors sensor = new Sensors("S01", "Temperature Sensors", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
+        Sensor sensor = new ExternalSensor("S01", "Temperature Sensors", new GregorianCalendar(2019, 1, 5),location, temperature, "Celsius", readingList);
         sensorList.addSensor(sensor);
         GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
         GeographicalAreaDTO gaDTO = gaMapper.toDto(aveiro);
@@ -91,7 +91,7 @@ class GeographicalAreaMapperTest {
         SensorList sLPorto = porto.getSensorListInGA();
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
-        Sensors sensor = new Sensors("S01", "Temperature Sensors", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
+        Sensor sensor = new ExternalSensor("S01", "Temperature Sensors", new GregorianCalendar(2019, 1, 5),loc1, temperature, "Celsius", readingList);
         sLPorto.addSensor(sensor);
         gaList.addGA(porto);
 
@@ -120,7 +120,7 @@ class GeographicalAreaMapperTest {
         SensorList sLPorto = porto.getSensorListInGA();
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
-        Sensors sensor = new Sensors("S01", "Temperature Sensors", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
+        Sensor sensor = new ExternalSensor("S01", "Temperature Sensors", new GregorianCalendar(2019, 1, 5), loc1,temperature, "Celsius", readingList);
         sLPorto.addSensor(sensor);
         gaList.addGA(porto);
 

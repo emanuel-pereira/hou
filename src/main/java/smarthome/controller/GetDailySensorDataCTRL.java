@@ -40,7 +40,7 @@ public class GetDailySensorDataCTRL {
     }
 
     public ReadingDTO displayMaximum(SensorType sensorType, Calendar startDate, Calendar endDate) {
-        Sensors sensor = filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
+        Sensor sensor = filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
         endDate.add(Calendar.DATE, 1);
         ReadingList sensorReadings = sensor.getReadingList().filterByDate(startDate, endDate);
         endDate.add(Calendar.DATE, -1);
@@ -50,7 +50,7 @@ public class GetDailySensorDataCTRL {
     }
 
     public ReadingDTO displayMinimum(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate) {
-        Sensors sensor = filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
+        Sensor sensor = filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
         endDate.add(Calendar.DATE, 1);
         ReadingList sensorReadings = sensor.getReadingList().filterByDate(startDate, endDate);
         endDate.add(Calendar.DATE, -1);
@@ -60,7 +60,7 @@ public class GetDailySensorDataCTRL {
     }
 
     public ReadingDTO displayAmplitude(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate) {
-        Sensors sensor = filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
+        Sensor sensor = filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
         endDate.add(Calendar.DATE, 1);
         ReadingList sensorReadings = sensor.getReadingList().filterByDate(startDate, endDate);
         endDate.add(Calendar.DATE, -1);

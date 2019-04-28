@@ -9,9 +9,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class SensorList {
-    private final List<Sensors> listOfSensors;
+    private final List<Sensor> listOfSensors;
     static final Logger log = Logger.getLogger(SensorList.class);
-
 
 
     /**
@@ -27,23 +26,26 @@ public class SensorList {
      * @param newSensor - new Sensors object that will or not be added to the list
      * @return true if the object is added to the list
      */
-    public boolean addSensor(Sensors newSensor) {
+    public boolean addSensor(Sensor newSensor) {
         if (!this.listOfSensors.contains(newSensor)) {
             this.listOfSensors.add(newSensor);
+            /*
             //Repository call
             try {
                 Repositories.saveSensor(newSensor);
             } catch (NullPointerException e) {
                 log.warn("Repository unreachable");
             }
+            */
             return true;
         } else return false;
     }
 
-    public boolean checkIfAnySensorHasSameID(Sensors newSensor) {
-        for (Sensors sensor : this.listOfSensors)
+    public boolean checkIfAnySensorHasSameID(Sensor newSensor) {
+        for (Sensor sensor : this.listOfSensors)
             if (sensor.getId().equals(newSensor.getId())) {
-                return true;}
+                return true;
+            }
         return false;
     }
 
@@ -52,7 +54,7 @@ public class SensorList {
      *
      * @return list of sensors created
      */
-    public List<Sensors> getSensorList() {
+    public List<Sensor> getSensorList() {
         return this.listOfSensors;
     }
 
@@ -63,8 +65,8 @@ public class SensorList {
      * @param geoLocation gps coordinates in which the user wants to place the sensor
      * @return List of sensors
      */
-    public Sensors newSensor(String id, String inputName, GregorianCalendar startDate, Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
-        return new Sensors(id, inputName, startDate, geoLocation, sensorType, inputUnit, readings);
+    public Sensor newSensor(String id, String inputName, GregorianCalendar startDate, Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
+        return new ExternalSensor(id, inputName, startDate, geoLocation, sensorType, inputUnit, readings);
     }
 
     /**
@@ -74,8 +76,8 @@ public class SensorList {
      * @param unit       The measurement unit
      * @return A new interior sensor
      */
-    public Sensors createNewInternalSensor(String id, String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
-        return new Sensors(id, name, startDate, sensorType, unit, readings);
+    public Sensor createNewInternalSensor(String id, String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+        return new InternalSensor(id, name, startDate, sensorType, unit, readings);
     }
 
     /**
@@ -85,7 +87,7 @@ public class SensorList {
      * @return Sensors type designation
      */
     public boolean checkIfRequiredSensorTypeExists(String sensorType) {
-        for (Sensors s : this.listOfSensors) {
+        for (Sensor s : this.listOfSensors) {
             if (s.getSensorType().getType().equals(sensorType)) {
                 return true;
             }
@@ -99,9 +101,9 @@ public class SensorList {
      * @param type Sensors type designation
      * @return A specific type sensor
      */
-    public Sensors getRequiredSensorPerType(String type) {
-        Sensors requiredSensor = null;
-        for (Sensors sensor : this.listOfSensors)
+    public Sensor getRequiredSensorPerType(String type) {
+        Sensor requiredSensor = null;
+        for (Sensor sensor : this.listOfSensors)
             if (sensor.getSensorType().getType().equals(type))
                 requiredSensor = sensor;
         return requiredSensor;
@@ -117,7 +119,7 @@ public class SensorList {
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
-        for (Sensors sensor : this.listOfSensors) {
+        for (Sensor sensor : this.listOfSensors) {
             result.append(number++);
             result.append(element);
             result.append(sensor.getDesignation());
@@ -128,7 +130,7 @@ public class SensorList {
 
     public SensorList getListOfSensorsByType(SensorType sensorType) {
         SensorList listOfSensorsByType = new SensorList();
-        for (Sensors sensor : this.listOfSensors) {
+        for (Sensor sensor : this.listOfSensors) {
             if (sensor.getSensorType().equals(sensorType))
                 listOfSensorsByType.addSensor(sensor);
         }
@@ -139,12 +141,12 @@ public class SensorList {
         return this.listOfSensors.size();
     }
 
-    public void removeSensor(Sensors sensor) {
+    public void removeSensor(Sensor sensor) {
         this.listOfSensors.remove(sensor);
 
     }
 
-    public Sensors getLastSensor() {
+    public Sensor getLastSensor() {
         return this.listOfSensors.get(this.listOfSensors.size() - 1);
     }
 
@@ -156,7 +158,7 @@ public class SensorList {
      */
     public SensorList getActiveSensors() {
         SensorList activeSensors = new SensorList();
-        for (Sensors s : this.getSensorList()) {
+        for (Sensor s : this.getSensorList()) {
             if (s.isActive()) {
                 activeSensors.addSensor(s);
             }
@@ -171,15 +173,16 @@ public class SensorList {
      * @param pauseDate Deactivation date
      */
     public void deactivateSensor(String sensorID, Calendar pauseDate) {
-        for (Sensors s : this.getSensorList())
+        for (Sensor s : this.getSensorList())
             if (s.getId().matches(sensorID)) {
                 s.deactivate(pauseDate);
+                /*
                 //Repository call
                 try {
                     Repositories.getSensorRepository().save(s);
                 } catch (Exception e) {
                     log.warn("Repository unreachable");
-                }
+                }*/
             }
 
 

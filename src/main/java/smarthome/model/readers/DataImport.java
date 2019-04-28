@@ -29,7 +29,7 @@ public class DataImport {
     private RoomList roomList;
     private int nrOfAddedReadings = 0;
     private int nrOfInvalidReadings = 0;
-    private List<Sensors> sensors = new ArrayList<>();
+    private List<Sensor> sensors = new ArrayList<>();
     private List<GeographicalArea> notAdded;
     private SensorTypeList sensorTypeList;
     private int sensorsNotAdded;
@@ -137,7 +137,7 @@ public class DataImport {
      * @param sensorID Id of the sensor
      */
     private boolean importReading(String[] field, String sensorID) {
-        for (Sensors sensor : sensors) {
+        for (Sensor sensor : sensors) {
             if (sensorID.equals(sensor.getId())) {
 
                 String dateAndTimeString = field[1];
@@ -216,6 +216,7 @@ public class DataImport {
         this.notAdded.clear();
         for (GeographicalArea ga : dataToImport) {
             if (this.gaList.addGA(ga)) {
+                /*
                 try {
                     //repository call
                     Repositories.saveGA(ga);
@@ -225,7 +226,7 @@ public class DataImport {
                 }
             } else {
                 this.notAdded.add(ga);
-                log.warn("No Geographical Areas were imported into the systems DB");
+                log.warn("No Geographical Areas were imported into the systems DB");*/
             }
         }
     }
@@ -259,7 +260,7 @@ public class DataImport {
 
             String unit = string[5];
 
-            Sensors newSensor = new Sensors(sensorID, sensorDesignation, calendar, sensorType, unit, new ReadingList());
+            Sensor newSensor = new InternalSensor(sensorID, sensorDesignation, calendar, sensorType, unit, new ReadingList());
 
             //Needs to be improved
 

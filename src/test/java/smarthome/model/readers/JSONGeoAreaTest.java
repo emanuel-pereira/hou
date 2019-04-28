@@ -2,10 +2,7 @@ package smarthome.model.readers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import smarthome.model.GeographicalArea;
-import smarthome.model.House;
-import smarthome.model.Sensors;
-import smarthome.model.TypeGAList;
+import smarthome.model.*;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -91,7 +88,7 @@ class JSONGeoAreaTest {
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
         GeographicalArea porto = gaListInFile.get(1);
-        List<Sensors> sensorList = porto.getSensorListInGA().getSensorList();
+        List<Sensor> sensorList = porto.getSensorListInGA().getSensorList();
 
         int expected = 2;
         int result = sensorList.size();
@@ -105,8 +102,8 @@ class JSONGeoAreaTest {
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
         GeographicalArea porto = gaListInFile.get(1);
-        List<Sensors> sensorList = porto.getSensorListInGA().getSensorList();
-        Sensors sensor = sensorList.get(1);
+        List<Sensor> sensorList = porto.getSensorListInGA().getSensorList();
+        Sensor sensor = sensorList.get(1);
 
         String expected = "TT1236A";
         String result = sensor.getId();
@@ -120,8 +117,8 @@ class JSONGeoAreaTest {
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
         GeographicalArea porto = gaListInFile.get(1);
-        List<Sensors> sensorList = porto.getSensorListInGA().getSensorList();
-        Sensors sensor = sensorList.get(1);
+        List<Sensor> sensorList = porto.getSensorListInGA().getSensorList();
+        Sensor sensor = sensorList.get(1);
 
         GregorianCalendar expected = new GregorianCalendar(2017,Calendar.NOVEMBER,16);
         Calendar result = sensor.getStartDate();
