@@ -216,7 +216,6 @@ public class DataImport {
         this.notAdded.clear();
         for (GeographicalArea ga : dataToImport) {
             if (this.gaList.addGA(ga)) {
-                /*
                 try {
                     //repository call
                     Repositories.saveGA(ga);
@@ -226,7 +225,7 @@ public class DataImport {
                 }
             } else {
                 this.notAdded.add(ga);
-                log.warn("No Geographical Areas were imported into the systems DB");*/
+                log.warn("No Geographical Areas were imported into the systems DB");
             }
         }
     }

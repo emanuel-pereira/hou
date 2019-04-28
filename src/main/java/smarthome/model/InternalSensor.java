@@ -106,7 +106,7 @@ public class InternalSensor implements Sensor {
        /**
      * @return the sensor's id
      */
-    public String getId() {
+       public String getId() {
         return this.sensorBehavior.getId();
     }
 
