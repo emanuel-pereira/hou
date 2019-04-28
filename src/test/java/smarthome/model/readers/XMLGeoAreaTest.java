@@ -3,7 +3,6 @@ package smarthome.model.readers;
 import org.junit.jupiter.api.Test;
 import smarthome.model.GeographicalArea;
 import smarthome.model.Sensor;
-import smarthome.model.Sensors;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.nio.file.Path;

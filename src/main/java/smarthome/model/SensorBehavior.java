@@ -231,22 +231,5 @@ public class SensorBehavior {
         return this.active;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Sensor)) {
-            return false;
-        }
-        Sensor sensor = (Sensor) o;
-        return id.equals(sensor.getId()) ||
-                designation.equals(sensor.getDesignation());
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, designation);
-    }
 
 }

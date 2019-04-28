@@ -15,5 +15,4 @@ public interface Sensor {
     String getUnit();
     Reading getLastReadingPerSensor();
 
-
 }

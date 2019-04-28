@@ -2,7 +2,6 @@ package smarthome.mapper;
 
 import smarthome.dto.SensorDTO;
 import smarthome.model.Sensor;
-import smarthome.model.Sensors;
 import smarthome.model.SensorList;
 
 import java.util.List;

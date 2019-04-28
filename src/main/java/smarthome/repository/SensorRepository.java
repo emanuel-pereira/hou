@@ -2,10 +2,10 @@ package smarthome.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import smarthome.model.Sensors;
+import smarthome.model.Sensor;
 
 
 @Repository
-public interface SensorRepository extends CrudRepository<Sensors, String> {
+public interface SensorRepository extends CrudRepository<Sensor, String> {
 
 }

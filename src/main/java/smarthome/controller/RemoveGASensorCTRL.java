@@ -59,14 +59,13 @@ public class RemoveGASensorCTRL {
         for (Sensor sensor : sensorList.getSensorList()) {
             if (sensor.getId().matches(sensorDTOId)) {
                 sensorList.removeSensor(sensor);
-                /*
                 try {
                     saveSensorReadings(sensor);
                     //Repository call
                     Repositories.getSensorRepository().delete(sensor);
                 } catch (NullPointerException e) {
                     log.warn("Repository unreachable");
-                }*/
+                }
                 return true;
             }
         }
@@ -77,7 +76,7 @@ public class RemoveGASensorCTRL {
      * Method that persists the readings in its repository of the sensor inputted as parameter.
      * @param sensor inputted as parameter
      */
-    private static void saveSensorReadings(Sensors sensor) {
+    private static void saveSensorReadings(Sensor sensor) {
         ReadingList readingList = sensor.getReadingList();
         for (Reading reading : readingList.getReadingsList()) {
             //Repository call

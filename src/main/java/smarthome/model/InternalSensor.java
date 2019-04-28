@@ -4,6 +4,7 @@ import smarthome.model.validations.Utils;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.Objects;
 
 @Entity
 public class InternalSensor implements Sensor {
@@ -188,5 +189,21 @@ public class InternalSensor implements Sensor {
         return this.sensorBehavior.isActive();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof InternalSensor)) {
+            return false;
+        }
+        Sensor sensor = (InternalSensor) o;
+        return id.equals(sensor.getId()) ||
+                designation.equals(sensor.getDesignation());
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, designation);
+    }
 }

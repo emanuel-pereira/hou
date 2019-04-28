@@ -1,7 +1,6 @@
 package smarthome.controller;
 
 import smarthome.model.Sensor;
-import smarthome.model.Sensors;
 import smarthome.model.SensorType;
 import smarthome.model.SensorTypeList;
 

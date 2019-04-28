@@ -29,14 +29,14 @@ public class SensorList {
     public boolean addSensor(Sensor newSensor) {
         if (!this.listOfSensors.contains(newSensor)) {
             this.listOfSensors.add(newSensor);
-            /*
+
             //Repository call
             try {
                 Repositories.saveSensor(newSensor);
             } catch (NullPointerException e) {
                 log.warn("Repository unreachable");
             }
-            */
+
             return true;
         } else return false;
     }
@@ -176,13 +176,13 @@ public class SensorList {
         for (Sensor s : this.getSensorList())
             if (s.getId().matches(sensorID)) {
                 s.deactivate(pauseDate);
-                /*
+
                 //Repository call
                 try {
                     Repositories.getSensorRepository().save(s);
                 } catch (Exception e) {
                     log.warn("Repository unreachable");
-                }*/
+                }
             }
 
 

@@ -415,8 +415,8 @@ class SensorListTest {
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
         SensorType sensorType = new SensorType("Temperature");
-        Sensor sensor1 = new ExternalSensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
-        Sensor sensor2 = new ExternalSensor("TL1024", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        ExternalSensor sensor1 = new ExternalSensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        ExternalSensor sensor2 = new ExternalSensor("TL1024", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
 
         lisbonSensorList.addSensor(sensor1);
         lisbonSensorList.addSensor(sensor2);

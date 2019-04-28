@@ -263,7 +263,7 @@ class NewSensorCTRLTest {
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
         GregorianCalendar startDate = new GregorianCalendar(2020, 11, 1);
         Location loc = new Location(25, 28, 11);
-        Sensors sensor = new Sensors("T0001", "Name", startDate, loc, temperature, "Celsius", new ReadingList());
+        ExternalSensor sensor = new ExternalSensor("T0001", "Name", startDate, loc, temperature, "Celsius", new ReadingList());
 
         boolean expected = true;
         boolean result = ctrl.latitudeIsValid(sensor.getLocation().getLatitude());

@@ -230,5 +230,22 @@ public class ExternalSensor implements Sensor {
         return this.sensorBehavior.isActive();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof ExternalSensor)) {
+            return false;
+        }
+        Sensor sensor = (ExternalSensor) o;
+        return id.equals(sensor.getId()) ||
+                designation.equals(sensor.getDesignation());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, designation);
+    }
 
 }

@@ -76,31 +76,31 @@ public final class Repositories {
         return gridsRepository;
     }
 
-    /*
+
     public static void saveGA(GeographicalArea ga) {
         Repositories.geoRepository.save(ga);
 
         SensorList sensorList = ga.getSensorListInGA();
-        List<Sensors> sensors = sensorList.getSensorList();
-        for (Sensors sensor : sensors) {
+        List<Sensor> sensors = sensorList.getSensorList();
+        for (Sensor sensor : sensors) {
             saveSensor(sensor);
         }
     }
-    */
 
-    /*
+
+
     public static void saveRoom(Room r) {
 
         Repositories.roomRepository.save(r);
 
         SensorList sensorList = r.getSensorListInRoom();
-        List<Sensors> sensors = sensorList.getSensorList();
-        for (Sensors sensor : sensors) {
+        List<Sensor> sensors = sensorList.getSensorList();
+        for (Sensor sensor : sensors) {
             saveSensor(sensor);
         }
     }
-    */
-    /*
+
+
     public static void saveSensor(Sensor s) {
         //TODO remove when solution for duplicates is found and implemented
         Repositories.getSensorTypeRepository().save(s.getSensorType());
@@ -112,7 +112,7 @@ public final class Repositories {
             Repositories.readingRepository.save(reading);
         }
     }
-*/
+
 
 
 }
