@@ -231,5 +231,4 @@ public class SensorBehavior {
         return this.active;
     }
 
-
 }

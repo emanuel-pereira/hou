@@ -49,14 +49,14 @@ public class RoomList {
     public boolean addRoom(Room newRoom) {
         if (newRoom != null && !this.listOfRooms.contains(newRoom)) {
             this.listOfRooms.add(newRoom);
-            /*
+
             //Repository call
             try {
                 Repositories.saveRoom(newRoom);
             } catch (NullPointerException e) {
                 log.warn("Repository unreachable");
             }
-            */
+
             return true;
         } else return false;
     }

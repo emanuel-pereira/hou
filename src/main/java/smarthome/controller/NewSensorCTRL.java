@@ -127,6 +127,7 @@ public class NewSensorCTRL {
         SensorList rSensorList = room.getSensorListInRoom();
         Sensor sensor = rSensorList.createNewInternalSensor(id, inputName, startDate, sensorType, unit, readingList);
         return rSensorList.addSensor(sensor);
+
     }
 
 
@@ -233,7 +234,6 @@ public class NewSensorCTRL {
         Sensor createdSensor = room.getSensorListInRoom().getLastSensor();
         return createdSensor.getDesignation();
     }
-
 
     /**
      * Method to get the start date of the sensor created

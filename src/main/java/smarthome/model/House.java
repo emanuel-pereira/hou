@@ -134,12 +134,12 @@ public class House {
             Location location = eSensor.getLocation();
             distance = calculateDistance(location);
             if (BigDecimal.valueOf(distance).equals(BigDecimal.valueOf(minDistance))) {
-                closestSensors.addSensor(sensor);
+                closestSensors.getSensorList().add(sensor);
             }
             if (distance < minDistance) {
                 minDistance = distance;
                 closestSensors.getSensorList().clear();
-                closestSensors.addSensor(sensor);
+                closestSensors.getSensorList().add(sensor);
             }
         }
         return closestSensors;
@@ -154,7 +154,7 @@ public class House {
             for (Sensor sensor : closestSensorsOfType.getSensorList()) {
                 ReadingList readingListInPeriod = sensor.getReadingList().filterByDate(startDate, endDate);
                 if (!readingListInPeriod.getReadingsList().isEmpty())
-                    closestSensorWithReadingsInPeriod.addSensor(sensor);
+                    closestSensorWithReadingsInPeriod.getSensorList().add(sensor);
             }
             return closestSensorWithReadingsInPeriod;
         }
@@ -254,7 +254,7 @@ public class House {
         for (Sensor sensor : closestSensorsByType.getSensorList()) {
             ReadingList readingListInDay = sensor.getReadingList().getReadingsInSpecificDay(inputDate);
             if (!(readingListInDay.getReadingsList().isEmpty())) {
-                sensorsWithReadingsInDate.addSensor(sensor);
+                sensorsWithReadingsInDate.getSensorList().add(sensor);
             }
         }
 

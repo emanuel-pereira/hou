@@ -55,7 +55,7 @@ public class InternalSensor implements Sensor {
      * @param sensorId sensor's id String
      */
     public boolean setId(String sensorId) {
-            return this.sensorBehavior.setId(sensorId);
+        return this.sensorBehavior.setId(sensorId);
     }
 
     /**
@@ -103,10 +103,10 @@ public class InternalSensor implements Sensor {
         return this.sensorBehavior.getDesignation();
     }
 
-       /**
+    /**
      * @return the sensor's id
      */
-       public String getId() {
+    public String getId() {
         return this.sensorBehavior.getId();
     }
 
@@ -167,7 +167,7 @@ public class InternalSensor implements Sensor {
      * @return True if deactivated
      */
     public boolean deactivate(Calendar pauseDate) {
-            return this.sensorBehavior.deactivate(pauseDate);
+        return this.sensorBehavior.deactivate(pauseDate);
 
     }
 
@@ -197,7 +197,7 @@ public class InternalSensor implements Sensor {
         if (!(o instanceof InternalSensor)) {
             return false;
         }
-        Sensor sensor = (InternalSensor) o;
+        InternalSensor sensor = (InternalSensor) o;
         return id.equals(sensor.getId()) ||
                 designation.equals(sensor.getDesignation());
     }

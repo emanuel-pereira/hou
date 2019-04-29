@@ -281,7 +281,7 @@ public class DataImport {
                 log.error(message);
                 sensorsNotAdded++;
             } else {
-                room.getSensorListInRoom().addSensor(newSensor);
+                room.getSensorListInRoom().getSensorList().add(newSensor);
                 sensorsAdded++;
             }
         }

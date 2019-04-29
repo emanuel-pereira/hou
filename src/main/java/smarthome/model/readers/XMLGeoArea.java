@@ -136,11 +136,9 @@ public class XMLGeoArea implements FileReaderGeoArea {
                 Location location = importLocation(sensor.getElementsByTagName("location").item(0));
 
                 ReadingList readingList = new ReadingList();
-                Sensor newSensor = new ExternalSensor(id, name, calendar, location, type, unit, readingList);
-
+                ExternalSensor newSensor = new ExternalSensor(id, name, calendar, location, type, unit, readingList);
 
                 geographicalArea.getSensorListInGA().addSensor(newSensor);
-
             }
         }
     }

@@ -117,7 +117,7 @@ public class RepositoryTest {
         //Repositories.saveGA(lisbon);
         long geoRepSize = Repositories.getGeoRepository().count();
         assertEquals(2, geoRepSize);
-        long sensorRepSize = Repositories.getSensorRepository().count();
+        long sensorRepSize = Repositories.getExternalSensorRepository().count();
         assertEquals(1, sensorRepSize);
     }
 
@@ -141,7 +141,7 @@ public class RepositoryTest {
         long typeGARepSize = Repositories.getTypeGARepository().count();
         assertNotEquals(0, typeGARepSize);
 
-        long sensorRepSize = Repositories.getSensorRepository().count();
+        long sensorRepSize = Repositories.getExternalSensorRepository().count();
         assertEquals(1, sensorRepSize);
     }
 
@@ -155,13 +155,13 @@ public class RepositoryTest {
         Repositories.getSensorTypeRepository().save(wind);
         ReadingList readingList = new ReadingList();
         Sensor sensor1 = new ExternalSensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
-        //Repositories.getSensorRepository().save(sensor1);
+        //Repositories.getExternalSensorRepository().save(sensor1);
         GregorianCalendar r1Date = new GregorianCalendar(2016, Calendar.NOVEMBER, 15, 9, 15);
         Reading reading = new Reading(22, r1Date);
         assertTrue(reading.setSensor(sensor1));
         String sensorId = reading.getSensor().getId();
         assertEquals("MV12345", sensorId);
-        long repSize = Repositories.getSensorRepository().count();
+        long repSize = Repositories.getExternalSensorRepository().count();
         assertEquals(1, repSize);
     }
 
@@ -180,7 +180,7 @@ public class RepositoryTest {
         //Repositories.saveSensor(sensor1);
         String sensorId = reading.getSensor().getId();
         assertEquals("MV12345", sensorId);
-        long repSize = Repositories.getSensorRepository().count();
+        long repSize = Repositories.getExternalSensorRepository().count();
         assertEquals(1, repSize);
     }
 
@@ -198,7 +198,7 @@ public class RepositoryTest {
         //Repositories.saveSensor(sensor1);
         String sensorId = reading.getSensor().getId();
         assertEquals("MV12345", sensorId);
-        long repSize = Repositories.getSensorRepository().count();
+        long repSize = Repositories.getExternalSensorRepository().count();
         assertNotEquals(0, repSize);
     }
 
@@ -260,7 +260,7 @@ public class RepositoryTest {
         assertEquals(expectedReadingSize, resultingReadingSize);
 
         long expectedSensorRepSize = 0;
-        long resultingSensorRepSize = Repositories.getSensorRepository().count();
+        long resultingSensorRepSize = Repositories.getExternalSensorRepository().count();
         assertEquals(expectedSensorRepSize, resultingSensorRepSize);
     }
 
@@ -307,7 +307,7 @@ public class RepositoryTest {
         assertNotEquals(expectedReadingSize, resultingReadingSize);
 
         long expectedSensorRepSize = 1;
-        long resultingSensorRepSize = Repositories.getSensorRepository().count();
+        long resultingSensorRepSize = Repositories.getExternalSensorRepository().count();
         assertNotEquals(expectedSensorRepSize, resultingSensorRepSize);
     }
 
@@ -367,7 +367,7 @@ public class RepositoryTest {
         long roomRepSize = Repositories.getRoomRepository().count();
         assertEquals(1, roomRepSize);
 
-        long sensorRepSize = Repositories.getSensorRepository().count();
+        long sensorRepSize = Repositories.getExternalSensorRepository().count();
         assertEquals(2, sensorRepSize);
     }
 

@@ -66,7 +66,7 @@ public class ExternalSensor implements Sensor {
      * @param sensorId sensor's id String
      */
     public boolean setId(String sensorId) {
-            return this.sensorBehavior.setId(sensorId);
+        return this.sensorBehavior.setId(sensorId);
     }
 
     /**
@@ -208,7 +208,7 @@ public class ExternalSensor implements Sensor {
      * @return True if deactivated
      */
     public boolean deactivate(Calendar pauseDate) {
-            return this.sensorBehavior.deactivate(pauseDate);
+        return this.sensorBehavior.deactivate(pauseDate);
 
     }
 
@@ -238,7 +238,7 @@ public class ExternalSensor implements Sensor {
         if (!(o instanceof ExternalSensor)) {
             return false;
         }
-        Sensor sensor = (ExternalSensor) o;
+        ExternalSensor sensor = (ExternalSensor) o;
         return id.equals(sensor.getId()) ||
                 designation.equals(sensor.getDesignation());
     }

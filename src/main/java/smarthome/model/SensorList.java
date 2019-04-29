@@ -20,19 +20,54 @@ public class SensorList {
         this.listOfSensors = new ArrayList<>();
     }
 
+
+    public boolean addSensor(Sensor sensor) {
+        if (sensor.getClass().equals(ExternalSensor.class)) {
+            this.addExternalSensor((ExternalSensor) sensor);
+            return true;
+        } else if (sensor.getClass().equals(InternalSensor.class)) {
+            this.addInternalSensor((InternalSensor) sensor);
+            return true;
+        } else {
+            return false;    }
+    }
+
+
     /**
-     * Method to add a sensor object to Sensors list, if it is not on the list yet
+     * Method to add a external sensor object to Sensors list, if it is not on the list yet
      *
      * @param newSensor - new Sensors object that will or not be added to the list
      * @return true if the object is added to the list
      */
-    public boolean addSensor(Sensor newSensor) {
+    private boolean addExternalSensor(ExternalSensor newSensor) {
         if (!this.listOfSensors.contains(newSensor)) {
             this.listOfSensors.add(newSensor);
 
             //Repository call
             try {
-                Repositories.saveSensor(newSensor);
+                Repositories.saveExternalSensor(newSensor);
+            } catch (NullPointerException e) {
+                log.warn("Repository unreachable");
+            }
+
+            return true;
+        } else return false;
+    }
+
+
+    /**
+     * Method to add a internal sensor object to Sensors list, if it is not on the list yet
+     *
+     * @param newSensor - new Sensors object that will or not be added to the list
+     * @return true if the object is added to the list
+     */
+    private boolean addInternalSensor(InternalSensor newSensor) {
+        if (!this.listOfSensors.contains(newSensor)) {
+            this.listOfSensors.add(newSensor);
+
+            //Repository call
+            try {
+                Repositories.saveInternalSensor(newSensor);
             } catch (NullPointerException e) {
                 log.warn("Repository unreachable");
             }
@@ -132,7 +167,7 @@ public class SensorList {
         SensorList listOfSensorsByType = new SensorList();
         for (Sensor sensor : this.listOfSensors) {
             if (sensor.getSensorType().equals(sensorType))
-                listOfSensorsByType.addSensor(sensor);
+                listOfSensorsByType.getSensorList().add(sensor);
         }
         return listOfSensorsByType;
     }
@@ -160,7 +195,7 @@ public class SensorList {
         SensorList activeSensors = new SensorList();
         for (Sensor s : this.getSensorList()) {
             if (s.isActive()) {
-                activeSensors.addSensor(s);
+                activeSensors.getSensorList().add(s);
             }
         }
         return activeSensors;
@@ -179,7 +214,8 @@ public class SensorList {
 
                 //Repository call
                 try {
-                    Repositories.getSensorRepository().save(s);
+                    ExternalSensor externalSensor = (ExternalSensor) s;
+                    Repositories.getExternalSensorRepository().save(externalSensor);
                 } catch (Exception e) {
                     log.warn("Repository unreachable");
                 }

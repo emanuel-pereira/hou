@@ -62,7 +62,8 @@ public class RemoveGASensorCTRL {
                 try {
                     saveSensorReadings(sensor);
                     //Repository call
-                    Repositories.getSensorRepository().delete(sensor);
+                    ExternalSensor externalSensor = (ExternalSensor) sensor;
+                    Repositories.getExternalSensorRepository().delete(externalSensor);
                 } catch (NullPointerException e) {
                     log.warn("Repository unreachable");
                 }

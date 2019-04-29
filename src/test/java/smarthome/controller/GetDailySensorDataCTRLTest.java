@@ -77,7 +77,7 @@ class GetDailySensorDataCTRLTest {
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(sensorType);
 
-        Sensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
+        ExternalSensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
         g1.getSensorListInGA().addSensor(sensor);
 
@@ -135,7 +135,7 @@ class GetDailySensorDataCTRLTest {
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(sensorType);
 
-        Sensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
+        ExternalSensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
         g1.getSensorListInGA().addSensor(sensor);
 
@@ -190,7 +190,7 @@ class GetDailySensorDataCTRLTest {
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(sensorType);
 
-        Sensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
+        ExternalSensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
         g1.getSensorListInGA().addSensor(sensor);
 
@@ -248,7 +248,7 @@ class GetDailySensorDataCTRLTest {
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(sensorType);
 
-        Sensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
+        ExternalSensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
         g1.getSensorListInGA().addSensor(sensor);
 
@@ -306,7 +306,7 @@ class GetDailySensorDataCTRLTest {
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(sensorType);
 
-        Sensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
+        ExternalSensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
         g1.getSensorListInGA().addSensor(sensor);
 
@@ -366,7 +366,7 @@ class GetDailySensorDataCTRLTest {
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(sensorType);
 
-        Sensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
+        ExternalSensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
         g1.getSensorListInGA().addSensor(sensor);
 
@@ -426,7 +426,7 @@ class GetDailySensorDataCTRLTest {
         SensorTypeList sensorTypeList = new SensorTypeList();
         sensorTypeList.addSensorType(sensorType);
 
-        Sensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
+        ExternalSensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
         g1.getSensorListInGA().addSensor(sensor);
 

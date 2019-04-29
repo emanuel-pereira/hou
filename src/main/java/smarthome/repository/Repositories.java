@@ -6,9 +6,10 @@ import java.util.List;
 
 public final class Repositories {
     private static GeoRepository geoRepository = null;
-    private static SensorRepository sensorRepository = null;
+    private static ExternalSensorRepository externalSensorRepository = null;
+    private static InternalSensorRepository internalSensorRepository = null;
     private static SensorTypeRepository sensorTypeRepository = null;
-    private static TypeGARepository typeGARepository= null;
+    private static TypeGARepository typeGARepository = null;
     private static ReadingRepository readingRepository = null;
     private static RoomRepository roomRepository = null;
     private static GridRepository gridsRepository = null;
@@ -23,8 +24,12 @@ public final class Repositories {
         Repositories.geoRepository = geoRepository;
     }
 
-    public static void setSensorRepository(SensorRepository sensorRepository) {
-        Repositories.sensorRepository = sensorRepository;
+    public static void setExternalSensorRepository(ExternalSensorRepository externalSensorRepository) {
+        Repositories.externalSensorRepository = externalSensorRepository;
+    }
+
+    public static void setInternalSensorRepository(InternalSensorRepository internalSensorRepository) {
+        Repositories.internalSensorRepository = internalSensorRepository;
     }
 
     public static void setSensorTypeRepository(SensorTypeRepository sensorTypeRepository) {
@@ -52,8 +57,12 @@ public final class Repositories {
     }
 
 
-    public static SensorRepository getSensorRepository() {
-        return sensorRepository;
+    public static ExternalSensorRepository getExternalSensorRepository() {
+        return externalSensorRepository;
+    }
+
+    public static InternalSensorRepository getInternalSensorRepository() {
+        return internalSensorRepository;
     }
 
     public static SensorTypeRepository getSensorTypeRepository() {
@@ -83,29 +92,26 @@ public final class Repositories {
         SensorList sensorList = ga.getSensorListInGA();
         List<Sensor> sensors = sensorList.getSensorList();
         for (Sensor sensor : sensors) {
-            saveSensor(sensor);
+            saveExternalSensor((ExternalSensor) sensor);
         }
     }
 
-
-
     public static void saveRoom(Room r) {
-
         Repositories.roomRepository.save(r);
 
         SensorList sensorList = r.getSensorListInRoom();
         List<Sensor> sensors = sensorList.getSensorList();
         for (Sensor sensor : sensors) {
-            saveSensor(sensor);
+            saveInternalSensor((InternalSensor) sensor);
         }
     }
 
 
-    public static void saveSensor(Sensor s) {
+    public static void saveExternalSensor(ExternalSensor s) {
         //TODO remove when solution for duplicates is found and implemented
         Repositories.getSensorTypeRepository().save(s.getSensorType());
 
-        Repositories.sensorRepository.save(s);
+        Repositories.externalSensorRepository.save(s);
 
         for (Reading reading : s.getReadingList().getReadingsList()) {
             reading.setSensor(s);
@@ -113,6 +119,17 @@ public final class Repositories {
         }
     }
 
+    public static void saveInternalSensor(InternalSensor s) {
+        //TODO remove when solution for duplicates is found and implemented
+        Repositories.getSensorTypeRepository().save(s.getSensorType());
+
+        Repositories.internalSensorRepository.save(s);
+
+        for (Reading reading : s.getReadingList().getReadingsList()) {
+            reading.setSensor(s);
+            Repositories.readingRepository.save(reading);
+        }
+    }
 
 
 }
