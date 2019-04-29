@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SensorTypeList {
 
-    private List<SensorType> typeList;
+    private final List<SensorType> typeList;
     static final Logger log = Logger.getLogger(SensorTypeList.class);
 
     /**

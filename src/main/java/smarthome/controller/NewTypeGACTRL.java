@@ -1,7 +1,6 @@
 package smarthome.controller;
 
 import smarthome.model.TypeGA;
-import smarthome.model.TypeGAList;
 
 import static smarthome.model.TypeGAList.addTypeGA;
 import static smarthome.model.TypeGAList.newTypeGA;
@@ -13,6 +12,7 @@ public class NewTypeGACTRL {
      *
      */
     public NewTypeGACTRL() {
+        /*Constructor is supposed to be empty*/
     }
 
     /**

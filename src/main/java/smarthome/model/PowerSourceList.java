@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PowerSourceList {
-    private List<PowerSource> psList;
+    private final List<PowerSource> psList;
 
     public PowerSourceList () {
         this.psList = new ArrayList<>();

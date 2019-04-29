@@ -5,7 +5,7 @@ import java.util.List;
 
 public class GAList {
 
-    private List<GeographicalArea> listOfGa;
+    private final List<GeographicalArea> listOfGa;
 
     /**
      * Constructor method to set the attribute of the GA's List as an ArrayList

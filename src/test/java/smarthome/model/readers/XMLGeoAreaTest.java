@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import smarthome.model.GeographicalArea;
 import smarthome.model.Sensor;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Calendar;
@@ -16,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 class XMLGeoAreaTest {
 
     @Test
-    void importData() {
+    void importData() throws ParserConfigurationException {
 
         Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
@@ -28,7 +29,7 @@ class XMLGeoAreaTest {
     }
 
     @Test
-    void importDataFailNoGAs() {
+    void importDataFailNoGAs() throws ParserConfigurationException {
 
         Path path = Paths.get("resources_tests/fakeImportFilesForTests/DataSet_sprint05_GA_FAKE_01.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
@@ -40,7 +41,7 @@ class XMLGeoAreaTest {
     }
 
     @Test
-    void importDataGaNodeLengthTest() {
+    void importDataGaNodeLengthTest() throws ParserConfigurationException {
         Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
@@ -53,7 +54,7 @@ class XMLGeoAreaTest {
     }
 
     @Test
-    void checkGAImport() {
+    void checkGAImport() throws ParserConfigurationException {
         Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
@@ -68,7 +69,7 @@ class XMLGeoAreaTest {
     }
 
     @Test
-    void checkOccupationAreaImport() {
+    void checkOccupationAreaImport() throws ParserConfigurationException {
         Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
@@ -86,7 +87,7 @@ class XMLGeoAreaTest {
     }
 
     @Test
-    void checkLocationImport() {
+    void checkLocationImport() throws ParserConfigurationException {
         Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
@@ -110,7 +111,7 @@ class XMLGeoAreaTest {
     }
 
     @Test
-    void checkGASensorsImport() {
+    void checkGASensorsImport() throws ParserConfigurationException {
         Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
@@ -126,7 +127,7 @@ class XMLGeoAreaTest {
     }
 
     @Test
-    void checkGASensorTimeImport() {
+    void checkGASensorTimeImport() throws ParserConfigurationException {
         Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 

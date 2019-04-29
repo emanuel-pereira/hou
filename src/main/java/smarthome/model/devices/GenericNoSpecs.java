@@ -9,7 +9,7 @@ import static java.lang.Double.NaN;
 
 public class GenericNoSpecs implements DeviceSpecs {
 
-    private String deviceTypeDesignation;
+    private final String deviceTypeDesignation;
 
     public GenericNoSpecs(String deviceType){
         this.deviceTypeDesignation = deviceType;

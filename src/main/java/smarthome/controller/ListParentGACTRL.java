@@ -3,11 +3,9 @@ package smarthome.controller;
 import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
 
-import java.util.List;
-
 public class ListParentGACTRL {
 
-    private GAList mGAList;
+    private final GAList gaList;
 
     /**
      * Constructor method to set up the attributes for the class
@@ -15,7 +13,7 @@ public class ListParentGACTRL {
      * @param gaInputList GA's List for the class to work on
      */
     public ListParentGACTRL(GAList gaInputList) {
-        mGAList = gaInputList;
+        this.gaList = gaInputList;
     }
 
     /**
@@ -27,7 +25,7 @@ public class ListParentGACTRL {
      * else a null value will be returned
      */
     public String isParentOf(int inputIndex) {
-        GeographicalArea parentGA = mGAList.getGAList().get(inputIndex - 1).getGeographicalParentGA();
+        GeographicalArea parentGA = this.gaList.getGAList().get(inputIndex - 1).getGeographicalParentGA();
         StringBuilder parents = new StringBuilder();
         while (parentGA != null) { //while there is a parent GA
             parents.append(parentGA.getGAName()); //append parent GA to list
@@ -47,7 +45,7 @@ public class ListParentGACTRL {
      * if the list is not empty then the showListGAFromType() method will be called next
      */
     public int getGAListSize() {
-        return mGAList.getGAList().size();
+        return this.gaList.getGAList().size();
     }
 
     /**
@@ -58,10 +56,9 @@ public class ListParentGACTRL {
      * @return List of GA's designations as a number ordered List
      */
     public String showListInString() {
-        List<GeographicalArea> gaList = mGAList.getGAList();
         StringBuilder result = new StringBuilder();
         int number = 1;
-        for (GeographicalArea GA : gaList) {
+        for (GeographicalArea GA : gaList.getGAList()) {
             result.append(number++);
             result.append(" - ");
             result.append(GA.getGAName());

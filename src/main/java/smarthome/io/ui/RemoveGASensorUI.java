@@ -10,15 +10,16 @@ import java.util.List;
 
 public class RemoveGASensorUI {
 
-    private RemoveGASensorCTRL ctrl;
+    private static final String DESIGNATION_MSG = " | Designation: ";
     private GeographicalAreaDTO selectedGADTO;
-    private String designationMsg=" | Designation: ";
+    private final RemoveGASensorCTRL ctrl;
 
     public RemoveGASensorUI(GAList gaList) {
         this.ctrl = new RemoveGASensorCTRL(gaList);
     }
 
     //Broke this method is small methods
+
     /**
      * First: get the GA List (Dto) and validate if the gaList is empty. If so, show message
      * If not, show it
@@ -35,7 +36,7 @@ public class RemoveGASensorUI {
         int counter = 1;
         for (GeographicalAreaDTO gaDTO : gaListDTO) {
             System.out.print(counter++ + " Id: " + gaDTO.getIdentification());
-            System.out.println(designationMsg + gaDTO.getDesignation());
+            System.out.println(DESIGNATION_MSG + gaDTO.getDesignation());
         }
         int index = UtilsUI.requestIntegerInInterval(1, gaListDTO.size(), "Please choose a valid option");
         index--;
@@ -62,7 +63,7 @@ public class RemoveGASensorUI {
         int counter = 1;
         for (SensorDTO sensorDTO : sensorListDTO) {
             System.out.print(counter++ + " Id: " + sensorDTO.getId());
-            System.out.println(designationMsg + sensorDTO.getDesignation());
+            System.out.println(DESIGNATION_MSG + sensorDTO.getDesignation());
         }
         int index = UtilsUI.requestIntegerInInterval(1, sensorListDTO.size(), "Please choose a valid option");
         index--;
@@ -71,7 +72,7 @@ public class RemoveGASensorUI {
         String sensorDTOId = sensorDTO.getId();
         if (this.ctrl.removeSensor(gaDTOId, sensorDTOId)) {
             System.out.println("The following sensor was successfully removed from the geographical area " + selectedGADTO.getDesignation() + ":");
-            System.out.println(" - Id: " + sensorDTO.getId() + designationMsg + sensorDTO.getDesignation() + "\n");
+            System.out.println(" - Id: " + sensorDTO.getId() + DESIGNATION_MSG + sensorDTO.getDesignation() + "\n");
             UtilsUI.backToMenu();
         }
     }

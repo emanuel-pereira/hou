@@ -6,11 +6,11 @@ import smarthome.model.DeviceType;
 
 public class OvenType implements DeviceType {
 
-    private String deviceType = "Oven";
+    private static final String DEVICE_TYPE = "Oven";
 
     @Override
     public String getDeviceType() {
-        return this.deviceType;
+        return DEVICE_TYPE;
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RoomList {
 
-    private List<Room> listOfRooms;
+    private final List<Room> listOfRooms;
     static final Logger log = Logger.getLogger(RoomList.class);
 
 

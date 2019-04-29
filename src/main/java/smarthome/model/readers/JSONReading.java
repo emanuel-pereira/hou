@@ -12,7 +12,7 @@ import java.util.List;
 
 public class JSONReading implements FileReaderReadings {
 
-    private JSONParser parser = new JSONParser();
+    private final JSONParser parser = new JSONParser();
     private Path filePath;
 
     /**

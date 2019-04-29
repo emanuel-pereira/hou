@@ -19,7 +19,7 @@ public class Location {
      * annotation is used to indicate that a field is not to be persisted in the database
      */
     @Transient
-    private GPSValidations v = new GPSValidations ();
+    private final GPSValidations v = new GPSValidations();
     private double latitude;
     private double longitude;
     private double altitude;
@@ -31,6 +31,7 @@ public class Location {
      * Constructor requiring latitude, longitude and altitude parameters to create a location. Latitude, longitude and altitude
      * must comply with range values defined in the respective validation methods to create an instance of a location.
      * Otherwise it will throw an IllegalArgumentException.
+     *
      * @param latitude  latitude coordinates
      * @param longitude longitude coordinates
      * @param altitude  altitude coordinate
@@ -42,6 +43,8 @@ public class Location {
     }
 
     /**
+     * Method to set latitude as the one inputted by the user if it complies with latitudeIsValid criteria
+     *
      * Method to set latitude as the one inputted by the user if it complies with latitudeIsValid criteria.
      * @param latitude user input
      */
@@ -52,7 +55,8 @@ public class Location {
 
     /**
      * Method to set longitude as the one inputted by the user if it complies with longitudeIsValid criteria
-     *@param longitude user input
+     *
+     * @param longitude user input
      */
     public void setLongitude(double longitude) {
         if (this.v.longitudeIsValid(longitude))
@@ -61,6 +65,7 @@ public class Location {
 
     /**
      * Method to set altitude as the one inputted by the user if it complies with altitudeIsValid criteria
+     *
      * @param altitude user input
      */
     public void setAltitude(double altitude) {
@@ -113,13 +118,12 @@ public class Location {
     }
 
     /**
+     * Method to turn the Location object into a string
      *
-     *Method to turn the Location object into a string
-     *
-     *@return location information as a String
+     * @return location information as a String
      */
-    //TODO missing tests
-    public String locationToString(){
+
+    public String locationToString() {
         StringBuilder output = new StringBuilder();
 
         String separator = " | ";

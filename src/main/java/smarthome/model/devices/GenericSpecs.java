@@ -20,14 +20,14 @@ public class GenericSpecs implements DeviceSpecs {
 
     /* ------- Private fields ------- */
 
-    private String[] attributeNames;
-    private String[] attributeUnits;
-    private String deviceTypeDesignation;
+    private final String[] attributeNames;
+    private final String[] attributeUnits;
+    private final String deviceTypeDesignation;
 
-    private List<String> attributeNamesList = new ArrayList<>();
+    private final List<String> attributeNamesList = new ArrayList<>();
 
-    private HashMap<String, Double> attributeValuesMap = new HashMap<>();
-    private HashMap<String, String> attributeUnitsMap = new HashMap<>();
+    private final HashMap<String, Double> attributeValuesMap = new HashMap<>();
+    private final HashMap<String, String> attributeUnitsMap = new HashMap<>();
 
     /* ------- Public fields ------- */
 

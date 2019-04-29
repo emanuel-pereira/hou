@@ -2,10 +2,10 @@ package smarthome.model;
 
 public class PowerSource {
 
-    private String name;
-    private String typePS;
-    private double maxPower; //watts per hour
-    private double storageCapacity;//in kWh
+    private final String name;
+    private final String typePS;
+    private final double maxPower; //watts per hour
+    private final double storageCapacity;//in kWh
 
 
     public PowerSource (String inputName,String inputType, double inputMaxPower, double inputStorageCapacity){

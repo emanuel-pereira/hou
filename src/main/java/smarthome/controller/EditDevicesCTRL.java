@@ -11,8 +11,8 @@ import static smarthome.model.House.*;
 
 public class EditDevicesCTRL {
 
-    private RoomList roomList;
-    private NameValidations nameValidations;
+    private final RoomList roomList;
+    private final NameValidations nameValidations;
 
     public EditDevicesCTRL() {
         this.roomList = getHouseRoomList();

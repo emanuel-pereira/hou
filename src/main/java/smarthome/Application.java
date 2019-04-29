@@ -17,11 +17,11 @@ import java.text.ParseException;
 @SpringBootApplication
 public class Application {
 
-    private String defaults = "Default";
+    private static final String DEFAULT = "Default";
     Location loc = new Location(1, 1, 1);
-    Address a1 = new Address(defaults, defaults,"0000-000",defaults,defaults,loc);
+    Address a1 = new Address(DEFAULT, DEFAULT, "0000-000", DEFAULT, DEFAULT, loc);
     OccupationArea oc = new OccupationArea(1, 1);
-    GeographicalArea g1 = new GeographicalArea(defaults, defaults, defaults, oc, loc);
+    GeographicalArea g1 = new GeographicalArea(DEFAULT, DEFAULT, DEFAULT, oc, loc);
     House house = House.getHouseInstance(a1, g1);
     TypeGAList typeGAList = TypeGAList.getTypeGAListInstance();
 

@@ -3,8 +3,8 @@ package smarthome.dto;
 import java.util.Calendar;
 
 public class ReadingDTO {
-    private double readingValue;
-    private Calendar readingDateAndTime;
+    private final double readingValue;
+    private final Calendar readingDateAndTime;
 
     public ReadingDTO(double readingValue,Calendar readingDateAndTime) {
         this.readingDateAndTime=readingDateAndTime;

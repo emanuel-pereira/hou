@@ -6,6 +6,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -27,11 +28,9 @@ public class XMLReading implements FileReaderReadings {
     @Override
     public List<String[]> importData(Path filePath) throws ParserConfigurationException, IOException, SAXException {
 
-
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        dbFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
         List<String[]> readingList = new ArrayList<>();
-
-
 
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 

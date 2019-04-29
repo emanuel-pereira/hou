@@ -10,7 +10,7 @@ import static smarthome.model.TypeGAList.getTypeGAList;
 
 public class GetGAsOfTypeCTRL {
 
-    private GAList gaList;
+    private final GAList gaList;
 
     /**
      * US4 constructor

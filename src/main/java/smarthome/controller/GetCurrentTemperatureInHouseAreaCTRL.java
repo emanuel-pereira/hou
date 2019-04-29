@@ -8,7 +8,7 @@ import static smarthome.model.House.getHouseGA;
 
 public class GetCurrentTemperatureInHouseAreaCTRL {
 
-    private SensorTypeList sensorTypeList;
+    private final SensorTypeList sensorTypeList;
 
     public GetCurrentTemperatureInHouseAreaCTRL(SensorTypeList sensorTypeList) {
         this.sensorTypeList = sensorTypeList;

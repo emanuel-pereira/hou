@@ -305,4 +305,15 @@ class LocationTest {
         assertEquals(3, l1.getLongitude());
         assertEquals(4, l1.getLatitude());
     }
+
+    @Test
+    public void locationToString() {
+        String expected = " | Location:\n    Latitude: 70.0º | Longitude: 80.0º | Altitude: 1200.0 meters";
+
+        Location l = new Location(70, 80, 1200);
+        String result;
+        result = l.locationToString();
+
+        assertEquals(expected, result);
+    }
 }

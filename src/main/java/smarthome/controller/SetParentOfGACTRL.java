@@ -8,7 +8,7 @@ import java.util.List;
 
 public class SetParentOfGACTRL {
 
-    private GAList gaList;
+    private final GAList gaList;
 
 
     public SetParentOfGACTRL(GAList inputList) {

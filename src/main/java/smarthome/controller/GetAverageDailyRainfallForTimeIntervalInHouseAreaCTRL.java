@@ -1,6 +1,9 @@
 package smarthome.controller;
 
-import smarthome.model.*;
+import smarthome.model.GeographicalArea;
+import smarthome.model.SensorList;
+import smarthome.model.SensorType;
+import smarthome.model.SensorTypeList;
 
 import java.util.Calendar;
 
@@ -9,7 +12,7 @@ import static smarthome.model.House.*;
 
 public class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL {
 
-    private SensorTypeList sensorTypeList;
+    private final SensorTypeList sensorTypeList;
 
 
     public GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(SensorTypeList sensorTypeList) {

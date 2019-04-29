@@ -6,25 +6,24 @@ import smarthome.model.SensorTypeList;
 public class GetCurrentTemperatureInRoomUI {
 
 
-    private GetCurrentTemperatureInRoomCTRL controller;
-    private String temperature = "temperature";
+    private static final String TEMPERATURE = "temperature";
+    private static final String MSG_TITLE = "Oops!";
     private int roomIndex;
-    private String msgTitle = "Oops!";
+    private final GetCurrentTemperatureInRoomCTRL controller;
 
 
     public GetCurrentTemperatureInRoomUI(SensorTypeList sensorTypeList) {
         this.controller = new GetCurrentTemperatureInRoomCTRL(sensorTypeList);
     }
 
-
     /**
      * Checks if the required sensor type Temperature was created by the Administrator
      */
     public void run() {
-        if (this.controller.checkIfRequiredSensorTypeExists(this.temperature)) {
+        if (this.controller.checkIfRequiredSensorTypeExists(TEMPERATURE)) {
             this.checkIfRoomExists();
         } else
-            UtilsUI.showError(msgTitle, "Please ask the Administrator to create a Temperature Sensor Type in the System");
+            UtilsUI.showError(MSG_TITLE, "Please ask the Administrator to create a Temperature Sensor Type in the System");
     }
 
     /**
@@ -39,17 +38,17 @@ public class GetCurrentTemperatureInRoomUI {
             roomIndex = UtilsUI.requestIntegerInInterval(1, this.controller.getRoomList().size(), "Invalid option selected, please try again.");
 
             this.checkIfTempSensorExistInRooms();
-        } else UtilsUI.showError(msgTitle, "No rooms found. Please ask the House Administrator to create a room.");
+        } else UtilsUI.showError(MSG_TITLE, "No rooms found. Please ask the House Administrator to create a room.");
     }
 
     /**
-     * Checks if the sensor type Temperature exist in the chosen room. If so, shows the current temperature of that room
+     * Checks if the sensor type Temperature exist in the chosen room. If so, shows the current TEMPERATURE of that room
      */
     private void checkIfTempSensorExistInRooms() {
-        if (this.controller.checkIfSensorTypeExistsInRoom(roomIndex, this.temperature)) {
-            System.out.println("Current temperature in the room: " + this.controller.getCurrentTemp(roomIndex));
+        if (this.controller.checkIfSensorTypeExistsInRoom(roomIndex, TEMPERATURE)) {
+            System.out.println("Current TEMPERATURE in the room: " + this.controller.getCurrentTemp(roomIndex));
         } else
-            UtilsUI.showError(msgTitle, "Please ask the House Administrator to add a Temperature Sensor to this Room");
+            UtilsUI.showError(MSG_TITLE, "Please ask the House Administrator to add a Temperature Sensor to this Room");
     }
 
 

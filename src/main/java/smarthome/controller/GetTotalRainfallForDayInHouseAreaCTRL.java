@@ -12,11 +12,11 @@ import static smarthome.model.House.*;
 public class GetTotalRainfallForDayInHouseAreaCTRL {
 
 
-    private SensorTypeList mSensorTypeList;
+    private final SensorTypeList sensorTypeList;
 
     public GetTotalRainfallForDayInHouseAreaCTRL(SensorTypeList sensorTypeList) {
 
-        mSensorTypeList = sensorTypeList;
+        this.sensorTypeList = sensorTypeList;
     }
 
     /**
@@ -25,7 +25,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRL {
      * @return true if sensorType exists, otherwise returns false
      */
     public boolean checkIfSensorTypeExists(String sensorType) {
-        return mSensorTypeList.checkIfSensorTypeExists(sensorType);
+        return this.sensorTypeList.checkIfSensorTypeExists(sensorType);
     }
 
     /**

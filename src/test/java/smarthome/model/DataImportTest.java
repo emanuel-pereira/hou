@@ -57,7 +57,7 @@ class DataImportTest {
 
     @Test
     @DisplayName("Get Ga List size in file")
-    void getGAListInFileSize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+    void getGAListInFileSize() throws ParserConfigurationException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImport dataImport = new DataImport(gaList);
         Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
@@ -70,7 +70,7 @@ class DataImportTest {
 
     @Test
     @DisplayName("Get Ga List size after import")
-    void getGAListImportedSize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+    void getGAListImportedSize() throws ParserConfigurationException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImport dataImport = new DataImport(gaList);
         TypeGAList.addTypeGA(new TypeGA("city"));
@@ -88,7 +88,7 @@ class DataImportTest {
 
     @Test
     @DisplayName("Get number of not added GAs")
-    void getGAListNotAddedSize() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+    void getGAListNotAddedSize() throws ParserConfigurationException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImport dataImport = new DataImport(gaList);
         Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");

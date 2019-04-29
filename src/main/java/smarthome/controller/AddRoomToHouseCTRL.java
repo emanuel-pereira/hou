@@ -8,7 +8,7 @@ import static smarthome.model.House.getHouseRoomList;
 
 public class AddRoomToHouseCTRL {
 
-    private RoomList roomList;
+    private final RoomList roomList;
 
     static final Logger log = Logger.getLogger(AddRoomToHouseCTRL.class);
 

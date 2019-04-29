@@ -1,7 +1,6 @@
 package smarthome.controller;
 
 import smarthome.model.TypeGA;
-import smarthome.model.TypeGAList;
 
 import java.util.List;
 
@@ -11,6 +10,7 @@ public class GetTypeGAListCTRL {
 
     /** Constructor of User Story 2. It is used to create a list of types which would be created/added by the user*/
     public GetTypeGAListCTRL() {
+        /*Constructor is supposed to be empty*/
 
     }
 

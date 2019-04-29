@@ -1,6 +1,9 @@
 package smarthome.controller;
 
-import smarthome.model.*;
+import smarthome.model.Room;
+import smarthome.model.RoomList;
+import smarthome.model.SensorType;
+import smarthome.model.SensorTypeList;
 
 import java.util.List;
 
@@ -8,13 +11,13 @@ import static smarthome.model.House.getHouseRoomList;
 
 public class GetCurrentTemperatureInRoomCTRL {
 
-    private SensorTypeList mSensorTypeList;
-    private RoomList mRoomList;
+    private final SensorTypeList sensorTypeList;
+    private final RoomList roomList;
 
 
     public GetCurrentTemperatureInRoomCTRL(SensorTypeList sensorTypeList) {
-        mRoomList = getHouseRoomList();
-        mSensorTypeList = sensorTypeList;
+        this.roomList = getHouseRoomList();
+        this.sensorTypeList = sensorTypeList;
     }
 
     /**
@@ -23,7 +26,7 @@ public class GetCurrentTemperatureInRoomCTRL {
      * @return True if the type exist or false if not
      */
     public boolean checkIfRequiredSensorTypeExists(String sensorType) {
-        return mSensorTypeList.checkIfSensorTypeExists(sensorType);
+        return this.sensorTypeList.checkIfSensorTypeExists(sensorType);
     }
 
     /**
@@ -31,7 +34,7 @@ public class GetCurrentTemperatureInRoomCTRL {
      * @return List of rooms
      */
     public List<Room> getRoomList() {
-        return mRoomList.getRoomList ();
+        return this.roomList.getRoomList();
     }
 
     /**
@@ -39,7 +42,7 @@ public class GetCurrentTemperatureInRoomCTRL {
      * @return List of rooms in string
      */
     public String showRoomListInString() {
-        return mRoomList.showRoomListInString ();
+        return this.roomList.showRoomListInString();
     }
 
     /**
@@ -47,7 +50,7 @@ public class GetCurrentTemperatureInRoomCTRL {
      * @return List of types of sensors
      */
     public List<SensorType> getSensorTypeList() {
-        return mSensorTypeList.getSensorTypeList ();
+        return this.sensorTypeList.getSensorTypeList();
     }
 
     /**
@@ -57,7 +60,7 @@ public class GetCurrentTemperatureInRoomCTRL {
      * @return True if sensor type exist in the room or false if not
      */
     public boolean checkIfSensorTypeExistsInRoom(int roomIndex, String temp) {
-        return mRoomList.get(roomIndex - 1).checkIfSensorTypeExistsInRoom (temp);
+        return this.roomList.get(roomIndex - 1).checkIfSensorTypeExistsInRoom(temp);
     }
 
     /**
@@ -67,7 +70,7 @@ public class GetCurrentTemperatureInRoomCTRL {
      */
     public double getCurrentTemp(int roomIndex) {
         String temp = "temperature";
-        Room r = mRoomList.getRoomList ().get (roomIndex - 1);
+        Room r = this.roomList.getRoomList().get(roomIndex - 1);
         return r.getSensorListInRoom ().getRequiredSensorPerType (temp).getLastReadingValuePerSensor ();
     }
 

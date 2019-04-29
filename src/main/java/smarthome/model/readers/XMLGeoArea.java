@@ -7,8 +7,10 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import smarthome.model.*;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.nio.file.Path;
 import java.text.DateFormat;
@@ -30,9 +32,56 @@ public class XMLGeoArea implements FileReaderGeoArea {
     }
 
 
-    public List<GeographicalArea> loadData(Path filePath) {
+    private static GeographicalArea importGeographicalArea(Node gaNode) throws ParseException {
+
+        GeographicalArea geographicalArea = null;
+
+        if (gaNode.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) gaNode;
+
+            String description = getTagValue("description", element);
+            String id = getTagValue("id", element);
+            String type = getTagValue("type", element);
+
+            String widthString = getTagValue("width", element);
+            double width = Double.parseDouble(widthString);
+            String lengthString = getTagValue("length", element);
+            double length = Double.parseDouble(lengthString);
+            OccupationArea occupationArea = new OccupationArea(length, width);
+
+            Location location = importLocation(element.getElementsByTagName("location").item(0));
+
+            geographicalArea = new GeographicalArea(id, description, type, occupationArea, location);
+            addSensorListToGA(geographicalArea, element.getElementsByTagName("area_sensors").item(0));
+
+        }
+        return geographicalArea;
+
+    }
+
+    private static Location importLocation(Node node) {
+
+        Element element = (Element) node;
+        String latitudeString = getTagValue("latitude", element);
+        double latitude = Double.parseDouble(latitudeString);
+        String longitudeString = getTagValue("longitude", element);
+        double longitude = Double.parseDouble(longitudeString);
+        String altitudeString = getTagValue("altitude", element);
+        double altitude = Double.parseDouble(altitudeString);
+
+        Location location = new Location();
+        location.setLatitude(latitude);
+        location.setLongitude(longitude);
+        location.setAltitude(altitude);
+        return location;
+    }
+
+    public List<GeographicalArea> loadData(Path filePath) throws ParserConfigurationException {
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        dbFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
+        //XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE
+        //
         List<GeographicalArea> gaList = new ArrayList<>();
 
         try {
@@ -53,47 +102,6 @@ public class XMLGeoArea implements FileReaderGeoArea {
             log.warn(e.getMessage());
         }
         return gaList;
-    }
-
-
-    private static GeographicalArea importGeographicalArea(Node gaNode) throws ParseException {
-
-        GeographicalArea geographicalArea = null;
-
-        if (gaNode.getNodeType() == Node.ELEMENT_NODE) {
-            Element element = (Element) gaNode;
-
-            String description = getTagValue("description", element);
-            String id = getTagValue("id", element);
-            String type = getTagValue("type", element);
-
-            Double width = Double.parseDouble(getTagValue("width", element));
-            Double length = Double.parseDouble(getTagValue("length", element));
-            OccupationArea occupationArea = new OccupationArea(length, width);
-
-            Location location = importLocation(element.getElementsByTagName("location").item(0));
-
-            geographicalArea = new GeographicalArea(id, description, type, occupationArea, location);
-            addSensorListToGA(geographicalArea, element.getElementsByTagName("area_sensors").item(0));
-
-        }
-        return geographicalArea;
-
-    }
-
-
-    private static Location importLocation(Node node) {
-
-        Element element = (Element) node;
-        Double latitude = Double.parseDouble(getTagValue("latitude", element));
-        Double longitude = Double.parseDouble(getTagValue("longitude", element));
-        Double altitude = Double.parseDouble(getTagValue("altitude", element));
-
-        Location location = new Location();
-        location.setLatitude(latitude);
-        location.setLongitude(longitude);
-        location.setAltitude(altitude);
-        return location;
     }
 
     private static String getTagValue(String tag, Element element) {

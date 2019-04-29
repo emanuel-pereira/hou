@@ -15,8 +15,8 @@ import java.util.List;
 public class DeactivateSensorCTRL {
 
     GAList gaList;
-    private SensorMapper sensorMapper = new SensorMapper ();
-    private GeographicalAreaMapper gaMapper = new GeographicalAreaMapper ();
+    private final SensorMapper sensorMapper = new SensorMapper();
+    private final GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
 
     public DeactivateSensorCTRL(GAList gaList) {
         this.gaList = gaList;

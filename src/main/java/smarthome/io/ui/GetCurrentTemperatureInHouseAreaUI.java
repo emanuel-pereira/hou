@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class GetCurrentTemperatureInHouseAreaUI {
 
-    private GetCurrentTemperatureInHouseAreaCTRL ctrl;
+    private final GetCurrentTemperatureInHouseAreaCTRL ctrl;
     Scanner read = new Scanner(System.in);
     private SensorType sensorType;
 

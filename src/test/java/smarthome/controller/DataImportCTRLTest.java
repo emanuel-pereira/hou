@@ -42,7 +42,7 @@ class DataImportCTRLTest {
 
     @Test
     @DisplayName("Ensure that GAList has 2 GAs after executing loadJSON method")
-    void loadGeoAreas() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    void loadGeoAreas() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         TypeGAList.addTypeGA(new TypeGA("city"));
@@ -61,7 +61,7 @@ class DataImportCTRLTest {
 
     @Test
     @DisplayName("Ensure that GAList has 0 GAs after executing loadJSON method when json file is not found in specified path")
-    void loadGeoAreasFileNotFound() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    void loadGeoAreasFileNotFound() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources_tests/JsonFile1.json";
@@ -80,7 +80,7 @@ class DataImportCTRLTest {
 
 
     @Test
-    void getAllSensorsInFile() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    void getAllSensorsInFile() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
@@ -95,7 +95,7 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void importGeoAreasFromFile() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    void importGeoAreasFromFile() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
 
@@ -112,7 +112,7 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void failToAdd() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    void failToAdd() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
@@ -128,7 +128,7 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void failToAddIsZero() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    void failToAddIsZero() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         TypeGAList.addTypeGA(new TypeGA("city"));
@@ -146,7 +146,7 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void failToAddDoesNotStack() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    void failToAddDoesNotStack() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
@@ -607,7 +607,7 @@ class DataImportCTRLTest {
 
 
     @Test
-    void getGaListInFileSize() throws IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
+    void getGaListInFileSize() throws ParserConfigurationException, IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
 
         GAList gaList = new GAList();
         DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
@@ -623,7 +623,7 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void getImportedGaListSize() throws IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
+    void getImportedGaListSize() throws ParserConfigurationException, IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
 
         GAList gaList = new GAList();
         DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);

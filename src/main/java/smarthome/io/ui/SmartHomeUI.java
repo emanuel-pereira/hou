@@ -19,11 +19,11 @@ public final class SmartHomeUI {
     private static SensorTypeList sensorTypeList;
     private static GAList gaList;
 
-    private String defaults = "Default";
+    private static final String DEFAULT = "Default";
     Location loc = new Location(1, 1, 1);
-    Address a1 = new Address(defaults, defaults,"0000-000",defaults,defaults,loc);
+    Address a1 = new Address(DEFAULT, DEFAULT, "0000-000", DEFAULT, DEFAULT, loc);
     OccupationArea oc = new OccupationArea(1, 1);
-    GeographicalArea g1 = new GeographicalArea(defaults, defaults, defaults, oc, loc);
+    GeographicalArea g1 = new GeographicalArea(DEFAULT, DEFAULT, DEFAULT, oc, loc);
     House house = House.getHouseInstance(a1, g1);
 
 
@@ -38,7 +38,6 @@ public final class SmartHomeUI {
             options.add("[3] Regular User");
             options.add("[4] Power User");
             options.add("[5] Room Owner");
-            options.add("[0] Exit");
             UtilsUI.showList("Main Menu", options, false, 5);
 
             option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to exit the program");

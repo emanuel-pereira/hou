@@ -10,7 +10,7 @@ import static smarthome.model.TypeGAList.*;
 
 public class NewGeographicalAreaCTRL {
 
-    private GAList gaList;
+    private final GAList gaList;
     static final Logger log = Logger.getLogger(NewGeographicalAreaCTRL.class);
 
 

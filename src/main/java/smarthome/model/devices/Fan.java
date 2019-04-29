@@ -4,12 +4,13 @@ import smarthome.model.DeviceSpecs;
 import smarthome.model.Program;
 import smarthome.model.ProgramMode;
 import smarthome.model.Programmable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Fan extends GenericDevice implements Programmable {
 
-    private List<Program> programList = new ArrayList<>();
+    private final List<Program> programList = new ArrayList<>();
     private ProgramMode meteredProgram;
 
     public Fan(String name, DeviceSpecs deviceSpecs, double nominalPower) {

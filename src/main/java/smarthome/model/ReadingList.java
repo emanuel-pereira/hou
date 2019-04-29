@@ -32,7 +32,7 @@ public class ReadingList {
      * Transient instance
      */
     @ElementCollection
-    private List<Reading> listOfReadings;
+    private final List<Reading> listOfReadings;
 
     public ReadingList() {
         this.listOfReadings = new ArrayList<>();

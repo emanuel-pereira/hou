@@ -8,15 +8,16 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static smarthome.model.House.*;
+import static smarthome.model.House.checkIfLocationExists;
+import static smarthome.model.House.getHouseRoomList;
 
 
 public class NewSensorCTRL {
 
-    private SensorTypeList sensorTypeList;
-    private GAList gaList;
-    private GPSValidations gpsValidations;
-    private NameValidations nameValidations;
+    private final SensorTypeList sensorTypeList;
+    private final GAList gaList;
+    private final GPSValidations gpsValidations;
+    private final NameValidations nameValidations;
 
 
 

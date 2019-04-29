@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.Scanner;
 
 public class NewSensorUI {
-    private NewSensorCTRL ctrl;
+    private final NewSensorCTRL ctrl;
     private String id;
     private String name;
     private int indexOfSensorType;
@@ -18,8 +18,8 @@ public class NewSensorUI {
     private String unit;
     private int indexOfGA;
     private int indexOfRoom;
-    private ReadingList readingList = new ReadingList();
-    private Scanner read = new Scanner(System.in);
+    private final ReadingList readingList = new ReadingList();
+    private final Scanner read = new Scanner(System.in);
     private boolean isInternal;
 
 

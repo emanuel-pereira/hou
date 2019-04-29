@@ -4,11 +4,10 @@ import smarthome.controller.NewGeographicalAreaCTRL;
 import smarthome.model.GAList;
 import smarthome.model.Location;
 import smarthome.model.OccupationArea;
-import smarthome.model.TypeGAList;
 
 public class NewGeographicalAreaUI {
 
-    private NewGeographicalAreaCTRL ctrl;
+    private final NewGeographicalAreaCTRL ctrl;
     private String id;
     private String name;
     private int typeIndex;

@@ -17,7 +17,7 @@ import java.util.List;
 
 public class JSONGeoArea implements FileReaderGeoArea {
     private Path filePath;
-    private JSONParser parser = new JSONParser();
+    private final JSONParser parser = new JSONParser();
 
 
     public JSONGeoArea() {
@@ -59,8 +59,11 @@ public class JSONGeoArea implements FileReaderGeoArea {
     }
 
     private static OccupationArea importOccupationArea(JSONObject jsonObject) {
-        double width = (double) jsonObject.get("width");
-        double length = (double) jsonObject.get("length");
+
+        String widthString = jsonObject.get("width").toString();
+        double width = Double.parseDouble(widthString);
+        String lengthString = jsonObject.get("length").toString();
+        double length = Double.parseDouble(lengthString);
 
         return new OccupationArea(length, width);
 
@@ -98,9 +101,13 @@ public class JSONGeoArea implements FileReaderGeoArea {
 
     private static Location importLocation(JSONObject jsonObject) {
         JSONObject jsonLocation = (JSONObject) jsonObject.get("location");
-        double latitude = (double) jsonLocation.get("latitude");
-        double longitude = (double) jsonLocation.get("longitude");
-        double altitude = (long) jsonLocation.get("altitude");
+
+        String latitudeString = jsonLocation.get("latitude").toString();
+        double latitude = Double.parseDouble(latitudeString);
+        String longitudeString = jsonLocation.get("longitude").toString();
+        double longitude = Double.parseDouble(longitudeString);
+        String altitudeString = jsonLocation.get("altitude").toString();
+        double altitude = Double.parseDouble(altitudeString);
 
         return new Location(latitude, longitude, altitude);
     }

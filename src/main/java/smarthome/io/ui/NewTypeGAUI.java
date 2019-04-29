@@ -1,11 +1,10 @@
 package smarthome.io.ui;
 
 import smarthome.controller.NewTypeGACTRL;
-import smarthome.model.TypeGAList;
 
 public class NewTypeGAUI {
 
-    private NewTypeGACTRL controller;
+    private final NewTypeGACTRL controller;
     private String name;
     private boolean condition;
 
