@@ -103,6 +103,7 @@ public class DataImportUI {
             }
             if (notImported > 0 && imported < 1) {
                 System.out.println("Warning: no geographical areas nor their sensors were imported");
+                System.out.printf(loadTime, loadingTime);
                 UtilsUI.backToMenu();
             }
             if (notImported < 1 && imported > 0) {
@@ -134,6 +135,7 @@ public class DataImportUI {
                     int importedReadings = ctrl.getNrOfImportedReadings();
                     if (importedReadings == 0) {
                         System.out.println("No readings were imported. Please verify if the file contains valid readings.");
+                        System.out.printf(loadTime, loadingTime);
                         UtilsUI.backToMenu();
                     }
                     if (importedReadings > 0 && invalidReadings == 0) {
@@ -175,6 +177,7 @@ public class DataImportUI {
             }
             if (sensorsNotAdded > 0 && sensorsAdded < 1) {
                 System.out.println("Info: no sensors were imported. Check log file for details.");
+                System.out.printf(loadTime, loadingTime);
                 UtilsUI.backToMenu();
             }
             if (sensorsNotAdded < 1 && sensorsAdded > 0) {
