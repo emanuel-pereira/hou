@@ -108,9 +108,9 @@ public class RoomList {
         return this.listOfRooms.get(i);
     }
 
-    public Room getRoomById (String inputId) {
+    public Room getRoomById(String inputId) {
         Room room = get(0);
-        for(Room  r : this.listOfRooms) {
+        for (Room r : this.listOfRooms) {
             room = r;
             if (room.getId().matches(inputId)) {
                 break;
@@ -146,7 +146,7 @@ public class RoomList {
         for (Room room : list) {
             result.append(number++);
             result.append(element);
-            result.append(room.getId()+", " +room.getMeteredDesignation());
+            result.append(room.getId() + ", " + room.getMeteredDesignation());
             result.append("\n");
         }
         return result.toString();
@@ -203,6 +203,15 @@ public class RoomList {
         return Utils.round(totalEnergyConsumption, 2);
     }
 
+    public double getEstimatedEnergyConsumptionByDeviceType(String deviceType) {
+        double totalEnergyConsumption = 0;
+        for (Device device : getDevicesInAllRoomsByType(deviceType)) {
+            Metered metered = (Metered) device;
+            totalEnergyConsumption += metered.getEstimatedEnergyConsumption();
+        }
+        return Utils.round(totalEnergyConsumption, 2);
+    }
+
     public List<Metered> getMeteredDevicesList() {
         List<Metered> meteredDevListInHouse = new ArrayList<>();
         for (Room room : this.listOfRooms) {
@@ -215,9 +224,9 @@ public class RoomList {
     /**
      * @return a global list of sensors containing all sensors within each room.
      */
-    public List<Sensor> getAllSensors(){
+    public List<Sensor> getAllSensors() {
         List<Sensor> sensors = new ArrayList<>();
-        for(Room room : this.listOfRooms){
+        for (Room room : this.listOfRooms) {
             SensorList roomSensorList = room.getSensorListInRoom();
             sensors.addAll(roomSensorList.getSensorList());
 
@@ -231,6 +240,6 @@ public class RoomList {
         for (Room room : this.listOfRooms)
             if (room.getId().equals(sensorID))
                 matchedRoom = room;
-            return matchedRoom;
+        return matchedRoom;
     }
 }

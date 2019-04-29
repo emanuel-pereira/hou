@@ -457,7 +457,7 @@ public final class UtilsUI {
         for (DeviceDTO item : list) {
             temp = "(" + item.getType() + ")";
             temp = temp.concat(" " + item.getName() + " ");
-            temp = temp.concat("[" + item.getActive()+ "]");
+            temp = temp.concat("[" + item.getNominalPower()+ "]");
             listToShow.add(temp);
         }
         showFormattedList(title, listToShow, numbered, 1);
