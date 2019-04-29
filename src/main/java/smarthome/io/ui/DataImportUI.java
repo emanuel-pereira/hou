@@ -16,10 +16,10 @@ import java.nio.file.Paths;
 
 public class DataImportUI {
 
-    private DataImportCTRL ctrl;
+    private final DataImportCTRL ctrl;
     private Path filePath;
     static final Logger log = Logger.getLogger(DataImportUI.class);
-    private String loadTime = "Import task completed [ %d milliseconds ]%n";
+    private String loadTime = "Import task completed [ %s seconds | %s readings/sec ]%n";
 
     /**
      * Constructor for importing data related to GAList.
@@ -44,6 +44,7 @@ public class DataImportUI {
     public DataImportUI(RoomList roomList, SensorTypeList sensorTypeList) {
         this.ctrl = new DataImportCTRL(roomList, sensorTypeList);
     }
+
     /**
      * Constructor for importing data related to RoomList.
      * Creates an instance of the DataImportCTRL with RoomList passed as parameter when DataImportUI is invoked through
@@ -56,12 +57,12 @@ public class DataImportUI {
         this.ctrl = new DataImportCTRL(roomList);
     }
 
-    public void loadGeoAreaFile() {
+    public void loadGeoAreaFile() throws ParserConfigurationException {
         System.out.println("Please enter the file path to import geographical areas and sensors:");
         String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
 
-        if (ctrl.typeGAListSize() == 0){
-            UtilsUI.showError("Error","The list of GA types is empty. Please create some first");
+        if (ctrl.typeGAListSize() == 0) {
+            UtilsUI.showError("Error", "The list of GA types is empty. Please create some first");
             log.warn("The list of GA types is empty");
             UtilsUI.backToMenu();
             return;
@@ -78,37 +79,31 @@ public class DataImportUI {
 
     }
 
-    public void showGAsNumberInFile() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    public void showGAsNumberInFile() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         System.out.println("In the file there are\n");
         System.out.println(" - " + ctrl.getGaListInFileSize(this.filePath) + " geographical area(s).");
         System.out.println(" - " + ctrl.getAllSensorsInFileSize(this.filePath) + " sensor(s).");
         this.importGAs();
     }
 
-    public void importGAs() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    public void importGAs() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         System.out.println("\n------");
         if (UtilsUI.confirmOption("Do you wish to import this data?(y/n)", "Please type y/Y for Yes or n/N for No.")) {
-            long start = System.currentTimeMillis();
             ctrl.importGeoAreasFromFile(this.filePath);
-            long end = System.currentTimeMillis();
-            long loadingTime = (end - start);
 
             int notImported = ctrl.failedToAdd();
             int imported = ctrl.getImportedGaListSize(this.filePath);
             if (notImported > 0 && imported > 0) {
                 System.out.println("Success! " + imported + " geographical areas and respective sensors were imported.");
                 System.out.println("Warning: " + notImported + " geographical areas and respective sensors were not imported");
-                System.out.printf(loadTime, loadingTime);
                 UtilsUI.backToMenu();
             }
             if (notImported > 0 && imported < 1) {
                 System.out.println("Warning: no geographical areas nor their sensors were imported");
-                System.out.printf(loadTime, loadingTime);
                 UtilsUI.backToMenu();
             }
             if (notImported < 1 && imported > 0) {
                 System.out.println("Success! " + imported + " geographical areas and respective sensors were imported.");
-                System.out.printf(loadTime, loadingTime);
                 UtilsUI.backToMenu();
             }
         } else {
@@ -125,30 +120,21 @@ public class DataImportUI {
             String filepath = UtilsUI.requestText("Invalid filepath.", ".*");
             Path path = Paths.get(filepath);
             try {
-                if (UtilsUI.confirmOption("Please confirm if you want to import sensors' readings. (y/n)", "Please type y for Yes or n for No.")) {
+                if (UtilsUI.confirmOption("Please confirm if you want to import sensors' readings. (y/n)",
+                        "Please type y for Yes or n for No.")) {
+
                     System.out.println("Loading data...");
                     long start = System.currentTimeMillis();
                     ctrl.importReadingsFromFile(path, object);
                     long end = System.currentTimeMillis();
-                    long loadingTime = (end - start);
+                    double loadingTime = (end - start) / 1000.0;
+                    String loading = UtilsUI.formatDecimal(loadingTime, 2);
                     int invalidReadings = ctrl.getNrOfInvalidReadings();
                     int importedReadings = ctrl.getNrOfImportedReadings();
-                    if (importedReadings == 0) {
-                        System.out.println("No readings were imported. Please verify if the file contains valid readings.");
-                        System.out.printf(loadTime, loadingTime);
-                        UtilsUI.backToMenu();
-                    }
-                    if (importedReadings > 0 && invalidReadings == 0) {
-                        System.out.println(" - " + ctrl.getNrOfImportedReadings() + " readings were imported\n");
-                        System.out.printf(loadTime, loadingTime);
-                        UtilsUI.backToMenu();
-                    }
-                    if (invalidReadings > 0 && importedReadings > 0) {
-                        System.out.println(" - " + ctrl.getNrOfImportedReadings() + " readings were imported\n");
-                        System.out.println(" - " + invalidReadings +" readings were not imported. Check log file for details.");
-                        System.out.printf(loadTime, loadingTime);
-                        UtilsUI.backToMenu();
-                    }
+                    double nrReadings = (invalidReadings + importedReadings) / loadingTime;
+                    String readings = UtilsUI.formatDecimal(nrReadings, 2);
+
+                    action(importedReadings, invalidReadings, loading, readings);
                 }
                 loop = false;
             } catch (FileNotFoundException e) {
@@ -159,30 +145,40 @@ public class DataImportUI {
         }
     }
 
+    private void action(int importedReadings, int invalidReadings, String loadingTime, String readings) {
+        if (importedReadings == 0) {
+            System.out.println("No readings were imported. Please verify if the file contains valid readings.");
+        }
+        if (importedReadings > 0 && invalidReadings == 0) {
+            System.out.println(" - " + ctrl.getNrOfImportedReadings() + " readings were imported\n");
+        }
+        if (invalidReadings > 0 && importedReadings > 0) {
+            System.out.println(" - " + ctrl.getNrOfImportedReadings() + " readings were imported\n");
+            System.out.println(" - " + invalidReadings + " readings were not imported. Check log file for details.");
+        }
+
+        System.out.printf(loadTime, loadingTime, readings);
+        UtilsUI.backToMenu();
+    }
+
     public void importHouseSensors() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         int[] counters;
         System.out.println("\n------");
         if (UtilsUI.confirmOption("Do you wish to import this data?(y/n)", "Please type y for Yes or n for No.")) {
-            long start = System.currentTimeMillis();
             counters = ctrl.importHouseSensors(this.filePath);
-            long end = System.currentTimeMillis();
-            long loadingTime = end - start;
             int sensorsAdded = counters[0];
             int sensorsNotAdded = counters[1];
             if (sensorsNotAdded > 0 && sensorsAdded > 0) {
                 System.out.println("Success! " + sensorsAdded + " sensors were imported.");
                 System.out.println("Warning: " + sensorsNotAdded + " sensors were not imported. Check log file for details.");
-                System.out.printf(loadTime, loadingTime);
                 UtilsUI.backToMenu();
             }
             if (sensorsNotAdded > 0 && sensorsAdded < 1) {
                 System.out.println("Info: no sensors were imported. Check log file for details.");
-                System.out.printf(loadTime, loadingTime);
                 UtilsUI.backToMenu();
             }
             if (sensorsNotAdded < 1 && sensorsAdded > 0) {
                 System.out.println("Success! " + sensorsAdded + " sensors were imported.");
-                System.out.printf(loadTime, loadingTime);
                 UtilsUI.backToMenu();
             }
         } else {
@@ -231,7 +227,7 @@ public class DataImportUI {
 
     public void checkIfRoomListIsEmpty(Object object) throws IllegalAccessException, ParseException, IOException, InstantiationException, SAXException, ParserConfigurationException, ClassNotFoundException {
 
-        if (ctrl.roomListSize()==0) {
+        if (ctrl.roomListSize() == 0) {
             System.out.println("The room list is empty. You need to add rooms and respective sensors so that you can import readings.");
             UtilsUI.backToMenu();
             return;
@@ -239,8 +235,9 @@ public class DataImportUI {
         this.checkIfRoomSensorsExists(object);
 
     }
+
     private void checkIfRoomSensorsExists(Object object) throws IllegalAccessException, ParseException, IOException, InstantiationException, SAXException, ParserConfigurationException, ClassNotFoundException {
-        if(ctrl.nrOfSensorsInAllRooms() == 0){
+        if (ctrl.nrOfSensorsInAllRooms() == 0) {
             System.out.println("There are no room sensors created. Please create room sensors first for which you want to import readings.");
             UtilsUI.backToMenu();
             return;
