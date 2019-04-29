@@ -151,26 +151,29 @@ public class EditDevicesCTRL {
         return room.getDeviceList().showDeviceListInString();
     }
 
+    public boolean checkIfDeviceHasAttributes(Device device){
+        List<String> list = device.getDeviceSpecs().getAttributesNames();
+        return !list.isEmpty();
+    }
+
     public List<String> showDeviceAttributesInString(Device device) {
 
         List<String> list = device.getDeviceSpecs().getAttributesNames();
         List<String> output = new ArrayList<>();
-        if (list.isEmpty()){
-            return output;
+        if (checkIfDeviceHasAttributes(device)) {
+
+            StringBuilder sb = new StringBuilder();
+
+            for (String s : list) {
+                sb.append(s);
+                sb.append(": ");
+                sb.append(device.getDeviceSpecs().getAttributeValue(s));
+                sb.append(" ");
+                sb.append(device.getDeviceSpecs().getAttributeUnit(s));
+                output.add(sb.toString());
+                sb.delete(0, 1000);
+            }
         }
-
-        StringBuilder sb = new StringBuilder();
-
-        for (String s : list) {
-            sb.append(s);
-            sb.append(": ");
-            sb.append(device.getDeviceSpecs().getAttributeValue(s));
-            sb.append(" ");
-            sb.append(device.getDeviceSpecs().getAttributeUnit(s));
-            output.add(sb.toString());
-            sb.delete(0,1000);
-        }
-
         return output;
     }
 }

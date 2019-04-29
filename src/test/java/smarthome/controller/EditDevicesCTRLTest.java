@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
+import smarthome.model.devices.FanType;
 import smarthome.model.devices.FridgeType;
 import smarthome.model.devices.Fridge;
 import smarthome.model.devices.Lamp;
@@ -11,6 +12,7 @@ import smarthome.model.validations.NameValidations;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -223,6 +225,7 @@ class EditDevicesCTRLTest {
     }
 
 
+
     @Test
     @DisplayName("Ensure that device microwave is removed from room kitchen")
     void removeDeviceFromRoom() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
@@ -432,6 +435,38 @@ class EditDevicesCTRLTest {
         expected.add("Refrigerator Capacity: NaN liters");
         expected.add("Annual Energy Consumption: NaN kWh");
         assertEquals(expected, result);
+    }
 
+    @Test
+    void showDeviceAttributesInStringTestNoAttributes() {
+        EditDevicesCTRL ctr = new EditDevicesCTRL();
+        DeviceType dt = new FanType();
+        Device d = dt.createDevice("windy", 100);
+
+        boolean result = ctr.checkIfDeviceHasAttributes(d);
+        assertFalse(result);
+    }
+
+    @Test
+    void showDeviceAttributesInStringTestNoAttributesNotEquals() {
+        EditDevicesCTRL ctr = new EditDevicesCTRL();
+        DeviceType dt = new FanType();
+        Device d = dt.createDevice("windy", 100);
+
+        boolean expected = true;
+        boolean result = ctr.checkIfDeviceHasAttributes(d);
+        assertNotEquals(expected,result);
+    }
+
+
+    @Test
+    void showDeviceAttributesInStringTestEmpty() {
+        EditDevicesCTRL ctr = new EditDevicesCTRL();
+        DeviceType dt = new FanType();
+        Device d = dt.createDevice("windy", 100);
+
+        List<String> result = ctr.showDeviceAttributesInString(d);
+        List<String> expected = new ArrayList<>();
+        assertEquals(expected,result);
     }
 }
