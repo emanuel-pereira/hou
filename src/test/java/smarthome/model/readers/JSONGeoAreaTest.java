@@ -97,7 +97,7 @@ class JSONGeoAreaTest {
 
     @Test
     void checkIfImportSensorNotNull () throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
-        Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
+        Path path = Paths.get("resources_tests/DataSet_sprint06_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
@@ -105,7 +105,7 @@ class JSONGeoAreaTest {
         List<Sensor> sensorList = porto.getSensorListInGA().getSensorList();
         Sensor sensor = sensorList.get(1);
 
-        String expected = "TT1236A";
+        String expected = "TT1AC746";
         String result = sensor.getId();
         assertEquals(expected, result);
     }
