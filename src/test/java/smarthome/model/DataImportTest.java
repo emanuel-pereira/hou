@@ -18,6 +18,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static smarthome.model.House.*;
+import static smarthome.model.TypeGAList.getTypeGAListInstance;
 
 class DataImportTest {
 
@@ -26,14 +27,18 @@ class DataImportTest {
     OccupationArea oc = new OccupationArea(2, 5);
     GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
     House house = House.getHouseInstance(a1, g1);
+    TypeGAList typeGAList = getTypeGAListInstance();
 
     @BeforeEach
     public void resetMySingleton() throws SecurityException,
             NoSuchFieldException, IllegalArgumentException,
             IllegalAccessException {
-        Field instance = House.class.getDeclaredField("theHouse");
-        instance.setAccessible(true);
-        instance.set(null, null);
+        Field instanceHouse = House.class.getDeclaredField("theHouse");
+        instanceHouse.setAccessible(true);
+        instanceHouse.set(null, null);
+        Field instanceTypeGA = TypeGAList.class.getDeclaredField("typeGaList");
+        instanceTypeGA.setAccessible(true);
+        instanceTypeGA.set(null, null);
     }
 
     @Test
@@ -60,6 +65,8 @@ class DataImportTest {
     void getGAListInFileSize() throws ParserConfigurationException,ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImport dataImport = new DataImport(gaList);
+        TypeGAList.addTypeGA(new TypeGA("city"));
+        TypeGAList.addTypeGA(new TypeGA("urban area"));
         Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
 
         int expected = 2;

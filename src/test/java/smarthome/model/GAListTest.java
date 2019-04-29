@@ -1,16 +1,30 @@
 package smarthome.model;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static smarthome.model.TypeGAList.getTypeGAListInstance;
 
 class GAListTest {
+
+    TypeGAList typeGAList = getTypeGAListInstance();
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = TypeGAList.class.getDeclaredField("typeGaList");
+        instance.setAccessible(true);
+        instance.set(null, null);
+    }
 
     @Test
     void newGA() {
