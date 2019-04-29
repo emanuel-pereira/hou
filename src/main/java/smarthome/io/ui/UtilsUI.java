@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
 import java.util.*;
 
 public final class UtilsUI {
@@ -585,7 +584,7 @@ public final class UtilsUI {
     }
 
     public static void backToMenu() {
-        printAndReset("\n");
+        printAndReset("");
         format("BG_BLUE", "BOLD", BLACK);
         print(" ");
         print("[ENTER] to return to the previous menu");
@@ -655,25 +654,4 @@ public final class UtilsUI {
         String yesOrNo = requestText(errorMessage, dynamicRegEx);
         return yesOrNo.contains("y") || yesOrNo.contains("Y");
     }
-
-    //TODO move this method to DATAImport class
-    public static Calendar parseDateToImportReadings(String dateAndTimeString) {
-        String dateAndTimeStr = dateAndTimeString;
-        if (dateAndTimeString.contains("/")) {
-            String[] date = dateAndTimeString.split("/");
-            dateAndTimeStr = date[2] + "-" + date[1] + "-" + date[0];
-        }
-        if (!dateAndTimeString.contains("T"))
-            dateAndTimeStr = dateAndTimeStr.concat("T00:00:00+00:00");
-
-        ZonedDateTime dateTime = ZonedDateTime.parse(dateAndTimeStr);
-        int year = dateTime.getYear();
-        int month = dateTime.getMonthValue();
-        int day = dateTime.getDayOfMonth();
-        int hour = dateTime.getHour();
-        int minutes = dateTime.getMinute();
-        return new GregorianCalendar(year, month - 1, day, hour, minutes);
-    }
-
-
 }
