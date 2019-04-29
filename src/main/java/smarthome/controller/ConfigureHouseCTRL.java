@@ -96,7 +96,6 @@ public class ConfigureHouseCTRL {
 
   public String showGAInString(){
        return getHouseGA().gaInString();
-
     }
 
 

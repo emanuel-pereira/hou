@@ -19,8 +19,8 @@ public class SetParentOfGAUI {
         }
         else{
         System.out.println("Choose a Geographical Area from the list below to be inserted in another one (or insert 0 to return to Main Menu): ");
-        System.out.println(ctrl.showListInString());
-        gaIndex1 = UtilsUI.requestIntegerInInterval(1, ctrl.getGAListSize(), "Please insert a valid Geographical Area");
+            System.out.println(ctrl.showListInString());
+            gaIndex1 = UtilsUI.requestIntegerInInterval(1, ctrl.getGAListSize(), "Please insert a valid Geographical Area");
         this.run1();
         }
     }

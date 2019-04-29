@@ -30,7 +30,7 @@ public class NewSensorTypeUI {
 
     }
 
-    public void newType(){
+    public void newType() {
         if (ctrl.newSensorType(this.type)) {
             System.out.println("Success! " + this.type + " was added to the list of sensor types:");
             System.out.print(ctrl.returnSensorTypeList() + "\n");

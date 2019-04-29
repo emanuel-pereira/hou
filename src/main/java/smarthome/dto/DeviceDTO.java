@@ -3,13 +3,8 @@ package smarthome.dto;
 public class DeviceDTO {
     private String type;
     private String name;
-    private String active;
+    private double nominalPower;
 
-    public DeviceDTO(String type, String name, String active) {
-        this.type = type;
-        this.name = name;
-        this.active = active;
-    }
 
     public String getType() {
         return type;
@@ -27,11 +22,13 @@ public class DeviceDTO {
         this.name = name;
     }
 
-    public String getActive() {
-        return active;
+    public double getNominalPower() {
+        return nominalPower;
     }
 
-    public void setActive(String active) {
-        this.active = active;
+    public void setNominalPower(double nominalPower) {
+        this.nominalPower = nominalPower;
     }
+
+
 }

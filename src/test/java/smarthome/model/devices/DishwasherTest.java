@@ -147,6 +147,23 @@ class DishwasherTest {
     }
 
     @Test
+    @DisplayName("Set nominal power to zero and get first nominal power")
+    void getZeroNominalPower() {
+        DeviceType dt = new DishwasherType();
+        Device d = dt.createDevice("Whirlpool Washer", 200);
+        Dishwasher dishwasher = (Dishwasher) d;
+
+        assertEquals(200, dishwasher.getNominalPower());
+
+        dishwasher.setNominalPower(0);
+
+        double expected = 0;
+        double result = dishwasher.getNominalPower();
+
+        assertEquals(expected, result);
+    }
+
+    @Test
     @DisplayName("Confirm if a device is correctly active")
     void isActive() {
         DeviceType dt = new DishwasherType();

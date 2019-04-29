@@ -6,12 +6,12 @@ import java.util.GregorianCalendar;
 
 public class GetEnergyConsumptionInPeriodUI {
 
-    private final GetEnergyConsumptionInPeriodCTRL ctrl;
+    private static final String TIME_PERIOD = "[Time Period]: ";
     private int indexOfMetered;
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;
-    private static final String TIME_PERIOD = "[Time Period]: ";
     private static final String EC_STRING = "[Energy Consumption]: ";
+    private final GetEnergyConsumptionInPeriodCTRL ctrl;
 
 
     public GetEnergyConsumptionInPeriodUI() {

@@ -3,8 +3,6 @@ package smarthome.io.ui;
 import smarthome.controller.GetGAsOfTypeCTRL;
 import smarthome.model.GAList;
 
-import java.util.Scanner;
-
 import static smarthome.model.TypeGAList.getTypeGAList;
 
 public class GetGAsOfTypeUI {
@@ -18,13 +16,13 @@ public class GetGAsOfTypeUI {
     }
 
     public void checkLists() {
-        if(getTypeGAList().isEmpty()){
+        if (getTypeGAList().isEmpty()) {
             System.out.println("There are no Types of Geographical Area. Please create some first.");
             UtilsUI.backToMenu();
             return;
         }
 
-        if(gaList.size() == 0 && !getTypeGAList().isEmpty()){
+        if (gaList.size() == 0 && !getTypeGAList().isEmpty()) {
             System.out.println("There are no Geographical Areas Please create some first.");
             UtilsUI.backToMenu();
         }

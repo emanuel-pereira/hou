@@ -24,7 +24,7 @@ public class XMLReadingTest {
         List<String[]> result;
         result = xmlReading.importData(path);
 
-        assertEquals( 61,result.size());
+        assertEquals(61, result.size());
 
     }
 

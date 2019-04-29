@@ -4,6 +4,7 @@ import smarthome.model.DeviceSpecs;
 import smarthome.model.Program;
 import smarthome.model.ProgramMode;
 import smarthome.model.Programmable;
+
 import java.util.ArrayList;
 import java.util.List;
 

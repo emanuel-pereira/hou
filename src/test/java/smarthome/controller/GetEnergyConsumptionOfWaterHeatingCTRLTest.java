@@ -3,6 +3,7 @@ package smarthome.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import smarthome.model.*;
+import smarthome.model.devices.ElectricWaterHeaterType;
 
 import java.lang.reflect.Field;
 
@@ -69,57 +70,23 @@ class GetEnergyConsumptionOfWaterHeatingCTRLTest {
         roomList.addRoom(garage);
 
         DeviceList kitchenDeviceList = kitchen.getDeviceList();
-        DeviceList garageDeviceList = garage.getDeviceList();
 
-        //TODO upon EWH device class creation, this Fridge test object should be replaced by the equivalent EWH
-        Device ewhA = kitchenDeviceList.newDevice("LG EWH K", "Fridge", 150);
-        Device ewhB = garageDeviceList.newDevice("LG EWH G", "Fridge", 150);
+        ElectricWaterHeaterType type = new ElectricWaterHeaterType();
+        Device ehw = type.createDevice("Daikin Heater", 200);
+        kitchenDeviceList.add(ehw);
+        int expected=1;
+        int result= ctrl.getDevicesInAllRoomsByType("ElectricWaterHeater").size();
+        assertEquals(expected,result);
 
-        kitchenDeviceList.add(ewhA);
-        garageDeviceList.add(ewhB);
+        ctrl.setAttribute("Daikin Heater","Volume of Water Capacity",58);
+        ctrl.setAttribute("Daikin Heater","Volume of Water to Heat",150);
+        ctrl.setAttribute("Daikin Heater","Hot Water Temperature",80);
+        ctrl.setAttribute("Daikin Heater","Cold Water Temperature",22);
+        ctrl.setAttribute("Daikin Heater","Performance Ratio",0.85);
 
-        double expected = 0;
-        //TODO replace Fridge for EWH
-        double result = ctrl.getEnergyConsumptionByDeviceType("Fridge");
-        assertEquals(expected, result);
-    }
-
-    @Test
-    void setAttribute() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        GetEnergyConsumptionOfWaterHeatingCTRL ctrl = new GetEnergyConsumptionOfWaterHeatingCTRL();
-
-        RoomList roomList = getHouseRoomList();
-        Room kitchen = new Room("R01","Kitchen", 0, 6, 3.5, 3);
-        Room garage = new Room("R02","Garage", 0, 6, 4, 3);
-        roomList.addRoom(kitchen);
-        roomList.addRoom(garage);
-
-        DeviceList kitchenDeviceList = kitchen.getDeviceList();
-        DeviceList garageDeviceList = garage.getDeviceList();
-
-        //TODO upon EWH device class creation, this Fridge test object should be replaced by the equivalent EWH
-        Device ewhA = kitchenDeviceList.newDevice("LG EWH K", "Fridge", 150);
-        Device ewhB = garageDeviceList.newDevice("LG EWH G", "Fridge", 150);
-
-        kitchenDeviceList.add(ewhA);
-        garageDeviceList.add(ewhB);
-
-        /*String volumeOfWater = "Volume of water capacity";
-        String hotWaterTemperature = "Hot water temperature";
-        String coldWaterTemperature = "Cold water temperature";
-        String performanceRatio = "Performance Ratio";
-        String volumeOfWaterToHeat = "Volume of water to heat";
-        ctrl.setAttribute(ewhA, volumeOfWaterToHeat, "55");
-        ctrl.setAttribute(ewhA, coldWaterTemperature, "15");
-        ctrl.setAttribute(ewhB, volumeOfWaterToHeat, "45");
-        ctrl.setAttribute(ewhB, coldWaterTemperature, "12");*/
-
-        String annualEnergyConsumption = "Annual Energy Consumption";
-        ctrl.setAttribute(ewhA, annualEnergyConsumption, "55");
-
-        double expected = 55;
-        double result = ewhA.getDeviceSpecs().getAttributeValue("Annual Energy Consumption");
-        assertEquals(expected, result);
+        double expected1 = 9.27;
+        double result1 = ctrl.getEstimatedEnergyConsumptionByDeviceType("ElectricWaterHeater");
+        assertEquals(expected1, result1);
     }
 }
 

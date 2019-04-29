@@ -1,7 +1,10 @@
 package smarthome.io.ui;
 
 import smarthome.controller.GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL;
-import smarthome.model.*;
+import smarthome.model.Sensor;
+import smarthome.model.SensorList;
+import smarthome.model.SensorType;
+import smarthome.model.SensorTypeList;
 
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -9,19 +12,18 @@ import java.util.List;
 
 public class GetAverageDailyRainfallForTimeIntervalInHouseAreaUI {
 
-    private final GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623;
     private static final String RAINFALL = "rainfall";
-    private final SensorType sensorType = new SensorType(RAINFALL);
+    private static final String MSG_TITLE = "Data not found";
+    private final GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623;
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;
-    private static final String MSG_TITLE = "Data not found";
+    private final SensorType sensorType = new SensorType(RAINFALL);
 
 
     public GetAverageDailyRainfallForTimeIntervalInHouseAreaUI(SensorTypeList sensorTypeList) {
 
         this.ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sensorTypeList);
     }
-
 
     public void getAverageDailyRainfallForInterval() {
 

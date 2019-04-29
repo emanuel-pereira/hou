@@ -4,7 +4,6 @@ import smarthome.controller.NewGeographicalAreaCTRL;
 import smarthome.model.GAList;
 import smarthome.model.Location;
 import smarthome.model.OccupationArea;
-import smarthome.model.TypeGAList;
 
 public class NewGeographicalAreaUI {
 

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class SensorMapper {
 
-    private final SensorTypeMapper sensorTypeMapper= new SensorTypeMapper();
+    private final SensorTypeMapper sensorTypeMapper = new SensorTypeMapper();
 
     /**
      * Converts a sensor into a sensorDTO to be used as a model view, containing only Id, Designation and SensorType as attributes.

@@ -8,8 +8,8 @@ import java.util.GregorianCalendar;
 
 public class GetTotalRainfallForDayInHouseAreaUI {
 
-    private final GetTotalRainfallForDayInHouseAreaCTRL ctrl;
     private static final String RAINFALL = "rainfall";
+    private final GetTotalRainfallForDayInHouseAreaCTRL ctrl;
     private final SensorType sensorType = new SensorType(RAINFALL);
 
 
@@ -40,7 +40,7 @@ public class GetTotalRainfallForDayInHouseAreaUI {
             System.out.print("The total RAINFALL in " + UtilsUI.dateToString(date));
             System.out.print(" is " + this.ctrl.showTotalValueInADay(date, this.sensorType) + " l/m3.\n");
         } else {
-            System.out.println("The available " + RAINFALL + " sensors in the house area don't have readings in the specified date: "+UtilsUI.dateToString(date));
+            System.out.println("The available " + RAINFALL + " sensors in the house area don't have readings in the specified date: " + UtilsUI.dateToString(date));
             System.out.println("Please select a date with registered readings.");
         }
     }

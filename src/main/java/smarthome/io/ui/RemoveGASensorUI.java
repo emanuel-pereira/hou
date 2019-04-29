@@ -10,15 +10,16 @@ import java.util.List;
 
 public class RemoveGASensorUI {
 
-    private final RemoveGASensorCTRL ctrl;
+    private static final String DESIGNATION_MSG = " | Designation: ";
     private GeographicalAreaDTO selectedGADTO;
-    private static final String DESIGNATION_MSG =" | Designation: ";
+    private final RemoveGASensorCTRL ctrl;
 
     public RemoveGASensorUI(GAList gaList) {
         this.ctrl = new RemoveGASensorCTRL(gaList);
     }
 
     //Broke this method is small methods
+
     /**
      * First: get the GA List (Dto) and validate if the gaList is empty. If so, show message
      * If not, show it

@@ -22,7 +22,7 @@ class AddressTest {
         a1.setTown ("Porto");
 
 
-        String result1 = a1.getName();
+        String result1 = a1.getStreet();
         String result2 = a1.getZipCode();
         String result3 = a1.getTown();
         double result4 = l1.getLatitude();
@@ -52,7 +52,7 @@ class AddressTest {
         boolean result = address1.validateName(streetName);
 
         assertTrue(result);
-        assertEquals(streetName, address1.getName());
+        assertEquals(streetName, address1.getStreet());
     }
 
     /**
@@ -251,7 +251,7 @@ class AddressTest {
         a1.setZipCode(" ");
         a1.setTown(" ");
 
-        String result1 = a1.getName();
+        String result1 = a1.getStreet();
         String result2 = a1.getZipCode();
         String result3 = a1.getTown();
         double result4 = l1.getLatitude();
@@ -281,7 +281,7 @@ class AddressTest {
         boolean result = address1.validateName(streetName);
 
         assertTrue(result);
-        assertEquals(streetName, address1.getName());
+        assertEquals(streetName, address1.getStreet());
     }
 
     /**
@@ -330,7 +330,7 @@ class AddressTest {
         boolean result = address1.validateName(streetName);
 
         assertFalse(result);
-        assertEquals(streetName, address1.getName());
+        assertEquals(streetName, address1.getStreet());
     }
 
     /**
@@ -373,7 +373,7 @@ class AddressTest {
 
         String expected = "    Rua Júlio Dinis, 80, 4200-120\n    Porto, Portugal\n | Location:\n    Latitude: 23.0º | Longitude: 67.0º | Altitude: 89.0 meters";
 
-        Address a = new Address("Rua Júlio Dinis","80", "4200-120","Porto","Portugal", location);
+        Address a = new Address("Rua Júlio Dinis", "80", "4200-120", "Porto", "Portugal", location);
         String result;
         result = a.addressToString();
 

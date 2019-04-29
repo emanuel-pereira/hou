@@ -3,7 +3,10 @@ package smarthome.controller;
 import org.apache.log4j.Logger;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.mapper.GeographicalAreaMapper;
-import smarthome.model.*;
+import smarthome.model.GAList;
+import smarthome.model.GeographicalArea;
+import smarthome.model.Sensor;
+import smarthome.model.SensorList;
 import smarthome.repository.Repositories;
 
 import java.util.List;
@@ -60,7 +63,6 @@ public class RemoveGASensorCTRL {
             if (sensor.getId().matches(sensorDTOId)) {
                 sensorList.removeSensor(sensor);
                 try {
-                    saveSensorReadings(sensor);
                     //Repository call
                     Repositories.getSensorRepository().delete(sensor);
                 } catch (NullPointerException e) {
@@ -72,15 +74,4 @@ public class RemoveGASensorCTRL {
         return false;
     }
 
-    /**
-     * Method that persists the readings in its repository of the sensor inputted as parameter.
-     * @param sensor inputted as parameter
-     */
-    private static void saveSensorReadings(Sensor sensor) {
-        ReadingList readingList = sensor.getReadingList();
-        for (Reading reading : readingList.getReadingsList()) {
-            //Repository call
-            Repositories.getReadingRepository().delete(reading);
-        }
-    }
 }

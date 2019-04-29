@@ -8,7 +8,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static smarthome.model.House.*;
+import static smarthome.model.House.checkIfLocationExists;
+import static smarthome.model.House.getHouseRoomList;
 
 
 public class NewSensorCTRL {

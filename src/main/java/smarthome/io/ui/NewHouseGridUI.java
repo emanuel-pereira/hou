@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class NewHouseGridUI {
 
-    private final Scanner keyboard = new Scanner (System.in);
+    private final Scanner keyboard = new Scanner(System.in);
     private final NewHouseGridCTRL mCtrlUS130;
 
     public NewHouseGridUI() {
