@@ -37,12 +37,6 @@ public class Reading {
         this.dateAndTime = timeOfReading;
     }
 
-    public Reading(double readValue, Calendar timeOfReading, Sensor sensor, String unitValue) {
-        this.value = readValue;
-        this.dateAndTime = timeOfReading;
-        this.sensor = sensor;
-        this.unit = unitValue;
-    }
 
     public Reading(double readValue, Calendar timeOfReading, String unitValue) {
         this.value = readValue;

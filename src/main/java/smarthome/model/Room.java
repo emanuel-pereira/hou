@@ -52,7 +52,7 @@ public class Room implements Metered {
         this.floor = floor;
         this.area = new OccupationArea(length, width);
         this.height = height;
-        this.sensorListInRoom= new SensorList();
+        this.sensorListInRoom = new SensorList();
         this.deviceList = new DeviceList();
     }
 
@@ -243,6 +243,43 @@ public class Room implements Metered {
 
     public int getSizeDeviceListInRoom() {
         return this.deviceList.size();
+    }
+
+    /**
+     * Calculates the maximum acceptable temperature in a room for a given comfort category as per EN 15022:2006
+     * @param outsideTemperature average outside temperature for a given day (t0)
+     * @param category the comfort level category
+     * @return the maximum acceptable temperature or 0 Kelvin if an error occurred
+     */
+    public double getMaxTemperatureForComfortLevel(double outsideTemperature, int category) {
+        int k = category +1;
+        if (validateComfortLevelCategory(category)){
+            return (0.33*outsideTemperature+18.8+k);
+        }
+        return -273.15; //absolute zero. Not comfortable.
+    }
+
+    /**
+     * Calculates the minimum acceptable temperature in a room for a given comfort category as per EN 15022:2006
+     * @param outsideTemperature average outside temperature for a given day (t0)
+     * @param category the comfort level category
+     * @return the minimum acceptable temperature or 0 Kelvin if an error occurred
+     */
+    public double getMinTemperatureForComfortLevel(double outsideTemperature, int category) {
+        int k = category +1;
+        if (validateComfortLevelCategory(category)){
+            return (0.33*outsideTemperature+18.8-k);
+        }
+        return -273.15; //absolute zero. Not comfortable.
+    }
+
+    /**
+     * Validates the category for temperature comfort level
+     * @param category must be 1,2 or 3
+     * @return true if category is valid
+     */
+    private boolean validateComfortLevelCategory(int category) {
+        return (category > 0 && category <= 3);
     }
 
     /**
