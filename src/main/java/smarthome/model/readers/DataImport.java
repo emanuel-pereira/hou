@@ -259,7 +259,7 @@ public class DataImport {
 
             String unit = string[5];
 
-            Sensor newSensor = new InternalSensor(sensorID, sensorDesignation, calendar, sensorType, unit, new ReadingList());
+            InternalSensor newSensor = new InternalSensor(sensorID, sensorDesignation, calendar, sensorType, unit, new ReadingList());
 
             //Needs to be improved
 

@@ -41,13 +41,14 @@ public class Application {
 
     @Bean
     public CommandLineRunner demo(GeoRepository geoRep, RoomRepository rRep, SensorTypeRepository unitRep, TypeGARepository typeRep,
-                                  ExternalSensorRepository sensorRep, ReadingRepository readingRep, GridRepository gridsRep) {
+                                  ExternalSensorRepository extSensorRep, InternalSensorRepository intSensorRep, ReadingRepository readingRep, GridRepository gridsRep) {
 
         Repositories.setTypeGARepository(typeRep);
         Repositories.setGeoRepository(geoRep);
         Repositories.setRoomRepository(rRep);
         Repositories.setSensorTypeRepository(unitRep);
-        Repositories.setExternalSensorRepository(sensorRep);
+        Repositories.setExternalSensorRepository(extSensorRep);
+        Repositories.setInternalSensorRepository(intSensorRep);
         Repositories.setReadingRepository(readingRep);
         Repositories.setGridsRepository(gridsRep);
 
