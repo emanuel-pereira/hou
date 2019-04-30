@@ -19,6 +19,32 @@ public class ComfortLevelService {
         this.geographicalArea = getHouseGA();
     }
 
+    public boolean checkIfGeoAreaHasSensorByType(SensorType sensorType) {
+        if (geographicalArea.getSensorListInGA().getListOfSensorsByType(sensorType).size() > 0)
+            return true;
+        else return false;
+    }
+
+    public boolean checkIfHouseHasRooms() {
+        if (roomList.getRoomList().size() > 0)
+            return true;
+        else return false;
+    }
+
+    public boolean checkIfAnyRoomHasSensorByType(String sensorType) {
+        if(roomList.getListOfRoomsFiltred(sensorType).size()>0)
+            return true;
+        else return false;
+    }
+
+    public boolean checkSensorsOfRoomHaveReadings() {
+       for (Room room : roomList.getRoomList())
+           for(Sensor sensor : room.getSensorListInRoom().getSensorList())
+               if (sensor.getReadingList().getReadingsList().size()>0)
+                   return true;
+               return false;
+    }
+
     public List<Room> getRoomList() {
         return roomList.getListOfRoomsFiltred("temperature");
     }

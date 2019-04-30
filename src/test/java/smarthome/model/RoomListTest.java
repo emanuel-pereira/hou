@@ -316,7 +316,7 @@ public class RoomListTest {
     }
 
     @Test
-    void getListOfRoomsFiltred() {
+    void getListOfRoomsFiltredTest() {
         RoomList roomList = new RoomList();
         Room r1 = new Room("R01", "Kitchen", 0, 6, 3.5, 3);
         Room r2 = new Room("R02", "Garage", 0, 6, 4, 3);
