@@ -5,11 +5,19 @@ import org.junit.jupiter.api.Test;
 import smarthome.model.devices.*;
 
 import java.util.Arrays;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class RoomListTest {
+
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+
 
     @Test
     @DisplayName("Tests if a new room is created")
@@ -173,7 +181,7 @@ public class RoomListTest {
         roomList.addRoom(r2);
 
         String expected = "1 - R01, LivingRoom\n" +
-                            "2 - R02, Garage\n";
+                "2 - R02, Garage\n";
         String result = roomList.showRoomListInString();
 
         assertEquals(expected, result);
@@ -304,6 +312,37 @@ public class RoomListTest {
 
         double expected = 0;
         double result = roomList.getEnergyConsumptionByDeviceType("Fridge");
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void getListOfRoomsFiltred() {
+        RoomList roomList = new RoomList();
+        Room r1 = new Room("R01", "Kitchen", 0, 6, 3.5, 3);
+        Room r2 = new Room("R02", "Garage", 0, 6, 4, 3);
+        Room r3 = new Room("R03", "Room", 0, 6, 4, 3);
+        roomList.addRoom(r1);
+        roomList.addRoom(r2);
+        roomList.addRoom(r3);
+        GregorianCalendar startDate = new GregorianCalendar(2019, 1, 1);
+        SensorType sensorType = new SensorType("temperature");
+        SensorType sensorType2 = new SensorType("rainfall");
+        ReadingList readingList = new ReadingList();
+        GregorianCalendar readingDate = new GregorianCalendar(2019, 11, 31, 21, 30);
+        Reading reading = new Reading(23, readingDate, "C");
+        readingList.addReading(reading);
+        Sensor sensor1 = new Sensor("101", "A", startDate, sensorType, "C", readingList);
+        Sensor sensor2 = new Sensor("102", "B", startDate, sensorType2, "C", readingList);
+        Sensor sensor3 = new Sensor("103", "C", startDate, sensorType, "C", readingList);
+
+        r1.getSensorListInRoom().addSensor(sensor1);
+        r1.getSensorListInRoom().addSensor(sensor2);
+        r1.getSensorListInRoom().addSensor(sensor3);
+        r3.getSensorListInRoom().addSensor(sensor1);
+
+        int expected = 2;
+        int result = roomList.getListOfRoomsFiltred("temperature").size();
+
         assertEquals(expected, result);
     }
 }

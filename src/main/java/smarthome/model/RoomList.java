@@ -108,9 +108,9 @@ public class RoomList {
         return this.listOfRooms.get(i);
     }
 
-    public Room getRoomById (String inputId) {
+    public Room getRoomById(String inputId) {
         Room room = get(0);
-        for(Room  r : this.listOfRooms) {
+        for (Room r : this.listOfRooms) {
             room = r;
             if (room.getId().matches(inputId)) {
                 break;
@@ -146,7 +146,7 @@ public class RoomList {
         for (Room room : list) {
             result.append(number++);
             result.append(element);
-            result.append(room.getId()+", " +room.getMeteredDesignation());
+            result.append(room.getId() + ", " + room.getMeteredDesignation());
             result.append("\n");
         }
         return result.toString();
@@ -215,9 +215,9 @@ public class RoomList {
     /**
      * @return a global list of sensors containing all sensors within each room.
      */
-    public List<Sensor> getAllSensors(){
+    public List<Sensor> getAllSensors() {
         List<Sensor> sensors = new ArrayList<>();
-        for(Room room : this.listOfRooms){
+        for (Room room : this.listOfRooms) {
             SensorList roomSensorList = room.getSensorListInRoom();
             sensors.addAll(roomSensorList.getSensorList());
 
@@ -225,12 +225,24 @@ public class RoomList {
         return sensors;
     }
 
-
     public Room getRoomIfIDMatchesAnyExistingRoom(String sensorID) {
         Room matchedRoom = null;
         for (Room room : this.listOfRooms)
             if (room.getId().equals(sensorID))
                 matchedRoom = room;
-            return matchedRoom;
+        return matchedRoom;
+    }
+
+    public List<Room> getListOfRoomsFiltred(String sensorType) {
+        List<Room> rooms = new ArrayList<>();
+        Sensor sensor;
+        for (Room room : this.listOfRooms) {
+            if (room.getSensorListInRoom().checkIfRequiredSensorTypeExists(sensorType)) {
+                sensor = room.getSensorListInRoom().getRequiredSensorPerType(sensorType);
+                if (sensor.getReadingList().size() > 0)
+                    rooms.add(room);
+            }
+        }
+        return rooms;
     }
 }

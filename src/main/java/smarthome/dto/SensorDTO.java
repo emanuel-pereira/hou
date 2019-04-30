@@ -20,7 +20,6 @@ public class SensorDTO {
         this.id = id;
         this.designation = designation;
         this.readingListDTO = readingListDTO;
-
     }
 
     public String getDesignation() {
