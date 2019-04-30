@@ -228,10 +228,10 @@ public class RoomList {
     }
 
 
-    public Room getRoomIfIDMatchesAnyExistingRoom(String sensorID) {
+    public Room getRoomIfIDMatchesAnyExistingRoom(String roomID) {
         Room matchedRoom = null;
         for (Room room : this.listOfRooms)
-            if (room.getId().equals(sensorID))
+            if (room.getId().equals(roomID))
                 matchedRoom = room;
             return matchedRoom;
     }

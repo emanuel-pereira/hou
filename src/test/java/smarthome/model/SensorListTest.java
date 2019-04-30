@@ -470,4 +470,5 @@ class SensorListTest {
         int result = lisbonSensorList.getActiveSensors().size();
         assertEquals(expected, result);
     }
+
 }
