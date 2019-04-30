@@ -144,7 +144,7 @@ class ConfigureHouseCTRLTest {
         LocationDTO locationDto = new LocationDTO (41, 12.3, 110);
         boolean result = ctrl101.configureHouseLocation(id , "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",locationDto);
 
-        String result2 = getAddress().getName();
+        String result2 = getAddress().getStreet();
         String expected = "Rua Júlio Dinis";
 
         assertTrue(result);

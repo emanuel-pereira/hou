@@ -36,7 +36,7 @@ public class GetGAsOfTypeUI {
         System.out.println("Choose the Type of Geographical Area you wish to see from the list below.");
         //calls the list of previously inserted types for the user to choose from.
         System.out.println ("Current list of types of geographical area:");
-        System.out.println (ctrlUS4.showListTypeGA());
+        System.out.println (ctrlUS4.showListOfTypeGA());
 
         //user chooses the number of type he wishes to see.
         int typeIndex = UtilsUI.requestIntegerInInterval(1,getTypeGAList().size(),"Please choose a valid Type");
