@@ -59,8 +59,8 @@ public class RoomTest {
      */
     @Test
     public void equalsIfRoomEqualsRoom() {
-        Room room1 = new Room("R01","bedroom", 0, 2.5, 3, 3);
-        Room room2 = new Room("R01","bedroom", 0, 2.5, 3, 3);
+        Room room1 = new Room("R01", "bedroom", 0, 2.5, 3, 3);
+        Room room2 = new Room("R01", "bedroom", 0, 2.5, 3, 3);
 
         boolean result = room1.equals(room2);
 
@@ -88,7 +88,7 @@ public class RoomTest {
     @Test
     public void equalsIfStringEqualsRoom() {
         String person1 = "Joana";
-        Room room1 = new Room("R01","bedroom", 0, 2.5, 3, 3);
+        Room room1 = new Room("R01", "bedroom", 0, 2.5, 3, 3);
         boolean result;
 
         result = room1.equals(person1);
@@ -101,7 +101,7 @@ public class RoomTest {
      */
     @Test
     public void setIdCorrectly() {
-        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2.5);
+        Room bedroom = new Room("R01", "bedroom", 1, 2, 3, 2.5);
         bedroom.setId("R1");
 
         String expectedResult = "R1";
@@ -116,7 +116,7 @@ public class RoomTest {
      */
     @Test
     public void setIdIncorrectly() {
-        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2.5);
+        Room bedroom = new Room("R01", "bedroom", 1, 2, 3, 2.5);
         bedroom.setId(" ");
 
         String expectedResult = "R01";
@@ -132,7 +132,7 @@ public class RoomTest {
     @Test
     public void setName() {
 
-        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2.5);
+        Room bedroom = new Room("R01", "bedroom", 1, 2, 3, 2.5);
         bedroom.setName("bedroom1");
 
         String expectedResult = "bedroom1";
@@ -148,7 +148,7 @@ public class RoomTest {
     @Test
     public void setFloor() {
 
-        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2);
+        Room bedroom = new Room("R01", "bedroom", 1, 2, 3, 2);
         bedroom.setFloor(2);
 
         int expectedResult = 2;
@@ -164,7 +164,7 @@ public class RoomTest {
     public void setArea() {
 
         OccupationArea oa = new OccupationArea(3, 2);
-        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2);
+        Room bedroom = new Room("R01", "bedroom", 1, 2, 3, 2);
         bedroom.setArea(oa);
 
         OccupationArea result = bedroom.getArea();
@@ -180,7 +180,7 @@ public class RoomTest {
     @Test
     public void setHeight() {
 
-        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2);
+        Room bedroom = new Room("R01", "bedroom", 1, 2, 3, 2);
         bedroom.setHeight(3);
 
         double expectedResult = 3;
@@ -229,7 +229,6 @@ public class RoomTest {
 
         assertEquals(expected, result);
     }
-
 
 
     /**
@@ -312,7 +311,7 @@ public class RoomTest {
     @Test
     public void getCorrectNominalPowerIf() {
         RoomList roomList = new RoomList();
-        Room bedroom = roomList.createNewRoom("R01","bedroom", 1, 2, 2, 2);
+        Room bedroom = roomList.createNewRoom("R01", "bedroom", 1, 2, 2, 2);
         roomList.addRoom(bedroom);
 
         double expectedResult = 0;
@@ -534,5 +533,90 @@ public class RoomTest {
         assertEquals (expected, result);
     }
 */
+
+    @Test
+    public void validateComfortLevelCategory0MaxTest() {
+        Room room = new Room();
+        double result = room.getMaxTemperatureForComfortLevel(20, 0);
+        double expected = -273.15;
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void validateComfortLevelCategory4MaxTest() {
+        Room room = new Room();
+        double result = room.getMaxTemperatureForComfortLevel(20, 4);
+        double expected = -273.15;
+        assertEquals(expected,result);
+    }
+
+
+    @Test
+    public void validateComfortLevelCategory0MinTest() {
+        Room room = new Room();
+        double result = room.getMinTemperatureForComfortLevel(20, 0);
+        double expected = -273.15;
+        assertEquals(expected,result);
+    }
+
+    @Test
+    public void validateComfortLevelCategory4MinTest() {
+        Room room = new Room();
+        double result = room.getMinTemperatureForComfortLevel(20, 4);
+        double expected = -273.15;
+        assertEquals(expected,result);
+    }
+
+
+    @Test
+    public void validateComfortLevelCategory1MaxTest() {
+        Room room = new Room();
+        double result = room.getMaxTemperatureForComfortLevel(20, 1);
+        double expected = 27.4;
+        assertEquals(expected,result,0.01);
+    }
+
+    @Test
+    public void validateComfortLevelCategory2MaxTest() {
+        Room room = new Room();
+        double result = room.getMaxTemperatureForComfortLevel(20, 2);
+        double expected = 28.4;
+        assertEquals(expected,result,0.01);
+    }
+
+    @Test
+    public void validateComfortLevelCategory3MaxTest() {
+        Room room = new Room();
+        double result = room.getMaxTemperatureForComfortLevel(20, 3);
+        double expected = 29.4;
+        assertEquals(expected,result,0.01);
+    }
+
+
+
+    @Test
+    public void validateComfortLevelCategory1MinTest() {
+        Room room = new Room();
+        double result = room.getMinTemperatureForComfortLevel(20, 1);
+        double expected = 23.4;
+        assertEquals(expected,result,0.01);
+    }
+
+    @Test
+    public void validateComfortLevelCategory2MinTest() {
+        Room room = new Room();
+        double result = room.getMinTemperatureForComfortLevel(20, 2);
+        double expected = 22.4;
+        assertEquals(expected,result,0.01);
+    }
+
+    @Test
+    public void validateComfortLevelCategory3MinTest() {
+        Room room = new Room();
+        double result = room.getMinTemperatureForComfortLevel(20, 3);
+        double expected = 21.4;
+        assertEquals(expected,result,0.01);
+    }
+
 
 }
