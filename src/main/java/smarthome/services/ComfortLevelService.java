@@ -26,23 +26,24 @@ public class ComfortLevelService {
     }
 
     public boolean checkIfHouseHasRooms() {
-        if (roomList.getRoomList().size() > 0)
-            return true;
-        else return false;
+        if (roomList.getRoomList().isEmpty())
+            return false;
+        else return true;
     }
 
-    public boolean checkIfAnyRoomHasSensorByType(String sensorType) {
-        if(roomList.getListOfRoomsFiltred(sensorType).size()>0)
-            return true;
-        else return false;
+    public boolean checkIfAnyRoomHasSensorByType(SensorType sensorType) {
+        for (Room room : roomList.getRoomList())
+            if (room.getSensorListInRoom().getListOfSensorsByType(sensorType).getSensorList().isEmpty())
+                return false;
+        return true;
     }
 
     public boolean checkSensorsOfRoomHaveReadings() {
-       for (Room room : roomList.getRoomList())
-           for(Sensor sensor : room.getSensorListInRoom().getSensorList())
-               if (sensor.getReadingList().getReadingsList().size()>0)
-                   return true;
-               return false;
+        for (Room room : roomList.getRoomList())
+            for (Sensor sensor : room.getSensorListInRoom().getSensorList())
+                if (sensor.getReadingList().getReadingsList().isEmpty())
+                    return false;
+        return true;
     }
 
     public List<Room> getRoomList() {
