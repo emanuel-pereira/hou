@@ -1,9 +1,6 @@
 package smarthome.repository;
 
-import smarthome.model.GeographicalArea;
-import smarthome.model.Room;
-import smarthome.model.Sensor;
-import smarthome.model.SensorList;
+import smarthome.model.*;
 
 import java.util.List;
 
@@ -106,18 +103,12 @@ public final class Repositories {
         Repositories.getSensorTypeRepository().save(s.getSensorType());
 
         Repositories.externalSensorRepository.save(s);
-
-        for (Reading reading : s.getReadingList().getReadingsList()) {
-            reading.setSensor(s);
-            Repositories.readingRepository.save(reading);
-        }
     }
 
     public static void saveInternalSensor(InternalSensor s) {
         //TODO remove when solution for duplicates is found and implemented
         Repositories.getSensorTypeRepository().save(s.getSensorType());
 
-        Repositories.sensorRepository.save(s);
         Repositories.internalSensorRepository.save(s);
     }
 

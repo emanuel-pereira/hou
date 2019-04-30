@@ -19,6 +19,7 @@ class InternalSensorTest {
         InternalSensor sensor = new InternalSensor("P2355", "HouseSensor", startDate, temperature, "l/m2", readingList);
 
         sensor.setId("RF12345");
+        assertFalse(sensor.setId(" "));
         sensor.setSensorDesignation("House Sensor");
         Calendar date = new GregorianCalendar(2018,Calendar.NOVEMBER,21);
         sensor.setStartDate(date);

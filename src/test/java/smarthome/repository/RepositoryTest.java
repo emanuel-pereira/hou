@@ -154,8 +154,8 @@ public class RepositoryTest {
         SensorType wind = new SensorType("wind");
         Repositories.getSensorTypeRepository().save(wind);
         ReadingList readingList = new ReadingList();
-        Sensor sensor1 = new ExternalSensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
-        Repositories.getSensorRepository().save(sensor1);
+        ExternalSensor sensor1 = new ExternalSensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
+        Repositories.getExternalSensorRepository().save(sensor1);
         GregorianCalendar r1Date = new GregorianCalendar(2016, Calendar.NOVEMBER, 15, 9, 15);
         Reading reading = new Reading(22, r1Date);
         long repSize = Repositories.getExternalSensorRepository().count();
@@ -170,10 +170,10 @@ public class RepositoryTest {
         Location locS1 = new Location(72, 26, 2);
         SensorType wind = new SensorType("wind");
         ReadingList readingList = new ReadingList();
-        Sensor sensor1 = new ExternalSensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
+        ExternalSensor sensor1 = new ExternalSensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
         GregorianCalendar r1Date = new GregorianCalendar(2016, Calendar.NOVEMBER, 15, 9, 15);
         Reading reading = new Reading(22, r1Date);
-        Repositories.saveSensor(sensor1);
+        Repositories.saveExternalSensor(sensor1);
         long repSize = Repositories.getExternalSensorRepository().count();
         assertEquals(1, repSize);
     }
@@ -185,10 +185,10 @@ public class RepositoryTest {
         Location locS1 = new Location(72, 26, 2);
         SensorType wind = new SensorType("wind");
         ReadingList readingList = new ReadingList();
-        Sensor sensor1 = new ExternalSensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
+        ExternalSensor sensor1 = new ExternalSensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
         GregorianCalendar r1Date = new GregorianCalendar(2016, Calendar.NOVEMBER, 15, 9, 15);
         Reading reading = new Reading(22, r1Date);
-        Repositories.saveSensor(sensor1);
+        Repositories.saveExternalSensor(sensor1);
         long repSize = Repositories.getExternalSensorRepository().count();
         assertNotEquals(0, repSize);
     }
@@ -354,7 +354,7 @@ public class RepositoryTest {
         long roomRepSize = Repositories.getRoomRepository().count();
         assertEquals(1, roomRepSize);
 
-        long sensorRepSize = Repositories.getExternalSensorRepository().count();
+        long sensorRepSize = Repositories.getInternalSensorRepository().count();
         assertEquals(2, sensorRepSize);
     }
 

@@ -20,7 +20,10 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import static java.lang.Double.parseDouble;
-import static smarthome.repository.Repositories.saveSensor;
+import static smarthome.repository.Repositories.saveInternalSensor;
+import static smarthome.repository.Repositories.saveExternalSensor;
+
+
 
 public class DataImport {
     private final JSONParser parser = new JSONParser();
@@ -113,7 +116,7 @@ public class DataImport {
             importSensorsReadings(readingsToImport);
             for (Sensor sensor : sensors)
                 //repository call were the reading is being persisted
-                saveSensor(sensor);
+                saveInternalSensor((InternalSensor) sensor);
         }
 
         if (object.equals(gaList)) {
@@ -121,7 +124,7 @@ public class DataImport {
             importSensorsReadings(readingsToImport);
             for (Sensor sensor : sensors)
                 //repository call were the reading is being persisted
-                saveSensor(sensor);
+                saveExternalSensor((ExternalSensor) sensor);
         }
     }
 

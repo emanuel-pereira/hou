@@ -21,6 +21,7 @@ class ExternalSensorTest {
 
         sensor.setId("RF12345");
         sensor.setSensorDesignation("Meteo station ISEP - rainfall");
+        assertFalse(sensor.setSensorDesignation(" "));
         Calendar date = new GregorianCalendar(2018,Calendar.NOVEMBER,21);
         sensor.setStartDate(date);
         Location location1 = new Location(70,130,4000);
@@ -408,6 +409,18 @@ class ExternalSensorTest {
         ExternalSensor sensor = new ExternalSensor("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
 
         assertFalse(sensor.setId(" "));
+    }
+
+    @Test
+    @DisplayName("Try to unsuccessfully set an Id")
+    void setIdWithoutSuccessWithSpaces() {
+        SensorType sensorType = new SensorType ("rain");
+        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
+        Location location = new Location (2, 2, 2);
+        ReadingList readingList = new ReadingList ();
+        ExternalSensor sensor = new ExternalSensor("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+
+        assertFalse(sensor.setId("Sensor 12"));
     }
 
     @Test
