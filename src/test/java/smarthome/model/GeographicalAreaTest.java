@@ -266,4 +266,30 @@ public class GeographicalAreaTest {
         ga.setIdentification("X9000");
         assertEquals("X9000", ga.getId());
     }
+
+    @Test
+    void getTypeGANameTest(){
+        TypeGA type = new TypeGA("city");
+        OccupationArea area = new OccupationArea(11,22);
+        Location location = new Location(12,34,56);
+        GeographicalArea geoArea = new GeographicalArea ("Opo","Porto",type,area,location);
+
+        String result = geoArea.getTypeName();
+
+        assertEquals("city",result);
+    }
+
+    @Test
+    void showGAinStringTest(){
+        TypeGA type = new TypeGA("city");
+        OccupationArea area = new OccupationArea(11,22);
+        Location location = new Location(12,34,56);
+        GeographicalArea geoArea = new GeographicalArea ("Opo","Porto",type,area,location);
+
+        String expected = "    Porto, Opo";
+        String result = geoArea.gaInString();
+
+        assertEquals(expected,result);
+    }
+
 }
