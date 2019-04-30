@@ -191,15 +191,11 @@ public class InternalSensor implements Sensor {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof InternalSensor)) {
-            return false;
-        }
-        InternalSensor sensor = (InternalSensor) o;
-        return id.equals(sensor.getId()) ||
-                designation.equals(sensor.getDesignation());
+        if (this == o) return true;
+        if (!(o instanceof InternalSensor)) return false;
+        InternalSensor that = (InternalSensor) o;
+        return id.equals(that.id) ||
+                designation.equals(that.designation);
     }
 
     @Override

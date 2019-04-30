@@ -23,21 +23,18 @@ public class SensorList {
 
     public boolean addSensor(Sensor sensor) {
         if (sensor.getClass().equals(ExternalSensor.class)) {
-            this.addExternalSensor((ExternalSensor) sensor);
-            return true;
+            return this.addExternalSensor((ExternalSensor) sensor);
         } else if (sensor.getClass().equals(InternalSensor.class)) {
-            this.addInternalSensor((InternalSensor) sensor);
-            return true;
+            return this.addInternalSensor((InternalSensor) sensor);
         } else {
-            return false;    }
+            return false;
+        }
     }
-
 
     /**
      * Method to add a external sensor object to Sensors list, if it is not on the list yet
      *
      * @param newSensor - new Sensors object that will or not be added to the list
-     * @return true if the object is added to the list
      */
     private boolean addExternalSensor(ExternalSensor newSensor) {
         if (!this.listOfSensors.contains(newSensor)) {
@@ -49,17 +46,14 @@ public class SensorList {
             } catch (NullPointerException e) {
                 log.warn("Repository unreachable");
             }
-
             return true;
         } else return false;
     }
-
 
     /**
      * Method to add a internal sensor object to Sensors list, if it is not on the list yet
      *
      * @param newSensor - new Sensors object that will or not be added to the list
-     * @return true if the object is added to the list
      */
     private boolean addInternalSensor(InternalSensor newSensor) {
         if (!this.listOfSensors.contains(newSensor)) {
@@ -71,7 +65,6 @@ public class SensorList {
             } catch (NullPointerException e) {
                 log.warn("Repository unreachable");
             }
-
             return true;
         } else return false;
     }

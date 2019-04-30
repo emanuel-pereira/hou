@@ -232,20 +232,15 @@ public class ExternalSensor implements Sensor {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof ExternalSensor)) {
-            return false;
-        }
-        ExternalSensor sensor = (ExternalSensor) o;
-        return id.equals(sensor.getId()) ||
-                designation.equals(sensor.getDesignation());
+        if (this == o) return true;
+        if (!(o instanceof ExternalSensor)) return false;
+        ExternalSensor that = (ExternalSensor) o;
+        return id.equals(that.id) ||
+                designation.equals(that.designation);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, designation);
     }
-
 }
