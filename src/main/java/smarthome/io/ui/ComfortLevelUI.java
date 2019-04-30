@@ -21,10 +21,7 @@ public class ComfortLevelUI {
     private void run() {
         //Check if all needed data is available and end or continue user story sooner as needed
 
-        ctrl.validateGeoAreaHasTemperatureSensorWithReadings();
-        ctrl.validateHouseHasRooms();
-        ctrl.validateRoomsHaveTemperatureSensors();
-        ctrl.validateTemperatureSensorsHaveReadings();
+
         ctrl.getListOfRooms();
 
 
@@ -70,7 +67,7 @@ public class ComfortLevelUI {
     }
 
     private void noReadingsFound() {
-        UtilsUI.showError("No readings found", "One or more rooms has a temperature sensor, but no readings are available. Add or import readings and try again.";
+        UtilsUI.showError("No readings found", "One or more rooms has a temperature sensor, but no readings are available. Add or import readings and try again.");
         UtilsUI.backToMenu();
     }
 
