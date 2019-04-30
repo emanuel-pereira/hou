@@ -1,7 +1,6 @@
 package smarthome.controller;
 
 import smarthome.model.TypeGA;
-import smarthome.model.TypeGAList;
 
 import java.util.List;
 

@@ -1,16 +1,19 @@
 package smarthome.repository;
 
-import smarthome.model.*;
+import smarthome.model.GeographicalArea;
+import smarthome.model.Room;
+import smarthome.model.Sensor;
+import smarthome.model.SensorList;
 
 import java.util.List;
 
 public final class Repositories {
+
     private static GeoRepository geoRepository = null;
     private static ExternalSensorRepository externalSensorRepository = null;
     private static InternalSensorRepository internalSensorRepository = null;
     private static SensorTypeRepository sensorTypeRepository = null;
-    private static TypeGARepository typeGARepository = null;
-    private static ReadingRepository readingRepository = null;
+    private static TypeGARepository typeGARepository= null;
     private static RoomRepository roomRepository = null;
     private static GridRepository gridsRepository = null;
 
@@ -38,10 +41,6 @@ public final class Repositories {
 
     public static void setTypeGARepository(TypeGARepository typeGARepository) {
         Repositories.typeGARepository = typeGARepository;
-    }
-
-    public static void setReadingRepository(ReadingRepository readingRepository) {
-        Repositories.readingRepository = readingRepository;
     }
 
     public static void setRoomRepository(RoomRepository roomRepository) {
@@ -73,10 +72,6 @@ public final class Repositories {
         return typeGARepository;
     }
 
-    public static ReadingRepository getReadingRepository() {
-        return readingRepository;
-    }
-
     public static RoomRepository getRoomRepository() {
         return roomRepository;
     }
@@ -84,7 +79,6 @@ public final class Repositories {
     public static GridRepository getGridsRepository() {
         return gridsRepository;
     }
-
 
     public static void saveGA(GeographicalArea ga) {
         Repositories.geoRepository.save(ga);
@@ -123,13 +117,8 @@ public final class Repositories {
         //TODO remove when solution for duplicates is found and implemented
         Repositories.getSensorTypeRepository().save(s.getSensorType());
 
+        Repositories.sensorRepository.save(s);
         Repositories.internalSensorRepository.save(s);
-
-        for (Reading reading : s.getReadingList().getReadingsList()) {
-            reading.setSensor(s);
-            Repositories.readingRepository.save(reading);
-        }
     }
-
 
 }

@@ -6,16 +6,15 @@ import smarthome.model.SensorTypeList;
 public class GetCurrentTemperatureInRoomUI {
 
 
-    private final GetCurrentTemperatureInRoomCTRL controller;
     private static final String TEMPERATURE = "temperature";
-    private int roomIndex;
     private static final String MSG_TITLE = "Oops!";
+    private int roomIndex;
+    private final GetCurrentTemperatureInRoomCTRL controller;
 
 
     public GetCurrentTemperatureInRoomUI(SensorTypeList sensorTypeList) {
         this.controller = new GetCurrentTemperatureInRoomCTRL(sensorTypeList);
     }
-
 
     /**
      * Checks if the required sensor type Temperature was created by the Administrator

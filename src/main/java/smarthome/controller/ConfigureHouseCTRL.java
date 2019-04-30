@@ -2,6 +2,7 @@ package smarthome.controller;
 
 import org.json.simple.parser.ParseException;
 import smarthome.dto.GeographicalAreaDTO;
+import smarthome.dto.LocationDTO;
 import smarthome.mapper.GeographicalAreaMapper;
 import smarthome.model.Address;
 import smarthome.model.GAList;
@@ -53,18 +54,15 @@ public class ConfigureHouseCTRL {
         return this.gaList.size();
     }
 
-
-    //TODO: tests
     public String getIdFromIndex (int index){
         GeographicalArea geoArea = this.gaList.get(index-1);
         return geoArea.getId();
     }
 
-    //TODO decrease number of method parameters to less than 7
-    public boolean configureHouseLocation(String idGeoArea, String streetName, String number, String zipCode, String town, String country,  double latitude, double longitude, double altitude) {
+    public boolean configureHouseLocation(String idGeoArea, String streetName, String number, String zipCode, String town, String country, LocationDTO locationDTO) {
         GeographicalArea ga = this.gaList.getById(idGeoArea);
         setHouseGA(ga);
-        Location location = new Location(latitude,longitude,altitude);
+        Location location = locationDTO.fromDTO();
         Address houseAddress = new Address(streetName, number, zipCode, town, country,location);
         setHouseAddress(houseAddress);
         return getAddress() != null;
@@ -82,7 +80,6 @@ public class ConfigureHouseCTRL {
         Address houseAddress = getAddress();
         Location location = new Location(latitude,longitude,altitude);
         houseAddress.setGpsLocation(location);
-        setHouseAddress(houseAddress);
     }
 
     public String showAddressInString(){
@@ -97,10 +94,8 @@ public class ConfigureHouseCTRL {
         return getGridListInHouse().getSize();
     }
 
-    //TODO: tests
   public String showGAInString(){
        return getHouseGA().gaInString();
-
     }
 
 

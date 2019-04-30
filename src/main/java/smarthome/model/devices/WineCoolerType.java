@@ -17,14 +17,15 @@ public class WineCoolerType implements DeviceType {
     /**
      * Creator method for a device of type Wine Cooler, in which is created an instance of its DeviceSpecs where
      * are defined its specific attributes and then creates an instance of a Wine Cooler
-     * @param deviceName name of the device
+     *
+     * @param deviceName   name of the device
      * @param nominalPower specific attributes of the device WineCooler
      * @return an instance of a WineCooler
      */
     public Device createDevice(String deviceName, double nominalPower) {
         String devType = getDeviceType();
-        String[] attributeNames = {"Number of bottles","Annual Energy Consumption"};
-        String[] attributeUnits = {"bottles","kWh"};
+        String[] attributeNames = {"Number of bottles", "Annual Energy Consumption"};
+        String[] attributeUnits = {"bottles", "kWh"};
 
         DeviceSpecs devSpecs = new GenericSpecs(devType, attributeNames, attributeUnits);
 

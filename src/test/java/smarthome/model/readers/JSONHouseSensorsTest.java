@@ -18,6 +18,6 @@ public class JSONHouseSensorsTest {
         Path path = Paths.get("resources_tests/DataSet_sprint06_HouseSensors.json");
         List<String[]> result;
         result = jsonHouseSensors.loadData(path);
-        assertEquals(4,result.size());
+        assertEquals(4, result.size());
     }
 }

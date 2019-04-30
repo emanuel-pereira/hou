@@ -76,7 +76,7 @@ public class Address {
      *
      * @return Name of the street
      */
-    public String getName() {
+    public String getStreet() {
         return this.street;
     }
 

@@ -3,8 +3,6 @@ package smarthome.controller;
 import smarthome.model.GAList;
 import smarthome.model.GeographicalArea;
 
-import java.util.List;
-
 public class ListParentGACTRL {
 
     private final GAList gaList;

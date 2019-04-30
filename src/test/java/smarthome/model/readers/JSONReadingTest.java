@@ -1,12 +1,9 @@
 package smarthome.model.readers;
 
 import org.json.simple.parser.ParseException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import smarthome.model.TypeGAList;
 
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -22,6 +19,6 @@ class JSONReadingTest {
         List<String[]> result;
         result = jsonReading.importData(path);
 
-        assertEquals(61,result.size());
+        assertEquals(61, result.size());
     }
 }

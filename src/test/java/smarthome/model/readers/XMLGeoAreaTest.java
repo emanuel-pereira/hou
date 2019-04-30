@@ -29,7 +29,7 @@ class XMLGeoAreaTest {
     }
 
     @Test
-    void importDataFailNoGAs() throws ParserConfigurationException{
+    void importDataFailNoGAs() throws ParserConfigurationException {
 
         Path path = Paths.get("resources_tests/fakeImportFilesForTests/DataSet_sprint05_GA_FAKE_01.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
@@ -54,7 +54,7 @@ class XMLGeoAreaTest {
     }
 
     @Test
-    void checkGAImport() throws ParserConfigurationException{
+    void checkGAImport() throws ParserConfigurationException {
         Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
@@ -87,7 +87,7 @@ class XMLGeoAreaTest {
     }
 
     @Test
-    void checkLocationImport() throws ParserConfigurationException{
+    void checkLocationImport() throws ParserConfigurationException {
         Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 
@@ -111,7 +111,7 @@ class XMLGeoAreaTest {
     }
 
     @Test
-    void checkGASensorsImport() throws ParserConfigurationException{
+    void checkGASensorsImport() throws ParserConfigurationException {
         Path path = Paths.get("resources_tests/DataSet_sprint05_GA.xml");
         XMLGeoArea xmlReader = new XMLGeoArea();
 

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.dto.GeographicalAreaDTO;
+import smarthome.dto.LocationDTO;
 import smarthome.mapper.GeographicalAreaMapper;
 import smarthome.model.*;
 
@@ -88,9 +89,9 @@ class ConfigureHouseCTRLTest {
     }
 
 
-    @DisplayName("Tests if the house location is configured correctly")
+    @DisplayName("Tests if the house GA is configured correctly")
     @Test
-    void configureHouseLocation() {
+    void configureHouseLocationGetGa() {
         GAList gl1 = new GAList();
         ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
@@ -109,14 +110,45 @@ class ConfigureHouseCTRLTest {
 
         String id = ctrl101.getIdFromIndex(1);
 
-        boolean result = ctrl101.configureHouseLocation(id , "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",41, 12.3, 110);
+        LocationDTO locationDto = new LocationDTO (41, 12.3, 110);
+
+        boolean result = ctrl101.configureHouseLocation(id , "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",locationDto);
 
         GeographicalArea result2 = getHouseGA();
 
         assertTrue(result);
         assertEquals(ga1, result2);
+    }
 
+    @DisplayName("Tests if the house Address is configured correctly")
+    @Test
+    void configureHouseLocationGetAddress() {
+        GAList gl1 = new GAList();
+        ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        TypeGAList.addTypeGA(new TypeGA("city"));
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
+
+        gl1.addGA(ga1);
+        gl1.addGA(ga2);
+
+        String id = ctrl101.getIdFromIndex(1);
+
+        LocationDTO locationDto = new LocationDTO (41, 12.3, 110);
+        boolean result = ctrl101.configureHouseLocation(id , "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",locationDto);
+
+        String result2 = getAddress().getStreet();
+        String expected = "Rua Júlio Dinis";
+
+        assertTrue(result);
+        assertEquals(expected, result2);
     }
 
     @DisplayName("Check if throws exception when the latitude is wrong")
@@ -142,12 +174,13 @@ class ConfigureHouseCTRLTest {
         ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
 
         String id = ctrl101.getIdFromIndex(1);
+        LocationDTO locationDto = new LocationDTO (400, 12.3, 110);
 
         boolean thrown = false;
 
         try {
 
-            ctrl101.configureHouseLocation(id, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",400, 12.3, 110);
+            ctrl101.configureHouseLocation(id, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",locationDto);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -178,11 +211,12 @@ class ConfigureHouseCTRLTest {
 
         ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
         String id = ctrl101.getIdFromIndex(1);
+        LocationDTO locationDto = new LocationDTO (80, 181, 110);
 
         boolean thrown = false;
 
         try {
-            ctrl101.configureHouseLocation(id, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",80, 181, 110);
+            ctrl101.configureHouseLocation(id, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",locationDto);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -211,12 +245,13 @@ class ConfigureHouseCTRLTest {
 
         ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
         String id = ctrl101.getIdFromIndex(1);
+        LocationDTO locationDto = new LocationDTO (80, -170, -13000);
 
         boolean thrown = false;
 
         try {
 
-            ctrl101.configureHouseLocation(id, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",80, -170,-13000);
+            ctrl101.configureHouseLocation(id, "Rua Júlio Dinis", "345", "3380-45", "Porto","Portugal",locationDto);
         } catch (IllegalArgumentException e) {
             thrown = true;
         }
@@ -274,9 +309,38 @@ class ConfigureHouseCTRLTest {
         ctrl.configureHouseFromFileCTRL(id,25,14,12);
 
         String expected = "R. Dr. António Bernardino de Almeida";
-        String result = getAddress().getName();
+        String result = getAddress().getStreet();
 
         assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Check if GeoArea was properly set")
+    void checkGeoAreaTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
+        GAList gl1 = new GAList();
+        ConfigureHouseCTRL ctrl = new ConfigureHouseCTRL(gl1);
+
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        TypeGAList.addTypeGA(new TypeGA("city"));
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
+
+        gl1.addGA(ga1);
+        gl1.addGA(ga2);
+
+        String id = ctrl.getIdFromIndex(1);
+
+        ctrl.configureHouseFromFileCTRL(id,25,14,12);
+
+        GeographicalArea result = getHouseGA();
+
+        assertEquals(ga1,result);
     }
 
     @Test
@@ -397,4 +461,68 @@ class ConfigureHouseCTRLTest {
 
         assertEquals(expected,result);
     }
+
+    @Test
+    @DisplayName("Show GA In String")
+    void showGAinStringTest()  throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
+        GAList gl1 = new GAList();
+        ConfigureHouseCTRL ctrl = new ConfigureHouseCTRL(gl1);
+
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        TypeGAList.addTypeGA(new TypeGA("city"));
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
+
+        gl1.addGA(ga1);
+        gl1.addGA(ga2);
+
+        String id = ctrl.getIdFromIndex(1);
+
+        ctrl.configureHouseFromFileCTRL(id,25,14,12);
+
+        String expected = "    Porto, Pt";
+        String result = ctrl.showGAInString();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Show Address In String")
+    void showAddressInStringTest()  throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
+        GAList gl1 = new GAList();
+        ConfigureHouseCTRL ctrl = new ConfigureHouseCTRL(gl1);
+
+        Location loc1 = new Location(25, 15, 12);
+        OccupationArea oc1 = new OccupationArea(32, 41);
+
+        Location loc2 = new Location(45, 25, 32);
+        OccupationArea oc2 = new OccupationArea(42, 41);
+
+        TypeGAList.addTypeGA(new TypeGA("city"));
+
+        GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
+        GeographicalArea ga2 = new GeographicalArea("Ls", "Lisboa", "city", oc2, loc2);
+
+        gl1.addGA(ga1);
+        gl1.addGA(ga2);
+
+        String id = ctrl.getIdFromIndex(1);
+
+        ctrl.configureHouseFromFileCTRL(id,25,14,12);
+
+        String expected = "    R. Dr. António Bernardino de Almeida, 431, 4200-072\n" +
+                            "    Porto, Portugal\n" +
+                            " | Location:\n" +
+                            "    Latitude: 25.0º | Longitude: 14.0º | Altitude: 12.0 meters";
+        String result = ctrl.showAddressInString();
+
+        assertEquals(expected,result);
+    }
+
 }

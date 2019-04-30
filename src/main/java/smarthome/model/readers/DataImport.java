@@ -6,7 +6,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
-import smarthome.io.ui.UtilsUI;
 import smarthome.model.*;
 import smarthome.repository.Repositories;
 
@@ -16,10 +15,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import static java.lang.Double.parseDouble;
+import static smarthome.repository.Repositories.saveSensor;
 
 public class DataImport {
     private final JSONParser parser = new JSONParser();
@@ -110,14 +111,22 @@ public class DataImport {
         if (object.equals(roomList)) {
             sensors = roomList.getAllSensors();
             importSensorsReadings(readingsToImport);
+            for (Sensor sensor : sensors)
+                //repository call were the reading is being persisted
+                saveSensor(sensor);
         }
+
         if (object.equals(gaList)) {
             sensors = gaList.getAllSensors();
             importSensorsReadings(readingsToImport);
+            for (Sensor sensor : sensors)
+                //repository call were the reading is being persisted
+                saveSensor(sensor);
         }
     }
 
-    //fazer for each sensor in all sensors se sensorid existe então não adiciona
+    //TODO: add JavaDoc for existing comment
+    // fazer for each sensor in all sensors se sensorid existe então não adiciona
     private void importSensorsReadings(List<String[]> readingsToImport) {
         for (String[] reading : readingsToImport) {
             String sensorID = reading[0];
@@ -129,46 +138,22 @@ public class DataImport {
         }
     }
 
-    /**
-     * This method imports a reading for the sensor with sensorID passed as parameter.
-     * Only readings with dateAndTime after the sensor's startDate will be imported otherwise they will be registered in a log file.
-     *
-     * @param field Position in the array
-     * @param sensorID Id of the sensor
-     */
-    private boolean importReading(String[] field, String sensorID) {
-        for (Sensor sensor : sensors) {
-            if (sensorID.equals(sensor.getId())) {
-
-                String dateAndTimeString = field[1];
-                Calendar readingDate = null;
-                try{
-                readingDate = UtilsUI.parseDateToImportReadings(dateAndTimeString);}
-                catch (DateTimeParseException e){
-                    String message = "Reading not added to the DB - sensor: " + sensorID +
-                            " value: " + field[2] + " " + field[3] + " date: " + dateAndTimeString + "\nreason: " + e.getMessage();
-                    log.error(message);
-                    return false;
-                }
-                double readingValue = parseDouble(field[2]);
-                String unit = field[3];
-                Reading reading = new Reading(readingValue, readingDate, unit);
-                if (readingDate.after(sensor.getStartDate())||reading.isSameDay(sensor.getStartDate())) {
-                    reading.setSensor(sensor);
-                    //dataImport
-                    if (sensor.getReadingList().addReading(reading)) {
-
-                        return true;
-                    }
-                } else {
-                    String message = "Reading not added to the DB - sensor: " + sensorID +
-                            " value: " + readingValue + " " + unit + " date: " + dateAndTimeString + "\nreason: reading date after sensor start date";
-                    log.error(message);
-                    return false;
-                }
-            }
+    public static Calendar parseDateToImportReadings(String dateAndTimeString) {
+        String dateAndTimeStr = dateAndTimeString;
+        if (dateAndTimeString.contains("/")) {
+            String[] date = dateAndTimeString.split("/");
+            dateAndTimeStr = date[2] + "-" + date[1] + "-" + date[0];
         }
-        return false;
+        if (!dateAndTimeString.contains("T"))
+            dateAndTimeStr = dateAndTimeStr.concat("T00:00:00+00:00");
+
+        ZonedDateTime dateTime = ZonedDateTime.parse(dateAndTimeStr);
+        int year = dateTime.getYear();
+        int month = dateTime.getMonthValue();
+        int day = dateTime.getDayOfMonth();
+        int hour = dateTime.getHour();
+        int minutes = dateTime.getMinute();
+        return new GregorianCalendar(year, month - 1, day, hour, minutes);
     }
 
     /**
@@ -205,11 +190,45 @@ public class DataImport {
         return className;
     }
 
-    public List<GeographicalArea> loadGeoAreaFiles(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException, ParserConfigurationException {
-        String fileExtension = getFileExtension(filePathAndName);
-        String className = getClassName("geographical_area", fileExtension);
-        FileReaderGeoArea reader = (FileReaderGeoArea) Class.forName(className).newInstance();
-        return reader.loadData(filePathAndName);
+    /**
+     * This method imports a reading for the sensor with sensorID passed as parameter.
+     * Only readings with dateAndTime after the sensor's startDate will be imported otherwise they will be registered in a log file.
+     *
+     * @param field    Position in the array
+     * @param sensorID Id of the sensor
+     */
+    private boolean importReading(String[] field, String sensorID) {
+        for (Sensor sensor : sensors) {
+            if (sensorID.equals(sensor.getId())) {
+
+                String dateAndTimeString = field[1];
+                Calendar readingDate = null;
+                try {
+                    readingDate = parseDateToImportReadings(dateAndTimeString);
+                } catch (DateTimeParseException e) {
+                    String message = "Reading not added to the DB - sensor: " + sensorID +
+                            " value: " + field[2] + " " + field[3] + " date: " + dateAndTimeString + "\nreason: " + e.getMessage();
+                    log.error(message);
+                    return false;
+                }
+                double readingValue = parseDouble(field[2]);
+                String unit = field[3];
+                Reading reading = new Reading(readingValue, readingDate, unit);
+                if (readingDate.after(sensor.getStartDate()) || reading.isSameDay(sensor.getStartDate())) {
+                    //dataImport
+                    if (sensor.getReadingList().addReading(reading)) {
+
+                        return true;
+                    }
+                } else {
+                    String message = "Reading not added to the DB - sensor: " + sensorID +
+                            " value: " + readingValue + " " + unit + " date: " + dateAndTimeString + "\nreason: reading date after sensor start date";
+                    log.error(message);
+                    return false;
+                }
+            }
+        }
+        return false;
     }
 
     public void importFromFileGeoArea(List<GeographicalArea> dataToImport) {
@@ -293,6 +312,15 @@ public class DataImport {
 
     public int notAddedNumber() {
         return this.notAdded.size();
+    }
+
+    public List<GeographicalArea> loadGeoAreaFiles(Path filePathAndName) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException, ParserConfigurationException {
+        String fileExtension;
+        //TODO deal with NullPointerException
+        fileExtension = getFileExtension(filePathAndName);
+        String className = getClassName("geographical_area", fileExtension);
+        FileReaderGeoArea reader = (FileReaderGeoArea) Class.forName(className).newInstance();
+        return reader.loadData(filePathAndName);
     }
 
     /**

@@ -21,7 +21,7 @@ public final class SmartHomeUI {
 
     private static final String DEFAULT = "Default";
     Location loc = new Location(1, 1, 1);
-    Address a1 = new Address(DEFAULT, DEFAULT,"0000-000", DEFAULT, DEFAULT,loc);
+    Address a1 = new Address(DEFAULT, DEFAULT, "0000-000", DEFAULT, DEFAULT, loc);
     OccupationArea oc = new OccupationArea(1, 1);
     GeographicalArea g1 = new GeographicalArea(DEFAULT, DEFAULT, DEFAULT, oc, loc);
     House house = House.getHouseInstance(a1, g1);

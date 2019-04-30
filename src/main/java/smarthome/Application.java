@@ -19,7 +19,7 @@ public class Application {
 
     private static final String DEFAULT = "Default";
     Location loc = new Location(1, 1, 1);
-    Address a1 = new Address(DEFAULT, DEFAULT,"0000-000", DEFAULT, DEFAULT,loc);
+    Address a1 = new Address(DEFAULT, DEFAULT, "0000-000", DEFAULT, DEFAULT, loc);
     OccupationArea oc = new OccupationArea(1, 1);
     GeographicalArea g1 = new GeographicalArea(DEFAULT, DEFAULT, DEFAULT, oc, loc);
     House house = House.getHouseInstance(a1, g1);
@@ -41,7 +41,7 @@ public class Application {
 
     @Bean
     public CommandLineRunner demo(GeoRepository geoRep, RoomRepository rRep, SensorTypeRepository unitRep, TypeGARepository typeRep,
-                                  ExternalSensorRepository extSensorRep, InternalSensorRepository intSensorRep, ReadingRepository readingRep, GridRepository gridsRep) {
+                                  ExternalSensorRepository extSensorRep, InternalSensorRepository intSensorRep, GridRepository gridsRep) {
 
         Repositories.setTypeGARepository(typeRep);
         Repositories.setGeoRepository(geoRep);
@@ -49,7 +49,6 @@ public class Application {
         Repositories.setSensorTypeRepository(unitRep);
         Repositories.setExternalSensorRepository(extSensorRep);
         Repositories.setInternalSensorRepository(intSensorRep);
-        Repositories.setReadingRepository(readingRep);
         Repositories.setGridsRepository(gridsRep);
 
         return args -> log.info("Application Start-Up");

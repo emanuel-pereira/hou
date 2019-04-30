@@ -18,6 +18,8 @@ import java.util.GregorianCalendar;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static smarthome.model.House.getHouseRoomList;
+import static smarthome.model.TypeGAList.addTypeGA;
+import static smarthome.model.TypeGAList.newTypeGA;
 
 class DataImportCTRLTest {
 
@@ -45,8 +47,8 @@ class DataImportCTRLTest {
     void loadGeoAreas() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        TypeGAList.addTypeGA(new TypeGA("city"));
-        TypeGAList.addTypeGA(new TypeGA("urban area"));
+        addTypeGA(new TypeGA("city"));
+        addTypeGA(new TypeGA("urban area"));
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
         Path path = Paths.get(filepath);
         try {
@@ -80,7 +82,8 @@ class DataImportCTRLTest {
 
 
     @Test
-    void getAllSensorsInFile() throws ParserConfigurationException,IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    @DisplayName("Get total number of sensors in file")
+    void getAllSensorsInFile() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
@@ -95,12 +98,13 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void importGeoAreasFromFile() throws ParserConfigurationException,IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    @DisplayName("Add the GeoAreas and respective Sensors to the GaList/Repo")
+    void importGeoAreasFromFile() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
 
-        TypeGAList.addTypeGA(new TypeGA("city"));
-        TypeGAList.addTypeGA(new TypeGA("urban area"));
+        addTypeGA(new TypeGA("city"));
+        addTypeGA(new TypeGA("urban area"));
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
 
         Path path = Paths.get(filepath);
@@ -112,7 +116,8 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void failToAdd() throws ParserConfigurationException,IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    @DisplayName("Number of GeoAreas that were not added - either there was an equal id or the TypeGA did not previously exist")
+    void failToAdd() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
@@ -128,11 +133,12 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void failToAddIsZero() throws ParserConfigurationException,IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    @DisplayName("No GeoAreas failed to add")
+    void failToAddIsZero() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        TypeGAList.addTypeGA(new TypeGA("city"));
-        TypeGAList.addTypeGA(new TypeGA("urban area"));
+        addTypeGA(new TypeGA("city"));
+        addTypeGA(new TypeGA("urban area"));
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
 
         Path path = Paths.get(filepath);
@@ -146,7 +152,8 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void failToAddDoesNotStack() throws ParserConfigurationException,IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    @DisplayName("Make sure the number of GeoAreas that failed to add were is not stacking from previous US runs")
+    void failToAddDoesNotStack() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
@@ -160,6 +167,8 @@ class DataImportCTRLTest {
 
         assertEquals(expected, result);
     }
+
+
 
     @Test
     void importReadingZero() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
@@ -180,8 +189,8 @@ class DataImportCTRLTest {
     void importReading() throws java.text.ParseException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl1 = new DataImportCTRL(gaList);
-        TypeGAList.addTypeGA(new TypeGA("city"));
-        TypeGAList.addTypeGA(new TypeGA("urban area"));
+        addTypeGA(new TypeGA("city"));
+        addTypeGA(new TypeGA("urban area"));
         String filepath1 = "resources_tests/DataSet_sprint05_GA.json";
         Path path1 = Paths.get(filepath1);
         ctrl1.importGeoAreasFromFile(path1);
@@ -590,7 +599,7 @@ class DataImportCTRLTest {
 
 
     @Test
-    void getGaListInFileSize() throws ParserConfigurationException,IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
+    void getGaListInFileSize() throws ParserConfigurationException, IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
 
         GAList gaList = new GAList();
         DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
@@ -606,18 +615,39 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void getImportedGaListSize() throws ParserConfigurationException,IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
+    @DisplayName("Get number of GeoAreas that were successfully added to GAList/repo")
+    void getImportedGaListSize() throws ParserConfigurationException, IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
 
+        GAList gaList = new GAList();
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
+        String filepath1 = "resources_tests/DataSet_sprint05_GA.json";
+
+        addTypeGA(newTypeGA("city"));
+        addTypeGA(newTypeGA("urban area"));
+
+        Path path1 = Paths.get(filepath1);
+        dataImportCTRL.importGeoAreasFromFile(path1);
+
+        int expected = 2;
+        int result = dataImportCTRL.getImportedGaListSize(path1);
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Get zero GeoAreas that were successfully added to GAList/repo")
+    void getImportedGaListSizeZero() throws ParserConfigurationException,IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
         GAList gaList = new GAList();
         DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
         String filepath1 = "resources_tests/DataSet_sprint05_GA.json";
 
         Path path1 = Paths.get(filepath1);
         dataImportCTRL.importGeoAreasFromFile(path1);
+        dataImportCTRL.importGeoAreasFromFile(path1);
 
 
-        int expected = 2;
-        int result = dataImportCTRL.getGaListInFileSize(path1);
+        int expected = 0;
+        int result = dataImportCTRL.getImportedGaListSize(path1);
 
         assertEquals(expected, result);
     }
@@ -668,5 +698,33 @@ class DataImportCTRLTest {
         int result = dataImportCTRL.nrOfSensorsInAllRooms();
 
         assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Get Number Zero of GeoArea's Types")
+    void getTypeGAListSizeTest(){
+        GAList gaList = new GAList();
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
+
+        addTypeGA(newTypeGA("city"));
+        addTypeGA(newTypeGA("urban area"));
+
+
+        int expected = 2;
+        int result = dataImportCTRL.typeGAListSize();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Get Number Zero of GeoArea's Types")
+    void getTypeGAListSizeZeroTest(){
+        GAList gaList = new GAList();
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
+
+        int expected = 0;
+        int result = dataImportCTRL.typeGAListSize();
+
+        assertEquals(expected,result);
     }
 }
