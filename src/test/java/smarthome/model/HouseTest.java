@@ -3,6 +3,10 @@ package smarthome.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.devices.FanType;
+import smarthome.model.devices.OvenType;
+import smarthome.model.devices.TvType;
+import smarthome.model.devices.WallTowelHeaterType;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -30,6 +34,42 @@ class HouseTest {
         instance.setAccessible(true);
         instance.set(null, null);
     }
+
+    @Test
+    //@DisplayName("House instance not null")
+    void getHouseInstance(){
+        Location loc = new Location(20, 20, 2);
+        Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+        OccupationArea oc = new OccupationArea(2, 5);
+        GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+        House house = House.getHouseInstance(a1, g1);
+
+
+        assertEquals(house,House.getHouseInstance(a1,g1));
+    }
+
+    @Test
+    //@DisplayName("Check if address/location exists")
+    void checkIfLocationExistsTest(){
+        Location location = new Location(12,34,56);
+        Address address = new Address("Rua Blah","123","1234-567","Porto","Portugal",location);
+
+        House.setHouseAddress(address);
+
+        assertTrue(checkIfLocationExists());
+    }
+
+    @Test
+    //@DisplayName("Check if address/location exists")
+    void checkIfLocationExistsTestFalse(){
+        Address address = null;
+
+        House.setHouseAddress(address);
+
+        assertFalse(checkIfLocationExists());
+
+    }
+
 
     //RoomList
 
@@ -166,7 +206,7 @@ class HouseTest {
 
 
     @Test
-    @DisplayName("Ensure a room is removed from the list of rooms of a house ")
+    //@DisplayName("Ensure a room is removed from the list of rooms of a house ")
     void removeRoom() {
 
 
@@ -181,8 +221,7 @@ class HouseTest {
     }
 
     @Test
-    @DisplayName("Ensure a room not contained in the list of rooms of a house" +
-            "cannot be removed")
+    //@DisplayName("Ensure a room not contained in the list of rooms of a house" + "cannot be removed")
     void removeRoomReturnsFalse() {
 
 
@@ -195,7 +234,7 @@ class HouseTest {
     }
 
     @Test
-    @DisplayName("Get House Grid List from the House")
+    //@DisplayName("Get House Grid List from the House")
     void getHouseGridListFromHouseTest() {
 
         HouseGrid hg01 = new HouseGrid("grid01");
@@ -290,7 +329,90 @@ class HouseTest {
     }
 
     @Test
-    @DisplayName("Ensure that sensor with the latest reading in the specified date is sensor s3.")
+    //@DisplayName("Filter Sensor List by type and proximity")
+    void filterByTypeAndProximityTest(){
+        SensorType temperature = new SensorType("temperature");
+
+        GregorianCalendar startDate = new GregorianCalendar(2018, 11, 25);
+        Location loc3 = new Location(0, 15, 12);
+        Location loc4 = new Location(0, 22, 12);
+        Location loc5 = new Location(0, 24, 12);
+        ReadingList readings = new ReadingList();
+        Sensor s1 = new Sensor("T001", "Temperature Sensor 1", startDate, loc3, temperature, "C", readings);
+        Sensor s2 = new Sensor("T002", "Temperature Sensor 2", startDate, loc4, temperature, "C", readings);
+        Sensor s3 = new Sensor("T003", "Temperature Sensor 3", startDate, loc5, temperature, "C", readings);
+
+        g1.getSensorListInGA().addSensor(s1);
+        g1.getSensorListInGA().addSensor(s2);
+        g1.getSensorListInGA().addSensor(s3);
+
+        List<Sensor> expected = Arrays.asList(s2);
+
+        List<Sensor> result = House.filterListByTypeAndProximity(temperature).getSensorList();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    //@DisplayName("Filter Sensor List by type and proximity and test the null pointer exception")
+    void filterByTypeAndProximityTestNullPointer(){
+        SensorType temperature = new SensorType("temperature");
+
+        GeographicalArea houseGa = null;
+
+        House.setHouseGA(houseGa);
+
+        GeographicalArea geographicalArea = new GeographicalArea("Opo","Porto","city",oc,loc);
+
+        GregorianCalendar startDate = new GregorianCalendar(2018, 11, 25);
+        Location loc3 = new Location(0, 15, 12);
+        Location loc4 = new Location(0, 22, 12);
+        Location loc5 = new Location(0, 24, 12);
+        ReadingList readings = new ReadingList();
+        Sensor s1 = new Sensor("T001", "Temperature Sensor 1", startDate, loc3, temperature, "C", readings);
+        Sensor s2 = new Sensor("T002", "Temperature Sensor 2", startDate, loc4, temperature, "C", readings);
+        Sensor s3 = new Sensor("T003", "Temperature Sensor 3", startDate, loc5, temperature, "C", readings);
+
+        geographicalArea.getSensorListInGA().addSensor(s1);
+        geographicalArea.getSensorListInGA().addSensor(s2);
+        geographicalArea.getSensorListInGA().addSensor(s3);
+
+        assertEquals(0,House.filterListByTypeAndProximity(temperature).size());
+    }
+
+    @Test
+    //@DisplayName("Filter Sensor List by type, distance and interval and test when sensor list of the house ga is empty/doesnt exist")
+    void filterByTypeIntervalAndDistance(){
+        SensorType temperature = new SensorType("temperature");
+        SensorType rainfall = new SensorType("rainfall");
+
+        GeographicalArea houseGa = null;
+
+        House.setHouseGA(houseGa);
+
+        GregorianCalendar startDate = new GregorianCalendar(2018, 11, 25);
+        GregorianCalendar endDate = new GregorianCalendar(2018, 11, 25);
+        Location loc3 = new Location(0, 15, 12);
+        Location loc4 = new Location(0, 22, 12);
+        Location loc5 = new Location(0, 24, 12);
+        ReadingList readings = new ReadingList();
+        Sensor s1 = new Sensor("T001", "Temperature Sensor 1", startDate, loc3, temperature, "C", readings);
+        Sensor s2 = new Sensor("T002", "Temperature Sensor 2", startDate, loc4, temperature, "C", readings);
+        Sensor s3 = new Sensor("T003", "Temperature Sensor 3", startDate, loc5, temperature, "C", readings);
+
+        g1.getSensorListInGA().addSensor(s1);
+        g1.getSensorListInGA().addSensor(s2);
+        g1.getSensorListInGA().addSensor(s3);
+
+        int result = House.filterListByTypeByIntervalAndDistance(rainfall,startDate,endDate).size();
+
+        assertEquals(0,result);
+
+    }
+
+
+    @Test
+    //@DisplayName("Ensure that sensor with the latest reading in the specified date is sensor s3.")
     void getSensorOfTypeWithLatestReadingsInDateTest() {
 
         SensorType temperature = new SensorType("temperature");
@@ -301,8 +423,8 @@ class HouseTest {
         Location loc5 = new Location(24, 24, 12);
         ReadingList readings = new ReadingList();
         Sensor s1 = new Sensor("T001", "Temperature Sensor 1", startDate, loc3, temperature, "C", readings);
-        Sensor s2 = new Sensor("T001", "Temperature Sensor 1", startDate, loc4, temperature, "C", readings);
-        Sensor s3 = new Sensor("T001", "Temperature Sensor 1", startDate, loc5, temperature, "C", readings);
+        Sensor s2 = new Sensor("T002", "Temperature Sensor 1", startDate, loc4, temperature, "C", readings);
+        Sensor s3 = new Sensor("T003", "Temperature Sensor 1", startDate, loc5, temperature, "C", readings);
 
         g1.getSensorListInGA().addSensor(s1);
         g1.getSensorListInGA().addSensor(s2);
@@ -335,7 +457,52 @@ class HouseTest {
     }
 
     @Test
-    @DisplayName("Tests if the second sensor has the most recent readings")
+    //@DisplayName("Ensure that sensor with the latest reading in the specified date has the latest reading")
+    void getSensorOfTypeWithLatestReadingsInDateTestLastAfter() {
+
+        SensorType temperature = new SensorType("temperature");
+
+        GregorianCalendar startDate = new GregorianCalendar(2018, 11, 25);
+        Location loc3 = new Location(0, 15, 12);
+        Location loc4 = new Location(26, 26, 12);
+        Location loc5 = new Location(26, 26, 12);
+        ReadingList readings = new ReadingList();
+        Sensor s1 = new Sensor("T001", "Temperature Sensor 1", startDate, loc3, temperature, "C", readings);
+        Sensor s2 = new Sensor("T002", "Temperature Sensor 1", startDate, loc4, temperature, "C", readings);
+        Sensor s3 = new Sensor("T003", "Temperature Sensor 1", startDate, loc5, temperature, "C", readings);
+
+        g1.getSensorListInGA().addSensor(s1);
+        g1.getSensorListInGA().addSensor(s2);
+        g1.getSensorListInGA().addSensor(s3);
+
+        Reading r1TempSensor1 = new Reading(25, new GregorianCalendar(2018, Calendar.DECEMBER, 26, 9, 15), "C");
+        Reading r2TempSensor1 = new Reading(20, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 9, 30), "C");
+        Reading r3TempSensor1 = new Reading(15, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 9, 15), "C");
+        s1.getReadingList().addReading(r1TempSensor1);
+        s1.getReadingList().addReading(r2TempSensor1);
+        s1.getReadingList().addReading(r3TempSensor1);
+
+        Reading r1TempSensor2 = new Reading(15, new GregorianCalendar(2018, Calendar.DECEMBER, 26, 9, 15), "C");
+        Reading r2TempSensor2 = new Reading(10, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 9, 30), "C");
+        Reading r3TempSensor2 = new Reading(5, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 9, 50), "C");
+        s2.getReadingList().addReading(r1TempSensor2);
+        s2.getReadingList().addReading(r2TempSensor2);
+        s2.getReadingList().addReading(r3TempSensor2);
+
+        Reading r1TempSensor3 = new Reading(15, new GregorianCalendar(2018, Calendar.DECEMBER, 26, 9, 15), "C");
+        Reading r2TempSensor3 = new Reading(10, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 9, 45), "C");
+        Reading r3TempSensor3 = new Reading(5, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 10, 0), "C");
+        s3.getReadingList().addReading(r1TempSensor3);
+        s3.getReadingList().addReading(r2TempSensor3);
+        s3.getReadingList().addReading(r3TempSensor3);
+
+        Sensor result = getSensorOfTypeWithLatestReadingsInDate(new GregorianCalendar(2018, Calendar.DECEMBER, 27), temperature);
+
+        assertEquals(s3, result);
+    }
+
+    @Test
+    //@DisplayName("Tests if the second sensor has the most recent readings")
     void getSecondSensorWithLatestReadingsNotInPeriod() {
 
         SensorType sT = new SensorType("rainfall");
@@ -387,8 +554,165 @@ class HouseTest {
         assertEquals(s2, result);
     }
 
+
     @Test
-    @DisplayName("Tests if a sensor with no readings in period is not selected  ")
+    @DisplayName("Tests if a sensor with latest readings is selected")
+    void getClosestSensorWithLatestReadingsTest() {
+
+        SensorType sT = new SensorType("rainfall");
+
+        GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.JULY, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JULY, 30);
+
+        GregorianCalendar sDate1 = new GregorianCalendar(2017, Calendar.JULY, 28);
+        GregorianCalendar sDate2 = new GregorianCalendar(2017, Calendar.JULY, 28);
+
+        GregorianCalendar date1 = new GregorianCalendar(2017, Calendar.JUNE, 30);
+        GregorianCalendar date2 = new GregorianCalendar(2017, Calendar.JULY, 8);
+        GregorianCalendar date3 = new GregorianCalendar(2017, Calendar.JULY, 7);
+
+        Reading r1 = new Reading(12.3, date1);
+        Reading r2 = new Reading(34.2, date2);
+        Reading r3 = new Reading(20.0, date2);
+        Reading r4 = new Reading(22.0, date3);
+
+        ReadingList rL1 = new ReadingList();
+        rL1.addReading(r1);
+        rL1.addReading(r2);
+        rL1.addReading(r3);
+        rL1.addReading(r4);
+
+        GregorianCalendar date4 = new GregorianCalendar(2017, Calendar.JULY, 3);
+        GregorianCalendar date5 = new GregorianCalendar(2017, Calendar.JULY, 1);
+
+        Reading r5 = new Reading(14.5, date4);
+        Reading r6 = new Reading(70.6, date4);
+        Reading r7 = new Reading(54.3, date5);
+
+        ReadingList rL2 = new ReadingList();
+        rL2.addReading(r5);
+        rL2.addReading(r6);
+        rL2.addReading(r7);
+
+        Location l1 = new Location(47, -12, 200);
+
+        Sensor s1 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new Sensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+
+        g1.getSensorListInGA().addSensor(s1);
+        g1.getSensorListInGA().addSensor(s2);
+
+        Sensor result = getClosestSensorWithLatestReading(sT);
+
+        assertEquals(s1, result);
+    }
+
+    @Test
+    //@DisplayName("Tests if a sensor with readings in date is selected  ")
+    void getClosestSensorWithReadingsInDateTrueTest() {
+
+        SensorType sT = new SensorType("rainfall");
+
+        GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.JULY, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JULY, 30);
+
+        GregorianCalendar sDate1 = new GregorianCalendar(2017, Calendar.JULY, 28);
+        GregorianCalendar sDate2 = new GregorianCalendar(2017, Calendar.JULY, 27);
+
+        GregorianCalendar date1 = new GregorianCalendar(2017, Calendar.JULY, 30);
+        GregorianCalendar date2 = new GregorianCalendar(2017, Calendar.JULY, 8);
+        GregorianCalendar date3 = new GregorianCalendar(2017, Calendar.JULY, 7);
+
+        Reading r1 = new Reading(12.3, date1);
+        Reading r2 = new Reading(34.2, date2);
+        Reading r3 = new Reading(20.0, date2);
+        Reading r4 = new Reading(22.0, date3);
+
+        ReadingList rL1 = new ReadingList();
+        rL1.addReading(r1);
+        rL1.addReading(r2);
+        rL1.addReading(r3);
+        rL1.addReading(r4);
+
+        GregorianCalendar date4 = new GregorianCalendar(2017, Calendar.JULY, 3);
+        GregorianCalendar date5 = new GregorianCalendar(2017, Calendar.JULY, 1);
+
+        Reading r5 = new Reading(14.5, date4);
+        Reading r6 = new Reading(70.6, date4);
+        Reading r7 = new Reading(54.3, date5);
+
+        ReadingList rL2 = new ReadingList();
+        rL2.addReading(r5);
+        rL2.addReading(r6);
+        rL2.addReading(r7);
+
+        Location l1 = new Location(47, -12, 200);
+
+        Sensor s1 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new Sensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+
+        g1.getSensorListInGA().addSensor(s1);
+        g1.getSensorListInGA().addSensor(s2);
+
+        boolean result = closestSensorsWithReadingsInDate(endDate,sT);
+
+        assertTrue(result);
+    }
+
+    @Test
+    //@DisplayName("Tests if a sensor with readings in period is selected  ")
+    void checkIfClosestSensorsHasReadingsInTimePeriodTest() {
+
+        SensorType sT = new SensorType("rainfall");
+
+        GregorianCalendar startDate = new GregorianCalendar(2017, Calendar.JULY, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2017, Calendar.JULY, 30);
+
+        GregorianCalendar sDate1 = new GregorianCalendar(2017, Calendar.JULY, 28);
+        GregorianCalendar sDate2 = new GregorianCalendar(2017, Calendar.JULY, 27);
+
+        GregorianCalendar date1 = new GregorianCalendar(2017, Calendar.JULY, 30);
+        GregorianCalendar date2 = new GregorianCalendar(2017, Calendar.JULY, 8);
+        GregorianCalendar date3 = new GregorianCalendar(2017, Calendar.JULY, 7);
+
+        Reading r1 = new Reading(12.3, date1);
+        Reading r2 = new Reading(34.2, date2);
+        Reading r3 = new Reading(20.0, date2);
+        Reading r4 = new Reading(22.0, date3);
+
+        ReadingList rL1 = new ReadingList();
+        rL1.addReading(r1);
+        rL1.addReading(r2);
+        rL1.addReading(r3);
+        rL1.addReading(r4);
+
+        GregorianCalendar date4 = new GregorianCalendar(2017, Calendar.JULY, 3);
+        GregorianCalendar date5 = new GregorianCalendar(2017, Calendar.JULY, 1);
+
+        Reading r5 = new Reading(14.5, date4);
+        Reading r6 = new Reading(70.6, date4);
+        Reading r7 = new Reading(54.3, date5);
+
+        ReadingList rL2 = new ReadingList();
+        rL2.addReading(r5);
+        rL2.addReading(r6);
+        rL2.addReading(r7);
+
+        Location l1 = new Location(47, -12, 200);
+
+        Sensor s1 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new Sensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+
+        g1.getSensorListInGA().addSensor(s1);
+        g1.getSensorListInGA().addSensor(s2);
+
+        boolean result = checkIfClosestSensorsHasReadingsInTimePeriod(sT,startDate,endDate);
+
+        assertTrue(result);
+    }
+
+   @Test
+    @DisplayName("Tests if a sensor with no readings in period is not selected")
     void getClosestSensorWithLatestReadingsNotInPeriod() {
 
         SensorType sT = new SensorType("rainfall");
@@ -441,7 +765,7 @@ class HouseTest {
 
 
     @Test
-    @DisplayName("Tests if readings with a date equal to start date are included in the average")
+    //@DisplayName("Tests if readings with a date equal to start date are included in the average")
     void averageOfReadingsWithStartDate() {
 
         SensorType sT = new SensorType("rainfall");
@@ -495,7 +819,7 @@ class HouseTest {
     }
 
     @Test
-    @DisplayName("Tests if readings with a date equal to end date are included in the average")
+    //@DisplayName("Tests if readings with a date equal to end date are included in the average")
     void averageOfReadingsWithEndDate() {
 
         SensorType sT = new SensorType("rainfall");
@@ -547,5 +871,136 @@ class HouseTest {
 
     }
 
+    @Test
+    //@DisplayName("set and get House GeoArea")
+    void getHouseGATest(){
+        Location location = new Location(12,34,56);
+        //Address address = new Address("Rua","123","1234-567","Porto","Portugal",location);
+        OccupationArea occupationArea = new OccupationArea(11,22);
+        GeographicalArea ga = new GeographicalArea("area01","porto","city",occupationArea,location);
+
+        House.setHouseGA(ga);
+
+        GeographicalArea result = House.getHouseGA();
+
+        assertEquals(ga,result);
+    }
+
+    @Test
+    //@DisplayName("set and get House Address")
+    void getHouseAddressTest(){
+        Location location = new Location(12,34,56);
+        Address address = new Address("Rua","123","1234-567","Porto","Portugal",location);
+        //OccupationArea occupationArea = new OccupationArea(11,22);
+        //GeographicalArea ga = new GeographicalArea("area01","porto","city",occupationArea,location);
+
+        House.setHouseAddress(address);
+
+        Address result = House.getAddress();
+
+        assertEquals(address,result);
+    }
+
+    @Test
+    //@DisplayName("get metered objects list")
+    void getMeteredTest(){
+
+        Room room = getHouseRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 2);
+        Room room1 = getHouseRoomList().createNewRoom("R02", "garden", 0, 2.5, 3, 2);
+        Room room2 = getHouseRoomList().createNewRoom("R03", "kitchen", 0, 2.5, 3, 2);
+
+        getHouseRoomList().addRoom(room);
+        getHouseRoomList().addRoom(room1);
+        getHouseRoomList().addRoom(room2);
+
+        HouseGrid hg01 = new HouseGrid("grid01");
+        HouseGrid hg02 = new HouseGrid("grid02");
+
+        getGridListInHouse().addHouseGrid(hg01);
+        getGridListInHouse().addHouseGrid(hg02);
+
+        hg01.attachRoomToGrid(room);
+        hg01.attachRoomToGrid(room1);
+        hg02.attachRoomToGrid(room2);
+
+        OvenType typeOven = new OvenType();
+        WallTowelHeaterType typeWth = new WallTowelHeaterType();
+        TvType typeTv = new TvType();
+        FanType typeFan = new FanType();
+
+        Device d1 = typeOven.createDevice("baker", 420);
+        Device d2 = typeTv.createDevice("Silver", 200);
+        Device d3 = typeWth.createDevice("Textile Dryer", 300);
+        Device d4 = typeFan.createDevice("Micro Fan", 250);
+        Device d5 = typeTv.createDevice("Smart Tv", 200);
+
+        room.getDeviceList().add(d5);
+        room.getDeviceList().add(d4);
+
+        room1.getDeviceList().add(d2);
+
+        room2.getDeviceList().add(d1);
+        room2.getDeviceList().add(d3);
+
+        int result = House.getMetered().size();
+
+        assertEquals(10,result);
+    }
+
+    @Test
+    //@DisplayName("show metered objects list")
+    void showMeteredTest(){
+
+        Room room = getHouseRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 2);
+        Room room1 = getHouseRoomList().createNewRoom("R02", "garden", 0, 2.5, 3, 2);
+        Room room2 = getHouseRoomList().createNewRoom("R03", "kitchen", 0, 2.5, 3, 2);
+
+        getHouseRoomList().addRoom(room);
+        getHouseRoomList().addRoom(room1);
+        getHouseRoomList().addRoom(room2);
+
+        HouseGrid hg01 = new HouseGrid("grid01");
+        HouseGrid hg02 = new HouseGrid("grid02");
+
+        getGridListInHouse().addHouseGrid(hg01);
+        getGridListInHouse().addHouseGrid(hg02);
+
+        hg01.attachRoomToGrid(room);
+        hg01.attachRoomToGrid(room1);
+        hg02.attachRoomToGrid(room2);
+
+        OvenType typeOven = new OvenType();
+        WallTowelHeaterType typeWth = new WallTowelHeaterType();
+        TvType typeTv = new TvType();
+        FanType typeFan = new FanType();
+
+        Device d1 = typeOven.createDevice("baker", 420);
+        Device d2 = typeTv.createDevice("Silver", 200);
+        Device d3 = typeWth.createDevice("Textile Dryer", 300);
+        Device d4 = typeFan.createDevice("Micro Fan", 250);
+        Device d5 = typeTv.createDevice("Smart Tv", 200);
+
+        room.getDeviceList().add(d5);
+        room.getDeviceList().add(d4);
+
+        room1.getDeviceList().add(d2);
+
+        room2.getDeviceList().add(d1);
+        room2.getDeviceList().add(d3);
+
+        String expected = "1 - grid01\n" +
+                        "2 - bedroom\n" +
+                        "3 - garden\n" +
+                        "4 - Smart Tv\n" +
+                        "5 - Micro Fan\n" +
+                        "6 - Silver\n" +
+                        "7 - grid02\n" +
+                        "8 - kitchen\n" +
+                        "9 - baker\n" +
+                        "10 - Textile Dryer\n";
+        String result = House.showMetered();
+
+        assertEquals(expected,result);
+    }
 
 }
