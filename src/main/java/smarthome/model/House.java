@@ -14,8 +14,8 @@ public class House {
 
     public static House getHouseInstance(Address address, GeographicalArea ga) {
 
-        if (theHouse == null){
-            theHouse = new House(address,ga);
+        if (theHouse == null) {
+            theHouse = new House(address, ga);
         }
 
         return theHouse;
@@ -54,7 +54,7 @@ public class House {
         return houseGridList;
     }
 
-    public boolean addGrid(HouseGrid newGrid){
+    public boolean addGrid(HouseGrid newGrid) {
         return houseGridList.addHouseGrid(newGrid);
     }
 
@@ -123,27 +123,27 @@ public class House {
         SensorList sensorListOfType = gaSensorList.getListOfSensorsByType(sensorType);
         double distance;
         List<Sensor> sensorList = sensorListOfType.getSensorList();
-        Sensor firstSensor = sensorList.get(0);
-        ExternalSensor externalSensor = (ExternalSensor) firstSensor;
-        Location sensorLocation = externalSensor.getLocation();
+        ExternalSensor firstSensor = (ExternalSensor) sensorList.get(0);
+        Location sensorLocation = firstSensor.getLocation();
         double minDistance = calculateDistance(sensorLocation);
         SensorList closestSensors = new SensorList();
 
         for (Sensor sensor : sensorList) {
-            ExternalSensor eSensor = (ExternalSensor) firstSensor;
+            ExternalSensor eSensor = (ExternalSensor) sensor;
             Location location = eSensor.getLocation();
             distance = calculateDistance(location);
             if (BigDecimal.valueOf(distance).equals(BigDecimal.valueOf(minDistance))) {
-                closestSensors.getSensorList().add(sensor);
+                closestSensors.addSensor(sensor);
             }
             if (distance < minDistance) {
                 minDistance = distance;
                 closestSensors.getSensorList().clear();
-                closestSensors.getSensorList().add(sensor);
+                closestSensors.addSensor(sensor);
             }
         }
         return closestSensors;
     }
+
 
     public static SensorList filterListByTypeByIntervalAndDistance(SensorType type, Calendar startDate, Calendar endDate) {
         SensorList closestSensorsOfType = filterListByTypeAndProximity(type);
@@ -168,7 +168,6 @@ public class House {
      * @param endDate   last date of the interval
      * @return the closest sensor to the house
      */
-
     public static Sensor filterByTypeByIntervalAndDistance(SensorType type, Calendar startDate, Calendar endDate) {
         SensorList closestSensorList = filterListByTypeByIntervalAndDistance(type, startDate, endDate);
         Sensor closestSensor = closestSensorList.getSensorList().get(0);
