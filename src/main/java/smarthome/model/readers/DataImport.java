@@ -25,7 +25,7 @@ import static smarthome.repository.Repositories.saveSensor;
 public class DataImport {
     private final JSONParser parser = new JSONParser();
     private Path configFilePath;
-    private final Path configHouseFilePath = Paths.get("resources/DataSet_sprint06_House.json");
+    private final Path configHouseFilePath = Paths.get("resources/DataSet_sprint07_House.json");
     private GAList gaList;
     private RoomList roomList;
     private int nrOfAddedReadings = 0;
