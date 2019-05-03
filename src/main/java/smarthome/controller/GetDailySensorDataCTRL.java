@@ -42,7 +42,7 @@ public class GetDailySensorDataCTRL {
     public ReadingDTO displayMaximum(SensorType sensorType, Calendar startDate, Calendar endDate) {
         Sensor sensor = filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
         endDate.add(Calendar.DATE, 1);
-        ReadingList sensorReadings = sensor.getReadingList().filterByDate(startDate, endDate);
+        ReadingList sensorReadings = sensor.getSensorBehavior().getReadingList().filterByDate(startDate, endDate);
         endDate.add(Calendar.DATE, -1);
         sensorReadings = sensorReadings.dailyMaximumReadings();
         Reading reading = sensorReadings.maxValueInInterval();
@@ -52,7 +52,7 @@ public class GetDailySensorDataCTRL {
     public ReadingDTO displayMinimum(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate) {
         Sensor sensor = filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
         endDate.add(Calendar.DATE, 1);
-        ReadingList sensorReadings = sensor.getReadingList().filterByDate(startDate, endDate);
+        ReadingList sensorReadings = sensor.getSensorBehavior().getReadingList().filterByDate(startDate, endDate);
         endDate.add(Calendar.DATE, -1);
         sensorReadings = sensorReadings.dailyMaximumReadings();
         Reading reading = sensorReadings.minValueInInterval();
@@ -62,7 +62,7 @@ public class GetDailySensorDataCTRL {
     public ReadingDTO displayAmplitude(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate) {
         Sensor sensor = filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
         endDate.add(Calendar.DATE, 1);
-        ReadingList sensorReadings = sensor.getReadingList().filterByDate(startDate, endDate);
+        ReadingList sensorReadings = sensor.getSensorBehavior().getReadingList().filterByDate(startDate, endDate);
         endDate.add(Calendar.DATE, -1);
         ReadingList sensorXPTO = sensorReadings.dailyAmplitude();
         Reading reading = sensorXPTO.maxValueInInterval();

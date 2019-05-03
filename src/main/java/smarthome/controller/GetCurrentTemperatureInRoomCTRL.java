@@ -71,7 +71,7 @@ public class GetCurrentTemperatureInRoomCTRL {
     public double getCurrentTemp(int roomIndex) {
         String temp = "temperature";
         Room r = this.roomList.getRoomList().get(roomIndex - 1);
-        return r.getSensorListInRoom ().getRequiredSensorPerType (temp).getLastReadingValuePerSensor ();
+        return r.getSensorListInRoom ().getRequiredSensorPerType (temp).getSensorBehavior().getLastReadingValue();
     }
 
 

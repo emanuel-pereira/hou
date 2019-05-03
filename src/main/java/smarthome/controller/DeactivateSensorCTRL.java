@@ -84,7 +84,7 @@ public class DeactivateSensorCTRL {
         GeographicalArea ga = getGAById (gaDTOId);
         SensorList sensorList = ga.getSensorListInGA ();
         for (Sensor s : sensorList.getSensorList ())
-            if (s.getId ().matches (sensorDTOId) && s.isActive ()) {
+            if (s.getId ().matches (sensorDTOId) && s.getSensorBehavior().isActive ()) {
                 return true;
             }
         return false;

@@ -73,6 +73,6 @@ public class GetCurrentTemperatureInHouseAreaCTRL {
      * @return the last reading value registered for the selected sensor
      */
     public double getLastReadingOfSensor(Sensor sensor){
-        return sensor.getLastReadingValuePerSensor();
+        return sensor.getSensorBehavior().getLastReadingValue();
     }
 }
