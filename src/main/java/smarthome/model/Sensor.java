@@ -1,13 +1,9 @@
 package smarthome.model;
 
-import smarthome.dto.ReadingDTO;
-import smarthome.dto.SensorDTO;
 import smarthome.model.validations.Utils;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Objects;
 
 import static smarthome.model.House.getAddress;
@@ -286,24 +282,15 @@ public class Sensor {
         return this.unit;
     }
 
-    public SensorDTO toDTO() {
-        List<ReadingDTO> readingListDTO = new ArrayList<>();
-        for (Reading reading : this.readingList.getReadingsList()) {
-            ReadingDTO readingDTO = reading.toDTO();
-            readingListDTO.add(readingDTO);
-        }
-        return new SensorDTO(this.id, this.designation, readingListDTO);
-    }
-
     /**
      * Deactivate sensor if active
      *
      * @return True if deactivated
      */
-    public boolean deactivate(Calendar pauseDate) {
-        if (this.active && pauseDate.after(this.startDate)) {
+    public boolean deactivate(Calendar inputPauseDate) {
+        if (this.active && inputPauseDate.after(this.startDate)) {
             this.active = false;
-            this.pauseDate = pauseDate;
+            this.pauseDate = inputPauseDate;
             return true;
         } else {
             return false;

@@ -3,8 +3,10 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -216,6 +218,78 @@ class SensorTest {
         assertNotEquals (expectedResult, result);
     }
 
+    @Test
+    void getReadingListTest(){
+        Location loc = new Location (30, 25, 20);
+        Address address = new Address("rua","123","1234-567","town","country",loc);
+        House.setHouseAddress(address);
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2019, 2, 1), "C");
+        Reading r2 = new Reading(16, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r3 = new Reading(18, new GregorianCalendar(2019, 2, 3), "C");
+        Reading r4 = new Reading(20, new GregorianCalendar(2018, 3, 3), "C");
+
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+
+        GregorianCalendar rTime = new GregorianCalendar (2018, 2, 1, 12, 0);
+        SensorType sType = new SensorType ("temperature");
+        Sensor sensor = new Sensor ("TT1023", "TemperatureSensor", rTime, sType, "C", readingList);
+
+        List<Reading> expected = Arrays.asList(r1,r2,r3,r4);
+        List<Reading> result = sensor.getReadingList().getReadingsList();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void getLastReadingTest(){
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r2 = new Reading(16, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r3 = new Reading(18, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r4 = new Reading(20, new GregorianCalendar(2018, 3, 3), "C");
+
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+
+        GregorianCalendar rTime = new GregorianCalendar (2018, 2, 1, 12, 0);
+        Location loc = new Location (30, 25, 20);
+        SensorType sType = new SensorType ("temperature");
+        Sensor sensor = new Sensor ("TT1023", "TemperatureSensor", rTime, loc, sType, "C", readingList);
+
+        Reading result = sensor.getLastReadingPerSensor();
+
+        assertEquals(r4,result);
+    }
+
+    @Test
+    void getLastReadingValueTest(){
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r2 = new Reading(16, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r3 = new Reading(18, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r4 = new Reading(20, new GregorianCalendar(2018, 3, 3), "C");
+
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+
+        GregorianCalendar rTime = new GregorianCalendar (2018, 2, 1, 12, 0);
+        Location loc = new Location (30, 25, 20);
+        SensorType sType = new SensorType ("temperature");
+        Sensor sensor = new Sensor ("TT1023", "TemperatureSensor", rTime, loc, sType, "C", readingList);
+
+        double result = sensor.getLastReadingValuePerSensor();
+
+        assertEquals(20,result);
+    }
+
 
     @Test
     @DisplayName("Comparison of not equal sensors")
@@ -230,6 +304,7 @@ class SensorTest {
         Sensor sensor1 = new Sensor ("P2355", "PrecipitationSensor", startDate, loc, type1, "l/m2", readings);
         Sensor sensor2 = new Sensor ("TT1023", "TemperatureSensor", startDate, loc, type2, "C", readings);
 
+        assertEquals(true,sensor1.equals(sensor1));
         assertNotEquals (sensor1, sensor2);
         assertNotEquals (sensor2, type1);
         assertNotEquals (sensor1.hashCode (), sensor2.hashCode ());
@@ -257,30 +332,6 @@ class SensorTest {
         String expected = "l/m2";
         String result = sensor1.getUnit ();
         assertEquals (expected, result);
-    }
-
-    @Test
-    @DisplayName("Set a sensor Id with success")
-    void setIdSucccess() {
-        SensorType rain = new SensorType ("rain");
-        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
-        Location location = new Location (2, 2, 2);
-        ReadingList readingList = new ReadingList ();
-        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, rain, "l/m2", readingList);
-
-        assertTrue (sensor.setId("P233"));
-    }
-
-    @Test
-    @DisplayName("Set a sensor Id without success")
-    void setIdWithouSucccess() {
-        SensorType rain = new SensorType ("rain");
-        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
-        Location location = new Location (2, 2, 2);
-        ReadingList readingList = new ReadingList ();
-        Sensor sensor = new Sensor ("P2355", "PrecipitationSensor", startDate, location, rain, "l/m2", readingList);
-
-        assertFalse (sensor.setId(" "));
     }
 
     @Test
