@@ -44,7 +44,8 @@ public class SensorTypeList {
     public boolean addSensorType(SensorType newSensorType) {
         if (this.typeList.contains(newSensorType) || (newSensorType == null))
             return false;
-        else if (this.typeList.add(newSensorType)) {
+        else{
+            this.typeList.add(newSensorType);
             //Repository call
             try {
                 Repositories.getSensorTypeRepository().save(newSensorType);
@@ -53,7 +54,6 @@ public class SensorTypeList {
             }
             return true;
         }
-        return false;
     }
 
     /**
