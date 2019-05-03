@@ -1,5 +1,6 @@
 package smarthome.controller;
 
+import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.RoomDTO;
 import smarthome.mapper.RoomMapper;
 import smarthome.model.Room;
@@ -16,13 +17,34 @@ public class ComfortLevelCTRL {
         this.comfortLevelService = new ComfortLevelService();
     }
 
-    public List<RoomDTO> getListOfRooms(){
+    public List<RoomDTO> getListOfRooms() {
         List<Room> rooms = comfortLevelService.getRoomList();
         return this.roomMapper.toDtoList(rooms);
     }
 
-    public RoomDTO getRoomByID(int roomIndex){
-       return getListOfRooms().get(roomIndex);
+    public RoomDTO getRoomByID(int roomIndex) {
+        return getListOfRooms().get(roomIndex);
+    }
+
+
+    public boolean validateGeoAreaHasTemperatureSensorWithReadings() {
+
+        return comfortLevelService.checkIfGeoAreaHasSensorByType();
+
+    }
+
+    public boolean validateHouseHasRooms() {
+        return comfortLevelService.checkIfHouseHasRooms();
+    }
+
+    public boolean validateRoomsHaveTemperatureSensors() {
+        return comfortLevelService.checkIfAnyRoomHasSensorByType("temperature");
+    }
+
+
+    public boolean validateTemperatureSensorsHaveReadings() {
+        comfortLevelService.checkSensorsOfRoomHaveReadings();
+        return true;
     }
 
 
