@@ -1,0 +1,77 @@
+@startuml
+
+skinparam sequence {
+         	ArrowColor SteelBlue
+         	ActorBorderColor Dimgray
+         	LifeLineBorderColor MidnightBlue
+         	LifeLineBackgroundColor #A9DCDF
+
+         	ParticipantBorderColor Dimgray
+         	ParticipantBackgroundColor SteelBlue
+         	ParticipantFontName Calibri Bold
+         	ParticipantFontSize 17
+         	ParticipantFontColor Ivory
+
+         	ActorBackgroundColor SteelBlue
+         	ActorFontColor MidnightBlue
+         	ActorFontSize 17
+         	ActorFontName Aapex
+
+         }
+skinparam note {
+BorderColor SteelBlue
+}
+autonumber
+hidefootbox
+actor Administrator
+
+
+Administrator -> ":ComfortLevelUI": Check comfort level in a room
+create ":ComfortLevelCTRL"
+
+":ComfortLevelUI" -->> ":ComfortLevelCTRL": create()
+
+create ":ComfortLevelService"
+":ComfortLevelCTRL" -->> ":ComfortLevelService": create()
+
+":ComfortLevelCTRL" -> ":ComfortLevelService": getListOfRooms()
+":ComfortLevelService" -> ":House": getHouseRooms()
+
+
+":ComfortLevelUI" -->> Administrator: showRooms
+Administrator -> ":ComfortLevelUI": select room
+":ComfortLevelUI" -> ":ComfortLevelCTRL": getRoomByID(index)
+":ComfortLevelCTRL" -->> ":ComfortLevelService": getRoomByID(index)
+":ComfortLevelService" -> ":RoomList": r = getRoomByID(index)
+":ComfortLevelService" -> "r:Room": iS = getInternalSensorByType(temperature)
+Administrator -> ":ComfortLevelUI": Input time interval
+":ComfortLevelUI" -> ":ComfortLevelCTRL": getReadingsByInterval(startDate,endDate)
+":ComfortLevelCTRL" -->> ":ComfortLevelService": getReadingsByInterval(startDate,endDate)
+":ComfortLevelService" -> ":House": eS = filterByTypeByIntervalAndDistance(temperature,startDate,endDate)
+
+":ComfortLevelService" -> "eS:ExternalSensor": rL = getReadings(startDate,endDate)
+
+
+Administrator -> ":ComfortLevelUI": Select a comfort level category
+
+":ComfortLevelUI" -> ":ComfortLevelCTRL": getComfortLevel(categoryIndex)
+":ComfortLevelCTRL" -> ":ComfortLevelService": getReadingsOutsideComfortLevel
+loop for each day in time interval
+":ComfortLevelService" -> "iS:InternalSensor": rL = getReadingsInSpecificDay(day)
+":ComfortLevelService" -> "rL:ReadingList":  outAverage = dailyAverageOfReadings(day)
+":ComfortLevelService" -> "r:Room": maxTemp = getMaxTemperatureForComfortLevel(outAverage,category)
+":ComfortLevelService" -> "r:Room": getReadingsAboveComfortLevel(rL,maxTemp)
+
+
+
+end
+
+":ComfortLevelUI" -->> Administrator: show sucess message
+
+
+
+
+
+
+
+@enduml
