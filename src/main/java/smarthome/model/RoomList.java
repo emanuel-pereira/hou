@@ -53,8 +53,7 @@ public class RoomList {
             try {
                 Repositories.saveRoom(newRoom);
             } catch (NullPointerException e) {
-                log.warn("Repository unreachable");
-            }
+                log.warn("Repository unreachable"); }
             return true;
         } else return false;
     }
