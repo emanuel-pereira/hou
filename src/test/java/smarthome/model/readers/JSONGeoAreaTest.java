@@ -121,7 +121,7 @@ class JSONGeoAreaTest {
         Sensor sensor = sensorList.get(1);
 
         GregorianCalendar expected = new GregorianCalendar(2017,Calendar.NOVEMBER,16);
-        Calendar result = sensor.getStartDate();
+        Calendar result = sensor.getSensorBehavior().getStartDate();
         assertEquals(expected, result);
     }
 }

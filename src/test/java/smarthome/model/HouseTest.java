@@ -300,9 +300,9 @@ class HouseTest {
         Location loc4 = new Location(26, 26, 12);
         Location loc5 = new Location(24, 24, 12);
         ReadingList readings = new ReadingList();
-        Sensor s1 = new ExternalSensor("T001", "Temperature Sensors 1", startDate, loc3, temperature, "C", readings);
-        Sensor s2 = new ExternalSensor("T001", "Temperature Sensors 1", startDate, loc4, temperature, "C", readings);
-        Sensor s3 = new ExternalSensor("T001", "Temperature Sensors 1", startDate, loc5, temperature, "C", readings);
+        Sensor s1 = new ExternalSensor("T001", new Name("Temperature Sensors 1"), startDate, loc3, temperature, "C", readings);
+        Sensor s2 = new ExternalSensor("T001", new Name("Temperature Sensors 1"), startDate, loc4, temperature, "C", readings);
+        Sensor s3 = new ExternalSensor("T001", new Name("Temperature Sensors 1"), startDate, loc5, temperature, "C", readings);
 
         g1.getSensorListInGA().addSensor(s1);
         g1.getSensorListInGA().addSensor(s2);
@@ -311,23 +311,23 @@ class HouseTest {
         Reading r1TempSensor1 = new Reading(25, new GregorianCalendar(2018, Calendar.DECEMBER, 26, 9, 15), "C");
         Reading r2TempSensor1 = new Reading(20, new GregorianCalendar(2018, Calendar.DECEMBER, 26, 9, 30), "C");
         Reading r3TempSensor1 = new Reading(15, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 9, 15), "C");
-        s1.getReadingList().addReading(r1TempSensor1);
-        s1.getReadingList().addReading(r2TempSensor1);
-        s1.getReadingList().addReading(r3TempSensor1);
+        s1.getSensorBehavior().getReadingList().addReading(r1TempSensor1);
+        s1.getSensorBehavior().getReadingList().addReading(r2TempSensor1);
+        s1.getSensorBehavior().getReadingList().addReading(r3TempSensor1);
 
         Reading r1TempSensor2 = new Reading(15, new GregorianCalendar(2018, Calendar.DECEMBER, 26, 9, 15), "C");
         Reading r2TempSensor2 = new Reading(10, new GregorianCalendar(2018, Calendar.DECEMBER, 26, 9, 30), "C");
         Reading r3TempSensor2 = new Reading(5, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 9, 15), "C");
-        s2.getReadingList().addReading(r1TempSensor2);
-        s2.getReadingList().addReading(r2TempSensor2);
-        s2.getReadingList().addReading(r3TempSensor2);
+        s2.getSensorBehavior().getReadingList().addReading(r1TempSensor2);
+        s2.getSensorBehavior().getReadingList().addReading(r2TempSensor2);
+        s2.getSensorBehavior().getReadingList().addReading(r3TempSensor2);
 
         Reading r1TempSensor3 = new Reading(15, new GregorianCalendar(2018, Calendar.DECEMBER, 26, 9, 15), "C");
         Reading r2TempSensor3 = new Reading(10, new GregorianCalendar(2018, Calendar.DECEMBER, 26, 9, 45), "C");
         Reading r3TempSensor3 = new Reading(5, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 9, 15), "C");
-        s3.getReadingList().addReading(r1TempSensor3);
-        s3.getReadingList().addReading(r2TempSensor3);
-        s3.getReadingList().addReading(r3TempSensor3);
+        s3.getSensorBehavior().getReadingList().addReading(r1TempSensor3);
+        s3.getSensorBehavior().getReadingList().addReading(r2TempSensor3);
+        s3.getSensorBehavior().getReadingList().addReading(r3TempSensor3);
 
         Sensor result = getSensorOfTypeWithLatestReadingsInDate(new GregorianCalendar(2018, Calendar.DECEMBER, 26), temperature);
 
@@ -376,8 +376,8 @@ class HouseTest {
 
         Location l1 = new Location(47, -12, 200);
 
-        Sensor s1 = new ExternalSensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new ExternalSensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+        Sensor s1 = new ExternalSensor("R0001", new Name("RainSensor"), sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new ExternalSensor("R0002", new Name("RainSensor2"), sDate2, l1, sT, "l/m2", rL2);
 
         g1.getSensorListInGA().addSensor(s1);
         g1.getSensorListInGA().addSensor(s2);
@@ -428,8 +428,8 @@ class HouseTest {
 
         Location l1 = new Location(47, -12, 200);
 
-        Sensor s1 = new ExternalSensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new ExternalSensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+        Sensor s1 = new ExternalSensor("R0001", new Name("RainSensor"), sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new ExternalSensor("R0002", new Name("RainSensor2"), sDate2, l1, sT, "l/m2", rL2);
 
         g1.getSensorListInGA().addSensor(s1);
         g1.getSensorListInGA().addSensor(s2);
@@ -481,8 +481,8 @@ class HouseTest {
 
         Location l1 = new Location(47, -12, 200);
 
-        Sensor s1 = new ExternalSensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new ExternalSensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+        Sensor s1 = new ExternalSensor("R0001", new Name("RainSensor"), sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new ExternalSensor("R0002", new Name("RainSensor2"), sDate2, l1, sT, "l/m2", rL2);
 
         g1.getSensorListInGA().addSensor(s1);
         g1.getSensorListInGA().addSensor(s2);
@@ -535,8 +535,8 @@ class HouseTest {
 
         Location l1 = new Location(47, -12, 200);
 
-        Sensor s1 = new ExternalSensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new ExternalSensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+        Sensor s1 = new ExternalSensor("R0001", new Name("RainSensor"), sDate1, l1, sT, "l/m2", rL1);
+        Sensor s2 = new ExternalSensor("R0002", new Name("RainSensor2"), sDate2, l1, sT, "l/m2", rL2);
 
         g1.getSensorListInGA().addSensor(s1);
         g1.getSensorListInGA().addSensor(s2);

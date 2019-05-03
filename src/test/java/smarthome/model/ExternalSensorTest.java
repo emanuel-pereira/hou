@@ -17,25 +17,24 @@ class ExternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        ExternalSensor sensor = new ExternalSensor("P2355", "PrecipitationSensor", startDate, location, rain, "l/m2", readingList);
+        ExternalSensor sensor = new ExternalSensor("P2355", new Name("PrecipitationSensor"), startDate, location, rain, "l/m2", readingList);
 
-        sensor.setId("RF12345");
-        sensor.setSensorDesignation("Meteo station ISEP - rainfall");
-        assertFalse(sensor.setSensorDesignation(" "));
+        sensor.getSensorBehavior().setSensorDesignation("Meteo station ISEP - rainfall");
+        assertFalse(sensor.getSensorBehavior().setSensorDesignation(" "));
         Calendar date = new GregorianCalendar(2018,Calendar.NOVEMBER,21);
-        sensor.setStartDate(date);
+        sensor.getSensorBehavior().setStartDate(date);
         Location location1 = new Location(70,130,4000);
         sensor.setSensorLocation(location1);
         SensorType sType = new SensorType("rainfall");
-        sensor.setSensorType(sType);
-        sensor.setUnit("l/m2");
+        sensor.getSensorBehavior().setSensorType(sType);
+        sensor.getSensorBehavior().setUnit("l/m2");
 
         String result1 = sensor.getId();
-        String result5 = sensor.getDesignation();
-        Calendar result3 = sensor.getStartDate();
+        String result5 = sensor.getSensorBehavior().getDesignation();
+        Calendar result3 = sensor.getSensorBehavior().getStartDate();
         Location result6 = sensor.getLocation();
-        SensorType result2 = sensor.getSensorType();
-        String result4 = sensor.getUnit();
+        SensorType result2 = sensor.getSensorBehavior().getSensorType();
+        String result4 = sensor.getSensorBehavior().getUnit();
 
         assertEquals("RF12345",result1);
         assertEquals(sType,result2);
@@ -52,9 +51,9 @@ class ExternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readingList = new ReadingList ();
-        ExternalSensor tempSensor = new ExternalSensor("", "", startDate, loc, type1, "Celsius", readingList);
+        ExternalSensor tempSensor = new ExternalSensor("", new Name(""), startDate, loc, type1, "Celsius", readingList);
         String designation = "";
-        boolean result = tempSensor.setSensorDesignation (designation);
+        boolean result = tempSensor.getSensorBehavior().setSensorDesignation (designation);
         assertFalse (result);
     }
 
@@ -65,9 +64,9 @@ class ExternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readingList = new ReadingList ();
-        ExternalSensor tempSensor = new ExternalSensor("", "Sensor04TempPorto", startDate, loc, type1, "Celsius", readingList);
+        ExternalSensor tempSensor = new ExternalSensor("", new Name("Sensor04TempPorto"), startDate, loc, type1, "Celsius", readingList);
         String designation = "Sensor04TempPorto";
-        boolean result = tempSensor.setSensorDesignation (designation);
+        boolean result = tempSensor.getSensorBehavior().setSensorDesignation (designation);
         assertTrue (result);
     }
 
@@ -78,11 +77,11 @@ class ExternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readingList = new ReadingList ();
-        ExternalSensor tempSensor = new ExternalSensor("", "Sensor01TempMat", startDate, loc, type1, "Celsius", readingList);
+        ExternalSensor tempSensor = new ExternalSensor("", new Name("Sensor01TempMat"), startDate, loc, type1, "Celsius", readingList);
         String designation = "";
         String expectedResult = "Sensor01TempMat";
-        tempSensor.setSensorDesignation (designation);
-        String result = tempSensor.getDesignation ();
+        tempSensor.getSensorBehavior().setSensorDesignation (designation);
+        String result = tempSensor.getSensorBehavior().getDesignation ();
         assertEquals (expectedResult, result);
     }
 
@@ -92,11 +91,11 @@ class ExternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readingList = new ReadingList ();
-        ExternalSensor tempSensor = new ExternalSensor("", " ", startDate, loc, type1, "meters", readingList);
+        ExternalSensor tempSensor = new ExternalSensor("", new Name(" "), startDate, loc, type1, "meters", readingList);
         String designation = "SensorVisibilityLisbon";
-        tempSensor.setSensorDesignation (designation);
+        tempSensor.getSensorBehavior().setSensorDesignation (designation);
         String expectedResult = "SensorVisibilityLisbon";
-        String result = tempSensor.getDesignation ();
+        String result = tempSensor.getSensorBehavior().getDesignation ();
         assertEquals (expectedResult, result);
     }
 
@@ -106,11 +105,11 @@ class ExternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readingList = new ReadingList ();
-        ExternalSensor tempSensor = new ExternalSensor("", "sensor", startDate, loc, type1, "meters", readingList);
+        ExternalSensor tempSensor = new ExternalSensor("", new Name("sensor"), startDate, loc, type1, "meters", readingList);
         String designation = "SensorVisibilityLisboa";
-        tempSensor.setSensorDesignation (designation);
+        tempSensor.getSensorBehavior().setSensorDesignation (designation);
         String expectedResult = "SensorVisibilityLisboa";
-        String result = tempSensor.getDesignation ();
+        String result = tempSensor.getSensorBehavior().getDesignation ();
         assertEquals (expectedResult, result);
     }
 
@@ -121,11 +120,11 @@ class ExternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readingList = new ReadingList ();
-        ExternalSensor sensor = new ExternalSensor("", "WindSensorSantarem", startDate, loc, type1, "meters", readingList);
+        ExternalSensor sensor = new ExternalSensor("", new Name("WindSensorSantarem"), startDate, loc, type1, "meters", readingList);
         String designation = "WindSensorLisboa";
-        sensor.setSensorDesignation (designation);
+        sensor.getSensorBehavior().setSensorDesignation (designation);
         String expectedResult = "WindSensorSantarem";
-        String result = sensor.getDesignation ();
+        String result = sensor.getSensorBehavior().getDesignation ();
         assertNotEquals (expectedResult, result);
     }
 
@@ -136,7 +135,7 @@ class ExternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readingList = new ReadingList ();
-        ExternalSensor rainfallSensor = new ExternalSensor("", "RainfallSensorOfPorto", startDate, loc, type1, "Celsius", readingList);
+        ExternalSensor rainfallSensor = new ExternalSensor("", new Name("RainfallSensorOfPorto"), startDate, loc, type1, "Celsius", readingList);
         Location loc1 = new Location (30, -12, 62);
         rainfallSensor.setSensorLocation (loc1);
         Location result = rainfallSensor.getLocation ();
@@ -156,8 +155,8 @@ class ExternalSensorTest {
         Location l2 = new Location (30, 25, 20);
         ReadingList readings = new ReadingList ();
 
-        ExternalSensor sensor1 = new ExternalSensor("P2355", "PrecipitationSensor", rTime1, l1, type1, "l/m2", readings);
-        ExternalSensor sensor2 = new ExternalSensor("TT1023", "TemperatureSensor", rTime2, l2, type2, "C", readings);
+        ExternalSensor sensor1 = new ExternalSensor("P2355", new Name("PrecipitationSensor"), rTime1, l1, type1, "l/m2", readings);
+        ExternalSensor sensor2 = new ExternalSensor("TT1023", new Name("TemperatureSensor"), rTime2, l2, type2, "C", readings);
 
         double expectedResult = 33.91;
         double result = sensor1.calcLinearDistanceBetweenTwoSensors (sensor1, sensor2);
@@ -175,8 +174,8 @@ class ExternalSensorTest {
         Location loc = new Location (10, 10, 10);
         ReadingList readings = new ReadingList ();
 
-        ExternalSensor sensor1 = new ExternalSensor("P2355", "PrecipitationSensor", rTime1, loc, type1, "l/m2", readings);
-        ExternalSensor sensor2 = new ExternalSensor("TT1023", "TemperatureSensor", rTime2, loc, type2, "C", readings);
+        ExternalSensor sensor1 = new ExternalSensor("P2355", new Name("PrecipitationSensor"), rTime1, loc, type1, "l/m2", readings);
+        ExternalSensor sensor2 = new ExternalSensor("TT1023", new Name("TemperatureSensor"), rTime2, loc, type2, "C", readings);
 
         double expectedResult = 0;
         double result = sensor1.calcLinearDistanceBetweenTwoSensors (sensor1, sensor2);
@@ -194,8 +193,8 @@ class ExternalSensorTest {
         SensorType type2 = new SensorType ("temperature");
         ReadingList readings = new ReadingList ();
 
-        ExternalSensor sensor1 = new ExternalSensor("P2355", "PrecipitationSensor", rTime1, loc1, type1, "l/m2", readings);
-        ExternalSensor sensor2 = new ExternalSensor("TT1023", "TemperatureSensor", rTime2, loc2, type2, "C", readings);
+        ExternalSensor sensor1 = new ExternalSensor("P2355", new Name("PrecipitationSensor"), rTime1, loc1, type1, "l/m2", readings);
+        ExternalSensor sensor2 = new ExternalSensor("TT1023", new Name("TemperatureSensor"), rTime2, loc2, type2, "C", readings);
 
         double expectedResult = 0;
         double result = sensor1.calcLinearDistanceBetweenTwoSensors (sensor1, sensor2);
@@ -214,8 +213,8 @@ class ExternalSensorTest {
         SensorType type2 = new SensorType ("temperature");
         ReadingList readings = new ReadingList ();
 
-        ExternalSensor sensor1 = new ExternalSensor("P2355", "PrecipitationSensor", rTime1, loc1, type1, "l/m2", readings);
-        ExternalSensor sensor2 = new ExternalSensor("TT1023", "TemperatureSensor", rTime2, loc2, type2, "C", readings);
+        ExternalSensor sensor1 = new ExternalSensor("P2355", new Name("PrecipitationSensor"), rTime1, loc1, type1, "l/m2", readings);
+        ExternalSensor sensor2 = new ExternalSensor("TT1023", new Name("TemperatureSensor"), rTime2, loc2, type2, "C", readings);
         double expectedResult = 0;
         double result = sensor1.calcLinearDistanceBetweenTwoSensors (sensor1, sensor2);
         assertNotEquals (expectedResult, result);
@@ -232,8 +231,8 @@ class ExternalSensorTest {
         SensorType type2 = new SensorType ("temperature");
         ReadingList readings = new ReadingList ();
 
-        ExternalSensor sensor1 = new ExternalSensor("P2355", "PrecipitationSensor", startDate, loc, type1, "l/m2", readings);
-        ExternalSensor sensor2 = new ExternalSensor("TT1023", "TemperatureSensor", startDate, loc, type2, "C", readings);
+        ExternalSensor sensor1 = new ExternalSensor("P2355", new Name("PrecipitationSensor"), startDate, loc, type1, "l/m2", readings);
+        ExternalSensor sensor2 = new ExternalSensor("TT1023", new Name("TemperatureSensor"), startDate, loc, type2, "C", readings);
 
         assertNotEquals (sensor1, sensor2);
         assertNotEquals (sensor2, type1);
@@ -246,9 +245,9 @@ class ExternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readings = new ReadingList ();
-        ExternalSensor sensor1 = new ExternalSensor("P2355", "PrecipitationSensor", startDate, loc, type1, "l/m2", readings);
+        ExternalSensor sensor1 = new ExternalSensor("P2355", new Name("PrecipitationSensor"), startDate, loc, type1, "l/m2", readings);
         Calendar expected = new GregorianCalendar (2018, 8, 1, 9, 0);
-        Calendar result = sensor1.getStartDate ();
+        Calendar result = sensor1.getSensorBehavior().getStartDate ();
         assertEquals (expected, result);
     }
 
@@ -258,34 +257,10 @@ class ExternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         Location loc = new Location (40, 20, 10);
         ReadingList readings = new ReadingList ();
-        ExternalSensor sensor1 = new ExternalSensor("P2355", "PrecipitationSensor", startDate, loc, type1, "l/m2", readings);
+        ExternalSensor sensor1 = new ExternalSensor("P2355", new Name("PrecipitationSensor"), startDate, loc, type1, "l/m2", readings);
         String expected = "l/m2";
-        String result = sensor1.getUnit ();
+        String result = sensor1.getSensorBehavior().getUnit ();
         assertEquals (expected, result);
-    }
-
-    @Test
-    @DisplayName("Set a sensor Id with success")
-    void setIdSucccess() {
-        SensorType rain = new SensorType ("rain");
-        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
-        Location location = new Location (2, 2, 2);
-        ReadingList readingList = new ReadingList ();
-        ExternalSensor sensor = new ExternalSensor("P2355", "PrecipitationSensor", startDate, location, rain, "l/m2", readingList);
-
-        assertTrue (sensor.setId("P233"));
-    }
-
-    @Test
-    @DisplayName("Set a sensor Id without success")
-    void setIdWithouSucccess() {
-        SensorType rain = new SensorType ("rain");
-        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
-        Location location = new Location (2, 2, 2);
-        ReadingList readingList = new ReadingList ();
-        ExternalSensor sensor = new ExternalSensor("P2355", "PrecipitationSensor", startDate, location, rain, "l/m2", readingList);
-
-        assertFalse (sensor.setId(" "));
     }
 
     @Test
@@ -295,9 +270,9 @@ class ExternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        ExternalSensor sensor = new ExternalSensor("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        ExternalSensor sensor = new ExternalSensor("P2355", new Name("PrecipitationSensor"), startDate, location, sensorType, "l/m2", readingList);
 
-        assertTrue (sensor.isActive ());
+        assertTrue (sensor.getSensorBehavior().isActive ());
     }
 
     @Test
@@ -308,11 +283,11 @@ class ExternalSensorTest {
         GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        ExternalSensor sensor = new ExternalSensor("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        ExternalSensor sensor = new ExternalSensor("P2355", new Name("PrecipitationSensor"), startDate, location, sensorType, "l/m2", readingList);
 
-        assertTrue (sensor.deactivate (pauseDate));
+        assertTrue (sensor.getSensorBehavior().deactivate (pauseDate));
 
-        assertFalse (sensor.isActive ());
+        assertFalse (sensor.getSensorBehavior().isActive ());
     }
 
     @Test
@@ -323,12 +298,12 @@ class ExternalSensorTest {
         GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        ExternalSensor sensor = new ExternalSensor("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        ExternalSensor sensor = new ExternalSensor("P2355", new Name("PrecipitationSensor"), startDate, location, sensorType, "l/m2", readingList);
 
-        assertTrue(sensor.deactivate (pauseDate));
-        assertFalse(sensor.deactivate (pauseDate));
+        assertTrue(sensor.getSensorBehavior().deactivate (pauseDate));
+        assertFalse(sensor.getSensorBehavior().deactivate (pauseDate));
 
-        assertFalse (sensor.isActive ());
+        assertFalse (sensor.getSensorBehavior().isActive ());
     }
 
     @Test
@@ -339,12 +314,12 @@ class ExternalSensorTest {
         GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        ExternalSensor sensor = new ExternalSensor("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        ExternalSensor sensor = new ExternalSensor("P2355", new Name("PrecipitationSensor"), startDate, location, sensorType, "l/m2", readingList);
 
-        assertTrue(sensor.deactivate (pauseDate));
-        assertTrue(sensor.reactivate ());
+        assertTrue(sensor.getSensorBehavior().deactivate (pauseDate));
+        assertTrue(sensor.getSensorBehavior().reactivate ());
 
-        assertTrue(sensor.isActive ());
+        assertTrue(sensor.getSensorBehavior().isActive ());
     }
 
     @Test
@@ -354,11 +329,11 @@ class ExternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        ExternalSensor sensor = new ExternalSensor("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        ExternalSensor sensor = new ExternalSensor("P2355", new Name("PrecipitationSensor"), startDate, location, sensorType, "l/m2", readingList);
 
-        assertFalse(sensor.reactivate ());
+        assertFalse(sensor.getSensorBehavior().reactivate ());
 
-        assertTrue(sensor.isActive ());
+        assertTrue(sensor.getSensorBehavior().isActive ());
     }
 
     @Test
@@ -369,12 +344,12 @@ class ExternalSensorTest {
         GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        ExternalSensor sensor = new ExternalSensor("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        ExternalSensor sensor = new ExternalSensor("P2355", new Name("PrecipitationSensor"), startDate, location, sensorType, "l/m2", readingList);
 
-        assertTrue (sensor.deactivate (pauseDate));
+        assertTrue (sensor.getSensorBehavior().deactivate (pauseDate));
 
         Calendar expected = pauseDate;
-        Calendar result = sensor.getPauseDate ();
+        Calendar result = sensor.getSensorBehavior().getPauseDate ();
 
         assertEquals (expected,result);
     }
@@ -387,52 +362,15 @@ class ExternalSensorTest {
         GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 1, 2, 1, 1);
         Location location = new Location (2, 2, 2);
         ReadingList readingList = new ReadingList ();
-        ExternalSensor sensor = new ExternalSensor("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
+        ExternalSensor sensor = new ExternalSensor("P2355", new Name("PrecipitationSensor"), startDate, location, sensorType, "l/m2", readingList);
 
-        assertFalse (sensor.deactivate (pauseDate));
+        assertFalse (sensor.getSensorBehavior().deactivate (pauseDate));
 
         Calendar expected = null;
-        Calendar result = sensor.getPauseDate ();
+        Calendar result = sensor.getSensorBehavior().getPauseDate ();
 
         assertEquals (expected,result);
 
-    }
-
-
-    @Test
-    @DisplayName("Try to unsuccessfully set an Id")
-    void setIdWithoutSuccess() {
-        SensorType sensorType = new SensorType ("rain");
-        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
-        Location location = new Location (2, 2, 2);
-        ReadingList readingList = new ReadingList ();
-        ExternalSensor sensor = new ExternalSensor("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
-
-        assertFalse(sensor.setId(" "));
-    }
-
-    @Test
-    @DisplayName("Try to unsuccessfully set an Id")
-    void setIdWithoutSuccessWithSpaces() {
-        SensorType sensorType = new SensorType ("rain");
-        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
-        Location location = new Location (2, 2, 2);
-        ReadingList readingList = new ReadingList ();
-        ExternalSensor sensor = new ExternalSensor("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
-
-        assertFalse(sensor.setId("Sensor 12"));
-    }
-
-    @Test
-    @DisplayName("Try to successfully set an Id")
-    void setIdWithSuccess() {
-        SensorType sensorType = new SensorType ("rain");
-        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
-        Location location = new Location (2, 2, 2);
-        ReadingList readingList = new ReadingList ();
-        ExternalSensor sensor = new ExternalSensor("P2355", "PrecipitationSensor", startDate, location, sensorType, "l/m2", readingList);
-
-        assertTrue(sensor.setId("P235"));
     }
 
 }

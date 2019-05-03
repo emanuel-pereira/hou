@@ -16,10 +16,8 @@ class InternalSensorTest {
         SensorType temperature = new SensorType ("temperature");
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         ReadingList readingList = new ReadingList ();
-        InternalSensor sensor = new InternalSensor("P2355", "HouseSensor", startDate, temperature, "l/m2", readingList);
+        InternalSensor sensor = new InternalSensor("P2355", new Name("HouseSensor"), startDate, temperature, "l/m2", readingList);
 
-        sensor.setId("RF12345");
-        assertFalse(sensor.setId(" "));
         sensor.setSensorDesignation("House Sensor");
         Calendar date = new GregorianCalendar(2018,Calendar.NOVEMBER,21);
         sensor.setStartDate(date);
@@ -46,7 +44,7 @@ class InternalSensorTest {
         SensorType type1 = new SensorType ("temperature");
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         ReadingList readingList = new ReadingList ();
-        InternalSensor tempSensor = new InternalSensor("", "", startDate, type1, "Celsius", readingList);
+        InternalSensor tempSensor = new InternalSensor("", new Name(""), startDate, type1, "Celsius", readingList);
         String designation = "";
         boolean result = tempSensor.setSensorDesignation (designation);
         assertFalse (result);
@@ -58,7 +56,7 @@ class InternalSensorTest {
         SensorType type1 = new SensorType ("temperature");
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         ReadingList readingList = new ReadingList ();
-        InternalSensor tempSensor = new InternalSensor("", "Sensor", startDate, type1, "Celsius", readingList);
+        InternalSensor tempSensor = new InternalSensor("", new Name("Sensor"), startDate, type1, "Celsius", readingList);
         String designation = "KitchenSensor";
         boolean result = tempSensor.setSensorDesignation (designation);
         assertTrue (result);
@@ -70,7 +68,7 @@ class InternalSensorTest {
         SensorType type1 = new SensorType ("temperature");
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         ReadingList readingList = new ReadingList ();
-        InternalSensor tempSensor = new InternalSensor("", "Sensor01TempMat", startDate, type1, "Celsius", readingList);
+        InternalSensor tempSensor = new InternalSensor("", new Name("Sensor01TempMat"), startDate, type1, "Celsius", readingList);
         String designation = "";
         String expectedResult = "Sensor01TempMat";
         tempSensor.setSensorDesignation (designation);
@@ -83,7 +81,7 @@ class InternalSensorTest {
         SensorType type1 = new SensorType ("visibility");
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         ReadingList readingList = new ReadingList ();
-        InternalSensor tempSensor = new InternalSensor("", " ", startDate, type1, "meters", readingList);
+        InternalSensor tempSensor = new InternalSensor("", new Name(" "), startDate, type1, "meters", readingList);
         String designation = "SensorVisibilityRoom1";
         tempSensor.setSensorDesignation (designation);
         String expectedResult = "SensorVisibilityRoom1";
@@ -96,7 +94,7 @@ class InternalSensorTest {
         SensorType type1 = new SensorType ("visibility");
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         ReadingList readingList = new ReadingList ();
-        InternalSensor tempSensor = new InternalSensor("", "sensor", startDate, type1, "meters", readingList);
+        InternalSensor tempSensor = new InternalSensor("", new Name("sensor"), startDate, type1, "meters", readingList);
         String designation = "SensorVisibility";
         tempSensor.setSensorDesignation (designation);
         String expectedResult = "SensorVisibility";
@@ -110,7 +108,7 @@ class InternalSensorTest {
         SensorType type1 = new SensorType ("wind");
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         ReadingList readingList = new ReadingList ();
-        InternalSensor sensor = new InternalSensor("", "WindSensor", startDate, type1, "meters", readingList);
+        InternalSensor sensor = new InternalSensor("", new Name("WindSensor"), startDate, type1, "meters", readingList);
         String designation = "WindSensorRoom";
         sensor.setSensorDesignation (designation);
         String expectedResult = "WindSensor";
@@ -128,8 +126,8 @@ class InternalSensorTest {
         SensorType type2 = new SensorType ("temperature");
         ReadingList readings = new ReadingList ();
 
-        InternalSensor sensor1 = new InternalSensor("P2355", "HumiditySensor", startDate, type1, "%", readings);
-        InternalSensor sensor2 = new InternalSensor("TT1023", "TemperatureSensor", startDate, type2, "C", readings);
+        InternalSensor sensor1 = new InternalSensor("P2355", new Name("HumiditySensor"), startDate, type1, "%", readings);
+        InternalSensor sensor2 = new InternalSensor("TT1023", new Name("TemperatureSensor"), startDate, type2, "C", readings);
 
         assertNotEquals (sensor1, sensor2);
         assertNotEquals (sensor2, type1);
@@ -141,7 +139,7 @@ class InternalSensorTest {
         SensorType type1 = new SensorType ("humidity");
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         ReadingList readings = new ReadingList ();
-        InternalSensor sensor1 = new InternalSensor("P2355", "HumiditySensor", startDate, type1, "%", readings);
+        InternalSensor sensor1 = new InternalSensor("P2355", new Name("HumiditySensor"), startDate, type1, "%", readings);
         Calendar expected = new GregorianCalendar (2018, 8, 1, 9, 0);
         Calendar result = sensor1.getStartDate ();
         assertEquals (expected, result);
@@ -152,32 +150,10 @@ class InternalSensorTest {
         SensorType type1 = new SensorType ("precipitation");
         GregorianCalendar startDate = new GregorianCalendar (2018, 8, 1, 9, 0);
         ReadingList readings = new ReadingList ();
-        InternalSensor sensor1 = new InternalSensor("P2355", "GardenSensor", startDate, type1, "l/m2", readings);
+        InternalSensor sensor1 = new InternalSensor("P2355", new Name("GardenSensor"), startDate, type1, "l/m2", readings);
         String expected = "l/m2";
         String result = sensor1.getUnit ();
         assertEquals (expected, result);
-    }
-
-    @Test
-    @DisplayName("Set a sensor Id with success")
-    void setIdSuccess() {
-        SensorType rain = new SensorType ("rain");
-        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
-        ReadingList readingList = new ReadingList ();
-        InternalSensor sensor = new InternalSensor("P2355", "GardenSensor", startDate, rain, "l/m2", readingList);
-
-        assertTrue (sensor.setId("P233"));
-    }
-
-    @Test
-    @DisplayName("Set a sensor Id without success")
-    void setIdWithoutSuccess() {
-        SensorType rain = new SensorType ("rain");
-        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
-        ReadingList readingList = new ReadingList ();
-        InternalSensor sensor = new InternalSensor("P2355", "GardenSensor", startDate, rain, "l/m2", readingList);
-
-        assertFalse (sensor.setId(" "));
     }
 
     @Test
@@ -186,7 +162,7 @@ class InternalSensorTest {
         SensorType sensorType = new SensorType ("temperature");
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         ReadingList readingList = new ReadingList ();
-        InternalSensor sensor = new InternalSensor("P2355", "BedroomSensor", startDate, sensorType, "C", readingList);
+        InternalSensor sensor = new InternalSensor("P2355", new Name("BedroomSensor"), startDate, sensorType, "C", readingList);
 
         assertTrue (sensor.isActive ());
     }
@@ -198,7 +174,7 @@ class InternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
         ReadingList readingList = new ReadingList ();
-        InternalSensor sensor = new InternalSensor("P2355", "GardenSensor", startDate, sensorType, "l/m2", readingList);
+        InternalSensor sensor = new InternalSensor("P2355", new Name("GardenSensor"), startDate, sensorType, "l/m2", readingList);
 
         assertTrue (sensor.deactivate (pauseDate));
 
@@ -212,7 +188,7 @@ class InternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
         ReadingList readingList = new ReadingList ();
-        InternalSensor sensor = new InternalSensor("P2355", "PrecipitationSensor", startDate, sensorType, "C", readingList);
+        InternalSensor sensor = new InternalSensor("P2355", new Name("PrecipitationSensor"), startDate, sensorType, "C", readingList);
 
         assertTrue(sensor.deactivate (pauseDate));
         assertFalse(sensor.deactivate (pauseDate));
@@ -227,7 +203,7 @@ class InternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
         ReadingList readingList = new ReadingList ();
-        InternalSensor sensor = new InternalSensor("P2355", "PresenceSensor", startDate, sensorType, "People", readingList);
+        InternalSensor sensor = new InternalSensor("P2355", new Name("PresenceSensor"), startDate, sensorType, "People", readingList);
 
         assertTrue(sensor.deactivate (pauseDate));
         assertTrue(sensor.reactivate ());
@@ -241,7 +217,7 @@ class InternalSensorTest {
         SensorType sensorType = new SensorType ("rain");
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         ReadingList readingList = new ReadingList ();
-        InternalSensor sensor = new InternalSensor("P2355", "GardenSensor", startDate, sensorType, "l/m2", readingList);
+        InternalSensor sensor = new InternalSensor("P2355", new Name("GardenSensor"), startDate, sensorType, "l/m2", readingList);
 
         assertFalse(sensor.reactivate ());
 
@@ -255,7 +231,7 @@ class InternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 3, 2, 1, 1);
         ReadingList readingList = new ReadingList ();
-        InternalSensor sensor = new InternalSensor("P2355", "GardenSensor", startDate,  sensorType, "l/m2", readingList);
+        InternalSensor sensor = new InternalSensor("P2355", new Name("GardenSensor"), startDate,  sensorType, "l/m2", readingList);
 
         assertTrue (sensor.deactivate (pauseDate));
 
@@ -271,7 +247,7 @@ class InternalSensorTest {
         GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
         GregorianCalendar pauseDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 1, 2, 1, 1);
         ReadingList readingList = new ReadingList ();
-        InternalSensor sensor = new InternalSensor("P2355", "GardenSensor", startDate, sensorType, "l/m2", readingList);
+        InternalSensor sensor = new InternalSensor("P2355", new Name("GardenSensor"), startDate, sensorType, "l/m2", readingList);
 
         assertFalse (sensor.deactivate (pauseDate));
 
@@ -280,29 +256,6 @@ class InternalSensorTest {
 
         assertEquals (expected,result);
 
-    }
-
-
-    @Test
-    @DisplayName("Try to unsuccessfully set an Id")
-    void setIdWithoutSuccess2() {
-        SensorType sensorType = new SensorType ("rain");
-        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
-        ReadingList readingList = new ReadingList ();
-        InternalSensor sensor = new InternalSensor("P2355", "GardenSensor", startDate, sensorType, "l/m2", readingList);
-
-        assertFalse(sensor.setId(" "));
-    }
-
-    @Test
-    @DisplayName("Try to successfully set an Id")
-    void setIdWithSuccess() {
-        SensorType sensorType = new SensorType ("rain");
-        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
-        ReadingList readingList = new ReadingList ();
-        InternalSensor sensor = new InternalSensor("P2355", "GardenSensor", startDate, sensorType, "l/m2", readingList);
-
-        assertTrue(sensor.setId("P235"));
     }
 
 }
