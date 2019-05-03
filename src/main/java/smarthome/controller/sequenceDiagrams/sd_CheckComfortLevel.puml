@@ -34,10 +34,15 @@ create ":ComfortLevelCTRL"
 create ":ComfortLevelService"
 ":ComfortLevelCTRL" -->> ":ComfortLevelService": create()
 
-":ComfortLevelCTRL" -> ":ComfortLevelService": requestRoomList()
+":ComfortLevelCTRL" -> ":ComfortLevelService": getRoomList()
 ":ComfortLevelService" -> ":RoomRepo": getRoomList()
 ":RoomRepo" -> ":RoomJPA": findAll()
 ":RoomRepo" -> ":RoomRepo": toDTO()
+
+
+":ComfortLevelService" --> ":ComfortLevelCTRL": showRoomList()
+":ComfortLevelCTRL" --> ":ComfortLevelUI": showRoomList()
+":ComfortLevelUI" -->> Administrator: show rooms
 
 ":ComfortLevelService" -> ":HouseRepo": getHouseGA()
 ":ComfortLevelService" -> ":ExternalSensorRepo": getNearestTemperatureSensor(gaID,gaLocation)
@@ -45,25 +50,21 @@ create ":ComfortLevelService"
 ":ExternalSensorRepo" -> ":ExternalSensorRepo": getNearestTemperatureSensor(gaLocation,temperature)
 
 
-":ComfortLevelService" -> ":ComfortLevelCTRL": showRoomList()
-":ComfortLevelCTRL" -> ":ComfortLevelUI": showRoomList()
-":ComfortLevelUI" -->> Administrator: show rooms
-
 
 Administrator -> ":ComfortLevelUI": select room
-":ComfortLevelUI" -> ":ComfortLevelCTRL": getSensorByRoomAndType(roomID,temperature)
+":ComfortLevelUI" -> ":ComfortLevelCTRL": requestSensorByRoomAndType(roomID,temperature)
 ":ComfortLevelCTRL" -> ":ComfortLevelService": getSensorByRoomAndType(roomID,temperature)
 ":ComfortLevelService" -> ":InternalSensorRepo": getSensorByRoomAndType(roomID,temperature)
 ":InternalSensorRepo" -> ":InternalSensorJPA": findSensorsByRoom(roomID)
 ":InternalSensorRepo" -> ":InternalSensorRepo": getSensorByType(temperature)
 
-Administrator <- ":ComfortLevelUI": Ask to input time interval
+Administrator <-- ":ComfortLevelUI": Ask to input time interval
 Administrator -> ":ComfortLevelUI": Input time interval
 
-Administrator <- ":ComfortLevelUI": Ask to select comfort level category
+Administrator <-- ":ComfortLevelUI": Ask to select comfort level category
 Administrator -> ":ComfortLevelUI": Select a comfort level category
-":ComfortLevelUI" -> ":ComfortLevelCTRL": getReadingsOutsideComfortLevel(startDate,endDate,category)
-":ComfortLevelCTRL" -> ":ComfortLevelService": List<ReadingDTO> = getReadingsOutsideComfortLevel(startDate,endDate,category)
+":ComfortLevelUI" -> ":ComfortLevelCTRL": requestReadingsOutsideComfortLevel(startDate,endDate,category)
+":ComfortLevelCTRL" -> ":ComfortLevelService": getReadingsOutsideComfortLevel(startDate,endDate,category)
 
 
 loop for each day in time interval
@@ -86,6 +87,7 @@ note right #FFFF
 end note
 end
 ":ComfortLevelService" -> ":ComfortLevelService": toDTO()
+":ComfortLevelCTRL" --> ":ComfortLevelUI": showReadingList()
 
 
 ":ComfortLevelUI" -->> Administrator: show results
