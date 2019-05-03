@@ -8,7 +8,7 @@ public class Name {
 
     public Name(String name) {
 
-        if ((nameIsValid(name)) && (alphanumericName(name)))
+        if ((nameIsValid(name)) || (alphanumericName(name)))
 
             this.name = name;
 

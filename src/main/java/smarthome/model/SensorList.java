@@ -152,10 +152,10 @@ public class SensorList {
         String element = " - ";
         int number = 1;
         for (Sensor sensor : this.listOfSensors) {
-            SensorType sensorType=sensor.getSensorBehavior().getSensorType();
+            String name=sensor.getSensorBehavior().getDesignation();
             result.append(number++);
             result.append(element);
-            result.append(sensorType.getType());
+            result.append(name);
             result.append("\n");
         }
         return result.toString();

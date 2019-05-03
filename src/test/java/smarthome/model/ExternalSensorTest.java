@@ -36,7 +36,7 @@ class ExternalSensorTest {
         SensorType result2 = sensor.getSensorBehavior().getSensorType();
         String result4 = sensor.getSensorBehavior().getUnit();
 
-        assertEquals("RF12345",result1);
+        assertEquals("P2355",result1);
         assertEquals(sType,result2);
         assertEquals(date,result3);
         assertEquals("l/m2",result4);
