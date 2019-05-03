@@ -54,20 +54,6 @@ protected SensorBehavior(){}
     }
 
     /**
-     * Accept alphanumeric input without spaces
-     *
-     * @param id Unique identification
-     * @return True if validate correctly
-     */
-    public boolean sensorIdIsValid(String id) {
-        if (id.trim().isEmpty()) {
-            return false;
-        }
-        return id.matches("^[a-zA-Z0-9]*$");
-    }
-
-
-    /**
      * Changes the sensorDesignation of the sensor to the one inputted by the user.
      *
      * @param sensorName sensor's name String

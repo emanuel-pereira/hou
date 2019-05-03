@@ -26,6 +26,14 @@ class NameTest {
     }
 
     @Test
+    @DisplayName("Ensure nameIsValid returns false to null input")
+    void nameIsValidIfNull() {
+        Name n = new Name();
+        boolean result=n.nameIsValid(null);
+        assertFalse(result);
+    }
+
+    @Test
     @DisplayName("Ensure that an alphanumeric name with spaces and hyphens is valid")
     void alphanumericName() {
         Name n = new Name ("");

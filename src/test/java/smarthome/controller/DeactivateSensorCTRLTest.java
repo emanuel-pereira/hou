@@ -312,7 +312,8 @@ class DeactivateSensorCTRLTest {
         lisbonSensorList.addSensor(sensor2);
 
         GregorianCalendar pDate = new GregorianCalendar(2019, Calendar.MARCH, 3);
-        sensor2.getSensorBehavior().deactivate(pDate);
+
+        assertTrue(sensor2.getSensorBehavior().deactivate(pDate));
 
         SensorMapper sMapper = new SensorMapper();
         SensorDTO sensor1DTO = sMapper.toDto(sensor1);

@@ -107,7 +107,7 @@ public final class Repositories {
 
     public static void saveInternalSensor(InternalSensor s) {
         //TODO remove when solution for duplicates is found and implemented
-        Repositories.getSensorTypeRepository().save(s.getSensorType());
+        Repositories.getSensorTypeRepository().save(s.getSensorBehavior().getSensorType());
 
         Repositories.internalSensorRepository.save(s);
     }

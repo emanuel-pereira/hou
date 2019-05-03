@@ -26,7 +26,7 @@ public class ExternalSensor implements Sensor {
      * Constructor used to create external sensors which require location coordinates.
      *
      * @param id          String parameter to specify sensor's id
-     * @param name String parameter to specify sensor's name
+     * @param name        String parameter to specify sensor's name
      * @param startDate   specifies the sensor start date as a Calendar dataType
      * @param geoLocation specifies the sensor GPS coordinates
      * @param sensorType  specifies the sensor start date as a Calendar variable
@@ -36,7 +36,7 @@ public class ExternalSensor implements Sensor {
     public ExternalSensor(String id, String name, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
         this.id = id;
         this.location = geoLocation;
-        Name sName=new Name(name);
+        Name sName = new Name(name);
         this.sensorBehavior = new SensorBehavior(sName, startDate, sensorType, unit, readings);
     }
 
@@ -49,13 +49,14 @@ public class ExternalSensor implements Sensor {
 
     /**
      * Needed to access all the sensor methods common to a Sensor
+     *
      * @return SensorBehavior (acees
      */
     public SensorBehavior getSensorBehavior() {
         return sensorBehavior;
     }
 
-        /**
+    /**
      * Changes the location of the sensor to the new location coordinates inputted by the user.
      *
      * @param location , of the object Location type, to update the location of the sensor
@@ -72,7 +73,6 @@ public class ExternalSensor implements Sensor {
     public Location getLocation() {
         return this.location;
     }
-
 
     /**
      * Method to calculate linear distance between two sensors

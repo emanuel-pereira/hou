@@ -338,9 +338,9 @@ class HouseTest {
         Location loc4 = new Location(0, 22, 12);
         Location loc5 = new Location(0, 24, 12);
         ReadingList readings = new ReadingList();
-        Sensor s1 = new Sensor("T001", "Temperature Sensor 1", startDate, loc3, temperature, "C", readings);
-        Sensor s2 = new Sensor("T002", "Temperature Sensor 2", startDate, loc4, temperature, "C", readings);
-        Sensor s3 = new Sensor("T003", "Temperature Sensor 3", startDate, loc5, temperature, "C", readings);
+        ExternalSensor s1 = new ExternalSensor("T001", "Temperature Sensor 1", startDate, loc3, temperature, "C", readings);
+        ExternalSensor s2 = new ExternalSensor("T002", "Temperature Sensor 2", startDate, loc4, temperature, "C", readings);
+        ExternalSensor s3 = new ExternalSensor("T003", "Temperature Sensor 3", startDate, loc5, temperature, "C", readings);
 
         g1.getSensorListInGA().addSensor(s1);
         g1.getSensorListInGA().addSensor(s2);
@@ -369,9 +369,9 @@ class HouseTest {
         Location loc4 = new Location(0, 22, 12);
         Location loc5 = new Location(0, 24, 12);
         ReadingList readings = new ReadingList();
-        Sensor s1 = new Sensor("T001", "Temperature Sensor 1", startDate, loc3, temperature, "C", readings);
-        Sensor s2 = new Sensor("T002", "Temperature Sensor 2", startDate, loc4, temperature, "C", readings);
-        Sensor s3 = new Sensor("T003", "Temperature Sensor 3", startDate, loc5, temperature, "C", readings);
+        ExternalSensor s1 = new ExternalSensor("T001", "Temperature Sensor 1", startDate, loc3, temperature, "C", readings);
+        ExternalSensor s2 = new ExternalSensor("T002", "Temperature Sensor 2", startDate, loc4, temperature, "C", readings);
+        ExternalSensor s3 = new ExternalSensor("T003", "Temperature Sensor 3", startDate, loc5, temperature, "C", readings);
 
         geographicalArea.getSensorListInGA().addSensor(s1);
         geographicalArea.getSensorListInGA().addSensor(s2);
@@ -396,9 +396,9 @@ class HouseTest {
         Location loc4 = new Location(0, 22, 12);
         Location loc5 = new Location(0, 24, 12);
         ReadingList readings = new ReadingList();
-        Sensor s1 = new Sensor("T001", "Temperature Sensor 1", startDate, loc3, temperature, "C", readings);
-        Sensor s2 = new Sensor("T002", "Temperature Sensor 2", startDate, loc4, temperature, "C", readings);
-        Sensor s3 = new Sensor("T003", "Temperature Sensor 3", startDate, loc5, temperature, "C", readings);
+        ExternalSensor s1 = new ExternalSensor("T001", "Temperature Sensor 1", startDate, loc3, temperature, "C", readings);
+        ExternalSensor s2 = new ExternalSensor("T002", "Temperature Sensor 2", startDate, loc4, temperature, "C", readings);
+        ExternalSensor s3 = new ExternalSensor("T003", "Temperature Sensor 3", startDate, loc5, temperature, "C", readings);
 
         g1.getSensorListInGA().addSensor(s1);
         g1.getSensorListInGA().addSensor(s2);
@@ -466,10 +466,12 @@ class HouseTest {
         Location loc3 = new Location(0, 15, 12);
         Location loc4 = new Location(26, 26, 12);
         Location loc5 = new Location(26, 26, 12);
-        ReadingList readings = new ReadingList();
-        Sensor s1 = new Sensor("T001", "Temperature Sensor 1", startDate, loc3, temperature, "C", readings);
-        Sensor s2 = new Sensor("T002", "Temperature Sensor 1", startDate, loc4, temperature, "C", readings);
-        Sensor s3 = new Sensor("T003", "Temperature Sensor 1", startDate, loc5, temperature, "C", readings);
+        ReadingList readings1 = new ReadingList();
+        ReadingList readings2 = new ReadingList();
+        ReadingList readings3 = new ReadingList();
+        ExternalSensor s1 = new ExternalSensor("T001", "Temperature Sensor 1", startDate, loc3, temperature, "C", readings1);
+        ExternalSensor s2 = new ExternalSensor("T002", "Temperature Sensor 2", startDate, loc4, temperature, "C", readings2);
+        ExternalSensor s3 = new ExternalSensor("T003", "Temperature Sensor 3", startDate, loc5, temperature, "C", readings3);
 
         g1.getSensorListInGA().addSensor(s1);
         g1.getSensorListInGA().addSensor(s2);
@@ -478,27 +480,27 @@ class HouseTest {
         Reading r1TempSensor1 = new Reading(25, new GregorianCalendar(2018, Calendar.DECEMBER, 26, 9, 15), "C");
         Reading r2TempSensor1 = new Reading(20, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 9, 30), "C");
         Reading r3TempSensor1 = new Reading(15, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 9, 15), "C");
-        s1.getReadingList().addReading(r1TempSensor1);
-        s1.getReadingList().addReading(r2TempSensor1);
-        s1.getReadingList().addReading(r3TempSensor1);
+        readings1.addReading(r1TempSensor1);
+        readings1.addReading(r2TempSensor1);
+        readings1.addReading(r3TempSensor1);
 
         Reading r1TempSensor2 = new Reading(15, new GregorianCalendar(2018, Calendar.DECEMBER, 26, 9, 15), "C");
         Reading r2TempSensor2 = new Reading(10, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 9, 30), "C");
         Reading r3TempSensor2 = new Reading(5, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 9, 50), "C");
-        s2.getReadingList().addReading(r1TempSensor2);
-        s2.getReadingList().addReading(r2TempSensor2);
-        s2.getReadingList().addReading(r3TempSensor2);
+        readings2.addReading(r1TempSensor2);
+        readings2.addReading(r2TempSensor2);
+        readings2.addReading(r3TempSensor2);
 
         Reading r1TempSensor3 = new Reading(15, new GregorianCalendar(2018, Calendar.DECEMBER, 26, 9, 15), "C");
         Reading r2TempSensor3 = new Reading(10, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 9, 45), "C");
         Reading r3TempSensor3 = new Reading(5, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 10, 0), "C");
-        s3.getReadingList().addReading(r1TempSensor3);
-        s3.getReadingList().addReading(r2TempSensor3);
-        s3.getReadingList().addReading(r3TempSensor3);
+        readings3.addReading(r1TempSensor3);
+        readings3.addReading(r2TempSensor3);
+        readings3.addReading(r3TempSensor3);
 
-        Sensor result = getSensorOfTypeWithLatestReadingsInDate(new GregorianCalendar(2018, Calendar.DECEMBER, 27), temperature);
+        String result = getSensorOfTypeWithLatestReadingsInDate(new GregorianCalendar(2018, Calendar.DECEMBER, 27), temperature).getId();
 
-        assertEquals(s3, result);
+        assertEquals(s3.getId(), result);
     }
 
     @Test
@@ -596,8 +598,8 @@ class HouseTest {
 
         Location l1 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+        ExternalSensor s1 = new ExternalSensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        ExternalSensor s2 = new ExternalSensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
 
         g1.getSensorListInGA().addSensor(s1);
         g1.getSensorListInGA().addSensor(s2);
@@ -648,8 +650,8 @@ class HouseTest {
 
         Location l1 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+        ExternalSensor s1 = new ExternalSensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        ExternalSensor s2 = new ExternalSensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
 
         g1.getSensorListInGA().addSensor(s1);
         g1.getSensorListInGA().addSensor(s2);
@@ -700,8 +702,8 @@ class HouseTest {
 
         Location l1 = new Location(47, -12, 200);
 
-        Sensor s1 = new Sensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
-        Sensor s2 = new Sensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
+        ExternalSensor s1 = new ExternalSensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
+        ExternalSensor s2 = new ExternalSensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
 
         g1.getSensorListInGA().addSensor(s1);
         g1.getSensorListInGA().addSensor(s2);

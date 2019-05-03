@@ -373,4 +373,16 @@ class ExternalSensorTest {
 
     }
 
+    @Test
+    void constructor(){
+        SensorType rain = new SensorType ("rain");
+        GregorianCalendar startDate = new GregorianCalendar (2019, Calendar.FEBRUARY, 2, 2, 1, 1);
+        Location location = new Location (2, 2, 2);
+        ReadingList readingList = new ReadingList ();
+        ExternalSensor sensor = new ExternalSensor(" ", "PrecipitationSensor", startDate, location, rain, "l/m2", readingList);
+
+
+
+    }
+
 }

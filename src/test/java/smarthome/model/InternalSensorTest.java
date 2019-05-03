@@ -18,17 +18,17 @@ class InternalSensorTest {
         ReadingList readingList = new ReadingList ();
         InternalSensor sensor = new InternalSensor("P2355", "HouseSensor", startDate, temperature, "l/m2", readingList);
 
-        sensor.setSensorDesignation("House Sensor");
+        sensor.getSensorBehavior().setSensorDesignation("House Sensor");
         Calendar date = new GregorianCalendar(2018,Calendar.NOVEMBER,21);
-        sensor.setStartDate(date);
+        sensor.getSensorBehavior().setStartDate(date);
         SensorType sType = new SensorType("Air Quality");
-        sensor.setSensorType(sType);
-        sensor.setUnit("l/m2");
+        sensor.getSensorBehavior().setSensorType(sType);
+        sensor.getSensorBehavior().setUnit("l/m2");
 
-        String result5 = sensor.getDesignation();
-        Calendar result3 = sensor.getStartDate();
-        SensorType result2 = sensor.getSensorType();
-        String result4 = sensor.getUnit();
+        String result5 = sensor.getSensorBehavior().getDesignation();
+        Calendar result3 = sensor.getSensorBehavior().getStartDate();
+        SensorType result2 = sensor.getSensorBehavior().getSensorType();
+        String result4 = sensor.getSensorBehavior().getUnit();
 
         assertEquals(sType,result2);
         assertEquals(date,result3);
@@ -44,7 +44,7 @@ class InternalSensorTest {
         ReadingList readingList = new ReadingList ();
         InternalSensor tempSensor = new InternalSensor("", "", startDate, type1, "Celsius", readingList);
         String designation = "";
-        boolean result = tempSensor.setSensorDesignation (designation);
+        boolean result = tempSensor.getSensorBehavior().setSensorDesignation (designation);
         assertFalse (result);
     }
 
@@ -56,7 +56,7 @@ class InternalSensorTest {
         ReadingList readingList = new ReadingList ();
         InternalSensor tempSensor = new InternalSensor("", "Sensor", startDate, type1, "Celsius", readingList);
         String designation = "KitchenSensor";
-        boolean result = tempSensor.setSensorDesignation (designation);
+        boolean result = tempSensor.getSensorBehavior().setSensorDesignation (designation);
         assertTrue (result);
     }
 
@@ -69,8 +69,8 @@ class InternalSensorTest {
         InternalSensor tempSensor = new InternalSensor("", "Sensor01TempMat", startDate, type1, "Celsius", readingList);
         String designation = "";
         String expectedResult = "Sensor01TempMat";
-        tempSensor.setSensorDesignation (designation);
-        String result = tempSensor.getDesignation ();
+        tempSensor.getSensorBehavior().setSensorDesignation (designation);
+        String result = tempSensor.getSensorBehavior().getDesignation ();
         assertEquals (expectedResult, result);
     }
 
@@ -81,9 +81,9 @@ class InternalSensorTest {
         ReadingList readingList = new ReadingList ();
         InternalSensor tempSensor = new InternalSensor("", " ", startDate, type1, "meters", readingList);
         String designation = "SensorVisibilityRoom1";
-        tempSensor.setSensorDesignation (designation);
+        tempSensor.getSensorBehavior().setSensorDesignation (designation);
         String expectedResult = "SensorVisibilityRoom1";
-        String result = tempSensor.getDesignation ();
+        String result = tempSensor.getSensorBehavior().getDesignation ();
         assertEquals (expectedResult, result);
     }
 
@@ -94,9 +94,9 @@ class InternalSensorTest {
         ReadingList readingList = new ReadingList ();
         InternalSensor tempSensor = new InternalSensor("", "sensor", startDate, type1, "meters", readingList);
         String designation = "SensorVisibility";
-        tempSensor.setSensorDesignation (designation);
+        tempSensor.getSensorBehavior().setSensorDesignation (designation);
         String expectedResult = "SensorVisibility";
-        String result = tempSensor.getDesignation ();
+        String result = tempSensor.getSensorBehavior().getDesignation ();
         assertEquals (expectedResult, result);
     }
 
@@ -108,9 +108,9 @@ class InternalSensorTest {
         ReadingList readingList = new ReadingList ();
         InternalSensor sensor = new InternalSensor("", "WindSensor", startDate, type1, "meters", readingList);
         String designation = "WindSensorRoom";
-        sensor.setSensorDesignation (designation);
+        sensor.getSensorBehavior().setSensorDesignation (designation);
         String expectedResult = "WindSensor";
-        String result = sensor.getDesignation ();
+        String result = sensor.getSensorBehavior().getDesignation ();
         assertNotEquals (expectedResult, result);
     }
 
@@ -139,7 +139,7 @@ class InternalSensorTest {
         ReadingList readings = new ReadingList ();
         InternalSensor sensor1 = new InternalSensor("P2355", "HumiditySensor", startDate, type1, "%", readings);
         Calendar expected = new GregorianCalendar (2018, 8, 1, 9, 0);
-        Calendar result = sensor1.getStartDate ();
+        Calendar result = sensor1.getSensorBehavior().getStartDate ();
         assertEquals (expected, result);
     }
 
@@ -150,7 +150,7 @@ class InternalSensorTest {
         ReadingList readings = new ReadingList ();
         InternalSensor sensor1 = new InternalSensor("P2355", "GardenSensor", startDate, type1, "l/m2", readings);
         String expected = "l/m2";
-        String result = sensor1.getUnit ();
+        String result = sensor1.getSensorBehavior().getUnit ();
         assertEquals (expected, result);
     }
 
@@ -162,7 +162,7 @@ class InternalSensorTest {
         ReadingList readingList = new ReadingList ();
         InternalSensor sensor = new InternalSensor("P2355", "BedroomSensor", startDate, sensorType, "C", readingList);
 
-        assertTrue (sensor.isActive ());
+        assertTrue (sensor.getSensorBehavior().isActive ());
     }
 
     @Test
@@ -174,9 +174,9 @@ class InternalSensorTest {
         ReadingList readingList = new ReadingList ();
         InternalSensor sensor = new InternalSensor("P2355", "GardenSensor", startDate, sensorType, "l/m2", readingList);
 
-        assertTrue (sensor.deactivate (pauseDate));
+        assertTrue (sensor.getSensorBehavior().deactivate (pauseDate));
 
-        assertFalse (sensor.isActive ());
+        assertFalse (sensor.getSensorBehavior().isActive ());
     }
 
     @Test
@@ -188,10 +188,10 @@ class InternalSensorTest {
         ReadingList readingList = new ReadingList ();
         InternalSensor sensor = new InternalSensor("P2355", "PrecipitationSensor", startDate, sensorType, "C", readingList);
 
-        assertTrue(sensor.deactivate (pauseDate));
-        assertFalse(sensor.deactivate (pauseDate));
+        assertTrue(sensor.getSensorBehavior().deactivate (pauseDate));
+        assertFalse(sensor.getSensorBehavior().deactivate (pauseDate));
 
-        assertFalse (sensor.isActive ());
+        assertFalse (sensor.getSensorBehavior().isActive ());
     }
 
     @Test
@@ -203,10 +203,10 @@ class InternalSensorTest {
         ReadingList readingList = new ReadingList ();
         InternalSensor sensor = new InternalSensor("P2355", "PresenceSensor", startDate, sensorType, "People", readingList);
 
-        assertTrue(sensor.deactivate (pauseDate));
-        assertTrue(sensor.reactivate ());
+        assertTrue(sensor.getSensorBehavior().deactivate (pauseDate));
+        assertTrue(sensor.getSensorBehavior().reactivate ());
 
-        assertTrue(sensor.isActive ());
+        assertTrue(sensor.getSensorBehavior().isActive ());
     }
 
     @Test
@@ -217,9 +217,9 @@ class InternalSensorTest {
         ReadingList readingList = new ReadingList ();
         InternalSensor sensor = new InternalSensor("P2355", "GardenSensor", startDate, sensorType, "l/m2", readingList);
 
-        assertFalse(sensor.reactivate ());
+        assertFalse(sensor.getSensorBehavior().reactivate ());
 
-        assertTrue(sensor.isActive ());
+        assertTrue(sensor.getSensorBehavior().isActive ());
     }
 
     @Test
@@ -231,9 +231,9 @@ class InternalSensorTest {
         ReadingList readingList = new ReadingList ();
         InternalSensor sensor = new InternalSensor("P2355", "GardenSensor", startDate,  sensorType, "l/m2", readingList);
 
-        assertTrue (sensor.deactivate (pauseDate));
+        assertTrue (sensor.getSensorBehavior().deactivate (pauseDate));
 
-        Calendar result = sensor.getPauseDate ();
+        Calendar result = sensor.getSensorBehavior().getPauseDate ();
 
         assertEquals (pauseDate,result);
     }
@@ -247,10 +247,10 @@ class InternalSensorTest {
         ReadingList readingList = new ReadingList ();
         InternalSensor sensor = new InternalSensor("P2355", "GardenSensor", startDate, sensorType, "l/m2", readingList);
 
-        assertFalse (sensor.deactivate (pauseDate));
+        assertFalse (sensor.getSensorBehavior().deactivate (pauseDate));
 
         Calendar expected = null;
-        Calendar result = sensor.getPauseDate ();
+        Calendar result = sensor.getSensorBehavior().getPauseDate ();
 
         assertEquals (expected,result);
 

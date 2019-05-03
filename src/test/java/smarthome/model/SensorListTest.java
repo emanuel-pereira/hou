@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -44,7 +45,7 @@ class SensorListTest {
         Sensor sensor1 = list1.newSensor("R0001", "Sensor1", startDate, location, sT1, "Celsius", rL);
 
 
-        String result=sensor1.getSensorBehavior().getDesignation();
+        String result = sensor1.getSensorBehavior().getDesignation();
 
         //Assert
         assertEquals("Sensor1", result);
@@ -222,7 +223,7 @@ class SensorListTest {
         SensorType sH1 = new SensorType("light");
         Location sensor2Loc = new Location(25, 32, 25);
 
-        Sensor sensor2 = list.newSensor("H0001","SensorTemp", startDate, sensor2Loc, sH1, "Percentage", rL2);
+        Sensor sensor2 = list.newSensor("H0001", "SensorTemp", startDate, sensor2Loc, sH1, "Percentage", rL2);
         list.addSensor(sensor1);
         list.addSensor(sensor2);
 
@@ -263,8 +264,8 @@ class SensorListTest {
         SensorTypeList sensorTypeList = new SensorTypeList();
         RoomList roomList = new RoomList();
 
-        Room r1 = new Room("R01","room1", 1, 1, 1, 1);
-        Room r2 = new Room("R02","room2", 1, 1, 1, 1);
+        Room r1 = new Room("R01", "room1", 1, 1, 1, 1);
+        Room r2 = new Room("R02", "room2", 1, 1, 1, 1);
 
         roomList.addRoom(r1);
         roomList.addRoom(r2);
@@ -302,9 +303,9 @@ class SensorListTest {
         readingsLis.addReading(r1Lis);
         SensorList sensorList = new SensorList();
 
-        Sensor s1 = sensorList.createNewInternalSensor("S01","Sensor1", new GregorianCalendar(2018, 12, 26, 12, 0), type1, "c", readingsLis);
+        Sensor s1 = sensorList.createNewInternalSensor("S01", "Sensor1", new GregorianCalendar(2018, 12, 26, 12, 0), type1, "c", readingsLis);
 
-        String result=s1.getId();
+        String result = s1.getId();
         assertEquals("S01", result);
     }
 
@@ -315,9 +316,9 @@ class SensorListTest {
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26, 12, 0);
         ReadingList readings = new ReadingList();
 
-        Sensor s1 = new InternalSensor("S01","Sensor1", startDate, temp, "c", readings);
+        Sensor s1 = new InternalSensor("S01", "Sensor1", startDate, temp, "c", readings);
         Sensor s2 = new InternalSensor("S02", "Sensor2", startDate, temp, "c", readings);
-        Sensor s3 = new InternalSensor("S03","Sensor3", startDate, wind, "c", readings);
+        Sensor s3 = new InternalSensor("S03", "Sensor3", startDate, wind, "c", readings);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -337,9 +338,9 @@ class SensorListTest {
         ReadingList readings = new ReadingList();
 
 
-        Sensor s1 = new InternalSensor("S01","Sensor1", startDate, temp, "c", readings);
-        Sensor s2 = new InternalSensor("S02","Sensor2", startDate, wind, "c", readings);
-        Sensor s3 = new InternalSensor("S03","Sensor3", startDate, wind, "c", readings);
+        Sensor s1 = new InternalSensor("S01", "Sensor1", startDate, temp, "c", readings);
+        Sensor s2 = new InternalSensor("S02", "Sensor2", startDate, wind, "c", readings);
+        Sensor s3 = new InternalSensor("S03", "Sensor3", startDate, wind, "c", readings);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -358,10 +359,9 @@ class SensorListTest {
         ReadingList readings = new ReadingList();
 
 
-
-        Sensor s1 = new InternalSensor("S01","Sensor1", startDate, temp, "c", readings);
-        Sensor s2 = new InternalSensor("S02","Sensor2", startDate, wind, "c", readings);
-        Sensor s3 = new InternalSensor("S03","Sensor3", startDate, wind, "c", readings);
+        Sensor s1 = new InternalSensor("S01", "Sensor1", startDate, temp, "c", readings);
+        Sensor s2 = new InternalSensor("S02", "Sensor2", startDate, wind, "c", readings);
+        Sensor s3 = new InternalSensor("S03", "Sensor3", startDate, wind, "c", readings);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -381,9 +381,9 @@ class SensorListTest {
         ReadingList readings = new ReadingList();
 
 
-        Sensor s1 = new InternalSensor("S01","Sensor1", startDate, temp, "c", readings);
-        Sensor s2 = new InternalSensor("S02","Sensor2", startDate, temp, "c", readings);
-        Sensor s3 = new InternalSensor("S03","Sensor3", startDate, wind, "c", readings);
+        Sensor s1 = new InternalSensor("S01", "Sensor1", startDate, temp, "c", readings);
+        Sensor s2 = new InternalSensor("S02", "Sensor2", startDate, temp, "c", readings);
+        Sensor s3 = new InternalSensor("S03", "Sensor3", startDate, wind, "c", readings);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -402,8 +402,8 @@ class SensorListTest {
 
 
         Sensor s1 = new InternalSensor("S01", "Sensor1", startDate, temp, "c", readings);
-        Sensor s2 = new InternalSensor("S02","Sensor2", startDate, temp, "c", readings);
-        Sensor s3 = new InternalSensor("S03","Sensor3", startDate, wind, "c", readings);
+        Sensor s2 = new InternalSensor("S02", "Sensor2", startDate, temp, "c", readings);
+        Sensor s3 = new InternalSensor("S03", "Sensor3", startDate, wind, "c", readings);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -497,5 +497,34 @@ class SensorListTest {
         int result = lisbonSensorList.getActiveSensors().size();
         assertEquals(expected, result);
     }
+
+    @Test
+    @DisplayName("Check if any sensor has same ID and get false because it isn't added")
+    void checkIfAnySensorHasSameIDGetFalse() {
+        SensorType type1 = new SensorType("rainfall");
+        GregorianCalendar startDate = new GregorianCalendar(2018, 8, 1, 9, 0);
+        Location loc = new Location(40, 20, 10);
+        ReadingList readingList = new ReadingList();
+        Sensor s1 = new ExternalSensor("AB", "RainfallSensorOfPorto", startDate, loc, type1, "mm", readingList);
+        Sensor s2 = new ExternalSensor("AC", "TemperatureSensorOfPorto", startDate, loc, type1, "Celsius", readingList);
+
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        assertFalse(sensorList.checkIfAnySensorHasSameID(s2));
+    }
+
+    @Test
+    @DisplayName("Check if any sensor has same ID and get true because there's already that id")
+    void checkIfAnySensorHasSameIDGetTrue() {
+        SensorType type1 = new SensorType("rainfall");
+        GregorianCalendar startDate = new GregorianCalendar(2018, 8, 1, 9, 0);
+        Location loc = new Location(40, 20, 10);
+        ReadingList readingList = new ReadingList();
+        Sensor s1 = new ExternalSensor("AB", "RainfallSensorOfPorto", startDate, loc, type1, "Celsius", readingList);
+        SensorList sensorList = new SensorList();
+        sensorList.addSensor(s1);
+        assertTrue(sensorList.checkIfAnySensorHasSameID(s1));
+    }
+
 
 }
