@@ -1,17 +1,9 @@
 package smarthome.model;
 
-import smarthome.dto.ReadingDTO;
-import smarthome.dto.SensorDTO;
-import smarthome.model.validations.Utils;
-
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-import java.util.Objects;
 
-import static smarthome.model.House.getAddress;
-
+@Embeddable
 public class SensorBehavior {
 
     private String id;
@@ -21,6 +13,7 @@ public class SensorBehavior {
     private Calendar pauseDate;
     private String unit;
     private boolean active;
+    @Embedded
     private ReadingList readingList;
 
     /**
@@ -65,26 +58,13 @@ public class SensorBehavior {
      * @param id Unique identification
      * @return True if validate correctly
      */
-    private boolean sensorIdIsValid(String id) {
+    public boolean sensorIdIsValid(String id) {
         if (id.trim().isEmpty()) {
             return false;
         }
         return id.matches("^[a-zA-Z0-9]*$");
     }
 
-    /**
-     * Changes the Id of the sensor to the one inputted by the user.
-     *
-     * @param sensorId sensor's id String
-     * @return True if correctly validate
-     */
-    public boolean setId(String sensorId) {
-        if (this.sensorIdIsValid(sensorId)) {
-            this.id = sensorId;
-            return true;
-        }
-        return false;
-    }
 
     /**
      * Changes the sensorDesignation of the sensor to the one inputted by the user.
@@ -137,14 +117,6 @@ public class SensorBehavior {
         return this.name.toString();
     }
 
-
-    /**
-     * @return the sensor's id
-     */
-    public String getId() {
-        return this.id;
-    }
-
     /**
      * Returns the dataType of the sensor.
      *
@@ -164,14 +136,12 @@ public class SensorBehavior {
      *
      * @return the last reading of a list of readings
      */
-    public Reading getLastReadingPerSensor() {
+    public Reading getLastReading() {
         return this.readingList.getLastReading();
     }
 
-    public double getLastReadingValuePerSensor() {
-        double lastValue;
-        lastValue = this.readingList.getReadingsList().get(this.readingList.getReadingsList().size() - 1).returnValueOfReading();
-        return lastValue;
+    public double getLastReadingValue() {
+        return this.readingList.getLastReading().returnValue();
     }
 
     /**

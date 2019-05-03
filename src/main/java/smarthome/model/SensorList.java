@@ -116,7 +116,8 @@ public class SensorList {
      */
     public boolean checkIfRequiredSensorTypeExists(String sensorType) {
         for (Sensor s : this.listOfSensors) {
-            if (s.getSensorType().getType().equals(sensorType)) {
+            SensorType type=s.getSensorBehavior().getSensorType();
+            if (type.getType().equals(sensorType)) {
                 return true;
             }
         }
@@ -132,8 +133,11 @@ public class SensorList {
     public Sensor getRequiredSensorPerType(String type) {
         Sensor requiredSensor = null;
         for (Sensor sensor : this.listOfSensors)
-            if (sensor.getSensorType().getType().equals(type))
-                requiredSensor = sensor;
+        {
+            SensorType sensorType=sensor.getSensorBehavior().getSensorType();
+
+            if (sensorType.getType().equals(type))
+                requiredSensor = sensor;}
         return requiredSensor;
     }
 
@@ -148,9 +152,10 @@ public class SensorList {
         String element = " - ";
         int number = 1;
         for (Sensor sensor : this.listOfSensors) {
+            SensorType sensorType=sensor.getSensorBehavior().getSensorType();
             result.append(number++);
             result.append(element);
-            result.append(sensor.getDesignation());
+            result.append(sensorType.getType());
             result.append("\n");
         }
         return result.toString();
@@ -159,7 +164,9 @@ public class SensorList {
     public SensorList getListOfSensorsByType(SensorType sensorType) {
         SensorList listOfSensorsByType = new SensorList();
         for (Sensor sensor : this.listOfSensors) {
-            if (sensor.getSensorType().equals(sensorType))
+            SensorType type=sensor.getSensorBehavior().getSensorType();
+
+            if (type.equals(sensorType))
                 listOfSensorsByType.getSensorList().add(sensor);
         }
         return listOfSensorsByType;
@@ -187,6 +194,7 @@ public class SensorList {
     public SensorList getActiveSensors() {
         SensorList activeSensors = new SensorList();
         for (Sensor s : this.getSensorList()) {
+
             if (s.isActive()) {
                 activeSensors.getSensorList().add(s);
             }

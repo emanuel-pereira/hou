@@ -230,7 +230,8 @@ public class Room implements Metered {
     public boolean checkIfSensorTypeExistsInRoom(String input) {
         List<Sensor> list = this.getSensorListInRoom().getSensorList();
         for (Sensor s : list) {
-            if (s.getSensorType().getType().equals(input)) {
+            SensorType sensorType=s.getSensorBehavior().getSensorType();
+            if (sensorType.getType().equals(input)) {
                 return true;
             }
         }

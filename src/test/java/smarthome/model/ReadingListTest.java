@@ -283,7 +283,7 @@ class ReadingListTest {
 
         //Get the max value of the Reading List
         Reading maxReading = croppedList.maxValueInInterval();
-        assertEquals(34.2, maxReading.returnValueOfReading());
+        assertEquals(34.2, maxReading.returnValue());
     }
 
     @Test
@@ -311,7 +311,7 @@ class ReadingListTest {
 
         //Get the max value of the Reading List
         Reading minReading = croppedList.minValueInInterval();
-        assertEquals(20.0, minReading.returnValueOfReading());
+        assertEquals(20.0, minReading.returnValue());
     }
 
     @Test
@@ -347,7 +347,7 @@ class ReadingListTest {
 
         //Get the max value of the Reading List
         Reading maxReading = croppedList.maxValueInInterval();
-        assertEquals(21, maxReading.returnValueOfReading());
+        assertEquals(21, maxReading.returnValue());
     }
 
     @Test
@@ -397,7 +397,7 @@ class ReadingListTest {
         //assertEquals(21, maxReading);
         Reading max = maxReadingList.maxValueInInterval();
         Reading expected = new Reading(8, new GregorianCalendar(2017, Calendar.JUNE, 2));
-        assertEquals(6, max.returnValueOfReading());
+        assertEquals(6, max.returnValue());
         assertTrue(expected.isSameDay(max.getDateAndTime()));
     }
 
@@ -448,7 +448,7 @@ class ReadingListTest {
 
         Reading min = minReadingList.minValueInInterval();
         Reading expected = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 4));
-        assertEquals(4, min.returnValueOfReading());
+        assertEquals(4, min.returnValue());
         assertTrue(expected.isSameDay(min.getDateAndTime()));
     }
 
@@ -499,7 +499,7 @@ class ReadingListTest {
 
         Reading min = minReadingList.minValueInInterval();
         Reading expected = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 4));
-        assertEquals(4, min.returnValueOfReading());
+        assertEquals(4, min.returnValue());
         assertTrue(expected.isSameDay(min.getDateAndTime()));
     }
 
@@ -550,7 +550,7 @@ class ReadingListTest {
 
         assertEquals(4, ampReadingList.size());
 
-        assertEquals(2, ampReadingList.maxValueInInterval().returnValueOfReading());
+        assertEquals(2, ampReadingList.maxValueInInterval().returnValue());
     }
 
     @Test

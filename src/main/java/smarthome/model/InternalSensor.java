@@ -1,7 +1,5 @@
 package smarthome.model;
 
-import smarthome.model.validations.Utils;
-
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Objects;
@@ -11,17 +9,7 @@ public class InternalSensor implements Sensor {
 
     @Id
     private String id;
-    private String designation;
-    @OneToOne
-    @JoinColumn(name = "SENSORTYPE_ID")
-    private SensorType sensorType;
-    private Calendar startDate;
-    private Calendar pauseDate;
-    private String unit;
-    private boolean active;
-    @Transient
-    private ReadingList readingList;
-    @Transient
+    @Embedded
     private SensorBehavior sensorBehavior;
 
 
@@ -39,23 +27,20 @@ public class InternalSensor implements Sensor {
      * @param readings    specifies the sensor's readingList
      */
     public InternalSensor(String id, String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
-        this.sensorBehavior = new SensorBehavior(id, designation, startDate, sensorType, unit, readings);
-        this.id = this.sensorBehavior.getId();
-        this.designation = this.sensorBehavior.getDesignation();
-        this.startDate = this.sensorBehavior.getStartDate();
-        this.sensorType = this.sensorBehavior.getSensorType();
-        this.unit = this.sensorBehavior.getUnit();
-        this.active = this.sensorBehavior.isActive();
-        this.readingList = this.sensorBehavior.getReadingList();
+        this.id = id;
+        this.sensorBehavior = new SensorBehavior(designation, startDate, sensorType, unit, readings);
     }
 
     /**
-     * Changes the Id of the sensor to the one inputted by the user.
-     *
-     * @param sensorId sensor's id String
+     * @return the sensor's id
      */
-    public boolean setId(String sensorId) {
-        return this.sensorBehavior.setId(sensorId);
+    public String getId() {
+        return this.id;
+    }
+
+    @Override
+    public SensorBehavior getSensorBehavior() {
+        return sensorBehavior;
     }
 
     /**
@@ -104,13 +89,6 @@ public class InternalSensor implements Sensor {
     }
 
     /**
-     * @return the sensor's id
-     */
-    public String getId() {
-        return this.sensorBehavior.getId();
-    }
-
-    /**
      * Returns the dataType of the sensor.
      *
      * @return object dataType
@@ -130,11 +108,11 @@ public class InternalSensor implements Sensor {
      * @return the last reading of a list of readings
      */
     public Reading getLastReadingPerSensor() {
-        return this.sensorBehavior.getLastReadingPerSensor();
+        return this.sensorBehavior.getLastReading();
     }
 
     public double getLastReadingValuePerSensor() {
-        return this.sensorBehavior.getLastReadingValuePerSensor();
+        return this.sensorBehavior.getLastReadingValue();
     }
 
 
@@ -195,11 +173,12 @@ public class InternalSensor implements Sensor {
         if (!(o instanceof InternalSensor)) return false;
         InternalSensor that = (InternalSensor) o;
         return id.equals(that.id) ||
-                designation.equals(that.designation);
+                sensorBehavior.getDesignation().equals(that.sensorBehavior.getDesignation());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, designation);
+        return Objects.hash(id, this.sensorBehavior.getDesignation());
     }
+
 }
