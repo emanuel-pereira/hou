@@ -131,8 +131,8 @@ class DataImportTest {
         Path path = Paths.get("resources_tests/DataSet_sprint05_SD.json");
         dataImport.importReadingsFromFile(path,gaList);
 
-        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
-        double r = rList.get(3).returnValueOfReading();
+        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getSensorBehavior().getReadingList().getReadingsList();
+        double r = rList.get(3).returnValue();
         assertEquals(15.1, r);
     }
 
@@ -153,7 +153,7 @@ class DataImportTest {
         Path path = Paths.get("resources_tests/DataSet_sprint05_SD.json");
         dataImport.importReadingsFromFile(path,gaList);
 
-        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
+        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getSensorBehavior().getReadingList().getReadingsList();
         int size = rList.size();
         assertEquals(0, size);
     }

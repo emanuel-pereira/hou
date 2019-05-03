@@ -63,9 +63,8 @@ class SensorListTest {
         SensorType sT1 = new SensorType("Temperature");
         GregorianCalendar startDate1 = new GregorianCalendar(2018, 12, 15);
         Location sensor1Loc = new Location(25, 32, 25);
-        Name name=new Name("Sensor1");
 
-        Sensor sensor1 = list.newSensor("R0001", name, startDate1, sensor1Loc, sT1, "C", rL);
+        Sensor sensor1 = list.newSensor("R0001", "Sensor1", startDate1, sensor1Loc, sT1, "C", rL);
 
         //Act
         assertTrue(list.addSensor(sensor1));
