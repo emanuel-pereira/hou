@@ -173,13 +173,11 @@ public class InternalSensor implements Sensor {
         if (this == o) return true;
         if (!(o instanceof InternalSensor)) return false;
         InternalSensor that = (InternalSensor) o;
-        return id.equals(that.id) ||
-                sensorBehavior.getDesignation().equals(that.sensorBehavior.getDesignation());
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, this.sensorBehavior.getDesignation());
+        return Objects.hash(id);
     }
-
 }

@@ -90,21 +90,16 @@ public class ExternalSensor implements Sensor {
         return Utils.round(getLocation().calcLinearDistanceBetweenTwoPoints(sensor1.getLocation(), sensor2.getLocation()), 2);
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ExternalSensor)) return false;
         ExternalSensor that = (ExternalSensor) o;
-        return id.equals(that.id) ||
-                sensorBehavior.getDesignation().equals(that.sensorBehavior.getDesignation());
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, this.sensorBehavior.getDesignation());
+        return Objects.hash(id);
     }
-
-
-
 }
