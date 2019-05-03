@@ -38,7 +38,7 @@ class ProgramWithTimerTest {
         ProgramWithTimer program = new ProgramWithTimer ("Eco", 0.78);
         TypeGA typeGA = new TypeGA ("Cidade");
 
-        boolean result =typeGA.equals (program);
+        boolean result = program.equals (typeGA);
 
         assertFalse (result);
     }
@@ -53,7 +53,7 @@ class ProgramWithTimerTest {
 
         assertEquals (program1.hashCode (), program2.hashCode ());
 
-        assertTrue (result);
+        assertTrue(result);
     }
 
     @Test
@@ -72,10 +72,19 @@ class ProgramWithTimerTest {
     @Test
     @DisplayName("Correctly compare a program with itself")
     void ifProgramEqualsSameProgram() {
-        ProgramMode program = new ProgramMode ("Eco", 0.78);
-        boolean result = program.equals (program);
+        ProgramWithTimer program = new ProgramWithTimer ("Eco", 0.78);
+        boolean result = program.equals(program);
 
         assertTrue (result);
+    }
+
+    @Test
+    @DisplayName("Correctly compare a program with itself")
+    void ifProgramEqualsSameProgramNotEquals() {
+        ProgramWithTimer program = new ProgramWithTimer ("Eco", 0.78);
+        boolean result = program.equals(program);
+
+        assertNotEquals (false, result);
     }
 
     @Test
