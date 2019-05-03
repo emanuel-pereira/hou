@@ -33,16 +33,12 @@ public class JSONReading implements FileReaderReadings {
         for (Object reading : jsonReadings) {
             String[] tokens = new String[4];
             JSONObject jsonReading = (JSONObject) reading;
-            Object id = jsonReading.get("id") == null
-                    ? jsonReading.get("SensorID")
-                    : jsonReading.get("id");
-            tokens[0] = (String) id;
+            String id = (String) jsonReading.get("id");
+            tokens[0] = id;
             String date = (String) jsonReading.get("timestamp/date");
             tokens[1] = date;
-            Object value = jsonReading.get("value") == null
-                    ? jsonReading.get("Aux_Value")
-                    : jsonReading.get("value");
-            tokens[2] = (String) value;
+            String value = (String) jsonReading.get("value");
+            tokens[2] = value;
             String unit = (String) jsonReading.get("unit");
             tokens[3] = unit;
             dataToImport.add(tokens);
