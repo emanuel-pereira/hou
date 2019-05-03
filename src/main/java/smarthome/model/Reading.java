@@ -54,6 +54,18 @@ public class Reading {
         return this.dateAndTime.get(Calendar.MONTH);
     }
 
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public void setDateAndTime(Calendar dateAndTime) {
+        this.dateAndTime = dateAndTime;
+    }
+
     public Calendar getDateAndTime() {
         return this.dateAndTime;
     }
@@ -100,6 +112,7 @@ public class Reading {
         if (this.unit.equals("F")) {
             this.value = ((this.value - 32) / 1.8);
             this.value = Math.round(this.value*100.0)/100.0;
+            setUnit("C");
         }
         return this.value;
     }
