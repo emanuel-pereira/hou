@@ -302,11 +302,10 @@ class SensorListTest {
         readingsLis.addReading(r1Lis);
         SensorList sensorList = new SensorList();
 
-
         Sensor s1 = sensorList.createNewInternalSensor("S01","Sensor1", new GregorianCalendar(2018, 12, 26, 12, 0), type1, "c", readingsLis);
 
-        String result=s1.getSensorBehavior().getDesignation();
-        assertEquals("sensor1", result);
+        String result=s1.getId();
+        assertEquals("S01", result);
     }
 
     @Test

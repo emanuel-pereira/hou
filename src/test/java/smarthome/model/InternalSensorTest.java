@@ -25,13 +25,11 @@ class InternalSensorTest {
         sensor.setSensorType(sType);
         sensor.setUnit("l/m2");
 
-        String result1 = sensor.getId();
         String result5 = sensor.getDesignation();
         Calendar result3 = sensor.getStartDate();
         SensorType result2 = sensor.getSensorType();
         String result4 = sensor.getUnit();
 
-        assertEquals("RF12345",result1);
         assertEquals(sType,result2);
         assertEquals(date,result3);
         assertEquals("l/m2",result4);
