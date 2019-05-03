@@ -9,7 +9,6 @@ import java.util.List;
 
 public class TypeGAList {
 
-    //TODO: mudar nome
     private static List<TypeGA> listOfGaTypes;
     private static TypeGAList typeGaList = null;
 
@@ -45,7 +44,6 @@ public class TypeGAList {
     public static TypeGA newTypeGA(String inputName) {
         String inputNameLowerCase = null;
         NameValidations validations = new NameValidations();
-        //TODO: Throw Exception
         if (inputName != null)
             inputNameLowerCase = inputName.toLowerCase();
         if (validations.nameIsValid(inputNameLowerCase))
@@ -68,8 +66,7 @@ public class TypeGAList {
             try {
                 Repositories.getTypeGARepository().save(inputType);
             } catch (NullPointerException e) {
-                log.warn("Repository unreachable");
-            }
+                log.warn("Repository unreachable"); }
             return true;
         } else return false;
     }
