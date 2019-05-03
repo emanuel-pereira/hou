@@ -26,9 +26,10 @@ public class InternalSensor implements Sensor {
      * @param unit        String parameter to specify sensor's unit of measure
      * @param readings    specifies the sensor's readingList
      */
-    public InternalSensor(String id, Name name, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+    public InternalSensor(String id, String name, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         this.id = id;
-        this.sensorBehavior = new SensorBehavior(name, startDate, sensorType, unit, readings);
+        Name sName=new Name(name);
+        this.sensorBehavior = new SensorBehavior(sName, startDate, sensorType, unit, readings);
     }
 
     /**

@@ -86,8 +86,8 @@ class GetCurrentTemperatureInRoomCTRLTest {
         readings1.addReading(r12);
 
         Sensor sensor1 = r1.getSensorListInRoom().createNewInternalSensor("S01", "temperature", new GregorianCalendar(2018, 12, 15), temp, "C", readings1);
-        sensor1.getReadingList().addReading(r11);
-        sensor1.getReadingList().addReading(r12);
+        sensor1.getSensorBehavior().getReadingList().addReading(r11);
+        sensor1.getSensorBehavior().getReadingList().addReading(r12);
 
         r1.getSensorListInRoom().addSensor(sensor1);
         GetCurrentTemperatureInRoomCTRL ctr2 = new GetCurrentTemperatureInRoomCTRL(sL);
@@ -173,12 +173,12 @@ class GetCurrentTemperatureInRoomCTRLTest {
         readings1.addReading(r12);
 
         Sensor sensor1 = r1.getSensorListInRoom().createNewInternalSensor("S01", "temperature", new GregorianCalendar(2018, 12, 15), temp, "C", readings1);
-        sensor1.getReadingList().addReading(r11);
-        sensor1.getReadingList().addReading(r12);
+        sensor1.getSensorBehavior().getReadingList().addReading(r11);
+        sensor1.getSensorBehavior().getReadingList().addReading(r12);
 
         Sensor sensor2 = r2.getSensorListInRoom().createNewInternalSensor("S02", "rain", new GregorianCalendar(2018, 12, 15), temp, "C", readings1);
-        sensor2.getReadingList().addReading(r11);
-        sensor2.getReadingList().addReading(r12);
+        sensor2.getSensorBehavior().getReadingList().addReading(r11);
+        sensor2.getSensorBehavior().getReadingList().addReading(r12);
 
         r1.getSensorListInRoom().addSensor(sensor1);
         r2.getSensorListInRoom().addSensor(sensor2);
@@ -216,8 +216,8 @@ class GetCurrentTemperatureInRoomCTRLTest {
         readings1.addReading(r12);
 
         Sensor sensor1 = r1.getSensorListInRoom().createNewInternalSensor("S02", "temperature", new GregorianCalendar(2018, 12, 15), temp, "C", readings1);
-        sensor1.getReadingList().addReading(r11);
-        sensor1.getReadingList().addReading(r12);
+        sensor1.getSensorBehavior().getReadingList().addReading(r11);
+        sensor1.getSensorBehavior().getReadingList().addReading(r12);
 
         r1.getSensorListInRoom().addSensor(sensor1);
         GetCurrentTemperatureInRoomCTRL ctr2 = new GetCurrentTemperatureInRoomCTRL(sL);

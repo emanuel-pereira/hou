@@ -16,9 +16,8 @@ class SensorMapperTest {
     void toDtoReturnsSameIdAsInSensor() {
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
-        Name name=new Name("TemperatureSensor");
 
-        Sensor sensor = new InternalSensor("S01",name, new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
+        Sensor sensor = new InternalSensor("S01","TemperatureSensor", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
         SensorMapper sensorMapper= new SensorMapper();
         SensorDTO sensorDTO=sensorMapper.toDto(sensor);
         String expected=sensor.getId();
@@ -31,9 +30,8 @@ class SensorMapperTest {
     void toDtoReturnsSameDesignationAsInSensor() {
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
-        Name name=new Name("TemperatureSensor");
 
-        Sensor sensor = new InternalSensor("S01",name, new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
+        Sensor sensor = new InternalSensor("S01","TemperatureSensor", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
         SensorMapper sensorMapper= new SensorMapper();
         SensorDTO sensorDTO=sensorMapper.toDto(sensor);
         String expected=sensor.getSensorBehavior().getDesignation();
@@ -50,9 +48,7 @@ class SensorMapperTest {
     void toDtoReturnsSameTypeAsInSensor() {
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
-        Name name=new Name("TemperatureSensor");
-
-        Sensor sensor = new InternalSensor("S01",name, new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
+        Sensor sensor = new InternalSensor("S01","TemperatureSensor", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
         SensorMapper sensorMapper= new SensorMapper();
         SensorDTO sensorDTO=sensorMapper.toDto(sensor);
         String expected=sensor.getSensorBehavior().getSensorType().getType();
@@ -65,9 +61,7 @@ class SensorMapperTest {
     void toDtoDoesNotReturnEmptyDesignation() {
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
-        Name name=new Name("TemperatureSensor");
-
-        Sensor sensor = new InternalSensor("S01",name, new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
+        Sensor sensor = new InternalSensor("S01","TemperatureSensor", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
         SensorMapper sensorMapper= new SensorMapper();
         SensorDTO sensorDTO=sensorMapper.toDto(sensor);
         String expected="";
