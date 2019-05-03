@@ -3,24 +3,32 @@ package smarthome.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.repository.Repositories;
 
 import java.lang.reflect.Field;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static smarthome.model.House.getHouseRoomList;
+import static smarthome.model.TypeGAList.getTypeGAListInstance;
 
 class SensorListTest {
 
-    TypeGAList typeGAList = TypeGAList.getTypeGAListInstance();
+    Location loc = new Location(20, 20, 2);
+    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    OccupationArea oc = new OccupationArea(2, 5);
+    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    House house = House.getHouseInstance(a1, g1);
+    TypeGAList typeGAList = getTypeGAListInstance();
 
     @BeforeEach
     public void resetMySingleton() throws SecurityException,
             NoSuchFieldException, IllegalArgumentException,
             IllegalAccessException {
-        Field instance = House.class.getDeclaredField("theHouse");
-        instance.setAccessible(true);
-        instance.set(null, null);
+        Field instance1 = House.class.getDeclaredField("theHouse");
+        instance1.setAccessible(true);
+        instance1.set(null, null);
         Field instance2 = TypeGAList.class.getDeclaredField("typeGaList");
         instance2.setAccessible(true);
         instance2.set(null, null);
@@ -154,6 +162,31 @@ class SensorListTest {
 
     }
 
+    @DisplayName("Tests if a Sensor is normally removed from the list")
+    @Test
+    public void removeSensorSuccess() {
+        //Arrange
+        SensorList list = new SensorList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2018, 12, 26, 12, 0));
+        Reading r2 = new Reading(18, new GregorianCalendar(2018, 12, 26, 13, 0));
+        ReadingList rL = new ReadingList();
+        rL.addReading(r1);
+        rL.addReading(r2);
+        SensorType sT1 = new SensorType("Temperature");
+        GregorianCalendar startDate = new GregorianCalendar(2018, 12, 15);
+        Location loc = new Location(25, 25, 32);
+        Sensor sensor1 = list.newSensor("R0001", "Sensor1", startDate, loc, sT1, "C", rL);
+        Sensor sensor2 = list.newSensor("R0002", "Sensor2", startDate, loc, sT1, "C", rL);
+
+        list.addSensor(sensor1);
+        list.addSensor(sensor2);
+
+        assertEquals(2, list.size());
+
+        list.removeSensor(sensor1);
+
+        assertEquals(1,list.size());
+    }
 
     /**
      * Check if required SensorType doesn't exist in the SensorTypeList and return false
@@ -317,6 +350,9 @@ class SensorListTest {
     void getRequiredSensorPerType() {
         SensorType temp = new SensorType("temperature");
         SensorType wind = new SensorType("wind");
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        sensorTypeList.addSensorType(temp);
+        sensorTypeList.addSensorType(wind);
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26, 12, 0);
         ReadingList readings = new ReadingList();
         Sensor s1 = new Sensor("S01","sensor1", startDate, temp, "c", readings);
@@ -350,7 +386,6 @@ class SensorListTest {
 
         assertNull(result);
     }
-
 
     @Test
     void getLastSensor() {
@@ -470,4 +505,60 @@ class SensorListTest {
         int result = lisbonSensorList.getActiveSensors().size();
         assertEquals(expected, result);
     }
+
+    @Test
+    @DisplayName("save sensor to repo")
+    void saveSensorToRepositoryNullPointer(){
+        Room bedroom = new Room("R1", "Bedroom 1", 2, 2, 2, 2);
+        SensorType temperature = new SensorType("temperature");
+        SensorList sList = bedroom.getSensorListInRoom();
+        Sensor sensor1 = new Sensor("S1", "Sensor1", new GregorianCalendar(2019, 2, 2), temperature, "C", new ReadingList());
+        Sensor sensor2 = new Sensor("S2", "Sensor2", new GregorianCalendar(2019, 3, 4), temperature, "C", new ReadingList());
+
+        sList.addSensor(sensor1);
+        sList.addSensor(sensor2);
+
+        getHouseRoomList().addRoom(bedroom);
+
+        boolean thrown = false;
+         try{
+             Repositories.getSensorRepository().count();
+         }
+         catch (NullPointerException e){
+             thrown = true;
+         }
+
+         assertTrue(thrown);
+    }
+
+    @Test
+    @DisplayName("deactivate sensor in repo")
+    void deactivateSensorToRepositoryNullPointer(){
+        Room bedroom = new Room("R1", "Bedroom 1", 2, 2, 2, 2);
+        SensorType temperature = new SensorType("temperature");
+        SensorList sList = bedroom.getSensorListInRoom();
+        Sensor sensor1 = new Sensor("S1", "Sensor1", new GregorianCalendar(2019, 2, 2), temperature, "C", new ReadingList());
+        Sensor sensor2 = new Sensor("S2", "Sensor2", new GregorianCalendar(2019, 3, 4), temperature, "C", new ReadingList());
+
+        sList.addSensor(sensor1);
+        sList.addSensor(sensor2);
+
+        getHouseRoomList().addRoom(bedroom);
+
+        GregorianCalendar pauseDate = new GregorianCalendar(2019,05,03);
+
+        sList.deactivateSensor(sensor1.getId(),pauseDate);
+
+        boolean thrown = false;
+        try{
+            Repositories.getSensorRepository().count();
+        }
+        catch (Exception e){
+            thrown = true;
+        }
+
+        assertTrue(thrown);
+    }
+
+
 }

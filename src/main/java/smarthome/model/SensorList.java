@@ -34,18 +34,11 @@ public class SensorList {
             try {
                 Repositories.saveSensor(newSensor);
             } catch (NullPointerException e) {
-                log.warn("Repository unreachable");
-            }
+                log.warn("Repository unreachable"); }
             return true;
         } else return false;
     }
 
-    public boolean checkIfAnySensorHasSameID(Sensor newSensor) {
-        for (Sensor sensor : this.listOfSensors)
-            if (sensor.getId().equals(newSensor.getId())) {
-                return true;}
-        return false;
-    }
 
     /**
      * Method to return the sensors included in the list
@@ -141,7 +134,6 @@ public class SensorList {
 
     public void removeSensor(Sensor sensor) {
         this.listOfSensors.remove(sensor);
-
     }
 
     public Sensor getLastSensor() {
@@ -178,8 +170,7 @@ public class SensorList {
                 try {
                     Repositories.getSensorRepository().save(s);
                 } catch (Exception e) {
-                    log.warn("Repository unreachable");
-                }
+                    log.warn("Repository unreachable"); }
             }
 
 
