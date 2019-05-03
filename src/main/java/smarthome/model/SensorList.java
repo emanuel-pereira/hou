@@ -93,7 +93,7 @@ public class SensorList {
      * @param geoLocation gps coordinates in which the user wants to place the sensor
      * @return List of sensors
      */
-    public Sensor newSensor(String id, Name inputName, GregorianCalendar startDate, Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
+    public Sensor newSensor(String id, String inputName, GregorianCalendar startDate, Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
         return new ExternalSensor(id, inputName, startDate, geoLocation, sensorType, inputUnit, readings);
     }
 
@@ -104,7 +104,7 @@ public class SensorList {
      * @param unit       The measurement unit
      * @return A new interior sensor
      */
-    public Sensor createNewInternalSensor(String id, Name name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+    public Sensor createNewInternalSensor(String id, String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         return new InternalSensor(id, name, startDate, sensorType, unit, readings);
     }
 

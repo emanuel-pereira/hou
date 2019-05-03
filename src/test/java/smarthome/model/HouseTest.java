@@ -300,8 +300,8 @@ class HouseTest {
         Location loc4 = new Location(26, 26, 12);
         Location loc5 = new Location(24, 24, 12);
         ReadingList readings = new ReadingList();
-        Sensor s1 = new ExternalSensor("T001", new Name("Temperature Sensors 1"), startDate, loc3, temperature, "C", readings);
-        Sensor s2 = new ExternalSensor("T001", new Name("Temperature Sensors 1"), startDate, loc4, temperature, "C", readings);
+        Sensor s1 = new ExternalSensor("T001", "Temperature Sensors 1", startDate, loc3, temperature, "C", readings);
+        Sensor s2 = new ExternalSensor("T001", "Temperature Sensors 1", startDate, loc4, temperature, "C", readings);
         Sensor s3 = new ExternalSensor("T001", new Name("Temperature Sensors 1"), startDate, loc5, temperature, "C", readings);
 
         g1.getSensorListInGA().addSensor(s1);

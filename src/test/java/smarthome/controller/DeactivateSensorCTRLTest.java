@@ -175,7 +175,7 @@ class DeactivateSensorCTRLTest {
         Sensor sensor = new ExternalSensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
         GregorianCalendar pDate = new GregorianCalendar(2019, Calendar.SEPTEMBER, 2);
-        sensor.deactivate(pDate);
+        sensor.getSensorBehavior().deactivate(pDate);
 
         SensorMapper sMapper = new SensorMapper();
         SensorDTO sensorDTO = sMapper.toDto(sensor);
@@ -312,7 +312,7 @@ class DeactivateSensorCTRLTest {
         lisbonSensorList.addSensor(sensor2);
 
         GregorianCalendar pDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
-        sensor2.deactivate(pDate);
+        sensor2.getSensorBehavior().deactivate(pDate);
 
         SensorMapper sMapper = new SensorMapper();
         SensorDTO sensor1DTO = sMapper.toDto(sensor1);

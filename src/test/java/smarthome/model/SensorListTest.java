@@ -41,8 +41,7 @@ class SensorListTest {
         SensorType sT1 = new SensorType("Temperature");
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 15);
         Location location = new Location(25, 32, 2);
-        Name name=new Name("Sensor1");
-        Sensor sensor1 = list1.newSensor("R0001", name, startDate, location, sT1, "Celsius", rL);
+        Sensor sensor1 = list1.newSensor("R0001", "Sensor1", startDate, location, sT1, "Celsius", rL);
 
 
         String result=sensor1.getSensorBehavior().getDesignation();
@@ -90,9 +89,8 @@ class SensorListTest {
         SensorType sT1 = new SensorType("Temperature");
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 15);
         Location sensor1Loc = new Location(25, 25, 3);
-        Name name=new Name("Sensor1");
 
-        Sensor sensor1 = list.newSensor("R0001", name, startDate, sensor1Loc, sT1, "C", rL);
+        Sensor sensor1 = list.newSensor("R0001", "Sensor1", startDate, sensor1Loc, sT1, "C", rL);
         list.addSensor(sensor1);
         list.addSensor(sensor1);
         int expectedResult = 1;
@@ -113,9 +111,8 @@ class SensorListTest {
         SensorType sT1 = new SensorType("Temperature");
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 15);
         Location sensor1Loc = new Location(25, 25, 32);
-        Name name=new Name("Sensor1");
 
-        Sensor sensor1 = list.newSensor("R0001", name, startDate, sensor1Loc, sT1, "C", rL);
+        Sensor sensor1 = list.newSensor("R0001", "Sensor1", startDate, sensor1Loc, sT1, "C", rL);
 
         list.addSensor(sensor1);
         boolean result = list.addSensor(sensor1);
@@ -134,10 +131,9 @@ class SensorListTest {
         SensorType sT1 = new SensorType("Temperature");
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 15);
         Location location = new Location(25, 25, 32);
-        Name name=new Name("Sensor1");
 
-        Sensor sensor1 = list.newSensor("R0001", name, startDate, location, sT1, "C", rL);
-        Sensor sensor2 = list.newSensor("R0001", name, startDate, location, sT1, "C", rL);
+        Sensor sensor1 = list.newSensor("R0001", "Sensor1", startDate, location, sT1, "C", rL);
+        Sensor sensor2 = list.newSensor("R0001", "Sensor1", startDate, location, sT1, "C", rL);
 
         list.addSensor(sensor1);
         boolean result = list.addSensor(sensor2);
@@ -157,9 +153,8 @@ class SensorListTest {
         SensorType sT1 = new SensorType("Temperature");
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 15);
         Location loc = new Location(25, 25, 32);
-        Name name=new Name("Sensor1");
 
-        Sensor sensor1 = list.newSensor("R0001", name, startDate, loc, sT1, "C", rL);
+        Sensor sensor1 = list.newSensor("R0001", "Sensor1", startDate, loc, sT1, "C", rL);
 
         boolean expected = true;
         boolean result = list.addSensor(sensor1);
@@ -184,9 +179,8 @@ class SensorListTest {
         SensorType sT1 = new SensorType("Temperature");
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 15);
         Location sensor1Loc = new Location(24, 34, 25);
-        Name name=new Name("SensorTemperature");
 
-        Sensor sensor1 = list.newSensor("T0001", name, startDate, sensor1Loc, sT1, "C", rL);
+        Sensor sensor1 = list.newSensor("T0001", "SensorTemperature", startDate, sensor1Loc, sT1, "C", rL);
         Reading r3 = new Reading(80, new GregorianCalendar(2018, 12, 26, 12, 0));
         Reading r4 = new Reading(81, new GregorianCalendar(2018, 12, 26, 13, 0));
         ReadingList rL2 = new ReadingList();
@@ -194,9 +188,8 @@ class SensorListTest {
         rL2.addReading(r4);
         SensorType sH1 = new SensorType("Humidity");
         Location sensor2Loc = new Location(25, 32, 25);
-        Name name2=new Name("SensorHum");
 
-        Sensor sensor2 = list.newSensor("H0001", name2, startDate, sensor2Loc, sH1, "Percentage", rL2);
+        Sensor sensor2 = list.newSensor("H0001", "SensorHum", startDate, sensor2Loc, sH1, "Percentage", rL2);
         list.addSensor(sensor1);
         list.addSensor(sensor2);
 
@@ -220,9 +213,8 @@ class SensorListTest {
         SensorType sT1 = new SensorType("temperature");
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 15);
         Location sensor1Loc = new Location(24, 34, 25);
-        Name name=new Name("SensorTemp");
 
-        Sensor sensor1 = list.newSensor("T0001", name, startDate, sensor1Loc, sT1, "C", rL);
+        Sensor sensor1 = list.newSensor("T0001", "SensorTemp", startDate, sensor1Loc, sT1, "C", rL);
         Reading r3 = new Reading(80, new GregorianCalendar(2018, 12, 26, 12, 0));
         Reading r4 = new Reading(81, new GregorianCalendar(2018, 12, 26, 13, 0));
         ReadingList rL2 = new ReadingList();
@@ -230,9 +222,8 @@ class SensorListTest {
         rL2.addReading(r4);
         SensorType sH1 = new SensorType("light");
         Location sensor2Loc = new Location(25, 32, 25);
-        Name temp=new Name("SensorTemp");
 
-        Sensor sensor2 = list.newSensor("H0001",temp, startDate, sensor2Loc, sH1, "Percentage", rL2);
+        Sensor sensor2 = list.newSensor("H0001","SensorTemp", startDate, sensor2Loc, sH1, "Percentage", rL2);
         list.addSensor(sensor1);
         list.addSensor(sensor2);
 
@@ -249,16 +240,14 @@ class SensorListTest {
         GregorianCalendar startDate = new GregorianCalendar(2018, 8, 1, 9, 0);
         Location loc = new Location(40, 20, 10);
         ReadingList readingList = new ReadingList();
-        Name temp=new Name("SensorTemp");
 
-        Sensor s1 = new ExternalSensor("AB", temp, startDate, loc, type1, "Celsius", readingList);
+        Sensor s1 = new ExternalSensor("AB", "SensorTemp", startDate, loc, type1, "Celsius", readingList);
         SensorType temperature = new SensorType("temperature");
         GregorianCalendar sDate2 = new GregorianCalendar(2018, 9, 1, 15, 0);
         Location loc2 = new Location(42, 20, 10);
         ReadingList readings = new ReadingList();
-        Name temp1=new Name("SensorTemp");
 
-        Sensor s2 = new ExternalSensor("BC", temp1, sDate2, loc2, temperature, "Celsius", readings);
+        Sensor s2 = new ExternalSensor("BC", "SensorTemp1", sDate2, loc2, temperature, "Celsius", readings);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -299,12 +288,8 @@ class SensorListTest {
         readingsLis.addReading(r2Lis);
 
 
-        Name sName=new Name("Sensor1");
-        Name sName2=new Name("Sensor2");
-
-
-        Sensor s1 = r1.getSensorListInRoom().createNewInternalSensor("S01", sName, new GregorianCalendar(2018, 12, 26, 12, 0), type1, "c", readingsLis);
-        Sensor s2 = r1.getSensorListInRoom().createNewInternalSensor("S02", sName2, new GregorianCalendar(2018, 12, 26, 12, 0), type1, "c", readingsLis);
+        Sensor s1 = r1.getSensorListInRoom().createNewInternalSensor("S01", "Sensor1", new GregorianCalendar(2018, 12, 26, 12, 0), type1, "c", readingsLis);
+        Sensor s2 = r1.getSensorListInRoom().createNewInternalSensor("S02", "Sensor2", new GregorianCalendar(2018, 12, 26, 12, 0), type1, "c", readingsLis);
         r1.getSensorListInRoom().addSensor(s1);
         r1.getSensorListInRoom().addSensor(s2);
         assertEquals(2, r1.getSensorListInRoom().getSensorList().size());
@@ -318,10 +303,8 @@ class SensorListTest {
         readingsLis.addReading(r1Lis);
         SensorList sensorList = new SensorList();
 
-        Name sName=new Name("Sensor1");
 
-
-        Sensor s1 = sensorList.createNewInternalSensor("S01",sName, new GregorianCalendar(2018, 12, 26, 12, 0), type1, "c", readingsLis);
+        Sensor s1 = sensorList.createNewInternalSensor("S01","Sensor1", new GregorianCalendar(2018, 12, 26, 12, 0), type1, "c", readingsLis);
 
         String result=s1.getSensorBehavior().getDesignation();
         assertEquals("sensor1", result);
@@ -333,13 +316,10 @@ class SensorListTest {
         SensorType wind = new SensorType("wind");
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26, 12, 0);
         ReadingList readings = new ReadingList();
-        Name name1=new Name("Sensor1");
-        Name name2=new Name("Sensor2");
-        Name name3=new Name("Sensor3");
 
-        Sensor s1 = new InternalSensor("S01",name1, startDate, temp, "c", readings);
-        Sensor s2 = new InternalSensor("S02", name2, startDate, temp, "c", readings);
-        Sensor s3 = new InternalSensor("S03",name3, startDate, wind, "c", readings);
+        Sensor s1 = new InternalSensor("S01","Sensor1", startDate, temp, "c", readings);
+        Sensor s2 = new InternalSensor("S02", "Sensor2", startDate, temp, "c", readings);
+        Sensor s3 = new InternalSensor("S03","Sensor3", startDate, wind, "c", readings);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -358,13 +338,10 @@ class SensorListTest {
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26, 12, 0);
         ReadingList readings = new ReadingList();
 
-        Name name1=new Name("Sensor1");
-        Name name2=new Name("Sensor2");
-        Name name3=new Name("Sensor3");
 
-        Sensor s1 = new InternalSensor("S01",name1, startDate, temp, "c", readings);
-        Sensor s2 = new InternalSensor("S02",name2, startDate, wind, "c", readings);
-        Sensor s3 = new InternalSensor("S03",name3, startDate, wind, "c", readings);
+        Sensor s1 = new InternalSensor("S01","Sensor1", startDate, temp, "c", readings);
+        Sensor s2 = new InternalSensor("S02","Sensor2", startDate, wind, "c", readings);
+        Sensor s3 = new InternalSensor("S03","Sensor3", startDate, wind, "c", readings);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -382,13 +359,11 @@ class SensorListTest {
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26, 12, 0);
         ReadingList readings = new ReadingList();
 
-        Name name1=new Name("Sensor1");
-        Name name2=new Name("Sensor2");
-        Name name3=new Name("Sensor3");
 
-        Sensor s1 = new InternalSensor("S01",name1, startDate, temp, "c", readings);
-        Sensor s2 = new InternalSensor("S02",name2, startDate, wind, "c", readings);
-        Sensor s3 = new InternalSensor("S03",name3, startDate, wind, "c", readings);
+
+        Sensor s1 = new InternalSensor("S01","Sensor1", startDate, temp, "c", readings);
+        Sensor s2 = new InternalSensor("S02","Sensor2", startDate, wind, "c", readings);
+        Sensor s3 = new InternalSensor("S03","Sensor3", startDate, wind, "c", readings);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -407,13 +382,10 @@ class SensorListTest {
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26, 12, 0);
         ReadingList readings = new ReadingList();
 
-        Name name1=new Name("Sensor1");
-        Name name2=new Name("Sensor2");
-        Name name3=new Name("Sensor3");
 
-        Sensor s1 = new InternalSensor("S01",name1, startDate, temp, "c", readings);
-        Sensor s2 = new InternalSensor("S02",name2, startDate, temp, "c", readings);
-        Sensor s3 = new InternalSensor("S03",name3, startDate, wind, "c", readings);
+        Sensor s1 = new InternalSensor("S01","Sensor1", startDate, temp, "c", readings);
+        Sensor s2 = new InternalSensor("S02","Sensor2", startDate, temp, "c", readings);
+        Sensor s3 = new InternalSensor("S03","Sensor3", startDate, wind, "c", readings);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -430,13 +402,10 @@ class SensorListTest {
         GregorianCalendar startDate = new GregorianCalendar(2018, 12, 26, 12, 0);
         ReadingList readings = new ReadingList();
 
-        Name name1=new Name("Sensor1");
-        Name name2=new Name("Sensor2");
-        Name name3=new Name("Sensor3");
 
-        Sensor s1 = new InternalSensor("S01", name1, startDate, temp, "c", readings);
-        Sensor s2 = new InternalSensor("S02",name2, startDate, temp, "c", readings);
-        Sensor s3 = new InternalSensor("S03",name3, startDate, wind, "c", readings);
+        Sensor s1 = new InternalSensor("S01", "Sensor1", startDate, temp, "c", readings);
+        Sensor s2 = new InternalSensor("S02","Sensor2", startDate, temp, "c", readings);
+        Sensor s3 = new InternalSensor("S03","Sensor3", startDate, wind, "c", readings);
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         sensorList.addSensor(s2);
@@ -463,9 +432,8 @@ class SensorListTest {
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
         SensorType sensorType = new SensorType("Temperature");
-        Name name1=new Name("Sensor1");
 
-        Sensor sensor = new ExternalSensor("TL1023", name1, sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        Sensor sensor = new ExternalSensor("TL1023", "Sensor1", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
 
         GregorianCalendar pDate = new GregorianCalendar(2019, 2, 2);
@@ -491,10 +459,9 @@ class SensorListTest {
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
         SensorType sensorType = new SensorType("Temperature");
-        Name name=new Name("TemperatureSensor");
 
-        ExternalSensor sensor1 = new ExternalSensor("TL1023", name, sDate, sLoc, sensorType, "Celsius", new ReadingList());
-        ExternalSensor sensor2 = new ExternalSensor("TL1024", name, sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        ExternalSensor sensor1 = new ExternalSensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        ExternalSensor sensor2 = new ExternalSensor("TL1024", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
 
         lisbonSensorList.addSensor(sensor1);
         lisbonSensorList.addSensor(sensor2);
