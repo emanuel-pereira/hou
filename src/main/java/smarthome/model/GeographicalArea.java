@@ -1,11 +1,7 @@
 package smarthome.model;
 
-import smarthome.dto.GeographicalAreaDTO;
-import smarthome.dto.SensorDTO;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Objects;
 
 import static smarthome.model.TypeGAList.newTypeGA;
@@ -197,17 +193,6 @@ public class GeographicalArea {
         return this.occupation;
     }
 
-    /*
-    public GeographicalAreaDTO toDTO() {
-        List<SensorDTO> sensorListDTO = new ArrayList<>();
-        for (Sensors sensor : this.sensorListInGa.getSensorList()) {
-            SensorDTO sensorDTO = sensor.toDTO();
-            sensorListDTO.add(sensorDTO);
-        }
-        return new GeographicalAreaDTO(this.identification, this.designation, sensorListDTO);
-    }
-    */
-
     public void setIdentification(String id) {
         this.identification = id;
     }
@@ -215,8 +200,6 @@ public class GeographicalArea {
     public void setDesignation(String designation) {
         this.designation = designation;
     }
-
-    //TODO: tests
 
     public String gaInString(){
 

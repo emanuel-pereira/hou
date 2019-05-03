@@ -2,10 +2,12 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.model.devices.Fan;
-import smarthome.model.devices.FanType;
-import smarthome.model.devices.WashingMachine;
-import smarthome.model.devices.WashingMachineType;
+import smarthome.model.devices.*;
+
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,7 +17,7 @@ public class RoomTest {
      * Checks if the room name is only spaces, if so the validation method returns False
      */
     @Test
-    public void nameNotValid() {
+    void nameNotValid() {
 
         Room roomOne = new Room("  ", "  ", 0, 2.5, 3, 2);
 
@@ -29,7 +31,7 @@ public class RoomTest {
      * Checks if the room name is null, if so the validation method returns False
      */
     @Test
-    public void nullNameNotValid() {
+    void nullNameNotValid() {
 
         String name = " ";
         String id = " ";
@@ -44,7 +46,7 @@ public class RoomTest {
      * Checks if the room name is correct, if so the validation method returns True
      */
     @Test
-    public void nameValid() {
+    void nameValid() {
 
         Room roomOne = new Room("R01", "bedroom", 0, 2.5, 3, 4.7);
 
@@ -58,7 +60,7 @@ public class RoomTest {
      * Checks if two different room objects are equals because of their content
      */
     @Test
-    public void equalsIfRoomEqualsRoom() {
+    void equalsIfRoomEqualsRoomSameValues() {
         Room room1 = new Room("R01","bedroom", 0, 2.5, 3, 3);
         Room room2 = new Room("R01","bedroom", 0, 2.5, 3, 3);
 
@@ -69,10 +71,23 @@ public class RoomTest {
     }
 
     /**
+     * Checks if one room object is equals to itself
+     */
+    @Test
+    void equalsIfRoomEqualsRoom() {
+        Room room1 = new Room("R01","bedroom", 0, 2.5, 3, 3);
+
+        boolean result = room1.equals(room1);
+
+        assertEquals(room1.hashCode(), room1.hashCode());
+        assertTrue(result);
+    }
+
+    /**
      * Checks if two different room objects are different because of their content
      */
     @Test
-    public void equalsIfRoomEqualsDifferentRoom() {
+    void equalsIfRoomEqualsDifferentRoom() {
         Room room1 = new Room("R01", "bedroom", 0, 2.5, 3, 3);
         Room room2 = new Room("R02", "garden", 0, 2.5, 3, 3);
 
@@ -86,7 +101,7 @@ public class RoomTest {
      * Check if two different types objects are not equal
      */
     @Test
-    public void equalsIfStringEqualsRoom() {
+    void equalsIfStringEqualsRoom() {
         String person1 = "Joana";
         Room room1 = new Room("R01","bedroom", 0, 2.5, 3, 3);
         boolean result;
@@ -100,7 +115,7 @@ public class RoomTest {
      * Test to define/edit the id of the room.
      */
     @Test
-    public void setIdCorrectly() {
+    void setIdCorrectly() {
         Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2.5);
         bedroom.setId("R1");
 
@@ -115,7 +130,7 @@ public class RoomTest {
      * Test to define/edit the id of the room.
      */
     @Test
-    public void setIdIncorrectly() {
+    void setIdIncorrectly() {
         Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2.5);
         bedroom.setId(" ");
 
@@ -125,12 +140,30 @@ public class RoomTest {
         assertEquals(expectedResult, result);
     }
 
+    @Test
+    void setIdValidateFalse() {
+        Room bedroom = new Room();
+
+        boolean result = bedroom.setId(" ");
+
+        assertFalse(result);
+    }
+
+    @Test
+    void setIdValidateTrue() {
+        Room bedroom = new Room();
+
+        boolean result = bedroom.setId("r01");
+
+        assertTrue(result);
+    }
+
 
     /**
      * Test to define/edit the name of the room.
      */
     @Test
-    public void setName() {
+    void setName() {
 
         Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2.5);
         bedroom.setName("bedroom1");
@@ -146,7 +179,7 @@ public class RoomTest {
      * Test to define/edit the floor of the room.
      */
     @Test
-    public void setFloor() {
+    void setFloor() {
 
         Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2);
         bedroom.setFloor(2);
@@ -161,7 +194,7 @@ public class RoomTest {
      * Test to define/edit the dimensions of the room.
      */
     @Test
-    public void setArea() {
+    void setArea() {
 
         OccupationArea oa = new OccupationArea(3, 2);
         Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2);
@@ -178,7 +211,7 @@ public class RoomTest {
      * Test to define/edit the floor of the room.
      */
     @Test
-    public void setHeight() {
+    void setHeight() {
 
         Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2);
         bedroom.setHeight(3);
@@ -187,6 +220,70 @@ public class RoomTest {
         double result = bedroom.getHeight();
 
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getSensorListTest(){
+        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2);
+
+        Location location = new Location(12,34,56);
+        GregorianCalendar sDate = new GregorianCalendar(2019,05,03);
+        SensorType type1 = new SensorType("temperature");
+        ReadingList readingList = new ReadingList();
+
+        //had to create external sensor because the constructor for internal sensor was crashing!!
+        Sensor s1 = new Sensor("s1","meteo1",sDate,location,type1,"C",readingList);
+        Sensor s2 = new Sensor("s2","meteo2",sDate,location,type1,"C",readingList);
+
+        bedroom.getSensorListInRoom().addSensor(s1);
+        bedroom.getSensorListInRoom().addSensor(s2);
+
+        List<Sensor> expected = Arrays.asList(s1,s2);
+        List<Sensor> result = bedroom.getSensorListInRoom().getSensorList();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void checkIfSensorTypeInRoomTestTrue(){
+        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2);
+
+        Location location = new Location(12,34,56);
+        GregorianCalendar sDate = new GregorianCalendar(2019,05,03);
+        SensorType type1 = new SensorType("temperature");
+        ReadingList readingList = new ReadingList();
+
+        //had to create external sensor because the constructor for internal sensor was crashing!!
+        Sensor s1 = new Sensor("s1","meteo1",sDate,location,type1,"C",readingList);
+        Sensor s2 = new Sensor("s2","meteo2",sDate,location,type1,"C",readingList);
+
+        bedroom.getSensorListInRoom().addSensor(s1);
+        bedroom.getSensorListInRoom().addSensor(s2);
+
+        boolean result = bedroom.checkIfSensorTypeExistsInRoom("temperature");
+
+        assertTrue(result);
+    }
+
+    @Test
+    void checkIfSensorTypeInRoomTestFalse(){
+        Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2);
+
+        Location location = new Location(12,34,56);
+        GregorianCalendar sDate = new GregorianCalendar(2019,05,03);
+        SensorType type1 = new SensorType("temperature");
+        ReadingList readingList = new ReadingList();
+
+        //had to create external sensor because the constructor for internal sensor was crashing!!
+        Sensor s1 = new Sensor("s1","meteo1",sDate,location,type1,"C",readingList);
+        Sensor s2 = new Sensor("s2","meteo2",sDate,location,type1,"C",readingList);
+
+        bedroom.getSensorListInRoom().addSensor(s1);
+        bedroom.getSensorListInRoom().addSensor(s2);
+
+        boolean result = bedroom.checkIfSensorTypeExistsInRoom("rainfall");
+
+        assertFalse(result);
     }
 
     @Test
@@ -237,16 +334,14 @@ public class RoomTest {
      * The sum of the nominal power of two devices
      */
 
-    /*
     @Test
-    public void getCorrectNominalPowerIfTwoDevices() {
-        House house = new House ();
-        RoomList roomList = house.getHouseRoomList ();
-        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
+    void getCorrectNominalPowerIfTwoDevices() {
+        RoomList roomList = new RoomList();
+        Room bedroom = roomList.createNewRoom ("r1","bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
-        DeviceSpecs ewh = new Fridge ();
-        Device dEWH1 = new Device("EWH DAIKIN1", ewh, 15);
-        Device dEWH2 = new Device("EWH DAIKIN2", ewh, 15);
+        ElectricWaterHeaterType ewh = new ElectricWaterHeaterType ();
+        Device dEWH1 = ewh.createDevice("EWH DAIKIN1", 15);
+        Device dEWH2 = ewh.createDevice("EWH DAIKIN2", 15);
         roomList.addDeviceToRoom (dEWH1, 1);
         roomList.addDeviceToRoom (dEWH2, 1);
 
@@ -255,22 +350,19 @@ public class RoomTest {
 
         assertEquals (expectedResult, result);
     }
-*/
 
     /**
      * Check if sum of nominal power of devices in room is correct and return correct number
      * The sum of the nominal power of one device
      */
 
-  /*
     @Test
-    public void getCorrectNominalPowerIfOneDevice() {
-        House house = new House ();
-        RoomList roomList = house.getHouseRoomList ();
-        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
+    void getCorrectNominalPowerIfOneDevice() {
+        RoomList roomList = new RoomList();
+        Room bedroom = roomList.createNewRoom ("r1","bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
-        DeviceSpecs ewh = new Fridge ();
-        Device dEWH1 = new Device("EWH DAIKIN1", ewh, 15);
+        ElectricWaterHeaterType ewh = new ElectricWaterHeaterType ();
+        Device dEWH1 = ewh.createDevice("EWH DAIKIN1", 15);
         roomList.addDeviceToRoom (dEWH1, 1);
 
         double expectedResult = 15;
@@ -279,22 +371,21 @@ public class RoomTest {
         assertEquals (expectedResult, result);
     }
 
-*/
     /**
      * Check if sum of nominal power of devices in room is correct and return correct number
      * The sum of the nominal power of two devices with zero nominal power
      */
 
- /*FIXME
     @Test
-    public void getCorrectNominalPowerIfZero() {
-        RoomList roomList = getHouseRoomList ();
-        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
+    void getCorrectNominalPowerIfZero() {
+        RoomList roomList = new RoomList();
+        Room bedroom = roomList.createNewRoom ("r1","bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
 
-        DeviceSpecs fri = new FridgeSpecs("Fridge");
-        Device dEWH1 = new Device("Fridge DAIKIN1", fri, 0);
-        Device dEWH2 = new Device("Fridge DAIKIN2", fri, 0);roomList.addDeviceToRoom (dEWH1, 1);
+        ElectricWaterHeaterType ewh = new ElectricWaterHeaterType ();
+        Device dEWH1 = ewh.createDevice("EWH DAIKIN1", 0);
+        Device dEWH2 = ewh.createDevice("EWH DAIKIN2", 0);
+        roomList.addDeviceToRoom (dEWH1, 1);
         roomList.addDeviceToRoom (dEWH2, 1);
 
         double expectedResult = 0;
@@ -303,14 +394,14 @@ public class RoomTest {
         assertEquals (expectedResult, result);
     }
 
-    */
+
 
     /**
      * Check if sum of nominal power of devices in room is correct and return correct number
      * The sum of the nominal power of a room with no devices
      */
     @Test
-    public void getCorrectNominalPowerIf() {
+    void getCorrectNominalPowerIf() {
         RoomList roomList = new RoomList();
         Room bedroom = roomList.createNewRoom("R01","bedroom", 1, 2, 2, 2);
         roomList.addRoom(bedroom);
@@ -325,17 +416,14 @@ public class RoomTest {
      * Check if sum of nominal power of devices in room is correct and return incorrect number
      */
 
-   /*
     @Test
-    public void getIncorrectNominalPower() {
-
-        House house = new House ();
-        RoomList roomList = house.getHouseRoomList ();
-        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
+    void getIncorrectNominalPower() {
+        RoomList roomList = new RoomList();
+        Room bedroom = roomList.createNewRoom ("r1","bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
 
-        DeviceSpecs ewh = new Fridge ();
-        Device dEWH = new Device("EWH DAIKIN", ewh, 15);
+        ElectricWaterHeaterType ewh = new ElectricWaterHeaterType ();
+        Device dEWH = ewh.createDevice("EWH DAIKIN1", 15);
 
         roomList.addDeviceToRoom (dEWH, 1);
 
@@ -347,27 +435,24 @@ public class RoomTest {
         assertNotEquals (expectedResult, result);
     }
 
-*/
 
     /**
      * Check if sum of all metered devices in the room is correct with one metered device
      */
 
-  /*
     @Test
     void getRoomEnergyConsumptionInPeriod1() {
-        House house = new House ();
-        RoomList roomList = house.getHouseRoomList ();
-        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
+        RoomList roomList = new RoomList();
+        Room bedroom = roomList.createNewRoom ("r1","bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
 
-        DeviceSpecs ewh = new Fridge ();
-        Device dEWH = new Device("EWH DAIKIN", ewh, 15);
+        ElectricWaterHeaterType ewh = new ElectricWaterHeaterType ();
+        Device dEWH = ewh.createDevice("EWH DAIKIN1", 15);
 
         roomList.addDeviceToRoom (dEWH, 1);
 
         ReadingList activityLog = dEWH.getActivityLog ();
-        Reading r2 = new Reading (18, new GregorianCalendar (2018, 11, 5, 0, 10));
+        Reading r2 = new Reading (18, new GregorianCalendar(2018, 11, 5, 0, 10));
         Reading r3 = new Reading (22, new GregorianCalendar (2018, 11, 5, 0, 20));
         Reading r4 = new Reading (37, new GregorianCalendar (2018, 11, 5, 0, 30));
         Reading r5 = new Reading (31, new GregorianCalendar (2018, 11, 5, 0, 40));
@@ -383,39 +468,34 @@ public class RoomTest {
         activityLog.addReading (r8);
         GregorianCalendar startDate = new GregorianCalendar (2018, 11, 5, 0, 30);
         GregorianCalendar endDate = new GregorianCalendar (2018, 11, 5, 1, 00);
-        dEWH.setIsMetered (true);
         double expected = 71;
-        double result = bedroom.getDailyEnergyConsumption (startDate, endDate);
+        double result = bedroom.getEnergyConsumption (startDate, endDate);
 
         assertEquals (expected, result);
     }
-
-*/
 
     /**
      * Check if sum of all metered devices in the room is correct with two metered devices and one not metered device
      */
 
-   /*
     @Test
     void getRoomEnergyConsumptionInPeriod2() {
-        House house = new House ();
-        RoomList roomList = house.getHouseRoomList ();
-        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
+        RoomList roomList = new RoomList();
+        Room bedroom = roomList.createNewRoom ("r1","bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
 
-        DeviceSpecs ewh = new Fridge ();
-        Device dEWH = new Device("EWH DAIKIN", ewh, 15);
-        DeviceSpecs tv = new OtherDevices ();
-        Device dTv = new Device("Samsung TV", tv, 15);
-        DeviceSpecs frid = new Fridge();
-        Device dFrid = new Device("Fridge1", frid, 100);
-        Device dOtherFrid = new Device("Fridge2", frid, 80);
+        ElectricWaterHeaterType ewh = new ElectricWaterHeaterType ();
+        Device dEWH = ewh.createDevice("EWH DAIKIN1", 15);
+        TvType tv = new TvType ();
+        Device dTv = tv.createDevice("Samsung TV", 15);
+        FridgeType fridge = new FridgeType();
+        Device dFridge = fridge.createDevice("Fridge1", 100);
+        Device dOtherFridge = fridge.createDevice("Fridge2", 80);
 
         roomList.addDeviceToRoom (dEWH, 1);
         roomList.addDeviceToRoom (dTv, 1);
-        roomList.addDeviceToRoom (dFrid, 1);
-        roomList.addDeviceToRoom (dOtherFrid, 1);
+        roomList.addDeviceToRoom (dFridge, 1);
+        roomList.addDeviceToRoom (dOtherFridge, 1);
 
         ReadingList activityLog = dEWH.getActivityLog ();
         Reading r2 = new Reading (18, new GregorianCalendar (2018, 11, 5, 0, 10));
@@ -433,7 +513,7 @@ public class RoomTest {
         activityLog.addReading (r7);
         activityLog.addReading (r8);
 
-        ReadingList activityLogFrid = dFrid.getActivityLog ();
+        ReadingList activityLogFridge = dFridge.getActivityLog ();
         Reading rA2 = new Reading (20, new GregorianCalendar (2018, 11, 5, 0, 10));
         Reading rA3 = new Reading (12, new GregorianCalendar (2018, 11, 5, 0, 20));
         Reading rA4 = new Reading (12, new GregorianCalendar (2018, 11, 5, 0, 30));
@@ -441,15 +521,15 @@ public class RoomTest {
         Reading rA6 = new Reading (12, new GregorianCalendar (2018, 11, 5, 0, 50));
         Reading rA7 = new Reading (10, new GregorianCalendar (2018, 11, 5, 1, 00));
         Reading rA8 = new Reading (20, new GregorianCalendar (2018, 11, 5, 1, 10));
-        activityLogFrid.addReading (rA2);
-        activityLogFrid.addReading (rA3);
-        activityLogFrid.addReading (rA4);
-        activityLogFrid.addReading (rA5);
-        activityLogFrid.addReading (rA6);
-        activityLogFrid.addReading (rA7);
-        activityLogFrid.addReading (rA8);
+        activityLogFridge.addReading (rA2);
+        activityLogFridge.addReading (rA3);
+        activityLogFridge.addReading (rA4);
+        activityLogFridge.addReading (rA5);
+        activityLogFridge.addReading (rA6);
+        activityLogFridge.addReading (rA7);
+        activityLogFridge.addReading (rA8);
 
-        ReadingList activityLogOtherFrid = dOtherFrid.getActivityLog ();
+        ReadingList activityLogOtherFridge = dOtherFridge.getActivityLog ();
         Reading rB2 = new Reading (10, new GregorianCalendar (2018, 11, 5, 0, 10));
         Reading rB3 = new Reading (10, new GregorianCalendar (2018, 11, 5, 0, 20));
         Reading rB4 = new Reading (10, new GregorianCalendar (2018, 11, 5, 0, 30));
@@ -457,28 +537,24 @@ public class RoomTest {
         Reading rB6 = new Reading (10, new GregorianCalendar (2018, 11, 5, 0, 50));
         Reading rB7 = new Reading (10, new GregorianCalendar (2018, 11, 5, 1, 00));
         Reading rB8 = new Reading (10, new GregorianCalendar (2018, 11, 5, 1, 10));
-        activityLogOtherFrid.addReading (rB2);
-        activityLogOtherFrid.addReading (rB3);
-        activityLogOtherFrid.addReading (rB4);
-        activityLogOtherFrid.addReading (rB5);
-        activityLogOtherFrid.addReading (rB6);
-        activityLogOtherFrid.addReading (rB7);
-        activityLogOtherFrid.addReading (rB8);
+        activityLogOtherFridge.addReading (rB2);
+        activityLogOtherFridge.addReading (rB3);
+        activityLogOtherFridge.addReading (rB4);
+        activityLogOtherFridge.addReading (rB5);
+        activityLogOtherFridge.addReading (rB6);
+        activityLogOtherFridge.addReading (rB7);
+        activityLogOtherFridge.addReading (rB8);
 
         GregorianCalendar startDate = new GregorianCalendar (2018, 11, 5, 0, 30);
         GregorianCalendar endDate = new GregorianCalendar (2018, 11, 5, 1, 00);
-        dEWH.setIsMetered (true);
-        dFrid.setIsMetered (false);
-        dOtherFrid.setIsMetered (true);
 
-        double expected = 101;
-        double result = bedroom.getDailyEnergyConsumption (startDate, endDate);
+        double expected = 135;
+        double result = bedroom.getEnergyConsumption (startDate, endDate);
 
         assertEquals (expected, result);
     }
-*/
 
-/*
+    /*
     @Test
     public void checkIfSameDeviceIsAddedTwice() {
         House house = new House ();
@@ -514,17 +590,15 @@ public class RoomTest {
     }
 */
 
-/*
     @Test
     void getSizeDeviceListInRoom() {
-        House house = new House ();
-        RoomList roomList = house.getHouseRoomList ();
-        Room bedroom = roomList.createNewRoom ("bedroom", 1, 2, 2, 2);
+        RoomList roomList = new RoomList();
+        Room bedroom = roomList.createNewRoom ("r1","bedroom", 1, 2, 2, 2);
         roomList.addRoom (bedroom);
         DeviceList dL = bedroom.getDeviceList ();
-        DeviceSpecs ewh = new Fridge ();
-        Device dEWH1 = new Device("EWH DAIKIN1", ewh, 15);
-        Device dEWH2 = new Device("EWH DAIKIN2", ewh, 15);
+        ElectricWaterHeaterType ewh = new ElectricWaterHeaterType ();
+        Device dEWH1 = ewh.createDevice("EWH DAIKIN1",  15);
+        Device dEWH2 = ewh.createDevice("EWH DAIKIN2", 15);
         dL.add (dEWH1);
         dL.add (dEWH2);
 
@@ -533,6 +607,6 @@ public class RoomTest {
 
         assertEquals (expected, result);
     }
-*/
+
 
 }

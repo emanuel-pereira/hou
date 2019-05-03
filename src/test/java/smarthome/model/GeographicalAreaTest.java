@@ -13,7 +13,7 @@ public class GeographicalAreaTest {
 
     @DisplayName("Test if getHouseLocation method returns the location coordinates of the Geographical Area Aveiro")
     @Test
-    public void defineTypesOfGeograficalAreaCityLocation() {
+    public void defineTypesOfGeographicalAreaCityLocation() {
 
 
         Location loc = new Location(25, 35, 15);
@@ -222,17 +222,6 @@ public class GeographicalAreaTest {
     }
 
     @Test
-    public void checkIfOutdatedReadingsTest() throws IOException {
-        GeographicalArea ga = new GeographicalArea("001", "Porto", "city", new OccupationArea(3, 2), new Location(3, 30, 20));
-        GregorianCalendar startDate = new GregorianCalendar(2019, 2, 3);
-        Location location = new Location(3, 2, 1);
-        SensorType temp = new SensorType("Temperature");
-        Sensor sensorPorto = new ExternalSensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
-        ga.getSensorListInGA().addSensor(sensorPorto);
-        //TODO where is assert?
-    }
-
-    @Test
     void getType() {
         GeographicalArea ga = new GeographicalArea();
         assertNull(ga.getType());
@@ -266,4 +255,30 @@ public class GeographicalAreaTest {
         ga.setIdentification("X9000");
         assertEquals("X9000", ga.getId());
     }
+
+    @Test
+    void getTypeGANameTest(){
+        TypeGA type = new TypeGA("city");
+        OccupationArea area = new OccupationArea(11,22);
+        Location location = new Location(12,34,56);
+        GeographicalArea geoArea = new GeographicalArea ("Opo","Porto",type,area,location);
+
+        String result = geoArea.getTypeName();
+
+        assertEquals("city",result);
+    }
+
+    @Test
+    void showGAinStringTest(){
+        TypeGA type = new TypeGA("city");
+        OccupationArea area = new OccupationArea(11,22);
+        Location location = new Location(12,34,56);
+        GeographicalArea geoArea = new GeographicalArea ("Opo","Porto",type,area,location);
+
+        String expected = "    Porto, Opo";
+        String result = geoArea.gaInString();
+
+        assertEquals(expected,result);
+    }
+
 }

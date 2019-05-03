@@ -177,7 +177,7 @@ public class Address {
      *
      * @return address information as a String
      */
-    //TODO: add tests
+
     public String addressToString() {
         StringBuilder output = new StringBuilder();
         String space = "    ";

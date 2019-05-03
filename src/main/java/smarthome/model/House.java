@@ -54,11 +54,6 @@ public class House {
         return houseGridList;
     }
 
-    public boolean addGrid(HouseGrid newGrid) {
-        return houseGridList.addHouseGrid(newGrid);
-    }
-
-
     /**
      * Method to get a list of rooms not included in the roomList of the houseGrid defined as parameter.
      *

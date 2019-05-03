@@ -28,7 +28,7 @@ import static smarthome.repository.Repositories.saveExternalSensor;
 public class DataImport {
     private final JSONParser parser = new JSONParser();
     private Path configFilePath;
-    private final Path configHouseFilePath = Paths.get("resources/DataSet_sprint06_House.json");
+    private final Path configHouseFilePath = Paths.get("resources/DataSet_sprint07_House.json");
     private GAList gaList;
     private RoomList roomList;
     private int nrOfAddedReadings = 0;
@@ -265,7 +265,7 @@ public class DataImport {
         sensorsNotAdded = 0;
         for (String[] string : dataToImport) {
             String roomID = string[0];
-            Room room = roomList.getRoomIfIDMatchesAnyExistingRoom(roomID);
+            Room room = roomList.getRoomById(roomID);
 
             String sensorID = string[1];
             String sensorDesignation = string[2];

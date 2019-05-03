@@ -70,6 +70,27 @@ class ReadingListTest {
     }
 
     @Test
+    @DisplayName("Tests if the last reading of the list is returned")
+    void getLastReadingTest() {
+
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r2 = new Reading(16, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r3 = new Reading(18, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r4 = new Reading(20, new GregorianCalendar(2018, 3, 3), "C");
+
+
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+
+        Reading result = readingList.getLastReading();
+
+        assertEquals(r4, result);
+    }
+
+    @Test
     @DisplayName("Tests if the size of the list of readings is returned")
     void getReadingListSize() {
 
@@ -93,14 +114,14 @@ class ReadingListTest {
 
 
     @Test
-    @DisplayName("Ensure that returns the total values of reading list in a specific day")
-    void totalValueInGivenDay() {
+    //@DisplayName("Ensure that returns the total values of a reading list in a specific day")
+    void totalValueInGivenDayTest() {
 
 
         ReadingList readingList = new ReadingList();
         Reading r1 = new Reading(15, new GregorianCalendar(2019, 2, 2), "C");
-        Reading r2 = new Reading(16, new GregorianCalendar(2019, 2, 2), "C");
-        Reading r3 = new Reading(18, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r2 = new Reading(16, new GregorianCalendar(2019, 2, 2,1,0), "C");
+        Reading r3 = new Reading(18, new GregorianCalendar(2019, 2, 2,2,0), "C");
         Reading r4 = new Reading(20, new GregorianCalendar(2018, 3, 3), "C");
 
 
@@ -109,13 +130,36 @@ class ReadingListTest {
         readingList.addReading(r3);
         readingList.addReading(r4);
 
-        double expected1 = 15;
+        double expected1 = 49;
 
         double result1 = readingList.totalValueInGivenDay(new GregorianCalendar(2019, 2, 2));
 
         assertEquals(expected1, result1);
+    }
+
+    @Test
+    @DisplayName("Ensure that the total values of reading list in a specific day fdo not equal a false value")
+    void totalValueInGivenDayTestNotEquals() {
 
 
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r2 = new Reading(16, new GregorianCalendar(2019, 2, 2,1,0), "C");
+        Reading r3 = new Reading(18, new GregorianCalendar(2019, 2, 2,2,0), "C");
+        Reading r4 = new Reading(20, new GregorianCalendar(2018, 3, 3), "C");
+
+
+
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+        readingList.addReading(r4);
+
+        double expected1 = -48;
+
+        double result1 = readingList.totalValueInGivenDay(new GregorianCalendar(2019, 2, 2));
+
+        assertNotEquals(expected1, result1);
     }
 
 
@@ -647,10 +691,24 @@ class ReadingListTest {
     }
 
     @Test
-    void addReading() {
+    void addReadingTest() {
         ReadingList readingList = new ReadingList();
         Reading r1 = readingList.newReading(15, new GregorianCalendar(2019, 2, 2));
         assertTrue(readingList.addReading(r1));
+    }
+
+    @Test
+    void addReadingDuplicateFalseTest() {
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2019, 2, 2),"C");
+
+        Reading r2 = new Reading(20, new GregorianCalendar(2019, 2, 2),"F");
+
+        readingList.addReading(r1);
+
+        boolean result = readingList.addReading(r2);
+
+        assertFalse(result);
     }
 
     @Test
@@ -670,4 +728,70 @@ class ReadingListTest {
         assertEquals(1, readingList.size());
     }
 
+
+    @Test
+    @DisplayName("Tests if the a reading is duplicate compared to any on the reading list")
+    void checkIfDuplicateTestFalse() {
+
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r2 = new Reading(16, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r3 = new Reading(18, new GregorianCalendar(2018, 2, 2), "C");
+        Reading r4 = new Reading(18, new GregorianCalendar(2018, 2, 2), "F");
+
+
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+
+        boolean result = readingList.checkIfIsDuplicate(r4);
+
+        assertEquals("C",r4.getUnit());
+
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Tests if the reading is duplicated")
+    void convertReadingTest() {
+
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r2 = new Reading(16, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r3 = new Reading(18, new GregorianCalendar(2018, 2, 2), "C");
+        Reading r4 = new Reading(18, new GregorianCalendar(2018, 2, 2), "F");
+
+
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+
+        boolean result = readingList.checkIfIsDuplicate(r4);
+
+        assertEquals("C",r4.getUnit());
+
+        assertFalse(result);
+    }
+
+    @Test
+    @DisplayName("Tests if the duplicated reading in FahrenHeit is converted to celsius")
+    void convertReadingTestNotEquals() {
+
+        ReadingList readingList = new ReadingList();
+        Reading r1 = new Reading(15, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r2 = new Reading(16, new GregorianCalendar(2019, 2, 2), "C");
+        Reading r3 = new Reading(18, new GregorianCalendar(2018, 2, 2), "C");
+        Reading r4 = new Reading(18, new GregorianCalendar(2018, 2, 2), "F");
+
+
+        readingList.addReading(r1);
+        readingList.addReading(r2);
+        readingList.addReading(r3);
+
+        boolean result = readingList.checkIfIsDuplicate(r4);
+
+        assertNotEquals("F",r4.getUnit());
+
+        assertFalse(result);
+    }
 }

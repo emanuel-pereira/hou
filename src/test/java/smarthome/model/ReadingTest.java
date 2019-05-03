@@ -2,8 +2,10 @@ package smarthome.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.dto.ReadingDTO;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -95,8 +97,84 @@ public class ReadingTest {
     void getUnitValueOfReading() {
         GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 31, 21, 30);
         Reading reading1 = new Reading(12, calendar1, "Celsius");
-        String expected = "2018-12-31";
-        String result = reading1.getDateOfReadingAsString ();
+        String expected = "Fahrenheit";
+        reading1.setUnit(expected);
+        String result = reading1.getUnit();
         assertEquals(expected, result);
     }
+
+    @Test
+    void toDTOTest(){
+        GregorianCalendar date = new GregorianCalendar(2018, 11, 31, 21, 30);
+        Reading reading = new Reading();
+        reading.setValue(12);
+        reading.setDateAndTime(date);
+        reading.setUnit("F");
+
+        ReadingDTO dto = reading.toDTO();
+
+        double expected = reading.getValue();
+        double result = dto.getReadingValue();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void convertToCelsiusValueTest () {
+        GregorianCalendar date = new GregorianCalendar(2018, 11, 31, 21, 30);
+        Reading reading = new Reading();
+        reading.setValue(40);
+        reading.setDateAndTime(date);
+        reading.setUnit("F");
+
+        double expected = 4.44 ;
+        double result = reading.convertToCelsius();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void convertToCelsiusUnitTest () {
+        GregorianCalendar date = new GregorianCalendar(2018, 11, 31, 21, 30);
+        Reading reading = new Reading();
+        reading.setValue(40);
+        reading.setDateAndTime(date);
+        reading.setUnit("F");
+
+        reading.convertToCelsius();
+
+        String expected = "C";
+        String result = reading.getUnit();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void convertToCelsiusTestFalse() {
+        GregorianCalendar date = new GregorianCalendar(2018, 11, 31, 21, 30);
+        Reading reading = new Reading();
+        reading.setValue(40);
+        reading.setDateAndTime(date);
+        reading.setUnit("C");
+
+        double expected = 40 ;
+        double result = reading.convertToCelsius();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void extractYearMonthDayTest() {
+        GregorianCalendar date = new GregorianCalendar(2018, 11,0,0,0);
+        Reading reading = new Reading();
+        reading.setValue(40);
+        reading.setDateAndTime(date);
+        reading.setUnit("C");
+
+        Calendar expected = reading.getDateAndTime();//.getTime();
+        GregorianCalendar result = reading.extractYearMonthDay();//.getTime();
+
+        assertEquals(expected,result);
+    }
+
 }
