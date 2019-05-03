@@ -13,7 +13,7 @@ public class GeographicalAreaTest {
 
     @DisplayName("Test if getHouseLocation method returns the location coordinates of the Geographical Area Aveiro")
     @Test
-    public void defineTypesOfGeograficalAreaCityLocation() {
+    public void defineTypesOfGeographicalAreaCityLocation() {
 
 
         Location loc = new Location(25, 35, 15);
@@ -219,17 +219,6 @@ public class GeographicalAreaTest {
         double result = ga.getOccupation().getOccupationArea();
 
         assertEquals(expectedResult, result);
-    }
-
-    @Test
-    public void checkIfOutdatedReadingsTest() throws IOException {
-        GeographicalArea ga = new GeographicalArea("001", "Porto", "city", new OccupationArea(3, 2), new Location(3, 30, 20));
-        GregorianCalendar startDate = new GregorianCalendar(2019, 2, 3);
-        Location location = new Location(3, 2, 1);
-        SensorType temp = new SensorType("Temperature");
-        Sensor sensorPorto = new Sensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
-        ga.getSensorListInGA().addSensor(sensorPorto);
-        //TODO where is assert?
     }
 
     @Test
