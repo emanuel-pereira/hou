@@ -1,0 +1,47 @@
+@startuml
+
+skinparam sequence {
+         	ArrowColor SteelBlue
+         	ActorBorderColor Dimgray
+         	LifeLineBorderColor MidnightBlue
+         	LifeLineBackgroundColor #A9DCDF
+
+         	ParticipantBorderColor Dimgray
+         	ParticipantBackgroundColor SteelBlue
+         	ParticipantFontName Calibri Bold
+         	ParticipantFontSize 17
+         	ParticipantFontColor Ivory
+
+         	ActorBackgroundColor SteelBlue
+         	ActorFontColor MidnightBlue
+         	ActorFontSize 17
+         	ActorFontName Aapex
+
+         }
+skinparam note {
+BorderColor SteelBlue
+}
+autonumber
+hidefootbox
+
+loop for each day in time interval
+":ComfortLevelService" -> ":InternalSensorRepo": rL = getReadingsInSpecificDay(day,sensorID)
+":ComfortLevelService" -> ":ExternalSensorRepo": outAverage = dailyAverageOfReadings(day,sensorID)
+":ComfortLevelService" -> ":ComfortLevelService":
+note right #FFFF
+ can be:
+    maxTemp = getMaxTemperatureForComfortLevel(outAverage,category)
+   or
+    minTemp = getMinTemperatureForComfortLevel(outAverage,category)
+end note
+
+":ComfortLevelService" -> ":ComfortLevelService":
+note right #FFFF
+ can be:
+    getReadingsAboveComfortLevel(rL,maxTemp)
+   or
+    getReadingsBelowComfortLevel(rL,minTemp)
+end note
+end
+
+@enduml
