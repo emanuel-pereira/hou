@@ -464,7 +464,7 @@ class SensorListTest {
         lisbonSensorList.addSensor(sensor1);
         lisbonSensorList.addSensor(sensor2);
 
-        GregorianCalendar pDate = new GregorianCalendar(2019, 2, 2);
+        GregorianCalendar pDate = new GregorianCalendar(2019, 2, 3);
 
         lisbonSensorList.deactivateSensor("TL1023", pDate);
 

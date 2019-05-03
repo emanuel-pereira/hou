@@ -1,16 +1,12 @@
 package smarthome.model;
 
-import smarthome.dto.ReadingDTO;
-import smarthome.dto.SensorDTO;
 import smarthome.model.validations.Utils;
 
-import javax.persistence.*;
-import java.util.ArrayList;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Objects;
-
-import static smarthome.model.House.getAddress;
 
 @Entity
 public class ExternalSensor implements Sensor {

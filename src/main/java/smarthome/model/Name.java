@@ -1,11 +1,14 @@
 package smarthome.model;
 
+import javax.persistence.Embeddable;
 
+@Embeddable
 public class Name {
-
 
     private String name;
 
+
+    protected Name(){}
     public Name(String name) {
 
         if ((nameIsValid(name)) || (alphanumericName(name)))

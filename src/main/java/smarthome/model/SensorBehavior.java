@@ -6,8 +6,10 @@ import java.util.Calendar;
 @Embeddable
 public class SensorBehavior {
 
-    private String id;
+    @Embedded
     private Name name;
+    @OneToOne
+    @JoinColumn(name = "SENSORTYPE_ID")
     private SensorType sensorType;
     private Calendar startDate;
     private Calendar pauseDate;
@@ -16,6 +18,7 @@ public class SensorBehavior {
     @Embedded
     private ReadingList readingList;
 
+protected SensorBehavior(){}
     /**
      * Constructor that creates sensor behaviour use in every sensor.
      *
