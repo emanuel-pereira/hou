@@ -100,7 +100,7 @@ public final class Repositories {
 
     public static void saveExternalSensor(ExternalSensor s) {
         //TODO remove when solution for duplicates is found and implemented
-        Repositories.getSensorTypeRepository().save(s.getSensorType());
+        Repositories.getSensorTypeRepository().save(s.getSensorBehavior().getSensorType());
 
         Repositories.externalSensorRepository.save(s);
     }

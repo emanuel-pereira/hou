@@ -106,7 +106,8 @@ public class NewSensorCTRL {
     public boolean addNewSensorToGA(String id, String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, Location location, int indexOfGA, ReadingList readings) {
         GeographicalArea geographicalArea = this.gaList.get(indexOfGA);
         SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);
-        Sensor sensor = geographicalArea.getSensorListInGA().newSensor(id, inputName, startDate, location, sensorType, inputUnit, readings);
+        Name sensorName= new Name(inputName);
+        Sensor sensor = geographicalArea.getSensorListInGA().newSensor(id, sensorName, startDate, location, sensorType, inputUnit, readings);
         return geographicalArea.getSensorListInGA().addSensor(sensor);
     }
 
@@ -126,7 +127,8 @@ public class NewSensorCTRL {
         SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);
         Room room = roomList.get(indexOfRoom);
         SensorList rSensorList = room.getSensorListInRoom();
-        Sensor sensor = rSensorList.createNewInternalSensor(id, inputName, startDate, sensorType, unit, readingList);
+        Name sensorName= new Name(inputName);
+        Sensor sensor = rSensorList.createNewInternalSensor(id, sensorName, startDate, sensorType, unit, readingList);
         return rSensorList.addSensor(sensor);
 
     }

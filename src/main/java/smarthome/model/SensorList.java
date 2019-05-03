@@ -93,7 +93,7 @@ public class SensorList {
      * @param geoLocation gps coordinates in which the user wants to place the sensor
      * @return List of sensors
      */
-    public Sensor newSensor(String id, String inputName, GregorianCalendar startDate, Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
+    public Sensor newSensor(String id, Name inputName, GregorianCalendar startDate, Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
         return new ExternalSensor(id, inputName, startDate, geoLocation, sensorType, inputUnit, readings);
     }
 
@@ -104,7 +104,7 @@ public class SensorList {
      * @param unit       The measurement unit
      * @return A new interior sensor
      */
-    public Sensor createNewInternalSensor(String id, String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+    public Sensor createNewInternalSensor(String id, Name name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         return new InternalSensor(id, name, startDate, sensorType, unit, readings);
     }
 
@@ -195,7 +195,7 @@ public class SensorList {
         SensorList activeSensors = new SensorList();
         for (Sensor s : this.getSensorList()) {
 
-            if (s.isActive()) {
+            if (s.getSensorBehavior().isActive()) {
                 activeSensors.getSensorList().add(s);
             }
         }
@@ -211,7 +211,7 @@ public class SensorList {
     public void deactivateSensor(String sensorID, Calendar pauseDate) {
         for (Sensor s : this.getSensorList())
             if (s.getId().matches(sensorID)) {
-                s.deactivate(pauseDate);
+                s.getSensorBehavior().deactivate(pauseDate);
 
                 //Repository call
                 try {

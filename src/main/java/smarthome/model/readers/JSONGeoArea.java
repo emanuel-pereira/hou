@@ -95,7 +95,7 @@ public class JSONGeoArea implements FileReaderGeoArea {
         String unit = (String) sensor.get("units");
         Location location = importLocation(jsonSensor);
         ReadingList readings = new ReadingList();
-        return new ExternalSensor(id, name, calendar, location, type, unit, readings);
+        return new ExternalSensor(id, new Name(name), calendar, location, type, unit, readings);
 
     }
 

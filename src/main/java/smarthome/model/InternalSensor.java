@@ -20,15 +20,15 @@ public class InternalSensor implements Sensor {
      * Constructor used to create internal sensors which require location coordinates.
      *
      * @param id          String parameter to specify sensor's id
-     * @param designation String parameter to specify sensor's designation
+     * @param name String parameter to specify sensor's name
      * @param startDate   specifies the sensor start date as a Calendar dataType
      * @param sensorType  specifies the sensor start date as a Calendar variable
      * @param unit        String parameter to specify sensor's unit of measure
      * @param readings    specifies the sensor's readingList
      */
-    public InternalSensor(String id, String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+    public InternalSensor(String id, Name name, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         this.id = id;
-        this.sensorBehavior = new SensorBehavior(designation, startDate, sensorType, unit, readings);
+        this.sensorBehavior = new SensorBehavior(name, startDate, sensorType, unit, readings);
     }
 
     /**
@@ -107,11 +107,11 @@ public class InternalSensor implements Sensor {
      *
      * @return the last reading of a list of readings
      */
-    public Reading getLastReadingPerSensor() {
+    public Reading getLastReading() {
         return this.sensorBehavior.getLastReading();
     }
 
-    public double getLastReadingValuePerSensor() {
+    public double getLastReadingValue() {
         return this.sensorBehavior.getLastReadingValue();
     }
 

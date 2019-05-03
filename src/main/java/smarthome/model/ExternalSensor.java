@@ -37,7 +37,7 @@ public class ExternalSensor implements Sensor {
      * @param unit        String parameter to specify sensor's unit of measure
      * @param readings    specifies the sensor's readingList
      */
-    public ExternalSensor(String id, String designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
+    public ExternalSensor(String id, Name designation, Calendar startDate, Location geoLocation, SensorType sensorType, String unit, ReadingList readings) {
         this.id = id;
         this.location = geoLocation;
         this.sensorBehavior = new SensorBehavior(designation, startDate, sensorType, unit, readings);

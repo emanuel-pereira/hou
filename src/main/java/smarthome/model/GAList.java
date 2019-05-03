@@ -67,7 +67,7 @@ public class GAList {
         for (GeographicalArea ga : this.listOfGa) {
             List<Sensor> sensorList = ga.getSensorListInGA().getSensorList();
             for (Sensor sensor : sensorList) {
-                List<Reading> readings = sensor.getReadingList().getReadingsList();
+                List<Reading> readings = sensor.getSensorBehavior().getReadingList().getReadingsList();
                 allReadings.addAll(readings);
             }
         }

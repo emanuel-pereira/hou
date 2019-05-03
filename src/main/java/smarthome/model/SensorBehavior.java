@@ -19,16 +19,14 @@ public class SensorBehavior {
     /**
      * Constructor that creates sensor behaviour use in every sensor.
      *
-     * @param id          String parameter to specify sensor's id
      * @param sensorName String parameter to specify sensor's designation
      * @param startDate   specifies the sensor start date as a Calendar dataType
      * @param sensorType  specifies the sensor start date as a Calendar variable
      * @param unit        String parameter to specify sensor's unit of measure
      * @param readings    specifies the sensor's readingList
      */
-    public SensorBehavior(String id, String sensorName, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
-        this.id = id;
-        this.name = new Name(sensorName);
+    public SensorBehavior(Name sensorName, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+        this.name = sensorName;
         this.startDate = startDate;
         this.sensorType = sensorType;
         this.unit = unit;
