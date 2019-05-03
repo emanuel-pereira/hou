@@ -262,7 +262,7 @@ public class DataImport {
         sensorsNotAdded = 0;
         for (String[] string : dataToImport) {
             String roomID = string[0];
-            Room room = roomList.getRoomIfIDMatchesAnyExistingRoom(roomID);
+            Room room = roomList.getRoomById(roomID);
 
             String sensorID = string[1];
             String sensorDesignation = string[2];

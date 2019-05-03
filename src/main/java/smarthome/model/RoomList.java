@@ -109,14 +109,11 @@ public class RoomList {
     }
 
     public Room getRoomById(String inputId) {
-        Room room = get(0);
-        for (Room r : this.listOfRooms) {
-            room = r;
-            if (room.getId().matches(inputId)) {
-                break;
-            }
-        }
-        return room;
+        Room matchedRoom = null;
+        for (Room room : this.listOfRooms)
+            if (room.getId().equals(inputId))
+                matchedRoom = room;
+        return matchedRoom;
 
     }
 
@@ -232,14 +229,5 @@ public class RoomList {
 
         }
         return sensors;
-    }
-
-
-    public Room getRoomIfIDMatchesAnyExistingRoom(String sensorID) {
-        Room matchedRoom = null;
-        for (Room room : this.listOfRooms)
-            if (room.getId().equals(sensorID))
-                matchedRoom = room;
-        return matchedRoom;
     }
 }

@@ -310,6 +310,17 @@ public class RepositoryTest {
         assertEquals(1, roomRepSize);
     }
 
+    @Test
+    @DisplayName("Ensure that the room repository has 1 element persisted saved in Repository save Room")
+    void numberElementsRoomRepositorySaveInRepositoryCallSaveRoom() {
+        Room bedroom = new Room("R1", "Bedroom 1", 2, 2, 2, 2);
+        Repositories.saveRoom(bedroom);
+
+        long roomRepSize = Repositories.getRoomRepository().count();
+
+        assertEquals(1, roomRepSize);
+    }
+
     /*
     @Test
     @DisplayName("Ensure that the room repository has 2 element persisted saved in RoomList")
