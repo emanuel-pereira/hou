@@ -261,7 +261,6 @@ public class ReadingList {
         return dailyMin;
     }
 
-    //TODO verify this method
     public ReadingList dailyAmplitude() {
         List<Reading> dailyMaximumReadings = dailyMaximumReadings().getReadingsList();
         List<Reading> dailyMinimumReadings = dailyMinimumReadings().getReadingsList();
@@ -308,7 +307,6 @@ public class ReadingList {
         return endDate;
     }
 
-    //TODO verify accuratness of this method, is it what we require?
     boolean checkIfIsDuplicate(Reading newReading) {
         convertReadings(newReading);
         for (Reading reading : this.listOfReadings) {
@@ -322,7 +320,6 @@ public class ReadingList {
         try {
             if (newReading.getUnit().equals("F")) {
                 newReading.convertToCelsius();
-                newReading.setUnit("C");
             }
         } catch (Exception e) {
             log.warn(e.getMessage());
