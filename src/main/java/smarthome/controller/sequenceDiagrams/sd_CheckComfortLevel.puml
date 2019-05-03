@@ -1,0 +1,86 @@
+@startuml
+
+skinparam sequence {
+         	ArrowColor SteelBlue
+         	ActorBorderColor Dimgray
+         	LifeLineBorderColor MidnightBlue
+         	LifeLineBackgroundColor #A9DCDF
+
+         	ParticipantBorderColor Dimgray
+         	ParticipantBackgroundColor SteelBlue
+         	ParticipantFontName Calibri Bold
+         	ParticipantFontSize 17
+         	ParticipantFontColor Ivory
+
+         	ActorBackgroundColor SteelBlue
+         	ActorFontColor MidnightBlue
+         	ActorFontSize 17
+         	ActorFontName Aapex
+
+         }
+skinparam note {
+BorderColor SteelBlue
+}
+autonumber
+hidefootbox
+actor Administrator
+
+
+Administrator -> ":ComfortLevelUI": Check comfort level in a room
+create ":ComfortLevelCTRL"
+
+":ComfortLevelUI" -->> ":ComfortLevelCTRL": create()
+
+create ":ComfortLevelService"
+":ComfortLevelCTRL" -->> ":ComfortLevelService": create()
+
+":ComfortLevelCTRL" -> ":ComfortLevelService": getNearestSensor()
+":ComfortLevelService" -> ":HouseRepo": getHouseGA()
+":ComfortLevelService" -> ":SensorRepo": getNearestTemperatureSensor(gaID,gaLocation)
+":SensorRepo" -> ":SensorJPA": findAllByGA(gaID)
+":SensorRepo" -> ":SensorRepo": getNearestTemperatureSensor(gaLocation,temperature)
+
+
+":ComfortLevelService" -> ":RoomRepo": getRoomList()
+":RoomRepo" -> ":RoomJPA": findAll()
+":RoomRepo" -> ":RoomRepo": toDTO()
+":ComfortLevelService" -> ":ComfortLevelCTRL": showRoomList()
+":ComfortLevelCTRL" -> ":ComfortLevelUI": showRoomList()
+":ComfortLevelUI" -->> Administrator: show rooms
+
+
+Administrator -> ":ComfortLevelUI": select room
+":ComfortLevelUI" -> ":ComfortLevelCTRL": getSensorByRoomAndType(roomID,temperature)
+":ComfortLevelCTRL" -> ":ComfortLevelService": getSensorByRoomAndType(roomID,temperature)
+":ComfortLevelService" -> ":SensorRepo": getSensorByRoomAndType(roomID,temperature)
+":SensorRepo" -> ":SensorJPA": findSensorsByRoom(roomID)
+":SensorRepo" -> ":SensorRepo": getSensorByType(temperature)
+
+Administrator <- ":ComfortLevelUI": Ask to input time interval
+Administrator -> ":ComfortLevelUI": Input time interval
+":ComfortLevelUI" -> ":ComfortLevelCTRL": getReadingsByInterval(startDate,endDate)
+":ComfortLevelCTRL" -->> ":ComfortLevelService": getReadingsByInterval(startDate,endDate)
+
+Administrator <- ":ComfortLevelUI": Ask to select comfort level category
+Administrator -> ":ComfortLevelUI": Select a comfort level category
+":ComfortLevelUI" -> ":ComfortLevelCTRL": getComfortLevel(category)
+":ComfortLevelCTRL" -> ":ComfortLevelService": getReadingsOutsideComfortLevel(category)
+
+
+loop for each day in time interval
+":ComfortLevelService" -> ":ReadingRepo": lR = getReadingsInSpecificDay(day,sensorID)
+":ComfortLevelService" -> ":ReadingRepo": outAverage = dailyAverageOfReadings(day)
+":ComfortLevelService" -> ":ComfortLevelService": maxTemp = getMaxTemperatureForComfortLevel(outAverage,category)
+":ComfortLevelService" -> ":ComfortLevelService": getReadingsAboveComfortLevel(rL,maxTemp)
+end
+
+
+":ComfortLevelUI" -->> Administrator: show success message
+
+
+
+
+
+
+
+@enduml
