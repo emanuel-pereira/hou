@@ -15,7 +15,7 @@ import static smarthome.model.House.getAddress;
 public class SensorBehavior {
 
     private String id;
-    private String designation;
+    private Name name;
     private SensorType sensorType;
     private Calendar startDate;
     private Calendar pauseDate;
@@ -27,15 +27,15 @@ public class SensorBehavior {
      * Constructor that creates sensor behaviour use in every sensor.
      *
      * @param id          String parameter to specify sensor's id
-     * @param designation String parameter to specify sensor's designation
+     * @param sensorName String parameter to specify sensor's designation
      * @param startDate   specifies the sensor start date as a Calendar dataType
      * @param sensorType  specifies the sensor start date as a Calendar variable
      * @param unit        String parameter to specify sensor's unit of measure
      * @param readings    specifies the sensor's readingList
      */
-    public SensorBehavior(String id, String designation, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+    public SensorBehavior(String id, String sensorName, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         this.id = id;
-        this.designation = designation;
+        this.name = new Name(sensorName);
         this.startDate = startDate;
         this.sensorType = sensorType;
         this.unit = unit;
@@ -89,11 +89,11 @@ public class SensorBehavior {
     /**
      * Changes the sensorDesignation of the sensor to the one inputted by the user.
      *
-     * @param sensorDesignation sensor's name String
+     * @param sensorName sensor's name String
      */
-    public boolean setSensorDesignation(String sensorDesignation) {
-        if (this.nameIsValid(sensorDesignation)) {
-            this.designation = sensorDesignation;
+    public boolean setSensorDesignation(String sensorName) {
+        if (this.nameIsValid(sensorName)) {
+            this.name = new Name(sensorName);
             return true;
         }
         return false;
@@ -133,7 +133,8 @@ public class SensorBehavior {
      * @return is the sensor's name designation
      */
     public String getDesignation() {
-        return this.designation;
+
+        return this.name.toString();
     }
 
 
