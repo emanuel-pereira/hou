@@ -121,12 +121,12 @@ public class RepositoryTest {
         GeographicalArea lisbon = new GeographicalArea("PT", "Lisboa", city, oaL, locL);
         SensorList lSensorList = lisbon.getSensorListInGA();
         SensorType temperature = new SensorType("temperature");
-        Sensor sensor = new Sensor("TT1023", "Temperature Sensor", new GregorianCalendar(2019, 2, 2), locL, temperature, "Celsius", new ReadingList());
+        Sensor sensor = new ExternalSensor("TT1023", "Temperature Sensors", new GregorianCalendar(2019, 2, 2), locL, temperature, "Celsius", new ReadingList());
         lSensorList.addSensor(sensor);
         Repositories.saveGA(lisbon);
         long geoRepSize = Repositories.getGeoRepository().count();
         assertEquals(2, geoRepSize);
-        long sensorRepSize = Repositories.getSensorRepository().count();
+        long sensorRepSize = Repositories.getExternalSensorRepository().count();
         assertEquals(1, sensorRepSize);
     }
 
@@ -144,13 +144,13 @@ public class RepositoryTest {
         GeographicalArea lisbon = new GeographicalArea("PT", "Lisboa", city, oaL, locL);
         SensorList lSensorList = lisbon.getSensorListInGA();
         SensorType temperature = new SensorType("temperature");
-        Sensor sensor = new Sensor("TT1023", "Temperature Sensor", new GregorianCalendar(2019, 2, 2), locL, temperature, "Celsius", new ReadingList());
+        Sensor sensor = new ExternalSensor("TT1023", "Temperature Sensors", new GregorianCalendar(2019, 2, 2), locL, temperature, "Celsius", new ReadingList());
         lSensorList.addSensor(sensor);
         Repositories.saveGA(lisbon);
         long typeGARepSize = Repositories.getTypeGARepository().count();
         assertNotEquals(0, typeGARepSize);
 
-        long sensorRepSize = Repositories.getSensorRepository().count();
+        long sensorRepSize = Repositories.getExternalSensorRepository().count();
         assertEquals(1, sensorRepSize);
     }
 
@@ -163,11 +163,11 @@ public class RepositoryTest {
         SensorType wind = new SensorType("wind");
         Repositories.getSensorTypeRepository().save(wind);
         ReadingList readingList = new ReadingList();
-        Sensor sensor1 = new Sensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
-        Repositories.getSensorRepository().save(sensor1);
+        ExternalSensor sensor1 = new ExternalSensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
+        Repositories.getExternalSensorRepository().save(sensor1);
         GregorianCalendar r1Date = new GregorianCalendar(2016, Calendar.NOVEMBER, 15, 9, 15);
         Reading reading = new Reading(22, r1Date);
-        long repSize = Repositories.getSensorRepository().count();
+        long repSize = Repositories.getExternalSensorRepository().count();
         assertEquals(1, repSize);
     }
 
@@ -179,11 +179,11 @@ public class RepositoryTest {
         Location locS1 = new Location(72, 26, 2);
         SensorType wind = new SensorType("wind");
         ReadingList readingList = new ReadingList();
-        Sensor sensor1 = new Sensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
+        ExternalSensor sensor1 = new ExternalSensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
         GregorianCalendar r1Date = new GregorianCalendar(2016, Calendar.NOVEMBER, 15, 9, 15);
         Reading reading = new Reading(22, r1Date);
-        Repositories.saveSensor(sensor1);
-        long repSize = Repositories.getSensorRepository().count();
+        Repositories.saveExternalSensor(sensor1);
+        long repSize = Repositories.getExternalSensorRepository().count();
         assertEquals(1, repSize);
     }
 
@@ -194,11 +194,11 @@ public class RepositoryTest {
         Location locS1 = new Location(72, 26, 2);
         SensorType wind = new SensorType("wind");
         ReadingList readingList = new ReadingList();
-        Sensor sensor1 = new Sensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
+        ExternalSensor sensor1 = new ExternalSensor("MV12345", "Meteo station ISEP", startDate, locS1, wind, "m/s", readingList);
         GregorianCalendar r1Date = new GregorianCalendar(2016, Calendar.NOVEMBER, 15, 9, 15);
         Reading reading = new Reading(22, r1Date);
-        Repositories.saveSensor(sensor1);
-        long repSize = Repositories.getSensorRepository().count();
+        Repositories.saveExternalSensor(sensor1);
+        long repSize = Repositories.getExternalSensorRepository().count();
         assertNotEquals(0, repSize);
     }
 
@@ -238,7 +238,7 @@ public class RepositoryTest {
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
         SensorType sensorType = new SensorType("Temperature");
-        Sensor sensor = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        Sensor sensor = new ExternalSensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
 
         //created sensorDTO from sensor
@@ -258,7 +258,7 @@ public class RepositoryTest {
         long expectedReadingSize = 0;
 
         long expectedSensorRepSize = 0;
-        long resultingSensorRepSize = Repositories.getSensorRepository().count();
+        long resultingSensorRepSize = Repositories.getExternalSensorRepository().count();
         assertEquals(expectedSensorRepSize, resultingSensorRepSize);
     }
 
@@ -283,7 +283,7 @@ public class RepositoryTest {
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
         SensorType sensorType = new SensorType("Temperature");
-        Sensor sensor = new Sensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
+        Sensor sensor = new ExternalSensor("TL1023", "TemperatureSensor", sDate, sLoc, sensorType, "Celsius", new ReadingList());
         lisbonSensorList.addSensor(sensor);
 
         //created sensorDTO from sensor
@@ -303,7 +303,7 @@ public class RepositoryTest {
         long expectedReadingSize = 1;
 
         long expectedSensorRepSize = 1;
-        long resultingSensorRepSize = Repositories.getSensorRepository().count();
+        long resultingSensorRepSize = Repositories.getExternalSensorRepository().count();
         assertNotEquals(expectedSensorRepSize, resultingSensorRepSize);
     }
 
@@ -362,8 +362,8 @@ public class RepositoryTest {
         Room bedroom = new Room("R1", "Bedroom 1", 2, 2, 2, 2);
         SensorType temperature = new SensorType("temperature");
         SensorList sList = bedroom.getSensorListInRoom();
-        Sensor sensor1 = new Sensor("S1", "Sensor1", new GregorianCalendar(2019, 2, 2), temperature, "C", new ReadingList());
-        Sensor sensor2 = new Sensor("S2", "Sensor2", new GregorianCalendar(2019, 3, 4), temperature, "C", new ReadingList());
+        InternalSensor sensor1 = new InternalSensor("S1", "Sensor1", new GregorianCalendar(2019, 2, 2), temperature, "C", new ReadingList());
+        InternalSensor sensor2 = new InternalSensor("S2", "Sensor2", new GregorianCalendar(2019, 3, 4), temperature, "C", new ReadingList());
 
         sList.addSensor(sensor1);
         sList.addSensor(sensor2);
@@ -373,7 +373,7 @@ public class RepositoryTest {
         long roomRepSize = Repositories.getRoomRepository().count();
         assertEquals(1, roomRepSize);
 
-        long sensorRepSize = Repositories.getSensorRepository().count();
+        long sensorRepSize = Repositories.getInternalSensorRepository().count();
         assertEquals(2, sensorRepSize);
     }
 
@@ -383,8 +383,8 @@ public class RepositoryTest {
         Room bedroom = new Room("R1", "Bedroom 1", 2, 2, 2, 2);
         SensorType temperature = new SensorType("temperature");
         SensorList sList = bedroom.getSensorListInRoom();
-        Sensor sensor1 = new Sensor("S1", "Sensor1", new GregorianCalendar(2019, 2, 2), temperature, "C", new ReadingList());
-        Sensor sensor2 = new Sensor("S2", "Sensor2", new GregorianCalendar(2019, 3, 4), temperature, "C", new ReadingList());
+        Sensor sensor1 = new InternalSensor("S1", "Sensor1", new GregorianCalendar(2019, 2, 2), temperature, "C", new ReadingList());
+        Sensor sensor2 = new InternalSensor("S2", "Sensor2", new GregorianCalendar(2019, 3, 4), temperature, "C", new ReadingList());
 
         sList.addSensor(sensor1);
         sList.addSensor(sensor2);
@@ -394,7 +394,7 @@ public class RepositoryTest {
         long roomRepSize = Repositories.getRoomRepository().count();
         assertEquals(1, roomRepSize);
 
-        long sensorRepSize = Repositories.getSensorRepository().count();
+        long sensorRepSize = Repositories.getInternalSensorRepository().count();
         assertEquals(2, sensorRepSize);
 
         GregorianCalendar pauseDate = new GregorianCalendar(2019,05,03);
