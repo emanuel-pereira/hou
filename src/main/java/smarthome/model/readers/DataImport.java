@@ -20,7 +20,10 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 
 import static java.lang.Double.parseDouble;
-import static smarthome.repository.Repositories.saveSensor;
+import static smarthome.repository.Repositories.saveInternalSensor;
+import static smarthome.repository.Repositories.saveExternalSensor;
+
+
 
 public class DataImport {
     private final JSONParser parser = new JSONParser();
@@ -113,7 +116,7 @@ public class DataImport {
             importSensorsReadings(readingsToImport);
             for (Sensor sensor : sensors)
                 //repository call were the reading is being persisted
-                saveSensor(sensor);
+                saveInternalSensor((InternalSensor) sensor);
         }
 
         if (object.equals(gaList)) {
@@ -121,7 +124,7 @@ public class DataImport {
             importSensorsReadings(readingsToImport);
             for (Sensor sensor : sensors)
                 //repository call were the reading is being persisted
-                saveSensor(sensor);
+                saveExternalSensor((ExternalSensor) sensor);
         }
     }
 
@@ -214,9 +217,9 @@ public class DataImport {
                 double readingValue = parseDouble(field[2]);
                 String unit = field[3];
                 Reading reading = new Reading(readingValue, readingDate, unit);
-                if (readingDate.after(sensor.getStartDate()) || reading.isSameDay(sensor.getStartDate())) {
+                if (readingDate.after(sensor.getSensorBehavior().getStartDate()) || reading.isSameDay(sensor.getSensorBehavior().getStartDate())) {
                     //dataImport
-                    if (sensor.getReadingList().addReading(reading)) {
+                    if (sensor.getSensorBehavior().getReadingList().addReading(reading)) {
 
                         return true;
                     }
@@ -278,23 +281,23 @@ public class DataImport {
 
             String unit = string[5];
 
-            Sensor newSensor = new Sensor(sensorID, sensorDesignation, calendar, sensorType, unit, new ReadingList());
+            Sensor newSensor = new InternalSensor(sensorID, sensorDesignation, calendar, sensorType, unit, new ReadingList());
 
             //Needs to be improved
 
             if (room == null) {
-                String message = "Sensor not added to the DB - sensor: " + sensorID +
+                String message = "Sensors not added to the DB - sensor: " + sensorID +
                         " designation: " + sensorDesignation + "\nreason: The sensor was not imported because the room do not exists";
                 log.error(message);
                 sensorsNotAdded++;
             } else if (sensorType == null) {
-                String message = "Sensor not added to the DB - sensor: " + sensorID +
+                String message = "Sensors not added to the DB - sensor: " + sensorID +
                         " designation: " + sensorDesignation + "start date: " + calendar +
                         " sensorType: " + sensorType + "unit: " + unit + "\nreason: The sensor type do not exists";
                 log.error(message);
                 sensorsNotAdded++;
             } else if (!room.getSensorListInRoom().addSensor(newSensor)) {
-                String message = "Sensor not added to the DB - sensor: " + sensorID +
+                String message = "Sensors not added to the DB - sensor: " + sensorID +
                         " designation: " + sensorDesignation + "start date: " + calendar +
                         " sensorType: " + sensorType + "unit: " + unit + "\nreason: The sensor already exists";
                 log.error(message);

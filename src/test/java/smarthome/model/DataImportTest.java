@@ -122,8 +122,8 @@ class DataImportTest {
         GregorianCalendar startDate = new GregorianCalendar(2018, Calendar.MARCH, 3);
         Location location = new Location(3, 2, 1);
         SensorType temp = new SensorType("Temperature");
-        Sensor sensorISEP = new Sensor("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
-        Sensor sensorPorto = new Sensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
+        Sensor sensorISEP = new ExternalSensor("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
+        Sensor sensorPorto = new ExternalSensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
         ga.getSensorListInGA().addSensor(sensorISEP);
         ga.getSensorListInGA().addSensor(sensorPorto);
 
@@ -131,8 +131,8 @@ class DataImportTest {
         Path path = Paths.get("resources_tests/DataSet_sprint05_SD.json");
         dataImport.importReadingsFromFile(path,gaList);
 
-        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
-        double r = rList.get(3).returnValueOfReading();
+        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getSensorBehavior().getReadingList().getReadingsList();
+        double r = rList.get(3).returnValue();
         assertEquals(15.1, r);
     }
 
@@ -144,8 +144,8 @@ class DataImportTest {
         GregorianCalendar startDate = new GregorianCalendar(2020, Calendar.MARCH, 3);
         Location location = new Location(3, 2, 1);
         SensorType temp = new SensorType("Temperature");
-        Sensor sensorISEP = new Sensor("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
-        Sensor sensorPorto = new Sensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
+        Sensor sensorISEP = new ExternalSensor("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
+        Sensor sensorPorto = new ExternalSensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
         ga.getSensorListInGA().addSensor(sensorISEP);
         ga.getSensorListInGA().addSensor(sensorPorto);
 
@@ -153,7 +153,7 @@ class DataImportTest {
         Path path = Paths.get("resources_tests/DataSet_sprint05_SD.json");
         dataImport.importReadingsFromFile(path,gaList);
 
-        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
+        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getSensorBehavior().getReadingList().getReadingsList();
         int size = rList.size();
         assertEquals(0, size);
     }

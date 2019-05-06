@@ -584,16 +584,14 @@ public class RoomListTest {
         roomList.addRoom(r1);
         roomList.addRoom(r2);
 
-        Location location = new Location(12,34,56);
         GregorianCalendar sDate = new GregorianCalendar(2019,05,03);
         SensorType type1 = new SensorType("temperature");
         ReadingList readingList = new ReadingList();
 
-        //had to create external sensor because the constructor for internal sensor was crashing!!
-        Sensor s1 = new Sensor("s1","meteo1",sDate,location,type1,"C",readingList);
-        Sensor s2 = new Sensor("s2","meteo2",sDate,location,type1,"C",readingList);
-        Sensor s3 = new Sensor("s3","meteo3",sDate,location,type1,"C",readingList);
-        Sensor s4 = new Sensor("s4","meteo4",sDate,location,type1,"C",readingList);
+        InternalSensor s1 = new InternalSensor("s1","meteo1",sDate,type1,"C",readingList);
+        InternalSensor s2 = new InternalSensor("s2","meteo2",sDate,type1,"C",readingList);
+        InternalSensor s3 = new InternalSensor("s3","meteo3",sDate,type1,"C",readingList);
+        InternalSensor s4 = new InternalSensor("s4","meteo4",sDate,type1,"C",readingList);
 
         r1.getSensorListInRoom().addSensor(s1);
         r1.getSensorListInRoom().addSensor(s2);

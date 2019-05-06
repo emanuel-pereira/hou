@@ -490,7 +490,7 @@ title __MODEL's Class Diagram__\n
         + getSensorType()
         + getReadingList()
         + calcLinearDistanceBetweenTwoSensors()
-        + getLastReadingPerSensor()
+        + getLastReading()
         + getLastReadingValuePerSensor()
         + equals()
         + hashCode()

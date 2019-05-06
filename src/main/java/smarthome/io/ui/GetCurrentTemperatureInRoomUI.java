@@ -23,7 +23,7 @@ public class GetCurrentTemperatureInRoomUI {
         if (this.controller.checkIfRequiredSensorTypeExists(TEMPERATURE)) {
             this.checkIfRoomExists();
         } else
-            UtilsUI.showError(MSG_TITLE, "Please ask the Administrator to create a Temperature Sensor Type in the System");
+            UtilsUI.showError(MSG_TITLE, "Please ask the Administrator to create a Temperature Sensors Type in the System");
     }
 
     /**
@@ -48,7 +48,7 @@ public class GetCurrentTemperatureInRoomUI {
         if (this.controller.checkIfSensorTypeExistsInRoom(roomIndex, TEMPERATURE)) {
             System.out.println("Current TEMPERATURE in the room: " + this.controller.getCurrentTemp(roomIndex));
         } else
-            UtilsUI.showError(MSG_TITLE, "Please ask the House Administrator to add a Temperature Sensor to this Room");
+            UtilsUI.showError(MSG_TITLE, "Please ask the House Administrator to add a Temperature Sensors to this Room");
     }
 
 

@@ -226,14 +226,12 @@ public class RoomTest {
     void getSensorListTest(){
         Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2);
 
-        Location location = new Location(12,34,56);
         GregorianCalendar sDate = new GregorianCalendar(2019,05,03);
         SensorType type1 = new SensorType("temperature");
         ReadingList readingList = new ReadingList();
 
-        //had to create external sensor because the constructor for internal sensor was crashing!!
-        Sensor s1 = new Sensor("s1","meteo1",sDate,location,type1,"C",readingList);
-        Sensor s2 = new Sensor("s2","meteo2",sDate,location,type1,"C",readingList);
+        InternalSensor s1 = new InternalSensor("s1","meteo1",sDate,type1,"C",readingList);
+        InternalSensor s2 = new InternalSensor("s2","meteo2",sDate,type1,"C",readingList);
 
         bedroom.getSensorListInRoom().addSensor(s1);
         bedroom.getSensorListInRoom().addSensor(s2);
@@ -248,14 +246,12 @@ public class RoomTest {
     void checkIfSensorTypeInRoomTestTrue(){
         Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2);
 
-        Location location = new Location(12,34,56);
         GregorianCalendar sDate = new GregorianCalendar(2019,05,03);
         SensorType type1 = new SensorType("temperature");
         ReadingList readingList = new ReadingList();
 
-        //had to create external sensor because the constructor for internal sensor was crashing!!
-        Sensor s1 = new Sensor("s1","meteo1",sDate,location,type1,"C",readingList);
-        Sensor s2 = new Sensor("s2","meteo2",sDate,location,type1,"C",readingList);
+        InternalSensor s1 = new InternalSensor("s1","meteo1",sDate,type1,"C",readingList);
+        InternalSensor s2 = new InternalSensor("s2","meteo2",sDate,type1,"C",readingList);
 
         bedroom.getSensorListInRoom().addSensor(s1);
         bedroom.getSensorListInRoom().addSensor(s2);
@@ -269,14 +265,12 @@ public class RoomTest {
     void checkIfSensorTypeInRoomTestFalse(){
         Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2);
 
-        Location location = new Location(12,34,56);
         GregorianCalendar sDate = new GregorianCalendar(2019,05,03);
         SensorType type1 = new SensorType("temperature");
         ReadingList readingList = new ReadingList();
 
-        //had to create external sensor because the constructor for internal sensor was crashing!!
-        Sensor s1 = new Sensor("s1","meteo1",sDate,location,type1,"C",readingList);
-        Sensor s2 = new Sensor("s2","meteo2",sDate,location,type1,"C",readingList);
+        InternalSensor s1 = new InternalSensor("s1","meteo1",sDate,type1,"C",readingList);
+        InternalSensor s2 = new InternalSensor("s2","meteo2",sDate,type1,"C",readingList);
 
         bedroom.getSensorListInRoom().addSensor(s1);
         bedroom.getSensorListInRoom().addSensor(s2);

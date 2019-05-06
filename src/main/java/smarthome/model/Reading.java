@@ -46,7 +46,7 @@ public class Reading {
     /**
      * @return the registered value of a reading
      */
-    public double returnValueOfReading() {
+    public double returnValue() {
         return this.value;
     }
 

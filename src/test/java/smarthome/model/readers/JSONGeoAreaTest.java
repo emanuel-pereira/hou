@@ -2,10 +2,7 @@ package smarthome.model.readers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import smarthome.model.GeographicalArea;
-import smarthome.model.House;
-import smarthome.model.Sensor;
-import smarthome.model.TypeGAList;
+import smarthome.model.*;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -124,7 +121,7 @@ class JSONGeoAreaTest {
         Sensor sensor = sensorList.get(1);
 
         GregorianCalendar expected = new GregorianCalendar(2017,Calendar.NOVEMBER,16);
-        Calendar result = sensor.getStartDate();
+        Calendar result = sensor.getSensorBehavior().getStartDate();
         assertEquals(expected, result);
     }
 }

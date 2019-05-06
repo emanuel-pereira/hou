@@ -3,10 +3,7 @@ package smarthome.controller;
 import org.apache.log4j.Logger;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.mapper.GeographicalAreaMapper;
-import smarthome.model.GAList;
-import smarthome.model.GeographicalArea;
-import smarthome.model.Sensor;
-import smarthome.model.SensorList;
+import smarthome.model.*;
 import smarthome.repository.Repositories;
 
 import java.util.List;
@@ -64,7 +61,8 @@ public class RemoveGASensorCTRL {
                 sensorList.removeSensor(sensor);
                 try {
                     //Repository call
-                    Repositories.getSensorRepository().delete(sensor);
+                    ExternalSensor externalSensor = (ExternalSensor) sensor;
+                    Repositories.getExternalSensorRepository().delete(externalSensor);
                 } catch (NullPointerException e) {
                     log.warn("Repository unreachable");
                 }

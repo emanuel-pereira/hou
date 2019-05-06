@@ -21,8 +21,8 @@ public class GetCurrentTemperatureInRoomCTRL {
     }
 
     /**
-     * Checks with the Sensor Type List if the required sensor type Temperature was created by the Administrator
-     * @param sensorType Sensor type required
+     * Checks with the Sensors Type List if the required sensor type Temperature was created by the Administrator
+     * @param sensorType Sensors type required
      * @return True if the type exist or false if not
      */
     public boolean checkIfRequiredSensorTypeExists(String sensorType) {
@@ -71,7 +71,7 @@ public class GetCurrentTemperatureInRoomCTRL {
     public double getCurrentTemp(int roomIndex) {
         String temp = "temperature";
         Room r = this.roomList.getRoomList().get(roomIndex - 1);
-        return r.getSensorListInRoom ().getRequiredSensorPerType (temp).getLastReadingValuePerSensor ();
+        return r.getSensorListInRoom ().getRequiredSensorPerType (temp).getSensorBehavior().getLastReadingValue();
     }
 
 

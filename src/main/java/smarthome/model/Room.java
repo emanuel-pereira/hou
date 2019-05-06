@@ -223,13 +223,14 @@ public class Room implements Metered {
     /**
      * Checks if a sensor type exists in a room
      *
-     * @param input Sensor type designation
+     * @param input Sensors type designation
      * @return True if the sensor type exist in the room or false if not
      */
     public boolean checkIfSensorTypeExistsInRoom(String input) {
         List<Sensor> list = this.getSensorListInRoom().getSensorList();
         for (Sensor s : list) {
-            if (s.getSensorType().getType().equals(input)) {
+            SensorType sensorType=s.getSensorBehavior().getSensorType();
+            if (sensorType.getType().equals(input)) {
                 return true;
             }
         }

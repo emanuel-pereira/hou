@@ -1,6 +1,8 @@
 package smarthome.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class GAList {
@@ -65,12 +67,13 @@ public class GAList {
         for (GeographicalArea ga : this.listOfGa) {
             List<Sensor> sensorList = ga.getSensorListInGA().getSensorList();
             for (Sensor sensor : sensorList) {
-                List<Reading> readings = sensor.getReadingList().getReadingsList();
+                List<Reading> readings = sensor.getSensorBehavior().getReadingList().getReadingsList();
                 allReadings.addAll(readings);
             }
         }
         return allReadings;
     }
+    
 
     /**
      * Method similar to the get method for Lists but as the List is private in the class it is

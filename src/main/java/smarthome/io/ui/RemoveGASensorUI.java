@@ -46,11 +46,11 @@ public class RemoveGASensorUI {
 
     //Broke this method is small methods
     /**
-     * First: get the Sensor List (Dto) in the GA and validate if the list is empty. If so, show message
+     * First: get the Sensors List (Dto) in the GA and validate if the list is empty. If so, show message
      * If not, show it
-     * Second: the user chooses de Sensor (Dto)
+     * Second: the user chooses de Sensors (Dto)
      * Input the date (future work: date validation)
-     * Show the status of the chosen Sensor
+     * Show the status of the chosen Sensors
      */
     public void selectSensor() {
         if (selectedGADTO.getSensorListDTO().isEmpty()) {

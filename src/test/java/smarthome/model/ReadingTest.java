@@ -23,7 +23,7 @@ public class ReadingTest {
 
         //Act
         Reading reading1 = new Reading(13, calendar1);
-        double value = reading1.returnValueOfReading();
+        double value = reading1.returnValue();
 
         //Assert
         assertEquals(13, value, 0.1);
