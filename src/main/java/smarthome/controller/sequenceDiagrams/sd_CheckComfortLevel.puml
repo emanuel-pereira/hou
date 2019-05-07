@@ -28,53 +28,47 @@ actor Administrator
 
 Administrator -> ":ComfortLevelUI": Check comfort level in a room
 create ":ComfortLevelCTRL"
-
-":ComfortLevelUI" -->> ":ComfortLevelCTRL": create()
+":ComfortLevelUI" -> ":ComfortLevelCTRL": create()
 
 create ":ComfortLevelService"
-":ComfortLevelCTRL" -->> ":ComfortLevelService": create()
+":ComfortLevelCTRL" -> ":ComfortLevelService": create()
+
+
+":ComfortLevelUI" -> ":ComfortLevelCTRL": showRooms()
+
+
+
 
 ":ComfortLevelCTRL" -> ":ComfortLevelService": getRoomList()
 ":ComfortLevelService" -> ":RoomRepo": getRoomList()
-":RoomRepo" -> ":RoomJPA": findAll()
+":RoomRepo" -> "RoomCRUD": findAll()
 ":RoomRepo" -> ":RoomRepo": toDTO()
 
-
-":ComfortLevelService" --> ":ComfortLevelCTRL": showRoomList()
-":ComfortLevelCTRL" --> ":ComfortLevelUI": showRoomList()
-":ComfortLevelUI" -->> Administrator: show rooms
-
-":ComfortLevelService" -> ":HouseRepo": getHouseGA()
-":ComfortLevelService" -> ":ExternalSensorRepo": getNearestTemperatureSensor(gaID,gaLocation)
-":ExternalSensorRepo" -> ":ExternalSensorJPA": findAllByGA(gaID)
-":ExternalSensorRepo" -> ":ExternalSensorRepo": getNearestTemperatureSensor\n(gaLocation,temperature)
+":ComfortLevelUI" -->> Administrator: Show list of rooms
 
 
-
-Administrator -> ":ComfortLevelUI": select room
+Administrator -> ":ComfortLevelUI": Select room
 ":ComfortLevelUI" -> ":ComfortLevelCTRL": requestSensorByRoomAndType\n(roomID,temperature)
 ":ComfortLevelCTRL" -> ":ComfortLevelService": getSensorByRoomAndType\n(roomID,temperature)
 ":ComfortLevelService" -> ":InternalSensorRepo": getSensorByRoomAndType\n(roomID,temperature)
-":InternalSensorRepo" -> ":InternalSensorJPA": findSensorsByRoom(roomID)
+":InternalSensorRepo" -> "InternalSensor\nCRUD": findSensorsByRoom(roomID)
 ":InternalSensorRepo" -> ":InternalSensorRepo": getSensorByType(temperature)
 
-Administrator <-- ":ComfortLevelUI": Ask to input time interval
-Administrator -> ":ComfortLevelUI": Input time interval
+Administrator <<-- ":ComfortLevelUI": Ask to input time interval\nand comfort category
+Administrator -> ":ComfortLevelUI": Input time interval and category
 
-Administrator <-- ":ComfortLevelUI": Ask to select comfort level category
-Administrator -> ":ComfortLevelUI": Select a comfort level category
+
 ":ComfortLevelUI" -> ":ComfortLevelCTRL": requestReadingsOutsideComfortLevel\n(startDate,endDate,category)
 ":ComfortLevelCTRL" -> ":ComfortLevelService": getReadingsOutsideComfortLevel\n(startDate,endDate,category)
 
 
-ref over ":ComfortLevelService",":InternalSensorRepo",":ExternalSensorRepo":Populate list with instants where readings \nare above or below comfort level parameters
+ref over ":ComfortLevelService",":InternalSensorRepo",":ExternalSensorRepo":Populate list with instants where readings are above or below comfort level parameters
 
 
 ":ComfortLevelService" -> ":ComfortLevelService": toDTO()
-":ComfortLevelCTRL" --> ":ComfortLevelUI": showReadingList()
 
 
-":ComfortLevelUI" -->> Administrator: show results
+":ComfortLevelUI" -->> Administrator: Show results
 
 
 

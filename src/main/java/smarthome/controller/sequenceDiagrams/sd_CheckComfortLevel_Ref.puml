@@ -24,9 +24,16 @@ BorderColor SteelBlue
 autonumber
 hidefootbox
 
+":ComfortLevelService" -> ":HouseRepo": getHouseGA()
+":ComfortLevelService" -> ":ExternalSensorRepo": getNearestTemperatureSensor(gaID,gaLocation)
+":ExternalSensorRepo" -> "ExternalSensor\nCRUD": findSensorsByGaId(gaId)
+":ExternalSensorRepo" -> ":ExternalSensorRepo": getNearestTemperatureSensor\n(gaLocation,temperature)
+
 loop for each day in time interval
 ":ComfortLevelService" -> ":InternalSensorRepo": rL = getReadingsInSpecificDay(day,sensorID)
+":InternalSensorRepo"->"InternalSensors\nReadingsCRUD": findReadingsInSpecificDay\n(day,sensorID)
 ":ComfortLevelService" -> ":ExternalSensorRepo": outAverage = dailyAverageOfReadings(day,sensorID)
+":ExternalSensorRepo" -> "ExternalSensor\nReadingsCRUD": findReadingsInSpecificDay\n(day,sensorID)
 ":ComfortLevelService" -> ":ComfortLevelService":
 note right #FFFF
  can be:
