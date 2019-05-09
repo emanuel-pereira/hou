@@ -233,7 +233,7 @@ public class RoomList {
         return matchedRoom;
     }
 
-    public List<Room> getListOfRoomsFiltred(String sensorType) {
+    public List<Room> getListOfRoomsFiltered(String sensorType) {
         List<Room> rooms = new ArrayList<>();
         Sensor sensor;
         for (Room room : this.listOfRooms) {

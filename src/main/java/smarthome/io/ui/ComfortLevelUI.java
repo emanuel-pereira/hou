@@ -1,10 +1,9 @@
 package smarthome.io.ui;
 
 import smarthome.controller.ComfortLevelCTRL;
+import smarthome.dto.RoomDTO;
 
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 public class ComfortLevelUI {
 
@@ -18,40 +17,60 @@ public class ComfortLevelUI {
     /*------ Menu ------*/
 
     //Main
-    private void run() {
-        //Check if all needed data is available and end or continue user story sooner as needed
+    public void run() {
+        //Check if all needed data is available and end or continue user story sooner as needed showing user the appropriate error message.
 
+        if (!ctrl.validateGeoAreaHasTemperatureSensorWithReadings()) {
+            noTemperatureInGeoArea();
+            return;
+        }
 
-        ctrl.getListOfRooms();
+        if (!ctrl.validateHouseHasRooms()) {
+            noRoomsFound();
+            return;
+        }
+
+        if (!ctrl.validateRoomsHaveTemperatureSensors()) {
+            noTemperatureSensorsFoundInRooms();
+            return;
+        }
+
+        if (!ctrl.validateTemperatureSensorsHaveReadings()) {
+            noReadingsFound();
+            return;
+        }
 
 
         //Show rooms which have temperature sensors with readings and ask the user to select one
+        List<RoomDTO> roomListDTO = ctrl.getRoomListDTO();
 
-        selectRoom();
+        RoomDTO selectedRoomIndex = selectRoomFromList(roomListDTO);
 
+        System.out.println(selectedRoomIndex.getID());
 
-        //Ask user to select a time interval and US parameters
+        boolean maxOrMin = selectMaxOrMin();
+        int category = selectComfortLevelCategory();
 
+        //Ask user to select parameters needed for User Story and a time interval and
         //Start date
-        selectDate();
+        GregorianCalendar startDate = selectDate("Please enter a start date for verification");
         //End date
-        selectDate();
+        GregorianCalendar endDate = selectDate("Please enter a end date for verification");
 
-        selectMaxOrMin();
-
-        selectComfortLevelCategory();
-
-        //Show results
-
-
+        //Calculate 'stuff' and show result
+        String results = ctrl.calculateThermalComfort(selectedRoomIndex, maxOrMin, category, startDate, endDate);
+        displayResults(results);
     }
+
+
+    // ------------------------------------------------------------------------------------------------------------------------------
 
 
     //Error messages
 
     private void noTemperatureInGeoArea() {
 
-        UtilsUI.showError("Error!", "No temperature sensor(s) with readings found in the house's geographical area. Unable to proceed.");
+        UtilsUI.showError("Error", "No temperature sensor(s) with readings found in the house's geographical area. Unable to proceed.");
         UtilsUI.backToMenu();
 
     }
@@ -73,13 +92,28 @@ public class ComfortLevelUI {
 
     //User input requests
 
-    private int selectRoom() {
-        UtilsUI.showList("Please select a room from the list below", roomList, true, 10);
-        return UtilsUI.requestIntegerInInterval(1, roomList.size(), "Please enter a valid option");
+    //Unwraps the DTO and creates a names list for display
+    private List<String> getRoomNamesFromDTO(List<RoomDTO> roomDTOList) {
+        List<String> result = new ArrayList<>();
+        for (RoomDTO r : roomDTOList) {
+            result.add(r.getID() + "|" + r.getName());
+        }
+        return result;
     }
 
-    private GregorianCalendar selectDate() {
+
+    private RoomDTO selectRoomFromList(List<RoomDTO> roomDTOList) {
+        List<String> roomList = getRoomNamesFromDTO(roomDTOList);
+
+        UtilsUI.showList("Please select a room from the list below", roomList, true, 10);
+        int i = UtilsUI.requestIntegerInInterval(1, roomList.size(), "Please enter a valid option");
+
+        return roomDTOList.get(i - 1);
+    }
+
+    private GregorianCalendar selectDate(String message) {
         GregorianCalendar date = new GregorianCalendar();
+        System.out.println(message);
         date = UtilsUI.requestDate("Invalid date entered. Dates must be in yyyy-mm-dd format.");
         return date;
     }
@@ -102,9 +136,8 @@ public class ComfortLevelUI {
     }
 
     //Outputs
-
-    private void displayResults() {
+    private void displayResults(String results) {
         UtilsUI.showInfo("Results", "The following tables show the readings outside the allowable range of the selected comfort level category");
-        //TO DO
+
     }
 }

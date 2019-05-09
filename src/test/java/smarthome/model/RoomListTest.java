@@ -341,7 +341,7 @@ public class RoomListTest {
         r3.getSensorListInRoom().addSensor(sensor1);
 
         int expected = 2;
-        int result = roomList.getListOfRoomsFiltred("temperature").size();
+        int result = roomList.getListOfRoomsFiltered("temperature").size();
 
         assertEquals(expected, result);
     }

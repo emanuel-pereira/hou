@@ -1,0 +1,85 @@
+@startuml
+skinparam linetype ortho
+hide empty members
+
+skinparam class {
+ArrowColor SteelBlue
+BorderColor Dimgray
+HeaderBackgroundColor SteelBlue
+BackgroundColor White
+FontName Calibri bold
+AttributeFontColor #333
+AttributeFontName Calibri
+AttributeFontSize 13
+FontColor Ivory
+FontSize 15
+}
+
+class ComfortLevelUI{
+- ctrl: ComfortLevelCTRL
++ showRoomList()
++ requestComfortLevel()
+
+}
+
+class ComfortLevelCTRL{
+- ComfortLevelService
++ requestSensorRoomByType()
++ requestReadingsByInterval()
++ requestComfortLevel()
+
+}
+
+class ComfortLevelService{
+- houseRepo
+- externalSensorRepo
+- internalSensorRepo
+- roomRepo
+
+    getReadingsByInterval()
+    getReadingsOutsideComfortLevel()
+    getMaxTemperatureForComfortLevel()
+    getMinTemperatureForComfortLevel()
+    getReadingsAboveComfortLevel()
+    getReadingsBelowComfortLevel()
+    toDTO()
+    }
+
+class HouseRepo{
+- house
+
+    getHouseGA()
+    }
+
+class ExternalSensorRepo {
+- List<ExternalSensor>
+
+    dailyAverageOfReadings()
+    findAllByGA()
+    getNearestTemperatureSensor()
+    getSensorsByType()
+    }
+
+class InternalSensorRepo {
+- List<InternalSensor>
+
+    getReadingsInSpecificDay()
+    getSenorByRoomAndType()
+    findSensorsByRoom()
+    }
+
+class RoomRepo{
+- List<Room>
+
+    getRoomList()
+    findAll()
+    }
+
+ComfortLevelUI -> ComfortLevelCTRL
+ComfortLevelCTRL --> ComfortLevelService
+ComfortLevelService --> HouseRepo
+ComfortLevelService --> InternalSensorRepo
+ComfortLevelService --> ExternalSensorRepo
+ComfortLevelService --> RoomRepo
+
+@enduml

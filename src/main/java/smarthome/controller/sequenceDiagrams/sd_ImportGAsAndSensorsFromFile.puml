@@ -3,7 +3,7 @@ autonumber
 hidefootbox
 
 
-skinparam sequence {
+skinparam  {
 	ArrowColor SteelBlue
 	ActorBorderColor Dimgray
 	LifeLineBorderColor MidnightBlue

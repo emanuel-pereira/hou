@@ -37,11 +37,12 @@ public final class HouseAdministrationUI {
             options.add("[13] Show the total nominal power connected to a grid");
             options.add("[14] Import sensors to the house from a file (JSON)");
             options.add("[15] Import house sensors' readings from a file");
+            options.add("[16] Check temperature comfort level in a room");
             options.add("[0] Exit");
 
             UtilsUI.showList("House administration", options, false, 5);
 
-            option = UtilsUI.requestIntegerInInterval(0, 15, "Please choose an action between 1 and 15, or 0 to exit the program");
+            option = UtilsUI.requestIntegerInInterval(0, 16, "Please choose an action between 1 and 15, or 0 to exit the program");
 
             switch (option) {
                 case 1:
@@ -103,6 +104,10 @@ public final class HouseAdministrationUI {
                 case 15:
                     DataImportUI ui13 = new DataImportUI(getHouseRoomList());
                     ui13.checkIfRoomListIsEmpty(getHouseRoomList());
+                    break;
+                case 16:
+                    ComfortLevelUI ui = new ComfortLevelUI();
+                    ui.run();
                     break;
                 default:
                     //no action needed

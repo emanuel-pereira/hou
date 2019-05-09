@@ -36,7 +36,7 @@ public class EditDevicesUI {
 
             UtilsUI.showList("Edit Device", options, false, 5);
 
-            option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 8, or 0 to go back.");
+            option = UtilsUI.requestIntegerInInterval(0, 5, "Please choose an action between 1 and 5, or 0 to go back.");
 
             switch (option) {
                 case 1:

@@ -534,9 +534,13 @@ public class RoomTest {
     }
 */
 
+
+/*
     @Test
     public void validateComfortLevelCategory0MaxTest() {
+
         Room room = new Room();
+
         double result = room.getMaxTemperatureForComfortLevel(20, 0);
         double expected = -273.15;
         assertEquals(expected,result);
@@ -617,6 +621,6 @@ public class RoomTest {
         double expected = 21.4;
         assertEquals(expected,result,0.01);
     }
-
+*/
 
 }

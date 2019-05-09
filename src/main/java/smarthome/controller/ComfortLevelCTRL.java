@@ -1,36 +1,19 @@
 package smarthome.controller;
 
-import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.RoomDTO;
-import smarthome.mapper.RoomMapper;
-import smarthome.model.Room;
 import smarthome.services.ComfortLevelService;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class ComfortLevelCTRL {
 
-    private ComfortLevelService comfortLevelService;
-    private RoomMapper roomMapper = new RoomMapper();
+    private ComfortLevelService comfortLevelService = new ComfortLevelService();
 
-    public ComfortLevelCTRL() {
-        this.comfortLevelService = new ComfortLevelService();
-    }
-
-    public List<RoomDTO> getListOfRooms() {
-        List<Room> rooms = comfortLevelService.getRoomList();
-        return this.roomMapper.toDtoList(rooms);
-    }
-
-    public RoomDTO getRoomByID(int roomIndex) {
-        return getListOfRooms().get(roomIndex);
-    }
-
+    // Basic validations for running US
 
     public boolean validateGeoAreaHasTemperatureSensorWithReadings() {
-
-        return comfortLevelService.checkIfGeoAreaHasSensorByType();
-
+        return comfortLevelService.checkIfGeoAreaHasTemperatureSensor();
     }
 
     public boolean validateHouseHasRooms() {
@@ -38,13 +21,27 @@ public class ComfortLevelCTRL {
     }
 
     public boolean validateRoomsHaveTemperatureSensors() {
-        return comfortLevelService.checkIfAnyRoomHasSensorByType("temperature");
+        return comfortLevelService.validateRoomsHaveTemperatureSensors();
     }
 
-
     public boolean validateTemperatureSensorsHaveReadings() {
-        comfortLevelService.checkSensorsOfRoomHaveReadings();
-        return true;
+        return comfortLevelService.validateRoomsHaveTemperatureSensors();
+    }
+
+    // DTO Handling UI -> CTRL -> SRVC and vice versa
+
+    // List of rooms to show to the user
+    public List<RoomDTO> getRoomListDTO() {
+        return comfortLevelService.getRoomListDTO();
+    }
+
+    // Room selected by the user is sent via DTO to the Service
+    public void setRoomByDTO(RoomDTO roomDTO){
+        comfortLevelService.setRoomByDTO(roomDTO);
+    }
+
+    public String calculateThermalComfort(RoomDTO selectedRoom, boolean maxOrMin, int category, GregorianCalendar startDate, GregorianCalendar endDate) {
+        return comfortLevelService.calculateThermalComfort(selectedRoom, maxOrMin, category, startDate, endDate); // The result is a DTO List
     }
 
 

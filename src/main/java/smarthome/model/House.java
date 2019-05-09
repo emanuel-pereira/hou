@@ -21,6 +21,11 @@ public class House {
         return theHouse;
     }
 
+    public static House getHouseInstance() {
+
+        return theHouse;
+    }
+
 
     private House(Address houseAddress, GeographicalArea ga) {
         address = houseAddress;
