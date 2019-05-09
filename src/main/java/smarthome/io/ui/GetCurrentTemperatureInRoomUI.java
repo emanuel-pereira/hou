@@ -6,16 +6,15 @@ import smarthome.model.SensorTypeList;
 public class GetCurrentTemperatureInRoomUI {
 
 
-    private final GetCurrentTemperatureInRoomCTRL controller;
     private static final String TEMPERATURE = "temperature";
-    private int roomIndex;
     private static final String MSG_TITLE = "Oops!";
+    private int roomIndex;
+    private final GetCurrentTemperatureInRoomCTRL controller;
 
 
     public GetCurrentTemperatureInRoomUI(SensorTypeList sensorTypeList) {
         this.controller = new GetCurrentTemperatureInRoomCTRL(sensorTypeList);
     }
-
 
     /**
      * Checks if the required sensor type Temperature was created by the Administrator
@@ -24,7 +23,7 @@ public class GetCurrentTemperatureInRoomUI {
         if (this.controller.checkIfRequiredSensorTypeExists(TEMPERATURE)) {
             this.checkIfRoomExists();
         } else
-            UtilsUI.showError(MSG_TITLE, "Please ask the Administrator to create a Temperature Sensor Type in the System");
+            UtilsUI.showError(MSG_TITLE, "Please ask the Administrator to create a Temperature Sensors Type in the System");
     }
 
     /**
@@ -49,7 +48,7 @@ public class GetCurrentTemperatureInRoomUI {
         if (this.controller.checkIfSensorTypeExistsInRoom(roomIndex, TEMPERATURE)) {
             System.out.println("Current TEMPERATURE in the room: " + this.controller.getCurrentTemp(roomIndex));
         } else
-            UtilsUI.showError(MSG_TITLE, "Please ask the House Administrator to add a Temperature Sensor to this Room");
+            UtilsUI.showError(MSG_TITLE, "Please ask the House Administrator to add a Temperature Sensors to this Room");
     }
 
 

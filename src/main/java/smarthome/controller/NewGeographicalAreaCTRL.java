@@ -38,7 +38,9 @@ public class NewGeographicalAreaCTRL {
         if (!this.gaList.addGA(ga)) {
             return false;
         } else {
+
             //Repository call
+
             try {
                 Repositories.saveGA(ga);
             } catch (NullPointerException e) {

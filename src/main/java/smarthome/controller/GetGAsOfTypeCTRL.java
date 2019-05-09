@@ -32,7 +32,7 @@ public class GetGAsOfTypeCTRL {
         return gaList.gAFromThisType(areaType);
     }
 
-    public String showListTypeGA() {
+    public String showListOfTypeGA() {
         List<TypeGA> list = getTypeGAList();
         StringBuilder result = new StringBuilder ();
         String element = " - ";

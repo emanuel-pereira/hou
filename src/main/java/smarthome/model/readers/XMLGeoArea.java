@@ -32,35 +32,6 @@ public class XMLGeoArea implements FileReaderGeoArea {
     }
 
 
-    public List<GeographicalArea> loadData(Path filePath) throws ParserConfigurationException {
-
-        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-        dbFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
-        //XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE
-        //
-        List<GeographicalArea> gaList = new ArrayList<>();
-
-        try {
-
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-
-            File file = filePath.toFile();
-
-            Document xmlDoc = dBuilder.parse(file);
-
-            NodeList gaNodeList = xmlDoc.getElementsByTagName("geographical_area");
-
-            for (int i = 0; i < gaNodeList.getLength(); i++) {
-                gaList.add(importGeographicalArea(gaNodeList.item(i)));
-            }
-
-        } catch (Exception e) {
-            log.warn(e.getMessage());
-        }
-        return gaList;
-    }
-
-
     private static GeographicalArea importGeographicalArea(Node gaNode) throws ParseException {
 
         GeographicalArea geographicalArea = null;
@@ -88,7 +59,6 @@ public class XMLGeoArea implements FileReaderGeoArea {
 
     }
 
-
     private static Location importLocation(Node node) {
 
         Element element = (Element) node;
@@ -104,6 +74,34 @@ public class XMLGeoArea implements FileReaderGeoArea {
         location.setLongitude(longitude);
         location.setAltitude(altitude);
         return location;
+    }
+
+    public List<GeographicalArea> loadData(Path filePath) throws ParserConfigurationException {
+
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        dbFactory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE);
+        //XMLConstants.FEATURE_SECURE_PROCESSING, Boolean.TRUE
+        //
+        List<GeographicalArea> gaList = new ArrayList<>();
+
+        try {
+
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+
+            File file = filePath.toFile();
+
+            Document xmlDoc = dBuilder.parse(file);
+
+            NodeList gaNodeList = xmlDoc.getElementsByTagName("geographical_area");
+
+            for (int i = 0; i < gaNodeList.getLength(); i++) {
+                gaList.add(importGeographicalArea(gaNodeList.item(i)));
+            }
+
+        } catch (Exception e) {
+            log.warn(e.getMessage());
+        }
+        return gaList;
     }
 
     private static String getTagValue(String tag, Element element) {
@@ -136,11 +134,9 @@ public class XMLGeoArea implements FileReaderGeoArea {
                 Location location = importLocation(sensor.getElementsByTagName("location").item(0));
 
                 ReadingList readingList = new ReadingList();
-                Sensor newSensor = new Sensor(id, name, calendar, location, type, unit, readingList);
-
+                ExternalSensor newSensor = new ExternalSensor(id, name, calendar, location, type, unit, readingList);
 
                 geographicalArea.getSensorListInGA().addSensor(newSensor);
-
             }
         }
     }

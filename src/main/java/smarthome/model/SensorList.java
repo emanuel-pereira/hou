@@ -1,17 +1,19 @@
 package smarthome.model;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 import smarthome.repository.Repositories;
 
+import javax.persistence.ElementCollection;
+import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
-
 public class SensorList {
     private final List<Sensor> listOfSensors;
     static final Logger log = Logger.getLogger(SensorList.class);
-
 
 
     /**
@@ -21,18 +23,29 @@ public class SensorList {
         this.listOfSensors = new ArrayList<>();
     }
 
+
+    public boolean addSensor(Sensor sensor) {
+        if (sensor.getClass().equals(ExternalSensor.class)) {
+            return this.addExternalSensor((ExternalSensor) sensor);
+        } else if (sensor.getClass().equals(InternalSensor.class)) {
+            return this.addInternalSensor((InternalSensor) sensor);
+        } else {
+            return false;
+        }
+    }
+
     /**
-     * Method to add a sensor object to Sensor list, if it is not on the list yet
+     * Method to add a external sensor object to Sensors list, if it is not on the list yet
      *
-     * @param newSensor - new Sensor object that will or not be added to the list
-     * @return true if the object is added to the list
+     * @param newSensor - new Sensors object that will or not be added to the list
      */
-    public boolean addSensor(Sensor newSensor) {
+    private boolean addExternalSensor(ExternalSensor newSensor) {
         if (!this.listOfSensors.contains(newSensor)) {
             this.listOfSensors.add(newSensor);
+
             //Repository call
             try {
-                Repositories.saveSensor(newSensor);
+                Repositories.saveExternalSensor(newSensor);
             } catch (NullPointerException e) {
                 log.warn("Repository unreachable");
             }
@@ -40,10 +53,29 @@ public class SensorList {
         } else return false;
     }
 
+    /**
+     * Method to add a internal sensor object to Sensors list, if it is not on the list yet
+     *
+     * @param newSensor - new Sensors object that will or not be added to the list
+     */
+    private boolean addInternalSensor(InternalSensor newSensor) {
+        if (!this.listOfSensors.contains(newSensor)) {
+            this.listOfSensors.add(newSensor);
+
+            //Repository call
+            try {
+                Repositories.saveInternalSensor(newSensor);
+            } catch (NullPointerException e) {
+                log.warn("Repository unreachable"); }
+            return true;
+        } else return false;
+    }
+
     public boolean checkIfAnySensorHasSameID(Sensor newSensor) {
         for (Sensor sensor : this.listOfSensors)
             if (sensor.getId().equals(newSensor.getId())) {
-                return true;}
+                return true;
+            }
         return false;
     }
 
@@ -57,14 +89,14 @@ public class SensorList {
     }
 
     /**
-     * @param id          id of the Sensor
-     * @param inputName   name of Sensor
-     * @param startDate   startDate of Sensor
+     * @param id          id of the Sensors
+     * @param inputName   name of Sensors
+     * @param startDate   startDate of Sensors
      * @param geoLocation gps coordinates in which the user wants to place the sensor
      * @return List of sensors
      */
     public Sensor newSensor(String id, String inputName, GregorianCalendar startDate, Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
-        return new Sensor(id, inputName, startDate, geoLocation, sensorType, inputUnit, readings);
+        return new ExternalSensor(id, inputName, startDate, geoLocation, sensorType, inputUnit, readings);
     }
 
     /**
@@ -75,18 +107,19 @@ public class SensorList {
      * @return A new interior sensor
      */
     public Sensor createNewInternalSensor(String id, String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {
-        return new Sensor(id, name, startDate, sensorType, unit, readings);
+        return new InternalSensor(id, name, startDate, sensorType, unit, readings);
     }
 
     /**
      * Some SensorTypes are required in some User Stories, so this method checks if a mandatory sensor type exists
      *
-     * @param sensorType Sensor type designation
-     * @return Sensor type designation
+     * @param sensorType Sensors type designation
+     * @return Sensors type designation
      */
     public boolean checkIfRequiredSensorTypeExists(String sensorType) {
         for (Sensor s : this.listOfSensors) {
-            if (s.getSensorType().getType().equals(sensorType)) {
+            SensorType type=s.getSensorBehavior().getSensorType();
+            if (type.getType().equals(sensorType)) {
                 return true;
             }
         }
@@ -96,14 +129,17 @@ public class SensorList {
     /**
      * Gets a sensor of one specific type
      *
-     * @param type Sensor type designation
+     * @param type Sensors type designation
      * @return A specific type sensor
      */
     public Sensor getRequiredSensorPerType(String type) {
         Sensor requiredSensor = null;
         for (Sensor sensor : this.listOfSensors)
-            if (sensor.getSensorType().getType().equals(type))
-                requiredSensor = sensor;
+        {
+            SensorType sensorType=sensor.getSensorBehavior().getSensorType();
+
+            if (sensorType.getType().equals(type))
+                requiredSensor = sensor;}
         return requiredSensor;
     }
 
@@ -118,9 +154,10 @@ public class SensorList {
         String element = " - ";
         int number = 1;
         for (Sensor sensor : this.listOfSensors) {
+            String name=sensor.getSensorBehavior().getDesignation();
             result.append(number++);
             result.append(element);
-            result.append(sensor.getDesignation());
+            result.append(name);
             result.append("\n");
         }
         return result.toString();
@@ -129,8 +166,10 @@ public class SensorList {
     public SensorList getListOfSensorsByType(SensorType sensorType) {
         SensorList listOfSensorsByType = new SensorList();
         for (Sensor sensor : this.listOfSensors) {
-            if (sensor.getSensorType().equals(sensorType))
-                listOfSensorsByType.addSensor(sensor);
+            SensorType type=sensor.getSensorBehavior().getSensorType();
+
+            if (type.equals(sensorType))
+                listOfSensorsByType.getSensorList().add(sensor);
         }
         return listOfSensorsByType;
     }
@@ -141,7 +180,6 @@ public class SensorList {
 
     public void removeSensor(Sensor sensor) {
         this.listOfSensors.remove(sensor);
-
     }
 
     public Sensor getLastSensor() {
@@ -157,8 +195,9 @@ public class SensorList {
     public SensorList getActiveSensors() {
         SensorList activeSensors = new SensorList();
         for (Sensor s : this.getSensorList()) {
-            if (s.isActive()) {
-                activeSensors.addSensor(s);
+
+            if (s.getSensorBehavior().isActive()) {
+                activeSensors.getSensorList().add(s);
             }
         }
         return activeSensors;
@@ -173,13 +212,14 @@ public class SensorList {
     public void deactivateSensor(String sensorID, Calendar pauseDate) {
         for (Sensor s : this.getSensorList())
             if (s.getId().matches(sensorID)) {
-                s.deactivate(pauseDate);
+                s.getSensorBehavior().deactivate(pauseDate);
+
                 //Repository call
                 try {
-                    Repositories.getSensorRepository().save(s);
+                    ExternalSensor externalSensor = (ExternalSensor) s;
+                    Repositories.getExternalSensorRepository().save(externalSensor);
                 } catch (Exception e) {
-                    log.warn("Repository unreachable");
-                }
+                    log.warn("Repository unreachable"); }
             }
 
 

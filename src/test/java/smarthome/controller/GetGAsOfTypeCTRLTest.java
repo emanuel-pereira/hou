@@ -213,8 +213,24 @@ class GetGAsOfTypeCTRLTest {
         assertEquals(expected, result);
     }
 
+
     @Test
-    void showListInString() {
+    void showTypeGaListInStringTest(){
+        GAList listGa = new GAList();
+        GetGAsOfTypeCTRL ctrl4 = new GetGAsOfTypeCTRL(listGa);
+        TypeGAList.addTypeGA(TypeGAList.newTypeGA("city"));
+        TypeGAList.addTypeGA(TypeGAList.newTypeGA("urban area"));
+
+        String expected = "1 - city\n" +
+                            "2 - urban area\n";
+        String result = ctrl4.showListOfTypeGA();
+
+        assertEquals(expected,result);
+
+    }
+
+    @Test
+    void showGaFromTypeListInStringTest() {
 
         NewTypeGACTRL ctrl1 = new NewTypeGACTRL();
         ctrl1.createTypeGA("village");

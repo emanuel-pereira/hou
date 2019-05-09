@@ -49,12 +49,12 @@ public class RoomList {
     public boolean addRoom(Room newRoom) {
         if (newRoom != null && !this.listOfRooms.contains(newRoom)) {
             this.listOfRooms.add(newRoom);
+
             //Repository call
             try {
                 Repositories.saveRoom(newRoom);
             } catch (NullPointerException e) {
-                log.warn("Repository unreachable");
-            }
+                log.warn("Repository unreachable"); }
             return true;
         } else return false;
     }
@@ -109,14 +109,11 @@ public class RoomList {
     }
 
     public Room getRoomById(String inputId) {
-        Room room = get(0);
-        for (Room r : this.listOfRooms) {
-            room = r;
-            if (room.getId().matches(inputId)) {
-                break;
-            }
-        }
-        return room;
+        Room matchedRoom = null;
+        for (Room room : this.listOfRooms)
+            if (room.getId().equals(inputId))
+                matchedRoom = room;
+        return matchedRoom;
 
     }
 
@@ -203,6 +200,15 @@ public class RoomList {
         return Utils.round(totalEnergyConsumption, 2);
     }
 
+    public double getEstimatedEnergyConsumptionByDeviceType(String deviceType) {
+        double totalEnergyConsumption = 0;
+        for (Device device : getDevicesInAllRoomsByType(deviceType)) {
+            Metered metered = (Metered) device;
+            totalEnergyConsumption += metered.getEstimatedEnergyConsumption();
+        }
+        return Utils.round(totalEnergyConsumption, 2);
+    }
+
     public List<Metered> getMeteredDevicesList() {
         List<Metered> meteredDevListInHouse = new ArrayList<>();
         for (Room room : this.listOfRooms) {
@@ -233,6 +239,7 @@ public class RoomList {
         return matchedRoom;
     }
 
+    /*
     public List<Room> getListOfRoomsFiltered(String sensorType) {
         List<Room> rooms = new ArrayList<>();
         Sensor sensor;
@@ -245,4 +252,6 @@ public class RoomList {
         }
         return rooms;
     }
+
+    */
 }

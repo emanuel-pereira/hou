@@ -7,7 +7,7 @@ public class OccupationAreaDTO {
     private final double length;
 
 
-    public OccupationAreaDTO(double width, double length) {
+    public OccupationAreaDTO(double length,double width) {
         this.width = width;
         this.length = length;
 
@@ -22,6 +22,6 @@ public class OccupationAreaDTO {
     }
 
     public OccupationArea fromDTO() {
-        return new OccupationArea(this.width, this.length);
+        return new OccupationArea(this.length,this.width);
     }
 }

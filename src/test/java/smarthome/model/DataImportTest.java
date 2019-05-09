@@ -62,7 +62,7 @@ class DataImportTest {
 
     @Test
     @DisplayName("Get Ga List size in file")
-    void getGAListInFileSize() throws ParserConfigurationException,ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+    void getGAListInFileSize() throws ParserConfigurationException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImport dataImport = new DataImport(gaList);
         TypeGAList.addTypeGA(new TypeGA("city"));
@@ -77,7 +77,7 @@ class DataImportTest {
 
     @Test
     @DisplayName("Get Ga List size after import")
-    void getGAListImportedSize() throws ParserConfigurationException,ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+    void getGAListImportedSize() throws ParserConfigurationException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImport dataImport = new DataImport(gaList);
         TypeGAList.addTypeGA(new TypeGA("city"));
@@ -95,7 +95,7 @@ class DataImportTest {
 
     @Test
     @DisplayName("Get number of not added GAs")
-    void getGAListNotAddedSize() throws ParserConfigurationException,ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
+    void getGAListNotAddedSize() throws ParserConfigurationException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImport dataImport = new DataImport(gaList);
         Path path = Paths.get("resources_tests/DataSet_sprint05_GA.json");
@@ -122,8 +122,8 @@ class DataImportTest {
         GregorianCalendar startDate = new GregorianCalendar(2018, Calendar.MARCH, 3);
         Location location = new Location(3, 2, 1);
         SensorType temp = new SensorType("Temperature");
-        Sensor sensorISEP = new Sensor("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
-        Sensor sensorPorto = new Sensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
+        Sensor sensorISEP = new ExternalSensor("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
+        Sensor sensorPorto = new ExternalSensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
         ga.getSensorListInGA().addSensor(sensorISEP);
         ga.getSensorListInGA().addSensor(sensorPorto);
 
@@ -131,8 +131,8 @@ class DataImportTest {
         Path path = Paths.get("resources_tests/DataSet_sprint05_SD.json");
         dataImport.importReadingsFromFile(path,gaList);
 
-        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
-        double r = rList.get(3).returnValueOfReading();
+        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getSensorBehavior().getReadingList().getReadingsList();
+        double r = rList.get(3).returnValue();
         assertEquals(15.1, r);
     }
 
@@ -144,8 +144,8 @@ class DataImportTest {
         GregorianCalendar startDate = new GregorianCalendar(2020, Calendar.MARCH, 3);
         Location location = new Location(3, 2, 1);
         SensorType temp = new SensorType("Temperature");
-        Sensor sensorISEP = new Sensor("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
-        Sensor sensorPorto = new Sensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
+        Sensor sensorISEP = new ExternalSensor("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
+        Sensor sensorPorto = new ExternalSensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
         ga.getSensorListInGA().addSensor(sensorISEP);
         ga.getSensorListInGA().addSensor(sensorPorto);
 
@@ -153,7 +153,7 @@ class DataImportTest {
         Path path = Paths.get("resources_tests/DataSet_sprint05_SD.json");
         dataImport.importReadingsFromFile(path,gaList);
 
-        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getReadingList().getReadingsList();
+        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getSensorBehavior().getReadingList().getReadingsList();
         int size = rList.size();
         assertEquals(0, size);
     }
@@ -167,7 +167,7 @@ class DataImportTest {
         dataImport.importHouse();
 
         String expected = "R. Dr. António Bernardino de Almeida";
-        String result = getAddress().getName();
+        String result = getAddress().getStreet();
 
         assertEquals(expected,result);
     }

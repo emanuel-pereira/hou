@@ -8,9 +8,9 @@ import java.util.List;
 
 public class HouseGridList {
 
-    private final List<HouseGrid> hgList;
     //private final List<HouseGrid> hgListCopy;
     static final Logger log = Logger.getLogger(HouseGridList.class);
+    private final List<HouseGrid> hgList;
 
     public HouseGridList() {
         this.hgList = new ArrayList<>();
@@ -57,7 +57,7 @@ public class HouseGridList {
      * @return the list of house grids in the house as ArrayList
      */
     public List<HouseGrid> getHouseGridList() {
-       // List<HouseGrid> hgListCopy = new ArrayList<>(hgList);
+        // List<HouseGrid> hgListCopy = new ArrayList<>(hgList);
         //hgListCopy.addAll(hgList);
         return new ArrayList<>(hgList);
         //return hgListCopy;

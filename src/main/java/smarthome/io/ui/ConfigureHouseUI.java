@@ -4,6 +4,7 @@ package smarthome.io.ui;
 import org.json.simple.parser.ParseException;
 import smarthome.controller.ConfigureHouseCTRL;
 import smarthome.dto.GeographicalAreaDTO;
+import smarthome.dto.LocationDTO;
 import smarthome.model.GAList;
 
 import java.io.IOException;
@@ -39,7 +40,8 @@ public class ConfigureHouseUI {
         this.selectGA();
         this.addressInput();
 
-        ctrl.configureHouseLocation(idGeoArea, streetName, number, zipCode, town, country, latitude, longitude, altitude);
+        LocationDTO location = new LocationDTO(latitude,longitude,altitude);
+        ctrl.configureHouseLocation(idGeoArea, streetName, number, zipCode, town, country, location);
         System.out.println("Success! The house location has been configured.");
 
     }

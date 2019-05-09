@@ -9,22 +9,21 @@ import java.util.GregorianCalendar;
 
 public class GetDailySensorDataUI {
 
-    private final GetDailySensorDataCTRL superCTRL;
+    private static final String TEMPERATURE = "temperature";
     private SensorType sensorType;
     private GregorianCalendar startDate;
     private GregorianCalendar endDate;
-    private static final String TEMPERATURE = "temperature";
     private static final String MSG_TITLE = "Data not found";
     private static final String MSG_NO_DATA = ("The sensors in the house area do not have readings in the specified date." +
             "\n    Please select a date with registered readings. You can also import readings from a CSV File");
     private static final String MSG_NO_SENSOR = "There are still no sensors in the geographical area of the house. \n    Please ask the " +
             "system administrator to add some sensors first. You can also import geographical areas and sensors from a JSONFile";
+    private final GetDailySensorDataCTRL superCTRL;
 
 
     public GetDailySensorDataUI(SensorTypeList sensorTypeList) {
         this.superCTRL = new GetDailySensorDataCTRL(sensorTypeList);
     }
-
 
     public boolean isValid() {
         if (this.superCTRL.checkIfSensorTypeExists(this.sensorType.getType())) {

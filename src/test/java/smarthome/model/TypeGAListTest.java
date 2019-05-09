@@ -1,9 +1,11 @@
 package smarthome.model;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import javax.validation.constraints.AssertTrue;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
@@ -38,11 +40,86 @@ class TypeGAListTest {
     void addTypeGATest() {
         TypeGA city = newTypeGA("city");
 
-        addTypeGA(city);
+        assertTrue(addTypeGA(city));
+
         List<TypeGA> expectedResult = Arrays.asList(city);
         List<TypeGA> result = getTypeGAList();
 
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void getTypeGAByStringTest() {
+        TypeGA city = newTypeGA("city");
+        TypeGA village = newTypeGA("village");
+        TypeGA street = newTypeGA("street");
+
+        addTypeGA(city);
+        addTypeGA(village);
+        addTypeGA(street);
+
+        TypeGA result = TypeGAList.get("street");
+
+        assertEquals(street, result);
+    }
+
+    @Test
+    void getTypeGAByStringTestNull() {
+        TypeGA city = newTypeGA("city");
+        TypeGA village = newTypeGA("village");
+        TypeGA street = newTypeGA("street");
+
+        addTypeGA(city);
+        addTypeGA(village);
+        addTypeGA(street);
+
+        TypeGA result = TypeGAList.get("country");
+
+        assertEquals(null, result);
+    }
+
+    @Test
+    void getTypeGAByIndexTest() {
+        TypeGA city = newTypeGA("city");
+        TypeGA village = newTypeGA("village");
+        TypeGA street = newTypeGA("street");
+
+        addTypeGA(city);
+        addTypeGA(village);
+        addTypeGA(street);
+
+        TypeGA result = TypeGAList.get(2);
+
+        assertEquals(street, result);
+    }
+
+    @Test
+    void checkIfContainsTypeTestTrue() {
+        TypeGA city = newTypeGA("city");
+        TypeGA village = newTypeGA("village");
+        TypeGA street = newTypeGA("street");
+
+        addTypeGA(city);
+        addTypeGA(village);
+        addTypeGA(street);
+
+        boolean result = TypeGAList.contains(street);
+
+        assertTrue(result);
+    }
+
+    @Test
+    void checkIfContainsTypeTestFalse() {
+        TypeGA city = newTypeGA("city");
+        TypeGA village = newTypeGA("village");
+        TypeGA street = newTypeGA("street");
+
+        addTypeGA(city);
+        addTypeGA(street);
+
+        boolean result = TypeGAList.contains(village);
+
+        assertFalse(result);
     }
 
     @DisplayName("set type of GA for village")
@@ -50,9 +127,9 @@ class TypeGAListTest {
     public void defineTypesOfGeographicalAreaVillage() {
         TypeGA village = newTypeGA("village");
 
-        assertEquals(0, getTypeGAList().size());
+        assertEquals(0, size());
         addTypeGA(village);
-        assertEquals(1, getTypeGAList().size());
+        assertEquals(1, size());
 
         List<TypeGA> expectedResult = Arrays.asList(village);
         List<TypeGA> result = getTypeGAList();
@@ -62,7 +139,7 @@ class TypeGAListTest {
 
     @DisplayName("set Already Contained type of GA for village")
     @Test
-    public void defineAlreadyContainedTypeOfGeograficalAreaVillage() {
+    public void defineAlreadyContainedTypeOfGeographicalAreaVillage() {
 
         TypeGA village1 = newTypeGA("village");
         TypeGA village2 = newTypeGA("village");

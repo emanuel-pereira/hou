@@ -65,7 +65,7 @@ public class ComfortLevelService {
     // WRONG? Unneeded?
     private boolean checkThatAllSensorsHaveReadings(Room room) {
         for (Sensor sensor : room.getSensorListInRoom().getSensorList()) {
-            if (sensor.getReadingList().getReadingsList().isEmpty()) {
+            if (sensor.getSensorBehavior().getReadingList().getReadingsList().isEmpty()) {
                 return false;
             }
         }
@@ -167,8 +167,8 @@ public class ComfortLevelService {
         Sensor sensorInGA = this.sensorsListInGeoArea.getRequiredSensorPerType(TEMPERATURE);
 
         //Get reading lists
-        ReadingList sensorInRoomReadings = sensorInRoom.getReadingList();
-        ReadingList sensorInGAReadings = sensorInGA.getReadingList();
+        ReadingList sensorInRoomReadings = sensorInRoom.getSensorBehavior().getReadingList();
+        ReadingList sensorInGAReadings = sensorInGA.getSensorBehavior().getReadingList();
 
         List<Reading> finalList = new ArrayList<>();
 
@@ -177,7 +177,7 @@ public class ComfortLevelService {
 
             if (sensorInGAReadings.getReadingsInSpecificDay(startDate).size() != 0) {
                 temp = sensorInGAReadings.dailyAverageOfReadings(startDate);
-                System.out.println("Average temperature outside:" + temp + "C");
+                //System.out.println("Average temperature outside:" + temp + "C");
 
                 ReadingList sensorInRoomReadingsForDay = sensorInRoomReadings.getReadingsInSpecificDay(startDate);
                 List<Reading> dailyResult = checkComfort(sensorInRoomReadingsForDay, category, maxOrMin, temp);
@@ -191,9 +191,15 @@ public class ComfortLevelService {
         StringBuilder result = new StringBuilder();
         for (Reading r : finalList
         ) {
-            result.append(r.getDateOfReadingAsString());
-            result.append(" | ");
-            result.append(r.returnValueOfReading());
+
+            int hour = r.getDateAndTime().get(Calendar.HOUR_OF_DAY);
+
+            result.append(r.getDateOfReadingAsString()+" "+hour+":00");
+            result.append(" -> ");
+
+            double reading = (double) Math.round((r.returnValue()*100))/100;
+
+            result.append(reading+" ºC");
             result.append("\n");
         }
 
@@ -208,7 +214,7 @@ public class ComfortLevelService {
         //case MAX
         if (maxOrMin) {
             for (Reading r : readingList.getReadingsList()) {
-                if (r.returnValueOfReading() > getMaxTemperatureForComfortLevel(outsideTemperature, category)) {
+                if (r.returnValue() > getMaxTemperatureForComfortLevel(outsideTemperature, category)) {
                     result.add(r);
                 }
             }
@@ -217,7 +223,7 @@ public class ComfortLevelService {
 
         //case MIN
         for (Reading r : readingList.getReadingsList()) {
-            if (r.returnValueOfReading() < getMinTemperatureForComfortLevel(outsideTemperature, category)) {
+            if (r.returnValue() < getMinTemperatureForComfortLevel(outsideTemperature, category)) {
                 result.add(r);
             }
         }

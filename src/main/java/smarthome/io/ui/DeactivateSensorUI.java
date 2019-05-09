@@ -44,7 +44,7 @@ public class DeactivateSensorUI {
         System.out.println ("Please choose a Geographical Area from the list below:");
         int counter = 1;
         for (GeographicalAreaDTO gaDTO : gaListDTO) {
-            System.out.print (counter++ + ". Id: " + gaDTO.getIdentification () + DESIGNATION + gaDTO.getDesignation () + ".\n");
+            System.out.print(counter++ + ". Id: " + gaDTO.getIdentification() + DESIGNATION + gaDTO.getDesignation() + ".\n");
         }
         int index = UtilsUI.requestIntegerInInterval (1, gaListDTO.size (), "Please choose a valid option.");
         index--;
@@ -81,10 +81,10 @@ public class DeactivateSensorUI {
      * Show active sensors and ask to select one
      */
     private void selectSensor() {
-        System.out.println ("Choose an active Sensor from the list below:");
+        System.out.println ("Choose an active Sensors from the list below:");
         int counter = 1;
         for (SensorDTO sensor : sensorListDTO) {
-            System.out.print (counter++ + " Id: " + sensor.getId () + DESIGNATION + sensor.getDesignation () + ". Active: " + sensor.isActive () + "\n");
+            System.out.print(counter++ + " Id: " + sensor.getId() + DESIGNATION + sensor.getDesignation() + ". Active: " + sensor.isActive() + "\n");
         }
         int index = UtilsUI.requestIntegerInInterval (1, sensorListDTO.size (), "Please choose a valid option");
         index--;
@@ -116,7 +116,7 @@ public class DeactivateSensorUI {
     private void deactivateSensor() {
         if (this.controller.deactivateSensor (gaDTOId, sensorDTOId, date)) {
             System.out.println ("The following sensor was successfully deactivated from the geographical area " + this.selectedGADto.getDesignation () + ":");
-            System.out.println (" - Id: " + this.sensorDTO.getId () + DESIGNATION + this.sensorDTO.getDesignation () + ". Active: " + this.controller.sensorStatus (gaDTOId, sensorDTOId) + ".\n");
+            System.out.println(" - Id: " + this.sensorDTO.getId() + DESIGNATION + this.sensorDTO.getDesignation() + ". Active: " + this.controller.sensorStatus(gaDTOId, sensorDTOId) + ".\n");
         }
     }
 

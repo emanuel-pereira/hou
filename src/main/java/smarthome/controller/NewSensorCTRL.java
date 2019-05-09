@@ -8,7 +8,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static smarthome.model.House.*;
+import static smarthome.model.House.checkIfLocationExists;
+import static smarthome.model.House.getHouseRoomList;
 
 
 public class NewSensorCTRL {
@@ -127,6 +128,7 @@ public class NewSensorCTRL {
         SensorList rSensorList = room.getSensorListInRoom();
         Sensor sensor = rSensorList.createNewInternalSensor(id, inputName, startDate, sensorType, unit, readingList);
         return rSensorList.addSensor(sensor);
+
     }
 
 
@@ -161,7 +163,7 @@ public class NewSensorCTRL {
     public String getGASensorType(int indexOfGA) {
         GeographicalArea ga = this.gaList.get(indexOfGA);
         Sensor createdSensor = ga.getSensorListInGA().getLastSensor();
-        SensorType type = createdSensor.getSensorType();
+        SensorType type = createdSensor.getSensorBehavior().getSensorType();
         return type.getType();
     }
 
@@ -169,7 +171,7 @@ public class NewSensorCTRL {
         RoomList roomList = getHouseRoomList();
         Room room = roomList.get(indexOfRoom);
         Sensor createdSensor = room.getSensorListInRoom().getLastSensor();
-        SensorType type = createdSensor.getSensorType();
+        SensorType type = createdSensor.getSensorBehavior().getSensorType();
         return type.getType();
     }
 
@@ -206,7 +208,7 @@ public class NewSensorCTRL {
     public String getGASensorName(int indexOfGA) {
         GeographicalArea ga = this.gaList.get(indexOfGA);
         Sensor createdSensor = ga.getSensorListInGA().getLastSensor();
-        return createdSensor.getDesignation();
+        return createdSensor.getSensorBehavior().getDesignation();
     }
 
     /**
@@ -231,9 +233,8 @@ public class NewSensorCTRL {
         RoomList roomList = getHouseRoomList();
         Room room = roomList.get(indexOfRoom);
         Sensor createdSensor = room.getSensorListInRoom().getLastSensor();
-        return createdSensor.getDesignation();
+        return createdSensor.getSensorBehavior().getDesignation();
     }
-
 
     /**
      * Method to get the start date of the sensor created
@@ -244,7 +245,7 @@ public class NewSensorCTRL {
     public Calendar getGASensorSDate(int indexOfGA) {
         GeographicalArea ga = this.gaList.get(indexOfGA);
         Sensor createdSensor = ga.getSensorListInGA().getLastSensor();
-        return createdSensor.getStartDate();
+        return createdSensor.getSensorBehavior().getStartDate();
     }
 
     /**
@@ -257,7 +258,7 @@ public class NewSensorCTRL {
         RoomList roomList = getHouseRoomList();
         Room room = roomList.get(indexOfRoom);
         Sensor createdSensor = room.getSensorListInRoom().getLastSensor();
-        return createdSensor.getStartDate();
+        return createdSensor.getSensorBehavior().getStartDate();
     }
 
     /**
@@ -270,7 +271,7 @@ public class NewSensorCTRL {
         RoomList roomList = getHouseRoomList();
         Room room = roomList.get(indexOfRoom);
         Sensor createdSensor = room.getSensorListInRoom().getLastSensor();
-        return createdSensor.getUnit();
+        return createdSensor.getSensorBehavior().getUnit();
     }
 
     /**
@@ -282,7 +283,7 @@ public class NewSensorCTRL {
     public String getGASensorUnit(int indexOfGA) {
         GeographicalArea ga = this.gaList.get(indexOfGA);
         Sensor createdSensor = ga.getSensorListInGA().getLastSensor();
-        return createdSensor.getUnit();
+        return createdSensor.getSensorBehavior().getUnit();
     }
 
     public String showSensorListInRoom (int indexOfRoom){

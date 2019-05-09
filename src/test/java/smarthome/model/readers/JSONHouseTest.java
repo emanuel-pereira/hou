@@ -37,7 +37,7 @@ class JSONHouseTest {
         reader.importHouseConfiguration(path);
 
         String expected = "R. Dr. António Bernardino de Almeida";
-        String result = getAddress().getName();
+        String result = getAddress().getStreet();
 
         assertEquals(expected, result);
     }

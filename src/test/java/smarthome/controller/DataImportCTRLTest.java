@@ -18,6 +18,8 @@ import java.util.GregorianCalendar;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static smarthome.model.House.getHouseRoomList;
+import static smarthome.model.TypeGAList.addTypeGA;
+import static smarthome.model.TypeGAList.newTypeGA;
 
 class DataImportCTRLTest {
 
@@ -45,8 +47,8 @@ class DataImportCTRLTest {
     void loadGeoAreas() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        TypeGAList.addTypeGA(new TypeGA("city"));
-        TypeGAList.addTypeGA(new TypeGA("urban area"));
+        addTypeGA(new TypeGA("city"));
+        addTypeGA(new TypeGA("urban area"));
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
         Path path = Paths.get(filepath);
         try {
@@ -80,7 +82,8 @@ class DataImportCTRLTest {
 
 
     @Test
-    void getAllSensorsInFile() throws ParserConfigurationException,IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    @DisplayName("Get total number of sensors in file")
+    void getAllSensorsInFile() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
@@ -95,12 +98,13 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void importGeoAreasFromFile() throws ParserConfigurationException,IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    @DisplayName("Add the GeoAreas and respective Sensors to the GaList/Repo")
+    void importGeoAreasFromFile() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
 
-        TypeGAList.addTypeGA(new TypeGA("city"));
-        TypeGAList.addTypeGA(new TypeGA("urban area"));
+        addTypeGA(new TypeGA("city"));
+        addTypeGA(new TypeGA("urban area"));
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
 
         Path path = Paths.get(filepath);
@@ -112,7 +116,8 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void failToAdd() throws ParserConfigurationException,IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    @DisplayName("Number of GeoAreas that were not added - either there was an equal id or the TypeGA did not previously exist")
+    void failToAdd() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
@@ -128,11 +133,12 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void failToAddIsZero() throws ParserConfigurationException,IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    @DisplayName("No GeoAreas failed to add")
+    void failToAddIsZero() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
-        TypeGAList.addTypeGA(new TypeGA("city"));
-        TypeGAList.addTypeGA(new TypeGA("urban area"));
+        addTypeGA(new TypeGA("city"));
+        addTypeGA(new TypeGA("urban area"));
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
 
         Path path = Paths.get(filepath);
@@ -146,7 +152,8 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void failToAddDoesNotStack() throws ParserConfigurationException,IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
+    @DisplayName("Make sure the number of GeoAreas that failed to add were is not stacking from previous US runs")
+    void failToAddDoesNotStack() throws ParserConfigurationException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, java.text.ParseException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl = new DataImportCTRL(gaList);
         String filepath = "resources_tests/DataSet_sprint05_GA.json";
@@ -160,6 +167,8 @@ class DataImportCTRLTest {
 
         assertEquals(expected, result);
     }
+
+
 
     @Test
     void importReadingZero() throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
@@ -180,8 +189,8 @@ class DataImportCTRLTest {
     void importReading() throws java.text.ParseException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
         GAList gaList = new GAList();
         DataImportCTRL ctrl1 = new DataImportCTRL(gaList);
-        TypeGAList.addTypeGA(new TypeGA("city"));
-        TypeGAList.addTypeGA(new TypeGA("urban area"));
+        addTypeGA(new TypeGA("city"));
+        addTypeGA(new TypeGA("urban area"));
         String filepath1 = "resources_tests/DataSet_sprint05_GA.json";
         Path path1 = Paths.get(filepath1);
         ctrl1.importGeoAreasFromFile(path1);
@@ -230,26 +239,23 @@ class DataImportCTRLTest {
         Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
         SensorList kitchenSL = kitchen.getSensorListInRoom();
         GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
-        Location s0Location = new Location(12, 25, 32);
         SensorType temperature = new SensorType("temperature");
-        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        InternalSensor tSensor0 = new InternalSensor("T0000", "Temp A", s0StDate,  temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor0);
 
         GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
-        Location s1Location = new Location(12, 25, 32);
-        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        InternalSensor tSensor1 = new InternalSensor("TT3000", "Temp B", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor1);
 
-        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        InternalSensor tSensor2 = new InternalSensor("TT3000", "Temp C", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor2);
 
-        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        InternalSensor tSensor3 = new InternalSensor("TT3000", "Temp D", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor3);
 
         Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
         SensorList bedroomSL = bedroom.getSensorListInRoom();
-        Location location = new Location(12, 32, 15);
-        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        InternalSensor brSensor = new InternalSensor("TT1000", "Temp E", s1StDate, temperature, "C", new ReadingList());
         bedroomSL.addSensor(brSensor);
         RoomList roomList = new RoomList();
         roomList.addRoom(kitchen);
@@ -271,26 +277,23 @@ class DataImportCTRLTest {
         Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
         SensorList kitchenSL = kitchen.getSensorListInRoom();
         GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
-        Location s0Location = new Location(12, 25, 32);
         SensorType temperature = new SensorType("temperature");
-        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        InternalSensor tSensor0 = new InternalSensor("T0000", "Temp A", s0StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor0);
 
         GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
-        Location s1Location = new Location(12, 25, 32);
-        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        InternalSensor tSensor1 = new InternalSensor("TT3000", "Temp B", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor1);
 
-        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        InternalSensor tSensor2 = new InternalSensor("TT3000", "Temp C", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor2);
 
-        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensor tSensor3 = new InternalSensor("TT3000", "Temp D", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor3);
 
         Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
         SensorList bedroomSL = bedroom.getSensorListInRoom();
-        Location location = new Location(12, 32, 15);
-        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        Sensor brSensor = new InternalSensor("TT1000", "Temp E", s1StDate, temperature, "C", new ReadingList());
         bedroomSL.addSensor(brSensor);
         RoomList roomList = new RoomList();
         roomList.addRoom(kitchen);
@@ -312,26 +315,23 @@ class DataImportCTRLTest {
         Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
         SensorList kitchenSL = kitchen.getSensorListInRoom();
         GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
-        Location s0Location = new Location(12, 25, 32);
         SensorType temperature = new SensorType("temperature");
-        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        Sensor tSensor0 = new InternalSensor("T0000", "Temp A", s0StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor0);
 
         GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
-        Location s1Location = new Location(12, 25, 32);
-        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensor tSensor1 = new InternalSensor("TT3000", "Temp B", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor1);
 
-        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensor tSensor2 = new InternalSensor("TT3000", "Temp C", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor2);
 
-        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensor tSensor3 = new InternalSensor("TT3000", "Temp D", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor3);
 
         Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
         SensorList bedroomSL = bedroom.getSensorListInRoom();
-        Location location = new Location(12, 32, 15);
-        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        Sensor brSensor = new InternalSensor("TT1000", "Temp E", s1StDate, temperature, "C", new ReadingList());
         bedroomSL.addSensor(brSensor);
         RoomList roomList = new RoomList();
         roomList.addRoom(kitchen);
@@ -353,26 +353,24 @@ class DataImportCTRLTest {
         Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
         SensorList kitchenSL = kitchen.getSensorListInRoom();
         GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
-        Location s0Location = new Location(12, 25, 32);
         SensorType temperature = new SensorType("temperature");
-        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        Sensor tSensor0 = new InternalSensor("T0000", "Temp A", s0StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor0);
 
         GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
         Location s1Location = new Location(12, 25, 32);
-        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensor tSensor1 = new InternalSensor("TT3000", "Temp B", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor1);
 
-        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensor tSensor2 = new InternalSensor("TT3000", "Temp C", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor2);
 
-        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensor tSensor3 = new InternalSensor("TT3000", "Temp D", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor3);
 
         Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
         SensorList bedroomSL = bedroom.getSensorListInRoom();
-        Location location = new Location(12, 32, 15);
-        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        Sensor brSensor = new InternalSensor("TT1000", "Temp E", s1StDate, temperature, "C", new ReadingList());
         bedroomSL.addSensor(brSensor);
         RoomList roomList = new RoomList();
         roomList.addRoom(kitchen);
@@ -394,26 +392,23 @@ class DataImportCTRLTest {
         Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
         SensorList kitchenSL = kitchen.getSensorListInRoom();
         GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
-        Location s0Location = new Location(12, 25, 32);
         SensorType temperature = new SensorType("temperature");
-        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        Sensor tSensor0 = new InternalSensor("T0000", "Temp A", s0StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor0);
 
         GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
-        Location s1Location = new Location(12, 25, 32);
-        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensor tSensor1 = new InternalSensor("TT3000", "Temp B", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor1);
 
-        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensor tSensor2 = new InternalSensor("TT3000", "Temp C", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor2);
 
-        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensor tSensor3 = new InternalSensor("TT3000", "Temp D", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor3);
 
         Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
         SensorList bedroomSL = bedroom.getSensorListInRoom();
-        Location location = new Location(12, 32, 15);
-        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        Sensor brSensor = new InternalSensor("TT1000", "Temp E", s1StDate, temperature, "C", new ReadingList());
         bedroomSL.addSensor(brSensor);
         RoomList roomList = new RoomList();
         roomList.addRoom(kitchen);
@@ -434,26 +429,23 @@ class DataImportCTRLTest {
         Room kitchen = new Room("K1", "Kitchen", 0, 5, 2, 2);
         SensorList kitchenSL = kitchen.getSensorListInRoom();
         GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
-        Location s0Location = new Location(12, 25, 32);
         SensorType temperature = new SensorType("temperature");
-        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        Sensor tSensor0 = new InternalSensor("T0000", "Temp A", s0StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor0);
 
         GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
-        Location s1Location = new Location(12, 25, 32);
-        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensor tSensor1 = new InternalSensor("TT3000", "Temp B", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor1);
 
-        Sensor tSensor2 = new Sensor("TT3000", "Temp C", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensor tSensor2 = new InternalSensor("TT3000", "Temp C", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor2);
 
-        Sensor tSensor3 = new Sensor("TT3000", "Temp D", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensor tSensor3 = new InternalSensor("TT3000", "Temp D", s1StDate, temperature, "C", new ReadingList());
         kitchenSL.addSensor(tSensor3);
 
         Room bedroom = new Room("B1", "Bedroom", 1, 5, 3, 2);
         SensorList bedroomSL = bedroom.getSensorListInRoom();
-        Location location = new Location(12, 32, 15);
-        Sensor brSensor = new Sensor("TT1000", "Temp E", s1StDate, location, temperature, "C", new ReadingList());
+        Sensor brSensor = new InternalSensor("TT1000", "Temp E", s1StDate, temperature, "C", new ReadingList());
         bedroomSL.addSensor(brSensor);
         RoomList roomList = new RoomList();
         roomList.addRoom(kitchen);
@@ -607,7 +599,7 @@ class DataImportCTRLTest {
 
 
     @Test
-    void getGaListInFileSize() throws ParserConfigurationException,IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
+    void getGaListInFileSize() throws ParserConfigurationException, IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
 
         GAList gaList = new GAList();
         DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
@@ -623,18 +615,39 @@ class DataImportCTRLTest {
     }
 
     @Test
-    void getImportedGaListSize() throws ParserConfigurationException,IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
+    @DisplayName("Get number of GeoAreas that were successfully added to GAList/repo")
+    void getImportedGaListSize() throws ParserConfigurationException, IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
 
+        GAList gaList = new GAList();
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
+        String filepath1 = "resources_tests/DataSet_sprint05_GA.json";
+
+        addTypeGA(newTypeGA("city"));
+        addTypeGA(newTypeGA("urban area"));
+
+        Path path1 = Paths.get(filepath1);
+        dataImportCTRL.importGeoAreasFromFile(path1);
+
+        int expected = 2;
+        int result = dataImportCTRL.getImportedGaListSize(path1);
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Get zero GeoAreas that were successfully added to GAList/repo")
+    void getImportedGaListSizeZero() throws ParserConfigurationException,IllegalAccessException, ParseException, IOException, InstantiationException, java.text.ParseException, ClassNotFoundException {
         GAList gaList = new GAList();
         DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
         String filepath1 = "resources_tests/DataSet_sprint05_GA.json";
 
         Path path1 = Paths.get(filepath1);
         dataImportCTRL.importGeoAreasFromFile(path1);
+        dataImportCTRL.importGeoAreasFromFile(path1);
 
 
-        int expected = 2;
-        int result = dataImportCTRL.getGaListInFileSize(path1);
+        int expected = 0;
+        int result = dataImportCTRL.getImportedGaListSize(path1);
 
         assertEquals(expected, result);
     }
@@ -669,14 +682,12 @@ class DataImportCTRLTest {
 
         SensorList kSensorList = kitchen.getSensorListInRoom();
         GregorianCalendar s0StDate = new GregorianCalendar(2018, 1, 15);
-        Location s0Location = new Location(12, 25, 32);
         SensorType temperature = new SensorType("temperature");
-        Sensor tSensor0 = new Sensor("T0000", "Temp A", s0StDate, s0Location, temperature, "C", new ReadingList());
+        Sensor tSensor0 = new InternalSensor("T0000", "Temp A", s0StDate, temperature, "C", new ReadingList());
         kSensorList.addSensor(tSensor0);
         SensorList bSensorList = bedroom.getSensorListInRoom();
         GregorianCalendar s1StDate = new GregorianCalendar(2018, 1, 15);
-        Location s1Location = new Location(12, 25, 32);
-        Sensor tSensor1 = new Sensor("TT3000", "Temp B", s1StDate, s1Location, temperature, "C", new ReadingList());
+        Sensor tSensor1 = new InternalSensor("TT3000", "Temp B", s1StDate, temperature, "C", new ReadingList());
 
         bSensorList.addSensor(tSensor1);
 
@@ -687,5 +698,33 @@ class DataImportCTRLTest {
         int result = dataImportCTRL.nrOfSensorsInAllRooms();
 
         assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Get Number Zero of GeoArea's Types")
+    void getTypeGAListSizeTest(){
+        GAList gaList = new GAList();
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
+
+        addTypeGA(newTypeGA("city"));
+        addTypeGA(newTypeGA("urban area"));
+
+
+        int expected = 2;
+        int result = dataImportCTRL.typeGAListSize();
+
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Get Number Zero of GeoArea's Types")
+    void getTypeGAListSizeZeroTest(){
+        GAList gaList = new GAList();
+        DataImportCTRL dataImportCTRL = new DataImportCTRL(gaList);
+
+        int expected = 0;
+        int result = dataImportCTRL.typeGAListSize();
+
+        assertEquals(expected,result);
     }
 }

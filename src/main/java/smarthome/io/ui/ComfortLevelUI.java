@@ -61,6 +61,7 @@ public class ComfortLevelUI {
         GregorianCalendar endDate = selectDate("Please enter a end date for verification");
 
         //Calculate 'stuff' and show result
+        System.out.println("Working...\n");
         String results = ctrl.calculateThermalComfort(selectedRoomIndex, maxOrMin, category, startDate, endDate);
         displayResults(results);
     }
@@ -117,8 +118,6 @@ public class ComfortLevelUI {
     private GregorianCalendar selectDate(String message) {
         System.out.println(message);
         GregorianCalendar date = UtilsUI.requestDate("Invalid date entered. Dates must be in yyyy-mm-dd format.");
-        //Debug
-        System.out.println(date.get(Calendar.YEAR) + " " + date.get(Calendar.MONTH) + " " + date.get(Calendar.DAY_OF_MONTH));
         return date;
     }
 
@@ -128,7 +127,7 @@ public class ComfortLevelUI {
     private boolean selectMaxOrMin() {
         List<String> options = new ArrayList<>();
         options.add("[A] Display readings ABOVE maximum temperature in category");
-        options.add("[B] Display readings BELOW maximum temperature in category");
+        options.add("[B] Display readings BELOW minimum temperature in category");
         UtilsUI.showList("Please select an option", options, false, 10);
         String input = UtilsUI.requestText("Please enter 'A' or 'B'", "[A-B|a-b]");
         return input.equalsIgnoreCase("a");
@@ -141,7 +140,7 @@ public class ComfortLevelUI {
 
     //Outputs
     private void displayResults(String results) {
-        UtilsUI.showInfo("Results", "The following tables show the readings outside the allowable range of the selected comfort level category");
+        UtilsUI.showInfo("Results", "The following readings are outside the allowable range for the selected comfort level category");
         System.out.println(results);
     }
 }

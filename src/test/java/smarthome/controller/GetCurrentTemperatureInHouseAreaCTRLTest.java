@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static smarthome.model.House.setHouseGA;
 
 public class GetCurrentTemperatureInHouseAreaCTRLTest {
 
@@ -85,9 +84,9 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
         GregorianCalendar startDate = new GregorianCalendar(1, Calendar.FEBRUARY, 1, 1, 1);
         ReadingList rList = new ReadingList();
 
-        Sensor s1 = new Sensor("S01", "sensorA", startDate, sensorType1, "c", rList);
-        Sensor s2 = new Sensor("S02", "sensorB", startDate, sensorType1, "c", rList);
-        Sensor s3 = new Sensor("S03", "sensorC", startDate, sensorType2, "c", rList);
+        Sensor s1 = new InternalSensor("S01", "sensorA", startDate, sensorType1, "c", rList);
+        Sensor s2 = new InternalSensor("S02", "sensorB", startDate, sensorType1, "c", rList);
+        Sensor s3 = new InternalSensor("S03", "sensorC", startDate, sensorType2, "c", rList);
 
         g1.getSensorListInGA().addSensor(s1);
         g1.getSensorListInGA().addSensor(s2);
@@ -134,15 +133,15 @@ public class GetCurrentTemperatureInHouseAreaCTRLTest {
 
 
         Location l1 = new Location(25, 15, 2);
-        Sensor s4 = new Sensor("W0002", "WindSensor2", startDate, l1, wind, "c", readingList2);
+        Sensor s4 = new ExternalSensor("W0002", "WindSensor2", startDate, l1, wind, "c", readingList2);
 
         Location l2 = new Location(20, 20, 2);
-        Sensor s5 = new Sensor("W0001", "WindSensor1", startDate, l2, wind, "c", readingList1);
+        Sensor s5 = new ExternalSensor("W0001", "WindSensor1", startDate, l2, wind, "c", readingList1);
 
-        Sensor s6 = new Sensor("W0003", "WindSensor3", startDate, l2, wind, "c", readingList2);
+        Sensor s6 = new ExternalSensor("W0003", "WindSensor3", startDate, l2, wind, "c", readingList2);
         Location l3 = new Location(12, 15, 2);
 
-        Sensor s7 = new Sensor("T0001", "TemperatureSensor", startDate, l3, temperature, "c", readingList2);
+        Sensor s7 = new ExternalSensor("T0001", "TemperatureSensor", startDate, l3, temperature, "c", readingList2);
 
         g1.getSensorListInGA().addSensor(s4);
         g1.getSensorListInGA().addSensor(s5);

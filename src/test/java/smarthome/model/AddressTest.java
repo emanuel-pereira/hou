@@ -13,18 +13,22 @@ class AddressTest {
     void checkHouseLocation() {
         //Arrange
         Location l1 = new Location (41, 12.3, 110);
-        Address a1 = new Address ("Rua Dinis Júlio","123", "222-767", "Lisboa","Portugal", l1);
+        Address a1 = new Address ("Rua Dinis Júlio","123", "222-767", "Lisboa","Espanha", l1);
 
 
         //Act
         a1.setStreet ("Rua Júlio Dinis");
+        a1.setNumber ("456");
         a1.setZipCode ("3380-45");
         a1.setTown ("Porto");
+        a1.setCountry("Portugal");
 
 
-        String result1 = a1.getName();
+        String result1 = a1.getStreet();
+        String result0 = a1.getNumber();
         String result2 = a1.getZipCode();
         String result3 = a1.getTown();
+        String result7 = a1.getCountry();
         double result4 = l1.getLatitude();
         double result5 = l1.getLongitude();
         double result6 = l1.getAltitude();
@@ -32,8 +36,10 @@ class AddressTest {
 
         //Assert
         assertEquals ("Rua Júlio Dinis", result1);
+        assertEquals ("456", result0);
         assertEquals ("3380-45", result2);
         assertEquals ("Porto", result3);
+        assertEquals ("Portugal", result7);
         assertEquals (41, result4);
         assertEquals (12.3, result5);
         assertEquals (110, result6);
@@ -52,7 +58,7 @@ class AddressTest {
         boolean result = address1.validateName(streetName);
 
         assertTrue(result);
-        assertEquals(streetName, address1.getName());
+        assertEquals(streetName, address1.getStreet());
     }
 
     /**
@@ -223,6 +229,68 @@ class AddressTest {
     }
 
     /**
+     * Validate country set if starts with space and return false
+     */
+    @Test
+    void validateCountryCorrect() {
+
+        Location location1 = new Location(23, 67, 89);
+        String country = "Portugal";
+        Address address1 = new Address ("Madison Avenue","123", " LW 3343", "Vila Nova de Gaia",country, location1);
+
+        boolean result = address1.validateCountry(country);
+
+        assertTrue(result);
+    }
+
+    /**
+     * Don't validate country if starts with space and return false
+     */
+    @Test
+    void validateCountryIncorrect() {
+
+        Location location1 = new Location(23, 67, 89);
+        String country = " Portugal";
+        Address address1 = new Address ("Madison Avenue","123", " LW 3343", "Vila Nova de Gaia",country, location1);
+
+        boolean result = address1.validateCountry(country);
+
+        assertFalse(result);
+    }
+
+    /**
+     * Don't validate country if null and return false
+     */
+    @Test
+    void validateCountryNull() {
+        Location location1 = new Location(23, 67, 89);
+        String country = null;
+        Address address1 = new Address ("Madison Avenue","123", " LW 3343", "Vila Nova de Gaia","Espanha", location1);
+
+        address1.setCountry(country);
+        String result = address1.getCountry();
+        assertEquals("Espanha",result);
+        boolean result2 = address1.validateCountry(country);
+        assertFalse(result2);
+    }
+
+    /**
+     * Don't validate number if null and return false
+     */
+    @Test
+    void validateNumberNull() {
+        Location location1 = new Location(23, 67, 89);
+        String number = null;
+        Address address1 = new Address ("Madison Avenue","123", " LW 3343", "Vila Nova de Gaia","Espanha", location1);
+
+        address1.setNumber(number);
+        String result = address1.getNumber();
+        assertEquals("123",result);
+        boolean result2 = address1.validateCountry(number);
+        assertFalse(result2);
+    }
+
+    /**
      * Check the GPS location
      */
     @Test
@@ -244,28 +312,38 @@ class AddressTest {
     void checkIncorrectSetStreetName() {
         //Arrange
         Location l1 = new Location(41, 12.3, 110);
+        Location l2 = new Location(12,34,56);
         Address a1 = new Address("Rua Júlio Dinis","345", "3380-45", "Porto","Portugal", l1);
 
         //Act
         a1.setStreet(" ");
+        a1.setNumber(" ");
         a1.setZipCode(" ");
         a1.setTown(" ");
+        a1.setCountry(" ");
+        a1.setGpsLocation(l2);
 
-        String result1 = a1.getName();
+        String result0 = a1.getStreet();
+        String result1 = a1.getNumber();
         String result2 = a1.getZipCode();
         String result3 = a1.getTown();
-        double result4 = l1.getLatitude();
-        double result5 = l1.getLongitude();
-        double result6 = l1.getAltitude();
+        String result7 = a1.getCountry();
+        double result4 = l2.getLatitude();
+        double result5 = l2.getLongitude();
+        double result6 = l2.getAltitude();
 
         //Assert
-        assertEquals("Rua Júlio Dinis", result1);
+        assertEquals("Rua Júlio Dinis", result0);
+        assertEquals("345",result1);
         assertEquals("3380-45", result2);
         assertEquals("Porto", result3);
-        assertEquals(41, result4);
-        assertEquals(12.3, result5);
-        assertEquals(110, result6);
+        assertEquals("Portugal",result7);
+        assertEquals(12, result4);
+        assertEquals(34, result5);
+        assertEquals(56, result6);
     }
+
+
 
 
     /**
@@ -281,7 +359,7 @@ class AddressTest {
         boolean result = address1.validateName(streetName);
 
         assertTrue(result);
-        assertEquals(streetName, address1.getName());
+        assertEquals(streetName, address1.getStreet());
     }
 
     /**
@@ -330,7 +408,7 @@ class AddressTest {
         boolean result = address1.validateName(streetName);
 
         assertFalse(result);
-        assertEquals(streetName, address1.getName());
+        assertEquals(streetName, address1.getStreet());
     }
 
     /**
@@ -373,7 +451,7 @@ class AddressTest {
 
         String expected = "    Rua Júlio Dinis, 80, 4200-120\n    Porto, Portugal\n | Location:\n    Latitude: 23.0º | Longitude: 67.0º | Altitude: 89.0 meters";
 
-        Address a = new Address("Rua Júlio Dinis","80", "4200-120","Porto","Portugal", location);
+        Address a = new Address("Rua Júlio Dinis", "80", "4200-120", "Porto", "Portugal", location);
         String result;
         result = a.addressToString();
 

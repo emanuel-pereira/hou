@@ -13,11 +13,11 @@ public class ListRoomsOfHouseCTRL {
     }
 
     public int roomListSize(){
-        return this.roomList.getRoomListSize ();
+        return this.roomList.getRoomListSize();
     }
 
     public String showListRoomInString() {
-       return this.roomList.showRoomListInString ();
+        return this.roomList.showRoomListInString();
     }
 
 }

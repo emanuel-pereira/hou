@@ -2,24 +2,24 @@ package smarthome.model;
 
 import smarthome.dto.ReadingDTO;
 
-import javax.persistence.*;
+import javax.persistence.Embeddable;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-@Entity
+/**
+ * The @Embeddable annotation allows to specify a class whose instances are stored as intrinsic part of the owning
+ * entity. This annotation has no attributes.
+ * The behaviour of the persistence of this class, is such as if this class attributes were from the parent class
+ * were this Embeddable is Embedded(eg. Sensor.listOfReadings [List<Reading>] ).
+ * What will happen is that there will be create a secondary list where there will be an embedded connection between
+ * the sensor and its respective readings. This connection, in the secondary table will be present a id from the parent
+ * object (Sensor) and the values of its Readings (value, date, unit)
+ */
+@Embeddable
 public class Reading {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
 
     private double value;
     private Calendar dateAndTime;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "SENSOR_ID")
-    private Sensor sensor;
-
     private String unit;
 
     protected Reading() {
@@ -37,7 +37,6 @@ public class Reading {
         this.dateAndTime = timeOfReading;
     }
 
-
     public Reading(double readValue, Calendar timeOfReading, String unitValue) {
         this.value = readValue;
         this.dateAndTime = timeOfReading;
@@ -47,12 +46,24 @@ public class Reading {
     /**
      * @return the registered value of a reading
      */
-    public double returnValueOfReading() {
+    public double returnValue() {
         return this.value;
     }
 
     public int getMonthOfReading() {
         return this.dateAndTime.get(Calendar.MONTH);
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public void setDateAndTime(Calendar dateAndTime) {
+        this.dateAndTime = dateAndTime;
     }
 
     public Calendar getDateAndTime() {
@@ -101,23 +112,12 @@ public class Reading {
         if (this.unit.equals("F")) {
             this.value = ((this.value - 32) / 1.8);
             this.value = Math.round(this.value*100.0)/100.0;
+            setUnit("C");
         }
         return this.value;
     }
 
     public ReadingDTO toDTO() {
         return new ReadingDTO(this.value, this.dateAndTime);
-    }
-
-    public boolean setSensor(Sensor newSensor) {
-        if (newSensor != null) {
-            this.sensor = newSensor;
-            return true;
-        }
-        return false;
-    }
-
-    public Sensor getSensor() {
-        return sensor;
     }
 }

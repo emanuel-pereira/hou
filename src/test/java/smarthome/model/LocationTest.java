@@ -310,7 +310,7 @@ class LocationTest {
     public void locationToString() {
         String expected = " | Location:\n    Latitude: 70.0º | Longitude: 80.0º | Altitude: 1200.0 meters";
 
-        Location l = new Location(70,80,1200);
+        Location l = new Location(70, 80, 1200);
         String result;
         result = l.locationToString();
 
