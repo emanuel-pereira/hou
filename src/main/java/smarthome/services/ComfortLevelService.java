@@ -3,14 +3,9 @@ package smarthome.services;
 import smarthome.dto.RoomDTO;
 import smarthome.mapper.RoomMapper;
 import smarthome.model.*;
+import smarthome.controller.*;
 
-import java.time.LocalDateTime;
-import java.time.Year;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
-
-import static smarthome.model.House.getHouseGA;
-import static smarthome.model.House.getHouseRoomList;
 
 public class ComfortLevelService {
 
@@ -57,7 +52,7 @@ public class ComfortLevelService {
 
     private RoomList getRoomsWithSensorsWithReadings(RoomList roomList) {
         RoomList roomsWithSensorsWithReadings = new RoomList();
-        SensorList sensorsInRoom = new SensorList();
+
         for (Room room : roomList.getRoomList())
 
             if (checkThatAllSensorsHaveReadings(room)) {
@@ -119,22 +114,6 @@ public class ComfortLevelService {
     }
 
 
-    private List<Double> getAverageOutsideTemperature(Calendar startDate, Calendar endDate, Sensor sensor) {
-        List<Double> results = new ArrayList<>();
-        ReadingList sensorReadings = sensor.getReadingList();
-        sensorReadings = sensorReadings.filterByDate(startDate,endDate);
-
-        double outsideTemperature;
-        GregorianCalendar aDate = (GregorianCalendar) startDate;
-
-        while (aDate.before(endDate)) {
-            outsideTemperature = sensorReadings.dailyAverageOfReadings(aDate);
-            results.add(outsideTemperature);
-            aDate = getDayAfter(aDate);
-        }
-        return results;
-    }
-
     /**
      * Calculates the maximum acceptable TEMPERATURE in a room for a given comfort category as per EN 15251:2006
      *
@@ -175,7 +154,6 @@ public class ComfortLevelService {
         return (category >= 1 && category <= 3);
     }
 
-
     /**
      * @param maxOrMin  specifies whether the user wants to check the thermal comfort versus the max or min temperature as defined in the standard.
      * @param category  the category as per EN15251:2006
@@ -183,62 +161,55 @@ public class ComfortLevelService {
      * @param endDate
      * @return
      */
-    public String calculateThermalComfort(RoomDTO roomDTO, boolean maxOrMin, int category, GregorianCalendar startDate, GregorianCalendar endDate) {
-
+    public String calculateThermalComfort(RoomDTO roomDTO, boolean maxOrMin, int category, Calendar startDate, Calendar endDate) {
         //Get selected sensors
         Sensor sensorInRoom = getSensorOnRoomByType(TEMPERATURE, roomDTO);
         Sensor sensorInGA = this.sensorsListInGeoArea.getRequiredSensorPerType(TEMPERATURE);
-
 
         //Get reading lists
         ReadingList sensorInRoomReadings = sensorInRoom.getReadingList();
         ReadingList sensorInGAReadings = sensorInGA.getReadingList();
 
-        // Calculate overlap of readings interval
-        Calendar GAReadingsStartDate = sensorInRoomReadings.getStartDateOfReadings();
-        Calendar GAReadingsEndDate = sensorInGAReadings.getEndDateOfReadings();
+        List<Reading> finalList = new ArrayList<>();
 
-        Calendar RoomReadingsStartDate = sensorInRoomReadings.getStartDateOfReadings();
-        Calendar RoomReadingsEndDate = sensorInRoomReadings.getEndDateOfReadings();
+        while (startDate.before(endDate)) {
+            double temp = -237.15;
 
-        List<Calendar> dateInterval = overlapInterval(GAReadingsStartDate, GAReadingsEndDate, RoomReadingsStartDate, RoomReadingsEndDate);
+            if (sensorInGAReadings.getReadingsInSpecificDay(startDate).size() != 0) {
+                temp = sensorInGAReadings.dailyAverageOfReadings(startDate);
+                System.out.println("Average temperature outside:" + temp + "C");
 
-        Calendar intervalStart = dateInterval.get(0);
-        Calendar intervalEnd = dateInterval.get(1);
+                ReadingList sensorInRoomReadingsForDay = sensorInRoomReadings.getReadingsInSpecificDay(startDate);
+                List<Reading> dailyResult = checkComfort(sensorInRoomReadingsForDay, category, maxOrMin, temp);
+                finalList.addAll(dailyResult);
 
-        //Overlap readings and user requested interval
-        List<Calendar> calculationInterval = overlapInterval(intervalStart, intervalEnd, startDate, endDate);
-        Calendar calculationStart = calculationInterval.get(0);
-        Calendar calculationEnd = calculationInterval.get(1);
+            }
 
-        List<Double> outsideTemperature = getAverageOutsideTemperature(calculationStart, calculationEnd, sensorInGA);
-
-
-        GregorianCalendar tempDate = startDate;
-
-
-        HashMap<GregorianCalendar, Double> result = new HashMap<>();
-
-        for (Double value : outsideTemperature) {
-            ReadingList rl = sensorInRoomReadings.getReadingsInSpecificDay(tempDate);
-            result.putAll(checkComfort(rl, category, maxOrMin, value));
-            tempDate = getDayAfter(tempDate);
+            startDate.add(Calendar.DAY_OF_MONTH, 1);
         }
 
-        String resultDTO = result.toString();
+        StringBuilder result = new StringBuilder();
+        for (Reading r : finalList
+        ) {
+            result.append(r.getDateOfReadingAsString());
+            result.append(" | ");
+            result.append(r.returnValueOfReading());
+            result.append("\n");
+        }
 
-        return resultDTO;
+        return result.toString();
     }
 
 
-    private HashMap<GregorianCalendar, Double> checkComfort(ReadingList readingList, int category, boolean maxOrMin, double outsideTemperature) {
-        HashMap<GregorianCalendar, Double> result = new HashMap<>();
+    private List<Reading> checkComfort(ReadingList readingList, int category, boolean maxOrMin, double outsideTemperature) {
+        List<Reading> result = new ArrayList<>();
+
 
         //case MAX
         if (maxOrMin) {
             for (Reading r : readingList.getReadingsList()) {
                 if (r.returnValueOfReading() > getMaxTemperatureForComfortLevel(outsideTemperature, category)) {
-                    result.put((GregorianCalendar) r.getDateAndTime(), r.returnValueOfReading());
+                    result.add(r);
                 }
             }
             return result;
@@ -247,7 +218,7 @@ public class ComfortLevelService {
         //case MIN
         for (Reading r : readingList.getReadingsList()) {
             if (r.returnValueOfReading() < getMinTemperatureForComfortLevel(outsideTemperature, category)) {
-                result.put((GregorianCalendar) r.getDateAndTime(), r.returnValueOfReading());
+                result.add(r);
             }
         }
         return result;
@@ -287,12 +258,8 @@ public class ComfortLevelService {
         return interval;
     }
 
-
-    private GregorianCalendar getDayAfter(Calendar day) {
-        LocalDateTime dayLDT = LocalDateTime.of(day.get(Calendar.YEAR), day.get(Calendar.MONTH) + 1, day.get(Calendar.DAY_OF_MONTH), 0, 0, 0);
-        dayLDT.plusDays(1);
-        GregorianCalendar dayAfter = new GregorianCalendar();
-        dayAfter.set(dayLDT.getYear(), dayLDT.getMonthValue(), dayLDT.getDayOfMonth());
-        return dayAfter;
+    private Calendar getDayAfter(Calendar day) {
+        day.add(Calendar.DAY_OF_MONTH, 1);
+        return day;
     }
 }

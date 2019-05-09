@@ -3,7 +3,10 @@ package smarthome.io.ui;
 import smarthome.controller.ComfortLevelCTRL;
 import smarthome.dto.RoomDTO;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
 
 public class ComfortLevelUI {
 
@@ -112,9 +115,10 @@ public class ComfortLevelUI {
     }
 
     private GregorianCalendar selectDate(String message) {
-        GregorianCalendar date = new GregorianCalendar();
         System.out.println(message);
-        date = UtilsUI.requestDate("Invalid date entered. Dates must be in yyyy-mm-dd format.");
+        GregorianCalendar date = UtilsUI.requestDate("Invalid date entered. Dates must be in yyyy-mm-dd format.");
+        //Debug
+        System.out.println(date.get(Calendar.YEAR) + " " + date.get(Calendar.MONTH) + " " + date.get(Calendar.DAY_OF_MONTH));
         return date;
     }
 
@@ -138,6 +142,6 @@ public class ComfortLevelUI {
     //Outputs
     private void displayResults(String results) {
         UtilsUI.showInfo("Results", "The following tables show the readings outside the allowable range of the selected comfort level category");
-
+        System.out.println(results);
     }
 }

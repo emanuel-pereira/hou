@@ -104,7 +104,7 @@
 		       }
 			 },
 			 { "sensor": { 
-			      "id": "TT1236A",
+			      "id": "TT12346",
 			      "name": "Meteo station CMP - temperature",
 			      "start_date": "2017-11-16",
 			      "type": "temperature",
