@@ -177,7 +177,6 @@ public class ComfortLevelService {
 
             if (sensorInGAReadings.getReadingsInSpecificDay(startDate).size() != 0) {
                 temp = sensorInGAReadings.dailyAverageOfReadings(startDate);
-                //System.out.println("Average temperature outside:" + temp + "C");
 
                 ReadingList sensorInRoomReadingsForDay = sensorInRoomReadings.getReadingsInSpecificDay(startDate);
                 List<Reading> dailyResult = checkComfort(sensorInRoomReadingsForDay, category, maxOrMin, temp);
@@ -194,13 +193,21 @@ public class ComfortLevelService {
 
             int hour = r.getDateAndTime().get(Calendar.HOUR_OF_DAY);
 
-            result.append(r.getDateOfReadingAsString()+" "+hour+":00");
+            String padding = "";
+            if (hour < 10) {
+                padding = "0";
+            }
+
+            result.append(r.getDateOfReadingAsString() + " " + padding + hour + ":00");
             result.append(" -> ");
 
-            double reading = (double) Math.round((r.returnValue()*100))/100;
+            double reading = (double) Math.round((r.returnValue() * 100)) / 100;
 
-            result.append(reading+" ºC");
+            result.append(reading + " ºC");
             result.append("\n");
+        }
+        if (result.toString().isEmpty()) {
+            result.append("No readings outside the comfort level were found in the selected time interval.\n");
         }
 
         return result.toString();
