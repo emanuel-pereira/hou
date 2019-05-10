@@ -172,7 +172,7 @@ public class ComfortLevelService {
 
         List<Reading> finalList = new ArrayList<>();
 
-        while (startDate.before(endDate)) {
+        while (!startDate.after(endDate)) {
             double temp = -237.15;
 
             if (sensorInGAReadings.getReadingsInSpecificDay(startDate).size() != 0) {
