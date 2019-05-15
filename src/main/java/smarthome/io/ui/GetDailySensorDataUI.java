@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.GetDailySensorDataCTRL;
+import smarthome.controller.CLI.GetDailySensorDataCTRL;
 import smarthome.dto.ReadingDTO;
 import smarthome.model.SensorType;
 import smarthome.model.SensorTypeList;

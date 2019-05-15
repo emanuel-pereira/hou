@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.GetCurrentTemperatureInHouseAreaCTRL;
+import smarthome.controller.CLI.GetCurrentTemperatureInHouseAreaCTRL;
 import smarthome.model.*;
 
 import java.util.Scanner;

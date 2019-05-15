@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.SetParentOfGACTRL;
+import smarthome.controller.CLI.SetParentOfGACTRL;
 import smarthome.model.GAList;
 
 public class SetParentOfGAUI {

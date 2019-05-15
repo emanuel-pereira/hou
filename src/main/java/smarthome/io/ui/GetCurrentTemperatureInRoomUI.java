@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.GetCurrentTemperatureInRoomCTRL;
+import smarthome.controller.CLI.GetCurrentTemperatureInRoomCTRL;
 import smarthome.model.SensorTypeList;
 
 public class GetCurrentTemperatureInRoomUI {

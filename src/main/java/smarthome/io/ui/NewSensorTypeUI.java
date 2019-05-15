@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.NewSensorTypeCTRL;
+import smarthome.controller.CLI.NewSensorTypeCTRL;
 import smarthome.model.SensorTypeList;
 
 public class NewSensorTypeUI {

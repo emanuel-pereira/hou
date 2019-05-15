@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.ListParentGACTRL;
+import smarthome.controller.CLI.ListParentGACTRL;
 import smarthome.model.GAList;
 
 import java.util.Scanner;

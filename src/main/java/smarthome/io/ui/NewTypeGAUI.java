@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.NewTypeGACTRL;
+import smarthome.controller.CLI.NewTypeGACTRL;
 
 public class NewTypeGAUI {
 

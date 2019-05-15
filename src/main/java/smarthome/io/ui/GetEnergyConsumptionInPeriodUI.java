@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.GetEnergyConsumptionInPeriodCTRL;
+import smarthome.controller.CLI.GetEnergyConsumptionInPeriodCTRL;
 
 import java.util.GregorianCalendar;
 

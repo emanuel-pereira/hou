@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.NewSensorCTRL;
+import smarthome.controller.CLI.NewSensorCTRL;
 import smarthome.model.*;
 
 import java.util.GregorianCalendar;

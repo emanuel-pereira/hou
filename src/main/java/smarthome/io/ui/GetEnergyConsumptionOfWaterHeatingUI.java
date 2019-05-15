@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.GetEnergyConsumptionOfWaterHeatingCTRL;
+import smarthome.controller.CLI.GetEnergyConsumptionOfWaterHeatingCTRL;
 import smarthome.dto.DeviceDTO;
 
 public class GetEnergyConsumptionOfWaterHeatingUI {

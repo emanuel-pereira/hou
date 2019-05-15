@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL;
+import smarthome.controller.CLI.GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL;
 import smarthome.model.Sensor;
 import smarthome.model.SensorList;
 import smarthome.model.SensorType;
