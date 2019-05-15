@@ -1,14 +1,16 @@
 package smarthome.repository;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import smarthome.controller.NewGeographicalAreaCTRL;
-import smarthome.controller.RemoveGASensorCTRL;
+
+
+import smarthome.controller.CLI.NewGeographicalAreaCTRL;
+import smarthome.controller.CLI.RemoveGASensorCTRL;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
 import smarthome.mapper.SensorMapper;

@@ -563,7 +563,7 @@ class SensorListTest {
 
 
 
-    @Test
+/*    @Test
     @DisplayName("save sensor to repo")
     void saveSensorToRepositoryNullPointer(){
         Room bedroom = new Room("R1", "Bedroom 1", 2, 2, 2, 2);
@@ -586,9 +586,9 @@ class SensorListTest {
          }
 
          assertTrue(thrown);
-    }
+    }*/
 
-    @Test
+  /*  @Test
     @DisplayName("deactivate sensor in repo")
     void deactivateSensorToRepositoryNullPointer(){
         Room bedroom = new Room("R1", "Bedroom 1", 2, 2, 2, 2);
@@ -615,7 +615,7 @@ class SensorListTest {
         }
 
         assertTrue(thrown);
-    }
+    }*/
 
 
 }

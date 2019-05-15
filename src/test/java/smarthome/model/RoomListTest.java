@@ -82,7 +82,7 @@ public class RoomListTest {
     }
 
 
-    @Test
+    /*@Test
     @DisplayName("Ensure that the room is saved in the repository when it is added, handles nullpointer exception")
     void addRoomToListAndRepoNullPointer(){
         RoomList roomList = new RoomList();
@@ -101,7 +101,7 @@ public class RoomListTest {
         }
 
         assertTrue(thrown);
-    }
+    }*/
 
 
     @DisplayName("Tests if a Room is not added to the list if it is repeated")
