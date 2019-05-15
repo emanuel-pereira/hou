@@ -3,13 +3,13 @@ package smarthome.model;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Name {
+public class GenericName {
 
     private String name;
 
 
-    protected Name(){}
-    public Name(String name) {
+    protected GenericName(){}
+    public GenericName(String name) {
 
         if ((nameIsValid(name)) || (alphanumericName(name)))
 

@@ -7,7 +7,7 @@ import java.util.Calendar;
 public class SensorBehavior {
 
     @Embedded
-    private Name name;
+    private GenericName name;
     @OneToOne
     @JoinColumn(name = "SENSORTYPE_ID")
     private SensorType sensorType;
@@ -28,7 +28,7 @@ protected SensorBehavior(){}
      * @param unit        String parameter to specify sensor's unit of measure
      * @param readings    specifies the sensor's readingList
      */
-    public SensorBehavior(Name sensorName, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
+    public SensorBehavior(GenericName sensorName, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         this.name = sensorName;
         this.startDate = startDate;
         this.sensorType = sensorType;
@@ -60,7 +60,7 @@ protected SensorBehavior(){}
      */
     public boolean setSensorDesignation(String sensorName) {
         if (this.nameIsValid(sensorName)) {
-            this.name = new Name(sensorName);
+            this.name = new GenericName(sensorName);
             return true;
         }
         return false;

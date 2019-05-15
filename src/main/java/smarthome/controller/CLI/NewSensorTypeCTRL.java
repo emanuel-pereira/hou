@@ -1,45 +1,46 @@
 package smarthome.controller.CLI;
 
-import smarthome.model.SensorType;
-import smarthome.model.SensorTypeList;
+import smarthome.dto.SensorTypeDTO;
+import smarthome.services.SensorTypeService;
 
 import java.util.List;
 
 
 public class NewSensorTypeCTRL {
 
-    private final SensorTypeList sensorTypeList;
 
-    /**
-     * Controller constructor
-     * @param sensorTypeList the list object on which the user will be able to create new type of GA's
-     */
-    public NewSensorTypeCTRL(SensorTypeList sensorTypeList) {
-        this.sensorTypeList = sensorTypeList;
+    private final SensorTypeService sensorTypeRepoDDD= new SensorTypeService();
+
+    //TODO: use @Autowired
+    public NewSensorTypeCTRL() {
     }
 
     /**
      * Method to create an object of the type GA with the a user inputted String
+     *
      * @param newSensorType user inputted String to a type of GA
      * @return true if it was possible to add the user's chosen new type of GA
      * false if it was not possible to add the new type of GA, eg. if the type already exists
      */
-    public boolean newSensorType(String newSensorType) {
-        SensorType sensorType = this.sensorTypeList.newSensorType(newSensorType);
-        if (sensorType != null)
-            return this.sensorTypeList.addSensorType(sensorType);
-        return false;
+    public boolean createSensorType(String newSensorType) {
+        return this.sensorTypeRepoDDD.createSensorType(newSensorType);
+    }
+
+    /**
+     *Method checks if the  type passed as parameter already is persisted in the database
+     * @param type string parameter that specifies a sensor type
+     * @return true if the type is already persisted, otherwise, returns false
+     */
+    public boolean existsByType(String type){
+        return this.sensorTypeRepoDDD.existsByType(type);
     }
 
 
-    public String returnSensorTypeList() {
-        List<SensorType> sensorTypes = this.sensorTypeList.getSensorTypeList();
-        StringBuilder result = new StringBuilder();
-
-        for (SensorType sensorType: sensorTypes){
-            result.append(sensorType.getType());
-            result.append("\n");
-        }
-        return result.toString();
+    /**
+     * Method that finds all sensor types in the database and returns them as a list of DTOs
+     * @return a list of sensor types DTOs
+     */
+    public List<SensorTypeDTO> listOfSensorTypesDTOs() {
+        return this.sensorTypeRepoDDD.findAll();
     }
 }

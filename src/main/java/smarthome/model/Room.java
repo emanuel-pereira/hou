@@ -230,7 +230,7 @@ public class Room implements Metered {
         List<Sensor> list = this.getSensorListInRoom().getSensorList();
         for (Sensor s : list) {
             SensorType sensorType=s.getSensorBehavior().getSensorType();
-            if (sensorType.getType().equals(input)) {
+            if (sensorType.getType().getName().equals(input)) {
                 return true;
             }
         }

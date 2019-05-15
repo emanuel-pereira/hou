@@ -1,6 +1,8 @@
 package smarthome.model;
 
 
+import smarthome.model.validations.Name;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,27 +15,38 @@ public class SensorType {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String typeOfSensor;
+    private Name type;
 
-    protected SensorType(){}
+    public SensorType() {
+    }
 
     /**
-     * Constructor method that defines a designation for a type of data
+     * Constructor method that defines a designation for a type of sensor
      *
-     * @param sensorTypeDesignation - String that names the type of data
+     * @param type - String that names the type of sensor
      */
-    public SensorType(String sensorTypeDesignation) {
-        this.typeOfSensor = sensorTypeDesignation;
+    public SensorType(String type) {
+        setType(type);
     }
 
 
     /**
-     * Method to return a data type designation
+     * Method to set the type attribute of a SensorType instance if the type parameter complies with nameIsValid criteria.
+     * If so, converts the type to lowercase before setting up the attribute value.
      *
-     * @return designation of a data type
+     * @param type String parameter to be set as a sensor type.
      */
-    public String getType() {
-        return this.typeOfSensor;
+    public void setType(String type) {
+        this.type = new Name(type);
+    }
+
+    /**
+     * Getter method for sensor type
+     *
+     * @return the sensor type
+     */
+    public Name getType() {
+        return this.type;
     }
 
     public boolean equals(Object o) {
@@ -42,7 +55,7 @@ public class SensorType {
         if (!(o instanceof SensorType))
             return false;
         SensorType sensorType = (SensorType) o;
-        return this.typeOfSensor.equals (sensorType.getType());
+        return this.type.equals(sensorType.getType());
     }
 
     /**
@@ -56,10 +69,8 @@ public class SensorType {
      */
     @Override
     public int hashCode() {
-        return Objects.hash (this.typeOfSensor);
+        return Objects.hash(this.type);
     }
-
-
 }
 
 

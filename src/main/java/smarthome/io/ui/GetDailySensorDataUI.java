@@ -26,7 +26,7 @@ public class GetDailySensorDataUI {
     }
 
     public boolean isValid() {
-        if (this.superCTRL.checkIfSensorTypeExists(this.sensorType.getType())) {
+        if (this.superCTRL.checkIfSensorTypeExists(this.sensorType.getType().getName())) {
             return this.checkIfHouseLocationIsConfigured();
         } else {
             String msg = "Please ask the Administrator to create the " + this.sensorType.getType() + " sensor type";

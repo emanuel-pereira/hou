@@ -1,8 +1,10 @@
 package smarthome.controller.CLI;
 
+import smarthome.dto.SensorTypeDTO;
 import smarthome.model.*;
 import smarthome.model.validations.GPSValidations;
 import smarthome.model.validations.NameValidations;
+import smarthome.repository.Repositories;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -143,6 +145,11 @@ public class NewSensorCTRL {
      * @return the number of elements in the sensor type list as an integer value
      */
     public int getSensorTypeListSize() {
+        //hotfix for creating updating sensortype list with types that can be created in the web controller
+        Iterable<SensorType> sensorTypes=Repositories.getSensorTypeRepository().findAll();
+        for(SensorType sensortype:sensorTypes){
+            sensorTypeList.addSensorType(sensortype);
+        }
         return this.sensorTypeList.size();
     }
 
@@ -164,7 +171,7 @@ public class NewSensorCTRL {
         GeographicalArea ga = this.gaList.get(indexOfGA);
         Sensor createdSensor = ga.getSensorListInGA().getLastSensor();
         SensorType type = createdSensor.getSensorBehavior().getSensorType();
-        return type.getType();
+        return type.getType().getName();
     }
 
     public String getRoomSensorType(int indexOfRoom) {
@@ -172,7 +179,7 @@ public class NewSensorCTRL {
         Room room = roomList.get(indexOfRoom);
         Sensor createdSensor = room.getSensorListInRoom().getLastSensor();
         SensorType type = createdSensor.getSensorBehavior().getSensorType();
-        return type.getType();
+        return type.getType().getName();
     }
 
 
