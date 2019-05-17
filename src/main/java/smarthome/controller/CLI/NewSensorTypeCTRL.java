@@ -3,6 +3,7 @@ package smarthome.controller.CLI;
 import smarthome.dto.SensorTypeDTO;
 import smarthome.services.SensorTypeService;
 
+import java.text.ParseException;
 import java.util.List;
 
 
@@ -22,10 +23,11 @@ public class NewSensorTypeCTRL {
      * @return true if it was possible to add the user's chosen new type of GA
      * false if it was not possible to add the new type of GA, eg. if the type already exists
      */
-    public boolean createSensorType(String newSensorType) {
-        return this.sensorTypeRepoDDD.createSensorType(newSensorType);
+    public boolean createSensorType(String newSensorType) throws ParseException {
+        SensorTypeDTO sensorTypeDTO= new SensorTypeDTO();
+        sensorTypeDTO.setSensorType(newSensorType);
+        return this.sensorTypeRepoDDD.createSensorType(sensorTypeDTO);
     }
-
     /**
      *Method checks if the  type passed as parameter already is persisted in the database
      * @param type string parameter that specifies a sensor type

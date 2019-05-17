@@ -5,6 +5,8 @@ import smarthome.controller.CLI.NewSensorTypeCTRL;
 import smarthome.dto.SensorTypeDTO;
 import smarthome.services.SensorTypeService;
 
+import java.text.ParseException;
+
 public class NewSensorTypeUI {
 
 
@@ -28,14 +30,14 @@ public class NewSensorTypeUI {
                 this.type = UtilsUI.requestText("Please insert only alphanumeric characters");
                 condition = false;
                 this.createType();
-            } catch (IllegalArgumentException e) {
+            } catch (Exception e) {
                 UtilsUI.showError("Illegal Argument", "Type must contain a valid alphabetic regular expression.");
                 log.warn(e.getMessage());
             }
         }
     }
 
-    private void createType() {
+    private void createType() throws ParseException {
         if (!ctrl.existsByType(this.type)) {
             ctrl.createSensorType(this.type);
             System.out.println("Success! " + this.type + " was added to the list of sensor types:");

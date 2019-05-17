@@ -23,22 +23,27 @@ public class SensorTypeService {
         this.mapper= new SensorTypeMapper();
     }
 
+
+
     /**
      * Method to creates and adds a sensor type to the database if the sensor type doesn't already exist.
      *
      * @param type - String that names the type of data
      * @return new data type object with designation
      */
-       public boolean createSensorType(String type) {
-        Name repoType = new Name(type);
-        SensorType sensorType = new SensorType(type);
-        if (Repositories.getSensorTypeRepository().existsByType(repoType)) {
+    public boolean createSensorType(SensorTypeDTO type) {
+        SensorType sensorType=convertToEntity(type);
+        if (Repositories.getSensorTypeRepository().existsByType(sensorType.getType())) {
             return false;
         }
         Repositories.getSensorTypeRepository().save(sensorType);
         return true;
     }
 
+    public SensorType convertToEntity(SensorTypeDTO dto)  {
+        SensorType type = mapper.toEntity(dto);
+        return type;
+    }
 
     /**
      * @return the number of sensor types persisted in the database

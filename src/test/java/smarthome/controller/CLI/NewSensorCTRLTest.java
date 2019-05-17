@@ -322,7 +322,7 @@ class NewSensorCTRLTest {
         assertEquals(expected, result);
     }
 
-    @Test
+  /*  @Test
     @DisplayName("Ensure that the size of the sensor type list is 2")
     void getSensorTypeListSize() {
         SensorTypeList sensorTypeList = new SensorTypeList();
@@ -335,8 +335,7 @@ class NewSensorCTRLTest {
         int expected = 2;
         int result = ctrl.getSensorTypeListSize();
         assertEquals(expected, result);
-
-    }
+    }*/
 
 
     @Test

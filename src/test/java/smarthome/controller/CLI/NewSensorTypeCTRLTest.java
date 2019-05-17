@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import smarthome.dto.SensorTypeDTO;
 
+import java.text.ParseException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +21,7 @@ class NewSensorTypeCTRLTest {
 
     @Test
     @DisplayName("Tests if a new sensor type is created and persisted")
-    void createAndPersistNewSensorType() {
+    void createAndPersistNewSensorType() throws ParseException {
         NewSensorTypeCTRL ctrl = new NewSensorTypeCTRL();
         boolean result = ctrl.createSensorType("temperature");
         assertTrue(result);
@@ -28,7 +29,7 @@ class NewSensorTypeCTRLTest {
 
     @Test
     @DisplayName("Tests if a sensor type already persisted is not created in duplicate")
-    void alreadyPersistedSensorTypeIsNotCreatedAndPersistedAgain() {
+    void alreadyPersistedSensorTypeIsNotCreatedAndPersistedAgain() throws ParseException {
         NewSensorTypeCTRL ctrl = new NewSensorTypeCTRL();
         ctrl.createSensorType("temperature");
         boolean result = ctrl.createSensorType("Temperature");
@@ -37,7 +38,7 @@ class NewSensorTypeCTRLTest {
 
     @Test
     @DisplayName("Tests if existsByType returns true to a sensor type already persisted")
-    void existsByTypeReturnsTrueToAlreadyPersistedSensorType() {
+    void existsByTypeReturnsTrueToAlreadyPersistedSensorType() throws ParseException {
         NewSensorTypeCTRL ctrl = new NewSensorTypeCTRL();
         ctrl.createSensorType("rainfall");
         boolean result = ctrl.existsByType("RAINFALL");
@@ -46,7 +47,7 @@ class NewSensorTypeCTRLTest {
 
     @Test
     @DisplayName("Tests if existsByType returns false to a non-persisted sensor type")
-    void existsByTypeReturnsFalseToNonPersistedSensorType() {
+    void existsByTypeReturnsFalseToNonPersistedSensorType() throws ParseException {
         NewSensorTypeCTRL ctrl = new NewSensorTypeCTRL();
         ctrl.createSensorType("rainfall");
         boolean result = ctrl.existsByType("wind");
@@ -56,7 +57,7 @@ class NewSensorTypeCTRLTest {
     @Test
     @DisplayName("Tests if listOfSensorTypesDTOs returns a list containing 4 DTOs of sensor types persisted in which the" +
             "third element is of type: temperature")
-    void listOfSensorTypesDTOsHas3ElementsAndThirdElementIsTemperature() {
+    void listOfSensorTypesDTOsHas3ElementsAndThirdElementIsTemperature() throws ParseException {
         NewSensorTypeCTRL ctrl = new NewSensorTypeCTRL();
         ctrl.createSensorType("raINFAll");
         ctrl.createSensorType("WIND");
@@ -88,7 +89,7 @@ class NewSensorTypeCTRLTest {
     @Test
     @DisplayName("Tests if listOfSensorTypesDTOs is not empty when repository has 2 sensor types persisted and that " +
             "the first element in the list name is not of type Humidity")
-    void listOfSensorTypesDTOsIsNotEmptyAndFirstElementIsNotOfTypeHumidity() {
+    void listOfSensorTypesDTOsIsNotEmptyAndFirstElementIsNotOfTypeHumidity() throws ParseException {
         NewSensorTypeCTRL ctrl = new NewSensorTypeCTRL();
         ctrl.createSensorType("raINFAll");
         ctrl.createSensorType("Humidity");
