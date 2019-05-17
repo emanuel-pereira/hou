@@ -90,7 +90,7 @@ public class TypeGAList {
 
     public static TypeGA get(String type) {
         for (TypeGA typeGA : listOfGaTypes) {
-            if (typeGA.toString().matches(type))
+            if (typeGA.getType().matches(type))
                 return typeGA;
         }
         return null;

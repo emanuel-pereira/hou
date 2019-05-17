@@ -28,19 +28,21 @@ public class GetGAsOfTypeCTRL {
      * @param typeAreaIndex is a number that matches a position in the list of types from which the user can choose from
      */
     public List<GeographicalArea> getGAListFromType(int typeAreaIndex) {
-        String areaType = getTypeGAList().get(typeAreaIndex - 1).toString();
+        String areaType = getTypeGAList().get(typeAreaIndex - 1).getType();
         return gaList.gAFromThisType(areaType);
     }
 
+    //FIXME remove this method and implement alternative solution using UI.showList method
+    //FIXME duplicate method across other classes methods
     public String showListOfTypeGA() {
         List<TypeGA> list = getTypeGAList();
         StringBuilder result = new StringBuilder ();
         String element = " - ";
         int number = 1;
-        for (TypeGA position : list) {
+        for (TypeGA type : list) {
             result.append (number++);
             result.append (element);
-            result.append (position);
+            result.append (type.getType());
             result.append ("\n");
         }
         return result.toString ();

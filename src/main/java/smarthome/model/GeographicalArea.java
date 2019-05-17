@@ -88,7 +88,7 @@ public class GeographicalArea {
      * @return return this geographical Area Type designation
      */
     public String getTypeName() {
-        return this.typeOfGa.toString();
+        return this.typeOfGa.getType();
     }
 
     public boolean setType(TypeGA newtype) {

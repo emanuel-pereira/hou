@@ -24,15 +24,17 @@ public class GetTypeGAListCTRL {
     }
 
     /**Method that shows/prints the list that is originated by the previous method(which is called on line 29) */
+    //FIXME remove this method and implement alternative solution using UI.showList method
+    //FIXME duplicate method across other classes methods
     public String showListInString() {
         List<TypeGA> list = this.getTypeGAListCTRL ();
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
-        for (TypeGA position : list) {
+        for (TypeGA type : list) {
             result.append (number++);
             result.append (element);
-            result.append (position);
+            result.append (type.getType());
             result.append ("\n");
         }
         return result.toString ();
