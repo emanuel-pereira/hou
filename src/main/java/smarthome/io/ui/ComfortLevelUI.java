@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.ComfortLevelCTRL;
+import smarthome.controller.cli.ComfortLevelCTRL;
 import smarthome.dto.RoomDTO;
 
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.AddPowerSourceToGridCTRL;
+import smarthome.controller.cli.AddPowerSourceToGridCTRL;
 
 import java.util.ArrayList;
 

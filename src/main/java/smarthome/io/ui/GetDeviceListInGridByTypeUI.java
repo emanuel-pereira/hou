@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.GetDeviceListInGridByTypeCTRL;
+import smarthome.controller.cli.GetDeviceListInGridByTypeCTRL;
 
 public class GetDeviceListInGridByTypeUI {
 

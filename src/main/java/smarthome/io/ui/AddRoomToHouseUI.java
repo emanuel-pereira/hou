@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.AddRoomToHouseCTRL;
+import smarthome.controller.cli.AddRoomToHouseCTRL;
 
 public class AddRoomToHouseUI {
 

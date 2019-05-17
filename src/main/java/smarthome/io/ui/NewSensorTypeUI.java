@@ -1,7 +1,7 @@
 package smarthome.io.ui;
 
 import org.apache.log4j.Logger;
-import smarthome.controller.CLI.NewSensorTypeCTRL;
+import smarthome.controller.cli.NewSensorTypeCTRL;
 import smarthome.dto.SensorTypeDTO;
 import smarthome.services.SensorTypeService;
 

@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.DeactivateSensorCTRL;
+import smarthome.controller.cli.DeactivateSensorCTRL;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
 import smarthome.model.GAList;

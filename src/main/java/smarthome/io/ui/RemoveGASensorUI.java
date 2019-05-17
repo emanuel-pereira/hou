@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.RemoveGASensorCTRL;
+import smarthome.controller.cli.RemoveGASensorCTRL;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
 import smarthome.model.GAList;

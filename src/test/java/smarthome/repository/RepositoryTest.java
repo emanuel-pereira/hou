@@ -1,4 +1,3 @@
-/*
 package smarthome.repository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -7,8 +6,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import smarthome.controller.CLI.NewGeographicalAreaCTRL;
-import smarthome.controller.CLI.RemoveGASensorCTRL;
+import smarthome.controller.cli.NewGeographicalAreaCTRL;
+import smarthome.controller.cli.RemoveGASensorCTRL;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
 import smarthome.mapper.SensorMapper;
@@ -26,10 +25,7 @@ import static smarthome.model.TypeGAList.addTypeGA;
 import static smarthome.model.TypeGAList.getTypeGAListInstance;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
 @DataJpaTest
-
-
 public class RepositoryTest {
     Location loc = new Location(20, 20, 2);
     Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
@@ -416,4 +412,3 @@ public class RepositoryTest {
     }
 
 }
-*/

@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.NewGeographicalAreaCTRL;
+import smarthome.controller.cli.NewGeographicalAreaCTRL;
 import smarthome.model.GAList;
 import smarthome.model.Location;
 import smarthome.model.OccupationArea;
