@@ -99,7 +99,7 @@ public class ComfortLevelUI {
     private List<String> getRoomNamesFromDTO(List<RoomDTO> roomDTOList) {
         List<String> result = new ArrayList<>();
         for (RoomDTO r : roomDTOList) {
-            result.add(r.getID() + "|" + r.getName());
+            result.add(r.getID() + "|" + r.getDescription());
         }
         return result;
     }

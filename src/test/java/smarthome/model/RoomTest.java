@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import smarthome.model.devices.*;
 
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class RoomTest {
         Room roomOne = new Room("  ", "  ", 0, 2.5, 3, 2);
 
         String name = "  ";
-        boolean result = roomOne.validateName(name);
+        boolean result = roomOne.validateDescription(name);
 
         assertFalse(result);
     }
@@ -37,7 +36,7 @@ public class RoomTest {
         String id = " ";
         Room roomOne = new Room(id, name, 0, 2.5, 3, 2);
 
-        boolean result = roomOne.validateName(name);
+        boolean result = roomOne.validateDescription(name);
 
         assertFalse(result);
     }
@@ -51,7 +50,7 @@ public class RoomTest {
         Room roomOne = new Room("R01", "bedroom", 0, 2.5, 3, 4.7);
 
         String name = "bedroom";
-        boolean result = roomOne.validateName(name);
+        boolean result = roomOne.validateDescription(name);
 
         assertTrue(result);
     }
@@ -166,7 +165,7 @@ public class RoomTest {
     void setName() {
 
         Room bedroom = new Room("R01","bedroom", 1, 2, 3, 2.5);
-        bedroom.setName("bedroom1");
+        bedroom.setDescription("bedroom1");
 
         String expectedResult = "bedroom1";
         String result = bedroom.getMeteredDesignation();

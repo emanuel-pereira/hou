@@ -82,30 +82,6 @@ class AddRoomToHouseCTRLTest {
     }
 
     @Test
-    void checkIffRoomNameExists() {
-
-
-        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
-
-        ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
-
-        boolean result = ctrl1.checkIfRoomNameExists("kitchen");
-        assertTrue(result);
-    }
-
-    @Test
-    void checkIfRoomNameNotExists() {
-
-
-        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
-
-        ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
-
-        boolean result = ctrl1.checkIfRoomNameExists("bedroom");
-        assertFalse(result);
-    }
-
-    @Test
     void checkIffRoomIdExists() {
 
 
