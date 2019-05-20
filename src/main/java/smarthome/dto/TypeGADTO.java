@@ -6,12 +6,7 @@ public class TypeGADTO {
 
     private String type;
 
-    TypeGADTO(){
-    }
-
-    public TypeGADTO(Long id, String type) {
-        this.id = id;
-        this.type = type;
+    public TypeGADTO(){
     }
 
     public TypeGADTO(String newType) {

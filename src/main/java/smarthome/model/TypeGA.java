@@ -20,8 +20,8 @@ public class TypeGA {
     protected TypeGA() {
     }
 
-    public TypeGA(String inputTypeGA) {
-        this.type = inputTypeGA.toLowerCase();
+    public TypeGA(String newType) {
+        this.type = newType.toLowerCase();
     }
 
 
@@ -60,8 +60,8 @@ public class TypeGA {
         return Objects.hash(this.type);
     }
 
-    public Long getId() {
 
+    public Long getId() {
         return id;
     }
 
@@ -73,8 +73,8 @@ public class TypeGA {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setType(String newtype) {
+        this.type = newtype.toLowerCase();
     }
 }
 
