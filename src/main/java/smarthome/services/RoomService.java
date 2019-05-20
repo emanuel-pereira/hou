@@ -47,6 +47,21 @@ public class RoomService {
         return true;
     }
 
+    public boolean save (RoomDetailDTO roomDto){
+        Room room = this.convertToObject(roomDto);
+        if (Repositories.getRoomRepository().existsById(room.getId())) {
+            return false;
+        }
+        Repositories.getRoomRepository().save(room);
+        return true;
+
+    }
+
+    public Room convertToObject(RoomDetailDTO roomDTO) {
+        Room room = mapper.toObject(roomDTO);
+        return room;
+    }
+
       /**
      * Checks if the room ID exists in the database, so the ID is not repeated
      *

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import smarthome.dto.RoomDetailDTO;
+import smarthome.model.Room;
 import smarthome.services.RoomService;
 
 import java.text.ParseException;
@@ -28,9 +29,9 @@ public class RoomCTRL {
     }
 
     @PostMapping("/rooms")
-    public ResponseEntity<Object> createRoom(@RequestBody String id, String description, Integer floor, double length, double width, double height) throws ParseException {
+    public ResponseEntity<Object> createRoom(@RequestBody RoomDetailDTO room ) {
 
-        if (this.roomRepoDDD.createRoom(id,description,floor,length,width,height)) {
+        if (this.roomRepoDDD.save(room)) {
             return new ResponseEntity<>("Room was successfully created", HttpStatus.CREATED);
         } else return new ResponseEntity<>("Room wasn't created", HttpStatus.UNAUTHORIZED);
     }

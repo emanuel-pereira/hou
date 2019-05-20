@@ -8,17 +8,9 @@ public class RoomDetailDTO {
     private String id;
     private String description;
     private Integer floor;
-    private OccupationArea area;
+    private double length;
+    private double width;
     private Double height;
-
-    public RoomDetailDTO(String id, String description, Integer floor, double length, double width, Double height) {
-        this.id = id;
-        this.description = description;
-        this.description = description;
-        this.floor = floor;
-        this.area = new OccupationArea(length, width);
-        this.height = height;
-    }
 
     public RoomDetailDTO() {
     }
@@ -47,19 +39,31 @@ public class RoomDetailDTO {
         this.floor = floor;
     }
 
-    public OccupationArea getArea() {
-        return area;
-    }
-
-    public void setArea(OccupationArea area) {
-        this.area = area;
-    }
-
     public Double getHeight() {
         return height;
     }
 
     public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public void setHeight(Double height) {
         this.height = height;
     }
 }

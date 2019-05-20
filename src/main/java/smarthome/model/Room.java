@@ -30,11 +30,13 @@ public class Room implements Metered {
     @Transient
     private DeviceList deviceList;
 
-    protected Room() {
-    }
-
     @Transient
     private double time;
+
+    public Room() {
+        this.sensorListInRoom = new SensorList();
+        this.deviceList = new DeviceList();
+    }
 
 
     /**
