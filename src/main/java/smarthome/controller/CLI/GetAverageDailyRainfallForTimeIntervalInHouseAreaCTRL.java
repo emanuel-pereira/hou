@@ -32,7 +32,7 @@ public class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL {
     public SensorList getGARainfallSensors(SensorType sensorType) {
 
         GeographicalArea houseGA = getHouseGA();
-        SensorList gaSensorList = houseGA.getSensorListInGA();
+        SensorList gaSensorList = houseGA.getSensorListInGa();
 
         return gaSensorList.getListOfSensorsByType(sensorType);
     }

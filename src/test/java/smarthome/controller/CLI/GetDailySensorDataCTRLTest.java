@@ -3,7 +3,6 @@ package smarthome.controller.CLI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.controller.CLI.GetDailySensorDataCTRL;
 import smarthome.dto.ReadingDTO;
 import smarthome.io.ui.UtilsUI;
 import smarthome.model.*;
@@ -80,7 +79,7 @@ class GetDailySensorDataCTRLTest {
 
         ExternalSensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
-        g1.getSensorListInGA().addSensor(sensor);
+        g1.getSensorListInGa().addSensor(sensor);
 
         GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
@@ -138,7 +137,7 @@ class GetDailySensorDataCTRLTest {
 
         ExternalSensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
-        g1.getSensorListInGA().addSensor(sensor);
+        g1.getSensorListInGa().addSensor(sensor);
 
         GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
@@ -193,7 +192,7 @@ class GetDailySensorDataCTRLTest {
 
         ExternalSensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
-        g1.getSensorListInGA().addSensor(sensor);
+        g1.getSensorListInGa().addSensor(sensor);
 
         GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
@@ -251,7 +250,7 @@ class GetDailySensorDataCTRLTest {
 
         ExternalSensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
-        g1.getSensorListInGA().addSensor(sensor);
+        g1.getSensorListInGa().addSensor(sensor);
 
         GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
@@ -309,7 +308,7 @@ class GetDailySensorDataCTRLTest {
 
         ExternalSensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
-        g1.getSensorListInGA().addSensor(sensor);
+        g1.getSensorListInGa().addSensor(sensor);
 
         GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
@@ -369,7 +368,7 @@ class GetDailySensorDataCTRLTest {
 
         ExternalSensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
-        g1.getSensorListInGA().addSensor(sensor);
+        g1.getSensorListInGa().addSensor(sensor);
 
         GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 
@@ -429,7 +428,7 @@ class GetDailySensorDataCTRLTest {
 
         ExternalSensor sensor = new ExternalSensor("", "TempSensor", sensorStartDate, sensorLocation, sensorType, "Celsius", sensorRL);
 
-        g1.getSensorListInGA().addSensor(sensor);
+        g1.getSensorListInGa().addSensor(sensor);
 
         GetDailySensorDataCTRL ctrl = new GetDailySensorDataCTRL(sensorTypeList);
 

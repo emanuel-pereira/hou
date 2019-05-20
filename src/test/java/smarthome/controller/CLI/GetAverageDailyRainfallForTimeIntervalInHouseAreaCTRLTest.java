@@ -3,7 +3,6 @@ package smarthome.controller.CLI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.controller.CLI.GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL;
 import smarthome.model.*;
 
 import java.lang.reflect.Field;
@@ -93,11 +92,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Sensor s4 = new ExternalSensor("S04", "sensor4", startDate, loc,  rain, "c", readings);
         Sensor s5 = new ExternalSensor("S05", "sensor5", startDate, loc, rain, "c", readings);
 
-        g1.getSensorListInGA().addSensor(s1);
-        g1.getSensorListInGA().addSensor(s2);
-        g1.getSensorListInGA().addSensor(s3);
-        g1.getSensorListInGA().addSensor(s4);
-        g1.getSensorListInGA().addSensor(s5);
+        g1.getSensorListInGa().addSensor(s1);
+        g1.getSensorListInGa().addSensor(s2);
+        g1.getSensorListInGa().addSensor(s3);
+        g1.getSensorListInGa().addSensor(s4);
+        g1.getSensorListInGa().addSensor(s5);
 
         GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);
 
@@ -179,11 +178,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Sensor s10 = new ExternalSensor("R0003", "RainSensor3", sDate1, l2, sT, "l/m2", rL3);
 
 
-        g1.getSensorListInGA().addSensor(s6);
-        g1.getSensorListInGA().addSensor(s7);
-        g1.getSensorListInGA().addSensor(s8);
-        g1.getSensorListInGA().addSensor(s9);
-        g1.getSensorListInGA().addSensor(s10);
+        g1.getSensorListInGa().addSensor(s6);
+        g1.getSensorListInGa().addSensor(s7);
+        g1.getSensorListInGa().addSensor(s8);
+        g1.getSensorListInGa().addSensor(s9);
+        g1.getSensorListInGa().addSensor(s10);
 
         GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);
 
@@ -267,11 +266,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Sensor s15 = new ExternalSensor("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
-        g1.getSensorListInGA().addSensor(s11);
-        g1.getSensorListInGA().addSensor(s12);
-        g1.getSensorListInGA().addSensor(s13);
-        g1.getSensorListInGA().addSensor(s14);
-        g1.getSensorListInGA().addSensor(s15);
+        g1.getSensorListInGa().addSensor(s11);
+        g1.getSensorListInGa().addSensor(s12);
+        g1.getSensorListInGa().addSensor(s13);
+        g1.getSensorListInGa().addSensor(s14);
+        g1.getSensorListInGa().addSensor(s15);
 
 
         GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);
@@ -350,11 +349,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Sensor s20 = new ExternalSensor("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
-        g1.getSensorListInGA().addSensor(s16);
-        g1.getSensorListInGA().addSensor(s17);
-        g1.getSensorListInGA().addSensor(s18);
-        g1.getSensorListInGA().addSensor(s19);
-        g1.getSensorListInGA().addSensor(s20);
+        g1.getSensorListInGa().addSensor(s16);
+        g1.getSensorListInGa().addSensor(s17);
+        g1.getSensorListInGa().addSensor(s18);
+        g1.getSensorListInGa().addSensor(s19);
+        g1.getSensorListInGa().addSensor(s20);
 
 
         GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);
@@ -434,11 +433,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Sensor s25 = new ExternalSensor("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
-        g1.getSensorListInGA().addSensor(s21);
-        g1.getSensorListInGA().addSensor(s22);
-        g1.getSensorListInGA().addSensor(s23);
-        g1.getSensorListInGA().addSensor(s24);
-        g1.getSensorListInGA().addSensor(s25);
+        g1.getSensorListInGa().addSensor(s21);
+        g1.getSensorListInGa().addSensor(s22);
+        g1.getSensorListInGa().addSensor(s23);
+        g1.getSensorListInGa().addSensor(s24);
+        g1.getSensorListInGa().addSensor(s25);
 
 
         GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);
@@ -517,11 +516,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Sensor s30 = new ExternalSensor("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
-        g1.getSensorListInGA().addSensor(s26);
-        g1.getSensorListInGA().addSensor(s27);
-        g1.getSensorListInGA().addSensor(s28);
-        g1.getSensorListInGA().addSensor(s29);
-        g1.getSensorListInGA().addSensor(s30);
+        g1.getSensorListInGa().addSensor(s26);
+        g1.getSensorListInGa().addSensor(s27);
+        g1.getSensorListInGa().addSensor(s28);
+        g1.getSensorListInGa().addSensor(s29);
+        g1.getSensorListInGa().addSensor(s30);
 
 
         GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);
@@ -598,11 +597,11 @@ class GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRLTest {
         Sensor s35 = new ExternalSensor("R0003", "RainSensor3", sDate1, l1, sT, "l/m2", rL3);
 
 
-        g1.getSensorListInGA().addSensor(s31);
-        g1.getSensorListInGA().addSensor(s32);
-        g1.getSensorListInGA().addSensor(s33);
-        g1.getSensorListInGA().addSensor(s34);
-        g1.getSensorListInGA().addSensor(s35);
+        g1.getSensorListInGa().addSensor(s31);
+        g1.getSensorListInGa().addSensor(s32);
+        g1.getSensorListInGa().addSensor(s33);
+        g1.getSensorListInGa().addSensor(s34);
+        g1.getSensorListInGa().addSensor(s35);
 
 
         GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL ctrl623 = new GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL(sTList);

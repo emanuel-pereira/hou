@@ -51,7 +51,7 @@ public class OccupationArea {
      * Method that returns the area occupied by a geographical area
      * @return - value of occupation area
      */
-    public double getOccupationArea() {
+    public double getOccupation() {
         return this.occupation;
     }
 

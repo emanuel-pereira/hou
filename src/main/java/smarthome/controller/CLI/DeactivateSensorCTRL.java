@@ -36,7 +36,7 @@ public class DeactivateSensorCTRL {
      */
     public GeographicalArea getGAById(String gaDTOId) {
         for (GeographicalArea geographicalArea : this.gaList.getGAList ()) {
-            if (geographicalArea.getId ().matches (gaDTOId)) {
+            if (geographicalArea.getIdentification().matches (gaDTOId)) {
                 return geographicalArea;
             }
         }
@@ -52,7 +52,7 @@ public class DeactivateSensorCTRL {
      */
     public boolean deactivateSensor(String gaDTOId, String sensorDTOId, Calendar pauseDate) {
         GeographicalArea ga = getGAById (gaDTOId);
-        SensorList sensorList = ga.getSensorListInGA ();
+        SensorList sensorList = ga.getSensorListInGa();
         for (Sensor s : sensorList.getSensorList ()) {
             if (s.getId ().matches (sensorDTOId)) {
                 sensorList.deactivateSensor (sensorDTOId, pauseDate);
@@ -69,7 +69,7 @@ public class DeactivateSensorCTRL {
      */
     public List<SensorDTO> getSensorIfActiveDto(String gaDTOId) {
         GeographicalArea ga = this.getGAById (gaDTOId);
-        SensorList sensorList = ga.getSensorListInGA ();
+        SensorList sensorList = ga.getSensorListInGa();
         SensorList activeSensors = sensorList.getActiveSensors ();
         return this.sensorMapper.toDtoList (activeSensors);
     }
@@ -82,7 +82,7 @@ public class DeactivateSensorCTRL {
      */
     public boolean sensorStatus(String gaDTOId, String sensorDTOId) {
         GeographicalArea ga = getGAById (gaDTOId);
-        SensorList sensorList = ga.getSensorListInGA ();
+        SensorList sensorList = ga.getSensorListInGa();
         for (Sensor s : sensorList.getSensorList ())
             if (s.getId ().matches (sensorDTOId) && s.getSensorBehavior().isActive ()) {
                 return true;

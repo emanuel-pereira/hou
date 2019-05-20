@@ -118,7 +118,7 @@ class XMLGeoAreaTest {
         List<GeographicalArea> gaList = xmlReader.loadData(path);
 
         GeographicalArea ga = gaList.get(1);
-        List<Sensor> sensorList = ga.getSensorListInGA().getSensorList();
+        List<Sensor> sensorList = ga.getSensorListInGa().getSensorList();
 
         int expected = 2;
         int result = sensorList.size();
@@ -134,7 +134,7 @@ class XMLGeoAreaTest {
         List<GeographicalArea> gaList = xmlReader.loadData(path);
 
         GeographicalArea ga = gaList.get(1);
-        List<Sensor> sensorList = ga.getSensorListInGA().getSensorList();
+        List<Sensor> sensorList = ga.getSensorListInGa().getSensorList();
         Sensor sensor = sensorList.get(1);
 
         GregorianCalendar expected = new GregorianCalendar(2017, Calendar.NOVEMBER,16);

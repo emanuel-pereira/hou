@@ -26,7 +26,7 @@ public class GetDailySensorDataCTRL {
 
     public int filterByType(SensorType sensorType) {
         GeographicalArea houseGA = getHouseGA();
-        SensorList gaSensorList = houseGA.getSensorListInGA();
+        SensorList gaSensorList = houseGA.getSensorListInGa();
         SensorList listOfType = gaSensorList.getListOfSensorsByType(sensorType);
         return listOfType.size();
     }

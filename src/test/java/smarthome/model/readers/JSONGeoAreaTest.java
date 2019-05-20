@@ -88,7 +88,7 @@ class JSONGeoAreaTest {
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
         GeographicalArea porto = gaListInFile.get(1);
-        List<Sensor> sensorList = porto.getSensorListInGA().getSensorList();
+        List<Sensor> sensorList = porto.getSensorListInGa().getSensorList();
 
         int expected = 2;
         int result = sensorList.size();
@@ -102,7 +102,7 @@ class JSONGeoAreaTest {
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
         GeographicalArea porto = gaListInFile.get(1);
-        List<Sensor> sensorList = porto.getSensorListInGA().getSensorList();
+        List<Sensor> sensorList = porto.getSensorListInGa().getSensorList();
         Sensor sensor = sensorList.get(1);
 
         String expected = "TT1AC746";
@@ -117,7 +117,7 @@ class JSONGeoAreaTest {
 
         List<GeographicalArea> gaListInFile = reader.loadData(path);
         GeographicalArea porto = gaListInFile.get(1);
-        List<Sensor> sensorList = porto.getSensorListInGA().getSensorList();
+        List<Sensor> sensorList = porto.getSensorListInGa().getSensorList();
         Sensor sensor = sensorList.get(1);
 
         GregorianCalendar expected = new GregorianCalendar(2017,Calendar.NOVEMBER,16);

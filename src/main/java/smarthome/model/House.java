@@ -115,7 +115,7 @@ public class House {
     public static SensorList filterListByTypeAndProximity(SensorType sensorType) {
         SensorList gaSensorList;
         try {
-            gaSensorList = gA.getSensorListInGA();
+            gaSensorList = gA.getSensorListInGa();
         } catch (NullPointerException exception) {
             return new SensorList();
         }

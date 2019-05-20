@@ -3,7 +3,6 @@ package smarthome.controller.CLI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.controller.CLI.GetTotalRainfallForDayInHouseAreaCTRL;
 import smarthome.model.*;
 
 import java.lang.reflect.Field;
@@ -77,7 +76,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
     @Test
     @DisplayName("Ensure that inputted month and day are invalid")
     void requestReadingRainfall() {
-        SensorList houseGASensorList = getHouseGA().getSensorListInGA();
+        SensorList houseGASensorList = getHouseGA().getSensorListInGa();
 
 
         SensorTypeList sensorTypeList = new SensorTypeList();
@@ -140,7 +139,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
     @DisplayName("Ensure that closest rainfall sensor has readings in 2019-02-03")
 
     void closestSensorsWithReadingsInDate() {
-        SensorList houseGASensorList = getHouseGA().getSensorListInGA();
+        SensorList houseGASensorList = getHouseGA().getSensorListInGa();
 
 
         SensorTypeList sensorTypeList = new SensorTypeList();
@@ -196,7 +195,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
     @DisplayName("Ensure that closest rainfall sensor doesn't have readings in 2019-03-15")
 
     void closestSensorsWithoutReadingsInDate() {
-        SensorList houseGASensorList = getHouseGA().getSensorListInGA();
+        SensorList houseGASensorList = getHouseGA().getSensorListInGa();
 
 
         SensorTypeList sensorTypeList = new SensorTypeList();

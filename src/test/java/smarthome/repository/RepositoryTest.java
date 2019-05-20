@@ -118,7 +118,7 @@ public class RepositoryTest {
         OccupationArea oaL = new OccupationArea(32, 38);
         Location locL = new Location(72, 26, 2);
         GeographicalArea lisbon = new GeographicalArea("PT", "Lisboa", city, oaL, locL);
-        SensorList lSensorList = lisbon.getSensorListInGA();
+        SensorList lSensorList = lisbon.getSensorListInGa();
         SensorType temperature = new SensorType("temperature");
         Sensor sensor = new ExternalSensor("TT1023", "Temperature Sensors", new GregorianCalendar(2019, 2, 2), locL, temperature, "Celsius", new ReadingList());
         lSensorList.addSensor(sensor);
@@ -141,7 +141,7 @@ public class RepositoryTest {
         OccupationArea oaL = new OccupationArea(32, 38);
         Location locL = new Location(72, 26, 2);
         GeographicalArea lisbon = new GeographicalArea("PT", "Lisboa", city, oaL, locL);
-        SensorList lSensorList = lisbon.getSensorListInGA();
+        SensorList lSensorList = lisbon.getSensorListInGa();
         SensorType temperature = new SensorType("temperature");
         Sensor sensor = new ExternalSensor("TT1023", "Temperature Sensors", new GregorianCalendar(2019, 2, 2), locL, temperature, "Celsius", new ReadingList());
         lSensorList.addSensor(sensor);
@@ -232,7 +232,7 @@ public class RepositoryTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         //sensor created and added to lisSensorList
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
@@ -277,7 +277,7 @@ public class RepositoryTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         //sensor created and added to lisSensorList
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);

@@ -8,9 +8,11 @@ public class GeographicalAreaDTO {
 
     private String identification;
     private String designation;
-    private List<SensorDTO> sensorListDTO= new ArrayList<>();
+    private List<SensorDTO> sensorListDTO = new ArrayList<>();
 
-    public GeographicalAreaDTO(){}
+    public GeographicalAreaDTO() {
+    }
+
     public GeographicalAreaDTO(String identification, String designation, List<SensorDTO> sensorListDTO) {
         this.identification = identification;
         this.designation = designation;
@@ -42,7 +44,7 @@ public class GeographicalAreaDTO {
     }
 
     @Override
-       public boolean equals(Object o) {
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }

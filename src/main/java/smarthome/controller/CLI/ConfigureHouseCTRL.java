@@ -56,7 +56,7 @@ public class ConfigureHouseCTRL {
 
     public String getIdFromIndex (int index){
         GeographicalArea geoArea = this.gaList.get(index-1);
-        return geoArea.getId();
+        return geoArea.getIdentification();
     }
 
     public boolean configureHouseLocation(String idGeoArea, String streetName, String number, String zipCode, String town, String country, LocationDTO locationDTO) {

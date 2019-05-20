@@ -37,7 +37,7 @@ class ComfortLevelServiceTest {
         ReadingList readingList = new ReadingList();
         Sensor sensor1 = new Sensor("101", "A", startDate, sensorType, "C", readingList);
         GeographicalArea geographicalArea = getHouseGA();
-        geographicalArea.getSensorListInGA().addSensor(sensor1);
+        geographicalArea.getSensorListInGa().addSensor(sensor1);
 
         boolean result = comfortLevelService.checkIfGeoAreaHasSensorByType(sensorType);
         assertTrue(result);
@@ -52,7 +52,7 @@ class ComfortLevelServiceTest {
         ReadingList readingList = new ReadingList();
         Sensor sensor1 = new Sensor("101", "A", startDate, sensorType2, "C", readingList);
         GeographicalArea geographicalArea = getHouseGA();
-        geographicalArea.getSensorListInGA().addSensor(sensor1);
+        geographicalArea.getSensorListInGa().addSensor(sensor1);
 
         boolean result = comfortLevelService.checkIfGeoAreaHasSensorByType(sensorType);
         assertFalse(result);

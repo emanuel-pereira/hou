@@ -3,7 +3,6 @@ package smarthome.services;
 import smarthome.dto.RoomDTO;
 import smarthome.mapper.RoomMapper;
 import smarthome.model.*;
-import smarthome.controller.*;
 
 import java.util.*;
 
@@ -21,14 +20,14 @@ public class ComfortLevelService {
     public ComfortLevelService() {
         this.roomList = House.getHouseRoomList();
         this.geographicalArea = House.getHouseGA();
-        this.sensorsListInGeoArea = geographicalArea.getSensorListInGA();
+        this.sensorsListInGeoArea = geographicalArea.getSensorListInGa();
 
     }
 
 
     // Methods for validation
     public boolean checkIfGeoAreaHasTemperatureSensor() {
-        Sensor s = geographicalArea.getSensorListInGA().getRequiredSensorPerType(TEMPERATURE);
+        Sensor s = geographicalArea.getSensorListInGa().getRequiredSensorPerType(TEMPERATURE);
         return (s != null);
     }
 

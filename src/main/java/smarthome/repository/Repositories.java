@@ -80,7 +80,7 @@ public final class Repositories {
     public static void saveGA(GeographicalArea ga) {
         Repositories.geoRepository.save(ga);
 
-        SensorList sensorList = ga.getSensorListInGA();
+        SensorList sensorList = ga.getSensorListInGa();
         List<Sensor> sensors = sensorList.getSensorList();
         for (Sensor sensor : sensors) {
             saveExternalSensor((ExternalSensor) sensor);

@@ -4,9 +4,6 @@ package smarthome.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-import java.util.GregorianCalendar;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class GeographicalAreaTest {
@@ -40,7 +37,7 @@ public class GeographicalAreaTest {
 
         GeographicalArea ga = new GeographicalArea("AVR", "Aveiro", "City", oc, loc);
 
-        boolean result = ga.getSensorListInGA().getSensorList().isEmpty();
+        boolean result = ga.getSensorListInGa().getSensorList().isEmpty();
 
         assertTrue(result);
     }
@@ -162,9 +159,9 @@ public class GeographicalAreaTest {
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
         GeographicalArea ga2 = new GeographicalArea("Pt", "Portugal", "Country", oc2, loc2);
 
-        ga1.setParentGA(ga2);
+        ga1.setParentGa(ga2);
 
-        GeographicalArea result = ga1.getGeographicalParentGA();
+        GeographicalArea result = ga1.getParentGa();
         assertEquals(ga2, result);
 
     }
@@ -180,7 +177,7 @@ public class GeographicalAreaTest {
         GeographicalArea ga1 = new GeographicalArea("Pt", "Porto", "city", oc1, loc1);
 
         GeographicalArea expectedResult = null;
-        GeographicalArea result = ga1.getGeographicalParentGA();
+        GeographicalArea result = ga1.getParentGa();
         assertEquals(expectedResult, result);
 
 
@@ -216,7 +213,7 @@ public class GeographicalAreaTest {
         GeographicalArea ga = new GeographicalArea("001", "Porto", "city", oc1, loc1);
 
         double expectedResult = 600;
-        double result = ga.getOccupation().getOccupationArea();
+        double result = ga.getOccupation().getOccupation();
 
         assertEquals(expectedResult, result);
     }
@@ -246,14 +243,14 @@ public class GeographicalAreaTest {
     void setDesignation() {
         GeographicalArea ga = new GeographicalArea("cityX9000", "WonderLand");
         ga.setDesignation("WonderCity");
-        assertEquals("WonderCity", ga.getGAName());
+        assertEquals("WonderCity", ga.getDesignation());
     }
 
     @Test
     void setIdentification() {
         GeographicalArea ga = new GeographicalArea("cityX9000", "WonderLand");
         ga.setIdentification("X9000");
-        assertEquals("X9000", ga.getId());
+        assertEquals("X9000", ga.getIdentification());
     }
 
     @Test

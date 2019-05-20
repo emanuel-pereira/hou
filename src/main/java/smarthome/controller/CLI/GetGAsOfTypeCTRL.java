@@ -60,7 +60,7 @@ public class GetGAsOfTypeCTRL {
         for (GeographicalArea position : list) {
             result.append(number++);
             result.append(element1);
-            result.append(position.getGAName());
+            result.append(position.getDesignation());
             result.append("\n");
         }
         return result.toString();

@@ -3,9 +3,6 @@ package smarthome.controller.CLI;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.controller.CLI.GetTypeGAListCTRL;
-import smarthome.controller.CLI.NewGeographicalAreaCTRL;
-import smarthome.controller.CLI.NewTypeGACTRL;
 import smarthome.model.*;
 
 import java.lang.reflect.Field;
@@ -150,7 +147,7 @@ class NewGeographicalAreaCTRLTest {
         //check GA List size with the newly added GA
         assertEquals(1, GAList.getGAList().size());
         //check the new GA designation from the GA's list
-        assertEquals("Funchal", GAList.getGAList().get(0).getGAName());
+        assertEquals("Funchal", GAList.getGAList().get(0).getDesignation());
         //check the new GA type from the GA's list
         assertEquals("city", GAList.getGAList().get(0).getTypeName());
     }
