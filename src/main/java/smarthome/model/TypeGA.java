@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.jetbrains.annotations.Contract;
 
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
+@JsonSerialize
 public class TypeGA {
 
     @Id

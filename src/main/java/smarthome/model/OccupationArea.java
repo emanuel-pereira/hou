@@ -1,8 +1,11 @@
 package smarthome.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import javax.persistence.*;
 
 @Embeddable
+@JsonSerialize
 public class OccupationArea {
     private double occupation = Double.NaN;
     private double length;
