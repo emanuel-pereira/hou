@@ -2,10 +2,7 @@ package smarthome.controller.rest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import smarthome.dto.SensorTypeDTO;
 import smarthome.services.SensorTypeService;
 
@@ -13,6 +10,8 @@ import java.text.ParseException;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "/sensorTypes")
+
 public class SensorTypeWeb {
 
     private final SensorTypeService sensorTypeRepoDDD;
@@ -21,8 +20,8 @@ public class SensorTypeWeb {
         sensorTypeRepoDDD= new SensorTypeService();
 
     }
-    
-    @PostMapping("/sensorTypes")
+
+    @PostMapping
     public ResponseEntity<Object> createSensorType(@RequestBody SensorTypeDTO type) throws ParseException {
 
         if (this.sensorTypeRepoDDD.createSensorType(type)) {
@@ -37,8 +36,13 @@ public class SensorTypeWeb {
 
 
 
-    @GetMapping("/sensorTypes")
+    @GetMapping
     public List<SensorTypeDTO> listOfSensorTypesDTOs() {
         return this.sensorTypeRepoDDD.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public SensorTypeDTO findById(@PathVariable Long id) {
+        return this.sensorTypeRepoDDD.findById(id);
     }
 }

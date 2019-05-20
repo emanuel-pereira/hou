@@ -375,7 +375,7 @@ class NewSensorCTRLTest {
     }
 
     @Test
-    @DisplayName("Ensure getSensorType method returns temperature as it is the sensor type of the sensor in the last index position of the sensorList of geographical area Lisboa")
+    @DisplayName("Ensure findById method returns temperature as it is the sensor type of the sensor in the last index position of the sensorList of geographical area Lisboa")
     void getSensorType() {
 
         SensorTypeList sensorTypeList = new SensorTypeList();
