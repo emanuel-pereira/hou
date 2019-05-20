@@ -1,5 +1,6 @@
 package smarthome.controller.rest;
 
+import javafx.beans.binding.ObjectExpression;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import smarthome.dto.TypeGADTO;
 import smarthome.model.TypeGA;
 import smarthome.repository.TypeGARepository;
 
+import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,13 +22,28 @@ public class GATypes {
 
     ModelMapper modelMapper = new ModelMapper();
 
+    @GetMapping(value = "/{object}")
+    @ResponseStatus(HttpStatus.OK)
+    public TypeGADTO byType(@PathVariable Object object) {
+        TypeGA newtype;
+        String pathvariable = object.toString();
+        try {
+            //TODO implement service call
+            newtype = repository.findById(Long.parseLong(pathvariable)).get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            newtype = repository.findByType(pathvariable);
+        }
+        return modelMapper.map(newtype, TypeGADTO.class);
+    }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<TypeGADTO> all() {
         List<TypeGADTO> types = new ArrayList<>();
 
         repository.findAll().forEach((TypeGA typeGA) ->
-            types.add(modelMapper.map(typeGA, TypeGADTO.class)));
+                types.add(modelMapper.map(typeGA, TypeGADTO.class)));
         return types;
     }
 
