@@ -1,6 +1,5 @@
 package smarthome.model;
 
-
 import javax.persistence.*;
 
 import java.util.Objects;
@@ -113,7 +112,7 @@ public class GeographicalArea {
      * @return return this geographical Area Type designation
      */
     public String getTypeName() {
-        return this.type.toString();
+        return this.type.getType();
     }
 
     /**

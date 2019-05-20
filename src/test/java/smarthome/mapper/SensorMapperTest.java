@@ -51,7 +51,7 @@ class SensorMapperTest {
         Sensor sensor = new InternalSensor("S01","TemperatureSensor", new GregorianCalendar(2019, 1, 5), temperature, "Celsius", readingList);
         SensorMapper sensorMapper= new SensorMapper();
         SensorDTO sensorDTO=sensorMapper.toDto(sensor);
-        String expected=sensor.getSensorBehavior().getSensorType().getType();
+        String expected=sensor.getSensorBehavior().getSensorType().getType().getName();
         String result=sensorDTO.getSensorType().getSensorType();
         assertEquals(expected,result);
     }

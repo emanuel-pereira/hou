@@ -16,7 +16,7 @@ class SensorTypeMapperTest {
         SensorType sensorType= new SensorType("City");
         SensorTypeMapper sensorTypeMapper=new SensorTypeMapper();
         SensorTypeDTO sensorTypeDTO=sensorTypeMapper.toDto(sensorType);
-        String expected=sensorType.getType();
+        String expected=sensorType.getType().getName();
         String result=sensorTypeDTO.getSensorType();
         assertEquals(expected,result);
     }

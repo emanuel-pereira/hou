@@ -59,8 +59,8 @@ public final class SystemAdministrationUI {
                     ui4.checkLists();
                     break;
                 case 5:
-                    NewSensorTypeUI ui5 = new NewSensorTypeUI(sensorTypeList);
-                    ui5.createNewSensorType();
+                    NewSensorTypeUI ui5 = new NewSensorTypeUI();
+                    ui5.inputSensorType();
                     break;
                 case 6:
                     NewSensorUI ui6 = new NewSensorUI(sensorTypeList, gaList);

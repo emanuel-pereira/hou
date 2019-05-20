@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.GetGAsOfTypeCTRL;
+import smarthome.controller.cli.GetGAsOfTypeCTRL;
 import smarthome.model.GAList;
 
 import static smarthome.model.TypeGAList.getTypeGAList;

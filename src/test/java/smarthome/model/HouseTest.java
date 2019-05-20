@@ -174,7 +174,7 @@ class HouseTest {
         boolean expectedResult = false;
         String name = " ";
 
-        boolean result = room.validateName(name);
+        boolean result = room.validateDescription(name);
         assertEquals(expectedResult, result);
     }
 

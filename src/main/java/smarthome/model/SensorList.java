@@ -119,7 +119,7 @@ public class SensorList {
     public boolean checkIfRequiredSensorTypeExists(String sensorType) {
         for (Sensor s : this.listOfSensors) {
             SensorType type=s.getSensorBehavior().getSensorType();
-            if (type.getType().equals(sensorType)) {
+            if (type.getType().getName().equals(sensorType)) {
                 return true;
             }
         }
@@ -138,7 +138,7 @@ public class SensorList {
         {
             SensorType sensorType=sensor.getSensorBehavior().getSensorType();
 
-            if (sensorType.getType().equals(type))
+            if (sensorType.getType().getName().equals(type))
                 requiredSensor = sensor;}
         return requiredSensor;
     }

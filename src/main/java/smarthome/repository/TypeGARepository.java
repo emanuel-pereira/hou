@@ -7,4 +7,6 @@ import smarthome.model.TypeGA;
 @Repository
 public interface TypeGARepository extends CrudRepository<TypeGA, Long> {
 
+    TypeGA findByType(String type);
+
 }

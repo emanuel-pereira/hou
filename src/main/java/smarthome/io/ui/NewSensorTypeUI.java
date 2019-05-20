@@ -1,43 +1,53 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.NewSensorTypeCTRL;
-import smarthome.model.SensorTypeList;
+import org.apache.log4j.Logger;
+import smarthome.controller.cli.NewSensorTypeCTRL;
+import smarthome.dto.SensorTypeDTO;
+import smarthome.services.SensorTypeService;
+
+import java.text.ParseException;
 
 public class NewSensorTypeUI {
 
 
-    private final SensorTypeList sensorTypeList;
     private final NewSensorTypeCTRL ctrl;
     private String type;
+    static final Logger log = Logger.getLogger(SensorTypeService.class);
 
 
     /**
      * NewSensorTypeUI Constructor
-     *
-     * @param inputSensorType - list where the newSensorType is added
      */
-    public NewSensorTypeUI(SensorTypeList inputSensorType) {
-        this.sensorTypeList = inputSensorType;
-        this.ctrl = new NewSensorTypeCTRL(sensorTypeList);
+    public NewSensorTypeUI() {
+        this.ctrl = new NewSensorTypeCTRL();
     }
 
-
-    public void createNewSensorType() {
+    public void inputSensorType() {
         System.out.println("Insert a new type of sensor:");
-
-        this.type = UtilsUI.requestText("Please insert only alphanumeric characters");
-        this.newType();
-
+        boolean condition = true;
+        while (condition) {
+            try {
+                this.type = UtilsUI.requestText("Please insert only alphanumeric characters");
+                condition = false;
+                this.createType();
+            } catch (Exception e) {
+                UtilsUI.showError("Illegal Argument", "Type must contain a valid alphabetic regular expression.");
+                log.warn(e.getMessage());
+            }
+        }
     }
 
-    public void newType() {
-        if (ctrl.newSensorType(this.type)) {
+    private void createType() throws ParseException {
+        if (!ctrl.existsByType(this.type)) {
+            ctrl.createSensorType(this.type);
             System.out.println("Success! " + this.type + " was added to the list of sensor types:");
-            System.out.print(ctrl.returnSensorTypeList() + "\n");
+            for (SensorTypeDTO sensorTypeDTO : ctrl.listOfSensorTypesDTOs()) {
+                System.out.println(sensorTypeDTO.getSensorType());
+            }
         } else {
             System.out.println("This type already exists.\n");
             if (UtilsUI.confirmOption("Do you wish to add another?(y/n)", "Please type y/Y for Yes or n/N for No.")) {
-                createNewSensorType();
+                inputSensorType();
             }
         }
     }

@@ -34,6 +34,7 @@ public class PowerSourceList {
         return this.psList.size();
     }
 
+    //FIXME remove this method and implement alternative solution using UI.showList method
     public String showPowerSourceListInString() {
         List <PowerSource> list = getPSList();
         StringBuilder result = new StringBuilder();
@@ -46,6 +47,7 @@ public class PowerSourceList {
             result.append(", ");
             result.append(ps.getTypePS());
             result.append(" type, Maximum Power ");
+            //FIXME prohibited UI call from Model
             result.append(UtilsUI.formatDecimal(ps.getMaxPower(),2));
             result.append(" kw, Storage Capacity ");
             result.append(UtilsUI.formatDecimal(ps.getStorageCapacity(),2));

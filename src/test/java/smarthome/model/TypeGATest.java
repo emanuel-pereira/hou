@@ -58,7 +58,7 @@ class TypeGATest {
 
         TypeGA typeGA = new TypeGA("City");
         String result;
-        result = typeGA.toString();
+        result = typeGA.getType();
 
         assertEquals(expected, result);
     }
@@ -67,6 +67,6 @@ class TypeGATest {
     public void getType() {
         TypeGA typeGA = new TypeGA();
 
-        assertNull(typeGA.toString());
+        assertNull(typeGA.getType());
     }
 }

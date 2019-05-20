@@ -21,7 +21,7 @@ class SensorTypeListTest {
         SensorType temperature = type.newSensorType("Temperature");
 
         //Assert
-        assertEquals("temperature", temperature.getType());
+        assertEquals("temperature", temperature.getType().getName());
     }
 
 
@@ -169,7 +169,7 @@ class SensorTypeListTest {
         SensorType type2 = new SensorType("Wind");
         sensorTypeList.addSensorType(type1);
         sensorTypeList.addSensorType(type2);
-        String expected = "1 - Temperature\n2 - Wind\n";
+        String expected = "1 - temperature\n2 - wind\n";
         String result = sensorTypeList.showSensorTypeListInString();
         assertEquals(expected, result);
     }

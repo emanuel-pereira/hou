@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.ListRoomsOfHouseCTRL;
+import smarthome.controller.cli.ListRoomsOfHouseCTRL;
 
 public class ListRoomsOfHouseUI {
 
