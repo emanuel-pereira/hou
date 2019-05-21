@@ -260,7 +260,7 @@ public class GeographicalAreaTest {
         Location location = new Location(12,34,56);
         GeographicalArea geoArea = new GeographicalArea ("Opo","Porto",type,area,location);
 
-        String result = geoArea.getTypeName();
+        String result = geoArea.getName();
 
         assertEquals("city",result);
     }

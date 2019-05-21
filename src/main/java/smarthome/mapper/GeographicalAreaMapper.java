@@ -37,4 +37,16 @@ public class GeographicalAreaMapper {
         List<GeographicalArea> listOfGAs = gaList.getGAList();
         return listOfGAs.stream().map(this::toDto).collect(Collectors.toList());
     }
+
+    /**
+     * Method to set the parent of an geographical area into a set parent of an geographical area dto.
+     * @param geoParent to be converted in a geoAreaParentDTO.
+     * @return a geoAreaParentDTO.
+     */
+    public GeographicalAreaDTO toDtoParent(GeographicalArea geoParent){
+        GeographicalAreaDTO geoAreaParentDTO = new GeographicalAreaDTO();
+        geoAreaParentDTO.setParentGADto(geoParent.getParentGa());
+        return geoAreaParentDTO;
+    }
+
 }

@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.text.ParseException;
 
 @SpringBootApplication
-public class Application {
+public class Application  {
 
     private static final String DEFAULT = "Default";
     Location loc = new Location(1, 1, 1);

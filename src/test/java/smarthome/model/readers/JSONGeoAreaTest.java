@@ -50,7 +50,7 @@ class JSONGeoAreaTest {
 
         GeographicalArea porto = gaListInFile.get(1);
         String expected = "city";
-        String result = porto.getTypeName();
+        String result = porto.getName();
         assertEquals(expected, result);
     }
 
