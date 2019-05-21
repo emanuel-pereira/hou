@@ -1,11 +1,9 @@
 package smarthome.model;
 
 import org.jetbrains.annotations.Contract;
+import smarthome.model.validations.Name;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -14,14 +12,14 @@ public class TypeGA {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    private String type;
+    @Embedded
+    private Name type;
 
     protected TypeGA() {
     }
 
     public TypeGA(String newType) {
-        this.type = newType.toLowerCase();
+        setType(newType);
     }
 
 
@@ -70,11 +68,11 @@ public class TypeGA {
     }
 
     public String getType() {
-        return type;
+        return type.getName();
     }
 
     public void setType(String newtype) {
-        this.type = newtype.toLowerCase();
+        this.type = new Name(newtype);
     }
 }
 

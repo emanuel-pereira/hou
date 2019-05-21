@@ -5,19 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import smarthome.dto.TypeGADTO;
-import smarthome.model.TypeGA;
-import smarthome.repository.TypeGARepository;
 import smarthome.services.GaTypesService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/gatypes")
 public class GATypes {
-
-    @Autowired
-    public TypeGARepository repository;
 
     @Autowired
     public GaTypesService service;
