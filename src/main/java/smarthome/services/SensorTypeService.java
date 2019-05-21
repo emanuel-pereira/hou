@@ -1,5 +1,7 @@
 package smarthome.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import smarthome.dto.SensorTypeDTO;
 import smarthome.mapper.SensorTypeMapper;
 import smarthome.model.SensorType;
@@ -9,15 +11,18 @@ import smarthome.repository.Repositories;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class SensorTypeService {
 
-    SensorTypeMapper mapper;
+    private SensorTypeMapper mapper;
+
 
     //TODO: encapsulate sensorTypeRepository as attribute of this class through autowired or by dependency injection in constructor
 
     /**
      * Constructor method that creates an instance of the SensorTypeRepoDDD
      */
+    @Autowired
     public SensorTypeService() {
         this.mapper = new SensorTypeMapper();
     }
@@ -64,6 +69,10 @@ public class SensorTypeService {
         for (SensorType sensorType : sensorTypes) {
             sensorTypeList.add(sensorType);
         }
+        if(sensorTypeList.isEmpty()){
+
+        }
+
         return mapper.toDtoList(sensorTypeList);
     }
 
@@ -79,7 +88,6 @@ public class SensorTypeService {
         return Repositories.getSensorTypeRepository().existsByType(repoType);
     }
 
-    //TODO: whenever needed to show
     public SensorType findByType(String type) {
         Name repoType = new Name(type);
         if (Repositories.getSensorTypeRepository().findByType(repoType) == null) {

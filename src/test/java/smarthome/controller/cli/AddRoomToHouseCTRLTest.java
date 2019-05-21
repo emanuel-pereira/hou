@@ -1,13 +1,24 @@
 package smarthome.controller.cli;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import smarthome.model.*;
+import smarthome.services.RoomService;
 
 import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static smarthome.model.House.getHouseRoomList;
+
+
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
+@DataJpaTest
 
 class AddRoomToHouseCTRLTest {
 
@@ -26,38 +37,34 @@ class AddRoomToHouseCTRLTest {
         instance.set(null, null);
     }
 
-    /**
-     * Create a new room in the house with an empty room list and get the size of the room list to check if it was created
-     */
-
     @Test
-    void createNewRoom() {
+    @DisplayName("Create a new room with an empty repository and get the size of the repository to check if it was created")
+    void createNewRoomSuccess() {
 
-        RoomList roomList = getHouseRoomList();
-
+        RoomService roomService = new RoomService();
 
         AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
-        assertEquals(0, getHouseRoomList().getRoomList().size());
+        assertEquals(0,roomService.size());
 
         ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
-        assertEquals(1, roomList.getRoomList().size());
+        assertEquals(1, roomService.size());
     }
 
 
-    /**
-     * Try to create a new room with no name in the house with an empty room list and get the size of the room list
-     * to check that it wasn't created
-     */
-
     @Test
+    @DisplayName("Create a new room with no Id and get the size of the repository to check if it wasn't created")
     void cantCreateNewRoom() {
 
+        RoomService roomService = new RoomService();
 
         AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
-        assertEquals(0, getHouseRoomList().getRoomList().size());
+        assertEquals(0,roomService.size());
 
-        ctrl1.newAddRoom("   ", " ", 1, 3, 3.5, 2);
-        assertEquals(0, getHouseRoomList().getRoomList().size());
+        ctrl1.newAddRoom("R1", "kitchen", 1, 3, 3.5, 2);
+        assertEquals(1, roomService.size());
+
+        ctrl1.newAddRoom("R1", "kitchen", 1, 3, 3.5, 2);
+        assertEquals(1, roomService.size());
     }
 
     /**

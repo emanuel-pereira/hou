@@ -25,19 +25,19 @@ public class SensorTypeWeb {
     public ResponseEntity<Object> createSensorType(@RequestBody SensorTypeDTO type) throws ParseException {
 
         if (this.sensorTypeRepoDDD.createSensorType(type)) {
-            return new ResponseEntity<>("Type is successfully created", HttpStatus.CREATED);
-        } else return new ResponseEntity<>("Type wasn't created", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Type is successfully created with id "+type.getId(), HttpStatus.CREATED);
+        } else return new ResponseEntity<>("Type wasn't created", HttpStatus.CONFLICT);
     }
 
 
-    public boolean existsByType(String type) {
+   /* public boolean existsByType(String type) {
         return this.sensorTypeRepoDDD.existsByType(type);
-    }
-
-
+    }*/
 
     @GetMapping
     public List<SensorTypeDTO> listOfSensorTypesDTOs() {
+      /*  if (this.sensorTypeRepoDDD.findAll().isEmpty())
+            return new ResponseEntity<>("The sensor type is empty",Http)*/
         return this.sensorTypeRepoDDD.findAll();
     }
 

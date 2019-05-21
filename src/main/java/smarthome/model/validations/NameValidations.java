@@ -21,5 +21,13 @@ public class NameValidations {
         return inputName.matches ("^[A-Za-z0-9 -]+$");
     }
 
+    public boolean idIsValid(String inputId) {
+        if (inputId == null)
+            return false;
+        if (inputId.trim().isEmpty()) {
+            return false;
+        }
+        return inputId.matches ("^[A-Za-z0-9]+$");
+    }
 
 }
