@@ -21,13 +21,11 @@ import java.util.List;
 
 public class GeoAreaCTRL {
 
+
+    private final GeoAreaService geoRepoDDD;
+
     ModelMapper modelMapper = new ModelMapper();
 
-    @PostMapping("/geoareas")
-    GeographicalArea newGeoArea(@RequestBody GeographicalArea geoArea) {
-
-        return Repositories.getGeoRepository().save(geoArea);
-    }
 
     @GetMapping("/geoareas")
     List<GeographicalAreaDTO> all() {
@@ -48,7 +46,14 @@ public class GeoAreaCTRL {
         return modelMapper.map(area, GeographicalAreaDTO.class);
     }
 
-    private final GeoAreaService geoRepoDDD;
+    @PostMapping("/geoareas")
+    GeographicalArea newGeoArea(@RequestBody GeographicalAreaDTO geoAreaDto) {
+
+        GeographicalArea geoArea = geoAreaDto.fromDTO();
+
+       return Repositories.getGeoRepository().save(geoArea);
+    }
+
 
     GeoAreaCTRL() {
         geoRepoDDD = new GeoAreaService();
