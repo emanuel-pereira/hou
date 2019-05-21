@@ -39,7 +39,7 @@ public class JSONGeoArea implements FileReaderGeoArea {
         for (Object ga : jsonGAList) {
             JSONObject jsonGA = (JSONObject) ga;
             GeographicalArea geoArea = importGA(jsonGA);
-            List<Sensor> gaSensorList = geoArea.getSensorListInGA().getSensorList();
+            List<Sensor> gaSensorList = geoArea.getSensorListInGa().getSensorList();
             importSensorList(jsonGA, gaSensorList);
             gaList.add(geoArea);
         }

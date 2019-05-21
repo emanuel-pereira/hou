@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.jetbrains.annotations.Contract;
 
 import javax.persistence.Entity;
@@ -9,19 +10,20 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
+@JsonSerialize
 public class TypeGA {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String tGA;
+    private String type;
 
-    protected TypeGA() {
+    public TypeGA() {
     }
 
-    public TypeGA(String inputTypeGA) {
-        this.tGA = inputTypeGA.toLowerCase();
+    public TypeGA(String newType) {
+        this.type = newType.toLowerCase();
     }
 
 
@@ -46,7 +48,7 @@ public class TypeGA {
             return false;
         }
         TypeGA typeOfGA = (TypeGA) o; //
-        return this.tGA.equals(typeOfGA.toString());
+        return this.type.equals(typeOfGA.getType());
     }
 
 
@@ -57,19 +59,24 @@ public class TypeGA {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(this.tGA);
+        return Objects.hash(this.type);
     }
 
 
-    /**
-     * Override when there's the need to show to the user the TypeGA inputted by him (example US2).
-     * To do so, the toString method from the parent method Object must be Override to accept that simple String
-     * rather then the string representation of the object (name of the class, the at-sign character and the unsigned
-     * hexadecimal representation of the hash code of the object).
-     */
-    @Override
-    public String toString() {
-        return this.tGA;
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String newtype) {
+        this.type = newtype.toLowerCase();
     }
 }
 

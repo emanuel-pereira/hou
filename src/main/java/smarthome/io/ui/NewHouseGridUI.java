@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.NewHouseGridCTRL;
+import smarthome.controller.cli.NewHouseGridCTRL;
 
 import java.util.Scanner;
 

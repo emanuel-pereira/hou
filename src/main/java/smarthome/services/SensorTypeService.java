@@ -6,7 +6,6 @@ import smarthome.model.SensorType;
 import smarthome.model.validations.Name;
 import smarthome.repository.Repositories;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +19,9 @@ public class SensorTypeService {
      * Constructor method that creates an instance of the SensorTypeRepoDDD
      */
     public SensorTypeService() {
-        this.mapper= new SensorTypeMapper();
+        this.mapper = new SensorTypeMapper();
     }
+
 
     /**
      * Method to creates and adds a sensor type to the database if the sensor type doesn't already exist.
@@ -29,16 +29,19 @@ public class SensorTypeService {
      * @param type - String that names the type of data
      * @return new data type object with designation
      */
-       public boolean createSensorType(String type) {
-        Name repoType = new Name(type);
-        SensorType sensorType = new SensorType(type);
-        if (Repositories.getSensorTypeRepository().existsByType(repoType)) {
+    public boolean createSensorType(SensorTypeDTO type) {
+        SensorType sensorType = convertToEntity(type);
+        if (Repositories.getSensorTypeRepository().existsByType(sensorType.getType())) {
             return false;
         }
         Repositories.getSensorTypeRepository().save(sensorType);
         return true;
     }
 
+    public SensorType convertToEntity(SensorTypeDTO dto) {
+        SensorType type = mapper.toEntity(dto);
+        return type;
+    }
 
     /**
      * @return the number of sensor types persisted in the database
@@ -76,8 +79,8 @@ public class SensorTypeService {
         return Repositories.getSensorTypeRepository().existsByType(repoType);
     }
 
-//TODO: whenever needed to show
-   /* public SensorType findByType(String type) {
+    //TODO: whenever needed to show
+    public SensorType findByType(String type) {
         Name repoType = new Name(type);
         if (Repositories.getSensorTypeRepository().findByType(repoType) == null) {
             throw new NullPointerException(type + " sensor type does not exist.");
@@ -89,5 +92,10 @@ public class SensorTypeService {
         SensorType sensorType = findByType(type);
         return mapper.toDto(sensorType);
 
-    }*/
+    }
+
+    public SensorTypeDTO findById(Long id) {
+        SensorType sensorType = Repositories.getSensorTypeRepository().findById(id).get();
+        return mapper.toDto(sensorType);
+    }
 }

@@ -2,11 +2,11 @@ package smarthome.dto;
 
 public class RoomDTO {
     private String id;
-    private String name;
+    private String description;
 
-    public RoomDTO(String id, String name) {
+    public RoomDTO(String id, String description) {
         this.id = id;
-        this.name = name;
+        this.description = description;
     }
 
     public RoomDTO(){}
@@ -19,11 +19,11 @@ public class RoomDTO {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

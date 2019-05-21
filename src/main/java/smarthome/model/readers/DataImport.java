@@ -241,7 +241,7 @@ public class DataImport {
                 try {
                     //repository call
                     Repositories.saveGA(ga);
-                    log.info("New Geographical Area '" + ga.getGAName() + "' imported into the systems DB");
+                    log.info("New Geographical Area '" + ga.getDesignation() + "' imported into the systems DB");
                 } catch (Exception e) {
                     log.warn(e.getMessage());
                 }

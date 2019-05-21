@@ -3,7 +3,7 @@ package smarthome.io.ui;
 import org.apache.log4j.Logger;
 import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
-import smarthome.controller.CLI.DataImportCTRL;
+import smarthome.controller.cli.DataImportCTRL;
 import smarthome.model.GAList;
 import smarthome.model.RoomList;
 import smarthome.model.SensorTypeList;

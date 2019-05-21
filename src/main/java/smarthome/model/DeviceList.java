@@ -109,7 +109,7 @@ public class DeviceList {
     /**
      * @return a list of all devices that have isMetered parameter set as true
      */
-    List<Metered> getMeteredDevices() {
+    public List<Metered> getMeteredDevices() {
         List<Metered> meteredDeviceList = new ArrayList<>();
 
         for (Device device : this.devicesList) {

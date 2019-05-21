@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.EditDevicesCTRL;
+import smarthome.controller.cli.EditDevicesCTRL;
 import smarthome.model.Device;
 import smarthome.model.Room;
 

@@ -52,6 +52,12 @@ public class Application {
         Repositories.setInternalSensorRepository(intSensorRep);
         Repositories.setGridsRepository(gridsRep);
 
+        TypeGA city = typeRep.save(new TypeGA("city"));
+        GeographicalArea area = new GeographicalArea("id1","name1", city,
+                new OccupationArea(1.0,1.0),
+                new Location(23.0,23.0,23.0));
+        geoRep.save(area);
+
         return args -> log.info("Application Start-Up");
     }
 

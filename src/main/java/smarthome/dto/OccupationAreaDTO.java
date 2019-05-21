@@ -1,27 +1,44 @@
 package smarthome.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import smarthome.model.OccupationArea;
 
+@JsonSerialize
 public class OccupationAreaDTO {
-    private final double width;
-    private final double length;
+    private double width;
+    private double length;
 
 
-    public OccupationAreaDTO(double length,double width) {
+    public OccupationAreaDTO() {
+
+    }
+
+
+    public OccupationAreaDTO(double length, double width) {
         this.width = width;
         this.length = length;
 
     }
 
+
+
     public double getWidth() {
         return this.width;
+    }
+
+    public void setWidth(double width){
+        this.width = width;
     }
 
     public double getLength() {
         return this.length;
     }
 
+    public void setLength(double length){
+        this.length = length;
+    }
+
     public OccupationArea fromDTO() {
-        return new OccupationArea(this.length,this.width);
+        return new OccupationArea(this.length, this.width);
     }
 }

@@ -84,7 +84,7 @@ class HouseTest {
 
         assertEquals("bedroom", room.getMeteredDesignation());
         assertEquals(1, room.getFloor());
-        assertEquals(5, room.getArea().getOccupationArea());
+        assertEquals(5, room.getArea().getOccupation());
     }
 
 
@@ -174,7 +174,7 @@ class HouseTest {
         boolean expectedResult = false;
         String name = " ";
 
-        boolean result = room.validateName(name);
+        boolean result = room.validateDescription(name);
         assertEquals(expectedResult, result);
     }
 
@@ -342,9 +342,9 @@ class HouseTest {
         ExternalSensor s2 = new ExternalSensor("T002", "Temperature Sensor 2", startDate, loc4, temperature, "C", readings);
         ExternalSensor s3 = new ExternalSensor("T003", "Temperature Sensor 3", startDate, loc5, temperature, "C", readings);
 
-        g1.getSensorListInGA().addSensor(s1);
-        g1.getSensorListInGA().addSensor(s2);
-        g1.getSensorListInGA().addSensor(s3);
+        g1.getSensorListInGa().addSensor(s1);
+        g1.getSensorListInGa().addSensor(s2);
+        g1.getSensorListInGa().addSensor(s3);
 
         List<Sensor> expected = Arrays.asList(s2);
 
@@ -373,9 +373,9 @@ class HouseTest {
         ExternalSensor s2 = new ExternalSensor("T002", "Temperature Sensor 2", startDate, loc4, temperature, "C", readings);
         ExternalSensor s3 = new ExternalSensor("T003", "Temperature Sensor 3", startDate, loc5, temperature, "C", readings);
 
-        geographicalArea.getSensorListInGA().addSensor(s1);
-        geographicalArea.getSensorListInGA().addSensor(s2);
-        geographicalArea.getSensorListInGA().addSensor(s3);
+        geographicalArea.getSensorListInGa().addSensor(s1);
+        geographicalArea.getSensorListInGa().addSensor(s2);
+        geographicalArea.getSensorListInGa().addSensor(s3);
 
         assertEquals(0,House.filterListByTypeAndProximity(temperature).size());
     }
@@ -400,9 +400,9 @@ class HouseTest {
         ExternalSensor s2 = new ExternalSensor("T002", "Temperature Sensor 2", startDate, loc4, temperature, "C", readings);
         ExternalSensor s3 = new ExternalSensor("T003", "Temperature Sensor 3", startDate, loc5, temperature, "C", readings);
 
-        g1.getSensorListInGA().addSensor(s1);
-        g1.getSensorListInGA().addSensor(s2);
-        g1.getSensorListInGA().addSensor(s3);
+        g1.getSensorListInGa().addSensor(s1);
+        g1.getSensorListInGa().addSensor(s2);
+        g1.getSensorListInGa().addSensor(s3);
 
         int result = House.filterListByTypeByIntervalAndDistance(rainfall,startDate,endDate).size();
 
@@ -426,9 +426,9 @@ class HouseTest {
         Sensor s2 = new ExternalSensor("T001", "Temperature Sensors 1", startDate, loc4, temperature, "C", readings);
         Sensor s3 = new ExternalSensor("T001", "Temperature Sensors 1", startDate, loc5, temperature, "C", readings);
 
-        g1.getSensorListInGA().addSensor(s1);
-        g1.getSensorListInGA().addSensor(s2);
-        g1.getSensorListInGA().addSensor(s3);
+        g1.getSensorListInGa().addSensor(s1);
+        g1.getSensorListInGa().addSensor(s2);
+        g1.getSensorListInGa().addSensor(s3);
 
         Reading r1TempSensor1 = new Reading(25, new GregorianCalendar(2018, Calendar.DECEMBER, 26, 9, 15), "C");
         Reading r2TempSensor1 = new Reading(20, new GregorianCalendar(2018, Calendar.DECEMBER, 26, 9, 30), "C");
@@ -473,9 +473,9 @@ class HouseTest {
         ExternalSensor s2 = new ExternalSensor("T002", "Temperature Sensor 2", startDate, loc4, temperature, "C", readings2);
         ExternalSensor s3 = new ExternalSensor("T003", "Temperature Sensor 3", startDate, loc5, temperature, "C", readings3);
 
-        g1.getSensorListInGA().addSensor(s1);
-        g1.getSensorListInGA().addSensor(s2);
-        g1.getSensorListInGA().addSensor(s3);
+        g1.getSensorListInGa().addSensor(s1);
+        g1.getSensorListInGa().addSensor(s2);
+        g1.getSensorListInGa().addSensor(s3);
 
         Reading r1TempSensor1 = new Reading(25, new GregorianCalendar(2018, Calendar.DECEMBER, 26, 9, 15), "C");
         Reading r2TempSensor1 = new Reading(20, new GregorianCalendar(2018, Calendar.DECEMBER, 27, 9, 30), "C");
@@ -548,8 +548,8 @@ class HouseTest {
         Sensor s1 = new ExternalSensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
         Sensor s2 = new ExternalSensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
 
-        g1.getSensorListInGA().addSensor(s1);
-        g1.getSensorListInGA().addSensor(s2);
+        g1.getSensorListInGa().addSensor(s1);
+        g1.getSensorListInGa().addSensor(s2);
 
         Sensor result = filterByTypeByIntervalAndDistance(sT, startDate, endDate);
 
@@ -601,8 +601,8 @@ class HouseTest {
         ExternalSensor s1 = new ExternalSensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
         ExternalSensor s2 = new ExternalSensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
 
-        g1.getSensorListInGA().addSensor(s1);
-        g1.getSensorListInGA().addSensor(s2);
+        g1.getSensorListInGa().addSensor(s1);
+        g1.getSensorListInGa().addSensor(s2);
 
         Sensor result = getClosestSensorWithLatestReading(sT);
 
@@ -653,8 +653,8 @@ class HouseTest {
         ExternalSensor s1 = new ExternalSensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
         ExternalSensor s2 = new ExternalSensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
 
-        g1.getSensorListInGA().addSensor(s1);
-        g1.getSensorListInGA().addSensor(s2);
+        g1.getSensorListInGa().addSensor(s1);
+        g1.getSensorListInGa().addSensor(s2);
 
         boolean result = closestSensorsWithReadingsInDate(endDate,sT);
 
@@ -705,8 +705,8 @@ class HouseTest {
         ExternalSensor s1 = new ExternalSensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
         ExternalSensor s2 = new ExternalSensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
 
-        g1.getSensorListInGA().addSensor(s1);
-        g1.getSensorListInGA().addSensor(s2);
+        g1.getSensorListInGa().addSensor(s1);
+        g1.getSensorListInGa().addSensor(s2);
 
         boolean result = checkIfClosestSensorsHasReadingsInTimePeriod(sT,startDate,endDate);
 
@@ -757,8 +757,8 @@ class HouseTest {
         Sensor s1 = new ExternalSensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
         Sensor s2 = new ExternalSensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
 
-        g1.getSensorListInGA().addSensor(s1);
-        g1.getSensorListInGA().addSensor(s2);
+        g1.getSensorListInGa().addSensor(s1);
+        g1.getSensorListInGa().addSensor(s2);
 
         Sensor result = filterByTypeByIntervalAndDistance(sT, startDate, endDate);
 
@@ -810,8 +810,8 @@ class HouseTest {
         Sensor s1 = new ExternalSensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
         Sensor s2 = new ExternalSensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
 
-        g1.getSensorListInGA().addSensor(s1);
-        g1.getSensorListInGA().addSensor(s2);
+        g1.getSensorListInGa().addSensor(s1);
+        g1.getSensorListInGa().addSensor(s2);
 
         double result = averageOfReadingsInPeriod(sT, startDate, endDate);
 
@@ -864,8 +864,8 @@ class HouseTest {
         Sensor s1 = new ExternalSensor("R0001", "RainSensor", sDate1, l1, sT, "l/m2", rL1);
         Sensor s2 = new ExternalSensor("R0002", "RainSensor2", sDate2, l1, sT, "l/m2", rL2);
 
-        g1.getSensorListInGA().addSensor(s1);
-        g1.getSensorListInGA().addSensor(s2);
+        g1.getSensorListInGa().addSensor(s1);
+        g1.getSensorListInGa().addSensor(s2);
 
         double result = averageOfReadingsInPeriod(sT, startDate, endDate);
 

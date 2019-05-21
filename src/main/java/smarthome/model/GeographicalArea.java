@@ -18,7 +18,7 @@ public class GeographicalArea {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TYPE_ID")
-    private TypeGA typeOfGa;
+    private TypeGA type;
 
     @Embedded
     private Location location;
@@ -33,7 +33,8 @@ public class GeographicalArea {
     private GeographicalArea parentGa;
 
 
-    protected GeographicalArea() {
+     public GeographicalArea() {
+
     }
 
     /**
@@ -48,7 +49,7 @@ public class GeographicalArea {
     public GeographicalArea(String id, String name, String typeGA, OccupationArea occupationArea, Location location) {
         this.identification = id;
         this.designation = name;
-        this.typeOfGa = newTypeGA(typeGA.toLowerCase());
+        this.type = newTypeGA(typeGA.toLowerCase());
         this.occupation = occupationArea;
         this.location = location;
         this.sensorListInGa = new SensorList();
@@ -57,7 +58,7 @@ public class GeographicalArea {
     public GeographicalArea(String id, String name, TypeGA typeGA, OccupationArea occupationArea, Location location) {
         this.identification = id;
         this.designation = name;
-        this.typeOfGa = typeGA;
+        this.type = typeGA;
         this.occupation = occupationArea;
         this.location = location;
         this.sensorListInGa = new SensorList();
@@ -68,35 +69,25 @@ public class GeographicalArea {
         this.designation = name;
     }
 
-    public String getId() {
+    public String getIdentification() {
         return identification;
     }
 
+    public void setIdentification(String id) {
+        this.identification = id;
+    }
 
     /**
      * method to get this Geographical Area designation
      *
      * @return return this geographical area designation
      */
-    public String getGAName() {
+    public String getDesignation() {
         return this.designation;
     }
 
-    /**
-     * method to get this Geographical Area Type designation
-     *
-     * @return return this geographical Area Type designation
-     */
-    public String getTypeName() {
-        return this.typeOfGa.toString();
-    }
-
-    public boolean setType(TypeGA newtype) {
-        if (newtype != null) {
-            this.typeOfGa = newtype;
-            return true;
-        }
-        return false;
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
     /**
@@ -105,7 +96,50 @@ public class GeographicalArea {
      * @return GAType
      */
     public TypeGA getType() {
-        return this.typeOfGa;
+        return this.type;
+    }
+
+    public boolean setType(TypeGA newtype) {
+        if (newtype != null) {
+            this.type = newtype;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * method to get this Geographical Area Type designation
+     *
+     * @return return this geographical Area Type designation
+     */
+    public String getName() {
+        return this.type.getType();
+    }
+
+    /**
+     * method to get this Geographical Area location
+     *
+     * @return return this geographical area location
+     */
+    public Location getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    /**
+     * Method to get list of Sensors in GA attribute
+     *
+     * @return the list of sensors in a Geographical Area
+     */
+    public SensorList getSensorListInGa() {
+        return this.sensorListInGa;
+    }
+
+    public void setSensorListInGa(SensorList sensorListInGa) {
+        this.sensorListInGa = sensorListInGa;
     }
 
     /**
@@ -113,18 +147,26 @@ public class GeographicalArea {
      *
      * @return return this geographical Area Parent
      */
-    public GeographicalArea getGeographicalParentGA() {
+    public GeographicalArea getParentGa() {
         return this.parentGa;
     }
 
-
     /**
-     * Method to get list of Sensors in GA attribute
+     * US07
+     * Method that tell´s if a Geographical Area is parented or contained on other.
      *
-     * @return the list of sensors in a Geographical Area
+     * @param area is defined as an geographical area parented with other.
      */
-    public SensorList getSensorListInGA() {
-        return this.sensorListInGa;
+    public void setParentGa(GeographicalArea area) {
+        this.parentGa = area;
+    }
+
+    public OccupationArea getOccupation() {
+        return this.occupation;
+    }
+
+    public void setOccupation(OccupationArea occupation) {
+        this.occupation = occupation;
     }
 
     /**
@@ -139,15 +181,6 @@ public class GeographicalArea {
         distance = this.calculateDistance(anotherLocation);
         //return this.mLocation.calcLinearDistanceBetweenTwoPoints(anotherLocation); advanced method
         return distance;
-    }
-
-    /**
-     * method to get this Geographical Area location
-     *
-     * @return return this geographical area location
-     */
-    public Location getLocation() {
-        return this.location;
     }
 
     /**
@@ -171,37 +204,16 @@ public class GeographicalArea {
         GeographicalArea that = (GeographicalArea) o;
         return Objects.equals(this.identification, that.identification) /*&&
                 Objects.equals(this.designation, that.designation) &&
-                Objects.equals(this.typeOfGa, that.typeOfGa)*/;
+                Objects.equals(this.type, that.type)*/;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.identification/*, this.designation, this.typeOfGa*/);
+        return Objects.hash(this.identification/*, this.designation, this.type*/);
     }
 
-    /**
-     * US07
-     * Method that tell´s if a Geographical Area is parented or contained on other.
-     *
-     * @param ga1 is defined as an geographical area parented with other.
-     */
-    public void setParentGA(GeographicalArea ga1) {
-        this.parentGa = ga1;
-    }
 
-    public OccupationArea getOccupation() {
-        return this.occupation;
-    }
-
-    public void setIdentification(String id) {
-        this.identification = id;
-    }
-
-    public void setDesignation(String designation) {
-        this.designation = designation;
-    }
-
-    public String gaInString(){
+    public String gaInString() {
 
         StringBuilder output = new StringBuilder();
         String space = "    ";
@@ -215,6 +227,7 @@ public class GeographicalArea {
 
         return output.toString();
     }
+
 }
 
 
