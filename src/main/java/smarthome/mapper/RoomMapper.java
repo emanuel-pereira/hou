@@ -17,7 +17,7 @@ public class RoomMapper {
         return roomDTO;
     }
 
-    public List<RoomDTO> toDtoList(List<Room>roomList) {
+    public List<RoomDTO> toDtoList(List<Room> roomList) {
         return roomList.stream().map(this::toDto).collect(Collectors.toList());
     }
 

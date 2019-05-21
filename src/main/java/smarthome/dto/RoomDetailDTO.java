@@ -15,6 +15,16 @@ public class RoomDetailDTO {
     public RoomDetailDTO() {
     }
 
+    public RoomDetailDTO(String id, String description, Integer floor, double length, double width, double height) {
+        this.id = id;
+        this.description = description;
+        this.floor = floor;
+        this.length = length;
+        this.width = width;
+        this.height = height;
+
+    }
+
     public String getId() {
         return id;
     }
