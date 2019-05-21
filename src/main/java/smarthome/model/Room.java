@@ -30,6 +30,8 @@ public class Room implements Metered {
     @Transient
     private DeviceList deviceList;
 
+    //TODO add HouseGrid attribute
+
     protected Room() {
     }
 
