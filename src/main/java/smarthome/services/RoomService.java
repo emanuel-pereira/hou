@@ -38,18 +38,17 @@ public class RoomService {
      * @param height Height of the room (double)
      * @return True if created and added to the database
      */
-    public boolean createRoom(String id, String description, int floor, double length, double width, double height) {
-        if (checkIfIDExists(id)) {
-            return false;
-        }
-        Room newRoom = new Room (id,description,floor,length,width,height);
-        Repositories.getRoomRepository().save(newRoom);
-        return true;
+    public RoomDetailDTO createRoom(String id, String description, int floor, double length, double width, double height) {
+        NameValidations validation = new NameValidations();
+        if (validation.idIsValid(id) && !this.checkIfIDExists(id)) {
+               return new RoomDetailDTO (id,description,floor,length,width,height);
+            }
+        return null;
     }
 
     public boolean save (RoomDetailDTO roomDto){
         Room room = this.convertToObject(roomDto);
-        if (Repositories.getRoomRepository().existsById(room.getId())) {
+        if (room == null || this.checkIfIDExists(room.getId())) {
             return false;
         }
         Repositories.getRoomRepository().save(room);
@@ -57,9 +56,8 @@ public class RoomService {
 
     }
 
-    public Room convertToObject(RoomDetailDTO roomDTO) {
-        Room room = mapper.toObject(roomDTO);
-        return room;
+    private Room convertToObject(RoomDetailDTO roomDTO) {
+        return mapper.toObject(roomDTO);
     }
 
       /**
@@ -100,6 +98,11 @@ public class RoomService {
             roomList.add(room);
         }
         return Collections.unmodifiableList(mapper.toDetailDtoList(roomList));
+    }
+
+    public RoomDetailDTO findById(String id) {
+        Room room = Repositories.getRoomRepository().findById(id).get();
+        return mapper.toDetailDto(room);
     }
 
 }

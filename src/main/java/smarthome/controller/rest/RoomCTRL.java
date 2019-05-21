@@ -2,10 +2,8 @@ package smarthome.controller.rest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import smarthome.dto.RoomDTO;
 import smarthome.dto.RoomDetailDTO;
 import smarthome.model.Room;
 import smarthome.services.RoomService;
@@ -24,8 +22,8 @@ public class RoomCTRL {
     }
 
     @GetMapping("/rooms")
-    public List<RoomDetailDTO> listOfRooms() {
-        return this.roomRepoDDD.findAllDetail();
+    public List<RoomDTO> findAll() {
+        return this.roomRepoDDD.findAll();
     }
 
     @PostMapping("/rooms")
@@ -34,6 +32,11 @@ public class RoomCTRL {
         if (this.roomRepoDDD.save(room)) {
             return new ResponseEntity<>("Room was successfully created", HttpStatus.CREATED);
         } else return new ResponseEntity<>("Room wasn't created", HttpStatus.UNAUTHORIZED);
+    }
+
+    @GetMapping("rooms/{id}")
+    public RoomDetailDTO findOne(@PathVariable String id) {
+        return this.roomRepoDDD.findById(id);
     }
 
 }
