@@ -40,7 +40,7 @@ public class JSONGeoArea implements FileReaderGeoArea {
             JSONObject jsonGA = (JSONObject) ga;
             GeographicalArea geoArea = importGA(jsonGA);
             List<Sensor> gaSensorList = geoArea.getSensorListInGA().getSensorList();
-            importSensorList(jsonGA, gaSensorList);
+            importSensorList(jsonGA, gaSensorList, geoArea);
             gaList.add(geoArea);
         }
         return gaList;
@@ -69,16 +69,16 @@ public class JSONGeoArea implements FileReaderGeoArea {
 
     }
 
-    private static void importSensorList(JSONObject jsonGA, List<Sensor> sensorList) throws java.text.ParseException {
+    private static void importSensorList(JSONObject jsonGA, List<Sensor> sensorList, GeographicalArea geoArea) throws java.text.ParseException {
         JSONArray jsonSensorList = (JSONArray) jsonGA.get("area_sensor");
         for (Object areaSensor : jsonSensorList) {
             JSONObject jsonSensor = (JSONObject) areaSensor;
-            Sensor sensor = importSensor(jsonSensor);
+            Sensor sensor = importSensor(jsonSensor, geoArea);
             sensorList.add(sensor);
         }
     }
 
-    private static Sensor importSensor(JSONObject jsonSensor) throws java.text.ParseException {
+    private static Sensor importSensor(JSONObject jsonSensor, GeographicalArea geoArea) throws java.text.ParseException {
         JSONObject sensor = (JSONObject) jsonSensor.get("sensor");
         String id = (String) sensor.get("id");
         String name = (String) sensor.get("name");
@@ -95,7 +95,11 @@ public class JSONGeoArea implements FileReaderGeoArea {
         String unit = (String) sensor.get("units");
         Location location = importLocation(jsonSensor);
         ReadingList readings = new ReadingList();
-        return new ExternalSensor(id, name, calendar, location, type, unit, readings);
+        ExternalSensor geoSensor = new ExternalSensor(id, name, calendar, location, type, unit, readings);
+        //TODO add new unitary tests to this feature
+        //TODO add same feature in other readers
+        geoSensor.setGeographicalArea(geoArea);
+        return geoSensor;
 
     }
 

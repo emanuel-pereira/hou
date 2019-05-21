@@ -2,9 +2,7 @@ package smarthome.model;
 
 import smarthome.model.validations.Utils;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -18,6 +16,9 @@ public class ExternalSensor implements Sensor {
     @Embedded
     private SensorBehavior sensorBehavior;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "AREA_ID")
+    private GeographicalArea geographicalArea;
 
     protected ExternalSensor() {
     }
@@ -72,6 +73,14 @@ public class ExternalSensor implements Sensor {
      */
     public Location getLocation() {
         return this.location;
+    }
+
+    public GeographicalArea getGeographicalArea() {
+        return geographicalArea;
+    }
+
+    public void setGeographicalArea(GeographicalArea geographicalArea) {
+        this.geographicalArea = geographicalArea;
     }
 
     /**
