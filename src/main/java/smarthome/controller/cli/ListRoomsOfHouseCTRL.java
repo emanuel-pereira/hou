@@ -1,23 +1,24 @@
 package smarthome.controller.cli;
 
-import smarthome.model.RoomList;
+import smarthome.dto.RoomDTO;
+import smarthome.services.RoomService;
 
-import static smarthome.model.House.getHouseRoomList;
+import java.util.List;
 
 public class ListRoomsOfHouseCTRL {
 
-    private final RoomList roomList;
+    private final RoomService roomService;
 
     public ListRoomsOfHouseCTRL() {
-        this.roomList = getHouseRoomList();
+        this.roomService = new RoomService();
     }
 
-    public int roomListSize(){
-        return this.roomList.getRoomListSize();
+    public long roomListSize(){
+        return this.roomService.size();
     }
 
-    public String showListRoomInString() {
-        return this.roomList.showRoomListInString();
+    public List<RoomDTO> findAll() {
+        return this.roomService.findAll();
     }
 
 }

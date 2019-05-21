@@ -37,13 +37,8 @@ public class AddRoomToHouseCTRL {
      */
     public boolean newAddRoom(String id, String description, Integer floor, double length, double width, double height) {
         RoomDetailDTO room = this.roomList.createRoom (id,description, floor, length, width, height);
-        //remove 3 lines above when DDD is stable
-        RoomList oldList = getHouseRoomList();
-        Room r = oldList.createNewRoom (id,description, floor, length, width, height);
-        oldList.addRoom (r);
         return this.roomList.save (room);
     }
-
 
     /**
      * Checks if a room with the same ID was already created

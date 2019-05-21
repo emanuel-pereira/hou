@@ -28,7 +28,7 @@ public class ListRoomsOfHouseCTRLTest {
         instance.set(null, null);
 
     }
-
+/*
     @Test
     @DisplayName("Ensure that bedroom, kitchen and bathroom has been edited has indexed to a list ")
     @Before
@@ -54,7 +54,7 @@ public class ListRoomsOfHouseCTRLTest {
 
         assertEquals(expectedResult, result);
     }
-
+*/
 
 
     @Test
@@ -70,8 +70,8 @@ public class ListRoomsOfHouseCTRLTest {
         roomList.addRoom(bedroom);
         roomList.addRoom(kitchen);
 
-        int expected = 2;
-        int result = ctrl108.roomListSize();
+        long expected = 2;
+        long result = ctrl108.roomListSize();
 
         assertEquals(expected, result);
 

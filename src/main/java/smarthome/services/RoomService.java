@@ -1,14 +1,10 @@
 package smarthome.services;
 
-import org.apache.log4j.Logger;
 import smarthome.dto.RoomDTO;
 import smarthome.dto.RoomDetailDTO;
-import smarthome.dto.SensorTypeDTO;
 import smarthome.mapper.RoomMapper;
-import smarthome.mapper.SensorTypeMapper;
 import smarthome.model.*;
 import smarthome.model.validations.NameValidations;
-import smarthome.model.validations.Utils;
 import smarthome.repository.Repositories;
 
 import java.util.ArrayList;
@@ -17,7 +13,7 @@ import java.util.List;
 
 public class RoomService {
 
-    RoomMapper mapper;
+    private RoomMapper mapper;
 
 
     /**
@@ -40,7 +36,7 @@ public class RoomService {
      */
     public RoomDetailDTO createRoom(String id, String description, int floor, double length, double width, double height) {
         NameValidations validation = new NameValidations();
-        if (validation.idIsValid(id) && !this.checkIfIDExists(id)) {
+        if (validation.idIsValid(id)) {
                return new RoomDetailDTO (id,description,floor,length,width,height);
             }
         return null;
@@ -91,15 +87,11 @@ public class RoomService {
         return Collections.unmodifiableList(mapper.toDtoList(roomList));
     }
 
-    public List<RoomDetailDTO> findAllDetail() {
-        Iterable<Room> rooms = Repositories.getRoomRepository().findAll();
-        List<Room> roomList = new ArrayList<>();
-        for (Room room : rooms) {
-            roomList.add(room);
-        }
-        return Collections.unmodifiableList(mapper.toDetailDtoList(roomList));
-    }
-
+    /**
+     *
+     * @param id Retrieves the room by searching for the Id
+     * @return RoomDetailDTO with more information of the Room
+     */
     public RoomDetailDTO findById(String id) {
         Room room = Repositories.getRoomRepository().findById(id).get();
         return mapper.toDetailDto(room);
