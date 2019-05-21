@@ -2,6 +2,7 @@ package smarthome.controller.CLI;
 
 import smarthome.dto.ReadingDTO;
 import smarthome.model.*;
+import smarthome.services.SensorTypeService;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -11,13 +12,14 @@ import static smarthome.model.House.*;
 
 public class GetDailySensorDataCTRL {
     private final SensorTypeList sensorTypeList;
+    private final SensorTypeService sensorTypeRepoDDD= new SensorTypeService();
 
     public GetDailySensorDataCTRL(SensorTypeList sensorTypeList) {
         this.sensorTypeList = sensorTypeList;
     }
 
     public boolean checkIfSensorTypeExists(String sensorType) {
-        return this.sensorTypeList.checkIfSensorTypeExists(sensorType);
+        return this.sensorTypeRepoDDD.existsByType(sensorType);
     }
 
     public boolean isHouseGAConfigured() {
