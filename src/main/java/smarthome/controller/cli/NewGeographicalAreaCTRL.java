@@ -91,7 +91,7 @@ public class NewGeographicalAreaCTRL {
      */
     public String getGAType() {
         GeographicalArea createdGA = this.gaList.getLastGA();
-        return createdGA.getTypeName();
+        return createdGA.getName();
     }
 
 }

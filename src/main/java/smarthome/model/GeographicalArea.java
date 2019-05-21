@@ -33,7 +33,8 @@ public class GeographicalArea {
     private GeographicalArea parentGa;
 
 
-    protected GeographicalArea() {
+     public GeographicalArea() {
+
     }
 
     /**
@@ -111,7 +112,7 @@ public class GeographicalArea {
      *
      * @return return this geographical Area Type designation
      */
-    public String getTypeName() {
+    public String getName() {
         return this.type.getType();
     }
 
