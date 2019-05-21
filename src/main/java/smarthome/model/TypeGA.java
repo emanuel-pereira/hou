@@ -19,7 +19,7 @@ public class TypeGA {
 
     private String type;
 
-    protected TypeGA() {
+    public TypeGA() {
     }
 
     public TypeGA(String newType) {

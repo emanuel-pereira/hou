@@ -63,7 +63,7 @@ class XMLGeoAreaTest {
         GeographicalArea ga = gaList.get(0);
 
         String expected = "urban area";
-        String result = ga.getTypeName();
+        String result = ga.getName();
 
         assertEquals(expected, result);
     }
