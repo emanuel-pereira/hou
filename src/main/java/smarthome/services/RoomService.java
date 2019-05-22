@@ -24,7 +24,7 @@ public class RoomService {
     }
 
     /**
-     * Method to create and add a room to the database if the room id doesn't exists.
+     * Method to create a room using a RoomDTO.
      *
      * @param id Unique id of the room (string)
      * @param description Description of the room (string)
@@ -42,6 +42,11 @@ public class RoomService {
         return null;
     }
 
+    /**
+     * Method that receives a RoomDTO, transform it in a Room, checks if the room id exists and then saves the room in the repository
+     * @param roomDto Detailed Room DTO (id, description, floor, length, width, height)
+     * @return True if save
+     */
     public boolean save (RoomDetailDTO roomDto){
         Room room = this.convertToObject(roomDto);
         if (room == null || this.checkIfIDExists(room.getId())) {
@@ -52,6 +57,11 @@ public class RoomService {
 
     }
 
+    /**
+     * The RoomMapper is used to convert the RoomDetailDTO in a Room
+     * @param roomDTO Detailed Room DTO
+     * @return
+     */
     private Room convertToObject(RoomDetailDTO roomDTO) {
         return mapper.toObject(roomDTO);
     }

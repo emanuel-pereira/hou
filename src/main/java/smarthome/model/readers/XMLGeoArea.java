@@ -6,6 +6,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import smarthome.model.*;
+import smarthome.model.validations.Name;
+import smarthome.repository.Repositories;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -128,7 +130,8 @@ public class XMLGeoArea implements FileReaderGeoArea {
                 calendar.setTime(date);
 
                 String sensorType = getTagValue("type", sensor);
-                SensorType type = new SensorType(sensorType);
+                Name typeName = new Name(sensorType);
+                SensorType type = Repositories.getSensorTypeRepository().findByType(typeName);
 
                 String unit = getTagValue("units", sensor);
                 Location location = importLocation(sensor.getElementsByTagName("location").item(0));
