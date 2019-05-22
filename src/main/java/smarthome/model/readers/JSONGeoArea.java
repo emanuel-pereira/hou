@@ -5,6 +5,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import smarthome.model.*;
+import smarthome.model.validations.Name;
+import smarthome.repository.Repositories;
+import smarthome.services.SensorTypeService;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -90,7 +93,8 @@ public class JSONGeoArea implements FileReaderGeoArea {
         calendar.setTime(date);
 
         String sensorType = (String) sensor.get("type");
-        SensorType type = new SensorType(sensorType);
+        Name typeName = new Name(sensorType);
+        SensorType type = Repositories.getSensorTypeRepository().findByType(typeName);
 
         String unit = (String) sensor.get("units");
         Location location = importLocation(jsonSensor);
