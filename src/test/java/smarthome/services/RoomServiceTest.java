@@ -46,4 +46,17 @@ class RoomServiceTest {
         assertFalse(result);
     }
 
+    @Test
+    @DisplayName("Tests if a null room is created")
+    void createNullRoom() {
+        //Arrange
+        RoomService roomService = new RoomService();
+
+        //Act
+        RoomDetailDTO r1 = roomService.createRoom(" ", "BedRoom", 2, 3, 4, 1);
+
+        //Assert
+        assertNull(r1);
+    }
+
 }

@@ -21,8 +21,8 @@ public class RoomCTRL {
     }
 
     @GetMapping("/rooms")
-    public List<RoomDTO> findAll() {
-        return this.roomRepoDDD.findAll();
+    public ResponseEntity<Object> findAll() {
+        return new ResponseEntity<>(this.roomRepoDDD.findAll(),HttpStatus.OK);
     }
 
     @PostMapping("/rooms")

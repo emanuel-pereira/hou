@@ -22,17 +22,20 @@ skinparam note {
 BorderColor SteelBlue
 }
 
-"End User \n Application" -> ":GridCTRL": POST w/ HouseGrid \n object as JSON
+"End User \n Application" -> ":GridCTRL": GET request \n/housegrids/{idHG}/rooms
 
-":GridCTRL" -> ":GridService" : addGrid(gridDTO) \n "Spring conversion from \n JSON object to DTO object"
+":GridCTRL" -> ":GridService" : searchHG(idHG)
 
-ref over ":GridService","ModelMapper": create model object newgrid\nnewgrid = model.map(dto,GAType.class)
+":GridService" -> ":GridRepository" : existsbyId(idHG)
 
-":GridService" -> ":GridRepository" : saved = save(newgrid)
+":GridCTRL" -> ":RoomService" : searchRoomsbyHG(idHG)
 
-ref over ":GridService","ModelMapper": create DTO object resultDTO\nresultdto = model.map(saved,GATypeDTO.class)
+":RoomService" -> ":RoomRepository" : List<Room> = findbyHGid(idHG)
 
-":GridService" --> ":GridCTRL" : resultdto
+loop  Conversion of List<Room> to List<RoomDTO>
+":RoomService" -> "ModelMapper": RoomDTO = model.map(Room,RoomDTO.class)
+end
+":RoomService" --> ":GridCTRL" : resultdto
 
 ":GridCTRL" --> "End User \n Application" : Response status \nand result message
 @enduml
