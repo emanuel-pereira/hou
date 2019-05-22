@@ -18,8 +18,8 @@ public class SetParentOfGACTRL {
     public void setParentofGA(int indexGA1, int indexGA2) {
         GeographicalArea ga = gaList.getGAList().get(indexGA1 - 1);
         GeographicalArea ga2 = gaList.getGAList().get(indexGA2 - 1);
-        if (!(ga.getTypeName().equals(ga2.getTypeName())))
-            ga.setParentGA(ga2);
+        if (!(ga.getName().equals(ga2.getName())))
+            ga.setParentGa(ga2);
     }
 
 
@@ -33,7 +33,7 @@ public class SetParentOfGACTRL {
 
     public String getGaName(int indexGa) {
 
-        return gaList.get(indexGa -1).getGAName();
+        return gaList.get(indexGa -1).getDesignation();
     }
 
     public String showListInString() {

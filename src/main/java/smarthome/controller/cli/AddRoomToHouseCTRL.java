@@ -1,14 +1,18 @@
 package smarthome.controller.cli;
 
 import org.apache.log4j.Logger;
+import smarthome.dto.RoomDetailDTO;
 import smarthome.model.Room;
 import smarthome.model.RoomList;
+import smarthome.services.RoomService;
+
+import java.util.ArrayList;
 
 import static smarthome.model.House.getHouseRoomList;
 
 public class AddRoomToHouseCTRL {
 
-    private final RoomList roomList;
+    private final RoomService roomList;
 
     static final Logger log = Logger.getLogger(AddRoomToHouseCTRL.class);
 
@@ -17,7 +21,7 @@ public class AddRoomToHouseCTRL {
      *
      */
     public AddRoomToHouseCTRL() {
-        this.roomList = getHouseRoomList();
+        this.roomList = new RoomService();
 
     }
 
@@ -32,10 +36,9 @@ public class AddRoomToHouseCTRL {
      * @return True if the Room is created and added with success
      */
     public boolean newAddRoom(String id, String description, Integer floor, double length, double width, double height) {
-        Room room = this.roomList.createNewRoom (id,description, floor, length, width, height);
-        return this.roomList.addRoom (room);
+        RoomDetailDTO room = this.roomList.createRoom (id,description, floor, length, width, height);
+        return this.roomList.save (room);
     }
-
 
     /**
      * Checks if a room with the same ID was already created
@@ -44,7 +47,7 @@ public class AddRoomToHouseCTRL {
      * @return True if the room ID exist and false if not
      */
     public boolean checkIfRoomIdExists(String id) {
-        return this.roomList.checkIfRoomIDExists(id);
+        return this.roomList.checkIfIDExists(id);
     }
 
 }

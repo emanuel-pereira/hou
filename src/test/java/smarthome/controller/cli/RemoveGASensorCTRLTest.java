@@ -101,7 +101,7 @@ class RemoveGASensorCTRLTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         //sensor created and added to lisSensorList
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
@@ -145,7 +145,7 @@ class RemoveGASensorCTRLTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         //sensor created and added to lisSensorList
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
@@ -190,7 +190,7 @@ class RemoveGASensorCTRLTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         //sensor created and added to lisSensorList
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);

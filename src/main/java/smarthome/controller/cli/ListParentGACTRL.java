@@ -25,13 +25,13 @@ public class ListParentGACTRL {
      * else a null value will be returned
      */
     public String isParentOf(int inputIndex) {
-        GeographicalArea parentGA = this.gaList.getGAList().get(inputIndex - 1).getGeographicalParentGA();
+        GeographicalArea parentGA = this.gaList.getGAList().get(inputIndex - 1).getParentGa();
         StringBuilder parents = new StringBuilder();
         while (parentGA != null) { //while there is a parent GA
-            parents.append(parentGA.getGAName()); //append parent GA to list
-            if (parentGA.getGeographicalParentGA() != null) {
+            parents.append(parentGA.getDesignation()); //append parent GA to list
+            if (parentGA.getParentGa() != null) {
                 parents.append(", "); //append parent GA to list
-                parentGA = parentGA.getGeographicalParentGA();
+                parentGA = parentGA.getParentGa();
             } //next/upper parentGA
             else break;
         }
@@ -61,7 +61,7 @@ public class ListParentGACTRL {
         for (GeographicalArea GA : gaList.getGAList()) {
             result.append(number++);
             result.append(" - ");
-            result.append(GA.getGAName());
+            result.append(GA.getDesignation());
             result.append("\n");
         }
         return result.toString();

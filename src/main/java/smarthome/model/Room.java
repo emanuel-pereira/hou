@@ -32,11 +32,13 @@ public class Room implements Metered {
 
     //TODO add HouseGrid attribute
 
-    protected Room() {
-    }
-
     @Transient
     private double time;
+
+    public Room() {
+        this.sensorListInRoom = new SensorList();
+        this.deviceList = new DeviceList();
+    }
 
 
     /**

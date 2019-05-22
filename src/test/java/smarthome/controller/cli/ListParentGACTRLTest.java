@@ -84,7 +84,7 @@ public class ListParentGACTRLTest {
         ListParentGACTRL ctrl8 = new ListParentGACTRL(gaList);
         //check a GA parent GA
         assertEquals(2,ctrl8.getGAListSize());
-        assertEquals("Funchal", gaList.get(1).getGeographicalParentGA().getGAName());
+        assertEquals("Funchal", gaList.get(1).getParentGa().getDesignation());
         assertEquals("Funchal", ctrl8.isParentOf(2));
         assertEquals("1 - Funchal\n2 - Rua 31 de Janeiro\n",ctrl8.showListInString());
     }

@@ -32,7 +32,7 @@ public class AddRoomToHouseUI {
         boolean condition = true;
         while (condition) {
             System.out.println("Insert the Id of the room:");
-            this.id = UtilsUI.requestText("Please insert alphanumeric characters!\nInsert the Id of the room:", "^[A-Za-z0-9 -]+$");
+            this.id = UtilsUI.requestText("Please insert alphanumeric characters without spaces!\nInsert the Id of the room:", "^[A-Za-z0-9]+$");
             if (!this.controller.checkIfRoomIdExists(this.id)) {
                 condition = false;
                 this.insertDescription();

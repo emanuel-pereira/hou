@@ -51,7 +51,7 @@ public class GetCurrentTemperatureInHouseAreaCTRL {
      */
     public int getSensorListOfTypeSize(SensorType sensorType) {
         GeographicalArea houseGA= getHouseGA();
-        SensorList gaOfHouseSensorList=houseGA.getSensorListInGA();
+        SensorList gaOfHouseSensorList=houseGA.getSensorListInGa();
         return gaOfHouseSensorList.getListOfSensorsByType(sensorType).size();
 
     }

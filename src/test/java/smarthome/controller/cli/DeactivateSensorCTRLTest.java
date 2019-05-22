@@ -101,7 +101,7 @@ class DeactivateSensorCTRLTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
@@ -137,7 +137,7 @@ class DeactivateSensorCTRLTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
@@ -167,7 +167,7 @@ class DeactivateSensorCTRLTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
 
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
@@ -261,7 +261,7 @@ class DeactivateSensorCTRLTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
 
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
@@ -300,7 +300,7 @@ class DeactivateSensorCTRLTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
 
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
@@ -347,7 +347,7 @@ class DeactivateSensorCTRLTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");
@@ -379,7 +379,7 @@ class DeactivateSensorCTRLTest {
         GeographicalArea porto = new GeographicalArea("POR", "Porto", "City", portoOA, portoLoc);
         gaList.addGA(porto);
 
-        SensorList lisbonSensorList = porto.getSensorListInGA();
+        SensorList lisbonSensorList = porto.getSensorListInGa();
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, Calendar.MARCH, 2);
         SensorType sensorType = new SensorType("Temperature");

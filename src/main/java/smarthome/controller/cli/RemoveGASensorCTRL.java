@@ -37,7 +37,7 @@ public class RemoveGASensorCTRL {
      */
     private GeographicalArea getGAById(String gaDTOId) {
         for (GeographicalArea geographicalArea : gaList.getGAList()) {
-            if (geographicalArea.getId().matches(gaDTOId)) {
+            if (geographicalArea.getIdentification().matches(gaDTOId)) {
                 return geographicalArea;
             }
         }
@@ -55,7 +55,7 @@ public class RemoveGASensorCTRL {
      */
     public boolean removeSensor(String gaDTOId, String sensorDTOId) {
         GeographicalArea ga = getGAById(gaDTOId);
-        SensorList sensorList = ga.getSensorListInGA();
+        SensorList sensorList = ga.getSensorListInGa();
         for (Sensor sensor : sensorList.getSensorList()) {
             if (sensor.getId().matches(sensorDTOId)) {
                 sensorList.removeSensor(sensor);

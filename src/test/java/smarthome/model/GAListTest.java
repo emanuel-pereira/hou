@@ -35,7 +35,7 @@ class GAListTest {
         TypeGA typeGA = new TypeGA("city");
         GeographicalArea area1 = ga.newGA("Pt", "Porto", typeGA, occupationArea, location);
         String expectedResult = "Porto";
-        String result = area1.getGAName();
+        String result = area1.getDesignation();
         assertEquals(expectedResult, result);
     }
 

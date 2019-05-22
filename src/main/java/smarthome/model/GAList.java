@@ -1,8 +1,6 @@
 package smarthome.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class GAList {
@@ -56,7 +54,7 @@ public class GAList {
     public List<Sensor> getAllSensors() {
         List<Sensor> sensors = new ArrayList<>();
         for (GeographicalArea ga : this.listOfGa) {
-            List<Sensor> gaSensorList = ga.getSensorListInGA().getSensorList();
+            List<Sensor> gaSensorList = ga.getSensorListInGa().getSensorList();
             sensors.addAll(gaSensorList);
         }
         return sensors;
@@ -65,7 +63,7 @@ public class GAList {
     public List<Reading> getAllReadings() {
         List<Reading> allReadings = new ArrayList<>();
         for (GeographicalArea ga : this.listOfGa) {
-            List<Sensor> sensorList = ga.getSensorListInGA().getSensorList();
+            List<Sensor> sensorList = ga.getSensorListInGa().getSensorList();
             for (Sensor sensor : sensorList) {
                 List<Reading> readings = sensor.getSensorBehavior().getReadingList().getReadingsList();
                 allReadings.addAll(readings);
@@ -99,7 +97,7 @@ public class GAList {
         GeographicalArea geoArea = get(0);
         for (GeographicalArea ga : this.listOfGa) {
             geoArea = ga;
-            if (geoArea.getId().matches(inputId)) {
+            if (geoArea.getIdentification().matches(inputId)) {
                 break;
             }
         }
@@ -117,7 +115,7 @@ public class GAList {
     public List<GeographicalArea> gAFromThisType(String inputTypeGA) {
         List<GeographicalArea> gAFromTypeList = new ArrayList<>();
         for (GeographicalArea ga : this.listOfGa) {
-            if (ga.getTypeName().equals(inputTypeGA)) {
+            if (ga.getName().equals(inputTypeGA)) {
                 gAFromTypeList.add(ga);
             }
         }
@@ -135,7 +133,7 @@ public class GAList {
         for (GeographicalArea ga : list) {
             result.append(number++);
             result.append(element);
-            result.append(ga.getGAName());
+            result.append(ga.getDesignation());
             result.append("\n");
         }
         return result.toString();

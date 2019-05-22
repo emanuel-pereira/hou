@@ -82,7 +82,7 @@ public class DataImportCTRL {
         List<Sensor> allSensors = new ArrayList<>();
         List<GeographicalArea> gaListInFile = dataImportGeneral.loadGeoAreaFiles(filePath);
         for (GeographicalArea ga : gaListInFile) {
-            allSensors.addAll(ga.getSensorListInGA().getSensorList());
+            allSensors.addAll(ga.getSensorListInGa().getSensorList());
         }
         return allSensors.size();
     }

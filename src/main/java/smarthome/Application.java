@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.text.ParseException;
 
 @SpringBootApplication
-public class Application {
+public class Application  {
 
     private static final String DEFAULT = "Default";
     Location loc = new Location(1, 1, 1);
@@ -51,6 +51,12 @@ public class Application {
         Repositories.setExternalSensorRepository(extSensorRep);
         Repositories.setInternalSensorRepository(intSensorRep);
         Repositories.setGridsRepository(gridsRep);
+
+        TypeGA city = typeRep.save(new TypeGA("city"));
+        GeographicalArea area = new GeographicalArea("id1","name1", city,
+                new OccupationArea(1.0,1.0),
+                new Location(23.0,23.0,23.0));
+        geoRep.save(area);
 
         return args -> log.info("Application Start-Up");
     }

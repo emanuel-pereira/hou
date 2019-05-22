@@ -83,7 +83,7 @@ public class NewGeographicalAreaCTRL {
      */
     public String getGAName() {
         GeographicalArea createdGA = this.gaList.getLastGA();
-        return createdGA.getGAName();
+        return createdGA.getDesignation();
     }
 
     /**
@@ -91,7 +91,7 @@ public class NewGeographicalAreaCTRL {
      */
     public String getGAType() {
         GeographicalArea createdGA = this.gaList.getLastGA();
-        return createdGA.getTypeName();
+        return createdGA.getName();
     }
 
 }

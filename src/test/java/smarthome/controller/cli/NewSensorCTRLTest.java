@@ -396,8 +396,8 @@ class NewSensorCTRLTest {
         Sensor s1 = new ExternalSensor("T0001", "LisboaTempSensor1", startDate, loc1, temperature, "Cº", readingList);
         Location loc2 = new Location(27, -14, 6);
         Sensor s2 = new ExternalSensor("T0002", "LisboaTempSensor2", startDate, loc2, temperature, "Cº", readingList);
-        lisboa.getSensorListInGA().addSensor(s1);
-        lisboa.getSensorListInGA().addSensor(s2);
+        lisboa.getSensorListInGa().addSensor(s1);
+        lisboa.getSensorListInGa().addSensor(s2);
         NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
 
         String expected = "temperature";
@@ -407,7 +407,7 @@ class NewSensorCTRLTest {
     }
 
     @Test
-    @DisplayName("Ensure getGAName() returns name Aveiro as it is the name of the geographical area in the selected index position of the geographical area list.")
+    @DisplayName("Ensure getDesignation() returns name Aveiro as it is the name of the geographical area in the selected index position of the geographical area list.")
     void getGAName() {
 
 
@@ -456,7 +456,7 @@ class NewSensorCTRLTest {
         Location location2 = new Location(23, -15, 12);
         ReadingList readingList = new ReadingList();
         Sensor s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
-        SensorList portoSensorList = porto.getSensorListInGA();
+        SensorList portoSensorList = porto.getSensorListInGa();
         portoSensorList.addSensor(s1);
         String expected = "T0001";
         String result = ctrl.getGASensorId(0);
@@ -484,7 +484,7 @@ class NewSensorCTRLTest {
         Location location2 = new Location(23, -15, 12);
         ReadingList readingList = new ReadingList();
         Sensor s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
-        SensorList portoSensorList = porto.getSensorListInGA();
+        SensorList portoSensorList = porto.getSensorListInGa();
         portoSensorList.addSensor(s1);
         String expected = "Temperature sensor 1";
         String result = ctrl.getGASensorName(0);
@@ -512,7 +512,7 @@ class NewSensorCTRLTest {
         Location location2 = new Location(23, -15, 12);
         ReadingList readingList = new ReadingList();
         Sensor s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
-        SensorList portoSensorList = porto.getSensorListInGA();
+        SensorList portoSensorList = porto.getSensorListInGa();
         portoSensorList.addSensor(s1);
         Calendar result = ctrl.getGASensorSDate(0);
         assertEquals(startDate, result);
@@ -569,7 +569,7 @@ class NewSensorCTRLTest {
         ReadingList readingList = new ReadingList();
 
         Sensor s1 = sensorList.newSensor("T0001", "Temperature sensor 1", startDate, location2, temperature, "Celsius", readingList);
-        SensorList portoSensorList = porto.getSensorListInGA();
+        SensorList portoSensorList = porto.getSensorListInGa();
         portoSensorList.addSensor(s1);
         String expected = "Celsius";
         String result = ctrl.getGASensorUnit(0);

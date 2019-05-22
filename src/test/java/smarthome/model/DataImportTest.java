@@ -124,14 +124,14 @@ class DataImportTest {
         SensorType temp = new SensorType("Temperature");
         Sensor sensorISEP = new ExternalSensor("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
         Sensor sensorPorto = new ExternalSensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
-        ga.getSensorListInGA().addSensor(sensorISEP);
-        ga.getSensorListInGA().addSensor(sensorPorto);
+        ga.getSensorListInGa().addSensor(sensorISEP);
+        ga.getSensorListInGa().addSensor(sensorPorto);
 
         DataImport dataImport = new DataImport(gaList);
         Path path = Paths.get("resources_tests/DataSet_sprint05_SD.json");
         dataImport.importReadingsFromFile(path,gaList);
 
-        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getSensorBehavior().getReadingList().getReadingsList();
+        List<Reading> rList = ga.getSensorListInGa().getSensorList().get(0).getSensorBehavior().getReadingList().getReadingsList();
         double r = rList.get(3).returnValue();
         assertEquals(15.1, r);
     }
@@ -146,14 +146,14 @@ class DataImportTest {
         SensorType temp = new SensorType("Temperature");
         Sensor sensorISEP = new ExternalSensor("TT12346", "SensorISEP", startDate, location, temp, "C", new ReadingList());
         Sensor sensorPorto = new ExternalSensor("TT1236A", "SensorPorto", startDate, location, temp, "C", new ReadingList());
-        ga.getSensorListInGA().addSensor(sensorISEP);
-        ga.getSensorListInGA().addSensor(sensorPorto);
+        ga.getSensorListInGa().addSensor(sensorISEP);
+        ga.getSensorListInGa().addSensor(sensorPorto);
 
         DataImport dataImport = new DataImport(gaList);
         Path path = Paths.get("resources_tests/DataSet_sprint05_SD.json");
         dataImport.importReadingsFromFile(path,gaList);
 
-        List<Reading> rList = ga.getSensorListInGA().getSensorList().get(0).getSensorBehavior().getReadingList().getReadingsList();
+        List<Reading> rList = ga.getSensorListInGa().getSensorList().get(0).getSensorBehavior().getReadingList().getReadingsList();
         int size = rList.size();
         assertEquals(0, size);
     }

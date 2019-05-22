@@ -3,15 +3,12 @@ package smarthome.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.repository.Repositories;
 
 import java.lang.reflect.Field;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static smarthome.model.House.getHouseRoomList;
 import static smarthome.model.TypeGAList.getTypeGAListInstance;
 
 class SensorListTest {
@@ -461,7 +458,7 @@ class SensorListTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
         SensorType sensorType = new SensorType("Temperature");
@@ -488,7 +485,7 @@ class SensorListTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
         SensorType sensorType = new SensorType("Temperature");
@@ -523,7 +520,7 @@ class SensorListTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         GregorianCalendar pDate = new GregorianCalendar(2019, 2, 2);
 
         lisbonSensorList.deactivateSensor("TL1023", pDate);
@@ -604,7 +601,7 @@ class SensorListTest {
 
         GregorianCalendar pauseDate = new GregorianCalendar(2019,05,03);
 
-        sList.deactivateSensor(sensor1.getId(),pauseDate);
+        sList.deactivateSensor(sensor1.getIdentification(),pauseDate);
 
         boolean thrown = false;
         try{

@@ -107,8 +107,8 @@ public class NewSensorCTRL {
     public boolean addNewSensorToGA(String id, String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, Location location, int indexOfGA, ReadingList readings) {
         GeographicalArea geographicalArea = this.gaList.get(indexOfGA);
         SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);
-        Sensor sensor = geographicalArea.getSensorListInGA().newSensor(id, inputName, startDate, location, sensorType, inputUnit, readings);
-        return geographicalArea.getSensorListInGA().addSensor(sensor);
+        Sensor sensor = geographicalArea.getSensorListInGa().newSensor(id, inputName, startDate, location, sensorType, inputUnit, readings);
+        return geographicalArea.getSensorListInGa().addSensor(sensor);
     }
 
     /**
@@ -168,7 +168,7 @@ public class NewSensorCTRL {
      */
     public String getGASensorType(int indexOfGA) {
         GeographicalArea ga = this.gaList.get(indexOfGA);
-        Sensor createdSensor = ga.getSensorListInGA().getLastSensor();
+        Sensor createdSensor = ga.getSensorListInGa().getLastSensor();
         SensorType type = createdSensor.getSensorBehavior().getSensorType();
         return type.getType().getName();
     }
@@ -190,7 +190,7 @@ public class NewSensorCTRL {
      */
     public String getGAName(int indexOfGA) {
         GeographicalArea ga = this.gaList.get(indexOfGA);
-        return ga.getGAName();
+        return ga.getDesignation();
     }
 
     /**
@@ -213,7 +213,7 @@ public class NewSensorCTRL {
      */
     public String getGASensorName(int indexOfGA) {
         GeographicalArea ga = this.gaList.get(indexOfGA);
-        Sensor createdSensor = ga.getSensorListInGA().getLastSensor();
+        Sensor createdSensor = ga.getSensorListInGa().getLastSensor();
         return createdSensor.getSensorBehavior().getDesignation();
     }
 
@@ -225,7 +225,7 @@ public class NewSensorCTRL {
      */
     public String getGASensorId(int indexOfGA) {
         GeographicalArea ga = this.gaList.get(indexOfGA);
-        Sensor createdSensor = ga.getSensorListInGA().getLastSensor();
+        Sensor createdSensor = ga.getSensorListInGa().getLastSensor();
         return createdSensor.getId();
     }
 
@@ -250,7 +250,7 @@ public class NewSensorCTRL {
      */
     public Calendar getGASensorSDate(int indexOfGA) {
         GeographicalArea ga = this.gaList.get(indexOfGA);
-        Sensor createdSensor = ga.getSensorListInGA().getLastSensor();
+        Sensor createdSensor = ga.getSensorListInGa().getLastSensor();
         return createdSensor.getSensorBehavior().getStartDate();
     }
 
@@ -288,7 +288,7 @@ public class NewSensorCTRL {
      */
     public String getGASensorUnit(int indexOfGA) {
         GeographicalArea ga = this.gaList.get(indexOfGA);
-        Sensor createdSensor = ga.getSensorListInGA().getLastSensor();
+        Sensor createdSensor = ga.getSensorListInGa().getLastSensor();
         return createdSensor.getSensorBehavior().getUnit();
     }
 
