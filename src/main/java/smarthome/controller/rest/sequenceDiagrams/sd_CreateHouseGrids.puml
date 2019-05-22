@@ -1,11 +1,38 @@
 @startuml
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
 "End User \n Application" -> ":GridCTRL": POST w/ HouseGrid \n object as JSON
 
-":GridCTRL" -> ":GridService" : result = addGrid(gridDTO) \n "Spring conversion from \n JSON object to DTO object"
+":GridCTRL" -> ":GridService" : addGrid(gridDTO) \n "Spring conversion from \n JSON object to DTO object"
 
-":GridService" -> "ModelMapper" : newgrid = HouseGrid() \n "create model object"
+ref over ":GridService","ModelMapper": create model object newgrid\nnewgrid = model.map(dto,GAType.class)
 
-":GridService" -> ":GridRepository" : save(newgrid)
+":GridService" -> ":GridRepository" : saved = save(newgrid)
+
+ref over ":GridService","ModelMapper": create DTO object resultDTO\nresultdto = model.map(saved,GATypeDTO.class)
+
+":GridService" --> ":GridCTRL" : resultdto
 
 ":GridCTRL" --> "End User \n Application" : Response status \nand result message
 @enduml
