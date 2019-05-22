@@ -11,6 +11,7 @@ import smarthome.repository.Repositories;
 import smarthome.services.GeoAreaService;
 
 
+import javax.jws.WebParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,10 +50,11 @@ public class GeoAreaCTRL {
     @PostMapping("/geoareas")
     GeographicalArea newGeoArea(@RequestBody GeographicalAreaDTO geoAreaDto) {
 
-        GeographicalArea geoArea = geoAreaDto.fromDTO();
+       GeographicalArea area = modelMapper.map(geoAreaDto,GeographicalArea.class);
 
-       return Repositories.getGeoRepository().save(geoArea);
+       return Repositories.getGeoRepository().save(area);
     }
+
 
 
     GeoAreaCTRL() {
