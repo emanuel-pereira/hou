@@ -1,0 +1,39 @@
+@startuml
+hidefootbox
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+
+Client -> ":RoomCTRL":  POST/createRoom
+create ":RoomService"
+":RoomCTRL" -> ":RoomService": create()
+":RoomCTRL" -> ":RoomService": save(roomDto)
+":RoomService" -> ":RoomMapper": room=toObject(roomDTO)
+":RoomService" -> RoomRepository: existsById(id)
+":RoomService" -> RoomRepository: save(room)
+Client <-- ":RoomCTRL":  Success message
+
+
+
+
+@enduml

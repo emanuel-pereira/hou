@@ -15,9 +15,6 @@ import java.util.List;
 public class GATypes {
 
     @Autowired
-    public TypeGARepository repository;
-
-    @Autowired
     public GaTypesService service;
 
     ModelMapper modelMapper = new ModelMapper();

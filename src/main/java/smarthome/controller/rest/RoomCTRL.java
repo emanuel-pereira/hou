@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import smarthome.dto.RoomDTO;
 import smarthome.dto.RoomDetailDTO;
-import smarthome.model.Room;
 import smarthome.services.RoomService;
 
 import java.text.ParseException;
