@@ -1,11 +1,11 @@
 @startuml
-"End User \n Application" -> "GridCTRL": POST w/ HouseGrid \n object as JSON
+"End User \n Application" -> ":GridCTRL": POST w/ HouseGrid \n object as JSON
 
-"GridCTRL" -> "GridService" : result = addGrid(gridDTO) \n "Spring conversion from \n JSON object to DTO object"
+":GridCTRL" -> ":GridService" : result = addGrid(gridDTO) \n "Spring conversion from \n JSON object to DTO object"
 
-"GridService" -> "HouseGrid Model" : newgrid = HouseGrid() \n "create model object"
+":GridService" -> "ModelMapper" : newgrid = HouseGrid() \n "create model object"
 
-"GridService" -> "GridRepository" : save(newgrid)
+":GridService" -> ":GridRepository" : save(newgrid)
 
-"GridCTRL" --> "End User \n Application" : Response status \nand result message
+":GridCTRL" --> "End User \n Application" : Response status \nand result message
 @enduml
