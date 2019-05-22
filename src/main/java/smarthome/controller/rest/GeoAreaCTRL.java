@@ -62,17 +62,22 @@ public class GeoAreaCTRL {
     }
 
 
-    @GetMapping("/GeographicalAreaParent")
-    public List<GeographicalAreaDTO> listOfGAS() {
+    @GetMapping("/geoareas/getParent")
+    public List<GeographicalAreaDTO> showListOfGAS() {
         return this.geoRepoDDD.findAll();
     }
 
-    @PostMapping("/GeographicalAreaParent")
-    public ResponseEntity<Object> setParentOfGAWebCTRL(@RequestParam String id, String designation) {
+    @GetMapping("/geoareas/findParentbyId")
+    public GeographicalArea findByID(@PathVariable String id) {
+        return geoRepoDDD.findByIdGa(id);
+    }
 
-        if (this.geoRepoDDD.setParentGaDTO(id, designation)) {
+    @PostMapping("/geoareas/setParent")
+    public ResponseEntity<Object> setParentOfGAWebCTRL(@RequestParam String id, String idParent) {
+
+        if (this.geoRepoDDD.setParentGaWebCTRL(id, idParent)) {
             return new ResponseEntity<>("The Geographical area was set to another", HttpStatus.ACCEPTED);
-        } else return new ResponseEntity<>("The Geographical area wasn't set to another", HttpStatus.UNAUTHORIZED);
+        } else return new ResponseEntity<>("The Geographical area wasn't set to another", HttpStatus.BAD_REQUEST);
     }
 
 }
