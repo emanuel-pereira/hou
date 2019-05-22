@@ -4,30 +4,22 @@ import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import smarthome.dto.RoomDetailDTO;
 import smarthome.model.*;
+import smarthome.services.RoomService;
 
 import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static smarthome.model.House.getHouseRoomList;
 
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 public class ListRoomsOfHouseCTRLTest {
 
-    Location loc = new Location(20, 20, 2);
-    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal", loc);
-    OccupationArea oc = new OccupationArea(2, 5);
-    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
-    House house = House.getHouseInstance(a1, g1);
 
-    @BeforeEach
-    public void resetMySingleton() throws SecurityException,
-            NoSuchFieldException, IllegalArgumentException,
-            IllegalAccessException {
-        Field instance = House.class.getDeclaredField("theHouse");
-        instance.setAccessible(true);
-        instance.set(null, null);
-
-    }
 /*
     @Test
     @DisplayName("Ensure that bedroom, kitchen and bathroom has been edited has indexed to a list ")
@@ -58,17 +50,17 @@ public class ListRoomsOfHouseCTRLTest {
 
 
     @Test
-    public void roomListSize() {
+    void roomListSize() {
 
-        RoomList roomList = getHouseRoomList();
+        RoomService roomService = new RoomService();
 
         ListRoomsOfHouseCTRL ctrl108 = new ListRoomsOfHouseCTRL();
 
-        Room bedroom = new Room("R01", "Quarto da Maria", 1, 2, 3, 2);
-        Room kitchen = new Room("R02", "Cozinha", 1, 2, 3, 2);
+        RoomDetailDTO bedroom = roomService.createRoom("R01", "Bedroom", 1, 2, 3, 2);
+        RoomDetailDTO kitchen = roomService.createRoom("R02", "Kitchen", 1, 2, 3, 2);
 
-        roomList.addRoom(bedroom);
-        roomList.addRoom(kitchen);
+        roomService.save(bedroom);
+        roomService.save(kitchen);
 
         long expected = 2;
         long result = ctrl108.roomListSize();

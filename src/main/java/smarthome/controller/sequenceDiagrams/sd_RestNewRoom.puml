@@ -24,14 +24,14 @@ BorderColor SteelBlue
 }
 
 
-Client -> ":RoomCTRL":  POST/createRoom
+ClientHTTP -> ":RoomCTRL":  POST/createRoom
 create ":RoomService"
 ":RoomCTRL" -> ":RoomService": create()
 ":RoomCTRL" -> ":RoomService": save(roomDto)
 ":RoomService" -> ":RoomMapper": room=toObject(roomDTO)
 ":RoomService" -> RoomRepository: existsById(id)
 ":RoomService" -> RoomRepository: save(room)
-Client <-- ":RoomCTRL":  Success message
+ClientHTTP <-- ":RoomCTRL":  Success message
 
 
 
