@@ -240,8 +240,8 @@ class ConfigureHouseCTRLTest {
         GeographicalArea ga1 = new GeographicalArea("Pt","Porto", "city", oc1,loc1);
         GeographicalArea ga2 = new GeographicalArea("Ls","Lisboa", "city", oc2,loc2);
 
-        gl1.addGA(ga1);
-        gl1.addGA(ga2);
+        assertTrue(gl1.addGA(ga1));
+        assertTrue(gl1.addGA(ga2));
 
         ConfigureHouseCTRL ctrl101 = new ConfigureHouseCTRL(gl1);
         String id = ctrl101.getIdFromIndex(1);

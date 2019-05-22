@@ -38,14 +38,11 @@ class GetTypeGAListCTRLTest {
         ctrl1.createTypeGA("village");
         ctrl1.createTypeGA("city");
 
-        TypeGA type1 = new TypeGA("village");
-        TypeGA type2 = new TypeGA("city");
-        List<TypeGA> expected = Arrays.asList(type1, type2);
-
         GetTypeGAListCTRL ctrl2 = new GetTypeGAListCTRL();
         List<TypeGA> result = ctrl2.getTypeGAListCTRL();
 
-        assertEquals(expected, result);
+        assertEquals("village", result.get(0).getType());
+        assertEquals("city", result.get(1).getType());
     }
 
     @Test
