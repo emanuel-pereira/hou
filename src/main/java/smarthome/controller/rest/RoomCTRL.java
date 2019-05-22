@@ -20,11 +20,20 @@ public class RoomCTRL {
 
     }
 
+    /**
+     * Receives HTTP Get request and shows all rooms
+     * @return ResponseEntity that represents the whole HTTP response with a List<RoomDTO> (the basic information of the Room)
+     */
     @GetMapping("/rooms")
     public ResponseEntity<Object> findAll() {
         return new ResponseEntity<>(this.roomRepoDDD.findAll(),HttpStatus.OK);
     }
 
+    /**
+     * Receives HTTP Post request and creates and saves a room in the repository
+     * @param room RoomDetailDTO with the elements necessary to create a Room
+     * @return ResponseEntity that represents the whole HTTP response
+     */
     @PostMapping("/rooms")
     public ResponseEntity<Object> createRoom(@RequestBody RoomDetailDTO room ) {
 
@@ -33,6 +42,11 @@ public class RoomCTRL {
         } else return new ResponseEntity<>("Room wasn't created", HttpStatus.UNAUTHORIZED);
     }
 
+    /**
+     * Receives HTTP Get request and shows the specific information of a room
+     * @param id The Id of the Room
+     * @return ResponseEntity that represents the whole HTTP response with a RoomDetailDTO (more information of the Room)
+     */
     @GetMapping("rooms/{id}")
     public RoomDetailDTO findOne(@PathVariable String id) {
         return this.roomRepoDDD.findById(id);
