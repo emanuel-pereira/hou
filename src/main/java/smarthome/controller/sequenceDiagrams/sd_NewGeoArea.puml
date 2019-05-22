@@ -1,0 +1,74 @@
+@startuml
+autonumber
+hidefootbox
+
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+actor SystemAdmin
+
+create ":NewGeoAreaUI"
+SystemAdmin -> ":NewGeoAreaUI": Create a new\nGeographical Area
+
+SystemAdmin <<-- ":NewGeoAreaUI": Request Id and designation
+
+SystemAdmin -> ":NewGeoAreaUI": Input Id and designation
+
+
+
+create ":NewGeoAreaCTRL"
+":NewGeoAreaUI" -> ":NewGeoAreaCTRL": create()
+
+
+":NewGeoAreaCTRL" -> GeoAreaService: List<TypeGaDTO> =\ngetTypeGaList()
+
+GeoAreaService -> "TypeGa\nService": List<TypeGaDTO> =\ngetGaType()
+
+"TypeGa\nService" -> "TypeGa\nCRUD": findAll()
+
+":NewGeoAreaUI" -->> SystemAdmin: Show list of geographical\narea types
+
+SystemAdmin -> ":NewGeoAreaUI": Select geographical area type
+
+
+
+SystemAdmin <<-- ":NewGeoAreaUI": Request width, length and\nGPS coordinates
+
+SystemAdmin -> ":NewGeoAreaUI": Input size and coordinates
+
+
+
+
+":NewGeoAreaUI" -> ":NewGeoAreaCTRL": GeographicalAreaDTO geoAreaDto =\nnewGeoArea (id, designation, type,\noccupationArea, location)
+
+":NewGeoAreaCTRL" -> GeoAreaService: GeographicalAreaDTO geoAreaDto =\nnewGeoArea (id, designation, type,\noccupationArea, location)
+
+GeoAreaService -> "GeoArea\nCRUD" : save()
+
+
+
+SystemAdmin <<-- ":NewGeoAreaUI": Show success message\nwith all the geographical\narea information
+
+
+@enduml
