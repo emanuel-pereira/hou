@@ -41,12 +41,9 @@ public class GaTypesService {
     }
 
     public TypeGADTO newType(TypeGADTO newType) {
-        System.out.println(newType.getType() + " -> POST");
         TypeGA type = modelMapper.map(newType, TypeGA.class);
-        System.out.println(type.getType() + " -> MAPPED");
         TypeGA saved = repository.save(type);
         //TODO implement service that looks for equals, requests objects, and saves objects
-        System.out.println(saved.getType() + " -> PERSISTED");
         //TODO implement ResponseEntity<> for multiple return messages
         return modelMapper.map(saved, TypeGADTO.class);
     }
