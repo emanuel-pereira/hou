@@ -1,0 +1,41 @@
+@startuml
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+"End User \n Application" -> ":GridCTRL": GET request \n/housegrids/{idHG}/rooms
+
+":GridCTRL" -> ":GridService" : searchHG(idHG)
+
+":GridService" -> ":GridRepository" : existsbyId(idHG)
+
+":GridCTRL" -> ":RoomService" : searchRoomsbyHG(idHG)
+
+":RoomService" -> ":RoomRepository" : List<Room> = findbyHGid(idHG)
+
+loop  Conversion of List<Room> to List<RoomDTO>
+":RoomService" -> "ModelMapper": RoomDTO = model.map(Room,RoomDTO.class)
+end
+":RoomService" --> ":GridCTRL" : resultdto
+
+":GridCTRL" --> "End User \n Application" : Response status \nand result message
+@enduml
