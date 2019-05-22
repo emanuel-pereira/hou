@@ -16,7 +16,6 @@ skinparam sequence {
 	ActorFontColor MidnightBlue
 	ActorFontSize 17
 	ActorFontName Aapex
-
 }
 
 skinparam note {
@@ -27,13 +26,13 @@ BorderColor SteelBlue
 
 ":GridCTRL" -> ":GridService" : addGrid(gridDTO) \n "Spring conversion from \n JSON object to DTO object"
 
-ref over ":GridService","ModelMapper": create model object newgrid
+ref over ":GridService","ModelMapper": create model object newgrid\nnewgrid = model.map(dto,GAType.class)
 
-":GridService" -> ":GridRepository" : save(newgrid)
+":GridService" -> ":GridRepository" : saved = save(newgrid)
 
-ref over ":GridService","ModelMapper": create DTO object resultDTO
+ref over ":GridService","ModelMapper": create DTO object resultDTO\nresultdto = model.map(saved,GATypeDTO.class)
 
-":GridService" --> ":GridCTRL" : resultDTO
+":GridService" --> ":GridCTRL" : resultdto
 
 ":GridCTRL" --> "End User \n Application" : Response status \nand result message
 @enduml
