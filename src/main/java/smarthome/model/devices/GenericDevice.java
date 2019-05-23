@@ -111,7 +111,7 @@ public abstract class GenericDevice implements Device, Metered {
 
     // ------------- Metered interface implementation -------------
 
-    public String getMeteredDesignation() {
+    public String getDesignation() {
         return this.getDeviceName();
     }
 

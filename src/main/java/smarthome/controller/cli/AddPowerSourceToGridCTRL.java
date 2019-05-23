@@ -32,24 +32,24 @@ public class AddPowerSourceToGridCTRL {
     }
 
     public String getHouseGridName(int indexHG){
-        return this.getHouseGrid(indexHG).getMeteredDesignation();
+        return this.getHouseGrid(indexHG).getDesignation();
     }
 
     public  List<PowerSource> getPowerSourceListCtrl(int indexHG) {
-        return this.getHouseGrid(indexHG).getPSListInHG().getPSList();
+        return this.getHouseGrid(indexHG).getPsListInHG().getPSList();
     }
 
     public String showPowerSourceListInString(int indexHG) {
-        return this.getHouseGrid(indexHG).getPSListInHG().showPowerSourceListInString();
+        return this.getHouseGrid(indexHG).getPsListInHG().showPowerSourceListInString();
     }
 
     public int getPSListSizeCtrl (int indexOfHG) {
-        return getHouseGridList().get(indexOfHG-1).getPSListInHG().getPSListSize();
+        return getHouseGridList().get(indexOfHG-1).getPsListInHG().getPSListSize();
     }
 
     public boolean addNewPSToGrid(int indexOfHG, String namePS, String typePS, double maxPower, double storageCapacity) {
-        PowerSourceList psListOfHG = this.getHouseGrid(indexOfHG).getPSListInHG();
+        PowerSourceList psListOfHG = this.getHouseGrid(indexOfHG).getPsListInHG();
         PowerSource ps = psListOfHG.newPowerSource(namePS,typePS,maxPower,storageCapacity);
-        return this.getHouseGrid(indexOfHG).getPSListInHG().addPS(ps);
+        return this.getHouseGrid(indexOfHG).getPsListInHG().addPS(ps);
     }
 }

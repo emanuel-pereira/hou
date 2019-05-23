@@ -25,7 +25,7 @@ public class GetEnergyConsumptionInPeriodCTRL {
     public String getMeteredName(int indexOfMetered) {
         List<Metered> meteredDeviceList = getMetered();
         Metered metered = meteredDeviceList.get(indexOfMetered);
-        return metered.getMeteredDesignation();
+        return metered.getDesignation();
     }
 
     /**

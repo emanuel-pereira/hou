@@ -67,7 +67,7 @@ public class House {
      */
     public static RoomList getHouseRoomsWithoutGrid(HouseGrid houseGrid) {
         RoomList roomListWithoutHouseGrid = new RoomList();
-        RoomList roomListInHouseGrid = houseGrid.getRoomListInAGrid();
+        RoomList roomListInHouseGrid = houseGrid.getRoomList();
         for (Room room : roomList.getRoomList()) {
             if (!(roomListInHouseGrid.getRoomList().contains(room)))
                 roomListWithoutHouseGrid.addRoom(room);
@@ -89,7 +89,7 @@ public class House {
         for (Room r : listOfRoomsWithHouseGrid.getRoomList()) {
             result.append(number++);
             result.append(element);
-            result.append(r.getMeteredDesignation());
+            result.append(r.getDesignation());
             result.append("\n");
         }
         return result.toString();
@@ -335,8 +335,8 @@ public class House {
     public static List<Metered> getMetered() {
         List<Metered> meteredList = new ArrayList<>();
         for (HouseGrid houseGrid : houseGridList.getHouseGridList()) {
-            List<Room> tempRoomList = houseGrid.getRoomListInAGrid().getRoomList();
-            List<Metered> deviceList = houseGrid.getRoomListInAGrid().getMeteredDevicesList();
+            List<Room> tempRoomList = houseGrid.getRoomList().getRoomList();
+            List<Metered> deviceList = houseGrid.getRoomList().getMeteredDevicesList();
             meteredList.add(houseGrid);
             meteredList.addAll(tempRoomList);
             meteredList.addAll(deviceList);
@@ -350,7 +350,7 @@ public class House {
         for (Metered metered : getMetered()) {
             meteredList.append(nr);
             meteredList.append(" - ");
-            meteredList.append(metered.getMeteredDesignation());
+            meteredList.append(metered.getDesignation());
             meteredList.append("\n");
             nr++;
         }

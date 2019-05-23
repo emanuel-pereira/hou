@@ -168,8 +168,8 @@ class AddPowerSourceToGridCTRLTest {
         PowerSource ps2 = new PowerSource("turbine003", "wind", 100, 100);
 
 
-        hg01.getPSListInHG().addPS(ps1);
-        hg01.getPSListInHG().addPS(ps2);
+        hg01.getPsListInHG().addPS(ps1);
+        hg01.getPsListInHG().addPS(ps2);
 
         List<PowerSource> expectedResult = Arrays.asList(ps1, ps2);
         List<PowerSource> result = ctrl135.getPowerSourceListCtrl(1);

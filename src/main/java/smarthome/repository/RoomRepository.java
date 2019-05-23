@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface RoomRepository extends CrudRepository<Room, String> {
 
-    List<Room> findAllByHouseGrid(Long id);
+    List<Room> findAllByHouseGridId(Long id);
 }

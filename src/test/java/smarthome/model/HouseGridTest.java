@@ -78,7 +78,7 @@ class HouseGridTest {
     @DisplayName("Set new House Grid with name ID")
     void setContractedMaximumPowerAndGridID() {
         HouseGrid hg = new HouseGrid("main grid");
-        assertEquals("main grid", hg.getMeteredDesignation());
+        assertEquals("main grid", hg.getDesignation());
     }
 
     @Test
@@ -87,7 +87,7 @@ class HouseGridTest {
         HouseGrid hg = new HouseGrid("grid002");
 
         String expectedResult = "grid002";
-        String result = hg.getMeteredDesignation();
+        String result = hg.getDesignation();
         assertEquals(expectedResult, result);
     }
 
@@ -97,11 +97,11 @@ class HouseGridTest {
         HouseGrid houseGrid = new HouseGrid("main");
         PowerSource ps1 = new PowerSource("panel002", "solar", 250, 14);
         PowerSource ps2 = new PowerSource("panel003", "solar", 250, 14);
-        houseGrid.getPSListInHG().addPS(ps1);
-        houseGrid.getPSListInHG().addPS(ps2);
+        houseGrid.getPsListInHG().addPS(ps1);
+        houseGrid.getPsListInHG().addPS(ps2);
 
         List<PowerSource> expectedResult = Arrays.asList(ps1, ps2);
-        List<PowerSource> result = houseGrid.getPSListInHG().getPSList();
+        List<PowerSource> result = houseGrid.getPsListInHG().getPSList();
 
         assertEquals(expectedResult, result);
 
@@ -182,7 +182,7 @@ class HouseGridTest {
         houseGrid.attachRoomToGrid(roomB);
 
         List<Room> expectedResult = Arrays.asList(roomA, roomB);
-        List<Room> result = houseGrid.getRoomListInAGrid().getRoomList();
+        List<Room> result = houseGrid.getRoomList().getRoomList();
 
         assertEquals(expectedResult, result);
     }
@@ -244,8 +244,8 @@ class HouseGridTest {
         getHouseRoomList().get(1).getDeviceList().add(d4);
         getHouseRoomList().get(1).getDeviceList().add(d5);
 
-        hg1.getRoomListInAGrid().addRoom(r1);
-        hg1.getRoomListInAGrid().addRoom(r3);
+        hg1.getRoomList().addRoom(r1);
+        hg1.getRoomList().addRoom(r3);
 
         List<Device> expectedResult = Arrays.asList(d1, d2, d3, d4, d5);
         List<Device> result = hg1.getDeviceListInGrid().getDeviceList();
@@ -284,8 +284,8 @@ class HouseGridTest {
         getHouseRoomList().get(1).getDeviceList().add(d4);
         getHouseRoomList().get(1).getDeviceList().add(d5);
 
-        hg1.getRoomListInAGrid().addRoom(r1);
-        hg1.getRoomListInAGrid().addRoom(r3);
+        hg1.getRoomList().addRoom(r1);
+        hg1.getRoomList().addRoom(r3);
 
         List<Device> expectedResult = Arrays.asList(d2, d5);
         List<Device> result = hg1.getDeviceListFromType(16).getDeviceList();
@@ -321,8 +321,8 @@ class HouseGridTest {
         getHouseRoomList().get(1).getDeviceList().addDevice(d4);
         getHouseRoomList().get(1).getDeviceList().addDevice(d5);
 
-        hg1.getRoomListInAGrid().addRoom(r1);
-        hg1.getRoomListInAGrid().addRoom(r3);
+        hg1.getRoomList().addRoom(r1);
+        hg1.getRoomList().addRoom(r3);
 
         List<Device> expectedResult = Arrays.asList(d1, d3, d4, d2, d5);
         List<Device> result = hg1.getDeviceListInGridGroupBy().getDeviceList();
@@ -359,8 +359,8 @@ class HouseGridTest {
         getHouseRoomList().get(1).getDeviceList().add(d4);
         getHouseRoomList().get(1).getDeviceList().add(d5);
 
-        hg1.getRoomListInAGrid().addRoom(r1);
-        hg1.getRoomListInAGrid().addRoom(r3);
+        hg1.getRoomList().addRoom(r1);
+        hg1.getRoomList().addRoom(r3);
 
         String expectedResult = "1 - Device: baker | Type: Oven | Location: cozinha | Active: true\n" +
                 "2 - Device: Textile Dryer | Type: WallTowelHeater | Location: cozinha | Active: true\n" +
@@ -449,7 +449,7 @@ class HouseGridTest {
     @DisplayName("Ensure that getEnergyConsumption returns 80 as devices fridge and ewh2 have both two readings each in  defined time interval")
     void getEnergyConsumption() {
         HouseGrid grid = new HouseGrid("MainGrid");
-        RoomList roomList = grid.getRoomListInAGrid();
+        RoomList roomList = grid.getRoomList();
 
         Room kitchen = new Room("R01", "Kitchen", 0, 8, 8, 3);
         Room garage = new Room("R02", "Living Room", 0, 5, 4, 3);
@@ -511,7 +511,7 @@ class HouseGridTest {
     @Test
     void showRoomsInHouseGrid() {
         HouseGrid grid = new HouseGrid("MainGrid");
-        RoomList roomList = grid.getRoomListInAGrid();
+        RoomList roomList = grid.getRoomList();
 
         Room kitchen = new Room("R01", "Kitchen", 0, 8, 8, 3);
         Room garage = new Room("R02", "Living Room", 0, 5, 4, 3);
@@ -529,7 +529,7 @@ class HouseGridTest {
     @DisplayName("Ensure that getEstimatedEnergyConsumption returns 1.09 Kwh")
     void getEstimatedEnergyConsumption() {
         HouseGrid grid = new HouseGrid("MainGrid");
-        RoomList roomList = grid.getRoomListInAGrid();
+        RoomList roomList = grid.getRoomList();
 
         Room kitchen = new Room("R01", "Kitchen", 0, 8, 8, 3);
         Room garage = new Room("R02", "Living Room", 0, 5, 4, 3);
@@ -586,7 +586,7 @@ class HouseGridTest {
     @DisplayName("Ensure that getEstimatedEnergyConsumption for grid returns zero as the houseGrid does not have any device")
     void getEstimatedEnergyConsumptionReturnsZero() {
         HouseGrid grid = new HouseGrid("MainGrid");
-        RoomList roomList = grid.getRoomListInAGrid();
+        RoomList roomList = grid.getRoomList();
 
         Room kitchen = new Room("R01", "Kitchen", 0, 8, 8, 3);
         Room garage = new Room("R02", "Living Room", 0, 5, 4, 3);

@@ -1,16 +1,20 @@
 
 package smarthome.controller.cli;
 
+import org.springframework.stereotype.Component;
 import smarthome.model.HouseGrid;
 import smarthome.model.HouseGridList;
 import smarthome.model.Room;
 import smarthome.model.RoomList;
+import smarthome.services.RoomService;
 
 import static smarthome.model.House.*;
 
-
+@Component
 public class AttachDetachAndListRoomsInGridCTRL {
     private final HouseGridList houseGridList;
+
+    private RoomService roomService = new RoomService();
 
     public AttachDetachAndListRoomsInGridCTRL() {
         this.houseGridList = getGridListInHouse();
@@ -25,8 +29,8 @@ public class AttachDetachAndListRoomsInGridCTRL {
      */
     public String getRoomOfHGName(int indexOfHG, int indexOfRoom) {
         HouseGrid houseGrid = this.houseGridList.get(indexOfHG);
-        Room room = houseGrid.getRoomListInAGrid().get(indexOfRoom);
-        return room.getMeteredDesignation();
+        Room room = houseGrid.getRoomList().get(indexOfRoom);
+        return room.getDesignation();
 
     }
 
@@ -38,7 +42,7 @@ public class AttachDetachAndListRoomsInGridCTRL {
      */
     public String getHGName(int indexOfHG) {
         HouseGrid houseGrid = this.houseGridList.get(indexOfHG);
-        return houseGrid.getMeteredDesignation();
+        return houseGrid.getDesignation();
     }
 
     /**
@@ -69,10 +73,10 @@ public class AttachDetachAndListRoomsInGridCTRL {
      */
     public String getNameOfLastRoomInHG(int indexOfHouseGrid) {
         HouseGrid houseGrid = this.houseGridList.get(indexOfHouseGrid);
-        RoomList roomListInGH = houseGrid.getRoomListInAGrid();
+        RoomList roomListInGH = houseGrid.getRoomList();
         int sizeOfRoomList = getRoomListOfHGSize(indexOfHouseGrid);
         Room lastRoom = roomListInGH.get(sizeOfRoomList-1);
-        return lastRoom.getMeteredDesignation();
+        return lastRoom.getDesignation();
     }
 
 
@@ -128,6 +132,8 @@ public class AttachDetachAndListRoomsInGridCTRL {
         HouseGrid selectedHG = this.houseGridList.get(indexOfHouseGrid);
         RoomList roomListWithoutGrid = getRoomsWithoutGrid(indexOfHouseGrid);
         Room selectedRoom = roomListWithoutGrid.get(indexOfRoom);
+        selectedRoom.setHouseGrid(selectedHG);
+        roomService.setHouseGrid(selectedRoom.getId(), selectedHG.getId());
         return selectedHG.attachRoomToGrid(selectedRoom);
     }
 
@@ -149,7 +155,7 @@ public class AttachDetachAndListRoomsInGridCTRL {
      */
     private RoomList getListOfRoomsInGrid(int indexOfHouseGrid) {
         HouseGrid houseGrid = this.houseGridList.get(indexOfHouseGrid);
-        return houseGrid.getRoomListInAGrid();
+        return houseGrid.getRoomList();
     }
 
     /**

@@ -102,7 +102,7 @@ public class GetTotalNominalPowerCTRL {
      */
     public int getSizeDeviceListInGrid(int indexGrid) {
         int sum = 0;
-        for (Room r : this.houseGridList.get(indexGrid).getRoomListInAGrid().getRoomList()) {
+        for (Room r : this.houseGridList.get(indexGrid).getRoomList().getRoomList()) {
             sum += r.getSizeDeviceListInRoom();
         }
         return sum;

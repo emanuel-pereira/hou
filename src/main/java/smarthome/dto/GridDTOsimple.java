@@ -1,5 +1,6 @@
 package smarthome.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GridDTOsimple {
@@ -9,6 +10,7 @@ public class GridDTOsimple {
     private List<String> rooms;
 
     public GridDTOsimple() {
+        this.rooms = new ArrayList<>();
     }
 
     public String getName() {
@@ -27,7 +29,7 @@ public class GridDTOsimple {
         this.rooms = rooms;
     }
 
-    public void addRoomDTO(String newroom){
+    public void addRoomId(String newroom){
         this.rooms.add(newroom);
     }
 }

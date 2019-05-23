@@ -16,7 +16,7 @@ public interface Metered {
      *
      * @return the metered type designation
      */
-    String getMeteredDesignation();
+    String getDesignation();
 
 
 }

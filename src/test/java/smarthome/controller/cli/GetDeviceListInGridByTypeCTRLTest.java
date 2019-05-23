@@ -183,9 +183,9 @@ class GetDeviceListInGridByTypeCTRLTest {
         getHouseRoomList().get(1).getDeviceList().add(d4);
         getHouseRoomList().get(2).getDeviceList().add(d5);
 
-        hg1.getRoomListInAGrid().addRoom(r1);
-        hg1.getRoomListInAGrid().addRoom(r3);
-        hg2.getRoomListInAGrid().addRoom(r2);
+        hg1.getRoomList().addRoom(r1);
+        hg1.getRoomList().addRoom(r3);
+        hg2.getRoomList().addRoom(r2);
 
         int expectedResult = 4;
         int result = ctrl160.getDeviceListInGridSizeCtrl(1);
@@ -228,9 +228,9 @@ class GetDeviceListInGridByTypeCTRLTest {
         getHouseRoomList().get(1).getDeviceList().add(d4);
         getHouseRoomList().get(2).getDeviceList().add(d5);
 
-        hg1.getRoomListInAGrid().addRoom(r1);
-        hg1.getRoomListInAGrid().addRoom(r3);
-        hg2.getRoomListInAGrid().addRoom(r2);
+        hg1.getRoomList().addRoom(r1);
+        hg1.getRoomList().addRoom(r3);
+        hg2.getRoomList().addRoom(r2);
 
         List<Device> expectedResult = Arrays.asList(d1,d2,d3,d5);
         List<Device> result = ctrl160.getDeviceListInGridCtrl(1).getDeviceList();
@@ -272,9 +272,9 @@ class GetDeviceListInGridByTypeCTRLTest {
         getHouseRoomList().get(1).getDeviceList().add(d4);
         getHouseRoomList().get(2).getDeviceList().add(d5);
 
-        hg1.getRoomListInAGrid().addRoom(r1);
-        hg1.getRoomListInAGrid().addRoom(r3);
-        hg2.getRoomListInAGrid().addRoom(r2);
+        hg1.getRoomList().addRoom(r1);
+        hg1.getRoomList().addRoom(r3);
+        hg2.getRoomList().addRoom(r2);
 
         List<Device> expectedResult = Arrays.asList(d1,d3,d2,d5);
         List<Device> result = ctrl160.deviceListGroupByTypeCtrl(1).getDeviceList();
@@ -316,9 +316,9 @@ class GetDeviceListInGridByTypeCTRLTest {
         getHouseRoomList().get(1).getDeviceList().add(d4);
         getHouseRoomList().get(2).getDeviceList().add(d5);
 
-        hg1.getRoomListInAGrid().addRoom(r1);
-        hg1.getRoomListInAGrid().addRoom(r3);
-        hg2.getRoomListInAGrid().addRoom(r2);
+        hg1.getRoomList().addRoom(r1);
+        hg1.getRoomList().addRoom(r3);
+        hg2.getRoomList().addRoom(r2);
 
         List<Device> expectedResult = Arrays.asList(d1,d2,d5);
         List<Device> result = ctrl160.deviceListGroupByTypeCtrl(1).getDeviceList();
@@ -360,9 +360,9 @@ class GetDeviceListInGridByTypeCTRLTest {
         getHouseRoomList().get(1).getDeviceList().add(d4);
         getHouseRoomList().get(2).getDeviceList().add(d5);
 
-        hg1.getRoomListInAGrid().addRoom(r1);
-        hg1.getRoomListInAGrid().addRoom(r3);
-        hg2.getRoomListInAGrid().addRoom(r2);
+        hg1.getRoomList().addRoom(r1);
+        hg1.getRoomList().addRoom(r3);
+        hg2.getRoomList().addRoom(r2);
 
         String expectedResult = "1 - Device: baker | Type: Oven | Location: cozinha | Active: true\n" +
                 "2 - Device: Textile Dryer | Type: WallTowelHeater | Location: cozinha | Active: true\n" +

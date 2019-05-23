@@ -168,7 +168,7 @@ public class RoomTest {
         bedroom.setDescription("bedroom1");
 
         String expectedResult = "bedroom1";
-        String result = bedroom.getMeteredDesignation();
+        String result = bedroom.getDesignation();
 
         assertEquals(expectedResult, result);
 

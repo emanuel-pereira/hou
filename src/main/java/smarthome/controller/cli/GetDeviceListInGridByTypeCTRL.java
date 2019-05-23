@@ -31,11 +31,11 @@ public class GetDeviceListInGridByTypeCTRL {
     }
 
         public String getHouseGridName(int indexHG){
-            return this.getHouseGrid(indexHG).getMeteredDesignation();
+            return this.getHouseGrid(indexHG).getDesignation();
         }
 
     public RoomList getListOfRoomsInGrid(int indexHG) {
-        return this.getHouseGrid(indexHG).getRoomListInAGrid();
+        return this.getHouseGrid(indexHG).getRoomList();
     }
 
     public int getRoomListSizeCtrl(int indexHG) {

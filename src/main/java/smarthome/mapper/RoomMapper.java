@@ -13,7 +13,7 @@ public class RoomMapper {
     public RoomDTO toDto(Room room) {
         RoomDTO roomDTO = new RoomDTO();
         roomDTO.setID(room.getId());
-        roomDTO.setDescription(room.getMeteredDesignation());
+        roomDTO.setDescription(room.getDesignation());
         return roomDTO;
     }
 
@@ -24,7 +24,7 @@ public class RoomMapper {
     public RoomDetailDTO toDetailDto(Room room) {
         RoomDetailDTO roomDTO = new RoomDetailDTO();
         roomDTO.setId(room.getId());
-        roomDTO.setDescription(room.getMeteredDesignation());
+        roomDTO.setDescription(room.getDesignation());
         roomDTO.setFloor(room.getFloor());
         roomDTO.setLength(room.getArea().getLength());
         roomDTO.setWidth(room.getArea().getWidth());

@@ -1,9 +1,5 @@
 package smarthome.dto;
 
-import smarthome.model.OccupationArea;
-
-import javax.persistence.Embedded;
-
 public class RoomDetailDTO {
     private String id;
     private String description;

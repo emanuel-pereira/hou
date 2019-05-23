@@ -68,7 +68,7 @@ public class Room implements Metered {
      *
      * @return Name of the room
      */
-    public String getMeteredDesignation() {
+    public String getDesignation() {
         return this.description;
     }
 

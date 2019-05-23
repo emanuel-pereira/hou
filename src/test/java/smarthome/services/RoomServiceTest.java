@@ -5,8 +5,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import smarthome.dto.GridDTOsimple;
 import smarthome.dto.RoomDetailDTO;
+import smarthome.model.HouseGrid;
+import smarthome.model.Room;
+import smarthome.repository.Repositories;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -59,4 +64,23 @@ class RoomServiceTest {
         assertNull(r1);
     }
 
+    @Test
+    void findRoomsByHouseGrid() {
+        //Arrange
+        RoomService roomService = new RoomService();
+        HouseGrid houseGrid = new HouseGrid("main grid");
+        HouseGrid grid = Repositories.getGridsRepository().save(houseGrid);
+
+        //Act
+        Room newroom = new Room("B107", "Classroom", 2, 3, 4, 1);
+        newroom.setHouseGrid(grid);
+        Repositories.getRoomRepository().save(newroom);
+        Room secondroom = new Room("B109", "Classroom", 2, 3, 4, 1);
+        secondroom.setHouseGrid(grid);
+        Repositories.getRoomRepository().save(secondroom);
+
+        GridDTOsimple roomsByHouseGrid = roomService.findRoomsByHouseGrid(1L);
+        assertEquals(2,roomsByHouseGrid.getRooms().size());
+
+    }
 }

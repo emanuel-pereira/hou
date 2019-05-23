@@ -1,11 +1,14 @@
 package smarthome.dto;
 
+import java.util.List;
+
 public class GridDTO {
 
     private Long id;
 
-    private double contractedMaximumPower = Double.NaN;
     private String designation;
+
+    private List<String> rooms;
 
     public GridDTO() {
     }
@@ -18,13 +21,6 @@ public class GridDTO {
         this.id = id;
     }
 
-    public double getContractedMaximumPower() {
-        return contractedMaximumPower;
-    }
-
-    public void setContractedMaximumPower(double contractedMaximumPower) {
-        this.contractedMaximumPower = contractedMaximumPower;
-    }
 
     public String getDesignation() {
         return designation;
@@ -32,5 +28,17 @@ public class GridDTO {
 
     public void setDesignation(String designation) {
         this.designation = designation;
+    }
+
+    public List<String> getRooms() {
+        return rooms;
+    }
+
+    public void setRooms(List<String> rooms) {
+        this.rooms = rooms;
+    }
+
+    public void addRoom(String newRoom){
+        this.rooms.add(newRoom);
     }
 }

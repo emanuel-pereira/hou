@@ -1,7 +1,6 @@
 package smarthome.services;
 
 import org.springframework.stereotype.Service;
-import smarthome.dto.GridDTO;
 import smarthome.dto.GridDTOsimple;
 import smarthome.dto.RoomDTO;
 import smarthome.dto.RoomDetailDTO;
@@ -113,11 +112,19 @@ public class RoomService {
     }
 
     public GridDTOsimple findRoomsByHouseGrid(Long id) {
-        List<Room> rooms = Repositories.getRoomRepository().findAllByHouseGrid(id);
+        List<Room> rooms = Repositories.getRoomRepository().findAllByHouseGridId(id);
         GridDTOsimple dto = new GridDTOsimple();
-        for (Room temp : rooms)
-            dto.addRoomDTO(temp.getId());
+        for (Room temp : rooms) {
+            System.out.println(temp.getId());
+            dto.addRoomId(temp.getId());
+        }
         return dto;
     }
 
+    public void setHouseGrid(String roomId, Long hgId) {
+        Room room = Repositories.getRoomRepository().findById(roomId).get();
+        HouseGrid houseGrid = Repositories.getGridsRepository().findById(hgId).get();
+        room.setHouseGrid(houseGrid);
+        Repositories.getRoomRepository().save(room);
+    }
 }

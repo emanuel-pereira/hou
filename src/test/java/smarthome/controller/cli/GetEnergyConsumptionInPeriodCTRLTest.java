@@ -40,7 +40,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         HouseGridList hgList = getGridListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
-        RoomList grid1RoomList = grid1.getRoomListInAGrid();
+        RoomList grid1RoomList = grid1.getRoomList();
 
         Room kitchen1 = new Room("R01","Kitchen1", 0, 5, 5, 3);
         Room kitchen2 = new Room("R02","Kitchen2", 0, 6, 4, 3);
@@ -104,7 +104,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         HouseGridList hgList = getGridListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
-        RoomList grid1RoomList = grid1.getRoomListInAGrid();
+        RoomList grid1RoomList = grid1.getRoomList();
 
         Room kitchen1 = new Room("R01","Kitchen1", 0, 5, 5, 3);
         Room kitchen2 = new Room("R02","Kitchen2", 0, 6, 4, 3);
@@ -172,7 +172,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         HouseGridList hgList = getGridListInHouse();
         hgList.addHouseGrid(grid1);
         hgList.addHouseGrid(grid2);
-        RoomList grid1RoomList = grid1.getRoomListInAGrid();
+        RoomList grid1RoomList = grid1.getRoomList();
 
         Room kitchen1 = new Room("R01","Kitchen1", 0, 5, 5, 3);
         Room kitchen2 = new Room("R02","Kitchen2", 0, 6, 4, 3);
@@ -237,7 +237,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         houseGridList.addHouseGrid(grid);
 
 
-        RoomList roomList = grid.getRoomListInAGrid();
+        RoomList roomList = grid.getRoomList();
         Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
         Room garage = new Room("R02","Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
@@ -271,7 +271,7 @@ class GetEnergyConsumptionInPeriodCTRLTest {
         houseGridList.addHouseGrid(grid);
 
 
-        RoomList roomList = grid.getRoomListInAGrid();
+        RoomList roomList = grid.getRoomList();
         Room kitchen = new Room("R01","Kitchen", 0, 8, 8, 3);
         Room garage = new Room("R02","Living Room", 0, 5, 4, 3);
         roomList.addRoom(kitchen);
