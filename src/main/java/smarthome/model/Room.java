@@ -30,7 +30,9 @@ public class Room implements Metered {
     @Transient
     private DeviceList deviceList;
 
-    //TODO add HouseGrid attribute
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "GRID_ID")
+    private HouseGrid houseGrid;
 
     @Transient
     private double time;
@@ -250,6 +252,14 @@ public class Room implements Metered {
         return this.deviceList.size();
     }
 
+
+    public HouseGrid getHouseGrid() {
+        return houseGrid;
+    }
+
+    public void setHouseGrid(HouseGrid houseGrid) {
+        this.houseGrid = houseGrid;
+    }
 
 
     /**

@@ -17,13 +17,13 @@ public class HouseGrid implements Metered {
 
     @Transient
     private double contractedMaximumPower = Double.NaN;
-    private String designation;
 
+    private String designation;
     @Transient
     private PowerSourceList psListInHG;
+
     @Transient
     private RoomList roomList;
-
     protected HouseGrid() {
     }
 
@@ -34,6 +34,14 @@ public class HouseGrid implements Metered {
         this.roomList = new RoomList();
     }
 
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public double getContractedMaximumPower() {
         return this.contractedMaximumPower;
