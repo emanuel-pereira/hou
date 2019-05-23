@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/gatypes")
-public class GATypes {
+public class GATypesCTRL {
 
     @Autowired
     public GaTypesService service;

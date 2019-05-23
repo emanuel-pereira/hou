@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-class GATypesTest {
+class GATypesCTRLTest {
 
     @Autowired
     private MockMvc mockMvc;
