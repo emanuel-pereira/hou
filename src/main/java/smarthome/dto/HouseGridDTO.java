@@ -1,16 +1,12 @@
 package smarthome.dto;
 
-import java.util.List;
-
-public class GridDTO {
+public class HouseGridDTO {
 
     private Long id;
 
     private String designation;
 
-    private List<String> rooms;
-
-    public GridDTO() {
+    public HouseGridDTO() {
     }
 
     public Long getId() {
@@ -21,7 +17,6 @@ public class GridDTO {
         this.id = id;
     }
 
-
     public String getDesignation() {
         return designation;
     }
@@ -30,15 +25,4 @@ public class GridDTO {
         this.designation = designation;
     }
 
-    public List<String> getRooms() {
-        return rooms;
-    }
-
-    public void setRooms(List<String> rooms) {
-        this.rooms = rooms;
-    }
-
-    public void addRoom(String newRoom){
-        this.rooms.add(newRoom);
-    }
 }

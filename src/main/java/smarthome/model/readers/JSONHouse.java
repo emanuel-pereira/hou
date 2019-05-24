@@ -6,7 +6,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import smarthome.model.*;
-import smarthome.repository.GridRepository;
 import smarthome.repository.Repositories;
 import smarthome.services.RoomService;
 

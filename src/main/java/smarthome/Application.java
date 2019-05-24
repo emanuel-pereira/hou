@@ -42,7 +42,7 @@ public class Application  {
 
     @Bean
     public CommandLineRunner demo(GeoRepository geoRep, RoomRepository rRep, SensorTypeRepository unitRep, TypeGARepository typeRep,
-                                  ExternalSensorRepository extSensorRep, InternalSensorRepository intSensorRep, GridRepository gridsRep) {
+                                  ExternalSensorRepository extSensorRep, InternalSensorRepository intSensorRep, HouseGridRepository gridsRep) {
 
         Repositories.setTypeGARepository(typeRep);
         Repositories.setGeoRepository(geoRep);

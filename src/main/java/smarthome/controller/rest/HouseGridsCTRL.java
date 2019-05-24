@@ -5,53 +5,51 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import smarthome.dto.GridDTOsimple;
+import smarthome.dto.HouseGridDTO;
+import smarthome.dto.HouseGridDTOsimple;
 import smarthome.model.HouseGrid;
-import smarthome.services.HouseGridsService;
+import smarthome.services.HouseGridService;
 import smarthome.services.RoomService;
 
 import java.util.List;
 
 @RestController
-//@RequestMapping("/housegrids")
+@RequestMapping("/housegrids")
 public class HouseGridsCTRL {
 
     @Autowired
-    public HouseGridsService gridService;
+    public HouseGridService houseGridService;
 
     @Autowired
     public RoomService roomService;
 
     ModelMapper modelMapper = new ModelMapper();
 
+    //TODO add POST mapping US130 to add new house grids
 
-    //TODO add POST mapping to add new house grids
 
-    //TODO add class relative @RequestMapping for housegrids
-
-    //FIXME and use DTO to retrieve information
     @GetMapping
-    public List<HouseGrid> all() {
-        System.out.println("Listing grids");
-        return gridService.findAll();
+    public ResponseEntity<Object> all() {
+        List<HouseGridDTO> dto = houseGridService.findAll();
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    //FIXME
-    /*@GetMapping(value = "/{id}")
-    public ResponseEntity<Object> byId(@PathVariable Long id) {
-        if (gridService.gridExists(id)) {
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Object> findGrid(@PathVariable Long id) {
+        if (houseGridService.gridExists(id)) {
             System.out.println("Listing grid " + id);
-            HouseGrid houseGrid = gridService.findbyId(id);
-            return new ResponseEntity<>(modelMapper.map(houseGrid, GridDTO.class), HttpStatus.OK);
+            HouseGrid houseGrid = houseGridService.findbyId(id);
+            HouseGridDTO temp = modelMapper.map(houseGrid, HouseGridDTO.class);
+            return new ResponseEntity<>(temp, HttpStatus.OK);
         }
         return new ResponseEntity<>("The requested house grid does not exist", HttpStatus.NOT_FOUND);
-    }*/
+    }
 
-    @GetMapping("/housegrids/{id}/rooms")
+    @GetMapping("/{id}/rooms")
     public ResponseEntity<Object> findRooms(@PathVariable Long id) {
-        if (gridService.gridExists(id)) {
-            GridDTOsimple grid = roomService.findRoomsByHouseGrid(id);
-            HouseGrid houseGrid = gridService.findbyId(id);
+        if (houseGridService.gridExists(id)) {
+            HouseGridDTOsimple grid = roomService.findRoomsByHouseGrid(id);
+            HouseGrid houseGrid = houseGridService.findbyId(id);
             grid.setName(houseGrid.getDesignation());
             if (!grid.getRooms().isEmpty())
                 return new ResponseEntity<>(grid, HttpStatus.OK);

@@ -1,12 +1,14 @@
 package smarthome.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import smarthome.dto.GridDTOsimple;
+import smarthome.dto.HouseGridDTOsimple;
 import smarthome.dto.RoomDTO;
 import smarthome.dto.RoomDetailDTO;
 import smarthome.mapper.RoomMapper;
 import smarthome.model.*;
 import smarthome.model.validations.NameValidations;
+import smarthome.repository.HouseGridRepository;
 import smarthome.repository.Repositories;
 
 import java.util.ArrayList;
@@ -17,6 +19,9 @@ import java.util.List;
 public class RoomService {
 
     private RoomMapper mapper;
+
+    @Autowired
+    HouseGridRepository houseGridRepository;
 
 
     /**
@@ -111,11 +116,10 @@ public class RoomService {
         return mapper.toDetailDto(room);
     }
 
-    public GridDTOsimple findRoomsByHouseGrid(Long id) {
+    public HouseGridDTOsimple findRoomsByHouseGrid(Long id) {
         List<Room> rooms = Repositories.getRoomRepository().findAllByHouseGridId(id);
-        GridDTOsimple dto = new GridDTOsimple();
+        HouseGridDTOsimple dto = new HouseGridDTOsimple();
         for (Room temp : rooms) {
-            System.out.println(temp.getId());
             dto.addRoomId(temp.getId());
         }
         return dto;

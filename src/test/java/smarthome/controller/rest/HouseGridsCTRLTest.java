@@ -1,7 +1,5 @@
 package smarthome.controller.rest;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +53,16 @@ class HouseGridsCTRLTest {
         Repositories.getRoomRepository().save(secondroom);
 
         this.mockMvc.perform(get("/housegrids/1/rooms"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void all() throws Exception {
+        HouseGrid houseGrid2 = new HouseGrid("secondary grid");
+        HouseGrid temp = Repositories.getGridsRepository().save(houseGrid2);
+
+        this.mockMvc.perform(get("/housegrids"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

@@ -3,6 +3,7 @@ package smarthome.model;
 import smarthome.model.validations.Utils;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -18,6 +19,7 @@ public class HouseGrid implements Metered {
     @Transient
     private double contractedMaximumPower = Double.NaN;
 
+    @NotNull
     private String designation;
     @Transient
     private PowerSourceList psListInHG;

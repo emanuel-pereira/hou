@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import smarthome.model.HouseGrid;
 
 @Repository
-public interface GridRepository extends CrudRepository<HouseGrid, Long> {
+public interface HouseGridRepository extends CrudRepository<HouseGrid, Long> {
 
     /**
      * This method retrieves a house grid based on its name

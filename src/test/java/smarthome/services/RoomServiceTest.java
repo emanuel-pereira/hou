@@ -5,9 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import smarthome.dto.GridDTOsimple;
+import smarthome.dto.HouseGridDTOsimple;
 import smarthome.dto.RoomDetailDTO;
 import smarthome.model.HouseGrid;
 import smarthome.model.Room;
@@ -79,7 +78,7 @@ class RoomServiceTest {
         secondroom.setHouseGrid(grid);
         Repositories.getRoomRepository().save(secondroom);
 
-        GridDTOsimple roomsByHouseGrid = roomService.findRoomsByHouseGrid(1L);
+        HouseGridDTOsimple roomsByHouseGrid = roomService.findRoomsByHouseGrid(1L);
         assertEquals(2,roomsByHouseGrid.getRooms().size());
 
     }

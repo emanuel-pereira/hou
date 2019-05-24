@@ -3,13 +3,13 @@ package smarthome.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GridDTOsimple {
+public class HouseGridDTOsimple {
 
     private String name;
 
     private List<String> rooms;
 
-    public GridDTOsimple() {
+    public HouseGridDTOsimple() {
         this.rooms = new ArrayList<>();
     }
 

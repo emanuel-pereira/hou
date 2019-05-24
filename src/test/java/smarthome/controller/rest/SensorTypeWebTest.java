@@ -43,7 +43,7 @@ class SensorTypeWebTest {
     @MockBean
     private ExternalSensorRepository externalSensorRepository;
     @MockBean
-    private GridRepository gridRepository;
+    private HouseGridRepository houseGridRepository;
     @Test
     void whenReadAll_thenStatusIsOk() throws Exception {
         this.mockMvc.perform(get(SENSOR_TYPE_PATH)).andExpect(status().isOk());

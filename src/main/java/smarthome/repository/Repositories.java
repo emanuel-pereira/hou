@@ -12,7 +12,7 @@ public final class Repositories {
     private static SensorTypeRepository sensorTypeRepository = null;
     private static TypeGARepository typeGARepository= null;
     private static RoomRepository roomRepository = null;
-    private static GridRepository gridsRepository = null;
+    private static HouseGridRepository gridsRepository = null;
 
     /**
      * Private constructor to hide the implicit one
@@ -44,7 +44,7 @@ public final class Repositories {
         Repositories.roomRepository = roomRepository;
     }
 
-    public static void setGridsRepository(GridRepository gridsRepository) {
+    public static void setGridsRepository(HouseGridRepository gridsRepository) {
         Repositories.gridsRepository = gridsRepository;
     }
 
@@ -73,7 +73,7 @@ public final class Repositories {
         return roomRepository;
     }
 
-    public static GridRepository getGridsRepository() {
+    public static HouseGridRepository getGridsRepository() {
         return gridsRepository;
     }
 
