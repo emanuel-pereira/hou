@@ -30,8 +30,15 @@ create ":HouseGridService"
 
 ":HouseGridService" -> ":HouseGridRepository" : existsbyId(id)
 
-create "responseEntity \n:ResponseEntity"
-":HouseGridCTRL" ->  "responseEntity \n:ResponseEntity": responseEntity = new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+create ":RoomService"
+":HouseGridCTRL" -> ":RoomService" : create( )
+":HouseGridCTRL" -> ":RoomService" : findRoomsByHouseGrid(id)
 
-":HouseGridCTRL" --> "HTTP Client" : Status.NOT_FOUND \nResponse message
+":RoomService" -> ":RoomRepository" : listOfRooms =\n findAllByHouseGrid(id)\n "No rooms attached to grid"
+
+
+create "responseEntity \n:ResponseEntity"
+":HouseGridCTRL" ->  "responseEntity \n:ResponseEntity": responseEntity = new ResponseEntity<>(message, HttpStatus.OK);
+
+":HouseGridCTRL" --> "HTTP Client" : Status.OK \nResponse message
 @enduml
