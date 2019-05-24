@@ -1,6 +1,7 @@
 package smarthome.controller.cli;
 
 import smarthome.dto.SensorTypeDTO;
+import smarthome.model.SensorTypeList;
 import smarthome.services.SensorTypeService;
 
 import java.text.ParseException;
@@ -10,10 +11,12 @@ import java.util.List;
 public class NewSensorTypeCTRL {
 
 
-    private final SensorTypeService sensorTypeRepoDDD= new SensorTypeService();
+    private final SensorTypeService sensorTypeRepoDDD;
 
     //TODO: use @Autowired
-    public NewSensorTypeCTRL() {
+    public NewSensorTypeCTRL(SensorTypeList sensorTypeList) {
+        this.sensorTypeRepoDDD=new SensorTypeService(sensorTypeList);
+
     }
 
     /**

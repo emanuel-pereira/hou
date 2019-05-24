@@ -3,6 +3,7 @@ package smarthome.io.ui;
 import org.apache.log4j.Logger;
 import smarthome.controller.cli.NewSensorTypeCTRL;
 import smarthome.dto.SensorTypeDTO;
+import smarthome.model.SensorTypeList;
 import smarthome.services.SensorTypeService;
 
 import java.text.ParseException;
@@ -17,9 +18,10 @@ public class NewSensorTypeUI {
 
     /**
      * NewSensorTypeUI Constructor
+     * @param sensorTypeList
      */
-    public NewSensorTypeUI() {
-        this.ctrl = new NewSensorTypeCTRL();
+    public NewSensorTypeUI(SensorTypeList sensorTypeList) {
+        this.ctrl = new NewSensorTypeCTRL(sensorTypeList);
     }
 
     public void inputSensorType() {

@@ -10,7 +10,7 @@ public final class Repositories {
     private static ExternalSensorRepository externalSensorRepository = null;
     private static InternalSensorRepository internalSensorRepository = null;
     private static SensorTypeRepository sensorTypeRepository = null;
-    private static TypeGARepository typeGARepository= null;
+    private static TypeGARepository typeGARepository = null;
     private static RoomRepository roomRepository = null;
     private static HouseGridRepository gridsRepository = null;
 
@@ -99,14 +99,10 @@ public final class Repositories {
 
 
     public static void saveExternalSensor(ExternalSensor s) {
-        Repositories.getSensorTypeRepository().save(s.getSensorBehavior().getSensorType());
-
         Repositories.externalSensorRepository.save(s);
     }
 
     public static void saveInternalSensor(InternalSensor s) {
-        Repositories.getSensorTypeRepository().save(s.getSensorBehavior().getSensorType());
-
         Repositories.internalSensorRepository.save(s);
     }
 

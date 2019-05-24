@@ -8,7 +8,7 @@ public class SensorBehavior {
 
     @Embedded
     private GenericName name;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SENSORTYPE_ID")
     private SensorType sensorType;
     private Calendar startDate;

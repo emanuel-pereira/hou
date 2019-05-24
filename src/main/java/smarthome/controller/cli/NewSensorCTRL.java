@@ -144,11 +144,6 @@ public class NewSensorCTRL {
      * @return the number of elements in the sensor type list as an integer value
      */
     public int getSensorTypeListSize() {
-        //hotfix for updating sensortype list with types that can be created in the web controller
-        Iterable<SensorType> sensorTypes=Repositories.getSensorTypeRepository().findAll();
-        for(SensorType sensortype:sensorTypes){
-            sensorTypeList.addSensorType(sensortype);
-        }
         return this.sensorTypeList.size();
     }
 

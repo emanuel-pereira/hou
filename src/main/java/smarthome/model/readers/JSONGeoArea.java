@@ -1,5 +1,6 @@
 package smarthome.model.readers;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -21,6 +22,8 @@ import java.util.List;
 public class JSONGeoArea implements FileReaderGeoArea {
     private Path filePath;
     private final JSONParser parser = new JSONParser();
+    static final Logger log = Logger.getLogger(JSONHouse.class);
+
 
 
     public JSONGeoArea() {
@@ -94,8 +97,14 @@ public class JSONGeoArea implements FileReaderGeoArea {
 
         String sensorType = (String) sensor.get("type");
         Name typeName = new Name(sensorType);
-        SensorType type = Repositories.getSensorTypeRepository().findByType(typeName);
-
+        SensorType type;
+        //Repository call
+        try {
+            type= Repositories.getSensorTypeRepository().findByType(typeName);
+        } catch (NullPointerException e) {
+            log.warn("Repository unreachable");
+            type= new SensorType(sensorType);
+        }
         String unit = (String) sensor.get("units");
         Location location = importLocation(jsonSensor);
         ReadingList readings = new ReadingList();

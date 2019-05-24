@@ -129,15 +129,23 @@ public class XMLGeoArea implements FileReaderGeoArea {
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(date);
 
-                String sensorType = getTagValue("type", sensor);
-                Name typeName = new Name(sensorType);
-                SensorType type = Repositories.getSensorTypeRepository().findByType(typeName);
+                String type = getTagValue("type", sensor);
+                Name nameType = new Name(type);
+                SensorType sensorType;
+
+                //Repository call
+                try {
+                    sensorType= Repositories.getSensorTypeRepository().findByType(nameType);
+                } catch (NullPointerException e) {
+                    log.warn("Repository unreachable.");
+                    sensorType= new SensorType(type);
+                }
 
                 String unit = getTagValue("units", sensor);
                 Location location = importLocation(sensor.getElementsByTagName("location").item(0));
 
                 ReadingList readingList = new ReadingList();
-                ExternalSensor newSensor = new ExternalSensor(id, name, calendar, location, type, unit, readingList);
+                ExternalSensor newSensor = new ExternalSensor(id, name, calendar, location, sensorType, unit, readingList);
 
                 geographicalArea.getSensorListInGa().addSensor(newSensor);
             }
