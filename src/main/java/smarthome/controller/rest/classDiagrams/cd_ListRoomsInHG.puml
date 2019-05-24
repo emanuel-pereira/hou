@@ -24,7 +24,7 @@ hide empty members
 
 class GridCTRL{
 
--HouseGridsService houseGridsService
+-HouseGridService HouseGridService
 -RoomService roomService
 
 
@@ -32,11 +32,10 @@ class GridCTRL{
 
 }
 
-class HouseGridsService{
+class HouseGridService{
 
 - GridRepository gridRepository
 
-+findAll()
 +gridExists()
 +findById()
 
@@ -75,11 +74,11 @@ class ResponseEntity{
 
 
 
-GridCTRL --> HouseGridsService
+GridCTRL --> HouseGridService
 
 GridCTRL --> RoomService
 
-HouseGridsService --> GridRepository
+HouseGridService --> GridRepository
 
 RoomService --> RoomRepository
 
