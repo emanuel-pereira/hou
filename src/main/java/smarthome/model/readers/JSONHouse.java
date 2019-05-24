@@ -6,11 +6,13 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import smarthome.model.*;
+import smarthome.repository.GridRepository;
 import smarthome.repository.Repositories;
 import smarthome.services.RoomService;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
 import static smarthome.model.House.*;
 
@@ -59,7 +61,6 @@ public class JSONHouse implements FileReaderHouse {
             Room roomFromFile = loadRoom(jsonRoom);
             getHouseRoomList().addRoom(roomFromFile);
         }
-
     }
 
     private void importGrids(Path path) throws IOException, ParseException {
@@ -79,6 +80,8 @@ public class JSONHouse implements FileReaderHouse {
             } catch (NullPointerException e) {
                 log.warn("Repository unreachable");
             }
+
+            updateRoomGrids(gridRoomList, gridFromFile);
         }
     }
 
@@ -112,8 +115,19 @@ public class JSONHouse implements FileReaderHouse {
             String roomId = (String) id;
             Room room = getHouseRoomList().getRoomById(roomId);
             roomsInGrid.addRoom(room);
-            room.setHouseGrid(gridFromFile);
         }
+    }
+
+    private void updateRoomGrids(RoomList roomsInGrid, HouseGrid gridFromFile){
+        List<Room> rooms = roomsInGrid.getRoomList();
+        for (Room room : rooms){
+            Room temp = Repositories.getRoomRepository().findById(room.getId()).get();
+            HouseGrid houseGridByDesignation = Repositories.getGridsRepository().findHouseGridByDesignation(gridFromFile.getDesignation());
+            temp.setHouseGrid(houseGridByDesignation);
+            Repositories.getRoomRepository().save(temp);
+        }
+
+
     }
 
 }

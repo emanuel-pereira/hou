@@ -410,4 +410,16 @@ public class RepositoryTest {
         assertEquals(2, gridRepSize);
     }
 
+    @Test
+    void testfindRooms(){
+        RoomRepository roomRepository = Repositories.getRoomRepository();
+
+        Room classroom = new Room("B107", "Classroom", 2,2,2,2);
+        roomRepository.save(classroom);
+
+        Room result = roomRepository.findById("B107").get();
+
+        assertEquals("Classroom", result.getDesignation());
+    }
+
 }
