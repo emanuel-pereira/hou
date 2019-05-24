@@ -120,7 +120,8 @@ public class JSONHouse implements FileReaderHouse {
 
     private void updateRoomGrids(RoomList roomsInGrid, HouseGrid gridFromFile){
         List<Room> rooms = roomsInGrid.getRoomList();
-        for (Room room : rooms){
+        //TODO add size list validation
+            for (Room room : rooms){
             Room temp = Repositories.getRoomRepository().findById(room.getId()).get();
             HouseGrid houseGridByDesignation = Repositories.getGridsRepository().findHouseGridByDesignation(gridFromFile.getDesignation());
             temp.setHouseGrid(houseGridByDesignation);
