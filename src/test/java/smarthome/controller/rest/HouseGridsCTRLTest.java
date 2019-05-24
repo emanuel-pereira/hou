@@ -1,5 +1,7 @@
 package smarthome.controller.rest;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
+import smarthome.model.HouseGrid;
+import smarthome.model.Room;
+import smarthome.repository.Repositories;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -21,15 +26,35 @@ class HouseGridsCTRLTest {
     private MockMvc mockMvc;
 
     @Test
-    void findRooms() throws Exception {
-        this.mockMvc.perform(get("/housegrids/1/rooms"))
+    void inexistentGridId() throws Exception {
+        this.mockMvc.perform(get("/housegrids/10/rooms"))
+                .andDo(print())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void findGridButWithNoRooms() throws Exception {
+        HouseGrid houseGrid1 = new HouseGrid("main grid");
+        Repositories.getGridsRepository().save(houseGrid1);
+
+        this.mockMvc.perform(get("/housegrids/2/rooms"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
-    void inexistentGridId() throws Exception {
-        this.mockMvc.perform(get("/housegrids/10/rooms"))
+    void findGridWithRooms() throws Exception {
+        HouseGrid houseGrid2 = new HouseGrid("secondary grid");
+        HouseGrid temp = Repositories.getGridsRepository().save(houseGrid2);
+
+        Room newroom = new Room("B107", "Classroom", 2, 3, 4, 1);
+        newroom.setHouseGrid(temp);
+        Repositories.getRoomRepository().save(newroom);
+        Room secondroom = new Room("B109", "Classroom", 2, 3, 4, 1);
+        secondroom.setHouseGrid(temp);
+        Repositories.getRoomRepository().save(secondroom);
+
+        this.mockMvc.perform(get("/housegrids/1/rooms"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }

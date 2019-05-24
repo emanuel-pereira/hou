@@ -11,19 +11,16 @@ import smarthome.repository.Repositories;
 import smarthome.services.GeoAreaService;
 
 
-import javax.jws.WebParam;
 import java.util.ArrayList;
 import java.util.List;
 
 
 
 @RestController
-
-
 public class GeoAreaCTRL {
 
 
-    private final GeoAreaService geoRepoDDD;
+    private final GeoAreaService geoService;
 
     ModelMapper modelMapper = new ModelMapper();
 
@@ -56,26 +53,25 @@ public class GeoAreaCTRL {
     }
 
 
-
     GeoAreaCTRL() {
-        geoRepoDDD = new GeoAreaService();
+        geoService = new GeoAreaService();
     }
 
 
     @GetMapping("/geoareas/getParent")
     public List<GeographicalAreaDTO> showListOfGAS() {
-        return this.geoRepoDDD.findAll();
+        return this.geoService.findAll();
     }
 
     @GetMapping("/geoareas/findParentbyId")
     public GeographicalArea findByID(@PathVariable String id) {
-        return geoRepoDDD.findByIdGa(id);
+        return geoService.findByIdGa(id);
     }
 
     @PostMapping("/geoareas/setParent")
     public ResponseEntity<Object> setParentOfGAWebCTRL(@RequestParam String id, String idParent) {
 
-        if (this.geoRepoDDD.setParentGaWebCTRL(id, idParent)) {
+        if (this.geoService.setParentGaWebCTRL(id, idParent)) {
             return new ResponseEntity<>("The Geographical area was set to another", HttpStatus.ACCEPTED);
         } else return new ResponseEntity<>("The Geographical area wasn't set to another", HttpStatus.BAD_REQUEST);
     }

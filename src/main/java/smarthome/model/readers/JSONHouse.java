@@ -72,9 +72,10 @@ public class JSONHouse implements FileReaderHouse {
             RoomList gridRoomList = gridFromFile.getRoomList();
             loadRoomsInGrid(jsonGrid, gridRoomList, gridFromFile);
             getGridListInHouse().addHouseGrid(gridFromFile);
+            HouseGrid save;
             try {
                 //Repository call
-                Repositories.getGridsRepository().save(gridFromFile);
+                save = Repositories.getGridsRepository().save(gridFromFile);
             } catch (NullPointerException e) {
                 log.warn("Repository unreachable");
             }
@@ -104,6 +105,7 @@ public class JSONHouse implements FileReaderHouse {
         return new HouseGrid(name);
     }
 
+    //FIXME save out of cicle, save both in repository and in Lists
     private void loadRoomsInGrid(JSONObject jsonGrid, RoomList roomsInGrid, HouseGrid gridFromFile) {
         JSONArray jsonRoomsId = (JSONArray) jsonGrid.get("rooms");
         for (Object id : jsonRoomsId) {

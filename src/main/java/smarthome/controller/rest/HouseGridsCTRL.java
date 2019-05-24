@@ -24,12 +24,19 @@ public class HouseGridsCTRL {
 
     ModelMapper modelMapper = new ModelMapper();
 
+
+    //TODO add POST mapping to add new house grids
+
+    //TODO add class relative @RequestMapping for housegrids
+
+    //FIXME and use DTO to retrieve information
     @GetMapping
     public List<HouseGrid> all() {
         System.out.println("Listing grids");
         return gridService.findAll();
     }
 
+    //FIXME
     /*@GetMapping(value = "/{id}")
     public ResponseEntity<Object> byId(@PathVariable Long id) {
         if (gridService.gridExists(id)) {
