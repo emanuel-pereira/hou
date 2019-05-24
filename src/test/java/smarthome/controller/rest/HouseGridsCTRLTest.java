@@ -52,7 +52,7 @@ class HouseGridsCTRLTest {
         secondroom.setHouseGrid(temp);
         Repositories.getRoomRepository().save(secondroom);
 
-        this.mockMvc.perform(get("/housegrids/1/rooms"))
+        this.mockMvc.perform(get("/housegrids/4/rooms"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -65,5 +65,25 @@ class HouseGridsCTRLTest {
         this.mockMvc.perform(get("/housegrids"))
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void findGrid() throws Exception {
+        HouseGrid houseGrid2 = new HouseGrid("third grid");
+        HouseGrid temp = Repositories.getGridsRepository().save(houseGrid2);
+
+        this.mockMvc.perform(get("/housegrids/1"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void findGrid_notfound() throws Exception {
+        HouseGrid houseGrid2 = new HouseGrid("third grid");
+        HouseGrid temp = Repositories.getGridsRepository().save(houseGrid2);
+
+        this.mockMvc.perform(get("/housegrids/111"))
+                .andDo(print())
+                .andExpect(status().isNotFound());
     }
 }
