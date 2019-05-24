@@ -31,7 +31,7 @@ create ":GridService"
 ":GridService" -> ":GridRepository" : existsbyId(id)
 
 create "responseEntity \n:ResponseEntity"
-":GridCTRL" ->  "responseEntity \n:ResponseEntity": responseEntity = new ResponseEntity<>(message, HttpStatus.OK);
+":GridCTRL" ->  "responseEntity \n:ResponseEntity": responseEntity = new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
 
 ":GridCTRL" --> "HTTP Client" : Status.NOT_FOUND \nResponse message
 @enduml
