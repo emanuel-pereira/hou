@@ -1,0 +1,90 @@
+@startuml
+
+
+skinparam linetype ortho
+hide empty members
+
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
+
+
+hide empty members
+
+
+
+class GridCTRL{
+
+-HouseGridsService houseGridsService
+-RoomService roomService
+
+
++findRooms()
+
+}
+
+class HouseGridsService{
+
+- GridRepository gridRepository
+
++findAll()
++gridExists()
++findById()
+
+}
+
+Interface GridRepository {
+
++findById()
++existsById()
+
+}
+
+class RoomService{
+
+-RoomRepository roomRepository
+-RoomMapper mapper
+
++findRoomsByHouseGrid()
+
+
+}
+
+Interface RoomRepository{
+
++findAllByHouseGrid()
+
+}
+
+class ResponseEntity{
+
++ResponseEntity()
+}
+
+
+
+
+
+
+GridCTRL --> HouseGridsService
+
+GridCTRL --> RoomService
+
+HouseGridsService --> GridRepository
+
+RoomService --> RoomRepository
+
+GridCTRL -> ResponseEntity
+
+
+
+@enduml
