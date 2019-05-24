@@ -22,17 +22,17 @@ skinparam note {
 BorderColor SteelBlue
 }
 
-"HTTP Client" -> ":GridCTRL": GET \n/housegrids/{id}/rooms
+"HTTP Client" -> ":HouseGridCTRL": GET \n/housegrids/{id}/rooms
 
-create ":GridService"
-":GridCTRL" -> ":GridService" : create( )
-":GridCTRL" -> ":GridService" : gridExists(id)
+create ":HouseGridService"
+":HouseGridCTRL" -> ":HouseGridService" : create( )
+":HouseGridCTRL" -> ":HouseGridService" : gridExists(id)
 
-":GridService" -> ":GridRepository" : existsbyId(id)
+":HouseGridService" -> ":HouseGridRepository" : existsbyId(id)
 
 create ":RoomService"
-":GridCTRL" -> ":RoomService" : create( )
-":GridCTRL" -> ":RoomService" : findRoomsByHouseGrid(id)
+":HouseGridCTRL" -> ":RoomService" : create( )
+":HouseGridCTRL" -> ":RoomService" : findRoomsByHouseGrid(id)
 
 ":RoomService" -> ":RoomRepository" : listOfRooms =\n findAllByHouseGrid(id)
 
@@ -40,7 +40,7 @@ loop  Conversion of listOfRooms\n to listOfRoomIds
 ":RoomService" -> ":RoomService": listOfRoomIds = \naddRoomId(room.getId());
 end
 create "responseEntity \n:ResponseEntity"
-":GridCTRL" ->  "responseEntity \n:ResponseEntity": responseEntity = new ResponseEntity<>(listOfRoomIds, HttpStatus.OK);
+":HouseGridCTRL" ->  "responseEntity \n:ResponseEntity": responseEntity = new ResponseEntity<>(listOfRoomIds, HttpStatus.OK);
 
-":GridCTRL" --> "HTTP Client" : Status.OK \nResponse DTO
+":HouseGridCTRL" --> "HTTP Client" : Status.OK \nResponse DTO
 @enduml
