@@ -38,8 +38,8 @@ public class RoomCTRL {
     public ResponseEntity<Object> createRoom(@RequestBody RoomDetailDTO room ) {
 
         if (this.roomRepoDDD.save(room)) {
-            return new ResponseEntity<>("Room was successfully created", HttpStatus.CREATED);
-        } else return new ResponseEntity<>("Room wasn't created", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(this.roomRepoDDD.findById(room.getId()), HttpStatus.CREATED);
+        } else return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     /**
@@ -48,8 +48,8 @@ public class RoomCTRL {
      * @return ResponseEntity that represents the whole HTTP response with a RoomDetailDTO (more information of the Room)
      */
     @GetMapping("rooms/{id}")
-    public RoomDetailDTO findOne(@PathVariable String id) {
-        return this.roomRepoDDD.findById(id);
+    public ResponseEntity<Object>  findOne(@PathVariable String id) {
+        return new ResponseEntity<>(this.roomRepoDDD.findById(id),HttpStatus.OK);
     }
 
 }
