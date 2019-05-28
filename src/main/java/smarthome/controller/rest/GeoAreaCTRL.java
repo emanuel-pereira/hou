@@ -63,9 +63,9 @@ public class GeoAreaCTRL {
         return this.geoService.findAll();
     }
 
-    @GetMapping("/geoareas/findParentbyId")
-    public GeographicalArea findByID(@PathVariable String id) {
-        return geoService.findByIdGa(id);
+    @GetMapping("/geoareas/{findParentById}")
+    public GeographicalArea findByID(@PathVariable String findParentById) {
+        return geoService.findByIdGa(findParentById);
     }
 
     @PostMapping("/geoareas/setParent")

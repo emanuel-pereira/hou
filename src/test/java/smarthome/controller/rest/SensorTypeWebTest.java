@@ -1,4 +1,4 @@
-package smarthome.controller.REST;
+package smarthome.controller.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
