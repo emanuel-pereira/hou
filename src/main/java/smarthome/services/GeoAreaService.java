@@ -39,18 +39,23 @@ public class GeoAreaService {
 
     public boolean setParentGaWebCTRL(String id, String idParent) {
 
-        if (checkIfIdExists(id)) {
+        if (!checkIfIdExists(id)) {
             return false;
         }
 
-        GeographicalArea GA1 = findByIdGa(id).getParentGa();
-        GeographicalArea GA2 = findByIdGa(idParent).getParentGa();
+        GeographicalArea GA1 = findByIdGa(id);
+        GeographicalArea GA2 = findByIdGa(idParent);
 
         if (!GA1.equals(GA2))
             GA1.setParentGa(GA2);
 
         Repositories.getGeoRepository().save(GA1);
         return true;
+    }
+
+    public void saveGA(GeographicalArea ga){
+
+        Repositories.getGeoRepository().save(ga);
     }
 
     public GeographicalArea findByIdGa(String id) {

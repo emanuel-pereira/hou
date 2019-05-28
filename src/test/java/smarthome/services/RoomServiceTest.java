@@ -15,9 +15,7 @@ import smarthome.repository.Repositories;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
 @DataJpaTest
-
 class RoomServiceTest {
 
     @Test
