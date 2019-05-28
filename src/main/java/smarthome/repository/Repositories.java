@@ -2,6 +2,7 @@ package smarthome.repository;
 
 import smarthome.model.*;
 
+import java.util.Calendar;
 import java.util.List;
 
 public final class Repositories {
@@ -55,6 +56,13 @@ public final class Repositories {
 
     public static ExternalSensorRepository getExternalSensorRepository() {
         return externalSensorRepository;
+    }
+
+    public static ReadingList getReadingsExternalSensor (String id, Calendar startDate, Calendar endDate){
+
+        ExternalSensor sensor = getExternalSensorRepository().findById(id).get();
+
+        return sensor.getSensorBehavior().getReadingList().filterByDate(startDate, endDate);
     }
 
     public static InternalSensorRepository getInternalSensorRepository() {

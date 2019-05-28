@@ -53,6 +53,14 @@ protected SensorBehavior(){}
         return name.matches("[A-Za-z0-9 \\-]*");
     }
 
+    public GenericName getName() {
+        return name;
+    }
+
+    public void setName(GenericName name) {
+        this.name = name;
+    }
+
     /**
      * Changes the sensorDesignation of the sensor to the one inputted by the user.
      *

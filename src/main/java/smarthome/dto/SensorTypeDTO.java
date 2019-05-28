@@ -6,6 +6,11 @@ public class SensorTypeDTO {
     private long id;
     private String sensorType;
 
+    public SensorTypeDTO(){}
+
+    public SensorTypeDTO(String sensorType){
+        this.sensorType = sensorType;
+    }
 
     public String getSensorType() {
         return sensorType;

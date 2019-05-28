@@ -1,4 +1,4 @@
-package smarthome.controller.rest;
+package smarthome.controller.REST;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

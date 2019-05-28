@@ -7,6 +7,9 @@ public class ExternalReadingDTO {
     private double value;
     private Calendar dateAndTime;
 
+    public ExternalReadingDTO(){
+    }
+
     public ExternalReadingDTO(double value, Calendar dateAndTime){
         this.value = value;
         this.dateAndTime = dateAndTime;

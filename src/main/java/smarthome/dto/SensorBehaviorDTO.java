@@ -7,7 +7,7 @@ import java.util.List;
 
 public class SensorBehaviorDTO {
 
-    private GenericName name;
+    private GenericNameDTO name;
     private SensorTypeDTO sensorType;
     private Calendar startDate;
     private Calendar pauseDate;
@@ -17,7 +17,7 @@ public class SensorBehaviorDTO {
 
     public SensorBehaviorDTO(){}
 
-    public SensorBehaviorDTO(GenericName sensorName, Calendar startDate, SensorTypeDTO sensorType, String unit, List<ExternalReadingDTO> readings) {
+    public SensorBehaviorDTO(GenericNameDTO sensorName, Calendar startDate, SensorTypeDTO sensorType, String unit, List<ExternalReadingDTO> readings) {
         this.name = sensorName;
         this.startDate = startDate;
         this.sensorType = sensorType;
@@ -26,11 +26,11 @@ public class SensorBehaviorDTO {
         this.readingList = readings;
     }
 
-    public GenericName getName() {
+    public GenericNameDTO getName() {
         return name;
     }
 
-    public void setName(GenericName name) {
+    public void setName(GenericNameDTO name) {
         this.name = name;
     }
 

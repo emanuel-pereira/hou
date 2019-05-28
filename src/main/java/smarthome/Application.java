@@ -19,11 +19,14 @@ import java.text.ParseException;
 public class Application  {
 
     private static final String DEFAULT = "Default";
-    Location loc = new Location(1, 1, 1);
+    //Location loc = new Location(1, 1, 1);
+    Location loc = null;
     Address a1 = new Address(DEFAULT, DEFAULT, "0000-000", DEFAULT, DEFAULT, loc);
     OccupationArea oc = new OccupationArea(1, 1);
-    GeographicalArea g1 = new GeographicalArea(DEFAULT, DEFAULT, DEFAULT, oc, loc);
-    House house = House.getHouseInstance(a1, g1);
+    //GeographicalArea g1 = new GeographicalArea(DEFAULT, DEFAULT, DEFAULT, oc, loc);
+    GeographicalArea g1 = null;
+            House house = House.getHouseInstance(a1, g1);
+    /*House house = House.getHouseInstance();*/
     TypeGAList typeGAList = TypeGAList.getTypeGAListInstance();
 
     static final Logger log = Logger.getLogger(Application.class);

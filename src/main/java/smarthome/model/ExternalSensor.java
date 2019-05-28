@@ -39,7 +39,7 @@ public class ExternalSensor implements Sensor {
         this.location = geoLocation;
         GenericName sName = new GenericName(name);
         this.sensorBehavior = new SensorBehavior(sName, startDate, sensorType, unit, readings);
-    }
+}
 
     /**
      * @return the sensor's id
@@ -55,6 +55,18 @@ public class ExternalSensor implements Sensor {
      */
     public SensorBehavior getSensorBehavior() {
         return sensorBehavior;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setSensorBehavior(SensorBehavior sensorBehavior) {
+        this.sensorBehavior = sensorBehavior;
     }
 
     /**

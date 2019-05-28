@@ -17,6 +17,13 @@ public class GenericName {
 
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     /**
      * Method to validate if input name is correct
