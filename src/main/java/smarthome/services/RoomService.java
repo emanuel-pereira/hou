@@ -6,14 +6,17 @@ import smarthome.dto.HouseGridDTOsimple;
 import smarthome.dto.RoomDTO;
 import smarthome.dto.RoomDetailDTO;
 import smarthome.mapper.RoomMapper;
-import smarthome.model.*;
+import smarthome.model.HouseGrid;
+import smarthome.model.Room;
 import smarthome.model.validations.NameValidations;
 import smarthome.repository.HouseGridRepository;
 import smarthome.repository.Repositories;
+import smarthome.repository.RoomRepository;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoomService {
@@ -21,8 +24,10 @@ public class RoomService {
     private RoomMapper mapper;
 
     @Autowired
-    HouseGridRepository houseGridRepository;
+    private HouseGridRepository houseGridRepository;
 
+    @Autowired
+    private RoomRepository roomRepository;
 
     /**
      * Constructor method that creates an instance of the RoomRepoDDD
@@ -108,21 +113,96 @@ public class RoomService {
     }
 
     /**
-     * @param id Retrieves the room by searching for the Id
+     * This method will look for a Room with a specific id in the Rooms repository, in the persistence layer.
+     *
+     * @param id Room Id (String)
      * @return RoomDetailDTO with more information of the Room
      */
-    public RoomDetailDTO findById(String id) {
-        Room room = Repositories.getRoomRepository().findById(id).get();
-        return mapper.toDetailDto(room);
+    public RoomDetailDTO findById(String id) throws NoSuchFieldException {
+        Optional<Room> optional = roomRepository.findById(id);
+        if (!optional.isPresent())
+            throw new NoSuchFieldException();
+        Room temp = optional.get();
+        return this.mapper.toDetailDto(temp);
     }
 
-    public HouseGridDTOsimple findRoomsByHouseGrid(Long id) {
-        List<Room> rooms = Repositories.getRoomRepository().findAllByHouseGridId(id);
-        HouseGridDTOsimple dto = new HouseGridDTOsimple();
-        for (Room temp : rooms) {
-            dto.addRoomId(temp.getId());
+    /**
+     * This method will ask findAllByHouseGridId() in the Rooms repository to look for all the persisted Rooms
+     * matching with the attribute housegrid specified in the query.
+     *
+     * @param id HouseGrid Id
+     * @return HouseGrid DTO object (a response specific DTO) containing it's name and a list of Room Id's
+     */
+    public HouseGridDTOsimple findRoomsByHouseGrid(Long id) throws NoSuchFieldException {
+        Optional<HouseGrid> optional = this.houseGridRepository.findById(id);
+        if (!optional.isPresent())
+            throw new NoSuchFieldException();
+        else {
+            HouseGrid houseGrid = optional.get();
+
+            HouseGridDTOsimple dto = new HouseGridDTOsimple();
+            dto.setName(houseGrid.getDesignation());
+
+            List<Room> rooms = this.roomRepository.findAllByHouseGridId(id);
+            for (Room temp : rooms) {
+                dto.addRoomId(temp.getId());
+            }
+            return dto;
         }
-        return dto;
+    }
+
+    /**
+     * This method will access the HouseGrid repository and retrieve the object will the Id matches the queried
+     * and then will update the Room objectwith this new HouseGrid attribute.
+     *
+     * @param roomId Room Id
+     * @param hgId   Housegrid Id
+     * @return Room DTO object containing all it's info
+     */
+    public RoomDetailDTO attachHouseGrid(String roomId, Long hgId) throws NoSuchFieldException, IllegalAccessException {
+        //check if a Room with that Id exists
+        Optional<Room> roomOptional = this.roomRepository.findById(roomId);
+        if (!roomOptional.isPresent())
+            throw new NoSuchFieldException();//if the room with the ID does not exist
+        Room room = roomOptional.get();
+
+        //check if a HouseGrid with that Id exists
+        Optional<HouseGrid> gridOptional = this.houseGridRepository.findById(hgId);
+        if (!gridOptional.isPresent())
+            throw new NoSuchFieldException();//if the housegrid with the ID does not exist
+        HouseGrid houseGrid = gridOptional.get();
+
+        //check if the room already is already attached to a HouseGrid
+        if (room.getHouseGrid() != null)
+            throw new IllegalAccessException();//room cant be attached without previously being detach
+
+            //in case the room is not attached to any HouseGrid this will be set
+        else {
+            room.setHouseGrid(houseGrid);
+            Room save = this.roomRepository.save(room);
+            //TODO verify dto mapping
+            return this.mapper.toDetailDto(save);
+        }
+    }
+
+
+    public RoomDetailDTO detachHouseGrid(String attachId) throws NoSuchFieldException, IllegalAccessException {
+        //check if a Room with that Id exists
+        Optional<Room> roomOptional = this.roomRepository.findById(attachId);
+        if (!roomOptional.isPresent())
+            throw new NoSuchFieldException();
+        Room room = roomOptional.get();
+
+        //check if the room already is already attached to a HouseGrid
+        if (room.getHouseGrid() == null)
+            throw new IllegalAccessException();//room cant be detached without previously being attached to a HouseGrid
+
+            //detach the Room from it's current attached HouseGrid
+        else {
+            room.detachHouseGrid();
+            Room save = this.roomRepository.save(room);
+            return this.mapper.toDetailDto(save);
+        }
     }
 
     public void setHouseGrid(String roomId, Long hgId) {

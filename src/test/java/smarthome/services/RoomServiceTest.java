@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import smarthome.dto.HouseGridDTOsimple;
 import smarthome.dto.RoomDetailDTO;
@@ -62,7 +61,7 @@ class RoomServiceTest {
     }
 
     @Test
-    void findRoomsByHouseGrid() {
+    void findRoomsByHouseGrid() throws NoSuchFieldException {
         //Arrange
         RoomService roomService = new RoomService();
         HouseGrid houseGrid = new HouseGrid("main grid");

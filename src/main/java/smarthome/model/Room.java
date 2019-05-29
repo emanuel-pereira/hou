@@ -261,6 +261,10 @@ public class Room implements Metered {
         this.houseGrid = houseGrid;
     }
 
+    public void detachHouseGrid() {
+        this.houseGrid = null;
+    }
+
 
     /**
      * When two objects (o1 and o2) with the same data are compare, the result is that they are different objects.
@@ -295,5 +299,4 @@ public class Room implements Metered {
     public int hashCode() {
         return Objects.hash(this.id);
     }
-
 }

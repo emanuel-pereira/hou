@@ -35,8 +35,7 @@ public class RoomCTRL {
      * @return ResponseEntity that represents the whole HTTP response
      */
     @PostMapping("/rooms")
-    public ResponseEntity<Object> createRoom(@RequestBody RoomDetailDTO room ) {
-
+    public ResponseEntity<Object> createRoom(@RequestBody RoomDetailDTO room ) throws NoSuchFieldException {
         if (this.roomRepoDDD.save(room)) {
             return new ResponseEntity<>(this.roomRepoDDD.findById(room.getId()), HttpStatus.CREATED);
         } else return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -48,7 +47,7 @@ public class RoomCTRL {
      * @return ResponseEntity that represents the whole HTTP response with a RoomDetailDTO (more information of the Room)
      */
     @GetMapping("rooms/{id}")
-    public ResponseEntity<Object>  findOne(@PathVariable String id) {
+    public ResponseEntity<Object>  findOne(@PathVariable String id) throws NoSuchFieldException {
         return new ResponseEntity<>(this.roomRepoDDD.findById(id),HttpStatus.OK);
     }
 
