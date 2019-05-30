@@ -28,7 +28,7 @@ public class RoomCTRLTest {
 
     @Test
     @DisplayName("Get request with success")
-    void findAllIfEmpty() throws Exception {
+    void findAll() throws Exception {
         this.mockMvc.perform(get("/rooms"))
                 .andExpect(status().isOk());
     }
