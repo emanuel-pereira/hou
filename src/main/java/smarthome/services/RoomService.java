@@ -62,7 +62,7 @@ public class RoomService {
      * @return True if save
      */
     public boolean save(RoomDetailDTO roomDto) {
-        Room room = this.convertToObject(roomDto);
+        Room room = this.mapper.toObject(roomDto);
         if (room == null || this.checkIfIDExists(room.getId())) {
             return false;
         }
@@ -71,15 +71,6 @@ public class RoomService {
 
     }
 
-    /**
-     * The RoomMapper is used to convert the RoomDetailDTO in a Room
-     *
-     * @param roomDTO Detailed Room DTO
-     * @return
-     */
-    private Room convertToObject(RoomDetailDTO roomDTO) {
-        return mapper.toObject(roomDTO);
-    }
 
     /**
      * Checks if the room ID exists in the database, so the ID is not repeated
@@ -118,13 +109,16 @@ public class RoomService {
      * @param id Room Id (String)
      * @return RoomDetailDTO with more information of the Room
      */
-    public RoomDetailDTO findById(String id) throws NoSuchFieldException {
-        Optional<Room> optional = roomRepository.findById(id);
-        if (!optional.isPresent())
-            throw new NoSuchFieldException();
-        Room temp = optional.get();
-        return this.mapper.toDetailDto(temp);
+    public RoomDetailDTO findById(String id) {
+        Room room = Repositories.getRoomRepository().findById(id).get();
+        return mapper.toDetailDto(room);
     }
+
+
+    public boolean roomExists(String id){
+        return Repositories.getRoomRepository().existsById(id);
+    }
+
 
     /**
      * This method will ask findAllByHouseGridId() in the Rooms repository to look for all the persisted Rooms
