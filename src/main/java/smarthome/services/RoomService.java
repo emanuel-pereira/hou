@@ -109,16 +109,54 @@ public class RoomService {
      * @param id Room Id (String)
      * @return RoomDetailDTO with more information of the Room
      */
-    public RoomDetailDTO findById(String id) {
-        Room room = Repositories.getRoomRepository().findById(id).get();
-        return mapper.toDetailDto(room);
+     public RoomDetailDTO findById(String id) throws NoSuchFieldException {
+        Optional<Room> optional = Repositories.getRoomRepository().findById(id);
+        if (!optional.isPresent())
+            throw new NoSuchFieldException();
+        Room temp = optional.get();
+        return this.mapper.toDetailDto(temp);
     }
-
 
     public boolean roomExists(String id){
         return Repositories.getRoomRepository().existsById(id);
     }
 
+    public void setFloor(String id, Integer floor) throws NoSuchFieldException {
+        Optional<Room> optional = Repositories.getRoomRepository().findById(id);
+        if (!optional.isPresent())
+            throw new NoSuchFieldException();
+        Room room = optional.get();
+        room.setFloor(floor);
+        Repositories.getRoomRepository().save(room);
+    }
+
+
+    public void setLength(String id, double length) throws NoSuchFieldException {
+        Optional<Room> optional = Repositories.getRoomRepository().findById(id);
+        if (!optional.isPresent())
+            throw new NoSuchFieldException();
+        Room room = optional.get();
+        room.getArea().setLength(length);
+        Repositories.getRoomRepository().save(room);
+    }
+
+    public void setWidth(String id, double width) throws NoSuchFieldException {
+        Optional<Room> optional = Repositories.getRoomRepository().findById(id);
+        if (!optional.isPresent())
+            throw new NoSuchFieldException();
+        Room room = optional.get();
+        room.getArea().setWidth(width);
+        Repositories.getRoomRepository().save(room);
+    }
+
+    public void setHeight(String id, double height) throws NoSuchFieldException {
+        Optional<Room> optional = Repositories.getRoomRepository().findById(id);
+        if (!optional.isPresent())
+            throw new NoSuchFieldException();
+        Room room = optional.get();
+        room.setHeight(height);
+        Repositories.getRoomRepository().save(room);
+    }
 
     /**
      * This method will ask findAllByHouseGridId() in the Rooms repository to look for all the persisted Rooms

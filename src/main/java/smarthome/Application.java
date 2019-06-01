@@ -37,7 +37,7 @@ public class Application  {
      *
      * @param args
      */
-    public static void main(String[] args) throws IllegalAccessException, InstantiationException, IOException, org.json.simple.parser.ParseException, ClassNotFoundException, SAXException, ParserConfigurationException, ParseException {
+    public static void main(String[] args) throws IllegalAccessException, InstantiationException, IOException, org.json.simple.parser.ParseException, ClassNotFoundException, SAXException, ParserConfigurationException, ParseException, NoSuchFieldException {
         SpringApplication.run(Application.class);
         SmartHomeUI.init();
         SmartHomeUI.menuOptions();
