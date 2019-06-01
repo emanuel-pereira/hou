@@ -63,7 +63,7 @@ public class RoomService {
      */
     public boolean save(RoomDetailDTO roomDto) {
         Room room = this.mapper.toObject(roomDto);
-        if (room == null || this.checkIfIDExists(room.getId())) {
+        if (room == null /*|| this.checkIfIDExists(room.getId())*/) {
             return false;
         }
         Repositories.getRoomRepository().save(room);
@@ -71,9 +71,8 @@ public class RoomService {
 
     }
 
-
     /**
-     * Checks if the room ID exists in the database, so the ID is not repeated
+     * Checks if the room ID exists in the database
      *
      * @param id Room ID
      * @return True if the room ID exists

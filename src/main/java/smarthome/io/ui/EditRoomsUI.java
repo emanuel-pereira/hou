@@ -60,7 +60,8 @@ public class EditRoomsUI {
     }
 
     /**
-     * The user is asked if he wants to edit the floor of the room. If so, a Integer is validated and the data is sent
+     * It isn't possible to change Id or Description, so first the the user is asked if he wants to edit the floor of the room.
+     * If so, a Integer is validated and the data is sent
      * in order to edit the floor.
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
