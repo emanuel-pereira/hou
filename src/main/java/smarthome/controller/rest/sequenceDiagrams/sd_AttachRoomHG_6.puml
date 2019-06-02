@@ -1,0 +1,54 @@
+@startuml
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+"HTTP Client" -> ":HouseGridCTRL": POST \n/housegrids/{gid}?attachId={rid}
+
+create ":RoomService"
+":HouseGridCTRL" -> ":RoomService" : create( )
+":HouseGridCTRL" -> ":RoomService" : detachHouseGrid(rid, gid)
+
+create ":HouseGridService"
+":RoomService" -> ":HouseGridService" : create( )
+":RoomService" -> ":HouseGridService" : gridExists(gid)
+":HouseGridService" -> ":HouseGridRepository" : existsbyId(gid)
+
+":RoomService" -> ":RoomRepository" : existsbyId(rid)
+
+":RoomService" -> ":RoomRepository" : hasGrid(rid)
+
+":RoomService" -> ":RoomRepository" : room = findById(rid)
+":RoomService" -> ":HouseGridRepository" : grid = findById(gid)
+":RoomService" -> ":Room" : room.detachHouseGrid( )
+
+":RoomService" -> ":RoomRepository" : save()
+
+create "ModelMappper"
+":RoomService" -> "ModelMappper" : create ( )
+":RoomService" -> "ModelMappper" : roomDTO = map(room, roomDTO.class)
+
+create "responseEntity \n:ResponseEntity"
+":HouseGridCTRL" ->  "responseEntity \n:ResponseEntity": responseEntity = new ResponseEntity<>(roomDTO, HttpStatus.OK);
+
+":HouseGridCTRL" --> "HTTP Client" : Status.OK \nroomDTO
+@enduml
