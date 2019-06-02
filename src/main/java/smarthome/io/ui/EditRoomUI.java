@@ -7,7 +7,7 @@ import smarthome.dto.RoomDetailDTO;
 
 import java.util.List;
 
-public class EditRoomsUI {
+public class EditRoomUI {
 
 
     private final ListRoomsOfHouseCTRL ctrlUS108;
@@ -18,7 +18,7 @@ public class EditRoomsUI {
      * User interface constructor
      *
      */
-    public EditRoomsUI() {
+    public EditRoomUI() {
         this.ctrlUS108 = new ListRoomsOfHouseCTRL();
         this.ctrlUS109 = new EditRoomCTRL();
 
@@ -66,7 +66,7 @@ public class EditRoomsUI {
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     private void editFloor() throws NoSuchFieldException {
-        if (UtilsUI.confirmOption("\"Do you want to edit the floor?(y/n)", "Please type y/Y for Yes or n/N for No.")) {
+        if (UtilsUI.confirmOption("Current floor: " + this.ctrlUS109.findById(roomId).getFloor() + ". Do you want to edit the floor? (y/n)", "Please type y/Y for Yes or n/N for No.")) {
             System.out.println("Insert the floor where the room is:");
             Integer floor = UtilsUI.requestInteger("Please insert a number\nInsert the floor where the room is:");
             this.ctrlUS109.setFloor(this.roomId, floor);
@@ -83,7 +83,7 @@ public class EditRoomsUI {
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     private void editLength() throws NoSuchFieldException {
-        if (UtilsUI.confirmOption("\"Do you want to edit the length?(y/n)", "Please type y/Y for Yes or n/N for No.")) {
+        if (UtilsUI.confirmOption("Current length: " + this.ctrlUS109.findById(roomId).getLength() + ". Do you want to edit the length? (y/n)", "Please type y/Y for Yes or n/N for No.")) {
             System.out.println("Insert the length of the room (in meters):");
             double length = UtilsUI.requestDoubleInInterval(1, 1000, "Please insert a number (higher than zero)\nInsert the length of the room (in meters):");
             this.ctrlUS109.setLength(this.roomId, length);
@@ -99,7 +99,7 @@ public class EditRoomsUI {
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     private void editWidth() throws NoSuchFieldException {
-        if (UtilsUI.confirmOption("\"Do you want to edit the width?(y/n)", "Please type y/Y for Yes or n/N for No.")) {
+        if (UtilsUI.confirmOption("Current width: " + this.ctrlUS109.findById(roomId).getWidth() + ". Do you want to edit the width? (y/n)", "Please type y/Y for Yes or n/N for No.")) {
             System.out.println("Insert the width of the room (in meters):");
             double width = UtilsUI.requestDoubleInInterval(1, 1000, "Please insert a number (higher than zero)\nInsert the width of the room (in meters):");
             this.ctrlUS109.setWidth(this.roomId, width);
@@ -115,14 +115,22 @@ public class EditRoomsUI {
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     private void editHeight() throws NoSuchFieldException {
-        if (UtilsUI.confirmOption("\"Do you want to edit the height?(y/n)", "Please type y/Y for Yes or n/N for No.")) {
+        if (UtilsUI.confirmOption("Current height: " + this.ctrlUS109.findById(roomId).getHeight() + ". Do you want to edit the height? (y/n)", "Please type y/Y for Yes or n/N for No.")) {
             System.out.println("Insert the height of the room (in meters):");
             double height = UtilsUI.requestDoubleInInterval(0, 1000, "Please insert a number (higher than zero)\nInsert the height of the room (in meters):");
             this.ctrlUS109.setHeight(this.roomId, height);
-            UtilsUI.backToMenu();
+            this.showRoom();
         } else {
-            UtilsUI.backToMenu();
+            this.showRoom();
         }
+    }
+
+    private void showRoom() throws NoSuchFieldException {
+        System.out.println("\nThe Room with the Id " + this.ctrlUS109.findById(roomId).getId() + " and the Description \"" + this.ctrlUS109.findById(roomId).getDescription() + "\" has the following configuration:\n" +
+                "- Floor: " + this.ctrlUS109.findById(roomId).getFloor() + "\n- Length: " + this.ctrlUS109.findById(roomId).getLength() +
+                "\n- Width: " + this.ctrlUS109.findById(roomId).getWidth() + "\n- Height: " + this.ctrlUS109.findById(roomId).getHeight());
+        UtilsUI.backToMenu();
+
     }
 
 }

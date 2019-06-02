@@ -1,0 +1,52 @@
+@startuml
+hidefootbox
+
+actor Administrator
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+create ":EditRoomUI"
+Administrator -> ":EditRoomUI":Edit a room
+create ":EditRoomCTRL"
+Administrator -> ":EditRoomCTRL": create()
+create "rs2:RoomService"
+":EditRoomCTRL" -> "rs2:RoomService": create()
+ref over ":EditRoomUI", ":ListRoomsOfHouseCTRL", "rS1:RoomService", RoomRepository: If there are rooms (x≠0) a list of rooms (DTO) is shown
+Administrator <-- ":EditRoomUI": Show rooms and select one
+":EditRoomUI" -> ":ListRoomsOfHouseCTRL": room=findAll().get(index)
+":EditRoomUI" -> ":EditRoomUI": roomId=room.get(id)
+
+Administrator <-- ":EditRoomUI": Do you want to edit {attribute}?(y/n)
+note right
+{attribute} can be: floor, length, width and height
+    end note
+":EditRoomUI" -> ":EditRoomCTRL": set{attribute}(roomId, newValue)
+":EditRoomCTRL" -> "rs2:RoomService": set{attribute}(roomId, newValue)
+"rs2:RoomService" -> RoomRepository: r=findById(roomId)
+"rs2:RoomService" -> "rs2:RoomService": r.set{attribute}(newValue)
+"rs2:RoomService" -> RoomRepository: save(r)
+
+Administrator <-- ":EditRoomUI": Show room configuration
+
+@enduml
