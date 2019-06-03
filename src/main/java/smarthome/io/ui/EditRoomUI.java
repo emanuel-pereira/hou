@@ -11,7 +11,7 @@ public class EditRoomUI {
 
 
     private final ListRoomsOfHouseCTRL ctrlUS108;
-    private  EditRoomCTRL ctrlUS109;
+    private EditRoomCTRL ctrlUS109;
     private String roomId;
 
     /**
@@ -21,7 +21,6 @@ public class EditRoomUI {
     public EditRoomUI() {
         this.ctrlUS108 = new ListRoomsOfHouseCTRL();
         this.ctrlUS109 = new EditRoomCTRL();
-
     }
 
     /**

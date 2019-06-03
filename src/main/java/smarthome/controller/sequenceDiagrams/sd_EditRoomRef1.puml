@@ -40,7 +40,17 @@ create "rS1:RoomService"
 ":EditRoomsUI" -> ":ListRoomsOfHouseCTRL": rList=findAll
 ":ListRoomsOfHouseCTRL" -> "rS1:RoomService": rList=findAll
 "rS1:RoomService" -> RoomRepository: rList=findAll
-"rS1:RoomService" -> "rS1:RoomService": rList=toDtoList(roomList)
-Administrator <-- ":EditRoomsUI": Show rooms and select one
+"rS1:RoomService" -> ":RoomMapper": rList=toDtoList(roomList)
+loop for each room in roomList convert toDTO
+create "rDTO:RoomDTO"
+":RoomMapper" -> "rDTO:RoomDTO": create()
+"rDTO:RoomDTO" -> "r:Room": rDTO.set{attribute}(r.get{attribute})
+note left
+{attribute} can be: id and description
+    end note
+":RoomMapper"-> ":RoomMapper":add(r)
+end
+
+
 
 @enduml
