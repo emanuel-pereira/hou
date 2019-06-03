@@ -281,7 +281,8 @@ public class DataImport {
 
             String unit = string[5];
 
-            Sensor newSensor = new InternalSensor(sensorID, sensorDesignation, calendar, sensorType, unit, new ReadingList());
+            InternalSensor newSensor = new InternalSensor(sensorID, sensorDesignation, calendar, sensorType, unit, new ReadingList());
+            newSensor.setRoom(room);
 
             //Needs to be improved
 
@@ -304,6 +305,7 @@ public class DataImport {
                 sensorsNotAdded++;
             } else {
                 room.getSensorListInRoom().addSensor(newSensor);
+
                 sensorsAdded++;
             }
         }

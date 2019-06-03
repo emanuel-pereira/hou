@@ -8,6 +8,7 @@ import smarthome.dto.RoomDetailDTO;
 import smarthome.mapper.RoomMapper;
 import smarthome.model.HouseGrid;
 import smarthome.model.Room;
+import smarthome.model.SensorList;
 import smarthome.model.validations.NameValidations;
 import smarthome.repository.HouseGridRepository;
 import smarthome.repository.Repositories;

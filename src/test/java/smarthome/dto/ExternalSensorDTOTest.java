@@ -14,11 +14,11 @@ class ExternalSensorDTOTest {
     @Test
     void getSensorBehavior() {
         ExternalSensorDTO dto = new ExternalSensorDTO();
-        SensorBehaviorDTO field = new SensorBehaviorDTO();
+        ExternalSensorBehaviorDTO field = new ExternalSensorBehaviorDTO();
 
         dto.setSensorBehavior(field);
 
-        SensorBehaviorDTO result = dto.getSensorBehavior();
+        ExternalSensorBehaviorDTO result = dto.getSensorBehavior();
 
         assertEquals(field,result);
     }

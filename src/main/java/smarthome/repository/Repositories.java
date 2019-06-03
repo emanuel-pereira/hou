@@ -58,15 +58,28 @@ public final class Repositories {
         return externalSensorRepository;
     }
 
-    public static ReadingList getReadingsExternalSensor (String id, Calendar startDate, Calendar endDate){
+    public static ReadingList getReadingsExternalSensorInInterval(String id, Calendar startDate, Calendar endDate){
 
         ExternalSensor sensor = getExternalSensorRepository().findById(id).get();
 
         return sensor.getSensorBehavior().getReadingList().filterByDate(startDate, endDate);
     }
 
+    public static ReadingList getReadingsExternalSensor(String id){
+
+        ExternalSensor sensor = getExternalSensorRepository().findById(id).get();
+
+        return sensor.getSensorBehavior().getReadingList();
+    }
+
+
     public static InternalSensorRepository getInternalSensorRepository() {
         return internalSensorRepository;
+    }
+
+    public static ReadingList getReadingsInternalSensor(String idSensor) {
+        InternalSensor sensor = getInternalSensorRepository().findById(idSensor).get();
+        return sensor.getSensorBehavior().getReadingList();
     }
 
     public static SensorTypeRepository getSensorTypeRepository() {

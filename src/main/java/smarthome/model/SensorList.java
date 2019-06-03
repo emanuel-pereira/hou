@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+
 public class SensorList {
     private final List<Sensor> listOfSensors;
     static final Logger log = Logger.getLogger(SensorList.class);
@@ -66,7 +67,8 @@ public class SensorList {
             try {
                 Repositories.saveInternalSensor(newSensor);
             } catch (NullPointerException e) {
-                log.warn("Repository unreachable"); }
+                log.warn("Repository unreachable");
+            }
             return true;
         } else return false;
     }
@@ -118,7 +120,7 @@ public class SensorList {
      */
     public boolean checkIfRequiredSensorTypeExists(String sensorType) {
         for (Sensor s : this.listOfSensors) {
-            SensorType type=s.getSensorBehavior().getSensorType();
+            SensorType type = s.getSensorBehavior().getSensorType();
             if (type.getType().getName().equals(sensorType)) {
                 return true;
             }
@@ -134,12 +136,12 @@ public class SensorList {
      */
     public Sensor getRequiredSensorPerType(String type) {
         Sensor requiredSensor = null;
-        for (Sensor sensor : this.listOfSensors)
-        {
-            SensorType sensorType=sensor.getSensorBehavior().getSensorType();
+        for (Sensor sensor : this.listOfSensors) {
+            SensorType sensorType = sensor.getSensorBehavior().getSensorType();
 
             if (sensorType.getType().getName().equals(type))
-                requiredSensor = sensor;}
+                requiredSensor = sensor;
+        }
         return requiredSensor;
     }
 
@@ -154,7 +156,7 @@ public class SensorList {
         String element = " - ";
         int number = 1;
         for (Sensor sensor : this.listOfSensors) {
-            String name=sensor.getSensorBehavior().getDesignation();
+            String name = sensor.getSensorBehavior().getDesignation();
             result.append(number++);
             result.append(element);
             result.append(name);
@@ -166,7 +168,7 @@ public class SensorList {
     public SensorList getListOfSensorsByType(SensorType sensorType) {
         SensorList listOfSensorsByType = new SensorList();
         for (Sensor sensor : this.listOfSensors) {
-            SensorType type=sensor.getSensorBehavior().getSensorType();
+            SensorType type = sensor.getSensorBehavior().getSensorType();
 
             if (type.equals(sensorType))
                 listOfSensorsByType.getSensorList().add(sensor);
@@ -219,9 +221,47 @@ public class SensorList {
                     ExternalSensor externalSensor = (ExternalSensor) s;
                     Repositories.getExternalSensorRepository().save(externalSensor);
                 } catch (Exception e) {
-                    log.warn("Repository unreachable"); }
+                    log.warn("Repository unreachable");
+                }
             }
 
 
     }
+
+    public Sensor getInternalSensorByTypeWithLatestReadings(SensorType type) {
+        SensorList listByType = getListOfSensorsByType(type);
+        Calendar latest = new GregorianCalendar(0000, 00, 00);
+        Sensor result = new InternalSensor();
+
+        for (Sensor s : listByType.getSensorList()) {
+            if (s.getSensorBehavior().getReadingList().getLastReading() != null) {
+                if (latest.before(s.getSensorBehavior().getLastReading().getDateAndTime())) {
+                    latest = s.getSensorBehavior().getReadingList().getLastReading().getDateAndTime();
+                    result = s;
+                }
+            }
+            else {
+                result = null;
+            }
+        }
+        return result;
+    }
+
+    public Sensor getInternalSensorByTypeWithLatestReadingsInDay(SensorType type, Calendar givenDay) {
+        SensorList listByType = getListOfSensorsByType(type);
+
+        Calendar latest = new GregorianCalendar(0000, 00, 00);
+        Sensor result = new InternalSensor();
+
+        for (Sensor s : listByType.getSensorList()) {
+            if (s.getSensorBehavior().getReadingList().getReadingsInSpecificDay(givenDay).size() != 0
+                    && latest.before(s.getSensorBehavior().getLastReading().getDateAndTime())) {
+                latest = s.getSensorBehavior().getReadingList().getLastReading().getDateAndTime();
+                result = s;
+            }
+
+        }
+        return result;
+    }
+
 }

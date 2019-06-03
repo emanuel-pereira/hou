@@ -1,23 +1,20 @@
 package smarthome.dto;
 
-import smarthome.model.GenericName;
-
 import java.util.Calendar;
 import java.util.List;
 
-public class SensorBehaviorDTO {
-
+public class InternalSensorBehaviorDTO {
     private GenericNameDTO name;
     private SensorTypeDTO sensorType;
     private Calendar startDate;
     private Calendar pauseDate;
     private String unit;
     private boolean active;
-    private List<ExternalReadingDTO> readingList;
+    private List<InternalReadingDTO> readingList;
 
-    public SensorBehaviorDTO(){}
+    public InternalSensorBehaviorDTO(){}
 
-    public SensorBehaviorDTO(GenericNameDTO sensorName, Calendar startDate, SensorTypeDTO sensorType, String unit, List<ExternalReadingDTO> readings) {
+    public InternalSensorBehaviorDTO(GenericNameDTO sensorName, Calendar startDate, SensorTypeDTO sensorType, String unit, List<InternalReadingDTO> readings) {
         this.name = sensorName;
         this.startDate = startDate;
         this.sensorType = sensorType;
@@ -74,11 +71,11 @@ public class SensorBehaviorDTO {
         this.active = active;
     }
 
-    public List<ExternalReadingDTO> getReadingList() {
+    public List<InternalReadingDTO> getReadingList() {
         return readingList;
     }
 
-    public void setReadingList(List<ExternalReadingDTO> readingList) {
+    public void setReadingList(List<InternalReadingDTO> readingList) {
         this.readingList = readingList;
     }
 }
