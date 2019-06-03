@@ -1,0 +1,42 @@
+@startuml
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+"HTTP Client" -> ":HouseGridCTRL": POST \n/housegrids/{gid}?attachId={rid}
+
+create ":RoomService"
+":HouseGridCTRL" -> ":RoomService" : create( )
+":HouseGridCTRL" -> ":RoomService" : attachHouseGrid(rid, gid)
+
+create ":HouseGridService"
+":RoomService" -> ":HouseGridService" : create( )
+":RoomService" -> ":HouseGridService" : gridExists(gid)
+":HouseGridService" -> ":HouseGridRepository" : existsbyId(gid)
+
+":RoomService" -> ":RoomRepository" : existsbyId(rid) \n"room is not present"
+
+create "responseEntity \n:ResponseEntity"
+":HouseGridCTRL" ->  "responseEntity \n:ResponseEntity": responseEntity = new ResponseEntity<>([ ], HttpStatus.BAD REQUEST);
+
+":HouseGridCTRL" --> "HTTP Client" : Status.BAD REQUEST \n[ ] "blank response body"
+@enduml
