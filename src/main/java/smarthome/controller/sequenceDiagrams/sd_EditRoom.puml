@@ -43,15 +43,17 @@ note right
     end note
 ":EditRoomUI" -> ":EditRoomCTRL": set{attribute}(roomId, newValue)
 ":EditRoomCTRL" -> "rs2:RoomService": set{attribute}(roomId, newValue)
-"rs2:RoomService" -> RoomRepository: rDTO=findById(roomId)
-"rs2:RoomService" -> ":RoomMapper": toDetailDto(r)
-create "rDTO:RoomDetailDTO"
-":RoomMapper" -> "rDTO:RoomDetailDTO": create()
-"rDTO:RoomDetailDTO" -> "r:Room": rDTO.set{attribute}(r.get{attribute})
+"rs2:RoomService" -> RoomRepository: r=findById(roomId)
+"rs2:RoomService" -> ":RoomMapper": editRoomDTO=toDetailDto(r)
+create "editRoom:RoomDetailDTO"
+":RoomMapper" -> "editRoom:RoomDetailDTO": create()
+"rs2:RoomService" -> "r:Room": {roomAttribute}=get({attribute})
+"rs2:RoomService" -> "editRoom:RoomDetailDTO": editRoom.set{attribute}({roomAttribute})
+
 note left
-{attribute} are: id,description,floor,length,width and height
+{attribute or roomAttribute} is: gid,description,floor,length,width and height
     end note
-"rs2:RoomService" -> "r:Room": r.set{attribute}(newValue)
+"rs2:RoomService" -> "r:Room": r.set{roomAttribute}(newValue)
 "rs2:RoomService" -> RoomRepository: save(r)
 
 Administrator <-- ":EditRoomUI": Show room configuration
