@@ -29,7 +29,7 @@ public final class SmartHomeUI {
 
     private SmartHomeUI(){}
 
-    public static void menuOptions() throws SAXException, ParserConfigurationException, IllegalAccessException, InstantiationException, ClassNotFoundException, org.json.simple.parser.ParseException, IOException, ParseException {
+    public static void menuOptions() throws SAXException, ParserConfigurationException, IllegalAccessException, InstantiationException, ClassNotFoundException, org.json.simple.parser.ParseException, IOException, ParseException, NoSuchFieldException {
         int option = -1;
         while (option != 0) {
             ArrayList<String> options = new ArrayList<>();
