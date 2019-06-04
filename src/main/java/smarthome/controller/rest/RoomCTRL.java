@@ -52,7 +52,7 @@ public class RoomCTRL {
             RoomDetailDTO room = roomRepoDDD.findById(id);
             return new ResponseEntity<>(room, HttpStatus.OK);
         }
-        return new ResponseEntity<>("Id not found.", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>("Room not found.", HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -74,7 +74,7 @@ public class RoomCTRL {
                 return new ResponseEntity<>(editRoom,HttpStatus.OK);
             }
             return new ResponseEntity<>("Could not update the room",HttpStatus.UNAUTHORIZED);
-        }return new ResponseEntity<>("Id not found.", HttpStatus.NOT_FOUND);
+        }return new ResponseEntity<>("Room not found.", HttpStatus.NOT_FOUND);
     }
 
 }
