@@ -57,6 +57,16 @@ public class EditRoomCTRL {
     }
 
     /**
+     * Depending on the changes made or not to the length and width, the area will be updated
+     * @param id Id of a room
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     */
+    public void updateArea(String id) throws NoSuchFieldException {
+        this.roomService.updateArea(id);
+    }
+
+
+    /**
      * Changes the height of the room
      * @param id Id of the room
      * @param height New height value

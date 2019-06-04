@@ -102,10 +102,19 @@ public class EditRoomUI {
             System.out.println("Insert the width of the room (in meters):");
             double width = UtilsUI.requestDoubleInInterval(1, 1000, "Please insert a number (higher than zero)\nInsert the width of the room (in meters):");
             this.ctrlUS109.setWidth(this.roomId, width);
-            this.editHeight();
+            this.updateArea();
         } else {
-            this.editHeight();
+            this.updateArea();
         }
+    }
+
+    /**
+     * Depending on the changes made or not to the length and width, the area will be updated
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     */
+    private void updateArea() throws NoSuchFieldException {
+        this.ctrlUS109.updateArea(this.roomId);
+        this.editHeight();
     }
 
     /**

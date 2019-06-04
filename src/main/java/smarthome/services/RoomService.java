@@ -176,6 +176,23 @@ public class RoomService {
     }
 
     /**
+     * Using the Command-line interface to edit individually the length and the width the occupation area is not updated.
+     * This method fixes it by doing a set to the Occupation Area
+     * @param id Room id
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     */
+    public void updateArea(String id) throws NoSuchFieldException {
+        Optional<Room> optional = Repositories.getRoomRepository().findById(id);
+        if (!optional.isPresent())
+            throw new NoSuchFieldException();
+        Room room = optional.get();
+        double length = room.getArea().getLength();
+        double width = room.getArea().getWidth();
+        room.getArea().setOccupation(length*width);
+        Repositories.getRoomRepository().save(room);
+    }
+
+    /**
      * Changes the height of a room by getting that room from the repository. Because the return findById(id) is a Optional<>
      * there's the need to validate if is present. Then we get the specific room from the optional, set the height and then we save the room
      * @param id Room id
