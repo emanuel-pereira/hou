@@ -23,22 +23,32 @@ BorderColor SteelBlue
 }
 
 
-ClientHTTP -> ":RoomCTRL":  PUT/{roomId,roomDTO}
+ClientHTTP -> ":RoomCTRL":  PUT/{id,rDTO}
+create "rDTO:RoomDetailDTO"
+":RoomCTRL" -> "rDTO:RoomDetailDTO": create()
 create ":RoomService"
 ":RoomCTRL" -> ":RoomService": create()
-":RoomCTRL" -> ":RoomService": editRoom=findById(roomId)
-":RoomService" -> RoomRepository: editRoom=findById(roomId)
+":RoomCTRL" -> ":RoomService": editRoom=findById(id)
+":RoomService" -> RoomRepository: room=findById(id)
+":RoomService" -> RoomMapper: editRoom=toDetailDto(room)
 create "editRoom:RoomDetailDTO"
-":RoomService" -> "editRoom:RoomDetailDTO": create()
-":RoomCTRL"  -> "room:RoomDetailDTO": {newValue}=get{attribute}
-":RoomCTRL" ->"editRoom:RoomDetailDTO": editRoom.set{attribute}({newValue});
+RoomMapper -> "editRoom:RoomDetailDTO": create()
+":RoomCTRL" -> "rDTO:RoomDetailDTO": newValue=get{attribute}
+":RoomCTRL"  -> "editRoom:RoomDetailDTO": set{attribute}(newValue)
+
+note left
+{attribute} is:
+floor, length,
+width and height
+    end note
 ":RoomCTRL" -> ":RoomService": save(editRoom)
-":RoomService" -> RoomRepository: save(editRoom)
-ClientHTTP <-- ":RoomCTRL":  Success message
+":RoomService" -> RoomMapper: room=toObject(editRoom)
+RoomMapper -> "room:Room": set{attribute}(newValue)
 
+":RoomService" -> RoomRepository: save(room)
+create ResponseEntity
+":RoomCTRL" -> ResponseEntity: create()
 
-
-
-
+ClientHTTP <-- ":RoomCTRL": ResponseEntity=\neditRoom,HttpStatus.OK
 
 @enduml
