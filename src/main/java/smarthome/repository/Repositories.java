@@ -14,6 +14,7 @@ public final class Repositories {
     private static TypeGARepository typeGARepository = null;
     private static RoomRepository roomRepository = null;
     private static HouseGridRepository gridsRepository = null;
+    private static UserRepository userRepository = null; // added for security
 
     /**
      * Private constructor to hide the implicit one
@@ -125,6 +126,10 @@ public final class Repositories {
 
     public static void saveInternalSensor(InternalSensor s) {
         Repositories.internalSensorRepository.save(s);
+    }
+
+    public static UserRepository getUserRepository() {
+        return userRepository;
     }
 
 }

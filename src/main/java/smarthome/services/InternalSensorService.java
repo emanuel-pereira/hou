@@ -7,11 +7,8 @@ import smarthome.model.*;
 
 import smarthome.repository.Repositories;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 
 //This class implements WebService<SensorDTO, String> as an experimental approach

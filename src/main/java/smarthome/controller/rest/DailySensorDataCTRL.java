@@ -52,10 +52,10 @@ public class DailySensorDataCTRL {
 
 
     boolean checkIfTempSensorHasReadings(String startDate, String endDate) throws ParseException {
-        return sensorDataService.getBestSensorReadings(startDate, endDate,temp).size() != 0;
+        return sensorDataService.getBestSensorReadings(startDate, endDate, temp).size() != 0;
     }
 
-    boolean checkIfRainSensorHasReadings(){
+    boolean checkIfRainSensorHasReadings() {
         return sensorDataService.checkIfRainSensorHasReadings();
     }
 
@@ -73,15 +73,13 @@ public class DailySensorDataCTRL {
 //WORKS ON POSTMAN!
         if (!checkHouseGA() || !checkHouseLocation()) {
             return new ResponseEntity<>("Please configure the House's Geographical Area/Location first", HttpStatus.PRECONDITION_FAILED);
-        }
-
-        else {
+        } else {
             return new ResponseEntity<>(teapotMsg, HttpStatus.I_AM_A_TEAPOT);
         }
 
     }
 
-    ResponseEntity<Object> checkTemperaturePreConditions(){
+    ResponseEntity<Object> checkTemperaturePreConditions() {
 //WORKS ON POSTMAN!
         if (checkHouseGA() && checkHouseLocation() && !checkGeoAreaTempSensors()) {
             return new ResponseEntity<>("Please add temperature sensors to the House's Geographical Area!", HttpStatus.PRECONDITION_FAILED);
@@ -90,17 +88,15 @@ public class DailySensorDataCTRL {
         }
     }
 
-    ResponseEntity<Object> checkRainfallPreConditions(){
+    ResponseEntity<Object> checkRainfallPreConditions() {
 //WORKS ON POSTMAN!
         if (checkHouseGA() && checkHouseLocation() && !checkGeoAreaRainSensors()) {
             return new ResponseEntity<>("Please add rainfall sensors to the House's Geographical Area!", HttpStatus.PRECONDITION_FAILED);
         }
 //NOT WORKING
-        if(checkGeoAreaRainSensors() && !checkIfRainSensorHasReadings()){
-            return new ResponseEntity<>("Please add readings to the sensor!",HttpStatus.PRECONDITION_FAILED);
-        }
-
-        else {
+        if (checkGeoAreaRainSensors() && !checkIfRainSensorHasReadings()) {
+            return new ResponseEntity<>("Please add readings to the sensor!", HttpStatus.PRECONDITION_FAILED);
+        } else {
             return new ResponseEntity<>(teapotMsg, HttpStatus.I_AM_A_TEAPOT);
         }
     }
@@ -108,41 +104,37 @@ public class DailySensorDataCTRL {
     ResponseEntity<Object> checkDatePreConditions(String startDate, String endDate) throws ParseException {
         GregorianCalendar falseDate = new GregorianCalendar(1000, Calendar.JANUARY, 1);
 //WORKS ON POSTMAN!
-        if (startDate == null || endDate == null){
-            return new ResponseEntity<>("Please add date parameters!",HttpStatus.PRECONDITION_FAILED);
+        if (startDate == null || endDate == null) {
+            return new ResponseEntity<>("Please add date parameters!", HttpStatus.PRECONDITION_FAILED);
         }
 //WORKS ON POSTMAN!
         if (this.sensorDataService.convertStringToCalendar(startDate).equals(falseDate) || this.sensorDataService.convertStringToCalendar(endDate).equals(falseDate)) {
             return new ResponseEntity<>("Please insert valid dates!(yyyyMMdd)", HttpStatus.PRECONDITION_FAILED);
-        }
-
-        else {
+        } else {
             return new ResponseEntity<>(teapotMsg, HttpStatus.I_AM_A_TEAPOT);
         }
     }
 
-    ResponseEntity<Object> checkDateTempPreConditions(String startDate,String endDate) throws ParseException {
+    ResponseEntity<Object> checkDateTempPreConditions(String startDate, String endDate) throws ParseException {
 
-        if(!checkDatePreConditions(startDate,endDate).equals(HttpStatus.I_AM_A_TEAPOT)){
-         return checkDatePreConditions(startDate,endDate);
+        if (!checkDatePreConditions(startDate, endDate).equals(HttpStatus.I_AM_A_TEAPOT)) {
+            return checkDatePreConditions(startDate, endDate);
         }
         if (checkGeoAreaTempSensors() && !checkIfTempSensorHasReadings(startDate, endDate)) {
             return new ResponseEntity<>("The Sensor has no available Readings in the selected time interval!", HttpStatus.PRECONDITION_FAILED);
-        }
-        else {
+        } else {
             return new ResponseEntity<>(teapotMsg, HttpStatus.I_AM_A_TEAPOT);
         }
     }
 
-    ResponseEntity<Object> checkDateRainPreConditions(String startDate,String endDate) throws ParseException {
+    ResponseEntity<Object> checkDateRainPreConditions(String startDate, String endDate) throws ParseException {
 
-        if(!checkDatePreConditions(startDate,endDate).equals(HttpStatus.I_AM_A_TEAPOT)){
-            return checkDatePreConditions(startDate,endDate);
+        if (!checkDatePreConditions(startDate, endDate).equals(HttpStatus.I_AM_A_TEAPOT)) {
+            return checkDatePreConditions(startDate, endDate);
         }
-        if (checkGeoAreaRainSensors() && checkIfRainSensorHasReadings() && !this.checkIfRainSensorHasReadingsInDay(startDate)){
+        if (checkGeoAreaRainSensors() && checkIfRainSensorHasReadings() && !this.checkIfRainSensorHasReadingsInDay(startDate)) {
             return new ResponseEntity<>("The Sensor has no available Readings in the selected time interval!", HttpStatus.PRECONDITION_FAILED);
-        }
-        else {
+        } else {
             return new ResponseEntity<>(teapotMsg, HttpStatus.I_AM_A_TEAPOT);
         }
     }
@@ -157,12 +149,11 @@ public class DailySensorDataCTRL {
             return checkPreConditions();
         }
 
-        if(!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)){
+        if (!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkTemperaturePreConditions();
-        }
-        else {
+        } else {
             ExternalReadingDTO result = this.sensorDataService.displayAmplitude(startDate, endDate);
-            result.getDateAndTime().add(Calendar.HOUR_OF_DAY,1);
+            result.getDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
 
@@ -179,72 +170,64 @@ public class DailySensorDataCTRL {
             return checkPreConditions();
         }
 
-        if(!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)){
+        if (!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkTemperaturePreConditions();
-        }
-
-        else {
+        } else {
             ExternalReadingDTO result = this.sensorDataService.displayMaximum(startDate, endDate);
-            result.getDateAndTime().add(Calendar.HOUR_OF_DAY,1);
+            result.getDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
 
     @GetMapping("/dailyMinimum")
     ResponseEntity<Object> getDailyMinimum(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate) throws java.text.ParseException {
-        if (!checkDateTempPreConditions(startDate,endDate).getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)){
-            return checkDateTempPreConditions(startDate,endDate);
+        if (!checkDateTempPreConditions(startDate, endDate).getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
+            return checkDateTempPreConditions(startDate, endDate);
         }
 
         if (!checkPreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkPreConditions();
         }
 
-        if(!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)){
+        if (!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkTemperaturePreConditions();
-        }
-
-        else {
+        } else {
             ExternalReadingDTO result = this.sensorDataService.displayMinimum(startDate, endDate);
-            result.getDateAndTime().add(Calendar.HOUR_OF_DAY,1);
+            result.getDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
 
     @GetMapping("/currentTemperature")
-    ResponseEntity<Object> getCurrentTemperature(){
+    ResponseEntity<Object> getCurrentTemperature() {
         if (!checkPreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkPreConditions();
         }
 
-        if(!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)){
+        if (!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkTemperaturePreConditions();
-        }
-
-        else {
+        } else {
             ExternalReadingDTO result = this.sensorDataService.getCurrentTemperature();
-            result.getDateAndTime().add(Calendar.HOUR_OF_DAY,1);
+            result.getDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
 
     @GetMapping("/totalRainfall")
     ResponseEntity<Object> getTotalRainfall(@PathParam("day") String day) throws java.text.ParseException {
-        if (!checkDateRainPreConditions(day,day).getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)){
-            return checkDateRainPreConditions(day,day);
+        if (!checkDateRainPreConditions(day, day).getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
+            return checkDateRainPreConditions(day, day);
         }
 
         if (!checkPreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkPreConditions();
         }
 
-        if(!checkRainfallPreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)){
+        if (!checkRainfallPreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkRainfallPreConditions();
-        }
-
-        else {
+        } else {
             ExternalReadingDTO result = this.sensorDataService.getTotalRainfall(day);
-            result.getDateAndTime().add(Calendar.HOUR_OF_DAY,1);
+            result.getDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
