@@ -28,10 +28,8 @@ public class EditRoomUI {
      * informing that there are no rooms
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
-
-
     public void run() throws NoSuchFieldException {
-        if (this.ctrlUS108.roomListSize() == 0) {
+        if (this.ctrlUS108.roomListEmpty()) {
             System.out.println ("There are no rooms. Please add a room to the house first.\n");
             UtilsUI.backToMenu();
             return;
