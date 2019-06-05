@@ -7,6 +7,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.cors.CorsUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -29,6 +31,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     We also need to pass in {"username":"user", "password":"user123"} in the request body
      */
     @Override
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002","http://localhost:8081"}, maxAge = 3600)
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         // Grab credentials and map them to login viewmodel
@@ -48,6 +51,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // Authenticate user
         Authentication auth = authenticationManager.authenticate(authenticationToken);
 
+        if (CorsUtils.isPreFlightRequest(request)) {
+            response.setStatus(HttpServletResponse.SC_OK);
+        }
         return auth;
     }
 
