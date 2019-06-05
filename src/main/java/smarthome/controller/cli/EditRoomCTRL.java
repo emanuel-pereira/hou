@@ -6,7 +6,6 @@ import smarthome.services.RoomService;
 public class EditRoomCTRL {
 
     private final RoomService roomService;
-    private RoomDetailDTO editRoom;
 
     /**
      * Controller constructor
