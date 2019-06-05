@@ -1,11 +1,8 @@
 @startuml
 hidefootbox
 
-actor Administrator
-
 skinparam sequence {
 	ArrowColor SteelBlue
-	ActorBorderColor Dimgray
 	LifeLineBorderColor MidnightBlue
 	LifeLineBackgroundColor #A9DCDF
 
@@ -26,8 +23,8 @@ skinparam note {
 BorderColor SteelBlue
 }
 
-Administrator -> UI: Create Room
-UI -> ":RoomCTRL":  POST/{roomDTO}
+
+ClientHTTP -> ":RoomCTRL":  POST/{rDTO}
 create ":RoomService"
 ":RoomCTRL" -> ":RoomService": create()
 
@@ -35,13 +32,11 @@ create ":RoomService"
 create "rDTO:roomDTO"
 ":RoomCTRL" -> "rDTO:roomDTO": create()
 ":RoomCTRL" -> ":RoomService": save(rDTO)
-":RoomService" -> ":RoomMapper": r=toObject(roomDTO)
+":RoomService" -> ":RoomMapper": room=toObject(roomDTO)
 create "r:room"
 ":RoomMapper" -> "r:room": create()
-":RoomService" -> ":RoomRepository": save(r)
-create ResponseEntity
-":RoomCTRL" -> ResponseEntity: create
-Administrator <-- UI:  Show new room in list
+":RoomService" -> ":CRUDRoomRepository": save(r)
+ClientHTTP <-- ":RoomCTRL":  Success message
 
 
 
