@@ -1,0 +1,56 @@
+@startuml
+hidefootbox
+title If there are rooms (x≠0) a list of rooms (DTO) is shown
+
+actor Administrator
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+create ":EditRoomsUI"
+Administrator -> ":EditRoomsUI": create()
+Administrator -> ":EditRoomsUI":Edit a room
+create ":ListRoomsOfHouseCTRL"
+":EditRoomsUI" -> ":ListRoomsOfHouseCTRL": create()
+":EditRoomsUI" -> ":ListRoomsOfHouseCTRL": false=roomListEmpty()
+create "rS1:RoomService"
+":ListRoomsOfHouseCTRL" -> "rS1:RoomService": create()
+":ListRoomsOfHouseCTRL" -> "rS1:RoomService": false=checkIfRoomRepositoryEmpty()
+"rS1:RoomService" -> RoomRepository: x≠0=count()
+":EditRoomsUI" -> ":ListRoomsOfHouseCTRL": rList=findAll
+":ListRoomsOfHouseCTRL" -> "rS1:RoomService": rList=findAll
+"rS1:RoomService" -> RoomRepository: rList=findAll
+"rS1:RoomService" -> ":RoomMapper": rList=toDtoList(roomList)
+loop convert each room to DTO
+create "rDTO:RoomDTO"
+":RoomMapper" -> "rDTO:RoomDTO": create()
+"rDTO:RoomDTO" -> "r:Room": rDTO.set{attribute}(r.get{attribute})
+note left
+{attribute} can be: id and description
+    end note
+":RoomMapper"-> ":RoomMapper":add(r)
+end
+
+
+
+@enduml

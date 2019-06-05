@@ -37,6 +37,7 @@ public class Room implements Metered {
     @Transient
     private double time;
 
+
     public Room() {
         this.sensorListInRoom = new SensorList();
         this.deviceList = new DeviceList();
@@ -79,6 +80,26 @@ public class Room implements Metered {
      */
     public void setDescription(String nameRoom) {
         this.description = nameRoom;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setFloor(Integer floor) {
+        this.floor = floor;
+    }
+
+    public void setSensorListInRoom(SensorList sensorListInRoom) {
+        this.sensorListInRoom = sensorListInRoom;
+    }
+
+    public void setDeviceList(DeviceList deviceList) {
+        this.deviceList = deviceList;
+    }
+
+    public double getTime() {
+        return time;
     }
 
     /**

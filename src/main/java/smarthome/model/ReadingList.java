@@ -62,7 +62,11 @@ public class ReadingList {
 
     public Reading getLastReading() {
         int size = this.listOfReadings.size();
-        return this.listOfReadings.get(size - 1);
+        if(size!=0){
+        return this.listOfReadings.get(size - 1);}
+        else {
+            return null;
+        }
     }
 
     public List<Reading> getReadingsList() {

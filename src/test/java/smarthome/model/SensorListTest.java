@@ -3,8 +3,10 @@ package smarthome.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.validations.Name;
 
 import java.lang.reflect.Field;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -556,6 +558,36 @@ class SensorListTest {
         SensorList sensorList = new SensorList();
         sensorList.addSensor(s1);
         assertTrue(sensorList.checkIfAnySensorHasSameID(s1));
+    }
+
+    @Test
+    void getSensorByTypeWithLatestReadings(){
+        SensorList sList = new SensorList();
+
+        SensorType temp = new SensorType("temperature");
+        ReadingList l1 = new ReadingList();
+        Reading r1 = new Reading(0,new GregorianCalendar(2019, Calendar.MAY,31),"C");
+        l1.addReading(r1);
+        Sensor s1 = new InternalSensor("s001","one",new GregorianCalendar(2018,Calendar.JANUARY,1),temp,"C",l1);
+
+        ReadingList l2 = new ReadingList();
+        Reading r2 = new Reading(0,new GregorianCalendar(2019,Calendar.MAY,30),"C");
+        l2.addReading(r2);
+        Sensor s2 = new InternalSensor("s002","two",new GregorianCalendar(2018,Calendar.JANUARY,1),temp,"C",l2);
+
+        ReadingList l3 = new ReadingList();
+        Reading r3 = new Reading(0,new GregorianCalendar(2019,Calendar.MAY,29),"C");
+        l3.addReading(r3);
+        Sensor s3 = new InternalSensor("s003","three",new GregorianCalendar(2018,Calendar.JANUARY,1),temp,"C",l3);
+
+        sList.addSensor(s1);
+        sList.addSensor(s2);
+        sList.addSensor(s3);
+
+        Sensor result = sList.getInternalSensorByTypeWithLatestReadings(temp);
+
+        assertEquals(s1,result);
+
     }
 
 

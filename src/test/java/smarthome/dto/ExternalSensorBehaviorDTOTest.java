@@ -9,11 +9,11 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SensorBehaviorDTOTest {
+class ExternalSensorBehaviorDTOTest {
 
     @Test
     void getName() {
-        SensorBehaviorDTO dto = new SensorBehaviorDTO();
+        ExternalSensorBehaviorDTO dto = new ExternalSensorBehaviorDTO();
         GenericNameDTO name = new GenericNameDTO("name");
         dto.setName(name);
         GenericNameDTO result = dto.getName();
@@ -23,7 +23,7 @@ class SensorBehaviorDTOTest {
 
     @Test
     void getSensorType() {
-        SensorBehaviorDTO dto = new SensorBehaviorDTO();
+        ExternalSensorBehaviorDTO dto = new ExternalSensorBehaviorDTO();
         SensorTypeDTO field = new SensorTypeDTO("temperature");
         dto.setSensorType(field);
         SensorTypeDTO result = dto.getSensorType();
@@ -33,7 +33,7 @@ class SensorBehaviorDTOTest {
 
     @Test
     void getStartDate() {
-        SensorBehaviorDTO dto = new SensorBehaviorDTO();
+        ExternalSensorBehaviorDTO dto = new ExternalSensorBehaviorDTO();
         GregorianCalendar field = new GregorianCalendar(2019, Calendar.MAY,28);
         dto.setStartDate(field);
         Calendar result = dto.getStartDate();
@@ -43,7 +43,7 @@ class SensorBehaviorDTOTest {
 
     @Test
     void getPauseDate() {
-        SensorBehaviorDTO dto = new SensorBehaviorDTO();
+        ExternalSensorBehaviorDTO dto = new ExternalSensorBehaviorDTO();
         GregorianCalendar field = new GregorianCalendar(2019, Calendar.MAY,28);
         dto.setPauseDate(field);
         Calendar result = dto.getPauseDate();
@@ -53,7 +53,7 @@ class SensorBehaviorDTOTest {
 
     @Test
     void getUnit() {
-        SensorBehaviorDTO dto = new SensorBehaviorDTO();
+        ExternalSensorBehaviorDTO dto = new ExternalSensorBehaviorDTO();
         String field = "C";
         dto.setUnit(field);
         String result = dto.getUnit();
@@ -63,7 +63,7 @@ class SensorBehaviorDTOTest {
 
     @Test
     void isActive() {
-        SensorBehaviorDTO dto = new SensorBehaviorDTO();
+        ExternalSensorBehaviorDTO dto = new ExternalSensorBehaviorDTO();
         dto.setActive(true);
         boolean result = dto.isActive();
         assertTrue(result);
@@ -75,7 +75,7 @@ class SensorBehaviorDTOTest {
 
     @Test
     void getReadingList() {
-        SensorBehaviorDTO dto = new SensorBehaviorDTO(new GenericNameDTO("name"),new GregorianCalendar(2019, Calendar.MAY,28),new SensorTypeDTO("temperature"),"C",new ArrayList<>());
+        ExternalSensorBehaviorDTO dto = new ExternalSensorBehaviorDTO(new GenericNameDTO("name"),new GregorianCalendar(2019, Calendar.MAY,28),new SensorTypeDTO("temperature"),"C",new ArrayList<>());
         List<ExternalReadingDTO> field = new ArrayList<>();
         dto.setReadingList(field);
         List<ExternalReadingDTO> result = dto.getReadingList();

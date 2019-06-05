@@ -226,18 +226,26 @@ public class House {
         SensorList closestSensors = filterListByTypeAndProximity(sensorType);
         ExternalSensor closestSensorWithLatestReading = (ExternalSensor) closestSensors.getSensorList().get(0);
         Reading lastReading = closestSensorWithLatestReading.getSensorBehavior().getLastReading();
-        Calendar lastDate = lastReading.getDateAndTime();
+        if (lastReading != null) {
+            Calendar lastDate = lastReading.getDateAndTime();
 
-        for (Sensor sensor : closestSensors.getSensorList()) {
-            ExternalSensor externalSensor = (ExternalSensor) sensor;
-            Reading sensorLastReading = externalSensor.getSensorBehavior().getLastReading();
-            if (sensorLastReading.getDateAndTime().after(lastDate)) {
-                lastDate = externalSensor.getSensorBehavior().getLastReading().getDateAndTime();
-                closestSensorWithLatestReading = (ExternalSensor) sensor;
+            for (Sensor sensor : closestSensors.getSensorList()) {
+                ExternalSensor externalSensor = (ExternalSensor) sensor;
+                Reading sensorLastReading = externalSensor.getSensorBehavior().getLastReading();
+                if (sensorLastReading.getDateAndTime().after(lastDate)) {
+                    lastDate = externalSensor.getSensorBehavior().getLastReading().getDateAndTime();
+                    closestSensorWithLatestReading = (ExternalSensor) sensor;
+                }
             }
         }
+
+        else{
+            closestSensorWithLatestReading = null;
+        }
         return closestSensorWithLatestReading;
-    }
+
+
+}
 
 
     /**

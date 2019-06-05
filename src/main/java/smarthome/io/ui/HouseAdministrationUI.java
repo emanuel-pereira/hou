@@ -63,7 +63,7 @@ public final class HouseAdministrationUI {
                     ui108.run();
                     break;
                 case 5:
-                    EditRoomsUI ui109 = new EditRoomsUI();
+                    EditRoomUI ui109 = new EditRoomUI();
                     ui109.run();
                     break;
                 case 6:

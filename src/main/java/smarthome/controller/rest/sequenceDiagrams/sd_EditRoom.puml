@@ -1,0 +1,44 @@
+@startuml
+hidefootbox
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+
+ClientHTTP -> ":RoomCTRL":  PUT/{roomId,roomDTO}
+create ":RoomService"
+":RoomCTRL" -> ":RoomService": create()
+":RoomCTRL" -> ":RoomService": editRoom=findById(roomId)
+":RoomService" -> RoomRepository: editRoom=findById(roomId)
+create "editRoom:RoomDetailDTO"
+":RoomService" -> "editRoom:RoomDetailDTO": create()
+":RoomCTRL"  -> "room:RoomDetailDTO": {newValue}=get{attribute}
+":RoomCTRL" ->"editRoom:RoomDetailDTO": editRoom.set{attribute}({newValue});
+":RoomCTRL" -> ":RoomService": save(editRoom)
+":RoomService" -> RoomRepository: save(editRoom)
+ClientHTTP <-- ":RoomCTRL":  Success message
+
+
+
+
+
+
+@enduml
