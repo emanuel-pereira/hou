@@ -25,15 +25,16 @@ actor Administrator
 Administrator->UI: Request list of \n sensors in room
 "UI" -> ":InternalSensorCTRL": GET \n/rooms/{id}/sensors
 
-create ":RoomService"
-":InternalSensorCTRL" -> ":RoomService" : create( )
-":InternalSensorCTRL" -> ":RoomService" : roomExists(id)
-
-":RoomService" -> ":RoomRepository" : existsbyId(id)
 
 create ":InternalSensorService"
 ":InternalSensorCTRL" -> ":InternalSensorService" : create( )
 ":InternalSensorCTRL" -> ":InternalSensorService" : findAllBy(id)
+create ":RoomService"
+":InternalSensorService" -> ":RoomService" : create( )
+":InternalSensorService" -> ":RoomService" : roomExists(id)
+":RoomService" -> ":RoomRepository" : existsbyId(id)
+
+
 
 ":InternalSensorService" -> ":InternalSensorRepository" : listOfSensors =\n findAllByRoom(id)
 

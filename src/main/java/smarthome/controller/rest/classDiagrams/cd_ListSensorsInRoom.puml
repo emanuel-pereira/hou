@@ -24,7 +24,6 @@ class InternalSensorCTRL{
 
 -RoomService roomService
 -InternalSensorService internalSensorService
-+roomExists()
 +findAllBy()
 }
 
@@ -39,8 +38,10 @@ class InternalSensorService{
 
 -InternalSensorRepository internalSensorRepository
 -SensorMapper mapper
-
++roomExists()
 +findAllByRoom()
+
+
 }
 
 
