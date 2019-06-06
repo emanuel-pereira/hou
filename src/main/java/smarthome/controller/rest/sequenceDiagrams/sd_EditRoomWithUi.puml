@@ -25,8 +25,8 @@ skinparam note {
 BorderColor SteelBlue
 }
 
-Administrator -> UI: Edit select room
-UI -> ":RoomCTRL":  PUT/{id,rDTO}
+Administrator -> "HTTP Client": Edit select room
+"HTTP Client" -> ":RoomCTRL":  PUT/{id,rDTO}
 create "rDTO:RoomDetailDTO"
 ":RoomCTRL" -> "rDTO:RoomDetailDTO": create()
 create ":RoomService"
@@ -52,7 +52,7 @@ RoomMapper -> "room:Room": set{attribute}(newValue)
 create ResponseEntity
 ":RoomCTRL" -> ResponseEntity: create()
 
-UI <-- ":RoomCTRL": ResponseEntity=\neditRoom,HttpStatus.OK
-Administrator <-- UI: Room content is updated
+"HTTP Client" <-- ":RoomCTRL": ResponseEntity=\neditRoom,HttpStatus.OK
+Administrator <-- "HTTP Client": Room content is updated
 
 @enduml
