@@ -16,15 +16,18 @@ skinparam class {
 }
 
 class RoomTemperatureCTRL{
+- roomTemperatureService: RoomTemperatureService
+- roomService: RoomService
 + getMaxTemperatureInDay()
 }
 
 class RoomTemperatureService{
+- internalSensorService: InternalSensorService
 + getMaxTempInRoom()
 
 }
 
-class SensorService{
+class InternalSensorService{
 + findByRoom()
 }
 
@@ -34,12 +37,15 @@ interface InternalSensorRepository{
 
 }
 
-
 class ReadingList{
+- listOfReadings: List<Reading>
 + maxValueInInterval()
 }
 
 class Reading {
+- value: double
+- dateAndTime: Calendar
+- unit: String
 + returnValue()
 
 }
@@ -52,9 +58,9 @@ RoomTemperatureCTRL --> RoomTemperatureService
 
 RoomTemperatureService -> InternalSensorRepository
 
-RoomTemperatureService -> SensorService
+RoomTemperatureService -> InternalSensorService
 
-SensorService --> InternalSensorRepository
+InternalSensorService --> InternalSensorRepository
 
 InternalSensorRepository --> ReadingList
 
