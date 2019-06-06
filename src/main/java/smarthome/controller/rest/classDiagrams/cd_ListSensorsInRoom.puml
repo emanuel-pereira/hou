@@ -1,0 +1,84 @@
+@startuml
+
+
+skinparam linetype ortho
+hide empty members
+
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
+
+
+hide empty members
+
+class InternalSensorCTRL{
+
+-RoomService roomService
+-InternalSensorService internalSensorService
++findAllBy()
+}
+
+class RoomService{
+
+- RoomRepository roomRepository
++existsById()
+}
+
+
+class InternalSensorService{
+
+-InternalSensorRepository internalSensorRepository
+-SensorMapper mapper
++roomExists()
++findAllByRoom()
+
+
+}
+
+
+class SensorMapper{
++toDTO()
+}
+
+Interface RoomRepository{
+
++findAllByHouseGrid()
+
+}
+
+class ResponseEntity{
+
++ResponseEntity()
+}
+
+
+Interface InternalSensorRepository{
+
++findAllByRoom()
+}
+
+
+
+InternalSensorCTRL --> InternalSensorService
+
+InternalSensorCTRL --> RoomService
+
+InternalSensorService --> InternalSensorRepository
+
+RoomService --> RoomRepository
+
+InternalSensorCTRL -> ResponseEntity
+InternalSensorService -->SensorMapper
+
+
+
+@enduml
