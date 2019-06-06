@@ -7,6 +7,7 @@ import smarthome.services.InternalSensorService;
 
 import java.util.List;
 
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
 @RestController
 @RequestMapping("rooms/{room_id}/sensors")
 public class InternalSensorCTRL {
