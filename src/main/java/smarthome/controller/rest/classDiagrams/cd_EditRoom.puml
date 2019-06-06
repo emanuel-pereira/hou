@@ -33,18 +33,50 @@ class RoomMapper {
 + toObject()
 }
 
-class RoomRepository{
+Interface RoomRepository{
 
 + findById()
 + save()
 
 }
 
+class Room{
+- id
+- description
+- floor
+- length
+- width
+- height
+
++ setFloor()
++ setLength()
++ setWidth()
++ seHeight()
+}
+
+class RoomDetailDTO{
+- id
+- description
+- floor
+- length
+- width
+- height
+
++ setFloor()
++ setLength()
++ setWidth()
++ seHeight()
+
+}
 
 RoomCTRL --> RoomService
+RoomCTRL -> ResponseEntity
 RoomService -> RoomMapper
+RoomService -> Room
+RoomMapper -> RoomDetailDTO
+RoomMapper --> Room
 RoomService --> RoomRepository
-
+RoomRepository -> Room
 
 
 @enduml
