@@ -33,7 +33,7 @@ class RoomMapper {
 + toObject()
 }
 
-class RoomRepository{
+Interface RoomRepository{
 
 + findById()
 + save()
@@ -70,6 +70,7 @@ class RoomDetailDTO{
 }
 
 RoomCTRL --> RoomService
+RoomCTRL -> ResponseEntity
 RoomService -> RoomMapper
 RoomService -> Room
 RoomMapper -> RoomDetailDTO
