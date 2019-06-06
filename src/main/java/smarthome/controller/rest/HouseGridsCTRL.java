@@ -22,6 +22,8 @@ import java.util.List;
  * {@link RequestMapping}("/housegrids") declares that the base url for all the possible API requests in this controller
  * will start with /housegrids.
  */
+
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
 @RestController
 @RequestMapping("/housegrids")
 public class HouseGridsCTRL {

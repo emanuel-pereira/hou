@@ -23,8 +23,7 @@ public class InternalSensorService implements WebService<SensorDTO, String>{
     public List<SensorDTO> findAllBy(String roomId) {
         List<SensorDTO> sl = new ArrayList<>();
 
-        Room r = Repositories.getRoomRepository().findById(roomId).get();
-        List<Sensor> sensorList = r.getSensorListInRoom().getSensorList();
+        List<Sensor> sensorList = findByRoom(roomId).getSensorList();
 
         for (Sensor s : sensorList
         ) {
