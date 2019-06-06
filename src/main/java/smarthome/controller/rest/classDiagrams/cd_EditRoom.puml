@@ -1,0 +1,50 @@
+@startuml
+skinparam linetype ortho
+hide empty members
+
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
+
+class RoomCTRL{
+- RoomService
++ updateOne()
+}
+
+class RoomService{
+- RoomRepository
+- RoomMapper
+
++ findById()
++ save()
+}
+
+class RoomMapper {
++ toDetailDto()
++ toObject()
+}
+
+class RoomRepository{
+
++ findById()
++ save()
+
+}
+
+
+RoomCTRL --> RoomService
+RoomService -> RoomMapper
+RoomService --> RoomRepository
+
+
+
+@enduml
