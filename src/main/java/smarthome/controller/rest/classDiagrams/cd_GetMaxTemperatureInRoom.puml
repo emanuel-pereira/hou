@@ -1,0 +1,66 @@
+@startuml
+skinparam linetype ortho
+hide empty members
+
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
+
+class RoomTemperatureCTRL{
++ getMaxTemperatureInDay()
+}
+
+class RoomTemperatureService{
++ getMaxTempInRoom()
+
+}
+
+class SensorService{
++ findByRoom()
+}
+
+interface InternalSensorRepository{
++ getReadingsInSpecificDay()
++ getInternalSensorByType()
+
+}
+
+
+class ReadingList{
++ maxValueInInterval()
+}
+
+class Reading {
++ returnValue()
+
+}
+class ResponseEntity{
+ResponseEntity()
+
+}
+
+RoomTemperatureCTRL --> RoomTemperatureService
+
+RoomTemperatureService -> InternalSensorRepository
+
+RoomTemperatureService -> SensorService
+
+SensorService --> InternalSensorRepository
+
+InternalSensorRepository --> ReadingList
+
+ReadingList -> Reading
+
+RoomTemperatureCTRL -> ResponseEntity
+
+
+@enduml
