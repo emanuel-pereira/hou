@@ -22,22 +22,22 @@ hide empty members
 
 class InternalSensorCTRL{
 
--RoomService roomService
--InternalSensorService internalSensorService
+-roomService: RoomService
+-internalSensorService: InternalSensorService
 +findAllBy()
 }
 
 class RoomService{
 
-- RoomRepository roomRepository
+-roomRepository: RoomRepository
 +existsById()
 }
 
 
 class InternalSensorService{
 
--InternalSensorRepository internalSensorRepository
--SensorMapper mapper
+- internalSensorRepository: InternalSensorRepository
+- mapper: SensorMapper
 +roomExists()
 +findAllByRoom()
 
