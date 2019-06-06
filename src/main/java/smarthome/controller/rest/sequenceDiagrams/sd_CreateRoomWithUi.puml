@@ -19,7 +19,6 @@ skinparam sequence {
 	ActorFontColor MidnightBlue
 	ActorFontSize 17
 	ActorFontName Aapex
-
 }
 
 skinparam note {
