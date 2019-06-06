@@ -22,8 +22,8 @@ skinparam note {
 BorderColor SteelBlue
 }
 actor Administrator
-Administrator->UI: Request list of \n sensors in room
-"UI" -> ":InternalSensorCTRL": GET \n/rooms/{id}/sensors
+Administrator->"HTTP Client": Request list of \n sensors in room
+"HTTP Client" -> ":InternalSensorCTRL": GET \n/rooms/{id}/sensors
 
 
 create ":InternalSensorService"
@@ -48,7 +48,7 @@ end
 create "responseEntity \n:ResponseEntity"
 ":InternalSensorCTRL" ->  "responseEntity \n:ResponseEntity": responseEntity = new ResponseEntity<>(listOfSensorDTOs, HttpStatus.OK);
 
-":InternalSensorCTRL" --> "UI" : Status.OK \nResponse DTO
+":InternalSensorCTRL" --> "HTTP Client" : Status.OK \nResponse DTO
 
-Administrator<--UI: Show list of \n sensors in room
+Administrator<--"HTTP Client": Show list of \n sensors in room
 @enduml
