@@ -1,0 +1,53 @@
+@startuml
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+actor Administrator
+Administrator->UI: Request list of \n sensors in room
+"UI" -> ":InternalSensorCTRL": GET \n/rooms/{id}/sensors
+
+create ":RoomService"
+":InternalSensorCTRL" -> ":RoomService" : create( )
+":InternalSensorCTRL" -> ":RoomService" : roomExists(id)
+
+":RoomService" -> ":RoomRepository" : existsbyId(id)
+
+create ":InternalSensorService"
+":InternalSensorCTRL" -> ":InternalSensorService" : create( )
+":InternalSensorCTRL" -> ":InternalSensorService" : findAllBy(id)
+
+":InternalSensorService" -> ":InternalSensorRepository" : listOfSensors =\n findAllByRoom(id)
+
+loop  for each sensor in sensorList convert to DTO
+":InternalSensorService" -> ":SensorMapper": dto=toDTO
+create "dto:SensorDTO"
+":SensorMapper" -> "dto:SensorDTO": create
+":InternalSensorService" -> ":InternalSensorService": listOfSensorDTOs = \naddSensorDTO(dto);
+
+end
+create "responseEntity \n:ResponseEntity"
+":InternalSensorCTRL" ->  "responseEntity \n:ResponseEntity": responseEntity = new ResponseEntity<>(listOfSensorDTOs, HttpStatus.OK);
+
+":InternalSensorCTRL" --> "UI" : Status.OK \nResponse DTO
+
+Administrator<--UI: Show list of \n sensors in room
+@enduml
