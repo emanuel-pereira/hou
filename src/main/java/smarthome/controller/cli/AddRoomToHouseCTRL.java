@@ -2,6 +2,7 @@ package smarthome.controller.cli;
 
 import org.apache.log4j.Logger;
 import smarthome.dto.RoomDetailDTO;
+import smarthome.mapper.RoomMapper;
 import smarthome.model.Room;
 import smarthome.model.RoomList;
 import smarthome.services.RoomService;
@@ -13,6 +14,9 @@ import static smarthome.model.House.getHouseRoomList;
 public class AddRoomToHouseCTRL {
 
     private final RoomService roomList;
+    private  RoomList oldList; //this needs to be delete but is necessary due to the repercussions of being removed
+    private RoomMapper roomMapper; //used because of the oldList
+
 
     static final Logger log = Logger.getLogger(AddRoomToHouseCTRL.class);
 
@@ -22,6 +26,8 @@ public class AddRoomToHouseCTRL {
      */
     public AddRoomToHouseCTRL() {
         this.roomList = new RoomService();
+        this.oldList = getHouseRoomList();
+        this.roomMapper = new RoomMapper();
 
     }
 
@@ -37,6 +43,8 @@ public class AddRoomToHouseCTRL {
      */
     public boolean newAddRoom(String id, String description, Integer floor, double length, double width, double height) {
         RoomDetailDTO room = this.roomList.createRoom (id,description, floor, length, width, height);
+        Room convertedRoom = this.roomMapper.toObject(room); //will be removed
+        this.oldList.addRoom(convertedRoom); //will be removed
         return this.roomList.save (room);
     }
 
