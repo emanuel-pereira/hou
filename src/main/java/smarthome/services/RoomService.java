@@ -84,6 +84,7 @@ public class RoomService {
 
     /**
      * Checks the size of rooms in the Room Repository
+     *
      * @return the number of rooms persisted in the repository
      */
     public long size() {
@@ -92,6 +93,7 @@ public class RoomService {
 
     /**
      * Checks if the Room Repository is empty
+     *
      * @return true if empty
      */
     public boolean checkIfRoomRepositoryEmpty() {
@@ -135,6 +137,40 @@ public class RoomService {
      */
     public boolean roomExists(String id) {
         return Repositories.getRoomRepository().existsById(id);
+    }
+
+    /**
+     * Changes the configuration of a room. A DTO is created so that the Id is not changed.
+     * @param id Room id
+     * @param room DTO with the edited configuration
+     * @return DTO with the edited configuration with the safeguard that this DTO doesn't have another Id
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     */
+    public RoomDetailDTO editRoom(String id, RoomDetailDTO room) throws NoSuchFieldException {
+        RoomDetailDTO editRoom = this.findById(id);
+        editRoom.setDescription(room.getDescription());
+        editRoom.setFloor(room.getFloor());
+        editRoom.setLength(room.getLength());
+        editRoom.setWidth(room.getWidth());
+        editRoom.setHeight(room.getHeight());
+        return editRoom;
+    }
+
+    /**
+     * Changes the description of a room by getting that room from the repository. Because the return findById(id) is a Optional<>
+     * there's the need to validate if is present. Then we get the specific room from the optional, set the floor and then we save the room
+     *
+     * @param id          Room id
+     * @param description New floor value
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     */
+    public void setDescription(String id, String description) throws NoSuchFieldException {
+        Optional<Room> optional = Repositories.getRoomRepository().findById(id);
+        if (!optional.isPresent())
+            throw new NoSuchFieldException();
+        Room room = optional.get();
+        room.setDescription(description);
+        Repositories.getRoomRepository().save(room);
     }
 
     /**

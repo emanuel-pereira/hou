@@ -26,6 +26,16 @@ public class EditRoomCTRL {
     }
 
     /**
+     * Changes the description of a specific room
+     * @param id Id of the room
+     * @param description New description
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     */
+    public void setDescription(String id, String description) throws NoSuchFieldException {
+        this.roomService.setDescription(id,description);
+    }
+
+    /**
      * Changes the floor of a specific room
      * @param id Id of the room
      * @param floor New floor value
