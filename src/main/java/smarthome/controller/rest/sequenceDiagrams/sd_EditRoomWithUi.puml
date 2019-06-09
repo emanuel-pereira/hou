@@ -49,6 +49,7 @@ RoomMapper -> "dto:RoomDetailDTO": create()
 
 note left
 {attribute} is:
+description,
 floor, length,
 width and height
     end note

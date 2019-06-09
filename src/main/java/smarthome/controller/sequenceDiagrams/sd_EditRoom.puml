@@ -39,7 +39,7 @@ Administrator <-- ":EditRoomUI": Show rooms and select one
 
 Administrator <-- ":EditRoomUI": Do you want to edit {attribute}?(y/n)
 note right
-{attribute} can be: floor, length, width and/or height
+{attribute} can be: description, floor, length, width and/or height
     end note
 ":EditRoomUI" -> ":EditRoomCTRL": set{attribute}(roomId,newValue)
 ":EditRoomCTRL" -> "rs2:RoomService": set{attribute}(roomId,newValue)
@@ -48,7 +48,7 @@ note right
 "rs2:RoomService" -> "r:Room": set{attribute}({newValue})
 
 note left
-{attribute} and {roomAttribute} are:gid,description,floor,nlength,width and height
+{attribute} and {roomAttribute} are: id,description,floor,nlength,width and height
     end note
 "rs2:RoomService" -> RoomRepository: save(r)
 ":EditRoomUI" -> ":EditRoomCTRL": newRDTO=showRoom(roomId)
