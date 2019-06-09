@@ -64,7 +64,10 @@ class RoomDetailDTO{
 + setLength()
 + setWidth()
 + seHeight()
+}
 
+class ResponseEntity{
++ResponseEntity()
 }
 
 RoomCTRL --> RoomService
