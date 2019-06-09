@@ -9,6 +9,11 @@ public class HouseGridDTO {
     public HouseGridDTO() {
     }
 
+    public HouseGridDTO(Long id, String designation) {
+        this.setId(id);
+        this.setDesignation(designation);
+    }
+
     public Long getId() {
         return id;
     }
