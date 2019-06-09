@@ -1,4 +1,4 @@
-package smarthome.controller.REST;
+package smarthome.controller.rest;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.*;
 import smarthome.dto.SensorTypeDTO;
 import smarthome.services.SensorTypeService;
 
-import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -22,7 +21,7 @@ public class SensorTypeWeb {
     }
 
     @PostMapping
-    public ResponseEntity<Object> createSensorType(@RequestBody SensorTypeDTO type) throws ParseException {
+    public ResponseEntity<Object> createSensorType(@RequestBody SensorTypeDTO type) {
 
         if (this.sensorTypeRepoDDD.createSensorType(type)) {
             return new ResponseEntity<>("Type is successfully created with id "+type.getId(), HttpStatus.CREATED);

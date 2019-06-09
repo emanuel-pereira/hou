@@ -10,10 +10,10 @@ import smarthome.services.RoomService;
 @RestController
 public class RoomCTRL {
 
-    private final RoomService roomRepoDDD;
+    private final RoomService roomService;
 
     RoomCTRL() {
-        roomRepoDDD = new RoomService();
+        roomService = new RoomService();
 
     }
 
@@ -23,7 +23,7 @@ public class RoomCTRL {
      */
     @GetMapping("/rooms")
     public ResponseEntity<Object> findAll() {
-        return new ResponseEntity<>(this.roomRepoDDD.findAll(),HttpStatus.OK);
+        return new ResponseEntity<>(this.roomService.findAll(), HttpStatus.OK);
     }
 
     /**
@@ -33,11 +33,11 @@ public class RoomCTRL {
      */
     @PostMapping("/rooms")
     public ResponseEntity<Object> createRoom (@RequestBody RoomDetailDTO room ) throws NoSuchFieldException {
-        if(this.roomRepoDDD.roomExists(room.getId())){
+        if (this.roomService.roomExists(room.getId())) {
             return new ResponseEntity<>("There is already a room with this id.",HttpStatus.UNAUTHORIZED);
         }
-        if (this.roomRepoDDD.save(room)) {
-            return new ResponseEntity<>(this.roomRepoDDD.findById(room.getId()), HttpStatus.CREATED);
+        if (this.roomService.save(room)) {
+            return new ResponseEntity<>(this.roomService.findById(room.getId()), HttpStatus.CREATED);
         } else return new ResponseEntity<>("Could not create the room",HttpStatus.UNAUTHORIZED);
     }
 
@@ -48,8 +48,8 @@ public class RoomCTRL {
      */
     @GetMapping("/rooms/{id}")
     public ResponseEntity<Object> findOne (@PathVariable String id) throws NoSuchFieldException {
-        if (roomRepoDDD.roomExists(id)){
-            RoomDetailDTO room = roomRepoDDD.findById(id);
+        if (roomService.roomExists(id)) {
+            RoomDetailDTO room = roomService.findById(id);
             return new ResponseEntity<>(room, HttpStatus.OK);
         }
         return new ResponseEntity<>("Room not found.", HttpStatus.NOT_FOUND);
@@ -63,15 +63,18 @@ public class RoomCTRL {
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     @PutMapping("/rooms/{id}")
+    //FIXME behaviour must occur in Service class only
     public ResponseEntity<Object> updateOne (@PathVariable String id, @RequestBody RoomDetailDTO room) throws NoSuchFieldException {
-        if (roomRepoDDD.roomExists(id)){
-            RoomDetailDTO editRoom = roomRepoDDD.findById(id);
-            editRoom.setFloor(room.getFloor());
-            editRoom.setLength(room.getLength());
-            editRoom.setWidth(room.getWidth());
-            editRoom.setHeight(room.getHeight());
-            if (this.roomRepoDDD.save(editRoom)) {
-                return new ResponseEntity<>(editRoom,HttpStatus.OK);
+        if (roomService.roomExists(id)) {
+            RoomDetailDTO dto = roomService.findById(id);
+            //ID will never be updated
+            //TODO missing set of description
+            dto.setFloor(room.getFloor());
+            dto.setLength(room.getLength());
+            dto.setWidth(room.getWidth());
+            dto.setHeight(room.getHeight());
+            if (this.roomService.save(dto)) {
+                return new ResponseEntity<>(dto, HttpStatus.OK);
             }
             return new ResponseEntity<>("Could not update the room",HttpStatus.UNAUTHORIZED);
         }return new ResponseEntity<>("Room not found.", HttpStatus.NOT_FOUND);

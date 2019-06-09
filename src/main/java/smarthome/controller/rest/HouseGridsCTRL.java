@@ -51,7 +51,7 @@ public class HouseGridsCTRL {
     public ResponseEntity<Object> addGrid(@RequestBody HouseGridDTO gridDTO) {
         HouseGridDTO dto;
         try {
-            dto = houseGridService.addNewGrid(gridDTO);
+            dto = this.houseGridService.addNewGrid(gridDTO);
         } catch (InstantiationException e) {
             return new ResponseEntity<>("[]", HttpStatus.BAD_REQUEST);
         }
@@ -79,7 +79,7 @@ public class HouseGridsCTRL {
     public ResponseEntity<Object> findGrid(@PathVariable Long id) {
         HouseGridDTO dto;
         try {
-            dto = houseGridService.findbyId(id);
+            dto = houseGridService.findById(id);
         } catch (NoSuchFieldException e) {
             return new ResponseEntity<>("[]", HttpStatus.NOT_FOUND);
         }

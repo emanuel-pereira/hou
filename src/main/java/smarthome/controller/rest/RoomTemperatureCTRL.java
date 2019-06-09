@@ -1,4 +1,4 @@
-package smarthome.controller.REST;
+package smarthome.controller.rest;
 
 
 import org.springframework.http.HttpStatus;
@@ -16,7 +16,6 @@ import java.util.GregorianCalendar;
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
 @RestController
 @RequestMapping(path = "/rooms")
-
 public class RoomTemperatureCTRL {
 
     private RoomTemperatureService roomTemperatureService;
