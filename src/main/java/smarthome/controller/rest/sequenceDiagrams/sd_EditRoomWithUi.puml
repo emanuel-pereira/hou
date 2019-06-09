@@ -1,5 +1,5 @@
 @startuml
-hidefootbox
+
 
 actor Administrator
 
@@ -26,16 +26,24 @@ BorderColor SteelBlue
 }
 
 Administrator -> "HTTP Client": Edit select room
-"HTTP Client" -> ":RoomCTRL":  PUT/{id,rDTO}
+"HTTP Client" -> ":RoomCTRL":  PUT /rooms/{id}\n request body \n with updated room
+note right
+{ "id": "B106",
+  "description": "Classroom",
+  "floor": 1,
+  "length": 13,
+  "width": 7,
+  "height": 3.5 }
+end note
 create "rDTO:RoomDetailDTO"
 ":RoomCTRL" -> "rDTO:RoomDetailDTO": create()
 create ":RoomService"
 ":RoomCTRL" -> ":RoomService": create()
-":RoomCTRL" -> ":RoomService": editRoom=findById(id)
+":RoomCTRL" -> ":RoomService": dto=findById(id)
 ":RoomService" -> RoomRepository: room=findById(id)
 ":RoomService" -> RoomMapper: editRoom=toDetailDto(room)
-create "editRoom:RoomDetailDTO"
-RoomMapper -> "editRoom:RoomDetailDTO": create()
+create "dto:RoomDetailDTO"
+RoomMapper -> "dto:RoomDetailDTO": create()
 ":RoomCTRL" -> "rDTO:RoomDetailDTO": newValue=get{attribute}
 ":RoomCTRL"  -> "editRoom:RoomDetailDTO": set{attribute}(newValue)
 
@@ -50,7 +58,7 @@ RoomMapper -> "room:Room": set{attribute}(newValue)
 
 ":RoomService" -> RoomRepository: save(room)
 create ResponseEntity
-":RoomCTRL" -> ResponseEntity: create()
+":RoomCTRL" -> ResponseEntity: responseEntity = new ResponseEntity<>(editRoom, HttpStatus.OK);
 
 "HTTP Client" <-- ":RoomCTRL": ResponseEntity=\neditRoom,HttpStatus.OK
 Administrator <-- "HTTP Client": Room content is updated
