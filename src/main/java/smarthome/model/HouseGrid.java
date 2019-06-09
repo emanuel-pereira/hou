@@ -27,7 +27,7 @@ public class HouseGrid implements Metered {
     @Transient
     private RoomList roomList;
 
-    protected HouseGrid() {
+    public HouseGrid() {
     }
 
 
@@ -35,6 +35,11 @@ public class HouseGrid implements Metered {
         this.designation = designation;
         this.psListInHG = new PowerSourceList();
         this.roomList = new RoomList();
+    }
+
+    public HouseGrid(Long id, String designation) {
+        this.setId(id);
+        this.designation = designation;
     }
 
 
