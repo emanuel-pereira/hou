@@ -154,16 +154,6 @@ public class RoomService {
         return this.mapper.toDetailDto(temp);
     }
 
-    /**
-     * Checks if a room with the specific id exists
-     *
-     * @param id Room id
-     * @return True if exists. False if not.
-     */
-    public boolean roomExists(String id) {
-        this.setRepositoriesIfNull();
-        return roomRepository.existsById(id);
-    }
 
     /**
      * Changes the configuration of a room. A DTO is created so that the Id is not changed.

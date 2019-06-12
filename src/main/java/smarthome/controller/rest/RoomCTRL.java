@@ -58,7 +58,7 @@ public class RoomCTRL {
      */
     @PostMapping("/rooms")
     public ResponseEntity<Object> createRoom(@RequestBody RoomDetailDTO room) throws NoSuchFieldException {
-        if (this.roomService.roomExists(room.getId())) {
+        if (this.roomService.checkIfIDExists(room.getId())) {
             return new ResponseEntity<>("There is already a room with this id.", HttpStatus.UNAUTHORIZED);
         }
         if (this.roomService.save(room)) {
@@ -74,7 +74,7 @@ public class RoomCTRL {
      */
     @GetMapping("/rooms/{id}")
     public ResponseEntity<Object> findOne(@PathVariable String id) throws NoSuchFieldException {
-        if (roomService.roomExists(id)) {
+        if (roomService.checkIfIDExists(id)) {
             RoomDetailDTO room = roomService.findById(id);
             return new ResponseEntity<>(room, HttpStatus.OK);
         }
@@ -91,7 +91,7 @@ public class RoomCTRL {
      */
     @PutMapping("/rooms/{id}")
     public ResponseEntity<Object> editRoom(@PathVariable String id, @RequestBody RoomDetailDTO room) throws NoSuchFieldException {
-        if (this.roomService.roomExists(id)) {
+        if (this.roomService.checkIfIDExists(id)) {
             if (this.roomService.editRoom(id, room)) {
                 RoomDetailDTO editRoom = this.roomService.findById(id);
                 return new ResponseEntity<>(editRoom, HttpStatus.OK);
