@@ -24,8 +24,8 @@ import java.util.Optional;
 public class HouseGridService {
 
     private ModelMapper mapper = new ModelMapper();
-
     private HouseGridRepository houseGridRepository;
+
 
     public HouseGridService(HouseGridRepository houseGridRepository) {
         this.houseGridRepository = houseGridRepository;

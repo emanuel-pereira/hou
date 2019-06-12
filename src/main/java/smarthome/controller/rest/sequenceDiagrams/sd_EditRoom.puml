@@ -12,7 +12,7 @@ skinparam sequence {
 	ParticipantFontSize 17
 	ParticipantFontColor Ivory
 
-	ActorBackgroundColor SteelBlue
+ActorBackgroundColor SteelBlue
 	ActorFontColor MidnightBlue
 	ActorFontSize 17
 	ActorFontName Aapex
@@ -23,33 +23,38 @@ BorderColor SteelBlue
 }
 
 
-ClientHTTP -> ":RoomCTRL":  PUT/{id,rDTO}
-create "rDTO:RoomDetailDTO"
-":RoomCTRL" -> "rDTO:RoomDetailDTO": create()
+ClientHTTP -> ":RoomCTRL":  PUT/rooms/{id}(id,roomDTO)
 create ":RoomService"
 ":RoomCTRL" -> ":RoomService": create()
+create "roomDTO:RoomDetailDTO"
+":RoomCTRL" -> "roomDTO:RoomDetailDTO": create()
+":RoomCTRL" -> ":RoomService": editRoom(id,roomDTO)
+":RoomService" -> RoomRepository: room=findById(id)
+":RoomService" -> ":RoomMapper": rDTO=toDetailDto(room)
+create "rDTO:RoomDetailDTO"
+":RoomMapper" -> "rDTO:RoomDetailDTO": create()
+":RoomService" -> "roomDTO:RoomDetailDTO":newValue=get{attribute}
+
+note left
+            {attribute} is:
+            description,
+            floor, length,
+            width and height
+            end note
+
+":RoomService" -> "rDTO:RoomDetailDTO": set{attribute}(newValue)
+":RoomService" -> ":RoomService": save(rDTO)
+":RoomService" -> RoomMapper: room=toObject(rDTO)
+":RoomService" -> ":RoomRepository": save(room)
+
 ":RoomCTRL" -> ":RoomService": editRoom=findById(id)
 ":RoomService" -> RoomRepository: room=findById(id)
 ":RoomService" -> RoomMapper: editRoom=toDetailDto(room)
 create "editRoom:RoomDetailDTO"
-RoomMapper -> "editRoom:RoomDetailDTO": create()
-":RoomCTRL" -> "rDTO:RoomDetailDTO": newValue=get{attribute}
-":RoomCTRL"  -> "editRoom:RoomDetailDTO": set{attribute}(newValue)
+":RoomMapper" -> "editRoom:RoomDetailDTO": create()
 
-note left
-{attribute} is:
-description,
-floor, length,
-width and height
-    end note
-":RoomCTRL" -> ":RoomService": save(editRoom)
-":RoomService" -> RoomMapper: room=toObject(editRoom)
-RoomMapper -> "room:Room": set{attribute}(newValue)
-
-":RoomService" -> RoomRepository: save(room)
 create ResponseEntity
 ":RoomCTRL" -> ResponseEntity: create()
-
 ClientHTTP <-- ":RoomCTRL": ResponseEntity=\neditRoom,HttpStatus.OK
 
 @enduml

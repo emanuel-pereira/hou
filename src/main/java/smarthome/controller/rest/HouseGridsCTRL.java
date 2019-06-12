@@ -55,7 +55,7 @@ public class HouseGridsCTRL {
         } catch (InstantiationException e) {
             return new ResponseEntity<>("[]", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+        return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
     /**
@@ -97,16 +97,7 @@ public class HouseGridsCTRL {
     public ResponseEntity<Object> updateRoom(@RequestParam(required = false) String attachId,
                                              @RequestParam(required = false) String detachId,
                                              @PathVariable Long housegridID) {
-        // Check if the selected Grid exists
-        if (!this.houseGridService.gridExists(housegridID)) {
-            return new ResponseEntity<>("Grid not found.", HttpStatus.NOT_FOUND);
-        }
-
         if (attachId != null) {
-            // Check if the selected room exists
-            if(!this.roomService.roomExists(attachId)){
-                return new ResponseEntity<>("Room not found.", HttpStatus.NOT_FOUND);
-            }
             RoomDetailDTO roomDTO;
             try {
                 roomDTO = roomService.attachHouseGrid(attachId, housegridID);
@@ -118,20 +109,19 @@ public class HouseGridsCTRL {
             return new ResponseEntity<>(roomDTO, HttpStatus.OK);
         }
 
+        //TODO deal with not used housegridID
         if (detachId != null) {
-            // Check if the selected room exists
-            if(!this.roomService.roomExists(detachId)){
-                return new ResponseEntity<>("Room not found.", HttpStatus.NOT_FOUND);
-            }
+            RoomDetailDTO roomDTO;
             try {
-                roomService.detachHouseGrid(detachId);
+                roomDTO = roomService.detachHouseGrid(detachId);
             } catch (NoSuchFieldException e) {
                 return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
             } catch (IllegalAccessException e) {
                 return new ResponseEntity<>("", HttpStatus.UNAUTHORIZED);
             }
-            return new ResponseEntity<>("Room detached", HttpStatus.OK);
+            return new ResponseEntity<>(roomDTO, HttpStatus.OK);
         }
+
         return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
     }
 
