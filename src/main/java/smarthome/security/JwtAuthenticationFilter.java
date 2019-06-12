@@ -31,7 +31,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     We also need to pass in {"username":"user", "password":"user123"} in the request body
      */
     @Override
-    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002","http://localhost:8081"}, maxAge = 3600)
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002","http://localhost:8080","http://localhost:8081","http://localhost:8082"}, maxAge = 3600)
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
 
         // Grab credentials and map them to login viewmodel

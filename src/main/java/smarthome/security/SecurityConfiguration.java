@@ -36,7 +36,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002","http://localhost:8080"}, maxAge = 3600)
+    @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002","http://localhost:8080","http://localhost:8081","http://localhost:8082"}, maxAge = 3600)
     protected void configure(HttpSecurity http) throws Exception {
         http
                 // by default uses a Bean by the name of corsConfigurationSource
@@ -52,10 +52,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // configure access rules
                 .antMatchers(HttpMethod.GET, "/").permitAll()
                 .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers("/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.GET, "/rooms").hasRole("USER")
                 .antMatchers(HttpMethod.GET, "/externalSensors").hasRole("USER")
                 .antMatchers(HttpMethod.GET, "/geographicalAreas").hasRole("USER")
+                .antMatchers("/*").hasRole("ADMIN")
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();
     }
