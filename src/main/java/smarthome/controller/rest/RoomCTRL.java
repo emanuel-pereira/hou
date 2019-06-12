@@ -1,10 +1,19 @@
 package smarthome.controller.rest;
 
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import smarthome.dto.RoomDTO;
 import smarthome.dto.RoomDetailDTO;
 import smarthome.services.RoomService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @CrossOrigin(origins = {"http://localhost:3000"}, maxAge = 3600)
 @RestController
@@ -14,7 +23,6 @@ public class RoomCTRL {
 
     RoomCTRL() {
         roomService = new RoomService();
-
     }
 
     /**
@@ -25,6 +33,21 @@ public class RoomCTRL {
     @GetMapping("/rooms")
     public ResponseEntity<Object> findAll() {
         return new ResponseEntity<>(this.roomService.findAll(), HttpStatus.OK);
+    }
+
+    //@GetMapping("/rooms")
+    public ResponseEntity<Resources<Resource<RoomDTO>>> alternative() throws NoSuchFieldException {
+        List<Resource<RoomDTO>> rooms = new ArrayList<>();
+        for (RoomDTO room : this.roomService.findAll()) {
+            Resource<RoomDTO> roomDTOResource = new Resource<>(room,
+                    linkTo(methodOn(RoomCTRL.class).findOne(room.getID())).withSelfRel(),
+                    linkTo(methodOn(RoomCTRL.class).findAll()).withRel("rooms"));
+            rooms.add(roomDTOResource);
+        }
+        Resources<Resource<RoomDTO>> resource = new Resources <>(rooms,
+                linkTo(methodOn(RoomCTRL.class).findAll()).withSelfRel());
+
+        return new ResponseEntity<>(resource, HttpStatus.OK);
     }
 
     /**
@@ -63,19 +86,19 @@ public class RoomCTRL {
      *
      * @param id   Id of the room
      * @param room RoomDetailDTO with the elements necessary to edit a room
-     * @return ResponseEntity that represents the whole HTTP response with a RoomDetailDTO
+     * @return ResponseEntity that represents the whole HTTP response with a RoomDetailDTO in case of success
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     @PutMapping("/rooms/{id}")
     public ResponseEntity<Object> editRoom(@PathVariable String id, @RequestBody RoomDetailDTO room) throws NoSuchFieldException {
-        if (this.roomService.roomExists(id)){
-            RoomDetailDTO editRoom = this.roomService.editRoom(id, room);
-            if (this.roomService.save(editRoom)) {
+        if (this.roomService.roomExists(id)) {
+            if (this.roomService.editRoom(id, room)) {
+                RoomDetailDTO editRoom = this.roomService.findById(id);
                 return new ResponseEntity<>(editRoom, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Could not update the room",HttpStatus.UNAUTHORIZED);
-        }return new ResponseEntity<>("Room not found.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Could not update the room", HttpStatus.UNAUTHORIZED);
+        }
+        return new ResponseEntity<>("Room not found.", HttpStatus.NOT_FOUND);
     }
 
 }
-
