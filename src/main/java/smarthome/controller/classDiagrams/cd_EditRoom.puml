@@ -1,0 +1,92 @@
+@startuml
+skinparam linetype ortho
+hide empty members
+
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
+
+class EditRoomUI{
+- ListRoomsOfHouseCTRL
+- EditRoomCTRL
++ run()
+- selectRoom()
+- editFloor()
+- editLength()
+- editWidth()
+- updateArea()
+- editHeight()
+- showRoom()
+
+}
+
+class ListRoomsOfHouseCTRL{
+- RoomService
++ roomListEmpty()
++ roomListSize()
+}
+
+class EditRoomCTRL{
+- RoomService
+
++ findById()
++ setFloor()
++ setLength()
++ setWidth()
++ updateArea()
++ setHeight()
++ toDTO()
+}
+
+
+class RoomService{
+- RoomRepository
+- RoomMapper
+
++ checkIfRoomRepositoryEmpty()
++ size()
++ findAll()
++ findById()
++ setFloor()
++ setLength()
++ setWidth()
++ updateArea()
++ setHeight()
++ save()
+}
+
+class RoomMapper {
++ toDto()
++ toDtoList()
++ toDetailDto()
+}
+
+class RoomRepository{
++ findAll()
++ count()
++ findById()
++ save()
+
+}
+
+
+EditRoomUI -> EditRoomCTRL
+EditRoomUI --> ListRoomsOfHouseCTRL
+
+ListRoomsOfHouseCTRL -> RoomService
+EditRoomCTRL -> RoomService
+RoomService -> RoomMapper
+RoomService -> RoomRepository
+
+
+
+@enduml

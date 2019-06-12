@@ -32,16 +32,16 @@ Administrator -> ":EditRoomsUI": create()
 Administrator -> ":EditRoomsUI":Edit a room
 create ":ListRoomsOfHouseCTRL"
 ":EditRoomsUI" -> ":ListRoomsOfHouseCTRL": create()
-":EditRoomsUI" -> ":ListRoomsOfHouseCTRL": x=roomListSize
+":EditRoomsUI" -> ":ListRoomsOfHouseCTRL": false=roomListEmpty()
 create "rS1:RoomService"
 ":ListRoomsOfHouseCTRL" -> "rS1:RoomService": create()
-":ListRoomsOfHouseCTRL" -> "rS1:RoomService": x=size
-"rS1:RoomService" -> RoomRepository: x=count
+":ListRoomsOfHouseCTRL" -> "rS1:RoomService": false=checkIfRoomRepositoryEmpty()
+"rS1:RoomService" -> RoomRepository: x≠0=count()
 ":EditRoomsUI" -> ":ListRoomsOfHouseCTRL": rList=findAll
 ":ListRoomsOfHouseCTRL" -> "rS1:RoomService": rList=findAll
 "rS1:RoomService" -> RoomRepository: rList=findAll
 "rS1:RoomService" -> ":RoomMapper": rList=toDtoList(roomList)
-loop for each room in roomList convert toDTO
+loop convert each room to DTO
 create "rDTO:RoomDTO"
 ":RoomMapper" -> "rDTO:RoomDTO": create()
 "rDTO:RoomDTO" -> "r:Room": rDTO.set{attribute}(r.get{attribute})

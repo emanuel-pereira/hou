@@ -26,7 +26,7 @@ BorderColor SteelBlue
 
 create ":RoomService"
 ":HouseGridCTRL" -> ":RoomService" : create( )
-":HouseGridCTRL" -> ":RoomService" : attachRoomToHouseGrid(rid, gid)
+":HouseGridCTRL" -> ":RoomService" : attachHouseGrid(rid, gid)
 
 create ":HouseGridService"
 ":RoomService" -> ":HouseGridService" : create( )
@@ -35,7 +35,7 @@ create ":HouseGridService"
 
 ":RoomService" -> ":RoomRepository" : existsbyId(rid)
 
-":RoomService" -> ":RoomRepository" : hasGrid(rid)
+":RoomService" -> ":Room" : hasGrid( )
 
 ":RoomService" -> ":RoomRepository" : room = findById(rid)
 ":RoomService" -> ":HouseGridRepository" : grid = findById(gid)

@@ -1,28 +1,21 @@
-package smarthome.controller.REST;
+package smarthome.controller.rest;
 
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import smarthome.dto.InternalReadingDTO;
-import smarthome.model.SensorType;
 import smarthome.services.RoomService;
 import smarthome.services.RoomTemperatureService;
-import smarthome.services.SensorTypeService;
 
 import javax.websocket.server.PathParam;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
 @RestController
 @RequestMapping(path = "/rooms")
-
 public class RoomTemperatureCTRL {
 
     private RoomTemperatureService roomTemperatureService;

@@ -6,7 +6,6 @@ import smarthome.services.RoomService;
 public class EditRoomCTRL {
 
     private final RoomService roomService;
-    private RoomDetailDTO editRoom;
 
     /**
      * Controller constructor
@@ -24,6 +23,16 @@ public class EditRoomCTRL {
      */
     public RoomDetailDTO findById(String id) throws NoSuchFieldException {
         return this.roomService.findById(id);
+    }
+
+    /**
+     * Changes the description of a specific room
+     * @param id Id of the room
+     * @param description New description
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     */
+    public void setDescription(String id, String description) throws NoSuchFieldException {
+        this.roomService.setDescription(id,description);
     }
 
     /**
@@ -55,6 +64,16 @@ public class EditRoomCTRL {
     public void setWidth(String id, double width) throws NoSuchFieldException {
         this.roomService.setWidth(id,width);
     }
+
+    /**
+     * Depending on the changes made or not to the length and width, the area will be updated
+     * @param id Id of a room
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     */
+    public void updateArea(String id) throws NoSuchFieldException {
+        this.roomService.updateArea(id);
+    }
+
 
     /**
      * Changes the height of the room

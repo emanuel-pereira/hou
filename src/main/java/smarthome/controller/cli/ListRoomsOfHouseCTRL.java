@@ -17,6 +17,10 @@ public class ListRoomsOfHouseCTRL {
         return this.roomService.size();
     }
 
+    public boolean roomListEmpty(){
+        return this.roomService.checkIfRoomRepositoryEmpty();
+    }
+
     public List<RoomDTO> findAll() {
         return this.roomService.findAll();
     }

@@ -1,0 +1,56 @@
+@startuml
+
+actor Administrator
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+Administrator -> "HTTP Client": Get max temperature\nin room for a given day
+"HTTP Client" -> ":RoomTemperatureCTRL":  GET rooms/{id}/maxTemperature?\nday=(yyyymmdd)
+
+create ":RoomTemperatureService"
+":RoomTemperatureCTRL" -> ":RoomTemperatureService": create()
+
+
+":RoomTemperatureCTRL" -> ":RoomTemperatureService": maxTemp =\ngetMaxTempInRoom(id, day)
+
+":RoomTemperatureService" -> "ReadingList": readingList =\ngetReadingsInSpecificDay(date)
+
+loop for each Reading in ReadingList
+"ReadingList" -> "Reading": reading = isSameDay(date)
+end
+
+":RoomTemperatureService" -> "ReadingList": maxTemp =\n maxValueInInterval()
+
+loop return highest value
+"ReadingList" -> "Reading": reading = returnValue()
+end
+
+
+create "responseEntity \n:ResponseEntity"
+":RoomTemperatureCTRL" ->  "responseEntity \n:ResponseEntity": responseEntity = new ResponseEntity<>([maxTemp], HttpStatus.OK);
+
+":RoomTemperatureCTRL"--> "HTTP Client" : Status.OK \nmaxTemp
+
+"HTTP Client" --> Administrator: Show max temperature\nin room for a given day
+
+@enduml
