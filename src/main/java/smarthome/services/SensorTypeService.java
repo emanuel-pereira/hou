@@ -82,6 +82,7 @@ public class SensorTypeService {
      * @return list of sensor types as DTO
      */
     public List<SensorTypeDTO> findAll() {
+        setRepositoryIfNull();
         Iterable<SensorType> sensorTypes = sensorTypeRepository.findAll();
         //For each to convert an iterator to a list of elements
         List<SensorType> sensorTypeList = new ArrayList<>();
