@@ -16,11 +16,15 @@ public class RoomTemperatureService {
     private ModelMapper mapper;
     private Name temp = new Name("temperature");
     private InternalSensorService sensorService;
+    private SensorTypeService sensorTypeService;
+
+
 
 
     public RoomTemperatureService() {
         this.mapper = new ModelMapper();
         this.sensorService = new InternalSensorService();
+        this.sensorTypeService= new SensorTypeService();
     }
 
 
@@ -29,7 +33,7 @@ public class RoomTemperatureService {
     }
 
     public ReadingList getBestSensorReadings(String idRoom){
-        SensorType type = Repositories.getSensorTypeRepository().findByType(temp);
+        SensorType type =sensorTypeService.findByType(temp.getName());
         Sensor sensor = getRoomSensors(idRoom).getInternalSensorByTypeWithLatestReadings(type);
         if(sensor != null){
             return Repositories.getReadingsInternalSensor(sensor.getId());

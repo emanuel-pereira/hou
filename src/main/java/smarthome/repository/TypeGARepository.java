@@ -10,10 +10,10 @@ public interface TypeGARepository extends CrudRepository<TypeGA, Long> {
 
     TypeGA findByType(String type);
 
-
     //-------------------//--------------------------------------//
-    //The methods of type delete, put and post have been overridden so they don't are
-    // exposed by Spring Data REST which will throw HTTP.Status 405 method not allowed whenever called
+    /*The methods of type delete, put and post have been overridden so they don't are
+    exposed by Spring Data REST which will throw HTTP.Status 405 method not allowed
+    whenever called on HTTP requests */
 
     @Override
     @RestResource(exported = false)
@@ -38,6 +38,6 @@ public interface TypeGARepository extends CrudRepository<TypeGA, Long> {
     @Override
     @RestResource(exported = false)
     <S extends TypeGA> Iterable<S> saveAll(Iterable<S> entities);
-    
+
 
 }
