@@ -1,6 +1,6 @@
 package smarthome.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import smarthome.dto.HouseGridDTOsimple;
 import smarthome.dto.RoomDTO;
@@ -8,7 +8,6 @@ import smarthome.dto.RoomDetailDTO;
 import smarthome.mapper.RoomMapper;
 import smarthome.model.HouseGrid;
 import smarthome.model.Room;
-import smarthome.model.SensorList;
 import smarthome.model.validations.NameValidations;
 import smarthome.repository.HouseGridRepository;
 import smarthome.repository.Repositories;
@@ -23,18 +22,40 @@ import java.util.Optional;
 public class RoomService {
 
     private RoomMapper mapper;
-
-    @Autowired
     private HouseGridRepository houseGridRepository;
-
-    @Autowired
     private RoomRepository roomRepository;
+    private ModelMapper modelMapper = new ModelMapper();
+
 
     /**
-     * Constructor method that creates an instance of the RoomRepoDDD
+     * Constructor method that creates an instance of the RoomServive
      */
     public RoomService() {
         this.mapper = new RoomMapper();
+    }
+
+    /**
+     * Use only in tests. Because all tests access the same repositories at the same time it is necessary to create an alternative method of testing.
+     * @param rRepository RoomRepository that will be mocked
+     * @param gRepository HouseGridRepository that will be mocked
+     */
+    public RoomService(RoomRepository rRepository, HouseGridRepository gRepository) {
+        this.mapper = new RoomMapper();
+        this.roomRepository = rRepository;
+        this.houseGridRepository = gRepository;
+    }
+
+    /**
+     * Spring initializes all @RestController classes before initializing the repositories. If a repository is null this
+     * will set them
+     */
+    private void setRepositoriesIfNull(){
+        if(this.roomRepository==null){
+            roomRepository=Repositories.getRoomRepository();
+        }
+        if(this.houseGridRepository==null){
+            houseGridRepository=Repositories.getGridsRepository();
+        }
     }
 
     /**
@@ -63,13 +84,13 @@ public class RoomService {
      * @return True if save
      */
     public boolean save(RoomDetailDTO roomDto) {
+        this.setRepositoriesIfNull();
         Room room = this.mapper.toObject(roomDto);
-        if (room == null /*|| this.checkIfIDExists(room.getId())*/) {
+        if (room == null) {
             return false;
         }
-        Repositories.getRoomRepository().save(room);
+        roomRepository.save(room);
         return true;
-
     }
 
     /**
@@ -79,7 +100,8 @@ public class RoomService {
      * @return True if the room ID exists
      */
     public boolean checkIfIDExists(String id) {
-        return Repositories.getRoomRepository().existsById(id);
+        this.setRepositoriesIfNull();
+        return roomRepository.existsById(id);
     }
 
     /**
@@ -88,7 +110,8 @@ public class RoomService {
      * @return the number of rooms persisted in the repository
      */
     public long size() {
-        return Repositories.getRoomRepository().count();
+        this.setRepositoriesIfNull();
+        return roomRepository.count();
     }
 
     /**
@@ -106,7 +129,8 @@ public class RoomService {
      * @return list of rooms as DTO with id and designation
      */
     public List<RoomDTO> findAll() {
-        Iterable<Room> rooms = Repositories.getRoomRepository().findAll();
+        this.setRepositoriesIfNull();
+        Iterable<Room> rooms = roomRepository.findAll();
         List<Room> roomList = new ArrayList<>();
         for (Room room : rooms) {
             roomList.add(room);
@@ -122,7 +146,8 @@ public class RoomService {
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     public RoomDetailDTO findById(String id) throws NoSuchFieldException {
-        Optional<Room> optional = Repositories.getRoomRepository().findById(id);
+        this.setRepositoriesIfNull();
+        Optional<Room> optional = roomRepository.findById(id);
         if (!optional.isPresent())
             throw new NoSuchFieldException();
         Room temp = optional.get();
@@ -136,24 +161,26 @@ public class RoomService {
      * @return True if exists. False if not.
      */
     public boolean roomExists(String id) {
-        return Repositories.getRoomRepository().existsById(id);
+        this.setRepositoriesIfNull();
+        return roomRepository.existsById(id);
     }
 
     /**
      * Changes the configuration of a room. A DTO is created so that the Id is not changed.
-     * @param id Room id
+     *
+     * @param id   Room id
      * @param room DTO with the edited configuration
      * @return DTO with the edited configuration with the safeguard that this DTO doesn't have another Id
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
-    public RoomDetailDTO editRoom(String id, RoomDetailDTO room) throws NoSuchFieldException {
+    public boolean editRoom(String id, RoomDetailDTO room) throws NoSuchFieldException {
         RoomDetailDTO editRoom = this.findById(id);
         editRoom.setDescription(room.getDescription());
         editRoom.setFloor(room.getFloor());
         editRoom.setLength(room.getLength());
         editRoom.setWidth(room.getWidth());
         editRoom.setHeight(room.getHeight());
-        return editRoom;
+        return this.save(editRoom);
     }
 
     /**
@@ -165,12 +192,13 @@ public class RoomService {
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     public void setDescription(String id, String description) throws NoSuchFieldException {
-        Optional<Room> optional = Repositories.getRoomRepository().findById(id);
+        this.setRepositoriesIfNull();
+        Optional<Room> optional = roomRepository.findById(id);
         if (!optional.isPresent())
             throw new NoSuchFieldException();
         Room room = optional.get();
         room.setDescription(description);
-        Repositories.getRoomRepository().save(room);
+        roomRepository.save(room);
     }
 
     /**
@@ -182,12 +210,13 @@ public class RoomService {
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     public void setFloor(String id, Integer floor) throws NoSuchFieldException {
-        Optional<Room> optional = Repositories.getRoomRepository().findById(id);
+        this.setRepositoriesIfNull();
+        Optional<Room> optional = roomRepository.findById(id);
         if (!optional.isPresent())
             throw new NoSuchFieldException();
         Room room = optional.get();
         room.setFloor(floor);
-        Repositories.getRoomRepository().save(room);
+        roomRepository.save(room);
     }
 
     /**
@@ -199,12 +228,13 @@ public class RoomService {
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     public void setLength(String id, double length) throws NoSuchFieldException {
-        Optional<Room> optional = Repositories.getRoomRepository().findById(id);
+        this.setRepositoriesIfNull();
+        Optional<Room> optional = roomRepository.findById(id);
         if (!optional.isPresent())
             throw new NoSuchFieldException();
         Room room = optional.get();
         room.getArea().setLength(length);
-        Repositories.getRoomRepository().save(room);
+        roomRepository.save(room);
     }
 
     /**
@@ -216,12 +246,13 @@ public class RoomService {
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     public void setWidth(String id, double width) throws NoSuchFieldException {
-        Optional<Room> optional = Repositories.getRoomRepository().findById(id);
+        this.setRepositoriesIfNull();
+        Optional<Room> optional = roomRepository.findById(id);
         if (!optional.isPresent())
             throw new NoSuchFieldException();
         Room room = optional.get();
         room.getArea().setWidth(width);
-        Repositories.getRoomRepository().save(room);
+        roomRepository.save(room);
     }
 
     /**
@@ -232,14 +263,15 @@ public class RoomService {
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     public void updateArea(String id) throws NoSuchFieldException {
-        Optional<Room> optional = Repositories.getRoomRepository().findById(id);
+        this.setRepositoriesIfNull();
+        Optional<Room> optional = roomRepository.findById(id);
         if (!optional.isPresent())
             throw new NoSuchFieldException();
         Room room = optional.get();
         double length = room.getArea().getLength();
         double width = room.getArea().getWidth();
         room.getArea().setOccupation(length * width);
-        Repositories.getRoomRepository().save(room);
+        roomRepository.save(room);
     }
 
     /**
@@ -251,12 +283,13 @@ public class RoomService {
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     public void setHeight(String id, double height) throws NoSuchFieldException {
-        Optional<Room> optional = Repositories.getRoomRepository().findById(id);
+        this.setRepositoriesIfNull();
+        Optional<Room> optional = roomRepository.findById(id);
         if (!optional.isPresent())
             throw new NoSuchFieldException();
         Room room = optional.get();
         room.setHeight(height);
-        Repositories.getRoomRepository().save(room);
+        roomRepository.save(room);
     }
 
     /**
@@ -267,6 +300,7 @@ public class RoomService {
      * @return HouseGrid DTO object (a response specific DTO) containing it's name and a list of Room Id's
      */
     public HouseGridDTOsimple findRoomsByHouseGrid(Long id) throws NoSuchFieldException {
+        this.setRepositoriesIfNull();
         Optional<HouseGrid> optional = this.houseGridRepository.findById(id);
         if (!optional.isPresent())
             throw new NoSuchFieldException();
@@ -294,6 +328,7 @@ public class RoomService {
      */
     public RoomDetailDTO attachHouseGrid(String roomId, Long hgId) throws
             NoSuchFieldException, IllegalAccessException {
+        this.setRepositoriesIfNull();
         //check if a Room with that Id exists
         Optional<Room> roomOptional = this.roomRepository.findById(roomId);
         if (!roomOptional.isPresent())
@@ -313,15 +348,18 @@ public class RoomService {
             //in case the room is not attached to any HouseGrid this will be set
         else {
             room.setHouseGrid(houseGrid);
+            System.out.println(room);
             Room save = this.roomRepository.save(room);
+            System.out.println(save);
             //TODO verify dto mapping
-            return this.mapper.toDetailDto(save);
+            return this.modelMapper.map(save, RoomDetailDTO.class);
         }
     }
 
 
     public RoomDetailDTO detachHouseGrid(String attachId) throws NoSuchFieldException, IllegalAccessException {
         //check if a Room with that Id exists
+        this.setRepositoriesIfNull();
         Optional<Room> roomOptional = this.roomRepository.findById(attachId);
         if (!roomOptional.isPresent())
             throw new NoSuchFieldException();
@@ -340,9 +378,10 @@ public class RoomService {
     }
 
     public void setHouseGrid(String roomId, Long hgId) {
-        Room room = Repositories.getRoomRepository().findById(roomId).get();
-        HouseGrid houseGrid = Repositories.getGridsRepository().findById(hgId).get();
+        this.setRepositoriesIfNull();
+        Room room = roomRepository.findById(roomId).get();
+        HouseGrid houseGrid = houseGridRepository.findById(hgId).get();
         room.setHouseGrid(houseGrid);
-        Repositories.getRoomRepository().save(room);
+        roomRepository.save(room);
     }
 }
