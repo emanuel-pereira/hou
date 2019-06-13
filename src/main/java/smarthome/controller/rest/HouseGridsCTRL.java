@@ -22,6 +22,8 @@ import java.util.List;
  * {@link RequestMapping}("/housegrids") declares that the base url for all the possible API requests in this controller
  * will start with /housegrids.
  */
+
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
 @RestController
 @RequestMapping("/housegrids")
 public class HouseGridsCTRL {
@@ -49,11 +51,11 @@ public class HouseGridsCTRL {
     public ResponseEntity<Object> addGrid(@RequestBody HouseGridDTO gridDTO) {
         HouseGridDTO dto;
         try {
-            dto = houseGridService.addNewGrid(gridDTO);
+            dto = this.houseGridService.addNewGrid(gridDTO);
         } catch (InstantiationException e) {
             return new ResponseEntity<>("[]", HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+        return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
     /**
@@ -77,7 +79,7 @@ public class HouseGridsCTRL {
     public ResponseEntity<Object> findGrid(@PathVariable Long id) {
         HouseGridDTO dto;
         try {
-            dto = houseGridService.findbyId(id);
+            dto = houseGridService.findById(id);
         } catch (NoSuchFieldException e) {
             return new ResponseEntity<>("[]", HttpStatus.NOT_FOUND);
         }

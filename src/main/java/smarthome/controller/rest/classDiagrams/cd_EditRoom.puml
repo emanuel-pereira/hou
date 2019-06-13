@@ -1,0 +1,83 @@
+@startuml
+skinparam linetype ortho
+hide empty members
+
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
+
+class RoomCTRL{
+- roomService: RoomService
++ updateOne()
+}
+
+class RoomService{
+- roomRepository: RoomRepository
+- mapper: RoomMapper
+
++ findById()
++ save()
+}
+
+class RoomMapper {
++ toDetailDto()
++ toObject()
+}
+
+Interface RoomRepository{
+
++ findById()
++ save()
+
+}
+
+class Room{
+- id: String
+- description: String
+- floor: int
+- area: OccupationArea
+- height: double
++ setFloor()
++ setLength()
++ setWidth()
++ seHeight()
+}
+
+class RoomDetailDTO{
+- id: String
+- description: String
+- floor: int
+- length: double
+- width: double
+- height: double
+
++ setFloor()
++ setLength()
++ setWidth()
++ seHeight()
+}
+
+class ResponseEntity{
++ResponseEntity()
+}
+
+RoomCTRL --> RoomService
+RoomCTRL -> ResponseEntity
+RoomService -> RoomMapper
+RoomService -> Room
+RoomMapper -> RoomDetailDTO
+RoomMapper --> Room
+RoomService --> RoomRepository
+RoomRepository -> Room
+
+
+@enduml

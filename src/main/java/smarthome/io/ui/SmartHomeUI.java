@@ -76,14 +76,14 @@ public final class SmartHomeUI {
         roomList.getRoomList().addAll(list1);*/
 
 
-        ModelMapper mapper = new ModelMapper();
+        /*ModelMapper mapper = new ModelMapper();
         SensorTypeList typeList = new SensorTypeList();
 
         SensorTypeService service2 = new SensorTypeService();
         List<SensorType> list2 = new ArrayList<>();
         service2.findAll().forEach(sensorTypeDTO -> list2.add(mapper.map(sensorTypeDTO, SensorType.class)));
-        typeList.getSensorTypeList().addAll(list2);
-        sensorTypeList = typeList;
+        typeList.getSensorTypeList().addAll(list2);*/
+        sensorTypeList = new SensorTypeList();
 
         gaList = new GAList();
     }

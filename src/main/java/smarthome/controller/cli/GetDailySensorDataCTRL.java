@@ -12,14 +12,15 @@ import static smarthome.model.House.*;
 
 public class GetDailySensorDataCTRL {
     private final SensorTypeList sensorTypeList;
-    private final SensorTypeService sensorTypeRepoDDD= new SensorTypeService();
+    private final SensorTypeService sensorTypeService;
 
     public GetDailySensorDataCTRL(SensorTypeList sensorTypeList) {
         this.sensorTypeList = sensorTypeList;
+        sensorTypeService= new SensorTypeService(sensorTypeList);
     }
 
     public boolean checkIfSensorTypeExists(String sensorType) {
-        return this.sensorTypeRepoDDD.existsByType(sensorType);
+        return this.sensorTypeService.existsByType(sensorType);
     }
 
     public boolean isHouseGAConfigured() {

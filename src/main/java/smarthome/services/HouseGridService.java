@@ -1,13 +1,10 @@
 package smarthome.services;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import smarthome.dto.HouseGridDTO;
-import smarthome.model.House;
 import smarthome.model.HouseGrid;
 import smarthome.repository.HouseGridRepository;
-import smarthome.repository.Repositories;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +24,8 @@ import java.util.Optional;
 public class HouseGridService {
 
     private ModelMapper mapper = new ModelMapper();
-
     private HouseGridRepository houseGridRepository;
+
 
     public HouseGridService(HouseGridRepository houseGridRepository) {
         this.houseGridRepository = houseGridRepository;
@@ -55,7 +52,7 @@ public class HouseGridService {
      * @param id Housegrid id (Long)
      * @return HouseGrid DTO object
      */
-    public HouseGridDTO findbyId(Long id) throws NoSuchFieldException {
+    public HouseGridDTO findById(Long id) throws NoSuchFieldException {
         Optional<HouseGrid> optional = houseGridRepository.findById(id);
         if (!optional.isPresent())
             throw new NoSuchFieldException();
@@ -80,14 +77,15 @@ public class HouseGridService {
      * attributes prior to the model object (HouseGrid) is persisted.
      *
      * @param gridDTO HouseGrid DTO object created in the controller with user interaction
-     * @return another HOuseGrid DTO object
+     * @return same HouseGrid DTO object
      */
     public HouseGridDTO addNewGrid(HouseGridDTO gridDTO) throws InstantiationException {
         HouseGrid grid = mapper.map(gridDTO, HouseGrid.class);
         if (grid.getDesignation() == null)
             throw new InstantiationException();
         HouseGrid houseGrid = houseGridRepository.save(grid);
-        return this.mapper.map(houseGrid, HouseGridDTO.class);
+        gridDTO.setId(houseGrid.getId());
+        return gridDTO;
     }
 
     public long getSize() {

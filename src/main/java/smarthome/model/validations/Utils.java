@@ -40,15 +40,13 @@ public final class Utils {
 
     public static Calendar convertStringToCalendar (String input) throws ParseException {
         DateFormat df = new SimpleDateFormat("yyyyMMdd");
+        Date date;
         try{
-            Date date = df.parse(input);
+            date = df.parse(input);
         }
-
         catch (ParseException e){
             return new GregorianCalendar(1000, Calendar.JANUARY, 1);
         }
-
-        Date date = df.parse(input);
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         return calendar;

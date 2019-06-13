@@ -16,7 +16,6 @@ public class EditRoomUI {
 
     /**
      * User interface constructor
-     *
      */
     public EditRoomUI() {
         this.ctrlUS108 = new ListRoomsOfHouseCTRL();
@@ -26,42 +25,60 @@ public class EditRoomUI {
     /**
      * Checks if the repository is empty (size equal 0). If not advanced to room selection. Otherwise a message is shown
      * informing that there are no rooms
+     *
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
-
-
     public void run() throws NoSuchFieldException {
-        if (this.ctrlUS108.roomListSize() == 0) {
-            System.out.println ("There are no rooms. Please add a room to the house first.\n");
+        if (this.ctrlUS108.roomListEmpty()) {
+            System.out.println("There are no rooms. Please add a room to the house first.\n");
             UtilsUI.backToMenu();
             return;
         }
-        this.selectRoom ();
+        this.selectRoom();
     }
 
     /**
      * A list of rooms is shown and the user selects one
+     *
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     private void selectRoom() throws NoSuchFieldException {
-        System.out.println ("Choose a Room from the list below:");
+        System.out.println("Choose a Room from the list below:");
         int counter = 1;
         for (RoomDTO room : this.ctrlUS108.findAll()) {
             System.out.print(counter++ + " Id: " + room.getID() + " | Description: " + room.getDescription() + "\n");
         }
-        int index = UtilsUI.requestIntegerInInterval (1, (int) this.ctrlUS108.roomListSize (), "Please choose a valid option");
+        int index = UtilsUI.requestIntegerInInterval(1, (int) this.ctrlUS108.roomListSize(), "Please choose a valid option");
         index--;
 
         RoomDTO room1 = this.ctrlUS108.findAll().get(index);
-        this.roomId = room1.getID ();
-        this.editFloor();
+        this.roomId = room1.getID();
+        this.editDescription();
 
     }
 
     /**
-     * It isn't possible to change Id or Description, so first the the user is asked if he wants to edit the floor of the room.
-     * If so, a Integer is validated and the data is sent
-     * in order to edit the floor.
+     * It isn't possible to change Id, so first the the user is asked if he wants to edit the description of the room.
+     * If so, a String is validated and the data is sent in order to edit the description.
+     *
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     */
+    private void editDescription() throws NoSuchFieldException {
+        if (UtilsUI.confirmOption("Current description: " + this.ctrlUS109.findById(roomId).getDescription() + ". Do you want to edit the description? (y/n)", "Please type y/Y for Yes or n/N for No.")) {
+            System.out.println("Insert the description of the room:");
+            String description = UtilsUI.requestText("Please insert alphanumeric characters without spaces!\nInsert the Id of the room:", "^[A-Za-z0-9]+$");
+            this.ctrlUS109.setDescription(this.roomId, description);
+            this.editFloor();
+        } else {
+
+            this.editFloor();
+        }
+    }
+
+    /**
+     * The user is asked if he wants to edit the floor of the room.
+     * If so, a Integer is validated and the data is sent in order to edit the floor.
+     *
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     private void editFloor() throws NoSuchFieldException {
@@ -79,6 +96,7 @@ public class EditRoomUI {
     /**
      * The user is asked if he wants to edit the length of the room. If so, a double is validated and the data is sent
      * in order to edit the length.
+     *
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     private void editLength() throws NoSuchFieldException {
@@ -95,6 +113,7 @@ public class EditRoomUI {
     /**
      * The user is asked if he wants to edit the width of the room. If so, a double is validated and the data is sent
      * in order to edit the width.
+     *
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     private void editWidth() throws NoSuchFieldException {
@@ -102,15 +121,26 @@ public class EditRoomUI {
             System.out.println("Insert the width of the room (in meters):");
             double width = UtilsUI.requestDoubleInInterval(1, 1000, "Please insert a number (higher than zero)\nInsert the width of the room (in meters):");
             this.ctrlUS109.setWidth(this.roomId, width);
-            this.editHeight();
+            this.updateArea();
         } else {
-            this.editHeight();
+            this.updateArea();
         }
+    }
+
+    /**
+     * Depending on the changes made or not to the length and width, the area will be updated
+     *
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     */
+    private void updateArea() throws NoSuchFieldException {
+        this.ctrlUS109.updateArea(this.roomId);
+        this.editHeight();
     }
 
     /**
      * The user is asked if he wants to edit the height of the room. If so, a double is validated and the data is sent
      * in order to edit the height.
+     *
      * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
      */
     private void editHeight() throws NoSuchFieldException {
@@ -125,9 +155,12 @@ public class EditRoomUI {
     }
 
     private void showRoom() throws NoSuchFieldException {
-        System.out.println("\nThe Room with the Id " + this.ctrlUS109.findById(roomId).getId() + " and the Description \"" + this.ctrlUS109.findById(roomId).getDescription() + "\" has the following configuration:\n" +
-                "- Floor: " + this.ctrlUS109.findById(roomId).getFloor() + "\n- Length: " + this.ctrlUS109.findById(roomId).getLength() +
-                "\n- Width: " + this.ctrlUS109.findById(roomId).getWidth() + "\n- Height: " + this.ctrlUS109.findById(roomId).getHeight());
+        System.out.println("\nThe Room with the Id " + this.ctrlUS109.findById(roomId).getId() + " has the following configuration:" +
+                "\n- Description: " + this.ctrlUS109.findById(roomId).getDescription() +
+                "\n- Floor: " + this.ctrlUS109.findById(roomId).getFloor() +
+                "\n- Length: " + this.ctrlUS109.findById(roomId).getLength() +
+                "\n- Width: " + this.ctrlUS109.findById(roomId).getWidth() +
+                "\n- Height: " + this.ctrlUS109.findById(roomId).getHeight());
         UtilsUI.backToMenu();
 
     }

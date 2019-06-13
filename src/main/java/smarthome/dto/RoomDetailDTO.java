@@ -6,7 +6,7 @@ public class RoomDetailDTO {
     private Integer floor;
     private double length;
     private double width;
-    private Double height;
+    private double height;
 
     public RoomDetailDTO() {
     }
