@@ -1,4 +1,4 @@
-package smarthome.model;
+/*package smarthome.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -49,7 +49,7 @@ class HouseTest {
     }
 
     @Test
-        //@DisplayName("Check if address/location exists")
+    @DisplayName("Check if address/location exists")
     void checkIfLocationExistsTest(){
         Location location = new Location(12,34,56);
         Address address = new Address("Rua Blah","123","1234-567","Porto","Portugal",location);
@@ -71,11 +71,6 @@ class HouseTest {
     }
 
 
-    //RoomList
-
-    /**
-     * Check if a new room is created and confirm that the get methods are working
-     */
 
     @Test
     void newRoom() {
@@ -86,11 +81,6 @@ class HouseTest {
         assertEquals(1, room.getFloor());
         assertEquals(5, room.getArea().getOccupation());
     }
-
-
-    /**
-     * Check if a room is create and added to the RoomList
-     */
 
     @Test
     void addOneRoom() {
@@ -104,10 +94,6 @@ class HouseTest {
 
         assertEquals(expectedResult, result);
     }
-
-    /**
-     * Check if two rooms are create and added to the RoomList
-     */
 
     @Test
     void addTwoRooms() {
@@ -128,10 +114,6 @@ class HouseTest {
         assertEquals(expectedResult, result);
     }
 
-    /**
-     * Try to add two rooms but one is empty so only the correct one is added
-     */
-
     @Test
     void addOneRoomEmptyName() {
 
@@ -151,10 +133,6 @@ class HouseTest {
         List<Room> result = getHouseRoomList().getRoomList();
         assertEquals(expectedResult, result);
     }
-
-    /**
-     * Don't validate room name if empty and return false
-     */
 
     @Test
     void nameNotValid() {
@@ -177,10 +155,6 @@ class HouseTest {
         boolean result = room.validateDescription(name);
         assertEquals(expectedResult, result);
     }
-
-    /**
-     * Validate correct room name and return true and also validate empty room name and return false
-     */
 
     @Test
     void addOneGetTrueAddAnotherGetFalse() {
@@ -1006,3 +980,4 @@ class HouseTest {
     }
 
 }
+*/

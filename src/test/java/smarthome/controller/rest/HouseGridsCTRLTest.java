@@ -51,7 +51,7 @@ class HouseGridsCTRLTest {
     void setup() {
         MockitoAnnotations.initMocks(this);
         this.houseGridService = new HouseGridService(this.houseGridRepository);
-        this.roomService = new RoomService();
+        this.roomService = new RoomService(this.roomRepository, this.houseGridRepository);
 
         this.houseGridsCTRL = new HouseGridsCTRL(houseGridService, roomService);
         this.mockMvc = MockMvcBuilders.standaloneSetup(houseGridsCTRL).build();
