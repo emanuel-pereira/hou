@@ -1,4 +1,4 @@
-package smarthome.controller.cli;
+/*package smarthome.controller.cli;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -405,4 +405,4 @@ class DeactivateSensorCTRLTest {
         assertTrue(thrown);
     }
 
-}
+}*/

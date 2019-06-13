@@ -1,82 +1,103 @@
 package smarthome.services;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import smarthome.dto.HouseGridDTOsimple;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.test.web.servlet.MockMvc;
 import smarthome.dto.RoomDetailDTO;
-import smarthome.model.HouseGrid;
 import smarthome.model.Room;
-import smarthome.repository.Repositories;
+import smarthome.repository.HouseGridRepository;
+import smarthome.repository.RoomRepository;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
+@AutoConfigureMockMvc
+@RunWith(MockitoJUnitRunner.class)
 class RoomServiceTest {
 
-    @Test
-    @DisplayName("Tests if a room is created and save with success")
-    void saveNewRoomSuccess() {
-        //Arrange
-        RoomService roomService = new RoomService();
+    @Mock
+    private RoomRepository roomRepository;
 
-        //Act
-        RoomDetailDTO r1 = roomService.createRoom("R01", "BedRoom", 2, 3, 4, 1);
-        roomService.save(r1);
+    @Mock
+    private HouseGridRepository gridRepository;
 
-        //Assert
-        boolean result = roomService.checkIfIDExists("R01");
-        assertTrue(result);
+    private RoomService roomService;
+
+    @BeforeEach
+    void setup(){
+        MockitoAnnotations.initMocks(this);
+        this.roomService = new RoomService(this.roomRepository, this.gridRepository);
     }
 
     @Test
-    @DisplayName("Tests if a room is created and save twice")
-    void saveRoomTwice() {
-        //Arrange
-        RoomService roomService = new RoomService();
-
-        //Act
-        RoomDetailDTO r1 = roomService.createRoom("R01", "BedRoom", 2, 3, 4, 1);
-        roomService.save(r1);
-
-        //Assert
-        boolean result = roomService.save(r1);
-        assertFalse(result);
+    @DisplayName("Save a room with success")
+    void save(){
+        Room room = new Room ("B100","Classroom",3,2,2,1.5);
+        RoomDetailDTO roomDto = new RoomDetailDTO("B100","Classroom",3,2,2,1.5);
+        when(this.roomRepository.save(room)).thenReturn(room);
+        assertTrue(roomService.save(roomDto));
     }
 
     @Test
-    @DisplayName("Tests if a null room is created")
-    void createNullRoom() {
-        //Arrange
-        RoomService roomService = new RoomService();
-
-        //Act
-        RoomDetailDTO r1 = roomService.createRoom(" ", "BedRoom", 2, 3, 4, 1);
-
-        //Assert
-        assertNull(r1);
+    @DisplayName("Have 2 rooms return the right number of rooms")
+    void findAll(){
+        when(this.roomRepository.findAll()).thenReturn(Stream.of(new Room ("B108","Classroom",1,2,3,2),
+          new Room ("B201","Classroom",2,2,3,2)).collect(Collectors.toList()));
+        assertEquals(2,roomService.findAll().size());
     }
 
     @Test
-    void findRoomsByHouseGrid() throws NoSuchFieldException {
-        //Arrange
-        RoomService roomService = new RoomService();
-        HouseGrid houseGrid = new HouseGrid("main grid");
-        HouseGrid grid = Repositories.getGridsRepository().save(houseGrid);
-
-        //Act
-        Room newroom = new Room("B107", "Classroom", 2, 3, 4, 1);
-        newroom.setHouseGrid(grid);
-        Repositories.getRoomRepository().save(newroom);
-        Room secondroom = new Room("B109", "Classroom", 2, 3, 4, 1);
-        secondroom.setHouseGrid(grid);
-        Repositories.getRoomRepository().save(secondroom);
-
-        HouseGridDTOsimple roomsByHouseGrid = roomService.findRoomsByHouseGrid(1L);
-        assertEquals(2,roomsByHouseGrid.getRooms().size());
-
+    @DisplayName("Check if a room exists")
+    void checkIfIDExists(){
+        when(this.roomRepository.existsById("B108")).thenReturn(true);
+        assertTrue(roomService.checkIfIDExists("B108"));
     }
+
+    @Test
+    @DisplayName("Check if a room doesn't exists")
+    void checkIfIDDontExists(){
+        when(this.roomRepository.existsById("B")).thenReturn(false);
+        assertFalse(roomService.checkIfIDExists("B"));
+    }
+
+    @Test
+    @DisplayName("Check if the repository has 6 rooms with success")
+    void size(){
+        when(this.roomRepository.count()).thenReturn(6L);
+        assertEquals(6,roomService.size());
+    }
+
+    @Test
+    @DisplayName("Find a room by the Id with success")
+    void findById() throws NoSuchFieldException {
+        when(this.roomRepository.findById("B108")).thenReturn(java.util.Optional.of(new Room("B108","Classroom",2,2,3,1.5)));
+        RoomDetailDTO expected = new RoomDetailDTO("B108","Classroom",2,2,3,1.5);
+        RoomDetailDTO result = roomService.findById("B108");
+        assertEquals(expected.getId(),result.getId());
+    }
+
+    @Test
+    @DisplayName("Try to find a room that doesn't exists")
+    void notFindById(){
+        when(this.roomRepository.findById("B108")).thenReturn(java.util.Optional.of(new Room("B108","Classroom",2,2,3,1.5)));
+        Assertions.assertThrows(NoSuchFieldException.class, () -> roomService.findById("B"));
+    }
+
+    @Test
+    @DisplayName("Try to find a room in a empty repository")
+    void notFindByIdEmpty(){
+        when(this.roomRepository.findById("B108")).thenReturn(java.util.Optional.empty());
+        Assertions.assertThrows(NoSuchFieldException.class, () -> roomService.findById("B"));
+    }
+
 }

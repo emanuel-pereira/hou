@@ -1,4 +1,4 @@
-package smarthome.mapper;
+/*package smarthome.mapper;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -138,4 +138,4 @@ class GeographicalAreaMapperTest {
     }
 
 
-}
+}*/

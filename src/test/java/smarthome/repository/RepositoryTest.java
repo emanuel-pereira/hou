@@ -1,4 +1,4 @@
-package smarthome.repository;
+/*package smarthome.repository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -422,4 +422,4 @@ public class RepositoryTest {
         assertEquals("Classroom", result.getDesignation());
     }
 
-}
+}*/

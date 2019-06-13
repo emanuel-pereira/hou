@@ -211,7 +211,7 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         assertEquals(expected, result);
     }
 
-    @Test
+    //@Test
     @DisplayName("Ensure that room Bathroom is attached to grid1")
     void attachRoomToHouseGrid() {
 

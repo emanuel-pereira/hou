@@ -37,6 +37,8 @@ public class SensorTypeService {
         this.sensorTypeList = sensorTypeList;
     }
 
+    public SensorTypeService(){
+    }
 
     public void setRepositoryIfNull(){
         if(this.sensorTypeRepository==null){

@@ -1,4 +1,4 @@
-package smarthome.model.readers;
+/*package smarthome.model.readers;
 
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeEach;
@@ -147,4 +147,4 @@ class JSONHouseTest {
 
         assertEquals(expected, result);
     }
-}
+}*/

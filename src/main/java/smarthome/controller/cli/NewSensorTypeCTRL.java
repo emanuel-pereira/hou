@@ -13,7 +13,6 @@ public class NewSensorTypeCTRL {
 
     private final SensorTypeService sensorTypeRepoDDD;
 
-    //TODO: use @Autowired
     public NewSensorTypeCTRL(SensorTypeList sensorTypeList) {
         this.sensorTypeRepoDDD=new SensorTypeService(sensorTypeList);
 

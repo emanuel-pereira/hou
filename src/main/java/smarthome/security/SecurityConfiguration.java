@@ -50,12 +50,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userRepository))
                 .authorizeRequests()
                 // configure access rules
-                .antMatchers(HttpMethod.GET, "/").permitAll()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .antMatchers(HttpMethod.GET, "/rooms").hasRole("USER")
-                .antMatchers(HttpMethod.GET, "/externalSensors").hasRole("USER")
-                .antMatchers(HttpMethod.GET, "/geographicalAreas").hasRole("USER")
-                .antMatchers("/*").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/*").permitAll()
+                .antMatchers(HttpMethod.PUT, "/*").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/*/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/*/*").permitAll()
+                .antMatchers(HttpMethod.PUT, "/*/*").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/*/*").permitAll()
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();
     }
