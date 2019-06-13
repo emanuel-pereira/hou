@@ -1,6 +1,7 @@
 package smarthome.services;
 
 
+import org.springframework.stereotype.Service;
 import smarthome.dto.SensorDTO;
 import smarthome.mapper.SensorMapper;
 import smarthome.model.ExternalSensor;
@@ -13,18 +14,24 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 
-
+@Service
 public class ExternalSensorService {//implements WebService<SensorDTO, String> {
 
     private SensorMapper mapper;
-    private static ExternalSensorRepository repo = Repositories.getExternalSensorRepository();
+    private ExternalSensorRepository repo;
 
     public ExternalSensorService() {
         this.mapper = new SensorMapper();
     }
 
+    void init() {
+        repo = Repositories.getExternalSensorRepository();
+        System.out.println(repo.toString());
+    }
+
 
     public List<SensorDTO> findAll() {
+        this.init();
         Iterable<ExternalSensor> externalSensors = repo.findAll();
         SensorList sensorList = new SensorList();
         for (Sensor eSensor : externalSensors) {

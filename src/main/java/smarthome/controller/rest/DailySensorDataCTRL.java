@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import smarthome.dto.*;
-import smarthome.model.*;
+import smarthome.dto.ExternalReadingDTO;
+import smarthome.model.House;
 import smarthome.services.DailySensorDataService;
 import smarthome.services.ExternalSensorService;
 import smarthome.services.GeoAreaService;
@@ -18,7 +18,6 @@ import java.util.GregorianCalendar;
 
 @RestController
 @RequestMapping(path = "/house")
-
 public class DailySensorDataCTRL {
 
     private DailySensorDataService sensorDataService;
