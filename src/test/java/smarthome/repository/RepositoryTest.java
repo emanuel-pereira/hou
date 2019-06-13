@@ -1,16 +1,12 @@
 package smarthome.repository;
 
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-
-import smarthome.controller.CLI.NewGeographicalAreaCTRL;
-import smarthome.controller.CLI.RemoveGASensorCTRL;
+import smarthome.controller.cli.NewGeographicalAreaCTRL;
+import smarthome.controller.cli.RemoveGASensorCTRL;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.SensorDTO;
 import smarthome.mapper.SensorMapper;
@@ -28,10 +24,7 @@ import static smarthome.model.TypeGAList.addTypeGA;
 import static smarthome.model.TypeGAList.getTypeGAListInstance;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
 @DataJpaTest
-
-
 public class RepositoryTest {
     Location loc = new Location(20, 20, 2);
     Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
@@ -121,7 +114,7 @@ public class RepositoryTest {
         OccupationArea oaL = new OccupationArea(32, 38);
         Location locL = new Location(72, 26, 2);
         GeographicalArea lisbon = new GeographicalArea("PT", "Lisboa", city, oaL, locL);
-        SensorList lSensorList = lisbon.getSensorListInGA();
+        SensorList lSensorList = lisbon.getSensorListInGa();
         SensorType temperature = new SensorType("temperature");
         Sensor sensor = new ExternalSensor("TT1023", "Temperature Sensors", new GregorianCalendar(2019, 2, 2), locL, temperature, "Celsius", new ReadingList());
         lSensorList.addSensor(sensor);
@@ -144,7 +137,7 @@ public class RepositoryTest {
         OccupationArea oaL = new OccupationArea(32, 38);
         Location locL = new Location(72, 26, 2);
         GeographicalArea lisbon = new GeographicalArea("PT", "Lisboa", city, oaL, locL);
-        SensorList lSensorList = lisbon.getSensorListInGA();
+        SensorList lSensorList = lisbon.getSensorListInGa();
         SensorType temperature = new SensorType("temperature");
         Sensor sensor = new ExternalSensor("TT1023", "Temperature Sensors", new GregorianCalendar(2019, 2, 2), locL, temperature, "Celsius", new ReadingList());
         lSensorList.addSensor(sensor);
@@ -235,7 +228,7 @@ public class RepositoryTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         //sensor created and added to lisSensorList
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
@@ -280,7 +273,7 @@ public class RepositoryTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         //sensor created and added to lisSensorList
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
@@ -415,6 +408,18 @@ public class RepositoryTest {
 
         long gridRepSize = Repositories.getGridsRepository().count();
         assertEquals(2, gridRepSize);
+    }
+
+    @Test
+    void testfindRooms(){
+        RoomRepository roomRepository = Repositories.getRoomRepository();
+
+        Room classroom = new Room("B107", "Classroom", 2,2,2,2);
+        roomRepository.save(classroom);
+
+        Room result = roomRepository.findById("B107").get();
+
+        assertEquals("Classroom", result.getDesignation());
     }
 
 }

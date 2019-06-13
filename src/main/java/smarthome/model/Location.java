@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import smarthome.model.validations.GPSValidations;
 
 import javax.persistence.Embeddable;
@@ -12,6 +13,7 @@ import javax.persistence.Transient;
  * were this Embeddable is Embedded(eg. Sensor.Location).
  */
 @Embeddable
+@JsonSerialize
 public class Location {
 
     /**

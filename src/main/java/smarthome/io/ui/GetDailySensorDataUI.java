@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.GetDailySensorDataCTRL;
+import smarthome.controller.cli.GetDailySensorDataCTRL;
 import smarthome.dto.ReadingDTO;
 import smarthome.model.SensorType;
 import smarthome.model.SensorTypeList;
@@ -26,10 +26,10 @@ public class GetDailySensorDataUI {
     }
 
     public boolean isValid() {
-        if (this.superCTRL.checkIfSensorTypeExists(this.sensorType.getType())) {
+        if (this.superCTRL.checkIfSensorTypeExists(TEMPERATURE)) {
             return this.checkIfHouseLocationIsConfigured();
         } else {
-            String msg = "Please ask the Administrator to create the " + this.sensorType.getType() + " sensor type";
+            String msg = "Please ask the Administrator to create the " + this.sensorType.getType().getName() + " sensor type";
             UtilsUI.showError(MSG_TITLE, msg);
         }
         return false;

@@ -19,7 +19,7 @@ class GeographicalAreaMapperTest {
         OccupationArea occupationArea = new OccupationArea(25, 25);
         Location location = new Location(18, 2, 13);
         GeographicalArea aveiro = new GeographicalArea("AVR", "Aveiro", "City", occupationArea, location);
-        SensorList sensorList = aveiro.getSensorListInGA();
+        SensorList sensorList = aveiro.getSensorListInGa();
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
         ExternalSensor sensor = new ExternalSensor("S01", "Temperature Sensors", new GregorianCalendar(2019, 1, 5),location, temperature, "Celsius", readingList);
@@ -27,12 +27,12 @@ class GeographicalAreaMapperTest {
         GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
         GeographicalAreaDTO gaDTO = gaMapper.toDto(aveiro);
 
-        String expected = aveiro.getGAName();
+        String expected = aveiro.getDesignation();
         String result = gaDTO.getDesignation();
 
         assertEquals(expected, result);
 
-        String expected1 = aveiro.getId();
+        String expected1 = aveiro.getIdentification();
         String result1 = gaDTO.getIdentification();
 
         assertEquals(expected1, result1);
@@ -44,7 +44,7 @@ class GeographicalAreaMapperTest {
         OccupationArea occupationArea = new OccupationArea(25, 25);
         Location location = new Location(18, 2, 13);
         GeographicalArea aveiro = new GeographicalArea("AVR", "Aveiro", "City", occupationArea, location);
-        SensorList sensorList = aveiro.getSensorListInGA();
+        SensorList sensorList = aveiro.getSensorListInGa();
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
         ExternalSensor sensor = new ExternalSensor("S01", "Temperature Sensors", new GregorianCalendar(2019, 1, 5),location, temperature, "Celsius", readingList);
@@ -52,7 +52,7 @@ class GeographicalAreaMapperTest {
         GeographicalAreaMapper gaMapper = new GeographicalAreaMapper();
         GeographicalAreaDTO gaDTO = gaMapper.toDto(aveiro);
 
-        int expected = aveiro.getSensorListInGA().size();
+        int expected = aveiro.getSensorListInGa().size();
         int result = gaDTO.getSensorListDTO().size();
 
         assertEquals(expected, result);
@@ -65,7 +65,7 @@ class GeographicalAreaMapperTest {
         OccupationArea occupationArea = new OccupationArea(25, 25);
         Location location = new Location(18, 2, 13);
         GeographicalArea aveiro = new GeographicalArea("AVR", "Aveiro", "City", occupationArea, location);
-        SensorList sensorList = aveiro.getSensorListInGA();
+        SensorList sensorList = aveiro.getSensorListInGa();
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
         ExternalSensor sensor = new ExternalSensor("S01", "Temperature Sensors", new GregorianCalendar(2019, 1, 5),location, temperature, "Celsius", readingList);
@@ -88,7 +88,7 @@ class GeographicalAreaMapperTest {
         OccupationArea area1 = new OccupationArea(25, 25);
         Location loc1 = new Location(18, 2, 13);
         GeographicalArea porto = new GeographicalArea("POR", "Porto", "City", area1, loc1);
-        SensorList sLPorto = porto.getSensorListInGA();
+        SensorList sLPorto = porto.getSensorListInGa();
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
         ExternalSensor sensor = new ExternalSensor("S01", "Temperature Sensors", new GregorianCalendar(2019, 1, 5),loc1, temperature, "Celsius", readingList);
@@ -117,7 +117,7 @@ class GeographicalAreaMapperTest {
         OccupationArea area1 = new OccupationArea(25, 25);
         Location loc1 = new Location(18, 2, 13);
         GeographicalArea porto = new GeographicalArea("POR", "Porto", "City", area1, loc1);
-        SensorList sLPorto = porto.getSensorListInGA();
+        SensorList sLPorto = porto.getSensorListInGa();
         SensorType temperature = new SensorType("Temperature");
         ReadingList readingList = new ReadingList();
         ExternalSensor sensor = new ExternalSensor("S01", "Temperature Sensors", new GregorianCalendar(2019, 1, 5), loc1,temperature, "Celsius", readingList);

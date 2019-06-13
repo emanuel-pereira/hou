@@ -1,0 +1,46 @@
+@startuml
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+"HTTP Client" -> ":HouseGridCTRL": GET \n/housegrids/{id}/rooms
+
+create ":HouseGridService"
+":HouseGridCTRL" -> ":HouseGridService" : create( )
+":HouseGridCTRL" -> ":HouseGridService" : gridExists(id)
+
+":HouseGridService" -> ":HouseGridRepository" : existsbyId(id)
+
+create ":RoomService"
+":HouseGridCTRL" -> ":RoomService" : create( )
+":HouseGridCTRL" -> ":RoomService" : findRoomsByHouseGrid(id)
+
+":RoomService" -> ":RoomRepository" : listOfRooms =\n findAllByHouseGrid(id)
+
+loop  Conversion of listOfRooms\n to listOfRoomIds
+":RoomService" -> ":RoomService": listOfRoomIds = \naddRoomId(room.getId());
+end
+create "responseEntity \n:ResponseEntity"
+":HouseGridCTRL" ->  "responseEntity \n:ResponseEntity": responseEntity = new ResponseEntity<>(listOfRoomIds, HttpStatus.OK);
+
+":HouseGridCTRL" --> "HTTP Client" : Status.OK \nResponse DTO
+@enduml

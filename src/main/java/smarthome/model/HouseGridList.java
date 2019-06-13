@@ -90,7 +90,7 @@ public class HouseGridList {
         for (HouseGrid grid : list) {
             result.append(number++);
             result.append(element);
-            result.append(grid.getMeteredDesignation());
+            result.append(grid.getDesignation());
             result.append("\n");
         }
         return result.toString();

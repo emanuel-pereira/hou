@@ -1,0 +1,65 @@
+@startuml
+hidefootbox
+
+actor Administrator
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+create ":EditRoomUI"
+Administrator -> ":EditRoomUI":Edit a room
+create ":EditRoomCTRL"
+Administrator -> ":EditRoomCTRL": create()
+create "rs2:RoomService"
+":EditRoomCTRL" -> "rs2:RoomService": create()
+ref over ":EditRoomUI", ":ListRoomsOfHouseCTRL", "rS1:RoomService", RoomRepository: If there are rooms (x≠0) a list of rooms (DTO) is shown\n
+Administrator <-- ":EditRoomUI": Show rooms and select one
+":EditRoomUI" -> ":ListRoomsOfHouseCTRL": rDTO=findAll().get(index)
+":EditRoomUI" -> "r:Room": roomId=rDTO.get(id)
+
+Administrator <-- ":EditRoomUI": Do you want to edit {attribute}?(y/n)
+note right
+{attribute} can be: description, floor, length, width and/or height
+    end note
+":EditRoomUI" -> ":EditRoomCTRL": set{attribute}(roomId,newValue)
+":EditRoomCTRL" -> "rs2:RoomService": set{attribute}(roomId,newValue)
+"rs2:RoomService" -> RoomRepository: r=findById(roomId)
+"rs2:RoomService" -> "r:Room": {attribute}=get({roomAttribute})
+"rs2:RoomService" -> "r:Room": set{attribute}({newValue})
+
+note left
+{attribute} and {roomAttribute} are: id,description,floor,nlength,width and height
+    end note
+"rs2:RoomService" -> RoomRepository: save(r)
+":EditRoomUI" -> ":EditRoomCTRL": newRDTO=showRoom(roomId)
+":EditRoomCTRL" -> "rs2:RoomService": newRDTO=showRoom(roomId)
+
+
+"rs2:RoomService" -> RoomRepository: r=findById(roomId)
+"rs2:RoomService" -> ":RoomMapper": newRDTO=toDetailDto(r)
+create "newRDTO:RoomDetailDTO"
+":RoomMapper" -> "newRDTO:RoomDetailDTO": create()
+
+Administrator <-- ":EditRoomUI": Show room configuration
+
+@enduml

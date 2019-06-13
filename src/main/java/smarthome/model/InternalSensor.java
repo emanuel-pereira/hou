@@ -12,6 +12,10 @@ public class InternalSensor implements Sensor {
     @Embedded
     private SensorBehavior sensorBehavior;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ROOM_ID")
+    private Room room;
+
 
     protected InternalSensor() {
     }
@@ -28,7 +32,7 @@ public class InternalSensor implements Sensor {
      */
     public InternalSensor(String id, String name, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         this.id = id;
-        Name sName = new Name(name);
+        GenericName sName = new GenericName(name);
         this.sensorBehavior = new SensorBehavior(sName, startDate, sensorType, unit, readings);
     }
 
@@ -42,6 +46,22 @@ public class InternalSensor implements Sensor {
     @Override
     public SensorBehavior getSensorBehavior() {
         return sensorBehavior;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setSensorBehavior(SensorBehavior sensorBehavior) {
+        this.sensorBehavior = sensorBehavior;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
     }
 
     @Override

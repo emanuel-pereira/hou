@@ -12,7 +12,7 @@ public class OccupationAreaTest {
     public void checkConstructorValidParameters() {
         OccupationArea C = new OccupationArea(2, 2);
         double expectedResult = 4;
-        double result = C.getOccupationArea();
+        double result = C.getOccupation();
         assertEquals(expectedResult, result);
     }
 
@@ -20,7 +20,7 @@ public class OccupationAreaTest {
     @DisplayName("Constructor with one parameter zero")
     public void checkConstructorParameterZero() {
         OccupationArea C = new OccupationArea(0, 4);
-        double result = C.getOccupationArea();
+        double result = C.getOccupation();
         double expectedResult = Double.NaN;
         assertEquals(expectedResult, result, 0.1);
     }
@@ -29,7 +29,7 @@ public class OccupationAreaTest {
     @DisplayName("Constructor with second parameter zero")
     public void checkConstructorParameterZero2() {
         OccupationArea C = new OccupationArea(4, 0);
-        double result = C.getOccupationArea();
+        double result = C.getOccupation();
         double expectedResult = Double.NaN;
         assertEquals(expectedResult, result, 0.1);
     }
@@ -38,7 +38,7 @@ public class OccupationAreaTest {
     @DisplayName("Constructor with both parameters zero")
     public void checkConstructorBothParametersZero() {
         OccupationArea C = new OccupationArea(0, 0);
-        double result = C.getOccupationArea();
+        double result = C.getOccupation();
         double expectedResult = Double.NaN;
         assertEquals(expectedResult, result, 0.1);
     }
@@ -47,7 +47,7 @@ public class OccupationAreaTest {
     @DisplayName("Constructor with both negative parameters")
     public void checkConstructorBothNegativeParameters() {
         OccupationArea C = new OccupationArea(-3, -3);
-        double result = C.getOccupationArea();
+        double result = C.getOccupation();
         double expectedResult = Double.NaN;
         assertEquals(expectedResult, result);
     }
@@ -57,7 +57,7 @@ public class OccupationAreaTest {
     public void checkConstructorOneNegativeParameter() {
         OccupationArea C = new OccupationArea(-2, 2);
         double expectedResult = Double.NaN;
-        double result = C.getOccupationArea();
+        double result = C.getOccupation();
         assertEquals(expectedResult, result);
     }
 
@@ -66,7 +66,7 @@ public class OccupationAreaTest {
     public void checkConstructorSecondNegativeParameter() {
         OccupationArea C = new OccupationArea(2, -2);
         double expectedResult = Double.NaN;
-        double result = C.getOccupationArea();
+        double result = C.getOccupation();
         assertEquals(expectedResult, result);
     }
 

@@ -1,0 +1,60 @@
+@startuml
+hidefootbox
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+
+ClientHTTP -> ":RoomCTRL":  PUT/rooms/{id}(id,roomDTO)
+create ":RoomService"
+":RoomCTRL" -> ":RoomService": create()
+create "roomDTO:RoomDetailDTO"
+":RoomCTRL" -> "roomDTO:RoomDetailDTO": create()
+":RoomCTRL" -> ":RoomService": editRoom(id,roomDTO)
+":RoomService" -> RoomRepository: room=findById(id)
+":RoomService" -> ":RoomMapper": rDTO=toDetailDto(room)
+create "rDTO:RoomDetailDTO"
+":RoomMapper" -> "rDTO:RoomDetailDTO": create()
+":RoomService" -> "roomDTO:RoomDetailDTO":newValue=get{attribute}
+
+note left
+            {attribute} is:
+            description,
+            floor, length,
+            width and height
+            end note
+
+":RoomService" -> "rDTO:RoomDetailDTO": set{attribute}(newValue)
+":RoomService" -> ":RoomService": save(rDTO)
+":RoomService" -> RoomMapper: room=toObject(rDTO)
+":RoomService" -> ":RoomRepository": save(room)
+
+":RoomCTRL" -> ":RoomService": editRoom=findById(id)
+":RoomService" -> RoomRepository: room=findById(id)
+":RoomService" -> RoomMapper: editRoom=toDetailDto(room)
+create "editRoom:RoomDetailDTO"
+":RoomMapper" -> "editRoom:RoomDetailDTO": create()
+
+create ResponseEntity
+":RoomCTRL" -> ResponseEntity: create()
+ClientHTTP <-- ":RoomCTRL": ResponseEntity=\neditRoom,HttpStatus.OK
+
+@enduml

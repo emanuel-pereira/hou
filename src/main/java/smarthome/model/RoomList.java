@@ -83,7 +83,7 @@ public class RoomList {
      */
     public boolean checkIfRoomNameExists(String name) {
         for (Room r : this.getRoomList()) {
-            if (r.getMeteredDesignation().equals(name)) {
+            if (r.getDesignation().equals(name)) {
                 return true;
             }
         }
@@ -143,7 +143,7 @@ public class RoomList {
         for (Room room : list) {
             result.append(number++);
             result.append(element);
-            result.append(room.getId() + ", " + room.getMeteredDesignation());
+            result.append(room.getId() + ", " + room.getDesignation());
             result.append("\n");
         }
         return result.toString();

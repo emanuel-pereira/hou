@@ -1,7 +1,7 @@
 
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.AttachDetachAndListRoomsInGridCTRL;
+import smarthome.controller.cli.AttachDetachAndListRoomsInGridCTRL;
 
 public class AttachDetachAndListRoomsInGridUI {
 

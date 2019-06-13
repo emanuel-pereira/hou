@@ -2,6 +2,7 @@ package smarthome.repository;
 
 import smarthome.model.*;
 
+import java.util.Calendar;
 import java.util.List;
 
 public final class Repositories {
@@ -10,9 +11,10 @@ public final class Repositories {
     private static ExternalSensorRepository externalSensorRepository = null;
     private static InternalSensorRepository internalSensorRepository = null;
     private static SensorTypeRepository sensorTypeRepository = null;
-    private static TypeGARepository typeGARepository= null;
+    private static TypeGARepository typeGARepository = null;
     private static RoomRepository roomRepository = null;
-    private static GridRepository gridsRepository = null;
+    private static HouseGridRepository gridsRepository = null;
+    private static UserRepository userRepository = null; // added for security
 
     /**
      * Private constructor to hide the implicit one
@@ -44,7 +46,7 @@ public final class Repositories {
         Repositories.roomRepository = roomRepository;
     }
 
-    public static void setGridsRepository(GridRepository gridsRepository) {
+    public static void setGridsRepository(HouseGridRepository gridsRepository) {
         Repositories.gridsRepository = gridsRepository;
     }
 
@@ -57,8 +59,28 @@ public final class Repositories {
         return externalSensorRepository;
     }
 
+    public static ReadingList getReadingsExternalSensorInInterval(String id, Calendar startDate, Calendar endDate){
+
+        ExternalSensor sensor = getExternalSensorRepository().findById(id).get();
+
+        return sensor.getSensorBehavior().getReadingList().filterByDate(startDate, endDate);
+    }
+
+    public static ReadingList getReadingsExternalSensor(String id){
+
+        ExternalSensor sensor = getExternalSensorRepository().findById(id).get();
+
+        return sensor.getSensorBehavior().getReadingList();
+    }
+
+
     public static InternalSensorRepository getInternalSensorRepository() {
         return internalSensorRepository;
+    }
+
+    public static ReadingList getReadingsInternalSensor(String idSensor) {
+        InternalSensor sensor = getInternalSensorRepository().findById(idSensor).get();
+        return sensor.getSensorBehavior().getReadingList();
     }
 
     public static SensorTypeRepository getSensorTypeRepository() {
@@ -73,14 +95,14 @@ public final class Repositories {
         return roomRepository;
     }
 
-    public static GridRepository getGridsRepository() {
+    public static HouseGridRepository getGridsRepository() {
         return gridsRepository;
     }
 
     public static void saveGA(GeographicalArea ga) {
         Repositories.geoRepository.save(ga);
 
-        SensorList sensorList = ga.getSensorListInGA();
+        SensorList sensorList = ga.getSensorListInGa();
         List<Sensor> sensors = sensorList.getSensorList();
         for (Sensor sensor : sensors) {
             saveExternalSensor((ExternalSensor) sensor);
@@ -99,15 +121,15 @@ public final class Repositories {
 
 
     public static void saveExternalSensor(ExternalSensor s) {
-        Repositories.getSensorTypeRepository().save(s.getSensorBehavior().getSensorType());
-
         Repositories.externalSensorRepository.save(s);
     }
 
     public static void saveInternalSensor(InternalSensor s) {
-        Repositories.getSensorTypeRepository().save(s.getSensorBehavior().getSensorType());
-
         Repositories.internalSensorRepository.save(s);
+    }
+
+    public static UserRepository getUserRepository() {
+        return userRepository;
     }
 
 }

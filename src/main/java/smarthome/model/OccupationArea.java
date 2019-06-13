@@ -1,8 +1,11 @@
 package smarthome.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import javax.persistence.*;
 
 @Embeddable
+@JsonSerialize
 public class OccupationArea {
     private double occupation = Double.NaN;
     private double length;
@@ -51,7 +54,7 @@ public class OccupationArea {
      * Method that returns the area occupied by a geographical area
      * @return - value of occupation area
      */
-    public double getOccupationArea() {
+    public double getOccupation() {
         return this.occupation;
     }
 

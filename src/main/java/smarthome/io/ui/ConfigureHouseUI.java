@@ -2,7 +2,7 @@ package smarthome.io.ui;
 
 
 import org.json.simple.parser.ParseException;
-import smarthome.controller.CLI.ConfigureHouseCTRL;
+import smarthome.controller.cli.ConfigureHouseCTRL;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.LocationDTO;
 import smarthome.model.GAList;

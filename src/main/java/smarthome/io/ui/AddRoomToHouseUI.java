@@ -1,13 +1,13 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.AddRoomToHouseCTRL;
+import smarthome.controller.cli.AddRoomToHouseCTRL;
 
 public class AddRoomToHouseUI {
 
     private final AddRoomToHouseCTRL controller;
 
     private String id;
-    private String name;
+    private String description;
     private Integer floor;
     private double length;
     private double width;
@@ -32,10 +32,10 @@ public class AddRoomToHouseUI {
         boolean condition = true;
         while (condition) {
             System.out.println("Insert the Id of the room:");
-            this.id = UtilsUI.requestText("Please insert alphanumeric characters!\nInsert the Id of the room:", "^[A-Za-z0-9 -]+$");
+            this.id = UtilsUI.requestText("Please insert alphanumeric characters without spaces!\nInsert the Id of the room:", "^[A-Za-z0-9]+$");
             if (!this.controller.checkIfRoomIdExists(this.id)) {
                 condition = false;
-                this.insertName();
+                this.insertDescription();
             } else{
                 System.out.println("The Id already exists");
                 UtilsUI.backToMenu();
@@ -44,24 +44,13 @@ public class AddRoomToHouseUI {
     }
 
     /**
-     * When the name is entered there is a confirmation to determine
-     * if a room with the same name has already been created.
-     * The method validates the user input according to the text validation rules. If not the cycle warns for the need
+     * When the description is entered the method validates the user input according to the text validation rules. If not the cycle warns for the need
      * for a new input until correct validation.
      */
-    void insertName() {
-        boolean condition = true;
-        while (condition) {
-            System.out.println("Insert the name of the room:");
-            this.name = UtilsUI.requestText("Please insert alphanumeric characters!\nInsert the name of the room:", "^[A-Za-z0-9 -]+$");
-            if (!this.controller.checkIfRoomIdExists(this.name)) {
-                condition = false;
-                this.insertFloor();
-            } else {
-                System.out.println("There's already a room with that name");
-                UtilsUI.backToMenu();
-            }
-        }
+    private void insertDescription() {
+            System.out.println("Insert the description of the room:");
+            this.description = UtilsUI.requestText("Please insert alphanumeric characters!\nInsert the description of the room:", "^[A-Za-z0-9 -]+$");
+            this.insertFloor();
     }
 
     /**
@@ -135,8 +124,8 @@ public class AddRoomToHouseUI {
      * A success message is shown with all the details of the room.
      */
     private void addNewRoom() {
-        if (this.controller.newAddRoom(this.id, this.name, this.floor, this.length, this.width, this.height)) {
-            System.out.println("Success. The " + this.name + " with the Id " + this.id + " on the " + this.floor + " floor " + this.showHeight() + this.length * this.width + "m² was created.\n");
+        if (this.controller.newAddRoom(this.id, this.description, this.floor, this.length, this.width, this.height)) {
+            System.out.println("Success. The " + this.description + " with the Id " + this.id + " on the " + this.floor + " floor " + this.showHeight() + this.length * this.width + "m² was created.\n");
             UtilsUI.backToMenu();
         }
         else {

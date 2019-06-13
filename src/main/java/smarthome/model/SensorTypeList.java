@@ -97,7 +97,7 @@ public class SensorTypeList {
      */
     public boolean checkIfSensorTypeExists(String input) {
         for (SensorType type : this.typeList) {
-            if (type.getType().equalsIgnoreCase(input)) {
+            if (type.getType().getName().equalsIgnoreCase(input)) {
                 return true;
             }
         }
@@ -111,7 +111,7 @@ public class SensorTypeList {
         for (SensorType sensorType : this.typeList) {
             result.append(number++);
             result.append(element);
-            result.append(sensorType.getType());
+            result.append(sensorType.getType().getName());
             result.append("\n");
         }
         return result.toString();
@@ -120,7 +120,7 @@ public class SensorTypeList {
     public SensorType getSensorTypeMatchedWithString(String sensorTypeDesignation) {
         SensorType sensorTypeMatched = null;
         for (SensorType sensorType : this.typeList) {
-            if (sensorType.getType().equals(sensorTypeDesignation))
+            if (sensorType.getType().getName().equals(sensorTypeDesignation))
                 sensorTypeMatched = sensorType;
         }
         return sensorTypeMatched;

@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import smarthome.model.devices.*;
-import smarthome.repository.Repositories;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -12,7 +11,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static smarthome.model.House.getHouseRoomList;
 import static smarthome.model.TypeGAList.getTypeGAListInstance;
 
 
@@ -48,7 +46,7 @@ public class RoomListTest {
         roomList.addRoom(r1);
 
         //Assert
-        assertEquals("BedRoom", roomList.getRoomList().get(0).getMeteredDesignation());
+        assertEquals("BedRoom", roomList.getRoomList().get(0).getDesignation());
     }
 
     @Test
@@ -82,7 +80,7 @@ public class RoomListTest {
     }
 
 
-    /*@Test
+  /*  @Test
     @DisplayName("Ensure that the room is saved in the repository when it is added, handles nullpointer exception")
     void addRoomToListAndRepoNullPointer(){
         RoomList roomList = new RoomList();

@@ -1,6 +1,13 @@
 package smarthome.model.validations;
 
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 public final class Utils {
     private Utils(){}
 
@@ -31,4 +38,17 @@ public final class Utils {
         return value > 0;
     }
 
+    public static Calendar convertStringToCalendar (String input) throws ParseException {
+        DateFormat df = new SimpleDateFormat("yyyyMMdd");
+        Date date;
+        try{
+            date = df.parse(input);
+        }
+        catch (ParseException e){
+            return new GregorianCalendar(1000, Calendar.JANUARY, 1);
+        }
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        return calendar;
+    }
 }

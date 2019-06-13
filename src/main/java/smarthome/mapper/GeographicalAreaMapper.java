@@ -14,26 +14,39 @@ public class GeographicalAreaMapper {
 
     /**
      * Converts a geographicalArea into a geographicalAreaDTO to be used as a model view, containing only Id, Designation and SensorList as attributes
+     *
      * @param geographicalArea to be converted in geographicalAreaDTO
      * @return a geographicalAreaDTO
      */
     public GeographicalAreaDTO toDto(GeographicalArea geographicalArea) {
         GeographicalAreaDTO geographicalAreaDTO = new GeographicalAreaDTO();
-        geographicalAreaDTO.setIdentification(geographicalArea.getId());
-        geographicalAreaDTO.setDesignation(geographicalArea.getGAName());
-        SensorList sensorList = geographicalArea.getSensorListInGA();
+        geographicalAreaDTO.setIdentification(geographicalArea.getIdentification());
+        geographicalAreaDTO.setDesignation(geographicalArea.getDesignation());
+        SensorList sensorList = geographicalArea.getSensorListInGa();
         geographicalAreaDTO.setSensorListDTO(sensorMapper.toDtoList(sensorList));
         return geographicalAreaDTO;
     }
 
     /**
      * Converts a list of geographical areas into a list of geographical areas DTOs to be used as a model view, containing only Id, Designation and SensorList as attributes
+     *
      * @param gaList to be converted into a geographical area DTO list
      * @return list of geographical area DTOs
      */
     public List<GeographicalAreaDTO> toDtoList(GAList gaList) {
-        List<GeographicalArea> listOfGAs=gaList.getGAList();
+        List<GeographicalArea> listOfGAs = gaList.getGAList();
         return listOfGAs.stream().map(this::toDto).collect(Collectors.toList());
     }
+
+    /**
+     * Converts a list of geographical areas into a list of geographical areas DTOs to be used as a model view, containing only Id, Designation and SensorList as attributes
+     *
+     * @param gaList to be converted into a geographical area DTO list
+     * @return list of geographical area DTOs
+     */
+    public List<GeographicalAreaDTO> toDtoListParent(List<GeographicalArea> gaList) {
+        return gaList.stream().map(this::toDto).collect(Collectors.toList());
+    }
+
 
 }

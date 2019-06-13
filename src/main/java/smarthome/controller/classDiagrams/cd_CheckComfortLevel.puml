@@ -84,5 +84,5 @@ ComfortLevelService --> InternalSensorRepo
 ComfortLevelService --> ExternalSensorRepo
 ComfortLevelService --> RoomRepo
 
-<<<<<<< HEAD
+
 @enduml

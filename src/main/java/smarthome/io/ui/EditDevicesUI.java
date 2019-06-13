@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.EditDevicesCTRL;
+import smarthome.controller.cli.EditDevicesCTRL;
 import smarthome.model.Device;
 import smarthome.model.Room;
 
@@ -176,13 +176,13 @@ public class EditDevicesUI {
     }
 
     public void listDevicesInRoom() {
-        System.out.println("List of devices in " + selectedRoom.getMeteredDesignation() + ":");
+        System.out.println("List of devices in " + selectedRoom.getDesignation() + ":");
         System.out.println(ctrl.showDeviceListInString(selectedRoomIndex));
     }
 
     private boolean deviceListInRoomIsNotEmpty() {
         if (ctrl.getDeviceList(selectedRoom).getDeviceList().isEmpty()) {
-            System.out.println("The device list in " + selectedRoom.getMeteredDesignation() + " is empty.\n");
+            System.out.println("The device list in " + selectedRoom.getDesignation() + " is empty.\n");
             return false;
         }
         return true;

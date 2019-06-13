@@ -3,6 +3,7 @@ package smarthome.model;
 import smarthome.model.validations.Utils;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -17,14 +18,16 @@ public class HouseGrid implements Metered {
 
     @Transient
     private double contractedMaximumPower = Double.NaN;
-    private String designation;
 
+    @NotNull
+    private String designation;
     @Transient
     private PowerSourceList psListInHG;
+
     @Transient
     private RoomList roomList;
 
-    protected HouseGrid() {
+    public HouseGrid() {
     }
 
 
@@ -34,6 +37,19 @@ public class HouseGrid implements Metered {
         this.roomList = new RoomList();
     }
 
+    public HouseGrid(Long id, String designation) {
+        this.setId(id);
+        this.designation = designation;
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public double getContractedMaximumPower() {
         return this.contractedMaximumPower;
@@ -44,12 +60,20 @@ public class HouseGrid implements Metered {
             this.contractedMaximumPower = contractedMaximumPower;
     }
 
-    public String getMeteredDesignation() {
+    public String getDesignation() {
         return this.designation;
     }
 
-    public PowerSourceList getPSListInHG() {
+    public void setDesignation(String newDesignation) {
+        this.designation = newDesignation;
+    }
+
+    public PowerSourceList getPsListInHG() {
         return this.psListInHG;
+    }
+
+    public void setPsListInHG(PowerSourceList psListInHG) {
+        this.psListInHG = psListInHG;
     }
 
     /**
@@ -76,8 +100,12 @@ public class HouseGrid implements Metered {
     /**
      * @return list of rooms in a grid
      */
-    public RoomList getRoomListInAGrid() {
+    public RoomList getRoomList() {
         return this.roomList;
+    }
+
+    public void setRoomList(RoomList roomList) {
+        this.roomList = roomList;
     }
 
     public int getRoomListInAGridSize() {
@@ -121,7 +149,7 @@ public class HouseGrid implements Metered {
         String statusStr = " | Active: ";
         int number = 1;
         for (Device device : list) {
-            String deviceLocation = this.roomList.getDeviceLocation(device).getMeteredDesignation();
+            String deviceLocation = this.roomList.getDeviceLocation(device).getDesignation();
             result.append(number++);
             result.append(element);
             result.append(device.getDeviceName());
@@ -144,7 +172,7 @@ public class HouseGrid implements Metered {
      */
     public double getNominalPower() {
         double sum = 0;
-        for (Room room : getRoomListInAGrid().getRoomList()) {
+        for (Room room : getRoomList().getRoomList()) {
             sum += room.getNominalPower();
         }
         return sum;
@@ -152,14 +180,14 @@ public class HouseGrid implements Metered {
 
 
     public String showRoomsInHouseGrid() {
-        RoomList listOfRoomsInHG = getRoomListInAGrid();
+        RoomList listOfRoomsInHG = getRoomList();
         StringBuilder result = new StringBuilder();
         String element = " - ";
         int number = 1;
         for (Room r : listOfRoomsInHG.getRoomList()) {
             result.append(number++);
             result.append(element);
-            result.append(r.getMeteredDesignation());
+            result.append(r.getDesignation());
             result.append("\n");
         }
         return result.toString();

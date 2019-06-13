@@ -1,10 +1,14 @@
 package smarthome.model.readers;
 
+import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import smarthome.model.*;
+import smarthome.model.validations.Name;
+import smarthome.repository.Repositories;
+import smarthome.services.SensorTypeService;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -18,6 +22,8 @@ import java.util.List;
 public class JSONGeoArea implements FileReaderGeoArea {
     private Path filePath;
     private final JSONParser parser = new JSONParser();
+    static final Logger log = Logger.getLogger(JSONHouse.class);
+
 
 
     public JSONGeoArea() {
@@ -39,8 +45,8 @@ public class JSONGeoArea implements FileReaderGeoArea {
         for (Object ga : jsonGAList) {
             JSONObject jsonGA = (JSONObject) ga;
             GeographicalArea geoArea = importGA(jsonGA);
-            List<Sensor> gaSensorList = geoArea.getSensorListInGA().getSensorList();
-            importSensorList(jsonGA, gaSensorList);
+            List<Sensor> gaSensorList = geoArea.getSensorListInGa().getSensorList();
+            importSensorList(jsonGA, gaSensorList, geoArea);
             gaList.add(geoArea);
         }
         return gaList;
@@ -69,16 +75,16 @@ public class JSONGeoArea implements FileReaderGeoArea {
 
     }
 
-    private static void importSensorList(JSONObject jsonGA, List<Sensor> sensorList) throws java.text.ParseException {
+    private static void importSensorList(JSONObject jsonGA, List<Sensor> sensorList, GeographicalArea geoArea) throws java.text.ParseException {
         JSONArray jsonSensorList = (JSONArray) jsonGA.get("area_sensor");
         for (Object areaSensor : jsonSensorList) {
             JSONObject jsonSensor = (JSONObject) areaSensor;
-            Sensor sensor = importSensor(jsonSensor);
+            Sensor sensor = importSensor(jsonSensor, geoArea);
             sensorList.add(sensor);
         }
     }
 
-    private static Sensor importSensor(JSONObject jsonSensor) throws java.text.ParseException {
+    private static Sensor importSensor(JSONObject jsonSensor, GeographicalArea geoArea) throws java.text.ParseException {
         JSONObject sensor = (JSONObject) jsonSensor.get("sensor");
         String id = (String) sensor.get("id");
         String name = (String) sensor.get("name");
@@ -90,12 +96,23 @@ public class JSONGeoArea implements FileReaderGeoArea {
         calendar.setTime(date);
 
         String sensorType = (String) sensor.get("type");
-        SensorType type = new SensorType(sensorType);
-
+        Name typeName = new Name(sensorType);
+        SensorType type;
+        //Repository call
+        try {
+            type= Repositories.getSensorTypeRepository().findByType(typeName);
+        } catch (NullPointerException e) {
+            log.warn("Repository unreachable");
+            type= new SensorType(sensorType);
+        }
         String unit = (String) sensor.get("units");
         Location location = importLocation(jsonSensor);
         ReadingList readings = new ReadingList();
-        return new ExternalSensor(id, name, calendar, location, type, unit, readings);
+        ExternalSensor geoSensor = new ExternalSensor(id, name, calendar, location, type, unit, readings);
+        //TODO add new unitary tests to this feature
+        //TODO add same feature in other readers
+        geoSensor.setGeographicalArea(geoArea);
+        return geoSensor;
 
     }
 

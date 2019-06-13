@@ -3,7 +3,7 @@ package smarthome.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import smarthome.repository.Repositories;
+import smarthome.model.validations.Name;
 
 import java.lang.reflect.Field;
 import java.util.Calendar;
@@ -11,7 +11,6 @@ import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static smarthome.model.House.getHouseRoomList;
 import static smarthome.model.TypeGAList.getTypeGAListInstance;
 
 class SensorListTest {
@@ -461,7 +460,7 @@ class SensorListTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
         SensorType sensorType = new SensorType("Temperature");
@@ -488,7 +487,7 @@ class SensorListTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         Location sLoc = new Location(55, 21, 26);
         GregorianCalendar sDate = new GregorianCalendar(2019, 2, 2);
         SensorType sensorType = new SensorType("Temperature");
@@ -523,7 +522,7 @@ class SensorListTest {
         GeographicalArea lisbon = new GeographicalArea("LIS", "Lisbon", "City", lisOA, lisLoc);
         gaList.addGA(lisbon);
 
-        SensorList lisbonSensorList = lisbon.getSensorListInGA();
+        SensorList lisbonSensorList = lisbon.getSensorListInGa();
         GregorianCalendar pDate = new GregorianCalendar(2019, 2, 2);
 
         lisbonSensorList.deactivateSensor("TL1023", pDate);
@@ -561,6 +560,36 @@ class SensorListTest {
         assertTrue(sensorList.checkIfAnySensorHasSameID(s1));
     }
 
+    @Test
+    void getSensorByTypeWithLatestReadings(){
+        SensorList sList = new SensorList();
+
+        SensorType temp = new SensorType("temperature");
+        ReadingList l1 = new ReadingList();
+        Reading r1 = new Reading(0,new GregorianCalendar(2019, Calendar.MAY,31),"C");
+        l1.addReading(r1);
+        Sensor s1 = new InternalSensor("s001","one",new GregorianCalendar(2018,Calendar.JANUARY,1),temp,"C",l1);
+
+        ReadingList l2 = new ReadingList();
+        Reading r2 = new Reading(0,new GregorianCalendar(2019,Calendar.MAY,30),"C");
+        l2.addReading(r2);
+        Sensor s2 = new InternalSensor("s002","two",new GregorianCalendar(2018,Calendar.JANUARY,1),temp,"C",l2);
+
+        ReadingList l3 = new ReadingList();
+        Reading r3 = new Reading(0,new GregorianCalendar(2019,Calendar.MAY,29),"C");
+        l3.addReading(r3);
+        Sensor s3 = new InternalSensor("s003","three",new GregorianCalendar(2018,Calendar.JANUARY,1),temp,"C",l3);
+
+        sList.addSensor(s1);
+        sList.addSensor(s2);
+        sList.addSensor(s3);
+
+        Sensor result = sList.getInternalSensorByTypeWithLatestReadings(temp);
+
+        assertEquals(s1,result);
+
+    }
+
 
 
 /*    @Test
@@ -588,7 +617,7 @@ class SensorListTest {
          assertTrue(thrown);
     }*/
 
-  /*  @Test
+/*    @Test
     @DisplayName("deactivate sensor in repo")
     void deactivateSensorToRepositoryNullPointer(){
         Room bedroom = new Room("R1", "Bedroom 1", 2, 2, 2, 2);
@@ -604,7 +633,7 @@ class SensorListTest {
 
         GregorianCalendar pauseDate = new GregorianCalendar(2019,05,03);
 
-        sList.deactivateSensor(sensor1.getId(),pauseDate);
+        sList.deactivateSensor(sensor1.getIdentification(),pauseDate);
 
         boolean thrown = false;
         try{

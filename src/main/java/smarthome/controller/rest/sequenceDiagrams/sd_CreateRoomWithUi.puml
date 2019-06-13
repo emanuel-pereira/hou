@@ -1,0 +1,48 @@
+@startuml
+hidefootbox
+
+actor Administrator
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+}
+
+skinparam note {
+BorderColor SteelBlue
+}
+
+Administrator -> UI: Create Room
+UI -> ":RoomCTRL":  POST/{roomDTO}
+create ":RoomService"
+":RoomCTRL" -> ":RoomService": create()
+
+
+create "rDTO:roomDTO"
+":RoomCTRL" -> "rDTO:roomDTO": create()
+":RoomCTRL" -> ":RoomService": save(rDTO)
+":RoomService" -> ":RoomMapper": r=toObject(roomDTO)
+create "r:room"
+":RoomMapper" -> "r:room": create()
+":RoomService" -> ":RoomRepository": save(r)
+create ResponseEntity
+":RoomCTRL" -> ResponseEntity: create
+Administrator <-- UI:  Show new room in list
+
+
+
+
+@enduml

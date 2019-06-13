@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.NewGeographicalAreaCTRL;
+import smarthome.controller.cli.NewGeographicalAreaCTRL;
 import smarthome.model.GAList;
 import smarthome.model.Location;
 import smarthome.model.OccupationArea;
@@ -44,7 +44,7 @@ public class NewGeographicalAreaUI {
 
     private void insertIDAndName() {
         System.out.println("Insert the ID of the new geographical area:");
-        this.id = UtilsUI.requestText("Only alphabetic characters area accepted.");
+        this.id = UtilsUI.requestText("Only alphanumeric characters area accepted.", "^[A-Za-z0-9 -]+$");
         System.out.println("Insert the description of the new geographical area:");
         this.name = UtilsUI.requestText("Only alphanumeric characters area accepted.", "^[A-Za-z0-9 -]+$");
         this.insertType();

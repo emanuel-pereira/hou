@@ -67,7 +67,7 @@ public class House {
      */
     public static RoomList getHouseRoomsWithoutGrid(HouseGrid houseGrid) {
         RoomList roomListWithoutHouseGrid = new RoomList();
-        RoomList roomListInHouseGrid = houseGrid.getRoomListInAGrid();
+        RoomList roomListInHouseGrid = houseGrid.getRoomList();
         for (Room room : roomList.getRoomList()) {
             if (!(roomListInHouseGrid.getRoomList().contains(room)))
                 roomListWithoutHouseGrid.addRoom(room);
@@ -89,7 +89,7 @@ public class House {
         for (Room r : listOfRoomsWithHouseGrid.getRoomList()) {
             result.append(number++);
             result.append(element);
-            result.append(r.getMeteredDesignation());
+            result.append(r.getDesignation());
             result.append("\n");
         }
         return result.toString();
@@ -115,7 +115,7 @@ public class House {
     public static SensorList filterListByTypeAndProximity(SensorType sensorType) {
         SensorList gaSensorList;
         try {
-            gaSensorList = gA.getSensorListInGA();
+            gaSensorList = gA.getSensorListInGa();
         } catch (NullPointerException exception) {
             return new SensorList();
         }
@@ -226,18 +226,26 @@ public class House {
         SensorList closestSensors = filterListByTypeAndProximity(sensorType);
         ExternalSensor closestSensorWithLatestReading = (ExternalSensor) closestSensors.getSensorList().get(0);
         Reading lastReading = closestSensorWithLatestReading.getSensorBehavior().getLastReading();
-        Calendar lastDate = lastReading.getDateAndTime();
+        if (lastReading != null) {
+            Calendar lastDate = lastReading.getDateAndTime();
 
-        for (Sensor sensor : closestSensors.getSensorList()) {
-            ExternalSensor externalSensor = (ExternalSensor) sensor;
-            Reading sensorLastReading = externalSensor.getSensorBehavior().getLastReading();
-            if (sensorLastReading.getDateAndTime().after(lastDate)) {
-                lastDate = externalSensor.getSensorBehavior().getLastReading().getDateAndTime();
-                closestSensorWithLatestReading = (ExternalSensor) sensor;
+            for (Sensor sensor : closestSensors.getSensorList()) {
+                ExternalSensor externalSensor = (ExternalSensor) sensor;
+                Reading sensorLastReading = externalSensor.getSensorBehavior().getLastReading();
+                if (sensorLastReading.getDateAndTime().after(lastDate)) {
+                    lastDate = externalSensor.getSensorBehavior().getLastReading().getDateAndTime();
+                    closestSensorWithLatestReading = (ExternalSensor) sensor;
+                }
             }
         }
+
+        else{
+            closestSensorWithLatestReading = null;
+        }
         return closestSensorWithLatestReading;
-    }
+
+
+}
 
 
     /**
@@ -335,8 +343,8 @@ public class House {
     public static List<Metered> getMetered() {
         List<Metered> meteredList = new ArrayList<>();
         for (HouseGrid houseGrid : houseGridList.getHouseGridList()) {
-            List<Room> tempRoomList = houseGrid.getRoomListInAGrid().getRoomList();
-            List<Metered> deviceList = houseGrid.getRoomListInAGrid().getMeteredDevicesList();
+            List<Room> tempRoomList = houseGrid.getRoomList().getRoomList();
+            List<Metered> deviceList = houseGrid.getRoomList().getMeteredDevicesList();
             meteredList.add(houseGrid);
             meteredList.addAll(tempRoomList);
             meteredList.addAll(deviceList);
@@ -350,7 +358,7 @@ public class House {
         for (Metered metered : getMetered()) {
             meteredList.append(nr);
             meteredList.append(" - ");
-            meteredList.append(metered.getMeteredDesignation());
+            meteredList.append(metered.getDesignation());
             meteredList.append("\n");
             nr++;
         }

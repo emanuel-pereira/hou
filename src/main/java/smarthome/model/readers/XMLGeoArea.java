@@ -6,6 +6,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import smarthome.model.*;
+import smarthome.model.validations.Name;
+import smarthome.repository.Repositories;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -127,16 +129,25 @@ public class XMLGeoArea implements FileReaderGeoArea {
                 GregorianCalendar calendar = new GregorianCalendar();
                 calendar.setTime(date);
 
-                String sensorType = getTagValue("type", sensor);
-                SensorType type = new SensorType(sensorType);
+                String type = getTagValue("type", sensor);
+                Name nameType = new Name(type);
+                SensorType sensorType;
+
+                //Repository call
+                try {
+                    sensorType= Repositories.getSensorTypeRepository().findByType(nameType);
+                } catch (NullPointerException e) {
+                    log.warn("Repository unreachable.");
+                    sensorType= new SensorType(type);
+                }
 
                 String unit = getTagValue("units", sensor);
                 Location location = importLocation(sensor.getElementsByTagName("location").item(0));
 
                 ReadingList readingList = new ReadingList();
-                ExternalSensor newSensor = new ExternalSensor(id, name, calendar, location, type, unit, readingList);
+                ExternalSensor newSensor = new ExternalSensor(id, name, calendar, location, sensorType, unit, readingList);
 
-                geographicalArea.getSensorListInGA().addSensor(newSensor);
+                geographicalArea.getSensorListInGa().addSensor(newSensor);
             }
         }
     }

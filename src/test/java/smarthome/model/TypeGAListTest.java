@@ -33,7 +33,7 @@ class TypeGAListTest {
 
         TypeGA village = newTypeGA("village");
 
-        assertEquals("village", village.toString());
+        assertEquals("village", village.getType());
     }
 
     @Test

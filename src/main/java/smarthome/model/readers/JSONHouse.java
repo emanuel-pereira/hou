@@ -7,9 +7,11 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import smarthome.model.*;
 import smarthome.repository.Repositories;
+import smarthome.services.RoomService;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
 import static smarthome.model.House.*;
 
@@ -17,6 +19,7 @@ public class JSONHouse implements FileReaderHouse {
     private Path filePath;
     private final JSONParser parser = new JSONParser();
     static final Logger log = Logger.getLogger(JSONHouse.class);
+    private RoomService roomService = new RoomService();
 
     public JSONHouse() {
         /* empty constructor to allow reflection */
@@ -57,7 +60,6 @@ public class JSONHouse implements FileReaderHouse {
             Room roomFromFile = loadRoom(jsonRoom);
             getHouseRoomList().addRoom(roomFromFile);
         }
-
     }
 
     private void importGrids(Path path) throws IOException, ParseException {
@@ -67,15 +69,18 @@ public class JSONHouse implements FileReaderHouse {
         for (Object grid : jsonGrids) {
             JSONObject jsonGrid = (JSONObject) grid;
             HouseGrid gridFromFile = loadGrid(jsonGrid);
-            RoomList gridRoomList = gridFromFile.getRoomListInAGrid();
-            loadRoomsInGrid(jsonGrid, gridRoomList);
+            RoomList gridRoomList = gridFromFile.getRoomList();
+            loadRoomsInGrid(jsonGrid, gridRoomList, gridFromFile);
             getGridListInHouse().addHouseGrid(gridFromFile);
+            HouseGrid save;
             try {
                 //Repository call
-                Repositories.getGridsRepository().save(gridFromFile);
+                save = Repositories.getGridsRepository().save(gridFromFile);
             } catch (NullPointerException e) {
                 log.warn("Repository unreachable");
             }
+
+            updateRoomGrids(gridRoomList, gridFromFile);
         }
     }
 
@@ -102,13 +107,27 @@ public class JSONHouse implements FileReaderHouse {
         return new HouseGrid(name);
     }
 
-    private void loadRoomsInGrid(JSONObject jsonGrid, RoomList roomsInGrid) {
+    //FIXME save out of cicle, save both in repository and in Lists
+    private void loadRoomsInGrid(JSONObject jsonGrid, RoomList roomsInGrid, HouseGrid gridFromFile) {
         JSONArray jsonRoomsId = (JSONArray) jsonGrid.get("rooms");
         for (Object id : jsonRoomsId) {
             String roomId = (String) id;
             Room room = getHouseRoomList().getRoomById(roomId);
             roomsInGrid.addRoom(room);
         }
+    }
+
+    private void updateRoomGrids(RoomList roomsInGrid, HouseGrid gridFromFile){
+        List<Room> rooms = roomsInGrid.getRoomList();
+        //TODO add size list validation
+            for (Room room : rooms){
+            Room temp = Repositories.getRoomRepository().findById(room.getId()).get();
+            HouseGrid houseGridByDesignation = Repositories.getGridsRepository().findHouseGridByDesignation(gridFromFile.getDesignation());
+            temp.setHouseGrid(houseGridByDesignation);
+            Repositories.getRoomRepository().save(temp);
+        }
+
+
     }
 
 }

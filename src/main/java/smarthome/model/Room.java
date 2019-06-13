@@ -15,7 +15,7 @@ public class Room implements Metered {
     @Column(name = "ID")
     private String id;
 
-    private String name;
+    private String description;
 
     private Integer floor;
 
@@ -30,25 +30,33 @@ public class Room implements Metered {
     @Transient
     private DeviceList deviceList;
 
-    protected Room() {
-    }
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "GRID_ID")
+    private HouseGrid houseGrid;
 
     @Transient
     private double time;
 
 
+    public Room() {
+        this.sensorListInRoom = new SensorList();
+        this.deviceList = new DeviceList();
+    }
+
+
     /**
      * This constructor sets up the Room
      *
-     * @param name   Unique name of the room
+     * @param id The unique id of the room
+     * @param description   Description of the room
      * @param floor  The number of the floor
      * @param length The height of the room to calculate the area
      * @param width  The width of the room to calculate the area
      * @param height The height of the room
      */
-    public Room(String id, String name, Integer floor, double length, double width, double height) {
+    public Room(String id, String description, Integer floor, double length, double width, double height) {
         this.id = id;
-        this.name = name;
+        this.description = description;
         this.floor = floor;
         this.area = new OccupationArea(length, width);
         this.height = height;
@@ -61,8 +69,8 @@ public class Room implements Metered {
      *
      * @return Name of the room
      */
-    public String getMeteredDesignation() {
-        return this.name;
+    public String getDesignation() {
+        return this.description;
     }
 
     /**
@@ -70,8 +78,28 @@ public class Room implements Metered {
      *
      * @param nameRoom name of the room of the house.
      */
-    public void setName(String nameRoom) {
-        this.name = nameRoom;
+    public void setDescription(String nameRoom) {
+        this.description = nameRoom;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setFloor(Integer floor) {
+        this.floor = floor;
+    }
+
+    public void setSensorListInRoom(SensorList sensorListInRoom) {
+        this.sensorListInRoom = sensorListInRoom;
+    }
+
+    public void setDeviceList(DeviceList deviceList) {
+        this.deviceList = deviceList;
+    }
+
+    public double getTime() {
+        return time;
     }
 
     /**
@@ -178,14 +206,14 @@ public class Room implements Metered {
     /**
      * Method that checks if a text is only spaces
      *
-     * @param roomName Name of the floor
+     * @param description Name of the floor
      * @return False if only spaces. True if words and numbers
      */
-    public boolean validateName(String roomName) {
-        if (roomName.trim().isEmpty()) {
+    public boolean validateDescription(String description) {
+        if (description.trim().isEmpty()) {
             return false;
         }
-        this.name = roomName;
+        this.description = description;
         return true;
     }
 
@@ -230,7 +258,7 @@ public class Room implements Metered {
         List<Sensor> list = this.getSensorListInRoom().getSensorList();
         for (Sensor s : list) {
             SensorType sensorType=s.getSensorBehavior().getSensorType();
-            if (sensorType.getType().equals(input)) {
+            if (sensorType.getType().getName().equals(input)) {
                 return true;
             }
         }
@@ -245,6 +273,18 @@ public class Room implements Metered {
         return this.deviceList.size();
     }
 
+
+    public HouseGrid getHouseGrid() {
+        return houseGrid;
+    }
+
+    public void setHouseGrid(HouseGrid houseGrid) {
+        this.houseGrid = houseGrid;
+    }
+
+    public void detachHouseGrid() {
+        this.houseGrid = null;
+    }
 
 
     /**
@@ -280,5 +320,4 @@ public class Room implements Metered {
     public int hashCode() {
         return Objects.hash(this.id);
     }
-
 }

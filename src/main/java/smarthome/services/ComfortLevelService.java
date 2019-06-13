@@ -3,7 +3,6 @@ package smarthome.services;
 import smarthome.dto.RoomDTO;
 import smarthome.mapper.RoomMapper;
 import smarthome.model.*;
-import smarthome.controller.*;
 
 import java.util.*;
 
@@ -12,23 +11,23 @@ public class ComfortLevelService {
     private RoomList roomList;
     private GeographicalArea geographicalArea;
     private SensorList sensorsListInGeoArea;
-    private Sensor geoAreaSensor;
 
-    //private House house = House.getHouseInstance();
+
+    //Was private House house = House.getHouseInstance();
     private static final String TEMPERATURE = "temperature";
     private RoomMapper roomMapper = new RoomMapper();
 
     public ComfortLevelService() {
         this.roomList = House.getHouseRoomList();
         this.geographicalArea = House.getHouseGA();
-        this.sensorsListInGeoArea = geographicalArea.getSensorListInGA();
+        this.sensorsListInGeoArea = geographicalArea.getSensorListInGa();
 
     }
 
 
     // Methods for validation
     public boolean checkIfGeoAreaHasTemperatureSensor() {
-        Sensor s = geographicalArea.getSensorListInGA().getRequiredSensorPerType(TEMPERATURE);
+        Sensor s = geographicalArea.getSensorListInGa().getRequiredSensorPerType(TEMPERATURE);
         return (s != null);
     }
 
@@ -40,7 +39,7 @@ public class ComfortLevelService {
      * @param sensorType a string containing a sensor type designation, e.g. "TEMPERATURE"
      * @return a list of rooms with the selected sensor type
      */
-    private RoomList getRoomsWithSensorByType(String sensorType) {
+    public RoomList getRoomsWithSensorByType(String sensorType) {
         RoomList roomsWithSensorsOfType = new RoomList();
         for (Room room : roomList.getRoomList()) {
             if (room.getSensorListInRoom().checkIfRequiredSensorTypeExists(sensorType)) {
@@ -50,7 +49,7 @@ public class ComfortLevelService {
         return roomsWithSensorsOfType;
     }
 
-    private RoomList getRoomsWithSensorsWithReadings(RoomList roomList) {
+    public RoomList getRoomsWithSensorsWithReadings(RoomList roomList) {
         RoomList roomsWithSensorsWithReadings = new RoomList();
 
         for (Room room : roomList.getRoomList())
@@ -63,7 +62,7 @@ public class ComfortLevelService {
     }
 
     // WRONG? Unneeded?
-    private boolean checkThatAllSensorsHaveReadings(Room room) {
+    public boolean checkThatAllSensorsHaveReadings(Room room) {
         for (Sensor sensor : room.getSensorListInRoom().getSensorList()) {
             if (sensor.getSensorBehavior().getReadingList().getReadingsList().isEmpty()) {
                 return false;
@@ -83,7 +82,7 @@ public class ComfortLevelService {
         return !roomList2.getRoomList().isEmpty();
     }
 
-    private RoomList getFilteredRoomList() {
+    public RoomList getFilteredRoomList() {
         RoomList r = getRoomsWithSensorByType(TEMPERATURE);
         return getRoomsWithSensorsWithReadings(r);
     }
@@ -107,7 +106,7 @@ public class ComfortLevelService {
         return selectedRoom;
     }
 
-    private Sensor getSensorOnRoomByType(String sensorType, RoomDTO roomDTO) {
+    public Sensor getSensorOnRoomByType(String sensorType, RoomDTO roomDTO) {
         Room room = setRoomByDTO(roomDTO);
         SensorList sensorList = room.getSensorListInRoom();
         return sensorList.getRequiredSensorPerType(sensorType);
@@ -150,7 +149,7 @@ public class ComfortLevelService {
      * @param category must be 1,2 or 3
      * @return true if category is valid
      */
-    private boolean validateComfortLevelCategory(int category) {
+    public boolean validateComfortLevelCategory(int category) {
         return (category >= 1 && category <= 3);
     }
 
@@ -214,7 +213,7 @@ public class ComfortLevelService {
     }
 
 
-    private List<Reading> checkComfort(ReadingList readingList, int category, boolean maxOrMin, double outsideTemperature) {
+    public List<Reading> checkComfort(ReadingList readingList, int category, boolean maxOrMin, double outsideTemperature) {
         List<Reading> result = new ArrayList<>();
 
 
@@ -239,39 +238,7 @@ public class ComfortLevelService {
 
 // Auxiliary methods for dealing with dates
 
-    /**
-     * Checks if two time intervals have overlap and returns the earliest and latest date for which it occurs
-     *
-     * @param startDate1
-     * @param endDate1
-     * @param startDate2
-     * @param endDate2
-     * @return true if overlaps.
-     */
-    private List<Calendar> overlapInterval(Calendar startDate1, Calendar endDate1, Calendar startDate2, Calendar endDate2) {
-        List<Calendar> interval = new ArrayList<>();
-        Calendar earliestDate = new GregorianCalendar();
-        Calendar latestDate = new GregorianCalendar();
-
-        //overlap calculation.
-        if (startDate2.after(startDate1) && startDate2.before(endDate1)) {
-            earliestDate = startDate1;
-        }
-        if (startDate1.after(startDate2) && startDate1.before(endDate2)) {
-            earliestDate = startDate2;
-        }
-        if (endDate2.after(endDate1) && startDate2.before(endDate1)) {
-            latestDate = endDate2;
-        }
-        if (endDate1.after(endDate2) && startDate1.before(endDate2)) {
-            latestDate = endDate1;
-        }
-        interval.add(earliestDate);
-        interval.add(latestDate);
-        return interval;
-    }
-
-    private Calendar getDayAfter(Calendar day) {
+    public Calendar getDayAfter(Calendar day) {
         day.add(Calendar.DAY_OF_MONTH, 1);
         return day;
     }

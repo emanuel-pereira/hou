@@ -1,10 +1,15 @@
 package smarthome.model.readers;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import smarthome.model.GeographicalArea;
-import smarthome.model.Sensor;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import smarthome.model.*;
+import smarthome.repository.Repositories;
 
 import javax.xml.parsers.ParserConfigurationException;
+import java.lang.reflect.Field;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Calendar;
@@ -14,7 +19,28 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+@ExtendWith(SpringExtension.class)
+@DataJpaTest
+
 class XMLGeoAreaTest {
+
+    TypeGAList typeGAList = TypeGAList.getTypeGAListInstance();
+
+
+    @BeforeEach
+    public void resetMySingleton() throws SecurityException,
+            NoSuchFieldException, IllegalArgumentException,
+            IllegalAccessException {
+        Field instance = House.class.getDeclaredField("theHouse");
+        instance.setAccessible(true);
+        instance.set(null, null);
+        Field instance2 = TypeGAList.class.getDeclaredField("typeGaList");
+        instance2.setAccessible(true);
+        instance2.set(null, null);
+        Repositories.getSensorTypeRepository().deleteAll();
+        Repositories.getSensorTypeRepository().save(new SensorType("temperature"));
+        Repositories.getSensorTypeRepository().save(new SensorType("rainfall"));
+    }
 
     @Test
     void importData() throws ParserConfigurationException {
@@ -63,7 +89,7 @@ class XMLGeoAreaTest {
         GeographicalArea ga = gaList.get(0);
 
         String expected = "urban area";
-        String result = ga.getTypeName();
+        String result = ga.getName();
 
         assertEquals(expected, result);
     }
@@ -118,7 +144,7 @@ class XMLGeoAreaTest {
         List<GeographicalArea> gaList = xmlReader.loadData(path);
 
         GeographicalArea ga = gaList.get(1);
-        List<Sensor> sensorList = ga.getSensorListInGA().getSensorList();
+        List<Sensor> sensorList = ga.getSensorListInGa().getSensorList();
 
         int expected = 2;
         int result = sensorList.size();
@@ -134,7 +160,7 @@ class XMLGeoAreaTest {
         List<GeographicalArea> gaList = xmlReader.loadData(path);
 
         GeographicalArea ga = gaList.get(1);
-        List<Sensor> sensorList = ga.getSensorListInGA().getSensorList();
+        List<Sensor> sensorList = ga.getSensorListInGa().getSensorList();
         Sensor sensor = sensorList.get(1);
 
         GregorianCalendar expected = new GregorianCalendar(2017, Calendar.NOVEMBER,16);

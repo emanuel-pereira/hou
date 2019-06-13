@@ -60,7 +60,7 @@ public final class SystemAdministrationUI {
                     break;
                 case 5:
                     NewSensorTypeUI ui5 = new NewSensorTypeUI(sensorTypeList);
-                    ui5.createNewSensorType();
+                    ui5.inputSensorType();
                     break;
                 case 6:
                     NewSensorUI ui6 = new NewSensorUI(sensorTypeList, gaList);

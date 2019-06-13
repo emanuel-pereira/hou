@@ -1,75 +1,56 @@
 package smarthome.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.jetbrains.annotations.Contract;
+import smarthome.model.validations.Name;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@JsonSerialize
 public class TypeGA {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String tGA;
+    private String type;
 
-    protected TypeGA() {
+    public TypeGA() {
     }
 
-    public TypeGA(String inputTypeGA) {
-        this.tGA = inputTypeGA.toLowerCase();
+    public TypeGA(String newType) {
+        setType(newType);
     }
 
+    public Long getId() {
+        return id;
+    }
 
-    /**
-     * When two objects (o1 and o2) with the same data are compare, the result is that they are different objects.
-     * If there's the need to check for equality of values inside the objects the inherit equals method need to be override.
-     * First: check if the argument is a reference to this object.
-     * Second: check if o is an instance of TypeGA or not, it allows for subclasses to be equal.
-     * Final: typecast o to TypeGA so that we can compare data member (cast the argument to the correct type so that
-     * we can compare data members). Then compare the data members and return accordingly.
-     *
-     * @param o Any kind of object
-     * @return If the object is compared with itself then return true. Check if the argument has the correct type. If not, return false.
-     * Check if that field of the argument matches the corresponding field of this object.
-     */
-    @Contract(value = "null -> false", pure = true)
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type.toLowerCase();
+    }
+
+    @Override
     public boolean equals(Object o) {
-        if (this == o) { //
-            return true;
-        }
-        if (!(o instanceof TypeGA)) {
-            return false;
-        }
-        TypeGA typeOfGA = (TypeGA) o; //
-        return this.tGA.equals(typeOfGA.toString());
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TypeGA typeGA = (TypeGA) o;
+        return type.equals(typeGA.type);
     }
 
-
-    /**
-     * Equal objects may get different hash-values, so when equal() is override, the hash value must also be override.
-     *
-     * @return Equal objects must produce the same hash code
-     */
     @Override
     public int hashCode() {
-        return Objects.hash(this.tGA);
-    }
-
-
-    /**
-     * Override when there's the need to show to the user the TypeGA inputted by him (example US2).
-     * To do so, the toString method from the parent method Object must be Override to accept that simple String
-     * rather then the string representation of the object (name of the class, the at-sign character and the unsigned
-     * hexadecimal representation of the hash code of the object).
-     */
-    @Override
-    public String toString() {
-        return this.tGA;
+        return Objects.hash(type);
     }
 }
 

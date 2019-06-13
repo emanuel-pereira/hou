@@ -1,6 +1,6 @@
 package smarthome.io.ui;
 
-import smarthome.controller.CLI.GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL;
+import smarthome.controller.cli.GetAverageDailyRainfallForTimeIntervalInHouseAreaCTRL;
 import smarthome.model.Sensor;
 import smarthome.model.SensorList;
 import smarthome.model.SensorType;
@@ -27,7 +27,7 @@ public class GetAverageDailyRainfallForTimeIntervalInHouseAreaUI {
 
     public void getAverageDailyRainfallForInterval() {
 
-        if (ctrl623.checkIfSensorTypeExists(this.sensorType.getType())) {
+        if (ctrl623.checkIfSensorTypeExists(this.sensorType.getType().getName())) {
             checkIfHouseLocationIsConfigured();
         } else {
             String msg = "Please ask the Administrator to create the " + this.sensorType.getType() + " sensor type";

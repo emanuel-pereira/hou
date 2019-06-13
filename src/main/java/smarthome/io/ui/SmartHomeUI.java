@@ -1,13 +1,18 @@
 
 package smarthome.io.ui;
 
+import org.modelmapper.ModelMapper;
 import org.xml.sax.SAXException;
 import smarthome.model.*;
+import smarthome.repository.Repositories;
+import smarthome.services.RoomService;
+import smarthome.services.SensorTypeService;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static smarthome.io.ui.HouseAdministrationUI.houseAdministration;
 import static smarthome.io.ui.PowerUserUI.powerUser;
@@ -29,7 +34,7 @@ public final class SmartHomeUI {
 
     private SmartHomeUI(){}
 
-    public static void menuOptions() throws SAXException, ParserConfigurationException, IllegalAccessException, InstantiationException, ClassNotFoundException, org.json.simple.parser.ParseException, IOException, ParseException {
+    public static void menuOptions() throws SAXException, ParserConfigurationException, IllegalAccessException, InstantiationException, ClassNotFoundException, org.json.simple.parser.ParseException, IOException, ParseException, NoSuchFieldException {
         int option = -1;
         while (option != 0) {
             ArrayList<String> options = new ArrayList<>();
@@ -64,7 +69,22 @@ public final class SmartHomeUI {
     }
 
     public static void init() {
+        /*RoomList roomList = new RoomList();
+        RoomService service1 = new RoomService();
+        List<Room> list1 = new ArrayList<>();
+        service1.findAll().forEach(roomDTO -> list1.add(mapper.map(roomDTO, Room.class)));
+        roomList.getRoomList().addAll(list1);*/
+
+
+        /*ModelMapper mapper = new ModelMapper();
+        SensorTypeList typeList = new SensorTypeList();
+
+        SensorTypeService service2 = new SensorTypeService();
+        List<SensorType> list2 = new ArrayList<>();
+        service2.findAll().forEach(sensorTypeDTO -> list2.add(mapper.map(sensorTypeDTO, SensorType.class)));
+        typeList.getSensorTypeList().addAll(list2);*/
         sensorTypeList = new SensorTypeList();
+
         gaList = new GAList();
     }
 }
