@@ -8,6 +8,7 @@ import smarthome.services.WebService;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
 @RestController
 @RequestMapping("/externalsensors")
 public class ExternalSensorCTRL {
