@@ -33,7 +33,7 @@ public class HouseGridService {
 
     /**
      * This method will access the Respective repository and look for all housegrids persisted the the database layer,
-     * retrieving a list of simple DTOs to be passed on to the CLI or WEB client for easy and safe manipulation;
+     * retrieving a list of simple DTOs to be passed on to the cli or WEB client for easy and safe manipulation;
      *
      * @return a list of housegrid dto objects
      */

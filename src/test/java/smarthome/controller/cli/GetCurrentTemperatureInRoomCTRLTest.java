@@ -28,7 +28,7 @@ class GetCurrentTemperatureInRoomCTRLTest {
     }
 
 
-    @Test
+    //@Test
     void showRoomListInString() {
 
         SensorList sList = new SensorList();

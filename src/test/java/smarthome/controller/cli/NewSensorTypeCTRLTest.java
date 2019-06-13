@@ -1,4 +1,4 @@
-package smarthome.controller.cli;
+/*package smarthome.controller.cli;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -111,4 +111,4 @@ class NewSensorTypeCTRLTest {
         String resultingType=sensorTypeDTOs.get(0).getSensorType();
         assertNotEquals(expectedType,resultingType);
     }
-}
+}*/
