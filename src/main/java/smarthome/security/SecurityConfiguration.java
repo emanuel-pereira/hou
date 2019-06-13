@@ -67,31 +67,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     {
     "_links": {
         "rooms": {
-            "href": "http://localhost:8080/rooms"
+            "href": "https://localhost:8443/rooms"
         },
         "externalSensors": {
-            "href": "http://localhost:8080/externalSensors"
+            "href": "https://localhost:8443/externalSensors"
         },
         "sensorTypes": {
-            "href": "http://localhost:8080/sensorTypes"
+            "href": "https://localhost:8443/sensorTypes"
         },
         "geographicalAreas": {
-            "href": "http://localhost:8080/geographicalAreas"
+            "href": "https://localhost:8443/geographicalAreas"
         },
         "users": {
-            "href": "http://localhost:8080/users"
+            "href": "https://localhost:8443/users"
         },
         "internalSensors": {
-            "href": "http://localhost:8080/internalSensors"
+            "href": "https://localhost:8443/internalSensors"
         },
         "typeGAs": {
-            "href": "http://localhost:8080/typeGAs"
+            "href": "https://localhost:8443/typeGAs"
         },
         "houseGrids": {
-            "href": "http://localhost:8080/houseGrids"
+            "href": "https://localhost:8443/houseGrids"
         },
         "profile": {
-            "href": "http://localhost:8080/profile"
+            "href": "https://localhost:8443/profile"
         }
     }
 }
