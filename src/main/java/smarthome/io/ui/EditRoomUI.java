@@ -66,7 +66,7 @@ public class EditRoomUI {
     private void editDescription() throws NoSuchFieldException {
         if (UtilsUI.confirmOption("Current description: " + this.ctrlUS109.findById(roomId).getDescription() + ". Do you want to edit the description? (y/n)", "Please type y/Y for Yes or n/N for No.")) {
             System.out.println("Insert the description of the room:");
-            String description = UtilsUI.requestText("Please insert alphanumeric characters without spaces!\nInsert the Id of the room:", "^[A-Za-z0-9]+$");
+            String description = UtilsUI.requestText("Please insert alphanumeric characters without spaces!\nInsert the description of the room:", "[A-Za-z0-9 -]+$");
             this.ctrlUS109.setDescription(this.roomId, description);
             this.editFloor();
         } else {

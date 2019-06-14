@@ -15,6 +15,7 @@ import smarthome.model.Room;
 import smarthome.repository.HouseGridRepository;
 import smarthome.repository.RoomRepository;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -80,7 +81,8 @@ class RoomServiceTest {
     @Test
     @DisplayName("Find a room by the Id with success")
     void findById() throws NoSuchFieldException {
-        when(this.roomRepository.findById("B108")).thenReturn(java.util.Optional.of(new Room("B108","Classroom",2,2,3,1.5)));
+        Room room = new Room("B108","Classroom",2,2,3,1.5);
+        when(this.roomRepository.findById("B108")).thenReturn(Optional.of(room));
         RoomDetailDTO expected = new RoomDetailDTO("B108","Classroom",2,2,3,1.5);
         RoomDetailDTO result = roomService.findById("B108");
         assertEquals(expected.getId(),result.getId());
@@ -89,14 +91,14 @@ class RoomServiceTest {
     @Test
     @DisplayName("Try to find a room that doesn't exists")
     void notFindById(){
-        when(this.roomRepository.findById("B108")).thenReturn(java.util.Optional.of(new Room("B108","Classroom",2,2,3,1.5)));
+        when(this.roomRepository.findById("B108")).thenReturn(Optional.of(new Room("B108","Classroom",2,2,3,1.5)));
         Assertions.assertThrows(NoSuchFieldException.class, () -> roomService.findById("B"));
     }
 
     @Test
     @DisplayName("Try to find a room in a empty repository")
     void notFindByIdEmpty(){
-        when(this.roomRepository.findById("B108")).thenReturn(java.util.Optional.empty());
+        when(this.roomRepository.findById("B108")).thenReturn(Optional.empty());
         Assertions.assertThrows(NoSuchFieldException.class, () -> roomService.findById("B"));
     }
 
