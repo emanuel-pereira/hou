@@ -1,4 +1,5 @@
-package smarthome.controller.rest;
+//FIXME
+/*package smarthome.controller.rest;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -50,4 +51,4 @@ class GeoAreaCTRLTest {
     @Test
     void setParentOfGAWebCTRL() {
     }
-}
+}*/

@@ -15,14 +15,14 @@ import java.util.List;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-@CrossOrigin(origins = {"http://localhost:3000"}, maxAge = 3600)
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
 @RestController
 public class RoomCTRL {
 
     private final RoomService roomService;
 
-    RoomCTRL() {
-        roomService = new RoomService();
+    RoomCTRL(RoomService rService) {
+        roomService = rService;
     }
 
     /**
@@ -59,11 +59,11 @@ public class RoomCTRL {
     @PostMapping("/rooms")
     public ResponseEntity<Object> createRoom(@RequestBody RoomDetailDTO room) throws NoSuchFieldException {
         if (this.roomService.checkIfIDExists(room.getId())) {
-            return new ResponseEntity<>("There is already a room with this id.", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("There is already a room with this id.", HttpStatus.CONFLICT);
         }
         if (this.roomService.save(room)) {
             return new ResponseEntity<>(this.roomService.findById(room.getId()), HttpStatus.CREATED);
-        } else return new ResponseEntity<>("Could not create the room", HttpStatus.UNAUTHORIZED);
+        } else return new ResponseEntity<>("Could not create the room", HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -96,7 +96,7 @@ public class RoomCTRL {
                 RoomDetailDTO editRoom = this.roomService.findById(id);
                 return new ResponseEntity<>(editRoom, HttpStatus.OK);
             }
-            return new ResponseEntity<>("Could not update the room", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>("Could not update the room", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>("Room not found.", HttpStatus.NOT_FOUND);
     }

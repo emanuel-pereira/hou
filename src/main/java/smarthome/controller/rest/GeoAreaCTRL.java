@@ -14,8 +14,7 @@ import smarthome.services.GeoAreaService;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002"}, maxAge = 3600)
 @RestController
 public class GeoAreaCTRL {
 
