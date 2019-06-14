@@ -13,21 +13,6 @@ import {
 
 } from '../actions/actionsRoom'
 
-import {
-  FETCH_HOUSEGRID_STARTED,
-  FETCH_HOUSEGRID_SUCCESS,
-  FETCH_HOUSEGRID_FAILURE,
-  
-  FETCH_HOUSEGRID_DETAILS_STARTED,
-  FETCH_HOUSEGRID_DETAILS_SUCCESS,
-  FETCH_HOUSEGRID_DETAILS_FAILURE,
-  
-  ADD_HOUSEGRID,
-
-} from '../actions/actionsHouseGrid'
-
-
-
 const initialstate = {
   rooms: {
     loading: false,
@@ -48,6 +33,12 @@ houseGrids: {
     error: null,
     data: [],
   },
+houseGridRooms: {
+  loading: false,
+  error: null,
+  data: {},
+  gridId:0
+ },
 };
 
 
@@ -116,68 +107,6 @@ function roomsReducer(state = initialstate, action) {
         data: {...action.payload.data},
       }
 
-      case FETCH_HOUSEGRID_STARTED:
-        return {
-          ...state,
-          houseGrids: {
-            loading: true,
-            error: null,
-            data: []
-          }
-        }
-      case FETCH_HOUSEGRID_SUCCESS:
-        return {
-          ...state,
-          houseGrids: {
-            loading: false,
-            error: null,
-            data: [...action.payload.data]
-          }
-        }
-      case FETCH_HOUSEGRID_FAILURE:
-        return {
-          ...state,
-          houseGrids: {
-            loading: false,
-            error: action.payload.error,
-            data: [],
-          }
-        }
-      case FETCH_HOUSEGRID_DETAILS_STARTED:
-        return {
-          ...state,
-          details: {
-            loading: true,
-            error: null,
-            data: {},
-            id: action.payload.id,
-          }
-        }
-      case FETCH_HOUSEGRID_DETAILS_SUCCESS:
-        return {
-          ...state,
-          details: {
-            loading: false,
-            error: null,
-            data: {...action.payload.data},
-            id: state.details.id,
-          }
-        }
-      case FETCH_HOUSEGRID_DETAILS_FAILURE:
-        return {
-          ...state,
-          details: {
-            loading: false,
-            error: action.payload.error,
-            data: {},
-            id: 0,
-          }
-        }
-      case ADD_HOUSEGRID:
-        return {
-          ...state,
-          data: {...action.payload.data},
-        }
         case FETCH_ROOM_SENSORS_SUCCESS:
           return {
             ...state,
