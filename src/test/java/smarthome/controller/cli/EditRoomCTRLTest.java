@@ -1,5 +1,6 @@
 package smarthome.controller.cli;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -105,7 +106,39 @@ class EditRoomCTRLTest {
         assertEquals(height,room.getHeight());
     }
 
+    @Test
+    @DisplayName("Try to set the description of a room that doesn't exist")
+    void setDescriptionNonExistentRoom() {
+        when(this.roomRepository.findById("B108")).thenReturn(Optional.empty());
+        Assertions.assertThrows(NoSuchFieldException.class, () -> editRoomCTRL.setDescription("B108", "Garden"));
+    }
 
+    @Test
+    @DisplayName("Try to set the floor of a room that doesn't exist")
+    void setFloorNonExistentRoom() {
+        when(this.roomRepository.findById("B108")).thenReturn(Optional.empty());
+        Assertions.assertThrows(NoSuchFieldException.class, () -> editRoomCTRL.setFloor("B108", 1));
+    }
 
+    @Test
+    @DisplayName("Try to set the length of a room that doesn't exist")
+    void setLengthNonExistentRoom() {
+        when(this.roomRepository.findById("B108")).thenReturn(Optional.empty());
+        Assertions.assertThrows(NoSuchFieldException.class, () -> editRoomCTRL.setLength("B108", 4));
+    }
+
+    @Test
+    @DisplayName("Try to set the width of a room that doesn't exist")
+    void setWidthNonExistentRoom() {
+        when(this.roomRepository.findById("B108")).thenReturn(Optional.empty());
+        Assertions.assertThrows(NoSuchFieldException.class, () -> editRoomCTRL.setWidth("B108", 8));
+    }
+
+    @Test
+    @DisplayName("Try to set the height of a room that doesn't exist")
+    void setHeightNonExistentRoom() {
+        when(this.roomRepository.findById("B108")).thenReturn(Optional.empty());
+        Assertions.assertThrows(NoSuchFieldException.class, () -> editRoomCTRL.setHeight("B108", 2));
+    }
 
 }
