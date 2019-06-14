@@ -18,8 +18,6 @@ import smarthome.repository.HouseGridRepository;
 import smarthome.repository.RoomRepository;
 import smarthome.services.RoomService;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -58,17 +56,10 @@ class RoomCTRLTest {
     void findAllRooms() throws Exception {
         Room room1 = new Room("B107", "Classroom", 1, 2, 3, 1.5);
         Room room2 = new Room("B208", "Classroom", 2, 2.5, 3, 1.5);
-        List<Room> list = new ArrayList<>();
-        list.add(room1);
-        list.add(room2);
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonInString = mapper.writeValueAsString(list);
 
         when(roomRepository.findAll()).thenReturn(Stream.of(room1, room2).collect(Collectors.toList()));
 
-        this.mockMvc.perform(get("/rooms")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonInString))
+        this.mockMvc.perform(get("/rooms"))
                 .andExpect(status().isOk());
     }
 
