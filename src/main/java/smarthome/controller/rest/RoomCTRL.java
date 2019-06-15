@@ -35,7 +35,7 @@ public class RoomCTRL {
         return new ResponseEntity<>(this.roomService.findAll(), HttpStatus.OK);
     }
 
-    //@GetMapping("/rooms")
+    /*@GetMapping("/rooms")
     public ResponseEntity<Resources<Resource<RoomDTO>>> alternative() throws NoSuchFieldException {
         List<Resource<RoomDTO>> rooms = new ArrayList<>();
         for (RoomDTO room : this.roomService.findAll()) {
@@ -48,7 +48,7 @@ public class RoomCTRL {
                 linkTo(methodOn(RoomCTRL.class).findAll()).withSelfRel());
 
         return new ResponseEntity<>(resource, HttpStatus.OK);
-    }
+    }*/
 
     /**
      * Receives HTTP Post request and creates and saves a room in the repository

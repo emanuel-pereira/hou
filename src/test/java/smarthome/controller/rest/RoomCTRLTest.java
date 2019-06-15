@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
@@ -18,9 +17,9 @@ import smarthome.repository.HouseGridRepository;
 import smarthome.repository.RoomRepository;
 import smarthome.services.RoomService;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -56,8 +55,9 @@ class RoomCTRLTest {
     void findAllRooms() throws Exception {
         Room room1 = new Room("B107", "Classroom", 1, 2, 3, 1.5);
         Room room2 = new Room("B208", "Classroom", 2, 2.5, 3, 1.5);
+        List<Room> rooms = Arrays.asList(room1,room2);
 
-        when(roomRepository.findAll()).thenReturn(Stream.of(room1, room2).collect(Collectors.toList()));
+        when(roomRepository.findAll()).thenReturn(rooms);
 
         this.mockMvc.perform(get("/rooms"))
                 .andExpect(status().isOk());
@@ -71,7 +71,6 @@ class RoomCTRLTest {
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = mapper.writeValueAsString(roomDto);
 
-        when(roomRepository.save(room)).thenReturn(room);
         when(roomRepository.findById("B018")).thenReturn(Optional.of(room));
 
         this.mockMvc.perform(post("/rooms")
@@ -108,7 +107,6 @@ class RoomCTRLTest {
         String jsonInString = mapper.writeValueAsString(roomDto);
 
         when(roomRepository.existsById("B018")).thenReturn(true);
-        when(roomRepository.save(room)).thenReturn(room);
         when(roomRepository.findById("B018")).thenReturn(Optional.of(room));
 
         this.mockMvc.perform(put("/rooms/B018")
