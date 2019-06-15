@@ -1,3 +1,4 @@
+/*
 package smarthome.services;
 
 import org.junit.jupiter.api.Test;
@@ -193,4 +194,4 @@ class GeoAreaServiceTest {
         assertEquals(expectedResult,result);
 
     }
-}
+}*/

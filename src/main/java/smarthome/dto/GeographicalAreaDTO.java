@@ -2,6 +2,8 @@ package smarthome.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import smarthome.model.GeographicalArea;
+import smarthome.model.Location;
+import smarthome.model.OccupationArea;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +15,8 @@ public class GeographicalAreaDTO {
     private String identification;
     private String designation;
     private TypeGADTO type;
-    private OccupationAreaDTO occupationDto;
-    private LocationDTO locationDto;
+    private OccupationArea occupationArea;
+    private Location location;
     private List<SensorDTO> sensorListDTO = new ArrayList<>();
     private GeographicalArea parentGA;
 
@@ -27,13 +29,21 @@ public class GeographicalAreaDTO {
         this.sensorListDTO = sensorListDTO;
     }
 
-    public GeographicalAreaDTO(String identification, String designation, TypeGADTO type, OccupationAreaDTO occupationDto, LocationDTO locationDto, List<SensorDTO> sensorListDTO) {
+    public GeographicalAreaDTO(String identification, String designation, TypeGADTO type, OccupationArea occupation, Location location, List<SensorDTO> sensorListDTO) {
         this.identification = identification;
         this.designation = designation;
         this.type = type;
-        this.occupationDto = occupationDto;
-        this.locationDto = locationDto;
+        this.occupationArea = occupation;
+        this.location = location;
         this.sensorListDTO = sensorListDTO;
+    }
+
+    public GeographicalAreaDTO(String identification, String designation, TypeGADTO type, OccupationArea occupationArea, Location location) {
+        this.identification = identification;
+        this.designation = designation;
+        this.type = type;
+        this.occupationArea = occupationArea;
+        this.location = location;
     }
 
     /**
@@ -76,20 +86,20 @@ public class GeographicalAreaDTO {
         this.type = type;
     }
 
-    public OccupationAreaDTO getOccupation() {
-        return occupationDto;
+    public OccupationArea getOccupation() {
+        return occupationArea;
     }
 
-    public void setOccupation(OccupationAreaDTO occupationDto) {
-        this.occupationDto = occupationDto;
+    public void setOccupation(OccupationArea occupationDto) {
+        this.occupationArea = occupationDto;
     }
 
-    public LocationDTO getLocation() {
-        return locationDto;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setLocation(LocationDTO locationDto) {
-        this.locationDto = locationDto;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public List<SensorDTO> getSensorListDTO() {
@@ -103,7 +113,7 @@ public class GeographicalAreaDTO {
 
     public GeographicalArea fromDTO() {
 
-        return new GeographicalArea(this.identification, this.designation, this.type.fromDTO(), this.occupationDto.fromDTO(), this.locationDto.fromDTO());
+        return new GeographicalArea(this.identification, this.designation, this.type.fromDTO(), this.occupationArea, this.location);
     }
 
     @Override

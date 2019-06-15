@@ -1,7 +1,7 @@
 package smarthome.model;
 
 import javax.persistence.*;
-
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 import static smarthome.model.TypeGAList.newTypeGA;
@@ -18,6 +18,7 @@ public class GeographicalArea {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "TYPE_ID")
+    @NotNull
     private TypeGA type;
 
     @Embedded

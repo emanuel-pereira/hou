@@ -21,10 +21,10 @@ import java.util.Optional;
 @Service
 public class RoomService {
 
-    private RoomMapper mapper;
+    private final RoomMapper mapper;
     private HouseGridRepository houseGridRepository;
     private RoomRepository roomRepository;
-    private ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper = new ModelMapper();
 
 
     /**
@@ -36,6 +36,7 @@ public class RoomService {
 
     /**
      * Use only in tests. Because all tests access the same repositories at the same time it is necessary to create an alternative method of testing.
+     *
      * @param rRepository RoomRepository that will be mocked
      * @param gRepository HouseGridRepository that will be mocked
      */
@@ -49,12 +50,12 @@ public class RoomService {
      * Spring initializes all @RestController classes before initializing the repositories. If a repository is null this
      * will set them
      */
-    private void setRepositoriesIfNull(){
-        if(this.roomRepository==null){
-            roomRepository=Repositories.getRoomRepository();
+    private void setRepositoriesIfNull() {
+        if (this.roomRepository == null) {
+            roomRepository = Repositories.getRoomRepository();
         }
-        if(this.houseGridRepository==null){
-            houseGridRepository=Repositories.getGridsRepository();
+        if (this.houseGridRepository == null) {
+            houseGridRepository = Repositories.getGridsRepository();
         }
     }
 
@@ -85,10 +86,10 @@ public class RoomService {
      */
     public boolean save(RoomDetailDTO roomDto) {
         this.setRepositoriesIfNull();
-        Room room = this.mapper.toObject(roomDto);
-        if (room == null) {
+        if (roomDto == null) {
             return false;
         }
+        Room room = this.mapper.toObject(roomDto);
         roomRepository.save(room);
         return true;
     }
