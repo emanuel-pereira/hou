@@ -1,7 +1,6 @@
 package smarthome.controller.cli;
 
 import smarthome.dto.RoomDTO;
-import smarthome.mapper.RoomMapper;
 import smarthome.repository.HouseGridRepository;
 import smarthome.repository.RoomRepository;
 import smarthome.services.RoomService;
