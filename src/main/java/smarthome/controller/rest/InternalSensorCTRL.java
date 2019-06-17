@@ -82,8 +82,7 @@ public class InternalSensorCTRL {
             resources.add(linkTo(methodOn(InternalSensorCTRL.class).findAll()).withSelfRel());
 
         } catch (RoomNotFoundException roomNotFoundException) {
-            return new ResponseEntity(new Resource<>("Room with id " + roomId +
-                    " does not exist."), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(resources, HttpStatus.NOT_FOUND);
         }
 
         return new ResponseEntity<>(resources, HttpStatus.OK);
