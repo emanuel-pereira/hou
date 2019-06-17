@@ -1,4 +1,4 @@
-/*package smarthome.controller.cli;
+package smarthome.controller.cli;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -212,4 +212,4 @@ class RemoveGASensorCTRLTest {
         boolean result = ctrl.removeSensor(gaDTOId, sensorDTOId);
         assertFalse(result);
     }
-}*/
+}

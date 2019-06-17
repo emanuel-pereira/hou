@@ -1,4 +1,3 @@
-/*
 package smarthome.controller.cli;
 
 import org.json.simple.parser.ParseException;
@@ -546,6 +545,7 @@ class DataImportCTRLTest {
         assertEquals(1, result);
     }
 
+    /*
     @Test
     @DisplayName("Count the sensors that are correct and incorrectly added ")
     void getSizeOfSensorsAddandNotAdded() throws IllegalAccessException, ParseException, InstantiationException, java.text.ParseException, ClassNotFoundException, IOException {
@@ -569,7 +569,7 @@ class DataImportCTRLTest {
         int[] expected = new int[]{3, 1};
 
         assertArrayEquals(expected, result);
-    }
+    } */
 
     @Test
     @DisplayName("Check the size of the room list")
@@ -731,4 +731,4 @@ class DataImportCTRLTest {
 
         assertEquals(expected,result);
     }
-}*/
+}
