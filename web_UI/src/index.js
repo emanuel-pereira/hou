@@ -5,7 +5,6 @@ import { Router, Route, Switch, Redirect } from "react-router-dom";
 import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 
-
 import "bootstrap/dist/css/bootstrap.css";
 import "assets/scss/paper-dashboard.scss?v=1.1.0";
 import "assets/demo/demo.css";

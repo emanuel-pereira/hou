@@ -3,11 +3,11 @@ import {
   FETCH_ROOMS_STARTED,
   FETCH_ROOMS_SUCCESS,
   FETCH_ROOMS_FAILURE,
-  
+
   FETCH_ROOM_DETAILS_STARTED,
   FETCH_ROOM_DETAILS_SUCCESS,
   FETCH_ROOM_DETAILS_FAILURE,
-  
+
   ADD_ROOM,
   FETCH_ROOM_SENSORS_SUCCESS,
 
@@ -25,24 +25,13 @@ const initialstate = {
     error: null,
     data: {},
   },
-  sensors:{
-    data: []},
-
-houseGrids: {
-    loading: false,
-    error: null,
-    data: [],
+  sensors: {
+    data: []
   },
-houseGridRooms: {
-  loading: false,
-  error: null,
-  data: {},
-  gridId:0
- },
 };
 
 
-function roomsReducer(state = initialstate, action) {
+function roomReducer(state = initialstate, action) {
   switch (action.type) {
     case FETCH_ROOMS_STARTED:
       return {
@@ -87,7 +76,7 @@ function roomsReducer(state = initialstate, action) {
         details: {
           loading: false,
           error: null,
-          data: {...action.payload.data},
+          data: { ...action.payload.data },
           id: state.details.id,
         }
       }
@@ -104,21 +93,18 @@ function roomsReducer(state = initialstate, action) {
     case ADD_ROOM:
       return {
         ...state,
-        data: {...action.payload.data},
+        data: { ...action.payload.data },
       }
 
-        case FETCH_ROOM_SENSORS_SUCCESS:
-          return {
-            ...state,
-            sensors: {
-            data: [...action.payload.data]
-          }
+    case FETCH_ROOM_SENSORS_SUCCESS:
+      return {
+        ...state,
+        sensors: {
+          data: [...action.payload.data]
         }
-
+      }
     default:
       return state
   }
 }
-
-
-export default roomsReducer;
+export default roomReducer;

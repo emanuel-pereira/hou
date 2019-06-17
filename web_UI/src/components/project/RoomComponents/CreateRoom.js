@@ -1,6 +1,31 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {createRoom} from 'actions/actionsRoom';
+import { connect } from 'react-redux';
+import { createRoom } from 'actions/actionsRoom';
+import NotificationAlert from "react-notification-alert";
+import {
+    Button,
+    CardHeader,
+    CardBody,
+    CardTitle,
+    Table,
+    Row,
+    Col
+} from "reactstrap";
+
+var options = {};
+options = {
+    place: 'tl',
+    message: (
+        <div>
+            <div>
+                Room Created with success.
+        </div>
+        </div>
+    ),
+    type: "success",
+    icon: "now-ui-icons ui-1_bell-53",
+    autoDismiss: 7
+}
 
 class CreateRoom extends React.Component {
     state = {
@@ -20,10 +45,10 @@ class CreateRoom extends React.Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        if (this.state.id.trim() && this.state.description.trim()) {
-            this.props.onAddRoom(this.state);
-            this.handleReset();
-        }
+        this.props.onAddRoom(this.state)
+        this.refs.notify.notificationAlert(options);
+        this.handleReset();
+        this.props.onClose();
     };
 
     handleReset = () => {
@@ -40,7 +65,7 @@ class CreateRoom extends React.Component {
     render() {
         return (
             <div className="roomCreation">
-
+                <NotificationAlert ref="notify" />
                 <h2>New Room</h2>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
@@ -104,13 +129,17 @@ class CreateRoom extends React.Component {
                         </input>
                     </div>
                     <div className="buttons">
-                        <button type="submit" className="btn btn-primary" onClick={this.handleSubmit} >SAVE</button>
+                        <Button
+                            className="btn-round"
+                            color="primary"
+                            type="submit"
+                        >
+                            Update Profile
+                        </Button>
                         <button type="button" className="btn btn-warning" onClick={this.handleReset}>
                             RESET
                         </button>
                     </div>
-
-
                 </form>
             </div>
         );

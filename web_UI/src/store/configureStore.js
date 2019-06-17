@@ -1,12 +1,15 @@
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import reducers from '../reducers/reducers';
+import roomReducer from '../reducers/roomReducer';
+import gridsReducer from '../reducers/gridsReducer';
+import { combineReducers } from 'redux';
 
+const rootReducer = combineReducers({
+    rooms: roomReducer,
+    grids: gridsReducer,
+})
 
 export default function configureStore() {
     console.log("Store: configureStore");
-    return createStore(
-        reducers,
-        applyMiddleware(thunk)
-    );
+    return createStore(rootReducer, applyMiddleware(thunk));
 }
