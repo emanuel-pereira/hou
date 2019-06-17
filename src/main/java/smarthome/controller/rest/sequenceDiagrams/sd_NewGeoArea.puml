@@ -1,0 +1,80 @@
+@startuml
+autonumber
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor SteelBlue
+	LifeLineBackgroundColor Dimgray
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+}
+skinparam note {
+BorderColor SteelBlue
+}
+
+actor Admin
+activate Admin
+
+
+'INTERACTIONS WITH PAGE
+Admin -> "House Area\nPage": Select House Area\non the navbar
+"House Area\nPage" --> Admin: Render House Area page
+note right
+verificar
+end note
+Admin -> "House Area\nPage": Click on "New Area"
+"House Area\nPage" --> Admin: Render creation form
+note right
+verificar
+end note
+Admin -> "House Area\nPage": Input the information\nand click on the Save button
+
+
+
+'POST REQUEST AND REST CONTROLLER METHOD
+"House Area\nPage" -> ":GeoArea\nCTRL": POST /geoareas\n(gaDto)
+":GeoArea\nCTRL" -> ":GeoArea\nService": geoAreaDto =\naddNewGeoArea(gaDto)
+
+
+
+'GET THE TYPE AND CHECK IF EXISTS
+":GeoArea\nService" -> "gaDto:\nGeoAreaDTO": TypeGaDTO typeDto =\ngetType(type
+":GeoArea\nService" -> "TypeGA\nCRUD": existsByType(typeDto)
+
+
+
+'CREATE THE GEOAREA
+":GeoArea\nService" -> ":Model\nMapper": map(gaDto, geoArea)
+create "geoArea:\nGeoArea"
+":Model\nMapper" -> "geoArea:\nGeoArea": create(gaDto)
+
+
+
+'SET THE TYPE
+":GeoArea\nService" -> "TypeGA\nCRUD": TypeGA type = findByType(type)
+":GeoArea\nService" -> "geoArea:\nGeoArea": setType(type)
+
+
+
+'CHECK IF VALID AND SAVE THE GEOAREA
+":GeoArea\nService" -> ":GeoArea\nService": geoAreaIsValid\n(geoArea)
+":GeoArea\nService" -> "GeoArea\nCRUD" : save(geoArea)
+
+
+
+'RESPONSE ENTITY, HTTP STATUS AND UI MESSAGE
+create ":Response\nEntity"
+":GeoArea\nCTRL" ->  ":Response\nEntity": new ResponseEntity<>(gaDto, HttpStatus.CREATED);
+":GeoArea\nCTRL"--> "House Area\nPage": HTTPStatus.CREATED\n gaDto
+"House Area\nPage" --> Admin: Show success message\nand GeoArea information
+
+@enduml
