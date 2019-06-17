@@ -8,7 +8,6 @@ import org.json.simple.parser.ParseException;
 import smarthome.model.*;
 import smarthome.model.validations.Name;
 import smarthome.repository.Repositories;
-import smarthome.services.SensorTypeService;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -111,7 +110,7 @@ public class JSONGeoArea implements FileReaderGeoArea {
         ExternalSensor geoSensor = new ExternalSensor(id, name, calendar, location, type, unit, readings);
         //TODO add new unitary tests to this feature
         //TODO add same feature in other readers
-        geoSensor.setGeographicalArea(geoArea);
+        geoSensor.setIdGA(geoArea.getIdentification());
         return geoSensor;
 
     }

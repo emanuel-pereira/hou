@@ -12,9 +12,9 @@ class SensorTypeDTOTest {
 
         String type = "i ma a type";
 
-        typeDto.setSensorType(type);
+        typeDto.setType(type);
 
-        String result = typeDto.getSensorType();
+        String result = typeDto.getType();
 
         assertEquals(type,result);
     }

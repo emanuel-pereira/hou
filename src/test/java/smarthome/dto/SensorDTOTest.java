@@ -50,7 +50,7 @@ class SensorDTOTest {
 
         SensorTypeDTO typeDTO = new SensorTypeDTO();
 
-        typeDTO.setSensorType(type);
+        typeDTO.setType(type);
 
         sensor.setSensorType(typeDTO);
 

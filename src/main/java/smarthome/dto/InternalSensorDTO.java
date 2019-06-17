@@ -1,29 +1,21 @@
 package smarthome.dto;
 
-import java.util.Calendar;
-import java.util.List;
-
 public class InternalSensorDTO {
     private String id;
-    private ExternalSensorBehaviorDTO sensorBehavior;
+    private SensorBehaviorDTO sensorBehaviorDTO;
+    private String roomId;
 
 
     public InternalSensorDTO(){
 
     }
 
-    public InternalSensorDTO(String id, String name, Calendar startDate, SensorTypeDTO sensorType, String unit, List<ExternalReadingDTO> readingListDTO) {
-        this.id = id;
-        GenericNameDTO sName = new GenericNameDTO(name);
-        this.sensorBehavior = new ExternalSensorBehaviorDTO(sName,startDate,sensorType,unit,readingListDTO);
+    public SensorBehaviorDTO getSensorBehavior(){
+        return this.sensorBehaviorDTO;
     }
 
-    public ExternalSensorBehaviorDTO getSensorBehavior(){
-        return this.sensorBehavior;
-    }
-
-    public void setSensorBehavior(ExternalSensorBehaviorDTO sensorBehavior){
-        this.sensorBehavior = sensorBehavior;
+    public void setSensorBehavior(SensorBehaviorDTO sensorBehaviorDTO){
+        this.sensorBehaviorDTO = sensorBehaviorDTO;
     }
 
     public String getId() {
@@ -34,4 +26,11 @@ public class InternalSensorDTO {
         this.id = id;
     }
 
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
 }

@@ -29,7 +29,7 @@ public class SensorTypeService {
     public SensorTypeService(SensorTypeRepository sensorTypeRepository) {
         this.mapper = new SensorTypeMapper();
         this.sensorTypeRepository = sensorTypeRepository;
-        this.sensorTypeList= new SensorTypeList();
+        this.sensorTypeList = new SensorTypeList();
     }
 
     public SensorTypeService(SensorTypeList sensorTypeList) {
@@ -37,12 +37,12 @@ public class SensorTypeService {
         this.sensorTypeList = sensorTypeList;
     }
 
-    public SensorTypeService(){
+    public SensorTypeService() {
     }
 
-    public void setRepositoryIfNull(){
-        if(this.sensorTypeRepository==null){
-            sensorTypeRepository=Repositories.getSensorTypeRepository();
+    public void setRepositoryIfNull() {
+        if (this.sensorTypeRepository == null) {
+            sensorTypeRepository = Repositories.getSensorTypeRepository();
         }
     }
 
@@ -64,8 +64,7 @@ public class SensorTypeService {
     }
 
     public SensorType convertToEntity(SensorTypeDTO dto) {
-        SensorType type = mapper.toEntity(dto);
-        return type;
+        return mapper.toEntity(dto);
     }
 
     /**
@@ -85,13 +84,12 @@ public class SensorTypeService {
      */
     public List<SensorTypeDTO> findAll() {
         setRepositoryIfNull();
-        Iterable<SensorType> sensorTypes = sensorTypeRepository.findAll();
-        //For each to convert an iterator to a list of elements
-        List<SensorType> sensorTypeList = new ArrayList<>();
-        for (SensorType sensorType : sensorTypes) {
-            sensorTypeList.add(sensorType);
-        }
-        return mapper.toDtoList(sensorTypeList);
+        List<SensorTypeDTO> sensorTypeDTOList = new ArrayList<>();
+        sensorTypeRepository.findAll().forEach(sensorType -> {
+            SensorTypeDTO sensorTypeDTO = mapper.toDto(sensorType);
+            sensorTypeDTOList.add(sensorTypeDTO);
+        });
+        return sensorTypeDTOList;
     }
 
 
@@ -105,6 +103,11 @@ public class SensorTypeService {
         setRepositoryIfNull();
         Name repoType = new Name(type);
         return sensorTypeRepository.existsByType(repoType);
+    }
+
+    public boolean existsByID(Long id) {
+        setRepositoryIfNull();
+        return sensorTypeRepository.existsById(id);
     }
 
     public SensorType findByType(String type) {
