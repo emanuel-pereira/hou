@@ -107,7 +107,7 @@ public class InternalSensorService {
 
         return internalSensorDTO;
     }
-    
+
 
     //TODO: replace this method accordingly
     public SensorList findByRoom(String idRoom) {
