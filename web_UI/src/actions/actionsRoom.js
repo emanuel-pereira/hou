@@ -14,7 +14,7 @@ export function fetchRooms (){
   return dispatch => {
     dispatch(fetchRoomsStarted());
     axios
-      .get(`http://localhost:8080/rooms`)
+      .get(`https://localhost:8443/rooms`)
       .then(res => {
         dispatch(fetchRoomsSuccess(res.data));
       })
@@ -53,7 +53,7 @@ export const fetchRoomDetails = (id) => {
   return dispatch => {
     dispatch(fetchRoomDetailsStarted(id));
     axios
-      .get(`http://localhost:8080/rooms/${id}`)
+      .get(`https://localhost:8443/rooms/${id}`)
       .then(res => {
         dispatch(fetchRoomDetailsSuccess(res.data));
       })
@@ -94,7 +94,7 @@ export function fetchRoomDetailsFailure(message) {
 
 export const createRoom = ({ id, description, floor, length, width, height }) => {
   return (dispatch) => {
-    return axios.post(`http://localhost:8080/rooms/`, {id, description, floor, length, width, height})
+    return axios.post(`https://localhost:8443/rooms/`, {id, description, floor, length, width, height})
       .then(response => {
         dispatch(createRoomSuccess(response.data))
         dispatch(fetchRooms(response.data))
@@ -121,7 +121,7 @@ export const createRoomSuccess =  (data) => {
 
 export const updateRoom = ({ id, description, floor, length, width, height }) => {
   return (dispatch) => {
-    return axios.put(`http://localhost:8080/rooms/${id}`, {id, description, floor, length, width, height})
+    return axios.put(`https://localhost:8443/rooms/${id}`, {id, description, floor, length, width, height})
       .then(response => {
         dispatch(updateRoomSuccess(response.data))
         dispatch(fetchRoomDetailsSuccess(response.data))
@@ -150,7 +150,7 @@ export const updateRoomSuccess =  (data) => {
 export const fetchRoomSensors = (id) => {
   return dispatch => {
     axios
-      .get(`http://localhost:8080/rooms/${id}/sensors`)
+      .get(`https://localhost:8443/rooms/${id}/sensors`)
       .then(res => {
         dispatch(fetchRoomSensorsSuccess(res.data));
       })
