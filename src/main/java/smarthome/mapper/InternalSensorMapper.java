@@ -16,7 +16,7 @@ public class InternalSensorMapper {
         InternalSensorDTO internalSensorDTO= new InternalSensorDTO();
         internalSensorDTO.setId(internalSensor.getId());
         internalSensorDTO.setSensorBehavior(sensorBehaviorMapper.toDTO(internalSensor.getSensorBehavior()));
-        internalSensorDTO.setRoomId(internalSensor.getRoom());
+        internalSensorDTO.setRoomId(internalSensor.getRoomId());
         return internalSensorDTO;
     }
 
