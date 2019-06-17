@@ -65,7 +65,7 @@ public class InternalSensorService implements WebService<SensorDTO, String>{
         Iterable<InternalSensor> internalSensors = Repositories.getInternalSensorRepository().findAll();
         SensorList sensorList = new SensorList();
         for (InternalSensor iSensor :internalSensors){
-            if(iSensor.getRoom().getId().equals(idRoom)){
+            if(iSensor.getRoom().equals(idRoom)){
                 sensorList.addSensor(iSensor);
             }
         }

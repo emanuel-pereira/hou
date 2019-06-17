@@ -282,7 +282,7 @@ public class DataImport {
             String unit = string[5];
 
             InternalSensor newSensor = new InternalSensor(sensorID, sensorDesignation, calendar, sensorType, unit, new ReadingList());
-            newSensor.setRoom(room);
+            newSensor.setRoom(room.getId());
 
             //Needs to be improved
 
