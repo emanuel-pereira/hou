@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import smarthome.dto.RoomDetailDTO;
+import smarthome.model.OccupationArea;
 import smarthome.model.Room;
 import smarthome.repository.HouseGridRepository;
 import smarthome.repository.RoomRepository;
@@ -92,6 +93,21 @@ class EditRoomCTRLTest {
         double width = 3;
         editRoomCTRL.setWidth("B108",3);
         assertEquals(width,room.getArea().getWidth());
+    }
+
+    @Test
+    @DisplayName("Update area of a room")
+    void updateArea() throws NoSuchFieldException {
+        Room room = new Room("B108", "Classroom", 2, 2, 3, 1.5);
+
+        when(this.roomRepository.findById("B108")).thenReturn(Optional.of(room));
+
+        int area = 6;
+        editRoomCTRL.setLength("B108",3);
+        editRoomCTRL.setWidth("B108",2);
+        editRoomCTRL.updateArea("B108");
+
+        assertEquals(area,room.getArea().getOccupation());
     }
 
     @Test
