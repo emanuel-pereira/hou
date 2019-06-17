@@ -5,15 +5,15 @@ import smarthome.dto.RoomDetailDTO;
 import smarthome.mapper.RoomMapper;
 import smarthome.model.Room;
 import smarthome.model.RoomList;
+import smarthome.repository.HouseGridRepository;
+import smarthome.repository.RoomRepository;
 import smarthome.services.RoomService;
-
-import java.util.ArrayList;
 
 import static smarthome.model.House.getHouseRoomList;
 
 public class AddRoomToHouseCTRL {
 
-    private final RoomService roomList;
+    private final RoomService roomService;
     private  RoomList oldList; //this needs to be delete but is necessary due to the repercussions of being removed
     private RoomMapper roomMapper; //used because of the oldList
 
@@ -25,9 +25,16 @@ public class AddRoomToHouseCTRL {
      *
      */
     public AddRoomToHouseCTRL() {
-        this.roomList = new RoomService();
+        this.roomService = new RoomService();
         this.oldList = getHouseRoomList();
         this.roomMapper = new RoomMapper();
+    }
+
+    public  AddRoomToHouseCTRL(RoomRepository rRepository, HouseGridRepository gRepository) {
+        this.roomService =new RoomService(rRepository,gRepository);
+        this.roomMapper = new RoomMapper();
+        this.oldList = getHouseRoomList();
+
 
     }
 
@@ -42,10 +49,10 @@ public class AddRoomToHouseCTRL {
      * @return True if the Room is created and added with success
      */
     public boolean newAddRoom(String id, String description, Integer floor, double length, double width, double height) {
-        RoomDetailDTO room = this.roomList.createRoom (id,description, floor, length, width, height);
+        RoomDetailDTO room = this.roomService.createRoom (id,description, floor, length, width, height);
         Room convertedRoom = this.roomMapper.toObject(room); //will be removed
         this.oldList.addRoom(convertedRoom); //will be removed
-        return this.roomList.save (room);
+        return this.roomService.save (room);
     }
 
     /**
@@ -55,7 +62,7 @@ public class AddRoomToHouseCTRL {
      * @return True if the room ID exist and false if not
      */
     public boolean checkIfRoomIdExists(String id) {
-        return this.roomList.checkIfIDExists(id);
+        return this.roomService.checkIfIDExists(id);
     }
 
 }

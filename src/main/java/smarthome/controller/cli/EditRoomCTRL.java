@@ -8,8 +8,6 @@ import smarthome.services.RoomService;
 public class EditRoomCTRL {
 
     private final RoomService roomService;
-    private RoomRepository roomRepository;
-    private HouseGridRepository gridRepository;
 
     /**
      * Controller constructor

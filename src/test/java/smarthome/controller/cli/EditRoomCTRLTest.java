@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import smarthome.dto.RoomDetailDTO;
+import smarthome.model.OccupationArea;
 import smarthome.model.Room;
 import smarthome.repository.HouseGridRepository;
 import smarthome.repository.RoomRepository;
@@ -95,6 +96,21 @@ class EditRoomCTRLTest {
     }
 
     @Test
+    @DisplayName("Update area of a room")
+    void updateArea() throws NoSuchFieldException {
+        Room room = new Room("B108", "Classroom", 2, 2, 3, 1.5);
+
+        when(this.roomRepository.findById("B108")).thenReturn(Optional.of(room));
+
+        int area = 6;
+        editRoomCTRL.setLength("B108",3);
+        editRoomCTRL.setWidth("B108",2);
+        editRoomCTRL.updateArea("B108");
+
+        assertEquals(area,room.getArea().getOccupation());
+    }
+
+    @Test
     @DisplayName("Set the height of a room")
     void setHeight() throws NoSuchFieldException {
         Room room = new Room("B108", "Classroom", 2, 2, 3, 1.5);
@@ -139,6 +155,13 @@ class EditRoomCTRLTest {
     void setHeightNonExistentRoom() {
         when(this.roomRepository.findById("B108")).thenReturn(Optional.empty());
         Assertions.assertThrows(NoSuchFieldException.class, () -> editRoomCTRL.setHeight("B108", 2));
+    }
+
+    @Test
+    @DisplayName("Try to update a room that doesn't exist")
+    void updateAreaNonExistentRoom() {
+        when(this.roomRepository.findById("B108")).thenReturn(Optional.empty());
+        Assertions.assertThrows(NoSuchFieldException.class, () -> editRoomCTRL.updateArea("B108"));
     }
 
 }
