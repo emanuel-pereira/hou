@@ -21,13 +21,9 @@ import smarthome.services.RoomService;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
-import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+
 import static org.mockito.Mockito.*;
-import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -61,17 +57,16 @@ class RoomCTRLTest {
     void findAllRooms() throws Exception {
         Room room1 = new Room("B107", "Classroom", 1, 2, 3, 1.5);
         Room room2 = new Room("B208", "Classroom", 2, 2.5, 3, 1.5);
+        List<Room> rooms = Arrays.asList(room1,room2);
         RoomDTO roomDTO1 = new RoomDTO("B107", "Classroom");
         RoomDTO roomDTO2= new RoomDTO("B208", "Classroom");
-        List<RoomDTO> rooms = Arrays.asList(roomDTO1,roomDTO2);
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonInString = mapper.writeValueAsString(rooms);
+        List<RoomDTO> roomsDTO = Arrays.asList(roomDTO1,roomDTO2);
 
-        when(roomRepository.findAll()).thenReturn(Stream.of(room1, room2).collect(Collectors.toList()));
+        when(roomRepository.findAll()).thenReturn(rooms);
 
         this.mockMvc.perform(get("/rooms")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonInString))
+                .content(String.valueOf(roomsDTO)))
                 .andExpect(status().isOk());
     }
 
@@ -92,17 +87,6 @@ class RoomCTRLTest {
     }
 
     @Test
-    @DisplayName("Create a room with only one attribute")
-    void createRoomIncomplete() throws Exception {
-        String jsonInString = "{'id': 'B108'}";
-
-        this.mockMvc.perform(post("/rooms")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonInString))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
     @DisplayName("Can't create a room that already exists")
     void cantCreateRoomExists() throws Exception {
         RoomDetailDTO roomDto = new RoomDetailDTO("B018", "Classroom", 1, 3.0, 2.5, 2.0);
@@ -118,10 +102,10 @@ class RoomCTRLTest {
     }
 
     @Test
-    @DisplayName("Try to find a room that with success")
+    @DisplayName("Try to find a room with success")
     void findOneRoomExists() throws Exception {
         Room room = new Room("B310", "Classroom", 3, 2.5, 2.5, 2);
-        RoomDetailDTO roomDto = new RoomDetailDTO("B018", "Classroom", 1, 3.0, 2.5, 2.0);
+        RoomDetailDTO roomDto = new RoomDetailDTO("B310", "Classroom", 3, 2.5, 2.5, 2);
         ObjectMapper mapper = new ObjectMapper();
         String jsonInString = mapper.writeValueAsString(roomDto);
         when(roomRepository.existsById("B310")).thenReturn(true);
@@ -138,7 +122,8 @@ class RoomCTRLTest {
         Room room = new Room("B310", "Classroom", 3, 2.5, 2.5, 2);
         when(roomRepository.existsById("B310")).thenReturn(true);
         when(roomRepository.findById("B310")).thenReturn(Optional.of(room));
-        this.mockMvc.perform(get("/rooms/B31")).andExpect(status().isNotFound());
+        this.mockMvc.perform(get("/rooms/B31"))
+                .andExpect(status().isNotFound());
     }
 
     @Test
