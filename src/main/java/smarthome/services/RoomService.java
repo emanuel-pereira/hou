@@ -136,7 +136,7 @@ public class RoomService {
         for (Room room : rooms) {
             roomList.add(room);
         }
-        return Collections.unmodifiableList(mapper.toDtoList(roomList));
+        return mapper.toDtoList(roomList);
     }
 
     /**

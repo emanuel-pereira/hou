@@ -157,4 +157,11 @@ class EditRoomCTRLTest {
         Assertions.assertThrows(NoSuchFieldException.class, () -> editRoomCTRL.setHeight("B108", 2));
     }
 
+    @Test
+    @DisplayName("Try to update a room that doesn't exist")
+    void updateAreaNonExistentRoom() {
+        when(this.roomRepository.findById("B108")).thenReturn(Optional.empty());
+        Assertions.assertThrows(NoSuchFieldException.class, () -> editRoomCTRL.updateArea("B108"));
+    }
+
 }
