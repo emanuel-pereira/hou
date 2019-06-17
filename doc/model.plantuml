@@ -484,7 +484,7 @@ title __MODEL's Class Diagram__\n
         + nameIsValid()
         + setSensorDesignation()
         + getDesignation()
-        + setSensorLocation()
+        + setLocation()
         + getLocation()
         + getId()
         + getSensorType()

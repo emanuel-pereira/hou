@@ -8,7 +8,7 @@ public class SensorBehavior {
 
     @Embedded
     private GenericName name;
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "SENSORTYPE_ID")
     private SensorType sensorType;
     private Calendar startDate;
@@ -18,15 +18,18 @@ public class SensorBehavior {
     @Embedded
     private ReadingList readingList;
 
-protected SensorBehavior(){}
+    public SensorBehavior() {
+        this.readingList = new ReadingList();
+    }
+
     /**
      * Constructor that creates sensor behaviour use in every sensor.
      *
      * @param sensorName String parameter to specify sensor's designation
-     * @param startDate   specifies the sensor start date as a Calendar dataType
-     * @param sensorType  specifies the sensor start date as a Calendar variable
-     * @param unit        String parameter to specify sensor's unit of measure
-     * @param readings    specifies the sensor's readingList
+     * @param startDate  specifies the sensor start date as a Calendar dataType
+     * @param sensorType specifies the sensor start date as a Calendar variable
+     * @param unit       String parameter to specify sensor's unit of measure
+     * @param readings   specifies the sensor's readingList
      */
     public SensorBehavior(GenericName sensorName, Calendar startDate, SensorType sensorType, String unit, ReadingList readings) {
         this.name = sensorName;
@@ -53,8 +56,8 @@ protected SensorBehavior(){}
         return name.matches("[A-Za-z0-9 \\-]*");
     }
 
-    public GenericName getName() {
-        return name;
+    public String getName() {
+        return name.getName();
     }
 
     public void setName(GenericName name) {
@@ -148,6 +151,7 @@ protected SensorBehavior(){}
         return this.startDate;
     }
 
+
     /**
      * A pause date that marks when a sensor is deactivated
      *
@@ -156,6 +160,11 @@ protected SensorBehavior(){}
     public Calendar getPauseDate() {
         return this.pauseDate;
     }
+
+    public void setPauseDate(Calendar pauseDate) {
+        this.pauseDate = pauseDate;
+    }
+
 
     public String getUnit() {
         return this.unit;
@@ -197,4 +206,7 @@ protected SensorBehavior(){}
         return this.active;
     }
 
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }

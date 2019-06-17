@@ -44,7 +44,7 @@ public class NewSensorTypeUI {
             ctrl.createSensorType(this.type);
             System.out.println("Success! " + this.type + " was added to the list of sensor types:");
             for (SensorTypeDTO sensorTypeDTO : ctrl.listOfSensorTypesDTOs()) {
-                System.out.println(sensorTypeDTO.getSensorType());
+                System.out.println(sensorTypeDTO.getType());
             }
         } else {
             System.out.println("This type already exists.\n");

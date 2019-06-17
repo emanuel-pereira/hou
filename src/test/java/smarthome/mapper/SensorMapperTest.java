@@ -52,7 +52,7 @@ class SensorMapperTest {
         SensorMapper sensorMapper= new SensorMapper();
         SensorDTO sensorDTO=sensorMapper.toDto(sensor);
         String expected=sensor.getSensorBehavior().getSensorType().getType().getName();
-        String result=sensorDTO.getSensorType().getSensorType();
+        String result=sensorDTO.getSensorType().getType();
         assertEquals(expected,result);
     }
 

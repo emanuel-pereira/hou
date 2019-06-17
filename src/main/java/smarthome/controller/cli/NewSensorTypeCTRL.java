@@ -25,9 +25,9 @@ public class NewSensorTypeCTRL {
      * @return true if it was possible to add the user's chosen new type of GA
      * false if it was not possible to add the new type of GA, eg. if the type already exists
      */
-    public boolean createSensorType(String newSensorType) throws ParseException {
+    public boolean createSensorType(String newSensorType) {
         SensorTypeDTO sensorTypeDTO= new SensorTypeDTO();
-        sensorTypeDTO.setSensorType(newSensorType);
+        sensorTypeDTO.setType(newSensorType);
         return this.sensorTypeRepoDDD.createSensorType(sensorTypeDTO);
     }
     /**
