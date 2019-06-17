@@ -1,33 +1,14 @@
 package smarthome.dto;
 
-import smarthome.model.Location;
-
-import java.util.Calendar;
-import java.util.List;
-
 public class ExternalSensorDTO {
     private String id;
-    private ExternalSensorBehaviorDTO sensorBehavior;
-    private Location location;
+    private LocationDTO locationDTO;
+    private SensorBehaviorDTO sensorBehaviorDTO;
+    private String idGA;
 
-
-    public ExternalSensorDTO(){
-
-    }
-
-    public ExternalSensorDTO(String id, String name,Calendar startDate,Location location,SensorTypeDTO sensorType,String unit, List<ExternalReadingDTO> readingListDTO) {
-        this.id = id;
-        this.location = location;
-        GenericNameDTO sName = new GenericNameDTO(name);
-        this.sensorBehavior = new ExternalSensorBehaviorDTO(sName,startDate,sensorType,unit,readingListDTO);
-    }
-
-    public ExternalSensorBehaviorDTO getSensorBehavior(){
-        return this.sensorBehavior;
-    }
-
-    public void setSensorBehavior(ExternalSensorBehaviorDTO sensorBehavior){
-        this.sensorBehavior = sensorBehavior;
+    public ExternalSensorDTO() {
+        this.locationDTO= new LocationDTO();
+        this.sensorBehaviorDTO= new SensorBehaviorDTO();
     }
 
     public String getId() {
@@ -38,12 +19,27 @@ public class ExternalSensorDTO {
         this.id = id;
     }
 
-    public Location getLocation() {
-        return location;
+    public LocationDTO getLocationDTO() {
+        return locationDTO;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setLocationDTO(LocationDTO locationDTO) {
+        this.locationDTO = locationDTO;
+    }
+
+    public SensorBehaviorDTO getSensorBehaviorDTO() {
+        return sensorBehaviorDTO;
+    }
+
+    public void setSensorBehaviorDTO(SensorBehaviorDTO sensorBehaviorDTO) {
+        this.sensorBehaviorDTO = sensorBehaviorDTO;
+    }
+
+    public String getIdGA() {
+        return idGA;
+    }
+
+    public void setIdGA(String idGA) {
+        this.idGA = idGA;
     }
 }
-

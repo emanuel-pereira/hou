@@ -1,6 +1,7 @@
 import Notifications from "views/template/Notifications.jsx";
 import Icons from "views/template/Icons.jsx";
 import Typography from "views/template/Typography.jsx";
+import User from "views/template/User.jsx";
 import TableList from "views/template/Tables.jsx";
 import Room from "views/Room";
 import Home from "views/Home";
@@ -20,7 +21,7 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/geoaea",
+    path: "/geoarea",
     name: "Geographical Area Managment",
     icon: "nc-icon nc-map-big",
     component: GeoArea,
@@ -69,10 +70,10 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/tables",
+    path: "/users",
     name: "Table List",
     icon: "nc-icon nc-tile-56",
-    component: TableList,
+    component: User,
     layout: "/admin"
   },
   {

@@ -12,12 +12,10 @@ public class InternalSensor implements Sensor {
     @Embedded
     private SensorBehavior sensorBehavior;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ROOM_ID")
-    private Room room;
+    private String idRoom;
 
 
-    protected InternalSensor() {
+    public InternalSensor() {
     }
 
     /**
@@ -45,7 +43,7 @@ public class InternalSensor implements Sensor {
 
     @Override
     public SensorBehavior getSensorBehavior() {
-        return sensorBehavior;
+        return this.sensorBehavior;
     }
 
     public void setId(String id) {
@@ -56,13 +54,16 @@ public class InternalSensor implements Sensor {
         this.sensorBehavior = sensorBehavior;
     }
 
-    public Room getRoom() {
-        return room;
+
+    public String getRoom() {
+        return this.idRoom;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setRoom(String idRoom) {
+        this.idRoom = idRoom;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

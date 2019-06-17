@@ -118,7 +118,7 @@ class SensorTypeServiceTest {
         when(this.sensorTypeRepository.findById(1L)).thenReturn(java.util.Optional.of(temperature));
         long resultingID=sensorTypeService.findById(1L).getId();
         assertEquals(1L,resultingID);
-        String resultingType=sensorTypeService.findById(1L).getSensorType();
+        String resultingType=sensorTypeService.findById(1L).getType();
         assertEquals("temperature",resultingType);
     }
 }

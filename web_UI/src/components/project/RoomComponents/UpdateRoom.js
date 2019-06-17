@@ -1,17 +1,20 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import {updateRoom} from '../../actions/actionsRoom';
-import SaveButton from "../SaveButton";
-import ResetButton from "../ResetButton";
-
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { updateRoom } from 'actions/actionsRoom';
 
 class UpdateRoom extends React.Component {
     constructor(props) {
         super(props);
     }
 
-    state = this.props.data
-
+    state = {
+        id: this.props.details.data.id,
+        description: this.props.details.data.description,
+        floor: this.props.details.data.floor,
+        length: this.props.details.data.length,
+        width: this.props.details.data.width,
+        height: this.props.details.data.height
+    };
     handleInputChange = e => {
         this.setState({
             [e.target.name]: e.target.value
@@ -22,6 +25,7 @@ class UpdateRoom extends React.Component {
         e.preventDefault();
         this.props.onEditRoom(this.state);
         this.handleReset();
+        this.props.onClose();
     }
 
 
@@ -34,13 +38,28 @@ class UpdateRoom extends React.Component {
             width: 0,
             height: 0
         });
+        this.props.onClose();
     };
 
     render() {
         return (
             <div className="roomCreation">
-                <h2>Edit Room</h2>
+                <thead className="text-primary">
+                    <tr>
+                    <th>ROOM - {this.state.id}</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
                 <form onSubmit={this.handleSubmit}>
+                    <tr><td>Description:</td> <td><div className="form-group">
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="description"
+                            onChange={this.handleInputChange}
+                            value={this.state.description}>
+                        </input>
+                    </div></td></tr>
                     <div className="form-group">
                         Floor
                         <input
@@ -82,17 +101,28 @@ class UpdateRoom extends React.Component {
                         </input>
                     </div>
 
-                        <div className="buttons">
-                            <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>SAVE</button>
-                            <button type="button" className="btn btn-warning" onClick={this.handleReset}>
-                                RESET
-                            </button>
-                        </div>
+                    <div className="buttons">
+                        <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>SAVE</button>
+                        <button type="button" className="btn btn-warning" onClick={this.handleReset}>CANCEL</button>
+                    </div>
 
 
                 </form>
+
             </div>
+
         );
+    }
+}
+
+const mapStateToProps = (state) => {
+    return {
+        details: {
+            loading: state.rooms.details.loading,
+            data: state.rooms.details.data,
+            error: state.rooms.details.error,
+            id: state.rooms.details.id,
+        }
     }
 }
 
@@ -105,6 +135,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(UpdateRoom);

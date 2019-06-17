@@ -1,74 +1,63 @@
-//FIXME
-/*package smarthome.controller.cli;
+package smarthome.controller.cli;
 
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import smarthome.dto.RoomDetailDTO;
-import smarthome.model.*;
-import smarthome.services.RoomService;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import smarthome.model.Room;
+import smarthome.repository.HouseGridRepository;
+import smarthome.repository.RoomRepository;
 
-import java.lang.reflect.Field;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-public class ListRoomsOfHouseCTRLTest {
+class ListRoomsOfHouseCTRLTest {
 
+    @Mock
+    private RoomRepository roomRepository;
 
+    @Mock
+    private HouseGridRepository gridRepository;
 
-    @Test
-    @DisplayName("Ensure that bedroom, kitchen and bathroom has been edited has indexed to a list ")
-    @Before
-    public void showListRoomInString() {
+    private ListRoomsOfHouseCTRL listRoomsOfHouseCTRL;
 
-        RoomList roomList = getHouseRoomList();
-
-
-        ListRoomsOfHouseCTRL ctrl108 = new ListRoomsOfHouseCTRL();
-
-        Room bedroom = new Room("R01", "Quarto da Maria", 1, 2, 3, 2);
-        Room kitchen = new Room("R02", "Cozinha", 1, 2, 3, 2);
-        Room bathroom = new Room("R03", "Quarto de banho", 1, 2, 3, 2);
-
-        roomList.addRoom(bedroom);
-        roomList.addRoom(kitchen);
-        roomList.addRoom(bathroom);
-
-        String expectedResult = "1 - R01, Quarto da Maria\n" +
-                                "2 - R02, Cozinha\n" +
-                                "3 - R03, Quarto de banho\n";
-        String result = ctrl108.showListRoomInString();
-
-        assertEquals(expectedResult, result);
+    @BeforeEach
+    void setup() {
+        MockitoAnnotations.initMocks(this);
+        this.listRoomsOfHouseCTRL = new ListRoomsOfHouseCTRL(roomRepository, gridRepository);
     }
 
-
-
     @Test
+    @DisplayName("Check if the repository has 6 rooms with success")
     void roomListSize() {
-
-        RoomService roomService = new RoomService();
-
-        ListRoomsOfHouseCTRL ctrl108 = new ListRoomsOfHouseCTRL();
-
-        RoomDetailDTO bedroom = roomService.createRoom("R01", "Bedroom", 1, 2, 3, 2);
-        RoomDetailDTO kitchen = roomService.createRoom("R02", "Kitchen", 1, 2, 3, 2);
-
-        roomService.save(bedroom);
-        roomService.save(kitchen);
-
-        long expected = 2;
-        long result = ctrl108.roomListSize();
-
-        assertEquals(expected, result);
-
-
+        when(this.roomRepository.count()).thenReturn(6L);
+        assertEquals(6, listRoomsOfHouseCTRL.roomListSize());
     }
-}*/
 
+    @Test
+    @DisplayName("Check if the repository has no rooms")
+    void roomListEmpty() {
+        when(this.roomRepository.count()).thenReturn(0L);
+        assertTrue(listRoomsOfHouseCTRL.roomListEmpty());
+    }
+
+    @Test
+    @DisplayName("Check if the repository has rooms")
+    void roomListNotEmpty() {
+        when(this.roomRepository.count()).thenReturn(2L);
+        assertFalse(listRoomsOfHouseCTRL.roomListEmpty());
+    }
+
+    @Test
+    @DisplayName("Have 2 rooms return the right number of rooms")
+    void findAll() {
+        when(this.roomRepository.findAll()).thenReturn(Stream.of(new Room("B108", "Classroom", 1, 2, 3, 2),
+                new Room("B201", "Classroom", 2, 2, 3, 2)).collect(Collectors.toList()));
+        assertEquals(2, listRoomsOfHouseCTRL.findAll().size());
+    }
+
+}

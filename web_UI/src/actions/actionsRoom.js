@@ -3,6 +3,12 @@ import axios from 'axios';
 export const FETCH_ROOMS_STARTED = 'FETCH_ROOMS_STARTED'
 export const FETCH_ROOMS_SUCCESS = 'FETCH_ROOMS_SUCCESS'
 export const FETCH_ROOMS_FAILURE = 'FETCH_ROOMS_FAILURE'
+export const FETCH_ROOM_DETAILS_STARTED = 'FETCH_ROOM_DETAILS_STARTED'
+export const FETCH_ROOM_DETAILS_SUCCESS = 'FETCH_ROOM_DETAILS_SUCCESS'
+export const FETCH_ROOM_DETAILS_FAILURE = 'FETCH_ROOM_DETAILS_FAILURE'
+export const ADD_ROOM = 'ADD_ROOM'
+export const UPDATE_ROOM = 'UPDATE_ROOM'
+export const FETCH_ROOM_SENSORS_SUCCESS = 'FETCH_ROOM_SENSORS_SUCCESS'
 
 export function fetchRooms (){
   return dispatch => {
@@ -42,14 +48,6 @@ export function fetchRoomsFailure(message) {
     }
   }
 }
-
-
-export const FETCH_ROOM_DETAILS_STARTED = 'FETCH_ROOM_DETAILS_STARTED'
-export const FETCH_ROOM_DETAILS_SUCCESS = 'FETCH_ROOM_DETAILS_SUCCESS'
-export const FETCH_ROOM_DETAILS_FAILURE = 'FETCH_ROOM_DETAILS_FAILURE'
-export const ADD_ROOM = 'ADD_ROOM'
-export const UPDATE_ROOM = 'UPDATE_ROOM'
-export const FETCH_ROOM_SENSORS_SUCCESS = 'FETCH_ROOM_SENSORS_SUCCESS'
 
 export const fetchRoomDetails = (id) => {
   return dispatch => {
@@ -127,6 +125,7 @@ export const updateRoom = ({ id, description, floor, length, width, height }) =>
       .then(response => {
         dispatch(updateRoomSuccess(response.data))
         dispatch(fetchRoomDetailsSuccess(response.data))
+        dispatch(fetchRooms(response.data))
       })
       .catch(error => {
         throw(error);

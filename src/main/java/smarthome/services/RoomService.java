@@ -14,7 +14,6 @@ import smarthome.repository.Repositories;
 import smarthome.repository.RoomRepository;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 

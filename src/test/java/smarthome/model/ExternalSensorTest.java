@@ -26,7 +26,7 @@ class ExternalSensorTest {
         Calendar date = new GregorianCalendar(2018,Calendar.NOVEMBER,21);
         sensor.getSensorBehavior().setStartDate(date);
         Location location1 = new Location(70,130,4000);
-        sensor.setSensorLocation(location1);
+        sensor.setLocation(location1);
         SensorType sType = new SensorType("rainfall");
         sensor.getSensorBehavior().setSensorType(sType);
         sensor.getSensorBehavior().setUnit("l/m2");
@@ -139,7 +139,7 @@ class ExternalSensorTest {
         ReadingList readingList = new ReadingList ();
         ExternalSensor rainfallSensor = new ExternalSensor("", "RainfallSensorOfPorto", startDate, loc, type1, "Celsius", readingList);
         Location loc1 = new Location (30, -12, 62);
-        rainfallSensor.setSensorLocation (loc1);
+        rainfallSensor.setLocation (loc1);
         Location result = rainfallSensor.getLocation ();
         assertEquals (loc1, result);
     }
