@@ -22,7 +22,6 @@ BorderColor SteelBlue
 }
 
 actor Admin
-activate Admin
 
 
 'INTERACTIONS WITH PAGE
