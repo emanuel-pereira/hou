@@ -1,6 +1,8 @@
 package smarthome.controller.cli;
 
 import smarthome.dto.RoomDetailDTO;
+import smarthome.repository.HouseGridRepository;
+import smarthome.repository.RoomRepository;
 import smarthome.services.RoomService;
 
 public class EditRoomCTRL {
@@ -13,6 +15,10 @@ public class EditRoomCTRL {
      */
     public EditRoomCTRL() {
         this.roomService = new RoomService();
+    }
+
+    public  EditRoomCTRL(RoomRepository rRepository, HouseGridRepository gRepository) {
+        this.roomService=new RoomService(rRepository,gRepository);
     }
 
     /**

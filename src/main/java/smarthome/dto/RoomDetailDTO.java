@@ -1,5 +1,7 @@
 package smarthome.dto;
 
+import java.util.Objects;
+
 public class RoomDetailDTO {
     private String id;
     private String description;
@@ -71,5 +73,23 @@ public class RoomDetailDTO {
 
     public void setHeight(Double height) {
         this.height = height;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RoomDetailDTO)) return false;
+        RoomDetailDTO that = (RoomDetailDTO) o;
+        return Double.compare(that.length, length) == 0 &&
+                Double.compare(that.width, width) == 0 &&
+                Double.compare(that.height, height) == 0 &&
+                id.equals(that.id) &&
+                description.equals(that.description) &&
+                floor.equals(that.floor);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, description, floor, length, width, height);
     }
 }

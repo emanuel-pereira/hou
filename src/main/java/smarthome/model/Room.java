@@ -82,10 +82,6 @@ public class Room implements Metered {
         this.description = nameRoom;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public void setFloor(Integer floor) {
         this.floor = floor;
     }

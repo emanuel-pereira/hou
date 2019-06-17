@@ -50,6 +50,12 @@ class RoomServiceTest {
     }
 
     @Test
+    @DisplayName("Can't save a null room")
+    void cantSaveNull(){
+        assertFalse(roomService.save(null));
+    }
+
+    @Test
     @DisplayName("Have 2 rooms return the right number of rooms")
     void findAll(){
         when(this.roomRepository.findAll()).thenReturn(Stream.of(new Room ("B108","Classroom",1,2,3,2),
@@ -100,6 +106,35 @@ class RoomServiceTest {
     void notFindByIdEmpty(){
         when(this.roomRepository.findById("B108")).thenReturn(Optional.empty());
         Assertions.assertThrows(NoSuchFieldException.class, () -> roomService.findById("B"));
+    }
+
+    @Test
+    @DisplayName("Create a room with success")
+    void createRoomSuccess(){
+        RoomDetailDTO expected = new RoomDetailDTO("B300", "Office",3,2,2.5,1.5);
+        RoomDetailDTO result = roomService.createRoom("B300", "Office",3,2,2.5,1.5);
+        assertEquals(expected,result);
+    }
+
+    @Test
+    @DisplayName("Cant Create a room with null Id")
+    void createRoomIdNull(){
+        RoomDetailDTO room = roomService.createRoom(null, "Office",3,2,2.5,1.5);
+        assertNull(room);
+    }
+
+    @Test
+    @DisplayName("Check if the repository is empty and return true")
+    void checkIfRoomRepositoryEmpty() {
+        when(roomRepository.count()).thenReturn(0L);
+        assertTrue(roomService.checkIfRoomRepositoryEmpty());
+    }
+
+    @Test
+    @DisplayName("Check if the repository is empty and return false")
+    void checkIfRoomRepositoryNotEmpty() {
+        when(roomRepository.count()).thenReturn(4L);
+        assertFalse(roomService.checkIfRoomRepositoryEmpty());
     }
 
 }
