@@ -1,9 +1,14 @@
 package smarthome.controller.cli;
 
 import smarthome.dto.RoomDTO;
+import smarthome.mapper.RoomMapper;
+import smarthome.repository.HouseGridRepository;
+import smarthome.repository.RoomRepository;
 import smarthome.services.RoomService;
 
 import java.util.List;
+
+import static smarthome.model.House.getHouseRoomList;
 
 public class ListRoomsOfHouseCTRL {
 
@@ -11,6 +16,10 @@ public class ListRoomsOfHouseCTRL {
 
     public ListRoomsOfHouseCTRL() {
         this.roomService = new RoomService();
+    }
+
+    public  ListRoomsOfHouseCTRL(RoomRepository rRepository, HouseGridRepository gRepository) {
+        this.roomService =new RoomService(rRepository,gRepository);
     }
 
     public long roomListSize(){
