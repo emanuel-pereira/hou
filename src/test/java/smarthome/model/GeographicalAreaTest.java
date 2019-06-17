@@ -31,11 +31,17 @@ public class GeographicalAreaTest {
 
     @DisplayName("Ensure that method getListOfSensors in Aveiro is empty")
     @Test
-    public void getEmptyListOfSensors() {
-        OccupationArea oc = new OccupationArea(40, 45);
-        Location loc = new Location(25, 35, 15);
+    public void setAndGetEmptyListOfSensors() {
 
-        GeographicalArea ga = new GeographicalArea("AVR", "Aveiro", "City", oc, loc);
+        GeographicalArea ga = new GeographicalArea();
+
+        ga.setIdentification("AVR");
+        ga.setDesignation("Aveiro");
+        ga.setType(new TypeGA("city"));
+        ga.setOccupation(new OccupationArea(40, 45));
+        ga.setLocation(new Location(25, 35, 15));
+        ga.setSensorListInGa(new SensorList());
+
 
         boolean result = ga.getSensorListInGa().getSensorList().isEmpty();
 
@@ -203,19 +209,44 @@ public class GeographicalAreaTest {
 
     @Test
     @DisplayName("check if occupation area method (length * width) is correct.")
-    public void getOccupation() {
+    public void setAndGetOccupation() {
+        GeographicalArea ga = new GeographicalArea();
 
-
-        OccupationArea oc1 = new OccupationArea(30, 20);
-        Location loc1 = new Location(3, 4, 3);
-
-
-        GeographicalArea ga = new GeographicalArea("001", "Porto", "city", oc1, loc1);
+        ga.setIdentification("001");
+        ga.setDesignation("Porto");
+        ga.setType(new TypeGA("city"));
+        ga.setOccupation(new OccupationArea(30, 20));
+        ga.setLocation(new Location(3, 4, 3));
 
         double expectedResult = 600;
         double result = ga.getOccupation().getOccupation();
 
         assertEquals(expectedResult, result);
+    }
+
+    @Test
+    @DisplayName("check if location setter and getter methods are returning the expected result")
+    public void setAndGetLocation() {
+        GeographicalArea ga = new GeographicalArea();
+
+        ga.setIdentification("001");
+        ga.setDesignation("Porto");
+        ga.setType(new TypeGA("city"));
+        ga.setOccupation(new OccupationArea(30, 20));
+        ga.setLocation(new Location(3, 4, 3));
+
+        double expectedLatitude = 3;
+        double latitude = ga.getLocation().getLatitude();
+
+        double expectedLongitude = 4;
+        double longitude = ga.getLocation().getLongitude();
+
+        double expectedAltitude = 3;
+        double altitude = ga.getLocation().getAltitude();
+
+        assertEquals(expectedLatitude, latitude);
+        assertEquals(expectedLongitude, longitude);
+        assertEquals(expectedAltitude, altitude);
     }
 
     @Test
@@ -254,28 +285,28 @@ public class GeographicalAreaTest {
     }
 
     @Test
-    void getTypeGANameTest(){
+    void getTypeGANameTest() {
         TypeGA type = new TypeGA("city");
-        OccupationArea area = new OccupationArea(11,22);
-        Location location = new Location(12,34,56);
-        GeographicalArea geoArea = new GeographicalArea ("Opo","Porto",type,area,location);
+        OccupationArea area = new OccupationArea(11, 22);
+        Location location = new Location(12, 34, 56);
+        GeographicalArea geoArea = new GeographicalArea("Opo", "Porto", type, area, location);
 
         String result = geoArea.getName();
 
-        assertEquals("city",result);
+        assertEquals("city", result);
     }
 
     @Test
-    void showGAinStringTest(){
+    void showGAinStringTest() {
         TypeGA type = new TypeGA("city");
-        OccupationArea area = new OccupationArea(11,22);
-        Location location = new Location(12,34,56);
-        GeographicalArea geoArea = new GeographicalArea ("Opo","Porto",type,area,location);
+        OccupationArea area = new OccupationArea(11, 22);
+        Location location = new Location(12, 34, 56);
+        GeographicalArea geoArea = new GeographicalArea("Opo", "Porto", type, area, location);
 
         String expected = "    Porto, Opo";
         String result = geoArea.gaInString();
 
-        assertEquals(expected,result);
+        assertEquals(expected, result);
     }
 
 }

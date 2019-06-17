@@ -16,11 +16,9 @@ public class ExternalSensor implements Sensor {
     @Embedded
     private SensorBehavior sensorBehavior;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "AREA_ID")
-    private GeographicalArea geographicalArea;
+    private String idGA;
 
-    protected ExternalSensor() {
+    public ExternalSensor() {
     }
 
     /**
@@ -69,14 +67,7 @@ public class ExternalSensor implements Sensor {
         this.sensorBehavior = sensorBehavior;
     }
 
-    /**
-     * Changes the location of the sensor to the new location coordinates inputted by the user.
-     *
-     * @param location , of the object Location type, to update the location of the sensor
-     */
-    public void setSensorLocation(Location location) {
-        this.location = location;
-    }
+
 
     /**
      * Returns the location coordinates of the sensor
@@ -87,12 +78,12 @@ public class ExternalSensor implements Sensor {
         return this.location;
     }
 
-    public GeographicalArea getGeographicalArea() {
-        return geographicalArea;
+    public String getIdGA() {
+        return idGA;
     }
 
-    public void setGeographicalArea(GeographicalArea geographicalArea) {
-        this.geographicalArea = geographicalArea;
+    public void setIdGA(String idGA) {
+        this.idGA = idGA;
     }
 
     /**

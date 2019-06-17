@@ -56,6 +56,36 @@ public class RoomTest {
     }
 
     /**
+     * Get the description of a room
+     */
+    @Test
+    void getDesignation() {
+
+        Room roomOne = new Room("R01", "bedroom", 0, 2.5, 3, 4.7);
+
+        String expected = "bedroom";
+        String result = roomOne.getDesignation();
+
+        assertEquals(expected,result);
+    }
+
+    /**
+     * Get time
+     */
+    @Test
+    void getTime() {
+
+        Room room = new Room("R01", "bedroom", 0, 2.5, 3, 4.7);
+
+        room.setTime(2);
+
+        double expected =2;
+        double result = room.getTime();
+
+        assertEquals(expected,result);
+    }
+
+    /**
      * Checks if two different room objects are equals because of their content
      */
     @Test

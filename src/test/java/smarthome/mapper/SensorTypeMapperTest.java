@@ -17,7 +17,7 @@ class SensorTypeMapperTest {
         SensorTypeMapper sensorTypeMapper=new SensorTypeMapper();
         SensorTypeDTO sensorTypeDTO=sensorTypeMapper.toDto(sensorType);
         String expected=sensorType.getType().getName();
-        String result=sensorTypeDTO.getSensorType();
+        String result=sensorTypeDTO.getType();
         assertEquals(expected,result);
     }
 
@@ -28,7 +28,7 @@ class SensorTypeMapperTest {
         SensorTypeMapper sensorTypeMapper=new SensorTypeMapper();
         SensorTypeDTO sensorTypeDTO=sensorTypeMapper.toDto(sensorType);
         String expected="";
-        String result=sensorTypeDTO.getSensorType();
+        String result=sensorTypeDTO.getType();
         assertNotEquals(expected,result);
 
     }

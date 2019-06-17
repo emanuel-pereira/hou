@@ -10,6 +10,8 @@ public interface TypeGARepository extends CrudRepository<TypeGA, Long> {
 
     TypeGA findByType(String type);
 
+    boolean existsByType(String type);
+
     //-------------------//--------------------------------------//
     /*The methods of type delete, put and post have been overridden so they don't are
     exposed by Spring Data REST which will throw HTTP.Status 405 method not allowed

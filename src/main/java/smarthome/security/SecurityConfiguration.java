@@ -48,18 +48,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // add jwt filters (1. authentication, 2. authorization)
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), this.userRepository))
+
                 .authorizeRequests()
-                // configure access rules
-                .antMatchers(HttpMethod.GET, "/*").permitAll()
-                .antMatchers(HttpMethod.POST, "/*").permitAll()
-                .antMatchers(HttpMethod.PUT, "/*").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/*").permitAll()
-                .antMatchers(HttpMethod.GET, "/*/*").permitAll()
-                .antMatchers(HttpMethod.POST, "/*/*").permitAll()
-                .antMatchers(HttpMethod.PUT, "/*/*").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/*/*").permitAll()
+                //configure access rules
+                .antMatchers("/h2-geo/**").permitAll()
+
+                .antMatchers(HttpMethod.GET, "/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/**").permitAll()
+                .antMatchers(HttpMethod.PUT, "/**").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/**").permitAll()
+
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated();
+        http.headers().frameOptions().sameOrigin();
     }
 
 
