@@ -1,25 +1,33 @@
-/*package smarthome.controller.cli;
+package smarthome.controller.cli;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
 import smarthome.model.*;
-import smarthome.services.RoomService;
+import smarthome.repository.HouseGridRepository;
+import smarthome.repository.RoomRepository;
 
 import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-@DataJpaTest
 
 class AddRoomToHouseCTRLTest {
 
+    @Mock
+    private RoomRepository roomRepository;
+
+    @Mock
+    private HouseGridRepository gridRepository;
+
+
+    private AddRoomToHouseCTRL addRoomToHouseCTRL;
+
+    //Will be removed when RoomList is deleted
     Location loc = new Location(20, 20, 2);
     Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal", loc);
     OccupationArea oc = new OccupationArea(2, 5);
@@ -27,7 +35,7 @@ class AddRoomToHouseCTRLTest {
     House house = House.getHouseInstance(a1, g1);
 
     @BeforeEach
-    public void resetMySingleton() throws SecurityException,
+    void resetMySingleton() throws SecurityException,
             NoSuchFieldException, IllegalArgumentException,
             IllegalAccessException {
         Field instance = House.class.getDeclaredField("theHouse");
@@ -35,78 +43,45 @@ class AddRoomToHouseCTRLTest {
         instance.set(null, null);
     }
 
-    @Test
-    @DisplayName("Create a new room with an empty repository and get the size of the repository to check if it was created")
-    void createNewRoomSuccess() {
 
-        RoomService roomService = new RoomService();
-
-        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
-        assertEquals(0,roomService.size());
-
-        ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
-        assertEquals(1, roomService.size());
+    @BeforeEach
+    void setup() {
+        MockitoAnnotations.initMocks(this);
+        this.addRoomToHouseCTRL = new AddRoomToHouseCTRL(roomRepository, gridRepository);
     }
 
 
     @Test
-    @DisplayName("Create a room with the same Id and get false because is not added")
-    void cantCreateNewRoom() {
+    @DisplayName("Create a new room with success")
+    void createRoomSuccess() {
 
-        RoomService roomService = new RoomService();
+        Room room = new Room("B108", "Classroom", 2, 2, 3, 1.5);
 
-        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
-        assertEquals(0,roomService.size());
+        when(this.roomRepository.save(room)).thenReturn(room);
 
-        boolean result = ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
-        assertTrue(result);
+        boolean expected = addRoomToHouseCTRL.newAddRoom("B108", "Classroom", 2, 2, 3, 1.5);
+        assertTrue(expected);
 
-        boolean result1 = ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
-        assertFalse(result1);
     }
 
     @Test
-    @DisplayName("Create several rooms")
-    void createOneRoomSuccessAnotherFail() {
+    @DisplayName("Check if a room exists and return false because he doesn't exists")
+    void checkIfRoomIdDoesntExists() {
 
-        RoomService roomService = new RoomService();
+        when(this.roomRepository.existsById("B108")).thenReturn(false);
 
-        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
-        assertEquals(0,roomService.size());
-
-        ctrl1.newAddRoom("R01", "kitchen", 1, 2, 3.5, 2);
-        assertEquals(1, roomService.size());
-
-        ctrl1.newAddRoom("R02", "bedroom 01", 2, 3, 3, 2);
-        assertEquals(2, roomService.size());
-
-        ctrl1.newAddRoom("R03", "garden", 1, 3, 3.5, 0);
-        assertEquals(3, roomService.size());
+        boolean expected = addRoomToHouseCTRL.checkIfRoomIdExists("B108");
+        assertFalse(expected);
     }
 
     @Test
-    @DisplayName("Check if a room Id exists and return true because it exists")
-    void checkIffRoomIdExists() {
+    @DisplayName("Check if a room exists and return true because he exists")
+    void checkIfRoomIdExists() {
 
-        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
+        when(this.roomRepository.existsById("B108")).thenReturn(true);
 
-        ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
-
-        boolean result = ctrl1.checkIfRoomIdExists("R01");
-        assertTrue(result);
-    }
-
-    @Test
-    @DisplayName("Check if a room Id exists and return false because in doesn't exists")
-    void checkIfRoomIdNotExists() {
-
-        AddRoomToHouseCTRL ctrl1 = new AddRoomToHouseCTRL();
-
-        ctrl1.newAddRoom("R01", "kitchen", 1, 3, 3.5, 2);
-
-        boolean result = ctrl1.checkIfRoomIdExists("R1");
-        assertFalse(result);
+        boolean expected = addRoomToHouseCTRL.checkIfRoomIdExists("B108");
+        assertTrue(expected);
     }
 
 }
-*/
