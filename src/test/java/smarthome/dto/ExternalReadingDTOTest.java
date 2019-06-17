@@ -13,9 +13,9 @@ class ExternalReadingDTOTest {
     void getValue() {
         ExternalReadingDTO readingDTO = new ExternalReadingDTO();
         double value = 123.456;
-        readingDTO.setValue(value);
+        readingDTO.setReadingValue(value);
 
-        double result = readingDTO.getValue();
+        double result = readingDTO.getReadingValue();
         assertEquals(value,result);
     }
 

@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import smarthome.dto.ReadingDTO;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -107,13 +106,13 @@ public class ReadingTest {
     void toDTOTest(){
         GregorianCalendar date = new GregorianCalendar(2018, 11, 31, 21, 30);
         Reading reading = new Reading();
-        reading.setValue(12);
+        reading.setReadingValue(12);
         reading.setDateAndTime(date);
         reading.setUnit("F");
 
         ReadingDTO dto = reading.toDTO();
 
-        double expected = reading.getValue();
+        double expected = reading.getReadingValue();
         double result = dto.getReadingValue();
 
         assertEquals(expected,result);
@@ -123,7 +122,7 @@ public class ReadingTest {
     void convertToCelsiusValueTest () {
         GregorianCalendar date = new GregorianCalendar(2018, 11, 31, 21, 30);
         Reading reading = new Reading();
-        reading.setValue(40);
+        reading.setReadingValue(40);
         reading.setDateAndTime(date);
         reading.setUnit("F");
 
@@ -137,7 +136,7 @@ public class ReadingTest {
     void convertToCelsiusUnitTest () {
         GregorianCalendar date = new GregorianCalendar(2018, 11, 31, 21, 30);
         Reading reading = new Reading();
-        reading.setValue(40);
+        reading.setReadingValue(40);
         reading.setDateAndTime(date);
         reading.setUnit("F");
 
@@ -153,7 +152,7 @@ public class ReadingTest {
     void convertToCelsiusTestFalse() {
         GregorianCalendar date = new GregorianCalendar(2018, 11, 31, 21, 30);
         Reading reading = new Reading();
-        reading.setValue(40);
+        reading.setReadingValue(40);
         reading.setDateAndTime(date);
         reading.setUnit("C");
 
@@ -167,7 +166,7 @@ public class ReadingTest {
     void extractYearMonthDayTest() {
         GregorianCalendar date = new GregorianCalendar(2018, 11,0,0,0);
         Reading reading = new Reading();
-        reading.setValue(40);
+        reading.setReadingValue(40);
         reading.setDateAndTime(date);
         reading.setUnit("C");
 

@@ -13,12 +13,12 @@ import java.util.GregorianCalendar;
  * were this Embeddable is Embedded(eg. Sensor.listOfReadings [List<Reading>] ).
  * What will happen is that there will be create a secondary list where there will be an embedded connection between
  * the sensor and its respective readings. This connection, in the secondary table will be present a id from the parent
- * object (Sensor) and the values of its Readings (value, date, unit)
+ * object (Sensor) and the values of its Readings (readingValue, date, unit)
  */
 @Embeddable
 public class Reading {
 
-    private double value;
+    private double readingValue;
     private Calendar dateAndTime;
     private String unit;
 
@@ -27,39 +27,39 @@ public class Reading {
 
     /**
      * Reading class Constructor
-     * It determines that a reading always has an associated value and a date and time
+     * It determines that a reading always has an associated readingValue and a date and time
      *
      * @param readValue     the number that corresponds to a reading
      * @param timeOfReading the date and time of a reading
      */
     public Reading(double readValue, Calendar timeOfReading) {
-        this.value = readValue;
+        this.readingValue = readValue;
         this.dateAndTime = timeOfReading;
     }
 
     public Reading(double readValue, Calendar timeOfReading, String unitValue) {
-        this.value = readValue;
+        this.readingValue = readValue;
         this.dateAndTime = timeOfReading;
         this.unit = unitValue;
     }
 
     /**
-     * @return the registered value of a reading
+     * @return the registered readingValue of a reading
      */
     public double returnValue() {
-        return this.value;
+        return this.readingValue;
     }
 
     public int getMonthOfReading() {
         return this.dateAndTime.get(Calendar.MONTH);
     }
 
-    public double getValue() {
-        return value;
+    public double getReadingValue() {
+        return readingValue;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void setReadingValue(double readingValue) {
+        this.readingValue = readingValue;
     }
 
     public void setDateAndTime(Calendar dateAndTime) {
@@ -110,14 +110,14 @@ public class Reading {
 
     public double convertToCelsius() {
         if (this.unit.equals("F")) {
-            this.value = ((this.value - 32) / 1.8);
-            this.value = Math.round(this.value*100.0)/100.0;
+            this.readingValue = ((this.readingValue - 32) / 1.8);
+            this.readingValue = Math.round(this.readingValue *100.0)/100.0;
             setUnit("C");
         }
-        return this.value;
+        return this.readingValue;
     }
 
     public ReadingDTO toDTO() {
-        return new ReadingDTO(this.value, this.dateAndTime);
+        return new ReadingDTO(this.readingValue, this.dateAndTime);
     }
 }
