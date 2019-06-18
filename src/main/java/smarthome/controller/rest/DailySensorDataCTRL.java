@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import smarthome.dto.ExternalReadingDTO;
+import smarthome.dto.ReadingDTO;
 import smarthome.model.House;
 import smarthome.services.DailySensorDataService;
 import smarthome.services.ExternalSensorService;
@@ -153,8 +153,8 @@ public class DailySensorDataCTRL {
         if (!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkTemperaturePreConditions();
         } else {
-            ExternalReadingDTO result = this.sensorDataService.displayAmplitude(startDate, endDate);
-            result.getDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
+            ReadingDTO result = this.sensorDataService.displayAmplitude(startDate, endDate);
+            result.getReadingDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
 
@@ -174,8 +174,8 @@ public class DailySensorDataCTRL {
         if (!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkTemperaturePreConditions();
         } else {
-            ExternalReadingDTO result = this.sensorDataService.displayMaximum(startDate, endDate);
-            result.getDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
+            ReadingDTO result = this.sensorDataService.displayMaximum(startDate, endDate);
+            result.getReadingDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
@@ -193,8 +193,8 @@ public class DailySensorDataCTRL {
         if (!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkTemperaturePreConditions();
         } else {
-            ExternalReadingDTO result = this.sensorDataService.displayMinimum(startDate, endDate);
-            result.getDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
+            ReadingDTO result = this.sensorDataService.displayMinimum(startDate, endDate);
+            result.getReadingDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
@@ -208,8 +208,8 @@ public class DailySensorDataCTRL {
         if (!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkTemperaturePreConditions();
         } else {
-            ExternalReadingDTO result = this.sensorDataService.getCurrentTemperature();
-            result.getDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
+            ReadingDTO result = this.sensorDataService.getCurrentTemperature();
+            result.getReadingDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
@@ -227,8 +227,8 @@ public class DailySensorDataCTRL {
         if (!checkRainfallPreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkRainfallPreConditions();
         } else {
-            ExternalReadingDTO result = this.sensorDataService.getTotalRainfall(day);
-            result.getDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
+            ReadingDTO result = this.sensorDataService.getTotalRainfall(day);
+            result.getReadingDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }

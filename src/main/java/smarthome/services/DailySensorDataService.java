@@ -1,7 +1,7 @@
 package smarthome.services;
 
 import org.modelmapper.ModelMapper;
-import smarthome.dto.ExternalReadingDTO;
+import smarthome.dto.ReadingDTO;
 import smarthome.model.*;
 import smarthome.model.validations.Name;
 import smarthome.repository.Repositories;
@@ -62,41 +62,41 @@ public class DailySensorDataService {
         }
     }
 
-    public ExternalReadingDTO getTotalRainfall(String day) throws ParseException {
+    public ReadingDTO getTotalRainfall(String day) throws ParseException {
         Calendar calendar = convertStringToCalendar(day);
         SensorType sType = Repositories.getSensorTypeRepository().findByType(new Name(rain));
         String idSensor = House.getClosestSensorWithLatestReading(sType).getId();
         ReadingList readings = Repositories.getReadingsExternalSensor(idSensor);
         double value = readings.totalValueInGivenDay(calendar);
         Reading totalRain = new Reading(value, calendar);
-        return mapper.map(totalRain, ExternalReadingDTO.class);
+        return mapper.map(totalRain, ReadingDTO.class);
 
     }
 
-    public ExternalReadingDTO getCurrentTemperature() {
+    public ReadingDTO getCurrentTemperature() {
         SensorType sType = Repositories.getSensorTypeRepository().findByType(new Name(temp));
         String idSensor = House.getClosestSensorWithLatestReading(sType).getId();
         Reading currentTemp = Repositories.getReadingsExternalSensor(idSensor).getLastReading();
-        return mapper.map(currentTemp, ExternalReadingDTO.class);
+        return mapper.map(currentTemp, ReadingDTO.class);
     }
 
-    public ExternalReadingDTO displayAmplitude(String startDate, String endDate) throws ParseException {
+    public ReadingDTO displayAmplitude(String startDate, String endDate) throws ParseException {
 
         Reading maxDailyAmp = getBestSensorReadings(startDate, endDate, temp).dailyAmplitude().maxValueInInterval();
 
-        return mapper.map(maxDailyAmp, ExternalReadingDTO.class);
+        return mapper.map(maxDailyAmp, ReadingDTO.class);
     }
 
-    public ExternalReadingDTO displayMaximum(String startDate, String endDate) throws ParseException {
+    public ReadingDTO displayMaximum(String startDate, String endDate) throws ParseException {
         Reading maxDailyTemp = getBestSensorReadings(startDate, endDate, temp).dailyMaximumReadings().maxValueInInterval();
 
-        return mapper.map(maxDailyTemp, ExternalReadingDTO.class);
+        return mapper.map(maxDailyTemp, ReadingDTO.class);
     }
 
-    public ExternalReadingDTO displayMinimum(String startDate, String endDate) throws ParseException {
+    public ReadingDTO displayMinimum(String startDate, String endDate) throws ParseException {
         Reading minDailyTemp = getBestSensorReadings(startDate, endDate, temp).dailyMaximumReadings().minValueInInterval();
 
-        return mapper.map(minDailyTemp, ExternalReadingDTO.class);
+        return mapper.map(minDailyTemp, ReadingDTO.class);
     }
 
     public Calendar convertStringToCalendar(String input) throws ParseException {

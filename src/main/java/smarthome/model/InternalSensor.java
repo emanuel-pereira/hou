@@ -59,7 +59,7 @@ public class InternalSensor implements Sensor {
         return this.idRoom;
     }
 
-    public void setRoom(String idRoom) {
+    public void setRoomId(String idRoom) {
         this.idRoom = idRoom;
     }
 

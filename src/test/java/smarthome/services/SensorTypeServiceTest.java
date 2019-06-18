@@ -18,6 +18,7 @@ import smarthome.repository.SensorTypeRepository;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -97,6 +98,7 @@ class SensorTypeServiceTest {
         SensorType result = sensorTypeService.findByType("rainfall");
         assertEquals(expected, result);
     }
+
     @Test
     void findByTypeRainfallNotEqualsToTemperature() {
         when(this.sensorTypeRepository.findByType(rainfall)).thenReturn(new SensorType("rainfall"));
@@ -108,17 +110,26 @@ class SensorTypeServiceTest {
     @Test
     void findByTypeOfNonExistingTypeReturnNull() {
         when(this.sensorTypeRepository.findByType(new Name("wind"))).thenReturn(null);
-        Assertions.assertThrows (NullPointerException.class,()->sensorTypeService.findByType("wind"));
+        Assertions.assertThrows(NullPointerException.class, () -> sensorTypeService.findByType("wind"));
     }
 
     @Test
     void findById() {
-        SensorType temperature= new SensorType("temperature");
+        SensorType temperature = new SensorType("temperature");
         temperature.setId(1L);
         when(this.sensorTypeRepository.findById(1L)).thenReturn(java.util.Optional.of(temperature));
-        long resultingID=sensorTypeService.findById(1L).getId();
-        assertEquals(1L,resultingID);
-        String resultingType=sensorTypeService.findById(1L).getType();
-        assertEquals("temperature",resultingType);
+        long resultingID = sensorTypeService.findById(1L).getId();
+        assertEquals(1L, resultingID);
+        String resultingType = sensorTypeService.findById(1L).getType();
+        assertEquals("temperature", resultingType);
+    }
+
+    @Test
+    void testSetRepositoryIfNullWithNullRepository() {
+        sensorTypeRepository=null;
+        SensorTypeService sensorTypeService = new SensorTypeService();
+        sensorTypeService.setRepositoryIfNull();
+        assertThat(sensorTypeRepository).isNull();
+
     }
 }

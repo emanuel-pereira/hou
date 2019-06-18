@@ -29,7 +29,7 @@ public class InternalSensorMapper {
         InternalSensor internalSensor= new InternalSensor();
         internalSensor.setId(internalSensorDTO.getId());
         internalSensor.setSensorBehavior(sensorBehaviorMapper.toEntity(internalSensorDTO.getSensorBehavior()));
-        internalSensor.setRoom(internalSensorDTO.getRoomId());
+        internalSensor.setRoomId(internalSensorDTO.getRoomId());
         return internalSensor;
     }
 }
