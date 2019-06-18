@@ -136,8 +136,8 @@ class InternalSensorServiceTest {
 
         this.temperatureDTO.setId(1);
         movementDTO.setId(2);
-        sensorT01.setRoom("B100");
-        sensorM02.setRoom("B100");
+        sensorT01.setRoomId("B100");
+        sensorM02.setRoomId("B100");
 
         when(roomRepository.existsById("B100")).thenReturn(true);
         when(internalSensorRepository.findAll()).thenReturn(Stream.of(this.sensorT01, sensorM02).collect(Collectors.toList()));

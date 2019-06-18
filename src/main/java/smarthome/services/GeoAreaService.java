@@ -32,12 +32,12 @@ public class GeoAreaService {
     public GeoAreaService(GeoRepository geoRepository, GaTypesService gaTypesService) {
         this.geoRepository = geoRepository;
         this.gaTypesService = gaTypesService;
-        mapper= new ModelMapper();
+        mapper = new ModelMapper();
     }
 
-    public void injectRepository() {
-        this.geoRepository = Repositories.getGeoRepository();
-
+    private void injectRepository() {
+        if (geoRepository == null)
+            this.geoRepository = Repositories.getGeoRepository();
     }
 
     /**
@@ -55,13 +55,13 @@ public class GeoAreaService {
             return false;
         }
 
-        GeographicalArea GA1 = geoRepository.findById(id).get();
-        GeographicalArea GA2 = geoRepository.findById(idParent).get();
+        GeographicalArea ga1 = geoRepository.findById(id).get();
+        GeographicalArea ga2 = geoRepository.findById(idParent).get();
 
-        if (!GA1.equals(GA2))
-            GA1.setParentGa(GA2);
+        if (!ga1.equals(ga2))
+            ga1.setParentGa(ga2);
 
-        geoRepository.save(GA1);
+        geoRepository.save(ga1);
         return true;
     }
 
@@ -82,6 +82,7 @@ public class GeoAreaService {
     }*/
 
     public GeographicalAreaDTO addNewGeoArea(GeographicalAreaDTO geoAreaDTO) throws InvalidParameterException {
+        injectRepository();
         TypeGADTO typeDto = geoAreaDTO.getType();
 
         if (!gaTypesService.existsByType(typeDto.getType())) {
@@ -94,7 +95,7 @@ public class GeoAreaService {
         if (!geoAreaIsValid(newGeoArea)) {
             throw new InvalidParameterException();
         }
-        Repositories.getGeoRepository().save(newGeoArea);
+        geoRepository.save(newGeoArea);
         return geoAreaDTO;
 
     }
@@ -112,7 +113,8 @@ public class GeoAreaService {
 
 
     public GeographicalAreaDTO findById(String id) throws NoSuchFieldException {
-        Optional<GeographicalArea> optional = Repositories.getGeoRepository().findById(id);
+        injectRepository();
+        Optional<GeographicalArea> optional = geoRepository.findById(id);
         if (!optional.isPresent())
             throw new NoSuchFieldException();
         GeographicalArea temp = optional.get();
@@ -121,15 +123,17 @@ public class GeoAreaService {
 
 
     public boolean checkIfIdExists(String id) {
-
+        injectRepository();
         return geoRepository.existsById(id);
     }
 
     public long size() {
-        return Repositories.getGeoRepository().count();
+        injectRepository();
+        return geoRepository.count();
     }
 
     public List<GeographicalAreaDTO> findAll() {
+        injectRepository();
         List<GeographicalAreaDTO> geoAreas = new ArrayList<>();
         geoRepository.findAll().forEach(geographicalArea -> {
             GeographicalAreaDTO temp = this.mapper.map(geographicalArea, GeographicalAreaDTO.class);

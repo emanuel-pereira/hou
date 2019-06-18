@@ -128,7 +128,7 @@ class SensorTypeServiceTest {
     void testSetRepositoryIfNullWithNullRepository() {
         sensorTypeRepository=null;
         SensorTypeService sensorTypeService = new SensorTypeService();
-        sensorTypeService.setRepositoryIfNull();
+        sensorTypeService.injectRepository();
         assertThat(sensorTypeRepository).isNull();
 
     }
