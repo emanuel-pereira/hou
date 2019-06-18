@@ -14,8 +14,8 @@ import static smarthome.model.House.getHouseRoomList;
 public class AddRoomToHouseCTRL {
 
     private final RoomService roomService;
-    private  RoomList oldList; //this needs to be delete but is necessary due to the repercussions of being removed
-    private RoomMapper roomMapper; //used because of the oldList
+    private final RoomList oldList; //this needs to be delete but is necessary due to the repercussions of being removed
+    private final RoomMapper roomMapper; //used because of the oldList
 
 
     static final Logger log = Logger.getLogger(AddRoomToHouseCTRL.class);

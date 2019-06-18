@@ -8,7 +8,7 @@ export function fetchHouseGrids() {
     return dispatch => {
         dispatch(fetchHouseGridsStarted());
         axios
-            .get(`http://localhost:8080/housegrids`)
+            .get(`https://localhost:8443/housegrids`)
             .then(res => {
                 dispatch(fetchHouseGridsSuccess(res.data));
             })
@@ -47,7 +47,7 @@ export function fetchHouseGridsFailure(message) {
 
 export const createHouseGrid = ({id, designation}) => {
     return (dispatch) => {
-        return axios.post(`http://localhost:8080/housegrids/`, {id, designation})
+        return axios.post(`https://localhost:8443/housegrids/`, {id, designation})
             .then(response => {
                 dispatch(createHouseGridSuccess(response.data))
                 dispatch(fetchHouseGrids(response.data))
