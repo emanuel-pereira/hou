@@ -217,12 +217,14 @@
                         <param>smarthome.model.*</param>
                         <param>smarthome.dto.*</param>
                         <param>smarthome.repository.*</param>
+                        <param>smarthome.services.*</param>
                     </targetClasses>
                     <targetTests>
                         <param>smarthome.controller.*</param>
                         <param>smarthome.model.*</param>
                         <param>smarthome.dto.*</param>
                         <param>smarthome.repository.*</param>
+                        <param>smarthome.services.*</param>
                     </targetTests>
                     <timeoutFactor>5000</timeoutFactor>
 

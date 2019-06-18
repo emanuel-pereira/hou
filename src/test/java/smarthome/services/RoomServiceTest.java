@@ -8,8 +8,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.test.web.servlet.MockMvc;
 import smarthome.dto.RoomDetailDTO;
 import smarthome.model.Room;
 import smarthome.repository.HouseGridRepository;
@@ -22,7 +20,6 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
-@AutoConfigureMockMvc
 @RunWith(MockitoJUnitRunner.class)
 class RoomServiceTest {
 
