@@ -1,6 +1,7 @@
 package smarthome.services;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Service;
 import smarthome.dto.InternalSensorDTO;
 import smarthome.dto.SensorBehaviorDTO;
 import smarthome.exceptions.InternalSensorNotFoundException;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+@Service
 public class InternalSensorService {
 
     private InternalSensorRepository repo;
@@ -28,6 +29,13 @@ public class InternalSensorService {
         this.internalSensorMapper = new InternalSensorMapper();
         this.roomService = new RoomService();
         this.sensorTypeService = new SensorTypeService();
+    }
+
+    public InternalSensorService(InternalSensorMapper internalSensorMapper,InternalSensorRepository internalSensorRepository, RoomService roomService, SensorTypeService sensorTypeService) {
+        this.internalSensorMapper=internalSensorMapper;
+        this.repo=internalSensorRepository;
+        this.roomService = roomService;
+        this.sensorTypeService = sensorTypeService;
     }
 
     void injectRepository() {

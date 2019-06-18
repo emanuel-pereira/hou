@@ -11,6 +11,13 @@ public class ExternalSensorDTO {
         this.sensorBehaviorDTO= new SensorBehaviorDTO();
     }
 
+    public ExternalSensorDTO(String id, LocationDTO locationDTO, SensorBehaviorDTO sensorBehaviorDTO, String idGA) {
+        this.id = id;
+        this.locationDTO = locationDTO;
+        this.sensorBehaviorDTO = sensorBehaviorDTO;
+        this.idGA = idGA;
+    }
+
     public String getId() {
         return id;
     }
