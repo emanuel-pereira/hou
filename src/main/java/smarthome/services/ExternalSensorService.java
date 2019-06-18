@@ -32,8 +32,6 @@ public class ExternalSensorService {
         this.geoAreaService = new GeoAreaService();
         this.sensorTypeService = new SensorTypeService();
     }
-
-
     public ExternalSensorService(ExternalSensorRepository repo, GeoAreaService geoAreaService, SensorTypeService sensorTypeService) {
         this.repo = repo;
         this.externalSensorMapper = new ExternalSensorMapper();

@@ -15,17 +15,19 @@ import smarthome.exceptions.GeographicalAreaNotFoundException;
 import smarthome.exceptions.SensorTypeNotFoundException;
 import smarthome.mapper.ExternalSensorMapper;
 import smarthome.model.*;
-import smarthome.model.validations.Name;
 import smarthome.repository.ExternalSensorRepository;
 import smarthome.repository.GeoRepository;
 import smarthome.repository.SensorTypeRepository;
 import smarthome.repository.TypeGARepository;
 
+import java.security.InvalidParameterException;
 import java.util.GregorianCalendar;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -85,7 +87,7 @@ class ExternalSensorServiceTest {
         externalSensor = mapper.toEntity(externalSensorDTO2);
         temperature = new SensorType("temperature");
         location = new Location(25, 32, 45);
-        geographicalArea=new GeographicalArea("POR","Porto",new TypeGA("city"),new OccupationArea(25,32),new Location(22,32,45));
+        geographicalArea = new GeographicalArea("POR", "Porto", new TypeGA("city"), new OccupationArea(25, 32), new Location(22, 32, 45));
         /*extSensor2=externalSensor;
         extSensor2.getSensorBehavior().setActive(false);
         extSensor2.getSensorBehavior().setPauseDate(new GregorianCalendar(2019,7,7));*/
@@ -109,8 +111,8 @@ class ExternalSensorServiceTest {
         when(this.externalSensorRepository.findById("TEMP1")).thenReturn(java.util.Optional.of(new ExternalSensor("TEMP1",
                 "Temperature Sensor ISEP", new GregorianCalendar(2019, 4, 12), location,
                 temperature, "C", new ReadingList())));
-        String result=externalSensorService.get("TEMP1").getId();
-        assertEquals("TEMP1",result);
+        String result = externalSensorService.get("TEMP1").getId();
+        assertEquals("TEMP1", result);
     }
 
     @Test
@@ -118,13 +120,14 @@ class ExternalSensorServiceTest {
         when(this.externalSensorRepository.findById("TEMP2")).thenReturn(null);
         Assertions.assertThrows(ExternalSensorNotFoundException.class, () -> externalSensorService.get("TEMP1"));
     }
+
     @Test
     void whenRepositorySavesExternalSensorThenServiceCreateMethodReturnsRespectiveExternalSensorDTO() {
         when(this.externalSensorRepository.save(externalSensor)).thenReturn(externalSensor);
         when(this.geoAreaService.checkIfIdExists("POR")).thenReturn(true);
         when(this.sensorTypeService.existsByID(1L)).thenReturn(true);
-        ExternalSensorDTO result=externalSensorService.createExternalSensor(externalSensorDTO2);
-        assertEquals(externalSensorDTO2,result);
+        ExternalSensorDTO result = externalSensorService.createExternalSensor(externalSensorDTO2);
+        assertEquals(externalSensorDTO2, result);
     }
 
     @Test
@@ -147,8 +150,8 @@ class ExternalSensorServiceTest {
         when(this.externalSensorRepository.findById("TEMP2")).thenReturn(java.util.Optional.of(externalSensor)).thenReturn(null);
         when(this.geoAreaService.checkIfIdExists("POR")).thenReturn(true);
         when(this.sensorTypeService.existsByID(1L)).thenReturn(true);
-        String deletedExternalSensorId=externalSensorService.removeSensor("TEMP2").getId();
-        assertEquals("TEMP2",deletedExternalSensorId);
+        String deletedExternalSensorId = externalSensorService.removeSensor("TEMP2").getId();
+        assertEquals("TEMP2", deletedExternalSensorId);
     }
 
     @Test
@@ -159,4 +162,37 @@ class ExternalSensorServiceTest {
         boolean result = externalSensorService.deactivate("TEMP2", new GregorianCalendar(2019, 7, 7)).getSensorBehaviorDTO().isActive();
         assertFalse(result);
     }
+
+    @Test
+    void serviceThrowsIllegalArgumentExceptionWhenDeactivatingSameSensorTwice() {
+        when(this.externalSensorRepository.findById("TEMP2")).thenReturn(java.util.Optional.of(externalSensor));
+        when(this.geoAreaService.checkIfIdExists("POR")).thenReturn(true);
+        when(this.sensorTypeService.existsByID(1L)).thenReturn(true);
+        externalSensorService.deactivate("TEMP2", new GregorianCalendar(2019, 7, 7));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> externalSensorService.deactivate("TEMP2", new GregorianCalendar(2019, 7, 7)));
+    }
+
+    @Test
+    void serviceThrowsInvalidParameterExceptionWhenPauseDateBeforeStartDate() {
+        when(this.externalSensorRepository.findById("TEMP2")).thenReturn(java.util.Optional.of(externalSensor));
+        when(this.geoAreaService.checkIfIdExists("POR")).thenReturn(true);
+        when(this.sensorTypeService.existsByID(1L)).thenReturn(true);
+        Assertions.assertThrows(InvalidParameterException.class, () -> externalSensorService.deactivate("TEMP2", new GregorianCalendar(2016, 7, 7)));
+    }
+
+    @Test
+    public void testInstanceOf() {
+        ExternalSensorService externalSensorService = new ExternalSensorService();
+        assertThat(externalSensorService).isInstanceOf(ExternalSensorService.class);
+    }
+
+    @Test
+    public void testInit() {
+        externalSensorRepository = null;
+        ExternalSensorService externalSensorService1 = new ExternalSensorService();
+        externalSensorService1.init();
+        assertThat(externalSensorRepository).isNull();
+    }
+
+
 }
