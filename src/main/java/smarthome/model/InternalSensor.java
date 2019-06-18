@@ -55,7 +55,7 @@ public class InternalSensor implements Sensor {
     }
 
 
-    public String getRoom() {
+    public String getRoomId() {
         return this.idRoom;
     }
 

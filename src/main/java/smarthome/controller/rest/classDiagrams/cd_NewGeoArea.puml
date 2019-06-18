@@ -1,0 +1,71 @@
+@startuml
+skinparam linetype ortho
+hide empty members
+skinparam class {
+	ArrowColor SteelBlue
+	BorderColor Dimgray
+	HeaderBackgroundColor SteelBlue
+	BackgroundColor White
+	FontName Calibri bold
+	AttributeFontColor #333
+	AttributeFontName Calibri
+	AttributeFontSize 13
+	FontColor Ivory
+	FontSize 15
+}
+
+class GeoAreaCTRL {
+- geoAreaService: GeoAreaService
++ addGeoArea()
+}
+
+class GeoAreaService {
+- mapper: ModelMapper
++ addNewGeoArea()
+- geoAreaIsValid()
+}
+
+class GeoAreaDTO {
+- identification: String
+- designation: String
+- type: TypeGADTO
+- location: Location
+- occupation: OccupationArea
+}
+
+Interface TypeGACRUD {
++ existsByType()
++ findByType()
+}
+
+class ModelMapper {
++ map()
+}
+
+class GeographicalArea {
+- identification: String
+- designation: String
+- type: TypeGA
+- location: Location
+- occupation: OccupationArea
++ GeographicalArea()
+}
+
+Interface GeoAreaCRUD {
++ save()
+}
+
+class ResponseEntity {
++ ResponseEntity()
+}
+
+GeoAreaCTRL --> GeoAreaService
+GeoAreaService --> GeoAreaDTO
+GeoAreaService --> TypeGACRUD
+GeoAreaService -> ModelMapper
+ModelMapper -> GeographicalArea
+GeoAreaService --> GeographicalArea
+GeoAreaCRUD <- GeoAreaService
+GeoAreaCTRL -> ResponseEntity
+
+@enduml
