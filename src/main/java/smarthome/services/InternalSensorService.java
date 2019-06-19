@@ -38,9 +38,10 @@ public class InternalSensorService {
         this.sensorTypeService = typeService;
     }
 
-    private void injectRepository() {
-        if (this.repo == null)
-        this.repo = Repositories.getInternalSensorRepository();
+    void injectRepository() {
+        if (this.repo == null) {
+            repo = Repositories.getInternalSensorRepository();
+        }
     }
 
     /**
@@ -124,6 +125,7 @@ public class InternalSensorService {
     /**
      * This method fetches all internal sensors in the database that belong to the room with the id specified.
      * If there is no room with the given id in the database, then a RoomNotFoundException is thrown.
+     *
      * @param idRoom String value representing the Room id
      * @return a list of InternalSensorDTOs that belong to the room with the given id.
      */
@@ -146,7 +148,7 @@ public class InternalSensorService {
 
     //===================//=======================//
     //TODO: replace this method accordingly
-    public SensorList findByRoom(String idRoom) {
+    SensorList findByRoom(String idRoom) {
         Iterable<InternalSensor> internalSensors = Repositories.getInternalSensorRepository().findAll();
         SensorList sensorList = new SensorList();
         for (InternalSensor iSensor : internalSensors) {

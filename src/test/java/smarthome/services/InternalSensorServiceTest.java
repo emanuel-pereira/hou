@@ -9,19 +9,20 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import smarthome.dto.InternalSensorDTO;
-import smarthome.dto.RoomDetailDTO;
 import smarthome.dto.SensorBehaviorDTO;
 import smarthome.dto.SensorTypeDTO;
+import smarthome.exceptions.InternalSensorNotFoundException;
+import smarthome.exceptions.RoomNotFoundException;
+import smarthome.exceptions.SensorTypeNotFoundException;
 import smarthome.model.InternalSensor;
 import smarthome.model.ReadingList;
-import smarthome.model.Room;
 import smarthome.model.SensorType;
 import smarthome.repository.HouseGridRepository;
 import smarthome.repository.InternalSensorRepository;
 import smarthome.repository.RoomRepository;
 import smarthome.repository.SensorTypeRepository;
 
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
@@ -70,7 +71,7 @@ class InternalSensorServiceTest {
 
         //Internal Sensor T01
         this.temperature = new SensorType("temperature");
-        this.startDate = new GregorianCalendar(2018, 8, 1, 9, 0);
+        this.startDate = new GregorianCalendar(2018, Calendar.SEPTEMBER, 1, 9, 0);
         this.readingList = new ReadingList();
         this.sensorT01 = new InternalSensor("T01", "SensorT01", this.startDate, this.temperature, "Celsius", this.readingList);
 
@@ -95,19 +96,35 @@ class InternalSensorServiceTest {
     }
 
     @Test
-    @DisplayName("Save a sensorS01 with success")
-    void createInternalSensor() {
+    @DisplayName("Create a sensor with success")
+    void createInternalSensorSuccess() {
 
         this.temperatureDTO.setId(1);
         this.sensorDTOT01.setRoomId("B100");
 
         when(internalSensorRepository.save(this.sensorT01)).thenReturn(this.sensorT01);
-        when(roomRepository.existsById("B100")).thenReturn(true);
-        when(sensorTypeRepository.existsById(1L)).thenReturn(true);
+        when(roomService.checkIfIDExists("B100")).thenReturn(true);
+        when(sensorTypeService.existsByID(1L)).thenReturn(true);
 
         InternalSensorDTO result = internalSensorService.createInternalSensor(this.sensorDTOT01);
 
         assertEquals(this.sensorDTOT01, result);
+    }
+
+    @Test
+    @DisplayName("Create a sensor for a room that doesnt exist and get RoomNotFoundException ")
+    void createSensorNonexistentRoom() {
+        when(roomService.checkIfIDExists("B300")).thenReturn(false);
+        Assertions.assertThrows(RoomNotFoundException.class, () -> internalSensorService.createInternalSensor(sensorDTOT01));
+    }
+
+    @Test
+    @DisplayName("Create a sensor with a sensor type that doesnt exist and get SensorTypeNotFoundException ")
+    void createSensorNonexistentType() {
+        sensorDTOT01.setRoomId("B100");
+        when(roomService.checkIfIDExists("B100")).thenReturn(true);
+        when(sensorTypeService.existsByID(1L)).thenReturn(false);
+        Assertions.assertThrows(SensorTypeNotFoundException.class, () -> internalSensorService.createInternalSensor(sensorDTOT01));
     }
 
     @Test
@@ -116,15 +133,25 @@ class InternalSensorServiceTest {
 
         when(internalSensorRepository.findById("T01")).thenReturn(Optional.of(this.sensorT01));
 
-        InternalSensorDTO expected = this.sensorDTOT01;
-        InternalSensorDTO result = internalSensorService.get("T01");
+        this.sensorDTOT01.setId("T01");
+        String expected = this.sensorDTOT01.getId();
+        String result = internalSensorService.get("T01").getId();
 
-        assertEquals(expected.getSensorBehavior().getName(), result.getSensorBehavior().getName());
+        assertEquals(expected, result);
     }
+
+
+    @Test
+    @DisplayName("Try to find a sensor that doesnt exist and get InternalSensorNotFoundException")
+    void getIdDontExist() {
+        when(internalSensorRepository.existsById("T01")).thenReturn(false);
+        Assertions.assertThrows(InternalSensorNotFoundException.class, () -> internalSensorService.get("T01"));
+    }
+
 
     @Test
     @DisplayName("Fetch all sensors that belong to the room with a specified id")
-    void fetchSensorsInRoom() {
+    void fetchSensorsInRoomSuccess() {
 
         SensorType movement = new SensorType("movement");
         InternalSensor sensorM02 = new InternalSensor("I02", "SensorM02", this.startDate, movement, "Presence", this.readingList);
@@ -138,15 +165,34 @@ class InternalSensorServiceTest {
         movementDTO.setId(2);
         sensorT01.setRoomId("B100");
         sensorM02.setRoomId("B100");
+        sensorDTOT01.setRoomId("B100");
+        sensorDTOM02.setRoomId("B100");
 
-        when(roomRepository.existsById("B100")).thenReturn(true);
+        when(roomService.checkIfIDExists("B100")).thenReturn(true);
         when(internalSensorRepository.findAll()).thenReturn(Stream.of(this.sensorT01, sensorM02).collect(Collectors.toList()));
-        when(sensorTypeRepository.existsById(1L)).thenReturn(true);
-        when(sensorTypeRepository.existsById(2L)).thenReturn(true);
+        when(sensorTypeService.existsByID(1L)).thenReturn(true);
+        when(sensorTypeService.existsByID(2L)).thenReturn(true);
 
         List<InternalSensorDTO> result = internalSensorService.fetchSensorsInRoom("B100");
 
         assertEquals(2, result.size());
+    }
+
+    @Test
+    @DisplayName("Fetch all sensors of the room that doesnt exist and get RoomNotFoundException")
+    void fetchSensorsNonexistentRoom() {
+
+        when(roomService.checkIfIDExists("B300")).thenReturn(false);
+
+        Assertions.assertThrows(RoomNotFoundException.class, () -> internalSensorService.fetchSensorsInRoom("B300"));
+    }
+
+    @Test
+    void injectRepository() {
+        internalSensorRepository = null;
+        InternalSensorService internalSensorService = new InternalSensorService();
+        internalSensorService.injectRepository();
+        assertThat(internalSensorRepository).isNull();
     }
 
     //Because we are using a specific constructor for tests this one has no coverage
