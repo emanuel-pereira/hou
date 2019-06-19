@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 public class GeoAreaService {
 
-    private ModelMapper mapper;
+    private ModelMapper mapper = new ModelMapper();
     private GeoRepository geoRepository;
     private GaTypesService gaTypesService;
 
@@ -26,7 +26,7 @@ public class GeoAreaService {
      */
 
     public GeoAreaService() {
-        this.mapper = new ModelMapper();
+
     }
 
     public GeoAreaService(GeoRepository geoRepository, GaTypesService gaTypesService) {
@@ -35,11 +35,12 @@ public class GeoAreaService {
         mapper = new ModelMapper();
     }
 
-    private void injectRepository() {
-        if (geoRepository == null)
+
+
+    private void setRepositories() {
+        if (this.geoRepository == null)
             this.geoRepository = Repositories.getGeoRepository();
     }
-
     /**
      * Method to check if the id of the GA to set in another exists.
      *
@@ -47,10 +48,9 @@ public class GeoAreaService {
      * @param idParent of requested GA2
      * @return true or false.
      */
-
-
     public boolean setParentGaWebCTRL(String id, String idParent) {
-        injectRepository();
+        setRepositories();
+
         if (!checkIfIdExists(id)) {
             return false;
         }
@@ -61,7 +61,7 @@ public class GeoAreaService {
         if (!ga1.equals(ga2))
             ga1.setParentGa(ga2);
 
-        geoRepository.save(ga1);
+        this.geoRepository.save(ga1);
         return true;
     }
 
@@ -81,25 +81,26 @@ public class GeoAreaService {
         return true
     }*/
 
+
     public GeographicalAreaDTO addNewGeoArea(GeographicalAreaDTO geoAreaDTO) throws InvalidParameterException {
-        injectRepository();
+        setRepositories();
+
         TypeGADTO typeDto = geoAreaDTO.getType();
 
-        if (!gaTypesService.existsByType(typeDto.getType())) {
+        if (!this.gaTypesService.existsByType(typeDto.getType())) {
             throw new InvalidParameterException();
         }
 
         GeographicalArea newGeoArea = mapper.map(geoAreaDTO, GeographicalArea.class);
-        newGeoArea.setType(gaTypesService.findByType(typeDto.getType()));
+        newGeoArea.setType(this.gaTypesService.findByType(typeDto.getType()));
 
         if (!geoAreaIsValid(newGeoArea)) {
             throw new InvalidParameterException();
         }
-        geoRepository.save(newGeoArea);
+        this.geoRepository.save(newGeoArea);
         return geoAreaDTO;
 
     }
-
 
     private boolean geoAreaIsValid(GeographicalArea geoArea) {
 
@@ -108,13 +109,13 @@ public class GeoAreaService {
                 geoArea.getType() != null &&
                 geoArea.getLocation() != null &&
                 geoArea.getOccupation() != null);
-
     }
 
 
     public GeographicalAreaDTO findById(String id) throws NoSuchFieldException {
-        injectRepository();
-        Optional<GeographicalArea> optional = geoRepository.findById(id);
+        setRepositories();
+        Optional<GeographicalArea> optional = this.geoRepository.findById(id);
+
         if (!optional.isPresent())
             throw new NoSuchFieldException();
         GeographicalArea temp = optional.get();
@@ -123,19 +124,21 @@ public class GeoAreaService {
 
 
     public boolean checkIfIdExists(String id) {
-        injectRepository();
-        return geoRepository.existsById(id);
+        setRepositories();
+        return this.geoRepository.existsById(id);
     }
 
     public long size() {
-        injectRepository();
-        return geoRepository.count();
+        setRepositories();
+        return this.geoRepository.count();
     }
 
     public List<GeographicalAreaDTO> findAll() {
-        injectRepository();
+        setRepositories();
+
         List<GeographicalAreaDTO> geoAreas = new ArrayList<>();
-        geoRepository.findAll().forEach(geographicalArea -> {
+
+        this.geoRepository.findAll().forEach(geographicalArea -> {
             GeographicalAreaDTO temp = this.mapper.map(geographicalArea, GeographicalAreaDTO.class);
             geoAreas.add(temp);
         });

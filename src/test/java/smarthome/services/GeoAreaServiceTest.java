@@ -1,197 +1,229 @@
-/*
 package smarthome.services;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
 import smarthome.dto.GeographicalAreaDTO;
-import smarthome.mapper.GeographicalAreaMapper;
-import smarthome.model.*;
-import smarthome.repository.Repositories;
+import smarthome.dto.TypeGADTO;
+import smarthome.model.GeographicalArea;
+import smarthome.model.Location;
+import smarthome.model.OccupationArea;
+import smarthome.model.TypeGA;
+import smarthome.repository.GeoRepository;
+import smarthome.repository.TypeGARepository;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.security.InvalidParameterException;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-@DataJpaTest
+@RunWith(MockitoJUnitRunner.class)
 class GeoAreaServiceTest {
 
-    @Test
-    void setParentGaWebCTRL() {
+    @Mock
+    private GeoRepository geoRepository;
+
+    @Mock
+    private TypeGARepository typeGARepository;
 
 
-        GeoAreaService geoAreaService = new GeoAreaService();
+    private GeoAreaService geoAreaService;
+    private GaTypesService gaTypesService;
 
-        TypeGA type = new TypeGA("city");
-        Repositories.getTypeGARepository().save(type);
-        TypeGA typeGA = new TypeGA("Country");
-        Repositories.getTypeGARepository().save(typeGA);
-
-        OccupationArea oc = new OccupationArea(34, 33);
-        Location loc = new Location(12, 24, 22);
-
-        GeographicalArea GA1 = new GeographicalArea("01", "Porto", type, oc, loc);
-        GeographicalArea GA2 = new GeographicalArea("02", "Portugal", typeGA, oc, loc);
-
-        geoAreaService.saveGA(GA1);
-        geoAreaService.saveGA(GA2);
-
-
-        geoAreaService.setParentGaWebCTRL("01", "02");
-
-        boolean result = geoAreaService.checkIfIdExists("01");
-
-        assertTrue(result);
+    @BeforeEach
+    void setup() {
+        MockitoAnnotations.initMocks(this);
+        this.gaTypesService = new GaTypesService(this.typeGARepository);
+        this.geoAreaService = new GeoAreaService(this.geoRepository, this.gaTypesService);
     }
 
     @Test
-    void setParentGaWebCTRLNotExists() {
-
-        GeoAreaService geoAreaService = new GeoAreaService();
-
+    void addNewGeoArea() {
         TypeGA type = new TypeGA("city");
-        Repositories.getTypeGARepository().save(type);
-        TypeGA typeGA = new TypeGA("Country");
-        Repositories.getTypeGARepository().save(typeGA);
+        when(this.typeGARepository.save(type)).thenReturn(type);
 
-        OccupationArea oc = new OccupationArea(34, 33);
-        Location loc = new Location(12, 24, 22);
+        GeographicalArea area = new GeographicalArea("POR", "Porto", type,
+                (new OccupationArea(30, 20)),
+                (new Location(3, 4, 3)));
 
-        GeographicalArea GA1 = new GeographicalArea("01", "Porto", type, oc, loc);
-        GeographicalArea GA2 = new GeographicalArea("02", "Portugal", typeGA, oc, loc);
+        GeographicalAreaDTO dto = new GeographicalAreaDTO("POR", "Porto",
+                (new TypeGADTO("city")),
+                (new OccupationArea(30, 20)),
+                (new Location(3, 4, 3)));
 
-        geoAreaService.saveGA(GA1);
-        geoAreaService.saveGA(GA2);
+        when(this.gaTypesService.existsByType(type.getType())).thenReturn(true);
+        when(this.gaTypesService.findByType(type.getType())).thenReturn(type);
+        when(this.geoRepository.save(area)).thenReturn(area);
+
+        assertEquals(dto, this.geoAreaService.addNewGeoArea(dto));
+    }
 
 
-        geoAreaService.setParentGaWebCTRL("01", "02");
+    @Test
+    void notAddAreaTypeDoesNotExist() {
+        TypeGA type = new TypeGA("urban area");
+        when(this.typeGARepository.save(type)).thenReturn(type);
 
-        boolean result = geoAreaService.checkIfIdExists("03");
+        GeographicalArea area = new GeographicalArea("POR", "Porto", type,
+                (new OccupationArea(30, 20)),
+                (new Location(3, 4, 3)));
 
-        assertFalse(result);
+        GeographicalAreaDTO dto = new GeographicalAreaDTO("POR", "Porto",
+                (new TypeGADTO("city")),
+                (new OccupationArea(30, 20)),
+                (new Location(3, 4, 3)));
 
+        when(this.gaTypesService.existsByType("urban area")).thenReturn(false);
+        when(this.gaTypesService.findByType(type.getType())).thenReturn(type);
+        when(this.geoRepository.save(area)).thenReturn(area);
+
+        Assertions.assertThrows(InvalidParameterException.class, () -> geoAreaService.addNewGeoArea(dto));
     }
 
     @Test
-    void findByIdGa() {
-
-
-        GeoAreaService geoAreaService = new GeoAreaService();
-
+    void notAddInvalidAreaNullName() {
         TypeGA type = new TypeGA("city");
-        Repositories.getTypeGARepository().save(type);
-        TypeGA typeGA = new TypeGA("Country");
-        Repositories.getTypeGARepository().save(typeGA);
+        when(this.gaTypesService.findByType(type.getType())).thenReturn(type);
 
-        OccupationArea oc = new OccupationArea(34, 33);
-        Location loc = new Location(12, 24, 22);
+        GeographicalArea area = new GeographicalArea("POR", null, type,
+                (new OccupationArea(30, 20)),
+                (new Location(3, 4, 3)));
 
-        GeographicalArea GA1 = new GeographicalArea("01", "Porto", type, oc, loc);
-        GeographicalArea GA2 = new GeographicalArea("02", "Portugal", typeGA, oc, loc);
-        geoAreaService.saveGA(GA1);
-        geoAreaService.saveGA(GA2);
-        geoAreaService.findByIdGa("01");
+        GeographicalAreaDTO dto = new GeographicalAreaDTO("POR", null,
+                (new TypeGADTO("city")),
+                (new OccupationArea(30, 20)),
+                (new Location(3, 4, 3)));
 
-        Repositories.getGeoRepository().findById("01");
+        when(this.gaTypesService.existsByType("city")).thenReturn(true);
+        when(this.gaTypesService.findByType("city")).thenReturn(type);
+        when(this.geoRepository.save(area)).thenReturn(area);
 
-        GeographicalArea result = geoAreaService.findByIdGa("01");
-
-        assertEquals("01",result.getIdentification());
-
+        Assertions.assertThrows(InvalidParameterException.class, () -> geoAreaService.addNewGeoArea(dto));
     }
 
     @Test
-    void checkIfIdExists() {
-
-        GeoAreaService geoAreaService = new GeoAreaService();
-
-
+    void notAddInvalidAreaNullOccupationArea() {
         TypeGA type = new TypeGA("city");
-        Repositories.getTypeGARepository().save(type);
-        TypeGA typeGA = new TypeGA("Country");
-        Repositories.getTypeGARepository().save(typeGA);
+        when(this.gaTypesService.findByType(type.getType())).thenReturn(type);
 
-        OccupationArea oc = new OccupationArea(34, 33);
-        Location loc = new Location(12, 24, 22);
+        GeographicalArea area = new GeographicalArea("POR", "Porto", type,
+                null,
+                (new Location(3, 4, 3)));
 
-        GeographicalArea GA1 = new GeographicalArea("01", "Porto", type, oc, loc);
-        GeographicalArea GA2 = new GeographicalArea("02", "Portugal", typeGA, oc, loc);
-        geoAreaService.saveGA(GA1);
-        geoAreaService.saveGA(GA2);
-        geoAreaService.findByIdGa("01");
+        GeographicalAreaDTO dto = new GeographicalAreaDTO("POR", "Porto",
+                (new TypeGADTO("city")),
+                null,
+                (new Location(3, 4, 3)));
 
+        when(this.gaTypesService.existsByType("city")).thenReturn(true);
+        when(this.gaTypesService.findByType("city")).thenReturn(type);
+        when(this.geoRepository.save(area)).thenReturn(area);
 
-        boolean result = Repositories.getGeoRepository().existsById("01");
-        assertTrue (result);
-
-
+        Assertions.assertThrows(InvalidParameterException.class, () -> geoAreaService.addNewGeoArea(dto));
     }
 
     @Test
-    void size() {
-
-        GeoAreaService geoAreaService = new GeoAreaService();
-
-
+    void notAddInvalidAreaNullLocation() {
         TypeGA type = new TypeGA("city");
-        Repositories.getTypeGARepository().save(type);
-        TypeGA typeGA = new TypeGA("Country");
-        Repositories.getTypeGARepository().save(typeGA);
+        when(this.gaTypesService.findByType(type.getType())).thenReturn(type);
 
-        OccupationArea oc = new OccupationArea(34, 33);
-        Location loc = new Location(12, 24, 22);
+        GeographicalArea area = new GeographicalArea("POR", "Porto", type,
+                (new OccupationArea(30, 20)), null);
 
-        GeographicalArea GA1 = new GeographicalArea("01", "Porto", type, oc, loc);
-        GeographicalArea GA2 = new GeographicalArea("02", "Portugal", typeGA, oc, loc);
-        geoAreaService.saveGA(GA1);
-        geoAreaService.saveGA(GA2);
-        geoAreaService.size();
+        GeographicalAreaDTO dto = new GeographicalAreaDTO("POR", "Porto",
+                (new TypeGADTO("city")),
+                (new OccupationArea(30, 20)), null);
 
-        long expectedResult = 2;
-        long result = Repositories.getGeoRepository().count();
+        when(this.gaTypesService.existsByType("city")).thenReturn(true);
+        when(this.gaTypesService.findByType("city")).thenReturn(type);
+        when(this.geoRepository.save(area)).thenReturn(area);
 
-        assertEquals(expectedResult,result);
-
+        Assertions.assertThrows(InvalidParameterException.class, () -> geoAreaService.addNewGeoArea(dto));
     }
+
+    @Test
+    void notAddInvalidAreaNullParameters() {
+        TypeGA type = new TypeGA("city");
+        when(this.gaTypesService.findByType(type.getType())).thenReturn(type);
+
+        GeographicalArea area = new GeographicalArea(null, null, type, null, null);
+
+        GeographicalAreaDTO dto = new GeographicalAreaDTO(null, null, (new TypeGADTO("city")),null, null);
+
+        when(this.gaTypesService.existsByType("city")).thenReturn(true);
+        when(this.gaTypesService.findByType("city")).thenReturn(type);
+        when(this.geoRepository.save(area)).thenReturn(area);
+
+        Assertions.assertThrows(InvalidParameterException.class, () -> geoAreaService.addNewGeoArea(dto));
+    }
+
+
+    @Test
+    void findById() throws NoSuchFieldException {
+        TypeGA type = new TypeGA("urban area");
+
+
+        GeographicalAreaDTO dto = new GeographicalAreaDTO("LIS", "Lisboa",
+                (new TypeGADTO("urban area")),
+                (new OccupationArea(150, 45)),
+                (new Location(3, 4, 3)));
+
+        when(this.geoRepository.findById("LIS")).thenReturn(java.util.Optional.of
+                (new GeographicalArea("LIS", "Lisboa", type,
+                        (new OccupationArea(150, 45)),
+                        (new Location(3, 4, 3)))));
+
+        GeographicalAreaDTO resultDto = geoAreaService.findById("LIS");
+
+        assertEquals(dto, resultDto);
+    }
+
+    @Test
+    void findByIdAreaDoesNotExist() {
+        TypeGA type = new TypeGA("urban area");
+
+        GeographicalAreaDTO dto = new GeographicalAreaDTO("LIS", "Lisboa",
+                (new TypeGADTO("urban area")),
+                (new OccupationArea(150, 45)),
+                (new Location(3, 4, 3)));
+
+        when(this.geoRepository.findById("LIS")).thenReturn(java.util.Optional.of
+                (new GeographicalArea("LIS", "Lisboa", type,
+                        (new OccupationArea(150, 45)),
+                        (new Location(3, 4, 3)))));
+
+        Assertions.assertThrows(NoSuchFieldException.class, () -> geoAreaService.findById("GND"));
+    }
+
 
     @Test
     void findAll() {
+        TypeGA type = new TypeGA("country");
+        TypeGA type2 = new TypeGA("city");
+        TypeGA type3 = new TypeGA("urban area");
 
-        GeographicalAreaMapper geoMapper = new GeographicalAreaMapper();
-        GeoAreaService geoAreaService = new GeoAreaService();
-        List<GeographicalArea> GAList = new ArrayList<>();
+        when(this.geoRepository.findAll()).thenReturn((Stream.of(
+                (new GeographicalArea("PT", "Portugal", type,
+                        (new OccupationArea(1500, 450)),
+                        (new Location(20, 90, 2000)))),
+                (new GeographicalArea("LIS", "Lisboa", type2,
+                        (new OccupationArea(150, 45)),
+                        (new Location(53, 41, 300)))),
+                (new GeographicalArea("GND", "Gondomar", type3,
+                        (new OccupationArea(100, 34)),
+                        (new Location(80, 123, 304))))))
+                .collect(Collectors.toList()));
 
-
-        TypeGA type = new TypeGA("city");
-        Repositories.getTypeGARepository().save(type);
-        TypeGA typeGA = new TypeGA("Country");
-        Repositories.getTypeGARepository().save(typeGA);
-
-        OccupationArea oc = new OccupationArea(34, 33);
-        Location loc = new Location(12, 24, 22);
-        GeographicalArea GA1 = new GeographicalArea("01", "Porto", type, oc, loc);
-        GeographicalArea GA2 = new GeographicalArea("02", "Portugal", typeGA, oc, loc);
-        geoAreaService.saveGA(GA1);
-        geoAreaService.saveGA(GA2);
-
-        //GeographicalAreaDTO GaDto1 = ((GeographicalAreaDTO.class.cast(GA1))); new GeographicalAreaDTO();
-        //GeographicalAreaDTO GaDto2 = ((GeographicalAreaDTO.class.cast(GA2))); new GeographicalAreaDTO();
-        //geoAreaService.findAll().add(1, GaDto1);
-        //geoAreaService.findAll().add(2, GaDto2);
-        //List<GeographicalAreaDTO> expectedResult = geoMapper.toDtoListParent(GAList);
-        //List<GeographicalAreaDTO> result = Collections.unmodifiableList(geoMapper.toDtoListParent(GAList));
-
-        Iterable<GeographicalAreaDTO> expectedResult = geoMapper.toDtoListParent(GAList);
-        Iterable<GeographicalAreaDTO> result =  Collections.unmodifiableList(geoMapper.toDtoListParent(GAList));
-
-        assertEquals(expectedResult,result);
-
+        int size = geoAreaService.findAll().size();
+        assertEquals(3, size);
     }
-}*/
+
+}
+
