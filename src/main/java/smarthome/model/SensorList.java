@@ -1,12 +1,8 @@
 package smarthome.model;
 
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
 import smarthome.repository.Repositories;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Embeddable;
-import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -235,8 +231,8 @@ public class SensorList {
 
         for (Sensor s : listByType.getSensorList()) {
             if (s.getSensorBehavior().getReadingList().getLastReading() != null) {
-                if (latest.before(s.getSensorBehavior().getLastReading().getDateAndTime())) {
-                    latest = s.getSensorBehavior().getReadingList().getLastReading().getDateAndTime();
+                if (latest.before(s.getSensorBehavior().getLastReading().getReadingDateAndTime())) {
+                    latest = s.getSensorBehavior().getReadingList().getLastReading().getReadingDateAndTime();
                     result = s;
                 }
             }
@@ -255,8 +251,8 @@ public class SensorList {
 
         for (Sensor s : listByType.getSensorList()) {
             if (s.getSensorBehavior().getReadingList().getReadingsInSpecificDay(givenDay).size() != 0
-                    && latest.before(s.getSensorBehavior().getLastReading().getDateAndTime())) {
-                latest = s.getSensorBehavior().getReadingList().getLastReading().getDateAndTime();
+                    && latest.before(s.getSensorBehavior().getLastReading().getReadingDateAndTime())) {
+                latest = s.getSensorBehavior().getReadingList().getLastReading().getReadingDateAndTime();
                 result = s;
             }
 

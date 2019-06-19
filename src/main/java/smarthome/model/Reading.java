@@ -13,13 +13,13 @@ import java.util.GregorianCalendar;
  * were this Embeddable is Embedded(eg. Sensor.listOfReadings [List<Reading>] ).
  * What will happen is that there will be create a secondary list where there will be an embedded connection between
  * the sensor and its respective readings. This connection, in the secondary table will be present a id from the parent
- * object (Sensor) and the values of its Readings (value, date, unit)
+ * object (Sensor) and the values of its Readings (readingValue, date, unit)
  */
 @Embeddable
 public class Reading {
 
-    private double value;
-    private Calendar dateAndTime;
+    private double readingValue;
+    private Calendar readingDateAndTime;
     private String unit;
 
     protected Reading() {
@@ -27,47 +27,47 @@ public class Reading {
 
     /**
      * Reading class Constructor
-     * It determines that a reading always has an associated value and a date and time
+     * It determines that a reading always has an associated readingValue and a date and time
      *
      * @param readValue     the number that corresponds to a reading
      * @param timeOfReading the date and time of a reading
      */
     public Reading(double readValue, Calendar timeOfReading) {
-        this.value = readValue;
-        this.dateAndTime = timeOfReading;
+        this.readingValue = readValue;
+        this.readingDateAndTime = timeOfReading;
     }
 
     public Reading(double readValue, Calendar timeOfReading, String unitValue) {
-        this.value = readValue;
-        this.dateAndTime = timeOfReading;
+        this.readingValue = readValue;
+        this.readingDateAndTime = timeOfReading;
         this.unit = unitValue;
     }
 
     /**
-     * @return the registered value of a reading
+     * @return the registered readingValue of a reading
      */
     public double returnValue() {
-        return this.value;
+        return this.readingValue;
     }
 
     public int getMonthOfReading() {
-        return this.dateAndTime.get(Calendar.MONTH);
+        return this.readingDateAndTime.get(Calendar.MONTH);
     }
 
-    public double getValue() {
-        return value;
+    public double getReadingValue() {
+        return readingValue;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void setReadingValue(double readingValue) {
+        this.readingValue = readingValue;
     }
 
-    public void setDateAndTime(Calendar dateAndTime) {
-        this.dateAndTime = dateAndTime;
+    public void setReadingDateAndTime(Calendar readingDateAndTime) {
+        this.readingDateAndTime = readingDateAndTime;
     }
 
-    public Calendar getDateAndTime() {
-        return this.dateAndTime;
+    public Calendar getReadingDateAndTime() {
+        return this.readingDateAndTime;
     }
 
     public String getUnit() {
@@ -80,24 +80,24 @@ public class Reading {
     }
 
     public boolean isSameDay(Calendar date) {
-        int rYear = getDateAndTime().get(Calendar.YEAR);
-        int rMonth = getDateAndTime().get(Calendar.MONTH);
-        int rDay = getDateAndTime().get(Calendar.DAY_OF_MONTH);
+        int rYear = getReadingDateAndTime().get(Calendar.YEAR);
+        int rMonth = getReadingDateAndTime().get(Calendar.MONTH);
+        int rDay = getReadingDateAndTime().get(Calendar.DAY_OF_MONTH);
         Calendar date1 = new GregorianCalendar(rYear, rMonth, rDay);
         return date.equals(date1);
     }
 
     public GregorianCalendar extractYearMonthDay() {
-        return new GregorianCalendar(this.getDateAndTime().get(Calendar.YEAR), this.getDateAndTime().get(Calendar.MONTH), this.getDateAndTime().get(Calendar.DAY_OF_MONTH));
+        return new GregorianCalendar(this.getReadingDateAndTime().get(Calendar.YEAR), this.getReadingDateAndTime().get(Calendar.MONTH), this.getReadingDateAndTime().get(Calendar.DAY_OF_MONTH));
     }
 
     /**
      * @return the date of a reading as a string in YYYY-MM-DD format
      */
     public String getDateOfReadingAsString() {
-        int year = this.dateAndTime.get(Calendar.YEAR);
-        int month = this.dateAndTime.get(Calendar.MONTH) + 1;
-        int day = this.dateAndTime.get(Calendar.DAY_OF_MONTH);
+        int year = this.readingDateAndTime.get(Calendar.YEAR);
+        int month = this.readingDateAndTime.get(Calendar.MONTH) + 1;
+        int day = this.readingDateAndTime.get(Calendar.DAY_OF_MONTH);
 
         StringBuilder output = new StringBuilder();
         output.append(year);
@@ -110,14 +110,14 @@ public class Reading {
 
     public double convertToCelsius() {
         if (this.unit.equals("F")) {
-            this.value = ((this.value - 32) / 1.8);
-            this.value = Math.round(this.value*100.0)/100.0;
+            this.readingValue = ((this.readingValue - 32) / 1.8);
+            this.readingValue = Math.round(this.readingValue *100.0)/100.0;
             setUnit("C");
         }
-        return this.value;
+        return this.readingValue;
     }
 
     public ReadingDTO toDTO() {
-        return new ReadingDTO(this.value, this.dateAndTime);
+        return new ReadingDTO(this.readingValue, this.readingDateAndTime);
     }
 }

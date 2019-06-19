@@ -442,7 +442,7 @@ class ReadingListTest {
         Reading max = maxReadingList.maxValueInInterval();
         Reading expected = new Reading(8, new GregorianCalendar(2017, Calendar.JUNE, 2));
         assertEquals(6, max.returnValue());
-        assertTrue(expected.isSameDay(max.getDateAndTime()));
+        assertTrue(expected.isSameDay(max.getReadingDateAndTime()));
     }
 
     @Test
@@ -493,7 +493,7 @@ class ReadingListTest {
         Reading min = minReadingList.minValueInInterval();
         Reading expected = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 4));
         assertEquals(4, min.returnValue());
-        assertTrue(expected.isSameDay(min.getDateAndTime()));
+        assertTrue(expected.isSameDay(min.getReadingDateAndTime()));
     }
 
     @Test
@@ -544,7 +544,7 @@ class ReadingListTest {
         Reading min = minReadingList.minValueInInterval();
         Reading expected = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 4));
         assertEquals(4, min.returnValue());
-        assertTrue(expected.isSameDay(min.getDateAndTime()));
+        assertTrue(expected.isSameDay(min.getReadingDateAndTime()));
     }
 
     @Test

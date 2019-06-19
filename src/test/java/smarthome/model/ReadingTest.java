@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import smarthome.dto.ReadingDTO;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,14 +30,14 @@ public class ReadingTest {
 
 
     @Test
-    @DisplayName("Ensure that method getDateAndTime returns Reading1 dateAndTime attribute")
+    @DisplayName("Ensure that method getReadingDateAndTime returns Reading1 dateAndTime attribute")
     void getDateAndTime() {
         //Arrange
         GregorianCalendar calendar1 = new GregorianCalendar(2018, 11, 27, 21, 30);
 
         //Act
         Reading reading1 = new Reading(13, calendar1);
-        Calendar dateAndTime = reading1.getDateAndTime();
+        Calendar dateAndTime = reading1.getReadingDateAndTime();
         //Assert
 
         assertEquals(calendar1, dateAndTime);
@@ -107,13 +106,13 @@ public class ReadingTest {
     void toDTOTest(){
         GregorianCalendar date = new GregorianCalendar(2018, 11, 31, 21, 30);
         Reading reading = new Reading();
-        reading.setValue(12);
-        reading.setDateAndTime(date);
+        reading.setReadingValue(12);
+        reading.setReadingDateAndTime(date);
         reading.setUnit("F");
 
         ReadingDTO dto = reading.toDTO();
 
-        double expected = reading.getValue();
+        double expected = reading.getReadingValue();
         double result = dto.getReadingValue();
 
         assertEquals(expected,result);
@@ -123,8 +122,8 @@ public class ReadingTest {
     void convertToCelsiusValueTest () {
         GregorianCalendar date = new GregorianCalendar(2018, 11, 31, 21, 30);
         Reading reading = new Reading();
-        reading.setValue(40);
-        reading.setDateAndTime(date);
+        reading.setReadingValue(40);
+        reading.setReadingDateAndTime(date);
         reading.setUnit("F");
 
         double expected = 4.44 ;
@@ -137,8 +136,8 @@ public class ReadingTest {
     void convertToCelsiusUnitTest () {
         GregorianCalendar date = new GregorianCalendar(2018, 11, 31, 21, 30);
         Reading reading = new Reading();
-        reading.setValue(40);
-        reading.setDateAndTime(date);
+        reading.setReadingValue(40);
+        reading.setReadingDateAndTime(date);
         reading.setUnit("F");
 
         reading.convertToCelsius();
@@ -153,8 +152,8 @@ public class ReadingTest {
     void convertToCelsiusTestFalse() {
         GregorianCalendar date = new GregorianCalendar(2018, 11, 31, 21, 30);
         Reading reading = new Reading();
-        reading.setValue(40);
-        reading.setDateAndTime(date);
+        reading.setReadingValue(40);
+        reading.setReadingDateAndTime(date);
         reading.setUnit("C");
 
         double expected = 40 ;
@@ -167,11 +166,11 @@ public class ReadingTest {
     void extractYearMonthDayTest() {
         GregorianCalendar date = new GregorianCalendar(2018, 11,0,0,0);
         Reading reading = new Reading();
-        reading.setValue(40);
-        reading.setDateAndTime(date);
+        reading.setReadingValue(40);
+        reading.setReadingDateAndTime(date);
         reading.setUnit("C");
 
-        Calendar expected = reading.getDateAndTime();//.getTime();
+        Calendar expected = reading.getReadingDateAndTime();//.getTime();
         GregorianCalendar result = reading.extractYearMonthDay();//.getTime();
 
         assertEquals(expected,result);

@@ -88,7 +88,7 @@ public class ReadingList {
         double totalRainfallValue = 0;
 
         for (Reading reading : this.listOfReadings) {
-            if (reading.getDateAndTime().get(Calendar.DATE) == inputDate.get(Calendar.DATE)) {
+            if (reading.getReadingDateAndTime().get(Calendar.DATE) == inputDate.get(Calendar.DATE)) {
                 totalRainfallValue = reading.returnValue() + totalRainfallValue;
             }
         }
@@ -121,7 +121,7 @@ public class ReadingList {
     public double getValueOfReadingsInTimeInterval(Calendar startDateTime, Calendar endDateTime) {
         double totalValue = 0;
         for (Reading reading : this.listOfReadings) {
-            Calendar readingDate = reading.getDateAndTime();
+            Calendar readingDate = reading.getReadingDateAndTime();
 
             if (readingDate.after(startDateTime) && readingDate.before(endDateTime)
                     || readingDate.equals(startDateTime) || readingDate.equals(endDateTime)) {
@@ -145,7 +145,7 @@ public class ReadingList {
     public double getValueOfReadingsInTimeIntervalDevices(Calendar startDate, Calendar endDate) {
         double totalValue = 0;
         for (Reading reading : this.listOfReadings) {
-            Calendar readingDate = reading.getDateAndTime();
+            Calendar readingDate = reading.getReadingDateAndTime();
 
             if (readingDate.after(startDate) && readingDate.before(endDate)
                     || readingDate.equals(endDate)) {
@@ -176,7 +176,7 @@ public class ReadingList {
     public ReadingList filterByDate(Calendar startDate, Calendar endDate) {
         ReadingList readingListInPeriod = new ReadingList();
         for (Reading reading : this.listOfReadings) {
-            Calendar readingDate = reading.getDateAndTime();
+            Calendar readingDate = reading.getReadingDateAndTime();
 
             if (readingDate.after(startDate) && readingDate.before(endDate)
                     || readingDate.equals(endDate)
@@ -281,31 +281,31 @@ public class ReadingList {
             dayMaxReading = dailyMaximumReadings.get(i);
             dayMinReading = dailyMinimumReadings.get(i);
             tempReadingValue = dayMaxReading.returnValue() - dayMinReading.returnValue();
-            Reading tempReading = new Reading(tempReadingValue, dayMaxReading.getDateAndTime());
+            Reading tempReading = new Reading(tempReadingValue, dayMaxReading.getReadingDateAndTime());
             dailyAmp.addReading(tempReading);
         }
         return dailyAmp;
     }
 
     public Calendar getStartDateOfReadings() {
-        Calendar startDate = this.listOfReadings.get(0).getDateAndTime();
+        Calendar startDate = this.listOfReadings.get(0).getReadingDateAndTime();
 
         for (int i = 0; i < this.listOfReadings.size(); i++) {
             Reading r = this.listOfReadings.get(i);
-            if (r.getDateAndTime().before(startDate)) {
-                startDate = r.getDateAndTime();
+            if (r.getReadingDateAndTime().before(startDate)) {
+                startDate = r.getReadingDateAndTime();
             }
         }
         return startDate;
     }
 
     public Calendar getEndDateOfReadings() {
-        Calendar endDate = this.listOfReadings.get(0).getDateAndTime();
+        Calendar endDate = this.listOfReadings.get(0).getReadingDateAndTime();
 
         for (int i = 0; i < this.listOfReadings.size(); i++) {
             Reading r = this.listOfReadings.get(i);
-            if (r.getDateAndTime().after(endDate)) {
-                endDate = r.getDateAndTime();
+            if (r.getReadingDateAndTime().after(endDate)) {
+                endDate = r.getReadingDateAndTime();
             }
         }
         return endDate;
@@ -314,7 +314,7 @@ public class ReadingList {
     boolean checkIfIsDuplicate(Reading newReading) {
         convertReadings(newReading);
         for (Reading reading : this.listOfReadings) {
-            if (newReading.getDateAndTime().equals(reading.getDateAndTime()))
+            if (newReading.getReadingDateAndTime().equals(reading.getReadingDateAndTime()))
                 return false;
         }
         return true;

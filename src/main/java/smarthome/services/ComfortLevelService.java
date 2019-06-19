@@ -190,7 +190,7 @@ public class ComfortLevelService {
         for (Reading r : finalList
         ) {
 
-            int hour = r.getDateAndTime().get(Calendar.HOUR_OF_DAY);
+            int hour = r.getReadingDateAndTime().get(Calendar.HOUR_OF_DAY);
 
             String padding = "";
             if (hour < 10) {

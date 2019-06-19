@@ -178,7 +178,7 @@ public class House {
             ReadingList sensorReadingsInPeriod = sensor.getSensorBehavior().getReadingList().filterByDate(startDate, endDate);
             Reading sensorLatestReadingInPeriod = sensorReadingsInPeriod.getLastReading();
 
-            if (sensorLatestReadingInPeriod.getDateAndTime().after(latestReadingInPeriod.getDateAndTime())) {
+            if (sensorLatestReadingInPeriod.getReadingDateAndTime().after(latestReadingInPeriod.getReadingDateAndTime())) {
                 latestReadingInPeriod = sensorLatestReadingInPeriod;
                 closestSensor = sensor;
             }
@@ -227,13 +227,13 @@ public class House {
         ExternalSensor closestSensorWithLatestReading = (ExternalSensor) closestSensors.getSensorList().get(0);
         Reading lastReading = closestSensorWithLatestReading.getSensorBehavior().getLastReading();
         if (lastReading != null) {
-            Calendar lastDate = lastReading.getDateAndTime();
+            Calendar lastDate = lastReading.getReadingDateAndTime();
 
             for (Sensor sensor : closestSensors.getSensorList()) {
                 ExternalSensor externalSensor = (ExternalSensor) sensor;
                 Reading sensorLastReading = externalSensor.getSensorBehavior().getLastReading();
-                if (sensorLastReading.getDateAndTime().after(lastDate)) {
-                    lastDate = externalSensor.getSensorBehavior().getLastReading().getDateAndTime();
+                if (sensorLastReading.getReadingDateAndTime().after(lastDate)) {
+                    lastDate = externalSensor.getSensorBehavior().getLastReading().getReadingDateAndTime();
                     closestSensorWithLatestReading = (ExternalSensor) sensor;
                 }
             }
@@ -303,15 +303,15 @@ public class House {
         ReadingList readingListInDay = closestSensorWithLatestReading.getSensorBehavior().getReadingList().getReadingsInSpecificDay(inputDate);
         Reading lastReading = readingListInDay.getLastReading();
 
-        Calendar lastDate = lastReading.getDateAndTime();
+        Calendar lastDate = lastReading.getReadingDateAndTime();
 
         for (Sensor sensor : closestSensors.getSensorList()) {
             ReadingList sensorReadingListInDay = sensor.getSensorBehavior().getReadingList().getReadingsInSpecificDay(inputDate);
             Reading sensorLastReadingInDay = sensorReadingListInDay.getLastReading();
-            Calendar timeOfLastReading = sensorLastReadingInDay.getDateAndTime();
+            Calendar timeOfLastReading = sensorLastReadingInDay.getReadingDateAndTime();
             if (timeOfLastReading.after(lastDate)) {
                 ExternalSensor externalSensor = (ExternalSensor) sensor;
-                lastDate = externalSensor.getSensorBehavior().getLastReading().getDateAndTime();
+                lastDate = externalSensor.getSensorBehavior().getLastReading().getReadingDateAndTime();
                 closestSensorWithLatestReading = sensor;
             }
         }
