@@ -19,7 +19,7 @@ import java.util.GregorianCalendar;
 public class Reading {
 
     private double readingValue;
-    private Calendar dateAndTime;
+    private Calendar readingDateAndTime;
     private String unit;
 
     protected Reading() {
@@ -34,12 +34,12 @@ public class Reading {
      */
     public Reading(double readValue, Calendar timeOfReading) {
         this.readingValue = readValue;
-        this.dateAndTime = timeOfReading;
+        this.readingDateAndTime = timeOfReading;
     }
 
     public Reading(double readValue, Calendar timeOfReading, String unitValue) {
         this.readingValue = readValue;
-        this.dateAndTime = timeOfReading;
+        this.readingDateAndTime = timeOfReading;
         this.unit = unitValue;
     }
 
@@ -51,7 +51,7 @@ public class Reading {
     }
 
     public int getMonthOfReading() {
-        return this.dateAndTime.get(Calendar.MONTH);
+        return this.readingDateAndTime.get(Calendar.MONTH);
     }
 
     public double getReadingValue() {
@@ -62,12 +62,12 @@ public class Reading {
         this.readingValue = readingValue;
     }
 
-    public void setDateAndTime(Calendar dateAndTime) {
-        this.dateAndTime = dateAndTime;
+    public void setReadingDateAndTime(Calendar readingDateAndTime) {
+        this.readingDateAndTime = readingDateAndTime;
     }
 
-    public Calendar getDateAndTime() {
-        return this.dateAndTime;
+    public Calendar getReadingDateAndTime() {
+        return this.readingDateAndTime;
     }
 
     public String getUnit() {
@@ -80,24 +80,24 @@ public class Reading {
     }
 
     public boolean isSameDay(Calendar date) {
-        int rYear = getDateAndTime().get(Calendar.YEAR);
-        int rMonth = getDateAndTime().get(Calendar.MONTH);
-        int rDay = getDateAndTime().get(Calendar.DAY_OF_MONTH);
+        int rYear = getReadingDateAndTime().get(Calendar.YEAR);
+        int rMonth = getReadingDateAndTime().get(Calendar.MONTH);
+        int rDay = getReadingDateAndTime().get(Calendar.DAY_OF_MONTH);
         Calendar date1 = new GregorianCalendar(rYear, rMonth, rDay);
         return date.equals(date1);
     }
 
     public GregorianCalendar extractYearMonthDay() {
-        return new GregorianCalendar(this.getDateAndTime().get(Calendar.YEAR), this.getDateAndTime().get(Calendar.MONTH), this.getDateAndTime().get(Calendar.DAY_OF_MONTH));
+        return new GregorianCalendar(this.getReadingDateAndTime().get(Calendar.YEAR), this.getReadingDateAndTime().get(Calendar.MONTH), this.getReadingDateAndTime().get(Calendar.DAY_OF_MONTH));
     }
 
     /**
      * @return the date of a reading as a string in YYYY-MM-DD format
      */
     public String getDateOfReadingAsString() {
-        int year = this.dateAndTime.get(Calendar.YEAR);
-        int month = this.dateAndTime.get(Calendar.MONTH) + 1;
-        int day = this.dateAndTime.get(Calendar.DAY_OF_MONTH);
+        int year = this.readingDateAndTime.get(Calendar.YEAR);
+        int month = this.readingDateAndTime.get(Calendar.MONTH) + 1;
+        int day = this.readingDateAndTime.get(Calendar.DAY_OF_MONTH);
 
         StringBuilder output = new StringBuilder();
         output.append(year);
@@ -118,6 +118,6 @@ public class Reading {
     }
 
     public ReadingDTO toDTO() {
-        return new ReadingDTO(this.readingValue, this.dateAndTime);
+        return new ReadingDTO(this.readingValue, this.readingDateAndTime);
     }
 }

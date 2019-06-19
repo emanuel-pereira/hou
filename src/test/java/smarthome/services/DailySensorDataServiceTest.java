@@ -7,7 +7,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import smarthome.dto.ExternalReadingDTO;
+import smarthome.dto.ReadingDTO;
 import smarthome.model.*;
 import smarthome.model.validations.Name;
 import smarthome.repository.Repositories;
@@ -68,8 +68,8 @@ class DailySensorDataServiceTest {
 
         assertEquals(expected,result);
 
-        Calendar expected2 = r1.getDateAndTime();
-        Calendar result2 = service.getBestSensorReadings(startDate,endDate).getLastReading().getDateAndTime();
+        Calendar expected2 = r1.getReadingDateAndTime();
+        Calendar result2 = service.getBestSensorReadings(startDate,endDate).getLastReading().getReadingDateAndTime();
 
         assertEquals(expected2,result2);
 
@@ -104,11 +104,11 @@ class DailySensorDataServiceTest {
         SensorList sL = House.getHouseGA().getSensorListInGa();
         sL.addSensor(s1);
 
-        ExternalReadingDTO expected = new ExternalReadingDTO(6,new GregorianCalendar(2019,Calendar.APRIL,13));
-        ExternalReadingDTO result = service.displayAmplitude(startDate,endDate);
+        ReadingDTO expected = new ReadingDTO(6,new GregorianCalendar(2019,Calendar.APRIL,13));
+        ReadingDTO result = service.displayAmplitude(startDate,endDate);
 
-        assertEquals(expected.getValue(),result.getValue());
-        assertEquals(expected.getDateAndTime(),result.getDateAndTime());
+        assertEquals(expected.getReadingValue(),result.getReadingValue());
+        assertEquals(expected.getReadingDateAndTime(),result.getReadingDateAndTime());
     }
 
     @Test
@@ -136,11 +136,11 @@ class DailySensorDataServiceTest {
         SensorList sL = House.getHouseGA().getSensorListInGa();
         sL.addSensor(s1);
 
-        ExternalReadingDTO expected = new ExternalReadingDTO(13,new GregorianCalendar(2019,Calendar.APRIL,13));
-        ExternalReadingDTO result = service.displayMaximum(startDate,endDate);
+        ReadingDTO expected = new ReadingDTO(13,new GregorianCalendar(2019,Calendar.APRIL,13));
+        ReadingDTO result = service.displayMaximum(startDate,endDate);
 
-        assertEquals(expected.getValue(),result.getValue());
-        assertEquals(expected.getDateAndTime(),result.getDateAndTime());
+        assertEquals(expected.getReadingValue(),result.getReadingValue());
+        assertEquals(expected.getReadingDateAndTime(),result.getReadingDateAndTime());
     }
 
     @Test
@@ -168,11 +168,11 @@ class DailySensorDataServiceTest {
         SensorList sL = House.getHouseGA().getSensorListInGa();
         sL.addSensor(s1);
 
-        ExternalReadingDTO expected = new ExternalReadingDTO(7,new GregorianCalendar(2019,Calendar.APRIL,13));
-        ExternalReadingDTO result = service.displayMinimum(startDate,endDate);
+        ReadingDTO expected = new ReadingDTO(7,new GregorianCalendar(2019,Calendar.APRIL,13));
+        ReadingDTO result = service.displayMinimum(startDate,endDate);
 
-        assertEquals(expected.getValue(),result.getValue());
-        assertEquals(expected.getDateAndTime(),result.getDateAndTime());
+        assertEquals(expected.getReadingValue(),result.getReadingValue());
+        assertEquals(expected.getReadingDateAndTime(),result.getReadingDateAndTime());
     }
 
     @Test

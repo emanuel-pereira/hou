@@ -156,7 +156,7 @@ public class NewSensorUI {
         System.out.println("LIST OF READINGS:");
         for (
                 Reading r : this.readingList.getReadingsList()) {
-            System.out.println("[timestamp: " + r.getDateAndTime().getTime() + " value: " + r.returnValue() + "]");
+            System.out.println("[timestamp: " + r.getReadingDateAndTime().getTime() + " value: " + r.returnValue() + "]");
         }
         System.out.println("GPS LOCATION - [Latitude: " + this.latitude + " | Longitude: " + this.longitude + " | Altitude: " + this.altitude + "]");
     }
@@ -173,7 +173,7 @@ public class NewSensorUI {
         System.out.println("LIST OF READINGS:");
         for (
                 Reading r : this.readingList.getReadingsList()) {
-            System.out.println("[timestamp: " + r.getDateAndTime().getTime() + " value: " + r.returnValue() + "]");
+            System.out.println("[timestamp: " + r.getReadingDateAndTime().getTime() + " value: " + r.returnValue() + "]");
         }
     }
 
