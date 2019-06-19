@@ -10,6 +10,8 @@ export const ADD_ROOM = 'ADD_ROOM'
 export const UPDATE_ROOM = 'UPDATE_ROOM'
 export const FETCH_ROOM_SENSORS_SUCCESS = 'FETCH_ROOM_SENSORS_SUCCESS'
 
+axios.defaults.headers.common['Authorization'] = JSON.parse(localStorage.getItem('token')); // for all requests
+
 export function fetchRooms (){
   return dispatch => {
     dispatch(fetchRoomsStarted());

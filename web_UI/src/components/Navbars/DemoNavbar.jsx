@@ -142,9 +142,7 @@ class Header extends React.Component {
                                     </p>
                                 </DropdownToggle>
                                 <DropdownMenu right>
-                                    <DropdownItem tag="a">Action</DropdownItem>
-                                    <DropdownItem tag="a">Another Action</DropdownItem>
-                                    <DropdownItem tag="a">Something else here</DropdownItem>
+                                    <DropdownItem onClick={this.handleSelection} tag="a">Logout ?</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                         </Nav>
@@ -152,6 +150,11 @@ class Header extends React.Component {
                 </Container>
             </Navbar>
         );
+    }
+
+    handleSelection() {
+        localStorage.removeItem('token');
+        window.location.reload();
     }
 }
 
