@@ -2,7 +2,7 @@ package smarthome.services;
 
 
 import org.modelmapper.ModelMapper;
-import smarthome.dto.InternalReadingDTO;
+import smarthome.dto.ReadingDTO;
 import smarthome.model.*;
 import smarthome.model.validations.Name;
 import smarthome.model.validations.Utils;
@@ -10,6 +10,7 @@ import smarthome.repository.Repositories;
 
 import java.text.ParseException;
 import java.util.Calendar;
+
 
 public class RoomTemperatureService {
 
@@ -64,17 +65,17 @@ public class RoomTemperatureService {
         }
     }
 
-    public InternalReadingDTO getCurrentTempInRoom(String idRoom) {
+    public ReadingDTO getCurrentTempInRoom(String idRoom) {
         Reading last = getBestSensorReadings(idRoom).getLastReading();
 
-        return mapper.map(last, InternalReadingDTO.class);
+        return mapper.map(last, ReadingDTO.class);
 
     }
 
-    public InternalReadingDTO getMaxTempInRoom(String idRoom, String givenDay) throws ParseException {
+    public ReadingDTO getMaxTempInRoom(String idRoom, String givenDay) throws ParseException {
         Calendar calendar = convertStringToCalendar(givenDay);
         Reading maxTemp = getBestSensorReadings(idRoom).getReadingsInSpecificDay(calendar).maxValueInInterval();
-        return mapper.map(maxTemp, InternalReadingDTO.class);
+        return mapper.map(maxTemp, ReadingDTO.class);
 
     }
 

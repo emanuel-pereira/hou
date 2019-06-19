@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.TypeGADTO;
 import smarthome.model.GeographicalArea;
+import smarthome.repository.GeoRepository;
 import smarthome.repository.Repositories;
 
 import java.security.InvalidParameterException;
@@ -16,20 +17,28 @@ import java.util.Optional;
 @Service
 public class GeoAreaService {
 
-
     private ModelMapper mapper;
+    private GeoRepository geoRepository;
+    private GaTypesService gaTypesService;
 
     /**
      * Constructor initialize GeoAreaService
      */
 
     public GeoAreaService() {
-
         this.mapper = new ModelMapper();
-
-
     }
 
+    public GeoAreaService(GeoRepository geoRepository, GaTypesService gaTypesService) {
+        this.geoRepository = geoRepository;
+        this.gaTypesService = gaTypesService;
+        mapper = new ModelMapper();
+    }
+
+    private void injectRepository() {
+        if (geoRepository == null)
+            this.geoRepository = Repositories.getGeoRepository();
+    }
 
     /**
      * Method to check if the id of the GA to set in another exists.
@@ -41,18 +50,18 @@ public class GeoAreaService {
 
 
     public boolean setParentGaWebCTRL(String id, String idParent) {
-
+        injectRepository();
         if (!checkIfIdExists(id)) {
             return false;
         }
 
-        GeographicalArea GA1 = Repositories.getGeoRepository().findById(id).get();
-        GeographicalArea GA2 = Repositories.getGeoRepository().findById(idParent).get();
+        GeographicalArea ga1 = geoRepository.findById(id).get();
+        GeographicalArea ga2 = geoRepository.findById(idParent).get();
 
-        if (!GA1.equals(GA2))
-            GA1.setParentGa(GA2);
+        if (!ga1.equals(ga2))
+            ga1.setParentGa(ga2);
 
-        Repositories.getGeoRepository().save(GA1);
+        geoRepository.save(ga1);
         return true;
     }
 
@@ -72,23 +81,21 @@ public class GeoAreaService {
         return true
     }*/
 
-
     public GeographicalAreaDTO addNewGeoArea(GeographicalAreaDTO geoAreaDTO) throws InvalidParameterException {
-
-
+        injectRepository();
         TypeGADTO typeDto = geoAreaDTO.getType();
 
-        if (!Repositories.getTypeGARepository().existsByType(typeDto.getType())) {
+        if (!gaTypesService.existsByType(typeDto.getType())) {
             throw new InvalidParameterException();
         }
 
         GeographicalArea newGeoArea = mapper.map(geoAreaDTO, GeographicalArea.class);
-        newGeoArea.setType(Repositories.getTypeGARepository().findByType(typeDto.getType()));
+        newGeoArea.setType(gaTypesService.findByType(typeDto.getType()));
 
         if (!geoAreaIsValid(newGeoArea)) {
             throw new InvalidParameterException();
         }
-        Repositories.getGeoRepository().save(newGeoArea);
+        geoRepository.save(newGeoArea);
         return geoAreaDTO;
 
     }
@@ -106,7 +113,8 @@ public class GeoAreaService {
 
 
     public GeographicalAreaDTO findById(String id) throws NoSuchFieldException {
-        Optional<GeographicalArea> optional = Repositories.getGeoRepository().findById(id);
+        injectRepository();
+        Optional<GeographicalArea> optional = geoRepository.findById(id);
         if (!optional.isPresent())
             throw new NoSuchFieldException();
         GeographicalArea temp = optional.get();
@@ -115,17 +123,19 @@ public class GeoAreaService {
 
 
     public boolean checkIfIdExists(String id) {
-
-        return Repositories.getGeoRepository().existsById(id);
+        injectRepository();
+        return geoRepository.existsById(id);
     }
 
     public long size() {
-        return Repositories.getGeoRepository().count();
+        injectRepository();
+        return geoRepository.count();
     }
 
     public List<GeographicalAreaDTO> findAll() {
+        injectRepository();
         List<GeographicalAreaDTO> geoAreas = new ArrayList<>();
-        Repositories.getGeoRepository().findAll().forEach(geographicalArea -> {
+        geoRepository.findAll().forEach(geographicalArea -> {
             GeographicalAreaDTO temp = this.mapper.map(geographicalArea, GeographicalAreaDTO.class);
             geoAreas.add(temp);
         });

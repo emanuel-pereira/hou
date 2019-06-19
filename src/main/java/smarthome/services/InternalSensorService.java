@@ -1,6 +1,7 @@
 package smarthome.services;
 
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Service;
 import smarthome.dto.InternalSensorDTO;
 import smarthome.dto.SensorBehaviorDTO;
 import smarthome.exceptions.InternalSensorNotFoundException;
@@ -9,20 +10,19 @@ import smarthome.exceptions.SensorTypeNotFoundException;
 import smarthome.mapper.InternalSensorMapper;
 import smarthome.model.InternalSensor;
 import smarthome.model.SensorList;
-import smarthome.repository.InternalSensorRepository;
-import smarthome.repository.Repositories;
+import smarthome.repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
+@Service
 public class InternalSensorService {
 
     private InternalSensorRepository repo;
-    private InternalSensorMapper internalSensorMapper;
-    private RoomService roomService;
-    private SensorTypeService sensorTypeService;
+    private final InternalSensorMapper internalSensorMapper;
+    private final RoomService roomService;
+    private final SensorTypeService sensorTypeService;
 
     public InternalSensorService() {
         this.internalSensorMapper = new InternalSensorMapper();
@@ -30,8 +30,18 @@ public class InternalSensorService {
         this.sensorTypeService = new SensorTypeService();
     }
 
+
+    public InternalSensorService(InternalSensorRepository sensorRepository, RoomService roomService, SensorTypeService typeService) {
+        this.internalSensorMapper = new InternalSensorMapper();
+        this.roomService = roomService;
+        this.repo = sensorRepository;
+        this.sensorTypeService = typeService;
+    }
+
     void injectRepository() {
-        this.repo = Repositories.getInternalSensorRepository();
+        if (this.repo == null) {
+            repo = Repositories.getInternalSensorRepository();
+        }
     }
 
     /**
@@ -115,6 +125,7 @@ public class InternalSensorService {
     /**
      * This method fetches all internal sensors in the database that belong to the room with the id specified.
      * If there is no room with the given id in the database, then a RoomNotFoundException is thrown.
+     *
      * @param idRoom String value representing the Room id
      * @return a list of InternalSensorDTOs that belong to the room with the given id.
      */
@@ -137,7 +148,7 @@ public class InternalSensorService {
 
     //===================//=======================//
     //TODO: replace this method accordingly
-    public SensorList findByRoom(String idRoom) {
+    SensorList findByRoom(String idRoom) {
         Iterable<InternalSensor> internalSensors = Repositories.getInternalSensorRepository().findAll();
         SensorList sensorList = new SensorList();
         for (InternalSensor iSensor : internalSensors) {

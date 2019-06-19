@@ -12,6 +12,7 @@ import smarthome.repository.RoomRepository;
 
 import java.lang.reflect.Field;
 
+import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -28,10 +29,10 @@ class AddRoomToHouseCTRLTest {
     private AddRoomToHouseCTRL addRoomToHouseCTRL;
 
     //Will be removed when RoomList is deleted
-    Location loc = new Location(20, 20, 2);
-    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal", loc);
-    OccupationArea oc = new OccupationArea(2, 5);
-    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    private Location loc = new Location(20, 20, 2);
+    private Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal", loc);
+    private OccupationArea oc = new OccupationArea(2, 5);
+    private GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
     House house = House.getHouseInstance(a1, g1);
 
     @BeforeEach
@@ -82,6 +83,16 @@ class AddRoomToHouseCTRLTest {
 
         boolean expected = addRoomToHouseCTRL.checkIfRoomIdExists("B108");
         assertTrue(expected);
+    }
+
+    //Because we are using a specific constructor for tests this one has no coverage
+    @Test
+    @DisplayName("Test used constructor in running mode")
+    void realConstructor() {
+
+        AddRoomToHouseCTRL addRoomToHouseCTRL = new AddRoomToHouseCTRL();
+
+        assertThat(addRoomToHouseCTRL).isInstanceOf(AddRoomToHouseCTRL.class);
     }
 
 }

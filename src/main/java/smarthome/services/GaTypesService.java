@@ -17,7 +17,13 @@ public class GaTypesService {
     @Autowired
     public TypeGARepository repository;
 
-    ModelMapper modelMapper = new ModelMapper();
+
+    private ModelMapper modelMapper;
+
+    public GaTypesService(TypeGARepository typeGARepository) {
+        this.repository = typeGARepository;
+        modelMapper= new ModelMapper();
+    }
 
     public TypeGADTO findByObject(Object object) {
         TypeGA newtype = null;
@@ -46,5 +52,13 @@ public class GaTypesService {
         //TODO implement service that looks for equals, requests objects, and saves objects
         //TODO implement ResponseEntity<> for multiple return messages
         return modelMapper.map(saved, TypeGADTO.class);
+    }
+
+    public boolean existsByType(String type) {
+        return repository.existsByType(type);
+    }
+
+    public TypeGA findByType(String type){
+        return repository.findByType(type);
     }
 }

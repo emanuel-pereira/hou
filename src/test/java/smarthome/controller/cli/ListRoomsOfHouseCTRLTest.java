@@ -12,6 +12,7 @@ import smarthome.repository.RoomRepository;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
@@ -60,4 +61,13 @@ class ListRoomsOfHouseCTRLTest {
         assertEquals(2, listRoomsOfHouseCTRL.findAll().size());
     }
 
+    //Because we are using a specific constructor for tests this one has no coverage
+    @Test
+    @DisplayName("Test used constructor in running mode")
+    void realConstructor() {
+
+        ListRoomsOfHouseCTRL listRoomsOfHouseCTRL = new ListRoomsOfHouseCTRL();
+
+        assertThat(listRoomsOfHouseCTRL).isInstanceOf(ListRoomsOfHouseCTRL.class);
+    }
 }

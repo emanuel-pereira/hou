@@ -102,6 +102,17 @@ class RoomCTRLTest {
     }
 
     @Test
+    @DisplayName("Can't create a room")
+    void cantCreateRoom() throws Exception {
+        String jsonInString = "{'id': 'B108'}";
+
+        this.mockMvc.perform(post("/rooms")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonInString))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     @DisplayName("Try to find a room with success")
     void findOneRoomExists() throws Exception {
         Room room = new Room("B310", "Classroom", 3, 2.5, 2.5, 2);
@@ -141,6 +152,13 @@ class RoomCTRLTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonInString))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Try to edit a room that doesn't exist")
+    void editRoomNonexistent() throws Exception {
+        when(roomRepository.existsById("B108")).thenReturn(false);
+        this.mockMvc.perform(get("/rooms/108")).andExpect(status().isNotFound());
     }
 
 

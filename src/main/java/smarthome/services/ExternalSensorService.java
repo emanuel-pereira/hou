@@ -1,4 +1,5 @@
 package smarthome.services;
+
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import smarthome.exceptions.ExternalSensorNotFoundException;
@@ -11,6 +12,7 @@ import smarthome.model.ExternalSensor;
 import smarthome.model.SensorBehavior;
 import smarthome.repository.ExternalSensorRepository;
 import smarthome.repository.Repositories;
+
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,14 +32,24 @@ public class ExternalSensorService {
         this.geoAreaService = new GeoAreaService();
         this.sensorTypeService = new SensorTypeService();
     }
+    public ExternalSensorService(ExternalSensorRepository repo, GeoAreaService geoAreaService, SensorTypeService sensorTypeService) {
+        this.repo = repo;
+        this.externalSensorMapper = new ExternalSensorMapper();
+        this.geoAreaService = geoAreaService;
+        this.sensorTypeService = sensorTypeService;
+    }
+
 
     void init() {
-        repo = Repositories.getExternalSensorRepository();
+        if(this.repo == null) {
+            repo = Repositories.getExternalSensorRepository();
+        }
     }
 
     /**
      * This method iterates through all instances of external sensors in the database, converts them into DTOs and
      * returns the list of DTOs, so that model objects are not exposed on methods available in this layer.
+     *
      * @return a list of ExternalSensorDTOs
      */
     public List<ExternalSensorDTO> findAll() {
@@ -54,6 +66,7 @@ public class ExternalSensorService {
      * This method checks if there is an external sensor with the id passed as parameter in the database.
      * If so, retrieves the external sensor with the given Id and maps it into an ExternalDTO so that the model layer is
      * not exposed by this method in other classes.
+     *
      * @param id String value representing the ExternalSensor id
      * @return the externalSensor with the given id or if none found throws an ExternalSensorNotFoundException.
      */
@@ -66,6 +79,7 @@ public class ExternalSensorService {
     /**
      * This method retrieves an ExternalSensor with the id passed as parameter. If not, throws an ExternalSensorNotFoundException.
      * This method is private as it is only invoked in this class.
+     *
      * @param id String value representing the ExternalSensor id
      * @return an ExternalSensor instance (as this method is private, and therefore only used in this class, it can
      * return a model object)
@@ -86,6 +100,7 @@ public class ExternalSensorService {
      * If both preconditions mentioned previously are met, then it will retrieve an externalSensor instance and persist
      * it in the database. If so, it will retrieve an externalSensorDTO, so that the model layer is not exposed by
      * this method in other classes.
+     *
      * @param externalSensorDTO to be mapped to an ExternalSensor instance
      * @return an ExternalSensorDTO if it is successfully mapped to an ExternalSensor and persisted in the database.
      */
@@ -108,27 +123,31 @@ public class ExternalSensorService {
 
         return externalSensorDTO;
     }
+
     /**
      * This method checks if there is an external sensor with the id passed as parameter in the database.
      * If so, maps the externalSensorDTO to retrieve the external sensor with the given Id and deletes it from the
      * database. If the externalSensor is successfully deleted then it returns the DTO of the deleted object.
+     *
      * @param id String value representing the ExternalSensor id
      * @return ExternalSensorDTO of the deleted object.
      */
-    public ExternalSensorDTO removeSensor(String id){
+    public ExternalSensorDTO removeSensor(String id) {
         this.init();
         ExternalSensor externalSensor = getExternalSensor(id);
         repo.delete(externalSensor);
         return externalSensorMapper.toDto(externalSensor);
     }
+
     /**
      * This method checks if there is an external sensor with the id passed as parameter in the database.
      * If so, maps the externalSensorDTO into an ExternalSensor object and if the pause date given as parameter is
      * after the sensor's start date, then it sets its Active state as false as well as sets its pauseDate saving this
      * changes in the database.
-     * @param id String value representing the ExternalSensor id
+     *
+     * @param id        String value representing the ExternalSensor id
      * @param pauseDate Calendar value to set the sensor's pauseDate which should be in yyyy-MM-dd format, otherwise
-     * throws an InvalidParameterException.
+     *                  throws an InvalidParameterException.
      * @return an externalSensorDTO object passed as parameter
      */
     public ExternalSensorDTO deactivate(String id, Calendar pauseDate) {
@@ -146,11 +165,12 @@ public class ExternalSensorService {
      * Private method auxiliary to the deactivate method to check if the parameters inputted meet the defined criteria,
      * i.e., if the pause date given as parameter is after the sensor's startDate and if the sensor's active status is
      * set to true.
-     * @param id String value representing the ExternalSensor id
-     * @param pauseDate Calendar value to set the sensor's pauseDate which should be in yyyy-MM-dd format, otherwise
-     * throws an InvalidParameterException.
+     *
+     * @param id             String value representing the ExternalSensor id
+     * @param pauseDate      Calendar value to set the sensor's pauseDate which should be in yyyy-MM-dd format, otherwise
+     *                       throws an InvalidParameterException.
      * @param sensorBehavior which is used to check if the sensor's active status is set to true, if not an
-     * IllegalArgumentException is thrown
+     *                       IllegalArgumentException is thrown
      * @return true if the preconditions mentioned above are met.
      */
     private boolean checkIfActive(String id, Calendar pauseDate, SensorBehavior sensorBehavior) {

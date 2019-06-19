@@ -4,7 +4,7 @@ package smarthome.controller.rest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import smarthome.dto.InternalReadingDTO;
+import smarthome.dto.ReadingDTO;
 import smarthome.services.RoomService;
 import smarthome.services.RoomTemperatureService;
 
@@ -109,7 +109,7 @@ public class RoomTemperatureCTRL {
         }
 
         else{
-            InternalReadingDTO result = roomTemperatureService.getMaxTempInRoom(id,day);
+            ReadingDTO result = roomTemperatureService.getMaxTempInRoom(id,day);
             return new ResponseEntity<>(result,HttpStatus.OK);
         }
     }
@@ -121,7 +121,7 @@ public class RoomTemperatureCTRL {
         }
 
         else{
-            InternalReadingDTO result = roomTemperatureService.getCurrentTempInRoom(id);
+            ReadingDTO result = roomTemperatureService.getCurrentTempInRoom(id);
             return new ResponseEntity<>(result,HttpStatus.OK);
         }
     }
