@@ -18,7 +18,7 @@ export function fetchRooms (){
     axios
       .get(`https://localhost:8443/rooms`)
       .then(res => {
-        dispatch(fetchRoomsSuccess(res.data));
+        dispatch(fetchRoomsSuccess(res.data['_embedded']['roomDToes']));
       })
       .catch(err => {
         dispatch(fetchRoomsFailure(err.message));
