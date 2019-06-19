@@ -7,7 +7,12 @@ public class InternalSensorDTO {
 
 
     public InternalSensorDTO(){
+    }
 
+    public InternalSensorDTO(String id, SensorBehaviorDTO sensorBehaviorDTO, String roomId) {
+        this.id = id;
+        this.sensorBehaviorDTO = sensorBehaviorDTO;
+        this.roomId = roomId;
     }
 
     public SensorBehaviorDTO getSensorBehavior(){
@@ -34,3 +39,4 @@ public class InternalSensorDTO {
         this.roomId = roomId;
     }
 }
+

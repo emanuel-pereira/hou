@@ -13,6 +13,8 @@ import smarthome.exceptions.RoomNotFoundException;
 import smarthome.exceptions.SensorTypeNotFoundException;
 import smarthome.services.InternalSensorService;
 
+import java.util.ArrayList;
+
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -21,7 +23,11 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RequestMapping("/internalSensors")
 public class InternalSensorCTRL {
 
-    private InternalSensorService service = new InternalSensorService(); //Could also use WebService, etc, etc.
+    private final InternalSensorService service;
+
+    public InternalSensorCTRL(InternalSensorService service) {
+        this.service = service;
+    }
 
     /**
      * This method retrieves all internal sensors in the database and wraps them as resources so that they may have
@@ -51,7 +57,7 @@ public class InternalSensorCTRL {
     @GetMapping("/{id}")
     public ResponseEntity<Resource<Object>> get(@PathVariable String id) {
         InternalSensorDTO dto;
-        Resource<Object> internalSensorResource = null;
+        Resource<Object> internalSensorResource;
         try {
             dto = service.get(id);
             internalSensorResource = new Resource<>(dto, linkTo(methodOn(InternalSensorCTRL.class).findAll()).withRel("InternalSensors"));
@@ -74,7 +80,8 @@ public class InternalSensorCTRL {
      */
     @GetMapping("/{roomId}/room")
     public HttpEntity<Resources<Resource<InternalSensorDTO>>> fetchSensorsInRoom(@PathVariable String roomId) {
-        Resources<Resource<InternalSensorDTO>> resources = null;
+        Iterable<InternalSensorDTO> internalSensorDTOS= new ArrayList<>();
+        Resources<Resource<InternalSensorDTO>> resources= Resources.wrap(internalSensorDTOS);
         try {
             resources = Resources.wrap(service.fetchSensorsInRoom(roomId));
             resources.forEach(resource ->
@@ -104,8 +111,8 @@ public class InternalSensorCTRL {
      * HTTP status code precondition failed.
      */
     @PostMapping
-    ResponseEntity<Resource<Object>> create(@RequestBody InternalSensorDTO internalSensorDTO) {
-        Resource<Object> resource = null;
+    public ResponseEntity<Resource<Object>> create(@RequestBody InternalSensorDTO internalSensorDTO) {
+        Resource<Object> resource;
         try {
             service.createInternalSensor(internalSensorDTO);
             resource = new Resource<>(internalSensorDTO);
