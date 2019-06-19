@@ -1,4 +1,4 @@
-/*package smarthome.controller.cli;
+package smarthome.controller.cli;
 
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,24 +20,14 @@ import static smarthome.model.TypeGAList.getTypeGAListInstance;
 
 class ConfigureHouseCTRLTest {
 
-    Location loc = new Location(20, 20, 2);
-    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
-    OccupationArea oc = new OccupationArea(2, 5);
-    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    private Location loc = new Location(20, 20, 2);
+    private Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    private OccupationArea oc = new OccupationArea(2, 5);
+    private GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
     House house = House.getHouseInstance(a1, g1);
     TypeGAList typeGAList = getTypeGAListInstance();
 
-    @BeforeEach
-    public void resetMySingleton() throws SecurityException,
-            NoSuchFieldException, IllegalArgumentException,
-            IllegalAccessException {
-        Field instance1 = House.class.getDeclaredField("theHouse");
-        instance1.setAccessible(true);
-        instance1.set(null, null);
-        Field instance2 = TypeGAList.class.getDeclaredField("typeGaList");
-        instance2.setAccessible(true);
-        instance2.set(null, null);
-    }
+
 
     @DisplayName("Tests if Geographical Area List is showed as a string to the user")
     @Test
@@ -284,7 +274,7 @@ class ConfigureHouseCTRLTest {
         assertEquals(expected,result);
     }
 
-    @Test
+    //@Test
     @DisplayName("Check if Address in file was properly set")
     void checkAddressTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
         GAList gl1 = new GAList();
@@ -314,7 +304,7 @@ class ConfigureHouseCTRLTest {
         assertEquals(expected,result);
     }
 
-    @Test
+    //@Test
     @DisplayName("Check if GeoArea was properly set")
     void checkGeoAreaTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
         GAList gl1 = new GAList();
@@ -343,7 +333,7 @@ class ConfigureHouseCTRLTest {
         assertEquals(ga1,result);
     }
 
-    @Test
+    //@Test
     @DisplayName("Check if Address's new Location was properly set")
     void checkAddressNewLocationTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
         GAList gl1 = new GAList();
@@ -372,7 +362,7 @@ class ConfigureHouseCTRLTest {
         assertEquals(expected,result);
     }
 
-    @Test
+    //@Test
     @DisplayName("Check if the Rooms in the File were properly added")
     void checkRoomListSizeTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
         GAList gl1 = new GAList();
@@ -402,7 +392,7 @@ class ConfigureHouseCTRLTest {
         assertEquals(expected,result);
     }
 
-    @Test
+    //@Test
     @DisplayName("Check if the Grids in the File were properly added")
     void checkGridListSizeTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
         GAList gl1 = new GAList();
@@ -432,7 +422,7 @@ class ConfigureHouseCTRLTest {
         assertEquals(expected,result);
     }
 
-    @Test
+    //@Test
     @DisplayName("Check if the Rooms,in the Grids in the File were properly added")
     void checkRoomListInGridSizeTest () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
         GAList gl1 = new GAList();
@@ -462,7 +452,7 @@ class ConfigureHouseCTRLTest {
         assertEquals(expected,result);
     }
 
-    @Test
+    //@Test
     @DisplayName("Show GA In String")
     void showGAinStringTest()  throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
         GAList gl1 = new GAList();
@@ -492,7 +482,7 @@ class ConfigureHouseCTRLTest {
         assertEquals(expected,result);
     }
 
-    @Test
+    //@Test
     @DisplayName("Show Address In String")
     void showAddressInStringTest()  throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
         GAList gl1 = new GAList();
@@ -526,4 +516,3 @@ class ConfigureHouseCTRLTest {
     }
 
 }
-*/

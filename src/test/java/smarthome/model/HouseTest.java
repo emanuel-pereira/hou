@@ -1,4 +1,4 @@
-/*package smarthome.model;
+package smarthome.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -9,10 +9,7 @@ import smarthome.model.devices.TvType;
 import smarthome.model.devices.WallTowelHeaterType;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static smarthome.model.House.*;
@@ -20,14 +17,14 @@ import static smarthome.model.House.*;
 class HouseTest {
 
 
-    Location loc = new Location(20, 20, 2);
-    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
-    OccupationArea oc = new OccupationArea(2, 5);
-    GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
+    private Location loc = new Location(20, 20, 2);
+    private Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
+    private OccupationArea oc = new OccupationArea(2, 5);
+    private GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
     House house = House.getHouseInstance(a1, g1);
 
     @BeforeEach
-    public void resetMySingleton() throws SecurityException, NoSuchFieldException, IllegalArgumentException,
+    void resetMySingleton() throws SecurityException, NoSuchFieldException, IllegalArgumentException,
             IllegalAccessException {
 
         Field instance = House.class.getDeclaredField("theHouse");
@@ -36,7 +33,7 @@ class HouseTest {
     }
 
     @Test
-        //@DisplayName("House instance not null")
+    @DisplayName("House instance not null")
     void getHouseInstance(){
         Location loc = new Location(20, 20, 2);
         Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431","4200-072","Porto","Portugal",loc);
@@ -60,7 +57,7 @@ class HouseTest {
     }
 
     @Test
-        //@DisplayName("Check if address/location exists")
+    @DisplayName("Check if address/location exists")
     void checkIfLocationExistsTestFalse(){
         Address address = null;
 
@@ -89,7 +86,7 @@ class HouseTest {
         Room room = getHouseRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 2);
 
         getHouseRoomList().addRoom(room);
-        List<Room> expectedResult = Arrays.asList(room);
+        List<Room> expectedResult = Collections.singletonList(room);
         List<Room> result = getHouseRoomList().getRoomList();
 
         assertEquals(expectedResult, result);
@@ -129,7 +126,7 @@ class HouseTest {
         getHouseRoomList().addRoom(room1);
         assertEquals(1, getHouseRoomList().getRoomList().size());
 
-        List<Room> expectedResult = Arrays.asList(room);
+        List<Room> expectedResult = Collections.singletonList(room);
         List<Room> result = getHouseRoomList().getRoomList();
         assertEquals(expectedResult, result);
     }
@@ -173,7 +170,7 @@ class HouseTest {
         assertEquals(1, getHouseRoomList().getRoomList().size());
         assertFalse(result1);
 
-        List<Room> expectedResult = Arrays.asList(room);
+        List<Room> expectedResult = Collections.singletonList(room);
         List<Room> result2 = getHouseRoomList().getRoomList();
         assertEquals(expectedResult, result2);
     }
@@ -307,7 +304,7 @@ class HouseTest {
     void filterByTypeAndProximityTest(){
         SensorType temperature = new SensorType("temperature");
 
-        GregorianCalendar startDate = new GregorianCalendar(2018, 11, 25);
+        GregorianCalendar startDate = new GregorianCalendar(2018, Calendar.DECEMBER, 25);
         Location loc3 = new Location(0, 15, 12);
         Location loc4 = new Location(0, 22, 12);
         Location loc5 = new Location(0, 24, 12);
@@ -320,7 +317,7 @@ class HouseTest {
         g1.getSensorListInGa().addSensor(s2);
         g1.getSensorListInGa().addSensor(s3);
 
-        List<Sensor> expected = Arrays.asList(s2);
+        List<Sensor> expected = Collections.singletonList(s2);
 
         List<Sensor> result = House.filterListByTypeAndProximity(temperature).getSensorList();
 
@@ -328,7 +325,7 @@ class HouseTest {
     }
 
     @Test
-        //@DisplayName("Filter Sensor List by type and proximity and test the null pointer exception")
+    @DisplayName("Filter Sensor List by type and proximity and test the null pointer exception")
     void filterByTypeAndProximityTestNullPointer(){
         SensorType temperature = new SensorType("temperature");
 
@@ -338,7 +335,7 @@ class HouseTest {
 
         GeographicalArea geographicalArea = new GeographicalArea("Opo","Porto","city",oc,loc);
 
-        GregorianCalendar startDate = new GregorianCalendar(2018, 11, 25);
+        GregorianCalendar startDate = new GregorianCalendar(2018, Calendar.DECEMBER, 25);
         Location loc3 = new Location(0, 15, 12);
         Location loc4 = new Location(0, 22, 12);
         Location loc5 = new Location(0, 24, 12);
@@ -355,7 +352,7 @@ class HouseTest {
     }
 
     @Test
-        //@DisplayName("Filter Sensor List by type, distance and interval and test when sensor list of the house ga is empty/doesnt exist")
+    @DisplayName("Filter Sensor List by type, distance and interval and test when sensor list of the house ga is empty/doesnt exist")
     void filterByTypeIntervalAndDistance(){
         SensorType temperature = new SensorType("temperature");
         SensorType rainfall = new SensorType("rainfall");
@@ -364,8 +361,8 @@ class HouseTest {
 
         House.setHouseGA(houseGa);
 
-        GregorianCalendar startDate = new GregorianCalendar(2018, 11, 25);
-        GregorianCalendar endDate = new GregorianCalendar(2018, 11, 25);
+        GregorianCalendar startDate = new GregorianCalendar(2018, Calendar.DECEMBER, 25);
+        GregorianCalendar endDate = new GregorianCalendar(2018, Calendar.DECEMBER, 25);
         Location loc3 = new Location(0, 15, 12);
         Location loc4 = new Location(0, 22, 12);
         Location loc5 = new Location(0, 24, 12);
@@ -386,12 +383,12 @@ class HouseTest {
 
 
     @Test
-        //@DisplayName("Ensure that sensor with the latest reading in the specified date is sensor s3.")
+    @DisplayName("Ensure that sensor with the latest reading in the specified date is sensor s3.")
     void getSensorOfTypeWithLatestReadingsInDateTest() {
 
         SensorType temperature = new SensorType("temperature");
 
-        GregorianCalendar startDate = new GregorianCalendar(2018, 11, 25);
+        GregorianCalendar startDate = new GregorianCalendar(2018, Calendar.DECEMBER, 25);
         Location loc3 = new Location(0, 15, 12);
         Location loc4 = new Location(26, 26, 12);
         Location loc5 = new Location(24, 24, 12);
@@ -431,12 +428,12 @@ class HouseTest {
     }
 
     @Test
-        //@DisplayName("Ensure that sensor with the latest reading in the specified date has the latest reading")
+    @DisplayName("Ensure that sensor with the latest reading in the specified date has the latest reading")
     void getSensorOfTypeWithLatestReadingsInDateTestLastAfter() {
 
         SensorType temperature = new SensorType("temperature");
 
-        GregorianCalendar startDate = new GregorianCalendar(2018, 11, 25);
+        GregorianCalendar startDate = new GregorianCalendar(2018, Calendar.DECEMBER, 25);
         Location loc3 = new Location(0, 15, 12);
         Location loc4 = new Location(26, 26, 12);
         Location loc5 = new Location(26, 26, 12);
@@ -478,7 +475,7 @@ class HouseTest {
     }
 
     @Test
-        //@DisplayName("Tests if the second sensor has the most recent readings")
+    @DisplayName("Tests if the second sensor has the most recent readings")
     void getSecondSensorWithLatestReadingsNotInPeriod() {
 
         SensorType sT = new SensorType("rainfall");
@@ -584,7 +581,7 @@ class HouseTest {
     }
 
     @Test
-        //@DisplayName("Tests if a sensor with readings in date is selected  ")
+    @DisplayName("Tests if a sensor with readings in date is selected  ")
     void getClosestSensorWithReadingsInDateTrueTest() {
 
         SensorType sT = new SensorType("rainfall");
@@ -636,7 +633,7 @@ class HouseTest {
     }
 
     @Test
-        //@DisplayName("Tests if a sensor with readings in period is selected  ")
+    @DisplayName("Tests if a sensor with readings in period is selected  ")
     void checkIfClosestSensorsHasReadingsInTimePeriodTest() {
 
         SensorType sT = new SensorType("rainfall");
@@ -741,7 +738,7 @@ class HouseTest {
 
 
     @Test
-        //@DisplayName("Tests if readings with a date equal to start date are included in the average")
+    @DisplayName("Tests if readings with a date equal to start date are included in the average")
     void averageOfReadingsWithStartDate() {
 
         SensorType sT = new SensorType("rainfall");
@@ -795,7 +792,7 @@ class HouseTest {
     }
 
     @Test
-        //@DisplayName("Tests if readings with a date equal to end date are included in the average")
+    @DisplayName("Tests if readings with a date equal to end date are included in the average")
     void averageOfReadingsWithEndDate() {
 
         SensorType sT = new SensorType("rainfall");
@@ -848,7 +845,7 @@ class HouseTest {
     }
 
     @Test
-        //@DisplayName("set and get House GeoArea")
+    @DisplayName("set and get House GeoArea")
     void getHouseGATest(){
         Location location = new Location(12,34,56);
         //Address address = new Address("Rua","123","1234-567","Porto","Portugal",location);
@@ -863,7 +860,7 @@ class HouseTest {
     }
 
     @Test
-        //@DisplayName("set and get House Address")
+    @DisplayName("set and get House Address")
     void getHouseAddressTest(){
         Location location = new Location(12,34,56);
         Address address = new Address("Rua","123","1234-567","Porto","Portugal",location);
@@ -878,7 +875,7 @@ class HouseTest {
     }
 
     @Test
-        //@DisplayName("get metered objects list")
+    @DisplayName("get metered objects list")
     void getMeteredTest(){
 
         Room room = getHouseRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 2);
@@ -924,7 +921,7 @@ class HouseTest {
     }
 
     @Test
-        //@DisplayName("show metered objects list")
+    @DisplayName("show metered objects list")
     void showMeteredTest(){
 
         Room room = getHouseRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 2);
@@ -980,4 +977,3 @@ class HouseTest {
     }
 
 }
-*/
