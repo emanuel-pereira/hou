@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import smarthome.dto.TypeGADTO;
 import smarthome.model.TypeGA;
+import smarthome.repository.Repositories;
 import smarthome.repository.TypeGARepository;
 
 import java.util.ArrayList;
@@ -25,7 +26,14 @@ public class GaTypesService {
         modelMapper= new ModelMapper();
     }
 
+    private void setRepositories() {
+        if (this.repository == null)
+            this.repository = Repositories.getTypeGARepository();
+    }
+
     public TypeGADTO findByObject(Object object) {
+        setRepositories();
+
         TypeGA newtype = null;
         String pathvariable = object.toString();
         try {
@@ -40,6 +48,8 @@ public class GaTypesService {
 
 
     public List<TypeGADTO> findAll() {
+        setRepositories();
+
         List<TypeGADTO> types = new ArrayList<>();
         repository.findAll().forEach((TypeGA typeGA) ->
                 types.add(modelMapper.map(typeGA, TypeGADTO.class)));
@@ -47,6 +57,8 @@ public class GaTypesService {
     }
 
     public TypeGADTO newType(TypeGADTO newType) {
+        setRepositories();
+
         TypeGA type = modelMapper.map(newType, TypeGA.class);
         TypeGA saved = repository.save(type);
         //TODO implement service that looks for equals, requests objects, and saves objects
@@ -55,10 +67,12 @@ public class GaTypesService {
     }
 
     public boolean existsByType(String type) {
+        setRepositories();
         return repository.existsByType(type);
     }
 
     public TypeGA findByType(String type){
+        setRepositories();
         return repository.findByType(type);
     }
 }

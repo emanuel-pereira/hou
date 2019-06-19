@@ -7,7 +7,6 @@ import smarthome.dto.TypeGADTO;
 import smarthome.model.GeographicalArea;
 import smarthome.repository.GeoRepository;
 import smarthome.repository.Repositories;
-import smarthome.repository.TypeGARepository;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -20,7 +19,6 @@ public class GeoAreaService {
 
     private ModelMapper mapper = new ModelMapper();
     private GeoRepository geoRepository;
-    private TypeGARepository typeGARepository;
     private GaTypesService gaTypesService;
 
     /**
@@ -31,9 +29,8 @@ public class GeoAreaService {
 
     }
 
-    public GeoAreaService(GeoRepository geoRepository, TypeGARepository typeGARepository, GaTypesService gaTypesService) {
+    public GeoAreaService(GeoRepository geoRepository, GaTypesService gaTypesService) {
         this.geoRepository = geoRepository;
-        this.typeGARepository = typeGARepository;
         this.gaTypesService = gaTypesService;
         mapper = new ModelMapper();
     }
@@ -43,8 +40,6 @@ public class GeoAreaService {
     private void setRepositories() {
         if (this.geoRepository == null)
             this.geoRepository = Repositories.getGeoRepository();
-        if (this.typeGARepository == null)
-            this.typeGARepository = Repositories.getTypeGARepository();
     }
     /**
      * Method to check if the id of the GA to set in another exists.
@@ -92,12 +87,12 @@ public class GeoAreaService {
 
         TypeGADTO typeDto = geoAreaDTO.getType();
 
-        if (!this.typeGARepository.existsByType(typeDto.getType())) {
+        if (!this.gaTypesService.existsByType(typeDto.getType())) {
             throw new InvalidParameterException();
         }
 
         GeographicalArea newGeoArea = mapper.map(geoAreaDTO, GeographicalArea.class);
-        newGeoArea.setType(this.typeGARepository.findByType(typeDto.getType()));
+        newGeoArea.setType(this.gaTypesService.findByType(typeDto.getType()));
 
         if (!geoAreaIsValid(newGeoArea)) {
             throw new InvalidParameterException();
@@ -128,7 +123,7 @@ public class GeoAreaService {
     }
 
 
-    private boolean checkIfIdExists(String id) {
+    public boolean checkIfIdExists(String id) {
         setRepositories();
         return this.geoRepository.existsById(id);
     }
