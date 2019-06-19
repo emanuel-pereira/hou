@@ -20,9 +20,9 @@ import java.util.Optional;
 public class InternalSensorService {
 
     private InternalSensorRepository repo;
-    private InternalSensorMapper internalSensorMapper;
-    private RoomService roomService;
-    private SensorTypeService sensorTypeService;
+    private final InternalSensorMapper internalSensorMapper;
+    private final RoomService roomService;
+    private final SensorTypeService sensorTypeService;
 
     public InternalSensorService() {
         this.internalSensorMapper = new InternalSensorMapper();

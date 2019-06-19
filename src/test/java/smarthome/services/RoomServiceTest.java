@@ -135,7 +135,23 @@ class RoomServiceTest {
         assertFalse(roomService.checkIfRoomRepositoryEmpty());
     }
 
-    //Because we are using a specific constructor for tests this one has no coverage
+    @Test
+    void injectRoomRepository() {
+        roomRepository = null;
+        RoomService roomService = new RoomService();
+        roomService.setRepositoriesIfNull();
+        assertThat(roomRepository).isNull();
+    }
+
+    @Test
+    void injectGridRepository() {
+        gridRepository = null;
+        RoomService roomService = new RoomService();
+        roomService.setRepositoriesIfNull();
+        assertThat(gridRepository).isNull();
+    }
+
+        //Because we are using a specific constructor for tests this one has no coverage
     @Test
     @DisplayName("Test used constructor in running mode")
     void realConstructor() {
