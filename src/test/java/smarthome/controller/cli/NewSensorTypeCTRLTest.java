@@ -1,114 +1,102 @@
-/*package smarthome.controller.cli;
+package smarthome.controller.cli;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import smarthome.dto.SensorTypeDTO;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import smarthome.model.SensorType;
 import smarthome.model.SensorTypeList;
+import smarthome.model.validations.Name;
 
-import java.text.ParseException;
-import java.util.List;
+import smarthome.repository.SensorTypeRepository;
 
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
-@DataJpaTest
 class NewSensorTypeCTRLTest {
 
+    @Mock
+    private SensorTypeRepository sensorTypeRepository;
 
-    @Test
-    @DisplayName("Tests if a new sensor type is created and persisted")
-    void createAndPersistNewSensorType() throws ParseException {
-        SensorTypeList sensorTypeList= new SensorTypeList();
-        NewSensorTypeCTRL ctrl = new NewSensorTypeCTRL(sensorTypeList);
-        boolean result = ctrl.createSensorType("temperature");
-        assertTrue(result);
+    private NewSensorTypeCTRL newSensorTypeCTRL;
+
+    private SensorType typeTemperature;
+
+    @BeforeEach
+    void setup() {
+        MockitoAnnotations.initMocks(this);
+        this.newSensorTypeCTRL = new NewSensorTypeCTRL(sensorTypeRepository);
+
+        typeTemperature = new SensorType("temperature");
     }
 
     @Test
-    @DisplayName("Tests if a sensor type already persisted is not created in duplicate")
-    void alreadyPersistedSensorTypeIsNotCreatedAndPersistedAgain() throws ParseException {
-        SensorTypeList sensorTypeList= new SensorTypeList();
-        NewSensorTypeCTRL ctrl = new NewSensorTypeCTRL(sensorTypeList);
-        ctrl.createSensorType("temperature");
-        boolean result = ctrl.createSensorType("Temperature");
-        assertFalse(result);
+    @DisplayName("Create new Sensor Type")
+    void createSensorType() {
+
+        when(sensorTypeRepository.save(this.typeTemperature)).thenReturn(this.typeTemperature);
+
+        boolean expected = newSensorTypeCTRL.createSensorType("temperature");
+        assertTrue(expected);
+
     }
 
     @Test
-    @DisplayName("Tests if existsByType returns true to a sensor type already persisted")
-    void existsByTypeReturnsTrueToAlreadyPersistedSensorType() throws ParseException {
-        SensorTypeList sensorTypeList= new SensorTypeList();
-        NewSensorTypeCTRL ctrl = new NewSensorTypeCTRL(sensorTypeList);
-        ctrl.createSensorType("rainfall");
-        boolean result = ctrl.existsByType("RAINFALL");
-        assertTrue(result);
+    @DisplayName("Check if a sensor type exists and return true because he exists")
+    void checkIfTypeExists() {
+
+        Name temperature = new Name("temperature");
+
+        when(sensorTypeRepository.existsByType(temperature)).thenReturn(true);
+
+        boolean expected = newSensorTypeCTRL.existsByType("temperature");
+        assertTrue(expected);
     }
 
     @Test
-    @DisplayName("Tests if existsByType returns false to a non-persisted sensor type")
-    void existsByTypeReturnsFalseToNonPersistedSensorType() throws ParseException {
-        SensorTypeList sensorTypeList= new SensorTypeList();
-        NewSensorTypeCTRL ctrl = new NewSensorTypeCTRL(sensorTypeList);
-        ctrl.createSensorType("rainfall");
-        boolean result = ctrl.existsByType("wind");
-        assertFalse(result);
-    }
+    @DisplayName("Check if a sensor type dont exists and return false because he dont exists")
+    void checkIfTypeDontExists() {
 
-    @Test
-    @DisplayName("Tests if listOfSensorTypesDTOs returns a list containing 4 DTOs of sensor types persisted in which the" +
-            "third element is of type: temperature")
-    void listOfSensorTypesDTOsHas3ElementsAndThirdElementIsTemperature() throws ParseException {
-        SensorTypeList sensorTypeList= new SensorTypeList();
-        NewSensorTypeCTRL ctrl = new NewSensorTypeCTRL(sensorTypeList);
-        ctrl.createSensorType("raINFAll");
-        ctrl.createSensorType("WIND");
-        ctrl.createSensorType("tempERaTURE");
-        List<SensorTypeDTO> sensorTypeDTOs = ctrl.listOfSensorTypesDTOs();
+        Name temperature = new Name("temperature");
 
-        int expectedSize=3;
-        int resultingSize=sensorTypeDTOs.size();
-        assertEquals(expectedSize,resultingSize);
+        when(sensorTypeRepository.existsByType(temperature)).thenReturn(false);
 
-        String expectedType="temperature";
-        String resultingType=sensorTypeDTOs.get(2).getSensorType();
-        assertEquals(expectedType,resultingType);
-    }
-
-    @Test
-    @DisplayName("Tests if listOfSensorTypesDTOs returns a list containing 0 sensor types for an empty repository")
-    void listOfSensorTypesDTOsIsEmptyForEmptyRepository() {
-        SensorTypeList sensorTypeList= new SensorTypeList();
-        NewSensorTypeCTRL ctrl = new NewSensorTypeCTRL(sensorTypeList);
-
-        List<SensorTypeDTO> sensorTypeDTOs = ctrl.listOfSensorTypesDTOs();
-
-        int expectedSize=0;
-        int resultingSize=sensorTypeDTOs.size();
-        assertEquals(expectedSize,resultingSize);
+        boolean expected = newSensorTypeCTRL.existsByType("temperature");
+        assertFalse(expected);
     }
 
 
     @Test
-    @DisplayName("Tests if listOfSensorTypesDTOs is not empty when repository has 2 sensor types persisted and that " +
-            "the first element in the list name is not of type Humidity")
-    void listOfSensorTypesDTOsIsNotEmptyAndFirstElementIsNotOfTypeHumidity() throws ParseException {
-        SensorTypeList sensorTypeList= new SensorTypeList();
-        NewSensorTypeCTRL ctrl = new NewSensorTypeCTRL(sensorTypeList);
-        ctrl.createSensorType("raINFAll");
-        ctrl.createSensorType("Humidity");
-        List<SensorTypeDTO> sensorTypeDTOs = ctrl.listOfSensorTypesDTOs();
+    @DisplayName("List all sensor types")
+    void listOfSensorTypesDTOs() {
 
-        int expectedSize=0;
-        int resultingSize=sensorTypeDTOs.size();
-        assertNotEquals(expectedSize,resultingSize);
+        SensorType typeRainfall = new SensorType("rainfall");
 
-        String expectedType="humidity";
-        String resultingType=sensorTypeDTOs.get(0).getSensorType();
-        assertNotEquals(expectedType,resultingType);
+        when(sensorTypeRepository.findAll()).thenReturn(Stream.of(this.typeTemperature, typeRainfall).collect(Collectors.toList()));
+
+        int result = newSensorTypeCTRL.listOfSensorTypesDTOs().size();
+
+        assertEquals(2, result);
     }
-}*/
+
+
+    //Because we are using a specific constructor for tests this one has no coverage
+    @Test
+    @DisplayName("Test used constructor in running mode")
+    void realConstructor() {
+
+        SensorTypeList sensorTypeList = new SensorTypeList();
+
+        NewSensorTypeCTRL newSensorTypeCTRL = new NewSensorTypeCTRL(sensorTypeList);
+
+        assertThat(newSensorTypeCTRL).isInstanceOf(NewSensorTypeCTRL.class);
+    }
+
+
+
+}

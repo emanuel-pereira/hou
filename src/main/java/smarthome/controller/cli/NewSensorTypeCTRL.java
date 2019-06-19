@@ -2,9 +2,9 @@ package smarthome.controller.cli;
 
 import smarthome.dto.SensorTypeDTO;
 import smarthome.model.SensorTypeList;
+import smarthome.repository.SensorTypeRepository;
 import smarthome.services.SensorTypeService;
 
-import java.text.ParseException;
 import java.util.List;
 
 
@@ -15,7 +15,14 @@ public class NewSensorTypeCTRL {
 
     public NewSensorTypeCTRL(SensorTypeList sensorTypeList) {
         this.sensorTypeRepoDDD=new SensorTypeService(sensorTypeList);
+    }
 
+    /**
+     * Test controller constructor
+     *
+     */
+    public NewSensorTypeCTRL(SensorTypeRepository sensorTypeRepository){
+        this.sensorTypeRepoDDD= new SensorTypeService(sensorTypeRepository);
     }
 
     /**

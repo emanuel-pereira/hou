@@ -6,10 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.HttpStatus;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.hateoas.Link;
 import smarthome.dto.RoomDetailDTO;
 import smarthome.model.Room;
@@ -208,5 +205,5 @@ class RoomCTRLTest {
 
         assertEquals(expected, result);
     }
-    
+
 }
