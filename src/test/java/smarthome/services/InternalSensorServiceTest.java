@@ -16,16 +16,14 @@ import smarthome.exceptions.RoomNotFoundException;
 import smarthome.exceptions.SensorTypeNotFoundException;
 import smarthome.model.InternalSensor;
 import smarthome.model.ReadingList;
+import smarthome.model.SensorList;
 import smarthome.model.SensorType;
 import smarthome.repository.HouseGridRepository;
 import smarthome.repository.InternalSensorRepository;
 import smarthome.repository.RoomRepository;
 import smarthome.repository.SensorTypeRepository;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
