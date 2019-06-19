@@ -1,15 +1,9 @@
-import Notifications from "views/template/Notifications.jsx";
-import Icons from "views/template/Icons.jsx";
-import Typography from "views/template/Typography.jsx";
-import User from "views/template/User.jsx";
 import Room from "views/Room";
 import Home from "views/Home";
-import HouseArea from "views/HouseArea";
+import GeoArea from "views/GeoArea";
 import HouseGrid from "views/HouseGrid";
 import Sensor from "views/Sensor";
 import Monitoring from "views/Monitoring";
-
-//Used to render Links inside the Sidebar component
 
 var routes = [
   {
@@ -21,8 +15,8 @@ var routes = [
   },
   {
     path: "/geoarea",
-    name: "Geographical Area Managment",
-    icon: "nc-icon nc-map-big",
+    name: "House Area",
+    icon: "nc-icon nc-pin-3",
     component: GeoArea,
     layout: "/admin"
   },
