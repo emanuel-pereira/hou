@@ -1,35 +1,32 @@
 package smarthome.controller.rest;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import smarthome.dto.RoomDTO;
+import org.springframework.hateoas.Link;
 import smarthome.dto.RoomDetailDTO;
 import smarthome.model.Room;
 import smarthome.repository.HouseGridRepository;
 import smarthome.repository.RoomRepository;
 import smarthome.services.RoomService;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@AutoConfigureMockMvc
+
 class RoomCTRLTest {
 
     @Mock
@@ -42,124 +39,174 @@ class RoomCTRLTest {
 
     private RoomCTRL roomCtrl;
 
-    private MockMvc mockMvc;
+    private Room roomB108;
+    private Room roomB210;
+    private RoomDetailDTO roomDtoB108;
 
     @BeforeEach
     void setup() {
         MockitoAnnotations.initMocks(this);
         this.roomService = new RoomService(this.roomRepository, this.gridRepository);
         this.roomCtrl = new RoomCTRL(roomService);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(roomCtrl).build();
+
+        roomB108 = new Room("B108", "Classroom", 1, 3.0, 2.5, 2.0);
+        roomB210 = new Room("B110", "Classroom", 2, 2.0, 3.5, 2.0);
+
+        roomDtoB108 = new RoomDetailDTO("B018", "Classroom", 1, 3.0, 2.5, 2.0);
+
+
     }
 
     @Test
-    @DisplayName("Find all with success")
-    void findAllRooms() throws Exception {
-        Room room1 = new Room("B107", "Classroom", 1, 2, 3, 1.5);
-        Room room2 = new Room("B208", "Classroom", 2, 2.5, 3, 1.5);
-        List<Room> rooms = Arrays.asList(room1,room2);
-        RoomDTO roomDTO1 = new RoomDTO("B107", "Classroom");
-        RoomDTO roomDTO2= new RoomDTO("B208", "Classroom");
-        List<RoomDTO> roomsDTO = Arrays.asList(roomDTO1,roomDTO2);
+    @DisplayName("Find all and return SelfRefLinks for each resource in body")
+    void findAllWithLinks() throws NoSuchFieldException {
 
-        when(roomRepository.findAll()).thenReturn(rooms);
+        when(roomRepository.findAll()).thenReturn(Stream.of(roomB108, roomB210).collect(Collectors.toList()));
 
-        this.mockMvc.perform(get("/rooms")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(String.valueOf(roomsDTO)))
-                .andExpect(status().isOk());
+        List<Link> expected = Collections.singletonList(new Link("/rooms").withRel("self"));
+        List<Link> result = Objects.requireNonNull(roomCtrl.findAll().getBody()).getLinks();
+
+        assertEquals(expected, result);
     }
 
     @Test
-    @DisplayName("Create a room with success")
-    void createRoom() throws Exception {
-        Room room = new Room("B018", "Classroom", 1, 3.0, 2.5, 2.0);
-        RoomDetailDTO roomDto = new RoomDetailDTO("B018", "Classroom", 1, 3.0, 2.5, 2.0);
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonInString = mapper.writeValueAsString(roomDto);
+    @DisplayName("Find all and return 2 rooms in resource content")
+    void findAllSize() throws NoSuchFieldException {
 
-        when(roomRepository.findById("B018")).thenReturn(Optional.of(room));
+        when(roomRepository.findAll()).thenReturn(Stream.of(roomB108, roomB210).collect(Collectors.toList()));
+        int expected = 2;
+        int result = Objects.requireNonNull(roomCtrl.findAll().getBody()).getContent().size();
 
-        this.mockMvc.perform(post("/rooms")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonInString))
-                .andExpect(status().isCreated());
+        assertEquals(expected, result);
     }
 
     @Test
-    @DisplayName("Can't create a room that already exists")
-    void cantCreateRoomExists() throws Exception {
-        RoomDetailDTO roomDto = new RoomDetailDTO("B018", "Classroom", 1, 3.0, 2.5, 2.0);
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonInString = mapper.writeValueAsString(roomDto);
+    @DisplayName("Find all and return 0 rooms in resource content")
+    void findAllNone() throws NoSuchFieldException {
 
-        when(roomRepository.existsById("B018")).thenReturn(true);
+        when(roomRepository.findAll()).thenReturn(new ArrayList<>());
 
-        this.mockMvc.perform(post("/rooms")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonInString))
-                .andExpect(status().isConflict());
+        int expected = 0;
+        int result = Objects.requireNonNull(roomCtrl.findAll().getBody()).getContent().size();
+
+        assertEquals(expected, result);
     }
 
     @Test
-    @DisplayName("Can't create a room")
-    void cantCreateRoom() throws Exception {
-        String jsonInString = "{'id': 'B108'}";
+    @DisplayName("Find one and return Http Status 200")
+    void findOneStatusOk() throws NoSuchFieldException {
 
-        this.mockMvc.perform(post("/rooms")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonInString))
-                .andExpect(status().isBadRequest());
+        when(roomRepository.existsById("B108")).thenReturn(true);
+        when(roomRepository.findById("B108")).thenReturn(Optional.of(roomB108));
+
+        HttpStatus expected = HttpStatus.OK;
+        HttpStatus result = roomCtrl.findOne("B108").getStatusCode();
+
+        assertEquals(expected, result);
     }
 
     @Test
-    @DisplayName("Try to find a room with success")
-    void findOneRoomExists() throws Exception {
-        Room room = new Room("B310", "Classroom", 3, 2.5, 2.5, 2);
-        RoomDetailDTO roomDto = new RoomDetailDTO("B310", "Classroom", 3, 2.5, 2.5, 2);
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonInString = mapper.writeValueAsString(roomDto);
-        when(roomRepository.existsById("B310")).thenReturn(true);
-        when(roomRepository.findById("B310")).thenReturn(Optional.of(room));
-        this.mockMvc.perform(get("/rooms/B310")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonInString))
-                .andExpect(status().isOk());
+    @DisplayName("Find one and return SelfRefLinks")
+    void findOneLinks() throws NoSuchFieldException {
+
+        when(roomRepository.existsById("B108")).thenReturn(true);
+        when(roomRepository.findById("B108")).thenReturn(Optional.of(roomB108));
+
+        List<Link> expected = Collections.singletonList(new Link("/rooms/B108").withSelfRel());
+        List<Link> result = Objects.requireNonNull(roomCtrl.findOne("B108").getBody()).getLinks();
+        assertEquals(expected, result);
     }
 
     @Test
-    @DisplayName("Try to find a room that doesn't exist and get not found")
-    void findOneRoomDontExist() throws Exception {
-        Room room = new Room("B310", "Classroom", 3, 2.5, 2.5, 2);
-        when(roomRepository.existsById("B310")).thenReturn(true);
-        when(roomRepository.findById("B310")).thenReturn(Optional.of(room));
-        this.mockMvc.perform(get("/rooms/B31"))
-                .andExpect(status().isNotFound());
+    @DisplayName("Find one and return RoomDetailDTO in body content")
+    void findOneBodyDTO() throws NoSuchFieldException {
+
+        when(roomRepository.existsById("B108")).thenReturn(true);
+        when(roomRepository.findById("B108")).thenReturn(Optional.of(roomB108));
+
+        String expected = "smarthome.dto.RoomDetailDTO";
+        String result = Objects.requireNonNull(roomCtrl.findOne("B108").getBody()).getContent().getClass().getName();
+        assertEquals(expected, result);
     }
 
     @Test
-    @DisplayName("Edit a room with success")
-    void editRoom() throws Exception {
-        Room room = new Room("B018", "Classroom", 1, 3.0, 2.5, 2.0);
-        RoomDetailDTO roomDto = new RoomDetailDTO("B018", "Classroom", 0, 3.0, 2.5, 2.0);
-        ObjectMapper mapper = new ObjectMapper();
-        String jsonInString = mapper.writeValueAsString(roomDto);
+    @DisplayName("Can´t find one and return status 404")
+    void findOneStatus404() throws NoSuchFieldException {
 
-        when(roomRepository.existsById("B018")).thenReturn(true);
-        when(roomRepository.findById("B018")).thenReturn(Optional.of(room));
+        when(roomRepository.existsById("B100")).thenReturn(false);
 
-        this.mockMvc.perform(put("/rooms/B018")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonInString))
-                .andExpect(status().isOk());
+        int expected = 404;
+        int result = roomCtrl.findOne("B100").getStatusCodeValue();
+        assertEquals(expected, result);
     }
 
     @Test
-    @DisplayName("Try to edit a room that doesn't exist")
-    void editRoomNonexistent() throws Exception {
+    @DisplayName("Can´t find one and return error")
+    void findOneError() throws NoSuchFieldException {
+        when(roomRepository.findById("B100")).thenReturn(null);
+        assertTrue(roomCtrl.findOne("B100").getStatusCode().is4xxClientError());
+    }
+
+    @Test
+    @DisplayName("Edit room and return status 200")
+    void editRoomStatus200() throws NoSuchFieldException {
+
+        when(roomRepository.existsById("B108")).thenReturn(true);
+        when(roomRepository.findById("B108")).thenReturn(Optional.of(roomB108));
+
+        int expected = 200;
+        int result = roomCtrl.editRoom("B108", roomDtoB108).getStatusCodeValue();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Edit room and return status Not Found")
+    void editRoomStatusNotFound() throws NoSuchFieldException {
+
         when(roomRepository.existsById("B108")).thenReturn(false);
-        this.mockMvc.perform(get("/rooms/108")).andExpect(status().isNotFound());
+
+        HttpStatus expected = HttpStatus.NOT_FOUND;
+        HttpStatus result = roomCtrl.editRoom("B108", roomDtoB108).getStatusCode();
+        assertEquals(expected, result);
     }
 
+    @Test
+    @DisplayName("Edit room and return RoomDetailDTO in body content")
+    void editRoomBodyDTO() throws NoSuchFieldException {
 
+        when(roomRepository.existsById("B108")).thenReturn(true);
+        when(roomRepository.findById("B108")).thenReturn(Optional.of(roomB108));
+
+        String expected = "smarthome.dto.RoomDetailDTO";
+
+        String result = Objects.requireNonNull(roomCtrl.editRoom("B108", roomDtoB108).getBody()).getContent().getClass().getName();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Create room and return Status Created")
+    void createRoomStatusCreate() throws NoSuchFieldException {
+
+        when(roomRepository.existsById("B108")).thenReturn(false);
+        when(roomRepository.findById("B108")).thenReturn(Optional.of(roomB108));
+
+        HttpStatus expected = HttpStatus.CREATED;
+        HttpStatus result = roomCtrl.createRoom(roomDtoB108).getStatusCode();
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Create room and return RoomDetailDTO in body content")
+    void createRoomBodyDTO() throws NoSuchFieldException {
+
+        when(roomRepository.existsById("B108")).thenReturn(false);
+        when(roomRepository.findById("B108")).thenReturn(Optional.of(roomB108));
+
+        String expected = "smarthome.dto.RoomDetailDTO";
+        String result = Objects.requireNonNull(roomCtrl.createRoom(roomDtoB108).getBody()).getContent().getClass().getName();
+
+        assertEquals(expected, result);
+    }
+    
 }
