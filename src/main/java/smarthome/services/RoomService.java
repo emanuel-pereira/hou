@@ -49,7 +49,7 @@ public class RoomService {
      * Spring initializes all @RestController classes before initializing the repositories. If a repository is null this
      * will set them
      */
-    private void setRepositoriesIfNull() {
+    void setRepositoriesIfNull() {
         if (this.roomRepository == null) {
             roomRepository = Repositories.getRoomRepository();
         }

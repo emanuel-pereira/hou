@@ -21,19 +21,23 @@ public class GeoAreaService {
     private ModelMapper mapper = new ModelMapper();
     private GeoRepository geoRepository;
     private TypeGARepository typeGARepository;
-
-    public GeoAreaService() {
-
-    }
+    private GaTypesService gaTypesService;
 
     /**
      * Constructor initialize GeoAreaService
      */
 
-    public GeoAreaService(GeoRepository geoRepository, TypeGARepository typeGARepository) {
+    public GeoAreaService() {
+
+    }
+
+    public GeoAreaService(GeoRepository geoRepository, TypeGARepository typeGARepository, GaTypesService gaTypesService) {
         this.geoRepository = geoRepository;
         this.typeGARepository = typeGARepository;
+        this.gaTypesService = gaTypesService;
+        mapper = new ModelMapper();
     }
+
 
 
     private void setRepositories() {
@@ -42,7 +46,6 @@ public class GeoAreaService {
         if (this.typeGARepository == null)
             this.typeGARepository = Repositories.getTypeGARepository();
     }
-
     /**
      * Method to check if the id of the GA to set in another exists.
      *
@@ -57,13 +60,13 @@ public class GeoAreaService {
             return false;
         }
 
-        GeographicalArea GA1 = this.geoRepository.findById(id).get();
-        GeographicalArea GA2 = this.geoRepository.findById(idParent).get();
+        GeographicalArea ga1 = geoRepository.findById(id).get();
+        GeographicalArea ga2 = geoRepository.findById(idParent).get();
 
-        if (!GA1.equals(GA2))
-            GA1.setParentGa(GA2);
+        if (!ga1.equals(ga2))
+            ga1.setParentGa(ga2);
 
-        this.geoRepository.save(GA1);
+        this.geoRepository.save(ga1);
         return true;
     }
 
@@ -139,7 +142,6 @@ public class GeoAreaService {
         setRepositories();
 
         List<GeographicalAreaDTO> geoAreas = new ArrayList<>();
-
 
         this.geoRepository.findAll().forEach(geographicalArea -> {
             GeographicalAreaDTO temp = this.mapper.map(geographicalArea, GeographicalAreaDTO.class);

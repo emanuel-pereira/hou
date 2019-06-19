@@ -20,7 +20,7 @@ class InternalSensorMapperTest {
         SensorType type = new SensorType("temperature");
         type.setId(3L);
         InternalSensor internalSensor = new InternalSensor("T1025", "Kitchen Temperature Sensor", startDate, type, "C", new ReadingList());
-        internalSensor.setRoom("KITCHENISEP");
+        internalSensor.setRoomId("KITCHENISEP");
         return internalSensor;
     }
 

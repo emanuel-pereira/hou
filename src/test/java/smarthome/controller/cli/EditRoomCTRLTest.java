@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import smarthome.dto.RoomDetailDTO;
-import smarthome.model.OccupationArea;
 import smarthome.model.Room;
 import smarthome.repository.HouseGridRepository;
 import smarthome.repository.RoomRepository;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
@@ -162,6 +162,16 @@ class EditRoomCTRLTest {
     void updateAreaNonExistentRoom() {
         when(this.roomRepository.findById("B108")).thenReturn(Optional.empty());
         Assertions.assertThrows(NoSuchFieldException.class, () -> editRoomCTRL.updateArea("B108"));
+    }
+
+    //Because we are using a specific constructor for tests this one has no coverage
+    @Test
+    @DisplayName("Test used constructor in running mode")
+    void realConstructor() {
+
+        EditRoomCTRL editRoomCTRL = new EditRoomCTRL();
+
+        assertThat(editRoomCTRL).isInstanceOf(EditRoomCTRL.class);
     }
 
 }
