@@ -25,7 +25,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RequestMapping("/externalSensors")
 public class ExternalSensorCTRL {
 
-    private ExternalSensorService service;
+    private final ExternalSensorService service;
 
     public ExternalSensorCTRL(ExternalSensorService service) {
         this.service = service;
@@ -34,11 +34,12 @@ public class ExternalSensorCTRL {
     /**
      * This method retrieves all external sensors in the database and wraps them as resources so that they may have
      * URI links.
+     *
      * @return a response entity containing resources, which contain ExternalSensorDTO objects and respective links,
      * as well as the respective HTTP.Status 200 OK.
      */
     @GetMapping
-        public HttpEntity<Resources<Resource<ExternalSensorDTO>>> findAll() {
+    public HttpEntity<Resources<Resource<ExternalSensorDTO>>> findAll() {
         Resources<Resource<ExternalSensorDTO>> resources = Resources.wrap(service.findAll());
         resources.forEach(resource ->
                 resource.add(linkTo(methodOn(ExternalSensorCTRL.class).get(resource.getContent().getId())).withSelfRel()));
@@ -49,6 +50,7 @@ public class ExternalSensorCTRL {
 
     /**
      * HTTP GET request mapping to retrieve an external sensor with a specific id.
+     *
      * @param id String value representing the external sensor's id
      * @return ResponseEntity including a resource with HATEOAS and HTTP status OK. If there is no ExternalSensor with the
      * specified id, then it throws an ExternalSensorNotFoundException returning a resource with a message informing
@@ -75,6 +77,7 @@ public class ExternalSensorCTRL {
      * then this object is deleted from the database.
      * Otherwise, if there is no external sensor with that id in the database, then an ExternalSensorNotFoundException
      * is thrown.
+     *
      * @param id String value parameter representing the external sensor's id.
      * @return a response entity containing an empty resource if the sensor is deleted from the database plus the
      * HTTP Status code 204 No Content. If there is none sensor with that id in the database, then it returns a
@@ -99,7 +102,8 @@ public class ExternalSensorCTRL {
      * checks if the sensor status active is set as true, as well as it checks if the dateAndTime parameter is after the
      * sensor's startDate. If so, then the external sensor Active state is set as false as well as sets its pauseDate
      * saving this changes in the database.
-     * @param id String value parameter representing the external sensor's id.
+     *
+     * @param id        String value parameter representing the external sensor's id.
      * @param pauseDate Calendar dataType parameter to set the pauseDate of an external sensor
      * @return if the sensor is successfully deactivated then it retrieves a resource, containing the externalSensor
      * instance plus the respective link, and returns the respective HTTP status code OK.
@@ -132,6 +136,7 @@ public class ExternalSensorCTRL {
      * SensorTypeNotFoundException is caught.
      * If both preconditions mentioned previously are met, then it will save the external sensor
      * in the database.
+     *
      * @param externalSensorDTO containing the object passed as parameter
      * @return a response entity with a resource, containing the externalSensorDTO when the respective entity is
      * persisted as well as it URI link, and the respective HTTP status code OK. If a GeographicalAreaNotFoundException
@@ -140,14 +145,13 @@ public class ExternalSensorCTRL {
      * HTTP status code precondition failed.
      */
     @PostMapping
-    ResponseEntity<Resource<Object>> add(@RequestBody ExternalSensorDTO externalSensorDTO) {
+    public ResponseEntity<Resource<Object>> add(@RequestBody ExternalSensorDTO externalSensorDTO) {
         Resource<Object> resource;
         try {
             service.createExternalSensor(externalSensorDTO);
             resource = new Resource<>(externalSensorDTO);
             resource.add(linkTo(methodOn(ExternalSensorCTRL.class).get(externalSensorDTO.getId())).withSelfRel());
-        }
-        catch (GeographicalAreaNotFoundException gaNotFoundException) {
+        } catch (GeographicalAreaNotFoundException gaNotFoundException) {
             resource = new Resource<>("Geographical area with id " + externalSensorDTO.getIdGA() + " does not exist.");
             return new ResponseEntity<>(resource, HttpStatus.PRECONDITION_FAILED);
         } catch (SensorTypeNotFoundException sensorTypeNotFoundException) {
