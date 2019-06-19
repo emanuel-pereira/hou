@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.TypeGADTO;
 import smarthome.model.GeographicalArea;
+import smarthome.repository.GeoRepository;
 import smarthome.repository.Repositories;
+import smarthome.repository.TypeGARepository;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -16,20 +18,30 @@ import java.util.Optional;
 @Service
 public class GeoAreaService {
 
+    private ModelMapper mapper = new ModelMapper();
+    private GeoRepository geoRepository;
+    private TypeGARepository typeGARepository;
 
-    private ModelMapper mapper;
+    public GeoAreaService() {
+
+    }
 
     /**
      * Constructor initialize GeoAreaService
      */
 
-    public GeoAreaService() {
-
-        this.mapper = new ModelMapper();
-
-
+    public GeoAreaService(GeoRepository geoRepository, TypeGARepository typeGARepository) {
+        this.geoRepository = geoRepository;
+        this.typeGARepository = typeGARepository;
     }
 
+
+    private void setRepositories() {
+        if (this.geoRepository == null)
+            this.geoRepository = Repositories.getGeoRepository();
+        if (this.typeGARepository == null)
+            this.typeGARepository = Repositories.getTypeGARepository();
+    }
 
     /**
      * Method to check if the id of the GA to set in another exists.
@@ -38,21 +50,20 @@ public class GeoAreaService {
      * @param idParent of requested GA2
      * @return true or false.
      */
-
-
     public boolean setParentGaWebCTRL(String id, String idParent) {
+        setRepositories();
 
         if (!checkIfIdExists(id)) {
             return false;
         }
 
-        GeographicalArea GA1 = Repositories.getGeoRepository().findById(id).get();
-        GeographicalArea GA2 = Repositories.getGeoRepository().findById(idParent).get();
+        GeographicalArea GA1 = this.geoRepository.findById(id).get();
+        GeographicalArea GA2 = this.geoRepository.findById(idParent).get();
 
         if (!GA1.equals(GA2))
             GA1.setParentGa(GA2);
 
-        Repositories.getGeoRepository().save(GA1);
+        this.geoRepository.save(GA1);
         return true;
     }
 
@@ -74,25 +85,24 @@ public class GeoAreaService {
 
 
     public GeographicalAreaDTO addNewGeoArea(GeographicalAreaDTO geoAreaDTO) throws InvalidParameterException {
-
+        setRepositories();
 
         TypeGADTO typeDto = geoAreaDTO.getType();
 
-        if (!Repositories.getTypeGARepository().existsByType(typeDto.getType())) {
+        if (!this.typeGARepository.existsByType(typeDto.getType())) {
             throw new InvalidParameterException();
         }
 
         GeographicalArea newGeoArea = mapper.map(geoAreaDTO, GeographicalArea.class);
-        newGeoArea.setType(Repositories.getTypeGARepository().findByType(typeDto.getType()));
+        newGeoArea.setType(this.typeGARepository.findByType(typeDto.getType()));
 
         if (!geoAreaIsValid(newGeoArea)) {
             throw new InvalidParameterException();
         }
-        Repositories.getGeoRepository().save(newGeoArea);
+        this.geoRepository.save(newGeoArea);
         return geoAreaDTO;
 
     }
-
 
     private boolean geoAreaIsValid(GeographicalArea geoArea) {
 
@@ -101,12 +111,13 @@ public class GeoAreaService {
                 geoArea.getType() != null &&
                 geoArea.getLocation() != null &&
                 geoArea.getOccupation() != null);
-
     }
 
 
     public GeographicalAreaDTO findById(String id) throws NoSuchFieldException {
-        Optional<GeographicalArea> optional = Repositories.getGeoRepository().findById(id);
+        setRepositories();
+        Optional<GeographicalArea> optional = this.geoRepository.findById(id);
+
         if (!optional.isPresent())
             throw new NoSuchFieldException();
         GeographicalArea temp = optional.get();
@@ -114,18 +125,23 @@ public class GeoAreaService {
     }
 
 
-    public boolean checkIfIdExists(String id) {
-
-        return Repositories.getGeoRepository().existsById(id);
+    private boolean checkIfIdExists(String id) {
+        setRepositories();
+        return this.geoRepository.existsById(id);
     }
 
     public long size() {
-        return Repositories.getGeoRepository().count();
+        setRepositories();
+        return this.geoRepository.count();
     }
 
     public List<GeographicalAreaDTO> findAll() {
+        setRepositories();
+
         List<GeographicalAreaDTO> geoAreas = new ArrayList<>();
-        Repositories.getGeoRepository().findAll().forEach(geographicalArea -> {
+
+
+        this.geoRepository.findAll().forEach(geographicalArea -> {
             GeographicalAreaDTO temp = this.mapper.map(geographicalArea, GeographicalAreaDTO.class);
             geoAreas.add(temp);
         });
