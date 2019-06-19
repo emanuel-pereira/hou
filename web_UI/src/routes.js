@@ -2,15 +2,14 @@ import Notifications from "views/template/Notifications.jsx";
 import Icons from "views/template/Icons.jsx";
 import Typography from "views/template/Typography.jsx";
 import User from "views/template/User.jsx";
-import TableList from "views/template/Tables.jsx";
 import Room from "views/Room";
 import Home from "views/Home";
-import GeoArea from "views/GeoArea";
+import HouseArea from "views/HouseArea";
 import HouseGrid from "views/HouseGrid";
 import Sensor from "views/Sensor";
 import Monitoring from "views/Monitoring";
 
-
+//Used to render Links inside the Sidebar component
 
 var routes = [
   {
@@ -29,60 +28,31 @@ var routes = [
   },
   {
     path: "/rooms",
-    name: "House Rooms Managment",
+    name: "Rooms",
     icon: "nc-icon nc-app",
     component: Room,
     layout: "/admin"
   },
   {
     path: "/housegrids",
-    name: "House Grids Managment",
+    name: "Power Grids",
     icon: "nc-icon nc-layout-11",
     component: HouseGrid,
     layout: "/admin"
   },
   {
     path: "/sensors",
-    name: "House Sensors Managment",
+    name: "Sensors",
     icon: "nc-icon nc-map-big",
     component: Sensor,
     layout: "/admin"
   },
   {
     path: "/monitoring",
-    name: "House Monitoring",
-    icon: "nc-icon nc-tv-2",
+    name: "Reports",
+    icon: "nc-icon nc-chart-bar-32",
     component: Monitoring,
     layout: "/admin"
   },
-  {
-    path: "/icons",
-    name: "Icons",
-    icon: "nc-icon nc-diamond",
-    component: Icons,
-    layout: "/admin"
-  },
-  {
-    path: "/notifications",
-    name: "Notifications",
-    icon: "nc-icon nc-bell-55",
-    component: Notifications,
-    layout: "/admin"
-  },
-  {
-    path: "/users",
-    name: "Table List",
-    icon: "nc-icon nc-tile-56",
-    component: User,
-    layout: "/admin"
-  },
-  {
-    path: "/typography",
-    name: "Typography",
-    icon: "nc-icon nc-caps-small",
-    component: Typography,
-    layout: "/admin"
-  },
-    
 ];
 export default routes;
