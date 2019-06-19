@@ -50,20 +50,17 @@ class ExternalSensorServiceTest {
     private GaTypesService gaTypesService;
 
 
-    LocationDTO locationDTO;
-    SensorTypeDTO sensorTypeDTO;
-    SensorBehaviorDTO sensorBehaviorDTO;
-    ExternalSensorDTO externalSensorDTO;
-    ExternalSensorDTO externalSensorDTO2;
-    GeographicalAreaDTO geographicalAreaDTO;
-    TypeGADTO typeGADTO;
-    ExternalSensorMapper mapper;
-    ExternalSensor externalSensor;
-    SensorType temperature;
-    Location location;
-    GeographicalArea geographicalArea;
-    ExternalSensor extSensor2;
-
+    private LocationDTO locationDTO;
+    private SensorTypeDTO sensorTypeDTO;
+    private SensorBehaviorDTO sensorBehaviorDTO;
+    private ExternalSensorDTO externalSensorDTO;
+    private ExternalSensorDTO externalSensorDTO2;
+    private GeographicalAreaDTO geographicalAreaDTO;
+    private TypeGADTO typeGADTO;
+    private ExternalSensorMapper mapper;
+    private ExternalSensor externalSensor;
+    private SensorType temperature;
+    private Location location;
     @Autowired
     private MockMvc mockMvc;
 
@@ -87,10 +84,7 @@ class ExternalSensorServiceTest {
         externalSensor = mapper.toEntity(externalSensorDTO2);
         temperature = new SensorType("temperature");
         location = new Location(25, 32, 45);
-        geographicalArea = new GeographicalArea("POR", "Porto", new TypeGA("city"), new OccupationArea(25, 32), new Location(22, 32, 45));
-        /*extSensor2=externalSensor;
-        extSensor2.getSensorBehavior().setActive(false);
-        extSensor2.getSensorBehavior().setPauseDate(new GregorianCalendar(2019,7,7));*/
+
     }
 
 
@@ -131,7 +125,7 @@ class ExternalSensorServiceTest {
     }
 
     @Test
-    void whenRepositorySaveReturnsFalseWithUnexistentGeoAreaThenServiceCreateMethodThrowsGeographicalAreaNotFoundException() {
+    void whenRepositorySaveReturnsFalseWithNonExistentGeoAreaThenServiceCreateMethodThrowsGeographicalAreaNotFoundException() {
         when(this.typeGARepository.existsByType(typeGADTO.getType())).thenReturn(true);
         when(this.externalSensorRepository.existsById("TEMP2")).thenReturn(false);
         Assertions.assertThrows(GeographicalAreaNotFoundException.class, () -> externalSensorService.createExternalSensor(externalSensorDTO2));

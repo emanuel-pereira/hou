@@ -25,7 +25,11 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RequestMapping("/externalSensors")
 public class ExternalSensorCTRL {
 
-    private ExternalSensorService service = new ExternalSensorService();
+    private ExternalSensorService service;
+
+    public ExternalSensorCTRL(ExternalSensorService service) {
+        this.service = service;
+    }
 
     /**
      * This method retrieves all external sensors in the database and wraps them as resources so that they may have
@@ -34,7 +38,7 @@ public class ExternalSensorCTRL {
      * as well as the respective HTTP.Status 200 OK.
      */
     @GetMapping
-    public HttpEntity<Resources<Resource<ExternalSensorDTO>>> findAll() {
+        public HttpEntity<Resources<Resource<ExternalSensorDTO>>> findAll() {
         Resources<Resource<ExternalSensorDTO>> resources = Resources.wrap(service.findAll());
         resources.forEach(resource ->
                 resource.add(linkTo(methodOn(ExternalSensorCTRL.class).get(resource.getContent().getId())).withSelfRel()));
@@ -53,7 +57,7 @@ public class ExternalSensorCTRL {
     @GetMapping("/{id}")
     public ResponseEntity<Resource<Object>> get(@PathVariable String id) {
         ExternalSensorDTO dto;
-        Resource<Object> externalSensorResource = null;
+        Resource<Object> externalSensorResource;
         try {
             dto = service.get(id);
             externalSensorResource = new Resource<>(dto, linkTo(methodOn(ExternalSensorCTRL.class).findAll()).withRel("ExternalSensors"));
@@ -108,7 +112,7 @@ public class ExternalSensorCTRL {
     @PatchMapping("/{id}/deactivate")
     public ResponseEntity<Resource<Object>> deactivate(@PathVariable String id, @RequestParam(name = "dateAndTime") @DateTimeFormat(pattern = "yyyy-MM-dd") Calendar pauseDate) {
         ExternalSensorDTO dto;
-        Resource<Object> externalSensorResource = null;
+        Resource<Object> externalSensorResource;
         try {
             dto = service.deactivate(id, pauseDate);
             externalSensorResource = new Resource<>(dto, linkTo(methodOn(ExternalSensorCTRL.class).findAll()).withRel("ExternalSensors"));
@@ -117,9 +121,6 @@ public class ExternalSensorCTRL {
         } catch (IllegalArgumentException illegalArgumentException) {
             return new ResponseEntity<>(new Resource<>("The sensor with id " + id + " is already inactive."), HttpStatus.PRECONDITION_FAILED);
         }
-
-        /*check how to catch exception when input date is in invalid format (ConversionFailedException |MethodArgumentTypeMismatchException | IllegalArgumentException e){
-        return new ResponseEntity<Resource<Object>>(new Resource<>("Please insert a valid date in yyyy-MM-dd format."), HttpStatus.PRECONDITION_FAILED);}*/
         return new ResponseEntity<>(externalSensorResource, HttpStatus.OK);
     }
 
@@ -140,7 +141,7 @@ public class ExternalSensorCTRL {
      */
     @PostMapping
     ResponseEntity<Resource<Object>> add(@RequestBody ExternalSensorDTO externalSensorDTO) {
-        Resource<Object> resource = null;
+        Resource<Object> resource;
         try {
             service.createExternalSensor(externalSensorDTO);
             resource = new Resource<>(externalSensorDTO);

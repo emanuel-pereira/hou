@@ -105,7 +105,7 @@ public class SensorTypeService {
         return sensorTypeRepository.existsByType(repoType);
     }
 
-    boolean existsByID(Long id) {
+    public boolean existsByID(Long id) {
         injectRepository();
         return sensorTypeRepository.existsById(id);
     }
