@@ -1,5 +1,6 @@
 import React from 'react';
 import AreaMonitoringMenu from "./HouseArea/AreaMonitoringMenu";
+import RoomMonitoring from "../RoomMonitoringComponents/RoomMonitoring";
 
 class HouseMonitoring extends React.Component {
     constructor(props) {
@@ -42,7 +43,7 @@ class HouseMonitoring extends React.Component {
                         {this.state.showAreaMonitoring && <AreaMonitoringMenu/>}
                     </tr>
                     <tr>
-                        {this.state.showRoomMonitoring && <p> PLEASE INSERT ROOM MONITORING COMPONENT HERE</p>}
+                        {this.state.showRoomMonitoring && <RoomMonitoring/>}
                     </tr>
                 </table>
             </div>
