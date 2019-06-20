@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import UpdateRoom from "./UpdateRoom";
 import {
     Card,
-    CardHeader,
     CardBody,
-    CardTitle,
     Table,
     Row,
     Col

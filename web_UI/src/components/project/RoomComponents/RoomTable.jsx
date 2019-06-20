@@ -35,8 +35,8 @@ class RoomTable extends React.Component {
           <td>{row.description}</td>
           <td onClick={() => this.fetchRoomDetails(row.id)}><i className="nc-icon nc-zoom-split text-primary" /> <b className="text-primary">Check Details</b></td>
           <td onClick={() => this.fetchRoomSensors(row.id)}><i className="nc-icon nc-touch-id text-danger" /> <b className="text-danger">Sensors</b></td>
-
-        </tr>)
+        </tr>
+        )
     })
     if (data.length === 0) {
       return (
@@ -74,7 +74,6 @@ const mapStateToProps = (state) => {
     rooms: {
       data: state.rooms.rooms.data,
     },
-    roomId: state.rooms.details.roomId,
     sensors: {
       data: state.rooms.sensors.data,
     }

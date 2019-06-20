@@ -3,6 +3,7 @@ import {
     FETCH_HOUSEGRID_SUCCESS,
     FETCH_HOUSEGRID_FAILURE,
     ADD_HOUSEGRID,
+    FETCH_HOUSEGRID_ROOMS,
 
 } from '../actions/actionsGrid'
 
@@ -11,6 +12,9 @@ const initialstate = {
         loading: false,
         error: null,
         data: [],
+    },
+    houseGridRooms: {
+        data: {},
     }
 }
 
@@ -48,8 +52,15 @@ function gridsReducer(state = initialstate, action) {
                 ...state,
                 data: { ...action.payload.data },
             }
+        case FETCH_HOUSEGRID_ROOMS:
+            return {
+                ...state,
+                houseGridRooms: {
+                    data: { ...action.payload.data },
+                }
+            }
         default:
             return state
+            }
     }
-}
-export default gridsReducer;
+    export default gridsReducer;
