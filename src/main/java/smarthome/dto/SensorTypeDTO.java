@@ -3,7 +3,6 @@ package smarthome.dto;
 
 public class SensorTypeDTO {
 
-    private long id;
     private String type;
 
     public SensorTypeDTO(){}
@@ -21,11 +20,4 @@ public class SensorTypeDTO {
         this.type = type;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 }

@@ -1,6 +1,5 @@
 package smarthome.services;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -34,10 +33,6 @@ class SensorTypeServiceTest {
     Name rainfall;
     SensorTypeDTO typeTemperature;
     SensorTypeDTO typeRainfall;
-
-
-    @Autowired
-    private MockMvc mockMvc;
 
 
     @BeforeEach
@@ -107,22 +102,6 @@ class SensorTypeServiceTest {
         assertNotEquals(expected, result);
     }
 
-    @Test
-    void findByTypeOfNonExistingTypeReturnNull() {
-        when(this.sensorTypeRepository.findByType(new Name("wind"))).thenReturn(null);
-        Assertions.assertThrows(NullPointerException.class, () -> sensorTypeService.findByType("wind"));
-    }
-
-    @Test
-    void findById() {
-        SensorType temperature = new SensorType("temperature");
-        temperature.setId(1L);
-        when(this.sensorTypeRepository.findById(1L)).thenReturn(java.util.Optional.of(temperature));
-        long resultingID = sensorTypeService.findById(1L).getId();
-        assertEquals(1L, resultingID);
-        String resultingType = sensorTypeService.findById(1L).getType();
-        assertEquals("temperature", resultingType);
-    }
 
     @Test
     void testSetRepositoryIfNullWithNullRepository() {

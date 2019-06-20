@@ -14,9 +14,6 @@ public class SensorTypeMapper {
         SensorTypeDTO sensorTypeDTO = new SensorTypeDTO();
         Name type = sensorType.getType();
         String typeStr = type.getName();
-        if (sensorType.getId()!=null) {
-            sensorTypeDTO.setId(sensorType.getId());
-        }
         sensorTypeDTO.setType(typeStr);
 
         return sensorTypeDTO;
@@ -25,9 +22,6 @@ public class SensorTypeMapper {
     public SensorType toEntity(SensorTypeDTO sensorTypeDTO){
 
         SensorType sensorType= new SensorType();
-        if(sensorTypeDTO.getId()!=0){
-            sensorType.setId(sensorTypeDTO.getId());
-        }
         sensorType.setType(sensorTypeDTO.getType());
         return sensorType;
     }

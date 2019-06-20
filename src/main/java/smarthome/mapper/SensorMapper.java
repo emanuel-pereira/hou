@@ -39,16 +39,4 @@ public class SensorMapper {
         return listOfSensors.stream().map(this::toDto).collect(Collectors.toList());
     }
 
-    public Sensor toEntity(SensorDTO sensorDTO) {
-        String id = sensorDTO.getId();
-        String designation = sensorDTO.getDesignation();
-        SensorTypeDTO sensorTypeDTO = sensorDTO.getSensorType();
-        SensorType sensorType = sensorTypeMapper.toEntity(sensorTypeDTO);
-        Calendar startDate = sensorDTO.getStartDate();
-        String unit = "";
-        ReadingList readings = new ReadingList();
-
-        return new InternalSensor(id, designation, startDate, sensorType, unit, readings);
-    }
-
 }

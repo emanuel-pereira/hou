@@ -7,8 +7,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.MockMvc;
 import smarthome.dto.*;
 import smarthome.exceptions.ExternalSensorNotFoundException;
 import smarthome.exceptions.GeographicalAreaNotFoundException;
@@ -61,8 +59,7 @@ class ExternalSensorServiceTest {
     private ExternalSensor externalSensor;
     private SensorType temperature;
     private Location location;
-    @Autowired
-    private MockMvc mockMvc;
+
 
     @BeforeEach
     void setup() {
@@ -73,7 +70,6 @@ class ExternalSensorServiceTest {
         this.externalSensorService = new ExternalSensorService(this.externalSensorRepository, this.geoAreaService, this.sensorTypeService);
         this.locationDTO = new LocationDTO(22, 12, 45);
         this.sensorTypeDTO = new SensorTypeDTO("temperature");
-        sensorTypeDTO.setId(1L);
         sensorBehaviorDTO = new SensorBehaviorDTO("Temperature Sensor", new GregorianCalendar(2019, 5, 5), sensorTypeDTO, "C");
         externalSensorDTO = new ExternalSensorDTO("TEMP1", locationDTO, sensorBehaviorDTO, "NONEXITENTGA");
         typeGADTO = new TypeGADTO("city");
@@ -82,6 +78,7 @@ class ExternalSensorServiceTest {
         externalSensorDTO2 = new ExternalSensorDTO("TEMP2", locationDTO, sensorBehaviorDTO, "POR");
         mapper = new ExternalSensorMapper();
         externalSensor = mapper.toEntity(externalSensorDTO2);
+        externalSensor.getSensorBehavior().getSensorType().setId(1L);
         temperature = new SensorType("temperature");
         location = new Location(25, 32, 45);
 
@@ -119,7 +116,8 @@ class ExternalSensorServiceTest {
     void whenRepositorySavesExternalSensorThenServiceCreateMethodReturnsRespectiveExternalSensorDTO() {
         when(this.externalSensorRepository.save(externalSensor)).thenReturn(externalSensor);
         when(this.geoAreaService.checkIfIdExists("POR")).thenReturn(true);
-        when(this.sensorTypeService.existsByID(1L)).thenReturn(true);
+        when(this.sensorTypeService.existsByType("temperature")).thenReturn(true);
+        when(this.sensorTypeService.findByType("temperature")).thenReturn(externalSensor.getSensorBehavior().getSensorType());
         ExternalSensorDTO result = externalSensorService.createExternalSensor(externalSensorDTO2);
         assertEquals(externalSensorDTO2, result);
     }

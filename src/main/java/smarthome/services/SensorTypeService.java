@@ -113,15 +113,6 @@ public class SensorTypeService {
     public SensorType findByType(String type) {
         injectRepository();
         Name repoType = new Name(type);
-        if (sensorTypeRepository.findByType(repoType) == null) {
-            throw new NullPointerException(type + " sensor type does not exist.");
-        }
         return sensorTypeRepository.findByType(repoType);
-    }
-
-    public SensorTypeDTO findById(Long id) {
-        injectRepository();
-        SensorType sensorType = sensorTypeRepository.findById(id).get();
-        return mapper.toDto(sensorType);
     }
 }

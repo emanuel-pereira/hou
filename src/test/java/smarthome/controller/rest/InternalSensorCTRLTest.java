@@ -6,11 +6,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.hateoas.Link;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import smarthome.dto.InternalSensorDTO;
 import smarthome.dto.SensorBehaviorDTO;
 import smarthome.dto.SensorTypeDTO;
@@ -76,7 +73,6 @@ class InternalSensorCTRLTest {
         this.roomService = new RoomService(this.roomRepository, this.houseGridRepository);
         this.internalSensorService = new InternalSensorService(this.internalSensorRepository, this.roomService, this.sensorTypeService);
         this.sensorTypeDTO = new SensorTypeDTO("temperature");
-        sensorTypeDTO.setId(1L);
         sensorBehaviorDTO = new SensorBehaviorDTO("Temperature Sensor", new GregorianCalendar(2019, Calendar.MAY, 5), sensorTypeDTO, "C");
         sensorDTO = new InternalSensorDTO("TEMP2", sensorBehaviorDTO, "KIT1");
         sensorDTO2 = new InternalSensorDTO("TEMP3", sensorBehaviorDTO, "KIT1");
@@ -170,7 +166,7 @@ class InternalSensorCTRLTest {
     void whenANewExternalSensorIsPersistedThenHttpStatusIsOk() {
         when(this.internalSensorRepository.save(sensor)).thenReturn(sensor);
         when(this.roomService.checkIfIDExists("KIT1")).thenReturn(true);
-        when(this.sensorTypeService.existsByID(1L)).thenReturn(true);
+        when(this.sensorTypeService.existsByType("temperature")).thenReturn(true);
         int expected=200;
         int result=ctrl.create(sensorDTO).getStatusCodeValue();
         assertEquals(expected,result);
@@ -181,7 +177,7 @@ class InternalSensorCTRLTest {
     void whenANewExternalSensorIsPersistedThenReturnsAnObjectOfTypeExternalSensorDTOInBodyContent() {
         when(this.internalSensorRepository.save(sensor)).thenReturn(sensor);
         when(this.roomService.checkIfIDExists("KIT1")).thenReturn(true);
-        when(this.sensorTypeService.existsByID(1L)).thenReturn(true);
+        when(this.sensorTypeService.existsByType("temperature")).thenReturn(true);
         String expected= "smarthome.dto.InternalSensorDTO";
         String result=ctrl.create(sensorDTO).getBody().getContent().getClass().getName();
         assertEquals(expected,result);
