@@ -9,6 +9,9 @@ export const FETCH_ROOM_DETAILS_FAILURE = 'FETCH_ROOM_DETAILS_FAILURE'
 export const ADD_ROOM = 'ADD_ROOM'
 export const UPDATE_ROOM = 'UPDATE_ROOM'
 export const FETCH_ROOM_SENSORS_SUCCESS = 'FETCH_ROOM_SENSORS_SUCCESS'
+export const ADD_SENSOR= 'ADD_SENSOR'
+export const FETCH_ROOM_SENSORS_FAILURE ='FETCH_ROOM_SENSORS_FAILURE'
+export const FETCH_SENSORTYPES_SUCCESS = 'FETCH_SENSORTYPES_SUCCESS'
 
 axios.defaults.headers.common['Authorization'] = JSON.parse(localStorage.getItem('token')); // for all requests
 
@@ -152,21 +155,95 @@ export const updateRoomSuccess =  (data) => {
 export const fetchRoomSensors = (id) => {
   return dispatch => {
     axios
-      .get(`https://localhost:8443/rooms/${id}/sensors`)
+      .get(`https://localhost:8443/internalSensors/${id}/room`)
       .then(res => {
-        dispatch(fetchRoomSensorsSuccess(res.data));
+        dispatch(fetchRoomSensorsSuccess(res.data._embedded.internalSensorDToes,id));
       })
-      .catch(error => {
-        throw(error);
+      .catch(err => {
+        dispatch(fetchRoomSensorsFailure(err.message,id));
       });
   };
 };
 
-export function fetchRoomSensorsSuccess(sensors) {
+export function fetchRoomSensorsSuccess(sensors,id) {
   return {
     type: FETCH_ROOM_SENSORS_SUCCESS,
-    payload:{
-      data: [...sensors]
+    payload: {
+      data: sensors,
+      roomId: id,
     }
   };
+}
+
+export function fetchRoomSensorsFailure(message,id) {
+  return {
+    type: FETCH_ROOM_SENSORS_FAILURE,
+    payload: {
+      error: message,
+      roomId:id
+    }
+  }
+}
+export const createSensor = ({ id, roomId, name, sensorTypeName, startDate, unit, active }) => {
+  return (dispatch) => {
+    return axios.post(`https://localhost:8443/internalSensors/`,
+      {
+        id,
+        roomId,
+        sensorBehavior: {
+          name,
+          sensorType: {
+            type: sensorTypeName
+          },
+          startDate: startDate,
+          unit: unit,
+          active: active
+        }
+      }
+    )
+      .then(response => {
+        dispatch(createSensorSuccess(response.data))
+        dispatch(fetchRoomSensors(roomId))
+      })
+      .catch(error => {
+        throw (error);
+      });
+  };
+};
+
+export const createSensorSuccess = (data) => {
+  return {
+    type: ADD_SENSOR,
+    payload: {
+      id: data.id,
+      roomId: data.roomID,
+      name: data.name,
+      sensorTypeName: data.sensorType,
+      startDate: data.startDate,
+      unit: 'C',
+      active: true,
+    }
+  }
+};
+
+export function fetchSensorTypes() {
+  return dispatch => {
+    axios
+      .get(`https://localhost:8443/sensorTypes`)
+      .then(res => {
+        dispatch(fetchSensorTypesSuccess(res.data._embedded.sensorTypes));
+      })
+      .catch(error => {
+        throw (error);
+      });
+  };
+};
+
+export function fetchSensorTypesSuccess(sTypes) {
+  return {
+    type: FETCH_SENSORTYPES_SUCCESS,
+    payload: {
+      data: [...sTypes]
+    }
+  }
 }

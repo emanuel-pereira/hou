@@ -6,11 +6,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.hateoas.Link;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import smarthome.dto.*;
 import smarthome.mapper.ExternalSensorMapper;
 import smarthome.model.*;
@@ -27,9 +24,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @AutoConfigureMockMvc
 @RunWith(MockitoJUnitRunner.class)
@@ -65,9 +62,6 @@ class ExternalSensorCTRLTest {
     private SensorType temperature;
     private Location location;
 
-    @Autowired
-    private MockMvc mockMvc;
-
     @BeforeEach
     void setup() {
         MockitoAnnotations.initMocks(this);
@@ -77,7 +71,6 @@ class ExternalSensorCTRLTest {
         this.externalSensorService = new ExternalSensorService(this.externalSensorRepository, this.geoAreaService, this.sensorTypeService);
         this.locationDTO = new LocationDTO(22, 12, 45);
         this.sensorTypeDTO = new SensorTypeDTO("temperature");
-        sensorTypeDTO.setId(1L);
         sensorBehaviorDTO = new SensorBehaviorDTO("Temperature Sensor", new GregorianCalendar(2019, Calendar.MAY, 5), sensorTypeDTO, "C");
         externalSensorDTO = new ExternalSensorDTO("TEMP1", locationDTO, sensorBehaviorDTO, "NONEXITENTGA");
         typeGADTO = new TypeGADTO("city");
@@ -86,10 +79,10 @@ class ExternalSensorCTRLTest {
         externalSensorDTO2 = new ExternalSensorDTO("TEMP2", locationDTO, sensorBehaviorDTO, "POR");
         mapper = new ExternalSensorMapper();
         externalSensor = mapper.toEntity(externalSensorDTO2);
+        externalSensor.getSensorBehavior().getSensorType().setId(1L);
         temperature = new SensorType("temperature");
         location = new Location(25, 32, 45);
         ctrl = new ExternalSensorCTRL(externalSensorService);
-        this.mockMvc = MockMvcBuilders.standaloneSetup(ctrl).build();
 
     }
 
@@ -155,6 +148,7 @@ class ExternalSensorCTRLTest {
         String result1 = ctrl.get("TEMP1").getBody().getContent().getClass().getName();
         assertEquals(expected1, result1);
     }
+
     @Test
     void getReturns404ToNonPersistedExternalSensor() {
         when(this.externalSensorRepository.findById("TEMP1")).thenReturn(java.util.Optional.of(new ExternalSensor("TEMP1",
@@ -253,36 +247,37 @@ class ExternalSensorCTRLTest {
     void whenANewExternalSensorIsPersistedThenHttpStatusIsOk() {
         when(this.externalSensorRepository.save(externalSensor)).thenReturn(externalSensor);
         when(this.geoAreaService.checkIfIdExists("POR")).thenReturn(true);
-        when(this.sensorTypeService.existsByID(1L)).thenReturn(true);
-        int expected=200;
-        int result=ctrl.add(externalSensorDTO2).getStatusCodeValue();
-        assertEquals(expected,result);
+        when(this.sensorTypeService.existsByType("temperature")).thenReturn(true);
+        int expected = 200;
+        int result = ctrl.add(externalSensorDTO2).getStatusCodeValue();
+        assertEquals(expected, result);
     }
 
     @Test
     void whenANewExternalSensorIsPersistedThenReturnsAnObjectOfTypeExternalSensorDTOInBodyContent() {
         when(this.externalSensorRepository.save(externalSensor)).thenReturn(externalSensor);
         when(this.geoAreaService.checkIfIdExists("POR")).thenReturn(true);
-        when(this.sensorTypeService.existsByID(1L)).thenReturn(true);
-        String expected= "smarthome.dto.ExternalSensorDTO";
-        String result=ctrl.add(externalSensorDTO2).getBody().getContent().getClass().getName();
-        assertEquals(expected,result);
+        when(this.sensorTypeService.existsByType("temperature")).thenReturn(true);
+        String expected = "smarthome.dto.ExternalSensorDTO";
+        String result = ctrl.add(externalSensorDTO2).getBody().getContent().getClass().getName();
+        assertEquals(expected, result);
     }
 
     @Test
     void whenTryingToPersistSensorWithoutGAThenHttpStatusIsPreconditionFailed() {
         when(this.externalSensorRepository.save(externalSensor)).thenReturn(externalSensor);
-        when(this.sensorTypeService.existsByID(1L)).thenReturn(true);
-        int expected=412;
-        int result=ctrl.add(externalSensorDTO2).getStatusCodeValue();
-        assertEquals(expected,result);
+        when(this.sensorTypeService.existsByType("temperature")).thenReturn(true);
+        int expected = 412;
+        int result = ctrl.add(externalSensorDTO2).getStatusCodeValue();
+        assertEquals(expected, result);
     }
+
     @Test
     void whenTryingToPersistSensorWithoutSensorTypeThenSHttpStatusIsPreconditionFailed() {
         when(this.externalSensorRepository.save(externalSensor)).thenReturn(externalSensor);
         when(this.geoAreaService.checkIfIdExists("POR")).thenReturn(true);
-        int expected=412;
-        int result=ctrl.add(externalSensorDTO2).getStatusCodeValue();
-        assertEquals(expected,result);
+        int expected = 412;
+        int result = ctrl.add(externalSensorDTO2).getStatusCodeValue();
+        assertEquals(expected, result);
     }
 }

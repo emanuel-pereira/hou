@@ -1,16 +1,16 @@
 import React from "react";
-import HouseMonitoringMenu from "../components/project/HouseMonitoring/HouseMonitoringMenu";
+import HouseMonitoring from "../components/project/HouseArea/HouseMonitoring";
 
 class Monitoring extends React.Component {
-  render() {
-    return (
-      <>
-        <div className="content">
-            <HouseMonitoringMenu/>
-        </div>
-      </>
-    );
-  }
+    render() {
+        return (
+            <>
+                <div className="content">
+                    <HouseMonitoring/>
+                </div>
+            </>
+        );
+    }
 }
 
 export default Monitoring;

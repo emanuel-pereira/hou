@@ -10,6 +10,9 @@ import {
 
   ADD_ROOM,
   FETCH_ROOM_SENSORS_SUCCESS,
+  FETCH_ROOM_SENSORS_FAILURE,
+  ADD_SENSOR,
+  FETCH_SENSORTYPES_SUCCESS,
 
 } from '../actions/actionsRoom'
 
@@ -26,8 +29,13 @@ const initialstate = {
     data: {},
   },
   sensors: {
-    data: []
+    data: [],
+    error: null,
+    roomId: null
   },
+  sTypes: {
+    data: []
+  }
 };
 
 
@@ -100,7 +108,30 @@ function roomReducer(state = initialstate, action) {
       return {
         ...state,
         sensors: {
-          data: [...action.payload.data]
+          data: [...action.payload.data],
+          error: null,
+          roomId: action.payload.roomId
+        }
+      }
+    case FETCH_ROOM_SENSORS_FAILURE:
+      return {
+        ...state,
+        sensors: {
+          data: [],
+          error: action.payload.error,
+          roomId: action.payload.roomId
+        }
+      }
+    case ADD_SENSOR:
+      return {
+        ...state,
+      
+    }
+    case FETCH_SENSORTYPES_SUCCESS:
+      return {
+        ...state,
+        sTypes: {
+          data: [...action.payload.data],
         }
       }
     default:

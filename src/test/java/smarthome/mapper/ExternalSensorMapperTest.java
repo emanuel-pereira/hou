@@ -41,7 +41,6 @@ class ExternalSensorMapperTest {
         SensorBehaviorDTO sensorBehaviorDTO = new SensorBehaviorDTO();
         sensorBehaviorDTO.setName("Rainfall Sensor Zone1");
         SensorTypeDTO sensorTypeDTO = new SensorTypeDTO("rainfall");
-        sensorTypeDTO.setId(3L);
         sensorBehaviorDTO.setSensorType(sensorTypeDTO);
         sensorBehaviorDTO.setStartDate(new GregorianCalendar(2019, 11, 15));
         sensorBehaviorDTO.setUnit("C");
@@ -119,15 +118,16 @@ class ExternalSensorMapperTest {
     }
 
     @Test
-    void toEntityTestReturnsEqualSensorTypeIDForDTOAndObject() {
+    void toEntityTestReturnsEqualSensorTypeForDTOAndObject() {
         ExternalSensorDTO dto = externalSensorDTOMock();
         ExternalSensor externalSensor=externalSensorMapper.toEntity(dto);
 
         SensorTypeDTO dtoSensorType=dto.getSensorBehaviorDTO().getSensorType();
         SensorType entitySensorType=externalSensor.getSensorBehavior().getSensorType();
 
-        Long expected=dtoSensorType.getId();
-        Long result= entitySensorType.getId();
+        String expected=dtoSensorType.getType();
+        String result= entitySensorType.getType().getName();
+
 
         assertEquals(expected,result);
     }

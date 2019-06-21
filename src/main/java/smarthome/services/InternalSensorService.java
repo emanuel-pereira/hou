@@ -112,11 +112,13 @@ public class InternalSensorService {
         SensorBehaviorDTO sensorBehaviorDTO = internalSensorDTO.getSensorBehavior();
         //checks if sensor's type exists in the database
 
-        if (!sensorTypeService.existsByID(sensorBehaviorDTO.getSensorType().getId())) {
-            throw new SensorTypeNotFoundException("Sensor type with id " + sensorBehaviorDTO.getSensorType().getId() +
+        if (!sensorTypeService.existsByType(sensorBehaviorDTO.getSensorType().getType())) {
+            throw new SensorTypeNotFoundException("Sensor type " + sensorBehaviorDTO.getSensorType().getType() +
                     " does not exist.");
         }
         InternalSensor internalSensor = internalSensorMapper.toEntity(internalSensorDTO);
+        internalSensor.getSensorBehavior().setSensorType(sensorTypeService.findByType(sensorBehaviorDTO.getSensorType().getType()));
+
         repo.save(internalSensor);
 
         return internalSensorDTO;

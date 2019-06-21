@@ -1,10 +1,9 @@
-/*package smarthome.services;
+package smarthome.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import smarthome.dto.RoomDTO;
 import smarthome.mapper.RoomMapper;
-import smarthome.mapper.SensorMapper;
 import smarthome.model.*;
 
 import java.lang.reflect.Field;
@@ -16,7 +15,6 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static smarthome.model.House.getHouseGA;
 import static smarthome.model.House.getHouseRoomList;
-
 class ComfortLevelServiceTest {
 
     Location loc = new Location(20, 20, 2);
@@ -45,7 +43,7 @@ class ComfortLevelServiceTest {
 
         Sensor sensor1 = new ExternalSensor("101", "A", startDate, loc, sensorType, "C", readingList);
         GeographicalArea geographicalArea = getHouseGA();
-        geographicalArea.getSensorListInGa().addSensor(sensor1);
+        geographicalArea.getSensorListInGa().getSensorList().add(sensor1);
 
         boolean result = comfortLevelService.checkIfGeoAreaHasTemperatureSensor();
         assertTrue(result);
@@ -62,7 +60,7 @@ class ComfortLevelServiceTest {
 
         Sensor sensor1 = new ExternalSensor("101", "A", startDate, loc, sensorType, "C", readingList);
         GeographicalArea geographicalArea = getHouseGA();
-        geographicalArea.getSensorListInGa().addSensor(sensor1);
+        geographicalArea.getSensorListInGa().getSensorList().add(sensor1);
 
         boolean result = comfortLevelService.checkIfGeoAreaHasTemperatureSensor();
         assertFalse(result);
@@ -75,7 +73,7 @@ class ComfortLevelServiceTest {
         RoomList roomList = getHouseRoomList();
 
         Room room = getHouseRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 2);
-        roomList.addRoom(room);
+        roomList.getRoomList().add(room);
 
         boolean result = comfortLevelService.checkIfHouseHasRooms();
         assertTrue(result);
@@ -100,22 +98,22 @@ class ComfortLevelServiceTest {
 
         RoomList roomList = getHouseRoomList();
         Room room1 = getHouseRoomList().createNewRoom("R01", "bedroom", 1, 2, 2.5, 2);
-        roomList.addRoom(room1);
+        roomList.getRoomList().add(room1);
 
         ReadingList readingList = new ReadingList();
         SensorType sensorType1 = new SensorType("temperature");
         Sensor sensor1 = new InternalSensor("101", "A", startDate, sensorType1, "C", readingList);
-        room1.getSensorListInRoom().addSensor(sensor1);
+        room1.getSensorListInRoom().getSensorList().add(sensor1);
 
         Room room2 = getHouseRoomList().createNewRoom("R02", "room", 1, 2, 2.5, 2);
-        roomList.addRoom(room2);
+        roomList.getRoomList().add(room2);
         SensorType sensorType2 = new SensorType("humidity");
         Sensor sensor2 = new InternalSensor("102", "B", startDate, sensorType1, "C", readingList);
-        room2.getSensorListInRoom().addSensor(sensor2);
+        room2.getSensorListInRoom().getSensorList().add(sensor2);
 
         RoomList resultRL = comfortLevelService.getRoomsWithSensorByType("temperature");
         RoomList expectedRL = new RoomList();
-        expectedRL.addRoom(room1);
+        expectedRL.getRoomList().add(room1);
 
         Room expected = expectedRL.get(0);
         Room result = resultRL.get(0);
@@ -138,7 +136,7 @@ class ComfortLevelServiceTest {
 
         SensorType sensorType1 = new SensorType("temperature");
         Sensor sensor1 = new InternalSensor("101", "A", startDate, sensorType1, "C", readingList);
-        room1.getSensorListInRoom().addSensor(sensor1);
+        room1.getSensorListInRoom().getSensorList().add(sensor1);
 
 
         Room room2 = getHouseRoomList().createNewRoom("R02", "room", 1, 2, 2.5, 2);
@@ -147,14 +145,14 @@ class ComfortLevelServiceTest {
         ReadingList readingList1 = new ReadingList();
         SensorType sensorType2 = new SensorType("humidity");
         Sensor sensor2 = new InternalSensor("102", "B", startDate, sensorType1, "C", readingList1);
-        room2.getSensorListInRoom().addSensor(sensor2);
+        room2.getSensorListInRoom().getSensorList().add(sensor2);
 
-        roomList.addRoom(room1);
-        roomList.addRoom(room2);
+        roomList.getRoomList().add(room1);
+        roomList.getRoomList().add(room2);
 
         RoomList resultRL = comfortLevelService.getRoomsWithSensorsWithReadings(roomList);
         RoomList expectedRL = new RoomList();
-        expectedRL.addRoom(room1);
+        expectedRL.getRoomList().add(room1);
 
         Room expected = expectedRL.get(0);
         Room result = resultRL.get(0);
@@ -177,7 +175,7 @@ class ComfortLevelServiceTest {
 
         SensorType sensorType1 = new SensorType("temperature");
         Sensor sensor1 = new InternalSensor("101", "A", startDate, sensorType1, "C", readingList);
-        room1.getSensorListInRoom().addSensor(sensor1);
+        room1.getSensorListInRoom().getSensorList().add(sensor1);
 
 
         Room room2 = getHouseRoomList().createNewRoom("R02", "room", 1, 2, 2.5, 2);
@@ -186,14 +184,14 @@ class ComfortLevelServiceTest {
         ReadingList readingList1 = new ReadingList();
         SensorType sensorType2 = new SensorType("humidity");
         Sensor sensor2 = new InternalSensor("102", "B", startDate, sensorType1, "C", readingList1);
-        room2.getSensorListInRoom().addSensor(sensor2);
+        room2.getSensorListInRoom().getSensorList().add(sensor2);
 
-        roomList.addRoom(room1);
-        roomList.addRoom(room2);
+        roomList.getRoomList().add(room1);
+        roomList.getRoomList().add(room2);
 
         RoomList result = comfortLevelService.getFilteredRoomList();
         RoomList expectedRL = new RoomList();
-        expectedRL.addRoom(room1);
+        expectedRL.getRoomList().add(room1);
     }
 
     @Test
@@ -211,16 +209,16 @@ class ComfortLevelServiceTest {
 
         SensorType sensorType1 = new SensorType("temperature");
         Sensor sensor1 = new InternalSensor("101", "A", startDate, sensorType1, "C", readingList);
-        room1.getSensorListInRoom().addSensor(sensor1);
+        room1.getSensorListInRoom().getSensorList().add(sensor1);
 
 
         Room room2 = getHouseRoomList().createNewRoom("R02", "room", 1, 2, 2.5, 2);
 
         Sensor sensor2 = new InternalSensor("102", "B", startDate, sensorType1, "C", readingList);
-        room2.getSensorListInRoom().addSensor(sensor2);
+        room2.getSensorListInRoom().getSensorList().add(sensor2);
 
-        roomList.addRoom(room1);
-        roomList.addRoom(room2);
+        roomList.getRoomList().add(room1);
+        roomList.getRoomList().add(room2);
 
         RoomMapper mapper = new RoomMapper();
 
@@ -257,7 +255,7 @@ class ComfortLevelServiceTest {
         SensorType sensorType = new SensorType("temperature");
         ReadingList readingList = new ReadingList();
         Sensor sensor = new InternalSensor("101", "A", startDate, sensorType, "C", readingList);
-        room.getSensorListInRoom().addSensor(sensor);
+        room.getSensorListInRoom().getSensorList().add(sensor);
 
         assertTrue(comfortLevelService.validateRoomsHaveTemperatureSensors());
     }
@@ -276,7 +274,7 @@ class ComfortLevelServiceTest {
         readingList.addReading(reading);
 
         Sensor sensor = new InternalSensor("101", "A", startDate, sensorType, "C", readingList);
-        room.getSensorListInRoom().addSensor(sensor);
+        room.getSensorListInRoom().getSensorList().add(sensor);
         getHouseRoomList().getRoomList().add(room);
 
         boolean result = comfortLevelService.checkThatAllSensorsHaveReadings(room);
@@ -292,7 +290,7 @@ class ComfortLevelServiceTest {
         SensorType sensorType = new SensorType("temperature");
         ReadingList readingList = new ReadingList();
         Sensor sensor = new InternalSensor("101", "A", startDate, sensorType, "C", readingList);
-        room.getSensorListInRoom().addSensor(sensor);
+        room.getSensorListInRoom().getSensorList().add(sensor);
         getHouseRoomList().getRoomList().add(room);
 
         boolean result = comfortLevelService.checkThatAllSensorsHaveReadings(room);
@@ -400,7 +398,7 @@ class ComfortLevelServiceTest {
         Sensor sensor = new InternalSensor("101", "A", startDate, sensorType, "C", readingList);
 
 
-        room.getSensorListInRoom().addSensor(sensor);
+        room.getSensorListInRoom().getSensorList().add(sensor);
 
         RoomDTO roomDTO = mapper.toDto(room);
 
@@ -425,7 +423,7 @@ class ComfortLevelServiceTest {
         Sensor sensor = new InternalSensor("101", "A", startDate, sensorType, "C", readingList);
 
 
-        room.getSensorListInRoom().addSensor(sensor);
+        room.getSensorListInRoom().getSensorList().add(sensor);
 
         RoomMapper mapper = new RoomMapper();
         RoomDTO roomDTO = mapper.toDto(room);
@@ -452,7 +450,7 @@ class ComfortLevelServiceTest {
 
         SensorType sensorType1 = new SensorType("temperature");
         Sensor sensor1 = new InternalSensor("101", "A", startDate, sensorType1, "C", readingList);
-        room1.getSensorListInRoom().addSensor(sensor1);
+        room1.getSensorListInRoom().getSensorList().add(sensor1);
 
 
         Room room2 = getHouseRoomList().createNewRoom("R02", "room", 1, 2, 2.5, 2);
@@ -461,10 +459,10 @@ class ComfortLevelServiceTest {
         ReadingList readingList1 = new ReadingList();
         SensorType sensorType2 = new SensorType("humidity");
         Sensor sensor2 = new InternalSensor("102", "B", startDate, sensorType1, "C", readingList1);
-        room2.getSensorListInRoom().addSensor(sensor2);
+        room2.getSensorListInRoom().getSensorList().add(sensor2);
 
-        roomList.addRoom(room1);
-        roomList.addRoom(room2);
+        roomList.getRoomList().add(room1);
+        roomList.getRoomList().add(room2);
 
         RoomMapper mapper = new RoomMapper();
         RoomDTO roomDTO = mapper.toDto(room1);
@@ -476,7 +474,7 @@ class ComfortLevelServiceTest {
         readingsGA.addReading(readingGA);
 
         Sensor sensorGA = new ExternalSensor("101EX", "ExtSensor", startDate, loc, sensorType1, "C", readingsGA);
-        sensorListGA.addSensor(sensorGA);
+        sensorListGA.getSensorList().add(sensorGA);
 
 
         boolean maxOrMin = true; // MAX
@@ -506,7 +504,7 @@ class ComfortLevelServiceTest {
 
         SensorType sensorType1 = new SensorType("temperature");
         Sensor sensor1 = new InternalSensor("101", "A", startDate, sensorType1, "C", readingList);
-        room1.getSensorListInRoom().addSensor(sensor1);
+        room1.getSensorListInRoom().getSensorList().add(sensor1);
 
 
         Room room2 = getHouseRoomList().createNewRoom("R02", "room", 1, 2, 2.5, 2);
@@ -515,10 +513,10 @@ class ComfortLevelServiceTest {
         ReadingList readingList1 = new ReadingList();
         SensorType sensorType2 = new SensorType("humidity");
         Sensor sensor2 = new InternalSensor("102", "B", startDate, sensorType1, "C", readingList1);
-        room2.getSensorListInRoom().addSensor(sensor2);
+        room2.getSensorListInRoom().getSensorList().add(sensor2);
 
-        roomList.addRoom(room1);
-        roomList.addRoom(room2);
+        roomList.getRoomList().add(room1);
+        roomList.getRoomList().add(room2);
 
         RoomMapper mapper = new RoomMapper();
         RoomDTO roomDTO = mapper.toDto(room1);
@@ -530,7 +528,7 @@ class ComfortLevelServiceTest {
         readingsGA.addReading(readingGA);
 
         Sensor sensorGA = new ExternalSensor("101EX", "ExtSensor", startDate, loc, sensorType1, "C", readingsGA);
-        sensorListGA.addSensor(sensorGA);
+        sensorListGA.getSensorList().add(sensorGA);
 
 
         boolean maxOrMin = false; // MIN
@@ -560,7 +558,7 @@ class ComfortLevelServiceTest {
 
         SensorType sensorType1 = new SensorType("temperature");
         Sensor sensor1 = new InternalSensor("101", "A", startDate, sensorType1, "C", readingList);
-        room1.getSensorListInRoom().addSensor(sensor1);
+        room1.getSensorListInRoom().getSensorList().add(sensor1);
 
 
         Room room2 = getHouseRoomList().createNewRoom("R02", "room", 1, 2, 2.5, 2);
@@ -569,10 +567,10 @@ class ComfortLevelServiceTest {
         ReadingList readingList1 = new ReadingList();
         SensorType sensorType2 = new SensorType("humidity");
         Sensor sensor2 = new InternalSensor("102", "B", startDate, sensorType1, "C", readingList1);
-        room2.getSensorListInRoom().addSensor(sensor2);
+        room2.getSensorListInRoom().getSensorList().add(sensor2);
 
-        roomList.addRoom(room1);
-        roomList.addRoom(room2);
+        roomList.getRoomList().add(room1);
+        roomList.getRoomList().add(room2);
 
         RoomMapper mapper = new RoomMapper();
         RoomDTO roomDTO = mapper.toDto(room1);
@@ -584,7 +582,7 @@ class ComfortLevelServiceTest {
         readingsGA.addReading(readingGA);
 
         Sensor sensorGA = new ExternalSensor("101EX", "ExtSensor", startDate, loc, sensorType1, "C", readingsGA);
-        sensorListGA.addSensor(sensorGA);
+        sensorListGA.getSensorList().add(sensorGA);
 
 
         boolean maxOrMin = true; // MAX
@@ -614,7 +612,7 @@ class ComfortLevelServiceTest {
 
         SensorType sensorType1 = new SensorType("temperature");
         Sensor sensor1 = new InternalSensor("101", "A", startDate, sensorType1, "C", readingList);
-        room1.getSensorListInRoom().addSensor(sensor1);
+        room1.getSensorListInRoom().getSensorList().add(sensor1);
 
 
         Room room2 = getHouseRoomList().createNewRoom("R02", "room", 1, 2, 2.5, 2);
@@ -623,10 +621,10 @@ class ComfortLevelServiceTest {
         ReadingList readingList1 = new ReadingList();
         SensorType sensorType2 = new SensorType("humidity");
         Sensor sensor2 = new InternalSensor("102", "B", startDate, sensorType1, "C", readingList1);
-        room2.getSensorListInRoom().addSensor(sensor2);
+        room2.getSensorListInRoom().getSensorList().add(sensor2);
 
-        roomList.addRoom(room1);
-        roomList.addRoom(room2);
+        roomList.getRoomList().add(room1);
+        roomList.getRoomList().add(room2);
 
         RoomMapper mapper = new RoomMapper();
         RoomDTO roomDTO = mapper.toDto(room1);
@@ -638,7 +636,7 @@ class ComfortLevelServiceTest {
         readingsGA.addReading(readingGA);
 
         Sensor sensorGA = new ExternalSensor("101EX", "ExtSensor", startDate, loc, sensorType1, "C", readingsGA);
-        sensorListGA.addSensor(sensorGA);
+        sensorListGA.getSensorList().add(sensorGA);
 
 
         boolean maxOrMin = false; // MIN
@@ -653,4 +651,4 @@ class ComfortLevelServiceTest {
     }
 
 
-}*/
+}

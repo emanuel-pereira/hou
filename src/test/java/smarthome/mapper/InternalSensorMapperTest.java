@@ -32,7 +32,6 @@ class InternalSensorMapperTest {
         SensorBehaviorDTO sensorBehaviorDTO = new SensorBehaviorDTO();
         sensorBehaviorDTO.setName("Kitchen Humidity Sensor");
         SensorTypeDTO sensorTypeDTO = new SensorTypeDTO("humidity");
-        sensorTypeDTO.setId(3L);
         sensorBehaviorDTO.setSensorType(sensorTypeDTO);
         sensorBehaviorDTO.setStartDate(new GregorianCalendar(2019, 11, 15));
         sensorBehaviorDTO.setUnit("C");
@@ -117,8 +116,8 @@ class InternalSensorMapperTest {
         SensorTypeDTO dtoSensorType=dto.getSensorBehavior().getSensorType();
         SensorType entitySensorType=internalSensor.getSensorBehavior().getSensorType();
 
-        Long expected=dtoSensorType.getId();
-        Long result= entitySensorType.getId();
+        String expected=dtoSensorType.getType();
+        String result= entitySensorType.getType().getName();
 
         assertEquals(expected,result);
     }

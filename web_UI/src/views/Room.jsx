@@ -2,17 +2,12 @@ import React from "react";
 import RoomTable from "components/project/RoomComponents/RoomTable.jsx";
 import CreateRoom from "components/project/RoomComponents/CreateRoom";
 import RoomDetailList from "components/project/RoomComponents/RoomDetailList.jsx";
-import RoomSensors from "components/project/RoomComponents/RoomSensors";
-import UpdateRoom from "../components/project/RoomComponents/UpdateRoom";
+import RoomSensors from "components/project/RoomComponents/RoomSensors.jsx";
 
 import {
-  Card,
   CardHeader,
-  CardBody,
   CardTitle,
-  Table,
-  Row,
-  Col
+
 } from "reactstrap";
 
 class Room extends React.Component {

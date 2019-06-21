@@ -3,6 +3,7 @@ export const FETCH_HOUSEGRID_STARTED = 'FETCH_HOUSEGRID_STARTED'
 export const FETCH_HOUSEGRID_SUCCESS = 'FETCH_HOUSEGRIDS_SUCCESS'
 export const FETCH_HOUSEGRID_FAILURE = 'FETCH_HOUSEGRID_FAILURE'
 export const ADD_HOUSEGRID = 'ADD_HOUSEGRID';
+export const FETCH_HOUSEGRID_ROOMS = 'FETCH_HOUSEGRID_ROOMS'
 
 export function fetchHouseGrids() {
     return dispatch => {
@@ -45,15 +46,15 @@ export function fetchHouseGridsFailure(message) {
     }
 }
 
-export const createHouseGrid = ({id, designation}) => {
+export const createHouseGrid = ({ id, designation }) => {
     return (dispatch) => {
-        return axios.post(`https://localhost:8443/housegrids/`, {id, designation})
+        return axios.post(`https://localhost:8443/housegrids/`, { id, designation })
             .then(response => {
                 dispatch(createHouseGridSuccess(response.data))
                 dispatch(fetchHouseGrids(response.data))
             })
             .catch(error => {
-                throw(error);
+                throw (error);
             });
     };
 };
@@ -66,3 +67,26 @@ export const createHouseGridSuccess = (data) => {
         }
     }
 };
+
+export const fetchHouseGridRooms = (id) => {
+    return dispatch => {
+      axios
+        .get(`https://localhost:8443/housegrids/${id}/rooms`)
+        .then(res => {
+          dispatch(fetchHouseGridRoomsSuccess(res.data));
+        })
+        .catch(error => {
+          throw(error);
+        });
+    };
+  };
+
+
+export function fetchHouseGridRoomsSuccess(rooms) {
+    return {
+        type: FETCH_HOUSEGRID_ROOMS,
+        payload: {
+            data: rooms
+        }
+    };
+}

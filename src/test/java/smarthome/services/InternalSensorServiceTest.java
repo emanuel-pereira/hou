@@ -16,19 +16,21 @@ import smarthome.exceptions.RoomNotFoundException;
 import smarthome.exceptions.SensorTypeNotFoundException;
 import smarthome.model.InternalSensor;
 import smarthome.model.ReadingList;
-import smarthome.model.SensorList;
 import smarthome.model.SensorType;
 import smarthome.repository.HouseGridRepository;
 import smarthome.repository.InternalSensorRepository;
 import smarthome.repository.RoomRepository;
 import smarthome.repository.SensorTypeRepository;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -97,12 +99,13 @@ class InternalSensorServiceTest {
     @DisplayName("Create a sensor with success")
     void createInternalSensorSuccess() {
 
-        this.temperatureDTO.setId(1);
+
         this.sensorDTOT01.setRoomId("B100");
 
         when(internalSensorRepository.save(this.sensorT01)).thenReturn(this.sensorT01);
         when(roomService.checkIfIDExists("B100")).thenReturn(true);
-        when(sensorTypeService.existsByID(1L)).thenReturn(true);
+        when(sensorTypeService.existsByType("temperature")).thenReturn(true);
+        when(sensorTypeService.findByType("temperature")).thenReturn(temperature);
 
         InternalSensorDTO result = internalSensorService.createInternalSensor(this.sensorDTOT01);
 
@@ -159,8 +162,6 @@ class InternalSensorServiceTest {
         InternalSensorDTO sensorDTOM02 = new InternalSensorDTO();
         sensorDTOM02.setSensorBehavior(mBehaviorDTO);
 
-        this.temperatureDTO.setId(1);
-        movementDTO.setId(2);
         sensorT01.setRoomId("B100");
         sensorM02.setRoomId("B100");
         sensorDTOT01.setRoomId("B100");

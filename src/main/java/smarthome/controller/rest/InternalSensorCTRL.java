@@ -122,7 +122,7 @@ public class InternalSensorCTRL {
             return new ResponseEntity<>(resource, HttpStatus.PRECONDITION_FAILED);
         } catch (SensorTypeNotFoundException sensorTypeNotFoundException) {
             SensorBehaviorDTO sensorBehavior = internalSensorDTO.getSensorBehavior();
-            resource = new Resource<>("Sensor type with id " + sensorBehavior.getSensorType().getId() + " does not exist.");
+            resource = new Resource<>("Sensor type with id " + sensorBehavior.getSensorType().getType() + " does not exist.");
             return new ResponseEntity<>(resource, HttpStatus.PRECONDITION_FAILED);
         }
 

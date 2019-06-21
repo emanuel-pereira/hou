@@ -1,3 +1,26 @@
+
+
+import React from "react";
+import AreaMonitoringMenu from "./HouseArea/AreaMonitoringMenu";
+
+class HouseMonitoring extends React.Component {
+    render() {
+        return (
+            <>
+                <div className="content">
+                    <AreaMonitoringMenu/>
+                </div>
+            </>
+        );
+    }
+}
+
+export default HouseMonitoring;
+
+
+
+
+/*
 import React from 'react';
 import AreaMonitoringMenu from "./HouseArea/AreaMonitoringMenu";
 
@@ -27,7 +50,7 @@ class HouseMonitoring extends React.Component {
     render() {
         return (
             <div>
-                {/*<h3>Choose an option</h3>*/}
+                {<h3>Choose an option</h3>}
                 <table>
                     <td>
                         <button onClick={this.clickToShowArea.bind(this)}>House's Area Monitoring</button>
@@ -42,7 +65,7 @@ class HouseMonitoring extends React.Component {
                         {this.state.showAreaMonitoring && <AreaMonitoringMenu/>}
                     </tr>
                     <tr>
-                        {this.state.showRoomMonitoring && <p> PLEASE INSERT ROOM MONITORING COMPONENT HERE</p>}
+                        {this.state.showRoomMonitoring && <RoomMonitoring/>}
                     </tr>
                 </table>
             </div>
@@ -51,3 +74,5 @@ class HouseMonitoring extends React.Component {
 }
 
 export default HouseMonitoring
+
+*/

@@ -1,5 +1,4 @@
 import React from "react";
-import RoomTable from "components/project/RoomComponents/RoomTable.jsx";
 import CreateRoom from "components/project/RoomComponents/CreateRoom";
 
 import {
@@ -12,6 +11,7 @@ import {
   Col
 } from "reactstrap";
 import GridTable from "../components/project/GridComponents/GridTable";
+import GridRooms from "../components/project/GridComponents/GridRooms";
 
 class HouseGrid extends React.Component {
   constructor(props) {
@@ -36,6 +36,7 @@ class HouseGrid extends React.Component {
           </CardHeader>
           <tr>
             <td>{this.state.isHidden && <GridTable />}</td>
+            <td>{this.state.isHidden  && <GridRooms />}</td>
           </tr>
           {!this.state.isHidden && <CreateRoom toggleHiddenRooms={this.toggleHiddenRooms.bind(this)} />}
         </div>

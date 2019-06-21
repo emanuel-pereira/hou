@@ -1,66 +1,70 @@
-import {
-    FETCH_HOUSEGRID_STARTED,
-    FETCH_HOUSEGRID_SUCCESS,
-    FETCH_HOUSEGRID_FAILURE,
-    ADD_HOUSEGRID,
-    FETCH_HOUSEGRID_ROOMS,
 
-} from '../actions/actionsGrid'
+import {
+    FETCH_GEOAREAS_STARTED,
+    FETCH_GEOAREAS_SUCCESS,
+    FETCH_GEOAREAS_FAILURE,
+    ADD_GEOAREA,
+    FETCH_GEOAREASTYPES_SUCCESS,
+} from '../actions/actionsGeoArea'
 
 const initialstate = {
-    houseGrids: {
+    geoareas: {
         loading: false,
         error: null,
         data: [],
     },
-    houseGridRooms: {
-        data: {},
+    gaTypes:{
+        data:[]
     }
-}
+};
 
-function gridsReducer(state = initialstate, action) {
+
+function geoAreaReducer(state = initialstate, action) {
     switch (action.type) {
-        case FETCH_HOUSEGRID_STARTED:
+        case FETCH_GEOAREAS_STARTED:
             return {
                 ...state,
-                houseGrids: {
+                geoareas: {
                     loading: true,
                     error: null,
                     data: []
                 }
             }
-        case FETCH_HOUSEGRID_SUCCESS:
+        case FETCH_GEOAREAS_SUCCESS:
             return {
                 ...state,
-                houseGrids: {
+                geoareas: {
                     loading: false,
                     error: null,
                     data: [...action.payload.data]
                 }
             }
-        case FETCH_HOUSEGRID_FAILURE:
+        case FETCH_GEOAREAS_FAILURE:
             return {
                 ...state,
-                houseGrids: {
+                geoareas: {
                     loading: false,
                     error: action.payload.error,
                     data: [],
                 }
             }
-        case ADD_HOUSEGRID:
+
+        case ADD_GEOAREA:
             return {
                 ...state,
                 data: { ...action.payload.data },
             }
-        case FETCH_HOUSEGRID_ROOMS:
+
+        case FETCH_GEOAREASTYPES_SUCCESS:
             return {
                 ...state,
-                houseGridRooms: {
-                    data: { ...action.payload.data },
+                gaTypes: {
+                    data: [...action.payload.data],
                 }
             }
+
         default:
             return state
-            }
     }
-    export default gridsReducer;
+}
+export default geoAreaReducer;
