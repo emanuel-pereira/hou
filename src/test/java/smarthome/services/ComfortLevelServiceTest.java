@@ -1,4 +1,4 @@
-/*package smarthome.services;
+package smarthome.services;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -653,4 +653,4 @@ class ComfortLevelServiceTest {
     }
 
 
-}*/
+}
