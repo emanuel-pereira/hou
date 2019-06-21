@@ -4,10 +4,6 @@ public class RoomDTO {
     private String id;
     private String description;
 
-    public RoomDTO(String id, String description) {
-        this.id = id;
-        this.description = description;
-    }
 
     public RoomDTO(){}
 

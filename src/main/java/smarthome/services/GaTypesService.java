@@ -19,11 +19,9 @@ public class GaTypesService {
     public TypeGARepository repository;
 
 
-    private ModelMapper modelMapper;
 
     public GaTypesService(TypeGARepository typeGARepository) {
         this.repository = typeGARepository;
-        modelMapper= new ModelMapper();
     }
 
     private void setRepositories() {

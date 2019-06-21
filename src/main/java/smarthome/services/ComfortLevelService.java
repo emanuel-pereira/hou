@@ -76,11 +76,7 @@ public class ComfortLevelService {
         return !getRoomsWithSensorByType(TEMPERATURE).getRoomList().isEmpty();
     }
 
-    public boolean validateTemperatureSensorsHaveReadings() {
-        RoomList roomList1 = getRoomsWithSensorByType(TEMPERATURE); //get all rooms with TEMPERATURE sensors
-        RoomList roomList2 = getRoomsWithSensorsWithReadings(roomList1); // filter previous list
-        return !roomList2.getRoomList().isEmpty();
-    }
+
 
     public RoomList getFilteredRoomList() {
         RoomList r = getRoomsWithSensorByType(TEMPERATURE);

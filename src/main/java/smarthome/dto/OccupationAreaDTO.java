@@ -9,10 +9,6 @@ public class OccupationAreaDTO {
     private double length;
 
 
-    public OccupationAreaDTO() {
-
-    }
-
 
     public OccupationAreaDTO(double length, double width) {
         this.width = width;
@@ -26,17 +22,12 @@ public class OccupationAreaDTO {
         return this.width;
     }
 
-    public void setWidth(double width){
-        this.width = width;
-    }
 
     public double getLength() {
         return this.length;
     }
 
-    public void setLength(double length){
-        this.length = length;
-    }
+
 
     public OccupationArea fromDTO() {
         return new OccupationArea(this.length, this.width);
