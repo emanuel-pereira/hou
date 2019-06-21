@@ -187,8 +187,8 @@ public class ReadingList {
         return readingListInPeriod;
     }
 
-    public Reading maxValueInInterval() {
-        Reading max = new Reading(Double.MIN_VALUE, new GregorianCalendar());
+    public Reading maxValueInInterval()  {
+        Reading max = new Reading(-Double.MAX_VALUE, new GregorianCalendar());
         double value;
 
         for (Reading reading : this.listOfReadings) {
