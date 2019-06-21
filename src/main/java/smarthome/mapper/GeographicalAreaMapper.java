@@ -38,15 +38,7 @@ public class GeographicalAreaMapper {
         return listOfGAs.stream().map(this::toDto).collect(Collectors.toList());
     }
 
-    /**
-     * Converts a list of geographical areas into a list of geographical areas DTOs to be used as a model view, containing only Id, Designation and SensorList as attributes
-     *
-     * @param gaList to be converted into a geographical area DTO list
-     * @return list of geographical area DTOs
-     */
-    public List<GeographicalAreaDTO> toDtoListParent(List<GeographicalArea> gaList) {
-        return gaList.stream().map(this::toDto).collect(Collectors.toList());
-    }
+
 
 
 }

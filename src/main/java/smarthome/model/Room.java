@@ -86,14 +86,6 @@ public class Room implements Metered {
         this.floor = floor;
     }
 
-    public void setSensorListInRoom(SensorList sensorListInRoom) {
-        this.sensorListInRoom = sensorListInRoom;
-    }
-
-    public void setDeviceList(DeviceList deviceList) {
-        this.deviceList = deviceList;
-    }
-
     public double getTime() {
         return time;
     }

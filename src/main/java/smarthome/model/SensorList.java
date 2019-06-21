@@ -69,13 +69,6 @@ public class SensorList {
         } else return false;
     }
 
-    public boolean checkIfAnySensorHasSameID(Sensor newSensor) {
-        for (Sensor sensor : this.listOfSensors)
-            if (sensor.getId().equals(newSensor.getId())) {
-                return true;
-            }
-        return false;
-    }
 
     /**
      * Method to return the sensors included in the list
@@ -243,21 +236,5 @@ public class SensorList {
         return result;
     }
 
-    public Sensor getInternalSensorByTypeWithLatestReadingsInDay(SensorType type, Calendar givenDay) {
-        SensorList listByType = getListOfSensorsByType(type);
-
-        Calendar latest = new GregorianCalendar(0000, 00, 00);
-        Sensor result = new InternalSensor();
-
-        for (Sensor s : listByType.getSensorList()) {
-            if (s.getSensorBehavior().getReadingList().getReadingsInSpecificDay(givenDay).size() != 0
-                    && latest.before(s.getSensorBehavior().getLastReading().getReadingDateAndTime())) {
-                latest = s.getSensorBehavior().getReadingList().getLastReading().getReadingDateAndTime();
-                result = s;
-            }
-
-        }
-        return result;
-    }
 
 }

@@ -35,10 +35,7 @@ public class ComfortLevelCTRL {
         return comfortLevelService.getRoomListDTO();
     }
 
-    // Room selected by the user is sent via DTO to the Service
-    public void setRoomByDTO(RoomDTO roomDTO){
-        comfortLevelService.setRoomByDTO(roomDTO);
-    }
+
 
     public String calculateThermalComfort(RoomDTO selectedRoom, boolean maxOrMin, int category, GregorianCalendar startDate, GregorianCalendar endDate) {
         return comfortLevelService.calculateThermalComfort(selectedRoom, maxOrMin, category, startDate, endDate); // The result is a DTO List
