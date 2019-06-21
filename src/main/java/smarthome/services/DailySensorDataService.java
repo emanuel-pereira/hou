@@ -80,20 +80,20 @@ public class DailySensorDataService {
         return mapper.map(currentTemp, ReadingDTO.class);
     }
 
-    public ReadingDTO displayAmplitude(String startDate, String endDate) throws ParseException {
+    public ReadingDTO displayAmplitude(String startDate, String endDate) throws ParseException, IllegalAccessException {
 
         Reading maxDailyAmp = getBestSensorReadings(startDate, endDate, temp).dailyAmplitude().maxValueInInterval();
 
         return mapper.map(maxDailyAmp, ReadingDTO.class);
     }
 
-    public ReadingDTO displayMaximum(String startDate, String endDate) throws ParseException {
+    public ReadingDTO displayMaximum(String startDate, String endDate) throws ParseException, IllegalAccessException {
         Reading maxDailyTemp = getBestSensorReadings(startDate, endDate, temp).dailyMaximumReadings().maxValueInInterval();
 
         return mapper.map(maxDailyTemp, ReadingDTO.class);
     }
 
-    public ReadingDTO displayMinimum(String startDate, String endDate) throws ParseException {
+    public ReadingDTO displayMinimum(String startDate, String endDate) throws ParseException, IllegalAccessException {
         Reading minDailyTemp = getBestSensorReadings(startDate, endDate, temp).dailyMaximumReadings().minValueInInterval();
 
         return mapper.map(minDailyTemp, ReadingDTO.class);

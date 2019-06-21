@@ -109,7 +109,13 @@ public class RoomTemperatureCTRL {
         }
 
         else{
-            ReadingDTO result = roomTemperatureService.getMaxTempInRoom(id,day);
+            ReadingDTO result = null;
+            try {
+                result = roomTemperatureService.getMaxTempInRoom(id,day);
+            } catch (IllegalAccessException e) {
+                //selected interval does not have readings
+                return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+            }
             return new ResponseEntity<>(result,HttpStatus.OK);
         }
     }

@@ -187,31 +187,44 @@ public class ReadingList {
         return readingListInPeriod;
     }
 
-    public Reading maxValueInInterval()  {
+    public Reading maxValueInInterval() throws IllegalAccessException {
         Reading max = new Reading(-Double.MAX_VALUE, new GregorianCalendar());
         double value;
 
+        if (this.listOfReadings.isEmpty())
+            //signals that this method as been invoked in an inappropriate time, empty list of readings
+            throw new IllegalAccessException();
         for (Reading reading : this.listOfReadings) {
             value = reading.returnValue();
             if (value > max.returnValue())
                 max = reading;
         }
+        if (max.returnValue() == -Double.MAX_VALUE)
+            //signals that this method as been invoked in an inappropriate time, empty list of readings
+            throw new IllegalAccessException();
         return max;
     }
 
-    public Reading minValueInInterval() {
+    public Reading minValueInInterval() throws IllegalAccessException {
         Reading min = new Reading(Double.MAX_VALUE, new GregorianCalendar());
         double value;
 
+        if (this.listOfReadings.isEmpty())
+            //signals that this method as been invoked in an inappropriate time, empty list of readings
+            throw new IllegalAccessException();
         for (Reading reading : this.listOfReadings) {
             value = reading.returnValue();
             if (value <= min.returnValue())
                 min = reading;
         }
+        if (min.returnValue() == Double.MAX_VALUE)
+            //signals that this method as been invoked in an inappropriate time, empty list of readings
+            throw new IllegalAccessException();
         return min;
     }
 
-    public ReadingList dailyMaximumReadings() {
+    //TODO resolve duplicate code
+    public ReadingList dailyMaximumReadings() throws IllegalAccessException {
         //extract the first day of the list
 
         List<Calendar> dates = new ArrayList<>(); //this list saves all unique dates in the reading list
@@ -238,7 +251,7 @@ public class ReadingList {
         return dailyMax;
     }
 
-    public ReadingList dailyMinimumReadings() {
+    public ReadingList dailyMinimumReadings() throws IllegalAccessException {
         //extract the first day of the list
 
         List<Calendar> dates = new ArrayList<>(); //this list saves all unique dates in the reading list
@@ -265,7 +278,7 @@ public class ReadingList {
         return dailyMin;
     }
 
-    public ReadingList dailyAmplitude() {
+    public ReadingList dailyAmplitude() throws IllegalAccessException {
         List<Reading> dailyMaximumReadings = dailyMaximumReadings().getReadingsList();
         List<Reading> dailyMinimumReadings = dailyMinimumReadings().getReadingsList();
         //extract the first day of the list

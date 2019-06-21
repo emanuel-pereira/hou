@@ -54,24 +54,27 @@ public class GetDailySensorDataUI {
 
     }
 
-    private void calculations(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate, int mode) {
+    private void calculations(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate, int mode) throws IllegalAccessException {
         ReadingDTO readingDTO;
         String entrance;
         String unit;
         switch (mode) {
             case 1:
+                //TODO add try catch
                 readingDTO = superCTRL.displayMaximum(sensorType, startDate, endDate);
                 entrance = "The first hottest day";
                 unit = "°C";
                 this.buildMessage(entrance, readingDTO, unit);
                 break;
             case 2:
+                //TODO add try catch
                 readingDTO = superCTRL.displayMinimum(sensorType, startDate, endDate);
                 entrance = "The last coldest day";
                 unit = "°C";
                 this.buildMessage(entrance, readingDTO, unit);
                 break;
             case 3:
+                //TODO add try catch
                 readingDTO = superCTRL.displayAmplitude(sensorType, startDate, endDate);
                 entrance = "The day with the highest TEMPERATURE amplitude";
                 unit = "°C";
@@ -91,7 +94,7 @@ public class GetDailySensorDataUI {
         UtilsUI.showInfo("Result", msg);
     }
 
-    public void displayFirstMaximum() {
+    public void displayFirstMaximum() throws IllegalAccessException {
         int mode = 1;
         //set specific sensor data type for this US
         this.sensorType = new SensorType(TEMPERATURE);
@@ -111,7 +114,8 @@ public class GetDailySensorDataUI {
         }
     }
 
-    public void displayLastMaximum() {
+    //TODO deal with duplicate code
+    public void displayLastMaximum() throws IllegalAccessException {
         int mode = 2;
         //set specific sensor data type for this US
         this.sensorType = new SensorType(TEMPERATURE);
@@ -129,7 +133,7 @@ public class GetDailySensorDataUI {
             UtilsUI.showError(MSG_TITLE, MSG_NO_DATA);
     }
 
-    public void displayMaxAmplitude() {
+    public void displayMaxAmplitude() throws IllegalAccessException {
         int mode = 3;
         //set specific sensor data type for this US
         this.sensorType = new SensorType(TEMPERATURE);
