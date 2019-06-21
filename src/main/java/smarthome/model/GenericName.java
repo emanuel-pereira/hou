@@ -21,10 +21,6 @@ public class GenericName {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     /**
      * Method to validate if input name is correct
      * @param  name is used to see as a reference to check.

@@ -10,7 +10,6 @@ import java.util.List;
 public class ComfortLevelUI {
 
     private ComfortLevelCTRL ctrl;
-    private List<String> roomList;
 
     public ComfortLevelUI() {
         this.ctrl = new ComfortLevelCTRL();

@@ -62,7 +62,7 @@ function roomMonitoringReducer(state = initialstate, action) {
                 ...state,
                 roomCurrentTemp: {
                     loading: false,
-                    error: action.payload.error,
+                    error: state.roomCurrentTemp.error,
                     value: {},
                     roomId: 0,
                 }
