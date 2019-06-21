@@ -17,18 +17,10 @@ class RoomCurrentTemperature extends Component {
     }
 
     render() {
-        const {roomId, loading, error, data} = this.props.roomCurrentTemp;
+        const {loading, data} = this.props.roomCurrentTemp;
 
         let moment = require('moment/moment');
         moment().format();
-
-        /*if (loading === true) {
-            return (<h1>Loading ....</h1>);
-        } else {
-            if (error !== null) {
-                return (<h1>Error ....</h1>);
-            } else {*/
-        //if (data.roomId && data.roomCurrentTemp) {
 
         if (loading === true) {
             return (<h1>Loading ....</h1>);
@@ -63,16 +55,10 @@ class RoomCurrentTemperature extends Component {
                     </Row>
                 </div>
             );
-            /* } else {
-                 return <p>Not working</p>;
 
-         }*/
         }
     }
-/*
-        }
-    }
-*/
+
 }
 
 const mapStateToProps = (state) => {
@@ -86,7 +72,7 @@ const mapStateToProps = (state) => {
         }
 
     }
-}
+};
 
 
 

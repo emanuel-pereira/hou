@@ -20,7 +20,7 @@ class RoomMaxTemperature extends Component {
             day: undefined,
             showResult: false,
 
-        }
+        };
 
         this.chooseDay = this.chooseDay.bind(this)
     }
@@ -31,7 +31,7 @@ class RoomMaxTemperature extends Component {
             {
                 showResult: !this.state.showResult
             }
-        )
+        );
 
         let moment = require('moment/moment');
         moment().format();
@@ -50,53 +50,51 @@ class RoomMaxTemperature extends Component {
         moment().format();
 
 
-        /*if (loading === true) {
+        if (loading === true) {
             return (<h1>Loading ....</h1>);
         } else {
-            if (error !== null) {
-                return (<h1>Error ....</h1>);
-            } else {
-                if (roomId.roomMaxTemp && data.roomMaxTemp) {*/
-        return (
-            <div className="content">
-                <Row>
-                    <Col md="12">
-                        <Card>
-                            <CardBody>
-                                <Table>
-                                    <thead className="text-primary">
-                                    <tr>
-                                        <th>Room - {roomId}</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>Max Temperature:</td>
+
+            return (
+                <div className="content">
+                    <Row>
+                        <Col md="12">
+                            <Card>
+                                <CardBody>
+                                    <Table>
+                                        <thead className="text-primary">
                                         <tr>
-                                            <Calendar
-                                            onchange={this.chooseDay}
-                                            value={this.state.day}
-                                        />
+                                            <th>Select a day.</th>
                                         </tr>
+                                        </thead>
+                                        <tbody>
                                         <tr>
-                                            <button onClick={this.getResult.bind(this)}>Go!
-                                            </button>
-                                            <p>{this.state.showResult &&
-                                            <p>data.value</p>}
-                                            </p></tr>
+
+                                            <tr>
+                                                <Calendar
+                                                    onchange={this.chooseDay}
+                                                    value={this.state.day}
+                                                />
+                                            </tr>
+                                            <tr>
+
+                                                <button onClick={this.getResult.bind(this)}>Go!</button>
+
+                                                <p>{this.state.showResult && <p>data.readingValue</p>}</p>
+
+                                            </tr>
 
 
-                                    </tr>
-                                    </tbody>
-                                </Table>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                </Row>
-            </div>
-    )
+                                        </tr>
+                                        </tbody>
+                                    </Table>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
+                </div>
+            )
 
-
+        }
 
     }
     }
@@ -111,7 +109,7 @@ class RoomMaxTemperature extends Component {
         day: state.roomCurrentTemp.roomMaxTemp.data,
     }
     }
-    }
+    };
 
     export default connect(
     mapStateToProps,
