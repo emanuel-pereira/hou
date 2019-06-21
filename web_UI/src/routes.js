@@ -1,6 +1,6 @@
 import Room from "views/Room";
 import Home from "views/Home";
-import GeoArea from "views/GeoArea";
+import HouseArea from "views/HouseArea";
 import HouseGrid from "views/HouseGrid";
 import Sensor from "views/Sensor";
 import Monitoring from "views/Monitoring";
@@ -17,7 +17,7 @@ var routes = [
     path: "/geoarea",
     name: "House Area",
     icon: "nc-icon nc-pin-3",
-    component: GeoArea,
+    component: HouseArea,
     layout: "/admin"
   },
   {
