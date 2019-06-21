@@ -3,7 +3,9 @@ import Home from "views/Home";
 import HouseArea from "views/HouseArea";
 import HouseGrid from "views/HouseGrid";
 import Sensor from "views/Sensor";
-import Monitoring from "views/Monitoring";
+import HouseMonitoring from "./components/project/HouseMonitoring/HouseMonitoring";
+import RoomMonitoringMenu from "views/RoomMonitoringMenu";
+
 
 var routes = [
   {
@@ -43,10 +45,19 @@ var routes = [
   },
   {
     path: "/monitoring",
-    name: "Reports",
+    name: "House Area",
     icon: "nc-icon nc-chart-bar-32",
-    component: Monitoring,
+    component: HouseMonitoring,
     layout: "/admin"
   },
+
+  {
+    path: "/roomMonitoring",
+    name: "Room Monitoring",
+    icon: "nc-icon nc-chart-bar-32",
+    component: RoomMonitoringMenu,
+    layout: "/admin"
+  },
+
 ];
 export default routes;

@@ -19,7 +19,7 @@ class RoomCurrentTemperature extends Component {
     render() {
         const {roomId, loading, error, data} = this.props.roomCurrentTemp;
 
-        let moment =  require ('moment/moment');
+        let moment = require('moment/moment');
         moment().format();
 
         /*if (loading === true) {
@@ -28,42 +28,47 @@ class RoomCurrentTemperature extends Component {
             if (error !== null) {
                 return (<h1>Error ....</h1>);
             } else {*/
-                //if (data.roomId && data.roomCurrentTemp) {
-                    return (
-                        <div className="content">
-                            <Row>
-                                <Col md="12">
-                                    <Card>
-                                        <CardBody>
-                                            <Table>
-                                                <thead className="text-primary">
-                                                <tr>
-                                                    <th>Room{data.roomId}</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
+        //if (data.roomId && data.roomCurrentTemp) {
 
-                                                    <td>Date: {moment(data.readingDateAndTime).format('DD-MM-YYYY')}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Temperature:</td>
-                                                    <td>{data.readingValue}ºC</td>
-                                                </tr>
+        if (loading === true) {
+            return (<h1>Loading ....</h1>);
+        } else {
+            return (
+                <div className="content">
+                    <Row>
+                        <Col md="12">
+                            <Card>
+                                <CardBody>
+                                    <Table>
+                                        <thead className="text-primary">
+                                        <tr>
+                                            <th>Room{data.roomId}</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
 
-                                                </tbody>
-                                            </Table>
-                                        </CardBody>
-                                    </Card>
-                                </Col>
-                            </Row>
-                        </div>
-                    );
-               /* } else {
-                    return <p>Not working</p>;
+                                            <td>Date: {moment(data.readingDateAndTime).format('DD-MM-YYYY')}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Temperature:</td>
+                                            <td>{data.readingValue}ºC</td>
+                                        </tr>
 
-            }*/
-                }
+                                        </tbody>
+                                    </Table>
+                                </CardBody>
+                            </Card>
+                        </Col>
+                    </Row>
+                </div>
+            );
+            /* } else {
+                 return <p>Not working</p>;
+
+         }*/
+        }
+    }
 /*
         }
     }
