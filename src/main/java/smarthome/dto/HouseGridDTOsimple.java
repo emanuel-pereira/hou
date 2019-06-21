@@ -25,9 +25,6 @@ public class HouseGridDTOsimple {
         return this.rooms;
     }
 
-    public void setRooms(List<String> rooms) {
-        this.rooms = rooms;
-    }
 
     public void addRoomId(String newroom){
         this.rooms.add(newroom);

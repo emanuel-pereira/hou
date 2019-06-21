@@ -72,10 +72,6 @@ public class HouseGrid implements Metered {
         return this.psListInHG;
     }
 
-    public void setPsListInHG(PowerSourceList psListInHG) {
-        this.psListInHG = psListInHG;
-    }
-
     /**
      * Attach a room to a house grid if the room doesn't exists in the grid room list
      *
@@ -104,9 +100,6 @@ public class HouseGrid implements Metered {
         return this.roomList;
     }
 
-    public void setRoomList(RoomList roomList) {
-        this.roomList = roomList;
-    }
 
     public int getRoomListInAGridSize() {
         return this.roomList.getRoomListSize();

@@ -21,8 +21,8 @@ class RoomMonitoringTable extends React.Component {
         this.props.onfetchCurrTempRooms(id);
         this.props.onShowCurrTempRooms();
     }
-    fetchRoomMaxTemp = ({id, day}) => {
-        this.props.onfetchRoomMaxTemp = (id, day);
+    fetchRoomMaxTemp = (id, day) => {
+        this.props.onfetchRoomMaxTemp(id, day);
         this.props.onShowfetchRoomMaxTemp();
     }
 
@@ -44,7 +44,7 @@ class RoomMonitoringTable extends React.Component {
         })
         if (data.length === 0) {
             return (
-                <p>No data temperature</p>
+                <p>No rooms or data temperature available.</p>
             )
         } else {
             return (

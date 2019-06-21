@@ -29,14 +29,6 @@ public class GeographicalAreaDTO {
         this.sensorListDTO = sensorListDTO;
     }
 
-    public GeographicalAreaDTO(String identification, String designation, TypeGADTO type, OccupationArea occupation, Location location, List<SensorDTO> sensorListDTO) {
-        this.identification = identification;
-        this.designation = designation;
-        this.type = type;
-        this.occupationArea = occupation;
-        this.location = location;
-        this.sensorListDTO = sensorListDTO;
-    }
 
     public GeographicalAreaDTO(String identification, String designation, TypeGADTO type, OccupationArea occupationArea, Location location) {
         this.identification = identification;
@@ -46,21 +38,6 @@ public class GeographicalAreaDTO {
         this.location = location;
     }
 
-    /**
-     * Method to get the parent of an geographical area in DTO.
-     * @return the parent of an geographical area.
-     */
-    public GeographicalArea getParentGaDto(){
-        return parentGA;
-    }
-
-    /**
-     * Method to set the parent of an geographical area in DTO.
-     * @param geographicalArea is set as a parentGa.
-     */
-    public void setParentGADto(GeographicalArea geographicalArea){
-        this.parentGA = geographicalArea;
-    }
 
     public String getIdentification() {
         return identification;
@@ -108,12 +85,6 @@ public class GeographicalAreaDTO {
 
     public void setSensorListDTO(List<SensorDTO> sensorList) {
         this.sensorListDTO = sensorList;
-    }
-
-
-    public GeographicalArea fromDTO() {
-
-        return new GeographicalArea(this.identification, this.designation, this.type.fromDTO(), this.occupationArea, this.location);
     }
 
     @Override

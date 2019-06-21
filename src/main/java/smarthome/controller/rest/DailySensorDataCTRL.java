@@ -141,7 +141,7 @@ public class DailySensorDataCTRL {
     }
 
     @GetMapping("/dailyMaxAmplitude")
-    ResponseEntity<Object> getMaxDailyAmplitude(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate) throws java.text.ParseException {
+    public ResponseEntity<Object> getMaxDailyAmplitude(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate) throws java.text.ParseException {
         if (!checkDateTempPreConditions(startDate, endDate).getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkDateTempPreConditions(startDate, endDate);
         }
@@ -167,7 +167,7 @@ public class DailySensorDataCTRL {
     }
 
     @GetMapping("/dailyMaximum")
-    ResponseEntity<Object> getDailyMaximum(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate) throws java.text.ParseException {
+    public ResponseEntity<Object> getDailyMaximum(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate) throws java.text.ParseException {
 
         if (!checkDateTempPreConditions(startDate, endDate).getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkDateTempPreConditions(startDate, endDate);
@@ -193,7 +193,7 @@ public class DailySensorDataCTRL {
     }
 
     @GetMapping("/dailyMinimum")
-    ResponseEntity<Object> getDailyMinimum(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate) throws java.text.ParseException {
+    public ResponseEntity<Object> getDailyMinimum(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate) throws java.text.ParseException {
         if (!checkDateTempPreConditions(startDate, endDate).getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkDateTempPreConditions(startDate, endDate);
         }
@@ -218,7 +218,7 @@ public class DailySensorDataCTRL {
     }
 
     @GetMapping("/currentTemperature")
-    ResponseEntity<Object> getCurrentTemperature() {
+    public ResponseEntity<Object> getCurrentTemperature() {
         if (!checkPreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkPreConditions();
         }
@@ -233,7 +233,7 @@ public class DailySensorDataCTRL {
     }
 
     @GetMapping("/totalRainfall")
-    ResponseEntity<Object> getTotalRainfall(@PathParam("day") String day) throws java.text.ParseException {
+    public ResponseEntity<Object> getTotalRainfall(@PathParam("day") String day) throws java.text.ParseException {
         if (!checkDateRainPreConditions(day, day).getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkDateRainPreConditions(day, day);
         }

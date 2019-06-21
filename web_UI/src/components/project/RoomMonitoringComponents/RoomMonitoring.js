@@ -43,8 +43,8 @@ class RoomMonitoring extends React.Component {
 
     showFetchRoomMaxTemp() {
         this.setState({
-            showfetchRoomMaxTemp: true,
-            showCurrTempRooms: false
+            showFetchRoomMaxTemp: true,
+            showCurrTempRooms: false,
         })
     }
 
