@@ -25,8 +25,8 @@ public class GeoAreaCTRL {
     private GeoAreaService geoAreaService;
 
 
-    GeoAreaCTRL() {
-        geoAreaService = new GeoAreaService();
+    GeoAreaCTRL(GeoAreaService geoAreaService) {
+        this.geoAreaService = geoAreaService;
     }
 
 

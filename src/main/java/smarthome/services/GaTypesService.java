@@ -18,7 +18,9 @@ public class GaTypesService {
     @Autowired
     public TypeGARepository repository;
 
+public GaTypesService(){
 
+}
 
     public GaTypesService(TypeGARepository typeGARepository) {
         this.repository = typeGARepository;

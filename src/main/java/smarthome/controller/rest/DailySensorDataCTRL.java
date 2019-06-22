@@ -153,7 +153,13 @@ public class DailySensorDataCTRL {
         if (!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkTemperaturePreConditions();
         } else {
-            ReadingDTO result = this.sensorDataService.displayAmplitude(startDate, endDate);
+            ReadingDTO result = null;
+            try {
+                result = this.sensorDataService.displayAmplitude(startDate, endDate);
+            } catch (IllegalAccessException e) {
+                //selected interval does not have readings
+                return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+            }
             result.getReadingDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
@@ -174,7 +180,13 @@ public class DailySensorDataCTRL {
         if (!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkTemperaturePreConditions();
         } else {
-            ReadingDTO result = this.sensorDataService.displayMaximum(startDate, endDate);
+            ReadingDTO result = null;
+            try {
+                result = this.sensorDataService.displayMaximum(startDate, endDate);
+            } catch (IllegalAccessException e) {
+                //selected interval does not have readings
+                return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+            }
             result.getReadingDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
@@ -193,7 +205,13 @@ public class DailySensorDataCTRL {
         if (!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkTemperaturePreConditions();
         } else {
-            ReadingDTO result = this.sensorDataService.displayMinimum(startDate, endDate);
+            ReadingDTO result = null;
+            try {
+                result = this.sensorDataService.displayMinimum(startDate, endDate);
+            } catch (IllegalAccessException e) {
+                //selected interval does not have readings
+                return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+            }
             result.getReadingDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }

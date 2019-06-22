@@ -147,7 +147,7 @@ class GetDailySensorDataCTRLTest {
     }
 
     @Test
-    void displayMaximum() {
+    void displayMaximum() throws IllegalAccessException {
 
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0),"C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0),"C");
@@ -205,7 +205,7 @@ class GetDailySensorDataCTRLTest {
     }
 
     @Test
-    void displayMinimum() {
+    void displayMinimum() throws IllegalAccessException {
 
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0),"C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0),"C");
@@ -263,7 +263,7 @@ class GetDailySensorDataCTRLTest {
     }
 
     @Test
-    void displayAmplitude() {
+    void displayAmplitude() throws IllegalAccessException {
 
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0),"C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0),"C");
@@ -321,7 +321,7 @@ class GetDailySensorDataCTRLTest {
     }
 
     @Test
-    void displayAmplitude2() {
+    void displayAmplitude2() throws IllegalAccessException {
 
          
 
@@ -381,7 +381,7 @@ class GetDailySensorDataCTRLTest {
     }
 
     @Test
-    void displayAmplitude3() {
+    void displayAmplitude3() throws IllegalAccessException {
 
          
 

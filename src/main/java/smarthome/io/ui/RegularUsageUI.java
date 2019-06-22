@@ -9,7 +9,7 @@ public final class RegularUsageUI {
     private RegularUsageUI() {
     }
 
-    public static void regularUsage(SensorTypeList sensorTypeList) {
+    public static void regularUsage(SensorTypeList sensorTypeList) throws IllegalAccessException {
         int option = -1;
 
         while (option != 0) {

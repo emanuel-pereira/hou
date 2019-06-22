@@ -26,7 +26,7 @@ public class GeoAreaService {
      */
 
     public GeoAreaService() {
-
+gaTypesService = new GaTypesService();
     }
 
     public GeoAreaService(GeoRepository geoRepository, GaTypesService gaTypesService) {

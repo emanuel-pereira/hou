@@ -72,11 +72,10 @@ public class RoomTemperatureService {
 
     }
 
-    public ReadingDTO getMaxTempInRoom(String idRoom, String givenDay) throws ParseException {
+    public ReadingDTO getMaxTempInRoom(String idRoom, String givenDay) throws ParseException, IllegalAccessException {
         Calendar calendar = convertStringToCalendar(givenDay);
         Reading maxTemp = getBestSensorReadings(idRoom).getReadingsInSpecificDay(calendar).maxValueInInterval();
         return mapper.map(maxTemp, ReadingDTO.class);
-
     }
 
     public Calendar convertStringToCalendar(String input) throws ParseException {
