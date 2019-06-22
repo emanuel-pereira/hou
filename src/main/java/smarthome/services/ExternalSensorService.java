@@ -2,11 +2,11 @@ package smarthome.services;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
+import smarthome.dto.ExternalSensorDTO;
+import smarthome.dto.SensorBehaviorDTO;
 import smarthome.exceptions.ExternalSensorNotFoundException;
 import smarthome.exceptions.GeographicalAreaNotFoundException;
 import smarthome.exceptions.SensorTypeNotFoundException;
-import smarthome.dto.ExternalSensorDTO;
-import smarthome.dto.SensorBehaviorDTO;
 import smarthome.mapper.ExternalSensorMapper;
 import smarthome.model.ExternalSensor;
 import smarthome.model.SensorBehavior;
@@ -184,4 +184,29 @@ public class ExternalSensorService {
         }
         return true;
     }
+
+
+    /**
+     * This method fetches all external sensors in the database that belong to the geographical area with the id specified.
+     * If there is no geographical area with the given id in the database, then a GeographicalAreaNotFoundException is thrown.
+     *
+     * @param idGeoArea String value representing the Geographical Area id
+     * @return a list of ExternalSensorDTOs that belong to the geographical area with the given id.
+     */
+    public List<ExternalSensorDTO> fetchSensorsInGeoArea(String idGeoArea) {
+        this.init();
+        List<ExternalSensorDTO> sensorsInGeoArea = new ArrayList<>();
+        if (!geoAreaService.checkIfIdExists(idGeoArea)) {
+            throw new GeographicalAreaNotFoundException("Geographical Area with id " + idGeoArea +
+                    " does not exist.");
+        }
+        repo.findAll().forEach(externalSensor -> {
+            if (externalSensor.getIdGA().matches(idGeoArea)) {
+                ExternalSensorDTO dto = externalSensorMapper.toDto(externalSensor);
+                sensorsInGeoArea.add(dto);
+            }
+        });
+        return sensorsInGeoArea;
+    }
 }
+
