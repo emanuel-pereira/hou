@@ -99,7 +99,7 @@ public class RoomTemperatureCTRL {
     }
 
     @GetMapping("{id}/maxTemperature")
-    ResponseEntity<Object> getMaxTemperatureInDay(@PathVariable String id, @PathParam("day")String day)throws ParseException{
+    public ResponseEntity<Object> getMaxTemperatureInDay(@PathVariable String id, @PathParam("day")String day)throws ParseException{
         if(!checkDayPreConditions(id,day).getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)){
             return checkDayPreConditions(id,day);
         }
@@ -109,13 +109,19 @@ public class RoomTemperatureCTRL {
         }
 
         else{
-            ReadingDTO result = roomTemperatureService.getMaxTempInRoom(id,day);
+            ReadingDTO result = null;
+            try {
+                result = roomTemperatureService.getMaxTempInRoom(id,day);
+            } catch (IllegalAccessException e) {
+                //selected interval does not have readings
+                return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+            }
             return new ResponseEntity<>(result,HttpStatus.OK);
         }
     }
 
     @GetMapping("{id}/currentTemperature")
-    ResponseEntity<Object> geCurrentTemperature(@PathVariable String id){
+    public ResponseEntity<Object> geCurrentTemperature(@PathVariable String id){
         if(!checkRoomPreConditions(id).getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)){
             return checkRoomPreConditions(id);
         }

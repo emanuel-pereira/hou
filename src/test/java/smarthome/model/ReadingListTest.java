@@ -1,5 +1,6 @@
 package smarthome.model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -303,7 +304,7 @@ class ReadingListTest {
     }
 
     @Test
-    void maxValueInInterval() {
+    void maxValueInInterval() throws IllegalAccessException {
         GregorianCalendar date1 = new GregorianCalendar(2017, 6, 1);
         GregorianCalendar date2 = new GregorianCalendar(2017, 6, 4);
         GregorianCalendar date3 = new GregorianCalendar(2017, 6, 5);
@@ -331,7 +332,7 @@ class ReadingListTest {
     }
 
     @Test
-    void minValueInInterval() {
+    void minValueInInterval() throws IllegalAccessException {
         GregorianCalendar date1 = new GregorianCalendar(2017, 6, 1);
         GregorianCalendar date2 = new GregorianCalendar(2017, 6, 4);
         GregorianCalendar date3 = new GregorianCalendar(2017, 6, 5);
@@ -359,7 +360,35 @@ class ReadingListTest {
     }
 
     @Test
-    void maxValueInInterval2() {
+    void minValueInInterval2() {
+        GregorianCalendar date0 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21,2,0);
+        GregorianCalendar date1 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21, 8, 0);
+        GregorianCalendar date2 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21, 14, 0);
+        GregorianCalendar date3 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21, 20, 0);
+
+
+        Reading r0 = new Reading(-1.04, date0);
+        Reading r1 = new Reading(-2.28, date1);
+        Reading r2 = new Reading(-2.3, date2);
+        Reading r3 = new Reading(-3.32, date3);
+
+        ReadingList rL1 = new ReadingList();
+        rL1.addReading(r0);
+        rL1.addReading(r1);
+        rL1.addReading(r2);
+        rL1.addReading(r3);
+
+        //Reading List Crop
+        GregorianCalendar startDate = new GregorianCalendar(2019, Calendar.FEBRUARY, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2019, Calendar.FEBRUARY, 2);
+        ReadingList croppedList = rL1.filterByDate(startDate, endDate);
+
+        //Get the max value of the Reading List
+        Assertions.assertThrows(IllegalAccessException.class, () -> croppedList.minValueInInterval());
+    }
+
+    @Test
+    void maxValueInInterval2() throws IllegalAccessException {
         GregorianCalendar date0 = new GregorianCalendar(2017, 5, 31);
         GregorianCalendar date1 = new GregorianCalendar(2017, 6, 1, 8, 0);
         GregorianCalendar date2 = new GregorianCalendar(2017, 6, 1, 16, 0);
@@ -395,7 +424,64 @@ class ReadingListTest {
     }
 
     @Test
-    void dailyMaximumReadings() {
+    void maxValueInInterval3() throws Exception {
+        GregorianCalendar date0 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21,2,0);
+        GregorianCalendar date1 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21, 8, 0);
+        GregorianCalendar date2 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21, 14, 0);
+        GregorianCalendar date3 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21, 20, 0);
+
+
+        Reading r0 = new Reading(-1.04, date0);
+        Reading r1 = new Reading(-2.28, date1);
+        Reading r2 = new Reading(-2.3, date2);
+        Reading r3 = new Reading(-3.32, date3);
+
+        ReadingList rL1 = new ReadingList();
+        rL1.addReading(r0);
+        rL1.addReading(r1);
+        rL1.addReading(r2);
+        rL1.addReading(r3);
+
+        //Reading List Crop
+        GregorianCalendar startDate = new GregorianCalendar(2019, Calendar.FEBRUARY, 19);
+        GregorianCalendar endDate = new GregorianCalendar(2019, Calendar.FEBRUARY, 23);
+        ReadingList croppedList = rL1.filterByDate(startDate, endDate);
+
+        //Get the max value of the Reading List
+        Reading maxReading = croppedList.maxValueInInterval();
+        assertEquals(-1.04, maxReading.returnValue());
+    }
+
+    @Test
+    void maxValueInInterval4() {
+        GregorianCalendar date0 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21,2,0);
+        GregorianCalendar date1 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21, 8, 0);
+        GregorianCalendar date2 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21, 14, 0);
+        GregorianCalendar date3 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21, 20, 0);
+
+
+        Reading r0 = new Reading(-1.04, date0);
+        Reading r1 = new Reading(-2.28, date1);
+        Reading r2 = new Reading(-2.3, date2);
+        Reading r3 = new Reading(-3.32, date3);
+
+        ReadingList rL1 = new ReadingList();
+        rL1.addReading(r0);
+        rL1.addReading(r1);
+        rL1.addReading(r2);
+        rL1.addReading(r3);
+
+        //Reading List Crop
+        GregorianCalendar startDate = new GregorianCalendar(2019, Calendar.FEBRUARY, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2019, Calendar.FEBRUARY, 2);
+        ReadingList croppedList = rL1.filterByDate(startDate, endDate);
+
+        //Get the max value of the Reading List
+        Assertions.assertThrows(IllegalAccessException.class, () -> croppedList.maxValueInInterval());
+    }
+
+    @Test
+    void dailyMaximumReadings() throws IllegalAccessException {
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0), "C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0), "C");
         Reading r2 = new Reading(6, new GregorianCalendar(2017, Calendar.JUNE, 1, 12, 0), "C");
@@ -446,7 +532,7 @@ class ReadingListTest {
     }
 
     @Test
-    void dailyMinimumReadings() {
+    void dailyMinimumReadings() throws IllegalAccessException {
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0), "C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0), "C");
         Reading r2 = new Reading(6, new GregorianCalendar(2017, Calendar.JUNE, 1, 12, 0), "C");
@@ -497,7 +583,7 @@ class ReadingListTest {
     }
 
     @Test
-    void dailyAmplitudes() {
+    void dailyAmplitudes() throws IllegalAccessException {
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0), "C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0), "C");
         Reading r2 = new Reading(6, new GregorianCalendar(2017, Calendar.JUNE, 1, 12, 0), "C");
@@ -548,7 +634,7 @@ class ReadingListTest {
     }
 
     @Test
-    void dailyAmplitude() {
+    void dailyAmplitude() throws IllegalAccessException {
         Reading r0 = new Reading(4, new GregorianCalendar(2017, Calendar.JUNE, 1, 0, 0), "C");
         Reading r1 = new Reading(5, new GregorianCalendar(2017, Calendar.JUNE, 1, 6, 0), "C");
         Reading r2 = new Reading(6, new GregorianCalendar(2017, Calendar.JUNE, 1, 12, 0), "C");

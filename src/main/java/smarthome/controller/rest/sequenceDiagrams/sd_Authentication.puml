@@ -1,0 +1,72 @@
+@startuml
+
+skinparam sequence {
+	ArrowColor SteelBlue
+	ActorBorderColor Dimgray
+	LifeLineBorderColor MidnightBlue
+	LifeLineBackgroundColor #A9DCDF
+
+	ParticipantBorderColor Dimgray
+	ParticipantBackgroundColor SteelBlue
+	ParticipantFontName Calibri Bold
+	ParticipantFontSize 17
+	ParticipantFontColor Ivory
+
+	ActorBackgroundColor SteelBlue
+	ActorFontColor MidnightBlue
+	ActorFontSize 17
+	ActorFontName Aapex
+
+}
+
+skinparam note {
+BorderColor SteelBlue
+BackgroundColor SteelBlue
+FontColor White
+}
+
+skinparam sequenceBoxBorderColor SteelBlue
+
+
+hide footbox
+title JWT Authentication protocol flow
+autonumber
+actor user
+box #FAFAFA
+participant client as "client (application)"
+participant resource as "back-end server"
+end box
+
+group client requires user authentication
+client -> user : request login details
+
+
+user --> client : user inserts \nusername and password
+end
+
+group token is generated
+client -> resource : request authentication\n/POST w/ username and password
+note right
+**Request Body:**
+{"username" : "admin",
+"password" : "h3vf$h2hd"}
+end note
+resource --> client :var:  access token
+note right
+If user credentials are valid
+a token is created which is
+then sent back to the client
+
+end note
+note left
+**response:**
+# token is stored in browser local_storage
+"Bearer eyJ0eXAiO..."
+end note
+end group
+
+group resource can be accessed
+client -> resource : request resource\npresent token
+resource --> client : resource
+end group
+@enduml

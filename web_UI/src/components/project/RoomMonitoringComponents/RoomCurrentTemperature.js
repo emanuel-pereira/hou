@@ -17,57 +17,52 @@ class RoomCurrentTemperature extends Component {
     }
 
     render() {
-        const {roomId, loading, error, data} = this.props.roomCurrentTemp;
+        const {loading, data, error} = this.props.roomCurrentTemp;
 
-        let moment =  require ('moment/moment');
+        let moment = require('moment/moment');
         moment().format();
 
-        /*if (loading === true) {
-            return (<h1>Loading ....</h1>);
+            if (loading === true) {
+                return (<h1>Loading ....</h1>);
+            } else {
+        if (error === null) {
+            return (<h5>There are no sensors or temperature readings available for this room.</h5>);
         } else {
-            if (error !== null) {
-                return (<h1>Error ....</h1>);
-            } else {*/
-                //if (data.roomId && data.roomCurrentTemp) {
-                    return (
-                        <div className="content">
-                            <Row>
-                                <Col md="12">
-                                    <Card>
-                                        <CardBody>
-                                            <Table>
-                                                <thead className="text-primary">
-                                                <tr>
-                                                    <th>Room{data.roomId}</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
+                return (
+                    <div className="content">
+                        <Row>
+                            <Col md="12">
+                                <Card>
+                                    <CardBody>
+                                        <Table>
+                                            <thead className="text-primary">
+                                            <tr>
+                                                <th>Room{data.roomId}</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
 
-                                                    <td>Date: {moment(data.readingDateAndTime).format('DD-MM-YYYY')}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Temperature:</td>
-                                                    <td>{data.readingValue}ºC</td>
-                                                </tr>
+                                                <td>Date: {moment(data.readingDateAndTime).format('DD-MM-YYYY')}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Temperature:</td>
+                                                <td>{data.readingValue}ºC</td>
+                                            </tr>
 
-                                                </tbody>
-                                            </Table>
-                                        </CardBody>
-                                    </Card>
-                                </Col>
-                            </Row>
-                        </div>
-                    );
-               /* } else {
-                    return <p>Not working</p>;
+                                            </tbody>
+                                        </Table>
+                                    </CardBody>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </div>
+                );
 
-            }*/
-                }
-/*
+            }
         }
     }
-*/
+
 }
 
 const mapStateToProps = (state) => {
@@ -81,7 +76,7 @@ const mapStateToProps = (state) => {
         }
 
     }
-}
+};
 
 
 

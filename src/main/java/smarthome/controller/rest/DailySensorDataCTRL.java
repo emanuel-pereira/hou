@@ -141,7 +141,7 @@ public class DailySensorDataCTRL {
     }
 
     @GetMapping("/dailyMaxAmplitude")
-    ResponseEntity<Object> getMaxDailyAmplitude(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate) throws java.text.ParseException {
+    public ResponseEntity<Object> getMaxDailyAmplitude(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate) throws java.text.ParseException {
         if (!checkDateTempPreConditions(startDate, endDate).getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkDateTempPreConditions(startDate, endDate);
         }
@@ -153,7 +153,13 @@ public class DailySensorDataCTRL {
         if (!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkTemperaturePreConditions();
         } else {
-            ReadingDTO result = this.sensorDataService.displayAmplitude(startDate, endDate);
+            ReadingDTO result = null;
+            try {
+                result = this.sensorDataService.displayAmplitude(startDate, endDate);
+            } catch (IllegalAccessException e) {
+                //selected interval does not have readings
+                return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+            }
             result.getReadingDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
@@ -161,7 +167,7 @@ public class DailySensorDataCTRL {
     }
 
     @GetMapping("/dailyMaximum")
-    ResponseEntity<Object> getDailyMaximum(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate) throws java.text.ParseException {
+    public ResponseEntity<Object> getDailyMaximum(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate) throws java.text.ParseException {
 
         if (!checkDateTempPreConditions(startDate, endDate).getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkDateTempPreConditions(startDate, endDate);
@@ -174,14 +180,20 @@ public class DailySensorDataCTRL {
         if (!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkTemperaturePreConditions();
         } else {
-            ReadingDTO result = this.sensorDataService.displayMaximum(startDate, endDate);
+            ReadingDTO result = null;
+            try {
+                result = this.sensorDataService.displayMaximum(startDate, endDate);
+            } catch (IllegalAccessException e) {
+                //selected interval does not have readings
+                return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+            }
             result.getReadingDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
 
     @GetMapping("/dailyMinimum")
-    ResponseEntity<Object> getDailyMinimum(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate) throws java.text.ParseException {
+    public ResponseEntity<Object> getDailyMinimum(@PathParam("startDate") String startDate, @PathParam("endDate") String endDate) throws java.text.ParseException {
         if (!checkDateTempPreConditions(startDate, endDate).getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkDateTempPreConditions(startDate, endDate);
         }
@@ -193,14 +205,20 @@ public class DailySensorDataCTRL {
         if (!checkTemperaturePreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkTemperaturePreConditions();
         } else {
-            ReadingDTO result = this.sensorDataService.displayMinimum(startDate, endDate);
+            ReadingDTO result = null;
+            try {
+                result = this.sensorDataService.displayMinimum(startDate, endDate);
+            } catch (IllegalAccessException e) {
+                //selected interval does not have readings
+                return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+            }
             result.getReadingDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
     }
 
     @GetMapping("/currentTemperature")
-    ResponseEntity<Object> getCurrentTemperature() {
+    public ResponseEntity<Object> getCurrentTemperature() {
         if (!checkPreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkPreConditions();
         }
@@ -215,7 +233,7 @@ public class DailySensorDataCTRL {
     }
 
     @GetMapping("/totalRainfall")
-    ResponseEntity<Object> getTotalRainfall(@PathParam("day") String day) throws java.text.ParseException {
+    public ResponseEntity<Object> getTotalRainfall(@PathParam("day") String day) throws java.text.ParseException {
         if (!checkDateRainPreConditions(day, day).getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkDateRainPreConditions(day, day);
         }

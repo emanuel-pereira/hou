@@ -42,32 +42,35 @@ public class GetDailySensorDataCTRL {
         return checkIfClosestSensorsHasReadingsInTimePeriod(sensorType, startDate, endDate);
     }
 
-    public ReadingDTO displayMaximum(SensorType sensorType, Calendar startDate, Calendar endDate) {
+    public ReadingDTO displayMaximum(SensorType sensorType, Calendar startDate, Calendar endDate) throws IllegalAccessException {
         Sensor sensor = filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
         endDate.add(Calendar.DATE, 1);
         ReadingList sensorReadings = sensor.getSensorBehavior().getReadingList().filterByDate(startDate, endDate);
         endDate.add(Calendar.DATE, -1);
         sensorReadings = sensorReadings.dailyMaximumReadings();
+        //TODO add trycatch to deal with exception
         Reading reading = sensorReadings.maxValueInInterval();
         return reading.toDTO();
     }
 
-    public ReadingDTO displayMinimum(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate) {
+    public ReadingDTO displayMinimum(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate) throws IllegalAccessException {
         Sensor sensor = filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
         endDate.add(Calendar.DATE, 1);
         ReadingList sensorReadings = sensor.getSensorBehavior().getReadingList().filterByDate(startDate, endDate);
         endDate.add(Calendar.DATE, -1);
         sensorReadings = sensorReadings.dailyMaximumReadings();
+        //TODO add trycatch to deal with exception
         Reading reading = sensorReadings.minValueInInterval();
         return reading.toDTO();
     }
 
-    public ReadingDTO displayAmplitude(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate) {
+    public ReadingDTO displayAmplitude(SensorType sensorType, GregorianCalendar startDate, GregorianCalendar endDate) throws IllegalAccessException {
         Sensor sensor = filterByTypeByIntervalAndDistance(sensorType, startDate, endDate);
         endDate.add(Calendar.DATE, 1);
         ReadingList sensorReadings = sensor.getSensorBehavior().getReadingList().filterByDate(startDate, endDate);
         endDate.add(Calendar.DATE, -1);
         ReadingList sensorXPTO = sensorReadings.dailyAmplitude();
+        //TODO add trycatch to deal with exception
         Reading reading = sensorXPTO.maxValueInInterval();
         return reading.toDTO();
     }

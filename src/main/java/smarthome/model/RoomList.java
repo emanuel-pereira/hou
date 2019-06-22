@@ -231,27 +231,4 @@ public class RoomList {
         return sensors;
     }
 
-    public Room getRoomIfIDMatchesAnyExistingRoom(String sensorID) {
-        Room matchedRoom = null;
-        for (Room room : this.listOfRooms)
-            if (room.getId().equals(sensorID))
-                matchedRoom = room;
-        return matchedRoom;
-    }
-
-    /*
-    public List<Room> getListOfRoomsFiltered(String sensorType) {
-        List<Room> rooms = new ArrayList<>();
-        Sensor sensor;
-        for (Room room : this.listOfRooms) {
-            if (room.getSensorListInRoom().checkIfRequiredSensorTypeExists(sensorType)) {
-                sensor = room.getSensorListInRoom().getRequiredSensorPerType(sensorType);
-                if (sensor.getReadingList().size() > 0)
-                    rooms.add(room);
-            }
-        }
-        return rooms;
-    }
-
-    */
 }

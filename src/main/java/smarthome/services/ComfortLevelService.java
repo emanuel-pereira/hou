@@ -43,7 +43,7 @@ public class ComfortLevelService {
         RoomList roomsWithSensorsOfType = new RoomList();
         for (Room room : roomList.getRoomList()) {
             if (room.getSensorListInRoom().checkIfRequiredSensorTypeExists(sensorType)) {
-                roomsWithSensorsOfType.addRoom(room);
+                roomsWithSensorsOfType.getRoomList().add(room);
             }
         }
         return roomsWithSensorsOfType;
@@ -55,7 +55,7 @@ public class ComfortLevelService {
         for (Room room : roomList.getRoomList())
 
             if (checkThatAllSensorsHaveReadings(room)) {
-                roomsWithSensorsWithReadings.addRoom(room);
+                roomsWithSensorsWithReadings.getRoomList().add(room);
             }
 
         return roomsWithSensorsWithReadings;
@@ -76,11 +76,7 @@ public class ComfortLevelService {
         return !getRoomsWithSensorByType(TEMPERATURE).getRoomList().isEmpty();
     }
 
-    public boolean validateTemperatureSensorsHaveReadings() {
-        RoomList roomList1 = getRoomsWithSensorByType(TEMPERATURE); //get all rooms with TEMPERATURE sensors
-        RoomList roomList2 = getRoomsWithSensorsWithReadings(roomList1); // filter previous list
-        return !roomList2.getRoomList().isEmpty();
-    }
+
 
     public RoomList getFilteredRoomList() {
         RoomList r = getRoomsWithSensorByType(TEMPERATURE);
