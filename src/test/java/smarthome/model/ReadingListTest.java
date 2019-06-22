@@ -360,6 +360,34 @@ class ReadingListTest {
     }
 
     @Test
+    void minValueInInterval2() {
+        GregorianCalendar date0 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21,2,0);
+        GregorianCalendar date1 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21, 8, 0);
+        GregorianCalendar date2 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21, 14, 0);
+        GregorianCalendar date3 = new GregorianCalendar(2019, Calendar.FEBRUARY, 21, 20, 0);
+
+
+        Reading r0 = new Reading(-1.04, date0);
+        Reading r1 = new Reading(-2.28, date1);
+        Reading r2 = new Reading(-2.3, date2);
+        Reading r3 = new Reading(-3.32, date3);
+
+        ReadingList rL1 = new ReadingList();
+        rL1.addReading(r0);
+        rL1.addReading(r1);
+        rL1.addReading(r2);
+        rL1.addReading(r3);
+
+        //Reading List Crop
+        GregorianCalendar startDate = new GregorianCalendar(2019, Calendar.FEBRUARY, 1);
+        GregorianCalendar endDate = new GregorianCalendar(2019, Calendar.FEBRUARY, 2);
+        ReadingList croppedList = rL1.filterByDate(startDate, endDate);
+
+        //Get the max value of the Reading List
+        Assertions.assertThrows(IllegalAccessException.class, () -> croppedList.minValueInInterval());
+    }
+
+    @Test
     void maxValueInInterval2() throws IllegalAccessException {
         GregorianCalendar date0 = new GregorianCalendar(2017, 5, 31);
         GregorianCalendar date1 = new GregorianCalendar(2017, 6, 1, 8, 0);

@@ -62,11 +62,7 @@ public class ReadingList {
 
     public Reading getLastReading() {
         int size = this.listOfReadings.size();
-        if(size!=0){
-        return this.listOfReadings.get(size - 1);}
-        else {
-            return null;
-        }
+        return this.listOfReadings.get(size - 1);
     }
 
     public List<Reading> getReadingsList() {
@@ -199,9 +195,6 @@ public class ReadingList {
             if (value > max.returnValue())
                 max = reading;
         }
-        if (max.returnValue() == -Double.MAX_VALUE)
-            //signals that this method as been invoked in an inappropriate time, empty list of readings
-            throw new IllegalAccessException();
         return max;
     }
 
@@ -217,9 +210,6 @@ public class ReadingList {
             if (value <= min.returnValue())
                 min = reading;
         }
-        if (min.returnValue() == Double.MAX_VALUE)
-            //signals that this method as been invoked in an inappropriate time, empty list of readings
-            throw new IllegalAccessException();
         return min;
     }
 
