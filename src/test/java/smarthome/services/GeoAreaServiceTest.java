@@ -47,11 +47,6 @@ class GeoAreaServiceTest {
     @Test
     void addNewGeoArea() {
         TypeGA type = new TypeGA("city");
-        when(this.typeGARepository.save(type)).thenReturn(type);
-
-        GeographicalArea area = new GeographicalArea("POR", "Porto", type,
-                (new OccupationArea(30, 20)),
-                (new Location(3, 4, 3)));
 
         GeographicalAreaDTO dto = new GeographicalAreaDTO("POR", "Porto",
                 (new TypeGADTO("city")),
@@ -60,7 +55,6 @@ class GeoAreaServiceTest {
 
         when(this.gaTypesService.existsByType(type.getType())).thenReturn(true);
         when(this.gaTypesService.findByType(type.getType())).thenReturn(type);
-        when(this.geoRepository.save(area)).thenReturn(area);
 
         assertEquals(dto, this.geoAreaService.addNewGeoArea(dto));
     }
@@ -69,11 +63,6 @@ class GeoAreaServiceTest {
     @Test
     void notAddAreaTypeDoesNotExist() {
         TypeGA type = new TypeGA("urban area");
-        when(this.typeGARepository.save(type)).thenReturn(type);
-
-        GeographicalArea area = new GeographicalArea("POR", "Porto", type,
-                (new OccupationArea(30, 20)),
-                (new Location(3, 4, 3)));
 
         GeographicalAreaDTO dto = new GeographicalAreaDTO("POR", "Porto",
                 (new TypeGADTO("city")),
@@ -82,7 +71,6 @@ class GeoAreaServiceTest {
 
         when(this.gaTypesService.existsByType("urban area")).thenReturn(false);
         when(this.gaTypesService.findByType(type.getType())).thenReturn(type);
-        when(this.geoRepository.save(area)).thenReturn(area);
 
         Assertions.assertThrows(InvalidParameterException.class, () -> geoAreaService.addNewGeoArea(dto));
     }
@@ -90,11 +78,6 @@ class GeoAreaServiceTest {
     @Test
     void notAddInvalidAreaNullName() {
         TypeGA type = new TypeGA("city");
-        when(this.gaTypesService.findByType(type.getType())).thenReturn(type);
-
-        GeographicalArea area = new GeographicalArea("POR", null, type,
-                (new OccupationArea(30, 20)),
-                (new Location(3, 4, 3)));
 
         GeographicalAreaDTO dto = new GeographicalAreaDTO("POR", null,
                 (new TypeGADTO("city")),
@@ -103,7 +86,6 @@ class GeoAreaServiceTest {
 
         when(this.gaTypesService.existsByType("city")).thenReturn(true);
         when(this.gaTypesService.findByType("city")).thenReturn(type);
-        when(this.geoRepository.save(area)).thenReturn(area);
 
         Assertions.assertThrows(InvalidParameterException.class, () -> geoAreaService.addNewGeoArea(dto));
     }
@@ -111,11 +93,6 @@ class GeoAreaServiceTest {
     @Test
     void notAddInvalidAreaNullOccupationArea() {
         TypeGA type = new TypeGA("city");
-        when(this.gaTypesService.findByType(type.getType())).thenReturn(type);
-
-        GeographicalArea area = new GeographicalArea("POR", "Porto", type,
-                null,
-                (new Location(3, 4, 3)));
 
         GeographicalAreaDTO dto = new GeographicalAreaDTO("POR", "Porto",
                 (new TypeGADTO("city")),
@@ -124,7 +101,6 @@ class GeoAreaServiceTest {
 
         when(this.gaTypesService.existsByType("city")).thenReturn(true);
         when(this.gaTypesService.findByType("city")).thenReturn(type);
-        when(this.geoRepository.save(area)).thenReturn(area);
 
         Assertions.assertThrows(InvalidParameterException.class, () -> geoAreaService.addNewGeoArea(dto));
     }
@@ -132,10 +108,6 @@ class GeoAreaServiceTest {
     @Test
     void notAddInvalidAreaNullLocation() {
         TypeGA type = new TypeGA("city");
-        when(this.gaTypesService.findByType(type.getType())).thenReturn(type);
-
-        GeographicalArea area = new GeographicalArea("POR", "Porto", type,
-                (new OccupationArea(30, 20)), null);
 
         GeographicalAreaDTO dto = new GeographicalAreaDTO("POR", "Porto",
                 (new TypeGADTO("city")),
@@ -143,7 +115,6 @@ class GeoAreaServiceTest {
 
         when(this.gaTypesService.existsByType("city")).thenReturn(true);
         when(this.gaTypesService.findByType("city")).thenReturn(type);
-        when(this.geoRepository.save(area)).thenReturn(area);
 
         Assertions.assertThrows(InvalidParameterException.class, () -> geoAreaService.addNewGeoArea(dto));
     }
@@ -151,15 +122,11 @@ class GeoAreaServiceTest {
     @Test
     void notAddInvalidAreaNullParameters() {
         TypeGA type = new TypeGA("city");
-        when(this.gaTypesService.findByType(type.getType())).thenReturn(type);
-
-        GeographicalArea area = new GeographicalArea(null, null, type, null, null);
 
         GeographicalAreaDTO dto = new GeographicalAreaDTO(null, null, (new TypeGADTO("city")),null, null);
 
         when(this.gaTypesService.existsByType("city")).thenReturn(true);
         when(this.gaTypesService.findByType("city")).thenReturn(type);
-        when(this.geoRepository.save(area)).thenReturn(area);
 
         Assertions.assertThrows(InvalidParameterException.class, () -> geoAreaService.addNewGeoArea(dto));
     }
@@ -168,7 +135,6 @@ class GeoAreaServiceTest {
     @Test
     void findById() throws NoSuchFieldException {
         TypeGA type = new TypeGA("urban area");
-
 
         GeographicalAreaDTO dto = new GeographicalAreaDTO("LIS", "Lisboa",
                 (new TypeGADTO("urban area")),
@@ -188,11 +154,6 @@ class GeoAreaServiceTest {
     @Test
     void findByIdAreaDoesNotExist() {
         TypeGA type = new TypeGA("urban area");
-
-        GeographicalAreaDTO dto = new GeographicalAreaDTO("LIS", "Lisboa",
-                (new TypeGADTO("urban area")),
-                (new OccupationArea(150, 45)),
-                (new Location(3, 4, 3)));
 
         when(this.geoRepository.findById("LIS")).thenReturn(java.util.Optional.of
                 (new GeographicalArea("LIS", "Lisboa", type,
@@ -224,6 +185,8 @@ class GeoAreaServiceTest {
         int size = geoAreaService.findAll().size();
         assertEquals(3, size);
     }
+
+
 
 }
 
