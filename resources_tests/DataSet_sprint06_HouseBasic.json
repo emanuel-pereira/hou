@@ -1,0 +1,30 @@
+{
+  "adress": {
+    "street": "R. Dr. António Bernardino de Almeida",
+    "number": "431",
+    "zip": "4200-072",
+    "town": "Porto",
+    "country": "Portugal"
+  },
+  "room": [
+    { "id": "B107",
+      "description": "Classroom",
+      "floor": "1",
+      "width": 10.0,
+      "length": 6.0,
+      "height": 3.5
+    },
+    { "id": "B109",
+      "description": "Classroom",
+      "floor": "1",
+      "width": 10.0,
+      "length": 6.0,
+      "height": 3.5
+    }
+  ],
+  "grid": [
+    { "name": "B building",
+      "rooms": ["B107", "B109"]
+    }
+  ]
+}

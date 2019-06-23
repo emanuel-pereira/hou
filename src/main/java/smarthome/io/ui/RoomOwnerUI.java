@@ -2,12 +2,12 @@ package smarthome.io.ui;
 
 import java.util.Scanner;
 
-public final class RoomOwnerUI {
+public class RoomOwnerUI {
 
-    private RoomOwnerUI() {
+    public RoomOwnerUI() {
     }
 
-    public static void roomOwner() {
+    public void menu() {
         Scanner keyboard = new Scanner(System.in);
         int option = -1;
         System.out.println("Room Owners UI");
