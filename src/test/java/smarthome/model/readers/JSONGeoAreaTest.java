@@ -2,11 +2,7 @@ package smarthome.model.readers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import smarthome.model.*;
-import smarthome.repository.Repositories;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
@@ -19,8 +15,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
+
 class JSONGeoAreaTest {
 
     TypeGAList typeGAList = TypeGAList.getTypeGAListInstance();
@@ -35,9 +30,6 @@ class JSONGeoAreaTest {
         Field instance2 = TypeGAList.class.getDeclaredField("typeGaList");
         instance2.setAccessible(true);
         instance2.set(null, null);
-        Repositories.getSensorTypeRepository().deleteAll();
-        Repositories.getSensorTypeRepository().save(new SensorType("temperature"));
-        Repositories.getSensorTypeRepository().save(new SensorType("rainfall"));
     }
 
     @Test
@@ -139,9 +131,9 @@ class JSONGeoAreaTest {
     void checkIfImportSensorTypeNotNull () throws org.json.simple.parser.ParseException, java.text.ParseException, IOException {
         Path path = Paths.get("resources_tests/DataSet_sprint07_GA.json");
         JSONGeoArea reader = new JSONGeoArea();
-/*
         SensorType temperature = new SensorType("temperature");
-        SensorType rainfall = new SensorType("rainfall");*/
+        SensorType rainfall = new SensorType("rainfall");
+
 
         TypeGAList.addTypeGA(TypeGAList.newTypeGA("city"));
         TypeGAList.addTypeGA(TypeGAList.newTypeGA("urban area"));

@@ -24,7 +24,7 @@ import static smarthome.model.House.*;
 @RunWith(MockitoJUnitRunner.class)
 class JSONHouseTest {
     Location loc = new Location(20, 20, 2);
-    Address a1 = new Address("R. Dr. António Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal", loc);
+    Address a1 = new Address("R. Dr. Antonio Bernardino de Almeida", "431", "4200-072", "Porto", "Portugal", loc);
     OccupationArea oc = new OccupationArea(2, 5);
     GeographicalArea g1 = new GeographicalArea("PT", "Porto", "City", oc, loc);
     House house = House.getHouseInstance(a1, g1);
@@ -63,7 +63,7 @@ class JSONHouseTest {
 
         reader.importHouseConfiguration(path);
 
-        String expected = "R. Dr. António Bernardino de Almeida";
+        String expected = "R. Dr. Antonio Bernardino de Almeida";
         String result = getAddress().getStreet();
 
         assertEquals(expected, result);
