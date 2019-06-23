@@ -1,3 +1,4 @@
+/*
 package smarthome.controller.cli;
 
 import org.json.simple.parser.ParseException;
@@ -343,4 +344,4 @@ class ConfigureHouseCTRLTest {
     }
 
 
-}
+}*/
