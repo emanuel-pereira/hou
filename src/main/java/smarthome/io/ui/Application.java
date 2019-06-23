@@ -1,14 +1,19 @@
-package smarthome;
+package smarthome.io.ui;
 import org.apache.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
-import smarthome.io.ui.*;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import smarthome.model.*;
 import smarthome.repository.*;
 import java.util.ArrayList;
 
+@EnableJpaRepositories(basePackages = "smarthome")
+@EntityScan(basePackages = "smarthome")
+@ComponentScan(basePackages = "smarthome")
 @SpringBootApplication
 public class Application {
 
