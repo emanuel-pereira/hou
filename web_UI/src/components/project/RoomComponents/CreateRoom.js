@@ -16,11 +16,7 @@ var options = {};
 options = {
     place: 'tl',
     message: (
-        <div>
-            <div>
-                Room Created with success.
-        </div>
-        </div>
+        <div>Room Created with success.</div>
     ),
     type: "success",
     icon: "now-ui-icons ui-1_bell-53",

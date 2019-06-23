@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createGeoArea } from 'actions/actionsGeoArea';
-import NotificationAlert from "react-notification-alert";
 import {
     Button,
     Row,
@@ -10,31 +9,16 @@ import {
 } from "reactstrap";
 import {fetchGeoAreaTypes} from "../../../actions/actionsGeoArea";
 
-var options = {};
-options = {
-    place: 'tl',
-    message: (
-        <div>
-            <div>
-                Area created with success.
-            </div>
-        </div>
-    ),
-    type: "success",
-    icon: "now-ui-icons ui-1_bell-53",
-    autoDismiss: 7
-}
-
 class CreateGeoArea extends React.Component {
     state = {
         id: '',
         designation: '',
         gaType: '',
-        latitude: 0,
-        longitude: 0,
-        altitude: 0,
-        length:0,
-        width:0
+        latitude: undefined,
+        longitude: undefined,
+        altitude: undefined,
+        length:undefined,
+        width:undefined,
     };
 
     componentDidMount() {
@@ -105,15 +89,13 @@ class CreateGeoArea extends React.Component {
                         </Input>
                     </div>
                         </Col>
-                    <div className="form-group">
-                        Type
-                        <Input
-                            type="text"
-                            className="form-control"
-                            name="type"
-                            onChange={this.handleInputChange}
-                            value={this.state.type}>
-                        </Input>
+                        <div className="form-group">
+                        ga type
+                            <select type="select" name="gaType" value={this.state.gaType} onChange={this.handleInputChange}>
+                            <option value="" selected disabled hidden>Choose ga type here</option>
+                            {gaTypes.data.map(type =>
+                            <option name="gaType" value={type.type}>{type.type}</option>)};
+                            </select>
                     </div>
                     <div className="form-group">
                         Latitude
@@ -181,6 +163,13 @@ class CreateGeoArea extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        gaTypes: {
+            data: state.geoareas.gaTypes.data,
+        },
+    }}
+
 const mapDispatchToProps = dispatch => {
     return {
         onAddGeoArea: geoArea => {
@@ -193,6 +182,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(CreateGeoArea);
