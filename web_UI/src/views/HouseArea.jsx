@@ -22,7 +22,7 @@ class HouseArea extends React.Component {
         }
     }
 
-    toggleHiddenRooms() {
+    toggleHidden() {
         this.setState({
             isHiddenCreate: !this.state.isHiddenCreate
         })
@@ -45,7 +45,7 @@ class HouseArea extends React.Component {
         return (
             <>
                 <div className="content">
-                    <Button onClick={this.toggleHiddenRooms.bind(this)}><i className="nc-icon nc-simple-add"></i></Button>
+                    <Button onClick={this.toggleHidden.bind(this)}><i className="nc-icon nc-simple-add"></i></Button>
                     <Row>
                         <Col md="12">
                             <Card><tr>
@@ -54,7 +54,7 @@ class HouseArea extends React.Component {
                                 <td>{this.state.isHiddenCreate && this.state.showSensors && <GASensors />}</td>
 
                             </tr>
-                                {!this.state.isHiddenCreate && <CreateGeoArea onClose={this.toggleHiddenRooms.bind(this)} />}
+                                {!this.state.isHiddenCreate && <CreateGeoArea onClose={this.toggleHidden.bind(this)} />}
                             </Card>
                         </Col>
                     </Row>
