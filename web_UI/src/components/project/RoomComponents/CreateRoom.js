@@ -4,12 +4,7 @@ import { createRoom } from 'actions/actionsRoom';
 import NotificationAlert from "react-notification-alert";
 import {
     Button,
-    CardHeader,
-    CardBody,
-    CardTitle,
-    Table,
-    Row,
-    Col
+
 } from "reactstrap";
 
 var options = {};
@@ -44,7 +39,7 @@ class CreateRoom extends React.Component {
         this.props.onAddRoom(this.state)
         this.refs.notify.notificationAlert(options);
         this.handleReset();
-        this.props.onClose();
+        setTimeout(this.props.onClose(),1000)
     };
 
     handleReset = () => {

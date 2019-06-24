@@ -73,7 +73,7 @@ export const fetchHouseGridRooms = (id) => {
       axios
         .get(`https://localhost:8443/housegrids/${id}/rooms`)
         .then(res => {
-          dispatch(fetchHouseGridRoomsSuccess(res.data));
+          dispatch(fetchHouseGridRoomsSuccess(res.data.rooms));
         })
         .catch(error => {
           throw(error);

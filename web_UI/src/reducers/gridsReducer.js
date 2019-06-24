@@ -14,7 +14,7 @@ const initialstate = {
         data: [],
     },
     houseGridRooms: {
-        data: {},
+        data: [],
     }
 }
 
@@ -56,7 +56,7 @@ function gridsReducer(state = initialstate, action) {
             return {
                 ...state,
                 houseGridRooms: {
-                    data: { ...action.payload.data },
+                    data: [ ...action.payload.data ],
                 }
             }
         default:

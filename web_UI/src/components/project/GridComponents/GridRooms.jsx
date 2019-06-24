@@ -25,18 +25,16 @@ class GridRooms extends Component {
 
 render(){
     const data  = this.props.houseGridRooms.data
-    const rows = [data.rooms].map((row, index) => {
+    const rows = data.map((row) => {
         return (
             <table>
                 <tbody>
-                <tr key={index}>
-                    <tr><td> {row}</td></tr>
-                </tr>
+                    <tr> {row}</tr>
                 </tbody>
             </table>
         )
     })
-    if (data) {
+    if (data.length>0) {
         return (
             <div className="content">
                 <Row>
@@ -46,7 +44,7 @@ render(){
                                 <Table>
                                     <thead className="text-primary">
                                         <tr>
-                                            <th>Rooms </th>
+                                            <th>Rooms on grid:  </th>
                                         </tr>
                                     </thead>
                                     <tbody>{rows}</tbody>
@@ -58,7 +56,7 @@ render(){
             </div>
         );
     } else {
-        return null
+        return <p>No rooms on that house grid</p>
     }
 }
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import CreateRoom from "components/project/RoomComponents/CreateRoom";
+import CreateGrid from "components/project/GridComponents/CreateGrid";
 
 import {
   Card,
@@ -38,7 +38,7 @@ class HouseGrid extends React.Component {
             <td>{this.state.isHidden && <GridTable />}</td>
             <td>{this.state.isHidden  && <GridRooms />}</td>
           </tr>
-          {!this.state.isHidden && <CreateRoom toggleHiddenRooms={this.toggleHiddenRooms.bind(this)} />}
+          {!this.state.isHidden && <CreateGrid onClose={this.toggleHiddenRooms.bind(this)} />}
         </div>
       </>
     );
