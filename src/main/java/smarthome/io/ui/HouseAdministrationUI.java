@@ -11,12 +11,12 @@ import java.util.ArrayList;
 
 import static smarthome.model.House.getHouseRoomList;
 
-public final class HouseAdministrationUI {
+public class HouseAdministrationUI {
 
-    private HouseAdministrationUI() {
+    public HouseAdministrationUI() {
     }
 
-    public static void houseAdministration(SensorTypeList sensorTypeList, GAList gaList) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SAXException, ParserConfigurationException, ParseException, IOException, NoSuchFieldException {
+    public void menu(SensorTypeList sensorTypeList, GAList gaList) throws ClassNotFoundException, InstantiationException, IllegalAccessException, SAXException, ParserConfigurationException, ParseException, IOException, NoSuchFieldException {
 
         int option = -1;
         while (option != 0) {
@@ -120,4 +120,3 @@ public final class HouseAdministrationUI {
         }
     }
 }
-

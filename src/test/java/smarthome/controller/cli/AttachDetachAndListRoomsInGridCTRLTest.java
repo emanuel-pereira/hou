@@ -1,5 +1,6 @@
 package smarthome.controller.cli;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -296,4 +297,29 @@ class AttachDetachAndListRoomsInGridCTRLTest {
         assertEquals(expected, result1);
     }
 
+    @Test
+    void attachRoomToHouseGridThrowsNullPointerExceptionAsPersistenceMethodsAreNotBeingTested() {
+        AttachDetachAndListRoomsInGridCTRL ctrl = new AttachDetachAndListRoomsInGridCTRL();
+
+        RoomList houseRoomList = getHouseRoomList();
+        HouseGridList hgList = getGridListInHouse();
+
+        HouseGrid grid1 = new HouseGrid("Grid 1");
+        HouseGrid grid2 = new HouseGrid("Grid 2");
+
+        hgList.addHouseGrid(grid1);
+        hgList.addHouseGrid(grid2);
+
+        Room kitchen = new Room("R01", "Kitchen", 0, 4, 3, 3);
+        Room bathroom = new Room("R02", "Bathroom", 0, 2, 3, 3);
+        houseRoomList.addRoom(kitchen);
+        houseRoomList.addRoom(bathroom);
+
+
+        grid1.getRoomList().addRoom(kitchen);
+        grid1.getRoomList().addRoom(bathroom);
+        ctrl.detachRoomFromGrid(0, 0);
+        Assertions.assertThrows(NullPointerException.class, ()->ctrl.attachRoomToHouseGrid(0,0));
+
+    }
 }

@@ -805,4 +805,18 @@ class NewSensorCTRLTest {
     }
 
 
+    @Test
+    void getSensorTypeListSize() {
+        SensorTypeList sensorTypeList = new SensorTypeList();
+        SensorType temperature = new SensorType("temperature");
+        SensorType humidity = new SensorType("humidity");
+        sensorTypeList.addSensorType(temperature);
+        sensorTypeList.addSensorType(humidity);
+        GAList gaList = new GAList();
+
+        NewSensorCTRL ctrl = new NewSensorCTRL(sensorTypeList, gaList);
+        int expected=2;
+        int result=ctrl.getSensorTypeListSize();
+        assertEquals(expected,result);
+    }
 }

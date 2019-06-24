@@ -8,6 +8,7 @@ import org.w3c.dom.NodeList;
 import smarthome.model.*;
 import smarthome.model.validations.Name;
 import smarthome.repository.Repositories;
+import smarthome.repository.SensorTypeRepository;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
@@ -27,14 +28,22 @@ import java.util.List;
 public class XMLGeoArea implements FileReaderGeoArea {
 
     static final Logger log = Logger.getLogger(XMLGeoArea.class);
+    private SensorTypeRepository sensorTypeRepository;
+
 
 
     public XMLGeoArea() {
         //this constructor is empty so we can use reflection to choose the correct reader
     }
 
+    private void injectRepository(){
+        if(this.sensorTypeRepository==null){
+            this.sensorTypeRepository=Repositories.getSensorTypeRepository();
+        }
+    }
 
-    private static GeographicalArea importGeographicalArea(Node gaNode) throws ParseException {
+
+    private GeographicalArea importGeographicalArea(Node gaNode) throws ParseException {
 
         GeographicalArea geographicalArea = null;
 
@@ -61,7 +70,7 @@ public class XMLGeoArea implements FileReaderGeoArea {
 
     }
 
-    private static Location importLocation(Node node) {
+    private Location importLocation(Node node) {
 
         Element element = (Element) node;
         String latitudeString = getTagValue("latitude", element);
@@ -106,15 +115,15 @@ public class XMLGeoArea implements FileReaderGeoArea {
         return gaList;
     }
 
-    private static String getTagValue(String tag, Element element) {
+    private String getTagValue(String tag, Element element) {
         NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
         Node node = nodeList.item(0);
         return node.getNodeValue();
     }
 
 
-    private static void addSensorListToGA(GeographicalArea geographicalArea, Node node) throws ParseException {
-
+    private void addSensorListToGA(GeographicalArea geographicalArea, Node node) throws ParseException {
+        injectRepository();
         Element areaSensors = (Element) node;
         NodeList sensors = areaSensors.getChildNodes();
         for (int i = 0; i < sensors.getLength(); i++) {
@@ -135,7 +144,7 @@ public class XMLGeoArea implements FileReaderGeoArea {
 
                 //Repository call
                 try {
-                    sensorType= Repositories.getSensorTypeRepository().findByType(nameType);
+                    sensorType= sensorTypeRepository.findByType(nameType);
                 } catch (NullPointerException e) {
                     log.warn("Repository unreachable.");
                     sensorType= new SensorType(type);

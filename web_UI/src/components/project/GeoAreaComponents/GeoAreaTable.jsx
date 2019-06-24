@@ -1,6 +1,6 @@
 import React from "react";
-import {connect} from 'react-redux';
-import {fetchGeoAreas} from 'actions/actionsGeoArea'
+import { connect } from 'react-redux';
+import { fetchGeoAreas, fetchGADetails,fetchGASensors } from 'actions/actionsGeoArea'
 
 import {
     Card,
@@ -16,14 +16,24 @@ class GeoAreaTable extends React.Component {
         this.props.onfetchGeoAreas();
     }
 
+    fetchGADetails = (id) => {
+        this.props.onfetchGADetails(id);
+        this.props.onShowDetails();
+    }
+    fetchGASensors = (id) => {
+        this.props.onfetchGASensors(id);
+        this.props.onShowSensors();
+    }
+
     render() {
         const data = this.props.geoareas.data;
         const rows = data.map((row, index) => {
             return (
                 <tr key={index}>
-                    <td>{row.id} </td>
+                    <td>{row.identification} </td>
                     <td>{row.designation}</td>
-                    <td>{row.latitude}</td>
+                    <td onClick={() => this.fetchGADetails(row.identification)}><i className="nc-icon nc-zoom-split text-primary" /> <b className="text-primary">Check Details</b></td>
+                    <td onClick={() => this.fetchGASensors(row.identification)}><i className="nc-icon nc-touch-id text-danger" /> <b className="text-danger">Sensors</b></td>
                 </tr>
             )
         })
@@ -40,14 +50,13 @@ class GeoAreaTable extends React.Component {
                                 <CardBody>
                                     <Table>
                                         <thead className="text-primary">
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Name</th>
-                                            <th>Latitude</th>
-                                        </tr>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                            </tr>
                                         </thead>
                                         <tbody>
-                                        {rows}
+                                            {rows}
                                         </tbody>
                                     </Table>
                                 </CardBody>
@@ -64,7 +73,10 @@ const mapStateToProps = (state) => {
     return {
         geoareas: {
             data: state.geoareas.geoareas.data
-        }
+        },
+        sensors: {
+            data: state.rooms.sensors.data,
+          },
     }
 }
 
@@ -73,6 +85,12 @@ const mapDispatchToProps = (dispatch) => {
         onfetchGeoAreas: () => {
             dispatch(fetchGeoAreas())
         },
+        onfetchGADetails: (id) => {
+            dispatch(fetchGADetails(id))
+        },
+        onfetchGASensors: (id) => {
+            dispatch(fetchGASensors(id))
+          }
     }
 }
 

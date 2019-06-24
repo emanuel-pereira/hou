@@ -4,12 +4,12 @@ import smarthome.model.SensorTypeList;
 
 import java.util.ArrayList;
 
-public final class RegularUsageUI {
+public class RegularUsageUI {
 
-    private RegularUsageUI() {
+    public RegularUsageUI() {
     }
 
-    public static void regularUsage(SensorTypeList sensorTypeList) throws IllegalAccessException {
+    public void menu(SensorTypeList sensorTypeList) throws IllegalAccessException {
         int option = -1;
 
         while (option != 0) {

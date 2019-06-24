@@ -12,8 +12,7 @@ public class Name {
     }
 
 
-    protected Name() {
-    }
+    protected Name() {}
 
     /**
      * Method that checks if the parameter name meets the regex criteria. If not, throws an IllegalArgumentException

@@ -212,7 +212,7 @@
                 </dependencies>
                 <configuration>
                     <targetClasses>
-                        <!--<param>smarthome.Application</param>-->
+                        <!--<param>smarthome.io.ui.Application</param>-->
                         <param>smarthome.controller.*</param>
                         <param>smarthome.model.*</param>
                         <param>smarthome.dto.*</param>
@@ -247,7 +247,7 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <!-- the class holding the public static void main(String[] args) entry point -->
-                            <mainClass>smarthome.Application</mainClass>
+                            <mainClass>smarthome.io.ui.Application</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

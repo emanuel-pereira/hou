@@ -2,11 +2,10 @@ package smarthome.model.readers;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
-import smarthome.model.*;
-import smarthome.repository.Repositories;
+import smarthome.model.GeographicalArea;
+import smarthome.model.House;
+import smarthome.model.Sensor;
+import smarthome.model.TypeGAList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.lang.reflect.Field;
@@ -18,9 +17,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
-@ExtendWith(SpringExtension.class)
-@DataJpaTest
 
 class XMLGeoAreaTest {
 
@@ -37,9 +33,6 @@ class XMLGeoAreaTest {
         Field instance2 = TypeGAList.class.getDeclaredField("typeGaList");
         instance2.setAccessible(true);
         instance2.set(null, null);
-        Repositories.getSensorTypeRepository().deleteAll();
-        Repositories.getSensorTypeRepository().save(new SensorType("temperature"));
-        Repositories.getSensorTypeRepository().save(new SensorType("rainfall"));
     }
 
     @Test

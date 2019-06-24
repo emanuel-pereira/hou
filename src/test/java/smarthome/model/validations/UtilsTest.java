@@ -3,6 +3,10 @@ package smarthome.model.validations;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.text.ParseException;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class UtilsTest {
@@ -60,4 +64,17 @@ class UtilsTest {
         assertTrue(result);
     }
 
+    @Test
+    void seeIfConvertStringToCalendarWithExpectedDateFormatReturnsExpectedDate() throws ParseException {
+        Calendar expected= new GregorianCalendar(2018,Calendar.NOVEMBER,15);
+        Calendar result=Utils.convertStringToCalendar("20181115");
+        assertEquals(expected,result);
+    }
+
+    @Test
+    void seeIfConvertStringToCalendarWithUnexpectedDateFormatReturnsIncorrectDate() throws ParseException {
+        Calendar expected= new GregorianCalendar(1000,Calendar.JANUARY,1);
+        Calendar result=Utils.convertStringToCalendar("invalidDate");
+        assertEquals(expected,result);
+    }
 }

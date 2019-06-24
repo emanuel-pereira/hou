@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import CreateNewIntSensor from "./CreateNewIntSensor";
+import CreateNewExtSensor from "./CreateNewExtSensor";
+import {deleteSensor} from 'actions/actionsGeoArea';
 import {
   Card,
   CardBody,
@@ -9,13 +10,18 @@ import {
   Col
 } from "reactstrap";
 
-class RoomSensors extends React.Component {
+class GASensors extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       isInEditMode: false,
     }
   }
+
+  deleteSensor = (id) => {
+    this.props.onDeleteSensor(id);
+  }
+  
   changeEditMode = () => {
     this.setState({
       isInEditMode: !this.state.isInEditMode
@@ -23,19 +29,20 @@ class RoomSensors extends React.Component {
   }
 
   renderEditView = () => {
-    return <CreateNewIntSensor roomId={this.props.sensors.roomId} onClose={this.changeEditMode} />
+    return <CreateNewExtSensor roomId={this.props.sensors.gaId} onClose={this.changeEditMode} />
   }
 
   renderDefaultView() {
     const { data, error } = this.props.sensors
     const rows = data.map((row, index) => {
-      var startDate = (row.sensorBehavior.startDate).slice(0,10);
+      var startDate = (row.sensorBehaviorDTO.startDate).slice(0,10);
       return (
         <tr key={index}>
           <td>{row.id}</td>
-          <td>{row.sensorBehavior.name}</td>
-          <td>{row.sensorBehavior.sensorType.type}</td>
+          <td>{row.sensorBehaviorDTO.name}</td>
+          <td>{row.sensorBehaviorDTO.sensorType.type}</td>
           <td>{startDate}</td>
+          <td ><button onClick={() => this.deleteSensor(row.id)}>Delete</button></td>
         </tr>
       )
     })
@@ -48,7 +55,7 @@ class RoomSensors extends React.Component {
                 <CardBody>
                   <Table>
                     <thead className="text-primary">
-                      <tr><th>Sensor on room {this.props.sensors.data.roomId} :</th></tr>
+                      <tr><th>Sensors on {this.props.sensors.gaId} :</th></tr>
                       <tr>
                         <th>ID</th>
                         <th>Name</th>
@@ -81,10 +88,18 @@ class RoomSensors extends React.Component {
 const mapStateToProps = (state) => {
   return {
     sensors: {
-      data: state.rooms.sensors.data,
-      error: state.rooms.sensors.error,
-      roomId: state.rooms.sensors.roomId
+      data: state.geoareas.sensors.data,
+      error: state.geoareas.sensors.error,
+      gaId: state.geoareas.sensors.gaId
     },
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+      onDeleteSensor: (id) => {
+          dispatch(deleteSensor(id))
+      },
   }
 }
 
@@ -92,5 +107,5 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps,
-  null
-)(RoomSensors);
+  mapDispatchToProps
+)(GASensors);

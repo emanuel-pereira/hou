@@ -1,6 +1,7 @@
 package smarthome.model;
 
 import org.json.simple.parser.ParseException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -158,6 +159,12 @@ class DataImportTest {
         int size = rList.size();
         assertEquals(0, size);
     }
+    @Test
+    void importHouseThrowsNullPointerExceptionAsPersistenceIsNotBeingTested () throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException{
+        GAList gaList = new GAList();
+        DataImport dataImport = new DataImport(gaList);
+
+        Assertions.assertThrows(NullPointerException.class, () ->dataImport.importHouse());}
 
     //FIXME
     //@Test

@@ -1,4 +1,4 @@
-/*package smarthome.model;
+package smarthome.model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -526,33 +526,6 @@ class SensorListTest {
         assertEquals(expected, result);
     }
 
-    @Test
-    @DisplayName("Check if any sensor has same ID and get false because it isn't added")
-    void checkIfAnySensorHasSameIDGetFalse() {
-        SensorType type1 = new SensorType("rainfall");
-        GregorianCalendar startDate = new GregorianCalendar(2018, 8, 1, 9, 0);
-        Location loc = new Location(40, 20, 10);
-        ReadingList readingList = new ReadingList();
-        Sensor s1 = new ExternalSensor("AB", "RainfallSensorOfPorto", startDate, loc, type1, "mm", readingList);
-        Sensor s2 = new ExternalSensor("AC", "TemperatureSensorOfPorto", startDate, loc, type1, "Celsius", readingList);
-
-        SensorList sensorList = new SensorList();
-        sensorList.addSensor(s1);
-        assertFalse(sensorList.checkIfAnySensorHasSameID(s2));
-    }
-
-    @Test
-    @DisplayName("Check if any sensor has same ID and get true because there's already that id")
-    void checkIfAnySensorHasSameIDGetTrue() {
-        SensorType type1 = new SensorType("rainfall");
-        GregorianCalendar startDate = new GregorianCalendar(2018, 8, 1, 9, 0);
-        Location loc = new Location(40, 20, 10);
-        ReadingList readingList = new ReadingList();
-        Sensor s1 = new ExternalSensor("AB", "RainfallSensorOfPorto", startDate, loc, type1, "Celsius", readingList);
-        SensorList sensorList = new SensorList();
-        sensorList.addSensor(s1);
-        assertTrue(sensorList.checkIfAnySensorHasSameID(s1));
-    }
 
     @Test
     void getSensorByTypeWithLatestReadings(){
@@ -586,7 +559,7 @@ class SensorListTest {
 
 
 
-    @Test
+    /*@Test
     @DisplayName("save sensor to repo")
     void saveSensorToRepositoryNullPointer(){
         Room bedroom = new Room("R1", "Bedroom 1", 2, 2, 2, 2);
@@ -638,8 +611,7 @@ class SensorListTest {
         }
 
         assertTrue(thrown);
-    }
+    }*/
 
 
 }
-*/

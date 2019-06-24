@@ -1,7 +1,9 @@
 package smarthome.model;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import smarthome.model.validations.Name;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -58,5 +60,11 @@ class NameTest {
         String name=" ";
         boolean result=n.alphanumericName(name);
         assertFalse(result);
+    }
+
+    @Test
+    void seeIfInvalidNameThrowsIllegalArgumentException() {
+        final Name[] n = new Name[1];
+        Assertions.assertThrows(IllegalArgumentException.class, () -> n[0] = new Name("Invalid+Fridge2000*Name"));
     }
 }

@@ -8,12 +8,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public final class SystemAdministrationUI {
+public class SystemAdministrationUI {
 
-    private SystemAdministrationUI() {
-    }
-
-    public static void systemAdministration(GAList gaList, SensorTypeList sensorTypeList)
+    public void menu(GAList gaList, SensorTypeList sensorTypeList)
             throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, org.json.simple.parser.ParseException, ParserConfigurationException, SAXException {
 
         int option = -1;

@@ -2,12 +2,12 @@ package smarthome.io.ui;
 
 import java.util.ArrayList;
 
-public final class PowerUserUI {
+public class PowerUserUI {
 
-    private PowerUserUI() {
+    public PowerUserUI() {
     }
 
-    public static void powerUser() {
+    public void menu() {
         int option = -1;
 
         while (option != 0) {
