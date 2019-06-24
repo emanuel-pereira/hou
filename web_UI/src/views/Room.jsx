@@ -5,6 +5,7 @@ import RoomDetailList from "components/project/RoomComponents/RoomDetailList.jsx
 import RoomSensors from "components/project/RoomComponents/RoomSensors.jsx";
 
 import {
+  Button,
   CardHeader,
   CardTitle,
 
@@ -25,11 +26,7 @@ class Room extends React.Component {
       isHiddenCreate: !this.state.isHiddenCreate
     })
   }
-  toggleHiddens() {
-    this.setState({
-      isHidden: !this.state.isHidden
-    })
-  }
+
   showDetails() {
     this.setState({
       showDetails: true,
@@ -47,10 +44,7 @@ class Room extends React.Component {
     return (
       <>
         <div className="content">
-          <h6>New Room  <i className="nc-icon nc-simple-add" onClick={this.toggleHiddenRooms.bind(this)} /></h6>
-          <CardHeader>
-            <CardTitle tag="h4">Room Configuration</CardTitle>
-          </CardHeader>
+          <Button onClick={this.toggleHiddenRooms.bind(this)}><i className="nc-icon nc-simple-add"></i></Button>
           <tr>
             <td>{this.state.isHiddenCreate && <RoomTable onShowDetails={this.showDetails.bind(this)} onShowSensors={this.showSensors.bind(this)} />}</td>
             <td>{this.state.isHiddenCreate && this.state.showDetails && <RoomDetailList />}</td>
