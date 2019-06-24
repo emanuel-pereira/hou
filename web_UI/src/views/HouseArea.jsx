@@ -27,11 +27,7 @@ class HouseArea extends React.Component {
             isHiddenCreate: !this.state.isHiddenCreate
         })
     }
-    toggleHiddens() {
-        this.setState({
-            isHidden: !this.state.isHidden
-        })
-    }
+
     showDetails() {
         this.setState({
             showDetails: true,
