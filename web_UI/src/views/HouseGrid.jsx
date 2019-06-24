@@ -17,9 +17,14 @@ class HouseGrid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isHidden: true
+      isHidden: true,
+      showRooms: false,
     }
   }
+  showRooms() {
+    this.setState({
+      showRooms: true,
+    })}
 
   toggleHiddenRooms() {
     this.setState({
@@ -35,8 +40,8 @@ class HouseGrid extends React.Component {
             <CardTitle tag="h4">House Grid Configuration</CardTitle>
           </CardHeader>
           <tr>
-            <td>{this.state.isHidden && <GridTable />}</td>
-            <td>{this.state.isHidden  && <GridRooms />}</td>
+            <td>{this.state.isHidden && <GridTable onShowRooms={this.showRooms.bind(this)} />}</td>
+            <td>{this.state.isHidden && this.state.showRooms && <GridRooms />}</td>
           </tr>
           {!this.state.isHidden && <CreateGrid onClose={this.toggleHiddenRooms.bind(this)} />}
         </div>

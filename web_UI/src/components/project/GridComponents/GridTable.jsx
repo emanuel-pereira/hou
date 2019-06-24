@@ -20,6 +20,7 @@ class GridTable extends React.Component {
 
   fetchHouseGridRooms = (id) => {
     this.props.onfetchHouseGridRooms(id);
+    this.props.onShowRooms();
   }
 
   render() {
