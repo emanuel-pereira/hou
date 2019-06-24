@@ -4,7 +4,6 @@ import { createRoom } from 'actions/actionsRoom';
 import NotificationAlert from "react-notification-alert";
 import {
     Button,
-
 } from "reactstrap";
 
 var options = {};
@@ -57,7 +56,7 @@ class CreateRoom extends React.Component {
         return (
             <div className="roomCreation">
                 <NotificationAlert ref="notify" />
-                <h2>New Room</h2>
+                <h4>New Room</h4>
                 <form onSubmit={this.handleSubmit}>
                     <div className="form-group">
                         ID
@@ -121,15 +120,15 @@ class CreateRoom extends React.Component {
                     </div>
                     <div className="buttons">
                         <Button
-                            className="btn-round"
+                            className="btn btn-success"
                             color="primary"
                             type="submit"
                         >
-                            Update Profile
+                            SAVE
                         </Button>
-                        <button type="button" className="btn btn-warning" onClick={this.handleReset}>
+                        <Button type="button" className="btn btn-warning" onClick={this.handleReset}>
                             RESET
-                        </button>
+                        </Button>
                     </div>
                 </form>
             </div>

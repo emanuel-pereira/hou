@@ -6,6 +6,7 @@ import {
     CardBody,
     Table,
     Row,
+    Button,
     Col
 } from "reactstrap";
 
@@ -62,8 +63,8 @@ class RoomDetailList extends Component {
                                                     <tr><td>Length:</td> <td>{data.length} m</td></tr>
                                                     <tr><td>Width:</td> <td>{data.width} m </td></tr>
                                                     <tr><td>Height:</td> <td>{data.height}m </td></tr>
-                                                    <td ><button onClick={this.changeEditMode}>
-                                                        EDIT</button></td>
+                                                    <td ><Button color="primary" onClick={this.changeEditMode}>
+                                                        EDIT</Button></td>
                                                 </tbody>
                                             </Table>
                                         </CardBody>
