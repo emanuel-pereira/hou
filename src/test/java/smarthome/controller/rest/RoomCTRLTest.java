@@ -49,8 +49,7 @@ class RoomCTRLTest {
         roomB108 = new Room("B108", "Classroom", 1, 3.0, 2.5, 2.0);
         roomB210 = new Room("B110", "Classroom", 2, 2.0, 3.5, 2.0);
 
-        roomDtoB108 = new RoomDetailDTO("B018", "Classroom", 1, 3.0, 2.5, 2.0);
-
+        roomDtoB108 = new RoomDetailDTO("B108", "Classroom", 1, 3.0, 2.5, 2.0);
 
     }
 
@@ -202,6 +201,18 @@ class RoomCTRLTest {
 
         String expected = "smarthome.dto.RoomDetailDTO";
         String result = Objects.requireNonNull(roomCtrl.createRoom(roomDtoB108).getBody()).getContent().getClass().getName();
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("Create room and return Status Conflict")
+    void tryCreateRoomStatusConflict() throws NoSuchFieldException {
+
+        when(roomRepository.existsById("B108")).thenReturn(true);
+
+        HttpStatus expected = HttpStatus.CONFLICT;
+        HttpStatus result = roomCtrl.createRoom(roomDtoB108).getStatusCode();
 
         assertEquals(expected, result);
     }
