@@ -16,6 +16,7 @@ import smarthome.exceptions.RoomNotFoundException;
 import smarthome.exceptions.SensorTypeNotFoundException;
 import smarthome.model.InternalSensor;
 import smarthome.model.ReadingList;
+import smarthome.model.SensorList;
 import smarthome.model.SensorType;
 import smarthome.repository.HouseGridRepository;
 import smarthome.repository.InternalSensorRepository;
@@ -204,5 +205,25 @@ class InternalSensorServiceTest {
         assertThat(internalSensorService).isInstanceOf(InternalSensorService.class);
     }
 
+    @Test
+    @DisplayName("Find sensors by room with a specified id")
+    void findByRoom() {
+
+        SensorType movement = new SensorType("movement");
+        InternalSensor sensorM02 = new InternalSensor("I02", "SensorM02", this.startDate, movement, "Presence", this.readingList);
+
+        sensorT01.setRoomId("B100");
+        sensorM02.setRoomId("B100");
+
+        when(internalSensorRepository.findAll()).thenReturn(Stream.of(this.sensorT01, sensorM02).collect(Collectors.toList()));
+
+        SensorList list = new SensorList();
+        list.addSensor(this.sensorT01);
+        list.addSensor(sensorM02);
+
+        SensorList result = internalSensorService.findByRoom("B100");
+
+        assertEquals(list.getLastSensor(), result.getLastSensor());
+    }
 
 }

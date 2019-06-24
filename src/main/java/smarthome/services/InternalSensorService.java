@@ -151,7 +151,7 @@ public class InternalSensorService {
     //===================//=======================//
     //TODO: replace this method accordingly
     SensorList findByRoom(String idRoom) {
-        Iterable<InternalSensor> internalSensors = Repositories.getInternalSensorRepository().findAll();
+        Iterable<InternalSensor> internalSensors = repo.findAll();
         SensorList sensorList = new SensorList();
         for (InternalSensor iSensor : internalSensors) {
             if (iSensor.getRoomId().equals(idRoom))
@@ -160,6 +160,5 @@ public class InternalSensorService {
 
         return sensorList;
     }
-
 
 }
