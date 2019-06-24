@@ -51,6 +51,7 @@ public class ListParentGAUI {
      * Notice if size 0. Present list as empty.
      * If not, print the list, in which every position is converted from TypeGA to String.
      * The last statement allows the numbering of each element.
+     * @return false if the list of GAs is empty, otherwise returns true
      */
     public boolean returnGAStringList() {
         if (mCtrlUS8.getGAListSize() == 0) {

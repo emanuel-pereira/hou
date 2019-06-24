@@ -20,11 +20,6 @@ public class SensorTypeService {
     private SensorTypeList sensorTypeList;
     private SensorTypeRepository sensorTypeRepository;
 
-    //TODO: encapsulate sensorTypeRepository as attribute of this class through autowired or by dependency injection in constructor
-
-    /**
-     * Constructor method that creates an instance of the SensorTypeRepoDDD
-     */
     @Autowired
     public SensorTypeService(SensorTypeRepository sensorTypeRepository) {
         this.mapper = new SensorTypeMapper();

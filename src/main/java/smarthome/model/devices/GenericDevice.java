@@ -18,7 +18,9 @@ public abstract class GenericDevice implements Device, Metered {
      * Constructs a Device with a user given name.
      *
      * @param deviceName  name given by the user to the device (requested during runtime)
-     * @param deviceSpecs is
+     * @param deviceSpecs represents the device specific attributes dependent of its type
+     * @param nominalPower double value representing the device nominal power
+     *
      */
     public GenericDevice(String deviceName, DeviceSpecs deviceSpecs, double nominalPower) { // deviceName is the name given by the user
         this.name = deviceName;

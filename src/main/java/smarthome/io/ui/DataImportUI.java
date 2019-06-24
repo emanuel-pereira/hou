@@ -40,6 +40,7 @@ public class DataImportUI {
      * or readings.
      *
      * @param roomList parameter to be updated with imported data
+     * @param sensorTypeList parameter to be updated with imported data
      */
     public DataImportUI(RoomList roomList, SensorTypeList sensorTypeList) {
         this.ctrl = new DataImportCTRL(roomList, sensorTypeList);

@@ -26,6 +26,7 @@ public class GetGAsOfTypeCTRL {
      * type that was shown from the existing type list.
      *
      * @param typeAreaIndex is a number that matches a position in the list of types from which the user can choose from
+     * @return list of geographical areas of the selected type
      */
     public List<GeographicalArea> getGAListFromType(int typeAreaIndex) {
         String areaType = getTypeGAList().get(typeAreaIndex - 1).getType();
@@ -53,6 +54,8 @@ public class GetGAsOfTypeCTRL {
      * US4 method that shows the list of GAs returned by the previous method in a string
      *
      * @param typeAreaIndex is a number that matches a position in the list of types from which the user can choose from
+     * @return a unique String containing all geographical areas of the selected type
+     *
      */
     public String showListGAFromType(int typeAreaIndex) {
         List<GeographicalArea> list = this.getGAListFromType(typeAreaIndex);

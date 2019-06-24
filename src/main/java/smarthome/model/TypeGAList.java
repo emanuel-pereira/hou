@@ -14,10 +14,6 @@ public class TypeGAList {
 
     static final Logger log = Logger.getLogger(TypeGAList.class);
 
-    /**
-     * Constructor for TypeGAList where the List of GA's is instantiated
-     */
-
     public static TypeGAList getTypeGAListInstance() {
 
         if (typeGaList == null) {

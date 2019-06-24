@@ -61,8 +61,6 @@ public class ConfigureHouseCTRL {
 
     }
 
-    /**Methods for US100 - Configure House From File*/
-
    public void configureHouseFromFileCTRL (String idGeoArea,double latitude,double longitude,double altitude) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException {
         GeographicalArea geoArea = this.gaList.getById(idGeoArea);
         setHouseGA(geoArea);

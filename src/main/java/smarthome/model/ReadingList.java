@@ -14,7 +14,7 @@ import java.util.List;
  * The @Embeddable annotation allows to specify a class whose instances are stored as intrinsic part of the owning
  * entity. This annotation has no attributes.
  * The behaviour of the persistence of this class, is such as if this class attributes were from the parent class
- * were this Embeddable is Embedded(eg. Sensor.listOfReadings [List<Reading>]).
+ * were this Embeddable is Embedded(eg. Sensor.listOfReadings [List«Reading»]).
  */
 @Embeddable
 public class ReadingList {
@@ -77,7 +77,7 @@ public class ReadingList {
     /**
      * Method to get total rainfall in a given day
      *
-     * @param inputDate
+     * @param inputDate Calendar parameter representing the day
      * @return totalRainfallValue
      */
     public double totalValueInGivenDay(Calendar inputDate) {
@@ -134,8 +134,8 @@ public class ReadingList {
      * a reading registered at dateAndTime of 09:00:00 AM, considers the metering period from 08:50:00 AM until 08:59:59 AM,
      * so the reading registered at dateAndTime of 09:10:00 AM, considers the metering period from 09:00:00 AM until 09:09:59 AM.
      *
-     * @param startDate
-     * @param endDate
+     * @param startDate Calendar parameter representing the start date of the time interval
+     * @param endDate Calendar parameter representing the end date of the time interval
      * @return sums up the value of readings in the ]startDateTime - endDateTime] interval.
      */
     public double getValueOfReadingsInTimeIntervalDevices(Calendar startDate, Calendar endDate) {
@@ -165,8 +165,8 @@ public class ReadingList {
     /**
      * Method to get a list of readings that have a date that is in a given time period
      *
-     * @param startDate
-     * @param endDate
+     * @param startDate Calendar parameter representing the start date of the time interval
+     * @param endDate Calendar parameter representing the end date of the time interval
      * @return list of the readings with dates in a time interval
      */
     public ReadingList filterByDate(Calendar startDate, Calendar endDate) {

@@ -25,7 +25,7 @@ public class EditRoomCTRL {
      * Finds a specific room by the Id
      * @param id Id of the room
      * @return RoomDetailDTO with id, description, floor, length, width and height
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional return of the findById(id) method.
      */
     public RoomDetailDTO findById(String id) throws NoSuchFieldException {
         return this.roomService.findById(id);
@@ -35,7 +35,7 @@ public class EditRoomCTRL {
      * Changes the description of a specific room
      * @param id Id of the room
      * @param description New description
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional return of the findById(id) method.
      */
     public void setDescription(String id, String description) throws NoSuchFieldException {
         this.roomService.setDescription(id,description);
@@ -45,7 +45,7 @@ public class EditRoomCTRL {
      * Changes the floor of a specific room
      * @param id Id of the room
      * @param floor New floor value
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional return of the findById(id) method.
      */
       public void setFloor(String id, Integer floor) throws NoSuchFieldException {
         this.roomService.setFloor(id,floor);
@@ -55,7 +55,7 @@ public class EditRoomCTRL {
      * Changes the length of a room
      * @param id Id of a room
      * @param length New length value
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional return of the findById(id) method.
      */
     public void setLength(String id, double length) throws NoSuchFieldException {
         this.roomService.setLength(id, length);
@@ -65,7 +65,7 @@ public class EditRoomCTRL {
      * Changes the width of a room
      * @param id Id of a room
      * @param width New width value
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional return of the findById(id) method.
      */
     public void setWidth(String id, double width) throws NoSuchFieldException {
         this.roomService.setWidth(id,width);
@@ -74,7 +74,7 @@ public class EditRoomCTRL {
     /**
      * Depending on the changes made or not to the length and width, the area will be updated
      * @param id Id of a room
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional return of the findById(id) method.
      */
     public void updateArea(String id) throws NoSuchFieldException {
         this.roomService.updateArea(id);
@@ -85,7 +85,7 @@ public class EditRoomCTRL {
      * Changes the height of the room
      * @param id Id of the room
      * @param height New height value
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional return of the findById(id) method.
      */
     public void setHeight(String id, double height) throws NoSuchFieldException {
         this.roomService.setHeight(id,height);

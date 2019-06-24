@@ -54,6 +54,7 @@ public class SensorList {
      * Method to add a internal sensor object to Sensors list, if it is not on the list yet
      *
      * @param newSensor - new Sensors object that will or not be added to the list
+     * @return true if sensor is added, otherwise returns false
      */
     private boolean addInternalSensor(InternalSensor newSensor) {
         if (!this.listOfSensors.contains(newSensor)) {
@@ -84,17 +85,22 @@ public class SensorList {
      * @param inputName   name of Sensors
      * @param startDate   startDate of Sensors
      * @param geoLocation gps coordinates in which the user wants to place the sensor
-     * @return List of sensors
+     * @param sensorType  represents the type of sensor
+     * @param inputUnit   sensor's unit of measure
+     * @param readings    sensor's readingList
+     * @return an instance of the created external sensor
      */
     public Sensor newSensor(String id, String inputName, GregorianCalendar startDate, Location geoLocation, SensorType sensorType, String inputUnit, ReadingList readings) {
         return new ExternalSensor(id, inputName, startDate, geoLocation, sensorType, inputUnit, readings);
     }
 
     /**
+     * @param id         Id of the sensor
      * @param name       Name of the sensor
      * @param startDate  The first day the sensor starts to work
      * @param sensorType The sensor type
      * @param unit       The measurement unit
+     * @param readings   Sensor's readinglist
      * @return A new interior sensor
      */
     public Sensor createNewInternalSensor(String id, String name, GregorianCalendar startDate, SensorType sensorType, String unit, ReadingList readings) {

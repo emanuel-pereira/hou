@@ -26,7 +26,7 @@ public class EditRoomUI {
      * Checks if the repository is empty (size equal 0). If not advanced to room selection. Otherwise a message is shown
      * informing that there are no rooms
      *
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional return of the findById(id) method.
      */
     public void run() throws NoSuchFieldException {
         if (this.ctrlUS108.roomListEmpty()) {

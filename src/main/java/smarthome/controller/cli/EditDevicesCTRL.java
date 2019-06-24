@@ -20,10 +20,6 @@ public class EditDevicesCTRL {
     }
 
 
-    /**
-     * Getters
-     **/
-
     public RoomList getRoomList() {
         return roomList;
     }
@@ -60,9 +56,7 @@ public class EditDevicesCTRL {
         return getListOfDeviceTypes().get(deviceTypeIndex - 1);
     }
 
-    /**
-     * Setters
-     **/
+
     public void setAttribute(Device device, String attribute, Double newValue) {
         DeviceSpecs ds = device.getDeviceSpecs();
         ds.setAttributeValue(attribute, newValue);
@@ -83,6 +77,10 @@ public class EditDevicesCTRL {
      * @param indexOfRoom  index-1 position of room where the new device will be added
      * @param inputName    String variable to name the device
      * @param nominalPower double variable where the nominal power of the device is inputted
+     * @param deviceType string variable representing the device type
+     * @throws InstantiationException throws InstantiationException
+     * @throws IllegalAccessException throws IllegalAccessException
+     * @throws ClassNotFoundException throws ClassNotFoundException
      * @return true if a new instance of a device is created, and then, added to the device list of the room in the index position
      */
     public boolean addDevice(int indexOfRoom, String inputName, String deviceType, double nominalPower) throws InstantiationException, IllegalAccessException, ClassNotFoundException {

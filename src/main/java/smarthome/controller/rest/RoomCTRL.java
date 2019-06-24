@@ -29,7 +29,7 @@ public class RoomCTRL {
      * Receives HTTP Get request and shows all rooms
      *
      * @return ResponseEntity that represents the whole HTTP response with a Resource (the basic information of the Room) with links and HttpStatus
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional return of the findById(id) method.
      */
     @GetMapping("/rooms")
     public ResponseEntity<Resources<Resource<RoomDTO>>> findAll() throws NoSuchFieldException {
@@ -49,7 +49,7 @@ public class RoomCTRL {
      *
      * @param room RoomDetailDTO with the elements necessary to create a Room
      * @return ResponseEntity that represents the whole HTTP response with a Resource (attributes of the Room) with the link to that resource and HttpStatus
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional return of the findById(id) method.
      */
     @PostMapping("/rooms")
     public ResponseEntity<Resource<Object>> createRoom(@RequestBody RoomDetailDTO room) throws NoSuchFieldException {
@@ -72,7 +72,7 @@ public class RoomCTRL {
      *
      * @param id The Id of the Room
      * @return ResponseEntity that represents the whole HTTP response with a Resource (attributes of the Room) with the link to that resource and HttpStatus
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional return of the findById(id) method.
      */
     @GetMapping("/rooms/{id}")
     public ResponseEntity<Resource<Object>> findOne(@PathVariable String id) throws NoSuchFieldException {
@@ -93,7 +93,7 @@ public class RoomCTRL {
      * @param id   Id of the room
      * @param room RoomDetailDTO with the elements necessary to edit a room
      * @return ResponseEntity that represents the whole HTTP response with a RoomDetailDTO in case of success
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional return of the findById(id) method.
      */
     @PutMapping("/rooms/{id}")
     public ResponseEntity<Resource<Object>> editRoom(@PathVariable String id, @RequestBody RoomDetailDTO room) throws NoSuchFieldException {

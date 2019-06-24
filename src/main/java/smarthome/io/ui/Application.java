@@ -34,12 +34,6 @@ public class Application {
     TypeGAList typeGAList = TypeGAList.getTypeGAListInstance();
     static final Logger log = Logger.getLogger(Application.class);
 
-    /**
-     * Main class that executes Spring application and invokes the init method to initialize the lists used
-     * in the application and invokes the menuOptions() method that lists all UI options that users can select.
-     *
-     * @param args
-     */
     public static void main(String[] args) {
         SpringApplication.run(Application.class);
 

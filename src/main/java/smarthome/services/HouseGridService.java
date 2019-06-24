@@ -51,6 +51,7 @@ public class HouseGridService {
      *
      * @param id Housegrid id (Long)
      * @return HouseGrid DTO object
+     * @throws NoSuchFieldException throws NoSuchFieldException
      */
     public HouseGridDTO findById(Long id) throws NoSuchFieldException {
         Optional<HouseGrid> optional = houseGridRepository.findById(id);
@@ -78,6 +79,7 @@ public class HouseGridService {
      *
      * @param gridDTO HouseGrid DTO object created in the controller with user interaction
      * @return same HouseGrid DTO object
+     * @throws InstantiationException throws InstantiationException
      */
     public HouseGridDTO addNewGrid(HouseGridDTO gridDTO) throws InstantiationException {
         HouseGrid grid = mapper.map(gridDTO, HouseGrid.class);

@@ -10,7 +10,7 @@ import java.util.GregorianCalendar;
  * The @Embeddable annotation allows to specify a class whose instances are stored as intrinsic part of the owning
  * entity. This annotation has no attributes.
  * The behaviour of the persistence of this class, is such as if this class attributes were from the parent class
- * were this Embeddable is Embedded(eg. Sensor.listOfReadings [List<Reading>] ).
+ * were this Embeddable is Embedded(eg. Sensor.listOfReadings [List«Reading»] ).
  * What will happen is that there will be create a secondary list where there will be an embedded connection between
  * the sensor and its respective readings. This connection, in the secondary table will be present a id from the parent
  * object (Sensor) and the values of its Readings (readingValue, date, unit)

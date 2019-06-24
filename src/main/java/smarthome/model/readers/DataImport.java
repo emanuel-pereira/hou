@@ -60,11 +60,7 @@ public class DataImport {
         this.roomList = roomList;
     }
 
-    /**
-     * Constructor for importing data related to RoomList
-     *
-     * @param roomList to be updated with data imported through HouseAdministration menu
-     */
+
     public DataImport(RoomList roomList, SensorTypeList sensorTypeList) {
         this.roomList = roomList;
         this.sensorTypeList = sensorTypeList;
@@ -88,6 +84,15 @@ public class DataImport {
      *
      * @param filePath Path object containing the relative or absolute path and file name of the file to be read.
      * @param object   GAList or RoomList which will have its sensors' readings updated
+     * @throws ClassNotFoundException throws ClassNotFoundException
+     * @throws InstantiationException throws InstantiationException
+     * @throws IllegalAccessException throws IllegalAccessException
+     * @throws IOException throws IOException
+     * @throws ParseException throws ParseException
+     * @throws ParserConfigurationException throws ParserConfigurationException
+     * @throws SAXException throws SAXException
+     *
+     *
      */
     public void importReadingsFromFile(Path filePath, Object object) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException, ParseException, ParserConfigurationException, SAXException {
         this.configFilePath = filePath;

@@ -14,8 +14,10 @@ public class Address {
      * This constructor sets up the Address that will be used in the House
      *
      * @param streetName  Required street name
+     * @param number      Required number
      * @param zipCode     Required zip code
      * @param town        Required town
+     * @param country     Required country
      * @param gpsLocation Required GPS location
      */
     public Address(String streetName, String number, String zipCode, String town, String country, Location gpsLocation) {

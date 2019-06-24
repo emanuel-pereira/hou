@@ -143,7 +143,7 @@ public class RoomService {
      *
      * @param id Room Id (String)
      * @return RoomDetailDTO with more information of the Room
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional«» return of the findById(id) method.
      */
     public RoomDetailDTO findById(String id) throws NoSuchFieldException {
         this.setRepositoriesIfNull();
@@ -161,7 +161,7 @@ public class RoomService {
      * @param id   Room id
      * @param room DTO with the edited configuration
      * @return DTO with the edited configuration with the safeguard that this DTO doesn't have another Id
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional«» return of the findById(id) method.
      */
     public boolean editRoom(String id, RoomDetailDTO room) throws NoSuchFieldException {
         RoomDetailDTO editRoom = this.findById(id);
@@ -174,12 +174,12 @@ public class RoomService {
     }
 
     /**
-     * Changes the description of a room by getting that room from the repository. Because the return findById(id) is a Optional<>
+     * Changes the description of a room by getting that room from the repository. Because the return findById(id) is a Optional«»
      * there's the need to validate if is present. Then we get the specific room from the optional, set the floor and then we save the room
      *
      * @param id          Room id
      * @param description New floor value
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional«» return of the findById(id) method.
      */
     public void setDescription(String id, String description) throws NoSuchFieldException {
         this.setRepositoriesIfNull();
@@ -192,12 +192,12 @@ public class RoomService {
     }
 
     /**
-     * Changes the floor of a room by getting that room from the repository. Because the return findById(id) is a Optional<>
+     * Changes the floor of a room by getting that room from the repository. Because the return findById(id) is a Optional«»
      * there's the need to validate if is present. Then we get the specific room from the optional, set the floor and then we save the room
      *
      * @param id    Room id
      * @param floor New floor value
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional«» return of the findById(id) method.
      */
     public void setFloor(String id, Integer floor) throws NoSuchFieldException {
         this.setRepositoriesIfNull();
@@ -210,12 +210,12 @@ public class RoomService {
     }
 
     /**
-     * Changes the length of a room by getting that room from the repository. Because the return findById(id) is a Optional<>
+     * Changes the length of a room by getting that room from the repository. Because the return findById(id) is a Optional«»
      * there's the need to validate if is present. Then we get the specific room from the optional, set the length and then we save the room
      *
      * @param id     Room id
      * @param length New length value
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional«» return of the findById(id) method.
      */
     public void setLength(String id, double length) throws NoSuchFieldException {
         this.setRepositoriesIfNull();
@@ -228,12 +228,12 @@ public class RoomService {
     }
 
     /**
-     * Changes the width of a room by getting that room from the repository. Because the return findById(id) is a Optional<>
+     * Changes the width of a room by getting that room from the repository. Because the return findById(id) is a Optional«»
      * there's the need to validate if is present. Then we get the specific room from the optional, set the width and then we save the room
      *
      * @param id    Room id
      * @param width New width value
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional«» return of the findById(id) method.
      */
     public void setWidth(String id, double width) throws NoSuchFieldException {
         this.setRepositoriesIfNull();
@@ -250,7 +250,7 @@ public class RoomService {
      * This method fixes it by doing a set to the Occupation Area
      *
      * @param id Room id
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional«» return of the findById(id) method.
      */
     public void updateArea(String id) throws NoSuchFieldException {
         this.setRepositoriesIfNull();
@@ -265,12 +265,12 @@ public class RoomService {
     }
 
     /**
-     * Changes the height of a room by getting that room from the repository. Because the return findById(id) is a Optional<>
+     * Changes the height of a room by getting that room from the repository. Because the return findById(id) is a Optional«»
      * there's the need to validate if is present. Then we get the specific room from the optional, set the height and then we save the room
      *
      * @param id     Room id
      * @param height New height value
-     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional<> return of the findById(id) method.
+     * @throws NoSuchFieldException Signals that the class doesn't have a field of a specified name (because of the Optional«» return of the findById(id) method.
      */
     public void setHeight(String id, double height) throws NoSuchFieldException {
         this.setRepositoriesIfNull();
@@ -288,6 +288,8 @@ public class RoomService {
      *
      * @param id HouseGrid Id
      * @return HouseGrid DTO object (a response specific DTO) containing it's name and a list of Room Id's
+     * @throws NoSuchFieldException throws NoSuchFieldException
+     *
      */
     public HouseGridDTOsimple findRoomsByHouseGrid(Long id) throws NoSuchFieldException {
         this.setRepositoriesIfNull();
@@ -315,6 +317,8 @@ public class RoomService {
      * @param roomId Room Id
      * @param hgId   Housegrid Id
      * @return Room DTO object containing all it's info
+     * @throws NoSuchFieldException throws NoSuchFieldException
+     * @throws IllegalAccessException throws IllegalAccessException
      */
     public RoomDetailDTO attachHouseGrid(String roomId, Long hgId) throws
             NoSuchFieldException, IllegalAccessException {

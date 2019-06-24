@@ -152,9 +152,11 @@ public class ComfortLevelService {
     /**
      * @param maxOrMin  specifies whether the user wants to check the thermal comfort versus the max or min temperature as defined in the standard.
      * @param category  the category as per EN15251:2006
-     * @param startDate user defined time interval for the verification.
-     * @param endDate
-     * @return
+     * @param startDate user defined start date for the verification.
+     * @param endDate user defined end date for the verification.
+     * @param roomDTO room DTO for which the thermal comfort wil be calculated
+     * @return a string including the instants in which the temperature was outside the comfort level. If the temperature
+     * was always within the comfort level then the following message is displayed: "No readings outside the comfort level were found in the selected time interval.\n"
      */
     public String calculateThermalComfort(RoomDTO roomDTO, boolean maxOrMin, int category, Calendar startDate, Calendar endDate) {
         //Get selected sensors

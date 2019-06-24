@@ -25,7 +25,7 @@ public class NewGeographicalAreaCTRL {
 
     /**
      * This newGA method exists to get the data from the users input in the UI in order to create a new GA
-     *
+     * @param id String value representing Geographical Area id
      * @param inputDesignation String GA designation
      * @param typeGAIndex      integer value representing the type of GA in the index position of the type of GA List.
      * @param occupationArea   occupation area of the geographical area as a result of multiplying the length and the width inputs
@@ -61,9 +61,8 @@ public class NewGeographicalAreaCTRL {
 
     /**
      * Method that shows the list of types of geographical areas in a string format
+     * @return a unique String containing all geographical area types
      */
-    //FIXME remove this method and implement alternative solution using UI.showList method
-    //FIXME duplicate method across other classes methods
     public String showTypeGAListInStr() {
         List<TypeGA> list = getTypeGAList();
         StringBuilder result = new StringBuilder();

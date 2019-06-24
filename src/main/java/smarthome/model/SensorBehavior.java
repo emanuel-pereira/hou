@@ -68,6 +68,7 @@ public class SensorBehavior {
      * Changes the sensorDesignation of the sensor to the one inputted by the user.
      *
      * @param sensorName sensor's name String
+     * @return true in the sensor's name is update, otherwise returns false
      */
     public boolean setSensorDesignation(String sensorName) {
         if (this.nameIsValid(sensorName)) {
@@ -172,7 +173,7 @@ public class SensorBehavior {
 
     /**
      * Deactivate sensor if active
-     *
+     * @param pauseDate Calendar parameter to set the sensor's pause date
      * @return True if deactivated
      */
     public boolean deactivate(Calendar pauseDate) {

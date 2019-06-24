@@ -19,9 +19,6 @@ public class DeviceList {
      * @param device instance to be added to the device list
      * @return boolean result of the device addition
      */
-    //TODO should we be able to create an instance of an object outside of this method? Or should we wire the add
-    // method to the new device that exists in this class, so that whenever we want to create a device we use add
-    // method instead of both newDevice and add methods
     public boolean add(Device device) {
         if (!this.devicesList.contains(device)) {
             this.devicesList.add(device);
@@ -33,10 +30,10 @@ public class DeviceList {
      * @param deviceName   name given to the device by the user, e.g. "Cool Plasma TV 9000"
      * @param deviceType   a string containing the designation of a given device type e.g. "Fridge". The device list is
      * @param nominalPower the nominal power of the device (in kW).
-     * @return
-     * @throws ClassNotFoundException
-     * @throws InstantiationException
-     * @throws IllegalAccessException
+     * @return the created device
+     * @throws ClassNotFoundException throws ClassNotFoundException
+     * @throws InstantiationException throws InstantiationException
+     * @throws IllegalAccessException throws IllegalAccessException
      */
     public Device newDevice(String deviceName, String deviceType, double nominalPower) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
         String path = "smarthome.model.devices."; // Maybe this should be removed and the path returned from the Configuration class and "injected" here.

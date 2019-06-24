@@ -19,7 +19,7 @@ public class NewSensorTypeCTRL {
 
     /**
      * Test controller constructor
-     *
+     * @param sensorTypeRepository for repository dependency injection
      */
     public NewSensorTypeCTRL(SensorTypeRepository sensorTypeRepository){
         this.sensorTypeRepoDDD= new SensorTypeService(sensorTypeRepository);

@@ -10,9 +10,6 @@ import java.util.List;
 
 
 @Service
-/**
- * Created by NPS, adapted by AA. This class creates a set of 'default' usernames and passwords during boot for use with authorization/authentication.
- */
 public class DbInit implements CommandLineRunner {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;

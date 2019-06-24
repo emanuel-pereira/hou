@@ -23,9 +23,7 @@ public class GetTypeGAListCTRL {
         return getTypeGAList();
     }
 
-    /**Method that shows/prints the list that is originated by the previous method(which is called on line 29) */
-    //FIXME remove this method and implement alternative solution using UI.showList method
-    //FIXME duplicate method across other classes methods
+
     public String showListInString() {
         List<TypeGA> list = this.getTypeGAListCTRL ();
         StringBuilder result = new StringBuilder();

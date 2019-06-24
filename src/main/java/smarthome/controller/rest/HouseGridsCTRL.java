@@ -90,6 +90,7 @@ public class HouseGridsCTRL {
      * HTTP POST request mapping to update a Room attaching/detaching a specified HouseGrid
      *
      * @param attachId    Room Id (String)
+     * @param detachId    Room Id (String)
      * @param housegridID HouseGrid ID (Long)
      * @return HTTP Status and updated Room DTO object
      */

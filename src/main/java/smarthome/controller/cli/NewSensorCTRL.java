@@ -93,7 +93,7 @@ public class NewSensorCTRL {
 
     /**
      * index position of the List of Geographical Areas chosen by the user
-     *
+     * @param id              String variable to set the sensor id
      * @param inputName       String variable to set the name of the sensor
      * @param startDate       Calendar parameter to set start date of the sensor
      * @param sensorTypeIndex integer declaring the index position of the sensor type in the sensor type list
@@ -103,7 +103,6 @@ public class NewSensorCTRL {
      * @param readings        list of readings stored by the sensor
      * @return adds the sensor created to the selected Geographical Area
      */
-    //TODO decreease number of method parameters to less than 7
     public boolean addNewSensorToGA(String id, String inputName, GregorianCalendar startDate, int sensorTypeIndex, String inputUnit, Location location, int indexOfGA, ReadingList readings) {
         GeographicalArea geographicalArea = this.gaList.get(indexOfGA);
         SensorType sensorType = this.sensorTypeList.getSensorTypeList().get(sensorTypeIndex);
@@ -113,7 +112,7 @@ public class NewSensorCTRL {
 
     /**
      * Method that creates and adds a new sensor to a room
-     *
+     * @param id              String variable to set the sensor id
      * @param inputName       String variable to set the name of the sensor
      * @param startDate       Calendar parameter to set start date of the sensor
      * @param sensorTypeIndex integer declaring the index position of the sensor type in the sensor type list

@@ -16,10 +16,7 @@ public class NewSensorTypeUI {
     static final Logger log = Logger.getLogger(SensorTypeService.class);
 
 
-    /**
-     * NewSensorTypeUI Constructor
-     * @param sensorTypeList
-     */
+
     public NewSensorTypeUI(SensorTypeList sensorTypeList) {
         this.ctrl = new NewSensorTypeCTRL(sensorTypeList);
     }

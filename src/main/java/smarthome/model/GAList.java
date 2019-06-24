@@ -17,7 +17,7 @@ public class GAList {
 
     /**
      * Method Constructor to create new instances of Geographical Areas
-     *
+     * @param inputID          GA id
      * @param inputDesignation GA String designation
      * @param typeArea         GA Type String designation
      * @param occupationArea   GA occupation area
@@ -109,8 +109,8 @@ public class GAList {
      * Method that returns a list of Geographical Areas of a certain Type.
      * The user inputs the TypeGA he wishes to obtain, for example, "street" and will receive a list of GAs from that Type.
      * A 'for each' was used for simpler and easier list iteration.
-     *
      * @param inputTypeGA string inserted by user
+     * @return list of geographical areas of the specified type
      */
     public List<GeographicalArea> gAFromThisType(String inputTypeGA) {
         List<GeographicalArea> gAFromTypeList = new ArrayList<>();
