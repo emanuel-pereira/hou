@@ -64,4 +64,10 @@ class SensorTypeTest {
         SensorType type = new SensorType();
         assertNull(type.getType());
     }
+
+    @Test
+    void seeIfSensorTypeGetIdReturnsZeroToNonPersistedType() {
+        SensorType type1 = new SensorType("Rainfall");
+        assertNull(type1.getId());
+    }
 }

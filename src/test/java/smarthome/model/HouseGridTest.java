@@ -459,6 +459,7 @@ class HouseGridTest {
         DeviceList kitDeviceList = kitchen.getDeviceList();
         DeviceList grDeviceList = garage.getDeviceList();
 
+        grid.setTime(2);
         try {
             Device fridgeA = kitDeviceList.newDevice("LG Fridge", "Fridge", 150);
             Device kettleA = kitDeviceList.newDevice("Daijutsu", "Kettle", 250);
