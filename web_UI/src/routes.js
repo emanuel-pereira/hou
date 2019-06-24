@@ -2,6 +2,7 @@ import Room from "views/Room";
 import Home from "views/Home";
 import HouseArea from "views/HouseArea";
 import HouseGrid from "views/HouseGrid";
+import Sensor from "views/Sensor";
 import HouseMonitoring from "./components/project/HouseMonitoring/HouseMonitoring";
 import RoomMonitoringMenu from "views/RoomMonitoringMenu";
 
@@ -33,6 +34,13 @@ var routes = [
     name: "Power Grids",
     icon: "nc-icon nc-layout-11",
     component: HouseGrid,
+    layout: "/admin"
+  },
+  {
+    path: "/sensors",
+    name: "Sensors",
+    icon: "nc-icon nc-map-big",
+    component: Sensor,
     layout: "/admin"
   },
   {
