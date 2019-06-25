@@ -32,7 +32,7 @@ class GeoAreaTable extends React.Component {
                 <tr key={index}>
                     <td>{row.identification} </td>
                     <td>{row.designation}</td>
-                    <td onClick={() => this.fetchGADetails(row.identification)}><i className="nc-icon nc-zoom-split text-primary" /> <b className="text-primary">Check Details</b></td>
+                    <td onClick={() => this.fetchGADetails(row.identification)}><i className="nc-icon nc-zoom-split text-primary" /> <b className="text-primary">Details</b></td>
                     <td onClick={() => this.fetchGASensors(row.identification)}><i className="nc-icon nc-touch-id text-danger" /> <b className="text-danger">Sensors</b></td>
                 </tr>
             )
@@ -44,8 +44,6 @@ class GeoAreaTable extends React.Component {
         } else {
             return (
                 <div className="content">
-                    <Row>
-                        <Col md="12">
                             <Card>
                                 <CardBody>
                                     <Table>
@@ -61,8 +59,6 @@ class GeoAreaTable extends React.Component {
                                     </Table>
                                 </CardBody>
                             </Card>
-                        </Col>
-                    </Row>
                 </div>
             );
         }

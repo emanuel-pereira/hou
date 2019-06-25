@@ -80,6 +80,8 @@ class RoomMaxTemperature extends Component {
                                                 <button onClick={this.getResult.bind(this)}>Go!</button>
 
                                                 <p>{this.state.showResult && <p>{data.readingValue}</p>}</p>
+                                                <p>Attention! This option is not currently available. We are working on it.
+                                                    It will be available as soon as possible.</p>
 
                                             </tr>
 

@@ -51,7 +51,8 @@ class CreateRoom extends React.Component {
             length: '',
             width: '',
             height: ''
-        });
+        })
+        this.props.onClose();
     };
 
     render() {
@@ -138,8 +139,8 @@ class CreateRoom extends React.Component {
                             <Button className="btn btn-success" color="primary" type="submit">
                                 SAVE
                             </Button>
-                            <Button type="button" className="btn btn-warning" onClick={this.handleReset}>
-                                RESET
+                            <Button color="danger" onClick={this.handleReset}>
+                                CANCEL
                             </Button>
                         </div>
 

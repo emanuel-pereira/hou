@@ -1,13 +1,15 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { createGeoArea } from 'actions/actionsGeoArea';
+import {connect} from 'react-redux';
+import {createGeoArea} from 'actions/actionsGeoArea';
 import {
     Button,
     Row,
     Col,
-    Input
+    Input,
+    CardBody,
 } from "reactstrap";
 import {fetchGeoAreaTypes} from "../../../actions/actionsGeoArea";
+import Card from "reactstrap/es/Card";
 
 class CreateGeoArea extends React.Component {
     state = {
@@ -17,8 +19,8 @@ class CreateGeoArea extends React.Component {
         latitude: undefined,
         longitude: undefined,
         altitude: undefined,
-        length:undefined,
-        width:undefined,
+        length: undefined,
+        width: undefined,
     };
 
     componentDidMount() {
@@ -43,14 +45,14 @@ class CreateGeoArea extends React.Component {
             id: '',
             designation: '',
             gaType: {
-                id:undefined,
-                type:''
+                id: undefined,
+                type: ''
             },
             latitude: 0,
             longitude: 0,
             altitude: 0,
-            length:0,
-            width:0
+            length: 0,
+            width: 0
         })
         this.props.onClose();
     };
@@ -59,105 +61,115 @@ class CreateGeoArea extends React.Component {
         const gaTypes = this.props.gaTypes
         return (
             <div>
-                <thead className="text-primary">
-                <th>Create a new area</th>
-                </thead>
-                <tbody></tbody>
-                <form onSubmit={this.handleSubmit}>
+                <Card>
+                    <CardBody>
+                        <h4>New Area</h4>
+                        <form onSubmit={this.handleSubmit}>
+                            <div className="form-row">
+                                <div className="form-group col-md-4">
+                                    <label>ID</label>
+                                    <input
+                                        placeholder="ex. PT"
+                                        type="text"
+                                        className="form-control"
+                                        name="id"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.id}
+                                    />
+                                </div>
+                                <div className="form-group col-md-4">
+                                    <label>Name</label>
+                                    <input
+                                        placeholder="ex. Portugal"
+                                        type="text"
+                                        className="form-control"
+                                        name="designation"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.designation}
+                                    />
+                                </div>
+                                <div className="form-group col-md-4">
+                                    <label>Type</label>
+                                    <div>
+                                        <select type="select" name="gaType" value={this.state.gaType}
+                                                onChange={this.handleInputChange}>
+                                            <option value="" selected disabled hidden>Select Type</option>
+                                            {gaTypes.data.map(type =>
+                                                <option name="gaType" value={type.type}>{type.type}</option>)};
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="form-group col-md-4">
+                                    <label>Latitude</label>
+                                    <input
+                                        placeholder="0"
+                                        type="number"
+                                        className="form-control"
+                                        name="latitude"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.latitude}
+                                    />
+                                </div>
+                                <div className="form-group col-md-4">
+                                    <label>Longitude</label>
+                                    <input
+                                        placeholder="0"
+                                        type="number"
+                                        className="form-control"
+                                        name="longitude"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.longitude}
+                                    />
+                                </div>
+                                <div className="form-group col-md-4">
+                                    <label>Altitude</label>
+                                    <input
+                                        placeholder="0"
+                                        type="number"
+                                        className="form-control"
+                                        name="altitude"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.altitude}
+                                    />
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="form-group col-md-4">
+                                    <label>Length</label>
+                                    <input
+                                        placeholder="0 m"
+                                        type="number"
+                                        className="form-control"
+                                        name="length"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.length}
+                                    />
+                                </div>
+                                <div className="form-group col-md-4">
+                                    <label>Width</label>
+                                    <input
+                                        placeholder="0 m"
+                                        type="number"
+                                        className="form-control"
+                                        name="length"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.width}
+                                    />
+                                </div>
+                            </div>
+                        </form>
 
-                        <Col>
-                    <div className="form-group">
-                        ID
-                        <Input
-                            type="text"
-                            className="form-control"
-                            name="id"
-                            onChange={this.handleInputChange}
-                            value={this.state.id}
-                        />
-                    </div>
-                        </Col>
-                        <Col>
-                    <div className="form-group">
-                        Name
-                        <Input
-                            type="text"
-                            className="form-control"
-                            name="designation"
-                            onChange={this.handleInputChange}
-                            value={this.state.designation}>
-                        </Input>
-                    </div>
-                        </Col>
-                        <div className="form-group">
-                        ga type
-                            <select type="select" name="gaType" value={this.state.gaType} onChange={this.handleInputChange}>
-                            <option value="" selected disabled hidden>Choose ga type here</option>
-                            {gaTypes.data.map(type =>
-                            <option name="gaType" value={type.type}>{type.type}</option>)};
-                            </select>
-                    </div>
-                    <div className="form-group">
-                        Latitude
-                        <Input
-                            type="text"
-                            className="form-control"
-                            name="latitude"
-                            onChange={this.handleInputChange}
-                            value={this.state.latitude}>
-                        </Input>
-                    </div>
-                    <div className="form-group">
-                        Longitude
-                        <Input
-                            type="text"
-                            className="form-control"
-                            name="longitude"
-                            onChange={this.handleInputChange}
-                            value={this.state.longitude}>
-                        </Input>
-                    </div>
-                    <div className="form-group">
-                        Height
-                        <Input
-                            type="text"
-                            className="form-control"
-                            name="altitude"
-                            onChange={this.handleInputChange}
-                            value={this.state.altitude}>
-                        </Input>
-                    </div>
-                    <div className="form-group">
-                        Length
-                        <Input
-                            type="text"
-                            className="form-control"
-                            name="length"
-                            onChange={this.handleInputChange}
-                            value={this.state.length}>
-                        </Input>
-                    </div>
-                    <div className="form-group">
-                        Width
-                        <Input
-                            type="text"
-                            className="form-control"
-                            name="width"
-                            onChange={this.handleInputChange}
-                            value={this.state.width}>
-                        </Input>
-                    </div>
+                            <Button color="success" type="submit">
+                                SAVE
+                            </Button>
+                            <Button color="danger" onClick={this.handleReset}>
+                                CANCEL
+                            </Button>
 
-                    <div className="buttons">
-                        <Button color="success" type="submit">
-                            SAVE
-                        </Button>
-                        <Button color="warning"  onClick={this.handleReset}>
-                            RESET
-                        </Button>
-                    </div>
-
-                </form>
+                    </CardBody>
+                </Card>
             </div>
         );
     }
@@ -168,14 +180,15 @@ const mapStateToProps = (state) => {
         gaTypes: {
             data: state.geoareas.gaTypes.data,
         },
-    }}
+    }
+}
 
 const mapDispatchToProps = dispatch => {
     return {
         onAddGeoArea: geoArea => {
             dispatch(createGeoArea(geoArea));
         },
-        onfetchGeoAreaTypes:() => {
+        onfetchGeoAreaTypes: () => {
             dispatch(fetchGeoAreaTypes())
         },
     };

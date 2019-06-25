@@ -3945,6 +3945,7 @@ License - nucleoapp.com/license/
     width: 250px; } }
 
 .card {
+  margin-right:20px;
   border-radius: 12px;
   box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
   background-color: #FFFFFF;
