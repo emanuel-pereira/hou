@@ -5,26 +5,17 @@ class Home extends React.Component {
     return (
       <>
         <div className="content">
-        <h1>Welcome to Smart Home</h1>
-                <p>Configure your house to get the most of it!
+        <h1>Welcome to Your Smart Home</h1>
+                <p>
+                    The objective of our Smart Home application is to develop a system that allows you to manage and monitoring personal comfort requirements and electric energy consumption. The system will gather information about temperature, rainfall and energy consumption.
                 </p>
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In in ipsum id elit lobortis scelerisque.
-                    Vestibulum feugiat lobortis velit id semper. Aliquam in augue pharetra, posuere dui quis, porttitor
-                    arcu. Cras aliquet volutpat lacus, ac cursus elit volutpat eu. Sed id est at tellus sodales
-                    ultricies eu at velit. Integer sapien ipsum, scelerisque sed eleifend et, ultricies vitae mi. Etiam
-                    facilisis nibh ut leo consequat, sed volutpat arcu iaculis. In in tellus a mi ultrices suscipit. Sed
-                    in tempor lectus, vehicula efficitur tortor.
-                </p>
-                <p>
-                    Maecenas tempor eleifend sem, ut rutrum ligula gravida sed. Mauris vulputate non urna nec venenatis.
-                    Praesent id ligula ornare augue condimentum tempor sed quis lectus. Duis a urna sed lorem fermentum
-                    consequat et nec dui.
+                    All the devices of your house can be connected. Not just computers and smartphones, but everything: clocks, speakers, lights, doorbells, cameras, windows, window blinds, hot water heaters, appliances, cooking utensils... All of those devices can communicate, send you information, and take your commands. It's not science fiction; it's the Internet of Things (IoT), and it's a key component of home automation and smart homes.
                 </p>
                 <div className="image">
                   <img
                     alt="..."
-                    src={require("assets/img/image.jpg")}
+                    src={require("assets/img/banner.jpg")}
                   />
                 </div>
         </div>
