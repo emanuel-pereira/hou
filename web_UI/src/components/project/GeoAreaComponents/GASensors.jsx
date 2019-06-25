@@ -24,7 +24,7 @@ class GASensors extends React.Component {
   deleteSensor = (id,idGA) => {
     this.props.onDeleteSensor(id,idGA);
   }
-  
+
   changeEditMode = () => {
     this.setState({
       isInEditMode: !this.state.isInEditMode
@@ -45,11 +45,10 @@ class GASensors extends React.Component {
                     <td>{row.sensorBehaviorDTO.name}</td>
                     <td>{row.sensorBehaviorDTO.sensorType.type}</td>
                     <td>{startDate}</td>
-                    <td>
-                        <Button color="danger" onClick={() => this.deleteSensor(row.id,row.idGA)}>
+                        <tr><Button color="danger" onClick={() => this.deleteSensor(row.id,row.idGA)}>
                             DELETE
-                        </Button>
-                    </td>
+                        </Button></tr>
+
                 </tr>
             )
         })

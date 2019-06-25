@@ -159,7 +159,7 @@ class CreateGeoArea extends React.Component {
                                     />
                                 </div>
                             </div>
-                        </form>
+
 
                             <Button color="success" type="submit">
                                 SAVE
@@ -167,7 +167,7 @@ class CreateGeoArea extends React.Component {
                             <Button color="danger" onClick={this.handleReset}>
                                 CANCEL
                             </Button>
-
+                        </form>
                     </CardBody>
                 </Card>
             </div>
