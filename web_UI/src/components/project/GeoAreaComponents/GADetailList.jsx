@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {
     Card,
     CardBody,
@@ -7,6 +7,7 @@ import {
     Row,
     Col
 } from "reactstrap";
+import CardTitle from "reactstrap/es/CardTitle";
 
 class GADetailList extends Component {
     constructor(props) {
@@ -30,37 +31,39 @@ class GADetailList extends Component {
     }
 
     renderDefaultView = () => {
-        const { loading, error, data } = this.props.details;
+        const {loading, error, data} = this.props.details;
         if (loading === true) {
             return (<h1>Loading ....</h1>);
-        }
-        else {
+        } else {
             if (error !== null) {
                 return (<h1>Error ....</h1>);
             } else {
                 if (data.identification) {
                     return (
-                        <div className="content">
-                            <Row>
-                                <Col md="12">
-                                    <Card>
-                                        <CardBody>
-                                            <Table>
-                                                <thead className="text-primary">
-                                                    <tr>
-                                                        <th>Geographical Area of {data.identification}</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr><td>Type:</td> <td>{data.type.type}</td></tr>
-                                                    <tr><td>Location (GPS coordinates):</td><td>({data.location.latitude},{data.location.longitude},{data.location.altitude})</td></tr>
-                                                    <tr><td>Occupation:</td> <td>{data.occupation.occupation} m ({data.occupation.length} x {data.occupation.width})</td></tr>
-                                                </tbody>
-                                            </Table>
-                                        </CardBody>
-                                    </Card>
-                                </Col>
-                            </Row>
+                        <div>
+
+                            <Card>
+                                <CardBody>
+                                    <CardTitle>
+                                        <h6>Geographical Area of {data.identification}</h6>
+                                    </CardTitle>
+                                    <Table>
+                                        <tr>
+                                            <td>Type:</td>
+                                            <td>{data.type.type}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Location:</td>
+                                            <td>{data.location.latitude}, {data.location.longitude}, {data.location.altitude}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Occupation Area:</td>
+                                            <td>{data.occupation.occupation} m ({data.occupation.length} x {data.occupation.width} m)
+                                            </td>
+                                        </tr>
+                                    </Table>
+                                </CardBody>
+                            </Card>
                         </div>
                     );
                 } else {
@@ -70,12 +73,13 @@ class GADetailList extends Component {
         }
     }
 
-    render() { 
+    render() {
         return this.state.isInEditMode ?
             this.renderEditView() :
             this.renderDefaultView()
     }
 }
+
 const mapStateToProps = (state) => {
     return {
         details: {

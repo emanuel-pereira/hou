@@ -40,7 +40,7 @@ class CreateRoom extends React.Component {
         this.props.onAddRoom(this.state)
         this.refs.notify.notificationAlert(options);
         this.handleReset();
-        setTimeout(this.props.onClose(), 1000)
+        this.props.onClose();
     };
 
     handleReset = () => {
@@ -51,7 +51,8 @@ class CreateRoom extends React.Component {
             length: '',
             width: '',
             height: ''
-        });
+        })
+        this.props.onClose();
     };
 
     render() {
@@ -138,8 +139,8 @@ class CreateRoom extends React.Component {
                             <Button className="btn btn-success" color="primary" type="submit">
                                 SAVE
                             </Button>
-                            <Button type="button" className="btn btn-warning" onClick={this.handleReset}>
-                                RESET
+                            <Button color="danger" onClick={this.handleReset}>
+                                CANCEL
                             </Button>
                         </div>
 
