@@ -44,7 +44,7 @@ render(){
                                 <Table>
                                     <thead className="text-primary">
                                         <tr>
-                                            <th>Rooms on grid:  </th>
+                                            <th>Rooms on grid</th>
                                         </tr>
                                     </thead>
                                     <tbody>{rows}</tbody>

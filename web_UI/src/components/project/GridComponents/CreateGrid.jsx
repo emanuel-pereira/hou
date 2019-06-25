@@ -3,8 +3,10 @@ import { connect } from 'react-redux';
 import { createHouseGrid } from 'actions/actionsGrid';
 import {
     Button,
+    Card
 
 } from "reactstrap";
+import CardBody from "reactstrap/es/CardBody";
 
 class CreateGrid extends React.Component {
     state = {
@@ -30,27 +32,32 @@ class CreateGrid extends React.Component {
             id: '',
             description: '',
 
-        });
+        })
+        this.props.onClose();
     };
 
     render() {
         return (
             <div className="content">
+                <Card>
+                    <CardBody>
                 <h2>New House Grid</h2>
                 <form onSubmit={this.handleSubmit}>
-                    <div className="form-group">
-                        ID
+                    <div className="form-group col-md-6">
+                        <label>ID</label>
                         <input
-                            type="number"
+                            placeholder="ex. PG1"
+                            type="text"
                             className="form-control"
                             name="id"
                             onChange={this.handleInputChange}
                             value={this.state.id}
                         />
                     </div>
-                    <div className="form-group">
-                        Description
+                    <div className="form-group col-md-6">
+                        <label>Description</label>
                         <input
+                            placeholder="ex. PowerGrid1"
                             type="text"
                             className="form-control"
                             name="designation"
@@ -59,18 +66,18 @@ class CreateGrid extends React.Component {
                         </input>
                     </div>
                     <div className="buttons">
-                        <Button
-                            className="btn-round"
-                            color="primary"
+                        <Button  color="success"
                             type="submit"
                         >
-                            Create Grid
+                            SAVE
                         </Button>
-                        <button type="button" className="btn btn-warning" onClick={this.handleReset}>
-                            RESET
+                        <button type="button" className="btn btn-danger" onClick={this.handleReset}>
+                            CANCEL
                         </button>
                     </div>
                 </form>
+                    </CardBody>
+                </Card>
             </div>
         );
     }

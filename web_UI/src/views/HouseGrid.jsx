@@ -8,7 +8,7 @@ import {
   CardTitle,
   Table,
   Row,
-  Col
+  Col, Button
 } from "reactstrap";
 import GridTable from "../components/project/GridComponents/GridTable";
 import GridRooms from "../components/project/GridComponents/GridRooms";
@@ -26,26 +26,31 @@ class HouseGrid extends React.Component {
       showRooms: true,
     })}
 
-  toggleHiddenRooms() {
+  toggleHidden() {
     this.setState({
       isHidden: !this.state.isHidden
     })
   }
   render() {
     return (
-      <>
         <div className="content">
-          <h6>New Grid  <i className="nc-icon nc-simple-add" onClick={this.toggleHiddenRooms.bind(this)} /></h6>
-          <CardHeader>
-            <CardTitle tag="h4">House Grid Configuration</CardTitle>
-          </CardHeader>
+          <Button onClick={this.toggleHidden.bind(this)}>
+            <i className="nc-icon nc-simple-add"></i>
+          </Button>
+          <div>
+          {!this.state.isHidden && <CreateGrid onClose={this.toggleHidden.bind(this)} />}
+          </div>
+          <Table>
+            <Row>
+              <Col md="8">
           <tr>
             <td>{this.state.isHidden && <GridTable onShowRooms={this.showRooms.bind(this)} />}</td>
             <td>{this.state.isHidden && this.state.showRooms && <GridRooms />}</td>
           </tr>
-          {!this.state.isHidden && <CreateGrid onClose={this.toggleHiddenRooms.bind(this)} />}
+              </Col>
+            </Row>
+          </Table>
         </div>
-      </>
     );
   }
 }
