@@ -138,7 +138,7 @@ class Header extends React.Component {
                                 <DropdownToggle caret nav>
                                     <i className="nc-icon nc-circle-10" />
                                     <p>
-                                        <span className="d-lg-none d-md-block">Some Actions</span>
+                                        <span className="d-lg-none d-md-block">Account</span>
                                     </p>
                                 </DropdownToggle>
                                 <DropdownMenu right>

@@ -9,18 +9,16 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import smarthome.dto.GeographicalAreaDTO;
 import smarthome.dto.TypeGADTO;
-import smarthome.model.GeographicalArea;
-import smarthome.model.Location;
-import smarthome.model.OccupationArea;
-import smarthome.model.TypeGA;
+import smarthome.model.*;
 import smarthome.repository.GeoRepository;
 import smarthome.repository.TypeGARepository;
 
 import java.security.InvalidParameterException;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 
@@ -123,7 +121,7 @@ class GeoAreaServiceTest {
     void notAddInvalidAreaNullParameters() {
         TypeGA type = new TypeGA("city");
 
-        GeographicalAreaDTO dto = new GeographicalAreaDTO(null, null, (new TypeGADTO("city")),null, null);
+        GeographicalAreaDTO dto = new GeographicalAreaDTO(null, null, (new TypeGADTO("city")), null, null);
 
         when(this.gaTypesService.existsByType("city")).thenReturn(true);
         when(this.gaTypesService.findByType("city")).thenReturn(type);
@@ -186,6 +184,96 @@ class GeoAreaServiceTest {
         assertEquals(3, size);
     }
 
+
+    @Test
+    void setParentGaWebCTRLSave() {
+
+
+        TypeGA type = new TypeGA("country");
+        TypeGA type2 = new TypeGA("city");
+
+        OccupationArea oc = new OccupationArea(34, 33);
+        Location loc = new Location(12, 24, 22);
+
+        GeographicalArea GA1 = new GeographicalArea("LIS", "Lisboa", type2, oc, loc);
+        GeographicalArea GA2 = new GeographicalArea("PT", "Portugal", type, oc, loc);
+
+
+        GA1.setParentGa(GA2);
+        geoRepository.save(GA1);
+        geoRepository.save(GA2);
+
+
+        String result = GA1.getParentGa().getDesignation();
+        String expectedResult = "Portugal";
+        assertEquals(expectedResult, result);
+
+    }
+
+
+    @Test
+    void setParentGaWebCTRLTrue() {
+        TypeGA country = new TypeGA("country");
+        TypeGA city = new TypeGA("city");
+
+        GeographicalArea porto = new GeographicalArea("POR", "Porto", city,
+                (new OccupationArea(30, 20)),
+                (new Location(3, 4, 3)));
+
+        GeographicalArea portugal = new GeographicalArea("PT", "Portugal", country,
+                (new OccupationArea(150, 45)),
+                (new Location(53, 41, 300)));
+
+        when(this.geoRepository.findById("PT")).thenReturn(Optional.of(portugal));
+        when(this.geoRepository.findById("POR")).thenReturn(Optional.of(porto));
+        when(this.geoAreaService.checkIfIdExists("PT")).thenReturn(true);
+        when(this.geoAreaService.checkIfIdExists("POR")).thenReturn(true);
+
+        boolean result = geoAreaService.setParentGaWebCTRL("PT", "POR");
+
+
+        assertTrue(result);
+    }
+
+    @Test
+    void setParentGaWebCTRLFalse() {
+
+        TypeGA city = new TypeGA("city");
+
+        GeographicalArea porto = new GeographicalArea("POR", "Porto", city,
+                (new OccupationArea(30, 20)),
+                (new Location(3, 4, 3)));
+
+
+        when(this.geoRepository.findById("POR")).thenReturn(Optional.of(porto));
+        when(this.geoRepository.findById("POR")).thenReturn(Optional.of(porto));
+        when(this.geoAreaService.checkIfIdExists("POR")).thenReturn(false);
+        when(this.geoAreaService.checkIfIdExists("POR")).thenReturn(false);
+
+        boolean result = geoAreaService.setParentGaWebCTRL("POR", "POR");
+
+
+        assertFalse(result);
+    }
+
+
+    @Test
+    void checkIfIdExists() {
+
+
+        when(this.geoRepository.existsById("PT")).thenReturn(true);
+        assertTrue(geoAreaService.checkIfIdExists("PT"));
+
+    }
+
+    @Test
+    void size() {
+
+
+        when(this.geoRepository.count()).thenReturn(3L);
+        assertEquals(3, geoAreaService.size());
+
+    }
 
 
 }

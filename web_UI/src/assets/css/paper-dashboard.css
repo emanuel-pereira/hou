@@ -20,6 +20,10 @@ Licensed under the MIT license - http://opensource.org/licenses/MIT
 
 Copyright (c) 2015 Daniel Eden
 */
+.side-card{
+  margin-left:20px;
+}
+
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;

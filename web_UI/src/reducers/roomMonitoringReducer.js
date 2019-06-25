@@ -26,7 +26,7 @@ const initialstate = {
     },
 
     roomMaxTemp: {
-        roomId: 0,
+        id: 0,
         loading: false,
         error: null,
         data: {},
@@ -84,9 +84,9 @@ function roomMonitoringReducer(state = initialstate, action) {
             return {
                 ...state,
                 roomMaxTemp: {
-                    data: {},
+                    data: {...action.payload.data},
                     day: state.roomMaxTemp.day,
-                    roomId: state.roomMaxTemp.roomId,
+                    id: state.roomMaxTemp.id,
                 }
             }
         case FETCH_ROOMS_MAX_TEMP_FAILURE:

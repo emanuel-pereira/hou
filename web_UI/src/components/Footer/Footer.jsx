@@ -12,10 +12,9 @@ class Footer extends React.Component {
       >
         <Container fluid={this.props.fluid ? true : false}>
           <Row>
-            
             <div className="credits ml-auto">
               <div className="copyright">
-                &copy; {1900 + new Date().getYear()}, SmartHome Group 6
+                SmartHome Group 6 &copy; {1900 + new Date().getYear()}
               </div>
             </div>
           </Row>

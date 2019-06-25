@@ -1,11 +1,18 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { createSensor, fetchSensorTypes } from 'actions/actionsRoom';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {createSensor, fetchSensorTypes} from 'actions/actionsRoom';
+import {
+    Button,
+    Card,
+} from "reactstrap";
+import CardBody from "reactstrap/es/CardBody";
+import CardTitle from "reactstrap/es/CardTitle";
 
 class CreateNewIntSensor extends React.Component {
     constructor(props) {
         super(props);
     }
+
     state = {
         id: '',
         roomId: this.props.roomId,
@@ -55,68 +62,85 @@ class CreateNewIntSensor extends React.Component {
     render() {
         const sTypes = this.props.sTypes
         return (
-            <div className="roomCreation">
-                <thead className="text-primary">
-                    <th>Add new sensor to {this.state.roomId}</th>
-                </thead>
-                <tbody></tbody>
-                <form onSubmit={this.handleSubmit}>
-                    <tr><td><div className="form-group">
-                        Id
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="id"
-                            onChange={this.handleInputChange}
-                            value={this.state.id}>
-                        </input>
-                    </div></td></tr>
-                    <div className="form-group">
-                        Designation
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="name"
-                            onChange={this.handleInputChange}
-                            value={this.state.name}>
-                        </input>
-                    </div>
-                    <div className="form-group">
-                        Sensor type
-                            <select type="select" name="sensorTypeName" value={this.state.sensorTypeName} onChange={this.handleInputChange}>
-                            <option value="" selected disabled hidden>Choose sensor type here</option>
-                            {sTypes.data.map(type =>
-                            <option name="sensorTypeName" value={type.type.name}>{type.type.name}</option>)};
-                            </select>
-                    </div>
-                    <div className="form-group">
-                        Start Date:
-                        <input
-                            type="date"
-                            className="form-control"
-                            name="startDate"
-                            onChange={this.handleInputChange}
-                            value={this.state.startDate}>
-                        </input>
-                    </div>
-                    <div className="form-group">
-                        Unit:
-                        <input
-                            type="text"
-                            className="form-control"
-                            name="unit"
-                            onChange={this.handleInputChange}
-                            value={this.state.unit}>
-                        </input>
-                    </div>
-                    <div className="buttons">
-                        <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>SAVE</button>
-                        <button type="button" className="btn btn-warning" onClick={this.handleReset}>CANCEL</button>
-                    </div>
+            <div>
+                <Card>
+                    <CardBody>
+                        <CardTitle>
+                            <h6>New Sensor on {this.state.roomId}</h6>
+                        </CardTitle>
+                        <form onSubmit={this.handleSubmit}>
+                            <div className="form-row">
+                                <div className="form-group col-md-12">
+                                    <label>ID</label>
+                                    <input
+                                        placeholder="ex. TS10"
+                                        type="text"
+                                        className="form-control"
+                                        name="id"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.id}
+                                    />
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="form-group col-md-12">
+                                    <label>Designation</label>
+                                    <input
+                                        placeholder="ex. TemperatureSensor"
+                                        type="text"
+                                        className="form-control"
+                                        name="name"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.name}
+                                    />
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="form-group col-md-12">
+                                    <label>Type</label>
+                                    <div>
+                                        <select type="select" name="sensorTypeName" value={this.state.sensorTypeName}
+                                                onChange={this.handleInputChange}>
+                                            <option value="" selected disabled hidden>Select Type</option>
+                                            {sTypes.data.map(type =>
+                                                <option name="sensorTypeName"
+                                                        value={type.type.name}>{type.type.name}</option>)};
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="form-row">
+                                <div className="form-group col-md-12">
+                                    <label>Start Date</label>
+                                    <input
+                                        type="date"
+                                        className="form-control"
+                                        name="startDate"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.startDate}
+                                    />
+                                </div>
+                            </div>
 
-
-                </form>
-
+                            <div className="form-row">
+                                <div className="form-group col-md-12">
+                                    <label>Unit</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        name="unit"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.unit}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <Button color="success" onClick={this.handleSubmit}>SAVE</Button>
+                                <Button color="danger" onClick={this.handleReset}>CANCEL</Button>
+                            </div>
+                        </form>
+                    </CardBody>
+                </Card>
             </div>
 
         );

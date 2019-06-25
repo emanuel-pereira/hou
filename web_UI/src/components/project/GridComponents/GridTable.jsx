@@ -30,7 +30,7 @@ class GridTable extends React.Component {
         <tr key={index}>
           <td>{row.id} </td>
           <td>{row.designation}</td>
-          <td onClick={() => this.fetchHouseGridRooms(row.id)}><i className="nc-icon nc-zoom-split text-primary" /> <b className="text-primary">Check Details</b></td>
+          <td onClick={() => this.fetchHouseGridRooms(row.id)}><i className="nc-icon nc-zoom-split text-primary" /> <b className="text-primary">Details</b></td>
 
         </tr>)
     })
