@@ -79,7 +79,7 @@ class RoomMaxTemperature extends Component {
 
                                                 <button onClick={this.getResult.bind(this)}>Go!</button>
 
-                                                <p>{this.state.showResult && <p>data.readingValue</p>}</p>
+                                                <p>{this.state.showResult && <p>{data.readingValue}</p>}</p>
 
                                             </tr>
 
@@ -105,7 +105,7 @@ class RoomMaxTemperature extends Component {
         roomId: state.roomCurrentTemp.roomMaxTemp.roomId,
         loading: state.roomCurrentTemp.roomMaxTemp.loading,
         error: state.roomCurrentTemp.roomMaxTemp.error,
-        data: state.roomCurrentTemp.data,
+        data: state.roomCurrentTemp.roomMaxTemp.data,
         day: state.roomCurrentTemp.roomMaxTemp.data,
     }
     }
