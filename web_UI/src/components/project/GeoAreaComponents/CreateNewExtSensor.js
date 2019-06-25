@@ -16,9 +16,9 @@ class CreateNewIntSensor extends React.Component {
         startDate: '',
         unit: '',
         active: true,
-        latitude: 1,
-        longitude: 1,
-        altitude: 1,
+        latitude: null,
+        longitude: null,
+        altitude: null,
     }
 
     componentDidMount() {
@@ -112,6 +112,36 @@ class CreateNewIntSensor extends React.Component {
                             name="unit"
                             onChange={this.handleInputChange}
                             value={this.state.unit}>
+                        </input>
+                    </div>
+                    <div className="form-group">
+                        Latitude:
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="latitude"
+                            onChange={this.handleInputChange}
+                            value={this.state.latitude}>
+                        </input>
+                    </div>
+                    <div className="form-group">
+                        Longitude:
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="longitude"
+                            onChange={this.handleInputChange}
+                            value={this.state.longitude}>
+                        </input>
+                    </div>
+                    <div className="form-group">
+                        Altitude:
+                        <input
+                            type="text"
+                            className="form-control"
+                            name="altitude"
+                            onChange={this.handleInputChange}
+                            value={this.state.altitude}>
                         </input>
                     </div>
                     <div className="buttons">
