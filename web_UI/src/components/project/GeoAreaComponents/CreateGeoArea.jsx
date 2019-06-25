@@ -1,6 +1,6 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {createGeoArea} from 'actions/actionsGeoArea';
+import { connect } from 'react-redux';
+import { createGeoArea } from 'actions/actionsGeoArea';
 import {
     Button,
     Row,
@@ -8,7 +8,7 @@ import {
     Input,
     CardBody,
 } from "reactstrap";
-import {fetchGeoAreaTypes} from "../../../actions/actionsGeoArea";
+import { fetchGeoAreaTypes } from "../../../actions/actionsGeoArea";
 import Card from "reactstrap/es/Card";
 
 class CreateGeoArea extends React.Component {
@@ -92,7 +92,7 @@ class CreateGeoArea extends React.Component {
                                     <label>Type</label>
                                     <div>
                                         <select type="select" name="gaType" value={this.state.gaType}
-                                                onChange={this.handleInputChange}>
+                                            onChange={this.handleInputChange}>
                                             <option value="" selected disabled hidden>Select Type</option>
                                             {gaTypes.data.map(type =>
                                                 <option name="gaType" value={type.type}>{type.type}</option>)};
@@ -159,18 +159,16 @@ class CreateGeoArea extends React.Component {
                                     />
                                 </div>
                             </div>
-                        </form>
-
                             <Button color="success" type="submit">
                                 SAVE
                             </Button>
                             <Button color="danger" onClick={this.handleReset}>
                                 CANCEL
                             </Button>
-
+                        </form>
                     </CardBody>
                 </Card>
-            </div>
+            </div >
         );
     }
 }
