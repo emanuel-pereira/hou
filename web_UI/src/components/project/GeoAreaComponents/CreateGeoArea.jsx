@@ -153,7 +153,7 @@ class CreateGeoArea extends React.Component {
                                         placeholder="0 m"
                                         type="number"
                                         className="form-control"
-                                        name="length"
+                                        name="width"
                                         onChange={this.handleInputChange}
                                         value={this.state.width}
                                     />
