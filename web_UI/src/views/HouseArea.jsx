@@ -34,6 +34,7 @@ class HouseArea extends React.Component {
             showSensors: false,
         })
     }
+
     showSensors() {
         this.setState({
             showSensors: true,
@@ -43,23 +44,19 @@ class HouseArea extends React.Component {
 
     render() {
         return (
-            <>
                 <div className="content">
-                    <Button onClick={this.toggleHidden.bind(this)}><i className="nc-icon nc-simple-add"></i></Button>
-                    <Row>
-                        <Col md="12">
-                            <Card><tr>
-                                <td>{this.state.isHiddenCreate && <GeoAreaTable onShowDetails={this.showDetails.bind(this)} onShowSensors={this.showSensors.bind(this)} />}</td>
-                                <td>{this.state.isHiddenCreate && this.state.showDetails && <GADetailList />}</td>
-                                <td>{this.state.isHiddenCreate && this.state.showSensors && <GASensors />}</td>
+                    <Button onClick={this.toggleHidden.bind(this)}>
+                        <i className="nc-icon nc-simple-add"></i>
+                    </Button>
+                    <tr>
+                        <td>{this.state.isHiddenCreate && <GeoAreaTable onShowDetails={this.showDetails.bind(this)}
+                                                                        onShowSensors={this.showSensors.bind(this)}/>}</td>
+                        <td>{this.state.isHiddenCreate && this.state.showDetails && <GADetailList/>}</td>
+                        <td>{this.state.isHiddenCreate && this.state.showSensors && <GASensors/>}</td>
 
-                            </tr>
-                                {!this.state.isHiddenCreate && <CreateGeoArea onClose={this.toggleHidden.bind(this)} />}
-                            </Card>
-                        </Col>
-                    </Row>
+                    </tr>
+                    {!this.state.isHiddenCreate && <CreateGeoArea onClose={this.toggleHidden.bind(this)}/>}
                 </div>
-            </>
         );
     }
 }
