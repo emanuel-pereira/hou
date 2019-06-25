@@ -40,10 +40,10 @@ export class LoginPage extends Component {
         const {username, password, submitted} = this.state;
         return (
             <div style={{position:"absolute", left:'50%', top:'50%', width: '20%', transform:'translate(-50%,-50%)'}}>
-                <div className="alert alert-info">
+                {/*<div className="alert alert-info">
                     Username: admin<br/>
                     Password: admin123
-                </div>
+                </div>*/}
                 <Card>
                     <img style={{
                         display: 'block',
