@@ -10,6 +10,8 @@ import {
     Row,
     Col,
     Button,
+    Table,
+
 } from "reactstrap";
 
 class HouseArea extends React.Component {
@@ -44,19 +46,27 @@ class HouseArea extends React.Component {
 
     render() {
         return (
-                <div className="content">
-                    <Button onClick={this.toggleHidden.bind(this)}>
-                        <i className="nc-icon nc-simple-add"></i>
-                    </Button>
-                    <tr>
-                        <td>{this.state.isHiddenCreate && <GeoAreaTable onShowDetails={this.showDetails.bind(this)}
-                                                                        onShowSensors={this.showSensors.bind(this)}/>}</td>
-                        <td>{this.state.isHiddenCreate && this.state.showDetails && <GADetailList/>}</td>
-                        <td>{this.state.isHiddenCreate && this.state.showSensors && <GASensors/>}</td>
-
-                    </tr>
+            <div className="content">
+                <Button onClick={this.toggleHidden.bind(this)}>
+                    <i className="nc-icon nc-simple-add"></i>
+                </Button>
+                <div>
                     {!this.state.isHiddenCreate && <CreateGeoArea onClose={this.toggleHidden.bind(this)}/>}
                 </div>
+                <Table>
+                    <Row>
+                        <Col md="8">
+                            {this.state.isHiddenCreate && this.state.showDetails && <GADetailList/>}
+                            {this.state.isHiddenCreate && this.state.showSensors && <GASensors/>}
+                        </Col>
+                        <Col md="6">
+                            <td>{this.state.isHiddenCreate && <GeoAreaTable onShowDetails={this.showDetails.bind(this)}
+                                                                            onShowSensors={this.showSensors.bind(this)}/>}</td>
+                        </Col>
+                    </Row>
+                </Table>
+
+            </div>
         );
     }
 }

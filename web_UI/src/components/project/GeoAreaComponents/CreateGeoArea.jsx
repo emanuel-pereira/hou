@@ -168,7 +168,7 @@ class CreateGeoArea extends React.Component {
                         </form>
                     </CardBody>
                 </Card>
-            </div >
+            </div>
         );
     }
 }

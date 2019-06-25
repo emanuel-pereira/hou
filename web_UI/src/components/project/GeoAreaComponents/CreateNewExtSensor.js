@@ -71,11 +71,11 @@ class CreateNewIntSensor extends React.Component {
                 <Card>
                     <CardBody>
                         <CardTitle>
-                            <h6>Add new sensor to {this.state.gaId}</h6>
+                            <h6>New Sensor on {this.state.gaId}</h6>
                         </CardTitle>
                         <form onSubmit={this.handleSubmit}>
                             <div className="form-row">
-                                <div className="form-group col-md-12">
+                                <div className="form-group col-md-4">
                                     <label>ID</label>
                                     <input
                                         placeholder="ex. RS4"
@@ -86,9 +86,7 @@ class CreateNewIntSensor extends React.Component {
                                         value={this.state.id}
                                     />
                                 </div>
-                            </div>
-                            <div className="form-row">
-                                <div className="form-group col-md-12">
+                                <div className="form-group col-md-4">
                                     <label>Designation</label>
                                     <input
                                         placeholder="ex. RainSensor4"
@@ -101,35 +99,21 @@ class CreateNewIntSensor extends React.Component {
                                 </div>
                             </div>
                             <div className="form-row">
-                            <div className="form-group">
-                                <label>Type</label>
-                                <div>
-                                <select type="select" name="sensorTypeName" value={this.state.sensorTypeName}
-                                        onChange={this.handleInputChange}>
-                                    <option value="" selected disabled hidden>Select Type</option>
-                                    {sTypes.data.map(type =>
-                                        <option name="sensorTypeName" value={type.type.name}>{type.type.name}</option>)};
-                                </select>
-                                </div>
+                                <div className="form-group">
+                                    <label>Type</label>
+                                    <div>
+                                        <select type="select" name="sensorTypeName" value={this.state.sensorTypeName}
+                                                onChange={this.handleInputChange}>
+                                            <option value="" selected disabled hidden>Select Type</option>
+                                            {sTypes.data.map(type =>
+                                                <option name="sensorTypeName" value={type.type.name}>{type.type.name}</option>)};
+                                        </select>
+                                    </div>
                             </div>
-                            </div>
-                            <div className="form-row">
-                            <div className="form-group">
-                                <label>Start Date</label>
-                                <input
-                                    type="date"
-                                    className="form-control"
-                                    name="startDate"
-                                    onChange={this.handleInputChange}
-                                    value={this.state.startDate}>
-                                </input>
-                            </div>
-                            </div>
-                            <div className="form-row">
-                                <div className="form-group col-md-12">
+                                <div className="form-group col-md-4">
                                     <label>Unit</label>
                                     <input
-                                        placeholder="mm/h"
+                                        placeholder="ex. mm/h"
                                         type="text"
                                         className="form-control"
                                         name="unit"
@@ -137,17 +121,52 @@ class CreateNewIntSensor extends React.Component {
                                         value={this.state.unit}
                                     />
                                 </div>
+                                <div className="form-group">
+                                    <label>Start Date</label>
+                                    <input
+                                        type="date"
+                                        className="form-control"
+                                        name="startDate"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.startDate}>
+                                    </input>
+                                </div>
                             </div>
+                            <div className="form-row">
+                                <div className="form-group col-md-4">
+                                    <label>Latitude</label>
+                                    <input
+                                        placeholder="0"
+                                        type="number"
+                                        className="form-control"
+                                        name="latitude"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.latitude}
+                                    />
+                                </div>
+                                <div className="form-group col-md-4">
+                                    <label>Longitude</label>
+                                    <input
+                                        placeholder="0"
+                                        type="number"
+                                        className="form-control"
+                                        name="longitude"
+                                        onChange={this.handleInputChange}
+                                        value={this.state.longitude}
+                                    />
+                                </div>
+                            </div>
+                            <div className="form-row">
 
-                            <div>
+                            </div>
+<div>
                                 <Button color="primary" onClick={this.handleSubmit}>
                                     SAVE
                                 </Button>
                                 <Button color="danger" onClick={this.handleReset}>
                                     CANCEL
                                 </Button>
-                            </div>
-
+</div>
                         </form>
                     </CardBody>
                 </Card>
