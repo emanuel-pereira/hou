@@ -42,9 +42,10 @@ class Room extends React.Component {
 
   render() {
     return (
-      <>
         <div className="content">
-          <Button onClick={this.toggleHiddenRooms.bind(this)}><i className="nc-icon nc-simple-add"></i></Button>
+          <Button onClick={this.toggleHiddenRooms.bind(this)}>
+            <i className="nc-icon nc-simple-add"></i>
+          </Button>
           <tr>
             <td>{this.state.isHiddenCreate && <RoomTable onShowDetails={this.showDetails.bind(this)} onShowSensors={this.showSensors.bind(this)} />}</td>
             <td>{this.state.isHiddenCreate && this.state.showDetails && <RoomDetailList />}</td>
@@ -52,7 +53,6 @@ class Room extends React.Component {
           </tr>
           {!this.state.isHiddenCreate && <CreateRoom onClose={this.toggleHiddenRooms.bind(this)} />}
         </div>
-      </>
     );
   }
 }
