@@ -235,13 +235,13 @@ export const createExtSensorSuccess = (data) => {
   }
 };
 
-export const deleteSensor = (id) => {
+export const deleteSensor = (id,idGA) => {
   return dispatch => {
     axios
       .delete(`https://localhost:8443/externalSensors/${id}`)
       .then(res => {
         dispatch(deleteSensorSuccess(res.data));
-        dispatch(fetchGASensorsSuccess(res.data))
+        dispatch(fetchGASensors(idGA))
       })
       .catch(error => {
         throw (error);

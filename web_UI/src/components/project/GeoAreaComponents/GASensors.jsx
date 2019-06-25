@@ -18,8 +18,8 @@ class GASensors extends React.Component {
     }
   }
 
-  deleteSensor = (id) => {
-    this.props.onDeleteSensor(id);
+  deleteSensor = (id,idGA) => {
+    this.props.onDeleteSensor(id,idGA);
   }
   
   changeEditMode = () => {
@@ -29,7 +29,7 @@ class GASensors extends React.Component {
   }
 
   renderEditView = () => {
-    return <CreateNewExtSensor roomId={this.props.sensors.gaId} onClose={this.changeEditMode} />
+    return <CreateNewExtSensor gaId={this.props.sensors.gaId} onClose={this.changeEditMode} />
   }
 
   renderDefaultView() {
@@ -42,7 +42,7 @@ class GASensors extends React.Component {
           <td>{row.sensorBehaviorDTO.name}</td>
           <td>{row.sensorBehaviorDTO.sensorType.type}</td>
           <td>{startDate}</td>
-          <td ><button onClick={() => this.deleteSensor(row.id)}>Delete</button></td>
+          <td ><button onClick={() => this.deleteSensor(row.id,row.idGA)}>Delete</button></td>
         </tr>
       )
     })
@@ -97,8 +97,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      onDeleteSensor: (id) => {
-          dispatch(deleteSensor(id))
+      onDeleteSensor: (id,idGA) => {
+          dispatch(deleteSensor(id,idGA))
       },
   }
 }

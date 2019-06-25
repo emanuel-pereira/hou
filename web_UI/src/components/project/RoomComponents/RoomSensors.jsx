@@ -48,7 +48,7 @@ class RoomSensors extends React.Component {
                 <CardBody>
                   <Table>
                     <thead className="text-primary">
-                      <tr><th>Sensor on room {this.props.sensors.data.roomId} :</th></tr>
+                      <tr><th>Sensor on room {this.props.sensors.roomId} :</th></tr>
                       <tr>
                         <th>ID</th>
                         <th>Name</th>
