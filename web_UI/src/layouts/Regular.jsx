@@ -6,40 +6,24 @@ import { Route, Switch } from "react-router-dom";
 import DemoNavbar from "../components/Navbars/DemoNavbar.jsx";
 import Footer from "../components/Footer/Footer.jsx";
 import Sidebar from "../components/Sidebar/Sidebar.jsx";
-import Home from "../views/Home";
-import HouseArea from "../views/HouseArea";
-import Room from "../views/Room";
-import HouseGrid from "../views/HouseGrid";
+import HouseMonitoring from "../components/project/HouseMonitoring/HouseMonitoring";
+import RoomMonitoringMenu from "../views/RoomMonitoringMenu";
 //import {routes} from "../actions/actionsLogin";
 
 var routes = [
   {
-    path: "/Home",
-    name: "Home",
-    icon: "nc-icon nc-bank",
-    component: Home,
-    layout: "/admin"
-  },
-  {
-    path: "/geoarea",
+    path: "/monitoring",
     name: "House Area",
-    icon: "nc-icon nc-pin-3",
-    component: HouseArea,
-    layout: "/admin"
+    icon: "nc-icon nc-chart-bar-32",
+    component: HouseMonitoring,
+    layout: "/regular"
   },
   {
-    path: "/rooms",
-    name: "Rooms",
-    icon: "nc-icon nc-app",
-    component: Room,
-    layout: "/admin"
-  },
-  {
-    path: "/housegrids",
-    name: "Power Grids",
-    icon: "nc-icon nc-layout-11",
-    component: HouseGrid,
-    layout: "/admin"
+    path: "/roomMonitoring",
+    name: "Room Monitoring",
+    icon: "nc-icon nc-chart-bar-32",
+    component: RoomMonitoringMenu,
+    layout: "/regular"
   }];
 
 var ps;
