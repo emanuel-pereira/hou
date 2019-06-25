@@ -58,7 +58,7 @@ class GADetailList extends Component {
                                         </tr>
                                         <tr>
                                             <td>Occupation Area:</td>
-                                            <td>{data.occupation.occupation} m ({data.occupation.length} x {data.occupation.width} m)
+                                            <td>{data.occupation.length}m x {data.occupation.width}m
                                             </td>
                                         </tr>
                                     </Table>

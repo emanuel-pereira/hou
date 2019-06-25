@@ -69,7 +69,7 @@ export class LoginPage extends Component {
                                 }
                             </div>
                             <div className="form-group">
-                                <Button className="btn btn-primary" onClick={this.handleSubmit}>Login</Button>
+                                <Button className="btn btn-primary" onSubmit={this.handleSubmit}>Login</Button>
                                 {loggingIn && <Spinner color="success" />}
                             </div>
                         </form>
