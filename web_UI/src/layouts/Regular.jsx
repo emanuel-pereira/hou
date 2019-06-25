@@ -27,7 +27,7 @@ var routes = [
     },
     {
         path: "/roomMonitoring",
-        name: "Room Monitoring",
+        name: "Room",
         icon: "nc-icon nc-chart-bar-32",
         component: RoomMonitoringMenu,
         layout: "/regular"

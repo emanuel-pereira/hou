@@ -55,7 +55,7 @@ class AreaMonitoring extends React.Component {
 
         return (
             <div>
-                <h4>Temperature</h4>
+                <h4>House Area Monitoring</h4>
                 <table>
                     {/*buttons to access components*/}
                     <td>

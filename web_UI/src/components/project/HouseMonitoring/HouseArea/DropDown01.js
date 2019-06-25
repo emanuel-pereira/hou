@@ -24,7 +24,7 @@ class DropDown01 extends Component {
             {id:'633',name:'Highest Amplitude Day'}
         ]
         return (<div>
-                <h1>Temperature Monitoring</h1>
+                <h1>Area Monitoring</h1>
                 <p>Choose an option to obtain temperature sensor reports</p>
                 <Dropdown value={this.state.option} options={reports} onChange={this.onOptionChange} placeholder="Select an Option" optionLabel="name"/>
                 <div style={{marginTop: '.5em'}}>{this.state.report ? 'Selected Report: ' + this.state.report.name : 'No option selected'}</div>

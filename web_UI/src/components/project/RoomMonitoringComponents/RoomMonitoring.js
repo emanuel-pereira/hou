@@ -53,9 +53,7 @@ class RoomMonitoring extends React.Component {
         return (
             <>
                 <div className="content">
-                    <CardHeader>
-                        <CardTitle tag="h4">Room Monitoring</CardTitle>
-                    </CardHeader>
+                    <h4>Room Monitoring</h4>
                     <tr>
                         <td>{this.state.isHiddenCreate &&
                         <RoomMonitoringTable onShowCurrTempRooms={this.showCurrTempRooms.bind(this)}
