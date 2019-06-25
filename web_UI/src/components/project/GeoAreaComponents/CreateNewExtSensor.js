@@ -6,7 +6,7 @@ import {
     Button,
     Card,
     CardTitle,
-    CardBody
+    CardBody,
 } from "reactstrap";
 
 
@@ -23,9 +23,9 @@ class CreateNewIntSensor extends React.Component {
         startDate: '',
         unit: '',
         active: true,
-        latitude: 1,
-        longitude: 1,
-        altitude: 1,
+        latitude: null,
+        longitude: null,
+        altitude: null,
     }
 
     componentDidMount() {

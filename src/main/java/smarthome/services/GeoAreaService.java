@@ -26,7 +26,7 @@ public class GeoAreaService {
      */
 
     public GeoAreaService() {
-gaTypesService = new GaTypesService();
+        gaTypesService = new GaTypesService();
     }
 
     public GeoAreaService(GeoRepository geoRepository, GaTypesService gaTypesService) {
@@ -36,11 +36,11 @@ gaTypesService = new GaTypesService();
     }
 
 
-
     private void setRepositories() {
         if (this.geoRepository == null)
             this.geoRepository = Repositories.getGeoRepository();
     }
+
     /**
      * Method to check if the id of the GA to set in another exists.
      *
@@ -64,22 +64,6 @@ gaTypesService = new GaTypesService();
         this.geoRepository.save(ga1);
         return true;
     }
-
-    /*   public boolean setParentGaWebCTRL(String id, String idParent) {
-
-        if (!checkIfIdExists(id)) {
-            return false
-        }
-
-        GeographicalArea GA1 = findByIdGa(id)
-        GeographicalArea GA2 = findByIdGa(idParent)
-
-        if (!GA1.equals(GA2))
-            GA1.setParentGa(GA2)
-
-        Repositories.getGeoRepository().save(GA1)
-        return true
-    }*/
 
 
     public GeographicalAreaDTO addNewGeoArea(GeographicalAreaDTO geoAreaDTO) throws InvalidParameterException {

@@ -14,26 +14,26 @@ import {
 import CardTitle from "reactstrap/es/CardTitle";
 
 class GASensors extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isInEditMode: false,
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      isInEditMode: false,
     }
+  }
 
-    deleteSensor = (id) => {
-        this.props.onDeleteSensor(id);
-    }
+  deleteSensor = (id,idGA) => {
+    this.props.onDeleteSensor(id,idGA);
+  }
+  
+  changeEditMode = () => {
+    this.setState({
+      isInEditMode: !this.state.isInEditMode
+    })
+  }
 
-    changeEditMode = () => {
-        this.setState({
-            isInEditMode: !this.state.isInEditMode
-        })
-    }
-
-    renderEditView = () => {
-        return <CreateNewExtSensor roomId={this.props.sensors.gaId} onClose={this.changeEditMode}/>
-    }
+  renderEditView = () => {
+    return <CreateNewExtSensor gaId={this.props.sensors.gaId} onClose={this.changeEditMode} />
+  }
 
     renderDefaultView() {
         const {data, error} = this.props.sensors
@@ -46,7 +46,7 @@ class GASensors extends React.Component {
                     <td>{row.sensorBehaviorDTO.sensorType.type}</td>
                     <td>{startDate}</td>
                     <td>
-                        <Button color="danger" onClick={() => this.deleteSensor(row.id)}>
+                        <Button color="danger" onClick={() => this.deleteSensor(row.id,row.idGA)}>
                             DELETE
                         </Button>
                     </td>
@@ -91,33 +91,34 @@ class GASensors extends React.Component {
         </Card>
     }
 
-    render() {
-        return this.state.isInEditMode ?
-            this.renderEditView() :
-            this.renderDefaultView()
-    }
+  render() {
+    return this.state.isInEditMode ?
+      this.renderEditView() :
+      this.renderDefaultView()
+  }
 }
 
 const mapStateToProps = (state) => {
-    return {
-        sensors: {
-            data: state.geoareas.sensors.data,
-            error: state.geoareas.sensors.error,
-            gaId: state.geoareas.sensors.gaId
-        },
-    }
+  return {
+    sensors: {
+      data: state.geoareas.sensors.data,
+      error: state.geoareas.sensors.error,
+      gaId: state.geoareas.sensors.gaId
+    },
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {
-    return {
-        onDeleteSensor: (id) => {
-            dispatch(deleteSensor(id))
-        },
-    }
+  return {
+      onDeleteSensor: (id,idGA) => {
+          dispatch(deleteSensor(id,idGA))
+      },
+  }
 }
 
 
+
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(GASensors);

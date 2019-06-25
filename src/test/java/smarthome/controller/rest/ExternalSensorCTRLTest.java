@@ -240,13 +240,23 @@ class ExternalSensorCTRLTest {
     }
 
     @Test
-    void whenANewExternalSensorIsPersistedThenReturnsAnObjectOfTypeExternalSensorDTOInBodyContent() {
+    void whenANewExternalSensorIsPersistedThenReturnsAnObjectOfTypeExternalSensorDTOInBody() {
         when(this.externalSensorRepository.save(sensor1)).thenReturn(sensor1);
         when(this.geoAreaService.checkIfIdExists("POR")).thenReturn(true);
         when(this.sensorTypeService.existsByType("temperature")).thenReturn(true);
         String expected = "smarthome.dto.ExternalSensorDTO";
         String result = ctrl.add(sensorDTO1).getBody().getContent().getClass().getName();
         assertEquals(expected, result);
+    }
+
+    @Test
+    void findAllReturnsExpectedLinkForSpecificResourceInBrowser() {
+        when(this.externalSensorRepository.save(sensor1)).thenReturn(sensor1);
+        when(this.geoAreaService.checkIfIdExists("POR")).thenReturn(true);
+        when(this.sensorTypeService.existsByType("temperature")).thenReturn(true);
+        Link expected1 = new Link("/externalSensors/TEMP2").withSelfRel();
+        Link result1 = ctrl.add(sensorDTO1).getBody().getLink("self");
+        assertEquals(expected1, result1);
     }
 
     @Test

@@ -48,7 +48,7 @@ class RoomSensors extends React.Component {
                     <Card>
                         <CardBody className="side-card">
                             <CardTitle>
-                                <h6> Sensors on Room {this.props.sensors.data.roomId}</h6>
+                                <h6> Sensors on Room {this.props.sensors.roomId}</h6>
                             </CardTitle>
                             <Table>
                                 <thead className="text-primary">

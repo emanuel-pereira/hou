@@ -40,7 +40,7 @@ class CreateRoom extends React.Component {
         this.props.onAddRoom(this.state)
         this.refs.notify.notificationAlert(options);
         this.handleReset();
-        setTimeout(this.props.onClose(), 1000)
+        this.props.onClose();
     };
 
     handleReset = () => {
