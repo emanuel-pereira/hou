@@ -2,6 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import CreateNewExtSensor from "./CreateNewExtSensor";
 import {deleteSensor} from 'actions/actionsGeoArea';
+import {confirmAlert} from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
+
+
+
 import {
     Card,
     CardBody,
@@ -22,7 +28,21 @@ class GASensors extends React.Component {
   }
 
   deleteSensor = (id,idGA) => {
-    this.props.onDeleteSensor(id,idGA);
+      confirmAlert({
+          title: 'Confirm to remove',
+          message: 'Are you sure to remove?',
+          buttons: [
+              {
+                  label: 'Yes',
+                  onClick: () => this.props.onDeleteSensor(id,idGA)
+              },
+              {
+                  label: 'No',
+                  onClick: () => {
+                  }
+              }
+          ]
+      });
   }
 
   changeEditMode = () => {
