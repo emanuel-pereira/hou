@@ -13,7 +13,11 @@ import {
 
     FETCH_LASTLOWTEMPDAY_FAILURE,
     FETCH_LASTLOWTEMPDAY_STARTED,
-    FETCH_LASTLOWTEMPDAY_SUCCESS
+    FETCH_LASTLOWTEMPDAY_SUCCESS,
+
+    FETCH_TOTALRAINDAY_STARTED,
+    FETCH_TOTALRAINDAY_SUCCESS,
+    FETCH_TOTALRAINDAY_FAILURE,
 
 } from "../actions/actionsArea";
 
@@ -29,22 +33,21 @@ const initialstate = {
         loading: false,
         error: null,
         data: {},
-        startDate: 0,
-        endDate: 0,
     },
     firstHighTemp: {
         loading: false,
         error: null,
         data: {},
-        startDate: 0,
-        endDate: 0,
     },
     highAmpliTemp: {
         loading: false,
         error: null,
         data: {},
-        startDate: 0,
-        endDate: 0,
+    },
+    totalRain:{
+        loading: false,
+        error: null,
+        data: {},
     }
 };
 
@@ -186,6 +189,36 @@ function areaMonitoringReducer(state = initialstate, action) {
                     data: {},
                     startDate: null,
                     endDate: null,
+                }
+            }
+
+        case FETCH_TOTALRAINDAY_STARTED:
+            return {
+                ...state,
+                totalRain: {
+                    loading: true,
+                    error: null,
+                    data: {},
+                }
+            }
+
+        case FETCH_TOTALRAINDAY_SUCCESS:
+            return {
+                ...state,
+                totalRain: {
+                    loading: false,
+                    error: null,
+                    data: {...action.payload.data},
+                }
+            }
+
+        case FETCH_TOTALRAINDAY_FAILURE:
+            return {
+                ...state,
+                totalRain: {
+                    loading: false,
+                    error: action.payload.error,
+                    data: {},
                 }
             }
 

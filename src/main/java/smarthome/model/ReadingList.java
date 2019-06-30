@@ -80,8 +80,12 @@ public class ReadingList {
      * @param inputDate Calendar parameter representing the day
      * @return totalRainfallValue
      */
-    public double totalValueInGivenDay(Calendar inputDate) {
+    public double totalValueInGivenDay(Calendar inputDate) throws IllegalAccessException{
         double totalRainfallValue = 0;
+
+        if (this.listOfReadings.isEmpty())
+            //signals that this method as been invoked in an inappropriate time, empty list of readings
+            throw new IllegalAccessException();
 
         for (Reading reading : this.listOfReadings) {
             if (reading.getReadingDateAndTime().get(Calendar.DATE) == inputDate.get(Calendar.DATE)) {

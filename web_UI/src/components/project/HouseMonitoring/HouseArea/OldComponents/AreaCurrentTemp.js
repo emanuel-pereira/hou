@@ -1,5 +1,5 @@
 import React from 'react'
-import {fetchCurrentTemp} from "../../../../actions/actionsArea";
+import {fetchCurrentTemp} from "../../../../../actions/actionsArea";
 import {connect} from "react-redux";
 
 class AreaCurrentTemp extends React.Component {
@@ -20,15 +20,28 @@ class AreaCurrentTemp extends React.Component {
             return (<p>Loading ....</p>);
         } else {
             if (error !== null) {
-                return (<p>Error ....</p>);
+                return (
+                    <div><p>ERROR :It wasn't possible to successfully return a value. Possible causes for this: </p>
+                        <ul>
+                            <li>
+                                No Geographical Areas and/or External Sensors;
+                            </li>
+                            <li>
+                                Undefined House Geographical Area and/or Location;
+                            </li>
+                            <li>
+                                No Temperature Sensors in the House's Geographical Area;
+                            </li>
+                        </ul>
+                    </div>);
             } else {
                 if (data.readingValue && data.readingDateAndTime) {
                     return (
                         <div>
+                        <br/>
                             <p>The Current Temperature is:</p>
 
                             <p>{data.readingValue}ºC</p>
-                            <p>{moment(data.readingDateAndTime).format('DD-MM-YYYY')}</p>
 
                         </div>
                     )

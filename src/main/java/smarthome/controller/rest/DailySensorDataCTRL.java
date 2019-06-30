@@ -28,6 +28,8 @@ public class DailySensorDataCTRL {
     private String temp = "temperature";
     private String rain = "rainfall";
     private String teapotMsg = "Pink Fluffy Unicorns Dancing On Rainbows";
+    private Calendar errorC = new GregorianCalendar(1143,Calendar.JANUARY,1);
+    private ReadingDTO errorReading = new ReadingDTO(0,errorC);
 
     DailySensorDataCTRL() {
         sensorDataService = new DailySensorDataService();
@@ -68,12 +70,16 @@ public class DailySensorDataCTRL {
     ResponseEntity<Object> checkPreConditions() {
 //WORKS ON POSTMAN!
         if (this.geoAreaService.size() == 0 || this.externalSensorService.findAll().isEmpty()) {
-            return new ResponseEntity<>("Please add Geographical Areas and/or Sensors first!", HttpStatus.PRECONDITION_FAILED);
+            //no ga's or sensors
+            errorReading.setReadingValue(1);
+            return new ResponseEntity<>(errorReading, HttpStatus.PRECONDITION_FAILED);
         }
 
 //WORKS ON POSTMAN!
         if (!checkHouseGA() || !checkHouseLocation()) {
-            return new ResponseEntity<>("Please configure the House's Geographical Area/Location first", HttpStatus.PRECONDITION_FAILED);
+            //house ga and location undefined
+            errorReading.setReadingValue(2);
+            return new ResponseEntity<>(errorReading, HttpStatus.PRECONDITION_FAILED);
         } else {
             return new ResponseEntity<>(teapotMsg, HttpStatus.I_AM_A_TEAPOT);
         }
@@ -83,7 +89,9 @@ public class DailySensorDataCTRL {
     ResponseEntity<Object> checkTemperaturePreConditions() {
 //WORKS ON POSTMAN!
         if (checkHouseGA() && checkHouseLocation() && !checkGeoAreaTempSensors()) {
-            return new ResponseEntity<>("Please add temperature sensors to the House's Geographical Area!", HttpStatus.PRECONDITION_FAILED);
+            //no temperature sensors in house ga
+            errorReading.setReadingValue(3);
+            return new ResponseEntity<>(errorReading, HttpStatus.PRECONDITION_FAILED);
         } else {
             return new ResponseEntity<>(teapotMsg, HttpStatus.I_AM_A_TEAPOT);
         }
@@ -92,11 +100,15 @@ public class DailySensorDataCTRL {
     ResponseEntity<Object> checkRainfallPreConditions() {
 //WORKS ON POSTMAN!
         if (checkHouseGA() && checkHouseLocation() && !checkGeoAreaRainSensors()) {
-            return new ResponseEntity<>("Please add rainfall sensors to the House's Geographical Area!", HttpStatus.PRECONDITION_FAILED);
+            //no rainfall sensors in house ga
+            errorReading.setReadingValue(4);
+            return new ResponseEntity<>(errorReading, HttpStatus.PRECONDITION_FAILED);
         }
 //NOT WORKING
         if (checkGeoAreaRainSensors() && !checkIfRainSensorHasReadings()) {
-            return new ResponseEntity<>("Please add readings to the sensor!", HttpStatus.PRECONDITION_FAILED);
+            //sensor has no readings
+            errorReading.setReadingValue(5);
+            return new ResponseEntity<>(errorReading, HttpStatus.PRECONDITION_FAILED);
         } else {
             return new ResponseEntity<>(teapotMsg, HttpStatus.I_AM_A_TEAPOT);
         }
@@ -106,11 +118,15 @@ public class DailySensorDataCTRL {
         GregorianCalendar falseDate = new GregorianCalendar(1000, Calendar.JANUARY, 1);
 //WORKS ON POSTMAN!
         if (startDate == null || endDate == null) {
-            return new ResponseEntity<>("Please add date parameters!", HttpStatus.PRECONDITION_FAILED);
+            //no date selected
+            errorReading.setReadingValue(6);
+            return new ResponseEntity<>(errorReading, HttpStatus.PRECONDITION_FAILED);
         }
 //WORKS ON POSTMAN!
         if (this.sensorDataService.convertStringToCalendar(startDate).equals(falseDate) || this.sensorDataService.convertStringToCalendar(endDate).equals(falseDate)) {
-            return new ResponseEntity<>("Please insert valid dates!(yyyyMMdd)", HttpStatus.PRECONDITION_FAILED);
+            //invalidDates
+            errorReading.setReadingValue(7);
+            return new ResponseEntity<>(errorReading, HttpStatus.PRECONDITION_FAILED);
         } else {
             return new ResponseEntity<>(teapotMsg, HttpStatus.I_AM_A_TEAPOT);
         }
@@ -121,8 +137,10 @@ public class DailySensorDataCTRL {
         if (!checkDatePreConditions(startDate, endDate).equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkDatePreConditions(startDate, endDate);
         }
-        if (checkGeoAreaTempSensors() && !checkIfTempSensorHasReadings(startDate, endDate)) {
-            return new ResponseEntity<>("The Sensor has no available Readings in the selected time interval!", HttpStatus.PRECONDITION_FAILED);
+        if (checkGeoAreaTempSensors() && checkIfTempSensorHasReadings(startDate, endDate)) {
+            //no available readings in period!
+            ReadingDTO trial = new ReadingDTO(8,errorC);
+            return new ResponseEntity<>("oops ", HttpStatus.PRECONDITION_FAILED);
         } else {
             return new ResponseEntity<>(teapotMsg, HttpStatus.I_AM_A_TEAPOT);
         }
@@ -134,7 +152,9 @@ public class DailySensorDataCTRL {
             return checkDatePreConditions(startDate, endDate);
         }
         if (checkGeoAreaRainSensors() && checkIfRainSensorHasReadings() && !this.checkIfRainSensorHasReadingsInDay(startDate)) {
-            return new ResponseEntity<>("The Sensor has no available Readings in the selected time interval!", HttpStatus.PRECONDITION_FAILED);
+            //no available readings in period
+            errorReading.setReadingValue(8);
+            return new ResponseEntity<>(errorReading, HttpStatus.PRECONDITION_FAILED);
         } else {
             return new ResponseEntity<>(teapotMsg, HttpStatus.I_AM_A_TEAPOT);
         }
@@ -233,7 +253,7 @@ public class DailySensorDataCTRL {
     }
 
     @GetMapping("/totalRainfall")
-    public ResponseEntity<Object> getTotalRainfall(@PathParam("day") String day) throws java.text.ParseException {
+    public ResponseEntity<Object> getTotalRainfall(@PathParam("day") String day) throws java.text.ParseException, IllegalAccessException{
         if (!checkDateRainPreConditions(day, day).getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkDateRainPreConditions(day, day);
         }
@@ -245,7 +265,13 @@ public class DailySensorDataCTRL {
         if (!checkRainfallPreConditions().getStatusCode().equals(HttpStatus.I_AM_A_TEAPOT)) {
             return checkRainfallPreConditions();
         } else {
-            ReadingDTO result = this.sensorDataService.getTotalRainfall(day);
+            ReadingDTO result = null;
+            try {
+                result = this.sensorDataService.getTotalRainfall(day);
+            } catch (IllegalAccessException e) {
+                //selected interval does not have readings
+                return new ResponseEntity<>("", HttpStatus.BAD_REQUEST);
+            }
             result.getReadingDateAndTime().add(Calendar.HOUR_OF_DAY, 1);
             return new ResponseEntity<>(result, HttpStatus.OK);
         }

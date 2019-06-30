@@ -62,7 +62,7 @@ public class DailySensorDataService {
         }
     }
 
-    public ReadingDTO getTotalRainfall(String day) throws ParseException {
+    public ReadingDTO getTotalRainfall(String day) throws ParseException, IllegalAccessException{
         Calendar calendar = convertStringToCalendar(day);
         SensorType sType = Repositories.getSensorTypeRepository().findByType(new Name(rain));
         String idSensor = House.getClosestSensorWithLatestReading(sType).getId();
@@ -70,7 +70,6 @@ public class DailySensorDataService {
         double value = readings.totalValueInGivenDay(calendar);
         Reading totalRain = new Reading(value, calendar);
         return mapper.map(totalRain, ReadingDTO.class);
-
     }
 
     public ReadingDTO getCurrentTemperature() {

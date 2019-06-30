@@ -44,7 +44,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRL {
      * @param sensorType for which the total value of readings in the inputDate will be shown
      * @return a double value which resulted from summing up the values of readings in the date inputted as parameter
      */
-    public double showTotalValueInADay(GregorianCalendar inputDate, SensorType sensorType) {
+    public double showTotalValueInADay(GregorianCalendar inputDate, SensorType sensorType) throws IllegalAccessException {
         Sensor sensor = getSensorOfTypeWithLatestReadingsInDate(inputDate, sensorType);
         return sensor.getSensorBehavior().getReadingList().totalValueInGivenDay(inputDate);
     }
