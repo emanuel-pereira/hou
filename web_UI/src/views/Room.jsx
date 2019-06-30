@@ -53,15 +53,11 @@ class Room extends React.Component {
                 </Button>
                 <Table>
                     <Row>
-                        <Col md="6">
-
-                            <td>{this.state.isHiddenCreate && <RoomTable onShowDetails={this.showDetails.bind(this)}
-                                                                         onShowSensors={this.showSensors.bind(this)}/>}</td>
+                        <Col md="5">
+                            {this.state.isHiddenCreate && <RoomTable onShowDetails={this.showDetails.bind(this)} onShowSensors={this.showSensors.bind(this)}/>}
                         </Col>
-                        <Col md="6">
-                            <td>{this.state.isHiddenCreate && this.state.showDetails && <RoomDetailList/>}</td>
-                            <td>{this.state.isHiddenCreate && this.state.showSensors && <RoomSensors/>}</td>
-                        </Col>
+                            {this.state.isHiddenCreate && this.state.showDetails && <RoomDetailList/>}
+                            {this.state.isHiddenCreate && this.state.showSensors && <RoomSensors/>}
                     </Row>
                 </Table>
                 <div>
