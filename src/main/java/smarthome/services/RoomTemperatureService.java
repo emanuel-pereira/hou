@@ -67,7 +67,7 @@ public class RoomTemperatureService {
 
     public ReadingDTO getCurrentTempInRoom(String idRoom) {
         Reading last = getBestSensorReadings(idRoom).getLastReading();
-
+        last.setReadingValue(Utils.round(last.getReadingValue(),2));
         return mapper.map(last, ReadingDTO.class);
 
     }

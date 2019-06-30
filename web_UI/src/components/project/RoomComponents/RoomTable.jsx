@@ -34,7 +34,7 @@ class RoomTable extends React.Component {
           <td>{row.id} </td>
           <td>{row.description}</td>
           <td onClick={() => this.fetchRoomDetails(row.id)}><i className="nc-icon nc-zoom-split text-primary" /> <b className="text-primary">Details</b></td>
-          <td onClick={() => this.fetchRoomSensors(row.id)}><i className="nc-icon nc-touch-id text-danger" /> <b className="text-danger">Sensors</b></td>
+          <td onClick={() => this.fetchRoomSensors(row.id)}><i className="nc-icon nc-sound-wave text-primary" /> <b className="text-primary">Sensors</b></td>
         </tr>
         )
     })

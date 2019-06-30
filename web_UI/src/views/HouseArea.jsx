@@ -53,20 +53,19 @@ class HouseArea extends React.Component {
                 <div>
                     {!this.state.isHiddenCreate && <CreateGeoArea onClose={this.toggleHidden.bind(this)}/>}
                 </div>
-                <Table>
-                    <Row>
-                        <Col md="8">
+                <div>
+                    <Table>
+                        <Row>
+                            <Col md="5">{this.state.isHiddenCreate &&
+                            <GeoAreaTable onShowDetails={this.showDetails.bind(this)}
+                                          onShowSensors={this.showSensors.bind(this)}/>}</Col>
                             {this.state.isHiddenCreate && this.state.showDetails && <GADetailList/>}
                             {this.state.isHiddenCreate && this.state.showSensors && <GASensors/>}
-                        </Col>
-                        <Col md="6">
-                            <td>{this.state.isHiddenCreate && <GeoAreaTable onShowDetails={this.showDetails.bind(this)}
-                                                                            onShowSensors={this.showSensors.bind(this)}/>}</td>
-                        </Col>
-                    </Row>
-                </Table>
-
+                        </Row>
+                    </Table>
+                </div>
             </div>
+
         );
     }
 }
