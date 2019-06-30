@@ -6,8 +6,6 @@ import {confirmAlert} from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 
-
-
 import {
     Card,
     CardBody,
@@ -27,10 +25,10 @@ class GASensors extends React.Component {
     }
   }
 
-  deleteSensor = (id,idGA) => {
+  deleteSensor = (name,id,idGA) => {
       confirmAlert({
           title: 'Confirm to remove',
-          message: 'Are you sure to remove?',
+          message: 'Are you sure that you want to remove the sensor: '+id+' '+name+'?',
           buttons: [
               {
                   label: 'Yes',
@@ -65,7 +63,7 @@ class GASensors extends React.Component {
                     <td>{row.sensorBehaviorDTO.name}</td>
                     <td>{row.sensorBehaviorDTO.sensorType.type}</td>
                     <td>{startDate}</td>
-                        <tr><Button color="danger" onClick={() => this.deleteSensor(row.id,row.idGA)}>
+                        <tr><Button color="danger" onClick={() => this.deleteSensor(row.sensorBehaviorDTO.name,row.id,row.idGA)}>
                             DELETE
                         </Button></tr>
 
