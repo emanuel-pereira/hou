@@ -33,7 +33,7 @@ class GeoAreaTable extends React.Component {
                     <td>{row.identification} </td>
                     <td>{row.designation}</td>
                     <td onClick={() => this.fetchGADetails(row.identification)}><i className="nc-icon nc-zoom-split text-primary" /> <b className="text-primary">Details</b></td>
-                    <td onClick={() => this.fetchGASensors(row.identification)}><i className="nc-icon nc-touch-id text-danger" /> <b className="text-danger">Sensors</b></td>
+                    <td onClick={() => this.fetchGASensors(row.identification)}><i className="nc-icon nc-sound-wave text-primary" /> <b className="text-primary">Sensors</b></td>
                 </tr>
             )
         })
