@@ -1,7 +1,7 @@
 
 
 import React from "react";
-import AreaMonitoringMenu from "./HouseArea/AreaMonitoringMenu";
+import AreaMonitoringMenu from "./HouseArea/AreaMonitoringGeneral";
 
 class HouseMonitoring extends React.Component {
     render() {

@@ -75,7 +75,7 @@ public class GetTotalRainfallForDayInHouseAreaCTRLTest {
 
     @Test
     @DisplayName("Ensure that inputted month and day are invalid")
-    void requestReadingRainfall() {
+    void requestReadingRainfall() throws IllegalAccessException {
         SensorList houseGASensorList = getHouseGA().getSensorListInGa();
 
 

@@ -18,14 +18,14 @@ public class GetTotalRainfallForDayInHouseAreaUI {
         this.ctrl = new GetTotalRainfallForDayInHouseAreaCTRL(sensorType);
     }
 
-    public void run() {
+    public void run() throws IllegalAccessException {
 
         if (this.ctrl.checkIfSensorTypeExists(RAINFALL)) {
             this.checkIfHouseLocationIsConfigured();
         } else System.out.println("Please ask the Administrator to create the RAINFALL sensor type");
     }
 
-    private void checkIfHouseLocationIsConfigured() {
+    private void checkIfHouseLocationIsConfigured() throws IllegalAccessException {
         if (!this.ctrl.isHouseGAConfigured()) {
             System.out.println("The house configuration is incomplete. Please configure the house location first.");
             return;
@@ -33,7 +33,7 @@ public class GetTotalRainfallForDayInHouseAreaUI {
         this.selectDate();
     }
 
-    private void selectDate() {
+    private void selectDate() throws IllegalAccessException {
         System.out.println("Insert the date (YYYY-MM-DD) on which you want to check the total RAINFALL in the house area.");
         GregorianCalendar date = UtilsUI.requestDate("Please insert a valid date in YYYY-MM-DD format.");
         if (this.ctrl.closestSensorsWithLatestReadingsInDate(date, this.sensorType)) {

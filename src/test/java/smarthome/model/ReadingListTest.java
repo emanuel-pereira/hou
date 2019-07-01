@@ -116,7 +116,7 @@ class ReadingListTest {
 
     @Test
     //@DisplayName("Ensure that returns the total values of a reading list in a specific day")
-    void totalValueInGivenDayTest() {
+    void totalValueInGivenDayTest() throws IllegalAccessException {
 
 
         ReadingList readingList = new ReadingList();
@@ -140,7 +140,7 @@ class ReadingListTest {
 
     @Test
     @DisplayName("Ensure that the total values of reading list in a specific day fdo not equal a false value")
-    void totalValueInGivenDayTestNotEquals() {
+    void totalValueInGivenDayTestNotEquals() throws IllegalAccessException {
 
 
         ReadingList readingList = new ReadingList();
