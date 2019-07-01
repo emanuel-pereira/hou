@@ -4,29 +4,29 @@
 actor Administrator
 
 skinparam sequence {
-	ArrowColor SteelBlue
-	ActorBorderColor Dimgray
-	LifeLineBorderColor MidnightBlue
-	LifeLineBackgroundColor #A9DCDF
+   ArrowColor SteelBlue
+   ActorBorderColor Dimgray
+   LifeLineBorderColor MidnightBlue
+   LifeLineBackgroundColor #A9DCDF
 
-	ParticipantBorderColor Dimgray
-	ParticipantBackgroundColor SteelBlue
-	ParticipantFontName Calibri Bold
-	ParticipantFontSize 17
-	ParticipantFontColor Ivory
+   ParticipantBorderColor Dimgray
+   ParticipantBackgroundColor SteelBlue
+   ParticipantFontName Calibri Bold
+   ParticipantFontSize 17
+   ParticipantFontColor Ivory
 
-	ActorBackgroundColor SteelBlue
-	ActorFontColor MidnightBlue
-	ActorFontSize 17
-	ActorFontName Aapex
+   ActorBackgroundColor SteelBlue
+   ActorFontColor MidnightBlue
+   ActorFontSize 17
+   ActorFontName Aapex
 }
 
 skinparam note {
 BorderColor SteelBlue
 }
 
-Administrator -> "HTTP Client": Edit select room
-"HTTP Client" -> ":RoomCTRL":  PUT /rooms/{id}\n request body \n with updated room
+Administrator -> "UI": Edit select room
+"UI" -> ":RoomCTRL":  PUT /rooms/{id}\nrequest body with \nupdated room
 note right
 { "id": "B106",
   "description": "Classroom",
@@ -35,17 +35,20 @@ note right
   "width": 7,
   "height": 3.5 }
 end note
-create "rDTO:RoomDetailDTO"
-":RoomCTRL" -> "rDTO:RoomDetailDTO": create()
 create ":RoomService"
 ":RoomCTRL" -> ":RoomService": create()
-":RoomCTRL" -> ":RoomService": dto=findById(id)
-":RoomService" -> RoomRepository: room=findById(id)
-":RoomService" -> RoomMapper: editRoom=toDetailDto(room)
-create "dto:RoomDetailDTO"
-RoomMapper -> "dto:RoomDetailDTO": create()
-":RoomCTRL" -> "rDTO:RoomDetailDTO": newValue=get{attribute}
-":RoomCTRL"  -> "editRoom:RoomDetailDTO": set{attribute}(newValue)
+create "rDTO:RoomDetailDTO"
+":RoomCTRL" -> "rDTO:RoomDetailDTO": create()
+":RoomCTRL" -> ":RoomService": true=checkIfIDExists(id)
+":RoomService" -> RoomRepository: true=existsById(id)
+":RoomCTRL" -> ":RoomService": true=editRoom(id, rDTO)
+":RoomService" -> ":RoomService": editRDTO=findById(id)
+":RoomService" -> RoomRepository: editR=findById(id)
+":RoomService" -> RoomMapper: editRDTO=toDetailDto(editR)
+create "editRDTO:RoomDetailDTO"
+RoomMapper -> "editRDTO:RoomDetailDTO": create()
+":RoomService" -> "rDTO:RoomDetailDTO": newValue=get{attribute}
+":RoomService"  -> "editRDTO:RoomDetailDTO": set{attribute}(newValue)
 
 note left
 {attribute} is:
@@ -53,15 +56,13 @@ description,
 floor, length,
 width and height
     end note
-":RoomCTRL" -> ":RoomService": save(editRoom)
-":RoomService" -> RoomMapper: room=toObject(editRoom)
-RoomMapper -> "room:Room": set{attribute}(newValue)
-
+":RoomService" -> ":RoomService": save(editRDTO)
+":RoomService" -> RoomMapper: room=toObject(editRDTO)
 ":RoomService" -> RoomRepository: save(room)
 create ResponseEntity
-":RoomCTRL" -> ResponseEntity: responseEntity = new ResponseEntity<>(editRoom, HttpStatus.OK);
+":RoomCTRL" -> ResponseEntity: responseEntity = new ResponseEntity<>(editRDTO, HttpStatus.OK);
 
-"HTTP Client" <-- ":RoomCTRL": ResponseEntity=\neditRoom,HttpStatus.OK
-Administrator <-- "HTTP Client": Room content is updated
+"UI" <-- ":RoomCTRL": responseEntity
+Administrator <-- "UI": Room content is updated
 
 @enduml
