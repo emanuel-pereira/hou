@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/paper-dashboard-react/static/css/main.592d4812.chunk.css",
+    "main.js": "/paper-dashboard-react/static/js/main.ef888e8d.chunk.js",
+    "main.js.map": "/paper-dashboard-react/static/js/main.ef888e8d.chunk.js.map",
+    "runtime~main.js": "/paper-dashboard-react/static/js/runtime~main.ff95ff9f.js",
+    "runtime~main.js.map": "/paper-dashboard-react/static/js/runtime~main.ff95ff9f.js.map",
+    "static/css/2.90ded58a.chunk.css": "/paper-dashboard-react/static/css/2.90ded58a.chunk.css",
+    "static/js/2.d3ef13a5.chunk.js": "/paper-dashboard-react/static/js/2.d3ef13a5.chunk.js",
+    "static/js/2.d3ef13a5.chunk.js.map": "/paper-dashboard-react/static/js/2.d3ef13a5.chunk.js.map",
+    "index.html": "/paper-dashboard-react/index.html",
+    "precache-manifest.a5de7645ee0560edfe3947ee1edace70.js": "/paper-dashboard-react/precache-manifest.a5de7645ee0560edfe3947ee1edace70.js",
+    "service-worker.js": "/paper-dashboard-react/service-worker.js",
+    "static/css/2.90ded58a.chunk.css.map": "/paper-dashboard-react/static/css/2.90ded58a.chunk.css.map",
+    "static/css/main.592d4812.chunk.css.map": "/paper-dashboard-react/static/css/main.592d4812.chunk.css.map",
+    "static/media/banner.jpg": "/paper-dashboard-react/static/media/banner.0e686d9c.jpg",
+    "static/media/logo.png": "/paper-dashboard-react/static/media/logo.f604bc24.png",
+    "static/media/paper-dashboard.scss?v=1.1.0": "/paper-dashboard-react/static/media/nucleo-icons.f32ed5ad.eot"
+  }
+}
