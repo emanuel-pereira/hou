@@ -10,11 +10,11 @@
         <module name="smarthome" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="8" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="project_g6" options="-Werror -Xlint:all" />
-      <module name="smarthome" options="-parameters -Werror -Xlint:all" />
+      <module name="project_g6" options="-parameters -Werror -Xlint:all" />
     </option>
   </component>
 </project>

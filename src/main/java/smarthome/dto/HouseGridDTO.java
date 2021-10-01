@@ -1,5 +1,10 @@
 package smarthome.dto;
 
+import org.modelmapper.internal.bytebuddy.dynamic.DynamicType;
+
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 public class HouseGridDTO {
 
     private Long id;

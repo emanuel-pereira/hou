@@ -18,3 +18,4 @@ public interface Program {
 
     int hashCode();
 }
+

@@ -162,13 +162,14 @@ public class ExternalSensorCTRL {
         }
 
         return new ResponseEntity<>(resource, HttpStatus.OK);
-    }
+    }                                                                                 
 
 
     /**
      * This method retrieves all external sensors in the database that belong to the geographical area
      * with the geoAreaId given as parameter and wraps them as resources so that they may have URI links.
      * If no geographical area is found with the given id, then a GeographicalAreaNotFoundException is caught.
+     *
      * @param geoAreaId String value representing the geographical area id
      * @return a response entity containing resources, which contain ExternalSensorDTO objects and respective links,
      * as well as the respective HTTP.Status 200 OK. If a GeographicalAreaNotFoundException is caught, then it retrieves
@@ -176,8 +177,8 @@ public class ExternalSensorCTRL {
      */
     @GetMapping("/{geoAreaId}/geoArea")
     public HttpEntity<Resources<Resource<ExternalSensorDTO>>> fetchSensorsInGeoArea(@PathVariable String geoAreaId) {
-        Iterable<ExternalSensorDTO> externalSensorDTOS= new ArrayList<>();
-        Resources<Resource<ExternalSensorDTO>> resources= Resources.wrap(externalSensorDTOS);
+        Iterable<ExternalSensorDTO> externalSensorDTOS = new ArrayList<>();
+        Resources<Resource<ExternalSensorDTO>> resources = Resources.wrap(externalSensorDTOS);
         try {
             resources = Resources.wrap(service.fetchSensorsInGeoArea(geoAreaId));
             resources.forEach(resource ->

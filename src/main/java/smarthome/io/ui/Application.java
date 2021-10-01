@@ -1,4 +1,5 @@
 package smarthome.io.ui;
+
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
 import org.apache.log4j.Logger;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import smarthome.model.*;
 import smarthome.repository.*;
+
 import java.util.ArrayList;
 
 @EnableJpaRepositories(basePackages = "smarthome")
@@ -83,6 +85,7 @@ public class Application {
                         break;
                     case 5:
                         roomOwnerUI.menu();
+
                         break;
                     default:
                         //no action needed

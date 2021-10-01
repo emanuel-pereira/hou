@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import smarthome.dto.RoomDTO;
 import smarthome.dto.RoomDetailDTO;
+import smarthome.model.Sensor;
 import smarthome.services.RoomService;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
-@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "http://localhost:8080", "http://localhost:8082", "https://localhost:8443"}, maxAge = 3600)
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "http://localhost:8081", "http://localhost:8082", "https://localhost:8443"}, maxAge = 3600)
 @RestController
 public class RoomCTRL {
 
@@ -97,6 +98,8 @@ public class RoomCTRL {
      */
     @PutMapping("/rooms/{id}")
     public ResponseEntity<Resource<Object>> editRoom(@PathVariable String id, @RequestBody RoomDetailDTO room) throws NoSuchFieldException {
+
+
         Resource<Object> resource;
         if (this.roomService.checkIfIDExists(id)) {
             if (this.roomService.editRoom(id, room)) {
